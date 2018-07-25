@@ -75,39 +75,5 @@
 # ggsave("memb.smallworld2.PDF", width = 11, height = 8)
 # 
 
-#' Two-mode lattice
-#'
-#' This function allows you to express your love of lattices.
-#' @param m A matrix
-#' @keywords two-mode
-#' @export
-#' @examples
-#' twomode.lattice(matrix)
-twomode.lattice <- function(m){
-  out <- matrix(c(rep(1, sum(m)), 
-                  rep(0, length(m)-sum(m))),
-                nrow(m), ncol(m), byrow = T)
-  out <- rbind(out,rep(0,ncol(out)))
-  out <- matrix(out, nrow(m), ncol(m), byrow = F)
-  out
-}
-
-#' Two-mode clustering
-#'
-#' This function allows you to calculate how much two-mode clustering there is.
-#' @param m A matrix
-#' @keywords two-mode
-#' @export
-#' @examples
-#' twomode.clusterings(matrix)
-twomode.clustering <- function(m){
-  twopaths <- crossprod(m)
-  diag(twopaths) <- 0
-  indegrees <- colSums(m)
-  cycle4 <- sum(twopaths * (twopaths-1)) / 
-    (sum(twopaths * (twopaths-1)) + sum(twopaths * 
-                                          (matrix(indegrees,c,c) - twopaths)))
-  cycle4
-}
 
 
