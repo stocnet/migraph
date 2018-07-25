@@ -2,7 +2,7 @@
 
 'multina' can be installed using the devtools package:
 
-```
+```R
 devtools::install_bitbucket("jhollway/multina", auth_user = "name", password = "password")
 ```
 
