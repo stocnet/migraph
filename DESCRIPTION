@@ -1,0 +1,10 @@
+Package: multina
+Title: Utility functions for multimode and multilevel network analysis
+Version: 0.0.0.9000
+Authors@R: person("James", "Hollway", email = "james.hollway@graduateinstitute.ch", role = c("aut", "cre"))
+Description: This package assembles a number of utility functions for loading, visualising, and analysing multimode, multiplex, and multilevel networks.
+Depends: R (>= 3.5.0)
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
