@@ -6,7 +6,7 @@
 #' @export
 #' @examples
 #' twomode.lattice(matrix)
-twomode.lattice <- function(m){
+twomode_lattice <- function(m){
   out <- matrix(c(rep(1, sum(m)), 
                   rep(0, length(m)-sum(m))),
                 nrow(m), ncol(m), byrow = T)
@@ -22,8 +22,8 @@ twomode.lattice <- function(m){
 #' @keywords two-mode
 #' @export
 #' @examples
-#' twomode.clusterings(matrix)
-twomode.clustering <- function(m){
+#' twomode.clustering(matrix)
+twomode_clustering <- function(m){
   twopaths <- crossprod(m)
   diag(twopaths) <- 0
   indegrees <- colSums(m)
@@ -43,8 +43,8 @@ twomode.clustering <- function(m){
 #' @keywords two-mode
 #' @export
 #' @examples
-#' twomode.degree.centralization(graph)
-twomode.degree.centralization <- function(graph){
+#' twomode_centralization_degree(graph)
+twomode_centralization_degree <- function(graph){
   require(igraph)
   nodeset <- names(which(igraph::degree(graph)==max(igraph::degree(graph)))) %in% 
     V(graph)$name[V(graph)$type==T]
@@ -63,8 +63,8 @@ twomode.degree.centralization <- function(graph){
 #' @keywords two-mode
 #' @export
 #' @examples
-#' twomode.between.centralization(graph)
-twomode.between.centralization <- function(graph){
+#' twomode_centralization_between(graph)
+twomode_centralization_between <- function(graph){
   require(igraph)
   nodeset <- names(which(betweenness(graph)==max(betweenness(graph)))) %in% 
     V(graph)$name[V(graph)$type==T]
@@ -108,3 +108,46 @@ twomode.between.centralization <- function(graph){
   #       (((1/2)*n*(n-1)+(1/2)*(m-1)*(m-2)+(m-1)*(n-2)) * ((m+n-1)+(m-1)))
   #   }
 }
+
+#' @title Two-mode constraint
+#' @description This function extends Ronald Burt's constraint measure
+#' to two-mode networks. Note that this function returns constraint scores
+#' for each second-mode node by default. To return constraint scores
+#' for each first-mode node, please pass the function the transpose of the matrix.
+#' of 
+#' @param mat A matrix
+#' @return Constraint scores for each second-mode node
+#' @details See Ron Burt's work on structural holes for more details
+#' @examples 
+#' twomode_constraint(mat)
+#' @rdname twomode_constraint
+#' @export 
+twomode_constraint <- function(mat){
+    inst <- colnames(mat)
+    rowp <- mat * matrix(1/rowSums(mat), nrow(mat), ncol(mat))
+    colp <- mat * matrix(1/colSums(mat), nrow(mat), ncol(mat), byrow = T)
+    res <- vector()
+    for (i in inst){
+      ci <- 0
+      membs <- names(which(mat[,i]==1))
+      for (a in membs){
+        pia <- colp[a,i]
+        oth <- membs[membs!=a]
+        pbj <- 0
+        if (length(oth)==1){
+          for (j in inst[mat[oth,]>0 & inst!=i]){
+            pbj <- sum(pbj, sum(colp[oth,i] * rowp[oth,j] * colp[a,j]))
+          }
+        } else {
+          for (j in inst[colSums(mat[oth,])>0 & inst!=i]){
+            pbj <- sum(pbj, sum(colp[oth,i] * rowp[oth,j] * colp[a,j]))
+          }
+        }
+        cia <- (pia + pbj)^2
+        ci <- sum(ci, cia)
+      }
+      res <- rbind(res, c(i,round(ci*100)))
+    }
+    return(res)
+  }
+
