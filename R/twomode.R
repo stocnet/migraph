@@ -39,11 +39,14 @@ twomode_clustering <- function(m){
 #' Two-mode degree centralization
 #'
 #' This function allows you to calculate how (degree) centralized a two-mode graph is.
-#' @param mat A matrix
+#' @param mat An affiliation or incidence matrix
+#' @param by Whether to calculate centralization for matrix \code{rows}, \code{cols}, or \code{both} (default)
 #' @keywords two-mode
+#' @references Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In The SAGE Handbook of Social Network Analysis, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
 #' @export
 #' @examples
 #' twomode_centralization_degree(mat)
+#' twomode_centralization_degree(mat, "cols")
 twomode_centralization_degree <- function(mat, by = c("both","rows","cols")){
   by <- match.arg(by)
   
