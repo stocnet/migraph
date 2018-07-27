@@ -50,4 +50,3 @@ plot(graph_from_incidence_matrix(t(mat.only)), main="mat.only",
      vertex.shape=c(rep("square",ncol(mat.only)),rep("circle",nrow(mat.only))),
      vertex.color=c(rep("lightblue",ncol(mat.only)),rep("green",nrow(mat.only))))
 dev.off()
-     
