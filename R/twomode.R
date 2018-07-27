@@ -39,22 +39,54 @@ twomode_clustering <- function(m){
 #' Two-mode degree centralization
 #'
 #' This function allows you to calculate how (degree) centralized a two-mode graph is.
-#' @param graph An igraph graph
+#' @param mat A matrix
 #' @keywords two-mode
 #' @export
 #' @examples
-#' twomode_centralization_degree(graph)
-twomode_centralization_degree <- function(graph){
-  require(igraph)
-  nodeset <- names(which(igraph::degree(graph)==max(igraph::degree(graph)))) %in% 
-    V(graph)$name[V(graph)$type==T]
-  m <- length(which(V(graph)$type==T))
-  n <- length(which(V(graph)$type!=T))
+#' twomode_centralization_degree(mat)
+twomode_centralization_degree <- function(mat, by = c("both","rows","cols")){
+  by <- match.arg(by)
   
-  sum(max(igraph::degree(graph)[which(V(graph)$type==nodeset)], na.rm=T)-
-        igraph::degree(graph)[which(V(graph)$type==nodeset)])/
-    ((n-1)*(m-1))
+  n <- nrow(mat)
+  m <- ncol(mat)
+
+  # if(by =="both"){
+  #   sum(max(colSums(mat), na.rm=T)-
+  #         colSums(mat))/
+  #     ((n-1)*(m-1))
+  # }
+  
+  if(by=="rows"){
+    sum(max(rowSums(mat), na.rm=T)-
+          rowSums(mat)) / m
+  }
+
+  if(by=="cols"){
+    sum(max(colSums(mat), na.rm=T)-
+          colSums(mat)) / n
+  }
+
 }
+
+#' #' Two-mode degree centralization
+#' #'
+#' #' This function allows you to calculate how (degree) centralized a two-mode graph is.
+#' #' @param graph An igraph graph
+#' #' @keywords two-mode
+#' #' @export
+#' #' @examples
+#' #' twomode_centralization_degree(graph)
+#' twomode_centralization_degree <- function(graph){
+#'   require(igraph)
+#'   nodeset <- names(which(igraph::degree(graph)==max(igraph::degree(graph)))) %in% 
+#'     V(graph)$name[V(graph)$type==T]
+#'   m <- length(which(V(graph)$type==T))
+#'   n <- length(which(V(graph)$type!=T))
+#'   
+#'   sum(max(igraph::degree(graph)[which(V(graph)$type==nodeset)], na.rm=T)-
+#'         igraph::degree(graph)[which(V(graph)$type==nodeset)])/
+#'     ((n-1)*(m-1))
+#' }
 
 #' Two-mode betweenness centralization
 #'
