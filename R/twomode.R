@@ -49,23 +49,30 @@ twomode_centralization_degree <- function(mat, by = c("both","rows","cols")){
   
   n <- nrow(mat)
   m <- ncol(mat)
+  out <- vector()
 
-  # if(by =="both"){
-  #   sum(max(colSums(mat), na.rm=T)-
-  #         colSums(mat))/
-  #     ((n-1)*(m-1))
-  # }
-  
-  if(by=="rows"){
-    sum(max(rowSums(mat), na.rm=T)-
-          rowSums(mat)) / m
+  if(by %in% c("both","rows")){
+    if(n > 1){
+      out <- c(out, 
+               sum(max(rowSums(mat), na.rm=T)-
+            rowSums(mat)) / (m*(n-1)) )
+    } else {
+      out <- c(out, 
+               rowSums(mat) / m )
+    }
   }
 
-  if(by=="cols"){
-    sum(max(colSums(mat), na.rm=T)-
-          colSums(mat)) / n
+  if(by %in% c("both","cols")){
+    if(m > 1){
+      out <- c(out, 
+               sum(max(colSums(mat), na.rm=T)-
+            colSums(mat)) / (n*(m-1)) )
+    } else {
+      out <- c(out, 
+               colSums(mat) / n )
+    }
   }
-
+  return(out)
 }
 
 #' #' Two-mode degree centralization
