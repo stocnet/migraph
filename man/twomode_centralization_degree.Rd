@@ -4,21 +4,24 @@
 \alias{twomode_centralization_degree}
 \title{Two-mode degree centralization}
 \usage{
-twomode_centralization_degree(mat, by = c("both", "rows", "cols"))
+twomode_centralization_degree(mat, attr = NULL)
 }
 \arguments{
-\item{mat}{An affiliation or incidence matrix}
+\item{mat}{An affiliation or incidence matrix. For centralization around rows, simply transpose the matrix first (\code{t()})}
 
-\item{by}{Whether to calculate centralization for matrix \code{rows}, \code{cols}, or \code{both} (default)}
+\item{attr}{Optionally, an attribute vector.}
 }
 \description{
 This function allows you to calculate how (degree) centralized a two-mode graph is.
 }
 \examples{
 twomode_centralization_degree(mat)
-twomode_centralization_degree(mat, "cols")
+twomode_centralization_degree(mat, attr = gdp2010)
 }
-\references{
-Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In The SAGE Handbook of Social Network Analysis, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
+\seealso{
+Other two-mode: \code{\link{twomode_centralization_between}},
+  \code{\link{twomode_clustering}},
+  \code{\link{twomode_constraint}},
+  \code{\link{twomode_lattice}}
 }
 \keyword{two-mode}

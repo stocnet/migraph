@@ -6,6 +6,7 @@
 #'
 #' This function allows you to calculate how (degree) centralized a two-mode graph is.
 #' @param graph An igraph graph
+#' @references Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In The SAGE Handbook of Social Network Analysis, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
 #' @keywords two-mode
 #' @export
 #' @examples
@@ -33,5 +34,11 @@ This function allows you to calculate how (betweenness) centralized a two-mode g
 }
 \examples{
 twomode_centralization_between(graph)
+}
+\seealso{
+Other two-mode: \code{\link{twomode_centralization_degree}},
+  \code{\link{twomode_clustering}},
+  \code{\link{twomode_constraint}},
+  \code{\link{twomode_lattice}}
 }
 \keyword{two-mode}

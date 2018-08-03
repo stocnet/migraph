@@ -15,4 +15,10 @@ This function allows you to express your love of lattices.
 \examples{
 twomode.lattice(matrix)
 }
+\seealso{
+Other two-mode: \code{\link{twomode_centralization_between}},
+  \code{\link{twomode_centralization_degree}},
+  \code{\link{twomode_clustering}},
+  \code{\link{twomode_constraint}}
+}
 \keyword{two-mode}
