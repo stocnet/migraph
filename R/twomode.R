@@ -3,6 +3,7 @@
 #' This function allows you to express your love of lattices.
 #' @param m A matrix
 #' @keywords two-mode
+#' @family two-mode
 #' @export
 #' @examples
 #' twomode.lattice(matrix)
@@ -20,6 +21,7 @@ twomode_lattice <- function(m){
 #' This function allows you to calculate how much two-mode clustering there is.
 #' @param m A matrix
 #' @keywords two-mode
+#' @family two-mode
 #' @export
 #' @examples
 #' twomode.clustering(matrix)
@@ -39,42 +41,33 @@ twomode_clustering <- function(m){
 #' Two-mode degree centralization
 #'
 #' This function allows you to calculate how (degree) centralized a two-mode graph is.
-#' @param mat An affiliation or incidence matrix
-#' @param by Whether to calculate centralization for matrix \code{rows}, \code{cols}, or \code{both} (default)
+#' @param mat An affiliation or incidence matrix. For centralization around rows, simply transpose the matrix first (\code{t()})
+#' @param attr Optionally, an attribute vector.
 #' @keywords two-mode
-#' @references Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In The SAGE Handbook of Social Network Analysis, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
+#' @family two-mode
 #' @export
 #' @examples
 #' twomode_centralization_degree(mat)
-#' twomode_centralization_degree(mat, "cols")
-twomode_centralization_degree <- function(mat, by = c("both","rows","cols")){
-  by <- match.arg(by)
+#' twomode_centralization_degree(mat, attr = gdp2010)
+twomode_centralization_degree <- function(mat, attr = NULL){
   
+  # Get dimensions
   n <- nrow(mat)
   m <- ncol(mat)
-  out <- vector()
+  
+  # If attribute absent, use 1s
+  if (is.null(attr)) attr <- rep(1, n)
 
-  if(by %in% c("both","rows")){
-    if(n > 1){
-      out <- c(out, 
-               sum(max(rowSums(mat), na.rm=T)-
-            rowSums(mat)) / (m*(n-1)) )
-    } else {
-      out <- c(out, 
-               rowSums(mat) / m )
-    }
+  # Get distributions
+  msum <- colSums(mat*attr, na.rm = T)
+  
+  if(m > 1){
+    # out <- sum(max(msum)-msum) / (n*(m-1))
+    out <- sum(max(msum)-msum) / (sum(attr)*(m-1))
+  } else {
+    out <- msum / sum(attr)
   }
-
-  if(by %in% c("both","cols")){
-    if(m > 1){
-      out <- c(out, 
-               sum(max(colSums(mat), na.rm=T)-
-            colSums(mat)) / (n*(m-1)) )
-    } else {
-      out <- c(out, 
-               colSums(mat) / n )
-    }
-  }
+  
   return(out)
 }
 
@@ -82,6 +75,7 @@ twomode_centralization_degree <- function(mat, by = c("both","rows","cols")){
 #' #'
 #' #' This function allows you to calculate how (degree) centralized a two-mode graph is.
 #' #' @param graph An igraph graph
+#' #' @references Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In The SAGE Handbook of Social Network Analysis, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
 #' #' @keywords two-mode
 #' #' @export
 #' #' @examples
@@ -103,6 +97,7 @@ twomode_centralization_degree <- function(mat, by = c("both","rows","cols")){
 #' This function allows you to calculate how (betweenness) centralized a two-mode graph is.
 #' @param graph An igraph graph
 #' @keywords two-mode
+#' @family two-mode
 #' @export
 #' @examples
 #' twomode_centralization_between(graph)
@@ -160,6 +155,7 @@ twomode_centralization_between <- function(graph){
 #' @param mat A matrix
 #' @return Constraint scores for each second-mode node
 #' @details See Ron Burt's work on structural holes for more details
+#' @family two-mode
 #' @examples 
 #' twomode_constraint(mat)
 #' @rdname twomode_constraint
