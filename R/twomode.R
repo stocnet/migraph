@@ -6,7 +6,7 @@
 #' @family two-mode
 #' @export
 #' @examples
-#' twomode.lattice(matrix)
+#' twomode_lattice(matrix)
 twomode_lattice <- function(m){
   out <- matrix(c(rep(1, sum(m)), 
                   rep(0, length(m)-sum(m))),
@@ -24,7 +24,7 @@ twomode_lattice <- function(m){
 #' @family two-mode
 #' @export
 #' @examples
-#' twomode.clustering(matrix)
+#' twomode_clustering(matrix)
 twomode_clustering <- function(m){
   twopaths <- crossprod(m)
   diag(twopaths) <- 0
@@ -188,4 +188,32 @@ twomode_constraint <- function(mat){
     }
     return(res)
   }
+
+twomode_fragmentation <- function(mat){
+  # components - how many institutional fragments do we have?
+  m <- ncol(mat)
+  twopaths <- crossprod(mat)
+  twopaths[lower.tri(twopaths)] <- 0
+  diag(twopaths) <- 1
+  connect <- which(twopaths > 0, arr.ind = T)
+  for (i in 1:m){
+    if (sum(connect==i)*1>2) connect <- connect[-which(connect[,1]==i & connect[,2]==i),]
+  }
+
+  memb <- data.frame(node=1:m, comp=NA)
+  memb[1,2] <- comp <- 1
+  while (anyNA(memb[,2])){
+    if(anyNA(memb[connect[connect[, 1] == which(memb[, 2] == comp), 2], 2])){
+      memb[connect[connect[, 1] == which(memb[, 2] == comp), 2], 2] <- comp
+    } else {
+      memb[which(is.na(memb[,2]))[1],2] <- comp <- max(memb[,2], na.rm = T) + 1
+    }
+  }
+
+  return(max(memb[,2]))
+  # cohesion
+  # four-cycle
+  # balance
+  # inequality
+}
 
