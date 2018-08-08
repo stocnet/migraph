@@ -11,55 +11,52 @@ mat.dist[4:5,3] <- 1
 mat.none <- matrix(0,5,2)
 mat.none[1:4,1] <- 1
 
-mat.part <- matrix(0,5,5)
-mat.part[1:3,1] <- 1
-mat.part[1:2,2] <- 1
-mat.part[4:5,3] <- 1
-mat.part[4:5,4] <- 1
-mat.part[3,5] <- 1
+# mat.part <- matrix(0,5,5)
+# mat.part[1:3,1] <- 1
+# mat.part[1:2,2] <- 1
+# mat.part[4:5,3] <- 1
+# mat.part[4:5,4] <- 1
+# mat.part[3,5] <- 1
+# 
+mat.part <- mat.dist
+mat.part[2,1] <- 0
+mat.part[1,2] <- 0
+mat.part[4,3] <- 0
 
-mat.some <- matrix(0,5,1)
+mat.some <- matrix(0,5,5)
 mat.some[1:3,1] <- 1
+mat.some[1:3,2] <- 1
+mat.some[1:3,3] <- 1
+mat.some[4:5,4] <- 1
+mat.some[4:5,5] <- 1
 
 mat.only <- matrix(1,5,1)
 
 library(igraph)
-# pdf("~/Desktop/test.pdf", width=11, height=8)
+# pdf("~/Desktop/dombycoh.pdf", width=11, height=8)
 par(mfrow = c(2,3))
-plot(graph_from_incidence_matrix(t(mat.even)), main="mat.even",
-     sub = paste(twomode_centralization_degree(mat.part), twomode_fragmentation(mat.even), sep = ", "),
-     layout = layout_as_bipartite,
-     vertex.frame.color=NA, vertex.label=NA, vertex.size=20,
-     vertex.shape=c(rep("square",ncol(mat.even)),rep("circle",nrow(mat.even))),
-     vertex.color=c(rep("lightblue",ncol(mat.even)),rep("green",nrow(mat.even))))
-plot(graph_from_incidence_matrix(t(mat.dist)), main="mat.dist",
-     sub = paste(twomode_centralization_degree(mat.part), twomode_fragmentation(mat.dist), sep = ", "),
-     layout = layout_as_bipartite,
-     vertex.frame.color=NA, vertex.label=NA, vertex.size=20,
-     vertex.shape=c(rep("square",ncol(mat.dist)),rep("circle",nrow(mat.dist))),
-     vertex.color=c(rep("lightblue",ncol(mat.dist)),rep("green",nrow(mat.dist))))
-plot(graph_from_incidence_matrix(t(mat.none)), main="mat.none",
-     sub = paste(twomode_centralization_degree(mat.part), twomode_fragmentation(mat.none), sep = ", "),
-     layout = layout_as_bipartite,
-     vertex.frame.color=NA, vertex.label=NA, vertex.size=20,
-     vertex.shape=c(rep("square",ncol(mat.none)),rep("circle",nrow(mat.none))),
-     vertex.color=c(rep("lightblue",ncol(mat.none)),rep("green",nrow(mat.none))))
-plot(graph_from_incidence_matrix(t(mat.part)), main="mat.part",
-     sub = paste(twomode_centralization_degree(mat.part), twomode_fragmentation(mat.part), sep = ", "),
-     layout = layout_as_bipartite,
-     vertex.frame.color=NA, vertex.label=NA, vertex.size=20,
-     vertex.shape=c(rep("square",ncol(mat.part)),rep("circle",nrow(mat.part))),
-     vertex.color=c(rep("lightblue",ncol(mat.part)),rep("green",nrow(mat.part))))
-plot(graph_from_incidence_matrix(t(mat.some)), main="mat.some",
-     sub = paste(twomode_centralization_degree(mat.part), twomode_fragmentation(mat.some), sep = ", "),
-     layout = layout_as_bipartite,
-     vertex.frame.color=NA, vertex.label=NA, vertex.size=20,
-     vertex.shape=c(rep("square",ncol(mat.some)),rep("circle",nrow(mat.some))),
-     vertex.color=c(rep("lightblue",ncol(mat.some)),rep("green",nrow(mat.some))))
-plot(graph_from_incidence_matrix(t(mat.only)), main="mat.only",
-     sub = paste(twomode_centralization_degree(mat.part), twomode_fragmentation(mat.only), sep = ", "),
-     layout = layout_as_bipartite,
-     vertex.frame.color=NA, vertex.label=NA, vertex.size=20,
-     vertex.shape=c(rep("square",ncol(mat.only)),rep("circle",nrow(mat.only))),
-     vertex.color=c(rep("lightblue",ncol(mat.only)),rep("green",nrow(mat.only))))
+plot.twomode(mat.even, main="mat.even",
+     sub = paste(round(twomode_dominance(mat.even),2), round(twomode_coherence(mat.even),2),
+                 # round(twomode_clustering(mat.even) / round(twomode_fragmentation(mat.even),2), 
+                 sep = "\n"))
+plot.twomode(mat.dist, main="mat.dist",
+     sub = paste(round(twomode_dominance(mat.dist),2), round(twomode_coherence(mat.dist),2),
+                 # twomode_clustering(mat.dist) / round(twomode_fragmentation(mat.dist),2), 
+                 sep = "\n"))
+plot.twomode(mat.none, main="mat.none",
+     sub = paste(round(twomode_dominance(mat.none),2), round(twomode_coherence(mat.none),2),
+                 # twomode_fragmentation(mat.none), twomode_clustering(mat.none), 
+                 sep = "\n"))
+plot.twomode(mat.part, main="mat.part",
+     sub = paste(round(twomode_dominance(mat.part),2), round(twomode_coherence(mat.part),2),
+                 # round(twomode_fragmentation(mat.part),2), round(twomode_clustering(mat.part),2), 
+                 sep = "\n"))
+plot.twomode(mat.some, main="mat.some",
+     sub = paste(round(twomode_dominance(mat.some),2), round(twomode_coherence(mat.some),2),
+                 # twomode_fragmentation(mat.some), twomode_clustering(mat.some), 
+                 sep = "\n"))
+plot.twomode(mat.only, main="mat.only",
+     sub = paste(round(twomode_dominance(mat.only),2), round(twomode_coherence(mat.only),2),
+                 # twomode_fragmentation(mat.only), twomode_clustering(mat.only), 
+                 sep = "\n"))
 # dev.off()
