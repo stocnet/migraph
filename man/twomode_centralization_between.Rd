@@ -2,27 +2,7 @@
 % Please edit documentation in R/twomode.R
 \name{twomode_centralization_between}
 \alias{twomode_centralization_between}
-\title{#' Two-mode degree centralization
-#'
-#' This function allows you to calculate how (degree) centralized a two-mode graph is.
-#' @param graph An igraph graph
-#' @references Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In The SAGE Handbook of Social Network Analysis, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
-#' @keywords two-mode
-#' @export
-#' @examples
-#' twomode_centralization_degree(graph)
-twomode_centralization_degree <- function(graph){
-  require(igraph)
-  nodeset <- names(which(igraph::degree(graph)==max(igraph::degree(graph)))) %in% 
-    V(graph)$name[V(graph)$type==T]
-  m <- length(which(V(graph)$type==T))
-  n <- length(which(V(graph)$type!=T))
-  
-  sum(max(igraph::degree(graph)[which(V(graph)$type==nodeset)], na.rm=T)-
-        igraph::degree(graph)[which(V(graph)$type==nodeset)])/
-    ((n-1)*(m-1))
-}
-Two-mode betweenness centralization}
+\title{Two-mode betweenness centralization}
 \usage{
 twomode_centralization_between(graph)
 }
@@ -36,9 +16,11 @@ This function allows you to calculate how (betweenness) centralized a two-mode g
 twomode_centralization_between(graph)
 }
 \seealso{
-Other two-mode: \code{\link{twomode_centralization_degree}},
-  \code{\link{twomode_clustering}},
+Other two-mode: \code{\link{twomode_clustering}},
+  \code{\link{twomode_coherence}},
   \code{\link{twomode_constraint}},
+  \code{\link{twomode_dominance}},
+  \code{\link{twomode_fragmentation}},
   \code{\link{twomode_lattice}}
 }
 \keyword{two-mode}

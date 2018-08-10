@@ -4,21 +4,23 @@
 \alias{twomode_clustering}
 \title{Two-mode clustering}
 \usage{
-twomode_clustering(m)
+twomode_clustering(mat)
 }
 \arguments{
-\item{m}{A matrix}
+\item{mat}{A matrix}
 }
 \description{
 This function allows you to calculate how much two-mode clustering there is.
 }
 \examples{
-twomode.clustering(matrix)
+twomode_clustering(matrix)
 }
 \seealso{
 Other two-mode: \code{\link{twomode_centralization_between}},
-  \code{\link{twomode_centralization_degree}},
+  \code{\link{twomode_coherence}},
   \code{\link{twomode_constraint}},
+  \code{\link{twomode_dominance}},
+  \code{\link{twomode_fragmentation}},
   \code{\link{twomode_lattice}}
 }
 \keyword{two-mode}

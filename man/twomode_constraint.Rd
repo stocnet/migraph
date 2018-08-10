@@ -14,20 +14,22 @@ Constraint scores for each second-mode node
 }
 \description{
 This function extends Ronald Burt's constraint measure
-to two-mode networks. Note that this function returns constraint scores
-for each second-mode node by default. To return constraint scores
-for each first-mode node, please pass the function the transpose of the matrix.
-of
+to two-mode networks.
 }
 \details{
-See Ron Burt's work on structural holes for more details
+Note that this function returns constraint scores
+for each second-mode node by default. To return constraint scores
+for each first-mode node, please pass the function the transpose of the matrix. 
+See Ron Burt's work on structural holes for more details.
 }
 \examples{
 twomode_constraint(mat)
 }
 \seealso{
 Other two-mode: \code{\link{twomode_centralization_between}},
-  \code{\link{twomode_centralization_degree}},
   \code{\link{twomode_clustering}},
+  \code{\link{twomode_coherence}},
+  \code{\link{twomode_dominance}},
+  \code{\link{twomode_fragmentation}},
   \code{\link{twomode_lattice}}
 }
