@@ -19,26 +19,28 @@ twomode_lattice <- function(m){
 #' Two-mode clustering
 #'
 #' This function allows you to calculate how much two-mode clustering there is.
-#' @param m A matrix
+#' @param mat A matrix
 #' @keywords two-mode
 #' @family two-mode
 #' @export
 #' @examples
 #' twomode_clustering(matrix)
-twomode_clustering <- function(m){
-  twopaths <- crossprod(m)
+twomode_clustering <- function(mat){
+  c <- ncol(mat)
+  indegrees <- colSums(mat)
+  twopaths <- crossprod(mat)
   diag(twopaths) <- 0
-  indegrees <- colSums(m)
   cycle4 <- sum(twopaths * (twopaths-1)) / 
     (sum(twopaths * (twopaths-1)) + sum(twopaths * 
                                           (matrix(indegrees,c,c) - twopaths)))
-  cycle4
+  if(is.nan(cycle4)) cycle4 <- 0
+  return(cycle4)
 }
 
 # The following functions were previously named "BBCentralization" and "BDCentralization"
 # from a BBCentralization.R script.
 
-#' Two-mode degree centralization
+#' Two-mode dominance
 #'
 #' This function allows you to calculate how (degree) centralized a two-mode graph is.
 #' @param mat An affiliation or incidence matrix. For centralization around rows, simply transpose the matrix first (\code{t()})
@@ -47,9 +49,9 @@ twomode_clustering <- function(m){
 #' @family two-mode
 #' @export
 #' @examples
-#' twomode_centralization_degree(mat)
-#' twomode_centralization_degree(mat, attr = gdp2010)
-twomode_centralization_degree <- function(mat, attr = NULL){
+#' twomode_dominance(mat)
+#' twomode_dominance(mat, attr = gdp2010)
+twomode_dominance <- function(mat, attr = NULL){
   
   # Get dimensions
   n <- nrow(mat)
@@ -62,7 +64,6 @@ twomode_centralization_degree <- function(mat, attr = NULL){
   msum <- colSums(mat*attr, na.rm = T)
   
   if(m > 1){
-    # out <- sum(max(msum)-msum) / (n*(m-1))
     out <- sum(max(msum)-msum) / (sum(attr)*(m-1))
   } else {
     out <- msum / sum(attr)
@@ -71,26 +72,26 @@ twomode_centralization_degree <- function(mat, attr = NULL){
   return(out)
 }
 
-#' #' Two-mode degree centralization
-#' #'
-#' #' This function allows you to calculate how (degree) centralized a two-mode graph is.
-#' #' @param graph An igraph graph
-#' #' @references Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In The SAGE Handbook of Social Network Analysis, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
-#' #' @keywords two-mode
-#' #' @export
-#' #' @examples
-#' #' twomode_centralization_degree(graph)
-#' twomode_centralization_degree <- function(graph){
-#'   require(igraph)
-#'   nodeset <- names(which(igraph::degree(graph)==max(igraph::degree(graph)))) %in% 
-#'     V(graph)$name[V(graph)$type==T]
-#'   m <- length(which(V(graph)$type==T))
-#'   n <- length(which(V(graph)$type!=T))
-#'   
-#'   sum(max(igraph::degree(graph)[which(V(graph)$type==nodeset)], na.rm=T)-
-#'         igraph::degree(graph)[which(V(graph)$type==nodeset)])/
-#'     ((n-1)*(m-1))
-#' }
+#' Two-mode degree centralization
+#'
+#' This function allows you to calculate how (degree) centralized a two-mode graph is.
+#' @param graph An igraph graph
+#' @references Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In The SAGE Handbook of Social Network Analysis, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
+#' @keywords two-mode
+#' @export
+#' @examples
+#' twomode_centralization_degree(graph)
+twomode_centralization_degree <- function(graph){
+  require(igraph)
+  nodeset <- names(which(igraph::degree(graph)==max(igraph::degree(graph)))) %in%
+    V(graph)$name[V(graph)$type==T]
+  m <- length(which(V(graph)$type==T))
+  n <- length(which(V(graph)$type!=T))
+
+  sum(max(igraph::degree(graph)[which(V(graph)$type==nodeset)], na.rm=T)-
+        igraph::degree(graph)[which(V(graph)$type==nodeset)])/
+    ((n-1)*(m-1))
+}
 
 #' Two-mode betweenness centralization
 #'
@@ -148,13 +149,13 @@ twomode_centralization_between <- function(graph){
 
 #' @title Two-mode constraint
 #' @description This function extends Ronald Burt's constraint measure
-#' to two-mode networks. Note that this function returns constraint scores
-#' for each second-mode node by default. To return constraint scores
-#' for each first-mode node, please pass the function the transpose of the matrix.
-#' of 
+#' to two-mode networks.
 #' @param mat A matrix
 #' @return Constraint scores for each second-mode node
-#' @details See Ron Burt's work on structural holes for more details
+#' @details Note that this function returns constraint scores
+#' for each second-mode node by default. To return constraint scores
+#' for each first-mode node, please pass the function the transpose of the matrix. 
+#' See Ron Burt's work on structural holes for more details.
 #' @family two-mode
 #' @examples 
 #' twomode_constraint(mat)
@@ -189,6 +190,19 @@ twomode_constraint <- function(mat){
     return(res)
   }
 
+#' @title Two-mode fragmentation
+#' @description This function identifies components in a two-mode network.
+#' @param mat A matrix
+#' @return A list including the number of components in the network,
+#' the fragmentation of the network (number of components/number of nodes in the column nodeset),
+#' and the component membership of each node in that nodeset.
+#' @details Note that this function applies only to one dimension/mode (the columns).
+#' Use a transposed matrix to return values for the other dimension/mode.
+#' @family two-mode
+#' @examples 
+#' twomode_fragmentation(mat)
+#' @rdname twomode_fragmentation
+#' @export 
 twomode_fragmentation <- function(mat){
   # components - how many institutional fragments do we have?
   m <- ncol(mat)
@@ -202,18 +216,52 @@ twomode_fragmentation <- function(mat){
 
   memb <- data.frame(node=1:m, comp=NA)
   memb[1,2] <- comp <- 1
-  while (anyNA(memb[,2])){
-    if(anyNA(memb[connect[connect[, 1] == which(memb[, 2] == comp), 2], 2])){
-      memb[connect[connect[, 1] == which(memb[, 2] == comp), 2], 2] <- comp
-    } else {
-      memb[which(is.na(memb[,2]))[1],2] <- comp <- max(memb[,2], na.rm = T) + 1
+  if (nrow(memb)==2 & !is.matrix(connect) & all(connect==c(1,2))) {
+    memb[2,2] <- 1
+  } else {
+    while (anyNA(memb[,2])){
+      if(anyNA(memb[connect[connect[, 1] %in% which(memb[, 2] == comp), 2], 2])){
+        memb[connect[connect[, 1] %in% which(memb[, 2] == comp), 2], 2] <- comp
+      } else {
+        memb[which(is.na(memb[,2]))[1],2] <- comp <- max(memb[,2], na.rm = T) + 1
+      }
+      
     }
   }
-
-  return(max(memb[,2]))
-  # cohesion
-  # four-cycle
-  # balance
-  # inequality
+  
+  return(list(components=max(memb[,2]), 
+              fragmentation=max(memb[,2])/m, 
+              membership=memb))
 }
 
+#' @title Two-mode coherence
+#' @description This function calculates coherence for a two-mode network
+#' @param mat A matrix
+#' @return Average coherence across the components of the network
+#' @details Note that this function applies only to one dimension/mode (the columns).
+#' Use a transposed matrix to return values for the other dimension/mode.
+#' @family two-mode
+#' @seealso twomode_fragmentation
+#' @examples 
+#' twomode_coherence(mat)
+#' @rdname twomode_coherence
+#' @export 
+twomode_coherence <- function(mat){
+  
+  frag <- twomode_fragmentation(mat)
+  
+  comp.coh <- vector()
+  for (c in 1:frag$components){
+    
+    if (sum(frag$membership$comp==c) > 1){
+      mat.comp <- mat[, frag$membership$node[frag$membership$comp==c]]
+      
+      if(any(colSums(mat.comp)==nrow(mat.comp))) mat.comp <- rbind(mat.comp,0,1)
+      
+      comp.coh <- c(comp.coh, mean(cor(mat.comp)[lower.tri(cor(mat.comp))]) )
+    } else {
+      comp.coh <- c(comp.coh, 1)
+    }
+  }
+  return(mean(comp.coh))
+}
