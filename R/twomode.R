@@ -33,7 +33,7 @@ twomode_clustering <- function(mat){
   cycle4 <- sum(twopaths * (twopaths-1)) / 
     (sum(twopaths * (twopaths-1)) + sum(twopaths * 
                                           (matrix(indegrees,c,c) - twopaths)))
-  if(is.nan(cycle4)) cycle4 <- 0
+  if(is.nan(cycle4)) cycle4 <- 1
   return(cycle4)
 }
 
@@ -263,5 +263,5 @@ twomode_coherence <- function(mat){
       comp.coh <- c(comp.coh, 1)
     }
   }
-  return(mean(comp.coh))
+  return((mean(comp.coh)+1)/2)
 }
