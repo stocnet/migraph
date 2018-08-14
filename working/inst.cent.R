@@ -30,7 +30,26 @@ mat.some[1:3,3] <- 1
 mat.some[4:5,4] <- 1
 mat.some[4:5,5] <- 1
 
+mat.side <- matrix(0,4,4)
+mat.side[1:4,1] <- 1
+mat.side[3,2] <- 1
+mat.side[4,3] <- 1
+mat.side[1,4] <- 1
+
+mat.link <- matrix(0,4,4)
+mat.link[1:2,1] <- 1
+mat.link[2:3,2] <- 1
+mat.link[3:4,3] <- 1
+mat.link[c(1,4),4] <- 1
+
+mat.pole <- matrix(1,4,4)
+mat.pole[1:2,3:4] <- 0
+mat.pole[3:4,1:2] <- 0
+
 mat.only <- matrix(1,5,1)
+
+mat.sole <- matrix(0,4,4)
+mat.sole[1:4,1] <- 1
 
 library(igraph)
 # pdf("~/Desktop/dombycoh.pdf", width=11, height=8)
@@ -60,3 +79,20 @@ plot.twomode(mat.only, main="mat.only",
                  # twomode_fragmentation(mat.only), twomode_clustering(mat.only), 
                  sep = "\n"))
 # dev.off()
+
+pdf("~/Desktop/2x2typo.pdf", width=11, height=8)
+par(mfrow = c(2,2))
+plot.twomode(mat.side, main="High Dom, Low Coh",
+             sub = paste(round(twomode_dominance(mat.side),2), round(twomode_clustering(mat.side),2),
+                         sep = ", "))
+plot.twomode(mat.sole, main="High Dom, High Coh",
+             sub = paste(round(twomode_dominance(mat.sole),2), round(twomode_clustering(mat.sole),2),
+                         sep = ", "))
+plot.twomode(mat.link, main="Low Dom, Low Coh",
+             sub = paste(round(twomode_dominance(mat.link),2), round(twomode_clustering(mat.link),2),
+                         sep = ", "))
+plot.twomode(mat.pole, main="Low Dom, High Coh",
+             sub = paste(round(twomode_dominance(mat.pole),2), round(twomode_clustering(mat.pole),2),
+                         sep = ", "))
+dev.off()
+
