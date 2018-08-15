@@ -19,11 +19,10 @@ twomode_dominance(mat)
 twomode_dominance(mat, attr = gdp2010)
 }
 \seealso{
-Other two-mode: \code{\link{twomode_centralization_between}},
-  \code{\link{twomode_clustering}},
+Other two-mode functions: \code{\link{twomode_clustering}},
   \code{\link{twomode_coherence}},
   \code{\link{twomode_constraint}},
   \code{\link{twomode_fragmentation}},
-  \code{\link{twomode_lattice}}
+  \code{\link{twomode_lattice}},
+  \code{\link{twomode_smallworld}}
 }
-\keyword{two-mode}

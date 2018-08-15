@@ -15,12 +15,3 @@ This function allows you to calculate how (betweenness) centralized a two-mode g
 \examples{
 twomode_centralization_between(graph)
 }
-\seealso{
-Other two-mode: \code{\link{twomode_clustering}},
-  \code{\link{twomode_coherence}},
-  \code{\link{twomode_constraint}},
-  \code{\link{twomode_dominance}},
-  \code{\link{twomode_fragmentation}},
-  \code{\link{twomode_lattice}}
-}
-\keyword{two-mode}

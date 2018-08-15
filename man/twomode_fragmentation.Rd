@@ -25,10 +25,10 @@ Use a transposed matrix to return values for the other dimension/mode.
 twomode_fragmentation(mat)
 }
 \seealso{
-Other two-mode: \code{\link{twomode_centralization_between}},
-  \code{\link{twomode_clustering}},
+Other two-mode functions: \code{\link{twomode_clustering}},
   \code{\link{twomode_coherence}},
   \code{\link{twomode_constraint}},
   \code{\link{twomode_dominance}},
-  \code{\link{twomode_lattice}}
+  \code{\link{twomode_lattice}},
+  \code{\link{twomode_smallworld}}
 }

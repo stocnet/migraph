@@ -2,8 +2,7 @@
 #'
 #' This function allows you to express your love of lattices.
 #' @param m A matrix
-#' @keywords two-mode
-#' @family two-mode
+#' @family two-mode functions
 #' @export
 #' @examples
 #' twomode_lattice(matrix)
@@ -20,8 +19,7 @@ twomode_lattice <- function(m){
 #'
 #' This function allows you to calculate how much two-mode clustering there is.
 #' @param mat A matrix
-#' @keywords two-mode
-#' @family two-mode
+#' @family two-mode functions
 #' @export
 #' @examples
 #' twomode_clustering(matrix)
@@ -37,6 +35,51 @@ twomode_clustering <- function(mat){
   return(cycle4)
 }
 
+#' Two-mode small-world
+#' 
+#' Calculates small-world metrics for two-mode networks
+#' @param mat A matrix
+#' @param n Number of simulated 
+#' @family two-mode functions
+#' @return Returns a table of small-world related metrics for each second-mode node.
+#' @details The first column of the returned table is simply the number of the second-mode column.
+#' The next three columns report the observed and expected clustering, 
+#' and the ratio of the former to the later.
+#' The next three columns report the observed and expected path-length,
+#' and the ratio of the former to the later.
+#' The last column reports the ratio of the observed/expected clustering ratio
+#' to the observed/expected path-length ratio, which is known as a small-world metric.
+#' Expected clustering and paths is the mean of twomode_clustering and mean_distance
+#' over 100 random simulations with the same row and column sums.
+#' @examples twomode_smallworld(mat)
+#' @seealso \code{\link{twomode_clustering}} for how clustering is calculated
+#' @import igraph
+#' @export 
+twomode_smallworld <- function(mat, n=100){
+  require(igraph)
+  out <- matrix(NA,ncol(mat),7)
+  for(c in 2:ncol(mat)){
+    m <- mat[,1:c]
+    g <- graph_from_incidence_matrix(m)
+    out[c,1] <- twomode_clustering(m)
+    out[c,4] <- mean_distance(g)
+
+    r <- r2dtable(n, rowSums(m), colSums(m))
+    out[c,2] <- mean(unlist(lapply(r, twomode_clustering)))
+    out[c,5] <- mean(unlist(lapply(lapply(r, graph_from_incidence_matrix),
+                                  mean_distance)))
+
+    out[c,3] <- out[c,1]/out[c,2]
+    out[c,6] <- out[c,4]/out[c,5]
+    out[c,7] <- out[c,3]/out[c,6]
+  }
+  out <- cbind(1:ncol(mat),out)
+  out <- as.data.frame(out)
+  names(out) <- c("Num","ObsClust","ExpClust","ClustRat",
+                             "ObsPath","ExpPath","PathRat","SmallWorld")
+  out
+}
+
 # The following functions were previously named "BBCentralization" and "BDCentralization"
 # from a BBCentralization.R script.
 
@@ -45,8 +88,7 @@ twomode_clustering <- function(mat){
 #' This function allows you to calculate how (degree) centralized a two-mode graph is.
 #' @param mat An affiliation or incidence matrix. For centralization around rows, simply transpose the matrix first (\code{t()})
 #' @param attr Optionally, an attribute vector.
-#' @keywords two-mode
-#' @family two-mode
+#' @family two-mode functions
 #' @export
 #' @examples
 #' twomode_dominance(mat)
@@ -77,7 +119,7 @@ twomode_dominance <- function(mat, attr = NULL){
 #' This function allows you to calculate how (degree) centralized a two-mode graph is.
 #' @param graph An igraph graph
 #' @references Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In The SAGE Handbook of Social Network Analysis, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
-#' @keywords two-mode
+# #' @family two-mode functions
 #' @export
 #' @examples
 #' twomode_centralization_degree(graph)
@@ -97,8 +139,7 @@ twomode_centralization_degree <- function(graph){
 #'
 #' This function allows you to calculate how (betweenness) centralized a two-mode graph is.
 #' @param graph An igraph graph
-#' @keywords two-mode
-#' @family two-mode
+# #' @family two-mode functions
 #' @export
 #' @examples
 #' twomode_centralization_between(graph)
@@ -147,19 +188,17 @@ twomode_centralization_between <- function(graph){
   #   }
 }
 
-#' @title Two-mode constraint
-#' @description This function extends Ronald Burt's constraint measure
-#' to two-mode networks.
+#' Two-mode constraint
+#' 
+#' This function extends Ronald Burt's constraint measure to two-mode networks.
 #' @param mat A matrix
 #' @return Constraint scores for each second-mode node
 #' @details Note that this function returns constraint scores
 #' for each second-mode node by default. To return constraint scores
 #' for each first-mode node, please pass the function the transpose of the matrix. 
 #' See Ron Burt's work on structural holes for more details.
-#' @family two-mode
-#' @examples 
-#' twomode_constraint(mat)
-#' @rdname twomode_constraint
+#' @family two-mode functions
+#' @examples twomode_constraint(mat)
 #' @export 
 twomode_constraint <- function(mat){
     inst <- colnames(mat)
@@ -190,18 +229,18 @@ twomode_constraint <- function(mat){
     return(res)
   }
 
-#' @title Two-mode fragmentation
-#' @description This function identifies components in a two-mode network.
+#' Two-mode fragmentation
+#' 
+#' This function identifies components in a two-mode network.
 #' @param mat A matrix
 #' @return A list including the number of components in the network,
 #' the fragmentation of the network (number of components/number of nodes in the column nodeset),
 #' and the component membership of each node in that nodeset.
 #' @details Note that this function applies only to one dimension/mode (the columns).
 #' Use a transposed matrix to return values for the other dimension/mode.
-#' @family two-mode
+#' @family two-mode functions
 #' @examples 
 #' twomode_fragmentation(mat)
-#' @rdname twomode_fragmentation
 #' @export 
 twomode_fragmentation <- function(mat){
   # components - how many institutional fragments do we have?
@@ -234,17 +273,17 @@ twomode_fragmentation <- function(mat){
               membership=memb))
 }
 
-#' @title Two-mode coherence
-#' @description This function calculates coherence for a two-mode network
+#' Two-mode coherence
+#' 
+#' This function calculates coherence for a two-mode network
 #' @param mat A matrix
 #' @return Average coherence across the components of the network
 #' @details Note that this function applies only to one dimension/mode (the columns).
 #' Use a transposed matrix to return values for the other dimension/mode.
-#' @family two-mode
+#' @family two-mode functions
 #' @seealso twomode_fragmentation
 #' @examples 
 #' twomode_coherence(mat)
-#' @rdname twomode_coherence
 #' @export 
 twomode_coherence <- function(mat){
   

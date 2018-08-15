@@ -13,8 +13,7 @@ twomode_constraint(mat)
 Constraint scores for each second-mode node
 }
 \description{
-This function extends Ronald Burt's constraint measure
-to two-mode networks.
+This function extends Ronald Burt's constraint measure to two-mode networks.
 }
 \details{
 Note that this function returns constraint scores
@@ -26,10 +25,10 @@ See Ron Burt's work on structural holes for more details.
 twomode_constraint(mat)
 }
 \seealso{
-Other two-mode: \code{\link{twomode_centralization_between}},
-  \code{\link{twomode_clustering}},
+Other two-mode functions: \code{\link{twomode_clustering}},
   \code{\link{twomode_coherence}},
   \code{\link{twomode_dominance}},
   \code{\link{twomode_fragmentation}},
-  \code{\link{twomode_lattice}}
+  \code{\link{twomode_lattice}},
+  \code{\link{twomode_smallworld}}
 }
