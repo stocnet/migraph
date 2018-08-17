@@ -19,7 +19,8 @@ twomode_dominance(mat)
 twomode_dominance(mat, attr = gdp2010)
 }
 \seealso{
-Other two-mode functions: \code{\link{twomode_clustering}},
+Other two-mode functions: \code{\link{twomode_2x2}},
+  \code{\link{twomode_clustering}},
   \code{\link{twomode_coherence}},
   \code{\link{twomode_constraint}},
   \code{\link{twomode_fragmentation}},

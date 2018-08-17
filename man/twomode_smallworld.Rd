@@ -34,7 +34,8 @@ twomode_smallworld(mat)
 \seealso{
 \code{\link{twomode_clustering}} for how clustering is calculated
 
-Other two-mode functions: \code{\link{twomode_clustering}},
+Other two-mode functions: \code{\link{twomode_2x2}},
+  \code{\link{twomode_clustering}},
   \code{\link{twomode_coherence}},
   \code{\link{twomode_constraint}},
   \code{\link{twomode_dominance}},

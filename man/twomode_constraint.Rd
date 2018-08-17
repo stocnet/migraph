@@ -25,7 +25,8 @@ See Ron Burt's work on structural holes for more details.
 twomode_constraint(mat)
 }
 \seealso{
-Other two-mode functions: \code{\link{twomode_clustering}},
+Other two-mode functions: \code{\link{twomode_2x2}},
+  \code{\link{twomode_clustering}},
   \code{\link{twomode_coherence}},
   \code{\link{twomode_dominance}},
   \code{\link{twomode_fragmentation}},

@@ -106,9 +106,9 @@ twomode_dominance <- function(mat, attr = NULL){
   msum <- colSums(mat*attr, na.rm = T)
   
   if(m > 1){
-    out <- sum(max(msum)-msum) / (sum(attr)*(m-1))
+    out <- sum(max(msum)-msum) / (sum(attr, na.rm = T)*(m-1))
   } else {
-    out <- msum / sum(attr)
+    out <- msum / sum(attr, na.rm = T)
   }
   
   return(out)
@@ -303,4 +303,47 @@ twomode_coherence <- function(mat){
     }
   }
   return((mean(comp.coh)+1)/2)
+}
+
+
+#' Two-mode two-by-two analysis
+#' 
+#' This function calculates coherence and dominance for two-mode networks (and attributes)
+#' extracted for each year between the given dates
+#' @param node1 First nodeset object (will become matrix rows)
+#' @param node2 Second nodeset object (will become matrix columns)
+#' @param ties Edgelist of affiliations/memberships of first nodeset in second nodeset
+#' @param attr1 Object containing information on an attribute by year, in long format
+#' @param start Integer, for example a year like 1960
+#' @param end Integer, for example a year like 2010
+#' @return A data frame with two columns (Coherence and Dominance)
+#' @details Note that this function has defaults that make sense for use with 
+#' the gnevar datasets. Please contact me if you would like to make this function
+#' more general.
+#' @family two-mode functions
+#' @seealso twomode_clustering
+#' @seealso twomode_dominance
+#' @examples 
+#' \dontrun{
+#' library(gnevar)
+#' library(wbstats)
+#' mil_data <- wb(country = unique(stat_actor$StatID), indicator = "MS.MIL.XPND.CN", startdate = 1960, enddate = 2018)
+#' ally_topo <- twomode_2x2(stat_actor, ally_agree, ally_membs, mil_data, 1960, 2018)
+#' plot_2x2(ally_topo)
+#' }
+#' @export 
+twomode_2x2 <- function(node1, node2, ties, attr1, start, end){
+  require(gnevar)
+  
+  dat <- lapply(paste(start:end,"-01-01",sep=""), function(t)  slice(node1, node2, ties, time=t) )
+  attr <- mapply(function(t, dat)      structure(attr1[attr1$date==t & attr1$iso3c %in% rownames(dat),"value"], 
+                                                 names=attr1[attr1$date==t & attr1$iso3c %in% rownames(dat),"iso3c"]),
+                 as.character(start:end), dat)
+  attr <- mapply(function(attr, dat) attr[match(rownames(dat),names(attr))], attr, dat)
+
+  out <- mapply(function(dat, attr) c(Coherence=twomode_clustering(dat),
+                          Dominance=twomode_dominance(dat, attr)),
+         dat, attr)
+  
+  return(as.data.frame(t(out)))
 }

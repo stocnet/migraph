@@ -16,7 +16,8 @@ This function allows you to calculate how much two-mode clustering there is.
 twomode_clustering(matrix)
 }
 \seealso{
-Other two-mode functions: \code{\link{twomode_coherence}},
+Other two-mode functions: \code{\link{twomode_2x2}},
+  \code{\link{twomode_coherence}},
   \code{\link{twomode_constraint}},
   \code{\link{twomode_dominance}},
   \code{\link{twomode_fragmentation}},

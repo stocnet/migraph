@@ -16,7 +16,8 @@ This function allows you to express your love of lattices.
 twomode_lattice(matrix)
 }
 \seealso{
-Other two-mode functions: \code{\link{twomode_clustering}},
+Other two-mode functions: \code{\link{twomode_2x2}},
+  \code{\link{twomode_clustering}},
   \code{\link{twomode_coherence}},
   \code{\link{twomode_constraint}},
   \code{\link{twomode_dominance}},
