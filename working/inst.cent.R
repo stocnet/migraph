@@ -102,61 +102,42 @@ library(gnevar)
 library(ggplot2)
 # plot_twomode(slice(node1=stat_actor, node2=envr_agree, ties=envr_membs, time="2008-01-01"))
 
-envr_topo <- vector()
-for (t in 1950:2010){
-  temp <- slice(node1=stat_actor, node2=envr_agree, ties=envr_membs, time=paste(t,"-01-01",sep=""))
-  envr_topo <- rbind(envr_topo,
-                     c(Coherence=twomode_clustering(temp), Dominance=twomode_dominance(temp), Year=t))
-}
-envr_topo <- as.data.frame(envr_topo)
+library(wbstats)
+gdp_data <- wb(country = unique(stat_actor$StatID),
+               indicator = "NY.GDP.MKTP.CD", startdate = 1960, enddate = 2018)
+mil_data <- wb(country = unique(stat_actor$StatID),
+               indicator = "MS.MIL.XPND.CN", startdate = 1960, enddate = 2018)
+wtr_data <- wb(country = unique(stat_actor$StatID),
+               indicator = "ER.GDP.FWTL.M3.KD", startdate = 1960, enddate = 2018)
+fsh_data <- wb(country = unique(stat_actor$StatID),
+               indicator = "ER.FSH.CAPT.MT", startdate = 1960, enddate = 2018)
+tex_data <- wb(country = unique(stat_actor$StatID),
+               indicator = "NE.EXP.GNFS.CD", startdate = 1960, enddate = 2018)
+tim_data <- wb(country = unique(stat_actor$StatID),
+               indicator = "NE.IMP.GNFS.CD", startdate = 1960, enddate = 2018)
+
+envr_topo <- twomode_2x2(stat_actor, envr_agree, envr_membs, gdp_data, 1960, 2010)
 plot_2x2(envr_topo)
 ggsave("~/Dropbox/Research/Project EPSION/TopoTypo/envr_topo.pdf",width=8,height=8)
   
 fish_agree <- envr_agree[grepl("Fish",envr_agree$Subject),]
 fish_membs <- envr_membs[envr_membs$MitchID %in% fish_agree$MitchID,]
-fish_topo <- vector()
-for (t in 1950:2010){
-  temp <- slice(node1=stat_actor, node2=fish_agree, ties=fish_membs, time=paste(t,"-01-01",sep=""))
-  fish_topo <- rbind(fish_topo,
-                     c(Coherence=twomode_clustering(temp), Dominance=twomode_dominance(temp), Year=t))
-}
-fish_topo <- as.data.frame(fish_topo)
+fish_topo <- twomode_2x2(stat_actor, fish_agree, fish_membs, fsh_data, 1960, 2010)
 plot_2x2(fish_topo)
 ggsave("~/Dropbox/Research/Project EPSION/TopoTypo/fish_topo.pdf",width=8,height=8)
 
-watr_agree <- envr_agree[grepl("Freshwater",envr_agree$Subject),]
-watr_membs <- envr_membs[envr_membs$MitchID %in% watr_agree$MitchID,]
-watr_topo <- vector()
-for (t in 1950:2010){
-  temp <- slice(node1=stat_actor, node2=watr_agree, ties=watr_membs, time=paste(t,"-01-01",sep=""))
-  watr_topo <- rbind(watr_topo,
-                     c(Coherence=twomode_clustering(temp), Dominance=twomode_dominance(temp), Year=t))
-}
-watr_topo <- as.data.frame(watr_topo)
-plot_2x2(watr_topo)
-ggsave("~/Dropbox/Research/Project EPSION/TopoTypo/watr_topo.pdf",width=8,height=8)
+# watr_agree <- envr_agree[grepl("Freshwater",envr_agree$Subject),]
+# watr_membs <- envr_membs[envr_membs$MitchID %in% watr_agree$MitchID,]
+# watr_topo <- twomode_2x2(stat_actor, watr_agree, watr_membs, wtr_data, 1960, 2010)
+# plot_2x2(watr_topo)
+# ggsave("~/Dropbox/Research/Project EPSION/TopoTypo/watr_topo.pdf",width=8,height=8)
 
-trad_topo <- vector()
-for (t in 1960:2010){
-  temp <- slice(node1=stat_actor, node2=trad_agree, ties=trad_membs, time=paste(t,"-01-01",sep=""))
-  trad_topo <- rbind(trad_topo,
-                     c(Coherence=twomode_clustering(temp), Dominance=twomode_dominance(temp), Year=t))
-}
-trad_topo <- as.data.frame(trad_topo)
+trad_topo <- twomode_2x2(stat_actor, trad_agree, trad_membs, tim_data, 1960, 2010)
 plot_2x2(trad_topo)
 ggsave("~/Dropbox/Research/Project EPSION/TopoTypo/trad_topo.pdf",width=8,height=8)
 
-ally_topo <- vector()
-for (t in 1950:2010){
-  temp <- slice(node1=stat_actor, node2=ally_agree, ties=ally_membs, time=paste(t,"-01-01",sep=""))
-  ally_topo <- rbind(ally_topo,
-                     c(Coherence=twomode_clustering(temp), Dominance=twomode_dominance(temp), Year=t))
-}
-ally_topo <- as.data.frame(ally_topo)
+ally_topo <- twomode_2x2(stat_actor, ally_agree, ally_membs, mil_data, 1960, 2010)
 plot_2x2(ally_topo)
 ggsave("~/Dropbox/Research/Project EPSION/TopoTypo/ally_topo.pdf",width=8,height=8)
-
-
-str(ally_agree)
 
 

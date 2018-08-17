@@ -3,6 +3,7 @@
 export(arrange.vars)
 export(plot_2x2)
 export(plot_twomode)
+export(twomode_2x2)
 export(twomode_centralization_between)
 export(twomode_centralization_degree)
 export(twomode_clustering)

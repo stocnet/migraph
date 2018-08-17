@@ -43,13 +43,18 @@ plot_twomode <- function(mat, greyscale=T, ...){
 #' @details Makes for clearer communication of structure than ggplot2 defaults
 #' @examples
 #' \dontrun{
-#' plot_2x2(dat)
+#' library(gnevar)
+#' library(wbstats)
+#' mil_data <- wb(country = unique(stat_actor$StatID), indicator = "MS.MIL.XPND.CN", startdate = 1960, enddate = 2018)
+#' ally_topo <- twomode_2x2(stat_actor, ally_agree, ally_membs, mil_data, 1960, 2018)
+#' plot_2x2(ally_topo)
 #' }
 #' @import ggplot2
 #' @export 
 plot_2x2 <- function(dat){
   require(ggplot2)
-  ggplot(dat, aes_string(x=names(dat)[1], y=names(dat)[2])) + geom_path() + 
+  ggplot(dat, aes_string(x=names(dat)[1], y=names(dat)[2])) + geom_path(arrow = arrow(angle=15, type="closed", color=)) + 
+    geom_point(size=5, aes(colour=YEAR)) +
     scale_x_continuous(limits = c(0,1)) + scale_y_continuous(limits = c(0,1)) +
     theme_minimal() + geom_vline(xintercept = .5, color="darkgrey") + geom_hline(yintercept = .5, color="darkgrey")
 }
