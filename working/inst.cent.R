@@ -32,9 +32,9 @@ mat.some[4:5,5] <- 1
 
 mat.side <- matrix(0,4,4)
 mat.side[1:4,1] <- 1
-mat.side[3,2] <- 1
-mat.side[4,3] <- 1
-mat.side[1,4] <- 1
+mat.side[1,2] <- 1
+mat.side[2,3] <- 1
+mat.side[3,4] <- 1
 
 mat.link <- matrix(0,4,4)
 mat.link[1:2,1] <- 1
@@ -80,20 +80,33 @@ plot_twomode(mat.only, main="mat.only",
                  sep = "\n"))
 # dev.off()
 
-pdf("~/Desktop/2x2typo.pdf", width=11, height=8)
+attr.diff <- c(1,1,1,4)
+attr.ramp <- c(1,2,3,4)
+attr.pole <- c(1,1,2,2)
+attr.even <- c(1,1,1,1)
+
+pdf("~/Dropbox/Research/Project EPSION/TopoTypo/2x2typo.pdf", width=8, height=8)
 par(mfrow = c(2,2))
-plot_twomode(mat.side, main="High Dom, Low Coh",
-             sub = paste(round(twomode_dominance(mat.side),2), round(twomode_clustering(mat.side),2),
-                         sep = ", "))
-plot_twomode(mat.sole, main="High Dom, High Coh",
-             sub = paste(round(twomode_dominance(mat.sole),2), round(twomode_clustering(mat.sole),2),
-                         sep = ", "))
-plot_twomode(mat.link, main="Low Dom, Low Coh",
-             sub = paste(round(twomode_dominance(mat.link),2), round(twomode_clustering(mat.link),2),
-                         sep = ", "))
-plot_twomode(mat.pole, main="Low Dom, High Coh",
-             sub = paste(round(twomode_dominance(mat.pole),2), round(twomode_clustering(mat.pole),2),
-                         sep = ", "))
+plot_twomode(mat.side, c(attr.ramp,attr.diff)*10, main="High Dominance, Low Coherence"
+             ,sub = paste(round(twomode_dominance(mat.side, attr.diff),2), 
+                          round(twomode_coherence(mat.side, attr.even),2),
+             sep = ", ")
+)
+plot_twomode(mat.sole, c(attr.ramp,attr.diff)*10, main="High Dominance, High Coherence"
+             ,sub = paste(round(twomode_dominance(mat.sole),2), 
+                          round(twomode_coherence(mat.sole, attr.ramp),2),
+             sep = ", ")
+)
+plot_twomode(mat.link, c(attr.ramp,attr.even)*10, main="Low Dominance, Low Coherence"
+             ,sub = paste(round(twomode_dominance(mat.link, attr.even),2), 
+                          round(twomode_coherence(mat.link, attr.ramp),2),
+             sep = ", ")
+)
+plot_twomode(mat.pole, c(attr.pole,attr.even)*10, main="Low Dominance, High Coherence"
+             ,sub = paste(round(twomode_dominance(mat.pole, attr.even),2), 
+                          round(twomode_coherence(mat.pole, attr.pole),2),
+             sep = ", ")
+)
 dev.off()
 
 # Analyse real data
