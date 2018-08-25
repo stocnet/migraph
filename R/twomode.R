@@ -358,15 +358,19 @@ twomode_coherence <- function(mat, attr=NULL){
 twomode_2x2 <- function(node1, node2, ties, attr1, start, end){
   require(gnevar)
   
-  dat <- lapply(paste(start:end,"-01-01",sep=""), function(t)  slice(node1, node2, ties, time=t) )
+  # dat <- lapply(paste(start:end,"-01-01",sep=""), function(t)  as.matrix(slice(node1, node2, ties, time=t)) )
+  # Just for while there are data issues:
+  dat <- lapply(paste(start:end,"-01-01",sep=""), function(t)  as.matrix(slice(node1, node2, ties, time=t)[,colSums(slice(node1, node2, ties, time=t))>1] ))
+  dat <- lapply(dat, function(dat) (dat>0)*1 )
   attr <- mapply(function(t, dat)      structure(attr1[attr1$date==t & attr1$iso3c %in% rownames(dat),"value"], 
                                                  names=attr1[attr1$date==t & attr1$iso3c %in% rownames(dat),"iso3c"]),
                  as.character(start:end), dat)
   attr <- mapply(function(attr, dat) attr[match(rownames(dat),names(attr))], attr, dat)
 
-  out <- mapply(function(dat, attr) c(Coherence=twomode_clustering(dat),
-                          Dominance=twomode_dominance(dat, attr)),
-         dat, attr)
+  out <- mapply(function(dat, attr, t) c(Coherence=twomode_coherence(dat),
+                          Dominance=twomode_dominance(dat, attr),
+                          Year=t),
+         dat, attr, t=start:end)
   
   return(as.data.frame(t(out)))
 }
