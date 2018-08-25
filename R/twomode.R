@@ -231,7 +231,7 @@ twomode_constraint <- function(mat){
     return(res)
   }
 
-#' Two-mode fragmentation
+#' Two-mode components
 #' 
 #' This function identifies components in a two-mode network.
 #' @param mat A matrix
@@ -242,11 +242,16 @@ twomode_constraint <- function(mat){
 #' Use a transposed matrix to return values for the other dimension/mode.
 #' @family two-mode functions
 #' @examples 
-#' twomode_fragmentation(mat)
+#' twomode_components(mat)
 #' @export 
-twomode_fragmentation <- function(mat){
+twomode_components <- function(mat){
   # components - how many institutional fragments do we have?
-  m <- ncol(mat)
+  if(is.matrix(mat)){
+    m <- ncol(mat)
+    } else {
+    m <- 1
+  }
+
   twopaths <- crossprod(mat)
   twopaths[lower.tri(twopaths)] <- 0
   diag(twopaths) <- 1
