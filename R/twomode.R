@@ -101,6 +101,8 @@ twomode_dominance <- function(mat, attr = NULL){
   
   # If attribute absent, use 1s
   if (is.null(attr)) attr <- rep(1, n)
+  # If attribute missing, use 0s
+  attr[is.na(attr)] <- 0
 
   # Get distributions
   msum <- colSums(mat*attr, na.rm = T)
