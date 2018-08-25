@@ -14,7 +14,7 @@
 #' }
 #' @import igraph
 #' @export 
-plot_twomode <- function(mat, greyscale=T, ...){
+plot_twomode <- function(mat, attr, greyscale=T, ...){
   
   require(igraph)
 
@@ -28,7 +28,8 @@ plot_twomode <- function(mat, greyscale=T, ...){
   
   plot(graph_from_incidence_matrix(t(mat)), ...,
                               layout = layout_as_bipartite,
-                              vertex.frame.color=frames, vertex.label=NA, 
+                              vertex.frame.color=frames, vertex.label=NA,
+       vertex.size=attr,
        # if(nrow(mat)<20 & ncol(mat)<20) {vertex.size=20,}
                               vertex.shape=c(rep("square",ncol(mat)),rep("circle",nrow(mat))),
                               vertex.color=colors
@@ -51,10 +52,16 @@ plot_twomode <- function(mat, greyscale=T, ...){
 #' }
 #' @import ggplot2
 #' @export 
-plot_2x2 <- function(dat){
+plot_2x2 <- function(dat, colour="red"){
   require(ggplot2)
-  ggplot(dat, aes_string(x=names(dat)[1], y=names(dat)[2])) + geom_path(arrow = arrow(angle=15, type="closed", color=)) + 
-    geom_point(size=5, aes(colour=YEAR)) +
+  ggplot(dat, aes_string(x=names(dat)[1], y=names(dat)[2])) + 
+    geom_path(#aes_string(color=names(dat)[3])#, 
+              # arrow = arrow(angle=15, type="closed")
+      color=colour
+              ) + 
+    annotate("text", x=dat[1,1], y=dat[1,2], label=dat[1,3]) +
+    annotate("text", x=dat[dat[,3]==1990,1], y=dat[dat[,3]==1990,2], label=dat[dat[,3]==1990,3]) +
+    annotate("text", x=dat[nrow(dat),1], y=dat[nrow(dat),2], label=dat[nrow(dat),3]) +
     scale_x_continuous(limits = c(0,1)) + scale_y_continuous(limits = c(0,1)) +
     theme_minimal() + geom_vline(xintercept = .5, color="darkgrey") + geom_hline(yintercept = .5, color="darkgrey")
 }
