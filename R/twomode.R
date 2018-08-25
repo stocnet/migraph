@@ -290,28 +290,44 @@ twomode_components <- function(mat){
 #' @family two-mode functions
 #' @seealso twomode_fragmentation
 #' @examples 
-#' twomode_coherence(mat)
+#' twomode_coherence(mat, attr)
 #' @export 
-twomode_coherence <- function(mat){
+twomode_coherence <- function(mat, attr=NULL){
   
+  if(is.null(attr) & is.matrix(mat)) attr <- rep(1,ncol(mat))
+  if(is.null(attr) & !is.matrix(mat)) attr <- 1
+  
+  # Get components
   frag <- twomode_fragmentation(mat)
+  comps <- lapply(1:frag$components, function(c) mat[, frag$membership$node[frag$membership$comp==c]])
+  size <- sapply(1:frag$components, function(x) (sum(frag$membership$comp==x)/max(frag$membership$node)) )
+  atts <- lapply(1:frag$components, function(c) attr[frag$membership$comp==c])
   
-  comp.coh <- vector()
-  for (c in 1:frag$components){
+  # Jaccard function
+  jaccard <- function(M, user1, user2) {
+    sums = rowSums(M[,c(user1, user2)])
     
-    if (sum(frag$membership$comp==c) > 1){
-      mat.comp <- mat[, frag$membership$node[frag$membership$comp==c]]
-      
-      if(any(colSums(mat.comp)==nrow(mat.comp))) mat.comp <- rbind(mat.comp,0,1)
-      
-      comp.coh <- c(comp.coh, mean(cor(mat.comp)[lower.tri(cor(mat.comp))]) )
-    } else {
-      comp.coh <- c(comp.coh, 1)
-    }
+    similarity = length(sums[sums==2])
+    total = length(sums[sums==1]) + similarity
+    
+    similarity/total
   }
-  return((mean(comp.coh)+1)/2)
+  
+  # Get mean similarity within each component
+  sim <- mapply(function(comps, atts) if(is.matrix(comps)){
+    mean( # Average sim across all institution pairs
+      sapply(combn(ncol(comps),2, simplify = F), # For each institution pair
+             function(x) jaccard(comps, x[1], x[2]) * # Membership similarity [0,1]
+               ((((atts[x[1]]==atts[x[2]])*1)-.5)*2) # Mandate similarity [-1,1]
+      ) 
+    )
+  } else {
+    1 # No other institutions in component, must be coherent
+  }, comps, atts)
+  
+  sim <- (sum(sim * size)+1)/2
+  return(sim)
 }
-
 
 #' Two-mode two-by-two analysis
 #' 
