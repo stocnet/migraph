@@ -109,10 +109,18 @@ plot_twomode(mat.pole, c(attr.pole,attr.even)*10, main="Low Dominance, High Cohe
 )
 dev.off()
 
+# is it that the relationship of institutions between actors should be consistent
+# (i.e. two actors share similar or dissimilar institutions?)
+# or that the relationship of institutions within actors should be consistent (current)
+# (i.e. are actors members of similar or dissimilar institutions?)
+
 # Analyse real data
 # rm(list=ls())
 library(gnevar)
+data(list = data(package = "gnevar")$results[,3])
+
 library(ggplot2)
+library(bipartite)
 # plot_twomode(slice(node1=stat_actor, node2=envr_agree, ties=envr_membs, time="2008-01-01"))
 
 library(wbstats)
@@ -133,24 +141,38 @@ envr_topo <- twomode_2x2(stat_actor, envr_agree, envr_membs, gdp_data, 1960, 201
 plot_2x2(envr_topo)
 ggsave("~/Dropbox/Research/Project EPSION/TopoTypo/envr_topo.pdf",width=8,height=8)
   
-fish_agree <- envr_agree[grepl("Fish",envr_agree$Subject),]
-fish_membs <- envr_membs[envr_membs$MitchID %in% fish_agree$MitchID,]
-fish_topo <- twomode_2x2(stat_actor, fish_agree, fish_membs, fsh_data, 1960, 2010)
-plot_2x2(fish_topo)
-ggsave("~/Dropbox/Research/Project EPSION/TopoTypo/fish_topo.pdf",width=8,height=8)
-
 # watr_agree <- envr_agree[grepl("Freshwater",envr_agree$Subject),]
 # watr_membs <- envr_membs[envr_membs$MitchID %in% watr_agree$MitchID,]
 # watr_topo <- twomode_2x2(stat_actor, watr_agree, watr_membs, wtr_data, 1960, 2010)
 # plot_2x2(watr_topo)
-# ggsave("~/Dropbox/Research/Project EPSION/TopoTypo/watr_topo.pdf",width=8,height=8)
+# ggsave("~/Dropbox/Research/Project EPSION/TopoTypo/watr_topo2.pdf",width=8,height=8)
+
+fish_agree <- envr_agree[grepl("Fish",envr_agree$Subject),]
+fish_membs <- envr_membs[envr_membs$MitchID %in% fish_agree$MitchID,]
+fish_topo <- twomode_2x2(stat_actor, fish_agree, fish_membs, fsh_data, 1960, 2010)
+plot_2x2(fish_topo, colour = "forestgreen")
+ggsave("~/Dropbox/Research/Project EPSION/TopoTypo/fish_topo2.pdf",width=8,height=8)
+pdf("~/Dropbox/Research/Project EPSION/TopoTypo/fish_panel.pdf", width=11, height=8)
+par(mfrow=c(1,2))
+plotweb(slice(stat_actor, fish_agree, fish_membs, 1960)[,colSums(slice(stat_actor, fish_agree, fish_membs, 1960))>1])
+plotweb(slice(stat_actor, fish_agree, fish_membs, 2010)[,colSums(slice(stat_actor, fish_agree, fish_membs, 2010))>1])
+dev.off()
 
 trad_topo <- twomode_2x2(stat_actor, trad_agree, trad_membs, tim_data, 1960, 2010)
-plot_2x2(trad_topo)
-ggsave("~/Dropbox/Research/Project EPSION/TopoTypo/trad_topo.pdf",width=8,height=8)
+plot_2x2(trad_topo, colour = "blue")
+ggsave("~/Dropbox/Research/Project EPSION/TopoTypo/trad_topo2.pdf",width=8,height=8)
+pdf("~/Dropbox/Research/Project EPSION/TopoTypo/trad_panel.pdf", width=11, height=8)
+par(mfrow=c(1,2))
+plotweb(slice(stat_actor, trad_agree, trad_membs, 1960)[,colSums(slice(stat_actor, trad_agree, trad_membs, 1960))>1])
+plotweb(slice(stat_actor, trad_agree, trad_membs, 2010)[,colSums(slice(stat_actor, trad_agree, trad_membs, 2010))>1])
+dev.off()
 
 ally_topo <- twomode_2x2(stat_actor, ally_agree, ally_membs, mil_data, 1960, 2010)
-plot_2x2(ally_topo)
-ggsave("~/Dropbox/Research/Project EPSION/TopoTypo/ally_topo.pdf",width=8,height=8)
-
+plot_2x2(ally_topo, colour = "red")
+ggsave("~/Dropbox/Research/Project EPSION/TopoTypo/ally_topo2.pdf",width=8,height=8)
+pdf("~/Dropbox/Research/Project EPSION/TopoTypo/ally_panel.pdf", width=11, height=8)
+par(mfrow=c(1,2))
+plotweb(slice(stat_actor, ally_agree, ally_membs, 1960)[,colSums(slice(stat_actor, ally_agree, ally_membs, 1960))>1])
+plotweb(slice(stat_actor, ally_agree, ally_membs, 2010)[,colSums(slice(stat_actor, ally_agree, ally_membs, 2010))>1])
+dev.off()
 
