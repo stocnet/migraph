@@ -4,7 +4,7 @@
 \alias{twomode_coherence}
 \title{Two-mode coherence}
 \usage{
-twomode_coherence(mat)
+twomode_coherence(mat, attr = NULL)
 }
 \arguments{
 \item{mat}{A matrix}
@@ -20,16 +20,18 @@ Note that this function applies only to one dimension/mode (the columns).
 Use a transposed matrix to return values for the other dimension/mode.
 }
 \examples{
-twomode_coherence(mat)
+twomode_coherence(mat, attr)
 }
 \seealso{
 twomode_fragmentation
 
 Other two-mode functions: \code{\link{twomode_2x2}},
   \code{\link{twomode_clustering}},
+  \code{\link{twomode_components}},
   \code{\link{twomode_constraint}},
   \code{\link{twomode_dominance}},
-  \code{\link{twomode_fragmentation}},
   \code{\link{twomode_lattice}},
+  \code{\link{twomode_modularity}},
   \code{\link{twomode_smallworld}}
 }
+\concept{two-mode functions}

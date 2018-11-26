@@ -4,7 +4,7 @@
 \alias{twomode_2x2}
 \title{Two-mode two-by-two analysis}
 \usage{
-twomode_2x2(node1, node2, ties, attr1, start, end)
+twomode_2x2(node1, node2, ties, attr1, attr2, start, end)
 }
 \arguments{
 \item{node1}{First nodeset object (will become matrix rows)}
@@ -47,9 +47,11 @@ twomode_dominance
 
 Other two-mode functions: \code{\link{twomode_clustering}},
   \code{\link{twomode_coherence}},
+  \code{\link{twomode_components}},
   \code{\link{twomode_constraint}},
   \code{\link{twomode_dominance}},
-  \code{\link{twomode_fragmentation}},
   \code{\link{twomode_lattice}},
+  \code{\link{twomode_modularity}},
   \code{\link{twomode_smallworld}}
 }
+\concept{two-mode functions}

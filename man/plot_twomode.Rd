@@ -4,7 +4,7 @@
 \alias{plot_twomode}
 \title{Plotting two-mode networks}
 \usage{
-plot_twomode(mat, greyscale = T, ...)
+plot_twomode(mat, attr, greyscale = T, ...)
 }
 \arguments{
 \item{mat}{A matrix}

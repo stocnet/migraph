@@ -4,7 +4,7 @@
 \alias{plot_2x2}
 \title{Plotting two-by-two plots}
 \usage{
-plot_2x2(dat)
+plot_2x2(dat, colour = "red")
 }
 \arguments{
 \item{dat}{A data.frame}
