@@ -66,3 +66,39 @@ plot_2x2 <- function(dat, colour="red"){
     theme_minimal() + geom_vline(xintercept = .5, color="darkgrey") + geom_hline(yintercept = .5, color="darkgrey")
 }
 
+#' Plotting multilevel networks
+#' 
+#' Plotting of a two-mode network with multilevel structure revealed
+#' @param mat An incidence matrix
+#' @return A plot
+#' @details Removes all isolates to clarify structure. 
+#' Relies on Fruchterman-Rheingold to give initial coordinates, 
+#' which is then rotated around the x-axis.
+#' TODO: Allow more than two levels to be plotted at once.
+#' @examples
+#' \dontrun{
+#' plot_multilevel(mat)
+#' }
+#' @import igraph
+#' @export 
+plot_multilevel <- function(mat,levels=NULL){
+  require(igraph)
+  if(is.null(levels)) stop("Level specification not currently allowed")#c(rep(0,nrow(mat)), rep(1,ncol(mat)))
+  
+  g <- graph_from_incidence_matrix(t(mat))
+  g <- delete_vertices(g, degree(g)==0)
+  f <- layout_with_fr(g)
+  f <- cbind(f, (!V(g)$type)*12)
+  rot <- rbind(c(1, 0, 0),
+               c(0, cos(45), -sin(45)),
+               c(0, sin(45), cos(45))
+               )
+  
+  f <- f %*% rot
+  plot(g, vertex.frame.color=NA, vertex.label=NA, vertex.size=3,
+       vertex.color=c(rep("blue",ncol(mat)),rep("green",nrow(mat))),
+       vertex.shape=c(rep("square",ncol(mat)),rep("circle",nrow(mat))),
+       layout = f)
+  
+}
+
