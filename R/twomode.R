@@ -374,3 +374,89 @@ twomode_2x2 <- function(node1, node2, ties, attr1, start, end){
   
   return(as.data.frame(t(out)))
 }
+
+
+#' Two-mode modularity
+#' 
+#' This function calculates modularity of two-mode networks.
+#' A vector of group assignment can be given for one of the two
+#' node sets which will make assignment more rapid. 
+#' @param mat A matrix
+#' @param attr A vector of group assignment for the second mode node set (by default)
+#' @return A modularity score
+#' @details Note that this function has defaults that make sense for use with 
+#' the gnevar datasets. Please contact me if you would like to make this function
+#' more general.
+#' @family two-mode functions
+#' @seealso twomode_coherence
+#' @seealso twomode_dominance
+#' @examples 
+#' \dontrun{
+#' twomode_modularity(mat, attr)
+#' }
+#' @export 
+twomode_modularity <- function(mat,attr=NULL){ #,attr2=NULL
+  
+  # Start with C
+  if(is.null(attr) | all(attr==1)){
+    C <- as.matrix(table(1:ncol(mat),1:ncol(mat)))
+  } else {
+    C <- as.matrix(table(1:ncol(mat),attr))
+  }
+  
+  # Get expected
+  M <- sum(mat)
+  E <- (matrix(rowSums(mat),nrow(mat),ncol(mat), byrow = F) * 
+          matrix(colSums(mat),nrow(mat),ncol(mat), byrow = T)) / M
+  B <- (mat-E)
+  
+  # Assign Rs
+  R <- B%*%C
+  R <- apply(R, 1, function(x){
+    if (length(which(x==max(x))) == 1) {
+      return(which(x==max(x)))
+    } else {
+      return(sample(which(x==max(x)), 1))
+    }
+  })
+  R <- as.matrix(table(R,1:nrow(mat)))
+  
+  # Calculate Q
+  Q <- sum(diag(R%*%B%*%C)) * (1/(M/2)) # Get modularity score from trace
+  
+  # If no attr, assign Cs
+  if(is.null(attr) | all(attr==1)){
+    repeat{
+    C <- R%*%B
+    C <- apply(C, 2, function(x){
+      if (length(which(x==max(x))) == 1) {
+        return(which(x==max(x)))
+      } else {
+        return(sample(which(x==max(x)), 1))
+      }
+    })
+    C <- as.matrix(table(1:ncol(mat),C))
+    
+    R <- B%*%C
+    R <- apply(R, 1, function(x){
+      if (length(which(x==max(x))) == 1) {
+        return(which(x==max(x)))
+      } else {
+        return(sample(which(x==max(x)), 1))
+      }
+    })
+    R <- as.matrix(table(R,1:nrow(mat)))
+    
+    if(sum(diag(R%*%B%*%C)) * (1/M)==Q){break} else {
+    Q <- sum(diag(R%*%B%*%C)) * (1/M)
+    }
+    }
+  }
+  
+  # Q <- Q / (sum(diag(R%*%(M-E)%*%C)) * (1/M))
+  Q <- (Q+1)/2
+  # Qmax <- (sum(diag(R%*%(M-E)%*%C)) * (1/M)) #Normalise by max poss for given degree distribution
+  # Qmax <- (Qmax+1)/2
+  # Q <- Q/Qmax
+  Q
+}
