@@ -116,6 +116,29 @@ twomode_dominance <- function(mat, attr = NULL){
   return(out)
 }
 
+twomode_dominance_bilatbase <- function(mat, attr = NULL){
+  
+  # Get dimensions
+  n <- nrow(mat)
+  m <- ncol(mat)
+  
+  # If attribute absent, use 1s
+  if (is.null(attr)) attr <- rep(1, n)
+  # If attribute missing, use 0s
+  attr[is.na(attr)] <- 0
+  
+  # Get distributions
+  msum <- colSums(mat*attr, na.rm = T)
+  
+  if(m > 1){
+    out <- sum(max(msum)-msum) / ((sum(attr, na.rm = T) - 2)*(m-1))
+  } else {
+    out <- msum / sum(attr, na.rm = T)
+  }
+  
+  return(out)
+}
+
 #' Two-mode degree centralization
 #'
 #' This function allows you to calculate how (degree) centralized a two-mode graph is.
@@ -351,26 +374,30 @@ twomode_coherence <- function(mat, attr=NULL){
 #' library(gnevar)
 #' library(wbstats)
 #' mil_data <- wb(country = unique(stat_actor$StatID), indicator = "MS.MIL.XPND.CN", startdate = 1960, enddate = 2018)
-#' ally_topo <- twomode_2x2(stat_actor, ally_agree, ally_membs, mil_data, 1960, 2018)
+#' ally_secs <- as.numeric(factor(ally_agree$Secretariat))
+#' ally_topo <- twomode_2x2(stat_actor, ally_agree, ally_membs, mil_data, ally_secs, 1960, 2018)
 #' plot_2x2(ally_topo)
 #' }
 #' @export 
-twomode_2x2 <- function(node1, node2, ties, attr1, start, end){
+twomode_2x2 <- function(node1, node2, ties, attr1, attr2, start, end){
   require(gnevar)
   
   # dat <- lapply(paste(start:end,"-01-01",sep=""), function(t)  as.matrix(slice(node1, node2, ties, time=t)) )
   # Just for while there are data issues:
   dat <- lapply(paste(start:end,"-01-01",sep=""), function(t)  as.matrix(slice(node1, node2, ties, time=t)[,colSums(slice(node1, node2, ties, time=t))>1] ))
   dat <- lapply(dat, function(dat) (dat>0)*1 )
-  attr <- mapply(function(t, dat)      structure(attr1[attr1$date==t & attr1$iso3c %in% rownames(dat),"value"], 
+  
+  attr1 <- mapply(function(t, dat)      structure(attr1[attr1$date==t & attr1$iso3c %in% rownames(dat),"value"], 
                                                  names=attr1[attr1$date==t & attr1$iso3c %in% rownames(dat),"iso3c"]),
                  as.character(start:end), dat)
-  attr <- mapply(function(attr, dat) attr[match(rownames(dat),names(attr))], attr, dat)
+  attr1 <- mapply(function(attr1, dat) attr1[match(rownames(dat),names(attr1))], attr1, dat)
 
-  out <- mapply(function(dat, attr, t) c(Coherence=twomode_coherence(dat),
-                          Dominance=twomode_dominance(dat, attr),
+  attr2 <- mapply(function(t, dat) attr2[attr2[,1] %in% colnames(dat), 2], attr2, dat)
+  
+  out <- mapply(function(dat, attr1, attr2, t) c(Coherence=twomode_modularity(dat, attr2),
+                          Dominance=twomode_dominance(dat, attr1),
                           Year=t),
-         dat, attr, t=start:end)
+         dat, attr1, attr2, t=start:end)
   
   return(as.data.frame(t(out)))
 }
