@@ -101,6 +101,10 @@ plot_multilevel <- function(mat,levels=NULL){
        vertex.shape=c(rep("square",ncol(mat)),rep("circle",nrow(mat))),
        layout = f)
   
+  
+  
+  
+  
 }
 
 #' Plotting multilevel networks on a globe
