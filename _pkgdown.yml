@@ -1,0 +1,36 @@
+destination: ../../bitbucketio/roctopus/
+url: https://jhollway.bitbucket.io/roctopus/
+development:
+    mode: auto
+template:
+  params:
+    bootswatch: superhero
+navbar:
+  structure:
+    left:
+    - home
+    - intro
+    - reference
+    - articles
+    - tutorials
+    - news
+    right: github
+  components:
+    home:
+      icon: fa-home fa-lg
+      href: index.html
+    reference:
+      text: Reference
+      href: reference/index.html
+    news:
+      text: News
+      href: news/index.html
+reference:
+  - title: "Analysis"
+    desc: "Functions for analysing multilevel networks:"
+    contents:
+      - starts_with("twomode_")
+  - title: "Visualisation"
+    desc: "Functions for visualising multilevel networks:"
+    contents:
+      - starts_with("plot")
