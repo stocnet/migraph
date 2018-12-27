@@ -1,6 +1,6 @@
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
-# roctopus
+# roctopus <img src="man/figures/logo.png" width="240px" height="278px" align="right" />
 
 ## About the package
 
