@@ -10,7 +10,7 @@
 #' and avoiding labels.
 #' @examples
 #' \dontrun{
-#' plot_twomode(mat)
+#' plot_twomode(create_lattice(6,12))
 #' }
 #' @import igraph
 #' @export 
@@ -48,7 +48,8 @@ plot_twomode <- function(mat, attr=NULL, greyscale=T, ...){
 #' library(gnevar)
 #' library(wbstats)
 #' mil_data <- wb(country = unique(stat_actor$StatID), indicator = "MS.MIL.XPND.CN", startdate = 1960, enddate = 2018)
-#' ally_topo <- twomode_2x2(stat_actor, ally_agree, ally_membs, mil_data, 1960, 2018)
+#' ally_secs <- structure((!is.na(ally_agree$Secretariat))*1, names=as.character(ally_agree$AtopID))
+#' ally_topo <- twomode_2x2(stat_actor, ally_agree, ally_membs, mil_data, ally_secs, 1960, 2018)
 #' plot_2x2(ally_topo)
 #' }
 #' @import ggplot2
@@ -78,13 +79,13 @@ plot_2x2 <- function(dat, colour="red"){
 #' TODO: Allow more than two levels to be plotted at once.
 #' @examples
 #' \dontrun{
-#' plot_multilevel(mat)
+#' plot_multilevel(create_random(10,12,0.2))
 #' }
 #' @import igraph
 #' @export 
 plot_multilevel <- function(mat,levels=NULL){
   require(igraph)
-  if(is.null(levels)) stop("Level specification not currently allowed")#c(rep(0,nrow(mat)), rep(1,ncol(mat)))
+  if(!is.null(levels)) stop("Level specification not currently allowed")#c(rep(0,nrow(mat)), rep(1,ncol(mat)))
   
   g <- graph_from_incidence_matrix(t(mat))
   g <- delete_vertices(g, degree(g)==0)
@@ -155,7 +156,7 @@ plot_globalnet <- function(edges, actors, time){
   
   globejs(arcs=eg, 
           lat=unname(meg[,3]), long=unname(meg[,4]), color = "#ffff00", #"#920783",
-          img = "/Users/james/Downloads/carte-geographique-du-monde.jpg",
+          img = "inst/carte-geographique-du-monde.jpg",
           arcsColor=c(rep("#C3073F",nrow(beg)),rep("#3500D3",nrow(meg))),
           arcsHeight=0.5, arcsLwd=2, arcsOpacity=0.3,
           atmosphere=F, bg="#C2B9B0")

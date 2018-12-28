@@ -23,6 +23,6 @@ TODO: Allow more than two levels to be plotted at once.
 }
 \examples{
 \dontrun{
-plot_multilevel(mat)
+plot_multilevel(create_random(10,12,0.2))
 }
 }
