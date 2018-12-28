@@ -15,6 +15,8 @@ twomode_2x2(node1, node2, ties, attr1, attr2, start, end)
 
 \item{attr1}{Object containing information on an attribute by year, in long format}
 
+\item{attr2}{Object containing information on an attribute by year, in long format}
+
 \item{start}{Integer, for example a year like 1960}
 
 \item{end}{Integer, for example a year like 2010}
@@ -36,7 +38,7 @@ more general.
 library(gnevar)
 library(wbstats)
 mil_data <- wb(country = unique(stat_actor$StatID), indicator = "MS.MIL.XPND.CN", startdate = 1960, enddate = 2018)
-ally_secs <- as.numeric(factor(ally_agree$Secretariat))
+ally_secs <- structure((!is.na(ally_agree$Secretariat))*1, names=as.character(ally_agree$AtopID))
 ally_topo <- twomode_2x2(stat_actor, ally_agree, ally_membs, mil_data, ally_secs, 1960, 2018)
 plot_2x2(ally_topo)
 }
@@ -51,7 +53,6 @@ Other two-mode functions: \code{\link{twomode_clustering}},
   \code{\link{twomode_components}},
   \code{\link{twomode_constraint}},
   \code{\link{twomode_dominance}},
-  \code{\link{twomode_lattice}},
   \code{\link{twomode_modularity}},
   \code{\link{twomode_smallworld}}
 }

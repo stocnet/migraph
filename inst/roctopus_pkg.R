@@ -12,20 +12,19 @@ sticker("inst/octopus-art-tako.jpg",
 
 # Define roles ####
 library(devtools)
-devtools::install_github("r-lib/desc")
 library(desc)
 desc_del("Authors@R")
 desc_add_author("James","Hollway", email="james.hollway@graduateinstitute.ch",
                 role="cre", orcid="0000-0002-8361-9647", comment = "IHEID")
-desc_add_author("Valentina","Baiamonte", role = "aut", comment = "IHEID")
+desc_add_author("Valentina","Baiamonte", role = "ctb", comment = "IHEID")
 desc_add_role("aut","James","Hollway")
 desc_add_role("ctb","James","Hollway")
+desc_bump_version
 
 # Make website ####
 library(pkgdown)
 build_favicon()
 use_lifecycle_badge("Experimental")
-build_site()
-build_news()
+build_site(run_dont_run = T)
 preview_site()
 use_news_md()

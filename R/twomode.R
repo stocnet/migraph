@@ -1,20 +1,3 @@
-#' Two-mode lattice
-#'
-#' This function allows you to express your love of lattices.
-#' @param m A matrix
-#' @family two-mode functions
-#' @export
-#' @examples
-#' twomode_lattice(matrix)
-twomode_lattice <- function(m){
-  out <- matrix(c(rep(1, sum(m)), 
-                  rep(0, length(m)-sum(m))),
-                nrow(m), ncol(m), byrow = T)
-  out <- rbind(out,rep(0,ncol(out)))
-  out <- matrix(out, nrow(m), ncol(m), byrow = F)
-  out
-}
-
 #' Two-mode clustering
 #'
 #' This function allows you to calculate how much two-mode clustering there is.
@@ -360,6 +343,7 @@ twomode_coherence <- function(mat, attr=NULL){
 #' @param node2 Second nodeset object (will become matrix columns)
 #' @param ties Edgelist of affiliations/memberships of first nodeset in second nodeset
 #' @param attr1 Object containing information on an attribute by year, in long format
+#' @param attr2 Object containing information on an attribute by year, in long format
 #' @param start Integer, for example a year like 1960
 #' @param end Integer, for example a year like 2010
 #' @return A data frame with two columns (Coherence and Dominance)
@@ -374,7 +358,7 @@ twomode_coherence <- function(mat, attr=NULL){
 #' library(gnevar)
 #' library(wbstats)
 #' mil_data <- wb(country = unique(stat_actor$StatID), indicator = "MS.MIL.XPND.CN", startdate = 1960, enddate = 2018)
-#' ally_secs <- as.numeric(factor(ally_agree$Secretariat))
+#' ally_secs <- structure((!is.na(ally_agree$Secretariat))*1, names=as.character(ally_agree$AtopID))
 #' ally_topo <- twomode_2x2(stat_actor, ally_agree, ally_membs, mil_data, ally_secs, 1960, 2018)
 #' plot_2x2(ally_topo)
 #' }
@@ -382,9 +366,9 @@ twomode_coherence <- function(mat, attr=NULL){
 twomode_2x2 <- function(node1, node2, ties, attr1, attr2, start, end){
   require(gnevar)
   
-  # dat <- lapply(paste(start:end,"-01-01",sep=""), function(t)  as.matrix(slice(node1, node2, ties, time=t)) )
+  # dat <- lapply(paste(start:end,"-01-01",sep=""), function(t)  as.matrix(gnevar::snap(node1, node2, ties, time=t)) )
   # Just for while there are data issues:
-  dat <- lapply(paste(start:end,"-01-01",sep=""), function(t)  as.matrix(slice(node1, node2, ties, time=t)[,colSums(slice(node1, node2, ties, time=t))>1] ))
+  dat <- lapply(paste(start:end,"-01-01",sep=""), function(t)  as.matrix(gnevar::snap(node1, node2, ties, time=t)[,colSums(gnevar::snap(node1, node2, ties, time=t))>1] ))
   dat <- lapply(dat, function(dat) (dat>0)*1 )
   
   attr1 <- mapply(function(t, dat)      structure(attr1[attr1$date==t & attr1$iso3c %in% rownames(dat),"value"], 
@@ -392,7 +376,11 @@ twomode_2x2 <- function(node1, node2, ties, attr1, attr2, start, end){
                  as.character(start:end), dat)
   attr1 <- mapply(function(attr1, dat) attr1[match(rownames(dat),names(attr1))], attr1, dat)
 
-  attr2 <- mapply(function(t, dat) attr2[attr2[,1] %in% colnames(dat), 2], attr2, dat)
+  # attr2 <- mapply(function(t, dat)      structure(attr2[attr2$date==t & attr2$iso3c %in% rownames(dat),"value"], 
+  #                                                 names=attr2[attr2$date==t & attr2$iso3c %in% rownames(dat),"iso3c"]),
+  #                 as.character(start:end), dat)
+  attr2 <- lapply(dat, function(x) attr2[match(colnames(dat),names(attr2))])
+  # attr2 <- mapply(function(attr2, dat) attr2[match(colnames(dat),names(attr2))], attr2, dat)
   
   out <- mapply(function(dat, attr1, attr2, t) c(Coherence=twomode_modularity(dat, attr2),
                           Dominance=twomode_dominance(dat, attr1),

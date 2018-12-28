@@ -4,7 +4,7 @@ development:
     mode: auto
 template:
   params:
-    bootswatch: superhero
+    bootswatch: flatly
 navbar:
   structure:
     left:
@@ -26,6 +26,10 @@ navbar:
       text: News
       href: news/index.html
 reference:
+  - title: "Simulation"
+    desc: "Functions for simulating multilevel networks:"
+    contents:
+      - starts_with("create_")
   - title: "Analysis"
     desc: "Functions for analysing multilevel networks:"
     contents:
@@ -33,4 +37,4 @@ reference:
   - title: "Visualisation"
     desc: "Functions for visualising multilevel networks:"
     contents:
-      - starts_with("plot")
+      - starts_with("plot_")

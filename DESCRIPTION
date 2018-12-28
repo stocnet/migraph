@@ -1,6 +1,5 @@
 Package: roctopus
 Title: Utility functions for multimode and multilevel network analysis
-Date: 2018-12-20
 Version: 0.0.4
 Description: This package assembles a number of utility functions for 
    loading, visualising, and analysing multimode, multiplex, and multilevel networks.
@@ -12,6 +11,10 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
 Imports: igraph
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
 Authors@R: 
     c(person(given = "James",
              family = "Hollway",
@@ -20,5 +23,6 @@ Authors@R:
              comment = c("IHEID", ORCID = "0000-0002-8361-9647")),
       person(given = "Valentina",
              family = "Baiamonte",
-             role = "aut",
+             role = "ctb",
              comment = "IHEID"))
+VignetteBuilder: knitr

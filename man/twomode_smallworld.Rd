@@ -40,7 +40,6 @@ Other two-mode functions: \code{\link{twomode_2x2}},
   \code{\link{twomode_components}},
   \code{\link{twomode_constraint}},
   \code{\link{twomode_dominance}},
-  \code{\link{twomode_lattice}},
   \code{\link{twomode_modularity}}
 }
 \concept{two-mode functions}
