@@ -4,20 +4,7 @@
 
 ## About the package
 
-This package assembles functions for analysing and visualising 
-multimode and multilevel networks.
+This package assembles functions for simulating, visualising, and analysing
+multimode and multilevel networks. 
 
-Some of these functions are relied on for the [Topological Typology](https://jhollway.shinyapps.io/TopoTypo/).
-
-## Installation
-
-**roctopus** can be installed using the devtools package:
-
-```R
-devtools::install_bitbucket("jhollway/roctopus", auth_user = "name", password = "password")
-```
-
-Where `"name"` and `"password"` are *your* bitbucket username and password.
-
-You can email me for user access to the repository.
-
+You can find out more from the main website [here](https://jhollway.bitbucket.io/roctopus/index.html)
