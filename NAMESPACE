@@ -2,6 +2,8 @@
 
 export(arrange.vars)
 export(create_lattice)
+export(create_match)
+export(create_nest)
 export(create_poles)
 export(create_random)
 export(plot_2x2)
