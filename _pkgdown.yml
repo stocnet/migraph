@@ -5,6 +5,9 @@ development:
 template:
   params:
     bootswatch: flatly
+    docsearch:
+      api_key: 204dadbc12ed450b5ef1209c8c44b558
+      index_name: roctopus
 navbar:
   structure:
     left:
@@ -30,11 +33,11 @@ reference:
     desc: "Functions for simulating multilevel networks:"
     contents:
       - starts_with("create_")
-  - title: "Analysis"
-    desc: "Functions for analysing multilevel networks:"
-    contents:
-      - starts_with("twomode_")
   - title: "Visualisation"
     desc: "Functions for visualising multilevel networks:"
     contents:
       - starts_with("plot_")
+  - title: "Analysis"
+    desc: "Functions for analysing multilevel networks:"
+    contents:
+      - starts_with("twomode_")
