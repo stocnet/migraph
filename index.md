@@ -5,9 +5,26 @@
 ## About the package
 
 This package assembles functions for simulating, visualising, and analysing
-multimode and multilevel networks. 
+multimode and multilevel networks.
 
 Some of these functions are relied on for the [Topological Typology](https://jhollway.shinyapps.io/TopoTypo/).
+
+## Relation to other software
+
+In many ways, **roctopus** implements many of the functions 
+currently available in **UCINET**,
+but being an R package is platform independent 
+and can be used alongside other R packages for network analysis
+such as `igraph`, the `statnet` suite of packages, `RSiena` and `goldfish`.
+
+While there are other packages available in R for two-mode analysis,
+such as `tnet`, `bipartite`, and others,
+these are not necessarily built for the purpose of *multimodal* network analysis.
+Moreover, they generally implement some but not all of the range of
+measures available for multimodal network analysis.
+
+**roctopus** is part of the [**Suisse Suite**](https://jhollway.bitbucket.io/) 
+of R packages for social and political network analysis and modelling.
 
 ## Installation
 
@@ -22,8 +39,4 @@ where `"name"` and `"password"` are *your* bitbucket username and password.
 
 You can email me for user access to the repository.
 
-
-**roctopus** is part of the **Suisse Suite** of R packages for 
-social and political network analysis and modelling.
-See my other packages [here](https://jhollway.bitbucket.io/)
 

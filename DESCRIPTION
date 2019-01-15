@@ -6,7 +6,7 @@ Description: This package assembles a number of utility functions for
 URL: https://bitbucket.org/jhollway/roctopus/
 BugReports: https://bitbucket.org/jhollway/roctopus/issues
 Depends: R (>= 3.4.0)
-License: file LICENSE
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
