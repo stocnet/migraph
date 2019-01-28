@@ -125,7 +125,7 @@ plot_multilevel <- function(mat,levels=NULL){
 #' @export 
 plot_globalnet <- function(edges, actors, time){
   library(threejs)
-  eg <- edges[edges$MembStart <= time & edges$MembEnd >= time,]
+  eg <- edges[edges$Beg <= time & edges$End >= time,]
   
   # Compile bilaterals
   beg  <- eg[eg[,2] %in% names(table(eg[,2])[table(eg[,2])==2]),]
@@ -145,17 +145,17 @@ plot_globalnet <- function(edges, actors, time){
   library(geosphere)
   for(multi in meg$`meg[, 2]`){
     temp <- meg[meg$`meg[, 2]` %in% multi,]
-    meg[meg$`meg[, 2]` %in% multi,"Lat"] <- centroid(as.matrix(temp[,c(2,1)]))[2]
-    meg[meg$`meg[, 2]` %in% multi,"Lon"] <- centroid(as.matrix(temp[,c(2,1)]))[1]
+    meg[meg$`meg[, 2]` %in% multi, "Lat"] <- centroid(as.matrix(temp[, c(2,1)]))[2]
+    meg[meg$`meg[, 2]` %in% multi, "Lon"] <- centroid(as.matrix(temp[, c(2,1)]))[1]
   }
   meg$`meg[, 2]` <- NULL
   meg <- as.matrix(meg)
-  colnames(meg) <- c("Latitude","Longitude","Latitude","Longitude")
+  colnames(meg) <- c("Latitude", "Longitude", "Latitude", "Longitude")
   
   eg <- rbind(beg, meg)
   
   globejs(arcs=eg, 
-          lat=unname(meg[,3]), long=unname(meg[,4]), color = "#ffff00", #"#920783",
+          lat=unname(meg[,3]), long=unname(meg[,4]), color = "#ffff00",
           img = "inst/carte-geographique-du-monde.jpg",
           arcsColor=c(rep("#C3073F",nrow(beg)),rep("#3500D3",nrow(meg))),
           arcsHeight=0.5, arcsLwd=2, arcsOpacity=0.3,
