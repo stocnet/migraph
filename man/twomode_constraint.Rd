@@ -31,6 +31,7 @@ Other two-mode functions: \code{\link{twomode_2x2}},
   \code{\link{twomode_components}},
   \code{\link{twomode_dominance}},
   \code{\link{twomode_modularity}},
+  \code{\link{twomode_netlm}},
   \code{\link{twomode_smallworld}}
 }
 \concept{two-mode functions}

@@ -54,6 +54,7 @@ Other two-mode functions: \code{\link{twomode_clustering}},
   \code{\link{twomode_constraint}},
   \code{\link{twomode_dominance}},
   \code{\link{twomode_modularity}},
+  \code{\link{twomode_netlm}},
   \code{\link{twomode_smallworld}}
 }
 \concept{two-mode functions}

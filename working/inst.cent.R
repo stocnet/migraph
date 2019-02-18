@@ -29,6 +29,13 @@ plot_twomode(mat.only, main="mat.only",
                  sep = "\n"))
 # dev.off()
 
+# attr.diff <- c(1,1,1,4)
+# attr.ramp <- c(1,2,3,4)
+# attr.pole <- c(1,1,2,2)
+# attr.even <- c(1,1,1,1)
+# attr.altr <- c(1,2,1,2)
+# attr.only <- c(2,1,1,1)
+# 
 pdf("~/Dropbox/Research/Project EPSION/TopoTypo/2x2typo.pdf", width=8, height=8)
 par(mfrow = c(2,2))
 plot_twomode(mat.hier, c(attr.altr,attr.pole)*10, main="High Dominance, Low Coherence",
