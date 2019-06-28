@@ -1,0 +1,51 @@
+---
+title: "roctopus"
+author: "James Hollway"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{roctopus}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The **roctopus** package offers functions for simulating, visualising, and analysing
+multilevel and multimode (especially two-mode) networks.
+
+## Simulating
+
+> "The family - that dear octopus from whose tentacles we never quite escape, nor, in our inmost hearts, ever quite wish to.""
+~ Dodie Smith
+
+The package includes a number of functions for simulating two-mode matrices
+with particular properties for use in testing and developing null models.
+
+These include:
+``r library(roctopus); ls("package:roctopus")[grepl("create_",ls("package:roctopus"))]``
+
+## Visualising
+
+> "The tentacles of today reach out like an octopus to swallow yesterday."
+~ Gladys Taber
+
+The package also includes several functions for visualising two-mode matrices.
+
+These include:
+``r library(roctopus); ls("package:roctopus")[grepl("plot_",ls("package:roctopus"))]``
+
+## Analysing
+
+> "Talent without discipline is like an octopus on roller skates. There's plenty of movement, but you never know if it's going to be forward, backwards, or sideways."
+~ H. Jackson Brown, Jr.
+
+Lastly, the package includes a range of functions for analysing two-mode matrices.
+
+These include:
+``r library(roctopus); ls("package:roctopus")[grepl("twomode_",ls("package:roctopus"))]``

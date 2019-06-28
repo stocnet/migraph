@@ -1,12 +1,10 @@
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+
 # roctopus
 
-**roctopus** can be installed using the devtools package:
+## About the package
 
-```R
-devtools::install_bitbucket("jhollway/roctopus", auth_user = "name", password = "password")
-```
+This package assembles functions for simulating, visualising, and analysing
+multimode and multilevel networks. 
 
-Where `"name"` and `"password"` are *your* bitbucket username and password.
-
-You can email me for user access to the repository.
-
+You can find out more from the main website [here](https://jhollway.bitbucket.io/roctopus/index.html)

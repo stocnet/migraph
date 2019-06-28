@@ -26,6 +26,6 @@ and avoiding labels.
 }
 \examples{
 \dontrun{
-plot_twomode(mat)
+plot_twomode(create_lattice(6,12))
 }
 }

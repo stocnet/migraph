@@ -1,20 +1,3 @@
-#' Two-mode lattice
-#'
-#' This function allows you to express your love of lattices.
-#' @param m A matrix
-#' @family two-mode functions
-#' @export
-#' @examples
-#' twomode_lattice(matrix)
-twomode_lattice <- function(m){
-  out <- matrix(c(rep(1, sum(m)), 
-                  rep(0, length(m)-sum(m))),
-                nrow(m), ncol(m), byrow = T)
-  out <- rbind(out,rep(0,ncol(out)))
-  out <- matrix(out, nrow(m), ncol(m), byrow = F)
-  out
-}
-
 #' Two-mode clustering
 #'
 #' This function allows you to calculate how much two-mode clustering there is.
@@ -28,9 +11,9 @@ twomode_clustering <- function(mat){
   indegrees <- colSums(mat)
   twopaths <- crossprod(mat)
   diag(twopaths) <- 0
-  cycle4 <- sum(twopaths * (twopaths-1)) / 
-    (sum(twopaths * (twopaths-1)) + sum(twopaths * 
-                                          (matrix(indegrees,c,c) - twopaths)))
+  cycle4 <- sum(twopaths * (twopaths - 1)) /
+    (sum(twopaths * (twopaths - 1)) + sum(twopaths *
+                                          (matrix(indegrees, c, c) - twopaths)))
   if(is.nan(cycle4)) cycle4 <- 1
   return(cycle4)
 }
@@ -57,26 +40,26 @@ twomode_clustering <- function(mat){
 #' @export 
 twomode_smallworld <- function(mat, n=100){
   require(igraph)
-  out <- matrix(NA,ncol(mat),7)
+  out <- matrix(NA, ncol(mat), 7)
   for(c in 2:ncol(mat)){
-    m <- mat[,1:c]
+    m <- mat[, 1:c]
     g <- graph_from_incidence_matrix(m)
-    out[c,1] <- twomode_clustering(m)
-    out[c,4] <- mean_distance(g)
+    out[c, 1] <- twomode_clustering(m)
+    out[c, 4] <- mean_distance(g)
 
     r <- r2dtable(n, rowSums(m), colSums(m))
-    out[c,2] <- mean(unlist(lapply(r, twomode_clustering)))
-    out[c,5] <- mean(unlist(lapply(lapply(r, graph_from_incidence_matrix),
+    out[c, 2] <- mean(unlist(lapply(r, twomode_clustering)))
+    out[c, 5] <- mean(unlist(lapply(lapply(r, graph_from_incidence_matrix),
                                   mean_distance)))
 
-    out[c,3] <- out[c,1]/out[c,2]
-    out[c,6] <- out[c,4]/out[c,5]
-    out[c,7] <- out[c,3]/out[c,6]
+    out[c, 3] <- out[c, 1] / out[c, 2]
+    out[c, 6] <- out[c, 4] / out[c, 5]
+    out[c, 7] <- out[c, 3] / out[c, 6]
   }
-  out <- cbind(1:ncol(mat),out)
+  out <- cbind(1:ncol(mat), out)
   out <- as.data.frame(out)
-  names(out) <- c("Num","ObsClust","ExpClust","ClustRat",
-                             "ObsPath","ExpPath","PathRat","SmallWorld")
+  names(out) <- c("Num", "ObsClust", "ExpClust", "ClustRat",
+                             "ObsPath", "ExpPath", "PathRat", "SmallWorld")
   out
 }
 
@@ -94,21 +77,21 @@ twomode_smallworld <- function(mat, n=100){
 #' twomode_dominance(mat)
 #' twomode_dominance(mat, attr = gdp2010)
 twomode_dominance <- function(mat, attr = NULL){
-  
+
   # Get dimensions
   n <- nrow(mat)
   m <- ncol(mat)
-  
+
   # If attribute absent, use 1s
   if (is.null(attr)) attr <- rep(1, n)
   # If attribute missing, use 0s
   attr[is.na(attr)] <- 0
 
   # Get distributions
-  msum <- colSums(mat*attr, na.rm = T)
-  
+  msum <- colSums(mat * attr, na.rm = T)
+
   if(m > 1){
-    out <- sum(max(msum)-msum) / (sum(attr, na.rm = T)*(m-1))
+    out <- sum(max(msum) - msum) / (sum(attr, na.rm = T) * (m-1))
   } else {
     out <- msum / sum(attr, na.rm = T)
   }
@@ -117,16 +100,16 @@ twomode_dominance <- function(mat, attr = NULL){
 }
 
 twomode_dominance_bilatbase <- function(mat, attr = NULL){
-  
+
   # Get dimensions
   n <- nrow(mat)
   m <- ncol(mat)
-  
+
   # If attribute absent, use 1s
   if (is.null(attr)) attr <- rep(1, n)
   # If attribute missing, use 0s
   attr[is.na(attr)] <- 0
-  
+
   # Get distributions
   msum <- colSums(mat*attr, na.rm = T)
   
@@ -174,11 +157,11 @@ twomode_centralization_between <- function(graph){
     V(graph)$name[V(graph)$type==T]
   m <- length(which(V(graph)$type==nodeset))
   n <- length(which(V(graph)$type!=nodeset))
-  p <- (m-1)%/%n
-  r <- (m-1)%%n
-  s <- (n-1)%/%m
-  t <- (n-1)%%m
-  
+  # p <- (m-1)%/%n
+  # r <- (m-1)%%n
+  # s <- (n-1)%/%m
+  # t <- (n-1)%%m
+  # 
   # Event side centralization
   # sum(max(betweenness(graph)[which(V(graph)$type==nodeset)])-
   #       betweenness(graph)[which(V(graph)$type==nodeset)])/
@@ -321,7 +304,7 @@ twomode_coherence <- function(mat, attr=NULL){
   if(is.null(attr) & !is.matrix(mat)) attr <- 1
   
   # Get components
-  frag <- twomode_fragmentation(mat)
+  frag <- twomode_components(mat)
   comps <- lapply(1:frag$components, function(c) mat[, frag$membership$node[frag$membership$comp==c]])
   size <- sapply(1:frag$components, function(x) (sum(frag$membership$comp==x)/max(frag$membership$node)) )
   atts <- lapply(1:frag$components, function(c) attr[frag$membership$comp==c])
@@ -360,6 +343,7 @@ twomode_coherence <- function(mat, attr=NULL){
 #' @param node2 Second nodeset object (will become matrix columns)
 #' @param ties Edgelist of affiliations/memberships of first nodeset in second nodeset
 #' @param attr1 Object containing information on an attribute by year, in long format
+#' @param attr2 Object containing information on an attribute by year, in long format
 #' @param start Integer, for example a year like 1960
 #' @param end Integer, for example a year like 2010
 #' @return A data frame with two columns (Coherence and Dominance)
@@ -374,7 +358,7 @@ twomode_coherence <- function(mat, attr=NULL){
 #' library(gnevar)
 #' library(wbstats)
 #' mil_data <- wb(country = unique(stat_actor$StatID), indicator = "MS.MIL.XPND.CN", startdate = 1960, enddate = 2018)
-#' ally_secs <- as.numeric(factor(ally_agree$Secretariat))
+#' ally_secs <- structure((!is.na(ally_agree$Secretariat))*1, names=as.character(ally_agree$AtopID))
 #' ally_topo <- twomode_2x2(stat_actor, ally_agree, ally_membs, mil_data, ally_secs, 1960, 2018)
 #' plot_2x2(ally_topo)
 #' }
@@ -382,9 +366,9 @@ twomode_coherence <- function(mat, attr=NULL){
 twomode_2x2 <- function(node1, node2, ties, attr1, attr2, start, end){
   require(gnevar)
   
-  # dat <- lapply(paste(start:end,"-01-01",sep=""), function(t)  as.matrix(slice(node1, node2, ties, time=t)) )
+  # dat <- lapply(paste(start:end,"-01-01",sep=""), function(t)  as.matrix(gnevar::snap(node1, node2, ties, time=t)) )
   # Just for while there are data issues:
-  dat <- lapply(paste(start:end,"-01-01",sep=""), function(t)  as.matrix(slice(node1, node2, ties, time=t)[,colSums(slice(node1, node2, ties, time=t))>1] ))
+  dat <- lapply(paste(start:end,"-01-01",sep=""), function(t)  as.matrix(gnevar::snap(node1, node2, ties, time=t)[,colSums(gnevar::snap(node1, node2, ties, time=t))>1] ))
   dat <- lapply(dat, function(dat) (dat>0)*1 )
   
   attr1 <- mapply(function(t, dat)      structure(attr1[attr1$date==t & attr1$iso3c %in% rownames(dat),"value"], 
@@ -392,7 +376,11 @@ twomode_2x2 <- function(node1, node2, ties, attr1, attr2, start, end){
                  as.character(start:end), dat)
   attr1 <- mapply(function(attr1, dat) attr1[match(rownames(dat),names(attr1))], attr1, dat)
 
-  attr2 <- mapply(function(t, dat) attr2[attr2[,1] %in% colnames(dat), 2], attr2, dat)
+  # attr2 <- mapply(function(t, dat)      structure(attr2[attr2$date==t & attr2$iso3c %in% rownames(dat),"value"], 
+  #                                                 names=attr2[attr2$date==t & attr2$iso3c %in% rownames(dat),"iso3c"]),
+  #                 as.character(start:end), dat)
+  attr2 <- lapply(dat, function(x) attr2[match(colnames(dat),names(attr2))])
+  # attr2 <- mapply(function(attr2, dat) attr2[match(colnames(dat),names(attr2))], attr2, dat)
   
   out <- mapply(function(dat, attr1, attr2, t) c(Coherence=twomode_modularity(dat, attr2),
                           Dominance=twomode_dominance(dat, attr1),
@@ -422,7 +410,7 @@ twomode_2x2 <- function(node1, node2, ties, attr1, attr2, start, end){
 #' twomode_modularity(mat, attr)
 #' }
 #' @export 
-twomode_modularity <- function(mat,attr=NULL){ #,attr2=NULL
+twomode_modularity <- function(mat,attr=NULL){#,attr2=NULL
   
   # Start with C
   if(is.null(attr) | all(attr==1)){
@@ -474,15 +462,18 @@ twomode_modularity <- function(mat,attr=NULL){ #,attr2=NULL
     })
     R <- as.matrix(table(R,1:nrow(mat)))
     
-    if(sum(diag(R%*%B%*%C)) * (1/M)==Q){break} else {
-    Q <- sum(diag(R%*%B%*%C)) * (1/M)
+    if(sum(diag(R%*%B%*%C)) * (1/M)==Q){
+      break
+    } else {
+      Q <- sum(diag(R%*%B%*%C)) * (1/M)
     }
     }
   }
   
   # Q <- Q / (sum(diag(R%*%(M-E)%*%C)) * (1/M))
   Q <- (Q+1)/2
-  # Qmax <- (sum(diag(R%*%(M-E)%*%C)) * (1/M)) #Normalise by max poss for given degree distribution
+  # Qmax <- (sum(diag(R%*%(M-E)%*%C)) * (1/M)) #Normalise by max poss 
+  # for given degree distribution
   # Qmax <- (Qmax+1)/2
   # Q <- Q/Qmax
   Q

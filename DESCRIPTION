@@ -1,15 +1,30 @@
 Package: roctopus
 Title: Utility functions for multimode and multilevel network analysis
-Date: 2018-08-15
-Version: 0.0.1
-Authors@R: person("James", "Hollway", email = "james.hollway@graduateinstitute.ch", role = c("aut", "cre"))
+Version: 0.0.4
 Description: This package assembles a number of utility functions for 
    loading, visualising, and analysing multimode, multiplex, and multilevel networks.
-URL: https://bitbucket.org/jhollway/multina/
-BugReports: https://bitbucket.org/jhollway/multina/issues
-Depends: R (>= 3.5.0)
-License: file LICENSE
+URL: https://bitbucket.org/jhollway/roctopus/
+BugReports: https://bitbucket.org/jhollway/roctopus/issues
+Depends: R (>= 3.4.0)
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
-Imports: igraph
+Imports: igraph,
+    geosphere,
+    threejs
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+Authors@R: 
+    c(person(given = "James",
+             family = "Hollway",
+             role = c("cre", "aut", "ctb"),
+             email = "james.hollway@graduateinstitute.ch",
+             comment = c("IHEID", ORCID = "0000-0002-8361-9647")),
+      person(given = "Valentina",
+             family = "Baiamonte",
+             role = "ctb",
+             comment = "IHEID"))
+VignetteBuilder: knitr

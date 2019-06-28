@@ -1,55 +1,4 @@
-mat.even <- matrix(0,5,3)
-mat.even[1:2,1] <- 1
-mat.even[2:3,2] <- 1
-mat.even[4:5,3] <- 1
-
-mat.dist <- matrix(0,5,3)
-mat.dist[1:2,1] <- 1
-mat.dist[,2] <- 1
-mat.dist[4:5,3] <- 1
-
-mat.none <- matrix(0,5,2)
-mat.none[1:4,1] <- 1
-
-# mat.part <- matrix(0,5,5)
-# mat.part[1:3,1] <- 1
-# mat.part[1:2,2] <- 1
-# mat.part[4:5,3] <- 1
-# mat.part[4:5,4] <- 1
-# mat.part[3,5] <- 1
-# 
-mat.part <- mat.dist
-mat.part[2,1] <- 0
-mat.part[1,2] <- 0
-mat.part[4,3] <- 0
-
-mat.some <- matrix(0,5,5)
-mat.some[1:3,1] <- 1
-mat.some[1:3,2] <- 1
-mat.some[1:3,3] <- 1
-mat.some[4:5,4] <- 1
-mat.some[4:5,5] <- 1
-
-mat.side <- matrix(0,4,4)
-mat.side[1:4,1] <- 1
-mat.side[1,2] <- 1
-mat.side[2,3] <- 1
-mat.side[3,4] <- 1
-
-mat.link <- matrix(0,4,4)
-mat.link[1:2,1] <- 1
-mat.link[2:3,2] <- 1
-mat.link[3:4,3] <- 1
-mat.link[c(1,4),4] <- 1
-
-mat.pole <- matrix(1,4,4)
-mat.pole[1:2,3:4] <- 0
-mat.pole[3:4,1:2] <- 0
-
-mat.only <- matrix(1,5,1)
-
-mat.sole <- matrix(0,4,4)
-mat.sole[1:4,1] <- 1
+devtools::install_bitbucket("jhollway/roctopus", auth_user = "jhollway", password = "VQaKN0TmGD8w")
 
 library(igraph)
 # pdf("~/Desktop/dombycoh.pdf", width=11, height=8)
@@ -80,25 +29,13 @@ plot_twomode(mat.only, main="mat.only",
                  sep = "\n"))
 # dev.off()
 
-attr.diff <- c(1,1,1,4)
-attr.ramp <- c(1,2,3,4)
-attr.pole <- c(1,1,2,2)
-attr.even <- c(1,1,1,1)
-attr.altr <- c(1,2,1,2)
-attr.only <- c(2,1,1,1)
-
-mat.core <- matrix(0,4,4)
-mat.core[1:4,1] <- 1
-mat.core[1:2,2] <- 1
-mat.core[3:4,3] <- 1
-mat.core[1:2,4] <- 1
-
-mat.hier <- matrix(0,4,4)
-mat.hier[1:4,1] <- 1
-mat.hier[1:2,2] <- 1
-mat.hier[1:2,3] <- 1
-mat.hier[3:4,4] <- 1
-
+# attr.diff <- c(1,1,1,4)
+# attr.ramp <- c(1,2,3,4)
+# attr.pole <- c(1,1,2,2)
+# attr.even <- c(1,1,1,1)
+# attr.altr <- c(1,2,1,2)
+# attr.only <- c(2,1,1,1)
+# 
 pdf("~/Dropbox/Research/Project EPSION/TopoTypo/2x2typo.pdf", width=8, height=8)
 par(mfrow = c(2,2))
 plot_twomode(mat.hier, c(attr.altr,attr.pole)*10, main="High Dominance, Low Coherence",
