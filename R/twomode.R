@@ -18,6 +18,36 @@ twomode_clustering <- function(mat){
   return(cycle4)
 }
 
+#' Three-mode clustering
+#'
+#' This function allows you to calculate how much three-mode clustering there is.
+#' @param mat1 The first two-mode matrix
+#' @param mat2 The second two-mode matrix
+#' @family three-mode functions
+#' @export
+#' @examples
+#' threemode_clustering(matrix)
+threemode_clustering <- function(mat1, mat2){
+  
+  c <- ncol(mat1)
+
+  twopaths1 <- crossprod(mat1)
+  indegrees <- diag(twopaths1)
+  diag(twopaths1) <- 0
+  twopaths2 <- tcrossprod(mat2)
+  outdegrees <- diag(twopaths2)
+  diag(twopaths2) <- 0
+  
+  twopaths <- twopaths1 + twopaths2
+  degrees <- indegrees + outdegrees
+  
+  cycle4 <- sum(twopaths * (twopaths - 1)) /
+    (sum(twopaths * (twopaths - 1)) + sum(twopaths *
+                                            (matrix(degrees, c, c) - twopaths)))
+  if(is.nan(cycle4)) cycle4 <- 1
+  return(cycle4)
+}
+
 #' Two-mode small-world
 #' 
 #' Calculates small-world metrics for two-mode networks
