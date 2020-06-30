@@ -14,7 +14,8 @@ Imports: igraph,
     geosphere,
     threejs,
     roxygen2,
-    ggplot2
+    ggplot2,
+    tidyverse
 Suggests: 
     testthat,
     knitr,
