@@ -12,7 +12,8 @@ LazyData: true
 RoxygenNote: 7.1.0
 Imports: igraph,
     geosphere,
-    threejs
+    threejs,
+    roxygen2
 Suggests: 
     testthat,
     knitr,
