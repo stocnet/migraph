@@ -13,7 +13,8 @@ RoxygenNote: 7.1.0
 Imports: igraph,
     geosphere,
     threejs,
-    roxygen2
+    roxygen2,
+    ggplot2
 Suggests: 
     testthat,
     knitr,
