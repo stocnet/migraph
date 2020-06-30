@@ -118,7 +118,7 @@ jobs:
       - name: Zip up
         uses: montudor/action-zip@v0.1.0
         with:
-          args: zip -qq -r iheiddown_AllOS.zip . -i ./macOS/* ./winOS/*
+          args: zip -qq -r roctopus_AllOS.zip . -i ./macOS/* ./winOS/*
 
       - name: Display structure of downloaded files again
         run: ls -R
@@ -130,7 +130,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: iheiddown_AllOS.zip
-          asset_name: iheiddown_AllOS.zip
+          asset_path: roctopus_AllOS.zip
+          asset_name: roctopus_AllOS.zip
           asset_content_type: application/zip
           
