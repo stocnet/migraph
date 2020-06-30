@@ -1,3 +1,11 @@
+# roctopus 0.1.0
+
+2020-06-30
+
+## Data
+
+* Added Bristol dataset from Knoke et al 2020
+
 # roctopus 0.0.4
 
 2018-12-20
