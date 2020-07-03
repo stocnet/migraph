@@ -4,6 +4,7 @@
 #' in three countries (Italy, Germany, and the UK) in 1990 and 2008.
 #' The Italy data has 658 respondents in 1990 and 540 in 2008.
 #' The Germany data has 1369 respondents in 1990 and 503 in 2008.
+#' The UK data has 738 respondents in 1990 and 664 in 2008.
 #'
 #' @docType data
 #' @keywords datasets
@@ -46,3 +47,6 @@
 #' @usage data(UK_1990)
 "UK_1990"
 
+#' @rdname evs
+#' @usage data(UK_2008)
+"UK_2008"
