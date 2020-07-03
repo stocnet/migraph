@@ -33,3 +33,7 @@
 #' @usage data(IT_2008)
 "IT_2008"
 
+#' @rdname evs
+#' @usage data(DE_1990)
+"DE_1990"
+
