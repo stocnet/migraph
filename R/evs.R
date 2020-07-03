@@ -3,6 +3,7 @@
 #' 6 two-mode matrices containing individuals' memberships to 14 different types of associations
 #' in three countries (Italy, Germany, and the UK) in 1990 and 2008.
 #' The Italy data has 658 respondents in 1990 and 540 in 2008.
+#' The Germany data has 1369 respondents in 1990 and 503 in 2008.
 #'
 #' @docType data
 #' @keywords datasets
@@ -36,4 +37,8 @@
 #' @rdname evs
 #' @usage data(DE_1990)
 "DE_1990"
+
+#' @rdname evs
+#' @usage data(DE_2008)
+"DE_2008"
 
