@@ -25,13 +25,14 @@ Use a transposed matrix to return values for the other dimension/mode.
 twomode_components(mat)
 }
 \seealso{
-Other two-mode functions: \code{\link{twomode_2x2}},
-  \code{\link{twomode_clustering}},
-  \code{\link{twomode_coherence}},
-  \code{\link{twomode_constraint}},
-  \code{\link{twomode_dominance}},
-  \code{\link{twomode_modularity}},
-  \code{\link{twomode_netlm}},
-  \code{\link{twomode_smallworld}}
+Other two-mode functions: 
+\code{\link{twomode_2x2}()},
+\code{\link{twomode_clustering}()},
+\code{\link{twomode_coherence}()},
+\code{\link{twomode_constraint}()},
+\code{\link{twomode_dominance}()},
+\code{\link{twomode_modularity}()},
+\code{\link{twomode_netlm}()},
+\code{\link{twomode_smallworld}()}
 }
 \concept{two-mode functions}
