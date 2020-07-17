@@ -1,10 +1,31 @@
+# roctopus 0.2.1
+
+2020-07-17
+
+## Data
+
+* Added `ryanair` dataset from Christopoulos 2006
+
+## Package
+
+* Split workflow into pull-request and merge/push prompted actions
+* Added codecov calculation to workflows
+
+# roctopus 0.2.0
+
+2020-07-03
+
+## Data
+
+* Added `evs` datasets from Knoke et al 2020 
+
 # roctopus 0.1.0
 
 2020-06-30
 
 ## Data
 
-* Added Bristol dataset from Knoke et al 2020
+* Added `bristol` dataset from Knoke et al 2020
 
 # roctopus 0.0.4
 
