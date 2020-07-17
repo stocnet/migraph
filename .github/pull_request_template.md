@@ -17,3 +17,4 @@ Closes #(issue no.)
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] I have made corresponding changes to the documentation (.R, NEWS.md)
 - [ ] I have bumped the version by the appropriate increment in the DESCRIPTION file (major, minor, patch)
+- [ ] PR checks all pass for latest commit
