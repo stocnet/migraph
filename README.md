@@ -7,6 +7,7 @@
 ![GitHub Release Date](https://img.shields.io/github/release-date/jhollway/roctopus)
 ![GitHub issues](https://img.shields.io/github/issues-raw/jhollway/roctopus)
 [![HitCount](http://hits.dwyl.com/jhollway/roctopus.svg)](http://hits.dwyl.com/jhollway/roctopus)
+[![Codecov test coverage](https://codecov.io/gh/jhollway/roctopus/branch/master/graph/badge.svg)](https://codecov.io/gh/jhollway/roctopus?branch=master)
 <!-- ![GitHub All Releases](https://img.shields.io/github/downloads/jhollway/iheiddown/total) -->
 <!-- badges: end -->
 
