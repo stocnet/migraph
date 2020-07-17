@@ -15,7 +15,8 @@ Imports: igraph,
     threejs,
     roxygen2,
     ggplot2,
-    tidyverse
+    tidyverse,
+    covr
 Suggests: 
     testthat,
     knitr,
