@@ -10,9 +10,8 @@
 #' @keywords datasets
 #' @name evs
 #' @usage data(IT_1990)
-#' @format Data frames with 15 variables:
+#' @format Matrices with 14 columns:
 #' \describe{
-#'   \item{ID}{Anonymised individual identifiers}
 #'   \item{Welfare}{1 if individual associated}
 #'   \item{Religious}{1 if individual associated}
 #'   \item{Education.culture}{1 if individual associated}

@@ -1,3 +1,17 @@
+# roctopus 0.2.3
+
+2020-07-19
+
+## Data
+
+* Added `mexicanpower` dataset
+* Added `senate112` datasets
+* Updated `evs` datasets to matrices
+
+## Package
+
+* Added `df_to_mat()` function for converting regular adjacency and incidence data frames into matrices
+
 # roctopus 0.2.1
 
 2020-07-17
