@@ -81,3 +81,16 @@ project_list <- function(eventlist){
   out <- out %>% mutate(time = as.POSIXct(time), increment = as.numeric(increment))
   out
 }
+
+
+#' Transform a data frame to an adjacency or incidence matrix
+#' 
+#' @param df a data frame, with the first column ID
+#' @return an adjacency or incidence matrix
+#' @export
+df_to_mat <- function(df){
+  df <- as.data.frame(df)
+  row.names(df) <- df[,1]
+  df[,1] <- NULL
+  as.matrix(df)
+}
