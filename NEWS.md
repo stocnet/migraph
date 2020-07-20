@@ -1,3 +1,11 @@
+# roctopus 0.2.4
+
+2020-07-19
+
+## Package
+
+* Added `row_project()` and `col_project()` functions to make it easier to remember project directions
+
 # roctopus 0.2.3
 
 2020-07-19
