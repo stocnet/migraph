@@ -82,7 +82,6 @@ project_list <- function(eventlist){
   out
 }
 
-
 #' Transform a data frame to an adjacency or incidence matrix
 #' 
 #' @param df a data frame, with the first column ID
@@ -93,4 +92,22 @@ df_to_mat <- function(df){
   row.names(df) <- df[,1]
   df[,1] <- NULL
   as.matrix(df)
+}
+
+#' Project two-mode matrix into one-mode matrix
+#' 
+#' @name project
+#' @usage row_project(OverSxP)
+#' @param mat a matrix
+#' @return a matrix
+#' @export
+row_project <- function(mat){
+  mat %*% t(mat)
+}
+
+#' @rdname project
+#' @usage col_project(OverSxP)
+#' @export
+col_project <- function(mat){
+  t(mat) %*% mat
 }
