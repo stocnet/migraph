@@ -1,5 +1,3 @@
-context('threemode_clustering')
-
 mat1 <- matrix(0,3,3)
 mat1[1,1:2] <- 1
 mat1[2,2] <- 1

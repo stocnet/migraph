@@ -1,6 +1,17 @@
+# roctopus 0.2.5
+
+2020-07-21
+
+## Package
+
+* Renamed data documentation scripts
+* Added tests for most `create_()` functions
+* Renamed test scripts and removed `context()` declaration
+* `create_nest()` now exports matrix object
+
 # roctopus 0.2.4
 
-2020-07-19
+2020-07-20
 
 ## Package
 
