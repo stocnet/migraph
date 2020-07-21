@@ -96,6 +96,7 @@ create_match <- function(node1, node2) {
 create_nest <- function(node1, node2) {
   mat <- matrix(0, node1, node2)
   mat[(row(mat) - col(mat)) >= 0] <- 1
+  mat
 }
 
 # mat.dist <- matrix(0,5,3)
