@@ -1,5 +1,3 @@
-context('df_to_mat')
-
 data1 <- data.frame(ID = LETTERS[1:3],
                     G = c(0,1,1),
                     H = c(0,0,1),
