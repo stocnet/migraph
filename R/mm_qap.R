@@ -14,7 +14,9 @@
 #' }
 twomode_netlm <- function(DV, IV, names, rep = 1000){
   
-  # if(missing(names)) names <- c("Intercept", lapply(IV, function(x) names(x))
+  if(missing(names)){ 
+    names <- paste0("x", 1:length(IV))
+  }
   # Consider converting to formula
   
   rbperm <- function (m) {
@@ -50,7 +52,9 @@ twomode_netlm <- function(DV, IV, names, rep = 1000){
                                              ifelse(as.numeric(lapply(1:(nIV+1), 
                                                                       function(x) ecdf(permDist[,x])(M.coeff[x])))<0.001, 
                                                     "***", "**"), "*"), ""))
+  rownames(resTable) <- NULL
 print(resTable)
+# Turn this into a print function
   
   cat("\nMultiple R-squared: ", formatC(summary(M.fit)$r.squared),
       ",\tAdjusted R-squared: ", formatC(summary(M.fit)$adj.r.squared),
@@ -58,7 +62,7 @@ print(resTable)
   
   obj <- list()
   obj$results <- data.frame(Effect = c("Intercept", names), 
-                            Coefficients = formatC(M.coeff, format="f", digits = 2),
+                            Coefficients = as.numeric(formatC(M.coeff, format="f", digits = 2)),
                             Pvalue = signif(as.numeric(lapply(1:(nIV+1), 
                                                            function(x) ecdf(permDist[,x])(M.coeff[x]))), 
                                          digits=2),
@@ -69,7 +73,8 @@ print(resTable)
                                                 ifelse(as.numeric(lapply(1:(nIV+1), 
                                                                          function(x) ecdf(permDist[,x])(M.coeff[x])))<0.001, 
                                                        "***", "**"), "*"), ""))
+  rownames(obj$results) <- NULL
   obj$r.squared <- formatC(summary(M.fit)$r.squared)
   obj$adj.r.squared <- formatC(summary(M.fit)$adj.r.squared)
-  return(obj)
+  invisible(obj)
 }
