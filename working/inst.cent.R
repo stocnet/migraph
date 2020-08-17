@@ -1,5 +1,3 @@
-devtools::install_bitbucket("jhollway/roctopus", auth_user = "jhollway", password = "VQaKN0TmGD8w")
-
 library(igraph)
 # pdf("~/Desktop/dombycoh.pdf", width=11, height=8)
 par(mfrow = c(2,3))
