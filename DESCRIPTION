@@ -1,6 +1,6 @@
 Package: roctopus
 Title: Utility functions for multimode and multilevel network analysis
-Version: 0.2.5
+Version: 0.2.6
 Description: This package assembles a number of utility functions for 
    loading, visualising, and analysing multimode, multiplex, and multilevel networks.
 URL: https://github.com/jhollway/roctopus
