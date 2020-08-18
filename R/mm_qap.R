@@ -9,10 +9,10 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' twomode_netlm(matrix, list(matrix2, matrix3),
-#'               c("Intercept", "Explainer"))
+#' netlm2(matrix, list(matrix2, matrix3),
+#'               c("Explanatory Variable", "Control Variable"))
 #' }
-twomode_netlm <- function(DV, IV, names, rep = 1000){
+netlm2 <- function(DV, IV, names, rep = 1000){
   
   if(missing(names)){ 
     names <- paste0("x", 1:length(IV))
