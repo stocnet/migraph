@@ -7,5 +7,5 @@ test_that("coefficients calculated correctly",{
 })
 
 test_that("p-values calculated correctly",{
-    expect_equal(netlm2(mat1, IV = list(mat2, mat3))$results$Pvalue, c(0.38, 0.84, 0.79), tolerance = .02)
+    expect_equal(netlm2(mat1, IV = list(mat2, mat3))$results$Pvalue, c(0.38, 0.84, 0.79), tolerance = .03)
 })
