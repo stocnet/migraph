@@ -5,11 +5,17 @@
 ## Analysis
 
 * Renamed `twomode_netlm()` to `netlm2()`
+* Fixed various printing issues with `netlm2()`
 
 ## Package
 
 * Added tests for `netlm2()`
 * Added tests for `create_random()`
+
+## Data
+
+* Added `opensecrets` data
+* Added `powerelite` data
 
 # roctopus 0.2.5
 
