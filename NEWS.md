@@ -1,3 +1,16 @@
+# roctopus 0.2.6
+
+2020-08-18
+
+## Analysis
+
+* Renamed `twomode_netlm()` to `netlm2()`
+
+## Package
+
+* Added tests for `netlm2()`
+* Added tests for `create_random()`
+
 # roctopus 0.2.5
 
 2020-07-21
