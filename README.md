@@ -8,7 +8,7 @@
 ![GitHub issues](https://img.shields.io/github/issues-raw/jhollway/roctopus)
 [![HitCount](http://hits.dwyl.com/jhollway/roctopus.svg)](http://hits.dwyl.com/jhollway/roctopus)
 [![Codecov test coverage](https://codecov.io/gh/jhollway/roctopus/branch/main/graph/badge.svg)](https://codecov.io/gh/jhollway/roctopus?branch=main)
-![GitHub All Releases](https://img.shields.io/github/downloads/jhollway/roctopus/total)
+<!-- ![GitHub All Releases](https://img.shields.io/github/downloads/jhollway/roctopus/total) -->
 <!-- badges: end -->
 
 ## About the package
