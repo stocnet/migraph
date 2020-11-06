@@ -9,12 +9,12 @@
 #'
 #' @docType data
 #' @keywords datasets
-#' @name ryanair
-#' @usage data(ryanair)
+#' @name mpn_ryanair
+#' @usage data(mpn_ryanair)
 #' @format Matrix with 20 rows/columns
 #' @source Christopoulos, Dimitrios C. 2006. 
 #' “Relational Attributes of Political Entrepreneurs: a Network Perspective.” 
 #' \emph{Journal of European Public Policy} 13 (5): 757–78.
 #' 
 #' Knoke, Christopoulos, Diani, and Hollway. 2020. \emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
-"ryanair"
+"mpn_ryanair"
