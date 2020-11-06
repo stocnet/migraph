@@ -27,7 +27,7 @@ and implements many additional features currently only available outside the R e
 in packages such as **UCINET**.
 
 Please explore [the website](https://jhollway.github.io/roctopus/) to find out more.
-Some of these functions are also relied on for the [Topological Typology](https://jhollway.shinyapps.io/TopoTypo/).
+Some of these functions are also relied on for the [Topological Typology](https://jhollway.shinyapps.io/TopoTypo/) app.
 
 ## Installation
 
@@ -39,9 +39,9 @@ can be found by clicking on the latest release [here](https://github.com/snlab-n
 Download the appropriate binary for your operating system,
 and install using an adapted version of the following commands:
 
-- For Windows: `install.packages("~/Downloads/roctopus_1.2.26.zip", repos = NULL)`
-- For Mac: `install.packages("~/Downloads/roctopus_1.2.26.tgz", repos = NULL)`
-- For Unix: `install.packages("~/Downloads/roctopus_1.2-26_R_x86_64-pc-linux-gnu.tar.gz", repos = NULL)`
+- For Windows: `install.packages("~/Downloads/roctopus_winOS.zip", repos = NULL)`
+- For Mac: `install.packages("~/Downloads/roctopus_macOS.tgz", repos = NULL)`
+- For Unix: `install.packages("~/Downloads/roctopus_linuxOS.tar.gz", repos = NULL)`
 
 ### From source
 
