@@ -7,6 +7,9 @@ template:
     docsearch:
       api_key: 204dadbc12ed450b5ef1209c8c44b558
       index_name: roctopus
+authors:
+  James Hollway:
+    href: https://jameshollway.com
 navbar:
   structure:
     left:
