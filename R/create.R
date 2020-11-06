@@ -18,8 +18,6 @@
 create_chain <- function(n1, n2, 
                          as = c("tbl_graph", "igraph", "matrix")) {
   
-  as <- match.arg(as)
-
   mat <- matrix(0, n1, n2)
   out <- suppressWarnings(((row(mat) - col(mat)) == 0 |
     (row(mat) - col(mat)) == (-seq.int(0, n2 - 1, n1)[-1]) |
@@ -27,9 +25,38 @@ create_chain <- function(n1, n2,
     (row(mat) - col(mat)) == -seq.int(1 + n1, n2 - 1, n1) |
     (row(mat) - col(mat)) == nrow(mat) - 1) * 1)
   
+  as <- match.arg(as)
   if(as == "tbl_graph") out <- tidygraph::as_tbl_graph(out)
   if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
   out
+}
+
+#' Matched two-mode graph
+#'
+#' Creates a matched two-mode network
+#' @param n1 Number of nodes in the first node set
+#' @param n2 Number of nodes in the second node set
+#' @details Will construct an affiliation matrix,
+#' with by default both n1 and n2 matched.
+#' TODO: Incorporate into create_chain (chordal_ring of certain breadth w).
+#' @export
+#' @examples
+#' \dontrun{
+#' create_match(10, 12)
+#' }
+create_match <- function(n1, n2,
+                         as = c("tbl_graph", "igraph", "matrix")) {
+  mat <- matrix(0, n1, n2)
+  mat <- matrix(
+    ((row(mat) - col(mat)) %in% unique(-seq(0, n2 - 1, n1), 
+                                       seq(0, n1 - 1, n2))) * 1,
+    n1, n2
+  )
+
+  as <- match.arg(as)
+  if(as == "tbl_graph") mat <- tidygraph::as_tbl_graph(mat)
+  if(as == "igraph") mat <- igraph::graph_from_incidence_matrix(mat)
+  mat
 }
 
 #' Two-mode random graph
@@ -65,62 +92,51 @@ play_twomode <- function(n1, n2, p, m, directed = TRUE, mode = "out",
 #' Two-component two-mode graph
 #'
 #' Creates a two-component two-mode network
-#' @param node1 Number of nodes in the first node set
-#' @param node2 Number of nodes in the second node set
+#' @param n1 Number of nodes in the first node set
+#' @param n2 Number of nodes in the second node set
 #' @details Will construct an affiliation matrix,
 #' with full component diagonal.
+#' TODO: Allow specfication of how many silos/components to create
 #' @export
 #' @examples
 #' \dontrun{
-#' create_poles(10, 12)
+#' create_silos(10, 12)
 #' }
-create_poles <- function(node1, node2) {
-  mat <- matrix(0, node1, node2)
-  mat[1:round(node1 / 2), 1:round(node2 / 2)] <- 1
+create_silos <- function(n1, n2,
+                         as = c("tbl_graph", "igraph", "matrix")) {
+  mat <- matrix(0, n1, n2)
+  mat[1:round(n1 / 2), 1:round(n2 / 2)] <- 1
   mat[rowSums(mat) < 1, colSums(mat) < 1] <- 1
-  mat
-}
 
-#' Matched two-mode graph
-#'
-#' Creates a matched two-mode network
-#' @param node1 Number of nodes in the first node set
-#' @param node2 Number of nodes in the second node set
-#' @details Will construct an affiliation matrix,
-#' with by default both node1 and node2 matched.
-#' TODO: Make node set matching optional.
-#' @export
-#' @examples
-#' \dontrun{
-#' create_match(10, 12)
-#' }
-create_match <- function(node1, node2) {
-  mat <- matrix(0, node1, node2)
-  mat <- matrix(
-    ((row(mat) - col(mat)) %in% unique(-seq(0, node2 - 1, node1), 
-                                       seq(0, node1 - 1, node2))) * 1,
-    node1, node2
-  )
+  as <- match.arg(as)
+  if(as == "tbl_graph") mat <- tidygraph::as_tbl_graph(mat)
+  if(as == "igraph") mat <- igraph::graph_from_incidence_matrix(mat)
   mat
 }
 
 #' Nested two-mode graph
 #'
 #' Creates a nested two-mode network
-#' @param node1 Number of nodes in the first node set
-#' @param node2 Number of nodes in the second node set
+#' @param n1 Number of nodes in the first node set
+#' @param n2 Number of nodes in the second node set
 #' @details Will construct an affiliation matrix,
-#' with decreasing fill across node2.
-#' TODO: Make node set matching optional.
+#' with decreasing fill across n2.
 #' @export
 #' @examples
 #' \dontrun{
 #' create_nest(10, 12)
 #' }
-create_nest <- function(node1, node2) {
-  mat <- matrix(0, node1, node2)
-  mat[(row(mat) - col(mat)) >= 0] <- 1
-  mat
+create_nest <- function(n1, n2, 
+                        as = c("tbl_graph", "igraph", "matrix")) {
+  
+  as <- match.arg(as)
+  
+  out <- matrix(0, n1, n2)
+  out[(row(out) - col(out)) >= 0] <- 1
+
+  if(as == "tbl_graph") out <- tidygraph::as_tbl_graph(out)
+  if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
+  out
 }
 
 # mat.dist <- matrix(0,5,3)
