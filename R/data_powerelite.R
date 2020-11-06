@@ -9,8 +9,8 @@
 #'
 #' @docType data
 #' @keywords datasets
-#' @name powerelite
-#' @usage data(powerelite)
+#' @name mpn_powerelite
+#' @usage data(mpn_powerelite)
 #' @format Matrix with 14 rows and 20 columns
 #' @source Domhoff, G William. 2016. 
 #' “Who Rules America? Power Elite Database.” http://www2.ucsc.edu/whorulesamerica/power_elite/.
@@ -18,4 +18,4 @@
 #' Knoke, Christopoulos, Diani, and Hollway. 2020. 
 #' \emph{Multimodal Political Networks: The Structural Perspective}. 
 #' Cambridge University Press: Cambridge.
-"powerelite"
+"mpn_powerelite"

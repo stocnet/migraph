@@ -19,20 +19,20 @@
 #'
 #' @docType data
 #' @keywords datasets
-#' @name senate112
-#' @usage data(DemSxP)
+#' @name mpn_senate112
+#' @usage data(mpn_DemSxP)
 #' @format Matrix of 51 rows (Senators) and 63 columns (PACS)
 #' @source Knoke, Christopoulos, Diani, and Hollway. 2020. 
 #' \emph{Multimodal Political Networks}. 
 #' Cambridge University Press: Cambridge.
-"DemSxP"
+"mpn_DemSxP"
 
-#' @rdname senate112
-#' @usage data(RepSxP)
+#' @rdname mpn_senate112
+#' @usage data(mpn_RepSxP)
 #' @format Matrix of 62 rows (Senators) and 72 columns (PACS)
-"RepSxP"
+"mpn_RepSxP"
 
-#' @rdname senate112
-#' @usage data(OverSxP)
+#' @rdname mpn_senate112
+#' @usage data(mpn_OverSxP)
 #' @format Matrix of 20 rows (Senators) and 32 columns (PACS)
-"OverSxP"
+"mpn_OverSxP"

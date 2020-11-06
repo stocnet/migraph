@@ -4,20 +4,19 @@
 \alias{create_nest}
 \title{Nested two-mode graph}
 \usage{
-create_nest(node1, node2)
+create_nest(n1, n2, as = c("tbl_graph", "igraph", "matrix"))
 }
 \arguments{
-\item{node1}{Number of nodes in the first node set}
+\item{n1}{Number of nodes in the first node set}
 
-\item{node2}{Number of nodes in the second node set}
+\item{n2}{Number of nodes in the second node set}
 }
 \description{
 Creates a nested two-mode network
 }
 \details{
 Will construct an affiliation matrix,
-with decreasing fill across node2.
-TODO: Make node set matching optional.
+with decreasing fill across n2.
 }
 \examples{
 \dontrun{

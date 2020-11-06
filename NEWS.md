@@ -1,3 +1,18 @@
+# roctopus 0.3.0
+
+2020-11-06
+
+## Data
+
+* Data creation updated for `{tidygraph}` defaults
+  * Renamed `create_lattice()` to `create_chain()` to avoid conflicts with `tidygraph::create_lattice()`
+  * Renamed `create_poles()` to `create_silos()`
+  * Renamed `create_random()` to `play_twomode()` to avoid conflicts with `tidygraph::play_bipartite()`
+  * Added export options for all `create_` and `play_` functions as `tbl_graph` (default), `igraph`, and base matrix
+  * Updated tests for new `create_` and `play_` function names
+* Packaged data updated for `{tidygraph}` defaults
+  * Renamed packaged data from book to `mpn_`
+
 # roctopus 0.2.6
 
 2020-08-18
