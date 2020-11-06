@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">roctopus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -143,17 +143,17 @@
     <p>Creates a nested two-mode network</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_nest</span><span class='op'>(</span><span class='va'>node1</span>, <span class='va'>node2</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>create_nest</span><span class='op'>(</span><span class='va'>n1</span>, <span class='va'>n2</span>, as <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"tbl_graph"</span>, <span class='st'>"igraph"</span>, <span class='st'>"matrix"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>node1</th>
+      <th>n1</th>
       <td><p>Number of nodes in the first node set</p></td>
     </tr>
     <tr>
-      <th>node2</th>
+      <th>n2</th>
       <td><p>Number of nodes in the second node set</p></td>
     </tr>
     </table>
@@ -161,8 +161,7 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Will construct an affiliation matrix,
-with decreasing fill across node2.
-TODO: Make node set matching optional.</p>
+with decreasing fill across n2.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>

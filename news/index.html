@@ -85,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">roctopus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -137,6 +137,35 @@
       <small>Source: <a href='https://github.com/jhollway/roctopus/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="roctopus-030" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.0">
+<a href="#roctopus-030" class="anchor"></a>roctopus 0.3.0</h1>
+<p>2020-11-06</p>
+<div id="data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#data" class="anchor"></a>Data</h2>
+<ul>
+<li>Data creation updated for <a href="https://tidygraph.data-imaginist.com">tidygraph</a> defaults
+<ul>
+<li>Renamed <code>create_lattice()</code> to <code>create_chain()</code> to avoid conflicts with <code><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html">tidygraph::create_lattice()</a></code>
+</li>
+<li>Renamed <code>create_poles()</code> to <code>create_silos()</code>
+</li>
+<li>Renamed <code>create_random()</code> to <code>play_twomode()</code> to avoid conflicts with <code><a href="https://tidygraph.data-imaginist.com/reference/type_games.html">tidygraph::play_bipartite()</a></code>
+</li>
+<li>Added export options for all <code>create_</code> and <code>play_</code> functions as <code>tbl_graph</code> (default), <code>igraph</code>, and base matrix</li>
+<li>Updated tests for new <code>create_</code> and <code>play_</code> function names</li>
+</ul>
+</li>
+<li>Packaged data updated for <a href="https://tidygraph.data-imaginist.com">tidygraph</a> defaults
+<ul>
+<li>Renamed packaged data from book to <code>mpn_</code>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
     <div id="roctopus-026" class="section level1">
 <h1 class="page-header" data-toc-text="0.2.6">
 <a href="#roctopus-026" class="anchor"></a>roctopus 0.2.6</h1>
@@ -157,13 +186,13 @@
 <ul>
 <li>Added tests for <code>netlm2()</code>
 </li>
-<li>Added tests for <code><a href="../reference/create_random.html">create_random()</a></code>
+<li>Added tests for <code>create_random()</code>
 </li>
 </ul>
 </div>
-<div id="data" class="section level2">
+<div id="data-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data" class="anchor"></a>Data</h2>
+<a href="#data-1" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>opensecrets</code> data</li>
 <li>Added <code>powerelite</code> data</li>
@@ -202,9 +231,9 @@
 <h1 class="page-header" data-toc-text="0.2.3">
 <a href="#roctopus-023" class="anchor"></a>roctopus 0.2.3</h1>
 <p>2020-07-19</p>
-<div id="data-1" class="section level2">
+<div id="data-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-1" class="anchor"></a>Data</h2>
+<a href="#data-2" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>mexicanpower</code> dataset</li>
 <li>Added <code>senate112</code> datasets</li>
@@ -223,9 +252,9 @@
 <h1 class="page-header" data-toc-text="0.2.1">
 <a href="#roctopus-021" class="anchor"></a>roctopus 0.2.1</h1>
 <p>2020-07-17</p>
-<div id="data-2" class="section level2">
+<div id="data-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-2" class="anchor"></a>Data</h2>
+<a href="#data-3" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>ryanair</code> dataset from Christopoulos 2006</li>
 </ul>
@@ -243,9 +272,9 @@
 <h1 class="page-header" data-toc-text="0.2.0">
 <a href="#roctopus-020" class="anchor"></a>roctopus 0.2.0</h1>
 <p>2020-07-03</p>
-<div id="data-3" class="section level2">
+<div id="data-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-3" class="anchor"></a>Data</h2>
+<a href="#data-4" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>evs</code> datasets from Knoke et al 2020</li>
 </ul>
@@ -255,9 +284,9 @@
 <h1 class="page-header" data-toc-text="0.1.0">
 <a href="#roctopus-010" class="anchor"></a>roctopus 0.1.0</h1>
 <p>2020-06-30</p>
-<div id="data-4" class="section level2">
+<div id="data-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-4" class="anchor"></a>Data</h2>
+<a href="#data-5" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>bristol</code> dataset from Knoke et al 2020</li>
 </ul>

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Utility functions for multimode and multilevel network analysis • roctopus</title>
+<title>Multimodal and multilevel network analysis • roctopus</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -19,7 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><!-- docsearch --><script src="docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Utility functions for multimode and multilevel network analysis">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Multimodal and multilevel network analysis">
 <meta property="og:description" content="This package assembles a number of utility functions for 
    loading, visualising, and analysing multimode, multiplex, and multilevel networks.">
 <meta property="og:image" content="https://jhollway.github.io/roctopus/logo.png">
@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">roctopus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -101,7 +101,7 @@
 <blockquote>
 <p>David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos (2021) <em>Multimodal Political Networks</em>. Cambridge University Press: Cambridge.</p>
 </blockquote>
-<p>The package is offered as a complement to existing R packages for network analysis. It can analyse data in base formats such as matrices and (data frame) edgelists, but is also built upon <a href="https://igraph.org">igraph</a> and consistent with a <code>{tidygraph}</code> workflow. It draws together, updates, and builds upon many functions currently available in other R packages such as <code>{tnet}</code>, <code>{bipartite}</code>, and <code>{multinet}</code>, and implements many additional features currently only available outside the R ecosystem in packages such as <strong>UCINET</strong>.</p>
+<p>The package is offered as a complement to existing R packages for network analysis. It can analyse data in base formats such as matrices and (data frame) edgelists, but also leverages <a href="https://igraph.org/r/"><code>{igraph}</code></a> and is consistent with a <a href="https://tidygraph.data-imaginist.com/index.html"><code>{tidygraph}</code></a> workflow. It draws together, updates, and builds upon many functions currently available in other excellent R packages such as <a href="https://github.com/biometry/bipartite"><code>{bipartite}</code></a>, <a href="https://cran.r-project.org/web/packages/multinet/multinet.pdf"><code>{multinet}</code></a>, <a href="https://github.com/anespinosa/netmem"><code>{netmem}</code></a>, and <a href="https://toreopsahl.com/tnet/"><code>{tnet}</code></a>, and implements many additional features currently only available outside the R ecosystem in packages such as <a href="https://sites.google.com/site/ucinetsoftware/downloads"><strong>UCINET</strong></a>.</p>
 <p>Please explore <a href="https://jhollway.github.io/roctopus/">the website</a> to find out more. Some of these functions are also relied on for the <a href="https://jhollway.shinyapps.io/TopoTypo/">Topological Typology</a> app.</p>
 </div>
 <div id="installation" class="section level2">
@@ -148,9 +148,7 @@
 <div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
-<li>
-<a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
-</li>
+<li><a href="https://opensource.org/licenses/mit-license.php">MIT</a></li>
 </ul>
 </div>
 <div class="community">

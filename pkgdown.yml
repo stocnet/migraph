@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   roctopus: roctopus.html
-last_built: 2020-11-06T14:05Z
+last_built: 2020-11-06T17:18Z
 urls:
   reference: https://jhollway.github.io/roctopus//reference
   article: https://jhollway.github.io/roctopus//articles
