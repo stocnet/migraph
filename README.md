@@ -20,11 +20,15 @@ The package is intended as a software companion to the forthcoming book:
 
 The package is offered as a complement to existing R packages for network analysis.
 It can analyse data in base formats such as matrices and (data frame) edgelists,
-but is also built upon `{igraph}` and consistent with a `{tidygraph}` workflow.
+but also leverages [`{igraph}`](https://igraph.org/r/) and is consistent with a [`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html) workflow.
 It draws together, updates, and builds upon many functions currently available in
-other R packages such as `{tnet}`, `{bipartite}`, and `{multinet}`,
+other excellent R packages such as 
+[`{bipartite}`](https://github.com/biometry/bipartite), 
+[`{multinet}`](https://cran.r-project.org/web/packages/multinet/multinet.pdf), 
+[`{netmem}`](https://github.com/anespinosa/netmem), 
+and [`{tnet}`](https://toreopsahl.com/tnet/),
 and implements many additional features currently only available outside the R ecosystem
-in packages such as **UCINET**.
+in packages such as [**UCINET**](https://sites.google.com/site/ucinetsoftware/downloads).
 
 Please explore [the website](https://jhollway.github.io/roctopus/) to find out more.
 Some of these functions are also relied on for the [Topological Typology](https://jhollway.shinyapps.io/TopoTypo/).
