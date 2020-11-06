@@ -1,22 +1,34 @@
-#' Two-mode lattice
+#' Two-mode chain
 #'
-#' Creates a two-mode lattice
-#' @param node1 Number of nodes in the first node set
-#' @param node2 Number of nodes in the second node set
+#' Creates a two-mode chain
+#' @param n1 Number of nodes in the first node set
+#' @param n2 Number of nodes in the second node set
+#' @param as What type of object to return.
+#' One of "matrix", "tbl_graph", "igraph".
+#' By default, creates a "tbl_graph" object.
 #' @details Will construct a bilateral lattice,
 #' with two ties for every second-mode node.
 #' @export
 #' @examples
 #' \dontrun{
-#' create_lattice(10, 12)
+#' create_chain(5,10) %>% ggraph() +
+#' geom_edge_fan(aes(alpha = stat(index)), show.legend = FALSE) +
+#' geom_node_point(aes(size = 5))
 #' }
-create_lattice <- function(node1, node2) {
-  mat <- matrix(0, node1, node2)
+create_chain <- function(n1, n2, 
+                         as = c("tbl_graph", "igraph", "matrix")) {
+  
+  as <- match.arg(as)
+
+  mat <- matrix(0, n1, n2)
   out <- suppressWarnings(((row(mat) - col(mat)) == 0 |
-    (row(mat) - col(mat)) == (-seq.int(0, node2 - 1, node1)[-1]) |
+    (row(mat) - col(mat)) == (-seq.int(0, n2 - 1, n1)[-1]) |
     (row(mat) - col(mat)) == -1 |
-    (row(mat) - col(mat)) == -seq.int(1 + node1, node2 - 1, node1) |
+    (row(mat) - col(mat)) == -seq.int(1 + n1, n2 - 1, n1) |
     (row(mat) - col(mat)) == nrow(mat) - 1) * 1)
+  
+  if(as == "tbl_graph") out <- tidygraph::as_tbl_graph(out)
+  if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
   out
 }
 
