@@ -35,6 +35,7 @@ reference:
     desc: "Functions for simulating multilevel networks:"
     contents:
       - starts_with("create_")
+      - starts_with("play_")
       - df_to_mat
       - project
       - project_list
@@ -52,10 +53,4 @@ reference:
   - title: "Data"
     desc: "Multilevel network data:"
     contents:
-      - bristol
-      - evs
-      - mexicanpower
-      - opensecrets
-      - powerelite
-      - ryanair
-      - senate112
+      - starts_with("mpn_")
