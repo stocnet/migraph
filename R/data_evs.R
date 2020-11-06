@@ -8,8 +8,8 @@
 #'
 #' @docType data
 #' @keywords datasets
-#' @name evs
-#' @usage data(IT_1990)
+#' @name mpn_evs
+#' @usage data(mpn_IT_1990)
 #' @format Matrices with 14 columns:
 #' \describe{
 #'   \item{Welfare}{1 if individual associated}
@@ -28,15 +28,15 @@
 #'   \item{Health}{1 if individual associated}
 #' }
 #' @source Knoke, Christopoulos, Diani, and Hollway. 2020. Multimodal Political Networks. Cambridge University Press: Cambridge.
-"IT_1990"
+"mpn_IT_1990"
 
-#' @rdname evs
-#' @usage data(IT_2008)
-"IT_2008"
+#' @rdname mpn_evs
+#' @usage data(mpn_IT_2008)
+"mpn_IT_2008"
 
-#' @rdname evs
-#' @usage data(DE_1990)
-"DE_1990"
+#' @rdname mpn_evs
+#' @usage data(mpn_DE_1990)
+"mpn_DE_1990"
 
 #' @rdname evs
 #' @usage data(DE_2008)
