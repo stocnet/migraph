@@ -1,6 +1,7 @@
 #' Two-mode quadratic assignment procedure
 #'
-#' This function allows you to calculate how much two-mode clustering there is.
+#' This function extends the multiple regression quadratic assignment procedure (MRQAP)
+#' of network linear model to two mode networks. 
 #' @param DV A two-mode matrix object
 #' @param IV A list of two-mode matrix objects
 #' @param names IV names
