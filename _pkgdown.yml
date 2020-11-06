@@ -1,5 +1,5 @@
-destination: ../../bitbucketio/roctopus/
-url: https://jhollway.bitbucket.io/roctopus/
+destination: ../../jhollway.github.io/roctopus/
+url: https://jhollway.github.io/roctopus/
 development:
     mode: auto
 template:
