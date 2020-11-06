@@ -33,6 +33,9 @@ reference:
     desc: "Functions for simulating multilevel networks:"
     contents:
       - starts_with("create_")
+      - df_to_mat
+      - project
+      - project_list
   - title: "Visualisation"
     desc: "Functions for visualising multilevel networks:"
     contents:
@@ -41,3 +44,16 @@ reference:
     desc: "Functions for analysing multilevel networks:"
     contents:
       - starts_with("twomode_")
+      - starts_with("threemode_")
+      - netlm2
+      - concor_hca
+  - title: "Data"
+    desc: "Multilevel network data:"
+    contents:
+      - bristol
+      - evs
+      - mexicanpower
+      - opensecrets
+      - powerelite
+      - ryanair
+      - senate112
