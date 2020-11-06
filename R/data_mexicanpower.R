@@ -11,12 +11,12 @@
 #'
 #' @docType data
 #' @keywords datasets
-#' @name mexicanpower
-#' @usage data(mexicanpower)
+#' @name mpn_mexicanpower
+#' @usage data(mpn_mexicanpower)
 #' @format Matrix with 11 rows/columns
 #' @source Knoke, David. 1990. \emph{Political Networks}. 
 #' 
 #' Knoke, Christopoulos, Diani, and Hollway. 2020. 
 #' \emph{Multimodal Political Networks: The Structural Perspective}. 
 #' Cambridge University Press: Cambridge.
-"mexicanpower"
+"mpn_mexicanpower"

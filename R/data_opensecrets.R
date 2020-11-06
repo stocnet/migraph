@@ -9,8 +9,8 @@
 #'
 #' @docType data
 #' @keywords datasets
-#' @name opensecrets
-#' @usage data(opensecrets)
+#' @name mpn_opensecrets
+#' @usage data(mpn_opensecrets)
 #' @format Matrix with 26 rows and 6+6 columns
 #' @source Domhoff, G William. 2016. 
 #' “Who Rules America? Power Elite Database.” http://www2.ucsc.edu/whorulesamerica/power_elite/.
@@ -20,4 +20,4 @@
 #' Knoke, Christopoulos, Diani, and Hollway. 2020. 
 #' \emph{Multimodal Political Networks: The Structural Perspective}. 
 #' Cambridge University Press: Cambridge.
-"opensecrets"
+"mpn_opensecrets"
