@@ -1,5 +1,5 @@
 
-# roctopus <img src="figures/man/roctopus.png" align="right" width="150"/>
+# roctopus <img src="man/figures/logo.png" align="right" width="150"/>
 
 <!-- badges: start -->
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
