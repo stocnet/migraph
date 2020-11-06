@@ -46,8 +46,8 @@ and install using an adapted version of the following commands:
 ### From source
 
 To install from source the latest main version of `{roctopus}` from Github, 
-please install the `{remotes}` package from CRAN and then enter into the console: 
-`remotes::install_github("jhollway/roctopus")`.
-The latest development version of `{roctopus}` can also be installed in a similar way: 
-`remotes::install_github("jhollway/roctopus@develop")`.
+please install the `{remotes}` package from CRAN and then enter into the console:
+
+- For latest stable version: `remotes::install_github("jhollway/roctopus")`
+- For latest development version: `remotes::install_github("jhollway/roctopus@develop")`
 

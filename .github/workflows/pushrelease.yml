@@ -78,6 +78,7 @@ jobs:
           path: build/
           
       - name: Calculate code coverage
+        if: runner.os == 'Mac'
         run: Rscript -e "covr::codecov()"
 
   release:
