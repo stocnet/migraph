@@ -1,5 +1,5 @@
 
-# roctopus <img src="inst/roctopus.png" align="right" width="150"/>
+# roctopus <img src="figures/man/roctopus.png" align="right" width="150"/>
 
 <!-- badges: start -->
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
@@ -8,7 +8,7 @@
 ![GitHub issues](https://img.shields.io/github/issues-raw/jhollway/roctopus)
 [![HitCount](http://hits.dwyl.com/jhollway/roctopus.svg)](http://hits.dwyl.com/jhollway/roctopus)
 [![Codecov test coverage](https://codecov.io/gh/jhollway/roctopus/branch/main/graph/badge.svg)](https://codecov.io/gh/jhollway/roctopus?branch=main)
-![GitHub All Releases](https://img.shields.io/github/downloads/jhollway/roctopus/total)
+<!-- ![GitHub All Releases](https://img.shields.io/github/downloads/jhollway/roctopus/total) -->
 <!-- badges: end -->
 
 ## About the package
@@ -26,7 +26,7 @@ other R packages such as `{tnet}`, `{bipartite}`, and `{multinet}`,
 and implements many additional features currently only available outside the R ecosystem
 in packages such as **UCINET**.
 
-Please explore the website to find out more.
+Please explore [the website](https://jhollway.github.io/roctopus/) to find out more.
 Some of these functions are also relied on for the [Topological Typology](https://jhollway.shinyapps.io/TopoTypo/).
 
 ## Installation
