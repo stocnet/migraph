@@ -177,37 +177,31 @@ twomode_centralization_degree <- function(graph){
 #' Two-mode degree centrality
 #'
 #' @param graph 
-#' @param v 
-#' @param mode 
-#' @param twomode 
-#'
+#' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
 #' @return
 #' @export
 #'
 #' @examples
-twomode_centrality_degree <- function (graph, v = V(graph), mode = c("all"), twomode = TRUE) 
-{
+twomode_centrality_degree <- function(graph){
   require(igraph)
-  v <- as.igraph.vs(graph, v)
-  mode <- igraph.match.arg(mode)
-  on.exit(.Call(C_R_igraph_finalizer))
-  res <- .Call(C_R_igraph_degree, graph, v - 1, as.numeric(mode), 
-               as.logical(loops))
-  if (twomode) {
-    bipartite.mapping(graph)
-    n <-attr(whichV(graph)$type=T)
-    m <- attr(whichV(graph)$type!=T)
-    resn <- res/(vcount(whichV(graph)$type!=T))
-    resm <- res/(vcount(whichV(graph)$type=T))
-    # Add them together (?)
-    res <- list(resn, resm)
-  }
-  if (igraph_opt("add.vertex.names") && is_named(graph)) {
-    names(res) <- V(graph)$name[v]
-  }
-  res
+  nodeset <- names(which(igraph::degree(graph)==max(igraph::degree(graph)))) %in%
+    V(graph)$name[V(graph)$type==T]
+  
+  # step 1: identify difefrent nodes
+  m <- length(which(V(graph)$type==T))
+  n <- length(which(V(graph)$type!=T)) 
+  {
+  # step 2: calculate degree centrality for each group (normilizes by dividing by size of opposite nodeset)
+  a <- sum(igraph::degree(graph)[which(V(graph)$type==T)])/n
+  b <- sum(igraph::degree(graph)[which(V(graph)$type!=T)])/m
+  
+  # step 3: bind results and display
+  out <- rbind(a, b)
+ }
+view(out)    
 }
-# Only the first attempt, bear with me here...
+
+# Only the second attempt, bear with me here...
 
 #' Two-mode betweenness centralization
 #'
@@ -216,8 +210,8 @@ twomode_centrality_degree <- function (graph, v = V(graph), mode = c("all"), two
 # #' @family two-mode functions
 #' @export
 #' @examples
-#' twomode_centralization_between(graph)
-twomode_centralization_between <- function(graph){
+#' twomode_centralization_betweeness(graph)
+twomode_centralization_betweeness <- function(graph){
   require(igraph)
   nodeset <- names(which(betweenness(graph)==max(betweenness(graph)))) %in% 
     V(graph)$name[V(graph)$type==T]
@@ -265,57 +259,75 @@ twomode_centralization_between <- function(graph){
 #' Two-mode betweeness centrality
 #'
 #' @param graph 
-#' @param v 
-#' @param weights 
-#' @param nobigint 
-#' @param twomode 
+#' @references Borgatti, Stephen P, and Daniel S Halgin. 2011. "Analyzing Affiliation Networks." In The SAGE Handbook of 
+#' Social Network Analysis, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage; 
+#' Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
+#' @return
+#' @export
+#' @examples
+twomode_centrality_betweeness <- function(graph) {
+  require(igraph)
+  nodeset <- names(which(betweenness(graph)==max(betweenness(graph)))) %in% 
+    V(graph)$name[V(graph)$type==T]
+  
+  # step 1: identify the two modes
+  m <- length(which(V(graph)$type==T))
+  n <- length(which(V(graph)$type!=T))
+  
+  # step 2: calculate for each mode (normilized versions devided by betweness maximum for two modes)
+  if (m > n){
+    out <- (2*(m-1)^2*(n-1))
+  }
+  if (m <= n){
+    out <- (m-1)*((1/2)*n*(n-1)+(1/2)*(m-1)*(m-2)+(m-1)*(n-1))
+  }
+  # step 3: display results
+  view(out)
+}
+
+# Only the second attempt, please bear with me here once again ... 
+
+#' Two Mode Closeness Centralization
+#'
+#' @param graph 
 #'
 #' @return
 #' @export
 #'
 #' @examples
-twomode_centrality_betweeness <- function (graph, v = V(graph), weights = NULL, 
-          nobigint = TRUE, twomode = TRUE) {
-  twomode_centrality_betweeness 
-  v <- as.igraph.vs(graph, v)
-  if (is.null(weights) && "weight" %in% edge_attr_names(graph)) {
-    weights <- E(graph)$weight
+twomode_centralization_closeness <- function(graph){
+  require(igraph)
+  # See Borgatti and Everett 1997
+}
+
+#' Two Mode Closeness Centrality 
+#'
+#' @param graph 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+twomode_closeness_centrality <- function(graph) {
+  require(igraph)
+  nodeset <- names(which(igraph::degree(graph)==max(igraph::degree(graph)))) %in%
+    V(graph)$name[V(graph)$type==T]
+  
+  # step 1: Identify the two modes  
+  m <- length(which(V(graph)$type==T))
+  n <- length(which(V(graph)$type!=T))
+  {
+  # step 2: Calculate closeness for each mode (normilized versions devided by closeness)
+  a <- (n*(2*(m-1)))/(sum(closeness(graph)[which(V(graph)$type==T)], na.rm=T))
+  b <- (m*(2*(n-1)))/(sum(closeness(graph)[which(V(graph)$type==T)], na.rm=T))
+  out <- rbind(a, b)
   }
-  if (!is.null(weights) && any(!is.na(weights))) {
-    weights <- as.numeric(weights)
-  }
-  else {
-    weights <- NULL
-  }
-  on.exit(.Call(C_R_igraph_finalizer))
-  res <- .Call(C_R_igraph_betweenness, graph, v - 1, as.logical(directed), 
-               weights, as.logical(nobigint))
-  if (twomode) {
-    bipartite.mapping(graph)
-    vcn <- vcount(whichV(graph)$type=T)
-    vcm <- vcount(whichV(graph)$type!=T)
-    resn <- (1/2*vcn)*(vcn-1) + 1/2*((vcm - 1)*(vcm - 2)) + (vcm - 1)*(vcn - 1)
-    resm <- (1/2*vcm)*(vcm-1) + 1/2*((vcn - 1)*(vcn - 2)) + (vcn - 1)*(vcm - 1)
-    #Need to add them together now (?)
-    res <- list(resn, resm)
-    }
-  if (igraph_opt("add.vertex.names") && is_named(graph)) {
-    names(res) <- V(graph)$name[v]
-  }
-  res
+  # step 3: display results
+  view(out)
 }
 
 # Only the first attempt, please bear with me here once again ... 
-
-
-# twomode_centrality_closeness <- 
-# math: Ni(size of other nodes set) + 2*(No(set of nodes own vertices)) - 2 
-# Now how to do centralization for closenes?
-
-# twomode_centrality_eigenvector <- 
-# math: square root of (1/(2*(No))) 
-# Is this it? 
-
+ 
 #'
 #' Two-mode constraint
 #' 
