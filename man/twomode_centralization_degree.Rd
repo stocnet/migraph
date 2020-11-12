@@ -16,5 +16,6 @@ This function allows you to calculate how (degree) centralized a two-mode graph 
 twomode_centralization_degree(graph)
 }
 \references{
-Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In The SAGE Handbook of Social Network Analysis, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
+Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In The SAGE Handbook of 
+Social Network Analysis, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
 }
