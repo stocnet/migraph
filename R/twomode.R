@@ -198,7 +198,7 @@ twomode_centrality_degree <- function(graph){
   # step 3: bind results and display
   out <- rbind(a, b)
   }
-  summary(out)    
+  out    
 }
 
 # Only the second attempt, bear with me here...
@@ -286,7 +286,7 @@ twomode_centrality_betweeness <- function(graph) {
     out <- rbind(c,d)
   }
   # step 3: display results
-  summary(out)
+  out
 }
 
 # Only the second attempt, please bear with me here once again ... 
@@ -343,7 +343,7 @@ twomode_centrality_closeness <- function(graph) {
   out <- rbind(a, b)
   }
   # step 3: display results
-  summary(out)
+  out
 }
 
 # Only the first attempt, please bear with me here once again ... 
