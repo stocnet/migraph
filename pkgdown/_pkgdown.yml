@@ -31,8 +31,8 @@ navbar:
       text: News
       href: news/index.html
 reference:
-  - title: "Simulation"
-    desc: "Functions for simulating multilevel networks:"
+  - title: "Creation and Simulation"
+    desc: "Functions for creating and simulating multimodal and multilevel networks, or projections thereof:"
     contents:
       - starts_with("create_")
       - starts_with("play_")
