@@ -15,9 +15,8 @@ df1 <- data.frame(
   stringsAsFactors = F)
 
 test_that("two mode degree centrality is correct",{
-  expect_equal(twomode_centrality_degree(g), df1)
+  expect_equal(twomode_centrality_degree(g), summary(df1))
 })
 
 # Need to test centralization for network and centrality for the list of nodes by 
 # matching results
-

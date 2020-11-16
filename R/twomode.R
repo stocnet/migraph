@@ -192,8 +192,8 @@ twomode_centrality_degree <- function(graph){
   n <- length(which(V(graph)$type!=nodeset)) 
   {
   # step 2: calculate degree centrality for each group (normilizes by dividing by size of opposite nodeset)
-  a <- igraph::degree(m)/n
-  b <- igraph::degree(n)/m
+  a <- vcount(m)/n
+  b <- vcount(n)/m
   
   # step 3: bind results and display
   out <- rbind(a, b)
@@ -328,7 +328,7 @@ twomode_centralization_closeness <- function(graph){
 #' @export
 #'
 #' @examples
-twomode_closeness_centrality <- function(graph) {
+twomode_centrality_closeness <- function(graph) {
   require(igraph)
   nodeset <- names(which(igraph::degree(graph)==max(igraph::degree(graph)))) %in%
     V(graph)$name[V(graph)$type==T]
