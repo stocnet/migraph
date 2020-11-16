@@ -18,3 +18,19 @@ test_that("two mode degree centrality calculated correctly",{
                                 roctopus::centrality_degree(normalized = T))[28:32],4)), 
                c(0.3333, .2222, .3889, .2222, .2222))
 })
+
+test_that("two mode closeness centrality calculated correctly",{
+  expect_equal(unname(with_graph(as_tbl_graph(southern_women), 
+                                 roctopus::centrality_closeness())[1:5]), 
+               c(51.67,46.97,51.67,46.97,38.75))
+  expect_equal(unname(with_graph(as_tbl_graph(southern_women), 
+                                 roctopus::centrality_closeness())[28:32]), 
+               c(39.74,37.80,40.79,37.80,37.00))
+  expect_equal(unname(round(with_graph(as_tbl_graph(southern_women), 
+                                       roctopus::centrality_closeness(normalized = T))[1:5],4)), 
+               c(80.00, 72.73, 80.00, 72.73, 60.00))
+  expect_equal(unname(round(with_graph(as_tbl_graph(southern_women), 
+                                       roctopus::centrality_closeness(normalized = T))[28:32],4)), 
+               c(56.42, 53.66, 57.89, 53.66, 53.66))
+})
+
