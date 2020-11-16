@@ -1,12 +1,20 @@
-mat1 <- matrix(c(0,1,1,0,0,1,1,1,0,0,1,0,1,0,1,0),4,4)
-rownames(mat1) <- c("Sam", "Mary", "John", "Ana")
-colnames(mat1) <- LETTERS[7:10]
+library(tidygraph)
+data(southern_women, package = "networkdata")
 
-mat2 <- matrix(c(Sam = .25, Mary = .5, John = 1, Ana = .25))
+# test <- southern_women %>% as_tbl_graph %>% activate(nodes) %>% 
+#   mutate(degree = roctopus::centrality_degree(normalized = T))
 
-test_that("two mode degree centrality is correct",{
-  expect_equal(twomode_centrality_degree(mat1), mat2)
+test_that("two mode degree centrality calculated correctly",{
+  expect_equal(unname(with_graph(as_tbl_graph(southern_women), 
+                          roctopus::centrality_degree())[1:5]), 
+               c(8,7,8,7,4))
+  expect_equal(unname(with_graph(as_tbl_graph(southern_women), 
+                          roctopus::centrality_degree())[28:32]), 
+               c(6,4,7,4,4))
+  expect_equal(unname(round(with_graph(as_tbl_graph(southern_women), 
+                          roctopus::centrality_degree(normalized = T))[1:5],4)), 
+               c(0.5714, .5, .5714, .5, .2857))
+  expect_equal(unname(round(with_graph(as_tbl_graph(southern_women), 
+                                roctopus::centrality_degree(normalized = T))[28:32],4)), 
+               c(0.3333, .2222, .3889, .2222, .2222))
 })
-
-# Need to test centralization for network and centrality for the list of nodes by 
-# matching results
