@@ -26,6 +26,7 @@ twomode_coherence(mat, attr)
 twomode_fragmentation
 
 Other two-mode functions: 
+\code{\link{centrality_degree}()},
 \code{\link{netlm2}()},
 \code{\link{twomode_2x2}()},
 \code{\link{twomode_clustering}()},

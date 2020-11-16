@@ -17,6 +17,7 @@ twomode_clustering(matrix)
 }
 \seealso{
 Other two-mode functions: 
+\code{\link{centrality_degree}()},
 \code{\link{netlm2}()},
 \code{\link{twomode_2x2}()},
 \code{\link{twomode_coherence}()},
