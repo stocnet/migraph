@@ -20,6 +20,8 @@ twomode_dominance(mat, attr = gdp2010)
 }
 \seealso{
 Other two-mode functions: 
+\code{\link{centrality_betweenness}()},
+\code{\link{centrality_closeness}()},
 \code{\link{centrality_degree}()},
 \code{\link{netlm2}()},
 \code{\link{twomode_2x2}()},

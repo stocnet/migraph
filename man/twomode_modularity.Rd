@@ -35,6 +35,8 @@ twomode_coherence
 twomode_dominance
 
 Other two-mode functions: 
+\code{\link{centrality_betweenness}()},
+\code{\link{centrality_closeness}()},
 \code{\link{centrality_degree}()},
 \code{\link{netlm2}()},
 \code{\link{twomode_2x2}()},
