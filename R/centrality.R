@@ -56,15 +56,17 @@ centrality_closeness <- function (weights = NULL, mode = "out", normalized = FAL
     weights <- NA
   }
   if (is_bipartite(graph) & normalized){
-    closeness <- closeness(graph = graph, v = V(graph), mode = mode, weights = weights, cutoff = cutoff)
+    closeness <- closeness(graph = graph, v = V(graph), mode = mode)
     other_set_size <- ifelse(V(graph)$type, sum(!V(graph)$type), sum(V(graph)$type))
     set_size <- ifelse(!V(graph)$type, sum(V(graph)$type), sum(!V(graph)$type))
     closeness/(other_set_size+(2*set_size)-2)
     } else {
       if (is.null(cutoff)) {
-        closeness(graph = graph, v = V(graph), mode = mode, weights = weights, normalized = normalized)
+        closeness(graph = graph, v = V(graph), mode = mode,
+                  weights = weights, normalized = normalized)
       } else {
-        estimate_closeness(graph = graph, vids = V(graph), mode = mode, cutoff = cutoff, weights = weights, normalized = normalized)
+        estimate_closeness(graph = graph, vids = V(graph), mode = mode, 
+                           cutoff = cutoff, weights = weights, normalized = normalized)
       }
     }
 } 
@@ -99,7 +101,7 @@ centrality_betweenness <- function(weights = NULL, directed = TRUE, cutoff = NUL
     weights <- NA
   } 
   if (is_bipartite(graph) & normalized){
-    betweenness <- betweenness(graph = graph, v = V(graph), mode = mode, weights = weights, cutoff = cutoff)
+    betweenness <- betweenness(graph = graph, v = V(graph), directed = directed, nobigint = nobigint)
     other_set_size <- ifelse(V(graph)$type, sum(!V(graph)$type), sum(V(graph)$type))
     set_size <- ifelse(!V(graph)$type, sum(V(graph)$type), sum(!V(graph)$type))
     ifelse (set_size > other_set_size, betweenness/(2*(set_size-1)(other_set_size-1)), betweenness/(1/2*other_set_size(other_set_size-1)+1/2(set_size-1)*(set_size-2)+(set_size-1)*(other_set_size-1)))
