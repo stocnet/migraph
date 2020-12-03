@@ -174,35 +174,6 @@ twomode_centralization_degree <- function(graph){
     ((n-1)*(m-1))
 }
 
-#' Two-mode degree centrality
-#'
-#' @param graph 
-#' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
-#' @return
-#' @export
-#'
-#' @examples
-twomode_centrality_degree <- function(graph){
-  require(igraph)
-  nodeset <- names(which(igraph::degree(graph)==max(igraph::degree(graph)))) %in%
-    V(graph)$name[V(graph)$type==T]
-  
-  # step 1: identify difefrent nodes
-  m <- length(which(V(graph)$type==nodeset))
-  n <- length(which(V(graph)$type!=nodeset)) 
-  {
-  # step 2: calculate degree centrality for each group (normilizes by dividing by size of opposite nodeset)
-  a <- vcount(m)/n
-  b <- vcount(n)/m
-  
-  # step 3: bind results and display
-  out <- rbind(a, b)
-  }
-  out    
-}
-
-# Only the second attempt, bear with me here...
-
 #' Two-mode betweenness centralization
 #'
 #' This function allows you to calculate how (betweenness) centralized a two-mode graph is.
@@ -256,41 +227,6 @@ twomode_centralization_betweeness <- function(graph){
   #   }
 }
 
-#' Two-mode betweeness centrality
-#'
-#' @param graph 
-#' @references Borgatti, Stephen P, and Daniel S Halgin. 2011. "Analyzing Affiliation Networks." In The SAGE Handbook of 
-#' Social Network Analysis, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage; 
-#' Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
-#' @return
-#' @export
-#' @examples
-twomode_centrality_betweeness <- function(graph) {
-  require(igraph)
-  nodeset <- names(which(betweenness(graph)==max(betweenness(graph)))) %in% 
-    V(graph)$name[V(graph)$type==T]
-  
-  # step 1: identify the two modes
-  m <- length(which(V(graph)$type==nodeset))
-  n <- length(which(V(graph)$type!= nodeset))
-  
-  # step 2: calculate for each mode (normilized versions devided by betweness maximum for two modes)
-  if (m > n){
-    a <- igraph::betweenness(m)/(2*(m-1)*(2*(n-1))) 
-    b <- igraph::betweenness(n)/(2*(m-1)*(2*(n-1)))
-    out <- rbind(a,b)
-  }
-  if (m <= n){
-    c <- igraph::betweenness(m)/(m-1)*((1/2)*n*(n-1)+(1/2)*(m-1)*(m-2)+(m-1)*(n-1))
-    d <- igraph::betweenness(n)/(m-1)*((1/2)*n*(n-1)+(1/2)*(m-1)*(m-2)+(m-1)*(n-1))
-    out <- rbind(c,d)
-  }
-  # step 3: display results
-  out
-}
-
-# Only the second attempt, please bear with me here once again ... 
-
 #' Two Mode Closeness Centralization
 #'
 #' @param graph 
@@ -318,37 +254,6 @@ twomode_centralization_closeness <- function(graph){
     }
 }
 
-#' Two Mode Closeness Centrality 
-#'
-#' @param graph 
-#' @references Borgatti, Stephen P, and Daniel S Halgin. 2011. "Analyzing Affiliation Networks." In The SAGE Handbook of 
-#' Social Network Analysis, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage; 
-#' Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
-#' @return
-#' @export
-#'
-#' @examples
-twomode_centrality_closeness <- function(graph) {
-  require(igraph)
-  nodeset <- names(which(igraph::degree(graph)==max(igraph::degree(graph)))) %in%
-    V(graph)$name[V(graph)$type==T]
-  
-  # step 1: Identify the two modes  
-  m <- length(which(V(graph)$type==nodeset))
-  n <- length(which(V(graph)$type!=nodeset))
-  {
-  # step 2: Calculate closeness for each mode (normilized versions devided by closeness)
-  a <- (n*(2*(m-1)))/igraph::closeness(m)
-  b <- (m*(2*(n-1)))/igraph::closeness(n)
-  out <- rbind(a, b)
-  }
-  # step 3: display results
-  out
-}
-
-# Only the first attempt, please bear with me here once again ... 
- 
-#'
 #' Two-mode constraint
 #' 
 #' This function extends Ronald Burt's constraint measure to two-mode networks.
