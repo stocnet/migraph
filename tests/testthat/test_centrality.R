@@ -49,17 +49,17 @@ test_that("two mode betweenness centrality calculated correctly",{
                c(1.51, 2, 2.26, 0.42, 0.42))
 })
 
-test_that("two mode eigenvector centrality calculated correctly",{
-  expect_equal(unname(with_graph(as_tbl_graph(southern_women), 
-                                 roctopus::centrality_eigenvector())[1:5]), 
-               c(0.22, 0.2, 0.25, 0.21, 0.11))
-  expect_equal(unname(with_graph(as_tbl_graph(southern_women), 
-                                 roctopus::centrality_eigenvector())[28:32]), 
-               c(0.15, 0.07, 0.17, 0.11, 0.11))
-  expect_equal(unname(round(with_graph(as_tbl_graph(southern_women), 
-                                       roctopus::centrality_eigenvector(normalized = T))[1:5],4)), 
-               c(32.71, 30.14, 36.44, 30.49, 16.19))
-  expect_equal(unname(round(with_graph(as_tbl_graph(southern_women), 
-                                       roctopus::centrality_eigenvector(normalized = T))[28:32],4)), 
-               c(21.73, 10.03, 24.98, 15.92, 15.92))
-})
+#test_that("two mode eigenvector centrality calculated correctly",{
+#  expect_equal(unname(with_graph(as_tbl_graph(southern_women), 
+#                                 roctopus::centrality_eigenvector())[1:5]), 
+#               c(0.22, 0.2, 0.25, 0.21, 0.11))
+#  expect_equal(unname(with_graph(as_tbl_graph(southern_women), 
+#                                 roctopus::centrality_eigenvector())[28:32]), 
+#               c(0.15, 0.07, 0.17, 0.11, 0.11))
+#  expect_equal(unname(round(with_graph(as_tbl_graph(southern_women), 
+#                                       roctopus::centrality_eigenvector(normalized = T))[1:5],4)), 
+#               c(32.71, 30.14, 36.44, 30.49, 16.19))
+#  expect_equal(unname(round(with_graph(as_tbl_graph(southern_women), 
+#                                       roctopus::centrality_eigenvector(normalized = T))[28:32],4)), 
+#               c(21.73, 10.03, 24.98, 15.92, 15.92))
+#})
