@@ -37,10 +37,10 @@ test_that("two mode closeness centrality calculated correctly",{
 test_that("two mode betweenness centrality calculated correctly",{
   expect_equal(unname(with_graph(as_tbl_graph(southern_women), 
                                  roctopus::centrality_betweenness())[1:5]), 
-               c(42.76, 22.86, 38.74, 22.01, 4.73))
+               c(42.759998, 22.856540, 38.739264, 22.011910, 4.727942))
   expect_equal(unname(with_graph(as_tbl_graph(southern_women), 
                                  roctopus::centrality_betweenness())[28:32]), 
-               c(6.82, 9.02, 10.24, 1.89, 1.89))
+               c(6.818566, 9.019440, 10.235365, 1.889229, 1.889229))
   expect_equal(unname(round(with_graph(as_tbl_graph(southern_women), 
                                        roctopus::centrality_betweenness(normalized = T))[1:5],4)), 
                c(9.67, 5.17, 8.76, 4.98, 1.07))
