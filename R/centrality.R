@@ -96,12 +96,12 @@ centrality_betweenness <- function(weights = NULL, directed = TRUE, cutoff = NUL
     weights <- NA
   } 
   if (is_bipartite(graph) & normalized){
-    betweenness <- betweenness(graph = graph, v = V(graph), directed = directed, nobigint = nobigint, cutoff = cutoff)
-    other_set_size <- ifelse(V(graph)$type, sum(!V(graph)$type), sum(V(graph)$type))
-    set_size <- sum(V(graph)$type) 
+    betweenness <- betweenness(graph = graph, v = igraph::V(graph), directed = directed, nobigint = nobigint)
+    other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
+    set_size <- ifelse(igraph::V(graph)$type, sum(igraph::V(graph)$type), sum(!igraph::V(graph)$type))
     ifelse(set_size > other_set_size, 
-            betweenness/(2*(set_size-1)(other_set_size-1)), 
-            betweenness/(1/2*other_set_size*(other_set_size-1)+1/2(set_size-1)*(set_size-2)+(set_size-1)*(other_set_size-1)))
+            betweenness/(2*(set_size-1)*(other_set_size-1)), 
+            betweenness/(1/2*other_set_size*(other_set_size-1)+1/2*(set_size-1)*(set_size-2)+(set_size-1)*(other_set_size-1)))
    } else {
     if (is.null(cutoff)) {
     betweenness(graph = graph, v = V(graph), directed = directed, weights = weights, nobigint = nobigint, normalized = normalized)
