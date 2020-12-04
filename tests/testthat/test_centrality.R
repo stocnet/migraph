@@ -5,35 +5,32 @@ data(southern_women, package = "networkdata")
 #   mutate(degree = roctopus::centrality_degree(normalized = T))
 
 test_that("two mode degree centrality calculated correctly",{
-  expect_equal(unname(with_graph(as_tbl_graph(southern_women), 
+  expect_equal(unname(with_graph(southern_women, 
                           roctopus::centrality_degree())[1:5]), 
                c(8,7,8,7,4))
-  expect_equal(unname(with_graph(as_tbl_graph(southern_women), 
+  expect_equal(unname(with_graph(southern_women, 
                           roctopus::centrality_degree())[28:32]), 
                c(6,4,7,4,4))
-  expect_equal(unname(round(with_graph(as_tbl_graph(southern_women), 
+  expect_equal(unname(round(with_graph(southern_women, 
                           roctopus::centrality_degree(normalized = T))[1:5],4)), 
                c(0.5714, .5, .5714, .5, .2857))
-  expect_equal(unname(round(with_graph(as_tbl_graph(southern_women), 
+  expect_equal(unname(round(with_graph(southern_women, 
                                 roctopus::centrality_degree(normalized = T))[28:32],4)), 
                c(0.3333, .2222, .3889, .2222, .2222))
 })
 
 test_that("two mode closeness centrality calculated correctly",{
-  expect_equal(unname(round(with_graph(as_tbl_graph(southern_women), 
-                                 roctopus::centrality_closeness())[1:5], 8)), 
-               c(0.01666667, 0.01515152, 0.01666667, 0.01515152, 0.01250000))
-  expect_equal(unname(round(with_graph(as_tbl_graph(southern_women), 
-                                 roctopus::centrality_closeness())[28:32], 8)), 
-               c(0.01282051, 0.01219512, 0.01315789, 0.01219512, 0.01219512))
-  # The tests above check closeness centrality unnormalized. The results displayed from Borgatti and Everett (1997) 
-  # are normalized closeness scores. These are c(51.67,46.97,51.67,46.97,38.75)) for the first five and
-  # c(39.74,37.80,40.79,37.80,37.00)) for the last five. 
-  expect_equal(unname(with_graph(as_tbl_graph(southern_women), 
-                                       roctopus::centrality_closeness(normalized = T))[1:5]), 
+  expect_equal(unname(with_graph(southern_women, 
+                                 roctopus::centrality_closeness())[1:5]), 
+               c(51.67,46.97,51.67,46.97,38.75))
+  expect_equal(unname(with_graph(southern_women, 
+                                 roctopus::centrality_closeness())[28:32]), 
+               c(39.74,37.80,40.79,37.80,37.00))
+  expect_equal(unname(round(with_graph(southern_women, 
+                                       roctopus::centrality_closeness(normalized = T))[1:5],4)), 
                c(80.00, 72.73, 80.00, 72.73, 60.00))
-  expect_equal(unname(with_graph(as_tbl_graph(southern_women), 
-                                       roctopus::centrality_closeness(normalized = T))[28:32]), 
+  expect_equal(unname(round(with_graph(southern_women, 
+                                       roctopus::centrality_closeness(normalized = T))[28:32],4)), 
                c(56.42, 53.66, 57.89, 53.66, 53.66))
 })
 
