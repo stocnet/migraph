@@ -1,5 +1,6 @@
 library(tidygraph)
 data(southern_women, package = "networkdata")
+southern_women <- as_tbl_graph(southern_women)
 
 # test <- southern_women %>% as_tbl_graph %>% activate(nodes) %>% 
 #   mutate(degree = roctopus::centrality_degree(normalized = T))
@@ -20,18 +21,21 @@ test_that("two mode degree centrality calculated correctly",{
 })
 
 test_that("two mode closeness centrality calculated correctly",{
-  expect_equal(unname(with_graph(southern_women, 
-                                 roctopus::centrality_closeness())[1:5]), 
-               c(51.67,46.97,51.67,46.97,38.75))
-  expect_equal(unname(with_graph(southern_women, 
-                                 roctopus::centrality_closeness())[28:32]), 
-               c(39.74,37.80,40.79,37.80,37.00))
+  expect_equal(unname(round(with_graph(as_tbl_graph(southern_women), 
+                                       roctopus::centrality_closeness())[1:5], 4)), 
+               c(0.0167, 0.0152, 0.0167, 0.0152, 0.0125))
+  expect_equal(unname(round(with_graph(as_tbl_graph(southern_women), 
+                                       roctopus::centrality_closeness())[28:32], 4)), 
+               c(0.0128, 0.0122, 0.0132, 0.0122, 0.0122))
+  # The tests above check closeness centrality unnormalized. The results displayed from Borgatti and Everett (1997) 
+  # are normalized closeness scores. These are c(51.67,46.97,51.67,46.97,38.75)) for the first five and
+  # c(39.74,37.80,40.79,37.80,37.00)) for the last five. 
   expect_equal(unname(round(with_graph(southern_women, 
                                        roctopus::centrality_closeness(normalized = T))[1:5],4)), 
-               c(80.00, 72.73, 80.00, 72.73, 60.00))
+               c(0.8000, 0.7273, 0.8000, 0.7273, 0.6000))
   expect_equal(unname(round(with_graph(southern_women, 
                                        roctopus::centrality_closeness(normalized = T))[28:32],4)), 
-               c(56.42, 53.66, 57.89, 53.66, 53.66))
+               c(0.5641, 0.5366, 0.5789, 0.5366, 0.5366))
 })
 
 test_that("two mode betweenness centrality calculated correctly",{

@@ -1,7 +1,7 @@
 #' Degree centrality for two-mode networks
 #'
 #' This function substitutes tidygraph::centrality_degree()
-#' with a version that correctly normalizes for two-mode networks.
+#' with a version that correctly normalizes two-mode networks.
 #' 
 #' @param mat A matrix
 #' @family two-mode functions
@@ -36,7 +36,7 @@ centrality_degree <- function (weights = NULL, mode = "out", loops = TRUE, norma
 #' Closeness centrality for two-mode networks
 #' 
 #' This function substitutes tidygraph::centrality_closeness()
-#' with a version that correctly normalizes for two-mode networks.
+#' with a version that correctly normalizes two-mode networks.
 #'
 #' @param weights 
 #' @param mode 
@@ -55,17 +55,18 @@ centrality_closeness <- function (weights = NULL, mode = "out", normalized = FAL
   if (is.null(weights)) {
     weights <- NA
   }
-  if (is_bipartite(graph) & normalized){
-    closeness <- closeness(graph = graph, v = V(graph), mode = mode, cutoff = cutoff)
-    other_set_size <- ifelse(V(graph)$type, sum(!V(graph)$type), sum(V(graph)$type))
-    set_size <- sum(V(graph)$type)
-    closeness/(other_set_size+(2*set_size)-2)
+  if (igraph::is_bipartite(graph) & normalized){
+    # farness <- rowSums(igraph::distances(graph = graph))
+    closeness <- igraph::closeness(graph = graph, vids = igraph::V(graph), mode = mode)
+    other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
+    set_size <- ifelse(igraph::V(graph)$type, sum(igraph::V(graph)$type), sum(!igraph::V(graph)$type))
+    closeness/(1/(other_set_size+2*set_size-2))
     } else {
       if (is.null(cutoff)) {
-        closeness(graph = graph, vids = V(graph), mode = mode,
+        igraph::closeness(graph = graph, vids = igraph::V(graph), mode = mode,
                   weights = weights, normalized = normalized)
       } else {
-        estimate_closeness(graph = graph, vids = V(graph), mode = mode, 
+        igraph::estimate_closeness(graph = graph, vids = igraph::V(graph), mode = mode, 
                            cutoff = cutoff, weights = weights, normalized = normalized)
       }
     }
