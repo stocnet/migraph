@@ -20,12 +20,15 @@ test_that("two mode degree centrality calculated correctly",{
 })
 
 test_that("two mode closeness centrality calculated correctly",{
-  expect_equal(unname(with_graph(as_tbl_graph(southern_women), 
-                                 roctopus::centrality_closeness())[1:5]), 
-               c(51.67,46.97,51.67,46.97,38.75))
-  expect_equal(unname(with_graph(as_tbl_graph(southern_women), 
-                                 roctopus::centrality_closeness())[28:32]), 
-               c(39.74,37.80,40.79,37.80,37.00))
+  expect_equal(unname(round(with_graph(as_tbl_graph(southern_women), 
+                                 roctopus::centrality_closeness())[1:5], 8)), 
+               c(0.01666667, 0.01515152, 0.01666667, 0.01515152, 0.01250000))
+  expect_equal(unname(round(with_graph(as_tbl_graph(southern_women), 
+                                 roctopus::centrality_closeness())[28:32], 8)), 
+               c(0.01282051, 0.01219512, 0.01315789, 0.01219512, 0.01219512))
+  # The tests above check closeness centrality unnormalized. The results displayed from Borgatti and Everett (1997) 
+  # are normalized closeness scores. These are c(51.67,46.97,51.67,46.97,38.75)) for the first five and
+  # c(39.74,37.80,40.79,37.80,37.00)) for the last five. 
   expect_equal(unname(with_graph(as_tbl_graph(southern_women), 
                                        roctopus::centrality_closeness(normalized = T))[1:5]), 
                c(80.00, 72.73, 80.00, 72.73, 60.00))
