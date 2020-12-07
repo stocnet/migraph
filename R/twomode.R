@@ -174,35 +174,6 @@ twomode_centralization_degree <- function(graph){
     ((n-1)*(m-1))
 }
 
-#' Two-mode degree centrality
-#'
-#' @param graph 
-#' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
-#' @return
-#' @export
-#'
-#' @examples
-twomode_centrality_degree <- function(graph){
-  require(igraph)
-  nodeset <- names(which(igraph::degree(graph)==max(igraph::degree(graph)))) %in%
-    V(graph)$name[V(graph)$type==T]
-  
-  # step 1: identify different nodes
-  m <- length(which(V(graph)$type==nodeset))
-  n <- length(which(V(graph)$type!=nodeset)) 
-  {
-  # step 2: calculate degree centrality for each group (normalizes by dividing by size of opposite nodeset)
-  a <- vcount(m)/n
-  b <- vcount(n)/m
-  
-  # step 3: bind results and display
-  out <- rbind(a, b)
-  }
-  out    
-}
-
-# Only the second attempt, bear with me here...
-
 #' Two-mode betweenness centralization
 #'
 #' This function allows you to calculate how (betweenness) centralized a two-mode graph is.
