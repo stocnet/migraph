@@ -2,12 +2,19 @@
 #'
 #' This function substitutes tidygraph::centrality_degree()
 #' with a version that correctly normalizes two-mode networks.
-#' 
-#' @param mat A matrix
+#'
+#' @param The weight of the edges to use for the calculation. Will be
+#' evaluated in the context of the edge data.
+#' @param mode How should edges be followed. Ignored for undirected graphs
+#' @param loops Should loops be included in the calculation
+#' @param normalized Should the output be normalized for one or two-modes networks
 #' @family two-mode functions
 #' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
 #' @examples
-#' centrality_degree()
+#' data(southern_women)
+#' southern_women <- as_tbl_graph(southern_women)
+#' with_graph(southern_women, roctopus::centrality_degree(normalized = TRUE))
+#' @return A numeric vector giving the degree centrality measure of each node.
 #' @export
 centrality_degree <- function (weights = NULL, mode = "out", loops = TRUE, normalized = FALSE){
   tidygraph:::expect_nodes()
@@ -38,14 +45,18 @@ centrality_degree <- function (weights = NULL, mode = "out", loops = TRUE, norma
 #' This function substitutes tidygraph::centrality_closeness()
 #' with a version that correctly normalizes two-mode networks.
 #'
-#' @param weights 
-#' @param mode 
-#' @param cutoff 
-#' @param normalized 
+#' @param The weight of the edges to use for the calculation. Will be
+#' evaluated in the context of the edge data.
+#' @param mode How should edges be followed. Ignored for undirected graphs
+#' @param cutoff maximum path length to use during calculations 
+#' @param normalized Should the output be normalized for one or two-mode networks
 #' @family two-mode functions
 #' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
-#' @return
 #' @examples
+#' data(southern_women)
+#' southern_women <- as_tbl_graph(southern_women)
+#' with_graph(southern_women, roctopus::centrality_closeness(normalized = TRUE))
+#' @return A numeric vector giving the closeness centrality measure of each node.
 #' @export
 centrality_closeness <- function (weights = NULL, mode = "out", normalized = FALSE, cutoff = NULL){
   tidygraph:::expect_nodes()
@@ -77,15 +88,19 @@ centrality_closeness <- function (weights = NULL, mode = "out", normalized = FAL
 #' This function substitutes tidygraph::centrality_betweenness()
 #' with a version that correctly normalizes for two-mode networks.
 #' 
-#' @param weights 
-#' @param directed 
-#' @param cutoff 
-#' @param nobigint 
-#' @param normalized 
+#' @param The weight of the edges to use for the calculation. Will be
+#' evaluated in the context of the edge data. 
+#' @param directed Should direction of edges be used for the calculations 
+#' @param cutoff maximum path length to use during calculations
+#' @param nobigint Should big integers be avoided during calculations 
+#' @param normalized Should the output be normalized for one or two-mode networks 
 #' @family two-mode functions 
 #' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
-#' @return
 #' @examples
+#' data(southern_women)
+#' southern_women <- as_tbl_graph(southern_women)
+#' with_graph(southern_women, roctopus::centrality_betweenness(normalized = TRUE))
+#' @return A numeric vector giving the betweenness centrality measure of each node.
 #' @export 
 centrality_betweenness <- function(weights = NULL, directed = TRUE, cutoff = NULL, nobigint = TRUE, normalized = FALSE){
   tidygraph:::expect_nodes()
