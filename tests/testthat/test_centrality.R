@@ -1,5 +1,5 @@
 library(tidygraph)
-data(southern_women, package = "networkdata")
+data(southern_women)
 southern_women <- as_tbl_graph(southern_women)
 
 # test <- southern_women %>% as_tbl_graph %>% activate(nodes) %>% 
