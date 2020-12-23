@@ -13,7 +13,7 @@
 #' @examples
 #' data(southern_women)
 #' southern_women <- as_tbl_graph(southern_women)
-#' with_graph(southern_women, roctopus::centrality_degree(normalized = TRUE))
+#' with_graph(southern_women, migraph::centrality_degree(normalized = TRUE))
 #' @return A numeric vector giving the degree centrality measure of each node.
 #' @export
 centrality_degree <- function (weights = NULL, mode = "out", loops = TRUE, normalized = FALSE){
@@ -55,7 +55,7 @@ centrality_degree <- function (weights = NULL, mode = "out", loops = TRUE, norma
 #' @examples
 #' data(southern_women)
 #' southern_women <- as_tbl_graph(southern_women)
-#' with_graph(southern_women, roctopus::centrality_closeness(normalized = TRUE))
+#' with_graph(southern_women, migraph::centrality_closeness(normalized = TRUE))
 #' @return A numeric vector giving the closeness centrality measure of each node.
 #' @export
 centrality_closeness <- function (weights = NULL, mode = "out", normalized = FALSE, cutoff = NULL){
@@ -99,7 +99,7 @@ centrality_closeness <- function (weights = NULL, mode = "out", normalized = FAL
 #' @examples
 #' data(southern_women)
 #' southern_women <- as_tbl_graph(southern_women)
-#' with_graph(southern_women, roctopus::centrality_betweenness(normalized = TRUE))
+#' with_graph(southern_women, migraph::centrality_betweenness(normalized = TRUE))
 #' @return A numeric vector giving the betweenness centrality measure of each node.
 #' @export 
 centrality_betweenness <- function(weights = NULL, directed = TRUE, cutoff = NULL, nobigint = TRUE, normalized = FALSE){

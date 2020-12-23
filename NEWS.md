@@ -1,3 +1,11 @@
+# migraph 0.4.0
+
+2020-12-21
+
+## Package
+
+* Major change here is a package name change from roctopus to `{migraph}`
+
 # roctopus 0.3.0
 
 2020-11-06

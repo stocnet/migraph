@@ -1,4 +1,4 @@
 library(testthat)
-library(roctopus)
+library(migraph)
 
-test_check("roctopus")
+test_check("migraph")

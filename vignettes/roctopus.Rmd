@@ -1,10 +1,10 @@
 ---
-title: "roctopus"
+title: "migraph"
 author: "James Hollway"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{roctopus}
+  %\VignetteIndexEntry{migraph}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The **roctopus** package offers functions for simulating, visualising, and analysing
+The **migraph** package offers functions for simulating, visualising, and analysing
 multilevel and multimode (especially two-mode) networks.
 
 ## Simulating
@@ -28,7 +28,7 @@ The package includes a number of functions for simulating two-mode matrices
 with particular properties for use in testing and developing null models.
 
 These include:
-``r library(roctopus); ls("package:roctopus")[grepl("create_",ls("package:roctopus"))]``
+``r library(migraph); ls("package:migraph")[grepl("create_",ls("package:migraph"))]``
 
 ## Visualising
 
@@ -38,7 +38,7 @@ These include:
 The package also includes several functions for visualising two-mode matrices.
 
 These include:
-``r library(roctopus); ls("package:roctopus")[grepl("plot_",ls("package:roctopus"))]``
+``r library(migraph); ls("package:migraph")[grepl("plot_",ls("package:migraph"))]``
 
 ## Analysing
 
@@ -48,4 +48,4 @@ These include:
 Lastly, the package includes a range of functions for analysing two-mode matrices.
 
 These include:
-``r library(roctopus); ls("package:roctopus")[grepl("twomode_",ls("package:roctopus"))]``
+``r library(migraph); ls("package:migraph")[grepl("twomode_",ls("package:migraph"))]``
