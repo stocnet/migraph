@@ -38,14 +38,14 @@
 #' @usage data(mpn_DE_1990)
 "mpn_DE_1990"
 
-#' @rdname evs
-#' @usage data(DE_2008)
-"DE_2008"
+#' @rdname mpn_evs
+#' @usage data(mpn_DE_2008)
+"mpn_DE_2008"
 
-#' @rdname evs
-#' @usage data(UK_1990)
-"UK_1990"
+#' @rdname mpn_evs
+#' @usage data(mpn_UK_1990)
+"mpn_UK_1990"
 
-#' @rdname evs
-#' @usage data(UK_2008)
-"UK_2008"
+#' @rdname mpn_evs
+#' @usage data(mpn_UK_2008)
+"mpn_UK_2008"

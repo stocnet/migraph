@@ -1,22 +1,22 @@
 #'Hierarchical clustering using CONCOR.
 #'
-#'Paritions relational data using a CONvergence of iterated CORrelations 
+#'Partitions relational data using a CONvergence of iterated CORrelations 
 #'(CONCOR) algorithm.
 
 #'@param m0 A list of \eqn{n} x \eqn{n} matrices, each of which refers to a
-#'relation on a set of vertices.  Only one-mode data are supported at present.
+#'relation on a set of vertices. Only one-mode data are supported at present.
 #'@param cutoff A value between 0 and 1 used to determine convergence.
 #'@param max.iter An integer representing the maximum number of iterations.
 #'@param p An integer representing the desired number of partitions.
 
 #'@return A \code{data.frame} depicting the block assignment for each vertex.
 #'Rows are sorted to match the order in which vertices appear in the original
-#'data.  The column vector indicating block membership can be passed directly to
+#'data. The column vector indicating block membership can be passed directly to
 #' the \code{blockmodel} command in \code{sna}. 
 #'
 #'@references Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.  An Algorithm
 #'for Clustering Relational Data with Applications to Social Network Analysis
-#'and Comparison with Multidimensional Scaling.  \emph{Journal of Mathematical
+#'and Comparison with Multidimensional Scaling. \emph{Journal of Mathematical
 #'Psychology}, 12: 328--383.
 #'
 #'@examples

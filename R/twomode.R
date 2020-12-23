@@ -156,7 +156,8 @@ twomode_dominance_bilatbase <- function(mat, attr = NULL){
 #'
 #' This function allows you to calculate how (degree) centralized a two-mode graph is.
 #' @param graph An igraph graph
-#' @references Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In The SAGE Handbook of Social Network Analysis, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
+#' @references Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In The SAGE Handbook of 
+#' Social Network Analysis, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
 # #' @family two-mode functions
 #' @export
 #' @examples
@@ -180,8 +181,8 @@ twomode_centralization_degree <- function(graph){
 # #' @family two-mode functions
 #' @export
 #' @examples
-#' twomode_centralization_between(graph)
-twomode_centralization_between <- function(graph){
+#' twomode_centralization_betweeness(graph)
+twomode_centralization_betweeness <- function(graph){
   require(igraph)
   nodeset <- names(which(betweenness(graph)==max(betweenness(graph)))) %in% 
     V(graph)$name[V(graph)$type==T]
@@ -224,6 +225,33 @@ twomode_centralization_between <- function(graph){
   #     sum(max(betweenness(graph))-betweenness(graph))/
   #       (((1/2)*n*(n-1)+(1/2)*(m-1)*(m-2)+(m-1)*(n-2)) * ((m+n-1)+(m-1)))
   #   }
+}
+
+#' Two Mode Closeness Centralization
+#'
+#' @param graph 
+#' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
+#' @return
+#' @export
+#'
+#' @examples
+twomode_centralization_closeness <- function(graph){
+  require(igraph)
+  nodeset <- names(which(closeness(graph)==max(closeness(graph)))) %in% 
+      V(graph)$name[V(graph)$type==T]
+  m <- length(which(V(graph)$type==nodeset))
+  n <- length(which(V(graph)$type!=nodeset))
+
+  if (m > n) {
+    sum(max(closeness(graph)[which(V(graph)$type==nodeset)], na.rm=T)-
+          closeness(graph)[which(V(graph)$type==nodeset)])/
+    (((n-1)*(m-1)/((2*m)-3)) + ((n-1)*(m-n)/m+n-2))
+    }
+  if (m <= n) {
+    sum(max(closeness(graph)[which(V(graph)$type==nodeset)], na.rm=T)-
+          closeness(graph)[which(V(graph)$type==nodeset)])/
+     ((m-2)*(m-1)/((2*m)-3)) 
+    }
 }
 
 #' Two-mode constraint

@@ -1,14 +1,14 @@
 
-# roctopus <img src="man/figures/logo.png" align="right" width="150"/>
+# migraph <img src="man/figures/logo.png" align="right" width="150"/>
 
 <!-- badges: start -->
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/jhollway/roctopus)
-![GitHub Release Date](https://img.shields.io/github/release-date/jhollway/roctopus)
-![GitHub issues](https://img.shields.io/github/issues-raw/jhollway/roctopus)
-[![HitCount](http://hits.dwyl.com/jhollway/roctopus.svg)](http://hits.dwyl.com/jhollway/roctopus)
-[![Codecov test coverage](https://codecov.io/gh/jhollway/roctopus/branch/main/graph/badge.svg)](https://codecov.io/gh/jhollway/roctopus?branch=main)
-<!-- ![GitHub All Releases](https://img.shields.io/github/downloads/jhollway/roctopus/total) -->
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/jhollway/migraph)
+![GitHub Release Date](https://img.shields.io/github/release-date/jhollway/migraph)
+![GitHub issues](https://img.shields.io/github/issues-raw/jhollway/migraph)
+[![HitCount](http://hits.dwyl.com/jhollway/migraph.svg)](http://hits.dwyl.com/jhollway/migraph)
+[![Codecov test coverage](https://codecov.io/gh/jhollway/migraph/branch/main/graph/badge.svg)](https://codecov.io/gh/jhollway/migraph?branch=main)
+<!-- ![GitHub All Releases](https://img.shields.io/github/downloads/jhollway/migraph/total) -->
 <!-- badges: end -->
 
 ## About the package
@@ -30,28 +30,28 @@ and [`{tnet}`](https://toreopsahl.com/tnet/),
 and implements many additional features currently only available outside the R ecosystem
 in packages such as [**UCINET**](https://sites.google.com/site/ucinetsoftware/downloads).
 
-Please explore [the website](https://jhollway.github.io/roctopus/) to find out more.
+Please explore [the website](https://jhollway.github.io/migraph/) to find out more.
 Some of these functions are also relied on for the [Topological Typology](https://jhollway.shinyapps.io/TopoTypo/) app.
 
 ## Installation
 
 ### From binary
 
-Perhaps the easiest way to install `{roctopus}` is by installing a compiled binary.
+Perhaps the easiest way to install `{migraph}` is by installing a compiled binary.
 Binaries for all major OSes -- Windows, Mac, and Linux -- 
 can be found by clicking on the latest release [here](https://github.com/snlab-nl/rsiena/releases/latest).
 Download the appropriate binary for your operating system,
 and install using an adapted version of the following commands:
 
-- For Windows: `install.packages("~/Downloads/roctopus_winOS.zip", repos = NULL)`
-- For Mac: `install.packages("~/Downloads/roctopus_macOS.tgz", repos = NULL)`
-- For Unix: `install.packages("~/Downloads/roctopus_linuxOS.tar.gz", repos = NULL)`
+- For Windows: `install.packages("~/Downloads/migraph_winOS.zip", repos = NULL)`
+- For Mac: `install.packages("~/Downloads/migraph_macOS.tgz", repos = NULL)`
+- For Unix: `install.packages("~/Downloads/migraph_linuxOS.tar.gz", repos = NULL)`
 
 ### From source
 
-To install from source the latest main version of `{roctopus}` from Github, 
+To install from source the latest main version of `{migraph}` from Github, 
 please install the `{remotes}` package from CRAN and then enter into the console:
 
-- For latest stable version: `remotes::install_github("jhollway/roctopus")`
-- For latest development version: `remotes::install_github("jhollway/roctopus@develop")`
+- For latest stable version: `remotes::install_github("jhollway/migraph")`
+- For latest development version: `remotes::install_github("jhollway/migraph@develop")`
 
