@@ -9,7 +9,7 @@
 #' @param loops Should loops be included in the calculation
 #' @param normalized Should the output be normalized for one or two-modes networks
 #' @family two-mode functions
-#' @importfrom tidygraph centrality_degree
+#' @import tidygraph
 #' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
 #' @examples
 #' data(southern_women)
@@ -46,13 +46,13 @@ centrality_degree <- function (weights = NULL, mode = "out", loops = TRUE, norma
 #' This function substitutes tidygraph::centrality_closeness()
 #' with a version that correctly normalizes two-mode networks.
 #'
-#' @param The weight of the edges to use for the calculation. Will be
+#' @param weights The weight of the edges to use for the calculation. Will be
 #' evaluated in the context of the edge data.
 #' @param mode How should edges be followed. Ignored for undirected graphs
 #' @param cutoff maximum path length to use during calculations 
 #' @param normalized Should the output be normalized for one or two-mode networks
 #' @family two-mode functions
-#' @importfrom tidygraph centrality_closeness
+#' @import tidygraph
 #' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
 #' @examples
 #' data(southern_women)
@@ -90,14 +90,14 @@ centrality_closeness <- function (weights = NULL, mode = "out", normalized = FAL
 #' This function substitutes tidygraph::centrality_betweenness()
 #' with a version that correctly normalizes for two-mode networks.
 #' 
-#' @param The weight of the edges to use for the calculation. Will be
+#' @param weights The weight of the edges to use for the calculation. Will be
 #' evaluated in the context of the edge data. 
 #' @param directed Should direction of edges be used for the calculations 
 #' @param cutoff maximum path length to use during calculations
 #' @param nobigint Should big integers be avoided during calculations 
 #' @param normalized Should the output be normalized for one or two-mode networks 
 #' @family two-mode functions 
-#' @importfrom tidygraph centrality_betweenness
+#' @import tidygraph
 #' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
 #' @examples
 #' data(southern_women)

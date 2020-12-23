@@ -8,7 +8,7 @@
 #'@param cutoff A value between 0 and 1 used to determine convergence.
 #'@param max.iter An integer representing the maximum number of iterations.
 #'@param p An integer representing the desired number of partitions.
-
+#'@param p_list List of stacked matrix  
 #'@return A \code{data.frame} depicting the block assignment for each vertex.
 #'Rows are sorted to match the order in which vertices appear in the original
 #'data. The column vector indicating block membership can be passed directly to

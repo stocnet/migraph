@@ -36,6 +36,7 @@ create_chain <- function(n1, n2,
 #' Creates a matched two-mode network
 #' @param n1 Number of nodes in the first node set
 #' @param n2 Number of nodes in the second node set
+#' @param as What type of object to return.
 #' @details Will construct an affiliation matrix,
 #' with by default both n1 and n2 matched.
 #' TODO: Incorporate into create_chain (chordal_ring of certain breadth w).
@@ -67,6 +68,8 @@ create_match <- function(n1, n2,
 #' @param p Number of edges in the network over the number of edges possible
 #' @param m Number of edges in the network
 #' @param as What type of object to return.
+#' @param mode How should edges be followed
+#' @param directed Should direction of edges be used for the calculations
 #' One of "matrix", "tbl_graph", "igraph".
 #' By default, creates a "tbl_graph" object.
 #' @details Will construct an affiliation matrix,
@@ -94,6 +97,7 @@ play_twomode <- function(n1, n2, p, m, directed = TRUE, mode = "out",
 #' Creates a two-component two-mode network
 #' @param n1 Number of nodes in the first node set
 #' @param n2 Number of nodes in the second node set
+#' @param as What type of object to return.
 #' @details Will construct an affiliation matrix,
 #' with full component diagonal.
 #' TODO: Allow specfication of how many silos/components to create
@@ -119,6 +123,7 @@ create_silos <- function(n1, n2,
 #' Creates a nested two-mode network
 #' @param n1 Number of nodes in the first node set
 #' @param n2 Number of nodes in the second node set
+#' @param as What type of object to return.
 #' @details Will construct an affiliation matrix,
 #' with decreasing fill across n2.
 #' @export
