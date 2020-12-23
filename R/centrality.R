@@ -9,11 +9,12 @@
 #' @param loops Should loops be included in the calculation
 #' @param normalized Should the output be normalized for one or two-modes networks
 #' @family two-mode functions
+#' @importfrom tidygraph centrality_degree
 #' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
 #' @examples
 #' data(southern_women)
-#' southern_women <- as_tbl_graph(southern_women)
-#' with_graph(southern_women, migraph::centrality_degree(normalized = TRUE))
+#' southern_women <- tidygraph::as_tbl_graph(southern_women)
+#' tidygraph::with_graph(southern_women, migraph::centrality_degree(normalized = TRUE))
 #' @return A numeric vector giving the degree centrality measure of each node.
 #' @export
 centrality_degree <- function (weights = NULL, mode = "out", loops = TRUE, normalized = FALSE){
@@ -51,11 +52,12 @@ centrality_degree <- function (weights = NULL, mode = "out", loops = TRUE, norma
 #' @param cutoff maximum path length to use during calculations 
 #' @param normalized Should the output be normalized for one or two-mode networks
 #' @family two-mode functions
+#' @importfrom tidygraph centrality_closeness
 #' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
 #' @examples
 #' data(southern_women)
-#' southern_women <- as_tbl_graph(southern_women)
-#' with_graph(southern_women, migraph::centrality_closeness(normalized = TRUE))
+#' southern_women <- tidygraph::as_tbl_graph(southern_women)
+#' tidygraph::with_graph(southern_women, migraph::centrality_closeness(normalized = TRUE))
 #' @return A numeric vector giving the closeness centrality measure of each node.
 #' @export
 centrality_closeness <- function (weights = NULL, mode = "out", normalized = FALSE, cutoff = NULL){
@@ -95,11 +97,12 @@ centrality_closeness <- function (weights = NULL, mode = "out", normalized = FAL
 #' @param nobigint Should big integers be avoided during calculations 
 #' @param normalized Should the output be normalized for one or two-mode networks 
 #' @family two-mode functions 
+#' @importfrom tidygraph centrality_betweenness
 #' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
 #' @examples
 #' data(southern_women)
-#' southern_women <- as_tbl_graph(southern_women)
-#' with_graph(southern_women, migraph::centrality_betweenness(normalized = TRUE))
+#' southern_women <- tidygraph::as_tbl_graph(southern_women)
+#' tidygraph::with_graph(southern_women, migraph::centrality_betweenness(normalized = TRUE))
 #' @return A numeric vector giving the betweenness centrality measure of each node.
 #' @export 
 centrality_betweenness <- function(weights = NULL, directed = TRUE, cutoff = NULL, nobigint = TRUE, normalized = FALSE){
