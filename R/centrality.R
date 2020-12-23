@@ -3,8 +3,8 @@
 #' This function substitutes tidygraph::centrality_degree()
 #' with a version that correctly normalizes two-mode networks.
 #'
-#' @param The weight of the edges to use for the calculation. Will be
-#' evaluated in the context of the edge data.
+#' @param weights The weight of the edges to use for the calculation. 
+#' Will be evaluated in the context of the edge data.
 #' @param mode How should edges be followed. Ignored for undirected graphs
 #' @param loops Should loops be included in the calculation
 #' @param normalized Should the output be normalized for one or two-modes networks
@@ -25,16 +25,16 @@ centrality_degree <- function (weights = NULL, mode = "out", loops = TRUE, norma
     weights <- NA
   }
   if (is_bipartite(graph) & normalized){
-    degrees <- degree(graph = graph, v = V(graph), mode = mode, loops = loops)
-    other_set_size <- ifelse(V(graph)$type, sum(!V(graph)$type), sum(V(graph)$type))
+    degrees <- igraph::degree(graph = graph, v = igraph::V(graph), mode = mode, loops = loops)
+    other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
     degrees/other_set_size
   } else {
     if (is.null(weights)) {
-      degree(graph = graph, V = V(graph), mode = mode, loops = loops, 
+      igraph::degree(graph = graph, V = igraph::V(graph), mode = mode, loops = loops, 
              normalized = normalized)
     }
     else {
-      strength(graph = graph, vids = V(graph), mode = mode, 
+      igraph::strength(graph = graph, vids = igraph::V(graph), mode = mode, 
                loops = loops, weights = weights)
     }
   }
