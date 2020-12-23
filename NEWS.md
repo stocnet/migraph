@@ -4,7 +4,19 @@
 
 ## Package
 
-* Major change here is a package name change from roctopus to `{migraph}`
+* Package name change from roctopus to `{migraph}`
+
+## Analysis
+
+* Added `centrality_degree()` to mask tidygraph function with correctly normalised two-mode calculation
+* Added `centrality_closeness()` to mask tidygraph function with correctly normalised two-mode calculation
+* Added `centrality_betweenness()` to mask tidygraph function with correctly normalised two-mode calculation
+* Renamed `twomode_centralization_between()` to `twomode_centralization_betweenness()`
+* Added `twomode_centralization_closeness()`
+
+## Data
+
+* Renamed data related to the book "Multimodal Political Networks" with "mpn_" prefix
 
 # roctopus 0.3.0
 
