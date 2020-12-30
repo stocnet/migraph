@@ -6,6 +6,7 @@
 #' @param IV A list of two-mode matrix objects
 #' @param names IV names
 #' @param rep Number of permutations. Default: 1000.
+#' @importFrom stats ecdf lm
 #' @family two-mode functions
 #' @export
 #' @examples
