@@ -12,20 +12,22 @@
 #' @import tidygraph
 #' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
 #' @examples
+#' \dontrun{
 #' data(southern_women)
 #' southern_women <- tidygraph::as_tbl_graph(southern_women)
 #' tidygraph::with_graph(southern_women, migraph::centrality_degree(normalized = TRUE))
+#' }
 #' @return A numeric vector giving the degree centrality measure of each node.
 #' @export
 centrality_degree <- function (weights = NULL, mode = "out", loops = TRUE, normalized = FALSE){
   tidygraph:::expect_nodes()
   graph <- .G()
-  weights <- enquo(weights)
+  weights <- rlang::enquo(weights)
   weights <- rlang::eval_tidy(weights, .E())
   if (is.null(weights)) {
     weights <- NA
   }
-  if (is_bipartite(graph) & normalized){
+  if (igraph::is_bipartite(graph) & normalized){
     degrees <- igraph::degree(graph = graph, v = igraph::V(graph), mode = mode, loops = loops)
     other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
     degrees/other_set_size
@@ -63,7 +65,7 @@ centrality_degree <- function (weights = NULL, mode = "out", loops = TRUE, norma
 centrality_closeness <- function (weights = NULL, mode = "out", normalized = FALSE, cutoff = NULL){
   tidygraph:::expect_nodes()
   graph <- .G()
-  weights <- enquo(weights)
+  weights <- rlang::enquo(weights)
   weights <- rlang::eval_tidy(weights, .E())
   if (is.null(weights)) {
     weights <- NA
@@ -108,23 +110,23 @@ centrality_closeness <- function (weights = NULL, mode = "out", normalized = FAL
 centrality_betweenness <- function(weights = NULL, directed = TRUE, cutoff = NULL, nobigint = TRUE, normalized = FALSE){
   tidygraph:::expect_nodes()
   graph <- .G()
-  weights <- enquo(weights)
+  weights <- rlang::enquo(weights)
   weights <- rlang::eval_tidy(weights, .E())
   if (is.null(weights)) {
     weights <- NA
   } 
-  if (is_bipartite(graph) & normalized){
-    betweenness <- betweenness(graph = graph, v = igraph::V(graph), directed = directed, nobigint = nobigint)
+  if (igraph::is_bipartite(graph) & normalized){
+    betweenness <- igraph::betweenness(graph = graph, v = igraph::V(graph), directed = directed, nobigint = nobigint)
     other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
     set_size <- ifelse(igraph::V(graph)$type, sum(igraph::V(graph)$type), sum(!igraph::V(graph)$type))
     ifelse(set_size > other_set_size, 
-            betweenness/(2*(set_size-1)*(other_set_size-1)), 
-            betweenness/(1/2*other_set_size*(other_set_size-1)+1/2*(set_size-1)*(set_size-2)+(set_size-1)*(other_set_size-1)))
-   } else {
+           igraph::betweenness/(2*(set_size-1)*(other_set_size-1)), 
+           igraph::betweenness/(1/2*other_set_size*(other_set_size-1)+1/2*(set_size-1)*(set_size-2)+(set_size-1)*(other_set_size-1)))
+  } else {
     if (is.null(cutoff)) {
-    betweenness(graph = graph, v = V(graph), directed = directed, weights = weights, nobigint = nobigint, normalized = normalized)
-   } else {
-    estimate_betweenness(graph = graph, vids = V(graph), directed = directed, cutoff = cutoff, weights = weights, nobigint = nobigint)
+      igraph::betweenness(graph = graph, v = igraph::V(graph), directed = directed, weights = weights, nobigint = nobigint, normalized = normalized)
+    } else {
+      igraph::estimate_betweenness(graph = graph, vids = igraph::V(graph), directed = directed, cutoff = cutoff, weights = weights, nobigint = nobigint)
+    }
   }
-}
 }
