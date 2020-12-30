@@ -3,7 +3,7 @@ development:
     mode: auto
 template:
   params:
-    bootswatch: flatly
+    bootswatch: journal
     docsearch:
       api_key: 204dadbc12ed450b5ef1209c8c44b558
       index_name: migraph
@@ -39,18 +39,18 @@ reference:
       - df_to_mat
       - project
       - project_list
-  - title: "Visualisation"
-    desc: "Functions for visualising multilevel networks:"
-    contents:
-      - starts_with("plot_")
-  - title: "Analysis"
-    desc: "Functions for analysing multilevel networks:"
-    contents:
-      - starts_with("twomode_")
-      - starts_with("threemode_")
-      - netlm2
-      - concor_hca
   - title: "Data"
     desc: "Multilevel network data:"
     contents:
       - starts_with("mpn_")
+  # - title: "Visualisation"
+  #   desc: "Functions for visualising multilevel networks:"
+  #   contents:
+  #     - starts_with("plot_")
+  - title: "Analysis"
+    desc: "Functions for analysing multilevel networks:"
+    contents:
+      - starts_with("centrality_")
+      # - starts_with("threemode_")
+      - netlm2
+      # - concor_hca

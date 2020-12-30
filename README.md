@@ -16,19 +16,12 @@
 This package presents functions for analysing multimodal and multilevel networks.
 The package is intended as a software companion to the forthcoming book:
 
-> David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos (2021) *Multimodal Political Networks*. Cambridge University Press: Cambridge.
+> David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos (2021)[*Multimodal Political Networks*](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128).
+Cambridge University Press: Cambridge.
 
 The package is offered as a complement to existing R packages for network analysis.
 It can analyse data in base formats such as matrices and (data frame) edgelists,
 but also leverages [`{igraph}`](https://igraph.org/r/) and is consistent with a [`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html) workflow.
-It draws together, updates, and builds upon many functions currently available in
-other excellent R packages such as 
-[`{bipartite}`](https://github.com/biometry/bipartite), 
-[`{multinet}`](https://cran.r-project.org/web/packages/multinet/multinet.pdf), 
-[`{netmem}`](https://github.com/anespinosa/netmem), 
-and [`{tnet}`](https://toreopsahl.com/tnet/),
-and implements many additional features currently only available outside the R ecosystem
-in packages such as [**UCINET**](https://sites.google.com/site/ucinetsoftware/downloads).
 
 Please explore [the website](https://jhollway.github.io/migraph/) to find out more.
 Some of these functions are also relied on for the [Topological Typology](https://jhollway.shinyapps.io/TopoTypo/) app.
@@ -55,3 +48,13 @@ please install the `{remotes}` package from CRAN and then enter into the console
 - For latest stable version: `remotes::install_github("jhollway/migraph")`
 - For latest development version: `remotes::install_github("jhollway/migraph@develop")`
 
+## Relationship to other packages
+
+It draws together, updates, and builds upon many functions currently available in
+other excellent R packages such as 
+[`{bipartite}`](https://github.com/biometry/bipartite), 
+[`{multinet}`](https://cran.r-project.org/web/packages/multinet/multinet.pdf), 
+[`{netmem}`](https://github.com/anespinosa/netmem), 
+and [`{tnet}`](https://toreopsahl.com/tnet/),
+and implements many additional features currently only available outside the R ecosystem
+in packages such as [**UCINET**](https://sites.google.com/site/ucinetsoftware/downloads).
