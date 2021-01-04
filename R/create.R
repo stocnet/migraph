@@ -8,6 +8,8 @@
 #' By default, creates a "tbl_graph" object.
 #' @details Will construct a bilateral lattice,
 #' with two ties for every second-mode node.
+#' @importFrom tidygraph as_tbl_graph
+#' @importFrom igraph graph_from_incidence_matrix
 #' @export
 #' @examples
 #' \dontrun{
@@ -40,6 +42,8 @@ create_chain <- function(n1, n2,
 #' @details Will construct an affiliation matrix,
 #' with by default both n1 and n2 matched.
 #' TODO: Incorporate into create_chain (chordal_ring of certain breadth w).
+#' @importFrom tidygraph as_tbl_graph
+#' @importFrom igraph graph_from_incidence_matrix
 #' @export
 #' @examples
 #' \dontrun{
@@ -74,6 +78,8 @@ create_match <- function(n1, n2,
 #' By default, creates a "tbl_graph" object.
 #' @details Will construct an affiliation matrix,
 #' with a random probability of a tie.
+#' @importFrom tidygraph play_bipartite
+#' @importFrom igraph as.igraph as_adjacency_matrix
 #' @export
 #' @examples
 #' \dontrun{
@@ -87,8 +93,8 @@ play_twomode <- function(n1, n2, p, m, directed = TRUE, mode = "out",
   g <- tidygraph::play_bipartite(n1, n2, p, m, directed, mode)
 
   as <- match.arg(as)
-  if(as == "igraph" | as == "matrix") g <- as.igraph(g)
-  if(as == "matrix") g <- as_adjacency_matrix(g)
+  if(as == "igraph" | as == "matrix") g <- igraph::as.igraph(g)
+  if(as == "matrix") g <- igraph::as_adjacency_matrix(g)
   g
 }
 
@@ -101,6 +107,8 @@ play_twomode <- function(n1, n2, p, m, directed = TRUE, mode = "out",
 #' @details Will construct an affiliation matrix,
 #' with full component diagonal.
 #' TODO: Allow specfication of how many silos/components to create
+#' @importFrom tidygraph as_tbl_graph
+#' @importFrom igraph graph_from_incidence_matrix
 #' @export
 #' @examples
 #' \dontrun{
@@ -126,6 +134,8 @@ create_silos <- function(n1, n2,
 #' @param as What type of object to return.
 #' @details Will construct an affiliation matrix,
 #' with decreasing fill across n2.
+#' @importFrom tidygraph as_tbl_graph
+#' @importFrom igraph graph_from_incidence_matrix
 #' @export
 #' @examples
 #' \dontrun{
