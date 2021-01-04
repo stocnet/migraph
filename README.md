@@ -9,6 +9,7 @@
 [![HitCount](http://hits.dwyl.com/jhollway/migraph.svg)](http://hits.dwyl.com/jhollway/migraph)
 [![Codecov test coverage](https://codecov.io/gh/jhollway/migraph/branch/main/graph/badge.svg)](https://codecov.io/gh/jhollway/migraph?branch=main)
 [![CodeFactor](https://www.codefactor.io/repository/github/jhollway/migraph/badge)](https://www.codefactor.io/repository/github/jhollway/migraph)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4559/badge)](https://bestpractices.coreinfrastructure.org/projects/4559)
 <!-- ![GitHub All Releases](https://img.shields.io/github/downloads/jhollway/migraph/total) -->
 <!-- badges: end -->
 
