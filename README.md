@@ -8,6 +8,7 @@
 ![GitHub issues](https://img.shields.io/github/issues-raw/jhollway/migraph)
 [![HitCount](http://hits.dwyl.com/jhollway/migraph.svg)](http://hits.dwyl.com/jhollway/migraph)
 [![Codecov test coverage](https://codecov.io/gh/jhollway/migraph/branch/main/graph/badge.svg)](https://codecov.io/gh/jhollway/migraph?branch=main)
+[![CodeFactor](https://www.codefactor.io/repository/github/jhollway/migraph/badge)](https://www.codefactor.io/repository/github/jhollway/migraph)
 <!-- ![GitHub All Releases](https://img.shields.io/github/downloads/jhollway/migraph/total) -->
 <!-- badges: end -->
 
@@ -16,7 +17,7 @@
 This package presents functions for analysing multimodal and multilevel networks.
 The package is intended as a software companion to the forthcoming book:
 
-> David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos (2021)[*Multimodal Political Networks*](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128).
+> David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos (2021) [*Multimodal Political Networks*](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128).
 Cambridge University Press: Cambridge.
 
 The package is offered as a complement to existing R packages for network analysis.
