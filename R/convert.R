@@ -21,9 +21,6 @@ as_incidence_matrix <- function(df){
   } else {
     if (ncol(df)==2) {
       df <- as.data.frame(table(df[,1], df[,2]))
-      # out <- as.matrix(table(df[,1], df[,2]))
-      # class(out) <- c("matrix")
-      # out <- as.numeric(out)
     }
     if (ncol(df)==3) {
       nodes1 <- as.character(unique(df[,1]))

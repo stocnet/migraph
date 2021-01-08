@@ -20,6 +20,9 @@
 create_chain <- function(n1, n2, 
                          as = c("tbl_graph", "igraph", "matrix")) {
   
+  if(missing(n1)) stop("Need to supply a number of nodes in the first node set")
+  if(missing(n2)) stop("Need to supply a number of nodes in the second node set")
+  
   mat <- matrix(0, n1, n2)
   out <- suppressWarnings(((row(mat) - col(mat)) == 0 |
     (row(mat) - col(mat)) == (-seq.int(0, n2 - 1, n1)[-1]) |
