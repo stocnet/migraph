@@ -1,18 +1,17 @@
 # migraph 0.4.0
 
-2020-12-21
+2021-01-08
 
 ## Package
 
 * Package name change from roctopus to `{migraph}`
+  * Closed #50 with new logo
+* Now builds Linux binary too
 
-## Analysis
+## Manipulation
 
-* Added `centrality_degree()` to mask tidygraph function with correctly normalised two-mode calculation
-* Added `centrality_closeness()` to mask tidygraph function with correctly normalised two-mode calculation
-* Added `centrality_betweenness()` to mask tidygraph function with correctly normalised two-mode calculation
-* Renamed `twomode_centralization_between()` to `twomode_centralization_betweenness()`
-* Added `twomode_centralization_closeness()`
+* Added `project_rows()` and `project_cols()` to make it easier to project two-mode networks in different formats (matrix, igraph, tidygraph) into projected versions in the same format
+* Closed #30 with conversion from different data frame formats, e.g. weighted and unweighted edgelists, into an incidence matrix with `as_incidence_matrix()`
 
 ## Data
 

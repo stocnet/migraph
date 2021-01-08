@@ -3,7 +3,7 @@ development:
     mode: auto
 template:
   params:
-    bootswatch: flatly
+    bootswatch: journal
     docsearch:
       api_key: 204dadbc12ed450b5ef1209c8c44b558
       index_name: migraph
@@ -32,25 +32,29 @@ navbar:
       href: news/index.html
 reference:
   - title: "Creation and Simulation"
-    desc: "Functions for creating and simulating multimodal and multilevel networks, or projections thereof:"
+    desc: "Functions for creating and simulating multimodal and multilevel networks:"
     contents:
       - starts_with("create_")
       - starts_with("play_")
-      - df_to_mat
-      - project
-      - project_list
-  - title: "Visualisation"
-    desc: "Functions for visualising multilevel networks:"
-    contents:
-      - starts_with("plot_")
-  - title: "Analysis"
-    desc: "Functions for analysing multilevel networks:"
-    contents:
-      - starts_with("twomode_")
-      - starts_with("threemode_")
-      - netlm2
-      - concor_hca
   - title: "Data"
-    desc: "Multilevel network data:"
+    desc: "The package contains a range of different multimodal and multilevel data, including data used in the book 'Multimodal Political Networks' (prefixed with 'mpn_'):"
     contents:
+      - southern_women
       - starts_with("mpn_")
+  - title: "Conversion and Manipulation"
+    desc: "Functions for manipulating multimodal and multilevel networks:"
+    contents:
+      - starts_with("project")
+      - as_incidence_matrix
+      # - project_list
+  # - title: "Visualisation"
+  #   desc: "Functions for visualising multilevel networks:"
+  #   contents:
+  #     - starts_with("plot_")
+  # - title: "Analysis"
+  #   desc: "Functions for analysing multilevel networks:"
+  #   contents:
+  #     - starts_with("centrality_")
+      # - starts_with("threemode_")
+      # - netlm2
+      # - concor_hca

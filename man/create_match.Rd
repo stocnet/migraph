@@ -10,6 +10,8 @@ create_match(n1, n2, as = c("tbl_graph", "igraph", "matrix"))
 \item{n1}{Number of nodes in the first node set}
 
 \item{n2}{Number of nodes in the second node set}
+
+\item{as}{What type of object to return.}
 }
 \description{
 Creates a matched two-mode network

@@ -4,3 +4,6 @@
 ^\.Rproj\.user$
 ^working$
 ^\.github$
+^data-raw$
+^docs$
+^pkgdown$
