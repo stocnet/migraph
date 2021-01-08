@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • roctopus</title>
+<title>Changelog • migraph</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -19,7 +19,7 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/journal/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
@@ -53,7 +53,7 @@
 
 
 <meta property="og:title" content="Changelog" />
-<meta property="og:image" content="https://jhollway.github.io/roctopus/logo.png" />
+<meta property="og:image" content="https://jhollway.github.io/migraph/logo.png" />
 
 
 
@@ -84,8 +84,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">roctopus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <a class="navbar-link" href="../index.html">migraph</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -93,12 +93,12 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../articles/roctopus.html">Get started</a>
+  <a href="../articles/migraph.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -109,8 +109,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jhollway/roctopus/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/jhollway/migraph/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -134,16 +134,49 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/jhollway/roctopus/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+      <small>Source: <a href='https://github.com/jhollway/migraph/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="migraph-040" class="section level1">
+<h1 class="page-header" data-toc-text="0.4.0">
+<a href="#migraph-040" class="anchor"></a>migraph 0.4.0</h1>
+<p>2021-01-08</p>
+<div id="package" class="section level2">
+<h2 class="hasAnchor">
+<a href="#package" class="anchor"></a>Package</h2>
+<ul>
+<li>Package name change from roctopus to <a href="https://github.com/jhollway/migraph">migraph</a>
+<ul>
+<li>Closed <a href='https://github.com/jhollway/migraph/issues/50'>#50</a> with new logo</li>
+</ul>
+</li>
+<li>Now builds Linux binary too</li>
+</ul>
+</div>
+<div id="manipulation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#manipulation" class="anchor"></a>Manipulation</h2>
+<ul>
+<li>Added <code>project_rows()</code> and <code>project_cols()</code> to make it easier to project two-mode networks in different formats (matrix, igraph, tidygraph) into projected versions in the same format</li>
+<li>Closed <a href='https://github.com/jhollway/migraph/issues/30'>#30</a> with conversion from different data frame formats, e.g. weighted and unweighted edgelists, into an incidence matrix with <code>as_incidence_matrix()</code>
+</li>
+</ul>
+</div>
+<div id="data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#data" class="anchor"></a>Data</h2>
+<ul>
+<li>Renamed data related to the book “Multimodal Political Networks” with “mpn_” prefix</li>
+</ul>
+</div>
+</div>
     <div id="roctopus-030" class="section level1">
 <h1 class="page-header" data-toc-text="0.3.0">
 <a href="#roctopus-030" class="anchor"></a>roctopus 0.3.0</h1>
 <p>2020-11-06</p>
-<div id="data" class="section level2">
+<div id="data-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data" class="anchor"></a>Data</h2>
+<a href="#data-1" class="anchor"></a>Data</h2>
 <ul>
 <li>Data creation updated for <a href="https://tidygraph.data-imaginist.com">tidygraph</a> defaults
 <ul>
@@ -180,9 +213,9 @@
 </li>
 </ul>
 </div>
-<div id="package" class="section level2">
+<div id="package-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package" class="anchor"></a>Package</h2>
+<a href="#package-1" class="anchor"></a>Package</h2>
 <ul>
 <li>Added tests for <code>netlm2()</code>
 </li>
@@ -190,9 +223,9 @@
 </li>
 </ul>
 </div>
-<div id="data-1" class="section level2">
+<div id="data-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-1" class="anchor"></a>Data</h2>
+<a href="#data-2" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>opensecrets</code> data</li>
 <li>Added <code>powerelite</code> data</li>
@@ -203,9 +236,9 @@
 <h1 class="page-header" data-toc-text="0.2.5">
 <a href="#roctopus-025" class="anchor"></a>roctopus 0.2.5</h1>
 <p>2020-07-21</p>
-<div id="package-1" class="section level2">
+<div id="package-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-1" class="anchor"></a>Package</h2>
+<a href="#package-2" class="anchor"></a>Package</h2>
 <ul>
 <li>Renamed data documentation scripts</li>
 <li>Added tests for most <code>create_()</code> functions</li>
@@ -219,9 +252,9 @@
 <h1 class="page-header" data-toc-text="0.2.4">
 <a href="#roctopus-024" class="anchor"></a>roctopus 0.2.4</h1>
 <p>2020-07-20</p>
-<div id="package-2" class="section level2">
+<div id="package-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-2" class="anchor"></a>Package</h2>
+<a href="#package-3" class="anchor"></a>Package</h2>
 <ul>
 <li>Added <code>row_project()</code> and <code>col_project()</code> functions to make it easier to remember project directions</li>
 </ul>
@@ -231,18 +264,18 @@
 <h1 class="page-header" data-toc-text="0.2.3">
 <a href="#roctopus-023" class="anchor"></a>roctopus 0.2.3</h1>
 <p>2020-07-19</p>
-<div id="data-2" class="section level2">
+<div id="data-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-2" class="anchor"></a>Data</h2>
+<a href="#data-3" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>mexicanpower</code> dataset</li>
 <li>Added <code>senate112</code> datasets</li>
 <li>Updated <code>evs</code> datasets to matrices</li>
 </ul>
 </div>
-<div id="package-3" class="section level2">
+<div id="package-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-3" class="anchor"></a>Package</h2>
+<a href="#package-4" class="anchor"></a>Package</h2>
 <ul>
 <li>Added <code>df_to_mat()</code> function for converting regular adjacency and incidence data frames into matrices</li>
 </ul>
@@ -252,16 +285,16 @@
 <h1 class="page-header" data-toc-text="0.2.1">
 <a href="#roctopus-021" class="anchor"></a>roctopus 0.2.1</h1>
 <p>2020-07-17</p>
-<div id="data-3" class="section level2">
+<div id="data-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-3" class="anchor"></a>Data</h2>
+<a href="#data-4" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>ryanair</code> dataset from Christopoulos 2006</li>
 </ul>
 </div>
-<div id="package-4" class="section level2">
+<div id="package-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-4" class="anchor"></a>Package</h2>
+<a href="#package-5" class="anchor"></a>Package</h2>
 <ul>
 <li>Split workflow into pull-request and merge/push prompted actions</li>
 <li>Added codecov calculation to workflows</li>
@@ -272,9 +305,9 @@
 <h1 class="page-header" data-toc-text="0.2.0">
 <a href="#roctopus-020" class="anchor"></a>roctopus 0.2.0</h1>
 <p>2020-07-03</p>
-<div id="data-4" class="section level2">
+<div id="data-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-4" class="anchor"></a>Data</h2>
+<a href="#data-5" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>evs</code> datasets from Knoke et al 2020</li>
 </ul>
@@ -284,9 +317,9 @@
 <h1 class="page-header" data-toc-text="0.1.0">
 <a href="#roctopus-010" class="anchor"></a>roctopus 0.1.0</h1>
 <p>2020-06-30</p>
-<div id="data-5" class="section level2">
+<div id="data-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-5" class="anchor"></a>Data</h2>
+<a href="#data-6" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>bristol</code> dataset from Knoke et al 2020</li>
 </ul>
@@ -296,9 +329,9 @@
 <h1 class="page-header" data-toc-text="0.0.4">
 <a href="#roctopus-004" class="anchor"></a>roctopus 0.0.4</h1>
 <p>2018-12-20</p>
-<div id="package-5" class="section level2">
+<div id="package-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-5" class="anchor"></a>Package</h2>
+<a href="#package-6" class="anchor"></a>Package</h2>
 <ul>
 <li>Added hex sticker</li>
 <li>Updated README with more detailed installation information</li>
@@ -310,15 +343,15 @@
 <h2 class="hasAnchor">
 <a href="#analysis-1" class="anchor"></a>Analysis</h2>
 <ul>
-<li>Added <code><a href="../reference/twomode_modularity.html">twomode_modularity()</a></code> to calculate modularity in two-mode networks</li>
+<li>Added <code>twomode_modularity()</code> to calculate modularity in two-mode networks</li>
 </ul>
 </div>
 <div id="visualization" class="section level2">
 <h2 class="hasAnchor">
 <a href="#visualization" class="anchor"></a>Visualization</h2>
 <ul>
-<li>Added <code><a href="../reference/plot_multilevel.html">plot_multilevel()</a></code> that rotates a force-directed <code>igraph</code> plot in three dimensions to reveal multilevel structure</li>
-<li>Added <code><a href="../reference/plot_globalnet.html">plot_globalnet()</a></code> to map a multilevel network on to a javascript, rotatable global</li>
+<li>Added <code>plot_multilevel()</code> that rotates a force-directed <code>igraph</code> plot in three dimensions to reveal multilevel structure</li>
+<li>Added <code>plot_globalnet()</code> to map a multilevel network on to a javascript, rotatable global</li>
 </ul>
 </div>
 </div>
@@ -330,10 +363,10 @@
 <h2 class="hasAnchor">
 <a href="#analysis-2" class="anchor"></a>Analysis</h2>
 <ul>
-<li>Added <code><a href="../reference/twomode_smallworld.html">twomode_smallworld()</a></code> to calculate observed/expected clustering, observed/expected path-length, and the observed/expected clustering ratio</li>
-<li>Added <code><a href="../reference/twomode_2x2.html">twomode_2x2()</a></code> to identify dominance and coherence values for networks over time</li>
-<li>Updated <code><a href="../reference/twomode_coherence.html">twomode_coherence()</a></code> to allow for introduction of second-mode attributes</li>
-<li>Renamed <code>twomode_fragmentation()</code> to <code><a href="../reference/twomode_components.html">twomode_components()</a></code>
+<li>Added <code>twomode_smallworld()</code> to calculate observed/expected clustering, observed/expected path-length, and the observed/expected clustering ratio</li>
+<li>Added <code>twomode_2x2()</code> to identify dominance and coherence values for networks over time</li>
+<li>Updated <code>twomode_coherence()</code> to allow for introduction of second-mode attributes</li>
+<li>Renamed <code>twomode_fragmentation()</code> to <code>twomode_components()</code>
 </li>
 </ul>
 </div>
@@ -341,7 +374,7 @@
 <h2 class="hasAnchor">
 <a href="#visualisation" class="anchor"></a>Visualisation</h2>
 <ul>
-<li>Added <code><a href="../reference/plot_2x2.html">plot_2x2()</a></code> to plot values through a two-by-two matrix</li>
+<li>Added <code>plot_2x2()</code> to plot values through a two-by-two matrix</li>
 </ul>
 </div>
 </div>
@@ -349,9 +382,9 @@
 <h1 class="page-header" data-toc-text="0.0.2">
 <a href="#roctopus-002" class="anchor"></a>roctopus 0.0.2</h1>
 <p>2018-08-14</p>
-<div id="package-6" class="section level2">
+<div id="package-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-6" class="anchor"></a>Package</h2>
+<a href="#package-7" class="anchor"></a>Package</h2>
 <ul>
 <li>Renamed package to <code>roctopus</code>
 </li>
@@ -363,15 +396,15 @@
 <a href="#analysis-3" class="anchor"></a>Analysis</h2>
 <ul>
 <li>Added <code>twomode_fragmentation()</code> to calculate number of components in two-mode networks and identify their membership</li>
-<li>Added <code><a href="../reference/twomode_dominance.html">twomode_dominance()</a></code> to allow an nodal attribute to be passed to the function to weight the centralization measure</li>
-<li>Added <code><a href="../reference/twomode_coherence.html">twomode_coherence()</a></code> to calculate Jaccard similarity</li>
+<li>Added <code>twomode_dominance()</code> to allow an nodal attribute to be passed to the function to weight the centralization measure</li>
+<li>Added <code>twomode_coherence()</code> to calculate Jaccard similarity</li>
 </ul>
 </div>
 <div id="visualisation-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#visualisation-1" class="anchor"></a>Visualisation</h2>
 <ul>
-<li>Added <code><a href="../reference/plot_twomode.html">plot_twomode()</a></code>, which wraps <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot(igraph::graph_from_incidence_matrix())</a></code> with some useful defaults
+<li>Added <code>plot_twomode()</code>, which wraps <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot(igraph::graph_from_incidence_matrix())</a></code> with some useful defaults
 <ul>
 <li>coloured grayscale by default, with green/blue option</li>
 <li>shaped circles and squares by default</li>
@@ -384,9 +417,9 @@
 <h1 class="page-header" data-toc-text="0.0.1">
 <a href="#roctopus-001" class="anchor"></a>roctopus 0.0.1</h1>
 <p>2018-07-30</p>
-<div id="package-7" class="section level2">
+<div id="package-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-7" class="anchor"></a>Package</h2>
+<a href="#package-8" class="anchor"></a>Package</h2>
 <ul>
 <li>Initialised package</li>
 <li>Added <code>README.md</code> file with instructions on how to install package</li>
@@ -398,11 +431,11 @@
 <h2 class="hasAnchor">
 <a href="#analysis-4" class="anchor"></a>Analysis</h2>
 <ul>
-<li>Added <code><a href="../reference/twomode_clustering.html">twomode_clustering()</a></code> to calculate percentage of three-paths closed by four-paths</li>
+<li>Added <code>twomode_clustering()</code> to calculate percentage of three-paths closed by four-paths</li>
 <li>Added <code>twomode_lattice()</code> to create two-mode lattices</li>
-<li>Added <code><a href="../reference/twomode_centralization_degree.html">twomode_centralization_degree()</a></code> to calculate degree centralization in two-mode networks, for rows, columns, or both</li>
-<li>Added <code><a href="../reference/twomode_centralization_between.html">twomode_centralization_between()</a></code> to calculate betweenness centralization in two-mode networks</li>
-<li>Added <code><a href="../reference/twomode_constraint.html">twomode_constraint()</a></code> to calculate network constraint in two-mode networks</li>
+<li>Added <code>twomode_centralization_degree()</code> to calculate degree centralization in two-mode networks, for rows, columns, or both</li>
+<li>Added <code>twomode_centralization_between()</code> to calculate betweenness centralization in two-mode networks</li>
+<li>Added <code>twomode_constraint()</code> to calculate network constraint in two-mode networks</li>
 <li>Added <code>arrange.vars()</code> to rearrange variables by position</li>
 </ul>
 </div>
@@ -437,7 +470,7 @@
     
     
     apiKey: '204dadbc12ed450b5ef1209c8c44b558',
-    indexName: 'roctopus',
+    indexName: 'migraph',
     inputSelector: 'input#search-input.form-control',
     transformData: function(hits) {
       return hits.map(function (hit) {

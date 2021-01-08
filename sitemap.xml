@@ -1,63 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://jhollway.github.io/roctopus//index.html</loc>
+    <loc>https://jhollway.github.io/migraph//index.html</loc>
   </url>
   <url>
-    <loc>https://jhollway.github.io/roctopus//reference/create_match.html</loc>
+    <loc>https://jhollway.github.io/migraph//reference/create_match.html</loc>
   </url>
   <url>
-    <loc>https://jhollway.github.io/roctopus//reference/create_nest.html</loc>
+    <loc>https://jhollway.github.io/migraph//reference/create_nest.html</loc>
   </url>
   <url>
-    <loc>https://jhollway.github.io/roctopus//reference/plot_2x2.html</loc>
-  </url>
-  <url>
-    <loc>https://jhollway.github.io/roctopus//reference/plot_globalnet.html</loc>
-  </url>
-  <url>
-    <loc>https://jhollway.github.io/roctopus//reference/plot_multilevel.html</loc>
-  </url>
-  <url>
-    <loc>https://jhollway.github.io/roctopus//reference/plot_twomode.html</loc>
-  </url>
-  <url>
-    <loc>https://jhollway.github.io/roctopus//reference/project_list.html</loc>
-  </url>
-  <url>
-    <loc>https://jhollway.github.io/roctopus//reference/threemode_clustering.html</loc>
-  </url>
-  <url>
-    <loc>https://jhollway.github.io/roctopus//reference/twomode_2x2.html</loc>
-  </url>
-  <url>
-    <loc>https://jhollway.github.io/roctopus//reference/twomode_centralization_between.html</loc>
-  </url>
-  <url>
-    <loc>https://jhollway.github.io/roctopus//reference/twomode_centralization_degree.html</loc>
-  </url>
-  <url>
-    <loc>https://jhollway.github.io/roctopus//reference/twomode_clustering.html</loc>
-  </url>
-  <url>
-    <loc>https://jhollway.github.io/roctopus//reference/twomode_coherence.html</loc>
-  </url>
-  <url>
-    <loc>https://jhollway.github.io/roctopus//reference/twomode_components.html</loc>
-  </url>
-  <url>
-    <loc>https://jhollway.github.io/roctopus//reference/twomode_constraint.html</loc>
-  </url>
-  <url>
-    <loc>https://jhollway.github.io/roctopus//reference/twomode_dominance.html</loc>
-  </url>
-  <url>
-    <loc>https://jhollway.github.io/roctopus//reference/twomode_modularity.html</loc>
-  </url>
-  <url>
-    <loc>https://jhollway.github.io/roctopus//reference/twomode_smallworld.html</loc>
-  </url>
-  <url>
-    <loc>https://jhollway.github.io/roctopus//articles/roctopus.html</loc>
+    <loc>https://jhollway.github.io/migraph//articles/migraph.html</loc>
   </url>
 </urlset>
