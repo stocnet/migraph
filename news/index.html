@@ -85,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -96,9 +96,6 @@
     <span class="fas fa-home fa-lg"></span>
      
   </a>
-</li>
-<li>
-  <a href="../articles/migraph.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -137,13 +134,49 @@
       <small>Source: <a href='https://github.com/jhollway/migraph/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="migraph-041" class="section level1">
+<h1 class="page-header" data-toc-text="0.4.1">
+<a href="#migraph-041" class="anchor"></a>migraph 0.4.1</h1>
+<div id="package" class="section level2">
+<h2 class="hasAnchor">
+<a href="#package" class="anchor"></a>Package</h2>
+<ul>
+<li>pkgdown now deploys after release</li>
+<li>Reexported a number of <a href="https://igraph.org">igraph</a> and <a href="https://tidygraph.data-imaginist.com">tidygraph</a> functions for internal use</li>
+<li>Completed some <code>convert_</code> and <code>project_</code> documentation</li>
+</ul>
+</div>
+<div id="data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#data" class="anchor"></a>Data</h2>
+<ul>
+<li>Updated mpn_ data source references</li>
+</ul>
+</div>
+<div id="analysis" class="section level2">
+<h2 class="hasAnchor">
+<a href="#analysis" class="anchor"></a>Analysis</h2>
+<ul>
+<li>Added centrality measures that take (and if necessary return) matrix, igraph, or tidygraph objects, and offer a correct normalization for two-mode networks
+<ul>
+<li>Added <code>centrality_degree()</code>
+</li>
+<li>Added <code>centrality_closeness()</code>
+</li>
+<li>Added <code>centrality_betweenness()</code>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
     <div id="migraph-040" class="section level1">
 <h1 class="page-header" data-toc-text="0.4.0">
 <a href="#migraph-040" class="anchor"></a>migraph 0.4.0</h1>
 <p>2021-01-08</p>
-<div id="package" class="section level2">
+<div id="package-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package" class="anchor"></a>Package</h2>
+<a href="#package-1" class="anchor"></a>Package</h2>
 <ul>
 <li>Package name change from roctopus to <a href="https://github.com/jhollway/migraph">migraph</a>
 <ul>
@@ -162,9 +195,9 @@
 </li>
 </ul>
 </div>
-<div id="data" class="section level2">
+<div id="data-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data" class="anchor"></a>Data</h2>
+<a href="#data-1" class="anchor"></a>Data</h2>
 <ul>
 <li>Renamed data related to the book “Multimodal Political Networks” with “mpn_” prefix</li>
 </ul>
@@ -174,9 +207,9 @@
 <h1 class="page-header" data-toc-text="0.3.0">
 <a href="#roctopus-030" class="anchor"></a>roctopus 0.3.0</h1>
 <p>2020-11-06</p>
-<div id="data-1" class="section level2">
+<div id="data-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-1" class="anchor"></a>Data</h2>
+<a href="#data-2" class="anchor"></a>Data</h2>
 <ul>
 <li>Data creation updated for <a href="https://tidygraph.data-imaginist.com">tidygraph</a> defaults
 <ul>
@@ -203,9 +236,9 @@
 <h1 class="page-header" data-toc-text="0.2.6">
 <a href="#roctopus-026" class="anchor"></a>roctopus 0.2.6</h1>
 <p>2020-08-18</p>
-<div id="analysis" class="section level2">
+<div id="analysis-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#analysis" class="anchor"></a>Analysis</h2>
+<a href="#analysis-1" class="anchor"></a>Analysis</h2>
 <ul>
 <li>Renamed <code>twomode_netlm()</code> to <code>netlm2()</code>
 </li>
@@ -213,9 +246,9 @@
 </li>
 </ul>
 </div>
-<div id="package-1" class="section level2">
+<div id="package-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-1" class="anchor"></a>Package</h2>
+<a href="#package-2" class="anchor"></a>Package</h2>
 <ul>
 <li>Added tests for <code>netlm2()</code>
 </li>
@@ -223,9 +256,9 @@
 </li>
 </ul>
 </div>
-<div id="data-2" class="section level2">
+<div id="data-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-2" class="anchor"></a>Data</h2>
+<a href="#data-3" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>opensecrets</code> data</li>
 <li>Added <code>powerelite</code> data</li>
@@ -236,9 +269,9 @@
 <h1 class="page-header" data-toc-text="0.2.5">
 <a href="#roctopus-025" class="anchor"></a>roctopus 0.2.5</h1>
 <p>2020-07-21</p>
-<div id="package-2" class="section level2">
+<div id="package-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-2" class="anchor"></a>Package</h2>
+<a href="#package-3" class="anchor"></a>Package</h2>
 <ul>
 <li>Renamed data documentation scripts</li>
 <li>Added tests for most <code>create_()</code> functions</li>
@@ -252,9 +285,9 @@
 <h1 class="page-header" data-toc-text="0.2.4">
 <a href="#roctopus-024" class="anchor"></a>roctopus 0.2.4</h1>
 <p>2020-07-20</p>
-<div id="package-3" class="section level2">
+<div id="package-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-3" class="anchor"></a>Package</h2>
+<a href="#package-4" class="anchor"></a>Package</h2>
 <ul>
 <li>Added <code>row_project()</code> and <code>col_project()</code> functions to make it easier to remember project directions</li>
 </ul>
@@ -264,18 +297,18 @@
 <h1 class="page-header" data-toc-text="0.2.3">
 <a href="#roctopus-023" class="anchor"></a>roctopus 0.2.3</h1>
 <p>2020-07-19</p>
-<div id="data-3" class="section level2">
+<div id="data-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-3" class="anchor"></a>Data</h2>
+<a href="#data-4" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>mexicanpower</code> dataset</li>
 <li>Added <code>senate112</code> datasets</li>
 <li>Updated <code>evs</code> datasets to matrices</li>
 </ul>
 </div>
-<div id="package-4" class="section level2">
+<div id="package-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-4" class="anchor"></a>Package</h2>
+<a href="#package-5" class="anchor"></a>Package</h2>
 <ul>
 <li>Added <code>df_to_mat()</code> function for converting regular adjacency and incidence data frames into matrices</li>
 </ul>
@@ -285,16 +318,16 @@
 <h1 class="page-header" data-toc-text="0.2.1">
 <a href="#roctopus-021" class="anchor"></a>roctopus 0.2.1</h1>
 <p>2020-07-17</p>
-<div id="data-4" class="section level2">
+<div id="data-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-4" class="anchor"></a>Data</h2>
+<a href="#data-5" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>ryanair</code> dataset from Christopoulos 2006</li>
 </ul>
 </div>
-<div id="package-5" class="section level2">
+<div id="package-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-5" class="anchor"></a>Package</h2>
+<a href="#package-6" class="anchor"></a>Package</h2>
 <ul>
 <li>Split workflow into pull-request and merge/push prompted actions</li>
 <li>Added codecov calculation to workflows</li>
@@ -305,9 +338,9 @@
 <h1 class="page-header" data-toc-text="0.2.0">
 <a href="#roctopus-020" class="anchor"></a>roctopus 0.2.0</h1>
 <p>2020-07-03</p>
-<div id="data-5" class="section level2">
+<div id="data-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-5" class="anchor"></a>Data</h2>
+<a href="#data-6" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>evs</code> datasets from Knoke et al 2020</li>
 </ul>
@@ -317,9 +350,9 @@
 <h1 class="page-header" data-toc-text="0.1.0">
 <a href="#roctopus-010" class="anchor"></a>roctopus 0.1.0</h1>
 <p>2020-06-30</p>
-<div id="data-6" class="section level2">
+<div id="data-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-6" class="anchor"></a>Data</h2>
+<a href="#data-7" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>bristol</code> dataset from Knoke et al 2020</li>
 </ul>
@@ -329,9 +362,9 @@
 <h1 class="page-header" data-toc-text="0.0.4">
 <a href="#roctopus-004" class="anchor"></a>roctopus 0.0.4</h1>
 <p>2018-12-20</p>
-<div id="package-6" class="section level2">
+<div id="package-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-6" class="anchor"></a>Package</h2>
+<a href="#package-7" class="anchor"></a>Package</h2>
 <ul>
 <li>Added hex sticker</li>
 <li>Updated README with more detailed installation information</li>
@@ -339,9 +372,9 @@
 </li>
 </ul>
 </div>
-<div id="analysis-1" class="section level2">
+<div id="analysis-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#analysis-1" class="anchor"></a>Analysis</h2>
+<a href="#analysis-2" class="anchor"></a>Analysis</h2>
 <ul>
 <li>Added <code>twomode_modularity()</code> to calculate modularity in two-mode networks</li>
 </ul>
@@ -359,9 +392,9 @@
 <h1 class="page-header" data-toc-text="0.0.3">
 <a href="#roctopus-003" class="anchor"></a>roctopus 0.0.3</h1>
 <p>2018-08-25</p>
-<div id="analysis-2" class="section level2">
+<div id="analysis-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#analysis-2" class="anchor"></a>Analysis</h2>
+<a href="#analysis-3" class="anchor"></a>Analysis</h2>
 <ul>
 <li>Added <code>twomode_smallworld()</code> to calculate observed/expected clustering, observed/expected path-length, and the observed/expected clustering ratio</li>
 <li>Added <code>twomode_2x2()</code> to identify dominance and coherence values for networks over time</li>
@@ -382,18 +415,18 @@
 <h1 class="page-header" data-toc-text="0.0.2">
 <a href="#roctopus-002" class="anchor"></a>roctopus 0.0.2</h1>
 <p>2018-08-14</p>
-<div id="package-7" class="section level2">
+<div id="package-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-7" class="anchor"></a>Package</h2>
+<a href="#package-8" class="anchor"></a>Package</h2>
 <ul>
 <li>Renamed package to <code>roctopus</code>
 </li>
 <li>Added two-mode <a href='https://github.com/family'>@family</a> tag to documentation</li>
 </ul>
 </div>
-<div id="analysis-3" class="section level2">
+<div id="analysis-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#analysis-3" class="anchor"></a>Analysis</h2>
+<a href="#analysis-4" class="anchor"></a>Analysis</h2>
 <ul>
 <li>Added <code>twomode_fragmentation()</code> to calculate number of components in two-mode networks and identify their membership</li>
 <li>Added <code>twomode_dominance()</code> to allow an nodal attribute to be passed to the function to weight the centralization measure</li>
@@ -417,9 +450,9 @@
 <h1 class="page-header" data-toc-text="0.0.1">
 <a href="#roctopus-001" class="anchor"></a>roctopus 0.0.1</h1>
 <p>2018-07-30</p>
-<div id="package-8" class="section level2">
+<div id="package-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-8" class="anchor"></a>Package</h2>
+<a href="#package-9" class="anchor"></a>Package</h2>
 <ul>
 <li>Initialised package</li>
 <li>Added <code>README.md</code> file with instructions on how to install package</li>
@@ -427,9 +460,9 @@
 <li>Added a <code>NEWS.md</code> file to track changes to the package</li>
 </ul>
 </div>
-<div id="analysis-4" class="section level2">
+<div id="analysis-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#analysis-4" class="anchor"></a>Analysis</h2>
+<a href="#analysis-5" class="anchor"></a>Analysis</h2>
 <ul>
 <li>Added <code>twomode_clustering()</code> to calculate percentage of three-paths closed by four-paths</li>
 <li>Added <code>twomode_lattice()</code> to create two-mode lattices</li>
