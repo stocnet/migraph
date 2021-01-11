@@ -16,7 +16,5 @@
 #' @format Matrix with 11 rows/columns
 #' @source Knoke, David. 1990. \emph{Political Networks}. 
 #' 
-#' Knoke, Christopoulos, Diani, and Hollway. 2020. 
-#' \emph{Multimodal Political Networks: The Structural Perspective}. 
-#' Cambridge University Press: Cambridge.
+#' Knoke, Diani, Hollway, and Christopoulos. 2021. \emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
 "mpn_mexicanpower"

@@ -17,7 +17,5 @@
 #' 
 #' The Center for Responsive Politics. 2019. “OpenSecrets.” http://www.opensecrets.org.
 #' 
-#' Knoke, Christopoulos, Diani, and Hollway. 2020. 
-#' \emph{Multimodal Political Networks: The Structural Perspective}. 
-#' Cambridge University Press: Cambridge.
+#' Knoke, Diani, Hollway, and Christopoulos. 2021. \emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
 "mpn_opensecrets"
