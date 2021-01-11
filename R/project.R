@@ -14,16 +14,17 @@
 #' and weights the ties between them on the basis of
 #' their joint ties to nodes in the first mode (rows).
 #' @name project 
+#' @param object A matrix, `igraph` graph or `tidygraph` tbl_graph object.
 #' @importFrom igraph bipartite.projection
-#' @importFrom tidygraph is.tbl_graph
+#' @importFrom tidygraph as_tbl_graph
 #' @examples
 #' project_rows(southern_women)
 #' @export
 project_rows <- function(object){
-  if(tidygraph::is.tbl_graph(object)){
+  if(is.tbl_graph(object)){
     out <- igraph::bipartite.projection(object)$proj1
     out <- tidygraph::as_tbl_graph(out)
-  } else if(igraph::is.igraph(object)){
+  } else if(is.igraph(object)){
     out <- igraph::bipartite.projection(object)$proj1
   } else if(is.matrix(object)){
     out <- object %*% t(object)
@@ -33,13 +34,13 @@ project_rows <- function(object){
 
 #' @rdname project
 #' @examples
-#' project_rows(southern_women)
+#' project_cols(southern_women)
 #' @export
 project_cols <- function(object){
-  if(tidygraph::is.tbl_graph(object)){
+  if(is.tbl_graph(object)){
     out <- igraph::bipartite.projection(object)$proj2
     out <- tidygraph::as_tbl_graph(out)
-  } else if(igraph::is.igraph(object)){
+  } else if(is.igraph(object)){
     out <- igraph::bipartite.projection(object)$proj2
   } else if(is.matrix(object)){
     out <- t(object) %*% object
