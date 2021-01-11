@@ -158,7 +158,7 @@ jobs:
           asset_path: migraph_winOS.zip
           asset_name: migraph_winOS.zip
           asset_content_type: application/zip
-          
+
   pkgdown:
     name: Build and deploy website
     needs: release
@@ -200,4 +200,3 @@ jobs:
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
-         
