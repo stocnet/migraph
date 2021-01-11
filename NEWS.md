@@ -1,3 +1,22 @@
+# migraph 0.4.1
+
+## Package
+
+* pkgdown now deploys after release
+* Reexported a number of `{igraph}` and `{tidygraph}` functions for internal use
+* Completed some `convert_` and `project_` documentation
+
+## Data
+
+* Updated mpn_ data source references
+
+## Analysis
+
+* Added centrality measures that take (and if necessary return) matrix, igraph, or tidygraph objects, and offer a correct normalization for two-mode networks
+  * Added `centrality_degree()`
+  * Added `centrality_closeness()`
+  * Added `centrality_betweenness()`
+
 # migraph 0.4.0
 
 2021-01-08
