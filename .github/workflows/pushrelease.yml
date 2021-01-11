@@ -1,6 +1,6 @@
 on:
   push:
-    branches: 
+    branches:
       - main
 
 name: Check and release
@@ -22,15 +22,15 @@ jobs:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      
+
     steps:
       - uses: actions/checkout@v2
-        
+
       - uses: r-lib/actions/setup-r@master
         with:
           r-version: ${{ matrix.config.r }}
       - uses: r-lib/actions/setup-pandoc@master
-        
+
       - name: Query dependencies
         run: |
           install.packages('remotes')
@@ -70,13 +70,13 @@ jobs:
           dir.create("build")
           file.copy(binary, "build")
         shell: Rscript {0}
-    
+
       - name: Save binary artifact
         uses: actions/upload-artifact@v1
         with:
           name: ${{ matrix.config.asset_name }}
           path: build/
-          
+
       - name: Calculate code coverage
         if: runner.os == 'Mac'
         run: Rscript -e "covr::codecov()"
@@ -110,15 +110,15 @@ jobs:
           release_name: Release ${{ steps.newtag.outputs.tag }}
           draft: false
           prerelease: false
-          
+
       - name: Download binaries
         uses: actions/download-artifact@v2
-        
+
       - name: Display structure of downloaded files
         run: ls -R
 
       - name: Rename Mac release
-        run: mv ./macOS/*.tgz migraph_macOS.tgz 
+        run: mv ./macOS/*.tgz migraph_macOS.tgz
 
       - name: Upload Mac binary
         id: upload-mac
@@ -132,7 +132,7 @@ jobs:
           asset_content_type: application/zip
 
       - name: Rename Linux release
-        run: mv ./linuxOS/*.tar.gz migraph_linuxOS.tar.gz 
+        run: mv ./linuxOS/*.tar.gz migraph_linuxOS.tar.gz
 
       - name: Upload Linux binary
         id: upload-lin
@@ -146,7 +146,7 @@ jobs:
           asset_content_type: application/zip
 
       - name: Rename Windows release
-        run: mv ./winOS/*.zip migraph_winOS.zip 
+        run: mv ./winOS/*.zip migraph_winOS.zip
 
       - name: Upload Windows binary
         id: upload-win
