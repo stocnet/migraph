@@ -4,11 +4,28 @@
 #' either as a data frame version of a matrix
 #' or as an edgelist,
 #' and returns an incidence matrix.
-#' @name convert 
+#' @name convert
+#' @param df A data frame containing an edgelist or 
+#' dataframe version of a matrix.
+#' 
+#' If the data frame is a 2 column edgelist,
+#' the first column will become the rows
+#' and the second column will become the columns.
+#' 
+#' If the data frame is a 3 column edgelist,
+#' then the third column will be used as 
+#' the cell values or tie weights.
+#' 
+#' If the data frame is more than 3 columns,
+#' the first column is full of character strings (i.e. is named)
+#' and the second column is numeric (e.g. 0 and 1)
+#' then it will be assumed that this is a matrix
+#' embedded in a data frame.
 #' @examples
 #' test <- data.frame(id1 = c("A","B","B","C","C"),
 #'                    id2 = c("I","G","I","G","H"))
 #' as_incidence_matrix(test)
+#' @return An incidence matrix, named if possible.
 #' @export
 as_incidence_matrix <- function(df){
   if(!is.data.frame(df)) stop("This function expects a data frame as input.")

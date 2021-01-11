@@ -51,10 +51,10 @@ reference:
   #   desc: "Functions for visualising multilevel networks:"
   #   contents:
   #     - starts_with("plot_")
-  # - title: "Analysis"
-  #   desc: "Functions for analysing multilevel networks:"
-  #   contents:
-  #     - starts_with("centrality_")
+  - title: "Analysis"
+    desc: "Functions for analysing multilevel networks:"
+    contents:
+      - starts_with("centrality_")
       # - starts_with("threemode_")
       # - netlm2
       # - concor_hca

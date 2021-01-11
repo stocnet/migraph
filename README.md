@@ -6,7 +6,7 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/jhollway/migraph)
 ![GitHub Release Date](https://img.shields.io/github/release-date/jhollway/migraph)
 ![GitHub issues](https://img.shields.io/github/issues-raw/jhollway/migraph)
-[![HitCount](http://hits.dwyl.com/jhollway/migraph.svg)](http://hits.dwyl.com/jhollway/migraph)
+<!-- [![HitCount](http://hits.dwyl.com/jhollway/migraph.svg)](http://hits.dwyl.com/jhollway/migraph) -->
 [![Codecov test coverage](https://codecov.io/gh/jhollway/migraph/branch/main/graph/badge.svg)](https://codecov.io/gh/jhollway/migraph?branch=main)
 [![CodeFactor](https://www.codefactor.io/repository/github/jhollway/migraph/badge)](https://www.codefactor.io/repository/github/jhollway/migraph)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4559/badge)](https://bestpractices.coreinfrastructure.org/projects/4559)

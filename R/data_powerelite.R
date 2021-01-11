@@ -15,7 +15,5 @@
 #' @source Domhoff, G William. 2016. 
 #' “Who Rules America? Power Elite Database.” http://www2.ucsc.edu/whorulesamerica/power_elite/.
 #' 
-#' Knoke, Christopoulos, Diani, and Hollway. 2020. 
-#' \emph{Multimodal Political Networks: The Structural Perspective}. 
-#' Cambridge University Press: Cambridge.
+#' Knoke, Diani, Hollway, and Christopoulos. 2021. \emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
 "mpn_powerelite"

@@ -27,7 +27,7 @@
 #'   \item{Peace}{1 if individual associated}
 #'   \item{Health}{1 if individual associated}
 #' }
-#' @source Knoke, Christopoulos, Diani, and Hollway. 2020. Multimodal Political Networks. Cambridge University Press: Cambridge.
+#' @source Knoke, Diani, Hollway, and Christopoulos. 2021. \emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
 "mpn_IT_1990"
 
 #' @rdname mpn_evs
