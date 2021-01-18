@@ -143,3 +143,51 @@ centrality_betweenness <- function(object, weights = NULL, directed = TRUE, cuto
     }
   }
 }
+
+#' Eigenvector centrality for two-mode networks
+#' 
+#' This function substitutes tidygraph::centrality_eigen() and
+#' igraph::eigenvector_centrality() with a version that correctly 
+#' normalizes for two-mode networks.
+#' 
+#' @param weights The weight of the edges to use for the calculation. Will be
+#' evaluated in the context of the edge data. 
+#' @param directed Should direction of edges be used for the calculations 
+#' @param scale Should the output be scaled between 0 and 1
+#' @param options Settings passed on to `igraph::arpack()`
+#' @param normalized Should the output be normalized for one or two-mode networks 
+#' @family two-mode functions 
+#' @import tidygraph
+#' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
+#' @examples
+#' data(southern_women)
+#' southern_women <- tidygraph::as_tbl_graph(southern_women)
+#' tidygraph::with_graph(southern_women, migraph::centrality_eigenvector(normalized = TRUE))
+#' @return A numeric vector giving the betweenness centrality measure of each node.
+#' @export 
+centrality_eigenvector <- function(object, weights = NULL, directed = FALSE, scale = TRUE, options = igraph::arpack_defaults, normalized = FALSE) {
+  
+  # Converge inputs
+  if(missing(object)){
+    expect_nodes()
+    graph <- .G()
+    weights <- rlang::enquo(weights)
+    weights <- rlang::eval_tidy(weights, .E())
+  } else if (is.igraph(object)) {
+    graph <- object
+  } else if (is.matrix(object)) {
+    graph <- igraph::graph_from_incidence_matrix(object)
+  }
+  
+  # Do the calculations
+  if (is.null(weights)) {
+    weights <- NA
+  } 
+  if (is_bipartite(graph) & normalized){
+    eigenscr <- igraph::eigen_centrality(graph = graph, directed = directed, scale = scale, options = options)$vector
+    set_size <- ifelse(igraph::V(graph)$type, sum(igraph::V(graph)$type), sum(!igraph::V(graph)$type))
+    eigenscr/sqrt(1/2*set_size)
+  } else {
+    igraph::eigen_centrality(graph = graph, directed = directed, scale = scale, options = options)$vector
+  }
+}
