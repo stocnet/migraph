@@ -1,12 +1,8 @@
-# migraph 0.
-
-* Closed #32 with `centralisation_degree()`, `centralisation_closeness()`, and `centralisation_betweenness()`
-
 # migraph 0.4.1
 
 ## Package
 
-* Closed #73 so that pkgdown now deploys after release
+* pkgdown now deploys after release
 * Reexported a number of `{igraph}` and `{tidygraph}` functions for internal use
 * Completed some `convert_` and `project_` documentation
 
