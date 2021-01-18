@@ -1,3 +1,7 @@
+# migraph 0.
+
+* Closed #32 with `centralisation_degree()`, `centralisation_closeness()`, and `centralisation_betweenness()`
+
 # migraph 0.4.1
 
 ## Package

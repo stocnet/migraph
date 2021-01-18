@@ -49,3 +49,17 @@ as_incidence_matrix <- function(df){
   }
   out
 }
+
+converge_to_igraph <- function(object){
+  if(missing(object)){
+    expect_nodes()
+    graph <- .G()
+    weights <- rlang::enquo(weights)
+    weights <- rlang::eval_tidy(weights, .E())
+  } else if (is.igraph(object)) {
+    graph <- object
+  } else if (is.matrix(object)) {
+    graph <- igraph::graph_from_incidence_matrix(object)
+  }
+  graph
+}
