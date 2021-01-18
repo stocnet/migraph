@@ -1,4 +1,4 @@
-#' Centrality for one- and two-mode networks
+#' Centrality for one- and two-mode graphs
 #'
 #' These functions calculate common centrality measures for both one- and two-mode networks.
 #' They accept as objects matrices and `igraph` graphs, 
@@ -21,20 +21,12 @@
 #' @return Depending on how and what kind of an object is passed to the function,
 #' the function will return a `tidygraph` object where the nodes have been updated
 #' @export
-centrality_degree <- function (object, weights = NULL, mode = "out", loops = TRUE, normalized = FALSE){
+centrality_degree <- function (object, 
+                               weights = NULL, mode = "out", 
+                               loops = TRUE, normalized = FALSE){
   
-  # Converge inputs
-  if(missing(object)){
-    expect_nodes()
-    graph <- .G()
-    weights <- rlang::enquo(weights)
-    weights <- rlang::eval_tidy(weights, .E())
-  } else if (is.igraph(object)) {
-    graph <- object
-  } else if (is.matrix(object)) {
-    graph <- igraph::graph_from_incidence_matrix(object)
-  }
-  
+  graph <- converge_to_igraph(object)
+
   # Do the calculations
   if (is.null(weights)) {
     weights <- NA
@@ -63,19 +55,11 @@ centrality_degree <- function (object, weights = NULL, mode = "out", loops = TRU
 #' centrality_closeness(southern_women)
 #' mpn_powerelite %>% tidygraph::mutate(closeness = centrality_closeness())
 #' @export
-centrality_closeness <- function (object, weights = NULL, mode = "out", normalized = FALSE, cutoff = NULL){
+centrality_closeness <- function (object, 
+                                  weights = NULL, mode = "out", 
+                                  normalized = FALSE, cutoff = NULL){
 
-  # Converge inputs
-  if(missing(object)){
-    expect_nodes()
-    graph <- .G()
-    weights <- rlang::enquo(weights)
-    weights <- rlang::eval_tidy(weights, .E())
-  } else if (is.igraph(object)) {
-    graph <- object
-  } else if (is.matrix(object)) {
-    graph <- igraph::graph_from_incidence_matrix(object)
-  }
+  graph <- converge_to_igraph(object)
   
   # Do the calculations
   if (is.null(weights)) {
@@ -110,19 +94,11 @@ centrality_closeness <- function (object, weights = NULL, mode = "out", normaliz
 #' mpn_powerelite %>% tidygraph::mutate(betweenness = centrality_betweenness())
 #' @return A numeric vector giving the betweenness centrality measure of each node.
 #' @export 
-centrality_betweenness <- function(object, weights = NULL, directed = TRUE, cutoff = NULL, nobigint = TRUE, normalized = FALSE){
+centrality_betweenness <- function(object, 
+                                   weights = NULL, directed = TRUE, 
+                                   cutoff = NULL, nobigint = TRUE, normalized = FALSE){
 
-  # Converge inputs
-  if(missing(object)){
-    expect_nodes()
-    graph <- .G()
-    weights <- rlang::enquo(weights)
-    weights <- rlang::eval_tidy(weights, .E())
-  } else if (is.igraph(object)) {
-    graph <- object
-  } else if (is.matrix(object)) {
-    graph <- igraph::graph_from_incidence_matrix(object)
-  }
+  graph <- converge_to_igraph(object)
   
   # Do the calculations
   if (is.null(weights)) {
