@@ -63,3 +63,25 @@ converge_to_igraph <- function(object){
   }
   graph
 }
+
+converge_to_matrix <- function(object){
+  
+  if(missing(object)){
+    expect_nodes()
+    graph <- .G()
+    if (is_bipartite(graph)){
+      mat <- igraph::as_incidence_matrix(graph)
+    } else {
+      mat <- igraph::as_adjacency_matrix(graph)
+    }
+  } else if (is.igraph(object)) {
+    if (is_bipartite(object)){
+      mat <- igraph::as_incidence_matrix(object)
+    } else {
+      mat <- igraph::as_adjacency_matrix(object)
+    }
+  } else if (is.matrix(object)) {
+    mat <- object
+  }
+  mat
+}
