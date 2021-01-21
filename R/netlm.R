@@ -4,16 +4,27 @@
 #' of network linear model to two mode networks. 
 #' @name netlm
 #' @param formula A formula describing the relationship being tested.
-#' @param data Expects a list of matrices, graphs, or a tidygraph object.
+#' @param data A named list of matrices, graphs, or a tidygraph object.
+#' @param ... Arguments passed on to `lm()`.
 #' @param reps Integer indicating the number of draws to use for quantile estimation. 
 #' (Relevant to the null hypothesis test only - the analysis itself is unaffected by this parameter.) 
 #' Note that, as for all Monte Carlo procedures, convergence is slower for more extreme quantiles. 
 #' By default, reps=1000.
+#' @importFrom dplyr bind_cols
+#' @importFrom purrr map
 #' @export
-netlm <- function(formula, data, reps = 1000){
-  out <- lm(formula, data)
+netlm <- function(formula, data, ...){
+  
+  if(!is.list(data)) stop("netlm() expects a list of matrices.")
+  if(!is.matrix(data[[1]])) stop("netlm() expects a list of matrices.")
+  
+  orig <- data
+  data <- dplyr::bind_cols(purrr::map(data, function(x) c(x)))
+  out <- lm(formula, data, ...)
   class(out) <- "netlm"
-  out
+  out$call <- match.call()
+  out$matrices <- orig
+  invisible(out)
 }
 
 #' @rdname netlm
