@@ -55,6 +55,10 @@ reference:
     desc: "Functions for analysing multilevel networks:"
     contents:
       - starts_with("centrality_")
+      - starts_with("centralisation_")
+  - title: "Models"
+    desc: "Functions for modelling multilevel networks:"
+    contents:
+      - netlm
       # - starts_with("threemode_")
-      # - netlm2
       # - concor_hca
