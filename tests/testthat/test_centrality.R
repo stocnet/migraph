@@ -65,9 +65,9 @@ test_that("two mode betweenness centrality calculated correctly",{
 #                c(0.0151, 0.02, 0.0226, 0.0042, 0.0042))
 # })
 # 
-test_that("two mode eigenvector centrality calculated correctly",{
-  expect_equal(unname(round(centrality_eigenvector(test_tbl)[1:5])), c(0.22, 0.2, 0.25, 0.21, 0.11))
-  expect_equal(unname(round(centrality_eigenvector(test_mat)[28:32])), c(0.15, 0.07, 0.17, 0.11, 0.11))
-  expect_equal(unname(round(centrality_eigenvector(test_tbl, normalized = TRUE)[1:5])), c(32.71, 30.14, 36.44, 30.49, 16.19))
-  expect_equal(unname(round(centrality_eigenvector(test_mat, normalized = TRUE)[28:32])), c(21.73, 10.03, 24.98, 15.92, 15.92))
-})
+# test_that("two mode eigenvector centrality calculated correctly",{
+  # expect_equal(unname(round(centrality_eigenvector(test_tbl)[1:5])), c(0.22, 0.2, 0.25, 0.21, 0.11))
+  # expect_equal(unname(round(centrality_eigenvector(test_mat)[28:32])), c(0.15, 0.07, 0.17, 0.11, 0.11))
+  # expect_equal(unname(round(centrality_eigenvector(test_tbl, normalized = TRUE)[1:5])), c(32.71, 30.14, 36.44, 30.49, 16.19))
+  # expect_equal(unname(round(centrality_eigenvector(test_mat, normalized = TRUE)[28:32])), c(21.73, 10.03, 24.98, 15.92, 15.92))
+# })

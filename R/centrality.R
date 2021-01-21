@@ -120,20 +120,14 @@ centrality_betweenness <- function(object,
   }
 }
 
-#' Eigenvector centrality for two-mode networks
-#' 
-#' This function substitutes tidygraph::centrality_eigen() and
-#' igraph::eigenvector_centrality() with a version that correctly 
-#' normalizes for two-mode networks.
-#' 
+#' @rdname centrality
+#' @family two-mode functions 
 #' @param weights The weight of the edges to use for the calculation. Will be
 #' evaluated in the context of the edge data. 
 #' @param directed Should direction of edges be used for the calculations 
 #' @param scale Should the output be scaled between 0 and 1
 #' @param options Settings passed on to `igraph::arpack()`
 #' @param normalized Should the output be normalized for one or two-mode networks 
-#' @family two-mode functions 
-#' @import tidygraph
 #' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
 #' @examples
 #' data(southern_women)
