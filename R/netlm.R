@@ -91,74 +91,32 @@ summary.netlm <- function(object, rep = 1000, ...){
   out
 }
 
-
-#############################################################
-#############################################################
-
-
-# netlm2 <- function(DV, IV, names, rep = 1000){
-#   
-#   if(missing(names)){ 
-#     names <- paste0("x", 1:length(IV))
-#   }
-#   # Consider converting to formula
-#   
-#   rbperm <- function (m) {
-#     n <- sample(1:dim(m)[1])
-#     o <- sample(1:dim(m)[2])
-#     p <- matrix(data = m[n, o], nrow = dim(m)[1], ncol = dim(m)[2])
-#     p
-#   }
-#   
-#   nIV <- length(IV)
-#   M.fit <- lm(as.numeric(unlist(DV)) ~ Reduce(cbind,
-#                                               lapply(1:length(IV), function(x) unlist(IV[x][1]))))
-#   M.coeff <- M.fit$coefficients
-#   
-#   permDist <- matrix(0, rep, (nIV+1))
-#   
-#   for(i in 1:rep){
-#     tempDV <- rbperm(DV)
-#     permDist[i,] <- (lm(as.numeric(unlist(tempDV)) ~ 
-#                           Reduce(cbind,lapply(1:length(IV), 
-#                                               function(x) unlist(IV[x][1])))))$coefficients
-#   }
-#   
-#   resTable <- data.frame(Effect = c("Intercept", names), 
-#                          Coefficients = formatC(M.coeff, format = "f", digits = 2),
-#                          Pvalue = signif(as.numeric(lapply(1:(nIV+1), 
-#                                                            function(x) ecdf(permDist[,x])(M.coeff[x]))), 
-#                                          digits = 2),
-#                          Sig = ifelse(as.numeric(lapply(1:(nIV+1), 
-#                                                         function(x) ecdf(permDist[,x])(M.coeff[x])))<0.05, 
-#                                       ifelse(as.numeric(lapply(1:(nIV+1), 
-#                                                                function(x) ecdf(permDist[,x])(M.coeff[x])))<0.01, 
-#                                              ifelse(as.numeric(lapply(1:(nIV+1), 
-#                                                                       function(x) ecdf(permDist[,x])(M.coeff[x])))<0.001, 
-#                                                     "***", "**"), "*"), ""))
-#   rownames(resTable) <- NULL
-#   print(resTable)
-#   # Turn this into a print function
-#   
-#   cat("\nMultiple R-squared: ", formatC(summary(M.fit)$r.squared),
-#       ",\tAdjusted R-squared: ", formatC(summary(M.fit)$adj.r.squared),
-#       "\n", sep="")
-#   
-#   obj <- list()
-#   obj$results <- data.frame(Effect = c("Intercept", names), 
-#                             Coefficients = as.numeric(formatC(M.coeff, format="f", digits = 2)),
-#                             Pvalue = signif(as.numeric(lapply(1:(nIV+1), 
-#                                                               function(x) ecdf(permDist[,x])(M.coeff[x]))), 
-#                                             digits=2),
-#                             Sig = ifelse(as.numeric(lapply(1:(nIV+1), 
-#                                                            function(x) ecdf(permDist[,x])(M.coeff[x])))<0.05, 
-#                                          ifelse(as.numeric(lapply(1:(nIV+1), 
-#                                                                   function(x) ecdf(permDist[,x])(M.coeff[x])))<0.01, 
-#                                                 ifelse(as.numeric(lapply(1:(nIV+1), 
-#                                                                          function(x) ecdf(permDist[,x])(M.coeff[x])))<0.001, 
-#                                                        "***", "**"), "*"), ""))
-#   rownames(obj$results) <- NULL
-#   obj$r.squared <- formatC(summary(M.fit)$r.squared)
-#   obj$adj.r.squared <- formatC(summary(M.fit)$adj.r.squared)
-#   invisible(obj)
-# }
+#' @rdname netlm
+#' @param x an object of class "summary.netlm", usually, a result of a call to `summary.netlm()`.
+#' @param digits the number of significant digits to use when printing.
+#' @param signif.stars logical. If TRUE, ‘significance stars’ are printed for each coefficient.
+#' @export
+print.summary.netlm <- function(x,
+                                digits = max(3, getOption("digits") - 3),
+                                signif.stars = getOption("show.signif.stars")){
+  
+  if(class(x)!="summary.netlm") stop("This function expects an object of class 'summary.netlm'.")
+  
+  cat("\nCall:\n", paste(deparse(x$call), sep = "\n", collapse = "\n"), 
+      "\n\n", sep = "")
+  
+  cat("\nCoefficients:\n")
+  coefs <- x$coefficients
+  pvals <- x$pvals
+  coefs <- cbind(coefs, pvals)
+  printCoefmat(coefs, 
+               digits = digits, signif.stars = signif.stars, 
+               P.values = TRUE, has.Pvalue = TRUE,
+               na.print = "NA")
+  cat("\n")
+  
+  cat("Multiple R-squared: ", formatC(x$r.squared, digits = digits))
+  cat(",\tAdjusted R-squared: ", formatC(x$adj.r.squared, digits = digits))
+  cat("\n")
+  
+}
