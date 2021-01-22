@@ -21,7 +21,9 @@ Imports:
     covr,
     R6,
     magrittr,
-    rlang
+    rlang,
+    dplyr,
+    purrr
 Suggests: 
     testthat,
     knitr,

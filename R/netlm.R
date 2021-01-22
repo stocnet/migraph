@@ -6,12 +6,9 @@
 #' @param formula A formula describing the relationship being tested.
 #' @param data A named list of matrices, graphs, or a tidygraph object.
 #' @param ... Arguments passed on to `lm()`.
-#' @param reps Integer indicating the number of draws to use for quantile estimation. 
-#' (Relevant to the null hypothesis test only - the analysis itself is unaffected by this parameter.) 
-#' Note that, as for all Monte Carlo procedures, convergence is slower for more extreme quantiles. 
-#' By default, reps=1000.
 #' @importFrom dplyr bind_cols
 #' @importFrom purrr map
+#' @importFrom stats lm
 #' @export
 netlm <- function(formula, data, ...){
   
@@ -29,9 +26,14 @@ netlm <- function(formula, data, ...){
 
 #' @rdname netlm
 #' @param object an object of class "netlm", usually as a result of a call to `netlm()`.
-#' @param rep number of permutations to conduct.
+#' @param reps Integer indicating the number of draws to use for quantile estimation. 
+#' (Relevant to the null hypothesis test only - the analysis itself is unaffected by this parameter.) 
+#' Note that, as for all Monte Carlo procedures, convergence is slower for more extreme quantiles. 
+#' By default, reps=1000.
+#' @param ... Arguments passed on to `lm()`.
+#' @importFrom stats ecdf lm
 #' @export
-summary.netlm <- function(object, rep = 1000, ...){
+summary.netlm <- function(object, reps = 1000, ...){
   
   if(class(object)!="netlm") stop("This function expects an object of class 'netlm'.")
   
@@ -50,12 +52,12 @@ summary.netlm <- function(object, rep = 1000, ...){
     p
   }
   
-  permDist <- matrix(0, rep, length(object$coefficients))
-  for(i in 1:rep){
+  permDist <- matrix(0, reps, length(object$coefficients))
+  for(i in 1:reps){
     tempDV <- rbperm(DV)
     permDist[i,] <- (lm(as.numeric(unlist(tempDV)) ~
                           Reduce(cbind,lapply(1:length(IV),
-                                              function(x) unlist(IV[x][1])))))$coefficients
+                                              function(x) unlist(IV[x][1]))), ...))$coefficients
   }
   
   out <- object
@@ -95,6 +97,7 @@ summary.netlm <- function(object, rep = 1000, ...){
 #' @param x an object of class "summary.netlm", usually, a result of a call to `summary.netlm()`.
 #' @param digits the number of significant digits to use when printing.
 #' @param signif.stars logical. If TRUE, ‘significance stars’ are printed for each coefficient.
+#' @importFrom stats printCoefmat
 #' @export
 print.summary.netlm <- function(x,
                                 digits = max(3, getOption("digits") - 3),
