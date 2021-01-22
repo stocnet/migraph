@@ -98,7 +98,8 @@ summary.netlm <- function(object, rep = 1000, ...){
 #' @export
 print.summary.netlm <- function(x,
                                 digits = max(3, getOption("digits") - 3),
-                                signif.stars = getOption("show.signif.stars")){
+                                signif.stars = getOption("show.signif.stars"),
+                                ...){
   
   if(class(x)!="summary.netlm") stop("This function expects an object of class 'summary.netlm'.")
   
