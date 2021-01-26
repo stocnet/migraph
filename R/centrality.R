@@ -172,7 +172,8 @@ centrality_eigenvector <- function(object,
     # 1/eigenscr*other_set_size 
     # or
     # other_set_size/eigenscr
-    
+    # or
+    # eigenscr*sum(centrality_degree(other_set_size))
     
   } else {
     igraph::eigen_centrality(graph = graph, directed = directed, scale = scale, options = options)$vector
