@@ -130,7 +130,7 @@ centrality_betweenness <- function(object,
 #' @param normalized Should the output be normalized for one or two-mode networks 
 #' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
 #' Faust, Katherine. "Centrality in affiliation networks." Social networks 19.2 (1997): 157-191.
-#' 
+#' Borgatti and Halgin (2011), http://www.danhalgin.com/yahoo_site_admin/assets/docs/Analyzing_Affiliation_Networks.239105758.pdf
 #' @examples
 #' data(southern_women)
 #' southern_women <- tidygraph::as_tbl_graph(southern_women)
@@ -151,7 +151,29 @@ centrality_eigenvector <- function(object,
     eigenscr <- igraph::eigen_centrality(graph = graph, directed = directed, scale = scale, options = options)$vector
     set_size <- ifelse(igraph::V(graph)$type, sum(igraph::V(graph)$type), sum(!igraph::V(graph)$type))
     other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
-    # 1/(eigen of a women)*(sum of eigenvector values of all the events she attended) - see Faust 1997
+    
+    # 1/(eigen of a women)*(sum of eigenvector values of all the events she attended)
+    # Please see Faust (1997) for reference here, the article explains well eigenvector. 
+    # neigh <- igraph::neighbors(graph = graph, v = igraph::V(graph), mode = "total")
+    # 1/eigenscr*sum(eigenscr(neigh))
+    
+    # Borgatti and Everret (1997) do not really provide a closed formula. 
+    # Though the authors normilize eigenvector by the square root of 1/2. 
+    # sqrt(1/2*eigenscr(set_size)) 
+    
+    # Borgatti and Halgin (2011) here: http://www.danhalgin.com/yahoo_site_admin/assets/docs/Analyzing_Affiliation_Networks.239105758.pdf
+    # "a nodes' score a proportional to the sum of scores of it's neighbors"
+    # neigh <- igraph::neighbors(graph = graph, v = igraph::V(graph), mode = "total"))
+    # other_set_size*sum(eigenscr(neigh))
+    
+    # More failed attempts:
+    # eigenscr*sum(eigenscr(igraph::ego))
+    # or
+    # 1/eigenscr*other_set_size 
+    # or
+    # other_set_size/eigenscr
+    
+    
   } else {
     igraph::eigen_centrality(graph = graph, directed = directed, scale = scale, options = options)$vector
   }
