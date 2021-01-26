@@ -129,6 +129,8 @@ centrality_betweenness <- function(object,
 #' @param options Settings passed on to `igraph::arpack()`
 #' @param normalized Should the output be normalized for one or two-mode networks 
 #' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
+#' Faust, Katherine. "Centrality in affiliation networks." Social networks 19.2 (1997): 157-191.
+#' 
 #' @examples
 #' data(southern_women)
 #' southern_women <- tidygraph::as_tbl_graph(southern_women)
@@ -148,8 +150,10 @@ centrality_eigenvector <- function(object,
   if (is_bipartite(graph) & normalized){
     eigenscr <- igraph::eigen_centrality(graph = graph, directed = directed, scale = scale, options = options)$vector
     set_size <- ifelse(igraph::V(graph)$type, sum(igraph::V(graph)$type), sum(!igraph::V(graph)$type))
-    eigenscr/sqrt(1/2*set_size)
+    other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
+    # 1/(eigen of a women)*(sum of eigenvector values of all the events she attended) - see Faust 1997
   } else {
     igraph::eigen_centrality(graph = graph, directed = directed, scale = scale, options = options)$vector
   }
 }
+

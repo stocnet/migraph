@@ -24,9 +24,6 @@ test_that("two mode closeness centrality calculated correctly",{
   expect_equal(unname(round(centrality_closeness(test_mat)[28:32], 4)), c(0.0128, 0.0122, 0.0132, 0.0122, 0.0122))
   expect_equal(unname(round(centrality_closeness(test_igr)[28:32], 4)), c(0.0128, 0.0122, 0.0132, 0.0122, 0.0122))
   expect_equal(unname(round(with_graph(test_tbl, centrality_closeness())[28:32], 4)), c(0.0128, 0.0122, 0.0132, 0.0122, 0.0122))
-  # The tests above check closeness centrality unnormalized. The results displayed from Borgatti and Everett (1997)
-  # are normalized closeness scores. These are c(51.67,46.97,51.67,46.97,38.75)) for the first five and
-  # c(39.74,37.80,40.79,37.80,37.00)) for the last five.
   expect_equal(unname(round(centrality_closeness(test_mat, normalized = TRUE)[1:5],4)), c(0.8000, 0.7273, 0.8000, 0.7273, 0.6000))
   expect_equal(unname(round(centrality_closeness(test_igr, normalized = TRUE)[1:5],4)), c(0.8000, 0.7273, 0.8000, 0.7273, 0.6000))
   expect_equal(unname(round(with_graph(test_tbl, centrality_closeness(normalized = TRUE))[1:5],4)), c(0.8000, 0.7273, 0.8000, 0.7273, 0.6000))
@@ -50,24 +47,10 @@ test_that("two mode betweenness centrality calculated correctly",{
   expect_equal(unname(round(with_graph(test_tbl, centrality_betweenness(normalized = TRUE))[28:32],4)), c(0.0151, 0.02, 0.0226, 0.0042, 0.0042))
 })
 
-# test_that("two mode betweenness centrality calculated correctly",{
-#   expect_equal(unname(tidygraph::with_graph(southern_women, 
-#                                  migraph::centrality_betweenness())[1:5]), 
-#                c(42.759998, 22.856540, 38.739264, 22.011910, 4.727942))
-#   expect_equal(unname(round(tidygraph::with_graph(southern_women, 
-#                                  migraph::centrality_betweenness())[28:32],2)), 
-#                c(6.82, 9.02, 10.24, 1.89, 1.89))
-#   expect_equal(unname(round(tidygraph::with_graph(southern_women, 
-#                                        migraph::centrality_betweenness(normalized = TRUE))[1:5],4)), 
-#                c(0.0967, 0.0517, 0.0876, 0.0498, 0.0107))
-#   expect_equal(unname(round(tidygraph::with_graph(southern_women, 
-#                                        migraph::centrality_betweenness(normalized = TRUE))[28:32],4)), 
-#                c(0.0151, 0.02, 0.0226, 0.0042, 0.0042))
-# })
-# 
-# test_that("two mode eigenvector centrality calculated correctly",{
-  # expect_equal(unname(round(centrality_eigenvector(test_tbl)[1:5])), c(0.22, 0.2, 0.25, 0.21, 0.11))
-  # expect_equal(unname(round(centrality_eigenvector(test_mat)[28:32])), c(0.15, 0.07, 0.17, 0.11, 0.11))
-  # expect_equal(unname(round(centrality_eigenvector(test_tbl, normalized = TRUE)[1:5])), c(32.71, 30.14, 36.44, 30.49, 16.19))
-  # expect_equal(unname(round(centrality_eigenvector(test_mat, normalized = TRUE)[28:32])), c(21.73, 10.03, 24.98, 15.92, 15.92))
-# })
+
+test_that("two mode eigenvector centrality calculated correctly",{
+ expect_equal(unname(round(centrality_eigenvector(test_tbl)[1:5])), c(0.22, 0.2, 0.25, 0.21, 0.11))
+ expect_equal(unname(round(centrality_eigenvector(test_mat)[28:32])), c(0.15, 0.07, 0.17, 0.11, 0.11))
+ expect_equal(unname(round(centrality_eigenvector(test_tbl, normalized = TRUE)[1:5])), c(32.71, 30.14, 36.44, 30.49, 16.19))
+ expect_equal(unname(round(centrality_eigenvector(test_mat, normalized = TRUE)[28:32])), c(21.73, 10.03, 24.98, 15.92, 15.92)) 
+ })
