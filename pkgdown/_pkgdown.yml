@@ -44,8 +44,8 @@ reference:
   - title: "Conversion and Manipulation"
     desc: "Functions for manipulating multimodal and multilevel networks:"
     contents:
+      - starts_with("as_")
       - starts_with("project")
-      - as_incidence_matrix
       # - project_list
   # - title: "Visualisation"
   #   desc: "Functions for visualising multilevel networks:"

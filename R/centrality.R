@@ -25,7 +25,7 @@ centrality_degree <- function (object,
                                weights = NULL, mode = "out", 
                                loops = TRUE, normalized = FALSE){
   
-  graph <- converge_to_igraph(object)
+  graph <- as_igraph(object)
   
   # Do the calculations
   if (is.null(weights)) {
@@ -59,7 +59,7 @@ centrality_closeness <- function (object,
                                   weights = NULL, mode = "out", 
                                   normalized = FALSE, cutoff = NULL){
 
-  graph <- converge_to_igraph(object)
+  graph <- as_igraph(object)
   
   # Do the calculations
   if (is.null(weights)) {
@@ -98,7 +98,7 @@ centrality_betweenness <- function(object,
                                    weights = NULL, directed = TRUE,
                                    cutoff = NULL, nobigint = TRUE, normalized = FALSE){
 
-  graph <- converge_to_igraph(object)
+  graph <- as_igraph(object)
   
   # Do the calculations
   if (is.null(weights)) {
@@ -141,7 +141,7 @@ centrality_eigenvector <- function(object,
                                    weights = NULL, directed = FALSE, scale = TRUE, 
                                    options = igraph::arpack_defaults, normalized = FALSE){
   
-  graph <- converge_to_igraph(object)
+  graph <- as_igraph(object)
   
   # Do the calculations
   if (is.null(weights)) {
