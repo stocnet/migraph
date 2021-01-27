@@ -52,13 +52,13 @@ centralisation_closeness <- centralization_closeness <- function(object,
   graph <- as_igraph(object)
   modes <- match.arg(modes)
   
+  clcent <- centrality_closeness(graph, normalized = TRUE)
+  mode <- igraph::V(graph)$type
+  mode1 <- length(mode) - sum(mode)
+  mode2 <- sum(mode)
+  out <- list()
+  
   if(modes == "normalized"){
-    clcent <- centrality_closeness(graph, normalized = TRUE)
-    mode <- igraph::V(graph)$type
-    mode1 <- length(mode) - sum(mode)
-    mode2 <- sum(mode)
-    out <- list()
-      
     term1 <- 2*(mode1 - 1) * (mode2 + mode1 - 4)/(3*mode2 + 4*mode1 - 8)
     term2 <- 2*(mode1 - 1) * (mode1 - 2)/(2*mode2 + 3*mode1 - 6)
     term3 <- 2*(mode1 - 1) * (mode2 - mode1 + 1)/(2*mode2 + 3*mode1 - 4)
@@ -84,25 +84,17 @@ centralisation_closeness <- centralization_closeness <- function(object,
     }
   }
   if(modes == "within"){
-    
-    clcent <- centrality_closeness(graph, normalized = TRUE)
-    mode <- igraph::V(graph)$type
-    mode1 <- length(mode) - sum(mode)
-    mode2 <- sum(mode)
-    out <- list()
+    out$nodes1 <- sum(max(clcent[!mode])-clcent[!mode])/(((mode1 - 2)*(mode1 - 1))/(2 * mode1 - 3))
+    out$nodes2 <- sum(max(clcent[mode])-clcent[mode])/(((mode2 - 2)*(mode2 - 1))/(2 * mode2 - 3))
     if(mode1 > mode2){ #28.43
       lhs <- ((mode2 -1)*(mode1 - 2) / (2 * mode1 - 3))
       rhs <- ((mode2 - 1)*(mode1 - mode2) / (mode1 + mode2 -2))
       out$nodes1 <- sum(max(clcent[!mode])-clcent[!mode])/( lhs +  rhs) # 0.2135
-      out$nodes2 <- sum(max(clcent[mode])-clcent[mode])/(((mode2 - 2)*(mode2 - 1))/(2 * mode2 - 3)) # 0.5286
-    } else if (mode2 > mode1) {
-      out$nodes1 <- sum(max(clcent[!mode])-clcent[!mode])/(((mode1 - 2)*(mode1 - 1))/(2 * mode1 - 3))
+    }
+    if (mode2 > mode1) {
       lhs <- ((mode1 -1)*(mode2 - 2) / (2 * mode2 - 3))
       rhs <- ((mode1 - 1)*(mode2 - mode1) / (mode2 + mode1 -2))
       out$nodes2 <- sum(max(clcent[mode])-clcent[mode])/( lhs +  rhs)
-    } else {
-      out$nodes1 <- sum(max(clcent[!mode])-clcent[!mode])/(((mode1 - 2)*(mode1 - 1))/(2 * mode1 - 3))
-      out$nodes2 <- sum(max(clcent[mode])-clcent[mode])/(((mode2 - 2)*(mode2 - 1))/(2 * mode2 - 3))
     }
   }
   out
