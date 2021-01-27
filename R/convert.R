@@ -1,31 +1,37 @@
-#' Converts objects
+#' Class conversion between migraph-consistent graph formats 
 #' 
-#' This function takes a data frame,
-#' either as a data frame version of a matrix
-#' or as an edgelist,
-#' and returns an incidence matrix.
+#' The `as_` functions in `{migraph}`
+#' typically accept edgelists (as data frames), matrices,
+#' igraph graph objects, or tidygraph tbl_graph objects,
+#' coercing them into the class designated in the function name.
 #' @name convert
-#' @param object A data frame containing an edgelist or 
-#' dataframe version of a matrix.
+#' @param object A data frame edgelist, matrix, igraph, or tidygraph object.
+#' @param twomode An option to override the heuristics for distinguishing incidence
+#' from adjacency matrices. By default FALSE.
+#' @details Behaviour is a little different depending on the data format.
 #' 
 #' If the data frame is a 2 column edgelist,
 #' the first column will become the rows
 #' and the second column will become the columns.
-#' 
 #' If the data frame is a 3 column edgelist,
 #' then the third column will be used as 
 #' the cell values or tie weights.
-#' 
 #' If the data frame is more than 3 columns,
 #' the first column is full of character strings (i.e. is named)
 #' and the second column is numeric (e.g. 0 and 1)
 #' then it will be assumed that this is a matrix
 #' embedded in a data frame.
+#' 
+#' Incidence matrices are typically inferred from unequal dimensions,
+#' but since in rare cases a matrix with equal dimensions may still
+#' be an incidence matrix, an additional argument `twomode` can be
+#' specified to override this heuristic.
+#' This information is usually already embedded in igraph and tidygraph objects.
 #' @examples
 #' test <- data.frame(id1 = c("A","B","B","C","C"),
 #'                    id2 = c("I","G","I","G","H"))
 #' as_matrix(test)
-#' @return An incidence matrix, named if possible.
+#' @return An adjacency or incidence matrix, named if possible.
 #' @export
 as_matrix <- function(object){
   
@@ -69,8 +75,10 @@ as_matrix <- function(object){
 }
 
 #' @rdname convert
+#' @return An igraph graph object.
 #' @export
-as_igraph <- function(object){
+as_igraph <- function(object, twomode = FALSE){
+  
   if(missing(object)){
     expect_nodes()
     graph <- .G()
@@ -78,8 +86,34 @@ as_igraph <- function(object){
     weights <- rlang::eval_tidy(weights, .E())
   } else if (is.igraph(object)) {
     graph <- object
-  } else if (is.matrix(object)) {
-    graph <- igraph::graph_from_incidence_matrix(object)
+  } else if (is.data.frame(object) | is.matrix(object)) {
+    if (is.data.frame(object)) object <- as_matrix(object)
+    if(nrow(object)!=ncol(object) | twomode){
+      graph <- igraph::graph_from_incidence_matrix(object)
+    } else {
+      graph <- igraph::graph_from_adjacency_matrix(object)
+    } 
   }
   graph
+}
+
+#' @rdname convert
+#' @importFrom tidygraph as_tbl_graph
+#' @return An igraph graph object.
+#' @export
+as_tidygraph <- function(object, twomode = FALSE){
+  
+  if(missing(object)){
+    tidy <- object
+  } else if (is.igraph(object)) {
+    tidy <- tidygraph::as_tbl_graph(object)
+  } else if (is.data.frame(object) | is.matrix(object)) {
+    if (is.data.frame(object)) object <- as_matrix(object)
+    if(nrow(object)!=ncol(object) | twomode){
+      tidy <- tidygraph::as_tbl_graph(igraph::graph_from_incidence_matrix(object))
+    } else {
+      tidy <- tidygraph::as_tbl_graph(igraph::graph_from_adjacency_matrix(object))
+    } 
+  }
+  tidy
 }
