@@ -1,6 +1,15 @@
-# migraph 0.
+# migraph 0.4.2
 
-* Closed #32 with `centralisation_degree()`, `centralisation_closeness()`, and `centralisation_betweenness()`
+## Analysis
+
+* Added a new `netlm()` function that performs linear regression for multimodal network data
+ * `netlm()` accepts a formula-based input
+ * Added `print.summary.netlm()`, a print function for `netlm()` 
+* Added centralization functions for one- and two-mode graphs
+ * `centralisation_degree()`
+ * `centralisation_closeness()`
+ * `centralisation_betweenness()`
+* Added `centrality_eigenvector()` function for eigenvector centrality for two one-and two-mode networks
 
 # migraph 0.4.1
 
