@@ -21,62 +21,91 @@
 #' }
 #' @export
 centralisation_degree <- centralization_degree <- function(object, 
-                                                           modes = c("all", "each"), 
+                                                           modes = c("raw", "normalized", "within"),
                                                            ...){
   
-  graph <- converge_to_igraph(object)
-  
+  mat <- as_matrix(object)
   modes <- match.arg(modes)
+  mode <- c(rep(FALSE, nrow(mat)), rep(TRUE, ncol(mat)))
   
-  if(modes == "all"){
-    nodeset <- names(which(igraph::degree(graph)==max(igraph::degree(graph)))) %in%
-      V(graph)$name[V(graph)$type==T]
-    m <- length(which(V(graph)$type==T))
-    n <- length(which(V(graph)$type!=T))
-    
-    out <- sum(max(igraph::degree(graph)[which(V(graph)$type==nodeset)], na.rm=T)-
-                 igraph::degree(graph)[which(V(graph)$type==nodeset)])/((n-1)*(m-1))
-  } else if (modes == "each"){
-    out <- vector()
-    out$nodes1 <- "score1"
-    out$nodes2 <- "score2"
-  } else stop("Mode not recognised")
-  
+  if(modes == "raw"){
+    allcent <- c(rowSums(mat), colSums(mat))
+    out <- list()
+    out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat) + ncol(mat))*ncol(mat) - 2*(ncol(mat)+nrow(mat)-1))
+    out$nodes2 <- sum(max(allcent[mode]) - allcent)/((nrow(mat) + ncol(mat))*nrow(mat) - 2*(ncol(mat)+nrow(mat)-1))
+  }
+  if(modes == "within"){
+    out <- list()
+    out$nodes1 <- sum(max(rowSums(mat)) - rowSums(mat))/((ncol(mat)-1)*(nrow(mat)-1))
+    out$nodes2 <- sum(max(colSums(mat)) - colSums(mat))/((ncol(mat)-1)*(nrow(mat)-1))
+  }
+  out
 }
 
 #' @rdname centralization
 #' @family two-mode functions
 #' @export
 centralisation_closeness <- centralization_closeness <- function(object, 
-                                                                 modes = c("all", "each"), 
+                                                                 modes = c("normalized", "within"), 
                                                                  ...){
   
-  graph <- converge_to_igraph(object)
-  
+  graph <- as_igraph(object)
   modes <- match.arg(modes)
   
-  if(modes == "all"){
-    nodeset <- names(which(igraph::closeness(graph)==max(igraph::closeness(graph)))) %in% 
-      igraph::V(graph)$name[igraph::V(graph)$type==T]
-    m <- length(which(igraph::V(graph)$type==nodeset))
-    n <- length(which(igraph::V(graph)$type!=nodeset))
+  if(modes == "normalized"){
+    clcent <- centrality_closeness(graph, normalized = TRUE)
+    mode <- igraph::V(graph)$type
+    mode1 <- length(mode) - sum(mode)
+    mode2 <- sum(mode)
+    out <- list()
+      
+    term1 <- 2*(mode1 - 1) * (mode2 + mode1 - 4)/(3*mode2 + 4*mode1 - 8)
+    term2 <- 2*(mode1 - 1) * (mode1 - 2)/(2*mode2 + 3*mode1 - 6)
+    term3 <- 2*(mode1 - 1) * (mode2 - mode1 + 1)/(2*mode2 + 3*mode1 - 4)
+    out$nodes1 <- sum(max(clcent[!mode]) - clcent) / sum(term1, term2, term3)
+    term1 <- 2*(mode2 - 1) * (mode1 + mode2 - 4)/(3*mode1 + 4*mode2 - 8)
+    term2 <- 2*(mode2 - 1) * (mode2 - 2)/(2*mode1 + 3*mode2 - 6)
+    term3 <- 2*(mode2 - 1) * (mode1 - mode2 + 1)/(2*mode1 + 3*mode2 - 4)
+    out$nodes2 <- sum(max(clcent[mode]) - clcent) / sum(term1, term2, term3)
     
-    if (m > n) {
-      sum(max(igraph::closeness(graph)[which(igraph::V(graph)$type==nodeset)], na.rm=T)-
-            igraph::closeness(graph)[which(igraph::V(graph)$type==nodeset)])/
-        (((n-1)*(m-1)/((2*m)-3)) + ((n-1)*(m-n)/m+n-2))
+    if (mode1 > mode2) {
+      term1 <- 2*(mode2 - 1) * (mode2 + mode1 - 2) / (3 * mode2 + 4 * mode1 - 8)
+      term2 <- 2*(mode1 - mode2) * (2 * mode2 - 1) / (5 * mode2 + 2 * mode1 - 6)
+      term3 <- 2*(mode2 - 1) * (mode1 - 2) / (2 * mode2 + 3 * mode1 - 6)
+      term4 <- 2 * (mode2 - 1) / (mode1 + 4 * mode2 - 4)
+      out$nodes1 <- sum(max(clcent[!mode]) - clcent) / sum(term1, term2, term3, term4)
     }
-    if (m <= n) {
-      sum(max(igraph::closeness(graph)[which(igraph::V(graph)$type==nodeset)], na.rm=T)-
-            igraph::closeness(graph)[which(igraph::V(graph)$type==nodeset)])/
-        ((m-2)*(m-1)/((2*m)-3)) 
+    if (mode2 > mode1) {
+      term1 <- 2*(mode1 - 1) * (mode1 + mode2 - 2) / (3 * mode1 + 4 * mode2 - 8)
+      term2 <- 2*(mode2 - mode1) * (2 * mode1 - 1) / (5 * mode1 + 2 * mode2 - 6)
+      term3 <- 2*(mode1 - 1) * (mode2 - 2) / (2 * mode1 + 3 * mode2 - 6)
+      term4 <- 2 * (mode1 - 1) / (mode2 + 4 * mode1 - 4)
+      out$nodes2 <- sum(max(clcent[mode]) - clcent) / sum(term1, term2, term3, term4)
     }
-  } else if (modes == "each"){
-    out <- vector()
-    out$nodes1 <- "score1"
-    out$nodes2 <- "score2"
-  } else stop("Mode not recognised")
-  
+  }
+  if(modes == "within"){
+    
+    clcent <- centrality_closeness(graph, normalized = TRUE)
+    mode <- igraph::V(graph)$type
+    mode1 <- length(mode) - sum(mode)
+    mode2 <- sum(mode)
+    out <- list()
+    if(mode1 > mode2){ #28.43
+      lhs <- ((mode2 -1)*(mode1 - 2) / (2 * mode1 - 3))
+      rhs <- ((mode2 - 1)*(mode1 - mode2) / (mode1 + mode2 -2))
+      out$nodes1 <- sum(max(clcent[!mode])-clcent[!mode])/( lhs +  rhs) # 0.2135
+      out$nodes2 <- sum(max(clcent[mode])-clcent[mode])/(((mode2 - 2)*(mode2 - 1))/(2 * mode2 - 3)) # 0.5286
+    } else if (mode2 > mode1) {
+      out$nodes1 <- sum(max(clcent[!mode])-clcent[!mode])/(((mode1 - 2)*(mode1 - 1))/(2 * mode1 - 3))
+      lhs <- ((mode1 -1)*(mode2 - 2) / (2 * mode2 - 3))
+      rhs <- ((mode1 - 1)*(mode2 - mode1) / (mode2 + mode1 -2))
+      out$nodes2 <- sum(max(clcent[mode])-clcent[mode])/( lhs +  rhs)
+    } else {
+      out$nodes1 <- sum(max(clcent[!mode])-clcent[!mode])/(((mode1 - 2)*(mode1 - 1))/(2 * mode1 - 3))
+      out$nodes2 <- sum(max(clcent[mode])-clcent[mode])/(((mode2 - 2)*(mode2 - 1))/(2 * mode2 - 3))
+    }
+  }
+  out
 }
 
 #' @rdname centralization
@@ -86,15 +115,15 @@ centralisation_betweenness <- centralization_betweenness <- function(object,
                                                                      modes = c("all", "each"), 
                                                                      ...){
   
-  graph <- converge_to_igraph(object)
+  graph <- as_igraph(object)
   
   modes <- match.arg(modes)
   
   if(modes == "all"){
     # Whole network centralization
-    bnorm <- c(betweenness(graph)[which(V(graph)$type!=nodeset)]/
+    bnorm <- c(igraph::betweenness(graph)[which(V(graph)$type!=nodeset)]/
                  ((1/2)*(m^2*(s+1)^2+m*(s+1)*(2*t-s-1)-t*(2*s-t+3))),
-               betweenness(graph)[which(V(graph)$type==nodeset)]/
+               igraph::betweenness(graph)[which(V(graph)$type==nodeset)]/
                  ((1/2)*(n^2*(p+1)^2+n*(p+1)*(2*r-p-1)-r*(2*p-r+3))))
     sum(max(bnorm)-bnorm)/
       ((m+n-1) - ((p*(n-r)*(2*m+2*n-p-3) + r*(p+1)*(2*m+2*n-p-4))/
@@ -110,7 +139,7 @@ centralisation_betweenness <- centralization_betweenness <- function(object,
     #   }
     
   } else if (modes == "each"){
-    nodeset <- names(which(betweenness(graph)==max(betweenness(graph)))) %in% 
+    nodeset <- names(which(igraph::betweenness(graph)==max(igraph::betweenness(graph)))) %in% 
       V(graph)$name[V(graph)$type==T]
     m <- length(which(V(graph)$type==nodeset))
     n <- length(which(V(graph)$type!=nodeset))
@@ -124,13 +153,13 @@ centralisation_betweenness <- centralization_betweenness <- function(object,
     #       betweenness(graph)[which(V(graph)$type==nodeset)])/
     #   ((m-1)*(n^2*(p+1)^2 + n*(p+1)*(2*r-p-1)-r*(2*p-r+3)))/2
     if (m > n){
-      sum(max(betweenness(graph)[which(V(graph)$type==nodeset)], na.rm=T)-
-            betweenness(graph)[which(V(graph)$type==nodeset)])/
+      sum(max(igraph::betweenness(graph)[which(V(graph)$type==nodeset)], na.rm=T)-
+            igraph::betweenness(graph)[which(V(graph)$type==nodeset)])/
         (2*(m-1)^2*(n-1))
     }
     if (m <= n){
-      sum(max(betweenness(graph)[which(V(graph)$type==nodeset)], na.rm=T)-
-            betweenness(graph)[which(V(graph)$type==nodeset)])/
+      sum(max(igraph::betweenness(graph)[which(V(graph)$type==nodeset)], na.rm=T)-
+            igraph::betweenness(graph)[which(V(graph)$type==nodeset)])/
         ((m-1)*((1/2)*n*(n-1)+(1/2)*(m-1)*(m-2)+(m-1)*(n-1)))
     }
     

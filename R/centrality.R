@@ -124,59 +124,39 @@ centrality_betweenness <- function(object,
 #' @family two-mode functions 
 #' @param weights The weight of the edges to use for the calculation. Will be
 #' evaluated in the context of the edge data. 
-#' @param directed Should direction of edges be used for the calculations 
-#' @param scale Should the output be scaled between 0 and 1
+#' @param directed Should direction of edges be used for the calculations?
 #' @param options Settings passed on to `igraph::arpack()`
-#' @param normalized Should the output be normalized for one or two-mode networks 
+#' @param scale Should the scores be scaled to range between 0 and 1? 
+#' @param normalized For one-mode networks, should Borgatti and Everett normalization be applied?
+#' @param projected For two-mode networks, should eigenvectors be computed on each projection?
 #' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
 #' Faust, Katherine. "Centrality in affiliation networks." Social networks 19.2 (1997): 157-191.
-#' Borgatti and Halgin (2011), http://www.danhalgin.com/yahoo_site_admin/assets/docs/Analyzing_Affiliation_Networks.239105758.pdf
 #' @examples
-#' data(southern_women)
-#' southern_women <- tidygraph::as_tbl_graph(southern_women)
-#' tidygraph::with_graph(southern_women, migraph::centrality_eigenvector(normalized = TRUE))
-#' @return A numeric vector giving the betweenness centrality measure of each node.
+#' centrality_eigenvector(southern_women)
+#' @return A numeric vector giving the eigenvector centrality measure of each node.
 #' @export 
 centrality_eigenvector <- function(object, 
-                                   weights = NULL, directed = FALSE, scale = TRUE, 
-                                   options = igraph::arpack_defaults, normalized = FALSE){
+                                   weights = NULL, directed = FALSE,
+                                   options = igraph::arpack_defaults, 
+                                   scale = FALSE, normalized = FALSE, projected = FALSE){
   
   graph <- as_igraph(object)
   
   # Do the calculations
   if (is.null(weights)) {
     weights <- NA
-  } 
-  if (is_bipartite(graph) & normalized){
-    eigenscr <- igraph::eigen_centrality(graph = graph, directed = directed, scale = scale, options = options)$vector
-    set_size <- ifelse(igraph::V(graph)$type, sum(igraph::V(graph)$type), sum(!igraph::V(graph)$type))
-    other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
-    
-    # 1/(eigen of a women)*(sum of eigenvector values of all the events she attended)
-    # Please see Faust (1997) for reference here, the article explains well eigenvector. 
-    # neigh <- igraph::neighbors(graph = graph, v = igraph::V(graph), mode = "total")
-    # 1/eigenscr*sum(eigenscr(neigh))
-    
-    # Borgatti and Everret (1997) do not really provide a closed formula. 
-    # Though the authors normilize eigenvector by the square root of 1/2. 
-    # sqrt(1/2*eigenscr(set_size)) 
-    
-    # Borgatti and Halgin (2011) here: http://www.danhalgin.com/yahoo_site_admin/assets/docs/Analyzing_Affiliation_Networks.239105758.pdf
-    # "a nodes' score a proportional to the sum of scores of it's neighbors"
-    # neigh <- igraph::neighbors(graph = graph, v = igraph::V(graph), mode = "total"))
-    # other_set_size*sum(eigenscr(neigh))
-    
-    # More failed attempts:
-    # eigenscr*sum(eigenscr(igraph::ego))
-    # or
-    # 1/eigenscr*other_set_size 
-    # or
-    # other_set_size/eigenscr
-    # or
-    # eigenscr*sum(centrality_degree(other_set_size))
-    
-  } else {
-    igraph::eigen_centrality(graph = graph, directed = directed, scale = scale, options = options)$vector
   }
+  if (!is_bipartite(graph) | !projected){
+    out <- igraph::eigen_centrality(graph = graph, directed = directed, scale = scale, options = options)$vector
+    if (normalized) out <- out / sqrt(1/2)
+  } else if (is_bipartite(graph) & projected){
+    eigen1 <- project_rows(graph)
+    eigen1 <- igraph::eigen_centrality(graph = eigen1, directed = directed, scale = scale, options = options)$vector
+    eigen2 <- project_cols(graph)
+    eigen2 <- igraph::eigen_centrality(graph = eigen2, directed = directed, scale = scale, options = options)$vector
+    out <- c(eigen1, eigen2)
+    if (normalized) stop("Normalization not currently implemented for eigenvector centrality for two-mode networks.")
+  } else stop("Analysing projections only works with two-mode objects.")
+  out
 }
 
