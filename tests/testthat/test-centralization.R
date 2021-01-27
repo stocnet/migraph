@@ -17,8 +17,8 @@ test_that("two mode closeness centralization calculated correctly", {
 })
 
 test_that("two mode betweenness centralization calculated correctly", {
-  # expect_equal(round(centralisation_betweenness(test_igr, modes = "raw")$nodes1,4), 0.0580)
-  # expect_equal(round(centralisation_betweenness(test_igr, modes = "raw")$nodes2,4), 0.2073)
+  expect_equal(round(centralisation_betweenness(test_igr, modes = "raw")$nodes1,4), 0.0580)
+  expect_equal(round(centralisation_betweenness(test_igr, modes = "raw")$nodes2,4), 0.2073)
   expect_equal(round(centralisation_betweenness(test_igr, modes = "within")$nodes1,4), 0.0668)
   expect_equal(round(centralisation_betweenness(test_igr, modes = "within")$nodes2,4), 0.1982)
 })

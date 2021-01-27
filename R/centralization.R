@@ -117,9 +117,15 @@ centralisation_betweenness <- centralization_betweenness <- function(object,
   out <- list()
   
   if(modes == "raw"){
-    
+    out$nodes1 <- sum(max(becent[!mode])-becent) / ((1/2 * mode2 * (mode2 - 1) + 1/2 * (mode1 - 1)*(mode1 - 2) + (mode1 - 1) * (mode2 - 2))*(mode1 + mode2 - 1)+(mode1 - 1))
+    out$nodes2 <- sum(max(becent[mode])-becent) / ((1/2 * mode1 * (mode1 - 1) + 1/2 * (mode2 - 1)*(mode2 - 2) + (mode2 - 1) * (mode1 - 2))*(mode2 + mode1 - 1)+(mode2 - 1))
+    if (mode1 > mode2){
+      out$nodes1 <- sum(max(becent[!mode])-becent) / (2 * (mode1 - 1) * (mode2 - 1) * (mode1 + mode2 - 1) - (mode2 - 1) * (mode1 + mode2 - 2) - 1/2 * (mode1 - mode2) * (mode1 + 3*mode2 - 3))
+    }
+    if (mode2 > mode1){
+      out$nodes2 <- sum(max(becent[mode])-becent) / (2 * (mode2 - 1) * (mode1 - 1) * (mode2 + mode1 - 1) - (mode1 - 1) * (mode2 + mode1 - 2) - 1/2 * (mode2 - mode1) * (mode2 + 3*mode1 - 3))
+    }
   }
-  
   if(modes == "within"){
     out$nodes1 <- sum(max(becent[!mode])-becent[!mode]) / ((mode1 - 1)*(1/2 * mode2 * (mode2 - 1) + 1/2 * (mode1 - 1) * (mode1 - 2) + (mode1 - 1) * (mode2 - 1)))
     out$nodes2 <- sum(max(becent[mode])-becent[mode]) / ((mode2 - 1)*(1/2 * mode1 * (mode1 - 1) + 1/2 * (mode2 - 1) * (mode2 - 2) + (mode2 - 1) * (mode1 - 1)))
@@ -127,7 +133,7 @@ centralisation_betweenness <- centralization_betweenness <- function(object,
       out$nodes1 <- sum(max(becent[!mode])-becent[!mode]) / (2 * (mode1 - 1)^2 * (mode2 - 1))
     }
     if (mode2 > mode1){
-      out$nodes2 <- sum(max(becent[!mode])-becent[!mode]) / (2 * (mode2 - 1)^2 * (mode1 - 1))
+      out$nodes2 <- sum(max(becent[mode])-becent[mode]) / (2 * (mode2 - 1)^2 * (mode1 - 1))
     }
   }
   out
