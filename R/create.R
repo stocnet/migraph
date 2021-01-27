@@ -139,11 +139,11 @@ create_silos <- function(n1, n2,
 #' with decreasing fill across n2.
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
-#' @export
 #' @examples
 #' \dontrun{
 #' create_nest(10, 12)
 #' }
+#' @export
 create_nest <- function(n1, n2, 
                         as = c("tbl_graph", "igraph", "matrix")) {
   
@@ -152,6 +152,20 @@ create_nest <- function(n1, n2,
   out <- matrix(0, n1, n2)
   out[(row(out) - col(out)) >= 0] <- 1
 
+  if(as == "tbl_graph") out <- tidygraph::as_tbl_graph(out)
+  if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
+  out
+}
+
+
+#' @export
+create_star <- function(n1 = 1, n2,
+                        as = c("tbl_graph", "igraph", "matrix")){
+  as <- match.arg(as)
+  
+  out <- matrix(0, n1, n2)
+  out[1,] <- 1
+  
   if(as == "tbl_graph") out <- tidygraph::as_tbl_graph(out)
   if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
   out
