@@ -1,6 +1,6 @@
 #' Centralization for one- and two-mode graphs
 #'
-#' This function allows you to calculate how (degree) centralized a two-mode graph is.
+#' These functions allows you to calculate how centralized a two-mode graph is.
 #' @name centralization
 #' @family two-mode functions
 #' @param object A matrix, igraph graph, or tidygraph object

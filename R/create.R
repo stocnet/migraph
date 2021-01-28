@@ -1,6 +1,7 @@
-#' Two-mode chain
-#'
-#' Creates a two-mode chain
+#' Create functions
+#' 
+#' These functions create different graph objects 
+#' @name create
 #' @param n1 Number of nodes in the first node set
 #' @param n2 Number of nodes in the second node set
 #' @param as What type of object to return.
@@ -10,13 +11,13 @@
 #' with two ties for every second-mode node.
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
-#' @export
 #' @examples
 #' \dontrun{
 #' create_chain(5,10) %>% ggraph() +
 #' geom_edge_fan(aes(alpha = stat(index)), show.legend = FALSE) +
 #' geom_node_point(aes(size = 5))
 #' }
+#' @export
 create_chain <- function(n1, n2, 
                          as = c("tbl_graph", "igraph", "matrix")) {
   
@@ -36,22 +37,18 @@ create_chain <- function(n1, n2,
   out
 }
 
-#' Matched two-mode graph
-#'
-#' Creates a matched two-mode network
-#' @param n1 Number of nodes in the first node set
-#' @param n2 Number of nodes in the second node set
-#' @param as What type of object to return.
-#' @details Will construct an affiliation matrix,
+#' @rdname create
+#' @details Creates a matched two-mode network.
+#' Will construct an affiliation matrix,
 #' with by default both n1 and n2 matched.
 #' TODO: Incorporate into create_chain (chordal_ring of certain breadth w).
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
-#' @export
 #' @examples
 #' \dontrun{
 #' create_match(10, 12)
 #' }
+#' @export
 create_match <- function(n1, n2,
                          as = c("tbl_graph", "igraph", "matrix")) {
   mat <- matrix(0, n1, n2)
@@ -67,29 +64,25 @@ create_match <- function(n1, n2,
   mat
 }
 
-#' Two-mode random graph
-#'
-#' Creates a random two-mode network
-#' @param n1 Number of nodes in the first node set
-#' @param n2 Number of nodes in the second node set
+#' @rdname create
 #' @param p Number of edges in the network over the number of edges possible
 #' @param m Number of edges in the network
-#' @param as What type of object to return.
 #' @param mode How should edges be followed
 #' @param directed Should direction of edges be used for the calculations
 #' One of "matrix", "tbl_graph", "igraph".
 #' By default, creates a "tbl_graph" object.
-#' @details Will construct an affiliation matrix,
+#' @details Creates a random two-mode network.
+#' Will construct an affiliation matrix,
 #' with a random probability of a tie.
 #' @importFrom tidygraph play_bipartite
 #' @importFrom igraph as.igraph as_adjacency_matrix
-#' @export
 #' @examples
 #' \dontrun{
 #' play_twomode(10, 12, 0.25) %>% ggraph() +
 #' geom_edge_fan(aes(alpha = stat(index)), show.legend = FALSE) +
 #' geom_node_point(aes(size = 5))
 #' }
+#' @export
 play_twomode <- function(n1, n2, p, m, directed = TRUE, mode = "out",
                            as = c("tbl_graph", "igraph", "matrix")) {
   
@@ -101,22 +94,18 @@ play_twomode <- function(n1, n2, p, m, directed = TRUE, mode = "out",
   g
 }
 
-#' Two-component two-mode graph
-#'
-#' Creates a two-component two-mode network
-#' @param n1 Number of nodes in the first node set
-#' @param n2 Number of nodes in the second node set
-#' @param as What type of object to return.
-#' @details Will construct an affiliation matrix,
+#' @rdname create
+#' @details Creates a two-component two-mode network.
+#' Will construct an affiliation matrix,
 #' with full component diagonal.
 #' TODO: Allow specfication of how many silos/components to create
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
-#' @export
 #' @examples
 #' \dontrun{
 #' create_silos(10, 12)
 #' }
+#' @export
 create_silos <- function(n1, n2,
                          as = c("tbl_graph", "igraph", "matrix")) {
   mat <- matrix(0, n1, n2)
@@ -129,13 +118,9 @@ create_silos <- function(n1, n2,
   mat
 }
 
-#' Nested two-mode graph
-#'
-#' Creates a nested two-mode network
-#' @param n1 Number of nodes in the first node set
-#' @param n2 Number of nodes in the second node set
-#' @param as What type of object to return.
-#' @details Will construct an affiliation matrix,
+#' @rdname create
+#' @details Creates a nested two-mode network.
+#' Will construct an affiliation matrix,
 #' with decreasing fill across n2.
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
@@ -157,7 +142,14 @@ create_nest <- function(n1, n2,
   out
 }
 
-
+#' @rdname create
+#' @details Will create a complete bipartite start graph
+#' @importFrom tidygraph as_tbl_graph
+#' @importFrom igraph graph_from_incidence_matrix
+#' @examples
+#' \dontrun{
+#' create_star(1, 12)
+#' }
 #' @export
 create_star <- function(n1 = 1, n2,
                         as = c("tbl_graph", "igraph", "matrix")){

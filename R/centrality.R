@@ -122,9 +122,6 @@ centrality_betweenness <- function(object,
 
 #' @rdname centrality
 #' @family two-mode functions 
-#' @param weights The weight of the edges to use for the calculation. Will be
-#' evaluated in the context of the edge data. 
-#' @param directed Should direction of edges be used for the calculations?
 #' @param options Settings passed on to `igraph::arpack()`
 #' @param scale Should the scores be scaled to range between 0 and 1? 
 #' @param normalized For one-mode networks, should Borgatti and Everett normalization be applied?
