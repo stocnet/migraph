@@ -1,4 +1,4 @@
-# migraph 0.4.2
+# migraph 0.5.0
 
 ## Analysis
 
@@ -10,6 +10,14 @@
  * `centralisation_closeness()`
  * `centralisation_betweenness()`
 * Added `centrality_eigenvector()` function for eigenvector centrality for two one-and two-mode networks
+
+## Manipulation
+
+* Added functions for class conversion between migraph-consistent graph formats
+ * `as_matrix()` function to coerce objects into an adjacency or incidence matrix class
+ * `as_igraph()` function  to coerce objects into an {igraph} graph class
+ * `as_ tidygraph()` function to coerce objects into an {igraph} graph class
+* Added `create_star()` function to create a star bipartite graph
 
 # migraph 0.4.1
 
