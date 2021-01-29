@@ -14,6 +14,12 @@
 #' of both nodesets, whereas for `within`, the numerator is the sum of differences
 #' between the maximum centrality score for the mode against only the centrality scores of the other
 #' nodes in that nodeset.
+#' 
+#' The function also calculates centralisation for one-mode graphs
+#' if modes is set to 'one-mode' (`modes = "one-mode"`). 
+#' In this case, the function works as a wrapper for `igraph_centr_degree()`,
+#' igraph_centr_clo()` or igraph_centr_betw()`, respectively, and the one-mode
+#' total centralisation score is returned. 
 #' @return The centralization score. 
 #' If `modes = "each"`, then a named list of two scores will be returned.
 #' To return just the score for the first nodeset (rows), 
@@ -28,7 +34,7 @@
 #' }
 #' @export
 centralisation_degree <- centralization_degree <- function(object, 
-                                                           modes = c("raw", "normalized", "within")){
+                                                           modes = c("raw", "normalized", "within", "one-mode")){
   
   mat <- as_matrix(object)
   modes <- match.arg(modes)
@@ -40,10 +46,19 @@ centralisation_degree <- centralization_degree <- function(object,
     out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat) + ncol(mat))*ncol(mat) - 2*(ncol(mat)+nrow(mat)-1))
     out$nodes2 <- sum(max(allcent[mode]) - allcent)/((nrow(mat) + ncol(mat))*nrow(mat) - 2*(ncol(mat)+nrow(mat)-1))
   }
+  if(modes == "normalized"){
+    allcent <- c(rowSums(mat), colSums(mat))
+    out <- list()
+    out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat)+ncol(mat)-1) - (ncol(mat)-1) / nrow(mat) - (ncol(mat)+nrow(mat)-1)/nrow(mat))
+    out$nodes2 <- sum(max(allcent[mode]) - allcent)/((ncol(mat)+nrow(mat)-1)-(nrow(mat)-1) / ncol(mat)-(nrow(mat)+ncol(mat)-1)/ncol(mat))
+  }
   if(modes == "within"){
     out <- list()
     out$nodes1 <- sum(max(rowSums(mat)) - rowSums(mat))/((ncol(mat)-1)*(nrow(mat)-1))
     out$nodes2 <- sum(max(colSums(mat)) - colSums(mat))/((ncol(mat)-1)*(nrow(mat)-1))
+  }
+  if(modes == "one-mode") {
+    out <- igraph::centr_degree(graph = object, mode = "total")$centralization
   }
   out
 }
@@ -52,7 +67,7 @@ centralisation_degree <- centralization_degree <- function(object,
 #' @family two-mode functions
 #' @export
 centralisation_closeness <- centralization_closeness <- function(object, 
-                                                                 modes = c("normalized", "within")){
+                                                                 modes = c("normalized", "within", "one-mode")){
   
   graph <- as_igraph(object)
   modes <- match.arg(modes)
@@ -102,6 +117,9 @@ centralisation_closeness <- centralization_closeness <- function(object,
       out$nodes2 <- sum(max(clcent[mode])-clcent[mode])/( lhs +  rhs)
     }
   }
+  if(modes == "one-mode") {
+    out <- igraph::centr_clo(graph = object, mode = "total")$centralization
+  }
   out
 }
 
@@ -109,7 +127,7 @@ centralisation_closeness <- centralization_closeness <- function(object,
 #' @family two-mode functions
 #' @export
 centralisation_betweenness <- centralization_betweenness <- function(object, 
-                                                                     modes = c("raw", "within")){
+                                                                     modes = c("raw", "within", "normalized", "one-mode")) {
   
   graph <- as_igraph(object)
   modes <- match.arg(modes)
@@ -130,6 +148,16 @@ centralisation_betweenness <- centralization_betweenness <- function(object,
       out$nodes2 <- sum(max(becent[mode])-becent) / (2 * (mode2 - 1) * (mode1 - 1) * (mode2 + mode1 - 1) - (mode1 - 1) * (mode2 + mode1 - 2) - 1/2 * (mode2 - mode1) * (mode2 + 3*mode1 - 3))
     }
   }
+  if(modes == "normalized"){
+    out$nodes1 <- sum(max(becent[!mode])-becent) / ((1/2 * mode2 * (mode2 - 1) + 1/2 * (mode1 - 1)*(mode1 - 2) + (mode1 - 1) * (mode2 - 2))*(mode1 + mode2 - 1)+(mode1 - 1))
+    out$nodes2 <- sum(max(becent[mode])-becent) / ((1/2 * mode1 * (mode1 - 1) + 1/2 * (mode2 - 1)*(mode2 - 2) + (mode2 - 1) * (mode1 - 2))*(mode2 + mode1 - 1)+(mode2 - 1))
+    if (mode1 > mode2) {
+          out$nodes1 <- sum(max(becent[!mode])-becent) / ((mode1 + mode2 -1) - ((mode2 - 1)*(mode1 + mode2 -2) + 1/2*(mode1 - mode2)*(mode1 + 3*mode2 -3)) / (1/2*(mode1*(mode1 - 1) + 1/2(mode2 -1)*(mode2 - 2) + (mode1 - 1)*(mode2 - 1))))
+    }
+    if (mode2 > mode1){
+        out$nodes2 <- sum(max(becent[mode])-becent) / ((mode2 + mode2 -1) - ((mode1 - 1)*(mode2 + mode1 -2) + 1/2*(mode2 - mode1)*(mode2 + 3*mode1 -3)) / (1/2*(mode2*(mode2 - 1) + 1/2(mode2 -1)*(mode1 - 2) + (mode2 - 1)*(mode1 - 1))))
+    }
+  }
   if(modes == "within"){
     out$nodes1 <- sum(max(becent[!mode])-becent[!mode]) / ((mode1 - 1)*(1/2 * mode2 * (mode2 - 1) + 1/2 * (mode1 - 1) * (mode1 - 2) + (mode1 - 1) * (mode2 - 1)))
     out$nodes2 <- sum(max(becent[mode])-becent[mode]) / ((mode2 - 1)*(1/2 * mode1 * (mode1 - 1) + 1/2 * (mode2 - 1) * (mode2 - 2) + (mode2 - 1) * (mode1 - 1)))
@@ -139,6 +167,9 @@ centralisation_betweenness <- centralization_betweenness <- function(object,
     if (mode2 > mode1){
       out$nodes2 <- sum(max(becent[mode])-becent[mode]) / (2 * (mode2 - 1)^2 * (mode1 - 1))
     }
+  }
+  if(modes == "one-mode") {
+    out <- igraph::centr_betw(graph = object)$centralization
   }
   out
 }

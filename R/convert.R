@@ -99,7 +99,7 @@ as_igraph <- function(object, twomode = FALSE){
 
 #' @rdname convert
 #' @importFrom tidygraph as_tbl_graph
-#' @return An igraph graph object.
+#' @return A tidygraph tbl_graph class object
 #' @export
 as_tidygraph <- function(object, twomode = FALSE){
   
