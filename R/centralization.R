@@ -4,9 +4,16 @@
 #' @name centralization
 #' @family two-mode functions
 #' @param object A matrix, igraph graph, or tidygraph object
-#' @param modes Whether to calculate centralization for the graph as a whole (`modes = "all"`),
-#' or, if two-mode, for each nodeset (`modes = "each"`).
-#' @param ... 
+#' @param modes If the object is a two-mode network,
+#' whether to calculate centralization based on the degree to which the network as
+#' a whole is centralized around each of the two nodesets (`modes = "raw"` or `modes = "normalized"`),
+#' or whether centralization is calculated within each nodeset (`modes = "within"`).
+#' 
+#' In other words, for `raw` and `normalized`, the numerator is the sum of differences
+#' between the maximum centrality score for the mode against all other centrality scores in the network,
+#' of both nodesets, whereas for `within`, the numerator is the sum of differences
+#' between the maximum centrality score for the mode against only the centrality scores of the other
+#' nodes in that nodeset.
 #' @return The centralization score. 
 #' If `modes = "each"`, then a named list of two scores will be returned.
 #' To return just the score for the first nodeset (rows), 
@@ -21,8 +28,7 @@
 #' }
 #' @export
 centralisation_degree <- centralization_degree <- function(object, 
-                                                           modes = c("raw", "normalized", "within"),
-                                                           ...){
+                                                           modes = c("raw", "normalized", "within")){
   
   mat <- as_matrix(object)
   modes <- match.arg(modes)
@@ -46,8 +52,7 @@ centralisation_degree <- centralization_degree <- function(object,
 #' @family two-mode functions
 #' @export
 centralisation_closeness <- centralization_closeness <- function(object, 
-                                                                 modes = c("normalized", "within"), 
-                                                                 ...){
+                                                                 modes = c("normalized", "within")){
   
   graph <- as_igraph(object)
   modes <- match.arg(modes)
@@ -104,8 +109,7 @@ centralisation_closeness <- centralization_closeness <- function(object,
 #' @family two-mode functions
 #' @export
 centralisation_betweenness <- centralization_betweenness <- function(object, 
-                                                                     modes = c("raw", "within"), 
-                                                                     ...){
+                                                                     modes = c("raw", "within")){
   
   graph <- as_igraph(object)
   modes <- match.arg(modes)
