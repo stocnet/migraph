@@ -1,25 +1,33 @@
 # migraph 0.5.0
 
+2021-01-29
+
 ## Analysis
 
-* Added a new `netlm()` function that performs linear regression for multimodal network data
- * Changed `netlm()` to accept a formula-based input
- * Added `print.summary.netlm()`, a print function for `netlm()` regressions 
-* Added centralization functions for one- and two-mode graphs
- * `centralisation_degree()`
- * `centralisation_closeness()`
- * `centralisation_betweenness()`
-* Added `centrality_eigenvector()` function for eigenvector centrality for two one-and two-mode networks
+* Re-added `netlm()` for performing linear regression for multimodal network data
+  * Closed #76 by changing `netlm()` to accept a formula-based input
+  * Closed #77 by adding `print.summary.netlm()` for `netlm()` regressions 
+* Closed #31 by adding `centrality_eigenvector()` for one- and two-mode networks
+* Closed #32 by readding centralization functions for one- and two-mode networks
+  * `centralisation_degree()` for degree centralization
+  * `centralisation_closeness()` for closeness centralization
+  * `centralisation_betweenness()` for betweenness centralization
+* Re-added `clustering()` for calculating (see Knoke et al 2021): 
+  * transitivity on one-mode networks
+  * shared four-cycles on two-mode networks
+  * congruent four-cycles on three-mode networks
 
 ## Manipulation
 
 * Added functions for class conversion between migraph-consistent graph formats
  * `as_matrix()` function to coerce objects into an adjacency or incidence matrix class
- * `as_igraph()` function  to coerce objects into an {igraph} graph class
- * `as_ tidygraph()` function to coerce objects into an {igraph} graph class
+ * `as_igraph()` function  to coerce objects into an `{igraph}` graph class
+ * `as_tidygraph()` function to coerce objects into an `{tidygraph}` tbl_graph class
 * Added `create_star()` function to create a star bipartite graph
 
 # migraph 0.4.1
+
+2021-01-11
 
 ## Package
 
