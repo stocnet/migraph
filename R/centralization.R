@@ -1,4 +1,4 @@
-#' Centralization for one- and two-mode graphs
+#' Centralization for one- and two-mode networks
 #'
 #' These functions allows you to calculate how centralized a two-mode graph is.
 #' @name centralization

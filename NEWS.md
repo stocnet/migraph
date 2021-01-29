@@ -16,6 +16,7 @@
   * transitivity on one-mode networks
   * shared four-cycles on two-mode networks
   * congruent four-cycles on three-mode networks
+* Re-added `constraint()` for calculating Burt's constraint measure for one- and two-mode networks 
 
 ## Manipulation
 

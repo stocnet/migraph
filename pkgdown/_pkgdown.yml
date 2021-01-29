@@ -56,7 +56,8 @@ reference:
     contents:
       - starts_with("centrality_")
       - starts_with("centralisation_")
-      - starts_with("clustering")
+      - clustering
+      - constraint
   - title: "Models"
     desc: "Functions for modelling multilevel networks:"
     contents:
