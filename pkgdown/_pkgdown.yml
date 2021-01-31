@@ -51,15 +51,16 @@ reference:
   #   desc: "Functions for visualising multilevel networks:"
   #   contents:
   #     - starts_with("plot_")
-  - title: "Analysis"
-    desc: "Functions for analysing multilevel networks:"
+  - title: "Measures"
+    desc: "Functions for measuring multimodal and multilevel networks:"
     contents:
       - starts_with("centrality_")
       - starts_with("centralisation_")
       - clustering
       - constraint
+      - smallworld
   - title: "Models"
-    desc: "Functions for modelling multilevel networks:"
+    desc: "Functions for modelling multimodal and multilevel networks:"
     contents:
       - netlm
       # - starts_with("threemode_")
