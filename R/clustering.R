@@ -11,7 +11,8 @@
 #' @export
 clustering <- function(object, object2 = NULL){
   
-
+  object <- as_igraph(object)
+  
   if(!is.null(object2)){ # run three-mode clustering
     mat1 <- as_matrix(object)
     mat2 <- as_matrix(object2)
