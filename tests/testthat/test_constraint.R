@@ -7,7 +7,7 @@ expect_equal(constraint(southern_women), swc)
 })
 
 
-om <- igraph::graph( edges=c(1,2, 2,3), n=4, directed=F) 
+om <- igraph::graph(edges = c(1,2, 2,3), n = 4, directed = FALSE) 
 
 test_that("constraint scores are reported correctly for one-mode notworks",{
   expect_equal(constraint(om), c(1.0, 0.5, 1.0, NaN))

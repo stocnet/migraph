@@ -29,6 +29,6 @@ test_that("two mode betweenness centralization calculated correctly", {
 
 test_that("one-mode centralisation is calculated correctly", {
   expect_equal(centralisation_degree(southern_women, modes = "one-mode"), 0.2641129)
-  expect_equal(round(centralisation_closeness(southern_women, modes = "one-mode")), 0.319)
-  expect_equal(round(centralisation_betweenness(southern_women, modes = "one-mode")),0.196)
+  expect_equal(round(centralisation_closeness(southern_women, modes = "one-mode"), 3), 0.319)
+  expect_equal(round(centralisation_betweenness(southern_women, modes = "one-mode"), 3),0.196)
 })
