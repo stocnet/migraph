@@ -65,36 +65,6 @@ create_match <- function(n1, n2,
 }
 
 #' @rdname create
-#' @param p Number of edges in the network over the number of edges possible
-#' @param m Number of edges in the network
-#' @param mode How should edges be followed
-#' @param directed Should direction of edges be used for the calculations
-#' One of "matrix", "tbl_graph", "igraph".
-#' By default, creates a "tbl_graph" object.
-#' @details Creates a random two-mode network.
-#' Will construct an affiliation matrix,
-#' with a random probability of a tie.
-#' @importFrom tidygraph play_bipartite
-#' @importFrom igraph as.igraph as_adjacency_matrix
-#' @examples
-#' \dontrun{
-#' play_twomode(10, 12, 0.25) %>% ggraph() +
-#' geom_edge_fan(aes(alpha = stat(index)), show.legend = FALSE) +
-#' geom_node_point(aes(size = 5))
-#' }
-#' @export
-play_twomode <- function(n1, n2, p, m, directed = TRUE, mode = "out",
-                           as = c("tbl_graph", "igraph", "matrix")) {
-  
-  g <- tidygraph::play_bipartite(n1, n2, p, m, directed, mode)
-
-  as <- match.arg(as)
-  if(as == "igraph" | as == "matrix") g <- igraph::as.igraph(g)
-  if(as == "matrix") g <- igraph::as_adjacency_matrix(g)
-  g
-}
-
-#' @rdname create
 #' @details Creates a two-component two-mode network.
 #' Will construct an affiliation matrix,
 #' with full component diagonal.
