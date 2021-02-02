@@ -133,6 +133,26 @@ create_star <- function(n1 = 1, n2,
   out
 }
 
+#' @rdname create
+#' @return `create_complete()` creates a matrix in which all of the
+#' cells are filled.
+#' @export
+create_complete <- function(n,
+                            as = c("tidygraph", "igraph", "matrix")){
+  
+  as <- match.arg(as)
+  
+  if(length(n)==1){
+    out <- matrix(1, n, n)
+  } else if (length(n)==2){
+    out <- matrix(1, n[1], n[2])
+  } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
+
+  if(as == "tidygraph") out <- tidygraph::as_tbl_graph(out)
+  if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
+  out
+}
+
 # mat.dist <- matrix(0,5,3)
 # mat.dist[1:2,1] <- 1
 # mat.dist[,2] <- 1
