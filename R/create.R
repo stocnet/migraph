@@ -5,21 +5,19 @@
 #' @param n1 Number of nodes in the first node set
 #' @param n2 Number of nodes in the second node set
 #' @param as What type of object to return.
-#' One of "matrix", "tbl_graph", "igraph".
-#' By default, creates a "tbl_graph" object.
+#' One of "matrix", "tidygraph", "igraph".
+#' By default, creates tidygraph's "tbl_graph" object.
 #' @details Will construct a bilateral lattice,
 #' with two ties for every second-mode node.
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
 #' @examples
-#' \dontrun{
 #' create_chain(5,10) %>% ggraph() +
 #' geom_edge_fan(aes(alpha = stat(index)), show.legend = FALSE) +
 #' geom_node_point(aes(size = 5))
-#' }
 #' @export
 create_chain <- function(n1, n2, 
-                         as = c("tbl_graph", "igraph", "matrix")) {
+                         as = c("tidygraph", "igraph", "matrix")) {
   
   if(missing(n1)) stop("Need to supply a number of nodes in the first node set")
   if(missing(n2)) stop("Need to supply a number of nodes in the second node set")
@@ -32,7 +30,7 @@ create_chain <- function(n1, n2,
     (row(mat) - col(mat)) == nrow(mat) - 1) * 1)
   
   as <- match.arg(as)
-  if(as == "tbl_graph") out <- tidygraph::as_tbl_graph(out)
+  if(as == "tidygraph") out <- tidygraph::as_tbl_graph(out)
   if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
   out
 }
@@ -45,12 +43,10 @@ create_chain <- function(n1, n2,
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
 #' @examples
-#' \dontrun{
 #' create_match(10, 12)
-#' }
 #' @export
 create_match <- function(n1, n2,
-                         as = c("tbl_graph", "igraph", "matrix")) {
+                         as = c("tidygraph", "igraph", "matrix")) {
   mat <- matrix(0, n1, n2)
   mat <- matrix(
     ((row(mat) - col(mat)) %in% unique(-seq(0, n2 - 1, n1), 
@@ -59,7 +55,7 @@ create_match <- function(n1, n2,
   )
 
   as <- match.arg(as)
-  if(as == "tbl_graph") mat <- tidygraph::as_tbl_graph(mat)
+  if(as == "tidygraph") mat <- tidygraph::as_tbl_graph(mat)
   if(as == "igraph") mat <- igraph::graph_from_incidence_matrix(mat)
   mat
 }
@@ -72,18 +68,16 @@ create_match <- function(n1, n2,
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
 #' @examples
-#' \dontrun{
 #' create_silos(10, 12)
-#' }
 #' @export
 create_silos <- function(n1, n2,
-                         as = c("tbl_graph", "igraph", "matrix")) {
+                         as = c("tidygraph", "igraph", "matrix")) {
   mat <- matrix(0, n1, n2)
   mat[1:round(n1 / 2), 1:round(n2 / 2)] <- 1
   mat[rowSums(mat) < 1, colSums(mat) < 1] <- 1
 
   as <- match.arg(as)
-  if(as == "tbl_graph") mat <- tidygraph::as_tbl_graph(mat)
+  if(as == "tidygraph") mat <- tidygraph::as_tbl_graph(mat)
   if(as == "igraph") mat <- igraph::graph_from_incidence_matrix(mat)
   mat
 }
@@ -95,19 +89,17 @@ create_silos <- function(n1, n2,
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
 #' @examples
-#' \dontrun{
 #' create_nest(10, 12)
-#' }
 #' @export
 create_nest <- function(n1, n2, 
-                        as = c("tbl_graph", "igraph", "matrix")) {
+                        as = c("tidygraph", "igraph", "matrix")) {
   
   as <- match.arg(as)
   
   out <- matrix(0, n1, n2)
   out[(row(out) - col(out)) >= 0] <- 1
 
-  if(as == "tbl_graph") out <- tidygraph::as_tbl_graph(out)
+  if(as == "tidygraph") out <- tidygraph::as_tbl_graph(out)
   if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
   out
 }
@@ -117,18 +109,16 @@ create_nest <- function(n1, n2,
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
 #' @examples
-#' \dontrun{
 #' create_star(1, 12)
-#' }
 #' @export
 create_star <- function(n1 = 1, n2,
-                        as = c("tbl_graph", "igraph", "matrix")){
+                        as = c("tidygraph", "igraph", "matrix")){
   as <- match.arg(as)
   
   out <- matrix(0, n1, n2)
   out[1,] <- 1
   
-  if(as == "tbl_graph") out <- tidygraph::as_tbl_graph(out)
+  if(as == "tidygraph") out <- tidygraph::as_tbl_graph(out)
   if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
   out
 }
