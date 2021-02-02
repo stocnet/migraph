@@ -13,6 +13,7 @@ RoxygenNote: 7.1.1
 Imports: 
     igraph,
     tidygraph,
+    ggraph,
     geosphere,
     threejs,
     roxygen2,

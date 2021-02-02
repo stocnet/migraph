@@ -35,7 +35,7 @@ reference:
     desc: "Functions for creating and simulating multimodal and multilevel networks:"
     contents:
       - starts_with("create_")
-      - starts_with("play_")
+      - starts_with("sample_")
   - title: "Data"
     desc: "The package contains a range of different multimodal and multilevel data, including data used in the book 'Multimodal Political Networks' (prefixed with 'mpn_'):"
     contents:
@@ -45,8 +45,7 @@ reference:
     desc: "Functions for manipulating multimodal and multilevel networks:"
     contents:
       - starts_with("as_")
-      - starts_with("project")
-      # - project_list
+      - starts_with("project_")
   # - title: "Visualisation"
   #   desc: "Functions for visualising multilevel networks:"
   #   contents:

@@ -1,7 +1,15 @@
-#' Create functions
+#' Create networks that conform to particular structures
 #' 
-#' These functions create different graph objects 
+#' These functions create a host of different network objects.
+#' Despite the common syntax, what distinguishes them from
+#' those in other packages is that passing the `n` argument
+#' a vector of \emph{two} integers will return a two-mode
+#' network instead of a one-mode network.
+#' By default an igraph object will be returned,
+#' but this can be coerced into other types of objects
+#' using `as_matrix()` or `as_tidygraph()`.
 #' @name create
+#' @family creation
 #' @param n1 Number of nodes in the first node set
 #' @param n2 Number of nodes in the second node set
 #' @param as What type of object to return.
