@@ -19,6 +19,25 @@
 #' with two ties for every second-mode node.
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
+#' @details `create_empty()` creates an empty graph of the given dimensions.
+#' @examples
+#' library(igraph)
+#' g <- create_empty(c(8,6))
+#' plot(g)
+#' @export
+create_empty <- function(n){
+  
+  if(length(n)==1){
+    out <- matrix(0, n, n)
+    out <- igraph::graph_from_adjacency_matrix(out)
+  } else if (length(n)==2){
+    out <- matrix(0, n[1], n[2])
+    out <- igraph::graph_from_incidence_matrix(out)
+  } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
+  
+  out
+}
+
 #' @examples
 #' create_chain(5,10) %>% ggraph() +
 #' geom_edge_fan(aes(alpha = stat(index)), show.legend = FALSE) +
