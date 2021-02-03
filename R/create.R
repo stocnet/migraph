@@ -5,20 +5,19 @@
 #' those in other packages is that passing the `n` argument
 #' a vector of \emph{two} integers will return a two-mode
 #' network instead of a one-mode network.
-#' By default an igraph object will be returned,
-#' but this can be coerced into other types of objects
-#' using `as_matrix()` or `as_tidygraph()`.
+#' 
 #' @name create
 #' @family creation
-#' @param n1 Number of nodes in the first node set
-#' @param n2 Number of nodes in the second node set
-#' @param as What type of object to return.
-#' One of "matrix", "tidygraph", "igraph".
-#' By default, creates tidygraph's "tbl_graph" object.
-#' @details Will construct a bilateral lattice,
-#' with two ties for every second-mode node.
+#' @param n Number of nodes. 
+#' If a single integer is given, the function will create a one-mode network.
+#' If a vector of two integers is given, e.g. `n = c(5,10)`,
+#' the function will create a two-mode network.
+#' @return By default an igraph object will be returned,
+#' but this can be coerced into other types of objects
+#' using `as_matrix()` or `as_tidygraph()`.
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
+#' @seealso as_matrix as_tidygraph as_network
 #' @details `create_empty()` creates an empty graph of the given dimensions.
 #' @examples
 #' library(igraph)
@@ -38,6 +37,27 @@ create_empty <- function(n){
   out
 }
 
+#' @rdname create
+#' @details `create_complete()` creates a filled graph of the given dimensions.
+#' @examples
+#' library(igraph)
+#' g <- create_complete(c(8,6))
+#' plot(g)
+#' @export
+create_complete <- function(n){
+  
+  if(length(n)==1){
+    out <- matrix(1, n, n)
+    out <- igraph::graph_from_adjacency_matrix(out)
+  } else if (length(n)==2){
+    out <- matrix(1, n[1], n[2])
+    out <- igraph::graph_from_incidence_matrix(out)
+  } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
+  
+  out
+}
+
+#' @rdname create
 #' @examples
 #' create_chain(5,10) %>% ggraph() +
 #' geom_edge_fan(aes(alpha = stat(index)), show.legend = FALSE) +
@@ -145,26 +165,6 @@ create_star <- function(n1 = 1, n2,
   out <- matrix(0, n1, n2)
   out[1,] <- 1
   
-  if(as == "tidygraph") out <- tidygraph::as_tbl_graph(out)
-  if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
-  out
-}
-
-#' @rdname create
-#' @return `create_complete()` creates a matrix in which all of the
-#' cells are filled.
-#' @export
-create_complete <- function(n,
-                            as = c("tidygraph", "igraph", "matrix")){
-  
-  as <- match.arg(as)
-  
-  if(length(n)==1){
-    out <- matrix(1, n, n)
-  } else if (length(n)==2){
-    out <- matrix(1, n[1], n[2])
-  } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
-
   if(as == "tidygraph") out <- tidygraph::as_tbl_graph(out)
   if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
   out
