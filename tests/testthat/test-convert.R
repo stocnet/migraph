@@ -12,7 +12,7 @@ data2 <- data.frame(id1 = c("A","B","B","C","C"),
 
 test_that("data frame converted to matrix correctly",{
   expect_equal(as_matrix(data2), mat1)
-  # expect_equal(as_matrix(data1), mat1) # fix issue with convert function that is not properly converting the data1 input
+  expect_equal(as_matrix(data1), mat1) # fix issue with convert function that is not properly converting the data1 input
 })
 
 test_that("as_igraph converts correctly",{

@@ -28,3 +28,10 @@ test_that("star creation works", {
   expect_s3_class(create_star(2,4, as = "tidygraph"), "tbl_graph")
 })
 
+test_that("create empty graph works", {
+   expect_s3_class(create_empty(4), "igraph")
+})
+
+test_that("create complete graph works", {
+  expect_s3_class(create_empty(4), "igraph")
+})
