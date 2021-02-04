@@ -123,50 +123,53 @@ centralisation_closeness <- centralization_closeness <- function(object,
 #' @rdname centralization
 #' @family two-mode functions
 #' @export
-centralisation_betweenness <- centralization_betweenness <- function(object, 
-                                                                     modes = c("raw", "within", "normalized", "one-mode")) {
+centralisation_betweenness <- centralization_betweenness <- function(object,
+                                                                     directed = c("all", "out", "in", "total"), 
+                                                                     normalized = TRUE) {
   
+  directed <- match.arg(directed)
   graph <- as_igraph(object)
-  modes <- match.arg(modes)
   
-  becent <- centrality_betweenness(graph, normalized = FALSE)
-  mode <- igraph::V(graph)$type
-  mode1 <- length(mode) - sum(mode)
-  mode2 <- sum(mode)
-  out <- list()
+  if(is_bipartite(object)){
+    becent <- centrality_betweenness(graph, normalized = FALSE)
+    mode <- igraph::V(graph)$type
+    mode1 <- length(mode) - sum(mode)
+    mode2 <- sum(mode)
+    out <- list()
+    if(directed == "all"){
+      if(!normalized){
+        out$nodes1 <- sum(max(becent[!mode])-becent) / ((1/2 * mode2 * (mode2 - 1) + 1/2 * (mode1 - 1)*(mode1 - 2) + (mode1 - 1) * (mode2 - 2))*(mode1 + mode2 - 1)+(mode1 - 1))
+        out$nodes2 <- sum(max(becent[mode])-becent) / ((1/2 * mode1 * (mode1 - 1) + 1/2 * (mode2 - 1)*(mode2 - 2) + (mode2 - 1) * (mode1 - 2))*(mode2 + mode1 - 1)+(mode2 - 1))
+        if (mode1 > mode2){
+          out$nodes1 <- sum(max(becent[!mode])-becent) / (2 * (mode1 - 1) * (mode2 - 1) * (mode1 + mode2 - 1) - (mode2 - 1) * (mode1 + mode2 - 2) - 1/2 * (mode1 - mode2) * (mode1 + 3*mode2 - 3))
+        }
+        if (mode2 > mode1){
+          out$nodes2 <- sum(max(becent[mode])-becent) / (2 * (mode2 - 1) * (mode1 - 1) * (mode2 + mode1 - 1) - (mode1 - 1) * (mode2 + mode1 - 2) - 1/2 * (mode2 - mode1) * (mode2 + 3*mode1 - 3))
+        }
+      } else if(normalized){
+        becent <- centrality_betweenness(graph, normalized = TRUE)
+        out$nodes1 <- sum(max(becent[!mode])-becent) / ((1/2 * mode2 * (mode2 - 1) + 1/2 * (mode1 - 1)*(mode1 - 2) + (mode1 - 1) * (mode2 - 2))*(mode1 + mode2 - 1)+(mode1 - 1))
+        out$nodes2 <- sum(max(becent[mode])-becent) / ((1/2 * mode1 * (mode1 - 1) + 1/2 * (mode2 - 1)*(mode2 - 2) + (mode2 - 1) * (mode1 - 2))*(mode2 + mode1 - 1)+(mode2 - 1))
+        if (mode1 > mode2) {
+          out$nodes1 <- sum(max(becent[!mode])-becent) / ((mode1 + mode2 -1) - ((mode2 - 1)*(mode1 + mode2 -2) + 1/2*(mode1 - mode2)*(mode1 + 3*mode2 -3)) / (1/2*(mode1*(mode1 - 1) + 1/2 * (mode2 -1)*(mode2 - 2) + (mode1 - 1)*(mode2 - 1))))
+        }
+        if (mode2 > mode1){
+          out$nodes2 <- sum(max(becent[mode])-becent) / ((mode2 + mode2 -1) - ((mode1 - 1)*(mode2 + mode1 -2) + 1/2*(mode2 - mode1)*(mode2 + 3*mode1 -3)) / (1/2*(mode2*(mode2 - 1) + 1/2 * (mode2 -1)*(mode1 - 2) + (mode2 - 1)*(mode1 - 1))))
+        }
+      }
+    } else if (directed == "in"){
+      out$nodes1 <- sum(max(becent[!mode])-becent[!mode]) / ((mode1 - 1)*(1/2 * mode2 * (mode2 - 1) + 1/2 * (mode1 - 1) * (mode1 - 2) + (mode1 - 1) * (mode2 - 1)))
+      out$nodes2 <- sum(max(becent[mode])-becent[mode]) / ((mode2 - 1)*(1/2 * mode1 * (mode1 - 1) + 1/2 * (mode2 - 1) * (mode2 - 2) + (mode2 - 1) * (mode1 - 1)))
+      if (mode1 > mode2){
+        out$nodes1 <- sum(max(becent[!mode])-becent[!mode]) / (2 * (mode1 - 1)^2 * (mode2 - 1))
+      }
+      if (mode2 > mode1){
+        out$nodes2 <- sum(max(becent[mode])-becent[mode]) / (2 * (mode2 - 1)^2 * (mode1 - 1))
+      }
+    }
+  } else {
+    out <- igraph::centr_betw(graph = graph)$centralization
+  }
   
-  if(modes == "raw"){
-    out$nodes1 <- sum(max(becent[!mode])-becent) / ((1/2 * mode2 * (mode2 - 1) + 1/2 * (mode1 - 1)*(mode1 - 2) + (mode1 - 1) * (mode2 - 2))*(mode1 + mode2 - 1)+(mode1 - 1))
-    out$nodes2 <- sum(max(becent[mode])-becent) / ((1/2 * mode1 * (mode1 - 1) + 1/2 * (mode2 - 1)*(mode2 - 2) + (mode2 - 1) * (mode1 - 2))*(mode2 + mode1 - 1)+(mode2 - 1))
-    if (mode1 > mode2){
-      out$nodes1 <- sum(max(becent[!mode])-becent) / (2 * (mode1 - 1) * (mode2 - 1) * (mode1 + mode2 - 1) - (mode2 - 1) * (mode1 + mode2 - 2) - 1/2 * (mode1 - mode2) * (mode1 + 3*mode2 - 3))
-    }
-    if (mode2 > mode1){
-      out$nodes2 <- sum(max(becent[mode])-becent) / (2 * (mode2 - 1) * (mode1 - 1) * (mode2 + mode1 - 1) - (mode1 - 1) * (mode2 + mode1 - 2) - 1/2 * (mode2 - mode1) * (mode2 + 3*mode1 - 3))
-    }
-  }
-  if(modes == "normalized"){
-    out$nodes1 <- sum(max(becent[!mode])-becent) / ((1/2 * mode2 * (mode2 - 1) + 1/2 * (mode1 - 1)*(mode1 - 2) + (mode1 - 1) * (mode2 - 2))*(mode1 + mode2 - 1)+(mode1 - 1))
-    out$nodes2 <- sum(max(becent[mode])-becent) / ((1/2 * mode1 * (mode1 - 1) + 1/2 * (mode2 - 1)*(mode2 - 2) + (mode2 - 1) * (mode1 - 2))*(mode2 + mode1 - 1)+(mode2 - 1))
-    if (mode1 > mode2) {
-          out$nodes1 <- sum(max(becent[!mode])-becent) / ((mode1 + mode2 -1) - ((mode2 - 1)*(mode1 + mode2 -2) + 1/2*(mode1 - mode2)*(mode1 + 3*mode2 -3)) / (1/2*(mode1*(mode1 - 1) + 1/2(mode2 -1)*(mode2 - 2) + (mode1 - 1)*(mode2 - 1))))
-    }
-    if (mode2 > mode1){
-        out$nodes2 <- sum(max(becent[mode])-becent) / ((mode2 + mode2 -1) - ((mode1 - 1)*(mode2 + mode1 -2) + 1/2*(mode2 - mode1)*(mode2 + 3*mode1 -3)) / (1/2*(mode2*(mode2 - 1) + 1/2(mode2 -1)*(mode1 - 2) + (mode2 - 1)*(mode1 - 1))))
-    }
-  }
-  if(modes == "within"){
-    out$nodes1 <- sum(max(becent[!mode])-becent[!mode]) / ((mode1 - 1)*(1/2 * mode2 * (mode2 - 1) + 1/2 * (mode1 - 1) * (mode1 - 2) + (mode1 - 1) * (mode2 - 1)))
-    out$nodes2 <- sum(max(becent[mode])-becent[mode]) / ((mode2 - 1)*(1/2 * mode1 * (mode1 - 1) + 1/2 * (mode2 - 1) * (mode2 - 2) + (mode2 - 1) * (mode1 - 1)))
-    if (mode1 > mode2){
-      out$nodes1 <- sum(max(becent[!mode])-becent[!mode]) / (2 * (mode1 - 1)^2 * (mode2 - 1))
-    }
-    if (mode2 > mode1){
-      out$nodes2 <- sum(max(becent[mode])-becent[mode]) / (2 * (mode2 - 1)^2 * (mode1 - 1))
-    }
-  }
-  if(modes == "one-mode") {
-    out <- igraph::centr_betw(graph = object)$centralization
-  }
   out
 }

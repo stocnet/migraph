@@ -25,6 +25,6 @@ test_that("two mode betweenness centralization calculated correctly", {
 
 test_that("one-mode centralisation is calculated correctly", {
   expect_equal(centralisation_degree(mpn_mexicanpower), 0.44)
-  expect_equal(round(centralisation_closeness(mpn_mexicanpower), 3), 0.319)
-  expect_equal(round(centralisation_betweenness(mpn_mexicanpower), 3),0.196)
+  expect_equal(round(centralisation_closeness(mpn_mexicanpower), 3), 0.42)
+  expect_equal(round(centralisation_betweenness(mpn_mexicanpower), 3), 0.218)
 })
