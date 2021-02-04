@@ -5,7 +5,7 @@ Description: This package assembles a number of utility functions for
    loading, visualising, and analysing multimode, multiplex, and multilevel networks.
 URL: https://github.com/jhollway/migraph
 BugReports: https://github.com/jhollway/migraph/issues
-Depends: R (>= 3.4.0)
+Depends: R (>= 4.0.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
