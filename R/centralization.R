@@ -4,6 +4,8 @@
 #' @name centralization
 #' @family two-mode functions
 #' @param object A matrix, igraph graph, or tidygraph object
+#' @param normalized Logical scalar, whether to normalize the centralization score.
+#' The denominator may differ depending on whether this is a one-mode or two-mode network.
 #' @param modes If the object is a two-mode network,
 #' whether to calculate centralization based on the degree to which the network as
 #' a whole is centralized around each of the two nodesets (`modes = "raw"` or `modes = "normalized"`),
@@ -34,32 +36,32 @@
 #' }
 #' @export
 centralisation_degree <- centralization_degree <- function(object, 
-                                                           modes = c("raw", "normalized", "within", "one-mode")){
+                                                           normalized = TRUE,
+                                                           directed = c("all", "out", "in", "total", "within")){
+
+  mode <- match.arg(mode)
   
-  mat <- as_matrix(object)
-  modes <- match.arg(modes)
-  mode <- c(rep(FALSE, nrow(mat)), rep(TRUE, ncol(mat)))
-  
-  if(modes == "raw"){
-    allcent <- c(rowSums(mat), colSums(mat))
+  if(is_bipartite(object)){
+    mat <- as_matrix(object)
+    mode <- c(rep(FALSE, nrow(mat)), rep(TRUE, ncol(mat)))
+    
     out <- list()
-    out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat) + ncol(mat))*ncol(mat) - 2*(ncol(mat)+nrow(mat)-1))
-    out$nodes2 <- sum(max(allcent[mode]) - allcent)/((nrow(mat) + ncol(mat))*nrow(mat) - 2*(ncol(mat)+nrow(mat)-1))
+    if(directed == "within"){
+      out$nodes1 <- sum(max(rowSums(mat)) - rowSums(mat))/((ncol(mat)-1)*(nrow(mat)-1))
+      out$nodes2 <- sum(max(colSums(mat)) - colSums(mat))/((ncol(mat)-1)*(nrow(mat)-1))
+    } else if(!normalized){
+      allcent <- c(rowSums(mat), colSums(mat))
+      out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat) + ncol(mat))*ncol(mat) - 2*(ncol(mat)+nrow(mat)-1))
+      out$nodes2 <- sum(max(allcent[mode]) - allcent)/((nrow(mat) + ncol(mat))*nrow(mat) - 2*(ncol(mat)+nrow(mat)-1))
+    } else if(normalized){
+      allcent <- c(rowSums(mat), colSums(mat))
+      out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat)+ncol(mat)-1) - (ncol(mat)-1) / nrow(mat) - (ncol(mat)+nrow(mat)-1)/nrow(mat))
+      out$nodes2 <- sum(max(allcent[mode]) - allcent)/((ncol(mat)+nrow(mat)-1)-(nrow(mat)-1) / ncol(mat)-(nrow(mat)+ncol(mat)-1)/ncol(mat))
+    }
+  } else {
+    out <- igraph::centr_degree(graph = object, mode = directed, normalized = normalized)$centralization
   }
-  if(modes == "normalized"){
-    allcent <- c(rowSums(mat), colSums(mat))
-    out <- list()
-    out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat)+ncol(mat)-1) - (ncol(mat)-1) / nrow(mat) - (ncol(mat)+nrow(mat)-1)/nrow(mat))
-    out$nodes2 <- sum(max(allcent[mode]) - allcent)/((ncol(mat)+nrow(mat)-1)-(nrow(mat)-1) / ncol(mat)-(nrow(mat)+ncol(mat)-1)/ncol(mat))
-  }
-  if(modes == "within"){
-    out <- list()
-    out$nodes1 <- sum(max(rowSums(mat)) - rowSums(mat))/((ncol(mat)-1)*(nrow(mat)-1))
-    out$nodes2 <- sum(max(colSums(mat)) - colSums(mat))/((ncol(mat)-1)*(nrow(mat)-1))
-  }
-  if(modes == "one-mode") {
-    out <- igraph::centr_degree(graph = object, mode = "total")$centralization
-  }
+
   out
 }
 
