@@ -3,60 +3,54 @@
 #' These functions allows you to calculate how centralized a two-mode graph is.
 #' @name centralization
 #' @family two-mode functions
-#' @param object A matrix, igraph graph, or tidygraph object
-#' @param normalized Logical scalar, whether to normalize the centralization score.
-#' The denominator may differ depending on whether this is a one-mode or two-mode network.
-#' @param modes If the object is a two-mode network,
-#' whether to calculate centralization based on the degree to which the network as
-#' a whole is centralized around each of the two nodesets (`modes = "raw"` or `modes = "normalized"`),
-#' or whether centralization is calculated within each nodeset (`modes = "within"`).
-#' 
-#' In other words, for `raw` and `normalized`, the numerator is the sum of differences
-#' between the maximum centrality score for the mode against all other centrality scores in the network,
-#' of both nodesets, whereas for `within`, the numerator is the sum of differences
-#' between the maximum centrality score for the mode against only the centrality scores of the other
-#' nodes in that nodeset.
-#' 
-#' The function also calculates centralisation for one-mode graphs
-#' if modes is set to 'one-mode' (`modes = "one-mode"`). 
-#' In this case, the function works as a wrapper for `igraph_centr_degree()`,
-#' igraph_centr_clo()` or igraph_centr_betw()`, respectively, and the one-mode
-#' total centralisation score is returned. 
-#' @return The centralization score. 
-#' If `modes = "each"`, then a named list of two scores will be returned.
-#' To return just the score for the first nodeset (rows), 
+#' @param object A matrix, igraph graph, or tidygraph object.
+#' @param directed Character string, “out” for out-degree, 
+#' “in” for in-degree, and "all" or “total” for the sum of the two. 
+#' For two-mode networks, "all" uses as numerator the sum of differences
+#' between the maximum centrality score for the mode 
+#' against all other centrality scores in the network,
+#' whereas "in" uses as numerator the sum of differences
+#' between the maximum centrality score for the mode 
+#' against only the centrality scores of the other nodes in that nodeset.
+#' @param normalized Logical scalar, whether the centrality scores are normalized.
+#' Different denominators are used depending on whether the object is one-mode or two-mode,
+#' the type of centrality, and other arguments.
+#' @return A single centralization score if the object was one-mode,
+#' and two centralization scores if the object was two-mode.
+#' In the case of a two-mode network, 
+#' to return just the score for the first nodeset (rows), 
 #' append `$nodes1` to the end of the function call or returned object.
 #' To return just the score for the second nodeset (cols), 
 #' append `$nodes2` to the end of the function call or returned object.
 #' @references Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In \emph{The SAGE Handbook of 
 #' Social Network Analysis}, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
 #' @examples
-#' \dontrun{
-#' centralization_degree(graph)
-#' }
+#' centralization_degree(southern_women)
 #' @export
-centralisation_degree <- centralization_degree <- function(object, 
-                                                           normalized = TRUE,
-                                                           directed = c("all", "out", "in", "total", "within")){
+centralisation_degree <- centralization_degree <- function(object,
+                                                           directed = c("all", "out", "in", "total"), 
+                                                           normalized = TRUE){
 
-  mode <- match.arg(mode)
+  directed <- match.arg(directed)
   
   if(is_bipartite(object)){
     mat <- as_matrix(object)
     mode <- c(rep(FALSE, nrow(mat)), rep(TRUE, ncol(mat)))
     
     out <- list()
-    if(directed == "within"){
+    if(directed == "all"){
+      if(!normalized){
+        allcent <- c(rowSums(mat), colSums(mat))
+        out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat) + ncol(mat))*ncol(mat) - 2*(ncol(mat)+nrow(mat)-1))
+        out$nodes2 <- sum(max(allcent[mode]) - allcent)/((nrow(mat) + ncol(mat))*nrow(mat) - 2*(ncol(mat)+nrow(mat)-1))
+      } else if(normalized){
+        allcent <- c(rowSums(mat), colSums(mat))
+        out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat)+ncol(mat)-1) - (ncol(mat)-1) / nrow(mat) - (ncol(mat)+nrow(mat)-1)/nrow(mat))
+        out$nodes2 <- sum(max(allcent[mode]) - allcent)/((ncol(mat)+nrow(mat)-1)-(nrow(mat)-1) / ncol(mat)-(nrow(mat)+ncol(mat)-1)/ncol(mat))
+      }
+    } else if (directed == "in"){
       out$nodes1 <- sum(max(rowSums(mat)) - rowSums(mat))/((ncol(mat)-1)*(nrow(mat)-1))
       out$nodes2 <- sum(max(colSums(mat)) - colSums(mat))/((ncol(mat)-1)*(nrow(mat)-1))
-    } else if(!normalized){
-      allcent <- c(rowSums(mat), colSums(mat))
-      out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat) + ncol(mat))*ncol(mat) - 2*(ncol(mat)+nrow(mat)-1))
-      out$nodes2 <- sum(max(allcent[mode]) - allcent)/((nrow(mat) + ncol(mat))*nrow(mat) - 2*(ncol(mat)+nrow(mat)-1))
-    } else if(normalized){
-      allcent <- c(rowSums(mat), colSums(mat))
-      out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat)+ncol(mat)-1) - (ncol(mat)-1) / nrow(mat) - (ncol(mat)+nrow(mat)-1)/nrow(mat))
-      out$nodes2 <- sum(max(allcent[mode]) - allcent)/((ncol(mat)+nrow(mat)-1)-(nrow(mat)-1) / ncol(mat)-(nrow(mat)+ncol(mat)-1)/ncol(mat))
     }
   } else {
     out <- igraph::centr_degree(graph = object, mode = directed, normalized = normalized)$centralization
