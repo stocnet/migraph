@@ -21,7 +21,7 @@ test_that("as_igraph converts correctly",{
   expect_s3_class(as_igraph(mpn_opensecrets), "igraph")
 })
 
-test_that("as_igraph converts correctly",{
+test_that("as_matrix converts correctly",{
   expect_vector(as_matrix(mat1))
   expect_vector(as_matrix(southern_women))
   expect_vector(as_matrix(mpn_opensecrets))

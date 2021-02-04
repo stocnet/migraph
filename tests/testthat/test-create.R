@@ -3,23 +3,23 @@ test_that("ring creation works", {
   expect_equal(unname(as_matrix(create_ring(c(5,5)))), matrix(c(1,0,0,0,1,1,1,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1),5,5))
 })
 
-test_that("silo creation works", {
-  expect_equal(create_silos(2,4, as = "matrix"), matrix(c(1,0,1,0,0,1,0,1),2,4))
-  expect_s3_class(create_silos(2,4, as = "igraph"), "igraph")
-  expect_s3_class(create_silos(2,4, as = "tidygraph"), "tbl_graph")
-})
-
-test_that("nest creation works", {
-  expect_equal(create_nest(2,4, as = "matrix"), matrix(c(1,1,0,1,0,0,0,0),2,4))
-  expect_s3_class(create_nest(2,4, as = "igraph"), "igraph")
-  expect_s3_class(create_nest(2,4, as = "tidygraph"), "tbl_graph")
-})
-
-test_that("star creation works", {
-  expect_equal(create_star(1,4, as = "matrix"), matrix(c(1,1,1,1),1,4))
-  expect_s3_class(create_star(2,4, as = "igraph"), "igraph")
-  expect_s3_class(create_star(2,4, as = "tidygraph"), "tbl_graph")
-})
+# test_that("silo creation works", {
+#   expect_equal(create_silos(2,4, as = "matrix"), matrix(c(1,0,1,0,0,1,0,1),2,4))
+#   expect_s3_class(create_silos(2,4, as = "igraph"), "igraph")
+#   expect_s3_class(create_silos(2,4, as = "tidygraph"), "tbl_graph")
+# })
+# 
+# test_that("nest creation works", {
+#   expect_equal(create_nest(2,4, as = "matrix"), matrix(c(1,1,0,1,0,0,0,0),2,4))
+#   expect_s3_class(create_nest(2,4, as = "igraph"), "igraph")
+#   expect_s3_class(create_nest(2,4, as = "tidygraph"), "tbl_graph")
+# })
+# 
+# test_that("star creation works", {
+#   expect_equal(create_star(1,4, as = "matrix"), matrix(c(1,1,1,1),1,4))
+#   expect_s3_class(create_star(2,4, as = "igraph"), "igraph")
+#   expect_s3_class(create_star(2,4, as = "tidygraph"), "tbl_graph")
+# })
 
 test_that("create empty graph works", {
    expect_s3_class(create_empty(4), "igraph")

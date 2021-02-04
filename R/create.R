@@ -62,28 +62,6 @@ create_complete <- function(n){
 #' @details `create_ring()` creates a ring or chord graph of the given dimensions
 #' that loops around is of a certain width or thickness.
 #' @examples
-
-#' @rdname create
-#' @details Creates a two-component two-mode network.
-#' Will construct an affiliation matrix,
-#' with full component diagonal.
-#' TODO: Allow specfication of how many silos/components to create
-#' @importFrom tidygraph as_tbl_graph
-#' @importFrom igraph graph_from_incidence_matrix
-#' @examples
-#' create_silos(10, 12)
-#' @export
-create_silos <- function(n1, n2,
-                         as = c("tidygraph", "igraph", "matrix")) {
-  mat <- matrix(0, n1, n2)
-  mat[1:round(n1 / 2), 1:round(n2 / 2)] <- 1
-  mat[rowSums(mat) < 1, colSums(mat) < 1] <- 1
-
-  as <- match.arg(as)
-  if(as == "tidygraph") mat <- tidygraph::as_tbl_graph(mat)
-  if(as == "igraph") mat <- igraph::graph_from_incidence_matrix(mat)
-  mat
-}
 #' g <- create_ring(c(8,6), width = 2)
 #' plot(g)
 #' @export
@@ -138,56 +116,101 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
   out
 }
 
-#' @rdname create
-#' @details Will create a complete bipartite start graph
-#' @importFrom tidygraph as_tbl_graph
-#' @importFrom igraph graph_from_incidence_matrix
-#' @examples
-#' create_star(1, 12)
-#' @export
-create_star <- function(n1 = 1, n2,
-                        as = c("tidygraph", "igraph", "matrix")){
-  as <- match.arg(as)
-  
-  out <- matrix(0, n1, n2)
-  out[1,] <- 1
-  
-  if(as == "tidygraph") out <- tidygraph::as_tbl_graph(out)
-  if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
-  out
-}
-
-# mat.dist <- matrix(0,5,3)
-# mat.dist[1:2,1] <- 1
-# mat.dist[,2] <- 1
-# mat.dist[4:5,3] <- 1
 #
-# # mat.part <- matrix(0,5,5)
-# # mat.part[1:3,1] <- 1
-# # mat.part[1:2,2] <- 1
-# # mat.part[4:5,3] <- 1
-# # mat.part[4:5,4] <- 1
-# # mat.part[3,5] <- 1
-# #
-# mat.part <- mat.dist
-# mat.part[2,1] <- 0
-# mat.part[1,2] <- 0
-# mat.part[4,3] <- 0
-#
-# mat.side <- matrix(0,4,4)
-# mat.side[1:4,1] <- 1
-# mat.side[1,2] <- 1
-# mat.side[2,3] <- 1
-# mat.side[3,4] <- 1
-#
-# mat.core <- matrix(0,4,4)
-# mat.core[1:4,1] <- 1
-# mat.core[1:2,2] <- 1
-# mat.core[3:4,3] <- 1
-# mat.core[1:2,4] <- 1
-#
-# mat.hier <- matrix(0,4,4)
-# mat.hier[1:4,1] <- 1
-# mat.hier[1:2,2] <- 1
-# mat.hier[1:2,3] <- 1
-# mat.hier[3:4,4] <- 1
+#' # #' @rdname create
+#' #' @details Creates a two-component two-mode network.
+#' #' Will construct an affiliation matrix,
+#' #' with full component diagonal.
+#' #' TODO: Allow specfication of how many silos/components to create
+#' #' @importFrom tidygraph as_tbl_graph
+#' #' @importFrom igraph graph_from_incidence_matrix
+#' #' @examples
+#' #' create_silos(10, 12)
+#' #' @export
+#' create_silos <- function(n1, n2,
+#'                          as = c("tidygraph", "igraph", "matrix")) {
+#'   mat <- matrix(0, n1, n2)
+#'   mat[1:round(n1 / 2), 1:round(n2 / 2)] <- 1
+#'   mat[rowSums(mat) < 1, colSums(mat) < 1] <- 1
+#' 
+#'   as <- match.arg(as)
+#'   if(as == "tidygraph") mat <- tidygraph::as_tbl_graph(mat)
+#'   if(as == "igraph") mat <- igraph::graph_from_incidence_matrix(mat)
+#'   mat
+#' }
+#' 
+#' #' @rdname create
+#' #' @details Creates a nested two-mode network.
+#' #' Will construct an affiliation matrix,
+#' #' with decreasing fill across n2.
+#' #' @importFrom tidygraph as_tbl_graph
+#' #' @importFrom igraph graph_from_incidence_matrix
+#' #' @examples
+#' #' create_nest(10, 12)
+#' #' @export
+#' create_nest <- function(n1, n2,
+#'                         as = c("tidygraph", "igraph", "matrix")) {
+#' 
+#'   as <- match.arg(as)
+#' 
+#'   out <- matrix(0, n1, n2)
+#'   out[(row(out) - col(out)) >= 0] <- 1
+#' 
+#'   if(as == "tidygraph") out <- tidygraph::as_tbl_graph(out)
+#'   if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
+#'   out
+#' }
+#' 
+#' #' @rdname create
+#' #' @details Will create a complete bipartite start graph
+#' #' @importFrom tidygraph as_tbl_graph
+#' #' @importFrom igraph graph_from_incidence_matrix
+#' #' @examples
+#' #' create_star(1, 12)
+#' #' @export
+#' create_star <- function(n1 = 1, n2,
+#'                         as = c("tidygraph", "igraph", "matrix")){
+#'   as <- match.arg(as)
+#' 
+#'   out <- matrix(0, n1, n2)
+#'   out[1,] <- 1
+#' 
+#'   if(as == "tidygraph") out <- tidygraph::as_tbl_graph(out)
+#'   if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
+#'   out
+#' }
+#' 
+#' # mat.dist <- matrix(0,5,3)
+#' # mat.dist[1:2,1] <- 1
+#' # mat.dist[,2] <- 1
+#' # mat.dist[4:5,3] <- 1
+#' #
+#' # # mat.part <- matrix(0,5,5)
+#' # # mat.part[1:3,1] <- 1
+#' # # mat.part[1:2,2] <- 1
+#' # # mat.part[4:5,3] <- 1
+#' # # mat.part[4:5,4] <- 1
+#' # # mat.part[3,5] <- 1
+#' # #
+#' # mat.part <- mat.dist
+#' # mat.part[2,1] <- 0
+#' # mat.part[1,2] <- 0
+#' # mat.part[4,3] <- 0
+#' #
+#' # mat.side <- matrix(0,4,4)
+#' # mat.side[1:4,1] <- 1
+#' # mat.side[1,2] <- 1
+#' # mat.side[2,3] <- 1
+#' # mat.side[3,4] <- 1
+#' #
+#' # mat.core <- matrix(0,4,4)
+#' # mat.core[1:4,1] <- 1
+#' # mat.core[1:2,2] <- 1
+#' # mat.core[3:4,3] <- 1
+#' # mat.core[1:2,4] <- 1
+#' #
+#' # mat.hier <- matrix(0,4,4)
+#' # mat.hier[1:4,1] <- 1
+#' # mat.hier[1:2,2] <- 1
+#' # mat.hier[1:2,3] <- 1
+#' # mat.hier[3:4,4] <- 1
