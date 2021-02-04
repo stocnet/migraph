@@ -3,8 +3,8 @@ test_that("two mode degree centralization calculated correctly", {
   expect_equal(round(centralisation_degree(southern_women, normalized = FALSE)$nodes2,4), 0.5097)
   expect_equal(round(centralisation_degree(southern_women, directed = "in")$nodes1,4), 0.2308)
   expect_equal(round(centralisation_degree(southern_women, directed = "in")$nodes2,4), 0.4661)
-  expect_equal(round(centralisation_degree(southern_women, normalized = TRUE)$nodes1,4), 0.2307)
-  expect_equal(round(centralisation_degree(southern_women, normalized = TRUE)$nodes2,4), 0.4661)
+  expect_equal(round(centralisation_degree(southern_women, normalized = TRUE)$nodes1,4), 0.2268)
+  expect_equal(round(centralisation_degree(southern_women, normalized = TRUE)$nodes2,4), 0.4744)
 })
 
 test_that("two mode closeness centralization calculated correctly", {
