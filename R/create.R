@@ -58,54 +58,12 @@ create_complete <- function(n){
 }
 
 #' @rdname create
+#' @param width The width or breadth of the ring. This is typically double the degree.
+#' @param directed Whether the graph should be directed. By default FALSE.
+#' @param ... Additional arguments passed on to igraph.
+#' @details `create_ring()` creates a ring or chord graph of the given dimensions
+#' that loops around is of a certain width or thickness.
 #' @examples
-#' create_chain(5,10) %>% ggraph() +
-#' geom_edge_fan(aes(alpha = stat(index)), show.legend = FALSE) +
-#' geom_node_point(aes(size = 5))
-#' @export
-create_chain <- function(n1, n2, 
-                         as = c("tidygraph", "igraph", "matrix")) {
-  
-  if(missing(n1)) stop("Need to supply a number of nodes in the first node set")
-  if(missing(n2)) stop("Need to supply a number of nodes in the second node set")
-  
-  mat <- matrix(0, n1, n2)
-  out <- suppressWarnings(((row(mat) - col(mat)) == 0 |
-    (row(mat) - col(mat)) == (-seq.int(0, n2 - 1, n1)[-1]) |
-    (row(mat) - col(mat)) == -1 |
-    (row(mat) - col(mat)) == -seq.int(1 + n1, n2 - 1, n1) |
-    (row(mat) - col(mat)) == nrow(mat) - 1) * 1)
-  
-  as <- match.arg(as)
-  if(as == "tidygraph") out <- tidygraph::as_tbl_graph(out)
-  if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
-  out
-}
-
-#' @rdname create
-#' @details Creates a matched two-mode network.
-#' Will construct an affiliation matrix,
-#' with by default both n1 and n2 matched.
-#' TODO: Incorporate into create_chain (chordal_ring of certain breadth w).
-#' @importFrom tidygraph as_tbl_graph
-#' @importFrom igraph graph_from_incidence_matrix
-#' @examples
-#' create_match(10, 12)
-#' @export
-create_match <- function(n1, n2,
-                         as = c("tidygraph", "igraph", "matrix")) {
-  mat <- matrix(0, n1, n2)
-  mat <- matrix(
-    ((row(mat) - col(mat)) %in% unique(-seq(0, n2 - 1, n1), 
-                                       seq(0, n1 - 1, n2))) * 1,
-    n1, n2
-  )
-
-  as <- match.arg(as)
-  if(as == "tidygraph") mat <- tidygraph::as_tbl_graph(mat)
-  if(as == "igraph") mat <- igraph::graph_from_incidence_matrix(mat)
-  mat
-}
 
 #' @rdname create
 #' @details Creates a two-component two-mode network.
@@ -128,26 +86,57 @@ create_silos <- function(n1, n2,
   if(as == "igraph") mat <- igraph::graph_from_incidence_matrix(mat)
   mat
 }
-
-#' @rdname create
-#' @details Creates a nested two-mode network.
-#' Will construct an affiliation matrix,
-#' with decreasing fill across n2.
-#' @importFrom tidygraph as_tbl_graph
-#' @importFrom igraph graph_from_incidence_matrix
-#' @examples
-#' create_nest(10, 12)
+#' g <- create_ring(c(8,6), width = 2)
+#' plot(g)
 #' @export
-create_nest <- function(n1, n2, 
-                        as = c("tidygraph", "igraph", "matrix")) {
+create_ring <- function(n, width = 1, directed = FALSE, ...) {
   
-  as <- match.arg(as)
+  roll_over <- function(w){
+    cbind(w[,ncol(w)], w[,1:(ncol(w)-1)])
+  }
   
-  out <- matrix(0, n1, n2)
-  out[(row(out) - col(out)) >= 0] <- 1
+  if(length(n)==1){
+    if(width==1){
+     out <- igraph::make_ring(n, directed, ...) 
+    } else {
+      out <- w <- as_matrix(igraph::make_ring(n, directed, ...))
+      for(i in 1:(width-1)){
+        w <- roll_over(w)
+        out <- out + w
+      }
+      diag(out) <- 0
+      out[out > 1] <- 1
+      if(directed){
+        out <- igraph::graph_from_adjacency_matrix(out, mode = "directed")
+      } else out <- igraph::graph_from_adjacency_matrix(out, mode = "undirected")
+    }
+  } else if (length(n)==2){
+    n1 <- n[1]
+    n2 <- n[2]
+    mat <- matrix(0, n1, n2)
+    diag(mat) <- 1
+    while(any(rowSums(mat)==0)){
+      top <- mat[rowSums(mat)==1,]
+      bot <- mat[rowSums(mat)==0,]
+      diag(bot) <- 1
+      mat <- rbind(top, bot)
+    }
+    while(any(colSums(mat)==0)){
+      left <- mat[,colSums(mat)==1]
+      right <- mat[,colSums(mat)==0]
+      diag(right) <- 1
+      mat <- cbind(left, right)
+    }
+    if(width!=0) mat <- mat + roll_over(mat)
+    if(width > 1){
+      for(i in 1:(width-1)){
+        w <- roll_over(mat)
+        mat <- mat + w
+      }
+    }
+    out <- igraph::graph_from_incidence_matrix(mat)
+  } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
 
-  if(as == "tidygraph") out <- tidygraph::as_tbl_graph(out)
-  if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
   out
 }
 
