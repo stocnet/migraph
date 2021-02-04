@@ -20,7 +20,6 @@
 #' @seealso as_matrix as_tidygraph as_network
 #' @details `create_empty()` creates an empty graph of the given dimensions.
 #' @examples
-#' library(igraph)
 #' g <- create_empty(c(8,6))
 #' plot(g)
 #' @export
@@ -40,7 +39,6 @@ create_empty <- function(n){
 #' @rdname create
 #' @details `create_complete()` creates a filled graph of the given dimensions.
 #' @examples
-#' library(igraph)
 #' g <- create_complete(c(8,6))
 #' plot(g)
 #' @export

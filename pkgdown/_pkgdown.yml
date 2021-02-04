@@ -46,10 +46,10 @@ reference:
     contents:
       - starts_with("as_")
       - starts_with("project_")
-  # - title: "Visualisation"
-  #   desc: "Functions for visualising multilevel networks:"
-  #   contents:
-  #     - starts_with("plot_")
+  - title: "Visualisation"
+    desc: "Functions for visualising multilevel networks:"
+    contents:
+      - starts_with("plot")
   - title: "Measures"
     desc: "Functions for measuring multimodal and multilevel networks:"
     contents:
@@ -62,5 +62,4 @@ reference:
     desc: "Functions for modelling multimodal and multilevel networks:"
     contents:
       - netlm
-      # - starts_with("threemode_")
       # - concor_hca
