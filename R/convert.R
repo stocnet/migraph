@@ -1,4 +1,4 @@
-#' Class conversion between migraph-consistent graph formats 
+#' migraph-consistent object classes 
 #' 
 #' The `as_` functions in `{migraph}`
 #' typically accept edgelists (as data frames), matrices,
@@ -38,16 +38,16 @@ as_matrix <- function(object){
   if(missing(object)){
     expect_nodes()
     graph <- .G()
-    if (is_bipartite(graph)){
-      mat <- igraph::as_incidence_matrix(graph)
+    if (is_twomode(graph)){
+      mat <- igraph::as_incidence_matrix(graph, sparse = FALSE)
     } else {
-      mat <- igraph::as_adjacency_matrix(graph)
+      mat <- igraph::as_adjacency_matrix(graph, sparse = FALSE)
     }
   } else if (is.igraph(object)) {
-    if (is_bipartite(object)){
-      mat <- igraph::as_incidence_matrix(object)
+    if (is_twomode(object)){
+      mat <- igraph::as_incidence_matrix(object, sparse = FALSE)
     } else {
-      mat <- igraph::as_adjacency_matrix(object)
+      mat <- igraph::as_adjacency_matrix(object, sparse = FALSE)
     }
   } else if (is.matrix(object)) {
     mat <- object
@@ -117,3 +117,13 @@ as_tidygraph <- function(object, twomode = FALSE){
   }
   tidy
 }
+
+#' @rdname convert
+#' @importFrom igraph is.bipartite
+#' @return A logical vector whether object is two-mode (TRUE) or not (FALSE)
+#' @export
+is_twomode <- function(object){
+  object <- as_igraph(object)
+  igraph::is.bipartite(object)
+}
+
