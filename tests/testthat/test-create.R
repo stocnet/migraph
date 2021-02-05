@@ -26,5 +26,5 @@ test_that("create empty graph works", {
 })
 
 test_that("create complete graph works", {
-  expect_s3_class(create_empty(4), "igraph")
+  expect_s3_class(create_complete(4), "igraph")
 })
