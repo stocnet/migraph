@@ -53,8 +53,8 @@ reference:
   - title: "Measures"
     desc: "Functions for measuring multimodal and multilevel networks:"
     contents:
-      - starts_with("graph_")
       - starts_with("node_")
+      - starts_with("graph_")
   - title: "Models"
     desc: "Functions for modelling multimodal and multilevel networks:"
     contents:

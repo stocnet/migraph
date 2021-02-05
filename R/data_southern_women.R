@@ -7,5 +7,6 @@
 #' @name southern_women
 #' @usage data(southern_women)
 #' @format igraph graph object
-#' @source Davis, A., Gardner, B., and Gardner, R. 1941. Deep South. Chicago: University of Chicago Press.
+#' @references Davis, A., Gardner, B., and Gardner, R. 1941. \emph{Deep South}. 
+#' Chicago: University of Chicago Press.
 "southern_women"
