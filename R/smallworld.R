@@ -1,9 +1,10 @@
-#' Watts-Strogatz small-world model for one- and two-mode networks
+#' Watts-Strogatz small-world model for two-mode networks
 #' 
 #' Calculates small-world metrics for two-mode networks
 #' @param object A matrix, igraph graph, or tidygraph object
 #' @param n Number of simulations
-#' @family two-mode functions
+#' @family two-mode measures
+#' @family node-level measures
 #' @return Returns a table of small-world related metrics for each second-mode node.
 #' @details The first column of the returned table is simply the number of the second-mode column.
 #' The next three columns report the observed and expected clustering, 
@@ -15,14 +16,12 @@
 #' Expected clustering and paths is the mean of twomode_clustering and mean_distance
 #' over 100 random simulations with the same row and column sums.
 #' @examples
-#' \dontrun{
-#' smallworld(southern_women)
-#' }
+#' node_smallworld(southern_women)
 #' @seealso \code{\link{clustering}} for how clustering is calculated
 #' @importFrom igraph graph_from_incidence_matrix mean_distance
 #' @importFrom stats r2dtable
 #' @export 
-smallworld <- function(object, n=100){
+node_smallworld <- function(object, n=100){
   mat <- as_matrix(object)
   out <- matrix(NA, ncol(mat), 7)
   for(c in 2:ncol(mat)){
