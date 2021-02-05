@@ -8,13 +8,9 @@ test_that("two-mode object clustering is reported correctly",{
   expect_equal(round(clustering(southern_women), 4), 0.4872)
 })
 
-mat1 <- matrix(0,3,3)
-mat1[1,1:2] <- 1
-mat1[2,2] <- 1
-mat2 <- matrix(0,3,3)
-mat2[1:2,1] <- 1
-mat2[3,3] <- 1
+mat1 <- create_ring(5,10)
+mat2 <- create_ring(5,8)
  
 test_that("three-mode clustering calculated correctly",{
-expect_equal(clustering(mat1, mat2), 2/3)
+expect_equal(round(clustering(mat1, mat2), 4), 0.7143)
 })
