@@ -117,6 +117,7 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
 }
 
 #' @rdname create
+#' @param components Number of components to create.
 #' @details Creates a two-component two-mode network.
 #' Will construct an affiliation matrix,
 #' with full component diagonal.
@@ -124,14 +125,15 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
 #' @examples
-#' create_components(c(10, 12))
+#' create_components(c(10, 12), components = 2)
 #' @export
-create_components <- function(n) {
-  n1 <- n[1]
-  n2 <- n[2]
-  mat <- matrix(0, n1, n2)
-  mat[1:round(n1 / 2), 1:round(n2 / 2)] <- 1
-  mat[rowSums(mat) < 1, colSums(mat) < 1] <- 1
+create_components <- function(n, components = 2) {
+  
+  if(length(n)==1){
+    mat <- suppressWarnings(matrix(c(1, rep(0, components-1)), n[1], n[2], byrow = T))
+  } else {
+    mat <- suppressWarnings(matrix(c(1, rep(0, components-1)), n[1], n[2], byrow = T))
+  }
   mat
 }
 
