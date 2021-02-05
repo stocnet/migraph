@@ -53,11 +53,8 @@ reference:
   - title: "Measures"
     desc: "Functions for measuring multimodal and multilevel networks:"
     contents:
-      - starts_with("centrality_")
-      - starts_with("centralisation_")
-      - clustering
-      - constraint
-      - smallworld
+      - starts_with("graph_")
+      - starts_with("node_")
   - title: "Models"
     desc: "Functions for modelling multimodal and multilevel networks:"
     contents:
