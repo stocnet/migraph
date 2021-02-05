@@ -1,4 +1,4 @@
-#' Power Elite
+#' Two-mode American power elite database
 #'
 #' A 2-mode network of persons serving as directors or trustees of think tanks. 
 #' Think tanks are “public-policy research analysis and engagement organizations 
@@ -9,11 +9,13 @@
 #'
 #' @docType data
 #' @keywords datasets
-#' @name mpn_powerelite
-#' @usage data(mpn_powerelite)
+#' @name mpn_elite_usa_advice
+#' @usage data(mpn_elite_usa_advice)
 #' @format Matrix with 14 rows and 20 columns
-#' @source Domhoff, G William. 2016. 
-#' “Who Rules America? Power Elite Database.” http://www2.ucsc.edu/whorulesamerica/power_elite/.
+#' @references
+#' Domhoff, G William. 2016. \href{http://www2.ucsc.edu/whorulesamerica/power_elite/}{“Who Rules America? Power Elite Database.”}
 #' 
-#' Knoke, Diani, Hollway, and Christopoulos. 2021. \emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
-"mpn_powerelite"
+#' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021. 
+#' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}. 
+#' Cambridge University Press. Cambridge University Press.
+"mpn_elite_usa_advice"
