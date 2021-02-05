@@ -25,7 +25,7 @@
 #' @references Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In \emph{The SAGE Handbook of 
 #' Social Network Analysis}, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
 #' @examples
-#' centralization_degree(southern_women)
+#' centralisation_degree(southern_women)
 #' @export
 centralisation_degree <- centralization_degree <- function(object,
                                                            directed = c("all", "out", "in", "total"), 
@@ -147,14 +147,15 @@ centralisation_betweenness <- centralization_betweenness <- function(object,
           out$nodes2 <- sum(max(becent[mode])-becent) / (2 * (mode2 - 1) * (mode1 - 1) * (mode2 + mode1 - 1) - (mode1 - 1) * (mode2 + mode1 - 2) - 1/2 * (mode2 - mode1) * (mode2 + 3*mode1 - 3))
         }
       } else if(normalized){
-        becent <- centrality_betweenness(graph, normalized = TRUE)
         out$nodes1 <- sum(max(becent[!mode])-becent) / ((1/2 * mode2 * (mode2 - 1) + 1/2 * (mode1 - 1)*(mode1 - 2) + (mode1 - 1) * (mode2 - 2))*(mode1 + mode2 - 1)+(mode1 - 1))
         out$nodes2 <- sum(max(becent[mode])-becent) / ((1/2 * mode1 * (mode1 - 1) + 1/2 * (mode2 - 1)*(mode2 - 2) + (mode2 - 1) * (mode1 - 2))*(mode2 + mode1 - 1)+(mode2 - 1))
         if (mode1 > mode2) {
-          out$nodes1 <- sum(max(becent[!mode])-becent) / ((mode1 + mode2 -1) - ((mode2 - 1)*(mode1 + mode2 -2) + 1/2*(mode1 - mode2)*(mode1 + 3*mode2 -3)) / (1/2*(mode1*(mode1 - 1) + 1/2 * (mode2 -1)*(mode2 - 2) + (mode1 - 1)*(mode2 - 1))))
+          becent <- centrality_betweenness(graph, normalized = TRUE)
+          out$nodes1 <- sum(max(becent[!mode])-becent) / ((mode1 + mode2 -1) - (((mode2 - 1)*(mode1 + mode2 -2) + 1/2*(mode1 - mode2)*(mode1 + (3*mode2) -3)) / (1/2*(mode1*(mode1 - 1)) + 1/2*(mode2 -1)*(mode2 - 2) + (mode1 - 1)*(mode2 - 1))))
         }
         if (mode2 > mode1){
-          out$nodes2 <- sum(max(becent[mode])-becent) / ((mode2 + mode2 -1) - ((mode1 - 1)*(mode2 + mode1 -2) + 1/2*(mode2 - mode1)*(mode2 + 3*mode1 -3)) / (1/2*(mode2*(mode2 - 1) + 1/2 * (mode2 -1)*(mode1 - 2) + (mode2 - 1)*(mode1 - 1))))
+          becent <- centrality_betweenness(graph, normalized = TRUE)
+          out$nodes2 <- sum(max(becent[mode])-becent) / ((mode1+mode2-1)*((mode1-1)*(mode1+mode2-2) / 2*(mode1-1)*(mode2-1)))
         }
       }
     } else if (directed == "in"){
