@@ -20,10 +20,8 @@
 #' @seealso as_matrix as_tidygraph as_network
 #' @details `create_empty()` creates an empty graph of the given dimensions.
 #' @examples
-#' \dontrun{
 #' g <- create_empty(c(8,6))
 #' plot(g)
-#' }
 #' @export
 create_empty <- function(n){
   
@@ -41,10 +39,8 @@ create_empty <- function(n){
 #' @rdname create
 #' @details `create_complete()` creates a filled graph of the given dimensions.
 #' @examples
-#' \dontrun{
 #' g <- create_complete(c(8,6))
 #' plot(g)
-#' }
 #' @export
 create_complete <- function(n){
   
@@ -66,10 +62,8 @@ create_complete <- function(n){
 #' @details `create_ring()` creates a ring or chord graph of the given dimensions
 #' that loops around is of a certain width or thickness.
 #' @examples
-#' \dontrun{
 #' g <- create_ring(c(8,6), width = 2)
 #' plot(g)
-#' }
 #' @export
 create_ring <- function(n, width = 1, directed = FALSE, ...) {
   
@@ -122,32 +116,26 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
   out
 }
 
-#
-#' # #' @rdname create
-#' #' @details Creates a two-component two-mode network.
-#' #' Will construct an affiliation matrix,
-#' #' with full component diagonal.
-#' #' TODO: Allow specfication of how many silos/components to create
-#' #' @importFrom tidygraph as_tbl_graph
-#' #' @importFrom igraph graph_from_incidence_matrix
-#' #' @examples
-#' #' \dontrun{
-#' #' create_silos(10, 12)
-#' #' }
-#' #' @export
-#' create_silos <- function(n1, n2,
-#'                          as = c("tidygraph", "igraph", "matrix")) {
-#'   mat <- matrix(0, n1, n2)
-#'   mat[1:round(n1 / 2), 1:round(n2 / 2)] <- 1
-#'   mat[rowSums(mat) < 1, colSums(mat) < 1] <- 1
-#' 
-#'   as <- match.arg(as)
-#'   if(as == "tidygraph") mat <- tidygraph::as_tbl_graph(mat)
-#'   if(as == "igraph") mat <- igraph::graph_from_incidence_matrix(mat)
-#'   mat
-#' }
-#' 
-#' #' @rdname create
+#' @rdname create
+#' @details Creates a two-component two-mode network.
+#' Will construct an affiliation matrix,
+#' with full component diagonal.
+#' TODO: Allow specfication of how many silos/components to create
+#' @importFrom tidygraph as_tbl_graph
+#' @importFrom igraph graph_from_incidence_matrix
+#' @examples
+#' create_components(c(10, 12))
+#' @export
+create_components <- function(n) {
+  n1 <- n[1]
+  n2 <- n[2]
+  mat <- matrix(0, n1, n2)
+  mat[1:round(n1 / 2), 1:round(n2 / 2)] <- 1
+  mat[rowSums(mat) < 1, colSums(mat) < 1] <- 1
+  mat
+}
+
+# #' @rdname create
 #' #' @details Creates a nested two-mode network.
 #' #' Will construct an affiliation matrix,
 #' #' with decreasing fill across n2.
