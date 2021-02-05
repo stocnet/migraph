@@ -27,11 +27,11 @@ node_smallworld <- function(object, n=100){
   for(c in 2:ncol(mat)){
     m <- mat[, 1:c]
     g <- igraph::graph_from_incidence_matrix(m)
-    out[c, 1] <- clustering(m)
+    out[c, 1] <- graph_clustering(m)
     out[c, 4] <- igraph::mean_distance(g)
     
     r <- stats::r2dtable(n, rowSums(m), colSums(m))
-    out[c, 2] <- mean(unlist(lapply(r, clustering)))
+    out[c, 2] <- mean(unlist(lapply(r, graph_clustering)))
     out[c, 5] <- mean(unlist(lapply(lapply(r, igraph::graph_from_incidence_matrix),
                                     igraph:: mean_distance)))
     
