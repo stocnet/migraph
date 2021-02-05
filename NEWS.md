@@ -2,6 +2,10 @@
 
 2021-01-29
 
+## Package
+
+* Closes #81 by making {migraph} depend on R versions 4.0 or above
+
 ## Analysis
 
 * Re-added `netlm()` for performing linear regression for multimodal network data
@@ -17,6 +21,7 @@
   * shared four-cycles on two-mode networks
   * congruent four-cycles on three-mode networks
 * Re-added `constraint()` for calculating Burt's constraint measure for one- and two-mode networks 
+* Closes #82 by re-adding plot defaults with `plot.igraph()` function
 
 ## Manipulation
 
@@ -24,7 +29,10 @@
  * `as_matrix()` function to coerce objects into an adjacency or incidence matrix class
  * `as_igraph()` function  to coerce objects into an `{igraph}` graph class
  * `as_tidygraph()` function to coerce objects into an `{tidygraph}` tbl_graph class
-* Added `create_star()` function to create a star bipartite graph
+* Closes #79 by adding `is_twomode()` function to check whether network is two-mode on all object types
+* Closes #65 by incorporating `create_ring()` function that creates a one- or two-mode ring bipartite network
+  * Other create functions, as `create empty()` and `create_complete()`, were also added
+
 
 # migraph 0.4.1
 
