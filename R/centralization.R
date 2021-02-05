@@ -1,8 +1,9 @@
 #' Centralization for one- and two-mode networks
 #'
-#' These functions allows you to calculate how centralized a two-mode graph is.
+#' These functions measure the overall centralization for a network.
 #' @name centralization
-#' @family two-mode functions
+#' @family two-mode measures
+#' @family graph-level measures
 #' @param object A matrix, igraph graph, or tidygraph object.
 #' @param directed Character string, “out” for out-degree, 
 #' “in” for in-degree, and "all" or “total” for the sum of the two. 
@@ -25,14 +26,12 @@
 #' @references Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In \emph{The SAGE Handbook of 
 #' Social Network Analysis}, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
 #' @examples
-#' \dontrun{
-#' centralisation_degree(southern_women, directed = "in")
-#' }
+#' graph_degree(southern_women, directed = "in")
 #' @export
-centralisation_degree <- centralization_degree <- function(object,
-                                                           directed = c("all", "out", "in", "total"), 
-                                                           normalized = TRUE){
-
+graph_degree <- function(object,
+                         directed = c("all", "out", "in", "total"), 
+                         normalized = TRUE){
+  
   directed <- match.arg(directed)
   
   if(is_bipartite(object)){
@@ -46,7 +45,7 @@ centralisation_degree <- centralization_degree <- function(object,
         out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat) + ncol(mat))*ncol(mat) - 2*(ncol(mat)+nrow(mat)-1))
         out$nodes2 <- sum(max(allcent[mode]) - allcent)/((nrow(mat) + ncol(mat))*nrow(mat) - 2*(ncol(mat)+nrow(mat)-1))
       } else if(normalized){
-        allcent <- centrality_degree(southern_women, normalized = TRUE)
+        allcent <- node_degree(southern_women, normalized = TRUE)
         out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat)+ncol(mat)-1) - (ncol(mat)-1) / nrow(mat) - (ncol(mat)+nrow(mat)-1)/nrow(mat))
         out$nodes2 <- sum(max(allcent[mode]) - allcent)/((ncol(mat)+nrow(mat)-1)-(nrow(mat)-1) / ncol(mat)-(nrow(mat)+ncol(mat)-1)/ncol(mat))
       }
@@ -62,15 +61,12 @@ centralisation_degree <- centralization_degree <- function(object,
 }
 
 #' @rdname centralization
-#' @family two-mode functions
-#' #' @examples
-#' \dontrun{
-#' centralisation_closeness(southern_women, directed = "in")
-#' }
+#' @examples
+#' graph_closeness(southern_women, directed = "in")
 #' @export
-centralisation_closeness <- centralization_closeness <- function(object,
-                                                                 directed = c("all", "out", "in", "total"), 
-                                                                 normalized = TRUE){
+graph_closeness <- function(object,
+                            directed = c("all", "out", "in", "total"), 
+                            normalized = TRUE){
   
   directed <- match.arg(directed)
   graph <- as_igraph(object)
@@ -127,15 +123,12 @@ centralisation_closeness <- centralization_closeness <- function(object,
 }
 
 #' @rdname centralization
-#' @family two-mode functions
 #' @examples
-#' \dontrun{
-#' centralisation_betweenness(southern_women, directed = "in")
-#' }
+#' graph_betweenness(southern_women, directed = "in")
 #' @export
-centralisation_betweenness <- centralization_betweenness <- function(object,
-                                                                     directed = c("all", "out", "in", "total"), 
-                                                                     normalized = TRUE) {
+graph_betweenness <- function(object,
+                              directed = c("all", "out", "in", "total"), 
+                              normalized = TRUE) {
   
   directed <- match.arg(directed)
   graph <- as_igraph(object)
