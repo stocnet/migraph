@@ -25,7 +25,9 @@
 #' @references Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In \emph{The SAGE Handbook of 
 #' Social Network Analysis}, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
 #' @examples
-#' centralisation_degree(southern_women)
+#' \dontrun{
+#' centralisation_degree(southern_women, directed = "in")
+#' }
 #' @export
 centralisation_degree <- centralization_degree <- function(object,
                                                            directed = c("all", "out", "in", "total"), 
@@ -61,6 +63,10 @@ centralisation_degree <- centralization_degree <- function(object,
 
 #' @rdname centralization
 #' @family two-mode functions
+#' #' @examples
+#' \dontrun{
+#' centralisation_closeness(southern_women, directed = "in")
+#' }
 #' @export
 centralisation_closeness <- centralization_closeness <- function(object,
                                                                  directed = c("all", "out", "in", "total"), 
@@ -122,6 +128,10 @@ centralisation_closeness <- centralization_closeness <- function(object,
 
 #' @rdname centralization
 #' @family two-mode functions
+#' @examples
+#' \dontrun{
+#' centralisation_betweenness(southern_women, directed = "in")
+#' }
 #' @export
 centralisation_betweenness <- centralization_betweenness <- function(object,
                                                                      directed = c("all", "out", "in", "total"), 

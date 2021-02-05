@@ -16,8 +16,10 @@
 #' @importFrom igraph graph_from_incidence_matrix is_bipartite degree V
 #' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
 #' @examples
+#' \dontrun{
 #' centrality_degree(southern_women)
 #' mpn_powerelite %>% tidygraph::mutate(degree = centrality_degree())
+#' }
 #' @return Depending on how and what kind of an object is passed to the function,
 #' the function will return a `tidygraph` object where the nodes have been updated
 #' @export
@@ -52,8 +54,10 @@ centrality_degree <- function (object,
 #' @param cutoff maximum path length to use during calculations 
 #' @import tidygraph
 #' @examples
+#' \dontrun{
 #' centrality_closeness(southern_women)
 #' mpn_powerelite %>% tidygraph::mutate(closeness = centrality_closeness())
+#' }
 #' @export
 centrality_closeness <- function (object, 
                                   weights = NULL, mode = "out", 
@@ -90,8 +94,10 @@ centrality_closeness <- function (object,
 #' @import tidygraph
 #' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
 #' @examples
+#' \dontrun{
 #' centrality_betweenness(southern_women)
 #' mpn_powerelite %>% tidygraph::mutate(betweenness = centrality_betweenness())
+#' }
 #' @return A numeric vector giving the betweenness centrality measure of each node.
 #' @export 
 centrality_betweenness <- function(object, 
@@ -129,7 +135,9 @@ centrality_betweenness <- function(object,
 #' @references Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
 #' Faust, Katherine. "Centrality in affiliation networks." Social networks 19.2 (1997): 157-191.
 #' @examples
+#' \dontrun{
 #' centrality_eigenvector(southern_women)
+#' }
 #' @return A numeric vector giving the eigenvector centrality measure of each node.
 #' @export 
 centrality_eigenvector <- function(object, 

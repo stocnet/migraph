@@ -7,7 +7,9 @@
 #' @param object2 Optionally, a second (two-mode) matrix, igraph, or tidygraph
 #' @family two-mode functions
 #' @examples
+#' \dontrun{
 #' clustering(southern_women)
+#' }
 #' @export
 clustering <- function(object, object2 = NULL){
   

@@ -18,7 +18,9 @@
 #' @importFrom igraph bipartite.projection
 #' @importFrom tidygraph as_tbl_graph
 #' @examples
+#' \dontrun{
 #' project_rows(southern_women)
+#' }
 #' @export
 project_rows <- function(object){
   if(is.tbl_graph(object)){
@@ -34,7 +36,9 @@ project_rows <- function(object){
 
 #' @rdname project
 #' @examples
+#' \dontrun{
 #' project_cols(southern_women)
+#' }
 #' @export
 project_cols <- function(object){
   if(is.tbl_graph(object)){

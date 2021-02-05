@@ -15,7 +15,9 @@
 #' See Ron Burt's work on structural holes for more details.
 #' @family two-mode functions
 #' @examples
+#' \dontrun{
 #' constraint(southern_women)
+#' }
 #' @export 
 constraint <- function(object, nodes = V(object), weights = NULL){
   

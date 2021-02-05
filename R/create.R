@@ -20,8 +20,10 @@
 #' @seealso as_matrix as_tidygraph as_network
 #' @details `create_empty()` creates an empty graph of the given dimensions.
 #' @examples
+#' \dontrun{
 #' g <- create_empty(c(8,6))
 #' plot(g)
+#' }
 #' @export
 create_empty <- function(n){
   
@@ -39,8 +41,10 @@ create_empty <- function(n){
 #' @rdname create
 #' @details `create_complete()` creates a filled graph of the given dimensions.
 #' @examples
+#' \dontrun{
 #' g <- create_complete(c(8,6))
 #' plot(g)
+#' }
 #' @export
 create_complete <- function(n){
   
@@ -62,8 +66,10 @@ create_complete <- function(n){
 #' @details `create_ring()` creates a ring or chord graph of the given dimensions
 #' that loops around is of a certain width or thickness.
 #' @examples
+#' \dontrun{
 #' g <- create_ring(c(8,6), width = 2)
 #' plot(g)
+#' }
 #' @export
 create_ring <- function(n, width = 1, directed = FALSE, ...) {
   
@@ -125,7 +131,9 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
 #' #' @importFrom tidygraph as_tbl_graph
 #' #' @importFrom igraph graph_from_incidence_matrix
 #' #' @examples
+#' #' \dontrun{
 #' #' create_silos(10, 12)
+#' #' }
 #' #' @export
 #' create_silos <- function(n1, n2,
 #'                          as = c("tidygraph", "igraph", "matrix")) {
@@ -146,7 +154,9 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
 #' #' @importFrom tidygraph as_tbl_graph
 #' #' @importFrom igraph graph_from_incidence_matrix
 #' #' @examples
+#' #' \dontrun{
 #' #' create_nest(10, 12)
+#' #' }
 #' #' @export
 #' create_nest <- function(n1, n2,
 #'                         as = c("tidygraph", "igraph", "matrix")) {
@@ -166,7 +176,9 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
 #' #' @importFrom tidygraph as_tbl_graph
 #' #' @importFrom igraph graph_from_incidence_matrix
 #' #' @examples
+#' #' \dontrun{
 #' #' create_star(1, 12)
+#' #'}
 #' #' @export
 #' create_star <- function(n1 = 1, n2,
 #'                         as = c("tidygraph", "igraph", "matrix")){

@@ -9,6 +9,14 @@
 #' @importFrom dplyr bind_cols
 #' @importFrom purrr map
 #' @importFrom stats lm
+#' @examples
+#' \dontrun{
+#' mat1 <- matrix(c(0,1,1,0,0,1,1,1),4,2)
+#' mat2 <- matrix(c(0,1,0,1,0,1,0,1),4,2)
+#' mat3 <- matrix(c(0,0,1,1,0,0,1,1),4,2)
+#' lmat <- list(mat1 = mat1, mat2 = mat2, mat3 = mat3)
+#' example <- netlm(mat1 ~ mat2 + mat3 + lmat)
+#' }
 #' @export
 netlm <- function(formula, data, ...){
   
@@ -32,6 +40,15 @@ netlm <- function(formula, data, ...){
 #' By default, reps=1000.
 #' @param ... Arguments passed on to `lm()`.
 #' @importFrom stats ecdf lm
+#' @examples
+#' \dontrun{
+#' mat1 <- matrix(c(0,1,1,0,0,1,1,1),4,2)
+#' mat2 <- matrix(c(0,1,0,1,0,1,0,1),4,2)
+#' mat3 <- matrix(c(0,0,1,1,0,0,1,1),4,2)
+#' lmat <- list(mat1 = mat1, mat2 = mat2, mat3 = mat3)
+#' example <- netlm(mat1 ~ mat2 + mat3 + lmat)
+#' summary.netlm(example)
+#' }
 #' @export
 summary.netlm <- function(object, reps = 1000, ...){
   
@@ -98,6 +115,16 @@ summary.netlm <- function(object, reps = 1000, ...){
 #' @param digits the number of significant digits to use when printing.
 #' @param signif.stars logical. If TRUE, ‘significance stars’ are printed for each coefficient.
 #' @importFrom stats printCoefmat
+#' @examples
+#' \dontrun{
+#' mat1 <- matrix(c(0,1,1,0,0,1,1,1),4,2)
+#' mat2 <- matrix(c(0,1,0,1,0,1,0,1),4,2)
+#' mat3 <- matrix(c(0,0,1,1,0,0,1,1),4,2)
+#' lmat <- list(mat1 = mat1, mat2 = mat2, mat3 = mat3)
+#' example <- netlm(mat1 ~ mat2 + mat3 + lmat)
+#' summary.netlm(example)
+#' print.summary.netlm(example)
+#' }
 #' @export
 print.summary.netlm <- function(x,
                                 digits = max(3, getOption("digits") - 3),

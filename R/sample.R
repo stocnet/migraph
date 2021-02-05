@@ -17,9 +17,11 @@
 #' @importFrom tidygraph play_bipartite
 #' @importFrom igraph as.igraph as_adjacency_matrix
 #' @examples
+#' \dontrun{
 #' sample_affiliation(10, 12, 0.25) %>% ggraph::ggraph() +
 #' ggraph::geom_edge_fan(ggplot2::aes(alpha = stat(index)), show.legend = FALSE) +
 #' ggraph::geom_node_point(ggplot2::aes(size = 5))
+#' }
 #' @export
 sample_affiliation <- function(n1, n2, p, m, directed = TRUE, mode = "out",
                          as = c("tidygraph", "igraph", "matrix")) {

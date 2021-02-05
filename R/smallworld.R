@@ -14,8 +14,10 @@
 #' to the observed/expected path-length ratio, which is known as a small-world metric.
 #' Expected clustering and paths is the mean of twomode_clustering and mean_distance
 #' over 100 random simulations with the same row and column sums.
-#' @examples 
+#' @examples
+#' \dontrun{
 #' smallworld(southern_women)
+#' }
 #' @seealso \code{\link{clustering}} for how clustering is calculated
 #' @importFrom igraph graph_from_incidence_matrix mean_distance
 #' @importFrom stats r2dtable

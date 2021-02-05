@@ -1,6 +1,11 @@
 #' Plotting of one-mode and two-mode graphs
 #' @param x A migraph-compatible object, especially an igraph graph object
 #' @param ... Additional arguments passed on to igraph.
+#' @examples 
+#' \dontrun{
+#' mat1 <- create_ring(5,10)
+#' plot.igraph(mat1)
+#' }
 #' @export
 plot.igraph <- function(x, ...){
   object <- as_igraph(x)
