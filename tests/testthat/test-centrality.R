@@ -62,6 +62,7 @@ test_that("two mode betweenness centrality calculated correctly",{
 
 test_that("one mode eigenvector centrality calculated correctly",{
   expect_equal(round(unname(node_eigenvector(mpn_elite_mex)[1:3]),2), c(0.16, 0.34, 0.18))
+  expect_equal(round(unname(node_eigenvector(mpn_elite_mex, normalized = TRUE)[1:3]),2), c(0.22, 0.49, 0.25))
 })
 
 test_that("two mode eigenvector centrality calculated correctly",{
