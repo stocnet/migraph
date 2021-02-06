@@ -129,7 +129,7 @@ create_components <- function(n, components = 2) {
     }
     diag(out) <- 0
     out <- igraph::graph_from_adjacency_matrix(out)
-  } else {
+  } else if (length(n)==2){
     if(components > n[1] | components > n[2]) stop("Cannot have more components than nodes in any nodeset.")
     out <- matrix(0, n[1], n[2])
     for(x in 1:components){
@@ -138,7 +138,7 @@ create_components <- function(n, components = 2) {
       out[rows,cols] <- 1
     }
     out <- igraph::graph_from_incidence_matrix(out)
-  }
+  } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
   out
 }
 
