@@ -18,11 +18,11 @@ test_that("data frame converted to matrix correctly",{
 test_that("as_igraph converts correctly",{
   expect_s3_class(as_igraph(mat1), "igraph")
   expect_s3_class(as_igraph(southern_women), "igraph")
-  expect_s3_class(as_igraph(mpn_opensecrets), "igraph")
+  expect_s3_class(as_igraph(mpn_elite_usa_money), "igraph")
 })
 
 test_that("as_matrix converts correctly",{
   expect_vector(as_matrix(mat1))
   expect_vector(as_matrix(southern_women))
-  expect_vector(as_matrix(mpn_opensecrets))
+  expect_vector(as_matrix(mpn_elite_usa_money))
 })

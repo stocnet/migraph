@@ -34,7 +34,7 @@ graph_degree <- function(object,
   
   directed <- match.arg(directed)
   
-  if(is_bipartite(object)){
+  if(is_twomode(object)){
     mat <- as_matrix(object)
     mode <- c(rep(FALSE, nrow(mat)), rep(TRUE, ncol(mat)))
     
@@ -71,8 +71,8 @@ graph_closeness <- function(object,
   directed <- match.arg(directed)
   graph <- as_igraph(object)
   
-  if(is_bipartite(object)){
-    clcent <- centrality_closeness(graph, normalized = TRUE)
+  if(is_twomode(object)){
+    clcent <- node_closeness(graph, normalized = TRUE)
     mode <- igraph::V(graph)$type
     mode1 <- length(mode) - sum(mode)
     mode2 <- sum(mode)
@@ -133,8 +133,8 @@ graph_betweenness <- function(object,
   directed <- match.arg(directed)
   graph <- as_igraph(object)
   
-  if(is_bipartite(object)){
-    becent <- centrality_betweenness(graph, normalized = FALSE)
+  if(is_twomode(object)){
+    becent <- node_betweenness(graph, normalized = FALSE)
     mode <- igraph::V(graph)$type
     mode1 <- length(mode) - sum(mode)
     mode2 <- sum(mode)
@@ -153,11 +153,11 @@ graph_betweenness <- function(object,
         out$nodes1 <- sum(max(becent[!mode])-becent) / ((1/2 * mode2 * (mode2 - 1) + 1/2 * (mode1 - 1)*(mode1 - 2) + (mode1 - 1) * (mode2 - 2))*(mode1 + mode2 - 1)+(mode1 - 1))
         out$nodes2 <- sum(max(becent[mode])-becent) / ((1/2 * mode1 * (mode1 - 1) + 1/2 * (mode2 - 1)*(mode2 - 2) + (mode2 - 1) * (mode1 - 2))*(mode2 + mode1 - 1)+(mode2 - 1))
         if (mode1 > mode2) {
-          becent <- centrality_betweenness(graph, normalized = TRUE)
+          becent <- node_betweenness(graph, normalized = TRUE)
           out$nodes1 <- sum(max(becent[!mode])-becent) / ((mode1 + mode2 -1) - (((mode2 - 1)*(mode1 + mode2 -2) + 1/2*(mode1 - mode2)*(mode1 + (3*mode2) -3)) / (1/2*(mode1*(mode1 - 1)) + 1/2*(mode2 -1)*(mode2 - 2) + (mode1 - 1)*(mode2 - 1))))
         }
         if (mode2 > mode1){
-          becent <- centrality_betweenness(graph, normalized = TRUE)
+          becent <- node_betweenness(graph, normalized = TRUE)
           out$nodes2 <- sum(max(becent[mode])-becent) / ((mode1+mode2-1)*((mode1-1)*(mode1+mode2-2) / 2*(mode1-1)*(mode2-1)))
         }
       }

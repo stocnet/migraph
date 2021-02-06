@@ -47,7 +47,7 @@ graph_clustering <- function(object, object2 = NULL){
       (sum(twopaths * (twopaths - 1)) + sum(twopaths *
                                               (matrix(degrees, c, c) - twopaths)))
     if(is.nan(output)) output <- 1
-  } else if (is_bipartite(object)){
+  } else if (is_twomode(object)){
     mat <- as_matrix(object)
     c <- ncol(mat)
     indegrees <- colSums(mat)

@@ -17,7 +17,7 @@
 #' over 100 random simulations with the same row and column sums.
 #' @examples
 #' node_smallworld(southern_women)
-#' @seealso \code{\link{clustering}} for how clustering is calculated
+#' @seealso \code{\link{graph_clustering}} for how clustering is calculated
 #' @importFrom igraph graph_from_incidence_matrix mean_distance
 #' @importFrom stats r2dtable
 #' @export 
@@ -33,7 +33,7 @@ node_smallworld <- function(object, n=100){
     r <- stats::r2dtable(n, rowSums(m), colSums(m))
     out[c, 2] <- mean(unlist(lapply(r, graph_clustering)))
     out[c, 5] <- mean(unlist(lapply(lapply(r, igraph::graph_from_incidence_matrix),
-                                    igraph:: mean_distance)))
+                                    igraph::mean_distance)))
     
     out[c, 3] <- out[c, 1] / out[c, 2]
     out[c, 6] <- out[c, 4] / out[c, 5]
