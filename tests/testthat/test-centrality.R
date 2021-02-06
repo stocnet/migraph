@@ -2,6 +2,10 @@ test_tbl <- as_tidygraph(southern_women)
 test_igr <- southern_women
 test_mat <- as_matrix(southern_women)
 
+test_that("one mode degree centrality calculated correctly",{
+  expect_equal(unname(node_degree(mpn_elite_mex)[1:5]), c(2,5,2,3,5))
+})
+
 test_that("two mode degree centrality calculated correctly",{
   expect_equal(unname(node_degree(test_mat)[1:5]), c(8,7,8,7,4))
   expect_equal(unname(node_degree(test_igr)[1:5]), c(8,7,8,7,4))
@@ -17,6 +21,10 @@ test_that("two mode degree centrality calculated correctly",{
   expect_equal(unname(round(with_graph(test_tbl, node_degree(normalized = TRUE))[28:32],4)), c(0.3333, .2222, .3889, .2222, .2222))
 })
 
+test_that("one mode closeness centrality calculated correctly",{
+  expect_equal(round(unname(node_closeness(mpn_elite_mex)[1:3]),2), c(0.05, 0.07, 0.05))
+})
+
 test_that("two mode closeness centrality calculated correctly",{
   expect_equal(unname(round(node_closeness(test_mat)[1:5], 4)), c(0.0167, 0.0152, 0.0167, 0.0152, 0.0125))
   expect_equal(unname(round(node_closeness(test_igr)[1:5], 4)), c(0.0167, 0.0152, 0.0167, 0.0152, 0.0125))
@@ -30,6 +38,10 @@ test_that("two mode closeness centrality calculated correctly",{
   expect_equal(unname(round(node_closeness(test_mat, normalized = TRUE)[28:32],4)), c(0.5641, 0.5366, 0.5789, 0.5366, 0.5366))
   expect_equal(unname(round(node_closeness(test_igr, normalized = TRUE)[28:32],4)), c(0.5641, 0.5366, 0.5789, 0.5366, 0.5366))
   expect_equal(unname(round(with_graph(test_tbl, node_closeness(normalized = TRUE))[28:32],4)), c(0.5641, 0.5366, 0.5789, 0.5366, 0.5366))
+})
+
+test_that("one mode betweenness centrality calculated correctly",{
+  expect_equal(round(unname(node_betweenness(mpn_elite_mex)[1:3]),2), c(0.00, 13.33, 0.00))
 })
 
 test_that("two mode betweenness centrality calculated correctly",{
@@ -48,11 +60,14 @@ test_that("two mode betweenness centrality calculated correctly",{
 })
 
 
+test_that("one mode eigenvector centrality calculated correctly",{
+  expect_equal(round(unname(node_eigenvector(mpn_elite_mex)[1:3]),2), c(0.16, 0.34, 0.18))
+})
+
 test_that("two mode eigenvector centrality calculated correctly",{
-  expect_equal(unname(round(node_eigenvector(test_mat)[1:5], 2)), c(0.22, 0.2, 0.25, 0.21, 0.11))
-  expect_equal(unname(round(node_eigenvector(test_igr)[1:5], 2)), c(0.22, 0.2, 0.25, 0.21, 0.11))
-  expect_equal(unname(round(node_eigenvector(test_mat)[28:32], 2)), c(0.15, 0.07, 0.17, 0.11, 0.11))
-  expect_equal(unname(round(node_eigenvector(test_igr)[28:32], 2)), c(0.15, 0.07, 0.17, 0.11, 0.11))
-  # expect_equal(unname(round(node_eigenvector(test_igr, normalized = TRUE)[1:5])), c(32.71, 30.14, 36.44, 30.49, 16.19))
-  # expect_equal(unname(round(node_eigenvector(test_mat, normalized = TRUE)[28:32])), c(21.73, 10.03, 24.98, 15.92, 15.92)) 
+  expect_equal(unname(round(node_eigenvector(test_mat)[1:3], 2)), c(0.30, 0.28, 0.33))
+  expect_equal(unname(round(node_eigenvector(test_igr)[1:3], 2)), c(0.30, 0.28, 0.33))
+  expect_equal(unname(round(node_eigenvector(test_mat)[30:32], 2)), c(0.26, 0.18, 0.18))
+  expect_equal(unname(round(node_eigenvector(test_igr)[30:32], 2)), c(0.26, 0.18, 0.18))
+  expect_error(node_eigenvector(test_igr, normalized = TRUE), "not currently implemented")
 })

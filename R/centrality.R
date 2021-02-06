@@ -20,8 +20,8 @@
 #' 
 #' Faust, Katherine. "Centrality in affiliation networks." Social networks 19.2 (1997): 157-191.
 #' @examples
+#' node_degree(mpn_elite_mex)
 #' node_degree(southern_women)
-#' node_degree(mpn_powerelite)
 #' @return Depending on how and what kind of an object is passed to the function,
 #' the function will return a `tidygraph` object where the nodes have been updated
 #' @export
@@ -55,8 +55,8 @@ node_degree <- function (object,
 #' @param cutoff maximum path length to use during calculations 
 #' @import tidygraph
 #' @examples
+#' node_closeness(mpn_elite_mex)
 #' node_closeness(southern_women)
-#' node_closeness(mpn_powerelite)
 #' @export
 node_closeness <- function (object, 
                             weights = NULL, mode = "out", 
@@ -91,8 +91,8 @@ node_closeness <- function (object,
 #' @param nobigint Should big integers be avoided during calculations 
 #' @import tidygraph
 #' @examples
+#' node_betweenness(mpn_elite_mex)
 #' node_betweenness(southern_women)
-#' node_betweenness(mpn_powerelite)
 #' @return A numeric vector giving the betweenness centrality measure of each node.
 #' @export 
 node_betweenness <- function(object, 
@@ -125,16 +125,15 @@ node_betweenness <- function(object,
 #' @param options Settings passed on to `igraph::arpack()`
 #' @param scale Should the scores be scaled to range between 0 and 1? 
 #' @param normalized For one-mode networks, should Borgatti and Everett normalization be applied?
-#' @param projected For two-mode networks, should eigenvectors be computed on each projection?
 #' @examples
-#' node_eigenvector(mpn_powerelite)
+#' node_eigenvector(mpn_elite_mex)
 #' node_eigenvector(southern_women)
 #' @return A numeric vector giving the eigenvector centrality measure of each node.
 #' @export 
 node_eigenvector <- function(object, 
                                    weights = NULL, directed = FALSE,
                                    options = igraph::arpack_defaults, 
-                                   scale = FALSE, normalized = FALSE, projected = FALSE){
+                                   scale = FALSE, normalized = FALSE){
   
   graph <- as_igraph(object)
   
@@ -142,17 +141,17 @@ node_eigenvector <- function(object,
   if (is.null(weights)) {
     weights <- NA
   }
-  if (!is_bipartite(graph) | !projected){
+  if (!is_twomode(graph)){
     out <- igraph::eigen_centrality(graph = graph, directed = directed, scale = scale, options = options)$vector
     if (normalized) out <- out / sqrt(1/2)
-  } else if (is_bipartite(graph) & projected){
+  } else {
     eigen1 <- project_rows(graph)
     eigen1 <- igraph::eigen_centrality(graph = eigen1, directed = directed, scale = scale, options = options)$vector
     eigen2 <- project_cols(graph)
     eigen2 <- igraph::eigen_centrality(graph = eigen2, directed = directed, scale = scale, options = options)$vector
     out <- c(eigen1, eigen2)
     if (normalized) stop("Normalization not currently implemented for eigenvector centrality for two-mode networks.")
-  } else stop("Analysing projections only works with two-mode objects.")
+  }
   out
 }
 
