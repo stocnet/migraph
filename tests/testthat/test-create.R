@@ -1,3 +1,13 @@
+test_that("create empty graph works", {
+  expect_true(is_twomode(create_empty(c(5,5))))
+  expect_s3_class(create_empty(4), "igraph")
+})
+
+test_that("create complete graph works", {
+  expect_true(is_twomode(create_complete(c(5,5))))
+  expect_s3_class(create_complete(4), "igraph")
+})
+
 test_that("ring creation works", {
   expect_true(is_twomode(create_ring(c(5,5))))
   expect_equal(unname(as_matrix(create_ring(c(5,5)))), matrix(c(1,0,0,0,1,1,1,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1),5,5))
@@ -5,7 +15,7 @@ test_that("ring creation works", {
 
 test_that("component creation works", {
   expect_true(is_twomode(create_components(c(5,5))))
-  expect_equal(create_components(c(2,4)), matrix(c(1,0,1,0,0,1,0,1),2,4))
+  expect_equal(unname(as_matrix(create_components(c(2,4)))), matrix(c(1,0,1,0,0,1,0,1),2,4))
 })
 
 # test_that("nest creation works", {
@@ -19,13 +29,3 @@ test_that("component creation works", {
 #   expect_s3_class(create_star(2,4, as = "igraph"), "igraph")
 #   expect_s3_class(create_star(2,4, as = "tidygraph"), "tbl_graph")
 # })
-
-test_that("create empty graph works", {
-  expect_true(is_twomode(create_empty(c(5,5))))
-  expect_s3_class(create_empty(4), "igraph")
-})
-
-test_that("create complete graph works", {
-  expect_true(is_twomode(create_complete(c(5,5))))
-  expect_s3_class(create_complete(4), "igraph")
-})

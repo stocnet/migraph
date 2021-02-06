@@ -67,10 +67,6 @@ create_complete <- function(n){
 #' @export
 create_ring <- function(n, width = 1, directed = FALSE, ...) {
   
-  roll_over <- function(w){
-    cbind(w[,ncol(w)], w[,1:(ncol(w)-1)])
-  }
-  
   if(length(n)==1){
     if(width==1){
      out <- igraph::make_ring(n, directed, ...) 
@@ -118,23 +114,37 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
 
 #' @rdname create
 #' @param components Number of components to create.
-#' @details Creates a two-component two-mode network.
-#' Will construct an affiliation matrix,
-#' with full component diagonal.
-#' TODO: Allow specfication of how many silos/components to create
-#' @importFrom tidygraph as_tbl_graph
-#' @importFrom igraph graph_from_incidence_matrix
+#' @details \code{create_components()} creates a graph in which the nodes are clustered
+#' into separate components.
 #' @examples
-#' create_components(c(10, 12), components = 2)
+#' plot(create_components(c(10, 12), components = 3))
 #' @export
 create_components <- function(n, components = 2) {
   
   if(length(n)==1){
-    mat <- suppressWarnings(matrix(c(1, rep(0, components-1)), n[1], n[2], byrow = T))
+    if(components > n) stop("Cannot have more components than nodes in the graph.")
+    out <- matrix(0, n, n)
+    for(x in split(1:n, sort(1:n %% components))){
+      out[x,x] <- 1
+    }
+    diag(out) <- 0
+    out <- igraph::graph_from_adjacency_matrix(out)
   } else {
-    mat <- suppressWarnings(matrix(c(1, rep(0, components-1)), n[1], n[2], byrow = T))
+    if(components > n[1] | components > n[2]) stop("Cannot have more components than nodes in any nodeset.")
+    out <- matrix(0, n[1], n[2])
+    for(x in 1:components){
+      rows <- split(1:n[1], sort(1:n[1] %% components))[[x]]
+      cols <- split(1:n[2], sort(1:n[2] %% components))[[x]]
+      out[rows,cols] <- 1
+    }
+    out <- igraph::graph_from_incidence_matrix(out)
   }
-  mat
+  out
+}
+
+# Helper function
+roll_over <- function(w){
+  cbind(w[,ncol(w)], w[,1:(ncol(w)-1)])
 }
 
 # #' @rdname create
