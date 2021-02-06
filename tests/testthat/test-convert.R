@@ -24,5 +24,6 @@ test_that("as_igraph converts correctly",{
 test_that("as_matrix converts correctly",{
   expect_vector(as_matrix(mat1))
   expect_vector(as_matrix(southern_women))
-  expect_vector(as_matrix(mpn_elite_usa_money))
+  expect_vector(mpn_elite_mex %>% as_matrix())
+  expect_vector(mpn_elite_usa_advice %>% as_matrix())
 })
