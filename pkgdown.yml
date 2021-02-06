@@ -2,7 +2,7 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2021-01-11T16:12Z
+last_built: 2021-02-06T14:33Z
 urls:
   reference: https://jhollway.github.io/migraph//reference
   article: https://jhollway.github.io/migraph//articles
