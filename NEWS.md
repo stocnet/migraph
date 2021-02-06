@@ -1,38 +1,63 @@
 # migraph 0.5.0
 
-2021-01-29
+2021-02-06
 
 ## Package
 
-* Closes #81 by making {migraph} depend on R versions 4.0 or above
+* Closed #81 by making `{migraph}` depend on R versions 4.0 or above
+* Updated PR template
 
-## Analysis
-
-* Re-added `netlm()` for performing linear regression for multimodal network data
-  * Closed #76 by changing `netlm()` to accept a formula-based input
-  * Closed #77 by adding `print.summary.netlm()` for `netlm()` regressions 
-* Closed #31 by adding `centrality_eigenvector()` for one- and two-mode networks
-* Closed #32 by readding centralization functions for one- and two-mode networks
-  * `centralisation_degree()` for degree centralization
-  * `centralisation_closeness()` for closeness centralization
-  * `centralisation_betweenness()` for betweenness centralization
-* Re-added `clustering()` for calculating (see Knoke et al 2021): 
-  * transitivity on one-mode networks
-  * shared four-cycles on two-mode networks
-  * congruent four-cycles on three-mode networks
-* Re-added `constraint()` for calculating Burt's constraint measure for one- and two-mode networks 
-* Closes #82 by re-adding plot defaults with `plot.igraph()` function
-
-## Manipulation
+## Classes
 
 * Added functions for class conversion between migraph-consistent graph formats
  * `as_matrix()` function to coerce objects into an adjacency or incidence matrix class
  * `as_igraph()` function  to coerce objects into an `{igraph}` graph class
  * `as_tidygraph()` function to coerce objects into an `{tidygraph}` tbl_graph class
-* Closes #79 by adding `is_twomode()` function to check whether network is two-mode on all object types
-* Closes #65 by incorporating `create_ring()` function that creates a one- or two-mode ring bipartite network
-  * Other create functions, as `create empty()` and `create_complete()`, were also added
+* Closed #79 by adding `is_twomode()` function to check whether network is two-mode on all object types
 
+## Data
+
+* Renamed several datasets and elaborated their documentation
+  * `mpn_mexicanpower` was renamed to `mpn_elite_mex`
+  * `mpn_powerelite` was renamed to `mpn_elite_usa_advice`
+  * `mpn_opensecrets` was renamed to `mpn_elite_usa_money`
+* Reconstructed several creation functions to take universal (one-mode/two-mode) input: 
+specifying `n = 5` creates a one-mode network, while specifying `n = c(5, 5)` creates a two-mode network
+  * Added `create_empty()`
+  * Added `create_complete()`
+  * Closed #65 by extending `create_ring()` to create rings of varying breadth
+  * Closed #66 by extending `create_components()` (renamed from `create_silos()`) to create networks with
+  varying numbers of components
+  * Added `sample_affiliation()` for random two-mode networks
+  * Removed `create_match()` and `create_nest()`
+
+## Measures
+
+* Renamed `centrality_` functions with `node_` prefix and ensured they all also wrapped one-mode measures
+  * `centrality_degree()` renamed to `node_degree()`
+  * `centrality_closeness()` renamed to `node_closeness()`
+  * `centrality_betweenness()` renamed to `node_betweenness()`
+  * Closed #31 by adding `node_eigenvector()`
+* Re-added `node_constraint()` for calculating Burt's constraint measure for one- and two-mode networks 
+* Re-added `node_smallworld()` for calculating Watts-Strogatz measure of small-worldness for two-mode networks 
+* Closed #32 by re-adding centralization functions for one- and two-mode networks
+  * `graph_degree()` for degree centralization
+  * `graph_closeness()` for closeness centralization
+  * `graph_betweenness()` for betweenness centralization
+* Re-added `graph_clustering()` for calculating (see Knoke et al 2021): 
+  * transitivity on one-mode networks
+  * shared four-cycles on two-mode networks
+  * congruent four-cycles on three-mode networks
+
+## Models
+
+* Re-added `netlm()` for performing linear regression for multimodal network data
+  * Closed #76 by changing `netlm()` to accept a formula-based input
+  * Closed #77 by adding `print.summary.netlm()` for `netlm()` regressions
+  
+## Plotting
+
+* Closed #82 by re-adding a version `plot.igraph()` with sensible defaults for two-mode networks
 
 # migraph 0.4.1
 

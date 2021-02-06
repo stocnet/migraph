@@ -28,11 +28,9 @@
 #' specified to override this heuristic.
 #' This information is usually already embedded in igraph and tidygraph objects.
 #' @examples
-#' \dontrun{
 #' test <- data.frame(id1 = c("A","B","B","C","C"),
 #'                    id2 = c("I","G","I","G","H"))
 #' as_matrix(test)
-#' }
 #' @return An adjacency or incidence matrix, named if possible.
 #' @export
 as_matrix <- function(object){
@@ -79,11 +77,9 @@ as_matrix <- function(object){
 #' @rdname convert
 #' @return An igraph graph object.
 #' @examples
-#' \dontrun{
 #' test <- data.frame(id1 = c("A","B","B","C","C"),
 #'                    id2 = c("I","G","I","G","H"))
 #' as_igraph(test)
-#' }
 #' @export
 as_igraph <- function(object, twomode = FALSE){
   
@@ -109,11 +105,9 @@ as_igraph <- function(object, twomode = FALSE){
 #' @importFrom tidygraph as_tbl_graph
 #' @return A tidygraph tbl_graph class object
 #' @examples
-#' \dontrun{
 #' test <- data.frame(id1 = c("A","B","B","C","C"),
 #'                    id2 = c("I","G","I","G","H"))
 #' as_tidygraph(test)
-#' }
 #' @export
 as_tidygraph <- function(object, twomode = FALSE){
   
@@ -136,9 +130,7 @@ as_tidygraph <- function(object, twomode = FALSE){
 #' @importFrom igraph is.bipartite
 #' @return A logical vector whether object is two-mode (TRUE) or not (FALSE)
 #' @examples
-#' \dontrun{
 #' is_twomode(southern_women)
-#' }
 #' @export
 is_twomode <- function(object){
   object <- as_igraph(object)
