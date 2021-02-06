@@ -1,21 +1,20 @@
 # Description
 
-Please include a summary of the changes and which issues are fixed. 
-Please also include relevant motivation and context. 
-List any dependencies that are required for this change,
-indicating whether this is a major (breaking), minor, or patch change.
-
-Fixes #(issue no.)
-Closes #(issue no.)
-
 # Checklist:
 
-- [ ] The package builds on my OS without issues (please add workstation details)
-- [ ] My changes generate no new warnings
-- [ ] My code follows the style guidelines of this project
-- [ ] I have commented my code, particularly in hard-to-understand areas
-- [ ] I have added tests that prove my fix is effective or that my feature works
-- [ ] I have documented any functions or data in an .R script
-- [ ] I have updated NEWS.md
-- [ ] I have bumped the version by the appropriate increment in the DESCRIPTION file (major, minor, patch)
+- [ ] PR form
+  - [ ] I have given this pull request an informative title
+  - [ ] Description above itemizes changes under subtitles, e.g. "## Collection""
+  - [ ] Any closed, fixed, or related issues are referenced and explained in the description above, e.g. "Fixed #0 by adding A"
+  - [ ] Package builds on my OS without issues
 - [ ] PR checks all pass for latest commit
+  - [ ] Package builds on Mac
+  - [ ] Package builds on Windows
+  - [ ] Package builds on Linux
+  - [ ] CodeCov check: Package improves or maintains good test coverage
+  - [ ] CodeFactor check: Package improves or maintains good style
+- [ ] Documentation
+  - [ ] Any new or modified functions or data have roxygen style documentation in their .R scripts
+  - [ ] Any longer functions are commented inline so that it is easier to debug in the future
+  - [ ] PR description above and the NEWS.md file are aligned
+  - [ ] DESCRIPTION file version is bumped by the appropriate increment (major, minor, patch)

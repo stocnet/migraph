@@ -35,7 +35,7 @@ reference:
     desc: "Functions for creating and simulating multimodal and multilevel networks:"
     contents:
       - starts_with("create_")
-      - starts_with("play_")
+      - starts_with("sample_")
   - title: "Data"
     desc: "The package contains a range of different multimodal and multilevel data, including data used in the book 'Multimodal Political Networks' (prefixed with 'mpn_'):"
     contents:
@@ -44,17 +44,19 @@ reference:
   - title: "Conversion and Manipulation"
     desc: "Functions for manipulating multimodal and multilevel networks:"
     contents:
-      - starts_with("project")
-      - as_incidence_matrix
-      # - project_list
-  # - title: "Visualisation"
-  #   desc: "Functions for visualising multilevel networks:"
-  #   contents:
-  #     - starts_with("plot_")
-  - title: "Analysis"
-    desc: "Functions for analysing multilevel networks:"
+      - starts_with("as_")
+      - starts_with("project_")
+  - title: "Visualisation"
+    desc: "Functions for visualising multilevel networks:"
     contents:
-      - starts_with("centrality_")
-      # - starts_with("threemode_")
-      # - netlm2
+      - starts_with("plot")
+  - title: "Measures"
+    desc: "Functions for measuring multimodal and multilevel networks:"
+    contents:
+      - starts_with("node_")
+      - starts_with("graph_")
+  - title: "Models"
+    desc: "Functions for modelling multimodal and multilevel networks:"
+    contents:
+      - netlm
       # - concor_hca
