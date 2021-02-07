@@ -152,12 +152,12 @@
 <ul>
 <li>Added functions for class conversion between migraph-consistent graph formats</li>
 <li>
-<code>as_matrix()</code> function to coerce objects into an adjacency or incidence matrix class</li>
+<code><a href="../reference/convert.html">as_matrix()</a></code> function to coerce objects into an adjacency or incidence matrix class</li>
 <li>
-<code>as_igraph()</code> function to coerce objects into an <a href="https://igraph.org">igraph</a> graph class</li>
+<code><a href="../reference/convert.html">as_igraph()</a></code> function to coerce objects into an <a href="https://igraph.org">igraph</a> graph class</li>
 <li>
-<code>as_tidygraph()</code> function to coerce objects into an <a href="https://tidygraph.data-imaginist.com">tidygraph</a> tbl_graph class</li>
-<li>Closed <a href='https://github.com/jhollway/migraph/issues/79'>#79</a> by adding <code>is_twomode()</code> function to check whether network is two-mode on all object types</li>
+<code><a href="../reference/convert.html">as_tidygraph()</a></code> function to coerce objects into an <a href="https://tidygraph.data-imaginist.com">tidygraph</a> tbl_graph class</li>
+<li>Closed <a href='https://github.com/jhollway/migraph/issues/79'>#79</a> by adding <code><a href="../reference/convert.html">is_twomode()</a></code> function to check whether network is two-mode on all object types</li>
 </ul>
 </div>
 <div id="data" class="section level2">
@@ -179,13 +179,13 @@
 </li>
 <li>Reconstructed several creation functions to take universal (one-mode/two-mode) input: specifying <code>n = 5</code> creates a one-mode network, while specifying <code>n = c(5, 5)</code> creates a two-mode network
 <ul>
-<li>Added <code>create_empty()</code>
+<li>Added <code><a href="../reference/create.html">create_empty()</a></code>
 </li>
-<li>Added <code>create_complete()</code>
+<li>Added <code><a href="../reference/create.html">create_complete()</a></code>
 </li>
-<li>Closed <a href='https://github.com/jhollway/migraph/issues/65'>#65</a> by extending <code>create_ring()</code> to create rings of varying breadth</li>
-<li>Closed <a href='https://github.com/jhollway/migraph/issues/66'>#66</a> by extending <code>create_components()</code> (renamed from <code>create_silos()</code>) to create networks with varying numbers of components</li>
-<li>Added <code>sample_affiliation()</code> for random two-mode networks</li>
+<li>Closed <a href='https://github.com/jhollway/migraph/issues/65'>#65</a> by extending <code><a href="../reference/create.html">create_ring()</a></code> to create rings of varying breadth</li>
+<li>Closed <a href='https://github.com/jhollway/migraph/issues/66'>#66</a> by extending <code><a href="../reference/create.html">create_components()</a></code> (renamed from <code>create_silos()</code>) to create networks with varying numbers of components</li>
+<li>Added <code><a href="../reference/sample.html">sample_affiliation()</a></code> for random two-mode networks</li>
 <li>Removed <code>create_match()</code> and <code>create_nest()</code>
 </li>
 </ul>
@@ -199,31 +199,31 @@
 <li>Renamed <code>centrality_</code> functions with <code>node_</code> prefix and ensured they all also wrapped one-mode measures
 <ul>
 <li>
-<code>centrality_degree()</code> renamed to <code>node_degree()</code>
+<code>centrality_degree()</code> renamed to <code><a href="../reference/centrality.html">node_degree()</a></code>
 </li>
 <li>
-<code>centrality_closeness()</code> renamed to <code>node_closeness()</code>
+<code>centrality_closeness()</code> renamed to <code><a href="../reference/centrality.html">node_closeness()</a></code>
 </li>
 <li>
-<code>centrality_betweenness()</code> renamed to <code>node_betweenness()</code>
+<code>centrality_betweenness()</code> renamed to <code><a href="../reference/centrality.html">node_betweenness()</a></code>
 </li>
-<li>Closed <a href='https://github.com/jhollway/migraph/issues/31'>#31</a> by adding <code>node_eigenvector()</code>
+<li>Closed <a href='https://github.com/jhollway/migraph/issues/31'>#31</a> by adding <code><a href="../reference/centrality.html">node_eigenvector()</a></code>
 </li>
 </ul>
 </li>
-<li>Re-added <code>node_constraint()</code> for calculating Burt’s constraint measure for one- and two-mode networks</li>
-<li>Re-added <code>node_smallworld()</code> for calculating Watts-Strogatz measure of small-worldness for two-mode networks</li>
+<li>Re-added <code><a href="../reference/node_constraint.html">node_constraint()</a></code> for calculating Burt’s constraint measure for one- and two-mode networks</li>
+<li>Re-added <code><a href="../reference/node_smallworld.html">node_smallworld()</a></code> for calculating Watts-Strogatz measure of small-worldness for two-mode networks</li>
 <li>Closed <a href='https://github.com/jhollway/migraph/issues/32'>#32</a> by re-adding centralization functions for one- and two-mode networks
 <ul>
 <li>
-<code>graph_degree()</code> for degree centralization</li>
+<code><a href="../reference/centralization.html">graph_degree()</a></code> for degree centralization</li>
 <li>
-<code>graph_closeness()</code> for closeness centralization</li>
+<code><a href="../reference/centralization.html">graph_closeness()</a></code> for closeness centralization</li>
 <li>
-<code>graph_betweenness()</code> for betweenness centralization</li>
+<code><a href="../reference/centralization.html">graph_betweenness()</a></code> for betweenness centralization</li>
 </ul>
 </li>
-<li>Re-added <code>graph_clustering()</code> for calculating (see Knoke et al 2021):
+<li>Re-added <code><a href="../reference/graph_clustering.html">graph_clustering()</a></code> for calculating (see Knoke et al 2021):
 <ul>
 <li>transitivity on one-mode networks</li>
 <li>shared four-cycles on two-mode networks</li>
@@ -236,10 +236,10 @@
 <h2 class="hasAnchor">
 <a href="#models" class="anchor"></a>Models</h2>
 <ul>
-<li>Re-added <code>netlm()</code> for performing linear regression for multimodal network data
+<li>Re-added <code><a href="../reference/netlm.html">netlm()</a></code> for performing linear regression for multimodal network data
 <ul>
-<li>Closed <a href='https://github.com/jhollway/migraph/issues/76'>#76</a> by changing <code>netlm()</code> to accept a formula-based input</li>
-<li>Closed <a href='https://github.com/jhollway/migraph/issues/77'>#77</a> by adding <code>print.summary.netlm()</code> for <code>netlm()</code> regressions</li>
+<li>Closed <a href='https://github.com/jhollway/migraph/issues/76'>#76</a> by changing <code><a href="../reference/netlm.html">netlm()</a></code> to accept a formula-based input</li>
+<li>Closed <a href='https://github.com/jhollway/migraph/issues/77'>#77</a> by adding <code><a href="../reference/netlm.html">print.summary.netlm()</a></code> for <code><a href="../reference/netlm.html">netlm()</a></code> regressions</li>
 </ul>
 </li>
 </ul>
@@ -248,7 +248,7 @@
 <h2 class="hasAnchor">
 <a href="#plotting" class="anchor"></a>Plotting</h2>
 <ul>
-<li>Closed <a href='https://github.com/jhollway/migraph/issues/82'>#82</a> by re-adding a version <code>plot.igraph()</code> with sensible defaults for two-mode networks</li>
+<li>Closed <a href='https://github.com/jhollway/migraph/issues/82'>#82</a> by re-adding a version <code><a href="../reference/plot.igraph.html">plot.igraph()</a></code> with sensible defaults for two-mode networks</li>
 </ul>
 </div>
 </div>
@@ -309,7 +309,7 @@
 <h2 class="hasAnchor">
 <a href="#manipulation" class="anchor"></a>Manipulation</h2>
 <ul>
-<li>Added <code>project_rows()</code> and <code>project_cols()</code> to make it easier to project two-mode networks in different formats (matrix, igraph, tidygraph) into projected versions in the same format</li>
+<li>Added <code><a href="../reference/project.html">project_rows()</a></code> and <code><a href="../reference/project.html">project_cols()</a></code> to make it easier to project two-mode networks in different formats (matrix, igraph, tidygraph) into projected versions in the same format</li>
 <li>Closed <a href='https://github.com/jhollway/migraph/issues/30'>#30</a> with conversion from different data frame formats, e.g. weighted and unweighted edgelists, into an incidence matrix with <code>as_incidence_matrix()</code>
 </li>
 </ul>
