@@ -19,7 +19,6 @@ Imports:
     threejs,
     roxygen2,
     ggplot2,
-    tidyverse,
     covr,
     R6,
     magrittr,
