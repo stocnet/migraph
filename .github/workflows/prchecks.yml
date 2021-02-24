@@ -60,9 +60,6 @@ jobs:
           remotes::install_cran("pkgbuild")
         shell: Rscript {0}
 
-      - name: Document
-        run: Rscript -e 'roxygen2::roxygenise()'
-
       - name: Binary
         run: |
           pkgbuild::clean_dll()

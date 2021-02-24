@@ -15,11 +15,7 @@ Imports:
     igraph,
     tidygraph,
     ggraph,
-    geosphere,
-    threejs,
-    roxygen2,
     ggplot2,
-    covr,
     R6,
     magrittr,
     rlang,
@@ -27,6 +23,8 @@ Imports:
     purrr
 Suggests: 
     testthat,
+    roxygen2,
+    covr,
     knitr,
     rmarkdown
 Authors@R: 
