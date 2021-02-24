@@ -3,14 +3,14 @@
 
 <!-- badges: start -->
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/jhollway/migraph)
-![GitHub Release Date](https://img.shields.io/github/release-date/jhollway/migraph)
-<!-- ![GitHub issues](https://img.shields.io/github/issues-raw/jhollway/migraph) -->
-<!-- [![HitCount](http://hits.dwyl.com/jhollway/migraph.svg)](http://hits.dwyl.com/jhollway/migraph) -->
-[![Codecov test coverage](https://codecov.io/gh/jhollway/migraph/branch/main/graph/badge.svg)](https://codecov.io/gh/jhollway/migraph?branch=main)
-[![CodeFactor](https://www.codefactor.io/repository/github/jhollway/migraph/badge)](https://www.codefactor.io/repository/github/jhollway/migraph)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/snlab-ch/migraph)
+![GitHub Release Date](https://img.shields.io/github/release-date/snlab-ch/migraph)
+<!-- ![GitHub issues](https://img.shields.io/github/issues-raw/snlab-ch/migraph) -->
+<!-- [![HitCount](http://hits.dwyl.com/snlab-ch/migraph.svg)](http://hits.dwyl.com/snlab-ch/migraph) -->
+[![Codecov test coverage](https://codecov.io/gh/snlab-ch/migraph/branch/main/graph/badge.svg)](https://codecov.io/gh/snlab-ch/migraph?branch=main)
+[![CodeFactor](https://www.codefactor.io/repository/github/snlab-ch/migraph/badge)](https://www.codefactor.io/repository/github/snlab-ch/migraph)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4559/badge)](https://bestpractices.coreinfrastructure.org/projects/4559)
-<!-- ![GitHub All Releases](https://img.shields.io/github/downloads/jhollway/migraph/total) -->
+<!-- ![GitHub All Releases](https://img.shields.io/github/downloads/snlab-ch/migraph/total) -->
 <!-- badges: end -->
 
 ## About the package
