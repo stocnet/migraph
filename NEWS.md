@@ -1,3 +1,11 @@
+# migraph 0.5.1
+
+2021-02-24
+
+## Data
+
+* Elaborated the documentation for the remainder of the datasets
+
 # migraph 0.5.0
 
 2021-02-06

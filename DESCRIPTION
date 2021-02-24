@@ -1,6 +1,7 @@
 Package: migraph
 Title: Multimodal and multilevel network analysis
-Version: 0.5.0
+Version: 0.5.1
+Date: 2021-02-24
 Description: This package assembles a number of utility functions for 
    loading, visualising, and analysing multimode, multiplex, and multilevel networks.
 URL: https://github.com/jhollway/migraph
