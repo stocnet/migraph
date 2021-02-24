@@ -1,4 +1,4 @@
-#' Ryanair data, EU policy influence network in June 2004
+#' One-mode EU policy influence network, June 2004
 #'
 #' Network of anonymised actors reacting to the Ryanair/Charleroi decision of the EU Commission in February 2004.
 #' The relationships mapped comprise an account of public records of interaction supplemented with the cognitive network of key informants.

@@ -1,4 +1,4 @@
-#' 112th Congress Senate Voting
+#' Two-mode 112th Congress Senate Voting
 #'
 #' These datasets list the U.S. Senators who served in the 112th Congress, 
 #' which met from January 3, 2011 to January 3, 2013. 
