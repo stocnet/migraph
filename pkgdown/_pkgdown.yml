@@ -59,4 +59,4 @@ reference:
     desc: "Functions for modelling multimodal and multilevel networks:"
     contents:
       - netlm
-      # - concor_hca
+      - blockmodel
