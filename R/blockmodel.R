@@ -165,3 +165,55 @@ blockmodel_concor <- function(object, p = 1,
     
 }
 
+#' @rdname blockmodel
+#' @export
+print.blockmodel <- function (x, ...){
+  cat("\nNetwork Blockmodel:\n\n")
+  cat("Block membership:\n\n")
+  if(x$modes == 1){
+    if (is.null(x$plabels)){
+      plab <- (1:length(x$block.membership))[x$order.vector]
+    } else {
+      plab <- x$plabels[[1]]
+    } 
+    temp <- matrix(x$block.membership, nrow = 1)
+    dimnames(temp) <- list("", plab)
+    print(temp[1, order(x$order.vector)])
+  } else {
+    cat("  First nodeset:\n\n")
+    if (is.null(x$plabels)){
+      plab <- (1:length(x$block.membership$nodes1))[x$order.vector$nodes1]
+    } else {
+      plab <- x$plabels[[1]]
+    } 
+    temp <- matrix(x$block.membership$nodes1, nrow = 1)
+    dimnames(temp) <- list("", plab)
+    print(temp[1, order(x$order.vector$nodes1)])
+    cat("\n  Second nodeset:\n\n")
+    if (is.null(x$plabels)){
+      plab <- (1:length(x$block.membership$nodes2))[x$order.vector$nodes2]
+    } else {
+      plab <- x$plabels[[2]]
+    } 
+    temp <- matrix(x$block.membership$nodes2, nrow = 1)
+    dimnames(temp) <- list("", plab)
+    print(temp[1, order(x$order.vector$nodes2)])
+  }
+  cat("\nReduced form blockmodel:\n\n")
+  if (length(dim(x$block.model)) > 2) {
+    for (i in 1:dim(x$block.model)[1]) {
+      temp <- x$block.model[i, , ]
+      dimnames(temp) <- list(x$rlabels, x$rlabels)
+      cat("\t", x$glabels[i], "\n")
+      print(temp)
+      cat("\n")
+    }
+  }
+  else {
+    temp <- x$block.model
+    dimnames(temp) <- list(x$rlabels, x$rlabels)
+    cat("\t", x$glabels, "\n")
+    print(temp)
+  }
+}
+
