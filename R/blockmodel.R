@@ -217,3 +217,38 @@ print.blockmodel <- function (x, ...){
   }
 }
 
+#' @rdname blockmodel
+#' @export
+plot.blockmodel <- function(b){
+  # if(!class(b)=="blockmodel") stop("")
+  
+  plot_data <- b$blocked.data
+  plot_data <- as.data.frame(plot_data) %>%
+    tibble::rownames_to_column("Var1") %>%
+    tidyr::pivot_longer(!Var1, names_to = "Var2", values_to = "value")
+  
+  g <- ggplot2::ggplot(plot_data, ggplot2::aes(Var2, Var1)) + 
+    ggplot2::geom_tile(ggplot2::aes(fill = value), colour = "white") + 
+    ggplot2::scale_fill_gradient(low = "white", high = "black") +
+    ggplot2::theme_grey(base_size = 9) + 
+    ggplot2::labs(x = "", y = "") + 
+    ggplot2::theme(legend.position = "none",
+                   axis.ticks = ggplot2::element_blank(),
+                   axis.text.y = ggplot2::element_text(size = 9 * 0.8, colour = "grey50"),
+                   axis.text.x = ggplot2::element_text(size = 9 * 0.8, 
+                                                       angle = 30, hjust = 0, colour = "grey50"))
+  
+  if(b$modes==1){
+    g <- g + ggplot2::scale_x_discrete(expand = c(0, 0), position = "top", limits = colnames(b$blocked.data)[b$order.vector]) +
+      ggplot2::scale_y_discrete(expand = c(0, 0), limits = rev(rownames(b$blocked.data)[b$order.vector])) + 
+      ggplot2::geom_vline(xintercept = c(1+which(diff(b$block.membership)!=0))-.5, colour = "red") +
+      ggplot2::geom_hline(yintercept = nrow(b$blocked.data) - c(1+which(diff(b$block.membership)!=0))+1.5, colour = "red")
+  } else {
+    g <- g + ggplot2::scale_y_discrete(expand = c(0, 0), limits = rev(rownames(b$blocked.data)[b$order.vector$nodes1])) +
+      ggplot2::scale_x_discrete(expand = c(0, 0), position = "top", limits = colnames(b$blocked.data)[b$order.vector$nodes2]) + 
+      ggplot2::geom_vline(xintercept = c(1+which(diff(b$block.membership$nodes2)!=0))-.5, colour = "blue") +
+      ggplot2::geom_hline(yintercept = nrow(b$blocked.data) - c(1+which(diff(b$block.membership$nodes1)!=0))+1.5, colour = "red")
+  }
+  g
+  
+}
