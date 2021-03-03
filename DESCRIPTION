@@ -1,7 +1,7 @@
 Package: migraph
 Title: Multimodal and multilevel network analysis
-Version: 0.5.1
-Date: 2021-02-24
+Version: 0.6.0
+Date: 2021-03-03
 Description: This package assembles a number of utility functions for 
    loading, visualising, and analysing multimode, multiplex, and multilevel networks.
 URL: https://github.com/jhollway/migraph
@@ -14,13 +14,15 @@ RoxygenNote: 7.1.1
 Imports: 
     igraph,
     tidygraph,
-    ggraph,
     ggplot2,
+    ggraph,
     R6,
     magrittr,
     rlang,
     dplyr,
-    purrr
+    purrr,
+    tibble,
+    tidyr
 Suggests: 
     testthat,
     roxygen2,
