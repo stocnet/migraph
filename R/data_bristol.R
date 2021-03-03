@@ -1,4 +1,4 @@
-#' Bristol protest events, 1990-2002
+#' Multimodal (3) Bristol protest events, 1990-2002
 #'
 #' A multimodal (3) matrix containing individuals affiliations to civic organizations
 #' in Bristol and their participation in major protest and civic events between 1990-2002,

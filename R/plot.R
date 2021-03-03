@@ -4,7 +4,7 @@
 #' @family plotting
 #' @examples 
 #' mat1 <- create_ring(5,10)
-#' plot.igraph(mat1)
+#' plot(mat1)
 #' @export
 plot.igraph <- function(x, ...){
   object <- as_igraph(x)

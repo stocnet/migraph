@@ -7,9 +7,6 @@
 #' and the second number becomes the number of nodes in the second nodeset (columns).
 #' @param p Number of edges in the network over the number of edges possible
 #' @param m Number of edges in the network
-#' @param as What type of object to return.
-#' One of "matrix", "tidygraph", "igraph".
-#' By default, creates tidygraph's "tbl_graph" object.
 #' @details Creates a random two-mode network.
 #' Will construct an affiliation matrix,
 #' with a certain probability of a tie.

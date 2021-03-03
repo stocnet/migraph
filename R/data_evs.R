@@ -1,4 +1,4 @@
-#' European Values Survey, 1990 and 2008
+#' Two-mode European Values Survey, 1990 and 2008
 #'
 #' 6 two-mode matrices containing individuals' memberships to 14 different types of associations
 #' in three countries (Italy, Germany, and the UK) in 1990 and 2008.

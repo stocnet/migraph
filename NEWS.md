@@ -1,3 +1,33 @@
+# migraph 0.6.0
+
+2021-03-03
+
+## Package
+
+* Moved package's Github repository from `jhollway/` to `snlab-ch/` organisation
+* Trimmed some package dependencies and added others
+
+## Data
+
+* Elaborated documentation for the remainder of the datasets
+  * Now all datasets in this package are titled with whether they are 
+  one-mode, two-mode, or three-mode
+  
+## Measures
+
+* Fixed bug in `graph_degree()` where data was hard-coded in
+
+## Models
+
+* Closed #18 by adding `blockmodel_concor()` for employing the CONCOR algorithm 
+  to blockmodel both one-mode and two-mode networks
+  * Added a new print method for "blockmodel"-class objects based on the
+    `print.blockmodel()` method in the `{sna}` package that also prints
+    blockmodel results for two-mode networks consistently
+  * Added a new plot method for "blockmodel"-class objects that leverages
+    `{ggplot2}` for pretty plotting and that better inherits names from
+    the underlying object
+
 # migraph 0.5.0
 
 2021-02-06
