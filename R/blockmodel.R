@@ -4,12 +4,17 @@
 #' @param p An integer representing the desired number of partitions.
 #' @param cutoff A value between 0 and 1 used to determine convergence.
 #' @param max.iter An integer representing the maximum number of iterations.
+#' @param block.content A string indicating which method to use for
+#' calculating block content.
+#' Options are: "density", "sum", "meanrowsum", "meancolsum",
+#' "median", "min", "max".
 #' @name blockmodel
 #' @source \url{https://github.com/aslez/concoR}
 #' @references Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.  
 #' An Algorithm for Clustering Relational Data with Applications to 
 #' Social Network Analysis and Comparison with Multidimensional Scaling. 
 #' \emph{Journal of Mathematical Psychology}, 12: 328--383.
+#' @importFrom stats cor median
 #' @examples 
 #' mex_concor <- blockmodel_concor(mpn_elite_mex)
 #' mex_concor
@@ -30,7 +35,7 @@ blockmodel_concor <- function(object, p = 1,
   concor <- function(mat, p, cutoff, max.iter){
     partition <- function(m0, cutoff, max.iter) {
       if (ncol(m0) < 2) stop("Too few columns to partition.")
-      mi <- cor(m0)
+      mi <- stats::cor(m0)
       iter <- 1
       while(any(abs(mi) <= cutoff) & iter <= max.iter) {
         mi <- cor(mi)
@@ -100,7 +105,7 @@ blockmodel_concor <- function(object, p = 1,
                          na.rm = TRUE)
     }
     else if (block.content == "median") {
-      bm[i, j, k] <- median(d[i, b1 == j, b2 == k, drop = FALSE], 
+      bm[i, j, k] <- stats::median(d[i, b1 == j, b2 == k, drop = FALSE], 
                             na.rm = TRUE)
     }
     else if (block.content == "min") {
@@ -166,13 +171,15 @@ blockmodel_concor <- function(object, p = 1,
 }
 
 #' @rdname blockmodel
+#' @param x An object of class "blockmodel"
+#' @param ... Additional arguments passed to generic print method
 #' @export
 print.blockmodel <- function (x, ...){
   cat("\nNetwork Blockmodel:\n\n")
   cat("Block membership:\n\n")
   if(x$modes == 1){
     if (is.null(x$plabels)){
-      plab <- (1:length(x$block.membership))[x$order.vector]
+      plab <- seq_len(x$block.membership)[x$order.vector]
     } else {
       plab <- x$plabels[[1]]
     } 
@@ -182,22 +189,22 @@ print.blockmodel <- function (x, ...){
   } else {
     cat("  First nodeset:\n\n")
     if (is.null(x$plabels)){
-      plab <- (1:length(x$block.membership$nodes1))[x$order.vector$nodes1]
+      plab <- seq_len(x$block.membership$nodes1)[x$order.vector$nodes1]
     } else {
       plab <- x$plabels[[1]]
     } 
     temp <- matrix(x$block.membership$nodes1, nrow = 1)
     dimnames(temp) <- list("", plab)
-    print(temp[1, order(x$order.vector$nodes1)])
+    print(temp[1, order(x$order.vector$nodes1)], ...)
     cat("\n  Second nodeset:\n\n")
     if (is.null(x$plabels)){
-      plab <- (1:length(x$block.membership$nodes2))[x$order.vector$nodes2]
+      plab <- seq_len(x$block.membership$nodes2)[x$order.vector$nodes2]
     } else {
       plab <- x$plabels[[2]]
     } 
     temp <- matrix(x$block.membership$nodes2, nrow = 1)
     dimnames(temp) <- list("", plab)
-    print(temp[1, order(x$order.vector$nodes2)])
+    print(temp[1, order(x$order.vector$nodes2)], ...)
   }
   cat("\nReduced form blockmodel:\n\n")
   if (length(dim(x$block.model)) > 2) {
@@ -205,7 +212,7 @@ print.blockmodel <- function (x, ...){
       temp <- x$block.model[i, , ]
       dimnames(temp) <- list(x$rlabels, x$rlabels)
       cat("\t", x$glabels[i], "\n")
-      print(temp)
+      print(temp, ...)
       cat("\n")
     }
   }
@@ -213,22 +220,25 @@ print.blockmodel <- function (x, ...){
     temp <- x$block.model
     dimnames(temp) <- list(x$rlabels, x$rlabels)
     cat("\t", x$glabels, "\n")
-    print(temp)
+    print(temp, ...)
   }
 }
 
 #' @rdname blockmodel
+#' @importFrom tibble rownames_to_column
+#' @importFrom tidyr pivot_longer
+#' @importFrom ggplot2 ggplot geom_tile aes scale_fill_gradient theme_grey labs theme scale_x_discrete scale_y_discrete geom_vline geom_hline element_blank element_text
+#' @importFrom rlang .data
 #' @export
-plot.blockmodel <- function(b){
-  # if(!class(b)=="blockmodel") stop("")
-  
-  plot_data <- b$blocked.data
+plot.blockmodel <- function(x, ...){
+
+  plot_data <- x$blocked.data
   plot_data <- as.data.frame(plot_data) %>%
     tibble::rownames_to_column("Var1") %>%
-    tidyr::pivot_longer(!Var1, names_to = "Var2", values_to = "value")
+    tidyr::pivot_longer(!.data$Var1, names_to = "Var2", values_to = "value")
   
-  g <- ggplot2::ggplot(plot_data, ggplot2::aes(Var2, Var1)) + 
-    ggplot2::geom_tile(ggplot2::aes(fill = value), colour = "white") + 
+  g <- ggplot2::ggplot(plot_data, ggplot2::aes(.data$Var2, .data$Var1)) + 
+    ggplot2::geom_tile(ggplot2::aes(fill = .data$value), colour = "white") + 
     ggplot2::scale_fill_gradient(low = "white", high = "black") +
     ggplot2::theme_grey(base_size = 9) + 
     ggplot2::labs(x = "", y = "") + 
@@ -238,16 +248,16 @@ plot.blockmodel <- function(b){
                    axis.text.x = ggplot2::element_text(size = 9 * 0.8, 
                                                        angle = 30, hjust = 0, colour = "grey50"))
   
-  if(b$modes==1){
-    g <- g + ggplot2::scale_x_discrete(expand = c(0, 0), position = "top", limits = colnames(b$blocked.data)[b$order.vector]) +
-      ggplot2::scale_y_discrete(expand = c(0, 0), limits = rev(rownames(b$blocked.data)[b$order.vector])) + 
-      ggplot2::geom_vline(xintercept = c(1+which(diff(b$block.membership)!=0))-.5, colour = "red") +
-      ggplot2::geom_hline(yintercept = nrow(b$blocked.data) - c(1+which(diff(b$block.membership)!=0))+1.5, colour = "red")
+  if(x$modes==1){
+    g <- g + ggplot2::scale_x_discrete(expand = c(0, 0), position = "top", limits = colnames(x$blocked.data)[x$order.vector]) +
+      ggplot2::scale_y_discrete(expand = c(0, 0), limits = rev(rownames(x$blocked.data)[x$order.vector])) + 
+      ggplot2::geom_vline(xintercept = c(1+which(diff(x$block.membership)!=0))-.5, colour = "red") +
+      ggplot2::geom_hline(yintercept = nrow(x$blocked.data) - c(1+which(diff(x$block.membership)!=0))+1.5, colour = "red")
   } else {
-    g <- g + ggplot2::scale_y_discrete(expand = c(0, 0), limits = rev(rownames(b$blocked.data)[b$order.vector$nodes1])) +
-      ggplot2::scale_x_discrete(expand = c(0, 0), position = "top", limits = colnames(b$blocked.data)[b$order.vector$nodes2]) + 
-      ggplot2::geom_vline(xintercept = c(1+which(diff(b$block.membership$nodes2)!=0))-.5, colour = "blue") +
-      ggplot2::geom_hline(yintercept = nrow(b$blocked.data) - c(1+which(diff(b$block.membership$nodes1)!=0))+1.5, colour = "red")
+    g <- g + ggplot2::scale_y_discrete(expand = c(0, 0), limits = rev(rownames(x$blocked.data)[x$order.vector$nodes1])) +
+      ggplot2::scale_x_discrete(expand = c(0, 0), position = "top", limits = colnames(x$blocked.data)[x$order.vector$nodes2]) + 
+      ggplot2::geom_vline(xintercept = c(1+which(diff(x$block.membership$nodes2)!=0))-.5, colour = "blue") +
+      ggplot2::geom_hline(yintercept = nrow(x$blocked.data) - c(1+which(diff(x$block.membership$nodes1)!=0))+1.5, colour = "red")
   }
   g
   
