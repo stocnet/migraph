@@ -22,7 +22,8 @@ Imports:
     dplyr,
     purrr,
     tibble,
-    tidyr
+    tidyr,
+    network
 Suggests: 
     testthat,
     roxygen2,

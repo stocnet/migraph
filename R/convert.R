@@ -127,6 +127,31 @@ as_tidygraph <- function(object, twomode = FALSE){
 }
 
 #' @rdname convert
+#' @importFrom network is.network as.network
+#' @return A sna/network network class object
+#' @examples
+#' test <- data.frame(id1 = c("A","B","B","C","C"),
+#'                    id2 = c("I","G","I","G","H"))
+#' as_network(test)
+#' @export
+as_network <- function(object){
+  
+  if(!network::is.network(object)){
+    if(is_twomode(object)){
+      net <- as_matrix(object)
+      net <- network::as.network(net, bipartite = TRUE)
+    } else {
+      net <- as_matrix(object)
+      net <- network::as.network(net, bipartite = FALSE)
+    }
+  } else {
+    net <- object
+  }
+  net
+  
+}
+
+#' @rdname convert
 #' @importFrom igraph is.bipartite
 #' @return A logical vector whether object is two-mode (TRUE) or not (FALSE)
 #' @examples
