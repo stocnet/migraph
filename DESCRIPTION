@@ -1,13 +1,22 @@
 Package: migraph
-Title: Multimodal and multilevel network analysis
-Version: 0.6.0
-Date: 2021-03-03
-Description: This package assembles a number of utility functions for 
-   loading, visualising, and analysing multimode, multiplex, and multilevel networks.
-URL: https://github.com/jhollway/migraph
-BugReports: https://github.com/jhollway/migraph/issues
+Title: Multimodal and Multilevel Network Analysis
+Version: 0.6.1
+Date: 2021-04-11
+Description: A set of tools that extend common social network analysis packages
+   for analysing multimodal and multilevel networks.
+   It includes functions for one- and two-mode (and sometimes three-mode) 
+   centrality, centralization, clustering, and constraint,
+   as well as for one- and two-mode network regression and block-modelling.
+   All functions operate with matrices, edge lists, 
+   and 'igraph', 'network'/'sna', and 'tidygraph' objects.
+   The package is released as a complement to 
+   'Multimodal Political Networks' (2021, ISBN:9781108985000),
+   and includes various datasets used in the book.
+URL: https://github.com/snlab-ch/migraph
+BugReports: https://github.com/snlab-ch/migraph/issues
 Depends: R (>= 4.0.0)
 License: MIT + file LICENSE
+Language: en-GB
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
@@ -33,8 +42,7 @@ Suggests:
 Authors@R: 
     c(person(given = "James",
              family = "Hollway",
-             role = c("cre", "aut", "ctb"),
+             role = c("cph", "cre", "aut", "ctb"),
              email = "james.hollway@graduateinstitute.ch",
              comment = c("IHEID", ORCID = "0000-0002-8361-9647")))
-VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
