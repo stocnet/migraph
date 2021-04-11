@@ -23,10 +23,10 @@ Cambridge University Press: Cambridge.
 
 The package is offered as a complement to existing R packages for network analysis.
 It can analyse data in base formats such as matrices and (data frame) edgelists,
-but also leverages [`{igraph}`](https://igraph.org/r/) and is consistent with a [`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html) workflow.
+but can also work with [`{igraph}`](https://igraph.org/r/) and [`{network}`](http://statnet.org) objects,
+and is consistent with a [`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html) workflow.
 
-Please explore [the website](https://jhollway.github.io/migraph/) to find out more.
-Some of these functions are also relied on for the [Topological Typology](https://jhollway.shinyapps.io/TopoTypo/) app.
+Please explore [the website](https://snlab-ch.github.io/migraph/) to find out more.
 
 ## Installation
 
@@ -34,7 +34,7 @@ Some of these functions are also relied on for the [Topological Typology](https:
 
 Perhaps the easiest way to install `{migraph}` is by installing a compiled binary.
 Binaries for all major OSes -- Windows, Mac, and Linux -- 
-can be found by clicking on the latest release [here](https://github.com/snlab-nl/rsiena/releases/latest).
+can be found by clicking on the latest release [here](https://github.com/snlab-ch/migraph/releases/latest).
 Download the appropriate binary for your operating system,
 and install using an adapted version of the following commands:
 
@@ -55,7 +55,7 @@ please install the `{remotes}` package from CRAN and then enter into the console
 It draws together, updates, and builds upon many functions currently available in
 other excellent R packages such as 
 [`{bipartite}`](https://github.com/biometry/bipartite), 
-[`{multinet}`](https://cran.r-project.org/web/packages/multinet/multinet.pdf), 
+[`{multinet}`](https://CRAN.R-project.org/package=multinet), 
 [`{netmem}`](https://github.com/anespinosa/netmem), 
 and [`{tnet}`](https://toreopsahl.com/tnet/),
 and implements many additional features currently only available outside the R ecosystem
