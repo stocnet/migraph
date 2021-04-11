@@ -27,3 +27,16 @@ test_that("as_matrix converts correctly",{
   expect_vector(mpn_elite_mex %>% as_matrix())
   expect_vector(mpn_elite_usa_advice %>% as_matrix())
 })
+
+test_that("as_tidygraph converts correctly",{
+  expect_s3_class(as_tidygraph(mat1), "tbl_graph")
+  expect_s3_class(as_tidygraph(southern_women), "tbl_graph")
+  expect_s3_class(as_tidygraph(mpn_elite_usa_money), "tbl_graph")
+})
+
+test_that("as_network converts correctly",{
+  expect_s3_class(as_network(mat1), "network")
+  expect_s3_class(as_network(southern_women), "network")
+  expect_s3_class(as_network(mpn_elite_usa_money), "network")
+})
+

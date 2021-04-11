@@ -1,3 +1,17 @@
+# migraph 0.6.1
+
+2021-04-11
+
+## Package
+
+* Closed #21 by elaborating DESCRIPTION file in preparation for CRAN submission
+* Updated several old URLs in documentation 
+
+## Classes
+
+* Closed #85 by adding `as_network()` to coerce objects into network class
+* Modified other coercion functions to also work with network class objects
+
 # migraph 0.6.0
 
 2021-03-03

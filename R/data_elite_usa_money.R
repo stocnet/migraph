@@ -13,7 +13,7 @@
 #' @usage data(mpn_elite_usa_money)
 #' @format Matrix with 26 rows and 6+6 columns
 #' @references 
-#' Domhoff, G William. 2016. \href{http://www2.ucsc.edu/whorulesamerica/power_elite/}{“Who Rules America? Power Elite Database.”}
+#' Domhoff, G William. 2016. \href{https://whorulesamerica.ucsc.edu/power_elite/}{“Who Rules America? Power Elite Database.”}
 #' 
 #' The Center for Responsive Politics. 2019. \href{http://www.opensecrets.org}{“OpenSecrets.”}
 #' 

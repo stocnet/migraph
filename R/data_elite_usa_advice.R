@@ -13,7 +13,7 @@
 #' @usage data(mpn_elite_usa_advice)
 #' @format Matrix with 14 rows and 20 columns
 #' @references
-#' Domhoff, G William. 2016. \href{http://www2.ucsc.edu/whorulesamerica/power_elite/}{“Who Rules America? Power Elite Database.”}
+#' Domhoff, G William. 2016. \href{https://whorulesamerica.ucsc.edu/power_elite/}{“Who Rules America? Power Elite Database.”}
 #' 
 #' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021. 
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}. 

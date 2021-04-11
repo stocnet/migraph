@@ -49,6 +49,12 @@ as_matrix <- function(object){
     } else {
       mat <- igraph::as_adjacency_matrix(object, sparse = FALSE)
     }
+  } else if (is.network(object)) {
+    if(network::is.bipartite(object)){
+      mat <- network::as.matrix.network.incidence(object)
+    } else {
+      mat <- network::as.matrix.network.adjacency(object)
+    }
   } else if (is.matrix(object)) {
     mat <- object
   } else if (is.data.frame(object)){
@@ -75,6 +81,7 @@ as_matrix <- function(object){
 }
 
 #' @rdname convert
+#' @importFrom network as.matrix.network.incidence as.matrix.network.adjacency
 #' @return An igraph graph object.
 #' @examples
 #' test <- data.frame(id1 = c("A","B","B","C","C"),
@@ -90,6 +97,14 @@ as_igraph <- function(object, twomode = FALSE){
     weights <- rlang::eval_tidy(weights, .E())
   } else if (is.igraph(object)) {
     graph <- object
+  } else if (is.network(object)) {
+    if(network::is.bipartite(object)){
+      graph <- network::as.matrix.network.incidence(object)
+      graph <- igraph::graph_from_incidence_matrix(graph)
+    } else {
+      graph <- network::as.matrix.network.adjacency(object)
+      graph <- igraph::graph_from_adjacency_matrix(graph)
+    }
   } else if (is.data.frame(object) | is.matrix(object)) {
     if (is.data.frame(object)) object <- as_matrix(object)
     if(nrow(object)!=ncol(object) | twomode){
@@ -115,6 +130,16 @@ as_tidygraph <- function(object, twomode = FALSE){
     tidy <- object
   } else if (is.igraph(object)) {
     tidy <- tidygraph::as_tbl_graph(object)
+  } else if (is.network(object)) {
+    if(network::is.bipartite(object)){
+      tidy <- network::as.matrix.network.incidence(object)
+      tidy <- igraph::graph_from_incidence_matrix(tidy)
+      tidy <- tidygraph::as_tbl_graph(tidy)
+    } else {
+      tidy <- network::as.matrix.network.adjacency(object)
+      tidy <- igraph::graph_from_adjacency_matrix(tidy)
+      tidy <- tidygraph::as_tbl_graph(tidy)
+    }
   } else if (is.data.frame(object) | is.matrix(object)) {
     if (is.data.frame(object)) object <- as_matrix(object)
     if(nrow(object)!=ncol(object) | twomode){
@@ -124,6 +149,31 @@ as_tidygraph <- function(object, twomode = FALSE){
     } 
   }
   tidy
+}
+
+#' @rdname convert
+#' @importFrom network is.network as.network
+#' @return A sna/network network class object
+#' @examples
+#' test <- data.frame(id1 = c("A","B","B","C","C"),
+#'                    id2 = c("I","G","I","G","H"))
+#' as_network(test)
+#' @export
+as_network <- function(object){
+  
+  if(!network::is.network(object)){
+    if(is_twomode(object)){
+      net <- as_matrix(object)
+      net <- network::as.network(net, bipartite = TRUE)
+    } else {
+      net <- as_matrix(object)
+      net <- network::as.network(net, bipartite = FALSE)
+    }
+  } else {
+    net <- object
+  }
+  net
+  
 }
 
 #' @rdname convert
