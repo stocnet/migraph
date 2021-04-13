@@ -11,4 +11,5 @@
 
 0 errors | 0 warnings | 0 notes
 
-* This is a new release.
+* Reran `usethis::use_mit_license("James Hollway")`. MIT License file now contains only the standard two lines.
+* Removed `\dontrun` from examples. `netlm()` now runs in <5 seconds.
