@@ -2,21 +2,21 @@
   "index_name": "migraph",
   "start_urls": [
     {
-      "url": "https://jhollway.github.io/migraph//index.html",
+      "url": "https://snlab-ch.github.io/migraph//index.html",
       "selectors_key": "homepage",
       "tags": [
         "homepage"
       ]
     },
     {
-      "url": "https://jhollway.github.io/migraph//reference",
+      "url": "https://snlab-ch.github.io/migraph//reference",
       "selectors_key": "reference",
       "tags": [
         "reference"
       ]
     },
     {
-      "url": "https://jhollway.github.io/migraph//articles",
+      "url": "https://snlab-ch.github.io/migraph//articles",
       "selectors_key": "articles",
       "tags": [
         "articles"
@@ -30,7 +30,7 @@
     "/articles/index.html"
   ],
   "sitemap_urls": [
-    "https://jhollway.github.io/migraph//sitemap.xml"
+    "https://snlab-ch.github.io/migraph//sitemap.xml"
   ],
   "selectors": {
     "homepage": {
