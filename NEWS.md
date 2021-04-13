@@ -1,3 +1,13 @@
+# migraph 0.6.2
+
+2021-04-13
+
+## Package
+
+* Reran `usethis::use_mit_license("James Hollway")`. MIT License file now contains only the standard two lines.
+* Removed `\dontrun` from examples. `netlm()` now runs in <5 seconds.
+* Fixed missing website item
+
 # migraph 0.6.1
 
 2021-04-11

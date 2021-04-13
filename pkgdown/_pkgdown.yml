@@ -1,4 +1,4 @@
-url: https://jhollway.github.io/migraph/
+url: https://snlab-ch.github.io/migraph/
 development:
     mode: auto
 template:
@@ -59,4 +59,4 @@ reference:
     desc: "Functions for modelling multimodal and multilevel networks:"
     contents:
       - netlm
-      - blockmodel
+      - starts_with("blockmodel")
