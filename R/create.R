@@ -154,9 +154,7 @@ roll_over <- function(w){
 #' #' @importFrom tidygraph as_tbl_graph
 #' #' @importFrom igraph graph_from_incidence_matrix
 #' #' @examples
-#' #' \dontrun{
 #' #' create_nest(10, 12)
-#' #' }
 #' #' @export
 #' create_nest <- function(n1, n2,
 #'                         as = c("tidygraph", "igraph", "matrix")) {
@@ -176,9 +174,7 @@ roll_over <- function(w){
 #' #' @importFrom tidygraph as_tbl_graph
 #' #' @importFrom igraph graph_from_incidence_matrix
 #' #' @examples
-#' #' \dontrun{
 #' #' create_star(1, 12)
-#' #'}
 #' #' @export
 #' create_star <- function(n1 = 1, n2,
 #'                         as = c("tidygraph", "igraph", "matrix")){
