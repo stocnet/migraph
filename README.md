@@ -3,6 +3,7 @@
 
 <!-- badges: start -->
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
+![CRAN/METACRAN](https://img.shields.io/cran/v/migraph)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/snlab-ch/migraph)
 ![GitHub Release Date](https://img.shields.io/github/release-date/snlab-ch/migraph)
 <!-- ![GitHub issues](https://img.shields.io/github/issues-raw/snlab-ch/migraph) -->
