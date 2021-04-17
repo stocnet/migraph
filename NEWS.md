@@ -1,3 +1,13 @@
+# migraph 0.6.3
+
+2021-04-17
+
+## Data
+
+* Added @csteglich 's `read_ucinet()` and `write_ucinet()` functions
+  * `read_ucinet()` offers a file-picker when file path unknown
+  * `write_ucinet()` works with all migraph-compatible objects
+
 # migraph 0.6.2
 
 2021-04-13
