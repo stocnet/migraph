@@ -120,8 +120,11 @@ read_ucinet <- function(header_file) {
 	for (i in 1:(header$dims[1]*header$dims[2]))
 		thedata[i] <- readBin(UCINET.data,what="numeric",size=4,endian='little')
 	close(UCINET.data)
-	mat <- matrix(thedata,nr=header$dims[2],nc=header$dims[1],
-		dimnames=header$dim.labels[c(2,1)],byrow=TRUE)
+	mat <- matrix(thedata,
+	              nrow=header$dims[2],
+	              ncol=header$dims[1],
+	              dimnames=header$dim.labels[c(2,1)],
+	              byrow=TRUE)
 	# put additional info from header file on matrix
 	if (header$title!='') {attr(mat,'title') <- header$title}
 	attr(mat,'date') <- header$date
