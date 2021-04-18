@@ -2,6 +2,10 @@
 
 2021-04-17
 
+## Package
+
+* Added `CITATION` details
+
 ## Data
 
 * Added @csteglich 's `read_ucinet()` and `write_ucinet()` functions

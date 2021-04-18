@@ -1,0 +1,9 @@
+citHeader("To cite migraph in publications use:")
+
+citEntry(
+  entry    = "manual",
+  title    = "migraph: igraph, sna, and tidygraph extensions for multimodal and multilevel network analysis",
+  author   = "James Hollway",
+  year     = 2020,
+  textVersion = "J. Hollway. migraph: igraph, sna, and tidygraph extensions for multimodal and multilevel network analysis. 2020."
+)
