@@ -30,9 +30,27 @@ Please explore [the website](https://snlab-ch.github.io/migraph/) to find out mo
 
 ## Installation
 
-### From binary
+### Stable
 
-Perhaps the easiest way to install `{migraph}` is by installing a compiled binary.
+The easiest way to install the latest stable version of `{migraph}` is via CRAN.
+Simply open the R console and enter:
+
+`install.packages('migraph')`
+
+You can then begin to use `{migraph}` by loading the package:
+
+`library(migraph)`
+
+This will load all other required packages and
+also make the data contained within the package available.
+
+### Development
+
+For the latest development version, 
+for slightly earlier access to new features or for testing,
+you may wish to download and install the binaries from Github
+or install from source locally.
+
 Binaries for all major OSes -- Windows, Mac, and Linux -- 
 can be found by clicking on the latest release [here](https://github.com/snlab-ch/migraph/releases/latest).
 Download the appropriate binary for your operating system,
@@ -41,8 +59,6 @@ and install using an adapted version of the following commands:
 - For Windows: `install.packages("~/Downloads/migraph_winOS.zip", repos = NULL)`
 - For Mac: `install.packages("~/Downloads/migraph_macOS.tgz", repos = NULL)`
 - For Unix: `install.packages("~/Downloads/migraph_linuxOS.tar.gz", repos = NULL)`
-
-### From source
 
 To install from source the latest main version of `{migraph}` from Github, 
 please install the `{remotes}` package from CRAN and then enter into the console:
