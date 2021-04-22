@@ -42,10 +42,10 @@ Since v0.6.3, `{migraph}` can also import and export to [UCINET](http://www.anal
 
 ### Extends your current network analysis workflow
 
-`{migraph}` offers a range of measures and models that 
-wrap existing functions in common packages for use with one-mode networks,
+`{migraph}` offers a range of measures and models with sensible defaults.
+Most wrap existing functions in common packages for use with one-mode networks,
 but extend these to treat and/or normalise for two-mode (and sometime three-mode) networks correctly.
-Functions are given intuitive and succinct names wherever possible.
+Functions are given intuitive and succinct names that avoid conflicts with existing function names wherever possible.
 
 #### Manipulation
 
@@ -55,7 +55,7 @@ Functions are given intuitive and succinct names wherever possible.
 #### Measures
 
 - Centrality: `node_degree()`, `node_closeness()`, `node_betweenness()`, and `node_eigenvector()`
-- Centralization: `graph_degree()`, `graph_closeness()`, and `graph_betweeness()`
+- Centralization: `graph_degree()`, `graph_closeness()`, and `graph_betweenness()`
 - Cohesion: `graph_clustering()`, `node_constraint()`, `node_smallworld()`
 
 #### Models
