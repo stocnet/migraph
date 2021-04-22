@@ -143,22 +143,29 @@ create_components <- function(n, components = 2) {
 }
 
 #' @rdname create
-#' @details Will create a complete bipartite start graph
-#' @importFrom tidygraph as_tbl_graph
-#' @importFrom igraph graph_from_incidence_matrix
+#' @param directed One of the following options: "in", "out", or "none".
+#' @importFrom igraph graph_from_adjacency_matrix graph_from_incidence_matrix
 #' @examples
 #' plot(create_star(c(1,12)))
 #' @export
-create_star <- function(n){
+create_star <- function(n, directed = "in"){
   
   if(length(n)==1){
     if(components > n) stop("Cannot have more components than nodes in the graph.")
     out <- matrix(0, n, n)
-    out[1,] <- 1
+    if(directed == "in"){
+      out[,1] <- 1
+    } else {
+      out[1,] <- 1
+    }
     out <- igraph::graph_from_adjacency_matrix(out)
   } else if (length(n)==2){
     out <- matrix(0, n[1], n[2])
-    out[1,] <- 1
+    if(directed == "in"){
+      out[,1] <- 1
+    } else {
+      out[1,] <- 1
+    }
     out <- igraph::graph_from_incidence_matrix(out)
   } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
   out
