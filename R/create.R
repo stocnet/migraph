@@ -1,4 +1,4 @@
-#' Create networks that conform to particular structures
+#' Create networks with particular structures
 #' 
 #' These functions create a variety of different network objects.
 #' Despite the common function names and syntax with existing packages,
@@ -9,12 +9,13 @@
 #' @name create
 #' @family creation
 #' @param n Number of nodes. 
-#' If a single integer is given, the function will create a one-mode network.
+#' If a single integer is given, e.g. `n = 10`, 
+#' the function will create a one-mode network.
 #' If a vector of two integers is given, e.g. `n = c(5,10)`,
 #' the function will create a two-mode network.
 #' @return By default an igraph object will be returned,
 #' but this can be coerced into other types of objects
-#' using `as_matrix()` or `as_tidygraph()`.
+#' using `as_matrix()`, `as_tidygraph()`, or `as_network()`.
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
 #' @seealso as_matrix as_tidygraph as_network
@@ -146,7 +147,7 @@ create_components <- function(n, components = 2) {
 #' @param directed One of the following options: "in", "out", or "none".
 #' @importFrom igraph graph_from_adjacency_matrix graph_from_incidence_matrix
 #' @examples
-#' plot(create_star(c(1,12)))
+#' plot(create_star(c(12,1)))
 #' @export
 create_star <- function(n, directed = "in"){
   
