@@ -10,12 +10,9 @@
 #' @details Creates a random two-mode network.
 #' Will construct an affiliation matrix,
 #' with a certain probability of a tie.
-#' @importFrom tidygraph play_bipartite
-#' @importFrom igraph as.igraph as_adjacency_matrix
+#' @importFrom igraph sample_bipartite
 #' @examples
-#' sample_affiliation(c(10, 12), 0.25) %>% ggraph::ggraph() +
-#' ggraph::geom_edge_fan(ggplot2::aes(alpha = stat(index)), show.legend = FALSE) +
-#' ggraph::geom_node_point(ggplot2::aes(size = 5))
+#' plot(sample_affiliation(c(10, 12), 0.25))
 #' @export
 sample_affiliation <- function(n, p, m) {
   
