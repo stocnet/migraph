@@ -26,37 +26,37 @@ read_ucinet <- function(header_file) {
   if (missing(header_file)) header_file <- file.choose()
 
 	read_ucinet_header <- function(header_file) {
-	  UCINET.header <- file(header_file,"rb")
-		ignore <- readBin(UCINET.header,what="int",size=1)
+	  UCINET.header <- file(header_file, "rb")
+		ignore <- readBin(UCINET.header, what="int", size=1)
 		headerversion <- paste(
-			rawToChar(readBin(UCINET.header,what="raw",size=1)),
-			rawToChar(readBin(UCINET.header,what="raw",size=1)),
-			rawToChar(readBin(UCINET.header,what="raw",size=1)),
-			rawToChar(readBin(UCINET.header,what="raw",size=1)),
-			rawToChar(readBin(UCINET.header,what="raw",size=1)),
+			rawToChar(readBin(UCINET.header, what="raw", size=1)),
+			rawToChar(readBin(UCINET.header, what="raw", size=1)),
+			rawToChar(readBin(UCINET.header, what="raw", size=1)),
+			rawToChar(readBin(UCINET.header, what="raw", size=1)),
+			rawToChar(readBin(UCINET.header, what="raw", size=1)),
 			sep='')
-		if (!(headerversion %in% c('DATE:','V6404'))) {
+		if (!(headerversion %in% c('DATE:', 'V6404'))) {
 			close(UCINET.header)
 			stop(paste('unknown header type; try more recent UCINET file types'))
 		}
-		year <- 2000+readBin(UCINET.header,what="int",size=2)
+		year <- 2000+readBin(UCINET.header, what="int", size=2)
 		month <- c('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug',
 			'Sep','Oct','Nov','Dec')[readBin(UCINET.header,what="int",size=2)]
-		day <- readBin(UCINET.header,what="int",size=2)
+		day <- readBin(UCINET.header, what="int", size=2)
 		dow <- c('Monday','Tuesday','Wednesday','Thursday','Friday',
 			'Saturday','Sunday')[readBin(UCINET.header,what="int",size=2)]
-		labtype <- readBin(UCINET.header,what="int",size=2)
+		labtype <- readBin(UCINET.header, what="int", size=2)
 		infile.dt <- c('nodt','bytedt','booleandt','shortintdt','worddt',
 			'smallintdt','longintdt',' singledt','realdt','doubledt',
 			'compdt','extendeddt','labeldt','setdt','stringdt','pointerdt',
 			'chardt','integerdt','nodelistdt','sparsedt','int64dt')[
-			readBin(UCINET.header,what="int",size=1)]
-		ndim <- readBin(UCINET.header,what="int",size=2)
+			readBin(UCINET.header, what="int", size=1)]
+		ndim <- readBin(UCINET.header, what="int", size=2)
 		if (headerversion=='V6404') {fct=2} else {fct=1}
-		dims <- c(readBin(UCINET.header,what="int",size=2*fct),
-			readBin(UCINET.header,what="int",size=2*fct))
+		dims <- c(readBin(UCINET.header, what="int", size=2*fct),
+			readBin(UCINET.header, what="int", size=2*fct))
 		if (ndim==3) {
-			dims[3] <- readBin(UCINET.header,what="int",size=2*fct)
+			dims[3] <- readBin(UCINET.header, what="int", size=2*fct)
 		}
 		if (!(ndim==2|ndim==3&dims[3]==1)) {
 			close(UCINET.header)
@@ -64,26 +64,26 @@ read_ucinet <- function(header_file) {
 		}
 		t.length <- readBin(UCINET.header,what="int",size=1)
 		if (t.length>0){
-			titl <- sapply(1:t.length,function(i){
-				rawToChar(readBin(UCINET.header,what="raw",size=1))
+			titl <- sapply(1:t.length, function(i){
+				rawToChar(readBin(UCINET.header, what="raw", size=1))
 			})
-			titl <- paste(titl,collapse='')
+			titl <- paste(titl, collapse='')
 		} else {titl <- ''}
-		haslab <- c(readBin(UCINET.header,what="logical",size=1),
+		haslab <- c(readBin(UCINET.header, what="logical", size=1),
 			readBin(UCINET.header,what="logical",size=1))
 		if (ndim==3) {
-			haslab[3] <- readBin(UCINET.header,what="logical",size=1)
+			haslab[3] <- readBin(UCINET.header, what="logical", size=1)
 		}
 		dim.labels <- list()
-		for (arr.dim in 1:length(dims)) {
+		for (arr.dim in seq_len(length(dims))) {
 		if (haslab[arr.dim]) {
 			dim.labels[[arr.dim]] <- rep(NA,dims[arr.dim])
 			for (i in 1:dims[arr.dim]) {
 				lab <- ''
-				lablen <- readBin(UCINET.header,what="int",size=2)
+				lablen <- readBin(UCINET.header, what="int", size=2)
 				for (let in 1:lablen) {
 					lab <- paste(lab,
-						rawToChar(readBin(UCINET.header,what="raw",size=1)),
+						rawToChar(readBin(UCINET.header, what="raw", size=1)),
 						sep='')
 				}
 				dim.labels[[arr.dim]][i] <- lab
@@ -114,9 +114,9 @@ read_ucinet <- function(header_file) {
 
 	# begin of main function code:
 	header <- read_ucinet_header(header_file)
-	file <- sub(".##h","",header_file)
-	UCINET.data <- file(paste(file,".##d",sep=''),"rb")
-	thedata <- c()
+	file <- sub(".##h","", header_file)
+	UCINET.data <- file(paste(file, ".##d", sep=''), "rb")
+	thedata <- vector()
 	for (i in 1:(header$dims[1]*header$dims[2]))
 		thedata[i] <- readBin(UCINET.data,what="numeric",size=4,endian='little')
 	close(UCINET.data)
@@ -196,7 +196,7 @@ write_ucinet <- function(object,
 	}}
 	writeBin(!is.null(labr),UCINET.header,size=1)
 	if (!is.null(labc)) {
-	for (i in 1:ncol(mat)) {
+	for (i in seq_len(ncol(mat))) {
 		writeBin(as.integer(2*nchar(labc[i])),UCINET.header,size=2)
 		for (let in 1:nchar(labc[i])) {
 			writeBin(charToRaw(substr(labc[i],let,let)),
@@ -205,7 +205,7 @@ write_ucinet <- function(object,
 		}
 	}}
 	if (!is.null(labr)) {
-	for (i in 1:nrow(mat)) {
+	for (i in seq_len(nrow(mat))) {
 		writeBin(as.integer(2*nchar(labr[i])),UCINET.header,size=2)
 		for (let in 1:nchar(labr[i])) {
 			writeBin(charToRaw(substr(labr[i],let,let)),
@@ -217,7 +217,7 @@ write_ucinet <- function(object,
 	
 	# continue with UCINET data file:
 	UCINET.data <- file(paste(filename,".##d",sep=''),"wb")
-	for (i in 1:length(mat))
+	for (i in seq_len(length(mat)))
 		writeBin(t(mat)[i],UCINET.data,size=4,endian='little')
 	close(UCINET.data)
 }
