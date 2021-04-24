@@ -1,16 +1,27 @@
 # migraph 0.6.3
 
-2021-04-17
+2021-04-24
 
 ## Package
 
 * Added `CITATION` details
+* Updated README
+  * Updated installation instructions for CRAN
+  * Added package functions overview
+  
+## Classes
+
+* Separated coercion (previously conversion) and manipulation
 
 ## Data
 
 * Added @csteglich 's `read_ucinet()` and `write_ucinet()` functions
   * `read_ucinet()` offers a file-picker when file path unknown
   * `write_ucinet()` works with all migraph-compatible objects
+* Added `create_star()` function
+  * Added in-star/out-star option via `directed = ` argument
+* Updated `mpn_bristol` documentation
+* Updated `create_` and `sample_` documentation
 
 # migraph 0.6.2
 
