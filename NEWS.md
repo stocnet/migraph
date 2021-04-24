@@ -12,6 +12,7 @@
 ## Classes
 
 * Separated coercion (previously conversion) and manipulation
+* Fixed bug in how two-mode networks were sometimes coerced into much larger matrices
 
 ## Data
 
