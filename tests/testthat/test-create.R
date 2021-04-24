@@ -24,14 +24,15 @@ test_that("component creation works", {
   expect_error(create_components(c(5,5,5)), "single integer")
 })
 
+test_that("star creation works", {
+  expect_true(is_twomode(create_star(c(5,5))))
+  expect_equal(unname(as_matrix(create_star(c(2,2)))), matrix(c(1,1,0,0),2,2))
+  expect_equal(unname(as_matrix(create_star(c(2,2), directed = "out"))), matrix(c(1,0,1,0),2,2))
+})
+
 # test_that("nest creation works", {
 #   expect_equal(create_nest(2,4, as = "matrix"), matrix(c(1,1,0,1,0,0,0,0),2,4))
 #   expect_s3_class(create_nest(2,4, as = "igraph"), "igraph")
 #   expect_s3_class(create_nest(2,4, as = "tidygraph"), "tbl_graph")
 # })
 # 
-# test_that("star creation works", {
-#   expect_equal(create_star(1,4, as = "matrix"), matrix(c(1,1,1,1),1,4))
-#   expect_s3_class(create_star(2,4, as = "igraph"), "igraph")
-#   expect_s3_class(create_star(2,4, as = "tidygraph"), "tbl_graph")
-# })
