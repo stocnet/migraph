@@ -152,7 +152,6 @@ create_components <- function(n, components = 2) {
 create_star <- function(n, directed = "in"){
   
   if(length(n)==1){
-    if(components > n) stop("Cannot have more components than nodes in the graph.")
     out <- matrix(0, n, n)
     if(directed == "in"){
       out[,1] <- 1
