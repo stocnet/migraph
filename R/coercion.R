@@ -51,9 +51,9 @@ as_matrix <- function(object){
     }
   } else if (is.network(object)) {
     if(network::is.bipartite(object)){
-      mat <- network::as.matrix.network.incidence(object)
+      mat <- network::as.matrix.network(object)
     } else {
-      mat <- network::as.matrix.network.adjacency(object)
+      mat <- network::as.matrix.network(object)
     }
   } else if (is.matrix(object)) {
     mat <- object
