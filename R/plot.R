@@ -1,5 +1,5 @@
 #' Plotting of one-mode and two-mode graphs
-#' @param x A migraph-compatible object, especially an igraph graph object
+#' @param x A migraph-compatible object, especially an igraph graph object.
 #' @param ... Additional arguments passed on to igraph.
 #' @family plotting
 #' @examples 
@@ -21,10 +21,15 @@ plot.igraph <- function(x, ...){
 }
 
 #' ggplot2-based plotting of blockmodel results
+#' @param x A blockmodel-class object.
+#' @param ... Additional arguments passed on to ggplot2.
 #' @importFrom tibble rownames_to_column
 #' @importFrom tidyr pivot_longer
 #' @importFrom ggplot2 ggplot geom_tile aes scale_fill_gradient theme_grey labs theme scale_x_discrete scale_y_discrete geom_vline geom_hline element_blank element_text
 #' @importFrom rlang .data
+#' @examples 
+#' usa_concor <- blockmodel_concor(mpn_elite_usa_advice)
+#' plot(usa_concor)
 #' @export
 plot.blockmodel <- function(x, ...){
   
