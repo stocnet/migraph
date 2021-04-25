@@ -5,6 +5,8 @@
 #' @param header_file A character string giving the path to the header (.##h) file.
 #' If the function is called without a header_file specified,
 #' an OS-specific file picker is opened to help users select it.
+#' @param as An output class. One of "igraph", "network", or "matrix".
+#' By default "igraph".
 #' @return By default, [read_ucinet()] will import into a matrix format, 
 #' but can be easily coerced from there into other formats.
 #' @details These functions only work with relatively recent UCINET
@@ -21,8 +23,9 @@
 #' @author Christian Steglich, 18 June 2015
 #' @seealso [convert]
 #' @export
-read_ucinet <- function(header_file) {
+read_ucinet <- function(header_file, as = c("igraph","network","matrix")) {
   
+  as <- match.arg(as)
   if (missing(header_file)) header_file <- file.choose()
 
 	read_ucinet_header <- function(header_file) {
@@ -64,7 +67,7 @@ read_ucinet <- function(header_file) {
 		}
 		t.length <- readBin(UCINET.header,what="int",size=1)
 		if (t.length>0){
-			titl <- sapply(1:t.length, function(i){
+			titl <- vapply(1:t.length, function(i){
 				rawToChar(readBin(UCINET.header, what="raw", size=1))
 			})
 			titl <- paste(titl, collapse='')
@@ -92,8 +95,8 @@ read_ucinet <- function(header_file) {
 		close(UCINET.header)
 		if (ndim==3&dims[3]==1) {
 			titl <- dim.labels[[3]][1]
-			warning(paste('UCINET file with one level; level name "',
-				titl,'" treated as network name',sep=''))
+			# warning(paste('UCINET file with one level; level name "',
+			# 	titl,'" treated as network name',sep=''))
 			ndim <- 2
 			dims <- dims[1:2]
 			haslab <- haslab[1:2]
@@ -130,6 +133,9 @@ read_ucinet <- function(header_file) {
 	attr(mat,'date') <- header$date
 	#attr(mat,'labtype') <- header$labtype
 	#attr(mat,'infile.dt') <- header$infile.dt
+	
+	if(as=="igraph") mat <- as_igraph(mat)
+	if(as=="network") mat <- as_network(mat)
 	return(mat)
 }
 
