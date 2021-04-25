@@ -43,10 +43,11 @@ reference:
       - starts_with("mpn_")
       - starts_with("read")
       - starts_with("write")
-  - title: "Coercion"
-    desc: "Functions for coercing objects between different classes:"
+  - title: "Classes"
+    desc: "Functions for coercing objects between different classes and testing the properties of migraph-consistent objects:"
     contents:
       - starts_with("as_")
+      - starts_with("is_")
   - title: "Visualisation"
     desc: "Functions for visualising multilevel networks:"
     contents:
