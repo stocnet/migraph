@@ -1,20 +1,21 @@
-#' Create networks that conform to particular structures
+#' Create networks with particular structures
 #' 
-#' These functions create a host of different network objects.
-#' Despite the common syntax, what distinguishes them from
-#' those in other packages is that passing the `n` argument
-#' a vector of \emph{two} integers will return a two-mode
-#' network instead of a one-mode network.
+#' These functions create a variety of different network objects.
+#' Despite the common function names and syntax with existing packages,
+#' the common `n` argument can not only be passed 
+#' a single integer to return a one-mode network,
+#' but also a vector of \emph{two} integers to return a two-mode network.
 #' 
 #' @name create
 #' @family creation
 #' @param n Number of nodes. 
-#' If a single integer is given, the function will create a one-mode network.
+#' If a single integer is given, e.g. `n = 10`, 
+#' the function will create a one-mode network.
 #' If a vector of two integers is given, e.g. `n = c(5,10)`,
 #' the function will create a two-mode network.
 #' @return By default an igraph object will be returned,
 #' but this can be coerced into other types of objects
-#' using `as_matrix()` or `as_tidygraph()`.
+#' using `as_matrix()`, `as_tidygraph()`, or `as_network()`.
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
 #' @seealso as_matrix as_tidygraph as_network
@@ -142,6 +143,34 @@ create_components <- function(n, components = 2) {
   out
 }
 
+#' @rdname create
+#' @param directed One of the following options: "in", "out", or "none".
+#' @importFrom igraph graph_from_adjacency_matrix graph_from_incidence_matrix
+#' @examples
+#' plot(create_star(c(12,1)))
+#' @export
+create_star <- function(n, directed = "in"){
+  
+  if(length(n)==1){
+    out <- matrix(0, n, n)
+    if(directed == "in"){
+      out[,1] <- 1
+    } else {
+      out[1,] <- 1
+    }
+    out <- igraph::graph_from_adjacency_matrix(out)
+  } else if (length(n)==2){
+    out <- matrix(0, n[1], n[2])
+    if(directed == "in"){
+      out[,1] <- 1
+    } else {
+      out[1,] <- 1
+    }
+    out <- igraph::graph_from_incidence_matrix(out)
+  } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
+  out
+}
+
 # Helper function
 roll_over <- function(w){
   cbind(w[,ncol(w)], w[,1:(ncol(w)-1)])
@@ -163,25 +192,6 @@ roll_over <- function(w){
 #' 
 #'   out <- matrix(0, n1, n2)
 #'   out[(row(out) - col(out)) >= 0] <- 1
-#' 
-#'   if(as == "tidygraph") out <- tidygraph::as_tbl_graph(out)
-#'   if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
-#'   out
-#' }
-#' 
-#' #' @rdname create
-#' #' @details Will create a complete bipartite start graph
-#' #' @importFrom tidygraph as_tbl_graph
-#' #' @importFrom igraph graph_from_incidence_matrix
-#' #' @examples
-#' #' create_star(1, 12)
-#' #' @export
-#' create_star <- function(n1 = 1, n2,
-#'                         as = c("tidygraph", "igraph", "matrix")){
-#'   as <- match.arg(as)
-#' 
-#'   out <- matrix(0, n1, n2)
-#'   out[1,] <- 1
 #' 
 #'   if(as == "tidygraph") out <- tidygraph::as_tbl_graph(out)
 #'   if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)

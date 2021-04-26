@@ -1,3 +1,43 @@
+# migraph 0.6.3
+
+2021-04-26
+
+## Package
+
+* Updated README
+  * Updated installation instructions for CRAN
+  * Added package functions overview
+* Added `CITATION` details
+  
+## Classes
+
+* Separated coercion (previously conversion) and manipulation
+* Added some more inter-class coercion tests
+* Fixed bug in how `as_network()` sometimes coerced two-mode networks into much larger dimension matrices
+* Added more `is_` tests for class-independent property tests
+  * Added `is_weighted()`
+  * Added `is_directed()`
+  * Added `is_labelled()`
+
+## Data
+
+* Added @csteglich 's `read_ucinet()` and `write_ucinet()` functions
+  * `read_ucinet()` offers a file-picker when file path unknown
+  * `read_ucinet()` now imports to an igraph-class object by default,
+  with an argument to allow other alternatives
+  * `write_ucinet()` works with all migraph-compatible objects
+* Updated `mpn_bristol` documentation
+* Added `create_star()` function
+  * Added in-star/out-star option via `directed = ` argument
+  * Updated `create_` documentation
+* Renamed `sample_affiliation()` to `generate_random()`
+  * Rewrote `generate_random()` to be able to generate random one- or two-mode networks
+  * Updated documentation
+
+## Models
+
+* Added test for `print.blockmodel()`
+
 # migraph 0.6.2
 
 2021-04-13

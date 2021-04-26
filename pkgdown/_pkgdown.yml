@@ -35,21 +35,27 @@ reference:
     desc: "Functions for creating and simulating multimodal and multilevel networks:"
     contents:
       - starts_with("create_")
-      - starts_with("sample_")
+      - starts_with("generate_")
   - title: "Data"
     desc: "The package contains a range of different multimodal and multilevel data, including data used in the book 'Multimodal Political Networks' (prefixed with 'mpn_'):"
     contents:
       - southern_women
       - starts_with("mpn_")
-  - title: "Conversion and Manipulation"
-    desc: "Functions for manipulating multimodal and multilevel networks:"
+      - starts_with("read")
+      - starts_with("write")
+  - title: "Classes"
+    desc: "Functions for coercing objects between different classes and testing the properties of migraph-consistent objects:"
     contents:
       - starts_with("as_")
-      - starts_with("project_")
+      - starts_with("is_")
   - title: "Visualisation"
     desc: "Functions for visualising multilevel networks:"
     contents:
       - starts_with("plot")
+  - title: "Manipulation"
+    desc: "Functions for manipulating multimodal networks:"
+    contents:
+      - starts_with("project_")
   - title: "Measures"
     desc: "Functions for measuring multimodal and multilevel networks:"
     contents:

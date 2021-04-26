@@ -4,7 +4,7 @@
 #' typically accept edgelists (as data frames), matrices,
 #' igraph graph objects, or tidygraph tbl_graph objects,
 #' coercing them into the class designated in the function name.
-#' @name convert
+#' @name coercion
 #' @param object A data frame edgelist, matrix, igraph, or tidygraph object.
 #' @param twomode An option to override the heuristics for distinguishing incidence
 #' from adjacency matrices. By default FALSE.
@@ -51,9 +51,9 @@ as_matrix <- function(object){
     }
   } else if (is.network(object)) {
     if(network::is.bipartite(object)){
-      mat <- network::as.matrix.network.incidence(object)
+      mat <- network::as.matrix.network(object)
     } else {
-      mat <- network::as.matrix.network.adjacency(object)
+      mat <- network::as.matrix.network(object)
     }
   } else if (is.matrix(object)) {
     mat <- object
@@ -80,7 +80,7 @@ as_matrix <- function(object){
   mat
 }
 
-#' @rdname convert
+#' @rdname coercion
 #' @importFrom network as.matrix.network.incidence as.matrix.network.adjacency
 #' @return An igraph graph object.
 #' @examples
@@ -116,7 +116,7 @@ as_igraph <- function(object, twomode = FALSE){
   graph
 }
 
-#' @rdname convert
+#' @rdname coercion
 #' @importFrom tidygraph as_tbl_graph
 #' @return A tidygraph tbl_graph class object
 #' @examples
@@ -151,7 +151,7 @@ as_tidygraph <- function(object, twomode = FALSE){
   tidy
 }
 
-#' @rdname convert
+#' @rdname coercion
 #' @importFrom network is.network as.network
 #' @return A sna/network network class object
 #' @examples
@@ -174,16 +174,5 @@ as_network <- function(object){
   }
   net
   
-}
-
-#' @rdname convert
-#' @importFrom igraph is.bipartite
-#' @return A logical vector whether object is two-mode (TRUE) or not (FALSE)
-#' @examples
-#' is_twomode(southern_women)
-#' @export
-is_twomode <- function(object){
-  object <- as_igraph(object)
-  igraph::is.bipartite(object)
 }
 
