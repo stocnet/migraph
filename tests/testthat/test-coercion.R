@@ -33,6 +33,8 @@ test_that("as_igraph converts correctly",{
 test_that("as_tidygraph converts correctly",{
   expect_s3_class(as_tidygraph(mat1), "tbl_graph")
   expect_s3_class(as_tidygraph(southern_women), "tbl_graph")
+  expect_s3_class(as_tidygraph(as_network(mat1)), "tbl_graph")
+  expect_s3_class(as_tidygraph(as_network(southern_women)), "tbl_graph")
   expect_s3_class(as_tidygraph(mpn_elite_usa_money), "tbl_graph")
 })
 

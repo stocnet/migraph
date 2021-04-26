@@ -12,3 +12,8 @@ test_that("concor works on two-mode networks", {
   expect_equal(blockmodel_concor(mpn_elite_usa_advice, p = 2)$membership$nodes2, c(1,3,4,2,4,2,4,1,4,1,1,1,4,3,4,1,3,3,2,2))
   expect_error(blockmodel_concor(mpn_elite_usa_advice, p = 3)$membership$nodes2, "differing number of rows")
 })
+
+test_that("blockmodel print works correctly", {
+  expect_output(print(blockmodel_concor(mpn_elite_usa_advice, p = 2)), "Network Blockmodel:")
+  expect_output(print(blockmodel_concor(mpn_elite_usa_advice, p = 2)), "First nodeset:")
+})
