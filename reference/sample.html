@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.3</span>
       </span>
     </div>
 
@@ -181,7 +181,7 @@ with a certain probability of a tie.</p>
     <pre class="examples"><div class='input'><span class='fu'>sample_affiliation</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>12</span><span class='op'>)</span>, <span class='fl'>0.25</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>ggraph</span><span class='fu'>::</span><span class='fu'><a href='https://ggraph.data-imaginist.com/reference/ggraph.html'>ggraph</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
 <span class='fu'>ggraph</span><span class='fu'>::</span><span class='fu'><a href='https://ggraph.data-imaginist.com/reference/geom_edge_fan.html'>geom_edge_fan</a></span><span class='op'>(</span><span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fu'>stat</span><span class='op'>(</span><span class='va'>index</span><span class='op'>)</span><span class='op'>)</span>, show.legend <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span>
 <span class='fu'>ggraph</span><span class='fu'>::</span><span class='fu'><a href='https://ggraph.data-imaginist.com/reference/geom_node_point.html'>geom_node_point</a></span><span class='op'>(</span><span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Using `stress` as default layout</span></div><div class='img'><img src='sample-1.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='output co'>#&gt; <span class='error'>Error in sample_affiliation(c(10, 12), 0.25): could not find function "sample_affiliation"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

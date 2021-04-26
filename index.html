@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.3</span>
       </span>
     </div>
 
@@ -102,20 +102,85 @@
 <div id="about-the-package" class="section level2">
 <h2 class="hasAnchor">
 <a href="#about-the-package" class="anchor"></a>About the package</h2>
-<p>This package presents functions for analysing multimodal and multilevel networks. The package is intended as a software companion to the forthcoming book:</p>
+<p>This package extends existing network analysis packages for analysing multimodal and multilevel networks. The package is intended as a software companion to the forthcoming book:</p>
 <blockquote>
 <p>David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos (2021) <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128"><em>Multimodal Political Networks</em></a>. Cambridge University Press: Cambridge.</p>
 </blockquote>
-<p>The package is offered as a complement to existing R packages for network analysis. It can analyse data in base formats such as matrices and (data frame) edgelists, but can also work with <a href="https://igraph.org/r/"><code>{igraph}</code></a> and <a href="http://statnet.org"><code>{network}</code></a> objects, and is consistent with a <a href="https://tidygraph.data-imaginist.com/index.html"><code>{tidygraph}</code></a> workflow.</p>
+</div>
+<div id="how-does-migraph-help" class="section level2">
+<h2 class="hasAnchor">
+<a href="#how-does-migraph-help" class="anchor"></a>How does migraph help?</h2>
+<div id="works-with-your-current-network-analysis-workflow" class="section level3">
+<h3 class="hasAnchor">
+<a href="#works-with-your-current-network-analysis-workflow" class="anchor"></a>Works with your current network analysis workflow</h3>
+<p>The package is offered as a complement to existing R packages for network analysis and thus tries to work well with your existing analytic workflows and the classes invoked. All <a href="https://github.com/snlab-ch/migraph">migraph</a> measures and models work with data in base formats:</p>
+<ul>
+<li>adjacency and incidence <em>matrices</em>
+</li>
+<li>one-mode and two-mode <em>data frame</em> edgelists</li>
+</ul>
+<p>as well as with objects from the following packages:</p>
+<ul>
+<li><a href="https://igraph.org/r/"><code>{igraph}</code></a></li>
+<li><a href="http://statnet.org"><code>{network}</code></a></li>
+<li><a href="https://tidygraph.data-imaginist.com/index.html"><code>{tidygraph}</code></a></li>
+</ul>
+<p>Since v0.6.3, <a href="https://github.com/snlab-ch/migraph">migraph</a> can also import and export to <a href="http://www.analytictech.com/archive/ucinet.htm">UCINET</a> files.</p>
+</div>
+<div id="extends-your-current-network-analysis-workflow" class="section level3">
+<h3 class="hasAnchor">
+<a href="#extends-your-current-network-analysis-workflow" class="anchor"></a>Extends your current network analysis workflow</h3>
+<p><a href="https://github.com/snlab-ch/migraph">migraph</a> offers a range of measures and models with sensible defaults. Most wrap existing functions in common packages for use with one-mode networks, but extend these to treat and/or normalise for two-mode (and sometime three-mode) networks correctly. Functions are given intuitive and succinct names that avoid conflicts with existing function names wherever possible.</p>
+<div id="manipulation" class="section level4">
+<h4 class="hasAnchor">
+<a href="#manipulation" class="anchor"></a>Manipulation</h4>
+<ul>
+<li><code><a href="reference/project.html">project_rows()</a></code></li>
+<li><code><a href="reference/project.html">project_cols()</a></code></li>
+</ul>
+</div>
+<div id="measures" class="section level4">
+<h4 class="hasAnchor">
+<a href="#measures" class="anchor"></a>Measures</h4>
+<ul>
+<li>Centrality: <code><a href="reference/centrality.html">node_degree()</a></code>, <code><a href="reference/centrality.html">node_closeness()</a></code>, <code><a href="reference/centrality.html">node_betweenness()</a></code>, and <code><a href="reference/centrality.html">node_eigenvector()</a></code>
+</li>
+<li>Centralization: <code><a href="reference/centralization.html">graph_degree()</a></code>, <code><a href="reference/centralization.html">graph_closeness()</a></code>, and <code><a href="reference/centralization.html">graph_betweenness()</a></code>
+</li>
+<li>Cohesion: <code><a href="reference/graph_clustering.html">graph_clustering()</a></code>, <code><a href="reference/node_constraint.html">node_constraint()</a></code>, <code><a href="reference/node_smallworld.html">node_smallworld()</a></code>
+</li>
+</ul>
+</div>
+<div id="models" class="section level4">
+<h4 class="hasAnchor">
+<a href="#models" class="anchor"></a>Models</h4>
+<ul>
+<li>Blockmodelling: <code>blockmodel_concor()</code>
+</li>
+<li>Linear regression: <code><a href="reference/netlm.html">netlm()</a></code>
+</li>
+</ul>
 <p>Please explore <a href="https://snlab-ch.github.io/migraph/">the website</a> to find out more.</p>
+</div>
+</div>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div id="from-binary" class="section level3">
+<div id="stable" class="section level3">
 <h3 class="hasAnchor">
-<a href="#from-binary" class="anchor"></a>From binary</h3>
-<p>Perhaps the easiest way to install <a href="https://github.com/snlab-ch/migraph">migraph</a> is by installing a compiled binary. Binaries for all major OSes – Windows, Mac, and Linux – can be found by clicking on the latest release <a href="https://github.com/snlab-ch/migraph/releases/latest">here</a>. Download the appropriate binary for your operating system, and install using an adapted version of the following commands:</p>
+<a href="#stable" class="anchor"></a>Stable</h3>
+<p>The easiest way to install the latest stable version of <a href="https://github.com/snlab-ch/migraph">migraph</a> is via CRAN. Simply open the R console and enter:</p>
+<p><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages('migraph')</a></code></p>
+<p>You can then begin to use <a href="https://github.com/snlab-ch/migraph">migraph</a> by loading the package:</p>
+<p><code><a href="https://github.com/snlab-ch/migraph">library(migraph)</a></code></p>
+<p>This will load all other required packages and also make the data contained within the package available.</p>
+</div>
+<div id="development" class="section level3">
+<h3 class="hasAnchor">
+<a href="#development" class="anchor"></a>Development</h3>
+<p>For the latest development version, for slightly earlier access to new features or for testing, you may wish to download and install the binaries from Github or install from source locally.</p>
+<p>Binaries for all major OSes – Windows, Mac, and Linux – can be found by clicking on the latest release <a href="https://github.com/snlab-ch/migraph/releases/latest">here</a>. Download the appropriate binary for your operating system, and install using an adapted version of the following commands:</p>
 <ul>
 <li>For Windows: <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("~/Downloads/migraph_winOS.zip", repos = NULL)</a></code>
 </li>
@@ -124,10 +189,6 @@
 <li>For Unix: <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("~/Downloads/migraph_linuxOS.tar.gz", repos = NULL)</a></code>
 </li>
 </ul>
-</div>
-<div id="from-source" class="section level3">
-<h3 class="hasAnchor">
-<a href="#from-source" class="anchor"></a>From source</h3>
 <p>To install from source the latest main version of <a href="https://github.com/snlab-ch/migraph">migraph</a> from Github, please install the <a href="https://remotes.r-lib.org">remotes</a> package from CRAN and then enter into the console:</p>
 <ul>
 <li>For latest stable version: <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("jhollway/migraph")</a></code>
@@ -149,6 +210,8 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=migraph">https://​cloud.r-project.org/​package=migraph</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/snlab-ch/migraph/">https://​github.com/​snlab-ch/​migraph/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/snlab-ch/migraph/issues">https://​github.com/​snlab-ch/​migraph/​issues</a>
@@ -167,6 +230,12 @@
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+</ul>
+</div>
+<div class="citation">
+<h2>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html">Citing migraph</a></li>
 </ul>
 </div>
 <div class="developers">
