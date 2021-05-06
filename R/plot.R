@@ -16,7 +16,24 @@ plot.igraph <- function(x, ...){
     lo[,2] <- abs(lo[,2]-1)
     igraph::plot.igraph(object, layout = lo, ...)
   } else {
-    igraph::plot.igraph(object, ...)
+    igraph::V(object)$color <- "white"
+      lo <- igraph::layout_nicely(object)
+      if(nrow(lo)==2){
+        lo[1,] <- c(0,0)
+        lo[2,] <- c(1,0)
+      } 
+      if(nrow(lo)==3){
+        lo[1,] <- c(0,0)
+        lo[2,] <- c(1,0)
+        lo[3,] <- c(.5,.866)
+      } 
+      if(nrow(lo)==4){
+        lo[1,] <- c(0,0)
+        lo[2,] <- c(1,0)
+        lo[3,] <- c(0,1)
+        lo[4,] <- c(1,1)
+      } 
+    igraph::plot.igraph(object, layout = lo, ...)
   }
 }
 
