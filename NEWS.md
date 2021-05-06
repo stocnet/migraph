@@ -1,6 +1,20 @@
-# migraph 0.6.3
+# migraph 0.6.4
 
-2021-04-26
+## Package
+
+* Extended R version dependence back to 3.6.*
+
+## Classes
+
+* Added `binarise()` for unweighting networks
+* Fixed bug in `as_tidygraph()` when passed a tbl_graph directly
+
+## Plotting
+
+* Added `plot_releases()` for more general use
+* Fixed bug in `plot.igraph()` with layouts and one-mode graphs
+
+# migraph 0.6.3
 
 ## Package
 

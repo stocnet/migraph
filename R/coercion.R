@@ -117,7 +117,7 @@ as_igraph <- function(object, twomode = FALSE){
 }
 
 #' @rdname coercion
-#' @importFrom tidygraph as_tbl_graph
+#' @importFrom tidygraph as_tbl_graph is.tbl_graph
 #' @return A tidygraph tbl_graph class object
 #' @examples
 #' test <- data.frame(id1 = c("A","B","B","C","C"),
@@ -126,7 +126,7 @@ as_igraph <- function(object, twomode = FALSE){
 #' @export
 as_tidygraph <- function(object, twomode = FALSE){
   
-  if(missing(object)){
+  if(missing(object) | is.tbl_graph(object)){
     tidy <- object
   } else if (is.igraph(object)) {
     tidy <- tidygraph::as_tbl_graph(object)

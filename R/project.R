@@ -47,3 +47,26 @@ project_cols <- function(object){
   } else stop("Object needs to be a tidygraph, igraph or matrix object.")
   out
 }
+
+#' Binarise a weighted network
+#' @param object A matrix, `igraph` graph or `tidygraph` tbl_graph object.
+#' @param threshold For a matrix, the threshold to binarise/dichotomise at.
+#' @examples
+#' binarise(project_rows(southern_women))
+#' @export
+binarise <- binarize <- function(object, threshold = 1){
+  if(is.tbl_graph(object)){
+    out <- igraph::delete_edge_attr(object, "weight")
+    out <- tidygraph::as_tbl_graph(out)
+  } else if(is.igraph(object)){
+    out <- igraph::delete_edge_attr(object, "weight")
+  } else if(is.network(object)){
+    out <- as_igraph(object)
+    out <- igraph::delete_edge_attr(out, "weight")
+    out <- as_network(out)
+  } else if(is.matrix(object)){
+    object[object > threshold] <- 1
+    out <- object
+  } else stop("Object needs to be a tidygraph, igraph or matrix object.")
+  out
+}
