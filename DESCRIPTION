@@ -14,7 +14,7 @@ Description: A set of tools that extend common social network analysis packages
    and includes various datasets used in the book.
 URL: https://github.com/snlab-ch/migraph
 BugReports: https://github.com/snlab-ch/migraph/issues
-Depends: R (>= 4.0.0)
+Depends: R (>= 3.6.0)
 License: MIT + file LICENSE
 Language: en-GB
 Encoding: UTF-8
@@ -24,17 +24,21 @@ Imports:
     igraph,
     tidygraph,
     ggplot2,
-    ggraph,
-    R6,
     magrittr,
     rlang,
     dplyr,
     purrr,
     tibble,
     tidyr,
-    network
+    network,
+    httr,
+    jsonlite,
+    lubridate,
+    stringr
 Suggests: 
     testthat,
+    ggraph,
+    R6,
     roxygen2,
     covr,
     knitr,
