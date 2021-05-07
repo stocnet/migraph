@@ -10,7 +10,5 @@
 0 errors | 0 warnings | 0 notes
 
 * Responds to email from Brian Ripley/CRAN team (2021-04-26)
-  * Reduced R dependency to 3.6.*
-  * Moved unused package dependencies (R6, ggraph) to Suggests
-  * An rhub/Bioconductor issue has been resolved elsewhere (r-hub/rhub-backend@3d3ca62)
-  * A PREPERROR on rhub Ubuntu Linux 20.04.1 LTS, R-release, GCC does not interfere with build SUCCESS
+  * Removed unused package dependencies (R6, ggraph)
+  * Avoided M1mac check issue by dropping the sensitive test

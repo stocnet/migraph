@@ -1,3 +1,16 @@
+# migraph 0.6.5
+
+## Package
+
+* Removed unused package dependencies (R6, ggraph)
+* Avoided M1mac check issue by dropping sensitive `netlm()` test
+* Added some tests
+
+## Classes
+
+* Renamed `binarise()` to `to_unweighted()`
+* Added `to_unnamed()` for unlabelling networks
+
 # migraph 0.6.4
 
 ## Package
