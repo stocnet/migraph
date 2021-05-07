@@ -48,15 +48,15 @@ reference:
     contents:
       - starts_with("as_")
       - starts_with("is_")
-  - title: "Visualisation"
-    desc: "Functions for visualising multilevel networks:"
-    contents:
-      - starts_with("plot")
   - title: "Manipulation"
     desc: "Functions for manipulating multimodal networks:"
     contents:
       - starts_with("project_")
-      - binarise
+      - starts_with("to_")
+  - title: "Visualisation"
+    desc: "Functions for visualising multilevel networks:"
+    contents:
+      - starts_with("plot")
   - title: "Measures"
     desc: "Functions for measuring multimodal and multilevel networks:"
     contents:
