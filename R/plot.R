@@ -86,7 +86,7 @@ plot.blockmodel <- function(x, ...){
 #' The function will take a data frame that details this information,
 #' or more usefully, a Github repository listing.
 #' @param repo the github repository to track, e.g. "snlab-ch/migraph"
-#' @importFrom httr GET content
+#' @importFrom httr GET content warn_for_status stop_for_status http_error
 #' @importFrom jsonlite fromJSON
 #' @importFrom tibble as_tibble
 #' @importFrom stats ave
@@ -107,6 +107,22 @@ plot_releases <- function(repo) {
     
     get_releases <- function(repo) {
       
+      repo <- paste0("https://api.github.com/repos/", repo, "/releases")
+      # if (httr::http_error(df)) { # network is down = message (not an error anymore)
+      #   message("No internet connection or data source broken.")
+      #   return(NULL)
+      # } else { # network is up = proceed to GET via httr
+      
+      df <- httr::GET(repo, query = list(state = "all", per_page = 100, page = 1))
+      httr::stop_for_status(df)
+      httr::warn_for_status(df)
+      df <- httr::content(df, type = "text", encoding = "UTF-8")
+      df <- jsonlite::fromJSON(df, flatten = TRUE)
+      df <- df[, c("tag_name", "url", "published_at")]
+      df$date <- stringr::str_remove(df$published_at, "T.*$")
+      df$date <- lubridate::ymd(stringr::str_replace(df$date,
+                                                     "-[:digit:]*$", "-01"))
+
       code_milestone <- function(tag_name) {
         tags <- c(tag_name, "v0.0.0")
         test <- lapply(stringr::str_split(stringr::str_remove(tags, "v"), "\\."),
@@ -120,16 +136,9 @@ plot_releases <- function(repo) {
                       "Minor", "Major"))[-length(tags)]
       }
       
-      df <- paste0("https://api.github.com/repos/", repo, "/releases")
-      df <- httr::GET(df, query = list(state = "all", per_page = 100, page = 1))
-      df <- httr::content(df, type = "text")
-      df <- jsonlite::fromJSON(df, flatten = TRUE)
-      df <- df[, c("tag_name", "url", "published_at")]
-      df$date <- stringr::str_remove(df$published_at, "T.*$")
-      df$date <- lubridate::ymd(stringr::str_replace(df$date,
-                                                     "-[:digit:]*$", "-01"))
       df$milestone <- code_milestone(df$tag_name)
       df
+      # }
     }
     
     df <- get_releases(repo)
