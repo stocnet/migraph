@@ -85,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.6</span>
       </span>
     </div>
 
@@ -134,22 +134,51 @@
       <small>Source: <a href='https://github.com/snlab-ch/migraph/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="migraph-066" class="section level1">
+<h1 class="page-header" data-toc-text="0.6.6">
+<a href="#migraph-066" class="anchor"></a>migraph 0.6.6<small> Unreleased </small>
+</h1>
+<div id="classes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#classes" class="anchor"></a>Classes</h2>
+<ul>
+<li>Fixed bug in <code><a href="../reference/convert.html">as_matrix()</a></code> with frame matrix by dropping (rarely necessary) functionality
+<ul>
+<li>Improved handling of weights column in three-column edgelists</li>
+<li>Improved documentation of <code>as_</code> functions</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="plotting" class="section level2">
+<h2 class="hasAnchor">
+<a href="#plotting" class="anchor"></a>Plotting</h2>
+<ul>
+<li>Fixed bugs in <code>plot_releases()</code> with more graceful handling of http errors
+<ul>
+<li>Added online condition to example in documentation</li>
+<li>Specified encoding for more silent operation</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
     <div id="migraph-065" class="section level1">
 <h1 class="page-header" data-toc-text="0.6.5">
-<a href="#migraph-065" class="anchor"></a>migraph 0.6.5<small> Unreleased </small>
+<a href="#migraph-065" class="anchor"></a>migraph 0.6.5<small> 2021-05-10 </small>
 </h1>
 <div id="package" class="section level2">
 <h2 class="hasAnchor">
 <a href="#package" class="anchor"></a>Package</h2>
 <ul>
-<li>Removed unused package dependencies (R6, ggraph)</li>
+<li>Removed unused package dependencies (<a href="https://r6.r-lib.org">R6</a>, <a href="https://ggraph.data-imaginist.com">ggraph</a>)</li>
 <li>Avoided M1mac check issue by dropping sensitive <code><a href="../reference/netlm.html">netlm()</a></code> test</li>
 <li>Added some tests</li>
 </ul>
 </div>
-<div id="classes" class="section level2">
+<div id="classes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes" class="anchor"></a>Classes</h2>
+<a href="#classes-1" class="anchor"></a>Classes</h2>
 <ul>
 <li>Renamed <code>binarise()</code> to <code>to_unweighted()</code>
 </li>
@@ -168,17 +197,17 @@
 <li>Extended R version dependence back to 3.6.*</li>
 </ul>
 </div>
-<div id="classes-1" class="section level2">
+<div id="classes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes-1" class="anchor"></a>Classes</h2>
+<a href="#classes-2" class="anchor"></a>Classes</h2>
 <ul>
 <li>Added <code>binarise()</code> for unweighting networks</li>
 <li>Fixed bug in <code><a href="../reference/convert.html">as_tidygraph()</a></code> when passed a tbl_graph directly</li>
 </ul>
 </div>
-<div id="plotting" class="section level2">
+<div id="plotting-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#plotting" class="anchor"></a>Plotting</h2>
+<a href="#plotting-1" class="anchor"></a>Plotting</h2>
 <ul>
 <li>Added <code>plot_releases()</code> for more general use</li>
 <li>Fixed bug in <code><a href="../reference/plot.igraph.html">plot.igraph()</a></code> with layouts and one-mode graphs</li>
@@ -202,9 +231,9 @@
 <li>Added <code>CITATION</code> details</li>
 </ul>
 </div>
-<div id="classes-2" class="section level2">
+<div id="classes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes-2" class="anchor"></a>Classes</h2>
+<a href="#classes-3" class="anchor"></a>Classes</h2>
 <ul>
 <li>Separated coercion (previously conversion) and manipulation</li>
 <li>Added some more inter-class coercion tests</li>
@@ -287,9 +316,9 @@
 <li>Updated several old URLs in documentation</li>
 </ul>
 </div>
-<div id="classes-3" class="section level2">
+<div id="classes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes-3" class="anchor"></a>Classes</h2>
+<a href="#classes-4" class="anchor"></a>Classes</h2>
 <ul>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/85'>#85</a> by adding <code>as_network()</code> to coerce objects into network class</li>
 <li>Modified other coercion functions to also work with network class objects</li>
@@ -353,9 +382,9 @@
 <li>Updated PR template</li>
 </ul>
 </div>
-<div id="classes-4" class="section level2">
+<div id="classes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes-4" class="anchor"></a>Classes</h2>
+<a href="#classes-5" class="anchor"></a>Classes</h2>
 <ul>
 <li>Added functions for class conversion between migraph-consistent graph formats</li>
 <li>
@@ -451,9 +480,9 @@
 </li>
 </ul>
 </div>
-<div id="plotting-1" class="section level2">
+<div id="plotting-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#plotting-1" class="anchor"></a>Plotting</h2>
+<a href="#plotting-2" class="anchor"></a>Plotting</h2>
 <ul>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/82'>#82</a> by re-adding a version <code><a href="../reference/plot.igraph.html">plot.igraph()</a></code> with sensible defaults for two-mode networks</li>
 </ul>
