@@ -1,11 +1,15 @@
-#' migraph-consistent object classes 
+#' Coercion between migraph-consistent object classes 
 #' 
-#' The `as_` functions in `{migraph}`
-#' typically accept edgelists (as data frames), matrices,
-#' igraph graph objects, or tidygraph tbl_graph objects,
-#' coercing them into the class designated in the function name.
+#' The `as_` functions in `{migraph}` coerce objects
+#' between several common classes of social network objects.
+#' These include:
+#' - adjacency and incidence matrices
+#' - edgelists (as data frames)
+#' - `{igraph}` `graph` objects
+#' - `{tidygraph}` `tbl_graph` objects
+#' - `{network}` `network` objects
 #' @name coercion
-#' @param object A data frame edgelist, matrix, igraph, or tidygraph object.
+#' @param object A data frame edgelist, matrix, igraph, tidygraph, or network object.
 #' @param twomode An option to override the heuristics for distinguishing incidence
 #' from adjacency matrices. By default FALSE.
 #' @details Behaviour is a little different depending on the data format.
@@ -16,17 +20,13 @@
 #' If the data frame is a 3 column edgelist,
 #' then the third column will be used as 
 #' the cell values or tie weights.
-#' If the data frame is more than 3 columns,
-#' the first column is full of character strings (i.e. is named)
-#' and the second column is numeric (e.g. 0 and 1)
-#' then it will be assumed that this is a matrix
-#' embedded in a data frame.
 #' 
 #' Incidence matrices are typically inferred from unequal dimensions,
 #' but since in rare cases a matrix with equal dimensions may still
 #' be an incidence matrix, an additional argument `twomode` can be
 #' specified to override this heuristic.
-#' This information is usually already embedded in igraph and tidygraph objects.
+#' This information is usually already embedded in `{igraph}`, 
+#' `{tidygraph}`, and `{network}` objects.
 #' @examples
 #' test <- data.frame(id1 = c("A","B","B","C","C"),
 #'                    id2 = c("I","G","I","G","H"))
@@ -58,22 +58,25 @@ as_matrix <- function(object){
   } else if (is.matrix(object)) {
     mat <- object
   } else if (is.data.frame(object)){
-    if(is.character(object[,1]) & ncol(object)>2 & is.numeric(object[1,2])){
-      out <- object
-      row.names(out) <- out[,1]
-      out[,1] <- NULL
-      out <- as.matrix(out)
-    } else {
-      if (ncol(object)==2) {
-        object <- as.data.frame(table(object[,1], object[,2]))
+    if (ncol(object) == 2) { # Adds a third (weight) column to a two-column edgelist
+      object <- as.data.frame(table(object[,1], object[,2]))
+    }
+    if (ncol(object) == 3) {
+      # object <- object[order(object[,1], object[,2]),]
+      nodes1 <- as.character(unique(object[,1]))
+      nodes1 <- sort(nodes1)
+      nodes2 <- as.character(unique(object[,2]))
+      nodes2 <- sort(nodes2)
+      if(nrow(object) != length(nodes1)*length(nodes2)){
+        allcombs <- expand.grid(object[,1:2], stringsAsFactors = FALSE)
+        allcombs <- subset(allcombs, !duplicated(allcombs))
+        object <- merge(allcombs, object, all.x = TRUE)
+        object <- object[order(object[,2], object[,1]),]
+        object[is.na(object)] <- 0
       }
-      if (ncol(object)==3) {
-        nodes1 <- as.character(unique(object[,1]))
-        nodes2 <- as.character(unique(object[,2]))
-        out <- structure(as.numeric(object[,3]), 
-                         .Dim = c(as.integer(length(nodes1)), as.integer(length(nodes2))), 
-                         .Dimnames = list(nodes1, nodes2))
-      }
+      out <- structure(as.numeric(object[,3]), 
+                       .Dim = c(as.integer(length(nodes1)), as.integer(length(nodes2))), 
+                       .Dimnames = list(nodes1, nodes2))
     }
     mat <- out
   }
@@ -126,7 +129,7 @@ as_igraph <- function(object, twomode = FALSE){
 #' @export
 as_tidygraph <- function(object, twomode = FALSE){
   
-  if(missing(object) | is.tbl_graph(object)){
+  if(missing(object)){
     tidy <- object
   } else if (is.igraph(object)) {
     tidy <- tidygraph::as_tbl_graph(object)
