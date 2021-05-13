@@ -1,8 +1,16 @@
+# migraph 0.6.6
+
+## Plotting
+
+* Fixed bugs in `plot_releases()` with more graceful handling of http errors
+  * Added online condition to example in documentation
+  * Specified encoding for more silent operation
+
 # migraph 0.6.5
 
 ## Package
 
-* Removed unused package dependencies (R6, ggraph)
+* Removed unused package dependencies (`{R6}`, `{ggraph}`)
 * Avoided M1mac check issue by dropping sensitive `netlm()` test
 * Added some tests
 
