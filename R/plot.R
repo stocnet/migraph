@@ -223,12 +223,12 @@ plot_releases <- function(repo) {
   )
   
   # Show text for each month
-  timeline_plot <- timeline_plot + ggplot2::geom_text(data=month_df,
+  timeline_plot <- timeline_plot + ggplot2::geom_text(data = month_df,
                                                       ggplot2::aes(x = month_date_range,
                                                                    y =-0.1, label = month_format),
                                                       size = 2.5, vjust = 0.5, color = "black", angle=90)
-  # Show year text
-  timeline_plot <- timeline_plot + ggplot2::geom_text(data = year_df,
+  # Show year text if applicable
+  if(nrow(year_df)>0) timeline_plot <- timeline_plot + ggplot2::geom_text(data = year_df,
                                                       ggplot2::aes(x = year_date_range,
                                                                    y = -0.2,
                                                                    label = year_format,
