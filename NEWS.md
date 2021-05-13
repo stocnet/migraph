@@ -1,5 +1,11 @@
 # migraph 0.6.6
 
+## Classes
+
+* Fixed bug in `as_matrix()` with frame matrix by dropping (rarely necessary) functionality
+  * Improved handling of weights column in three-column edgelists
+  * Improved documentation of `as_` functions
+
 ## Plotting
 
 * Fixed bugs in `plot_releases()` with more graceful handling of http errors
