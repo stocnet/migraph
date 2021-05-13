@@ -4,6 +4,8 @@ colnames(mat1) <- LETTERS[7:9]
 
 data1 <- data.frame(id1 = c("A","B","B","C","C"),
                     id2 = c("I","G","I","G","H"))
+data2 <- data1
+data2$weight <- 1
 
 test_that("data frame converted to matrix correctly",{
   expect_equal(as_matrix(data1), mat1)
