@@ -99,7 +99,9 @@ plot.blockmodel <- function(x, ...){
 #' @source https://benalexkeen.com/creating-a-timeline-graphic-using-r-and-ggplot2/
 #' @return A ggplot graph object
 #' @examples
+#' if(!httr::http_error("https://api.github.com/repos/snlab-ch/migraph/releases")){
 #' plot_releases("snlab-ch/migraph")
+#' }
 #' @export
 plot_releases <- function(repo) {
   
