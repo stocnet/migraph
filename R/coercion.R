@@ -58,12 +58,6 @@ as_matrix <- function(object){
   } else if (is.matrix(object)) {
     mat <- object
   } else if (is.data.frame(object)){
-    if(is.character(object[,1]) & ncol(object)>2 & is.numeric(object[1,2])){
-      out <- object
-      row.names(out) <- out[,1]
-      out[,1] <- NULL
-      out <- as.matrix(out)
-    } else {
       if (ncol(object)==2) {
         object <- as.data.frame(table(object[,1], object[,2]))
       }
