@@ -9,6 +9,6 @@
 
 0 errors | 0 warnings | 0 notes
 
-* Responds to email from Brian Ripley/CRAN team (2021-04-26)
-  * Removed unused package dependencies (R6, ggraph)
-  * Avoided M1mac check issue by dropping the sensitive test
+* Responds to email from Brian Ripley/CRAN team (2021-05-11)
+  * Avoided error in running `plot_releases()` example in ‘migraph-Ex.R’ on r-patched-solaris-x86
+  * Avoided test failure for `as_matrix()` on r-oldrel-macos-x86_64
