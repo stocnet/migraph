@@ -178,4 +178,3 @@ as_network <- function(object){
   net
   
 }
-
