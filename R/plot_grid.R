@@ -5,6 +5,11 @@
 #' Fruchterman-Reingold ("fr")
 #' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text geom_conn_bundle get_con
 #' @importFrom ggplot2 theme_void
+#' @importFrom igraph as_edgelist
+#' @references
+#' Inoue et al. (2012). 
+#' Application of Approximate Pattern Matching in Two Dimensional Spaces to Grid Layout for Biochemical Network Maps.
+#' PLoS One 7 (6): e37739. doi: https://doi.org/10.1371/journal.pone.0037739.
 #' @examples
 #' plot_grid(mpn_elite_mex)
 #' plot_grid(mpn_elite_usa_advice)
