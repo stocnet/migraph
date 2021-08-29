@@ -58,10 +58,11 @@ as_matrix <- function(object){
   } else if (is.matrix(object)) {
     mat <- object
   } else if (is.data.frame(object)){
-    if (ncol(object) == 2) { # Adds a third (weight) column to a two-column edgelist
-      object <- as.data.frame(table(object[,1], object[,2]))
+    if (ncol(object) == 2) {
+      object <- as.data.frame(table(c(object[,1])[[1]], 
+                                    c(object[,2])[[1]]))
     }
-    if (ncol(object) == 3) {
+    if (ncol(object) == 3) { # Adds a third (weight) column to a two-column edgelist
       # object <- object[order(object[,1], object[,2]),]
       nodes1 <- as.character(unique(object[,1]))
       nodes1 <- sort(nodes1)
@@ -129,7 +130,7 @@ as_igraph <- function(object, twomode = FALSE){
 #' @export
 as_tidygraph <- function(object, twomode = FALSE){
   
-  if(missing(object)){
+  if(missing(object) | is.tbl_graph(object)){
     tidy <- object
   } else if (is.igraph(object)) {
     tidy <- tidygraph::as_tbl_graph(object)
