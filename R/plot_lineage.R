@@ -1,3 +1,5 @@
+#' Plot lineage graph
+#' 
 #' Plot a lineage graph of citations, amendments, etc.
 #' @param x A migraph-consistent network/graph
 #' @importFrom ggraph create_layout ggraph geom_edge_diagonal
@@ -11,6 +13,7 @@
 #' }
 #' @export
 plot_lineage <- function(x){
+  index <- NULL # initialize variables to avoid CMD check notes
   x <- as_tidygraph(x)
   lo <- ggraph::create_layout(x, layout = "igraph", algorithm = "sugiyama", maxiter = 100000)
   ggraph::ggraph(x, graph = lo) +
