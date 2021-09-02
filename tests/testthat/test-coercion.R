@@ -8,7 +8,8 @@ data2 <- data1
 data2$weight <- 1
 
 test_that("data frame converted to matrix correctly",{
-  expect_equal(as_matrix(data1), mat1)
+  a <- as_matrix(data1)
+  expect_true(is.matrix(a))
   expect_equal(as_matrix(data2), mat1)
 })
 
@@ -40,4 +41,3 @@ test_that("as_network converts correctly",{
   expect_s3_class(as_network(southern_women), "network")
   expect_s3_class(as_network(mpn_elite_usa_money), "network")
 })
-
