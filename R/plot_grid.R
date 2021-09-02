@@ -1,14 +1,21 @@
 #' Plot graph to grid
+#' 
+#' For quick and easy graphing of networks to a grid plot
+#' @details The function uses approximate pattern matching 
+#' to redistributes the coarse layouts on the square grid points, while
+#' preserving the topological relationships among the nodes (see Inoue et al. 2012). 
 #' @param x A migraph-consistent network/graph
 #' @param algorithm An initial network layout,
 #' currently either Kamada-Kawai ("kk") or
 #' Fruchterman-Reingold ("fr")
-#' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text geom_conn_bundle get_con
+#' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text geom_conn_bundle get_con geom_node_point
 #' @importFrom ggplot2 theme_void
 #' @importFrom igraph as_edgelist
+#' @importFrom stats dist
 #' @references
 #' Inoue et al. (2012). 
-#' Application of Approximate Pattern Matching in Two Dimensional Spaces to Grid Layout for Biochemical Network Maps.
+#' Application of Approximate Pattern Matching in Two Dimensional
+#' Spaces to Grid Layout for Biochemical Network Maps.
 #' PLoS One 7 (6): e37739. doi: https://doi.org/10.1371/journal.pone.0037739.
 #' @examples
 #' plot_grid(mpn_elite_mex)
@@ -17,22 +24,23 @@
 #' plot_grid(mpn_ryanair)
 #' @export
 plot_grid <- function(x, algorithm = c("kk","fr")){
+  name <- NULL # initialize variables to avoid CMD check notes
   x <- as_tidygraph(x)
   algorithm <- match.arg(algorithm)
   gg <- ggraph::create_layout(x, layout = "igraph", 
                               algorithm = algorithm, maxiter = 10000)
-  
+
   ggraph::ggraph(x, graph = depth_first_recursive_search(gg)) +
     ggraph::geom_conn_bundle(data = ggraph::get_con(from = igraph::as_edgelist(x, names = FALSE)[,1], 
                                             to = igraph::as_edgelist(x, names = FALSE)[,2]), alpha = 0.1) +
     # ggraph::geom_edge_link(arrow = arrow(length = unit(3, 'mm')), 
     #                        start_cap = circle(4, 'mm'),
-    #                        end_cap = circle(4, 'mm'), show.legend = FALSE) + 
+    #                        end_cap = circle(4, 'mm'), show.legend = FALSE) +
     ggraph::geom_node_text(aes(label = name)) + ggplot2::theme_void()
 }
 
 depth_first_recursive_search <- function(layout){
-  
+
   dims <- ceiling(2 * sqrt(nrow(layout)))
   vacant_points <- expand.grid(0:dims, 0:dims)
   vacant_points <- vacant_points - floor(dims/2)
@@ -98,13 +106,18 @@ cost_function <- function(layout, graph, max_repulse_distance = max(layout[,1])*
   m <- a + i
   
   w <- ifelse(m > 0, 3,
-              ifelse(m==0 & m%*%t(m) > 0, 0, -2)) #only three levels here
+              ifelse(m==0 & m%*%t(m) > 0, 0, -2)) # only three levels here
   # see Li and Kurata (2005: 2037) for more granulated option
   
   ifelse(w >= 0, w * d, w * min(d, max_repulse_distance))
 }
 
 plot_gl <- function(x, tmax, tmin, rmin, fmin, ne, rc, p){
+
+  l <- NULL # initialize variables to avoid CMD check notes
+  index <- NULL # initialize variables to avoid CMD check notes
+  a <- NULL # initialize variables to avoid CMD check notes
+
   x <- as_tidygraph(x)
   lo <- ggraph::create_layout(x, layout = "igraph", algorithm = "randomly")
   lo[,1] <- round(lo[,1]*1000)
