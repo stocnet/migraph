@@ -23,6 +23,7 @@ RoxygenNote: 7.1.1
 Imports: 
     igraph,
     tidygraph,
+    ggraph,
     ggplot2,
     magrittr,
     rlang,
