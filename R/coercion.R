@@ -12,6 +12,8 @@
 #' @param object A data frame edgelist, matrix, igraph, tidygraph, or network object.
 #' @param twomode An option to override the heuristics for distinguishing incidence
 #' from adjacency matrices. By default FALSE.
+#' @param weight An option to override the heuristics for distinguishing weighted
+#' networks. By default FALSE.
 #' @details Behaviour is a little different depending on the data format.
 #' 
 #' If the data frame is a 2 column edgelist,
@@ -33,7 +35,7 @@
 #' as_matrix(test)
 #' @return An adjacency or incidence matrix, named if possible.
 #' @export
-as_matrix <- function(object){
+as_matrix <- function(object, weight = FALSE){
   
   if(missing(object)){
     expect_nodes()
@@ -58,7 +60,7 @@ as_matrix <- function(object){
   } else if (is.matrix(object)) {
     mat <- object
   } else if (is.data.frame(object)){
-    if (ncol(object) == 2) {
+    if (ncol(object) == 2 | !weight) {
       object <- as.data.frame(table(c(object[,1])[[1]], 
                                     c(object[,2])[[1]]))
     }
