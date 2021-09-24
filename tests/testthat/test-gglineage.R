@@ -7,7 +7,7 @@ cites <- tibble::tibble(qID1 = c("BNLHPB_2016P:BNLHPB_1970A",
                                  "ERECHA_1991O", "AI07EM_1998A", "CNEWNH_1979A"))
 
 test_that("Plot lineage function works", {
-  testplot <- plot_lineage(cites)
+  testplot <- gglineage(cites)
   expect_true(is.list(testplot))
   expect_length(testplot, 9)
   expect_named(testplot[1], "data")

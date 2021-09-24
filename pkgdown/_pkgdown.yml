@@ -57,6 +57,7 @@ reference:
     desc: "Functions for visualising multilevel networks:"
     contents:
       - starts_with("plot")
+      - starts_with("gg")
   - title: "Measures"
     desc: "Functions for measuring multimodal and multilevel networks:"
     contents:
