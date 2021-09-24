@@ -6,12 +6,19 @@
 -   Converted `as_` coercion functions to S3 methods
 
     -   Added a little more readable documentation
+    - Fixed bug with `as_matrix()` weighting
+    - Fixed bug with `as_tidygraph()`
 
 ## Visualisation
 
 - Added `ggevolution()` for graphing two timepoints of the same network side by side
 - Added `gglineage()` for graphing a citation network through time
 - Added `ggraphgrid()` for locking a graph to a grid
+- Slight improvements to `plot.igraph()` defaults
+
+## Analysis
+
+- Added tidygraph lookups to `node_` functions
 
 # migraph 0.6.6
 
@@ -55,7 +62,7 @@
 -   Added `binarise()` for unweighting networks
 -   Fixed bug in `as_tidygraph()` when passed a tbl_graph directly
 
-## Plotting
+## Visualization
 
 -   Added `plot_releases()` for more general use
 -   Fixed bug in `plot.igraph()` with layouts and one-mode graphs
@@ -257,7 +264,7 @@
     -   Closed \#77 by adding `print.summary.netlm()` for `netlm()`
         regressions
 
-## Plotting
+## Visualization
 
 -   Closed \#82 by re-adding a version `plot.igraph()` with sensible
     defaults for two-mode networks

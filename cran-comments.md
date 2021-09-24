@@ -8,7 +8,3 @@
 ## R CMD check results
 
 0 errors | 0 warnings | 0 notes
-
-* Responds to email from Brian Ripley/CRAN team (2021-05-11)
-  * Avoided error in running `plot_releases()` example in ‘migraph-Ex.R’ on r-patched-solaris-x86
-  * Avoided test failure for `as_matrix()` on r-oldrel-macos-x86_64
