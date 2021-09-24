@@ -1,19 +1,18 @@
-
 # migraph 0.7.0
 
 ## Classes
 
--   Converted `as_` coercion functions to S3 methods
+- Closed #100 by converting `as_` coercion functions to S3 methods
 
-    -   Added a little more readable documentation
+    - Added a little more readable documentation
     - Fixed bug with `as_matrix()` weighting
     - Fixed bug with `as_tidygraph()`
 
 ## Visualisation
 
-- Added `ggevolution()` for graphing two timepoints of the same network side by side
-- Added `gglineage()` for graphing a citation network through time
-- Added `ggraphgrid()` for locking a graph to a grid
+- Closed #92 by adding `gglineage()` for graphing a citation network through time
+- Closed #99 by adding `ggevolution()` for graphing two timepoints of the same network side by side
+- Closed #102 by adding `ggraphgrid()` for locking a graph to a grid
 - Slight improvements to `plot.igraph()` defaults
 
 ## Analysis
