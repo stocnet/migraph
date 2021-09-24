@@ -9,16 +9,20 @@
 #' @param layout an igraph layout. Default is Kamada-Kawai ("kk")
 #' @param based_on whether the layout of the joint plots should
 #' be based on the "first" or the "last" network.
+#' @importFrom gridExtra grid.arrange
 #' @examples 
 #' mpn_elite_mex2 <- mpn_elite_mex  %>%
 #'                   tidygraph::activate(edges) %>%
 #' tidygraph::reroute(from = sample.int(11, 44, replace = TRUE), 
 #' to = sample.int(11, 44, replace = TRUE))
-#' plot_evolution(mpn_elite_mex, mpn_elite_mex2)
-#' plot_evolution(mpn_elite_mex, mpn_elite_mex2, based_on = "last")
+#' ggevolution(mpn_elite_mex, mpn_elite_mex2)
+#' ggevolution(mpn_elite_mex, mpn_elite_mex2, based_on = "last")
+#' ggevolution(mpn_elite_mex, mpn_elite_mex2, based_on = "both")
 #' @export
-plot_evolution <- function(..., layout = "kk", 
-                           based_on = c("first", "last")){
+ggevolution <- function(..., layout = "kk", 
+                        based_on = c("first", "last", "both")){
+  
+  index <- nodes <- name <- NULL # to avoid CMD check notes
   
   networks <- list(...)
   networks <- lapply(networks, as_tidygraph)
@@ -34,6 +38,11 @@ plot_evolution <- function(..., layout = "kk",
   } else if (based_on == "last"){
     l1$x <- l2$x
     l1$y <- l2$y
+  } else if (based_on == "both"){
+    l3 <- as_igraph(networks[[1]]) + as_igraph(networks[[2]])
+    l3 <- ggraph::create_layout(l3, layout = "igraph", algorithm = layout)
+    l1$x <- l2$x <- l3$x
+    l1$y <- l2$y <- l3$y
   } else warning("No other bases currently implemented. Defaulting to individual layouts.")
   
   g1 <- ggraph::ggraph(l1) +
