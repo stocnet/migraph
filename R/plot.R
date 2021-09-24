@@ -17,7 +17,7 @@ plot.igraph <- function(x, ...){
     igraph::plot.igraph(object, layout = lo, ...)
   } else {
     igraph::V(object)$color <- "white"
-      lo <- igraph::layout_nicely(object)
+    lo <- igraph::layout_nicely(object)
       if(nrow(lo)==2){
         lo[1,] <- c(0,0)
         lo[2,] <- c(1,0)
@@ -33,7 +33,7 @@ plot.igraph <- function(x, ...){
         lo[3,] <- c(0,1)
         lo[4,] <- c(1,1)
       } 
-    igraph::plot.igraph(object, layout = lo, ...)
+    igraph::plot.igraph(object, layout = lo, vertex.label.color = "black", ...)
   }
 }
 
