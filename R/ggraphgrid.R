@@ -18,12 +18,12 @@
 #' Spaces to Grid Layout for Biochemical Network Maps.
 #' PLoS One 7 (6): e37739. doi: https://doi.org/10.1371/journal.pone.0037739.
 #' @examples
-#' plot_grid(mpn_elite_mex)
-#' plot_grid(mpn_elite_usa_advice)
-#' plot_grid(mpn_elite_usa_money)
-#' plot_grid(mpn_ryanair)
+#' ggraphgrid(mpn_elite_mex)
+#' ggraphgrid(mpn_elite_usa_advice)
+#' ggraphgrid(mpn_elite_usa_money)
+#' ggraphgrid(mpn_ryanair)
 #' @export
-plot_grid <- function(x, algorithm = c("kk","fr")){
+ggraphgrid <- function(x, algorithm = c("kk","fr")){
   name <- NULL # initialize variables to avoid CMD check notes
   x <- as_tidygraph(x)
   algorithm <- match.arg(algorithm)
