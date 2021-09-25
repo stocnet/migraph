@@ -48,7 +48,7 @@ depth_first_recursive_search <- function(layout){
   
   layout <- layout[order(abs(layout$x) + abs(layout$y)),]
   
-  for(i in 1:nrow(layout)){
+  for(i in seq_len(nrow(layout))){
     dists <- as.matrix(dist(rbind(layout[i,1:2], vacant_points), 
                             method = "manhattan"))[,1]
     mindist <- which(dists == min(dists[2:length(dists)]))[1]-1
@@ -68,7 +68,7 @@ localmin <- function(layout, graph){
     f0 <- sum(cost_function(layout, graph))
     L <- get_vacant_points(layout)
     
-    for(a in 1:nrow(layout)){
+    for(a in seq_len(nrow(layout))){
       out <- t(apply(L, 1, function(y){
         layout_new <- layout
         layout_new[a,1:2] <- y
