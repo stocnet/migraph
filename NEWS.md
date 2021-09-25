@@ -1,3 +1,9 @@
+# migraph 0.7.1
+
+## Classes
+
+- Fixed Unicode char bug in coercion documentation
+
 # migraph 0.7.0
 
 ## Classes
