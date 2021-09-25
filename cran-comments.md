@@ -8,7 +8,3 @@
 ## R CMD check results
 
 0 errors | 0 warnings | 0 notes
-
-* Responds to email from Brian Ripley/CRAN team (2021-04-26)
-  * Removed unused package dependencies (R6, ggraph)
-  * Avoided M1mac check issue by dropping the sensitive test

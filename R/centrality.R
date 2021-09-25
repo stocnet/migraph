@@ -26,9 +26,13 @@
 #' the function will return a `tidygraph` object where the nodes have been updated
 #' @export
 node_degree <- function (object, 
-                               weights = NULL, mode = "out", 
-                               loops = TRUE, normalized = FALSE){
+                         weights = NULL, mode = "out", 
+                         loops = TRUE, normalized = FALSE){
   
+  if(missing(object)){
+    expect_nodes()
+    object <- .G()
+  }
   graph <- as_igraph(object)
   
   # Do the calculations
@@ -62,6 +66,10 @@ node_closeness <- function (object,
                             weights = NULL, mode = "out", 
                             normalized = FALSE, cutoff = NULL){
   
+  if(missing(object)){
+    expect_nodes()
+    object <- .G()
+  }
   graph <- as_igraph(object)
   
   # Do the calculations
@@ -99,6 +107,10 @@ node_betweenness <- function(object,
                                    weights = NULL, directed = TRUE,
                                    cutoff = NULL, nobigint = TRUE, normalized = FALSE){
 
+  if(missing(object)){
+    expect_nodes()
+    object <- .G()
+  }
   graph <- as_igraph(object)
   
   # Do the calculations
@@ -135,6 +147,10 @@ node_eigenvector <- function(object,
                                    options = igraph::arpack_defaults, 
                                    scale = FALSE, normalized = FALSE){
   
+  if(missing(object)){
+    expect_nodes()
+    object <- .G()
+  }
   graph <- as_igraph(object)
   
   # Do the calculations
