@@ -85,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
       </span>
     </div>
 
@@ -156,9 +156,15 @@
       <tr>
         
         <td>
-          <p><code><a href="create.html">create_empty()</a></code> <code><a href="create.html">create_complete()</a></code> <code><a href="create.html">create_ring()</a></code> <code><a href="create.html">create_components()</a></code> </p>
+          <p><code><a href="create.html">create_empty()</a></code> <code><a href="create.html">create_complete()</a></code> <code><a href="create.html">create_ring()</a></code> <code><a href="create.html">create_components()</a></code> <code><a href="create.html">create_star()</a></code> </p>
         </td>
-        <td><p>Create networks that conform to particular structures</p></td>
+        <td><p>Create networks with particular structures</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="generate.html">generate_random()</a></code> </p>
+        </td>
+        <td><p>Create networks from particular probabilities</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -183,7 +189,7 @@
         <td>
           <p><code><a href="mpn_bristol.html">mpn_bristol</a></code> </p>
         </td>
-        <td><p>Bristol protest events, 1990-2002</p></td>
+        <td><p>Multimodal (3) Bristol protest events, 1990-2002</p></td>
       </tr><tr>
         
         <td>
@@ -207,19 +213,25 @@
         <td>
           <p><code><a href="mpn_evs.html">mpn_IT_1990</a></code> <code><a href="mpn_evs.html">mpn_IT_2008</a></code> <code><a href="mpn_evs.html">mpn_DE_1990</a></code> <code><a href="mpn_evs.html">mpn_DE_2008</a></code> <code><a href="mpn_evs.html">mpn_UK_1990</a></code> <code><a href="mpn_evs.html">mpn_UK_2008</a></code> </p>
         </td>
-        <td><p>European Values Survey, 1990 and 2008</p></td>
+        <td><p>Two-mode European Values Survey, 1990 and 2008</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="mpn_ryanair.html">mpn_ryanair</a></code> </p>
         </td>
-        <td><p>Ryanair data, EU policy influence network in June 2004</p></td>
+        <td><p>One-mode EU policy influence network, June 2004</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="mpn_senate112.html">mpn_DemSxP</a></code> <code><a href="mpn_senate112.html">mpn_RepSxP</a></code> <code><a href="mpn_senate112.html">mpn_OverSxP</a></code> </p>
         </td>
-        <td><p>112th Congress Senate Voting</p></td>
+        <td><p>Two-mode 112th Congress Senate Voting</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read.html">read_ucinet()</a></code> <code><a href="read.html">write_ucinet()</a></code> </p>
+        </td>
+        <td><p>Reading from/writing to external formats</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -236,9 +248,15 @@
       <tr>
         
         <td>
-          <p><code><a href="convert.html">as_matrix()</a></code> <code><a href="convert.html">as_igraph()</a></code> <code><a href="convert.html">as_tidygraph()</a></code> <code><a href="convert.html">is_twomode()</a></code> </p>
+          <p><code><a href="coercion.html">as_matrix()</a></code> <code><a href="coercion.html">as_igraph()</a></code> <code><a href="coercion.html">as_tidygraph()</a></code> <code><a href="coercion.html">as_network()</a></code> </p>
         </td>
-        <td><p>migraph-consistent object classes</p></td>
+        <td><p>Coercion between graph/network object classes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="is.html">is_twomode()</a></code> <code><a href="is.html">is_weighted()</a></code> <code><a href="is.html">is_directed()</a></code> <code><a href="is.html">is_labelled()</a></code> </p>
+        </td>
+        <td><p>Tests of network properties</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -258,6 +276,12 @@
           <p><code><a href="project.html">project_rows()</a></code> <code><a href="project.html">project_cols()</a></code> </p>
         </td>
         <td><p>Projecting two-mode objects into one-mode objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="to.html">to_unweighted()</a></code> <code><a href="to.html">to_unnamed()</a></code> </p>
+        </td>
+        <td><p>Tools for reformatting networks, graphs, and matrices</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -274,9 +298,39 @@
       <tr>
         
         <td>
+          <p><code><a href="plot.blockmodel.html">plot(<i>&lt;blockmodel&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>ggplot2-based plotting of blockmodel results</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="plot.igraph.html">plot(<i>&lt;igraph&gt;</i>)</a></code> </p>
         </td>
         <td><p>Plotting of one-mode and two-mode graphs</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_releases.html">plot_releases()</a></code> </p>
+        </td>
+        <td><p>A plotting function that visualises historical milestones/releases</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ggevolution.html">ggevolution()</a></code> </p>
+        </td>
+        <td><p>Plot the evolution of a network</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="gglineage.html">gglineage()</a></code> </p>
+        </td>
+        <td><p>Plot lineage graph</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ggraphgrid.html">ggraphgrid()</a></code> </p>
+        </td>
+        <td><p>Plot graph to grid</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -339,6 +393,12 @@
           <p><code><a href="netlm.html">netlm()</a></code> <code><a href="netlm.html">summary(<i>&lt;netlm&gt;</i>)</a></code> <code><a href="netlm.html">print(<i>&lt;summary.netlm&gt;</i>)</a></code> </p>
         </td>
         <td><p>Linear regression for multimodal network data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="blockmodel.html">blockmodel_concor()</a></code> <code><a href="blockmodel.html">print(<i>&lt;blockmodel&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Blockmodelling</p></td>
       </tr>
     </tbody>
     </table>

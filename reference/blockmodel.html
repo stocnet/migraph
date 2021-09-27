@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Linear regression for multimodal network data — netlm • migraph</title>
+<title>Blockmodelling — blockmodel • migraph</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,9 +52,8 @@
 
 
 
-<meta property="og:title" content="Linear regression for multimodal network data — netlm" />
-<meta property="og:description" content="This function extends the multiple regression quadratic assignment procedure (MRQAP)
-of network linear model to two mode networks." />
+<meta property="og:title" content="Blockmodelling — blockmodel" />
+<meta property="og:description" content="Blockmodelling" />
 <meta property="og:image" content="https://snlab-ch.github.io/migraph/logo.png" />
 
 
@@ -132,89 +131,119 @@ of network linear model to two mode networks." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Linear regression for multimodal network data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/snlab-ch/migraph/blob/master/R/netlm.R'><code>R/netlm.R</code></a></small>
-    <div class="hidden name"><code>netlm.Rd</code></div>
+    <h1>Blockmodelling</h1>
+    <small class="dont-index">Source: <a href='https://github.com/snlab-ch/migraph/blob/master/R/blockmodel.R'><code>R/blockmodel.R</code></a></small>
+    <div class="hidden name"><code>blockmodel.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function extends the multiple regression quadratic assignment procedure (MRQAP)
-of network linear model to two mode networks.</p>
+    <p>Blockmodelling</p>
     </div>
 
-    <pre class="usage"><span class='fu'>netlm</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>blockmodel_concor</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  p <span class='op'>=</span> <span class='fl'>1</span>,
+  cutoff <span class='op'>=</span> <span class='fl'>0.999</span>,
+  max.iter <span class='op'>=</span> <span class='fl'>25</span>,
+  block.content <span class='op'>=</span> <span class='st'>"density"</span>
+<span class='op'>)</span>
 
-<span class='co'># S3 method for netlm</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, reps <span class='op'>=</span> <span class='fl'>1000</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for summary.netlm</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  digits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"digits"</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>3</span><span class='op'>)</span>,
-  signif.stars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"show.signif.stars"</span><span class='op'>)</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='co'># S3 method for blockmodel</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>formula</th>
-      <td><p>A formula describing the relationship being tested.</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>A named list of matrices, graphs, or a tidygraph object.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Arguments passed on to <code><a href='https://rdrr.io/r/stats/lm.html'>lm()</a></code>.</p></td>
-    </tr>
-    <tr>
       <th>object</th>
-      <td><p>an object of class "netlm", usually as a result of a call to <code>netlm()</code>.</p></td>
+      <td><p>A migraph-consistent object (matrix, igraph, tidygraph).</p></td>
     </tr>
     <tr>
-      <th>reps</th>
-      <td><p>Integer indicating the number of draws to use for quantile estimation.
-(Relevant to the null hypothesis test only - the analysis itself is unaffected by this parameter.)
-Note that, as for all Monte Carlo procedures, convergence is slower for more extreme quantiles.
-By default, reps=1000.</p></td>
+      <th>p</th>
+      <td><p>An integer representing the desired number of partitions.</p></td>
+    </tr>
+    <tr>
+      <th>cutoff</th>
+      <td><p>A value between 0 and 1 used to determine convergence.</p></td>
+    </tr>
+    <tr>
+      <th>max.iter</th>
+      <td><p>An integer representing the maximum number of iterations.</p></td>
+    </tr>
+    <tr>
+      <th>block.content</th>
+      <td><p>A string indicating which method to use for
+calculating block content.
+Options are: "density", "sum", "meanrowsum", "meancolsum",
+"median", "min", "max".</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>an object of class "summary.netlm", usually, a result of a call to <code>summary.netlm()</code>.</p></td>
+      <td><p>An object of class "blockmodel"</p></td>
     </tr>
     <tr>
-      <th>digits</th>
-      <td><p>the number of significant digits to use when printing.</p></td>
-    </tr>
-    <tr>
-      <th>signif.stars</th>
-      <td><p>logical. If TRUE, ‘significance stars’ are printed for each coefficient.</p></td>
+      <th>...</th>
+      <td><p>Additional arguments passed to generic print method</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p><a href='https://github.com/aslez/concoR'>https://github.com/aslez/concoR</a></p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.
+An Algorithm for Clustering Relational Data with Applications to
+Social Network Analysis and Comparison with Multidimensional Scaling.
+<em>Journal of Mathematical Psychology</em>, 12: 328--383.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>mat1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span>
-<span class='va'>mat2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span>
-<span class='va'>mat3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span>
-<span class='va'>lmat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mat1 <span class='op'>=</span> <span class='va'>mat1</span>, mat2 <span class='op'>=</span> <span class='va'>mat2</span>, mat3 <span class='op'>=</span> <span class='va'>mat3</span><span class='op'>)</span>
-<span class='va'>model1</span> <span class='op'>&lt;-</span> <span class='fu'>netlm</span><span class='op'>(</span><span class='va'>mat1</span> <span class='op'>~</span> <span class='va'>mat2</span> <span class='op'>+</span> <span class='va'>mat3</span>, <span class='va'>lmat</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>model1</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='va'>mex_concor</span> <span class='op'>&lt;-</span> <span class='fu'>blockmodel_concor</span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span>
+<span class='va'>mex_concor</span>
 </div><div class='output co'>#&gt; 
-#&gt; Call:
-#&gt; netlm(formula = mat1 ~ mat2 + mat3, data = lmat)
+#&gt; Network Blockmodel:
 #&gt; 
+#&gt; Block membership:
 #&gt; 
-#&gt; Coefficients:
-#&gt;             coefs pvals
-#&gt; (Intercept) 0.375 0.379
-#&gt; mat2        0.250 0.821
-#&gt; mat3        0.250 0.793
+#&gt;   Alvarezx     Beteta    Gortari     Lozano     Madrid     Blanco    Margain 
+#&gt;          1          1          2          2          2          1          2 
+#&gt;       Mena   Portillo      Rojas Bustamente 
+#&gt;          2          2          2          1 
 #&gt; 
-#&gt; Multiple R-squared:  0.1333,	Adjusted R-squared:  -0.2133</div></pre>
+#&gt; Reduced form blockmodel:
+#&gt; 
+#&gt; 	 
+#&gt;      [,1]      [,2]
+#&gt; [1,]  0.0 0.5000000
+#&gt; [2,]  0.5 0.3265306</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>mex_concor</span><span class='op'>)</span>
+</div><div class='img'><img src='blockmodel-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>usa_concor</span> <span class='op'>&lt;-</span> <span class='fu'>blockmodel_concor</span><span class='op'>(</span><span class='va'>mpn_elite_usa_advice</span><span class='op'>)</span>
+<span class='va'>usa_concor</span>
+</div><div class='output co'>#&gt; 
+#&gt; Network Blockmodel:
+#&gt; 
+#&gt; Block membership:
+#&gt; 
+#&gt;   First nodeset:
+#&gt; 
+#&gt;  Albright Greenberg     Hills   Argyros  Armitage Kissinger     Curry  Fukuyama 
+#&gt;         1         2         2         1         1         2         1         1 
+#&gt;  Peterson      Gray Scowcroft      Wald      West   Zakheim 
+#&gt;         2         1         2         2         2         2 
+#&gt; 
+#&gt;   Second nodeset:
+#&gt; 
+#&gt;   ACUS   FPRI  GMFUS    AEI HOOVER  ASPEN    IAD   CATO    IIE    CFR    CGD 
+#&gt;      1      2      2      1      2      1      2      1      2      1      1 
+#&gt;   CNAS     MI    NAF   RAND    CNI     RF    RFF   CSIS    EWI 
+#&gt;      1      2      2      2      1      2      2      1      1 
+#&gt; 
+#&gt; Reduced form blockmodel:
+#&gt; 
+#&gt; 	 
+#&gt;      [,1]      [,2]
+#&gt; [1,] 0.05 0.2833333
+#&gt; [2,] 0.25 0.0750000</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>usa_concor</span><span class='op'>)</span>
+</div><div class='img'><img src='blockmodel-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Linear regression for multimodal network data — netlm • migraph</title>
+<title>Coercion between graph/network object classes — coercion • migraph</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,9 +52,17 @@
 
 
 
-<meta property="og:title" content="Linear regression for multimodal network data — netlm" />
-<meta property="og:description" content="This function extends the multiple regression quadratic assignment procedure (MRQAP)
-of network linear model to two mode networks." />
+<meta property="og:title" content="Coercion between graph/network object classes — coercion" />
+<meta property="og:description" content="The as_ functions in {migraph} coerce objects
+between several common classes of social network objects.
+These include:
+adjacency and incidence matrices
+edgelists (as data frames)
+{igraph} graph objects
+{tidygraph} tbl_graph objects
+{network} network objects
+
+" />
 <meta property="og:image" content="https://snlab-ch.github.io/migraph/logo.png" />
 
 
@@ -132,89 +140,124 @@ of network linear model to two mode networks." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Linear regression for multimodal network data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/snlab-ch/migraph/blob/master/R/netlm.R'><code>R/netlm.R</code></a></small>
-    <div class="hidden name"><code>netlm.Rd</code></div>
+    <h1>Coercion between graph/network object classes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/snlab-ch/migraph/blob/master/R/coercion.R'><code>R/coercion.R</code></a></small>
+    <div class="hidden name"><code>coercion.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function extends the multiple regression quadratic assignment procedure (MRQAP)
-of network linear model to two mode networks.</p>
+    <p>The <code>as_</code> functions in <code>{migraph}</code> coerce objects
+between several common classes of social network objects.
+These include:</p><ul>
+<li><p>adjacency and incidence matrices</p></li>
+<li><p>edgelists (as data frames)</p></li>
+<li><p><code>{igraph}</code> <code>graph</code> objects</p></li>
+<li><p><code>{tidygraph}</code> <code>tbl_graph</code> objects</p></li>
+<li><p><code>{network}</code> <code>network</code> objects</p></li>
+</ul>
+
     </div>
 
-    <pre class="usage"><span class='fu'>netlm</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>as_matrix</span><span class='op'>(</span><span class='va'>object</span>, weight <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='co'># S3 method for netlm</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, reps <span class='op'>=</span> <span class='fl'>1000</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>as_igraph</span><span class='op'>(</span><span class='va'>object</span>, weight <span class='op'>=</span> <span class='cn'>FALSE</span>, twomode <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='co'># S3 method for summary.netlm</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  digits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"digits"</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>3</span><span class='op'>)</span>,
-  signif.stars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"show.signif.stars"</span><span class='op'>)</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='fu'>as_tidygraph</span><span class='op'>(</span><span class='va'>object</span>, twomode <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+
+<span class='fu'>as_network</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>formula</th>
-      <td><p>A formula describing the relationship being tested.</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>A named list of matrices, graphs, or a tidygraph object.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Arguments passed on to <code><a href='https://rdrr.io/r/stats/lm.html'>lm()</a></code>.</p></td>
-    </tr>
-    <tr>
       <th>object</th>
-      <td><p>an object of class "netlm", usually as a result of a call to <code>netlm()</code>.</p></td>
+      <td><p>A data frame edgelist, matrix, igraph, tidygraph, or network object.</p></td>
     </tr>
     <tr>
-      <th>reps</th>
-      <td><p>Integer indicating the number of draws to use for quantile estimation.
-(Relevant to the null hypothesis test only - the analysis itself is unaffected by this parameter.)
-Note that, as for all Monte Carlo procedures, convergence is slower for more extreme quantiles.
-By default, reps=1000.</p></td>
+      <th>weight</th>
+      <td><p>An option to override the heuristics for distinguishing weighted
+networks. By default FALSE.</p></td>
     </tr>
     <tr>
-      <th>x</th>
-      <td><p>an object of class "summary.netlm", usually, a result of a call to <code>summary.netlm()</code>.</p></td>
-    </tr>
-    <tr>
-      <th>digits</th>
-      <td><p>the number of significant digits to use when printing.</p></td>
-    </tr>
-    <tr>
-      <th>signif.stars</th>
-      <td><p>logical. If TRUE, ‘significance stars’ are printed for each coefficient.</p></td>
+      <th>twomode</th>
+      <td><p>An option to override the heuristics for distinguishing incidence
+from adjacency matrices. By default FALSE.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>The currently implemented coercions or translations are:</p><table class='table'>
+<tr><td>to/from</td><td>edgelists</td><td>matrices</td><td>igraph</td><td>tidygraph</td><td>network</td></tr>
+<tr><td>edgelists (data frames)</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>matrices</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr>
+<tr><td>igraph</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr>
+<tr><td>tidygraph</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr>
+<tr><td>network</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr>
+</table>
+
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Behaviour is a little different depending on the data format.</p>
+<p>If the data frame is a 2 column edgelist,
+the first column will become the rows
+and the second column will become the columns.
+If the data frame is a 3 column edgelist,
+then the third column will be used as
+the cell values or tie weights.</p>
+<p>Incidence matrices are typically inferred from unequal dimensions,
+but since in rare cases a matrix with equal dimensions may still
+be an incidence matrix, an additional argument <code>twomode</code> can be
+specified to override this heuristic.
+This information is usually already embedded in <code>{igraph}</code>,
+<code>{tidygraph}</code>, and <code>{network}</code> objects.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>mat1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span>
-<span class='va'>mat2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span>
-<span class='va'>mat3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span>
-<span class='va'>lmat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mat1 <span class='op'>=</span> <span class='va'>mat1</span>, mat2 <span class='op'>=</span> <span class='va'>mat2</span>, mat3 <span class='op'>=</span> <span class='va'>mat3</span><span class='op'>)</span>
-<span class='va'>model1</span> <span class='op'>&lt;-</span> <span class='fu'>netlm</span><span class='op'>(</span><span class='va'>mat1</span> <span class='op'>~</span> <span class='va'>mat2</span> <span class='op'>+</span> <span class='va'>mat3</span>, <span class='va'>lmat</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>model1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; Call:
-#&gt; netlm(formula = mat1 ~ mat2 + mat3, data = lmat)
+    <pre class="examples"><div class='input'><span class='va'>test</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>id1 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"C"</span><span class='op'>)</span>,
+                   id2 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"I"</span>,<span class='st'>"G"</span>,<span class='st'>"I"</span>,<span class='st'>"G"</span>,<span class='st'>"H"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>as_matrix</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   G H I
+#&gt; A 0 0 1
+#&gt; B 1 0 1
+#&gt; C 1 1 0</div><div class='input'><span class='fu'>as_igraph</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; IGRAPH 0dec6af DN-- 3 5 -- 
+#&gt; + attr: name (v/c)
+#&gt; + edges from 0dec6af (vertex names):
+#&gt; [1] G-&gt;I H-&gt;G H-&gt;I I-&gt;G I-&gt;H</div><div class='input'><span class='fu'>as_tidygraph</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tbl_graph: 3 nodes and 5 edges
+#&gt; #
+#&gt; # A directed simple graph with 1 component
+#&gt; #
+#&gt; # Node Data: 3 x 1 (active)</span>
+#&gt;   name 
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> G    
+#&gt; <span style='color: #BCBCBC;'>2</span> H    
+#&gt; <span style='color: #BCBCBC;'>3</span> I    
+#&gt; <span style='color: #949494;'>#
+#&gt; # Edge Data: 5 x 2</span>
+#&gt;    from    to
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     1     3
+#&gt; <span style='color: #BCBCBC;'>2</span>     2     1
+#&gt; <span style='color: #BCBCBC;'>3</span>     2     3
+#&gt; <span style='color: #949494;'># ... with 2 more rows</span></div><div class='input'><span class='fu'>as_network</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  Network attributes:
+#&gt;   vertices = 3 
+#&gt;   directed = TRUE 
+#&gt;   hyper = FALSE 
+#&gt;   loops = FALSE 
+#&gt;   multiple = FALSE 
+#&gt;   bipartite = FALSE 
+#&gt;   total edges= 5 
+#&gt;     missing edges= 0 
+#&gt;     non-missing edges= 5 
 #&gt; 
+#&gt;  Vertex attribute names: 
+#&gt;     vertex.names 
 #&gt; 
-#&gt; Coefficients:
-#&gt;             coefs pvals
-#&gt; (Intercept) 0.375 0.379
-#&gt; mat2        0.250 0.821
-#&gt; mat3        0.250 0.793
-#&gt; 
-#&gt; Multiple R-squared:  0.1333,	Adjusted R-squared:  -0.2133</div></pre>
+#&gt; No edge attributes</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

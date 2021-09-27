@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Linear regression for multimodal network data — netlm • migraph</title>
+<title>Plot graph to grid — ggraphgrid • migraph</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,9 +52,8 @@
 
 
 
-<meta property="og:title" content="Linear regression for multimodal network data — netlm" />
-<meta property="og:description" content="This function extends the multiple regression quadratic assignment procedure (MRQAP)
-of network linear model to two mode networks." />
+<meta property="og:title" content="Plot graph to grid — ggraphgrid" />
+<meta property="og:description" content="For quick and easy graphing of networks to a grid plot" />
 <meta property="og:image" content="https://snlab-ch.github.io/migraph/logo.png" />
 
 
@@ -132,89 +131,50 @@ of network linear model to two mode networks." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Linear regression for multimodal network data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/snlab-ch/migraph/blob/master/R/netlm.R'><code>R/netlm.R</code></a></small>
-    <div class="hidden name"><code>netlm.Rd</code></div>
+    <h1>Plot graph to grid</h1>
+    <small class="dont-index">Source: <a href='https://github.com/snlab-ch/migraph/blob/master/R/ggraphgrid.R'><code>R/ggraphgrid.R</code></a></small>
+    <div class="hidden name"><code>ggraphgrid.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function extends the multiple regression quadratic assignment procedure (MRQAP)
-of network linear model to two mode networks.</p>
+    <p>For quick and easy graphing of networks to a grid plot</p>
     </div>
 
-    <pre class="usage"><span class='fu'>netlm</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for netlm</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, reps <span class='op'>=</span> <span class='fl'>1000</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for summary.netlm</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  digits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"digits"</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>3</span><span class='op'>)</span>,
-  signif.stars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"show.signif.stars"</span><span class='op'>)</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ggraphgrid</span><span class='op'>(</span><span class='va'>x</span>, algorithm <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"kk"</span>, <span class='st'>"fr"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>formula</th>
-      <td><p>A formula describing the relationship being tested.</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>A named list of matrices, graphs, or a tidygraph object.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Arguments passed on to <code><a href='https://rdrr.io/r/stats/lm.html'>lm()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>object</th>
-      <td><p>an object of class "netlm", usually as a result of a call to <code>netlm()</code>.</p></td>
-    </tr>
-    <tr>
-      <th>reps</th>
-      <td><p>Integer indicating the number of draws to use for quantile estimation.
-(Relevant to the null hypothesis test only - the analysis itself is unaffected by this parameter.)
-Note that, as for all Monte Carlo procedures, convergence is slower for more extreme quantiles.
-By default, reps=1000.</p></td>
-    </tr>
-    <tr>
       <th>x</th>
-      <td><p>an object of class "summary.netlm", usually, a result of a call to <code>summary.netlm()</code>.</p></td>
+      <td><p>A migraph-consistent network/graph</p></td>
     </tr>
     <tr>
-      <th>digits</th>
-      <td><p>the number of significant digits to use when printing.</p></td>
-    </tr>
-    <tr>
-      <th>signif.stars</th>
-      <td><p>logical. If TRUE, ‘significance stars’ are printed for each coefficient.</p></td>
+      <th>algorithm</th>
+      <td><p>An initial network layout,
+currently either Kamada-Kawai ("kk") or
+Fruchterman-Reingold ("fr")</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The function uses approximate pattern matching
+to redistributes the coarse layouts on the square grid points, while
+preserving the topological relationships among the nodes (see Inoue et al. 2012).</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Inoue et al. (2012).
+Application of Approximate Pattern Matching in Two Dimensional
+Spaces to Grid Layout for Biochemical Network Maps.
+PLoS One 7 (6): e37739. doi: https://doi.org/10.1371/journal.pone.0037739.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>mat1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span>
-<span class='va'>mat2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span>
-<span class='va'>mat3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span>
-<span class='va'>lmat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mat1 <span class='op'>=</span> <span class='va'>mat1</span>, mat2 <span class='op'>=</span> <span class='va'>mat2</span>, mat3 <span class='op'>=</span> <span class='va'>mat3</span><span class='op'>)</span>
-<span class='va'>model1</span> <span class='op'>&lt;-</span> <span class='fu'>netlm</span><span class='op'>(</span><span class='va'>mat1</span> <span class='op'>~</span> <span class='va'>mat2</span> <span class='op'>+</span> <span class='va'>mat3</span>, <span class='va'>lmat</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>model1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; Call:
-#&gt; netlm(formula = mat1 ~ mat2 + mat3, data = lmat)
-#&gt; 
-#&gt; 
-#&gt; Coefficients:
-#&gt;             coefs pvals
-#&gt; (Intercept) 0.375 0.379
-#&gt; mat2        0.250 0.821
-#&gt; mat3        0.250 0.793
-#&gt; 
-#&gt; Multiple R-squared:  0.1333,	Adjusted R-squared:  -0.2133</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>ggraphgrid</span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span>
+</div><div class='img'><img src='ggraphgrid-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>ggraphgrid</span><span class='op'>(</span><span class='va'>mpn_elite_usa_advice</span><span class='op'>)</span>
+</div><div class='img'><img src='ggraphgrid-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>ggraphgrid</span><span class='op'>(</span><span class='va'>mpn_elite_usa_money</span><span class='op'>)</span>
+</div><div class='img'><img src='ggraphgrid-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>ggraphgrid</span><span class='op'>(</span><span class='va'>mpn_ryanair</span><span class='op'>)</span>
+</div><div class='img'><img src='ggraphgrid-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

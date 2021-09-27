@@ -54,7 +54,7 @@
 
 <meta property="og:title" content="Centrality for one- and two-mode networks — centrality" />
 <meta property="og:description" content="These functions calculate common centrality measures for both one- and two-mode networks.
-They accept as objects matrices and `igraph` graphs, 
+They accept as objects matrices and igraph graphs,
 and can be used within a tidygraph workflow.
 Importantly, these functions also offer correct normalization for two-mode networks." />
 <meta property="og:image" content="https://snlab-ch.github.io/migraph/logo.png" />
@@ -89,7 +89,7 @@ Importantly, these functions also offer correct normalization for two-mode netwo
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
       </span>
     </div>
 
@@ -141,7 +141,7 @@ Importantly, these functions also offer correct normalization for two-mode netwo
 
     <div class="ref-description">
     <p>These functions calculate common centrality measures for both one- and two-mode networks.
-They accept as objects matrices and `igraph` graphs, 
+They accept as objects matrices and <code>igraph</code> graphs,
 and can be used within a tidygraph workflow.
 Importantly, these functions also offer correct normalization for two-mode networks.</p>
     </div>
@@ -189,7 +189,7 @@ Importantly, these functions also offer correct normalization for two-mode netwo
     </tr>
     <tr>
       <th>weights</th>
-      <td><p>The weight of the edges to use for the calculation. 
+      <td><p>The weight of the edges to use for the calculation.
 Will be evaluated in the context of the edge data.</p></td>
     </tr>
     <tr>
@@ -218,7 +218,7 @@ Will be evaluated in the context of the edge data.</p></td>
     </tr>
     <tr>
       <th>options</th>
-      <td><p>Settings passed on to `igraph::arpack()`</p></td>
+      <td><p>Settings passed on to <code><a href='https://rdrr.io/pkg/igraph/man/arpack.html'>igraph::arpack()</a></code></p></td>
     </tr>
     <tr>
       <th>scale</th>
@@ -229,7 +229,7 @@ Will be evaluated in the context of the edge data.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Depending on how and what kind of an object is passed to the function,
-the function will return a `tidygraph` object where the nodes have been updated</p>
+the function will return a <code>tidygraph</code> object where the nodes have been updated</p>
 <p>A numeric vector giving the betweenness centrality measure of each node.</p>
 <p>A numeric vector giving the eigenvector centrality measure of each node.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>

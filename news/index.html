@@ -85,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
       </span>
     </div>
 
@@ -134,20 +134,32 @@
       <small>Source: <a href='https://github.com/snlab-ch/migraph/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="migraph-070" class="section level1">
-<h1 class="page-header" data-toc-text="0.7.0">
-<a href="#migraph-070" class="anchor"></a>migraph 0.7.0<small> Unreleased </small>
+    <div id="migraph-071" class="section level1">
+<h1 class="page-header" data-toc-text="0.7.1">
+<a href="#migraph-071" class="anchor"></a>migraph 0.7.1<small> 2021-09-25 </small>
 </h1>
 <div id="classes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#classes" class="anchor"></a>Classes</h2>
 <ul>
+<li>Fixed Unicode char bug in coercion documentation</li>
+</ul>
+</div>
+</div>
+    <div id="migraph-070" class="section level1">
+<h1 class="page-header" data-toc-text="0.7.0">
+<a href="#migraph-070" class="anchor"></a>migraph 0.7.0<small> Unreleased </small>
+</h1>
+<div id="classes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#classes-1" class="anchor"></a>Classes</h2>
+<ul>
 <li>
 <p>Closed <a href='https://github.com/snlab-ch/migraph/issues/100'>#100</a> by converting <code>as_</code> coercion functions to S3 methods</p>
 <ul>
 <li>Added a little more readable documentation</li>
-<li>Fixed bug with <code><a href="../reference/convert.html">as_matrix()</a></code> weighting</li>
-<li>Fixed bug with <code><a href="../reference/convert.html">as_tidygraph()</a></code>
+<li>Fixed bug with <code><a href="../reference/coercion.html">as_matrix()</a></code> weighting</li>
+<li>Fixed bug with <code><a href="../reference/coercion.html">as_tidygraph()</a></code>
 </li>
 </ul>
 </li>
@@ -157,9 +169,9 @@
 <h2 class="hasAnchor">
 <a href="#visualisation" class="anchor"></a>Visualisation</h2>
 <ul>
-<li>Closed <a href='https://github.com/snlab-ch/migraph/issues/92'>#92</a> by adding <code>gglineage()</code> for graphing a citation network through time</li>
-<li>Closed <a href='https://github.com/snlab-ch/migraph/issues/99'>#99</a> by adding <code>ggevolution()</code> for graphing two timepoints of the same network side by side</li>
-<li>Closed <a href='https://github.com/snlab-ch/migraph/issues/102'>#102</a> by adding <code>ggraphgrid()</code> for locking a graph to a grid</li>
+<li>Closed <a href='https://github.com/snlab-ch/migraph/issues/92'>#92</a> by adding <code><a href="../reference/gglineage.html">gglineage()</a></code> for graphing a citation network through time</li>
+<li>Closed <a href='https://github.com/snlab-ch/migraph/issues/99'>#99</a> by adding <code><a href="../reference/ggevolution.html">ggevolution()</a></code> for graphing two timepoints of the same network side by side</li>
+<li>Closed <a href='https://github.com/snlab-ch/migraph/issues/102'>#102</a> by adding <code><a href="../reference/ggraphgrid.html">ggraphgrid()</a></code> for locking a graph to a grid</li>
 <li>Slight improvements to <code><a href="../reference/plot.igraph.html">plot.igraph()</a></code> defaults</li>
 </ul>
 </div>
@@ -175,12 +187,12 @@
 <h1 class="page-header" data-toc-text="0.6.6">
 <a href="#migraph-066" class="anchor"></a>migraph 0.6.6<small> 2021-05-13 </small>
 </h1>
-<div id="classes-1" class="section level2">
+<div id="classes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes-1" class="anchor"></a>Classes</h2>
+<a href="#classes-2" class="anchor"></a>Classes</h2>
 <ul>
 <li>
-<p>Fixed bug in <code><a href="../reference/convert.html">as_matrix()</a></code> with frame matrix by dropping (rarely necessary) functionality</p>
+<p>Fixed bug in <code><a href="../reference/coercion.html">as_matrix()</a></code> with frame matrix by dropping (rarely necessary) functionality</p>
 <ul>
 <li>Improved handling of weights column in three-column edgelists</li>
 <li>Improved documentation of <code>as_</code> functions</li>
@@ -193,7 +205,7 @@
 <a href="#visualisation-1" class="anchor"></a>Visualisation</h2>
 <ul>
 <li>
-<p>Fixed bugs in <code>plot_releases()</code> with more graceful handling of http errors</p>
+<p>Fixed bugs in <code><a href="../reference/plot_releases.html">plot_releases()</a></code> with more graceful handling of http errors</p>
 <ul>
 <li>Added online condition to example in documentation</li>
 <li>Specified encoding for more silent operation</li>
@@ -215,13 +227,13 @@
 <li>Added some tests</li>
 </ul>
 </div>
-<div id="classes-2" class="section level2">
+<div id="classes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes-2" class="anchor"></a>Classes</h2>
+<a href="#classes-3" class="anchor"></a>Classes</h2>
 <ul>
-<li>Renamed <code>binarise()</code> to <code>to_unweighted()</code>
+<li>Renamed <code>binarise()</code> to <code><a href="../reference/to.html">to_unweighted()</a></code>
 </li>
-<li>Added <code>to_unnamed()</code> for unlabelling networks</li>
+<li>Added <code><a href="../reference/to.html">to_unnamed()</a></code> for unlabelling networks</li>
 </ul>
 </div>
 </div>
@@ -236,19 +248,19 @@
 <li>Extended R version dependence back to 3.6.*</li>
 </ul>
 </div>
-<div id="classes-3" class="section level2">
+<div id="classes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes-3" class="anchor"></a>Classes</h2>
+<a href="#classes-4" class="anchor"></a>Classes</h2>
 <ul>
 <li>Added <code>binarise()</code> for unweighting networks</li>
-<li>Fixed bug in <code><a href="../reference/convert.html">as_tidygraph()</a></code> when passed a tbl_graph directly</li>
+<li>Fixed bug in <code><a href="../reference/coercion.html">as_tidygraph()</a></code> when passed a tbl_graph directly</li>
 </ul>
 </div>
 <div id="visualization" class="section level2">
 <h2 class="hasAnchor">
 <a href="#visualization" class="anchor"></a>Visualization</h2>
 <ul>
-<li>Added <code>plot_releases()</code> for more general use</li>
+<li>Added <code><a href="../reference/plot_releases.html">plot_releases()</a></code> for more general use</li>
 <li>Fixed bug in <code><a href="../reference/plot.igraph.html">plot.igraph()</a></code> with layouts and one-mode graphs</li>
 </ul>
 </div>
@@ -271,21 +283,21 @@
 <li><p>Added <code>CITATION</code> details</p></li>
 </ul>
 </div>
-<div id="classes-4" class="section level2">
+<div id="classes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes-4" class="anchor"></a>Classes</h2>
+<a href="#classes-5" class="anchor"></a>Classes</h2>
 <ul>
 <li><p>Separated coercion (previously conversion) and manipulation</p></li>
 <li><p>Added some more inter-class coercion tests</p></li>
-<li><p>Fixed bug in how <code>as_network()</code> sometimes coerced two-mode networks into much larger dimension matrices</p></li>
+<li><p>Fixed bug in how <code><a href="../reference/coercion.html">as_network()</a></code> sometimes coerced two-mode networks into much larger dimension matrices</p></li>
 <li>
 <p>Added more <code>is_</code> tests for class-independent property tests</p>
 <ul>
-<li>Added <code>is_weighted()</code>
+<li>Added <code><a href="../reference/is.html">is_weighted()</a></code>
 </li>
-<li>Added <code>is_directed()</code>
+<li>Added <code><a href="../reference/is.html">is_directed()</a></code>
 </li>
-<li>Added <code>is_labelled()</code>
+<li>Added <code><a href="../reference/is.html">is_labelled()</a></code>
 </li>
 </ul>
 </li>
@@ -296,28 +308,28 @@
 <a href="#data" class="anchor"></a>Data</h2>
 <ul>
 <li>
-<p>Added <a href='https://github.com/csteglich'>@csteglich</a> ’s <code>read_ucinet()</code> and <code>write_ucinet()</code> functions</p>
+<p>Added <a href='https://github.com/csteglich'>@csteglich</a> ’s <code><a href="../reference/read.html">read_ucinet()</a></code> and <code><a href="../reference/read.html">write_ucinet()</a></code> functions</p>
 <ul>
 <li>
-<code>read_ucinet()</code> offers a file-picker when file path unknown</li>
+<code><a href="../reference/read.html">read_ucinet()</a></code> offers a file-picker when file path unknown</li>
 <li>
-<code>read_ucinet()</code> now imports to an igraph-class object by default, with an argument to allow other alternatives</li>
+<code><a href="../reference/read.html">read_ucinet()</a></code> now imports to an igraph-class object by default, with an argument to allow other alternatives</li>
 <li>
-<code>write_ucinet()</code> works with all migraph-compatible objects</li>
+<code><a href="../reference/read.html">write_ucinet()</a></code> works with all migraph-compatible objects</li>
 </ul>
 </li>
 <li><p>Updated <code>mpn_bristol</code> documentation</p></li>
 <li>
-<p>Added <code>create_star()</code> function</p>
+<p>Added <code><a href="../reference/create.html">create_star()</a></code> function</p>
 <ul>
 <li>Added in-star/out-star option via <code>directed =</code> argument</li>
 <li>Updated <code>create_</code> documentation</li>
 </ul>
 </li>
 <li>
-<p>Renamed <code><a href="../reference/sample.html">sample_affiliation()</a></code> to <code>generate_random()</code></p>
+<p>Renamed <code>sample_affiliation()</code> to <code><a href="../reference/generate.html">generate_random()</a></code></p>
 <ul>
-<li>Rewrote <code>generate_random()</code> to be able to generate random one- or two-mode networks</li>
+<li>Rewrote <code><a href="../reference/generate.html">generate_random()</a></code> to be able to generate random one- or two-mode networks</li>
 <li>Updated documentation</li>
 </ul>
 </li>
@@ -327,7 +339,7 @@
 <h2 class="hasAnchor">
 <a href="#models" class="anchor"></a>Models</h2>
 <ul>
-<li>Added test for <code>print.blockmodel()</code>
+<li>Added test for <code><a href="../reference/blockmodel.html">print.blockmodel()</a></code>
 </li>
 </ul>
 </div>
@@ -341,7 +353,7 @@
 <h2 class="hasAnchor">
 <a href="#package-3" class="anchor"></a>Package</h2>
 <ul>
-<li>Reran <code>usethis::use_mit_license("James Hollway")</code>. MIT License file now contains only the standard two lines.</li>
+<li>Reran <code><a href="https://usethis.r-lib.org/reference/licenses.html">usethis::use_mit_license("James Hollway")</a></code>. MIT License file now contains only the standard two lines.</li>
 <li>Removed <code>\dontrun</code> from examples. <code><a href="../reference/netlm.html">netlm()</a></code> now runs in &lt;5 seconds.</li>
 <li>Fixed missing website item</li>
 </ul>
@@ -360,11 +372,11 @@
 <li>Updated several old URLs in documentation</li>
 </ul>
 </div>
-<div id="classes-5" class="section level2">
+<div id="classes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes-5" class="anchor"></a>Classes</h2>
+<a href="#classes-6" class="anchor"></a>Classes</h2>
 <ul>
-<li>Closed <a href='https://github.com/snlab-ch/migraph/issues/85'>#85</a> by adding <code>as_network()</code> to coerce objects into network class</li>
+<li>Closed <a href='https://github.com/snlab-ch/migraph/issues/85'>#85</a> by adding <code><a href="../reference/coercion.html">as_network()</a></code> to coerce objects into network class</li>
 <li>Modified other coercion functions to also work with network class objects</li>
 </ul>
 </div>
@@ -406,9 +418,9 @@
 <a href="#models-1" class="anchor"></a>Models</h2>
 <ul>
 <li>
-<p>Closed <a href='https://github.com/snlab-ch/migraph/issues/18'>#18</a> by adding <code>blockmodel_concor()</code> for employing the CONCOR algorithm to blockmodel both one-mode and two-mode networks</p>
+<p>Closed <a href='https://github.com/snlab-ch/migraph/issues/18'>#18</a> by adding <code><a href="../reference/blockmodel.html">blockmodel_concor()</a></code> for employing the CONCOR algorithm to blockmodel both one-mode and two-mode networks</p>
 <ul>
-<li>Added a new print method for “blockmodel”-class objects based on the <code>print.blockmodel()</code> method in the <code>{sna}</code> package that also prints blockmodel results for two-mode networks consistently</li>
+<li>Added a new print method for “blockmodel”-class objects based on the <code><a href="../reference/blockmodel.html">print.blockmodel()</a></code> method in the <code>{sna}</code> package that also prints blockmodel results for two-mode networks consistently</li>
 <li>Added a new plot method for “blockmodel”-class objects that leverages <a href="https://ggplot2.tidyverse.org">ggplot2</a> for pretty plotting and that better inherits names from the underlying object</li>
 </ul>
 </li>
@@ -428,18 +440,18 @@
 <li>Updated PR template</li>
 </ul>
 </div>
-<div id="classes-6" class="section level2">
+<div id="classes-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes-6" class="anchor"></a>Classes</h2>
+<a href="#classes-7" class="anchor"></a>Classes</h2>
 <ul>
 <li>Added functions for class conversion between migraph-consistent graph formats</li>
 <li>
-<code><a href="../reference/convert.html">as_matrix()</a></code> function to coerce objects into an adjacency or incidence matrix class</li>
+<code><a href="../reference/coercion.html">as_matrix()</a></code> function to coerce objects into an adjacency or incidence matrix class</li>
 <li>
-<code><a href="../reference/convert.html">as_igraph()</a></code> function to coerce objects into an <a href="https://igraph.org">igraph</a> graph class</li>
+<code><a href="../reference/coercion.html">as_igraph()</a></code> function to coerce objects into an <a href="https://igraph.org">igraph</a> graph class</li>
 <li>
-<code><a href="../reference/convert.html">as_tidygraph()</a></code> function to coerce objects into an <a href="https://tidygraph.data-imaginist.com">tidygraph</a> tbl_graph class</li>
-<li>Closed <a href='https://github.com/snlab-ch/migraph/issues/79'>#79</a> by adding <code><a href="../reference/convert.html">is_twomode()</a></code> function to check whether network is two-mode on all object types</li>
+<code><a href="../reference/coercion.html">as_tidygraph()</a></code> function to coerce objects into an <a href="https://tidygraph.data-imaginist.com">tidygraph</a> tbl_graph class</li>
+<li>Closed <a href='https://github.com/snlab-ch/migraph/issues/79'>#79</a> by adding <code><a href="../reference/is.html">is_twomode()</a></code> function to check whether network is two-mode on all object types</li>
 </ul>
 </div>
 <div id="data-2" class="section level2">
@@ -469,7 +481,7 @@
 </li>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/65'>#65</a> by extending <code><a href="../reference/create.html">create_ring()</a></code> to create rings of varying breadth</li>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/66'>#66</a> by extending <code><a href="../reference/create.html">create_components()</a></code> (renamed from <code>create_silos()</code>) to create networks with varying numbers of components</li>
-<li>Added <code><a href="../reference/sample.html">sample_affiliation()</a></code> for random two-mode networks</li>
+<li>Added <code>sample_affiliation()</code> for random two-mode networks</li>
 <li>Removed <code>create_match()</code> and <code>create_nest()</code>
 </li>
 </ul>

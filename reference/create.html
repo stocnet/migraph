@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create networks that conform to particular structures — create • migraph</title>
+<title>Create networks with particular structures — create • migraph</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,12 +52,12 @@
 
 
 
-<meta property="og:title" content="Create networks that conform to particular structures — create" />
-<meta property="og:description" content="These functions create a host of different network objects.
-Despite the common syntax, what distinguishes them from
-those in other packages is that passing the `n` argument
-a vector of two integers will return a two-mode
-network instead of a one-mode network." />
+<meta property="og:title" content="Create networks with particular structures — create" />
+<meta property="og:description" content="These functions create a variety of different network objects.
+Despite the common function names and syntax with existing packages,
+the common n argument can not only be passed
+a single integer to return a one-mode network,
+but also a vector of two integers to return a two-mode network." />
 <meta property="og:image" content="https://snlab-ch.github.io/migraph/logo.png" />
 
 
@@ -90,7 +90,7 @@ network instead of a one-mode network." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
       </span>
     </div>
 
@@ -135,17 +135,17 @@ network instead of a one-mode network." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create networks that conform to particular structures</h1>
+    <h1>Create networks with particular structures</h1>
     <small class="dont-index">Source: <a href='https://github.com/snlab-ch/migraph/blob/master/R/create.R'><code>R/create.R</code></a></small>
     <div class="hidden name"><code>create.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These functions create a host of different network objects.
-Despite the common syntax, what distinguishes them from
-those in other packages is that passing the `n` argument
-a vector of <em>two</em> integers will return a two-mode
-network instead of a one-mode network.</p>
+    <p>These functions create a variety of different network objects.
+Despite the common function names and syntax with existing packages,
+the common <code>n</code> argument can not only be passed
+a single integer to return a one-mode network,
+but also a vector of <em>two</em> integers to return a two-mode network.</p>
     </div>
 
     <pre class="usage"><span class='fu'>create_empty</span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span>
@@ -154,16 +154,19 @@ network instead of a one-mode network.</p>
 
 <span class='fu'>create_ring</span><span class='op'>(</span><span class='va'>n</span>, width <span class='op'>=</span> <span class='fl'>1</span>, directed <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>create_components</span><span class='op'>(</span><span class='va'>n</span>, components <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></pre>
+<span class='fu'>create_components</span><span class='op'>(</span><span class='va'>n</span>, components <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+
+<span class='fu'>create_star</span><span class='op'>(</span><span class='va'>n</span>, directed <span class='op'>=</span> <span class='st'>"in"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>n</th>
-      <td><p>Number of nodes. 
-If a single integer is given, the function will create a one-mode network.
-If a vector of two integers is given, e.g. `n = c(5,10)`,
+      <td><p>Number of nodes.
+If a single integer is given, e.g. <code>n = 10</code>,
+the function will create a one-mode network.
+If a vector of two integers is given, e.g. <code>n = c(5,10)</code>,
 the function will create a two-mode network.</p></td>
     </tr>
     <tr>
@@ -172,7 +175,7 @@ the function will create a two-mode network.</p></td>
     </tr>
     <tr>
       <th>directed</th>
-      <td><p>Whether the graph should be directed. By default FALSE.</p></td>
+      <td><p>One of the following options: "in", "out", or "none".</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -188,12 +191,12 @@ the function will create a two-mode network.</p></td>
 
     <p>By default an igraph object will be returned,
 but this can be coerced into other types of objects
-using `as_matrix()` or `as_tidygraph()`.</p>
+using <code><a href='coercion.html'>as_matrix()</a></code>, <code><a href='coercion.html'>as_tidygraph()</a></code>, or <code><a href='coercion.html'>as_network()</a></code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>`create_empty()` creates an empty graph of the given dimensions.</p>
-<p>`create_complete()` creates a filled graph of the given dimensions.</p>
-<p>`create_ring()` creates a ring or chord graph of the given dimensions
+    <p><code>create_empty()</code> creates an empty graph of the given dimensions.</p>
+<p><code>create_complete()</code> creates a filled graph of the given dimensions.</p>
+<p><code>create_ring()</code> creates a ring or chord graph of the given dimensions
 that loops around is of a certain width or thickness.</p>
 <p><code>create_components()</code> creates a graph in which the nodes are clustered
 into separate components.</p>
@@ -201,7 +204,7 @@ into separate components.</p>
 
     <div class='dont-index'><p>as_matrix as_tidygraph as_network</p>
 <p>Other creation: 
-<code><a href='sample.html'>sample</a>()</code></p></div>
+<code><a href='generate.html'>generate</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'>create_empty</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>8</span>,<span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>
@@ -211,7 +214,8 @@ into separate components.</p>
 </div><div class='img'><img src='create-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'>create_ring</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>8</span>,<span class='fl'>6</span><span class='op'>)</span>, width <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span>
 </div><div class='img'><img src='create-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>create_components</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>12</span><span class='op'>)</span>, components <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='create-4.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='img'><img src='create-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>create_star</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>12</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='create-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

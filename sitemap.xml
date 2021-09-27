@@ -4,19 +4,37 @@
     <loc>https://snlab-ch.github.io/migraph//index.html</loc>
   </url>
   <url>
+    <loc>https://snlab-ch.github.io/migraph//reference/blockmodel.html</loc>
+  </url>
+  <url>
     <loc>https://snlab-ch.github.io/migraph//reference/centrality.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph//reference/centralization.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/convert.html</loc>
+    <loc>https://snlab-ch.github.io/migraph//reference/coercion.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph//reference/create.html</loc>
   </url>
   <url>
+    <loc>https://snlab-ch.github.io/migraph//reference/generate.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph//reference/ggevolution.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph//reference/gglineage.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph//reference/ggraphgrid.html</loc>
+  </url>
+  <url>
     <loc>https://snlab-ch.github.io/migraph//reference/graph_clustering.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph//reference/is.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph//reference/mpn_bristol.html</loc>
@@ -49,18 +67,27 @@
     <loc>https://snlab-ch.github.io/migraph//reference/node_smallworld.html</loc>
   </url>
   <url>
+    <loc>https://snlab-ch.github.io/migraph//reference/plot.blockmodel.html</loc>
+  </url>
+  <url>
     <loc>https://snlab-ch.github.io/migraph//reference/plot.igraph.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph//reference/plot_releases.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph//reference/project.html</loc>
   </url>
   <url>
+    <loc>https://snlab-ch.github.io/migraph//reference/read.html</loc>
+  </url>
+  <url>
     <loc>https://snlab-ch.github.io/migraph//reference/reexports.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/sample.html</loc>
+    <loc>https://snlab-ch.github.io/migraph//reference/southern_women.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/southern_women.html</loc>
+    <loc>https://snlab-ch.github.io/migraph//reference/to.html</loc>
   </url>
 </urlset>
