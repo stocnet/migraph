@@ -62,7 +62,7 @@ Functions are given intuitive and succinct names that avoid conflicts with exist
 - Blockmodelling: `blockmodel_concor()`
 - Linear regression: `netlm()`
 
-Please explore [the website](https://snlab-ch.github.io/migraph/) to find out more.
+Please explore [the list of functions](https://snlab-ch.github.io/migraph/reference/index.html) to find out more.
 
 ## Installation
 
@@ -99,8 +99,8 @@ and install using an adapted version of the following commands:
 To install from source the latest main version of `{migraph}` from Github, 
 please install the `{remotes}` package from CRAN and then enter into the console:
 
-- For latest stable version: `remotes::install_github("jhollway/migraph")`
-- For latest development version: `remotes::install_github("jhollway/migraph@develop")`
+- For latest stable version: `remotes::install_github("snlab-ch/migraph")`
+- For latest development version: `remotes::install_github("snlab-ch/migraph@develop")`
 
 ## Relationship to other packages
 
