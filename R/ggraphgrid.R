@@ -27,8 +27,10 @@ ggraphgrid <- function(x, algorithm = c("kk","fr")){
   name <- NULL # initialize variables to avoid CMD check notes
   x <- as_tidygraph(x)
   algorithm <- match.arg(algorithm)
+
   gg <- ggraph::create_layout(x, layout = "igraph", 
                               algorithm = algorithm, maxiter = 10000)
+  
 
   ggraph::ggraph(x, graph = depth_first_recursive_search(gg)) +
     ggraph::geom_conn_bundle(data = ggraph::get_con(from = igraph::as_edgelist(x, names = FALSE)[,1], 
@@ -36,7 +38,7 @@ ggraphgrid <- function(x, algorithm = c("kk","fr")){
     # ggraph::geom_edge_link(arrow = arrow(length = unit(3, 'mm')), 
     #                        start_cap = circle(4, 'mm'),
     #                        end_cap = circle(4, 'mm'), show.legend = FALSE) +
-    ggraph::geom_node_text(aes(label = name)) + ggplot2::theme_void()
+    ggraph::geom_node_text(aes(label = ifelse(is.null(name), "", name))) + ggplot2::theme_void()
 }
 
 depth_first_recursive_search <- function(layout){
