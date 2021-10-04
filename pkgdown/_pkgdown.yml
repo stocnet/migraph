@@ -39,6 +39,8 @@ reference:
   - title: "Data"
     desc: "The package contains a range of different multimodal and multilevel data, including data used in the book 'Multimodal Political Networks' (prefixed with 'mpn_'):"
     contents:
+      - adolescent_society
+      - brandes
       - southern_women
       - starts_with("mpn_")
       - starts_with("read")
