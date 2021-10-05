@@ -66,3 +66,32 @@ to_unnamed.matrix <- function(object){
   colnames(out) <- NULL
   out
 }
+
+#' @rdname to
+#' @examples
+#' to_undirected(adolescent_society)
+#' @export
+to_undirected <- function(object) UseMethod("to_undirected")
+
+#' @export
+to_undirected.igraph <- function(object){
+  igraph::as.undirected(object)
+}
+
+#' @export
+to_undirected.tbl_graph <- function(object){
+  as_tidygraph(igraph::as.undirected(object))
+}
+
+#' @export
+to_undirected.network <- function(object){
+  network::symmetrize(object)
+}
+
+#' @export
+to_undirected.matrix <- function(object){
+  if(is_twomode(object)){
+    object
+  } else ((object + t(object))>0)*1
+}
+
