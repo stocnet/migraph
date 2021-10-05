@@ -1,3 +1,22 @@
+# migraph 0.7.2
+
+## Data
+
+* Added `brandes` dataset for teaching centrality measures
+* Added `adolescent_society` dataset for teaching friendship paradox
+* Added `read_edgelist()` for importing Excel-created edgelists directly
+
+## Visualization
+
+* Added `ggraphlabel()` for one-function (1F) plotting label-based network graphs
+* Added `ggevolution()` for 1F-plotting begin/end graph comparisons
+* Added `ggraphgrid()` for 1F snap-to-grid graph layouts based on Fruchterman-Reingold or Kamada-Kawai
+
+## Manipulation
+
+* Added `to_undirected()` for symmetrising networks of all types
+* Made existing `to_` functions S3 methods
+
 # migraph 0.7.1
 
 ## Classes
