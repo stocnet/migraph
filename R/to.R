@@ -73,19 +73,22 @@ to_unnamed.matrix <- function(object){
 #' @export
 to_undirected <- function(object) UseMethod("to_undirected")
 
+#' @importFrom igraph as.undirected
 #' @export
 to_undirected.igraph <- function(object){
   igraph::as.undirected(object)
 }
 
+#' @importFrom igraph as.undirected
 #' @export
 to_undirected.tbl_graph <- function(object){
   as_tidygraph(igraph::as.undirected(object))
 }
 
+#' @importFrom sna symmetrize
 #' @export
 to_undirected.network <- function(object){
-  network::symmetrize(object)
+  sna::symmetrize(object)
 }
 
 #' @export

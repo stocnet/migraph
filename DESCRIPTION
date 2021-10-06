@@ -36,7 +36,9 @@ Imports:
     jsonlite,
     lubridate,
     stringr,
-    gridExtra
+    gridExtra,
+    sna,
+    readxl
 Suggests: 
     testthat,
     roxygen2,

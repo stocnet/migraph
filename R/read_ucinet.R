@@ -226,6 +226,7 @@ write_ucinet <- function(object,
 }
 
 #' @rdname read
+#' @importFrom readxl read_xlsx
 #' @export
 read_edgelist <- function(file){
   xl <- readxl::read_xlsx(file, col_names = TRUE)
