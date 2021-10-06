@@ -1,4 +1,7 @@
 #' Visualising graphs and identifying nodes with maximum values
+#' @param object a migraph-consistent object
+#' @param FUN some arbitrary function that runs on the object and
+#' returns a numeric vector that can be used to scale the nodes
 #' @examples 
 #' ggidentify(brandes, node_degree)
 #' ggidentify(brandes, node_betweenness)
@@ -14,7 +17,7 @@ ggidentify <- function(object, FUN){
   ggraph::ggraph(object) + 
     ggraph::theme_graph() +
     ggraph::geom_edge_link() +
-    ggraph::geom_node_point(aes(size = measure*4,
+    ggraph::geom_node_point(aes(size = measure,
                                 colour = colord)) +
     ggplot2::scale_color_manual(breaks = c("max", "other"),
                                 values=c("red", "blue")) + 
