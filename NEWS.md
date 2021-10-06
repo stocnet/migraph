@@ -11,6 +11,7 @@
 * Added `ggraphlabel()` for one-function (1F) plotting label-based network graphs
 * Added `ggevolution()` for 1F-plotting begin/end graph comparisons
 * Added `ggraphgrid()` for 1F snap-to-grid graph layouts based on Fruchterman-Reingold or Kamada-Kawai
+* Added `ggidentify()` for 1F identifying nodes with maximum scores based on some arbitrary function
 
 ## Manipulation
 
