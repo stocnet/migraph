@@ -1,4 +1,5 @@
-#' Visualising graphs and identifying nodes with maximum values
+#' Visualising graphs and identifying nodes with maximum values of the specified
+#' measure.
 #' @param object a migraph-consistent object
 #' @param FUN some arbitrary function that runs on the object and
 #' returns a numeric vector that can be used to scale the nodes
@@ -20,6 +21,6 @@ ggidentify <- function(object, FUN){
     ggraph::geom_node_point(aes(size = measure,
                                 colour = colord)) +
     ggplot2::scale_color_manual(breaks = c("max", "other"),
-                                values=c("red", "blue")) + 
+                                values = c("red", "blue")) + 
     ggplot2::theme(legend.position = "none")
 }
