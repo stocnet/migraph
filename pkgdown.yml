@@ -1,8 +1,8 @@
-pandoc: 2.11.4
+pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2021-09-27T16:14Z
+last_built: 2021-10-07T10:51Z
 urls:
   reference: https://snlab-ch.github.io/migraph//reference
   article: https://snlab-ch.github.io/migraph//articles

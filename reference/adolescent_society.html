@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plotting of one-mode and two-mode graphs — plot.igraph • migraph</title>
+<title>One-mode subset of adolescent society dataset — adolescent_society • migraph</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,8 @@
 
 
 
-<meta property="og:title" content="Plotting of one-mode and two-mode graphs — plot.igraph" />
-<meta property="og:description" content="Plotting of one-mode and two-mode graphs" />
+<meta property="og:title" content="One-mode subset of adolescent society dataset — adolescent_society" />
+<meta property="og:description" content="One-mode subset of adolescent society dataset" />
 <meta property="og:image" content="https://snlab-ch.github.io/migraph/logo.png" />
 
 
@@ -131,36 +131,28 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plotting of one-mode and two-mode graphs</h1>
-    <small class="dont-index">Source: <a href='https://github.com/snlab-ch/migraph/blob/master/R/plot.R'><code>R/plot.R</code></a></small>
-    <div class="hidden name"><code>plot.igraph.Rd</code></div>
+    <h1>One-mode subset of adolescent society dataset</h1>
+    <small class="dont-index">Source: <a href='https://github.com/snlab-ch/migraph/blob/master/R/data_adolescent_society.R'><code>R/data_adolescent_society.R</code></a></small>
+    <div class="hidden name"><code>adolescent_society.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Plotting of one-mode and two-mode graphs</p>
+    <p>One-mode subset of adolescent society dataset</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for igraph</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>A migraph-compatible object, especially an igraph graph object.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments passed on to igraph.</p></td>
-    </tr>
-    </table>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>adolescent_society</span><span class='op'>)</span></pre>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>mat1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='create.html'>create_ring</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>10</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>mat1</span><span class='op'>)</span>
-</div><div class='img'><img src='plot.igraph-1.png' alt='' width='700' height='433' /></div></pre>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>tidygraph graph object</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Coleman, James S. 1961. The Adolescent Society.
+New York:Free Press.</p>
+<p>Feld, Scott. 1991. “Why your friends have more friends than you do”
+American Journal of Sociology 96(6): 1464-1477.</p>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

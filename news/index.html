@@ -85,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
       </span>
     </div>
 
@@ -134,6 +134,38 @@
       <small>Source: <a href='https://github.com/snlab-ch/migraph/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="migraph-072" class="section level1">
+<h1 class="page-header" data-toc-text="0.7.2">
+<a href="#migraph-072" class="anchor"></a>migraph 0.7.2<small> Unreleased </small>
+</h1>
+<div id="data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#data" class="anchor"></a>Data</h2>
+<ul>
+<li>Added <code>brandes</code> dataset for teaching centrality measures</li>
+<li>Added <code>adolescent_society</code> dataset for teaching friendship paradox</li>
+<li>Added <code><a href="../reference/read.html">read_edgelist()</a></code> for importing Excel-created edgelists directly</li>
+</ul>
+</div>
+<div id="visualization" class="section level2">
+<h2 class="hasAnchor">
+<a href="#visualization" class="anchor"></a>Visualization</h2>
+<ul>
+<li>Added <code><a href="../reference/ggraphlabel.html">ggraphlabel()</a></code> for one-function (1F) plotting label-based network graphs</li>
+<li>Added <code><a href="../reference/ggevolution.html">ggevolution()</a></code> for 1F-plotting begin/end graph comparisons</li>
+<li>Added <code><a href="../reference/ggraphgrid.html">ggraphgrid()</a></code> for 1F snap-to-grid graph layouts based on Fruchterman-Reingold or Kamada-Kawai</li>
+<li>Added <code><a href="../reference/ggidentify.html">ggidentify()</a></code> for 1F identifying nodes with maximum scores based on some arbitrary function</li>
+</ul>
+</div>
+<div id="manipulation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#manipulation" class="anchor"></a>Manipulation</h2>
+<ul>
+<li>Added <code><a href="../reference/to.html">to_undirected()</a></code> for symmetrising networks of all types</li>
+<li>Made existing <code>to_</code> functions S3 methods</li>
+</ul>
+</div>
+</div>
     <div id="migraph-071" class="section level1">
 <h1 class="page-header" data-toc-text="0.7.1">
 <a href="#migraph-071" class="anchor"></a>migraph 0.7.1<small> 2021-09-25 </small>
@@ -256,9 +288,9 @@
 <li>Fixed bug in <code><a href="../reference/coercion.html">as_tidygraph()</a></code> when passed a tbl_graph directly</li>
 </ul>
 </div>
-<div id="visualization" class="section level2">
+<div id="visualization-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#visualization" class="anchor"></a>Visualization</h2>
+<a href="#visualization-1" class="anchor"></a>Visualization</h2>
 <ul>
 <li>Added <code><a href="../reference/plot_releases.html">plot_releases()</a></code> for more general use</li>
 <li>Fixed bug in <code><a href="../reference/plot.igraph.html">plot.igraph()</a></code> with layouts and one-mode graphs</li>
@@ -303,9 +335,9 @@
 </li>
 </ul>
 </div>
-<div id="data" class="section level2">
+<div id="data-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data" class="anchor"></a>Data</h2>
+<a href="#data-1" class="anchor"></a>Data</h2>
 <ul>
 <li>
 <p>Added <a href='https://github.com/csteglich'>@csteglich</a> ’s <code><a href="../reference/read.html">read_ucinet()</a></code> and <code><a href="../reference/read.html">write_ucinet()</a></code> functions</p>
@@ -353,7 +385,7 @@
 <h2 class="hasAnchor">
 <a href="#package-3" class="anchor"></a>Package</h2>
 <ul>
-<li>Reran <code><a href="https://usethis.r-lib.org/reference/licenses.html">usethis::use_mit_license("James Hollway")</a></code>. MIT License file now contains only the standard two lines.</li>
+<li>Reran <code>usethis::use_mit_license("James Hollway")</code>. MIT License file now contains only the standard two lines.</li>
 <li>Removed <code>\dontrun</code> from examples. <code><a href="../reference/netlm.html">netlm()</a></code> now runs in &lt;5 seconds.</li>
 <li>Fixed missing website item</li>
 </ul>
@@ -394,9 +426,9 @@
 <li>Trimmed some package dependencies and added others</li>
 </ul>
 </div>
-<div id="data-1" class="section level2">
+<div id="data-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-1" class="anchor"></a>Data</h2>
+<a href="#data-2" class="anchor"></a>Data</h2>
 <ul>
 <li>
 <p>Elaborated documentation for the remainder of the datasets</p>
@@ -420,7 +452,7 @@
 <li>
 <p>Closed <a href='https://github.com/snlab-ch/migraph/issues/18'>#18</a> by adding <code><a href="../reference/blockmodel.html">blockmodel_concor()</a></code> for employing the CONCOR algorithm to blockmodel both one-mode and two-mode networks</p>
 <ul>
-<li>Added a new print method for “blockmodel”-class objects based on the <code><a href="../reference/blockmodel.html">print.blockmodel()</a></code> method in the <code>{sna}</code> package that also prints blockmodel results for two-mode networks consistently</li>
+<li>Added a new print method for “blockmodel”-class objects based on the <code><a href="../reference/blockmodel.html">print.blockmodel()</a></code> method in the <a href="http://statnet.org">sna</a> package that also prints blockmodel results for two-mode networks consistently</li>
 <li>Added a new plot method for “blockmodel”-class objects that leverages <a href="https://ggplot2.tidyverse.org">ggplot2</a> for pretty plotting and that better inherits names from the underlying object</li>
 </ul>
 </li>
@@ -454,9 +486,9 @@
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/79'>#79</a> by adding <code><a href="../reference/is.html">is_twomode()</a></code> function to check whether network is two-mode on all object types</li>
 </ul>
 </div>
-<div id="data-2" class="section level2">
+<div id="data-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-2" class="anchor"></a>Data</h2>
+<a href="#data-3" class="anchor"></a>Data</h2>
 <ul>
 <li>
 <p>Renamed several datasets and elaborated their documentation</p>
@@ -544,9 +576,9 @@
 </li>
 </ul>
 </div>
-<div id="visualization-1" class="section level2">
+<div id="visualization-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#visualization-1" class="anchor"></a>Visualization</h2>
+<a href="#visualization-2" class="anchor"></a>Visualization</h2>
 <ul>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/82'>#82</a> by re-adding a version <code><a href="../reference/plot.igraph.html">plot.igraph()</a></code> with sensible defaults for two-mode networks</li>
 </ul>
@@ -566,9 +598,9 @@
 <li>Completed some <code>convert_</code> and <code>project_</code> documentation</li>
 </ul>
 </div>
-<div id="data-3" class="section level2">
+<div id="data-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-3" class="anchor"></a>Data</h2>
+<a href="#data-4" class="anchor"></a>Data</h2>
 <ul>
 <li>Updated mpn_ data source references</li>
 </ul>
@@ -609,18 +641,18 @@
 <li><p>Now builds Linux binary too</p></li>
 </ul>
 </div>
-<div id="manipulation" class="section level2">
+<div id="manipulation-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#manipulation" class="anchor"></a>Manipulation</h2>
+<a href="#manipulation-1" class="anchor"></a>Manipulation</h2>
 <ul>
 <li>Added <code><a href="../reference/project.html">project_rows()</a></code> and <code><a href="../reference/project.html">project_cols()</a></code> to make it easier to project two-mode networks in different formats (matrix, igraph, tidygraph) into projected versions in the same format</li>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/30'>#30</a> with conversion from different data frame formats, e.g. weighted and unweighted edgelists, into an incidence matrix with <code>as_incidence_matrix()</code>
 </li>
 </ul>
 </div>
-<div id="data-4" class="section level2">
+<div id="data-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-4" class="anchor"></a>Data</h2>
+<a href="#data-5" class="anchor"></a>Data</h2>
 <ul>
 <li>Renamed data related to the book “Multimodal Political Networks” with “mpn_” prefix</li>
 </ul>
@@ -631,9 +663,9 @@
 <a href="#roctopus-030" class="anchor"></a>roctopus 0.3.0<small> Unreleased </small>
 </h1>
 <p>2020-11-06</p>
-<div id="data-5" class="section level2">
+<div id="data-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-5" class="anchor"></a>Data</h2>
+<a href="#data-6" class="anchor"></a>Data</h2>
 <ul>
 <li>
 <p>Data creation updated for <a href="https://tidygraph.data-imaginist.com">tidygraph</a> defaults</p>
@@ -683,9 +715,9 @@
 </li>
 </ul>
 </div>
-<div id="data-6" class="section level2">
+<div id="data-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-6" class="anchor"></a>Data</h2>
+<a href="#data-7" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>opensecrets</code> data</li>
 <li>Added <code>powerelite</code> data</li>
@@ -727,9 +759,9 @@
 <a href="#roctopus-023" class="anchor"></a>roctopus 0.2.3<small> Unreleased </small>
 </h1>
 <p>2020-07-19</p>
-<div id="data-7" class="section level2">
+<div id="data-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-7" class="anchor"></a>Data</h2>
+<a href="#data-8" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>mexicanpower</code> dataset</li>
 <li>Added <code>senate112</code> datasets</li>
@@ -749,9 +781,9 @@
 <a href="#roctopus-021" class="anchor"></a>roctopus 0.2.1<small> Unreleased </small>
 </h1>
 <p>2020-07-17</p>
-<div id="data-8" class="section level2">
+<div id="data-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-8" class="anchor"></a>Data</h2>
+<a href="#data-9" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>ryanair</code> dataset from Christopoulos 2006</li>
 </ul>
@@ -770,9 +802,9 @@
 <a href="#roctopus-020" class="anchor"></a>roctopus 0.2.0<small> Unreleased </small>
 </h1>
 <p>2020-07-03</p>
-<div id="data-9" class="section level2">
+<div id="data-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-9" class="anchor"></a>Data</h2>
+<a href="#data-10" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>evs</code> datasets from Knoke et al 2020</li>
 </ul>
@@ -783,9 +815,9 @@
 <a href="#roctopus-010" class="anchor"></a>roctopus 0.1.0<small> Unreleased </small>
 </h1>
 <p>2020-06-30</p>
-<div id="data-10" class="section level2">
+<div id="data-11" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-10" class="anchor"></a>Data</h2>
+<a href="#data-11" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>bristol</code> dataset from Knoke et al 2020</li>
 </ul>
@@ -813,9 +845,9 @@
 <li>Added <code>twomode_modularity()</code> to calculate modularity in two-mode networks</li>
 </ul>
 </div>
-<div id="visualization-2" class="section level2">
+<div id="visualization-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#visualization-2" class="anchor"></a>Visualization</h2>
+<a href="#visualization-3" class="anchor"></a>Visualization</h2>
 <ul>
 <li>Added <code>plot_multilevel()</code> that rotates a force-directed <code>igraph</code> plot in three dimensions to reveal multilevel structure</li>
 <li>Added <code>plot_globalnet()</code> to map a multilevel network on to a javascript, rotatable global</li>

@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
       </span>
     </div>
 
@@ -142,7 +142,9 @@
 
     <pre class="usage"><span class='fu'>to_unweighted</span><span class='op'>(</span><span class='va'>object</span>, threshold <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 
-<span class='fu'>to_unnamed</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></pre>
+<span class='fu'>to_unnamed</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
+
+<span class='fu'>to_undirected</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -160,9 +162,9 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>to_unweighted</span><span class='op'>(</span><span class='fu'><a href='project.html'>project_rows</a></span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; IGRAPH 1468d33 UN-- 18 139 -- 
+</div><div class='output co'>#&gt; IGRAPH 0b197b3 UN-- 18 139 -- 
 #&gt; + attr: name (v/c)
-#&gt; + edges from 1468d33 (vertex names):
+#&gt; + edges from 0b197b3 (vertex names):
 #&gt;  [1] EVELYN --LAURA     EVELYN --BRENDA    EVELYN --THERESA   EVELYN --CHARLOTTE
 #&gt;  [5] EVELYN --FRANCES   EVELYN --ELEANOR   EVELYN --RUTH      EVELYN --PEARL    
 #&gt;  [9] EVELYN --NORA      EVELYN --VERNE     EVELYN --MYRA      EVELYN --KATHERINE
@@ -172,18 +174,40 @@
 #&gt; [25] LAURA  --NORA      LAURA  --VERNE     LAURA  --SYLVIA    LAURA  --HELEN    
 #&gt; [29] LAURA  --MYRA      LAURA  --KATHERINE LAURA  --DOROTHY   THERESA--BRENDA   
 #&gt; + ... omitted several edges</div><div class='input'><span class='fu'>to_unnamed</span><span class='op'>(</span><span class='fu'><a href='project.html'>project_rows</a></span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; IGRAPH 14696f8 UNW- 18 139 -- 
-#&gt; + attr: name (v/c), weight (e/n)
-#&gt; + edges from 14696f8 (vertex names):
-#&gt;  [1] EVELYN --LAURA     EVELYN --BRENDA    EVELYN --THERESA   EVELYN --CHARLOTTE
-#&gt;  [5] EVELYN --FRANCES   EVELYN --ELEANOR   EVELYN --RUTH      EVELYN --PEARL    
-#&gt;  [9] EVELYN --NORA      EVELYN --VERNE     EVELYN --MYRA      EVELYN --KATHERINE
-#&gt; [13] EVELYN --SYLVIA    EVELYN --HELEN     EVELYN --DOROTHY   EVELYN --OLIVIA   
-#&gt; [17] EVELYN --FLORA     LAURA  --BRENDA    LAURA  --THERESA   LAURA  --CHARLOTTE
-#&gt; [21] LAURA  --FRANCES   LAURA  --ELEANOR   LAURA  --RUTH      LAURA  --PEARL    
-#&gt; [25] LAURA  --NORA      LAURA  --VERNE     LAURA  --SYLVIA    LAURA  --HELEN    
-#&gt; [29] LAURA  --MYRA      LAURA  --KATHERINE LAURA  --DOROTHY   THERESA--BRENDA   
-#&gt; + ... omitted several edges</div></pre>
+</div><div class='output co'>#&gt; IGRAPH fd85132 U-W- 18 139 -- 
+#&gt; + attr: weight (e/n)
+#&gt; + edges from fd85132:
+#&gt;   [1] 1-- 2 1-- 4 1-- 3 1-- 5 1-- 6 1-- 7 1-- 9 1-- 8 1--14 1--10 1--11 1--12
+#&gt;  [13] 1--13 1--15 1--16 1--17 1--18 2-- 4 2-- 3 2-- 5 2-- 6 2-- 7 2-- 9 2-- 8
+#&gt;  [25] 2--14 2--10 2--13 2--15 2--11 2--12 2--16 3-- 4 3-- 5 3-- 6 3-- 7 3-- 9
+#&gt;  [37] 3-- 8 3--14 3--10 3--13 3--15 3--11 3--12 3--16 3--17 3--18 4-- 5 4-- 6
+#&gt;  [49] 4-- 7 4-- 9 4-- 8 4--14 4--10 4--13 4--15 4--11 4--12 4--16 5-- 6 5-- 7
+#&gt;  [61] 5-- 9 5--10 5--13 5--14 5--15 6-- 7 6-- 9 6-- 8 6--14 6--10 6--11 6--12
+#&gt;  [73] 6--13 6--15 6--16 7-- 9 7-- 8 7--14 7--10 7--13 7--15 7--11 7--12 7--16
+#&gt;  [85] 8--14 8-- 9 8--10 8--11 8--12 8--13 8--15 8--16 8--17 8--18 9--10 9--13
+#&gt; + ... omitted several edges</div><div class='input'><span class='fu'>to_undirected</span><span class='op'>(</span><span class='va'>adolescent_society</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tbl_graph: 8 nodes and 10 edges
+#&gt; #
+#&gt; # An undirected simple graph with 1 component
+#&gt; #
+#&gt; # Node Data: 8 × 1 (active)</span>
+#&gt;   name 
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> Betty
+#&gt; <span style='color: #BCBCBC;'>2</span> Sue  
+#&gt; <span style='color: #BCBCBC;'>3</span> Alice
+#&gt; <span style='color: #BCBCBC;'>4</span> Jane 
+#&gt; <span style='color: #BCBCBC;'>5</span> Dale 
+#&gt; <span style='color: #BCBCBC;'>6</span> Pam  
+#&gt; <span style='color: #949494;'># … with 2 more rows</span>
+#&gt; <span style='color: #949494;'>#
+#&gt; # Edge Data: 10 × 2</span>
+#&gt;    from    to
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     1     2
+#&gt; <span style='color: #BCBCBC;'>2</span>     2     3
+#&gt; <span style='color: #BCBCBC;'>3</span>     3     4
+#&gt; <span style='color: #949494;'># … with 7 more rows</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
