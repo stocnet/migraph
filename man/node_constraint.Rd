@@ -8,7 +8,7 @@ node_constraint(object, nodes = V(object), weights = NULL)
 }
 \arguments{
 \item{object}{A matrix, igraph graph, or tidygraph object.}
-  
+
 \item{nodes}{The vertices for which the constraint will be calculated.
 Defaults to all vertices.}
 

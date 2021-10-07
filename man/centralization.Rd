@@ -59,7 +59,7 @@ graph_closeness(southern_women, directed = "in")
 graph_betweenness(southern_women, directed = "in")
 }
 \references{
-Borgatti, Stephen P, and Daniel S Halgin. 2011. "Analyzing Affiliation Networks." In \emph{The SAGE Handbook of
+Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In \emph{The SAGE Handbook of
 Social Network Analysis}, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
 }
 \seealso{

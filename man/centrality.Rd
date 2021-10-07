@@ -46,7 +46,6 @@ node_eigenvector(
 \item{object}{Either an igraph graph object or a matrix.}
 
 \item{weights}{The weight of the edges to use for the calculation.
-               
 Will be evaluated in the context of the edge data.}
 
 \item{mode}{How should edges be followed. Ignored for undirected graphs}
@@ -67,7 +66,6 @@ Will be evaluated in the context of the edge data.}
 }
 \value{
 Depending on how and what kind of an object is passed to the function,
-
 the function will return a \code{tidygraph} object where the nodes have been updated
 
 A numeric vector giving the betweenness centrality measure of each node.

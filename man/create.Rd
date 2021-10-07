@@ -70,7 +70,7 @@ plot(create_star(c(12,1)))
 \seealso{
 as_matrix as_tidygraph as_network
 
-Other creation:
+Other creation: 
 \code{\link{generate}}
 }
 \concept{creation}

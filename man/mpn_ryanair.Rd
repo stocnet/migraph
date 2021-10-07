@@ -3,7 +3,6 @@
 \docType{data}
 \name{mpn_ryanair}
 \alias{mpn_ryanair}
-
 \title{One-mode EU policy influence network, June 2004}
 \format{
 Matrix with 20 rows/columns
