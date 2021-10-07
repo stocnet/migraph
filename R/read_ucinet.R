@@ -24,8 +24,9 @@
 #' @export
 read_ucinet <- function(header_file) {
   
-  as <- match.arg(as)
-  if (missing(header_file)) header_file <- file.choose()
+  if (missing(header_file)) {
+    header_file <- file.choose()
+  }
 
 	read_ucinet_header <- function(header_file) {
 	  UCINET.header <- file(header_file, "rb")
