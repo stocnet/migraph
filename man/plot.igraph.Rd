@@ -7,7 +7,7 @@
 \method{plot}{igraph}(x, ...)
 }
 \arguments{
-\item{x}{A migraph-compatible object, especially an igraph graph object}
+\item{x}{A migraph-compatible object, especially an igraph graph object.}
 
 \item{...}{Additional arguments passed on to igraph.}
 }
@@ -16,6 +16,6 @@ Plotting of one-mode and two-mode graphs
 }
 \examples{
 mat1 <- create_ring(5,10)
-plot.igraph(mat1)
+plot(mat1)
 }
 \concept{plotting}

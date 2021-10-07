@@ -45,7 +45,7 @@ node_eigenvector(
 \arguments{
 \item{object}{Either an igraph graph object or a matrix.}
 
-\item{weights}{The weight of the edges to use for the calculation. 
+\item{weights}{The weight of the edges to use for the calculation.
 Will be evaluated in the context of the edge data.}
 
 \item{mode}{How should edges be followed. Ignored for undirected graphs}
@@ -60,13 +60,13 @@ Will be evaluated in the context of the edge data.}
 
 \item{nobigint}{Should big integers be avoided during calculations}
 
-\item{options}{Settings passed on to `igraph::arpack()`}
+\item{options}{Settings passed on to \code{igraph::arpack()}}
 
 \item{scale}{Should the scores be scaled to range between 0 and 1?}
 }
 \value{
 Depending on how and what kind of an object is passed to the function,
-the function will return a `tidygraph` object where the nodes have been updated
+the function will return a \code{tidygraph} object where the nodes have been updated
 
 A numeric vector giving the betweenness centrality measure of each node.
 
@@ -74,7 +74,7 @@ A numeric vector giving the eigenvector centrality measure of each node.
 }
 \description{
 These functions calculate common centrality measures for both one- and two-mode networks.
-They accept as objects matrices and `igraph` graphs, 
+They accept as objects matrices and \code{igraph} graphs,
 and can be used within a tidygraph workflow.
 Importantly, these functions also offer correct normalization for two-mode networks.
 }

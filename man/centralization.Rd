@@ -28,13 +28,13 @@ graph_betweenness(
 \arguments{
 \item{object}{A matrix, igraph graph, or tidygraph object.}
 
-\item{directed}{Character string, “out” for out-degree, 
-“in” for in-degree, and "all" or “total” for the sum of the two. 
+\item{directed}{Character string, “out” for out-degree,
+“in” for in-degree, and "all" or “total” for the sum of the two.
 For two-mode networks, "all" uses as numerator the sum of differences
-between the maximum centrality score for the mode 
+between the maximum centrality score for the mode
 against all other centrality scores in the network,
 whereas "in" uses as numerator the sum of differences
-between the maximum centrality score for the mode 
+between the maximum centrality score for the mode
 against only the centrality scores of the other nodes in that nodeset.}
 
 \item{normalized}{Logical scalar, whether the centrality scores are normalized.
@@ -44,11 +44,11 @@ the type of centrality, and other arguments.}
 \value{
 A single centralization score if the object was one-mode,
 and two centralization scores if the object was two-mode.
-In the case of a two-mode network, 
-to return just the score for the first nodeset (rows), 
-append `$nodes1` to the end of the function call or returned object.
-To return just the score for the second nodeset (cols), 
-append `$nodes2` to the end of the function call or returned object.
+In the case of a two-mode network,
+to return just the score for the first nodeset (rows),
+append \verb{$nodes1} to the end of the function call or returned object.
+To return just the score for the second nodeset (cols),
+append \verb{$nodes2} to the end of the function call or returned object.
 }
 \description{
 These functions measure the overall centralization for a network.
@@ -59,7 +59,7 @@ graph_closeness(southern_women, directed = "in")
 graph_betweenness(southern_women, directed = "in")
 }
 \references{
-Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In \emph{The SAGE Handbook of 
+Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In \emph{The SAGE Handbook of
 Social Network Analysis}, edited by John Scott and Peter J Carrington, 417–33. London, UK: Sage.
 }
 \seealso{

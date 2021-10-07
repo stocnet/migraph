@@ -45,10 +45,10 @@
 #' |  to/from      | edgelists           | matrices  |igraph  |tidygraph  |network  |
 #' | ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|
 #' | edgelists (data frames)  |  |  |  |  |  |
-#' | matrices                 | √ | √ | √ | √ | √ |
-#' | igraph                   | √ | √ | √ | √ | √ |
-#' | tidygraph                | √ | √ | √ | √ | √ |
-#' | network                  | √ | √ | √ | √ | √ |
+#' | matrices                 | X | X | X | X | X |
+#' | igraph                   | X | X | X | X | X |
+#' | tidygraph                | X | X | X | X | X |
+#' | network                  | X | X | X | X | X |
 #' @export
 as_matrix <- function(object, weight = FALSE) UseMethod("as_matrix")
 

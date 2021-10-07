@@ -14,7 +14,7 @@ data(southern_women)
 Two-mode network dataset collected by Davis, Gardner and Gardner (1941) about women and social events.
 }
 \references{
-Davis, A., Gardner, B., and Gardner, R. 1941. \emph{Deep South}. 
+Davis, A., Gardner, B., and Gardner, R. 1941. \emph{Deep South}.
 Chicago: University of Chicago Press.
 }
 \keyword{datasets}

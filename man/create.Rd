@@ -6,7 +6,8 @@
 \alias{create_complete}
 \alias{create_ring}
 \alias{create_components}
-\title{Create networks that conform to particular structures}
+\alias{create_star}
+\title{Create networks with particular structures}
 \usage{
 create_empty(n)
 
@@ -15,16 +16,19 @@ create_complete(n)
 create_ring(n, width = 1, directed = FALSE, ...)
 
 create_components(n, components = 2)
+
+create_star(n, directed = "in")
 }
 \arguments{
-\item{n}{Number of nodes. 
-If a single integer is given, the function will create a one-mode network.
-If a vector of two integers is given, e.g. `n = c(5,10)`,
+\item{n}{Number of nodes.
+If a single integer is given, e.g. \code{n = 10},
+the function will create a one-mode network.
+If a vector of two integers is given, e.g. \code{n = c(5,10)},
 the function will create a two-mode network.}
 
 \item{width}{The width or breadth of the ring. This is typically double the degree.}
 
-\item{directed}{Whether the graph should be directed. By default FALSE.}
+\item{directed}{One of the following options: "in", "out", or "none".}
 
 \item{...}{Additional arguments passed on to igraph.}
 
@@ -33,21 +37,21 @@ the function will create a two-mode network.}
 \value{
 By default an igraph object will be returned,
 but this can be coerced into other types of objects
-using `as_matrix()` or `as_tidygraph()`.
+using \code{as_matrix()}, \code{as_tidygraph()}, or \code{as_network()}.
 }
 \description{
-These functions create a host of different network objects.
-Despite the common syntax, what distinguishes them from
-those in other packages is that passing the `n` argument
-a vector of \emph{two} integers will return a two-mode
-network instead of a one-mode network.
+These functions create a variety of different network objects.
+Despite the common function names and syntax with existing packages,
+the common \code{n} argument can not only be passed
+a single integer to return a one-mode network,
+but also a vector of \emph{two} integers to return a two-mode network.
 }
 \details{
-`create_empty()` creates an empty graph of the given dimensions.
+\code{create_empty()} creates an empty graph of the given dimensions.
 
-`create_complete()` creates a filled graph of the given dimensions.
+\code{create_complete()} creates a filled graph of the given dimensions.
 
-`create_ring()` creates a ring or chord graph of the given dimensions
+\code{create_ring()} creates a ring or chord graph of the given dimensions
 that loops around is of a certain width or thickness.
 
 \code{create_components()} creates a graph in which the nodes are clustered
@@ -61,11 +65,12 @@ plot(g)
 g <- create_ring(c(8,6), width = 2)
 plot(g)
 plot(create_components(c(10, 12), components = 3))
+plot(create_star(c(12,1)))
 }
 \seealso{
 as_matrix as_tidygraph as_network
 
 Other creation: 
-\code{\link{sample}()}
+\code{\link{generate}}
 }
 \concept{creation}

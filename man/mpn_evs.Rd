@@ -9,24 +9,24 @@
 \alias{mpn_DE_2008}
 \alias{mpn_UK_1990}
 \alias{mpn_UK_2008}
-\title{European Values Survey, 1990 and 2008}
+\title{Two-mode European Values Survey, 1990 and 2008}
 \format{
 Matrices with 14 columns:
 \describe{
-  \item{Welfare}{1 if individual associated}
-  \item{Religious}{1 if individual associated}
-  \item{Education.culture}{1 if individual associated}
-  \item{Unions}{1 if individual associated}
-  \item{Parties}{1 if individual associated}
-  \item{Local.political.groups}{1 if individual associated}
-  \item{Human.rights}{1 if individual associated}
-  \item{Environmental.animal}{1 if individual associated}
-  \item{Professional}{1 if individual associated}
-  \item{Youth}{1 if individual associated}
-  \item{Sports}{1 if individual associated}
-  \item{Women}{1 if individual associated}
-  \item{Peace}{1 if individual associated}
-  \item{Health}{1 if individual associated}
+\item{Welfare}{1 if individual associated}
+\item{Religious}{1 if individual associated}
+\item{Education.culture}{1 if individual associated}
+\item{Unions}{1 if individual associated}
+\item{Parties}{1 if individual associated}
+\item{Local.political.groups}{1 if individual associated}
+\item{Human.rights}{1 if individual associated}
+\item{Environmental.animal}{1 if individual associated}
+\item{Professional}{1 if individual associated}
+\item{Youth}{1 if individual associated}
+\item{Sports}{1 if individual associated}
+\item{Women}{1 if individual associated}
+\item{Peace}{1 if individual associated}
+\item{Health}{1 if individual associated}
 }
 
 An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 10.

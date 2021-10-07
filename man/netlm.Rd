@@ -22,16 +22,16 @@ netlm(formula, data, ...)
 
 \item{data}{A named list of matrices, graphs, or a tidygraph object.}
 
-\item{...}{Arguments passed on to `lm()`.}
+\item{...}{Arguments passed on to \code{lm()}.}
 
-\item{object}{an object of class "netlm", usually as a result of a call to `netlm()`.}
+\item{object}{an object of class "netlm", usually as a result of a call to \code{netlm()}.}
 
-\item{reps}{Integer indicating the number of draws to use for quantile estimation. 
-(Relevant to the null hypothesis test only - the analysis itself is unaffected by this parameter.) 
-Note that, as for all Monte Carlo procedures, convergence is slower for more extreme quantiles. 
+\item{reps}{Integer indicating the number of draws to use for quantile estimation.
+(Relevant to the null hypothesis test only - the analysis itself is unaffected by this parameter.)
+Note that, as for all Monte Carlo procedures, convergence is slower for more extreme quantiles.
 By default, reps=1000.}
 
-\item{x}{an object of class "summary.netlm", usually, a result of a call to `summary.netlm()`.}
+\item{x}{an object of class "summary.netlm", usually, a result of a call to \code{summary.netlm()}.}
 
 \item{digits}{the number of significant digits to use when printing.}
 
@@ -42,28 +42,10 @@ This function extends the multiple regression quadratic assignment procedure (MR
 of network linear model to two mode networks.
 }
 \examples{
-\dontrun{
 mat1 <- matrix(c(0,1,1,0,0,1,1,1),4,2)
 mat2 <- matrix(c(0,1,0,1,0,1,0,1),4,2)
 mat3 <- matrix(c(0,0,1,1,0,0,1,1),4,2)
 lmat <- list(mat1 = mat1, mat2 = mat2, mat3 = mat3)
-example <- netlm(mat1 ~ mat2 + mat3 + lmat)
-}
-\dontrun{
-mat1 <- matrix(c(0,1,1,0,0,1,1,1),4,2)
-mat2 <- matrix(c(0,1,0,1,0,1,0,1),4,2)
-mat3 <- matrix(c(0,0,1,1,0,0,1,1),4,2)
-lmat <- list(mat1 = mat1, mat2 = mat2, mat3 = mat3)
-example <- netlm(mat1 ~ mat2 + mat3 + lmat)
-summary.netlm(example)
-}
-\dontrun{
-mat1 <- matrix(c(0,1,1,0,0,1,1,1),4,2)
-mat2 <- matrix(c(0,1,0,1,0,1,0,1),4,2)
-mat3 <- matrix(c(0,0,1,1,0,0,1,1),4,2)
-lmat <- list(mat1 = mat1, mat2 = mat2, mat3 = mat3)
-example <- netlm(mat1 ~ mat2 + mat3 + lmat)
-summary.netlm(example)
-print.summary.netlm(example)
-}
+model1 <- netlm(mat1 ~ mat2 + mat3, lmat)
+summary(model1)
 }

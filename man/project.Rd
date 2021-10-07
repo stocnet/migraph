@@ -11,7 +11,7 @@ project_rows(object)
 project_cols(object)
 }
 \arguments{
-\item{object}{A matrix, `igraph` graph or `tidygraph` tbl_graph object.}
+\item{object}{A matrix, \code{igraph} graph or \code{tidygraph} tbl_graph object.}
 }
 \description{
 These functions 'project' or convert a two-mode object
@@ -19,21 +19,17 @@ in any format -- tidygraph, igraph, or matrix --
 into a corresponding one-mode object.
 }
 \details{
-`project_rows()` results in a weighted one-mode object
+\code{project_rows()} results in a weighted one-mode object
 that retains the row nodes from a two-mode object,
 and weights the ties between them on the basis of
 their joint ties to nodes in the second mode (columns).
 
-`project_cols()` results in a weighted one-mode object
+\code{project_cols()} results in a weighted one-mode object
 that retains the column nodes from a two-mode object,
 and weights the ties between them on the basis of
 their joint ties to nodes in the first mode (rows).
 }
 \examples{
-\dontrun{
 project_rows(southern_women)
-}
-\dontrun{
 project_cols(southern_women)
-}
 }

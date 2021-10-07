@@ -2,12 +2,11 @@
 #' 
 #' These functions import from and export to UCINET network files.
 #' @name read
-#' @param header_file A character string giving the path to the header (.##h) file.
+#' @param file,header_file A character string giving the path to the header (.##h) file.
 #' If the function is called without a header_file specified,
 #' an OS-specific file picker is opened to help users select it.
-#' @param as An output class. One of "igraph", "network", or "matrix".
-#' By default "igraph".
-#' @return By default, [read_ucinet()] will import into a matrix format, 
+#' @return By default, [read_ucinet()] and [read_edgelist()] 
+#' will import into an igraph format, 
 #' but can be easily coerced from there into other formats.
 #' @details These functions only work with relatively recent UCINET
 #' file formats, e.g. type 6406 files.
@@ -23,10 +22,11 @@
 #' @author Christian Steglich, 18 June 2015
 #' @seealso [convert]
 #' @export
-read_ucinet <- function(header_file, as = c("igraph","network","matrix")) {
+read_ucinet <- function(header_file) {
   
-  as <- match.arg(as)
-  if (missing(header_file)) header_file <- file.choose()
+  if (missing(header_file)) {
+    header_file <- file.choose()
+  }
 
 	read_ucinet_header <- function(header_file) {
 	  UCINET.header <- file(header_file, "rb")
@@ -134,9 +134,7 @@ read_ucinet <- function(header_file, as = c("igraph","network","matrix")) {
 	#attr(mat,'labtype') <- header$labtype
 	#attr(mat,'infile.dt') <- header$infile.dt
 	
-	if(as=="igraph") mat <- as_igraph(mat)
-	if(as=="network") mat <- as_network(mat)
-	return(mat)
+	as_igraph(mat)
 }
 
 #' @rdname read
@@ -227,3 +225,12 @@ write_ucinet <- function(object,
 		writeBin(t(mat)[i],UCINET.data,size=4,endian='little')
 	close(UCINET.data)
 }
+
+#' @rdname read
+#' @importFrom readxl read_xlsx
+#' @export
+read_edgelist <- function(file){
+  xl <- readxl::read_xlsx(file, col_names = TRUE)
+  as_igraph(xl)
+}
+

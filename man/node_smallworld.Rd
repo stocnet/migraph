@@ -19,7 +19,7 @@ Calculates small-world metrics for two-mode networks
 }
 \details{
 The first column of the returned table is simply the number of the second-mode column.
-The next three columns report the observed and expected clustering, 
+The next three columns report the observed and expected clustering,
 and the ratio of the former to the later.
 The next three columns report the observed and expected path-length,
 and the ratio of the former to the later.

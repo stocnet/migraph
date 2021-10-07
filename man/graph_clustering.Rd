@@ -15,7 +15,7 @@ graph_clustering(object, object2 = NULL)
 This function offers clustering methods for one-, two-, and three-mode networks.
 }
 \details{
-For one-mode networks, the function serves as a shallow wrapper for `igraph::transitivity`,
+For one-mode networks, the function serves as a shallow wrapper for \code{igraph::transitivity},
 since global transitivity is a regular measure for clustering or local density in one-mode networks.
 
 For two-mode networks, we calculate the proportion of three-paths in the network
@@ -28,12 +28,12 @@ that are closed by a fourth tie to establish a "congruent four-cycle" structure.
 graph_clustering(southern_women)
 }
 \references{
-Robins, Garry L, and Malcolm Alexander. 2004. 
-Small worlds among interlocking directors: Network structure and distance in bipartite graphs. 
+Robins, Garry L, and Malcolm Alexander. 2004.
+Small worlds among interlocking directors: Network structure and distance in bipartite graphs.
 \emph{Computational & Mathematical Organization Theory} 10 (1): 69–94.
 
-Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021. 
-\href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}. 
+Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
+\href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
 Cambridge University Press. Cambridge University Press.
 }
 \seealso{
