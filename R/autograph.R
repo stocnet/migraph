@@ -1,0 +1,55 @@
+#' Autograph with sensible defaults
+#' @param object migraph-consistent object
+#' @param node_color node variable in quotation marks
+#' that should be used for colouring the nodes
+#' @export
+autograph <- function(object, node_color = NULL, ...){
+  g <- as_tidygraph(object)
+  
+  # Add layout
+  lo <- ggraph::create_layout(g, "fr")
+  
+  p <- ggraph::ggraph(lo) + ggraph::theme_graph()
+  
+  # Add edges
+  if(is_directed(g)){
+    p <- p + geom_edge_link(color = "darkgray",
+                            arrow = arrow(angle = 15,
+                                          length = unit(4, 'mm'),
+                                          type = "closed"), 
+                            end_cap = circle(3, 'mm'))
+  } else {
+    if(is_weighted(g)){
+      p <- p + geom_edge_link0(aes(width = weight),
+                               color = "darkgray") + 
+        scale_edge_width_continuous(range = c(.2,1), 
+                                    guide = "none")
+    } else {
+      p <- p + geom_edge_link0(color = "darkgray")
+    }
+  }
+  
+  # Add nodes
+  if(is_twomode(g)){
+    if(!is.null(node_color)){
+      p <- p + geom_node_point(aes(color = as.factor(get.vertex.attribute(karateka, node_color))),
+                               size = (100/igraph::vcount(g))/2,
+                               shape = ifelse(igraph::V(g)$type, "square", "circle"))
+    } else {
+      p <- p + geom_node_point(size = (100/igraph::vcount(g))/2,
+                               shape = ifelse(igraph::V(g)$type, "square", "circle"))
+    }
+  } else {
+    if(!is.null(node_color)){
+      p <- p + geom_node_point(aes(color = as.factor(get.vertex.attribute(karateka, node_color))),
+                               size = (100/igraph::vcount(g))/2) +
+        scale_color_discrete(guide = "none")
+    } else {
+      p <- p + geom_node_point(size = (100/igraph::vcount(g))/2)
+    }
+  }
+  if(is_labelled(g)) p <- p + geom_node_label(aes(label = name), 
+                                              repel = TRUE)
+  
+  p
+}
