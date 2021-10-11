@@ -13,7 +13,7 @@ autograph <- function(object, node_color = NULL, ...){
   
   # Add edges
   if(is_directed(g)){
-    p <- p + geom_edge_link(color = "darkgray",
+    p <- p + geom_edge_link(edge_alpha = 0.4,
                             arrow = arrow(angle = 15,
                                           length = unit(4, 'mm'),
                                           type = "closed"), 
@@ -21,11 +21,11 @@ autograph <- function(object, node_color = NULL, ...){
   } else {
     if(is_weighted(g)){
       p <- p + geom_edge_link0(aes(width = weight),
-                               color = "darkgray") + 
+                               edge_alpha = 0.4) + 
         scale_edge_width_continuous(range = c(.2,1), 
                                     guide = "none")
     } else {
-      p <- p + geom_edge_link0(color = "darkgray")
+      p <- p + geom_edge_link0(edge_alpha = 0.4)
     }
   }
   
@@ -51,7 +51,9 @@ autograph <- function(object, node_color = NULL, ...){
       p <- p + geom_node_point(size = (100/igraph::vcount(g))/2)
     }
   }
-  if(is_labelled(g)) p <- p + geom_node_label(aes(label = name), 
+  if(is_labelled(g)) p <- p + geom_node_label(aes(label = name),
+                                              label.padding = 0.15,
+                                              label.size = 0,
                                               repel = TRUE)
   
   p
