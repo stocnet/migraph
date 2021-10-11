@@ -1,13 +1,30 @@
-#' Autograph with sensible defaults
+#' Quickly graph networks with sensible defaults
+#' 
+#' The aim of this function is to provide users with a quick and easy
+#' graphing function that makes best use of the data,
+#' whatever its composition.
 #' @param object migraph-consistent object
+#' @param algorithm an igraph layout algorithm,
+#' currently defaults to Fruchterman-Reingold,
+#' but Kamada-Kawai and 'stress' also available
 #' @param node_color node variable in quotation marks
 #' that should be used for colouring the nodes
+#' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text geom_conn_bundle get_con geom_node_point
+#' @examples
+#' autographr(adolescent_society)
+#' autographr(ison_karateka)
 #' @export
-autograph <- function(object, node_color = NULL, ...){
+autographr <- function(object,
+                      algorithm = c("fr","kk","stress"), 
+                      node_color = NULL, 
+                      ...){
+
+  name <- NULL # initialize variables to avoid CMD check notes
   g <- as_tidygraph(object)
+  algorithm <- match.arg(algorithm)
   
   # Add layout
-  lo <- ggraph::create_layout(g, "fr")
+  lo <- ggraph::create_layout(g, algorithm)
   
   p <- ggraph::ggraph(lo) + ggraph::theme_graph()
   
