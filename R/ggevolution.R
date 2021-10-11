@@ -57,3 +57,22 @@ ggevolution <- function(..., layout = "kk",
   gridExtra::grid.arrange(g1, g2, ncol = length(networks))
   
 }
+
+#' Plotting network at particular timepoint (year)
+#' @param edgelist a manyverse edgelist, expecting `Beg` and `End` variables,
+#' among others
+#' @param year numeric year, gets expanded to first of January that year
+#' @examples 
+#' \donotrun{
+#' ggatyear(membs, 1900)
+#' }
+#' @export
+ggatyear <- function(edgelist, year){
+  graph <- as_tidygraph(edgelist[edgelist$Beg < paste0(year, "-01-01") & edgelist$End > paste0(year, "-01-01"),])
+  ggraph(graph, layout = "dynamic") +
+    geom_edge_link0(colour = "black", alpha = 0.18) +
+    geom_node_point(shape = ifelse(igraph::V(graph)$type, 15, 16),
+                    color = ifelse(igraph::V(graph)$type, "orange", "darkolivegreen")) +
+    geom_node_text(aes(label = ifelse(type, "", name)), family = "sans", color = "dodgerblue4", repel = TRUE) +
+    theme_graph() + ggtitle(year)
+}
