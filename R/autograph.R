@@ -32,18 +32,21 @@ autograph <- function(object, node_color = NULL, ...){
   # Add nodes
   if(is_twomode(g)){
     if(!is.null(node_color)){
-      p <- p + geom_node_point(aes(color = as.factor(get.vertex.attribute(karateka, node_color))),
+      color_factor <- as.factor(get.vertex.attribute(g, node_color))
+      p <- p + geom_node_point(aes(color = color_factor),
                                size = (100/igraph::vcount(g))/2,
-                               shape = ifelse(igraph::V(g)$type, "square", "circle"))
+                               shape = ifelse(igraph::V(g)$type, "square", "circle")) +
+        scale_colour_brewer(palette = "Set1", guide = "none")
     } else {
       p <- p + geom_node_point(size = (100/igraph::vcount(g))/2,
                                shape = ifelse(igraph::V(g)$type, "square", "circle"))
     }
   } else {
     if(!is.null(node_color)){
-      p <- p + geom_node_point(aes(color = as.factor(get.vertex.attribute(karateka, node_color))),
+      color_factor <- as.factor(get.vertex.attribute(g, node_color))
+      p <- p + geom_node_point(aes(color = color_factor),
                                size = (100/igraph::vcount(g))/2) +
-        scale_color_discrete(guide = "none")
+        scale_colour_brewer(palette = "Set1", guide = "none")
     } else {
       p <- p + geom_node_point(size = (100/igraph::vcount(g))/2)
     }
