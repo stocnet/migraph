@@ -15,6 +15,8 @@ but Kamada-Kawai and 'stress' also available}
 
 \item{node_color}{node variable in quotation marks
 that should be used for colouring the nodes}
+
+\item{...}{extra arguments}
 }
 \description{
 The aim of this function is to provide users with a quick and easy

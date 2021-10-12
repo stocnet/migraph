@@ -59,20 +59,23 @@ ggevolution <- function(..., layout = "kk",
 }
 
 #' Plotting network at particular timepoint (year)
+#' 
 #' @param edgelist a manyverse edgelist, expecting `Beg` and `End` variables,
 #' among others
 #' @param year numeric year, gets expanded to first of January that year
+#' @importFrom ggraph geom_edge_link geom_node_point geom_node_text theme_graph
 #' @examples 
-#' \donotrun{
+#' \dontrun{
 #' ggatyear(membs, 1900)
 #' }
 #' @export
-ggatyear <- function(edgelist, year){
+ggatyear <- function(edgelist, year) {
+  name <- type <- NULL # Initialize variables
   graph <- as_tidygraph(edgelist[edgelist$Beg < paste0(year, "-01-01") & edgelist$End > paste0(year, "-01-01"),])
   ggraph(graph, layout = "dynamic") +
-    geom_edge_link0(colour = "black", alpha = 0.18) +
-    geom_node_point(shape = ifelse(igraph::V(graph)$type, 15, 16),
+    ggraph::geom_edge_link0(colour = "black", alpha = 0.18) +
+    ggraph::geom_node_point(shape = ifelse(igraph::V(graph)$type, 15, 16),
                     color = ifelse(igraph::V(graph)$type, "orange", "darkolivegreen")) +
-    geom_node_text(aes(label = ifelse(type, "", name)), family = "sans", color = "dodgerblue4", repel = TRUE) +
-    theme_graph() + ggtitle(year)
+    ggraph::geom_node_text(aes(label = ifelse(type, "", name)), family = "sans", color = "dodgerblue4", repel = TRUE) +
+    ggraph::theme_graph() + ggtitle(year)
 }

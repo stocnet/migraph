@@ -9,17 +9,19 @@
 #' but Kamada-Kawai and 'stress' also available
 #' @param node_color node variable in quotation marks
 #' that should be used for colouring the nodes
-#' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text geom_conn_bundle get_con geom_node_point
+#' @param ... extra arguments
+#' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text geom_conn_bundle get_con geom_node_point scale_edge_width_continuous geom_node_label
+#' @importFrom igraph get.vertex.attribute
 #' @examples
 #' autographr(adolescent_society)
 #' autographr(ison_karateka)
 #' @export
 autographr <- function(object,
-                      algorithm = c("fr","kk","stress"), 
-                      node_color = NULL, 
-                      ...){
+                       algorithm = c("fr","kk","stress"),
+                       node_color = NULL,
+                       ...) {
 
-  name <- NULL # initialize variables to avoid CMD check notes
+  name <- weight <- NULL # initialize variables to avoid CMD check notes
   g <- as_tidygraph(object)
   algorithm <- match.arg(algorithm)
   
@@ -30,26 +32,26 @@ autographr <- function(object,
   
   # Add edges
   if(is_directed(g)){
-    p <- p + geom_edge_link(edge_alpha = 0.4,
+    p <- p + ggraph::geom_edge_link(edge_alpha = 0.4,
                             arrow = arrow(angle = 15,
                                           length = unit(4, 'mm'),
                                           type = "closed"), 
-                            end_cap = circle(3, 'mm'))
+                            end_cap = ggraph::circle(3, 'mm'))
   } else {
     if(is_weighted(g)){
-      p <- p + geom_edge_link0(aes(width = weight),
+      p <- p + ggraph::geom_edge_link0(aes(width = weight),
                                edge_alpha = 0.4) + 
-        scale_edge_width_continuous(range = c(.2,1), 
+        ggraph::scale_edge_width_continuous(range = c(.2,1), 
                                     guide = "none")
     } else {
-      p <- p + geom_edge_link0(edge_alpha = 0.4)
+      p <- p + ggraph::geom_edge_link0(edge_alpha = 0.4)
     }
   }
   
   # Add nodes
   if(is_twomode(g)){
     if(!is.null(node_color)){
-      color_factor <- as.factor(get.vertex.attribute(g, node_color))
+      color_factor <- as.factor(igraph::get.vertex.attribute(g, node_color))
       p <- p + geom_node_point(aes(color = color_factor),
                                size = (100/igraph::vcount(g))/2,
                                shape = ifelse(igraph::V(g)$type, "square", "circle")) +
@@ -60,7 +62,7 @@ autographr <- function(object,
     }
   } else {
     if(!is.null(node_color)){
-      color_factor <- as.factor(get.vertex.attribute(g, node_color))
+      color_factor <- as.factor(igraph::get.vertex.attribute(g, node_color))
       p <- p + geom_node_point(aes(color = color_factor),
                                size = (100/igraph::vcount(g))/2) +
         scale_colour_brewer(palette = "Set1", guide = "none")
@@ -68,7 +70,7 @@ autographr <- function(object,
       p <- p + geom_node_point(size = (100/igraph::vcount(g))/2)
     }
   }
-  if(is_labelled(g)) p <- p + geom_node_label(aes(label = name),
+  if(is_labelled(g)) p <- p + ggraph::geom_node_label(aes(label = name),
                                               label.padding = 0.15,
                                               label.size = 0,
                                               repel = TRUE)

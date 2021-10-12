@@ -16,7 +16,7 @@ among others}
 Plotting network at particular timepoint (year)
 }
 \examples{
-\donotrun{
+\dontrun{
 ggatyear(membs, 1900)
 }
 }
