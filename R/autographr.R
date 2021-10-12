@@ -28,7 +28,7 @@ autographr <- function(object,
   # Add layout
   lo <- ggraph::create_layout(g, algorithm)
   
-  p <- ggraph::ggraph(lo) + ggraph::theme_graph()
+  p <- ggraph::ggraph(lo) + ggplot2::theme_void()
   
   # Add edges
   if(is_directed(g)){

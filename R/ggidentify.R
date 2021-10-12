@@ -16,7 +16,7 @@ ggidentify <- function(object, FUN){
                "max", "other")
   
   ggraph::ggraph(object) + 
-    ggraph::theme_graph() +
+    ggplot2::theme_void() +
     ggraph::geom_edge_link() +
     ggraph::geom_node_point(aes(size = measure,
                                 colour = colord)) +
