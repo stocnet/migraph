@@ -70,10 +70,19 @@ autographr <- function(object,
       p <- p + geom_node_point(size = (100/igraph::vcount(g))/2)
     }
   }
-  if(is_labelled(g)) p <- p + ggraph::geom_node_label(aes(label = name),
-                                              label.padding = 0.15,
-                                              label.size = 0,
-                                              repel = TRUE)
-  
+  # Plot one mode
+  if (is_labelled(g) & !is_twomode(g)) p <- p + ggraph::geom_node_label(aes(label = name),
+                                                                       label.padding = 0.15,
+                                                                       label.size = 0,
+                                                                       repel = TRUE)
+  p
+  # Plot two modes
+  if(is_labelled(g) & is_twomode(g)) p <- p + ggraph::geom_node_label(aes(label = name),
+                                                                      label.padding = 0.15,
+                                                                      label.size = 0,
+                                                                      fontface = ifelse(igraph::V(g)$type, "bold", "plain"),
+                                                                      size = ifelse(igraph::V(g)$type, 4, 3),
+                                                                      hjust = "inward",
+                                                                      repel = TRUE)
   p
 }

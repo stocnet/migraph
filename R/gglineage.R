@@ -18,7 +18,7 @@
 #' gglineage(cites)
 #' @export
 gglineage <- function(object, labels = TRUE){
-  index <- nodes <- name <- NULL # to avoid CMD check notes
+  index <- nodes <- name <- from <- NULL # to avoid CMD check notes
   object <- as_tidygraph(object)
   if (all(stringr::str_detect(attr(object[1], "names"), "[:digit:]{4}"))){
     object <- object %>% activate(nodes) %>% mutate(year = stringr::str_extract(name, "[:digit:]{4}"))
