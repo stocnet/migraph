@@ -5,13 +5,16 @@
 \title{Visualising graphs and identifying nodes with maximum values of the specified
 measure.}
 \usage{
-ggidentify(object, FUN)
+ggidentify(object, node_measure, identify_function = max)
 }
 \arguments{
 \item{object}{a migraph-consistent object}
 
-\item{FUN}{some arbitrary function that runs on the object and
+\item{node_measure}{some arbitrary function that runs on the object and
 returns a numeric vector that can be used to scale the nodes}
+
+\item{identify_function}{a function for the identification of a single node,
+e.g. max, min, mean, etc.}
 }
 \description{
 Visualising graphs and identifying nodes with maximum values of the specified
