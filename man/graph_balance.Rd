@@ -12,6 +12,12 @@ graph_balance(object)
 \arguments{
 \item{object}{a migraph-consistent object}
 }
+\value{
+The proportion of all (balanced or imbalanced) triplets that are balanced
+}
 \description{
 Structural balance
+}
+\examples{
+graph_balance(marvel_frien)
 }

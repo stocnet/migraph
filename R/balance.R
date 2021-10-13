@@ -3,6 +3,7 @@
 #' @source Gábor Csárdi: http://r.789695.n4.nabble.com/Social-Network-Analysis-td825041.html
 #' @return The proportion of all (balanced or imbalanced) triplets that are balanced
 #' @examples
+#' graph_balance(marvel_frien)
 #' @export
 graph_balance <- function(object) { 
   
