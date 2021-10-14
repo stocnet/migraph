@@ -17,13 +17,15 @@
 #' autographr(ison_karateka)
 #' @export
 autographr <- function(object,
-                       algorithm = c("fr","kk","stress"),
+                       algorithm = "stress",
+                       labels = TRUE,
+                       node_size = NULL,
                        node_color = NULL,
                        ...) {
 
   name <- weight <- NULL # initialize variables to avoid CMD check notes
   g <- as_tidygraph(object)
-  algorithm <- match.arg(algorithm)
+  # algorithm <- match.arg(algorithm)
   
   # Add layout
   lo <- ggraph::create_layout(g, algorithm)
@@ -48,36 +50,48 @@ autographr <- function(object,
     }
   }
   
+  if(!is.null(node_size)){
+    if(is.numeric(node_size)){
+      nsize <- node_size
+    } else {
+      nsize <- node_size(g)
+    }
+  } else {
+    nsize <- (100/igraph::vcount(g))/2
+  }
+  
   # Add nodes
   if(is_twomode(g)){
     if(!is.null(node_color)){
+      
+      
       color_factor <- as.factor(igraph::get.vertex.attribute(g, node_color))
       p <- p + geom_node_point(aes(color = color_factor),
-                               size = (100/igraph::vcount(g))/2,
+                               size = nsize,
                                shape = ifelse(igraph::V(g)$type, "square", "circle")) +
         scale_colour_brewer(palette = "Set1", guide = "none")
     } else {
-      p <- p + geom_node_point(size = (100/igraph::vcount(g))/2,
+      p <- p + geom_node_point(size = nsize,
                                shape = ifelse(igraph::V(g)$type, "square", "circle"))
     }
   } else {
     if(!is.null(node_color)){
       color_factor <- as.factor(igraph::get.vertex.attribute(g, node_color))
       p <- p + geom_node_point(aes(color = color_factor),
-                               size = (100/igraph::vcount(g))/2) +
+                               size = nsize) +
         scale_colour_brewer(palette = "Set1", guide = "none")
     } else {
-      p <- p + geom_node_point(size = (100/igraph::vcount(g))/2)
+      p <- p + geom_node_point(size = nsize)
     }
   }
   # Plot one mode
-  if (is_labelled(g) & !is_twomode(g)) p <- p + ggraph::geom_node_label(aes(label = name),
+  if (labels & is_labelled(g) & !is_twomode(g)) p <- p + ggraph::geom_node_label(aes(label = name),
                                                                        label.padding = 0.15,
                                                                        label.size = 0,
                                                                        repel = TRUE)
   p
   # Plot two modes
-  if(is_labelled(g) & is_twomode(g)) p <- p + ggraph::geom_node_label(aes(label = name),
+  if(labels & is_labelled(g) & is_twomode(g)) p <- p + ggraph::geom_node_label(aes(label = name),
                                                                       label.padding = 0.15,
                                                                       label.size = 0,
                                                                       fontface = ifelse(igraph::V(g)$type, "bold", "plain"),

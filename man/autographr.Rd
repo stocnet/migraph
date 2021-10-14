@@ -4,7 +4,14 @@
 \alias{autographr}
 \title{Quickly graph networks with sensible defaults}
 \usage{
-autographr(object, algorithm = c("fr", "kk", "stress"), node_color = NULL, ...)
+autographr(
+  object,
+  algorithm = "stress",
+  labels = TRUE,
+  node_size = NULL,
+  node_color = NULL,
+  ...
+)
 }
 \arguments{
 \item{object}{migraph-consistent object}
