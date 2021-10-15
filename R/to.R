@@ -1,4 +1,9 @@
 #' Tools for reformatting networks, graphs, and matrices 
+#' 
+#' Note that `to_onemode()`, which is currently only implemented for igraph,
+#' is not the same as `project_rows()` and `project_cols()`.
+#' There is no transformation involved; `to_onemode()` simply deletes the 'type'
+#' attribute from vertices, removing the bipartite note, but retaining all vertices.
 #' @name to
 #' @param object A matrix, `{igraph}` graph, `{tidygraph}` tbl_graph, or `{network}` object.
 #' @param threshold For a matrix, the threshold to binarise/dichotomise at.
@@ -96,5 +101,18 @@ to_undirected.matrix <- function(object){
   if(is_twomode(object)){
     object
   } else ((object + t(object))>0)*1
+}
+
+#' @rdname to
+#' @importFrom igraph delete_vertex_attr
+#' @examples
+#' to_onemode(marvel_affil)
+#' @export
+to_onemode <- function(object) UseMethod("to_onemode")
+
+#' @export
+to_onemode.igraph <- function(object){
+  object <- igraph::delete_vertex_attr(object, "type")
+  object
 }
 

@@ -5,6 +5,7 @@
 \alias{to_unweighted}
 \alias{to_unnamed}
 \alias{to_undirected}
+\alias{to_onemode}
 \title{Tools for reformatting networks, graphs, and matrices}
 \usage{
 to_unweighted(object, threshold = 1)
@@ -12,6 +13,9 @@ to_unweighted(object, threshold = 1)
 to_unnamed(object)
 
 to_undirected(object)
+
+to_onemode(object)
+
 }
 \arguments{
 \item{object}{A matrix, \code{{igraph}} graph, \code{{tidygraph}} tbl_graph, or \code{{network}} object.}
@@ -19,10 +23,14 @@ to_undirected(object)
 \item{threshold}{For a matrix, the threshold to binarise/dichotomise at.}
 }
 \description{
-Tools for reformatting networks, graphs, and matrices
+Note that \code{to_onemode()}, which is currently only implemented for igraph,
+is not the same as \code{project_rows()} and \code{project_cols()}.
+There is no transformation involved; \code{to_onemode()} simply deletes the 'type'
+attribute from vertices, removing the bipartite note, but retaining all vertices.
 }
 \examples{
 to_unweighted(project_rows(southern_women))
 to_unnamed(project_rows(southern_women))
 to_undirected(adolescent_society)
+to_onemode(marvel_affil)
 }
