@@ -116,3 +116,15 @@ to_onemode.igraph <- function(object){
   object
 }
 
+#' @rdname to
+#' @export
+to_main_component <- function(object) UseMethod("to_main_component")
+
+#' @export
+to_main_component.igraph <- function(object){
+  comps <- igraph::components(object)
+  max.comp <- which.max(comps$csize)
+  igraph::delete.vertices(object, comps$membership != max.comp)
+}
+
+
