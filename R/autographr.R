@@ -13,16 +13,16 @@
 #' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text geom_conn_bundle get_con geom_node_point scale_edge_width_continuous geom_node_label
 #' @importFrom igraph get.vertex.attribute
 #' @examples
-#' autographr(adolescent_society)
-#' autographr(ison_karateka)
+#' auto_graph(adolescent_society)
+#' auto_graph(ison_karateka)
 #' @export
-autographr <- function(object,
-                       algorithm = "stress",
-                       labels = TRUE,
-                       node_size = NULL,
-                       node_color = NULL,
-                       ...) {
-
+auto_graph <- autographr <- function(object,
+                                     algorithm = "stress",
+                                     labels = TRUE,
+                                     node_size = NULL,
+                                     node_color = NULL,
+                                     ...) {
+  
   name <- weight <- NULL # initialize variables to avoid CMD check notes
   g <- as_tidygraph(object)
   # algorithm <- match.arg(algorithm)
