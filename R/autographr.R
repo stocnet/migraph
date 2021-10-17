@@ -13,10 +13,10 @@
 #' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text geom_conn_bundle get_con geom_node_point scale_edge_width_continuous geom_node_label
 #' @importFrom igraph get.vertex.attribute
 #' @examples
-#' auto_graph(adolescent_society)
-#' auto_graph(ison_karateka)
+#' autographr(adolescent_society)
+#' autographr(ison_karateka)
 #' @export
-auto_graph <- autographr <- function(object,
+autographr <- auto_graph <- function(object,
                                      algorithm = "stress",
                                      labels = TRUE,
                                      node_size = NULL,
@@ -100,3 +100,8 @@ auto_graph <- autographr <- function(object,
                                                                       repel = TRUE)
   p
 }
+
+# autographr <- function()
+# {
+#   .Deprecated("auto_graph")
+# }
