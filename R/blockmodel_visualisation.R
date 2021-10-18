@@ -81,7 +81,7 @@ ggtree <- function(hc, k = NULL){
 #' @importFrom sna gcor
 #' @importFrom stats cutree coef
 #' @examples
-#' ggidentify_clusters(res, mpn_mex_elite)
+#' ggidentify_clusters(res, mpn_elite_mex)
 #' @export
 ggidentify_clusters <- function(hc, mat, method = "elbow"){
   
@@ -130,8 +130,8 @@ ggidentify_clusters <- function(hc, mat, method = "elbow"){
     fit <- lm(max_df$y ~ max_df$x)
     
     # Distance from point to line
-    distances <- c()
-    for(i in 1:length(x_values)) {
+    distances <- vector()
+    for(i in seq_len(length(x_values))) {
       distances <- c(distances, 
                      abs(stats::coef(fit)[2]*x_values[i] - y_values[i] + coef(fit)[1]) / 
                        sqrt(stats::coef(fit)[2]^2 + 1^2))
