@@ -21,9 +21,7 @@ For this lab, we'll use a few different packages for data and analysis.
 We're going to use the `m182` dataset from last week, but directly from the package this week.
 
 ```{r setup}
-# library(igraph)
-library(migraph) # note that you may need a special version for what follows...
-library(ggplot2)
+suppressPackageStartupMessages(library(migraph)) # note that you may need a special version for what follows...
 data("ison_m182", package = "migraph")
 ```
 
@@ -47,5 +45,27 @@ gsocial <- autographr(m182_social) + ggtitle("Social")
 (m182_task <- to_simplex(ison_m182, "task_tie"))
 gtask <- autographr(m182_task) + ggtitle("Task")
 grid.arrange(gfriend, gsocial, gtask, ncol = 3)
+```
+
+# Structural Holes and Constraint
+
+Where could innovation occur in these networks?
+Let's take a look at which actors are least constrained 
+by their position in the task network to begin with.
+`{migraph}` makes this easy enough with the `constraint()` function.
+
+```{r constraint}
+node_constraint(m182_task)
+```
+
+We see that this function returns a vector of 
+constraint scores that may range between 0 and 1.
+Let's size the nodes according to this score,
+and identify the node with the minimum constraint score.
+Why minimum? and what can we learn from this plot
+about where innovation might occur within this network?
+
+```{r constraintplot}
+ggidentify(m182_task, node_constraint, min)
 ```
 
