@@ -69,3 +69,122 @@ about where innovation might occur within this network?
 ggidentify(m182_task, node_constraint, min)
 ```
 
+# Structural Equivalence
+
+We'll use the "task" and "social" sub-graphs together as the basis for
+structural equivalence. Before we can see how similar nodes are, we'll
+have to convert them to adjacency matrices.
+
+## Constructing a multiplex matrix
+
+```{r construct-cor}
+dim(node_tie_census(ison_m182))
+structural_combo <- node_tie_census(ison_m182)
+```
+
+The result is a weighted matrix. 
+What would you do if you wanted it to be binary?
+
+## Calculating structural (dis)similarity
+
+First of all, we need to cluster nodes by their structural equivalence.
+In summary, we're going to hierarchically cluster the nodes
+based on the distances in dissimilarity in their out- and ingoing ties.
+Or you can just run the following line:
+
+```{r cluster-str}
+(str_res <- cluster_structural_equivalence(structural_combo))
+```
+
+This object doesn't seem to tell us much,
+but we can investigate it more using `{migraph}`'s `ggtree()`.
+This is a dendrogram of the hierarchical clustering object.
+Basically, as we move to the right, we're allowing for
+more and more dissimilarity among those we cluster together.
+A fork or branching point indicates the level of dissimilarity
+at which those two or more nodes would be said to be equivalent.
+
+```{r}
+ggtree(str_res)
+ggtree(str_res, 2) # for example let's say there are just two main clusters
+ggtree(str_res, 4) # or four? what are we seeing here?
+```
+
+Ok, so we can draw a line and this establishes how many clusters
+we have (or vice versa), but also which nodes belong to which cluster.
+But how many clusters should we pick?
+
+## Identifying number of clusters
+
+To establish that, we need to iterate through all of our options,
+calculating for each how correlated this pattern is with the observed network.
+We then plot this and, using the "elbow method", decide how many clusters.
+
+```{r idstrclust}
+ggidentify_clusters(str_res, structural_combo)
+```
+
+When there is one cluster for each vertex in the network, cell values will be
+identical to the observed correlation matrix, and when there is one cluster 
+for the whole network, the values will all be equal to the average correlation 
+across the observed matrix.
+So the correlations in each by-cluster matrix are correlated with the observed 
+correlation matrix to see how well each by-cluster matrix fits the data.
+
+Ok, so it looks here as if there is a clear bend in the elbow/knee
+at four clusters. This is reasonably parsimonious and well-fitting.
+More clusters than this only distinguishes nodes that are less dissimilar.
+
+```{r cutree}
+(str_clu <- cutree(str_res, 4))
+```
+
+We can use `cutree()` to cut the tree at our desired point
+and return the resulting vector of cluster assignments.
+This we can use for various things.
+Most immediately, we may wish to see these cluster assignments
+mapped onto our networks.
+All we need to do is add the variable to existing networks and
+plot them:
+
+```{r strclu-plots}
+m182_task <- m182_task %>% as_tidygraph() %>% mutate(clu = str_clu)
+autographr(m182_task, node_color = "clu") + ggtitle("Task")
+m182_social <- m182_social %>% as_tidygraph() %>% mutate(clu = str_clu)
+autographr(m182_social, node_color = "clu") + ggtitle("Social")
+m182_friend <- m182_friend %>% as_tidygraph() %>% mutate(clu = str_clu)
+autographr(m182_friend, node_color = "clu") + ggtitle("Friend")
+```
+
+## Blockmodelling
+
+Now we can use the 4-cluster solution to generate blockmodels.
+'sna' is required for this, but has already been loaded by 'NetCluster'. 
+We'll do this on the valued network, but binary is possible too.
+
+```{r structblock}
+(task_blockmodel <- blockmodel(m182_task, str_clu))
+plot(task_blockmodel)
+(friend_blockmodel <- blockmodel(m182_friend, str_clu))
+plot(friend_blockmodel)
+(social_blockmodel <- blockmodel(m182_social, str_clu))
+plot(social_blockmodel)
+```
+
+What do these plots show?
+
+## Reduced graph
+
+Finally, we can reduce the graph to just interactions between roles.
+Let's start off by graphing the valued/weighted blockmodel.
+
+```{r strredgraph}
+(social_reduced <- reduce_graph(social_blockmodel, c("Freaks","Squares","Nerds","Geek")))
+autographr(social_reduced)
+(task_reduced <- reduce_graph(task_blockmodel, c("Freaks","Squares","Nerds","Geek")))
+autographr(task_reduced)
+(friend_reduced <- reduce_graph(friend_blockmodel, c("Freaks","Squares","Nerds","Geek")))
+autographr(friend_reduced)
+```
+
+
