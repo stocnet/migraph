@@ -188,3 +188,148 @@ autographr(friend_reduced)
 ```
 
 
+```
+# ADVANCED: Note on deductive clustering:
+
+# It's pretty straightforward to alter the code above to test hypotheses.
+# Simply supply your own cluster vector, where the elements in the vector are in 
+# the same order as the vertices in the matrix, and the values represent the
+# cluster to which each vertex belongs. 
+
+  task_social_cors <- cor(task_social)
+  
+# For example, if you believed that actors 2, 7, and 8 formed one group, 
+# actor 16 former another group, and everyone else formed a third group, 
+# you could represent this as follows:
+dedclust = c(1, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 3)
+
+# Then examine the fitness of this cluster configuration as follows:
+dedclust_mat <- NetCluster::generate_cluster_cor_mat(task_social_cors, dedclust)
+dedclust_mat
+gcor(dedclust_mat, task_social_cors)
+```
+
+# Regular Equivalence
+
+## Constructing a triad census
+
+We're going to use the same pair of networks as with structural equivalence.
+But this time we're not going to get the correlation of ties,
+but rather the correlation of profiles/patterns of local configurations. 
+How can we identify patterns of local configurations?
+We'll measure these profiles in terms of triad counts.
+
+Now, there is a function for calculating triad censuses:
+
+```{r graphtriads}
+(graph_triad_census(m182_task))
+```
+
+But as you can see, it just gives a aggregated tally for the whole network
+and not one differentiated by actor (which is what we need).
+Fortunately, `{migraph}` offers a node-level triad census too.
+
+```{r nodetriads}
+# (By putting parentheses around this command, it'll assign AND print!)
+(task_triads <- node_triad_census(m182_task))
+```
+
+Can you recall what these MAD codes mean?
+MAN might be easier to remember, for NULL dyads is the last,
+but MAD is probably more appropriate.
+`?igraph::triad.census` can be used to check what each of the MAD codes means.
+
+As with the structural equivalence, we can simply run our function
+and return an object that has hierarchically clustered our nodes,
+but this time it will be based on their (dis)similarity
+from each others patterns of ties.
+
+```{r regeq}
+reg_res <- cluster_regular_equivalence(m182_task)
+ggtree(reg_res,4)
+```
+
+Ok, so it looks like these nodes are much more similar
+in terms of their patterns of ties than their actual ties.
+
+Like before, we'll loop through each possible cluster solution
+and see how well they match the observed matrix of triad type correlations.
+
+```{r regid}
+ggidentify_clusters(reg_res, t(task_triads))
+```
+
+The cluster correlation plot seems a bit ambiguous here, at least visually.
+But the elbow method has highlighted 2 clusters as a pretty good solution.
+
+```{r cutreereg}
+ggtree(reg_res, 2)
+(reg_clu <- cutree(reg_res, 2))
+m182_task <- m182_task %>% as_tidygraph() %>% mutate(regclu = reg_clu)
+autographr(m182_task, node_color = "regclu") + ggtitle("Task")
+```
+
+## Blockmodelling
+
+As before, we can use these clusters to blockmodel the task network.
+
+```{r regblock}
+(task_blockmodel <- blockmodel(m182_task, reg_clu))
+plot(task_blockmodel)
+```
+
+## Reduced graph
+
+Finally, we can reduce the graph to just interactions between roles.
+Obviously this is not particularly informative with only two clusters though...
+
+```{r regredgraph}
+(task_reduced <- reduce_graph(task_blockmodel, c("Regulars","Geek")))
+autographr(task_reduced)
+```
+
+Finally, we can try to get a sense of what our different clusters represent 
+by generating a cluster-by-triad-type matrix. This is an m x n matrix, 
+where m is the number of clusters and n is the 16 possible triad types. 
+Each cell is the average number of the given triad type for each individual 
+in the cluster:
+
+```{r clustercensus}
+cluster_triad_census(m182_task, reg_clu)
+```
+
+```
+# ADVANCED: Note that we can also blockmodel our communities from last week.
+# walktrap_blockmodel <- blockmodel(get.adjacency(m182_main, sparse = F), 
+#                                   friend_wt$membership)
+# plot(walktrap_blockmodel)
+# walktrap_blockmodel
+# # And graphs that from the reduced form blockmodels...
+# walktrap_blockmodel_red <- graph.adjacency(walktrap_blockmodel$block.model, weighted = T)
+# plot(walktrap_blockmodel_red, edge.width = E(walktrap_blockmodel_red)$weight,
+#      vertex.color = rainbow(2) )
+# # Admittedly, not terribly interesting...
+# 
+# edgebet_blockmodel <- blockmodel(get.adjacency(m182_main, sparse = F), 
+#                                  friend_eb$membership)
+# plot(edgebet_blockmodel) # blockmodel
+# edgebet_blockmodel_red <- graph.adjacency(edgebet_blockmodel$block.model, weighted = T)
+# plot(edgebet_blockmodel_red, edge.width=E(edgebet_blockmodel_red)$weight,
+#      vertex.color=rainbow(3) ) # reduced graph
+# # Cool
+# 
+# fastgreed_blockmodel <- blockmodel(get.adjacency(m182_main, sparse = F), 
+#                                    friend_fg$membership)
+# plot(fastgreed_blockmodel) # blockmodel
+# fastgreed_blockmodel_red <- graph.adjacency(fastgreed_blockmodel$block.model, weighted = T)
+# plot(fastgreed_blockmodel_red, edge.width=E(fastgreed_blockmodel_red)$weight,
+#      vertex.color=rainbow(3) ) # reduced graph
+```
+
+# Unit Test
+
+1. Visualise the m182 FRIENDSHIP network, 
+sizing the vertices by constraint and identifying the structural hole
+What would being in a structural hole mean here?
+2. Plot labelled, reduced graph of REGULARLY equivalent classes on friendship network only
+3. Plot labelled, reduced graph of STRUCTURALLY equivalent classes on task network only

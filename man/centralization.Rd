@@ -60,7 +60,6 @@ These functions measure the overall centralization for a network.
 graph_degree(southern_women, directed = "in")
 graph_closeness(southern_women, directed = "in")
 graph_betweenness(southern_women, directed = "in")
-graph_eigenvector(southern_women)
 graph_eigenvector(mpn_elite_mex)
 }
 \references{

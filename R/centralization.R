@@ -180,7 +180,6 @@ graph_betweenness <- function(object,
 
 #' @rdname centralization
 #' @examples
-#' graph_eigenvector(southern_women)
 #' graph_eigenvector(mpn_elite_mex)
 #' @export
 graph_eigenvector <- function(object){
