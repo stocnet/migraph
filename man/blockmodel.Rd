@@ -2,15 +2,22 @@
 % Please edit documentation in R/blockmodel.R
 \name{blockmodel}
 \alias{blockmodel}
-\alias{blockmodel_concor}
-\alias{print.blockmodel}
 \alias{cluster_structural_equivalence}
 \alias{cluster_regular_equivalence}
+\alias{blockmodel_concor}
+\alias{print.blockmodel}
+\alias{reduce_graph}
 \title{Blockmodelling}
 \source{
 \url{https://github.com/aslez/concoR}
 }
 \usage{
+cluster_structural_equivalence(mat)
+
+cluster_regular_equivalence(object)
+
+blockmodel(object, clusters)
+
 blockmodel_concor(
   object,
   p = 1,
@@ -21,12 +28,14 @@ blockmodel_concor(
 
 \method{print}{blockmodel}(x, ...)
 
-cluster_structural_equivalence(mat)
-
-cluster_regular_equivalence(object)
+reduce_graph(blockmodel, block_labels = NULL)
 }
 \arguments{
+\item{mat}{a (long) matrix of ties}
+
 \item{object}{a migraph-consistent object}
+
+\item{clusters}{the vector of cluster membership for the blockmodel}
 
 \item{p}{An integer representing the desired number of partitions.}
 
@@ -43,7 +52,10 @@ Options are: "density", "sum", "meanrowsum", "meancolsum",
 
 \item{...}{Additional arguments passed to generic print method}
 
-\item{mat}{a (long) matrix of ties}
+\item{blockmodel}{a blockmodel object}
+
+\item{block_labels}{A character vector manually providing labels
+for the blocks in the blockmodel}
 }
 \description{
 Blockmodelling
@@ -55,8 +67,8 @@ plot(mex_concor)
 usa_concor <- blockmodel_concor(mpn_elite_usa_advice)
 usa_concor
 plot(usa_concor)
-res <- cluster_structural_equivalence(mpn_elite_mex)
-res <- cluster_regular_equivalence(mpn_elite_mex)
+res <- cluster_structural_equivalence(node_tie_census(mpn_elite_mex))
+res <- cluster_regular_equivalence(node_triad_census(mpn_elite_mex))
 }
 \references{
 Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.
