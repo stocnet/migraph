@@ -223,3 +223,34 @@ print.blockmodel <- function (x, ...){
     print(temp, ...)
   }
 }
+
+#' @rdname blockmodel
+#' @param mat a (long) matrix of ties
+#' @importFrom stats as.dist hclust
+#' @examples
+#' res <- cluster_structural_equivalence(mpn_elite_mex)
+#' @export
+cluster_structural_equivalence <- function(mat){
+  correlations <- cor(mat)
+  dissimilarity <- 1 - correlations
+  distances <- stats::as.dist(dissimilarity)
+  clusters <- stats::hclust(distances)
+  clusters
+}
+
+#' @rdname blockmodel
+#' @param object a migraph-consistent object
+#' @importFrom stats as.dist hclust
+#' @examples
+#' res <- cluster_regular_equivalence(mpn_elite_mex)
+#' @export
+cluster_regular_equivalence <- function(object){
+  triads <- node_triad_census(object)
+  triads <- triads[,-which(colSums(triads)==0)]
+  correlations <- cor(t(triads))
+  dissimilarity <- 1 - correlations
+  distances <- stats::as.dist(dissimilarity)
+  clusters <- stats::hclust(distances)
+  clusters
+}
+
