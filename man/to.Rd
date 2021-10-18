@@ -5,6 +5,11 @@
 \alias{to_unweighted}
 \alias{to_unnamed}
 \alias{to_undirected}
+\alias{to_onemode}
+\alias{to_main_component}
+\alias{to_uniplex}
+\alias{to_simplex}
+\alias{to_named}
 \title{Tools for reformatting networks, graphs, and matrices}
 \usage{
 to_unweighted(object, threshold = 1)
@@ -12,17 +17,36 @@ to_unweighted(object, threshold = 1)
 to_unnamed(object)
 
 to_undirected(object)
+
+to_onemode(object)
+
+to_main_component(object)
+
+to_uniplex(object, edge)
+
+to_simplex(object)
+
+to_named(object)
 }
 \arguments{
 \item{object}{A matrix, \code{{igraph}} graph, \code{{tidygraph}} tbl_graph, or \code{{network}} object.}
 
 \item{threshold}{For a matrix, the threshold to binarise/dichotomise at.}
+
+\item{edge}{the name of an edge attribute to retain from a graph}
 }
 \description{
-Tools for reformatting networks, graphs, and matrices
+Note that \code{to_onemode()}, which is currently only implemented for igraph,
+is not the same as \code{project_rows()} and \code{project_cols()}.
+There is no transformation involved; \code{to_onemode()} simply deletes the 'type'
+attribute from vertices, removing the bipartite note, but retaining all vertices.
 }
 \examples{
 to_unweighted(project_rows(southern_women))
 to_unnamed(project_rows(southern_women))
-to_undirected(adolescent_society)
+to_undirected(ison_coleman)
+to_onemode(ison_marvel_teams)
+to_uniplex(ison_m182, "friend_tie")
+to_simplex(ison_m182)
+to_named(ison_m182)
 }

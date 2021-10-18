@@ -5,6 +5,7 @@
 \alias{graph_degree}
 \alias{graph_closeness}
 \alias{graph_betweenness}
+\alias{graph_eigenvector}
 \title{Centralization for one- and two-mode networks}
 \usage{
 graph_degree(
@@ -24,6 +25,8 @@ graph_betweenness(
   directed = c("all", "out", "in", "total"),
   normalized = TRUE
 )
+
+graph_eigenvector(object)
 }
 \arguments{
 \item{object}{A matrix, igraph graph, or tidygraph object.}
@@ -57,6 +60,7 @@ These functions measure the overall centralization for a network.
 graph_degree(southern_women, directed = "in")
 graph_closeness(southern_women, directed = "in")
 graph_betweenness(southern_women, directed = "in")
+graph_eigenvector(mpn_elite_mex)
 }
 \references{
 Borgatti, Stephen P, and Daniel S Halgin. 2011. ``Analyzing Affiliation Networks." In \emph{The SAGE Handbook of
@@ -65,7 +69,7 @@ Social Network Analysis}, edited by John Scott and Peter J Carrington, 417–33.
 \seealso{
 Other two-mode measures: 
 \code{\link{centrality}},
-\code{\link{graph_clustering}()},
+\code{\link{cohesion}},
 \code{\link{node_constraint}()},
 \code{\link{node_smallworld}()}
 }

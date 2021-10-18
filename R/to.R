@@ -1,6 +1,12 @@
 #' Tools for reformatting networks, graphs, and matrices 
+#' 
+#' Note that `to_onemode()`, which is currently only implemented for igraph,
+#' is not the same as `project_rows()` and `project_cols()`.
+#' There is no transformation involved; `to_onemode()` simply deletes the 'type'
+#' attribute from vertices, removing the bipartite note, but retaining all vertices.
 #' @name to
 #' @param object A matrix, `{igraph}` graph, `{tidygraph}` tbl_graph, or `{network}` object.
+#' @param edge the name of an edge attribute to retain from a graph
 #' @param threshold For a matrix, the threshold to binarise/dichotomise at.
 #' @examples
 #' to_unweighted(project_rows(southern_women))
@@ -69,7 +75,7 @@ to_unnamed.matrix <- function(object){
 
 #' @rdname to
 #' @examples
-#' to_undirected(adolescent_society)
+#' to_undirected(ison_coleman)
 #' @export
 to_undirected <- function(object) UseMethod("to_undirected")
 
@@ -96,5 +102,80 @@ to_undirected.matrix <- function(object){
   if(is_twomode(object)){
     object
   } else ((object + t(object))>0)*1
+}
+
+#' @rdname to
+#' @importFrom igraph delete_vertex_attr
+#' @examples
+#' to_onemode(ison_marvel_teams)
+#' @export
+to_onemode <- function(object) UseMethod("to_onemode")
+
+#' @export
+to_onemode.igraph <- function(object){
+  object <- igraph::delete_vertex_attr(object, "type")
+  object
+}
+
+#' @rdname to
+#' @export
+to_main_component <- function(object) UseMethod("to_main_component")
+
+#' @export
+to_main_component.igraph <- function(object){
+  comps <- igraph::components(object)
+  max.comp <- which.max(comps$csize)
+  igraph::delete.vertices(object, comps$membership != max.comp)
+}
+
+#' @rdname to
+#' @importFrom igraph delete_edges edge_attr_names delete_edge_attr get.edge.attribute
+#' @examples
+#' to_uniplex(ison_m182, "friend_tie")
+#' @export
+to_uniplex <- function(object, edge) UseMethod("to_uniplex")
+
+#' @export
+to_uniplex.igraph <- function(object, edge){
+  out <- igraph::delete_edges(object, igraph::E(object)[igraph::get.edge.attribute(object, edge)==0])
+  edge_names <- igraph::edge_attr_names(object)
+  if(length(edge_names)>1){
+    for(e in setdiff(edge_names, edge)){
+      out <- igraph::delete_edge_attr(out, e)  
+    }
+  } 
+  out
+}
+
+#' @rdname to
+#' @importFrom igraph simplify
+#' @examples
+#' to_simplex(ison_m182)
+#' @export
+to_simplex <- function(object) UseMethod("to_simplex")
+
+#' @export
+to_simplex.igraph <- function(object){
+  igraph::simplify(object)
+}
+
+#' @rdname to
+#' @examples
+#' to_named(ison_m182)
+#' @export
+to_named <- function(object) UseMethod("to_named")
+
+#' @export
+to_named.tbl_graph <- function(object){
+  as_tidygraph(object) %>%
+    mutate(name = sample(baby_names,
+                         igraph::vcount(object)))
+}
+
+#' @export
+to_named.igraph <- function(object){
+  igraph::V(object)$name  <- sample(baby_names, 
+                                    igraph::vcount(object))
+  object
 }
 

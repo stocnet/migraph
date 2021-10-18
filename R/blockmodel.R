@@ -8,6 +8,10 @@
 #' calculating block content.
 #' Options are: "density", "sum", "meanrowsum", "meancolsum",
 #' "median", "min", "max".
+#' @param block_labels A character vector manually providing labels
+#' for the blocks in the blockmodel
+#' @param clusters the vector of cluster membership for the blockmodel
+#' @param blockmodel a blockmodel object
 #' @name blockmodel
 #' @source \url{https://github.com/aslez/concoR}
 #' @references Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.  
@@ -22,6 +26,50 @@
 #' usa_concor <- blockmodel_concor(mpn_elite_usa_advice)
 #' usa_concor
 #' plot(usa_concor)
+NULL
+
+#' @rdname blockmodel
+#' @param mat a (long) matrix of ties
+#' @importFrom stats as.dist hclust
+#' @examples
+#' res <- cluster_structural_equivalence(node_tie_census(mpn_elite_mex))
+#' @export
+cluster_structural_equivalence <- function(mat){
+  correlations <- cor(mat)
+  dissimilarity <- 1 - correlations
+  distances <- stats::as.dist(dissimilarity)
+  clusters <- stats::hclust(distances)
+  clusters
+}
+
+#' @rdname blockmodel
+#' @param object a migraph-consistent object
+#' @importFrom stats as.dist hclust
+#' @examples
+#' res <- cluster_regular_equivalence(node_triad_census(mpn_elite_mex))
+#' @export
+cluster_regular_equivalence <- function(object){
+  triads <- node_triad_census(object)
+  triads <- triads[,-which(colSums(triads)==0)]
+  correlations <- cor(t(triads))
+  dissimilarity <- 1 - correlations
+  distances <- stats::as.dist(dissimilarity)
+  clusters <- stats::hclust(distances)
+  clusters
+}
+
+#' @rdname blockmodel
+#' @importFrom sna blockmodel
+#' @export
+blockmodel <- function(object, clusters){
+  mat <- as_matrix(object)
+  out <- sna::blockmodel(mat, clusters)
+  out$modes <- 1
+  out$plabels <- rownames(mat)
+  out
+}
+
+#' @rdname blockmodel
 #' @export
 blockmodel_concor <- function(object, p = 1, 
                            cutoff = 0.999, max.iter = 25, 
@@ -175,18 +223,25 @@ blockmodel_concor <- function(object, p = 1,
 #' @param ... Additional arguments passed to generic print method
 #' @export
 print.blockmodel <- function (x, ...){
-  cat("\nNetwork Blockmodel:\n\n")
-  cat("Block membership:\n\n")
-  if(x$modes == 1){
+
+  if(is.null(x$modes)){
+    sna::print.blockmodel(x)
+  } else if(x$modes == 1) {
+    cat("\nNetwork Blockmodel:\n\n")
+    cat("Block membership:\n\n")
     if (is.null(x$plabels)){
       plab <- seq_len(x$block.membership)[x$order.vector]
-    } else {
+    } else if(is.list(x$plabels)){
       plab <- x$plabels[[1]]
-    } 
+    } else {
+      plab <- x$plabels
+    }
     temp <- matrix(x$block.membership, nrow = 1)
     dimnames(temp) <- list("", plab)
     print(temp[1, order(x$order.vector)])
   } else {
+    cat("\nNetwork Blockmodel:\n\n")
+    cat("Block membership:\n\n")
     cat("  First nodeset:\n\n")
     if (is.null(x$plabels)){
       plab <- seq_len(x$block.membership$nodes1)[x$order.vector$nodes1]
@@ -222,4 +277,13 @@ print.blockmodel <- function (x, ...){
     cat("\t", x$glabels, "\n")
     print(temp, ...)
   }
+}
+
+#' @rdname blockmodel
+#' @export
+reduce_graph <- function(blockmodel, block_labels = NULL){
+  reduced <- igraph::graph_from_adjacency_matrix(blockmodel$block.model, weighted = T)
+  reduced <- igraph::delete_edges(reduced, which(is.nan(igraph::E(reduced)$weight)))
+  if(!is.null(block_labels)) igraph::V(reduced)$name <- block_labels
+  reduced
 }

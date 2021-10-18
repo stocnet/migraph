@@ -177,3 +177,15 @@ graph_betweenness <- function(object,
   
   out
 }
+
+#' @rdname centralization
+#' @examples
+#' graph_eigenvector(mpn_elite_mex)
+#' @export
+graph_eigenvector <- function(object){
+  if(is_twomode(object)){
+    stop("Eignevector centrality for two-mode networks is not yet implemented.")
+  } else {
+    igraph::centr_eigen(as_igraph(object))$centralization 
+  }
+}

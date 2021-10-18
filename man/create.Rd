@@ -59,13 +59,13 @@ into separate components.
 }
 \examples{
 g <- create_empty(c(8,6))
-plot(g)
+autographr(g)
 g <- create_complete(c(8,6))
-plot(g)
+autographr(g)
 g <- create_ring(c(8,6), width = 2)
-plot(g)
-plot(create_components(c(10, 12), components = 3))
-plot(create_star(c(12,1)))
+autographr(g)
+autographr(create_components(c(10, 12), components = 3))
+autographr(create_star(c(12,1)))
 }
 \seealso{
 as_matrix as_tidygraph as_network

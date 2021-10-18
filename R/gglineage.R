@@ -18,7 +18,7 @@
 #' gglineage(cites)
 #' @export
 gglineage <- function(object, labels = TRUE){
-  index <- nodes <- name <- NULL # to avoid CMD check notes
+  index <- nodes <- name <- from <- NULL # to avoid CMD check notes
   object <- as_tidygraph(object)
   if (all(stringr::str_detect(attr(object[1], "names"), "[:digit:]{4}"))){
     object <- object %>% activate(nodes) %>% mutate(year = stringr::str_extract(name, "[:digit:]{4}"))
@@ -26,7 +26,8 @@ gglineage <- function(object, labels = TRUE){
   lo <- ggraph::create_layout(object, layout = "igraph", algorithm = "sugiyama", maxiter = 100000)
   if(!is.null(lo$year)) lo$y = lo$year
   g <- ggraph::ggraph(object, graph = lo) +
-    ggraph::geom_edge_diagonal(show.legend = FALSE) +
+    ggraph::geom_edge_diagonal(aes(edge_color = as.factor(from)), show.legend = FALSE) +
+    ggraph::geom_node_point(shape = 3) +
     ggplot2::theme_void() + ggplot2::coord_flip() + ggplot2::scale_x_reverse()
   if(labels) g <- g + ggraph::geom_node_text(aes(label = name), nudge_x = 0.1, repel = TRUE)
   g

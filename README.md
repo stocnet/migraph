@@ -48,18 +48,19 @@ Functions are given intuitive and succinct names that avoid conflicts with exist
 
 #### Manipulation
 
-- `project_rows()`
-- `project_cols()`
+- `project_rows()` and `project_cols()`
+- `to_undirected()`, `to_unnamed()`, `to_unweighted()`, `to_onemode()`, and `to_main_component()`
 
 #### Measures
 
 - Centrality: `node_degree()`, `node_closeness()`, `node_betweenness()`, and `node_eigenvector()`
-- Centralization: `graph_degree()`, `graph_closeness()`, and `graph_betweenness()`
-- Cohesion: `graph_clustering()`, `node_constraint()`, `node_smallworld()`
+- Centralization: `graph_degree()`, `graph_closeness()`, `graph_betweenness()`, and `graph_eigenvector()`
+- Cohesion: `graph_density()`, `graph_reciprocity()`, `graph_transitivity()`, `graph_equivalency()`, 
+`node_constraint()`, `node_smallworld()`, `node_triad_census()` and `graph_triad_census()`
 
 #### Models
 
-- Blockmodelling: `blockmodel_concor()`
+- Blockmodelling: `blockmodel_concor()`, `cluster_structural_equivalence()`, `cluster_regular_equivalence()`
 - Linear regression: `netlm()`
 
 Please explore [the list of functions](https://snlab-ch.github.io/migraph/reference/index.html) to find out more.

@@ -52,8 +52,38 @@ ggevolution <- function(..., layout = "kk",
   g2 <- ggraph::ggraph(l2) +
     ggraph::geom_node_point() + 
     ggraph::geom_edge_link(ggplot2::aes(alpha = stat(index)), show.legend = FALSE) +
-    ggplot2::theme_void() + ggraph::geom_node_text(ggplot2::aes(label = name))
+    ggplot2::theme_void() + 
+    ggraph::geom_node_text(ggplot2::aes(label = name),
+                           repel = TRUE)
   
-  gridExtra::grid.arrange(g1, g2, ncol = length(networks))
+  gridExtra::grid.arrange(g1, g2, 
+                          ncol = length(networks))
   
+}
+
+#' Plotting network at particular timepoint (year)
+#' 
+#' @param edgelist a manyverse edgelist, expecting `Beg` and `End` variables,
+#' among others
+#' @param year numeric year, gets expanded to first of January that year
+#' @importFrom ggraph geom_edge_link geom_node_point geom_node_text
+#' @importFrom ggplot2 aes theme_void
+#' @examples 
+#' \dontrun{
+#' ggatyear(membs, 1900)
+#' }
+#' @export
+ggatyear <- function(edgelist, year) {
+  name <- type <- NULL # Initialize variables
+  graph <- as_tidygraph(edgelist[edgelist$Beg < paste0(year, "-01-01") & 
+                                   edgelist$End > paste0(year, "-01-01"),])
+  ggraph(graph, layout = "dynamic") +
+    ggraph::geom_edge_link0(colour = "black", alpha = 0.18) +
+    ggraph::geom_node_point(shape = ifelse(igraph::V(graph)$type, 15, 16),
+                    color = ifelse(igraph::V(graph)$type, "orange", "darkolivegreen")) +
+    ggraph::geom_node_text(ggplot2::aes(label = ifelse(type, "", name)), 
+                           family = "sans", color = "dodgerblue4", 
+                           repel = TRUE) +
+    ggplot2::theme_void() + 
+    ggtitle(year)
 }

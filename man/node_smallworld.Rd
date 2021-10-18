@@ -32,12 +32,13 @@ over 100 random simulations with the same row and column sums.
 node_smallworld(southern_women)
 }
 \seealso{
-\code{\link{graph_clustering}} for how clustering is calculated
+\code{\link{graph_transitivity}} and \code{\link{graph_equivalency}}
+for how clustering is calculated
 
 Other two-mode measures: 
 \code{\link{centrality}},
 \code{\link{centralization}},
-\code{\link{graph_clustering}()},
+\code{\link{cohesion}},
 \code{\link{node_constraint}()}
 
 Other node-level measures: 
