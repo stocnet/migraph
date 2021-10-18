@@ -7,6 +7,7 @@
 \alias{to_undirected}
 \alias{to_onemode}
 \alias{to_main_component}
+\alias{to_uniplex}
 \alias{to_simplex}
 \alias{to_named}
 \title{Tools for reformatting networks, graphs, and matrices}
@@ -21,7 +22,9 @@ to_onemode(object)
 
 to_main_component(object)
 
-to_simplex(object, edge)
+to_uniplex(object, edge)
+
+to_simplex(object)
 
 to_named(object)
 }
@@ -29,6 +32,8 @@ to_named(object)
 \item{object}{A matrix, \code{{igraph}} graph, \code{{tidygraph}} tbl_graph, or \code{{network}} object.}
 
 \item{threshold}{For a matrix, the threshold to binarise/dichotomise at.}
+
+\item{edge}{the name of an edge attribute to retain from a graph}
 }
 \description{
 Note that \code{to_onemode()}, which is currently only implemented for igraph,
@@ -39,6 +44,9 @@ attribute from vertices, removing the bipartite note, but retaining all vertices
 \examples{
 to_unweighted(project_rows(southern_women))
 to_unnamed(project_rows(southern_women))
-to_undirected(adolescent_society)
-to_onemode(marvel_affil)
+to_undirected(ison_coleman)
+to_onemode(ison_marvel_teams)
+to_uniplex(ison_m182, "friend_tie")
+to_simplex(ison_m182)
+to_named(ison_m182)
 }

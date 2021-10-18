@@ -131,12 +131,12 @@ to_main_component.igraph <- function(object){
 #' @rdname to
 #' @importFrom igraph delete_edges edge_attr_names delete_edge_attr get.edge.attribute
 #' @examples
-#' to_simplex(ison_m182, "friend_tie")
+#' to_uniplex(ison_m182, "friend_tie")
 #' @export
-to_simplex <- function(object, edge) UseMethod("to_simplex")
+to_uniplex <- function(object, edge) UseMethod("to_uniplex")
 
 #' @export
-to_simplex.igraph <- function(object, edge){
+to_uniplex.igraph <- function(object, edge){
   out <- igraph::delete_edges(object, igraph::E(object)[igraph::get.edge.attribute(object, edge)==0])
   edge_names <- igraph::edge_attr_names(object)
   if(length(edge_names)>1){
@@ -145,6 +145,18 @@ to_simplex.igraph <- function(object, edge){
     }
   } 
   out
+}
+
+#' @rdname to
+#' @importFrom igraph simplify
+#' @examples
+#' to_simplex(ison_m182)
+#' @export
+to_simplex <- function(object) UseMethod("to_simplex")
+
+#' @export
+to_simplex.igraph <- function(object){
+  igraph::simplify(object)
 }
 
 #' @rdname to
