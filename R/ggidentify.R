@@ -61,3 +61,87 @@ ggtree <- function(hc, k = NULL){
   
 }
 
+#' @rdname identify_clusters
+#' @importFrom sna gcor
+#' @importFrom stats cutree coef
+#' @examples
+#' ggidentify_clusters(res, mpn_mex_elite)
+#' @export
+ggidentify_clusters <- function(hc, mat, method = "elbow"){
+  
+  vertices <- ncol(mat)
+  observedcorrelation <- cor(mat)
+  
+  clusterCorr <- function (observed_cor_matrix, cluster_vector){
+    num_vertices = nrow(observed_cor_matrix)
+    cluster_cor_mat <- observed_cor_matrix
+    for (i in 1:num_vertices) {
+      for (j in 1:num_vertices) {
+        cluster_cor_mat[i, j] = mean(observed_cor_matrix[which(cluster_vector[row(observed_cor_matrix)] == 
+                                                                 cluster_vector[i] & cluster_vector[col(observed_cor_matrix)] == 
+                                                                 cluster_vector[j])])
+      }
+    }
+    return(cluster_cor_mat)
+  }
+  
+  resultlist <- list()
+  correlations <- vector()
+  for (i in 2:(vertices)) {
+    cluster_result <- list(label = NA, clusters = NA, correlation = NA)
+    cluster_result$label <- paste("number of clusters: ", 
+                                  i)
+    clusters <- stats::cutree(hc, k = i)
+    cluster_result$clusters <- clusters
+    cluster_cor_mat <- clusterCorr(observedcorrelation, clusters)
+    clustered_observed_cors <- sna::gcor(cluster_cor_mat, observedcorrelation)
+    cluster_result$correlation <- (clustered_observed_cors)
+    resultlist <- c(resultlist, cluster_result)
+    correlations <- c(correlations, clustered_observed_cors)
+  }
+  resultlist$correlations <- c(0, correlations)
+  
+  dafr <- data.frame(clusters = 1:vertices, correlations = c(0, correlations))
+  # resultlist
+  
+  correct <- NULL # to satisfy the error god
+  elbow_finder <- function(x_values, y_values) {
+    # Max values to create line
+    max_df <- data.frame(x = c(min(x_values), max(x_values)), 
+                         y = c(min(y_values), max(y_values)))
+    
+    # Creating straight line between the max values
+    fit <- lm(max_df$y ~ max_df$x)
+    
+    # Distance from point to line
+    distances <- c()
+    for(i in 1:length(x_values)) {
+      distances <- c(distances, 
+                     abs(stats::coef(fit)[2]*x_values[i] - y_values[i] + coef(fit)[1]) / 
+                       sqrt(stats::coef(fit)[2]^2 + 1^2))
+    }
+    
+    # Max distance point
+    x_max_dist <- x_values[which.max(distances)]
+    # y_max_dist <- y_values[which.max(distances)]
+    
+    # return(c(x_max_dist, y_max_dist))
+    x_max_dist
+  }
+  dafr$correct <- ifelse(dafr$clusters == elbow_finder(dafr$clusters, dafr$correlations),
+                         "#E20020", "#6f7072")
+  # dapr <- data.frame(clusters = 1:vertices,
+  #                    correlations = c(0, correlations),
+  #                    correct = ifelse(dafr$clusters == elbow_finder(dafr$clusters, dafr$correlations),
+  #                                     "#E20020", "#6f7072"))
+  # dapr[1,] <- NULL
+  
+  ggplot2::ggplot(dafr, aes(x = clusters, y = correlations)) + 
+    ggplot2::geom_line(color = "#6f7072") +
+    ggplot2::geom_point(aes(color = correct), size = 2) + 
+    ggplot2::scale_color_manual(values = c("#6f7072", "#E20020")) +
+    ggplot2::scale_y_continuous(limits = c(0,1)) +
+    ggplot2::theme_minimal() + 
+    ggplot2::guides(color = "none")
+}
+
