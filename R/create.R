@@ -22,7 +22,7 @@
 #' @details `create_empty()` creates an empty graph of the given dimensions.
 #' @examples
 #' g <- create_empty(c(8,6))
-#' plot(g)
+#' autographr(g)
 #' @export
 create_empty <- function(n){
   
@@ -41,12 +41,13 @@ create_empty <- function(n){
 #' @details `create_complete()` creates a filled graph of the given dimensions.
 #' @examples
 #' g <- create_complete(c(8,6))
-#' plot(g)
+#' autographr(g)
 #' @export
 create_complete <- function(n){
   
   if(length(n)==1){
     out <- matrix(1, n, n)
+    diag(out) <- 0
     out <- igraph::graph_from_adjacency_matrix(out)
   } else if (length(n)==2){
     out <- matrix(1, n[1], n[2])
@@ -64,7 +65,7 @@ create_complete <- function(n){
 #' that loops around is of a certain width or thickness.
 #' @examples
 #' g <- create_ring(c(8,6), width = 2)
-#' plot(g)
+#' autographr(g)
 #' @export
 create_ring <- function(n, width = 1, directed = FALSE, ...) {
   
@@ -118,7 +119,7 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
 #' @details \code{create_components()} creates a graph in which the nodes are clustered
 #' into separate components.
 #' @examples
-#' plot(create_components(c(10, 12), components = 3))
+#' autographr(create_components(c(10, 12), components = 3))
 #' @export
 create_components <- function(n, components = 2) {
   
@@ -147,7 +148,7 @@ create_components <- function(n, components = 2) {
 #' @param directed One of the following options: "in", "out", or "none".
 #' @importFrom igraph graph_from_adjacency_matrix graph_from_incidence_matrix
 #' @examples
-#' plot(create_star(c(12,1)))
+#' autographr(create_star(c(12,1)))
 #' @export
 create_star <- function(n, directed = "in"){
   

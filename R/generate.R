@@ -11,9 +11,9 @@
 #' If `length(n)==1`, then a two-mode network will be returned.
 #' The first number is the number of nodes in the first nodeset (rows),
 #' and the second number becomes the number of nodes in the second nodeset (columns).
-#' @importFrom igraph sample_bipartite
+#' @importFrom igraph sample_bipartite erdos.renyi.game
 #' @examples
-#' plot(generate_random(c(10, 12), 0.25))
+#' autographr(generate_random(c(10, 12), 0.25))
 #' @export
 generate_random <- function(n, p, m) {
   
