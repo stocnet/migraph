@@ -55,7 +55,7 @@ node_tie_census <- function(object){
 #' @export
 cluster_triad_census <- function(object, clusters){
   triads <- node_triad_census(object)
-  cluster_triad_mat <- matrix(nrow=max(clusters), ncol=ncol(triads))
+  cluster_triad_mat <- matrix(nrow = max(clusters), ncol=ncol(triads))
   for (i in seq_len(max(clusters))) {
     for (j in seq_len(ncol(triads))) {
       cluster_triad_mat[i,j] <- mean(triads[which(clusters==i),j])

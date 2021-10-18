@@ -81,7 +81,8 @@ ggtree <- function(hc, k = NULL){
 #' @importFrom sna gcor
 #' @importFrom stats cutree coef
 #' @examples
-#' ggidentify_clusters(res, mpn_elite_mex)
+#' res <- cluster_regular_equivalence(mpn_elite_mex)
+#' ggidentify_clusters(res, as_matrix(mpn_elite_mex))
 #' @export
 ggidentify_clusters <- function(hc, mat, method = "elbow"){
   
