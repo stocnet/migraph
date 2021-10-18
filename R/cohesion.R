@@ -59,7 +59,7 @@ graph_reciprocity <- function(object){
 #' graph_transitivity(southern_women)
 #' @export
 graph_transitivity <- function(object){
-  igraph::transitivity(as_igraph(graph))
+  igraph::transitivity(as_igraph(object))
 }
 
 #' @rdname cohesion
