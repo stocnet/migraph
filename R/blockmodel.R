@@ -255,23 +255,5 @@ cluster_regular_equivalence <- function(object){
 }
 
 #' @export
-as_cormat <- function(object){
-  object <- as_igraph(object)
-  edge_names <- igraph::edge_attr_names(object)
-  if(is_directed(object)){
-    mat <- vector()
-    for(e in edge_names){
-      rc <- igraph::as_adjacency_matrix(object, attr=e, sparse=F)
-      rccr <- rbind(rc, t(rc))
-      mat <- rbind(mat, rccr)
-    }
-  } else {
-   mat <- vector() 
-   for(e in edge_names){
-     rc <- igraph::as_adjacency_matrix(object, attr=e, sparse=F)
-     mat <- rbind(mat, rc)
-   }
-  }
-  mat
 }
 

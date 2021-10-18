@@ -29,6 +29,27 @@ node_triad_census <- function(object){
   out # This line says the function returns the output
 }
 
+#' @export
+node_tie_census <- function(object){
+  object <- as_igraph(object)
+  edge_names <- igraph::edge_attr_names(object)
+  if(is_directed(object)){
+    mat <- vector()
+    for(e in edge_names){
+      rc <- igraph::as_adjacency_matrix(object, attr=e, sparse=F)
+      rccr <- rbind(rc, t(rc))
+      mat <- rbind(mat, rccr)
+    }
+  } else {
+    mat <- vector() 
+    for(e in edge_names){
+      rc <- igraph::as_adjacency_matrix(object, attr=e, sparse=F)
+      mat <- rbind(mat, rc)
+    }
+  }
+  mat
+}
+
 #' @rdname triad_census
 #' @param clusters a vector of cluster assignment
 #' @export
