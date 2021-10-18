@@ -4,8 +4,6 @@
 #' @importFrom igraph E get.edges
 #' @source Gábor Csárdi: http://r.789695.n4.nabble.com/Social-Network-Analysis-td825041.html
 #' @return The proportion of all (balanced or imbalanced) triplets that are balanced
-#' @examples
-#' graph_balance(to_simplex(ison_marvel_relationships))
 #' @export
 graph_balance <- function(object) { 
   
