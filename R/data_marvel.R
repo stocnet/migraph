@@ -25,13 +25,13 @@
 #' - **ArmedCombat**: binary integer, 25 1 (yes) and 28 0 (no)
 #' @docType data
 #' @keywords datasets
-#' @name marvel
+#' @name ison_marvel
 #' @usage data(ison_marvel_teams)
 #' @source Umut Yüksel, 31 March 2017
 #' @format Two-mode igraph of 53 Marvel comic book characters and 141 team-ups, with 683 team affiliations between them
 "ison_marvel_teams"
 
-#' @rdname marvel
+#' @rdname ison_marvel
 #' @usage data(ison_marvel_relationships)
 #' @format One-mode igraph of 53 Marvel comic book characters and 558 signed (`1` = friends, `-1` = enemies) undirected ties
 "ison_marvel_relationships"

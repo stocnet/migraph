@@ -39,5 +39,5 @@ usa_concor <- blockmodel_concor(mpn_elite_usa_advice)
 plot(usa_concor)
 res <- cluster_regular_equivalence(mpn_elite_mex)
 ggtree(res, 4)
-ggidentify_clusters(res, mpn_elite_mex)
+ggidentify_clusters(res, t(node_triad_census(mpn_elite_mex)))
 }

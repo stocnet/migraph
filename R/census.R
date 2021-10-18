@@ -67,6 +67,7 @@ cluster_triad_census <- function(object, clusters){
                                    "120U","120C","210","300")
   cluster_triad_mat 
 }
+
 #' Triad census for the whole graph
 #' @param object a migraph-consistent object
 #' @examples 
