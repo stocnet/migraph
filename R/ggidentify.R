@@ -26,3 +26,38 @@ ggidentify <- function(object, node_measure, identify_function = max){
                                 values = c("red", "blue")) + 
     ggplot2::theme(legend.position = "none")
 }
+
+#' Plots for deciding on the number of network clusters
+#' @param hc a hierarchical cluster object
+#' @param k number of clusters. By default NULL,
+#' but, if specified, `ggtree` will color branches and
+#' add a line to indicate where the corresponding cluster
+#' cut would be.
+#' @param mat the matrix
+#' @param method only "elbow" is currently implemented.
+#' @name identify_clusters
+#' @importFrom ggdendro ggdendrogram
+#' @importFrom RColorBrewer brewer.pal
+#' @importFrom stats cutree
+#' @examples
+#' res <- cluster_regular_equivalence(mpn_elite_mex)
+#' ggtree(res, 4)
+#' @export
+ggtree <- function(hc, k = NULL){
+  
+  if(is.null(k)){
+    ggdendro::ggdendrogram(hc, rotate = TRUE)
+  } else {
+    
+    colors <- RColorBrewer::brewer.pal(k, "Set3")
+    colors <- (colors[stats::cutree(hc, k = k)])[hc$order]
+    
+    ggdendro::ggdendrogram(hc, rotate = TRUE) +
+      ggplot2::geom_hline(yintercept = hc$height[length(hc$order) - k], linetype = 2,
+                          color = "#E20020") +
+      ggplot2::theme(axis.text.x = ggplot2::element_text(colour = "#E20020"),
+                     axis.text.y = suppressWarnings(ggplot2::element_text(colour = colors)))
+  }
+  
+}
+
