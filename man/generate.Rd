@@ -26,7 +26,7 @@ The first number is the number of nodes in the first nodeset (rows),
 and the second number becomes the number of nodes in the second nodeset (columns).
 }
 \examples{
-plot(generate_random(c(10, 12), 0.25))
+autographr(generate_random(c(10, 12), 0.25))
 }
 \seealso{
 Other creation: 

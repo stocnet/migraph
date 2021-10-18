@@ -37,7 +37,7 @@ node_smallworld(southern_women)
 Other two-mode measures: 
 \code{\link{centrality}},
 \code{\link{centralization}},
-\code{\link{graph_clustering}()},
+\code{\link{cohesion}},
 \code{\link{node_constraint}()}
 
 Other node-level measures: 

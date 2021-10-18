@@ -51,7 +51,7 @@ reference:
   - title: "Visualisation"
     desc: "Functions for plotting and visually graphs of different types:"
     contents:
-      - auto_graph
+      - autographr
       - starts_with("plot")
       - starts_with("gg")
   - title: "Measures"
