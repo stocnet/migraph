@@ -17,7 +17,7 @@
 #' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text geom_conn_bundle get_con geom_node_point scale_edge_width_continuous geom_node_label
 #' @importFrom igraph get.vertex.attribute
 #' @examples
-#' autographr(adolescent_society)
+#' autographr(ison_coleman)
 #' autographr(ison_karateka)
 #' @export
 autographr <- auto_graph <- function(object,

@@ -6,6 +6,7 @@
 #' attribute from vertices, removing the bipartite note, but retaining all vertices.
 #' @name to
 #' @param object A matrix, `{igraph}` graph, `{tidygraph}` tbl_graph, or `{network}` object.
+#' @param edge the name of an edge attribute to retain from a graph
 #' @param threshold For a matrix, the threshold to binarise/dichotomise at.
 #' @examples
 #' to_unweighted(project_rows(southern_women))
@@ -74,7 +75,7 @@ to_unnamed.matrix <- function(object){
 
 #' @rdname to
 #' @examples
-#' to_undirected(adolescent_society)
+#' to_undirected(ison_coleman)
 #' @export
 to_undirected <- function(object) UseMethod("to_undirected")
 
@@ -106,7 +107,7 @@ to_undirected.matrix <- function(object){
 #' @rdname to
 #' @importFrom igraph delete_vertex_attr
 #' @examples
-#' to_onemode(marvel_affil)
+#' to_onemode(ison_marvel_teams)
 #' @export
 to_onemode <- function(object) UseMethod("to_onemode")
 
@@ -129,6 +130,8 @@ to_main_component.igraph <- function(object){
 
 #' @rdname to
 #' @importFrom igraph delete_edges edge_attr_names delete_edge_attr get.edge.attribute
+#' @examples
+#' to_simplex(ison_m182, "friend_tie")
 #' @export
 to_simplex <- function(object, edge) UseMethod("to_simplex")
 
@@ -145,6 +148,8 @@ to_simplex.igraph <- function(object, edge){
 }
 
 #' @rdname to
+#' @examples
+#' to_named(ison_m182)
 #' @export
 to_named <- function(object) UseMethod("to_named")
 
