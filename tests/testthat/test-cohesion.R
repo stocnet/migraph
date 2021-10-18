@@ -5,7 +5,6 @@ test_that("density works", {
   expect_equal(graph_density(create_complete(c(10,6))), 1)
 })
 
-# om <- igraph::graph( edges=c(1,2, 2,3, 3,1, 4,5, 5,6), n=9, directed=F) 
 test_that("one-mode object clustering is reported correctly",{
   expect_equal(round(graph_transitivity(ison_m182), 2), 0.7)
 })

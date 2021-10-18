@@ -65,7 +65,7 @@ ggtree <- function(hc, k = NULL){
     ggdendro::ggdendrogram(hc, rotate = TRUE)
   } else {
     
-    colors <- RColorBrewer::brewer.pal(k, "Set3")
+    colors <- suppressWarnings(RColorBrewer::brewer.pal(k, "Set3"))
     colors <- (colors[stats::cutree(hc, k = k)])[hc$order]
     
     ggdendro::ggdendrogram(hc, rotate = TRUE) +

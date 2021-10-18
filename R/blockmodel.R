@@ -175,18 +175,23 @@ blockmodel_concor <- function(object, p = 1,
 #' @param ... Additional arguments passed to generic print method
 #' @export
 print.blockmodel <- function (x, ...){
-  cat("\nNetwork Blockmodel:\n\n")
-  cat("Block membership:\n\n")
-  if(x$modes == 1){
+
+  if(is.null(x$modes)){
+    sna::print.blockmodel(x)
+  } else if(x$modes == 1) {
+    cat("\nNetwork Blockmodel:\n\n")
+    cat("Block membership:\n\n")
     if (is.null(x$plabels)){
       plab <- seq_len(x$block.membership)[x$order.vector]
     } else {
-      plab <- x$plabels[[1]]
+      plab <- x$plabels
     } 
     temp <- matrix(x$block.membership, nrow = 1)
     dimnames(temp) <- list("", plab)
     print(temp[1, order(x$order.vector)])
   } else {
+    cat("\nNetwork Blockmodel:\n\n")
+    cat("Block membership:\n\n")
     cat("  First nodeset:\n\n")
     if (is.null(x$plabels)){
       plab <- seq_len(x$block.membership$nodes1)[x$order.vector$nodes1]
@@ -255,5 +260,11 @@ cluster_regular_equivalence <- function(object){
 }
 
 #' @export
+blockmodel <- function(object, clusters){
+  mat <- as_matrix(object)
+  out <- sna::blockmodel(mat, clusters)
+  out$modes <- 1
+  out$plabels <- rownames(mat)
+  out
 }
 
