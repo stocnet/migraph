@@ -127,4 +127,21 @@ to_main_component.igraph <- function(object){
   igraph::delete.vertices(object, comps$membership != max.comp)
 }
 
+#' @rdname to
+#' @importFrom igraph delete_edges edge_attr_names delete_edge_attr get.edge.attribute
+#' @export
+to_simplex <- function(object, edge) UseMethod("to_simplex")
+
+#' @export
+to_simplex.igraph <- function(object, edge){
+  out <- igraph::delete_edges(object, igraph::E(object)[igraph::get.edge.attribute(object, edge)==0])
+  edge_names <- igraph::edge_attr_names(object)
+  if(length(edge_names)>1){
+    for(e in setdiff(edge_names, edge)){
+      out <- igraph::delete_edge_attr(out, e)  
+    }
+  } 
+  out
+}
+
 

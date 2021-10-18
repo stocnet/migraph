@@ -7,6 +7,7 @@
 \alias{to_undirected}
 \alias{to_onemode}
 \alias{to_main_component}
+\alias{to_simplex}
 \title{Tools for reformatting networks, graphs, and matrices}
 \usage{
 to_unweighted(object, threshold = 1)
@@ -18,6 +19,8 @@ to_undirected(object)
 to_onemode(object)
 
 to_main_component(object)
+
+to_simplex(object, edge)
 }
 \arguments{
 \item{object}{A matrix, \code{{igraph}} graph, \code{{tidygraph}} tbl_graph, or \code{{network}} object.}
