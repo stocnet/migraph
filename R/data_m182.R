@@ -1,4 +1,4 @@
-#' Multiplex igraph of friends, social, and task ties between
+#' Multiplex igraph of friends, social, and task ties between 16 anonymous students
 #' @docType data
 #' @keywords datasets
 #' @name marvel

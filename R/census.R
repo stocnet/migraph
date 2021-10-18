@@ -1,4 +1,5 @@
-#' Triad census by nodes
+#' Triad census by nodes or clusters
+#' @name triad_census
 #' @param object a migraph-consistent object
 #' @importFrom igraph vcount graph.neighborhood delete_vertices triad_census
 #' @examples 
@@ -28,6 +29,23 @@ node_triad_census <- function(object){
   out # This line says the function returns the output
 }
 
+#' @rdname triad_census
+#' @param clusters a vector of cluster assignment
+#' @export
+cluster_triad_census <- function(object, clusters){
+  triads <- node_triad_census(object)
+  cluster_triad_mat <- matrix(nrow=max(clusters), ncol=ncol(triads))
+  for (i in 1:max(clusters)) {
+    for (j in 1:ncol(triads)) {
+      cluster_triad_mat[i,j] <- mean(triads[which(clusters==i),j])
+    }
+  }
+  colnames(cluster_triad_mat) <- c("003","012","102","021D",
+                                   "021U","021C","111D","111U",
+                                   "030T","030C","201","120D",
+                                   "120U","120C","210","300")
+  cluster_triad_mat 
+}
 #' Triad census for the whole graph
 #' @param object a migraph-consistent object
 #' @examples 
