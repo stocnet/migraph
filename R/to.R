@@ -144,4 +144,21 @@ to_simplex.igraph <- function(object, edge){
   out
 }
 
+#' @rdname to
+#' @export
+to_named <- function(object) UseMethod("to_named")
+
+#' @export
+to_named.tbl_graph <- function(object){
+  as_tidygraph(object) %>%
+    mutate(name = sample(babynames::babynames$name,
+                         igraph::vcount(object)))
+}
+
+#' @export
+to_named.igraph <- function(object){
+  igraph::V(object)$name  <- sample(baby_names, 
+                                    igraph::vcount(object))
+  object
+}
 
