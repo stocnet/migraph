@@ -104,6 +104,7 @@ as_matrix.network <- function(object, weight = FALSE){
 }
 
 #' @rdname coercion
+#' @importFrom igraph graph_from_data_frame graph_from_incidence_matrix graph_from_adjacency_matrix
 #' @export
 as_igraph <- function(object, weight = FALSE, 
                       twomode = FALSE) UseMethod("as_igraph")
@@ -112,8 +113,7 @@ as_igraph <- function(object, weight = FALSE,
 as_igraph.data.frame <- function(object, 
                                  weight = FALSE, 
                                  twomode = FALSE){
-  object <- as_matrix(object)
-  graph <- as_igraph(object)
+  graph <- igraph::graph_from_data_frame(object)
   graph
 }
 

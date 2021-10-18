@@ -21,6 +21,17 @@
 #' }
 #' @author Christian Steglich, 18 June 2015
 #' @seealso [convert]
+NULL
+
+#' @rdname read
+#' @importFrom readxl read_xlsx
+#' @export
+read_edgelist <- function(file){
+  xl <- readxl::read_xlsx(file, col_names = TRUE)
+  as_igraph(xl)
+}
+
+#' @rdname read
 #' @export
 read_ucinet <- function(header_file) {
   
@@ -224,13 +235,5 @@ write_ucinet <- function(object,
 	for (i in seq_len(length(mat)))
 		writeBin(t(mat)[i],UCINET.data,size=4,endian='little')
 	close(UCINET.data)
-}
-
-#' @rdname read
-#' @importFrom readxl read_xlsx
-#' @export
-read_edgelist <- function(file){
-  xl <- readxl::read_xlsx(file, col_names = TRUE)
-  as_igraph(xl)
 }
 
