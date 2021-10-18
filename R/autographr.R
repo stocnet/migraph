@@ -38,11 +38,22 @@ autographr <- auto_graph <- function(object,
   
   # Add edges
   if(is_directed(g)){
-    p <- p + ggraph::geom_edge_link(edge_alpha = 0.4,
-                            arrow = arrow(angle = 15,
-                                          length = unit(3, 'mm'),
-                                          type = "closed"), 
-                            end_cap = ggraph::circle(3, 'mm'))
+    if(is_weighted(g)){
+      p <- p + ggraph::geom_edge_link(aes(width = weight),
+                                      edge_alpha = 0.4,
+                                      arrow = arrow(angle = 15,
+                                                    length = unit(3, 'mm'),
+                                                    type = "closed"), 
+                                      end_cap = ggraph::circle(3, 'mm')) + 
+        ggraph::scale_edge_width_continuous(range = c(.2,1), 
+                                            guide = "none")
+    } else {
+      p <- p + ggraph::geom_edge_link(edge_alpha = 0.4,
+                                      arrow = arrow(angle = 15,
+                                                    length = unit(3, 'mm'),
+                                                    type = "closed"), 
+                                      end_cap = ggraph::circle(3, 'mm'))
+    }
   } else {
     if(is_weighted(g)){
       p <- p + ggraph::geom_edge_link0(aes(width = weight),
