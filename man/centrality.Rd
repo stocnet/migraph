@@ -96,7 +96,7 @@ Faust, Katherine. "Centrality in affiliation networks." Social networks 19.2 (19
 \seealso{
 Other two-mode measures: 
 \code{\link{centralization}},
-\code{\link{graph_clustering}()},
+\code{\link{cohesion}},
 \code{\link{node_constraint}()},
 \code{\link{node_smallworld}()}
 

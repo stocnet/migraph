@@ -1,17 +1,21 @@
-#' Clustering for one-, two-, and three- mode networks
+#' Cohesion for one-, two-, and three- mode networks
 #'
-#' This function offers clustering methods for one-, two-, and three-mode networks.
+#' These functions offer methods for summarising the cohesion in one-, two-, and three-mode networks.
+#' @details 
+#' For one- and two-mode networks, `graph_density` summarises the ratio of ties
+#' to the number of possible ties.
 #' 
-#' For one-mode networks, the function serves as a shallow wrapper for `igraph::transitivity`,
-#' since global transitivity is a regular measure for clustering or local density in one-mode networks.
+#' For one-mode networks, shallow wrappers of igraph versions exist via 
+#' `graph_reciprocity` and `graph_transitivity`.
 #' 
-#' For two-mode networks, we calculate the proportion of three-paths in the network
+#' For two-mode networks, `graph_equivalence` calculates the proportion of three-paths in the network
 #' that are closed by fourth tie to establish a "shared four-cycle" structure.
 #' 
-#' For three-mode networks, we calculate the proportion of three-paths spanning the two two-mode networks
+#' For three-mode networks, `graph_equivalence` calculates the proportion of three-paths spanning the two two-mode networks
 #' that are closed by a fourth tie to establish a "congruent four-cycle" structure.
 #' @param object A one-mode or two-mode matrix, igraph, or tidygraph
 #' @param object2 Optionally, a second (two-mode) matrix, igraph, or tidygraph
+#' @name cohesion
 #' @family one-mode measures
 #' @family two-mode measures
 #' @family three-mode measures
@@ -23,10 +27,46 @@
 #' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021. 
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}. 
 #' Cambridge University Press. Cambridge University Press.
-#' @examples
-#' graph_clustering(southern_women)
+NULL
+
+#' @rdname cohesion
+#' @importFrom igraph edge_density
+#' @examples 
+#' graph_density(mpn_elite_mex)
+#' graph_density(mpn_elite_usa_advice)
 #' @export
-graph_clustering <- function(object, object2 = NULL){
+graph_density <- function(object){
+  if(is_twomode(object)){
+    mat <- as_matrix(object)
+    sum(mat)/(nrow(mat)*ncol(mat))
+  } else {
+    igraph::edge_density(as_igraph(object))  
+  }
+}
+
+#' @rdname cohesion
+#' @importFrom igraph reciprocity
+#' @examples
+#' graph_reciprocity(southern_women)
+#' @export
+graph_reciprocity <- function(object){
+  igraph::reciprocity(as_igraph(object))
+}
+
+#' @rdname cohesion
+#' @importFrom igraph transitivity
+#' @examples
+#' graph_transitivity(southern_women)
+#' @export
+graph_transitivity <- function(object){
+  igraph::transitivity(as_igraph(graph))
+}
+
+#' @rdname cohesion
+#' @examples
+#' graph_equivalency(southern_women)
+#' @export
+graph_equivalency <- function(object, object2 = NULL){
   
   if(!is.null(object2)){ # run three-mode clustering
     mat1 <- as_matrix(object)
@@ -63,3 +103,4 @@ graph_clustering <- function(object, object2 = NULL){
   }
   output
 }
+
