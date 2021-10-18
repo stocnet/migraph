@@ -1,3 +1,41 @@
+# migraph 0.8.0
+
+## Methods
+- Added `to_main_component()` to extract the main component of a network
+- Added `to_onemode()` for moving to multimodal igraph objects
+- Fixed coercion to igraph from data frames and updated read script
+
+## Data
+- Added `ison_mm`, `ison_mb`, `ison_bm`, and `ison_bb` projection illustration data
+- Added `ison_karateka` community detection illustration data
+- Data now listed at the bottom of the website References page
+- Added ` ison_marvel_teams` and `ison_marvel_relationships` datasets
+- Renamed `adolescent_society` dataset to `ison_coleman`for consistency
+
+## Measures
+- Added `graph_balance()` for measuring structural balance
+- Added `graph_eigenvector()` for one mode networks
+- Separated out `graph_clustering()` into the cohesion measures `graph_density()`, `graph_reciprocity()`, `graph_transitivity()`, and `graph_equivalence()`
+
+## Models
+- Added `cluster_structural_equivalence()` and `cluster_regular_equivalence()`
+
+## Visualization
+- Added `autographr()` for plotting graphs with sensible defaults
+  - Uses a more contrastive discrete palette when some nodal attribute is given
+  - Uses an alpha for edges and 
+  - Uses node labels, sans borders, where available
+  - Uses different shaped nodes, and different fonts, for different node sets
+- Removed `ggraphlabel()` since core functionality now provided by autographr
+- Added `ggatyear()` for subsetting and plotting edgelists at year
+- Updated `gglineage()` to return a graph colored according to lineage
+  - Added tick marks
+- Fixed bug related to `ggraph::theme_graph()` present in a few different visualisation functions
+- Added ability for `ggidentify()` to identify the node with the highest value of a specified node-level measure
+- Added `ggtree()` for neatly visualising hierarchical clusters
+- Added `ggidentify_clusters()` for identifying which number of clusters is most appropriate following the elbow method
+- Added `graph_triad_census()` and `node_triad_census()`
+
 # migraph 0.7.2
 
 ## Data
