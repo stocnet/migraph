@@ -35,8 +35,8 @@ node_triad_census <- function(object){
 cluster_triad_census <- function(object, clusters){
   triads <- node_triad_census(object)
   cluster_triad_mat <- matrix(nrow=max(clusters), ncol=ncol(triads))
-  for (i in 1:max(clusters)) {
-    for (j in 1:ncol(triads)) {
+  for (i in seq_len(max(clusters))) {
+    for (j in seq_len(ncol(triads))) {
       cluster_triad_mat[i,j] <- mean(triads[which(clusters==i),j])
     }
   }
