@@ -13,5 +13,5 @@ node_triad_census(object)
 Triad census by nodes
 }
 \examples{
-node_triad_census(adolescent_society)
+node_triad_census(ison_coleman)
 }

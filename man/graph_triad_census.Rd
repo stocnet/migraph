@@ -12,3 +12,6 @@ graph_triad_census(object)
 \description{
 Triad census for the whole graph
 }
+\examples{
+graph_triad_census(ison_coleman)
+}
