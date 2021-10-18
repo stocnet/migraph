@@ -1,44 +1,52 @@
 # migraph 0.8.0
 
-## Methods
+## Classes
+- Fixed coercion to `{igraph}` from data frames and updated read script
 - Added `to_main_component()` to extract the main component of a network
 - Added `to_onemode()` for moving to multimodal igraph objects
-- Fixed coercion to `{igraph}` from data frames and updated read script
-- Added `to_named()` method for naming unlabeled networks
-- Added `to_simplex()` method to delete edge types and their edges from multiplex networks
+- Added `to_uniplex()` method to delete edge types and their edges from multiplex networks
+- Added `to_simplex()` method to delete loops from a network
+- Added `to_named()` method for randomly naming unlabeled networks
 
 ## Data
 - Added `ison_mm`, `ison_mb`, `ison_bm`, and `ison_bb` projection illustration data
 - Added `ison_karateka` community detection illustration data
-- Data now listed at the bottom of the website References page
-- Added ` ison_marvel_teams` and `ison_marvel_relationships` datasets
-- Renamed `adolescent_society` dataset to `ison_coleman`for consistency
+- Added `ison_marvel_teams` and `ison_marvel_relationships` datasets
 - Added `ison_m182` dataset of friends, social and task ties between 16 anonymous students
+- Renamed `adolescent_society` dataset to `ison_coleman`for consistency
+- Data now listed at the bottom of the website References page
 
 ## Measures
-- Added `graph_balance()` for measuring structural balance
 - Added `graph_eigenvector()` for one mode networks
+- Added `graph_balance()` for measuring structural balance
+- Added `node_tie_census()`, `node_triad_census()`, `cluster_triad_census()`, and `graph_triad_census()`
 - Separated out `graph_clustering()` into the cohesion measures `graph_density()`, `graph_reciprocity()`, `graph_transitivity()`, and `graph_equivalence()`
+  - Fixed `node_smallworld()` to use separated cohesion measures
 
 ## Models
-- Added `cluster_structural_equivalence()` and `cluster_regular_equivalence()`
-- Added `cluster_triad_census()`
+- Added `blockmodel()` which masks its `{sna}` namesake but has the advantages of
+  working with two-mode networks and retaining node names where available
+  - Added `cluster_structural_equivalence()` and `cluster_regular_equivalence()` as bases for blockmodelling
+  - Added `reduce_graph()` for creating a network from a blockmodel
+- Added first vignette on structural holes, structural equivalence and regular equivalence blockmodelling
 
 ## Visualization
 - Added `autographr()` for plotting graphs with sensible defaults
   - Uses a more contrastive discrete palette when some nodal attribute is given
-  - Uses an alpha for edges and 
+  - Uses an alpha for edges, and edges will now be sized by edge weight, where available
   - Uses node labels, sans borders, where available
   - Uses different shaped nodes, and different fonts, for different node sets
-- Removed `ggraphlabel()` since core functionality now provided by autographr
-- Added `ggatyear()` for subsetting and plotting edgelists at year
-- Updated `gglineage()` to return a graph colored according to lineage
-  - Added tick marks
-- Fixed bug related to `ggraph::theme_graph()` present in a few different visualisation functions
+  - Removed `ggraphlabel()` since core functionality now provided by autographr
 - Added ability for `ggidentify()` to identify the node with the highest value of a specified node-level measure
-- Added `ggtree()` for neatly visualising hierarchical clusters
-- Added `ggidentify_clusters()` for identifying which number of clusters is most appropriate following the elbow method
-- Added `graph_triad_census()` and `node_triad_census()`
+- Added a couple of more specific visualization functions
+  - Added `ggatyear()` for subsetting and plotting edgelists at year
+  - Updated `gglineage()` to return a graph colored according to lineage
+    - Added tick marks
+- Added several more specific functions for diagnosing and visualising blockmodels
+  - Added `ggtree()` for neatly visualising hierarchical clusters
+  - Added `ggidentify_clusters()` for identifying which number of clusters
+  is most appropriate following the elbow method
+- Fixed bug related to `ggraph::theme_graph()` present in a few different visualisation functions
 
 # migraph 0.7.2
 
