@@ -17,7 +17,8 @@
 #' over 100 random simulations with the same row and column sums.
 #' @examples
 #' node_smallworld(southern_women)
-#' @seealso \code{\link{graph_clustering}} for how clustering is calculated
+#' @seealso \code{\link{graph_transitivity}} and \code{\link{graph_equivalency}} 
+#' for how clustering is calculated
 #' @importFrom igraph graph_from_incidence_matrix mean_distance
 #' @importFrom stats r2dtable
 #' @export 
@@ -27,11 +28,19 @@ node_smallworld <- function(object, n=100){
   for(c in 2:ncol(mat)){
     m <- mat[, 1:c]
     g <- igraph::graph_from_incidence_matrix(m)
-    out[c, 1] <- graph_clustering(m)
+    if(is_twomode(object)){
+      out[c, 1] <- graph_equivalency(m)
+    } else {
+      out[c, 1] <- graph_transitivity(m)
+    }
     out[c, 4] <- igraph::mean_distance(g)
     
     r <- stats::r2dtable(n, rowSums(m), colSums(m))
-    out[c, 2] <- mean(unlist(lapply(r, graph_clustering)))
+    if(is_twomode(object)){
+      out[c, 2] <- mean(unlist(lapply(r, graph_equivalency)))
+    } else {
+      out[c, 2] <- mean(unlist(lapply(r, graph_transitivity)))
+    }
     out[c, 5] <- mean(unlist(lapply(lapply(r, igraph::graph_from_incidence_matrix),
                                     igraph::mean_distance)))
     
