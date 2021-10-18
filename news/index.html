@@ -85,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -99,6 +99,18 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/blockmodel.html">Practical 5</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -134,24 +146,114 @@
       <small>Source: <a href='https://github.com/snlab-ch/migraph/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="migraph-072" class="section level1">
-<h1 class="page-header" data-toc-text="0.7.2">
-<a href="#migraph-072" class="anchor"></a>migraph 0.7.2<small> Unreleased </small>
+    <div id="migraph-080" class="section level1">
+<h1 class="page-header" data-toc-text="0.8.0">
+<a href="#migraph-080" class="anchor"></a>migraph 0.8.0<small> Unreleased </small>
 </h1>
+<div id="classes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#classes" class="anchor"></a>Classes</h2>
+<ul>
+<li>Fixed coercion to <a href="https://igraph.org">igraph</a> from data frames and updated read script</li>
+<li>Added <code><a href="../reference/to.html">to_main_component()</a></code> to extract the main component of a network</li>
+<li>Added <code><a href="../reference/to.html">to_onemode()</a></code> for moving to multimodal igraph objects</li>
+<li>Added <code><a href="../reference/to.html">to_uniplex()</a></code> method to delete edge types and their edges from multiplex networks</li>
+<li>Added <code><a href="../reference/to.html">to_simplex()</a></code> method to delete loops from a network</li>
+<li>Added <code><a href="../reference/to.html">to_named()</a></code> method for randomly naming unlabeled networks</li>
+</ul>
+</div>
 <div id="data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h2>
 <ul>
-<li>Added <code>brandes</code> dataset for teaching centrality measures</li>
-<li>Added <code>adolescent_society</code> dataset for teaching friendship paradox</li>
-<li>Added <code><a href="../reference/read.html">read_edgelist()</a></code> for importing Excel-created edgelists directly</li>
+<li>Added <code>ison_mm</code>, <code>ison_mb</code>, <code>ison_bm</code>, and <code>ison_bb</code> projection illustration data</li>
+<li>Added <code>ison_karateka</code> community detection illustration data</li>
+<li>Added <code>ison_marvel_teams</code> and <code>ison_marvel_relationships</code> datasets</li>
+<li>Added <code>ison_m182</code> dataset of friends, social and task ties between 16 anonymous students</li>
+<li>Renamed <code>adolescent_society</code> dataset to <code>ison_coleman</code>for consistency</li>
+<li>Data now listed at the bottom of the website References page</li>
+</ul>
+</div>
+<div id="measures" class="section level2">
+<h2 class="hasAnchor">
+<a href="#measures" class="anchor"></a>Measures</h2>
+<ul>
+<li>Added <code><a href="../reference/centralization.html">graph_eigenvector()</a></code> for one mode networks</li>
+<li>Added <code><a href="../reference/graph_balance.html">graph_balance()</a></code> for measuring structural balance</li>
+<li>Added <code><a href="../reference/census.html">node_tie_census()</a></code>, <code><a href="../reference/census.html">node_triad_census()</a></code>, <code><a href="../reference/census.html">cluster_triad_census()</a></code>, and <code><a href="../reference/graph_triad_census.html">graph_triad_census()</a></code>
+</li>
+<li>Separated out <code>graph_clustering()</code> into the cohesion measures <code><a href="../reference/cohesion.html">graph_density()</a></code>, <code><a href="../reference/cohesion.html">graph_reciprocity()</a></code>, <code><a href="../reference/cohesion.html">graph_transitivity()</a></code>, and <code>graph_equivalence()</code>
+<ul>
+<li>Fixed <code><a href="../reference/node_smallworld.html">node_smallworld()</a></code> to use separated cohesion measures</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="models" class="section level2">
+<h2 class="hasAnchor">
+<a href="#models" class="anchor"></a>Models</h2>
+<ul>
+<li>Added <code><a href="../reference/blockmodel.html">blockmodel()</a></code> which masks its <a href="http://statnet.org">sna</a> namesake but has the advantages of working with two-mode networks and retaining node names where available
+<ul>
+<li>Added <code><a href="../reference/blockmodel.html">cluster_structural_equivalence()</a></code> and <code><a href="../reference/blockmodel.html">cluster_regular_equivalence()</a></code> as bases for blockmodelling</li>
+<li>Added <code><a href="../reference/blockmodel.html">reduce_graph()</a></code> for creating a network from a blockmodel</li>
+</ul>
+</li>
+<li>Added first vignette on structural holes, structural equivalence and regular equivalence blockmodelling</li>
 </ul>
 </div>
 <div id="visualization" class="section level2">
 <h2 class="hasAnchor">
 <a href="#visualization" class="anchor"></a>Visualization</h2>
 <ul>
-<li>Added <code><a href="../reference/ggraphlabel.html">ggraphlabel()</a></code> for one-function (1F) plotting label-based network graphs</li>
+<li>Added <code><a href="../reference/autographr.html">autographr()</a></code> for plotting graphs with sensible defaults
+<ul>
+<li>Uses a more contrastive discrete palette when some nodal attribute is given</li>
+<li>Uses an alpha for edges, and edges will now be sized by edge weight, where available</li>
+<li>Uses node labels, sans borders, where available</li>
+<li>Uses different shaped nodes, and different fonts, for different node sets</li>
+<li>Removed <code>ggraphlabel()</code> since core functionality now provided by autographr</li>
+</ul>
+</li>
+<li>Added ability for <code><a href="../reference/ggidentify.html">ggidentify()</a></code> to identify the node with the highest value of a specified node-level measure</li>
+<li>Added a couple of more specific visualization functions
+<ul>
+<li>Added <code><a href="../reference/ggatyear.html">ggatyear()</a></code> for subsetting and plotting edgelists at year</li>
+<li>Updated <code><a href="../reference/gglineage.html">gglineage()</a></code> to return a graph colored according to lineage
+<ul>
+<li>Added tick marks</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Added several more specific functions for diagnosing and visualising blockmodels
+<ul>
+<li>Added <code><a href="../reference/blockmodel_visualisation.html">ggtree()</a></code> for neatly visualising hierarchical clusters</li>
+<li>Added <code><a href="../reference/blockmodel_visualisation.html">ggidentify_clusters()</a></code> for identifying which number of clusters is most appropriate following the elbow method</li>
+</ul>
+</li>
+<li>Fixed bug related to <code><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">ggraph::theme_graph()</a></code> present in a few different visualisation functions</li>
+</ul>
+</div>
+</div>
+    <div id="migraph-072" class="section level1">
+<h1 class="page-header" data-toc-text="0.7.2">
+<a href="#migraph-072" class="anchor"></a>migraph 0.7.2<small> Unreleased </small>
+</h1>
+<div id="data-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#data-1" class="anchor"></a>Data</h2>
+<ul>
+<li>Added <code>brandes</code> dataset for teaching centrality measures</li>
+<li>Added <code>adolescent_society</code> dataset for teaching friendship paradox</li>
+<li>Added <code><a href="../reference/read.html">read_edgelist()</a></code> for importing Excel-created edgelists directly</li>
+</ul>
+</div>
+<div id="visualization-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#visualization-1" class="anchor"></a>Visualization</h2>
+<ul>
+<li>Added <code>ggraphlabel()</code> for one-function (1F) plotting label-based network graphs</li>
 <li>Added <code><a href="../reference/ggevolution.html">ggevolution()</a></code> for 1F-plotting begin/end graph comparisons</li>
 <li>Added <code><a href="../reference/ggraphgrid.html">ggraphgrid()</a></code> for 1F snap-to-grid graph layouts based on Fruchterman-Reingold or Kamada-Kawai</li>
 <li>Added <code><a href="../reference/ggidentify.html">ggidentify()</a></code> for 1F identifying nodes with maximum scores based on some arbitrary function</li>
@@ -170,9 +272,9 @@
 <h1 class="page-header" data-toc-text="0.7.1">
 <a href="#migraph-071" class="anchor"></a>migraph 0.7.1<small> 2021-09-25 </small>
 </h1>
-<div id="classes" class="section level2">
+<div id="classes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes" class="anchor"></a>Classes</h2>
+<a href="#classes-1" class="anchor"></a>Classes</h2>
 <ul>
 <li>Fixed Unicode char bug in coercion documentation</li>
 </ul>
@@ -182,9 +284,9 @@
 <h1 class="page-header" data-toc-text="0.7.0">
 <a href="#migraph-070" class="anchor"></a>migraph 0.7.0<small> Unreleased </small>
 </h1>
-<div id="classes-1" class="section level2">
+<div id="classes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes-1" class="anchor"></a>Classes</h2>
+<a href="#classes-2" class="anchor"></a>Classes</h2>
 <ul>
 <li>
 <p>Closed <a href='https://github.com/snlab-ch/migraph/issues/100'>#100</a> by converting <code>as_</code> coercion functions to S3 methods</p>
@@ -204,7 +306,7 @@
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/92'>#92</a> by adding <code><a href="../reference/gglineage.html">gglineage()</a></code> for graphing a citation network through time</li>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/99'>#99</a> by adding <code><a href="../reference/ggevolution.html">ggevolution()</a></code> for graphing two timepoints of the same network side by side</li>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/102'>#102</a> by adding <code><a href="../reference/ggraphgrid.html">ggraphgrid()</a></code> for locking a graph to a grid</li>
-<li>Slight improvements to <code><a href="../reference/plot.igraph.html">plot.igraph()</a></code> defaults</li>
+<li>Slight improvements to <code>plot.igraph()</code> defaults</li>
 </ul>
 </div>
 <div id="analysis" class="section level2">
@@ -219,9 +321,9 @@
 <h1 class="page-header" data-toc-text="0.6.6">
 <a href="#migraph-066" class="anchor"></a>migraph 0.6.6<small> 2021-05-13 </small>
 </h1>
-<div id="classes-2" class="section level2">
+<div id="classes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes-2" class="anchor"></a>Classes</h2>
+<a href="#classes-3" class="anchor"></a>Classes</h2>
 <ul>
 <li>
 <p>Fixed bug in <code><a href="../reference/coercion.html">as_matrix()</a></code> with frame matrix by dropping (rarely necessary) functionality</p>
@@ -259,9 +361,9 @@
 <li>Added some tests</li>
 </ul>
 </div>
-<div id="classes-3" class="section level2">
+<div id="classes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes-3" class="anchor"></a>Classes</h2>
+<a href="#classes-4" class="anchor"></a>Classes</h2>
 <ul>
 <li>Renamed <code>binarise()</code> to <code><a href="../reference/to.html">to_unweighted()</a></code>
 </li>
@@ -280,20 +382,20 @@
 <li>Extended R version dependence back to 3.6.*</li>
 </ul>
 </div>
-<div id="classes-4" class="section level2">
+<div id="classes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes-4" class="anchor"></a>Classes</h2>
+<a href="#classes-5" class="anchor"></a>Classes</h2>
 <ul>
 <li>Added <code>binarise()</code> for unweighting networks</li>
 <li>Fixed bug in <code><a href="../reference/coercion.html">as_tidygraph()</a></code> when passed a tbl_graph directly</li>
 </ul>
 </div>
-<div id="visualization-1" class="section level2">
+<div id="visualization-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#visualization-1" class="anchor"></a>Visualization</h2>
+<a href="#visualization-2" class="anchor"></a>Visualization</h2>
 <ul>
 <li>Added <code><a href="../reference/plot_releases.html">plot_releases()</a></code> for more general use</li>
-<li>Fixed bug in <code><a href="../reference/plot.igraph.html">plot.igraph()</a></code> with layouts and one-mode graphs</li>
+<li>Fixed bug in <code>plot.igraph()</code> with layouts and one-mode graphs</li>
 </ul>
 </div>
 </div>
@@ -315,9 +417,9 @@
 <li><p>Added <code>CITATION</code> details</p></li>
 </ul>
 </div>
-<div id="classes-5" class="section level2">
+<div id="classes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes-5" class="anchor"></a>Classes</h2>
+<a href="#classes-6" class="anchor"></a>Classes</h2>
 <ul>
 <li><p>Separated coercion (previously conversion) and manipulation</p></li>
 <li><p>Added some more inter-class coercion tests</p></li>
@@ -335,9 +437,9 @@
 </li>
 </ul>
 </div>
-<div id="data-1" class="section level2">
+<div id="data-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-1" class="anchor"></a>Data</h2>
+<a href="#data-2" class="anchor"></a>Data</h2>
 <ul>
 <li>
 <p>Added <a href='https://github.com/csteglich'>@csteglich</a> ’s <code><a href="../reference/read.html">read_ucinet()</a></code> and <code><a href="../reference/read.html">write_ucinet()</a></code> functions</p>
@@ -367,9 +469,9 @@
 </li>
 </ul>
 </div>
-<div id="models" class="section level2">
+<div id="models-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#models" class="anchor"></a>Models</h2>
+<a href="#models-1" class="anchor"></a>Models</h2>
 <ul>
 <li>Added test for <code><a href="../reference/blockmodel.html">print.blockmodel()</a></code>
 </li>
@@ -404,9 +506,9 @@
 <li>Updated several old URLs in documentation</li>
 </ul>
 </div>
-<div id="classes-6" class="section level2">
+<div id="classes-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes-6" class="anchor"></a>Classes</h2>
+<a href="#classes-7" class="anchor"></a>Classes</h2>
 <ul>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/85'>#85</a> by adding <code><a href="../reference/coercion.html">as_network()</a></code> to coerce objects into network class</li>
 <li>Modified other coercion functions to also work with network class objects</li>
@@ -426,9 +528,9 @@
 <li>Trimmed some package dependencies and added others</li>
 </ul>
 </div>
-<div id="data-2" class="section level2">
+<div id="data-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-2" class="anchor"></a>Data</h2>
+<a href="#data-3" class="anchor"></a>Data</h2>
 <ul>
 <li>
 <p>Elaborated documentation for the remainder of the datasets</p>
@@ -438,16 +540,16 @@
 </li>
 </ul>
 </div>
-<div id="measures" class="section level2">
+<div id="measures-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#measures" class="anchor"></a>Measures</h2>
+<a href="#measures-1" class="anchor"></a>Measures</h2>
 <ul>
 <li>Fixed bug in <code><a href="../reference/centralization.html">graph_degree()</a></code> where data was hard-coded in</li>
 </ul>
 </div>
-<div id="models-1" class="section level2">
+<div id="models-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#models-1" class="anchor"></a>Models</h2>
+<a href="#models-2" class="anchor"></a>Models</h2>
 <ul>
 <li>
 <p>Closed <a href='https://github.com/snlab-ch/migraph/issues/18'>#18</a> by adding <code><a href="../reference/blockmodel.html">blockmodel_concor()</a></code> for employing the CONCOR algorithm to blockmodel both one-mode and two-mode networks</p>
@@ -472,9 +574,9 @@
 <li>Updated PR template</li>
 </ul>
 </div>
-<div id="classes-7" class="section level2">
+<div id="classes-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#classes-7" class="anchor"></a>Classes</h2>
+<a href="#classes-8" class="anchor"></a>Classes</h2>
 <ul>
 <li>Added functions for class conversion between migraph-consistent graph formats</li>
 <li>
@@ -486,9 +588,9 @@
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/79'>#79</a> by adding <code><a href="../reference/is.html">is_twomode()</a></code> function to check whether network is two-mode on all object types</li>
 </ul>
 </div>
-<div id="data-3" class="section level2">
+<div id="data-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-3" class="anchor"></a>Data</h2>
+<a href="#data-4" class="anchor"></a>Data</h2>
 <ul>
 <li>
 <p>Renamed several datasets and elaborated their documentation</p>
@@ -520,9 +622,9 @@
 </li>
 </ul>
 </div>
-<div id="measures-1" class="section level2">
+<div id="measures-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#measures-1" class="anchor"></a>Measures</h2>
+<a href="#measures-2" class="anchor"></a>Measures</h2>
 <ul>
 <li>
 <p>Renamed <code>centrality_</code> functions with <code>node_</code> prefix and ensured they all also wrapped one-mode measures</p>
@@ -554,7 +656,7 @@
 </ul>
 </li>
 <li>
-<p>Re-added <code><a href="../reference/graph_clustering.html">graph_clustering()</a></code> for calculating (see Knoke et al 2021):</p>
+<p>Re-added <code>graph_clustering()</code> for calculating (see Knoke et al 2021):</p>
 <ul>
 <li>transitivity on one-mode networks</li>
 <li>shared four-cycles on two-mode networks</li>
@@ -563,9 +665,9 @@
 </li>
 </ul>
 </div>
-<div id="models-2" class="section level2">
+<div id="models-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#models-2" class="anchor"></a>Models</h2>
+<a href="#models-3" class="anchor"></a>Models</h2>
 <ul>
 <li>
 <p>Re-added <code><a href="../reference/netlm.html">netlm()</a></code> for performing linear regression for multimodal network data</p>
@@ -576,11 +678,11 @@
 </li>
 </ul>
 </div>
-<div id="visualization-2" class="section level2">
+<div id="visualization-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#visualization-2" class="anchor"></a>Visualization</h2>
+<a href="#visualization-3" class="anchor"></a>Visualization</h2>
 <ul>
-<li>Closed <a href='https://github.com/snlab-ch/migraph/issues/82'>#82</a> by re-adding a version <code><a href="../reference/plot.igraph.html">plot.igraph()</a></code> with sensible defaults for two-mode networks</li>
+<li>Closed <a href='https://github.com/snlab-ch/migraph/issues/82'>#82</a> by re-adding a version <code>plot.igraph()</code> with sensible defaults for two-mode networks</li>
 </ul>
 </div>
 </div>
@@ -598,9 +700,9 @@
 <li>Completed some <code>convert_</code> and <code>project_</code> documentation</li>
 </ul>
 </div>
-<div id="data-4" class="section level2">
+<div id="data-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-4" class="anchor"></a>Data</h2>
+<a href="#data-5" class="anchor"></a>Data</h2>
 <ul>
 <li>Updated mpn_ data source references</li>
 </ul>
@@ -650,9 +752,9 @@
 </li>
 </ul>
 </div>
-<div id="data-5" class="section level2">
+<div id="data-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-5" class="anchor"></a>Data</h2>
+<a href="#data-6" class="anchor"></a>Data</h2>
 <ul>
 <li>Renamed data related to the book “Multimodal Political Networks” with “mpn_” prefix</li>
 </ul>
@@ -663,9 +765,9 @@
 <a href="#roctopus-030" class="anchor"></a>roctopus 0.3.0<small> Unreleased </small>
 </h1>
 <p>2020-11-06</p>
-<div id="data-6" class="section level2">
+<div id="data-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-6" class="anchor"></a>Data</h2>
+<a href="#data-7" class="anchor"></a>Data</h2>
 <ul>
 <li>
 <p>Data creation updated for <a href="https://tidygraph.data-imaginist.com">tidygraph</a> defaults</p>
@@ -715,9 +817,9 @@
 </li>
 </ul>
 </div>
-<div id="data-7" class="section level2">
+<div id="data-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-7" class="anchor"></a>Data</h2>
+<a href="#data-8" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>opensecrets</code> data</li>
 <li>Added <code>powerelite</code> data</li>
@@ -759,9 +861,9 @@
 <a href="#roctopus-023" class="anchor"></a>roctopus 0.2.3<small> Unreleased </small>
 </h1>
 <p>2020-07-19</p>
-<div id="data-8" class="section level2">
+<div id="data-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-8" class="anchor"></a>Data</h2>
+<a href="#data-9" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>mexicanpower</code> dataset</li>
 <li>Added <code>senate112</code> datasets</li>
@@ -781,9 +883,9 @@
 <a href="#roctopus-021" class="anchor"></a>roctopus 0.2.1<small> Unreleased </small>
 </h1>
 <p>2020-07-17</p>
-<div id="data-9" class="section level2">
+<div id="data-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-9" class="anchor"></a>Data</h2>
+<a href="#data-10" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>ryanair</code> dataset from Christopoulos 2006</li>
 </ul>
@@ -802,9 +904,9 @@
 <a href="#roctopus-020" class="anchor"></a>roctopus 0.2.0<small> Unreleased </small>
 </h1>
 <p>2020-07-03</p>
-<div id="data-10" class="section level2">
+<div id="data-11" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-10" class="anchor"></a>Data</h2>
+<a href="#data-11" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>evs</code> datasets from Knoke et al 2020</li>
 </ul>
@@ -815,9 +917,9 @@
 <a href="#roctopus-010" class="anchor"></a>roctopus 0.1.0<small> Unreleased </small>
 </h1>
 <p>2020-06-30</p>
-<div id="data-11" class="section level2">
+<div id="data-12" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-11" class="anchor"></a>Data</h2>
+<a href="#data-12" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>bristol</code> dataset from Knoke et al 2020</li>
 </ul>
@@ -845,9 +947,9 @@
 <li>Added <code>twomode_modularity()</code> to calculate modularity in two-mode networks</li>
 </ul>
 </div>
-<div id="visualization-3" class="section level2">
+<div id="visualization-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#visualization-3" class="anchor"></a>Visualization</h2>
+<a href="#visualization-4" class="anchor"></a>Visualization</h2>
 <ul>
 <li>Added <code>plot_multilevel()</code> that rotates a force-directed <code>igraph</code> plot in three dimensions to reveal multilevel structure</li>
 <li>Added <code>plot_globalnet()</code> to map a multilevel network on to a javascript, rotatable global</li>

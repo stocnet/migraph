@@ -53,7 +53,10 @@
 
 
 <meta property="og:title" content="Tools for reformatting networks, graphs, and matrices — to" />
-<meta property="og:description" content="Tools for reformatting networks, graphs, and matrices" />
+<meta property="og:description" content="Note that to_onemode(), which is currently only implemented for igraph,
+is not the same as project_rows() and project_cols().
+There is no transformation involved; to_onemode() simply deletes the 'type'
+attribute from vertices, removing the bipartite note, but retaining all vertices." />
 <meta property="og:image" content="https://snlab-ch.github.io/migraph/logo.png" />
 
 
@@ -86,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -100,6 +103,18 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/blockmodel.html">Practical 5</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -137,14 +152,27 @@
     </div>
 
     <div class="ref-description">
-    <p>Tools for reformatting networks, graphs, and matrices</p>
+    <p>Note that <code>to_onemode()</code>, which is currently only implemented for igraph,
+is not the same as <code><a href='project.html'>project_rows()</a></code> and <code><a href='project.html'>project_cols()</a></code>.
+There is no transformation involved; <code>to_onemode()</code> simply deletes the 'type'
+attribute from vertices, removing the bipartite note, but retaining all vertices.</p>
     </div>
 
     <pre class="usage"><span class='fu'>to_unweighted</span><span class='op'>(</span><span class='va'>object</span>, threshold <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 
 <span class='fu'>to_unnamed</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
 
-<span class='fu'>to_undirected</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></pre>
+<span class='fu'>to_undirected</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
+
+<span class='fu'>to_onemode</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
+
+<span class='fu'>to_main_component</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
+
+<span class='fu'>to_uniplex</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>edge</span><span class='op'>)</span>
+
+<span class='fu'>to_simplex</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
+
+<span class='fu'>to_named</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,14 +185,18 @@
       <th>threshold</th>
       <td><p>For a matrix, the threshold to binarise/dichotomise at.</p></td>
     </tr>
+    <tr>
+      <th>edge</th>
+      <td><p>the name of an edge attribute to retain from a graph</p></td>
+    </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>to_unweighted</span><span class='op'>(</span><span class='fu'><a href='project.html'>project_rows</a></span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; IGRAPH 0b197b3 UN-- 18 139 -- 
+</div><div class='output co'>#&gt; IGRAPH 276cc1c UN-- 18 139 -- 
 #&gt; + attr: name (v/c)
-#&gt; + edges from 0b197b3 (vertex names):
+#&gt; + edges from 276cc1c (vertex names):
 #&gt;  [1] EVELYN --LAURA     EVELYN --BRENDA    EVELYN --THERESA   EVELYN --CHARLOTTE
 #&gt;  [5] EVELYN --FRANCES   EVELYN --ELEANOR   EVELYN --RUTH      EVELYN --PEARL    
 #&gt;  [9] EVELYN --NORA      EVELYN --VERNE     EVELYN --MYRA      EVELYN --KATHERINE
@@ -174,9 +206,9 @@
 #&gt; [25] LAURA  --NORA      LAURA  --VERNE     LAURA  --SYLVIA    LAURA  --HELEN    
 #&gt; [29] LAURA  --MYRA      LAURA  --KATHERINE LAURA  --DOROTHY   THERESA--BRENDA   
 #&gt; + ... omitted several edges</div><div class='input'><span class='fu'>to_unnamed</span><span class='op'>(</span><span class='fu'><a href='project.html'>project_rows</a></span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; IGRAPH fd85132 U-W- 18 139 -- 
+</div><div class='output co'>#&gt; IGRAPH ba3da41 U-W- 18 139 -- 
 #&gt; + attr: weight (e/n)
-#&gt; + edges from fd85132:
+#&gt; + edges from ba3da41:
 #&gt;   [1] 1-- 2 1-- 4 1-- 3 1-- 5 1-- 6 1-- 7 1-- 9 1-- 8 1--14 1--10 1--11 1--12
 #&gt;  [13] 1--13 1--15 1--16 1--17 1--18 2-- 4 2-- 3 2-- 5 2-- 6 2-- 7 2-- 9 2-- 8
 #&gt;  [25] 2--14 2--10 2--13 2--15 2--11 2--12 2--16 3-- 4 3-- 5 3-- 6 3-- 7 3-- 9
@@ -185,7 +217,7 @@
 #&gt;  [61] 5-- 9 5--10 5--13 5--14 5--15 6-- 7 6-- 9 6-- 8 6--14 6--10 6--11 6--12
 #&gt;  [73] 6--13 6--15 6--16 7-- 9 7-- 8 7--14 7--10 7--13 7--15 7--11 7--12 7--16
 #&gt;  [85] 8--14 8-- 9 8--10 8--11 8--12 8--13 8--15 8--16 8--17 8--18 9--10 9--13
-#&gt; + ... omitted several edges</div><div class='input'><span class='fu'>to_undirected</span><span class='op'>(</span><span class='va'>adolescent_society</span><span class='op'>)</span>
+#&gt; + ... omitted several edges</div><div class='input'><span class='fu'>to_undirected</span><span class='op'>(</span><span class='va'>ison_coleman</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tbl_graph: 8 nodes and 10 edges
 #&gt; #
 #&gt; # An undirected simple graph with 1 component
@@ -207,7 +239,63 @@
 #&gt; <span style='color: #BCBCBC;'>1</span>     1     2
 #&gt; <span style='color: #BCBCBC;'>2</span>     2     3
 #&gt; <span style='color: #BCBCBC;'>3</span>     3     4
-#&gt; <span style='color: #949494;'># … with 7 more rows</span></div></pre>
+#&gt; <span style='color: #949494;'># … with 7 more rows</span></div><div class='input'><span class='fu'>to_onemode</span><span class='op'>(</span><span class='va'>ison_marvel_teams</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; IGRAPH 1f61f58 UN-- 194 683 -- 
+#&gt; + attr: name (v/c)
+#&gt; + edges from 1f61f58 (vertex names):
+#&gt;  [1] Abomination--Legion.Accursed         Abomination--The.Chronos.Corps      
+#&gt;  [3] Abomination--The.Strangers.Prisoners Abomination--The.Vi.Locks           
+#&gt;  [5] Abomination--Weapon.Plus             Ant-Man    --A.Next                 
+#&gt;  [7] Ant-Man    --Avengers                Ant-Man    --Avengers.Crew          
+#&gt;  [9] Ant-Man    --Defenders               Ant-Man    --Fantastic.Four         
+#&gt; [11] Ant-Man    --Heroes.For.Hire         Ant-Man    --Stark.Industries       
+#&gt; [13] Ant-Man    --Thunder.Guard           Ant-Man    --Ultimates              
+#&gt; [15] Apocalypse --Clan.Akkaba             Apocalypse --Horsemen.of.Apocalypse 
+#&gt; + ... omitted several edges</div><div class='input'><span class='fu'>to_uniplex</span><span class='op'>(</span><span class='va'>ison_m182</span>, <span class='st'>"friend_tie"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; IGRAPH 3a5b0de DN-- 16 62 -- 
+#&gt; + attr: name (v/c), friend_tie (e/n)
+#&gt; + edges from 3a5b0de (vertex names):
+#&gt;  [1] 2 -&gt;1  2 -&gt;7  2 -&gt;8  2 -&gt;13 2 -&gt;14 3 -&gt;5  3 -&gt;6  3 -&gt;11 3 -&gt;14 3 -&gt;15
+#&gt; [11] 5 -&gt;1  5 -&gt;3  5 -&gt;6  5 -&gt;8  5 -&gt;10 5 -&gt;11 6 -&gt;1  6 -&gt;3  6 -&gt;5  6 -&gt;7 
+#&gt; [21] 6 -&gt;10 6 -&gt;11 6 -&gt;12 7 -&gt;2  7 -&gt;8  7 -&gt;13 7 -&gt;14 8 -&gt;2  8 -&gt;5  8 -&gt;7 
+#&gt; [31] 8 -&gt;13 8 -&gt;14 8 -&gt;15 9 -&gt;1  9 -&gt;3  9 -&gt;10 9 -&gt;12 9 -&gt;15 10-&gt;1  10-&gt;9 
+#&gt; [41] 10-&gt;12 10-&gt;15 11-&gt;1  11-&gt;3  11-&gt;5  11-&gt;6  11-&gt;10 12-&gt;1  12-&gt;9  12-&gt;15
+#&gt; [51] 13-&gt;2  13-&gt;7  13-&gt;8  13-&gt;14 14-&gt;2  14-&gt;3  14-&gt;8  14-&gt;12 15-&gt;1  15-&gt;7 
+#&gt; [61] 15-&gt;9  15-&gt;12</div><div class='input'><span class='fu'>to_simplex</span><span class='op'>(</span><span class='va'>ison_m182</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; IGRAPH 2c15e65 DN-- 16 144 -- 
+#&gt; + attr: name (v/c)
+#&gt; + edges from 2c15e65 (vertex names):
+#&gt;  [1] 1 -&gt;5  1 -&gt;8  1 -&gt;9  1 -&gt;10 1 -&gt;11 1 -&gt;12 1 -&gt;13 1 -&gt;15 1 -&gt;16 2 -&gt;1 
+#&gt; [11] 2 -&gt;3  2 -&gt;7  2 -&gt;8  2 -&gt;12 2 -&gt;13 2 -&gt;14 2 -&gt;15 2 -&gt;16 3 -&gt;2  3 -&gt;5 
+#&gt; [21] 3 -&gt;6  3 -&gt;7  3 -&gt;8  3 -&gt;10 3 -&gt;11 3 -&gt;14 3 -&gt;15 3 -&gt;16 4 -&gt;10 4 -&gt;16
+#&gt; [31] 5 -&gt;1  5 -&gt;3  5 -&gt;6  5 -&gt;8  5 -&gt;10 5 -&gt;11 5 -&gt;13 5 -&gt;15 5 -&gt;16 6 -&gt;1 
+#&gt; [41] 6 -&gt;3  6 -&gt;5  6 -&gt;7  6 -&gt;8  6 -&gt;10 6 -&gt;11 6 -&gt;12 6 -&gt;14 6 -&gt;16 7 -&gt;2 
+#&gt; [51] 7 -&gt;3  7 -&gt;8  7 -&gt;13 7 -&gt;14 7 -&gt;15 7 -&gt;16 8 -&gt;2  8 -&gt;3  8 -&gt;5  8 -&gt;6 
+#&gt; [61] 8 -&gt;7  8 -&gt;11 8 -&gt;13 8 -&gt;14 8 -&gt;15 8 -&gt;16 9 -&gt;1  9 -&gt;3  9 -&gt;10 9 -&gt;12
+#&gt; [71] 9 -&gt;15 9 -&gt;16 10-&gt;1  10-&gt;3  10-&gt;4  10-&gt;5  10-&gt;6  10-&gt;9  10-&gt;11 10-&gt;12
+#&gt; + ... omitted several edges</div><div class='input'><span class='fu'>to_named</span><span class='op'>(</span><span class='va'>ison_m182</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tbl_graph: 16 nodes and 144 edges
+#&gt; #
+#&gt; # A directed simple graph with 1 component
+#&gt; #
+#&gt; # Node Data: 16 × 1 (active)</span>
+#&gt;   name   
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  
+#&gt; <span style='color: #BCBCBC;'>1</span> Max    
+#&gt; <span style='color: #BCBCBC;'>2</span> Casey  
+#&gt; <span style='color: #BCBCBC;'>3</span> Darrell
+#&gt; <span style='color: #BCBCBC;'>4</span> Aiden  
+#&gt; <span style='color: #BCBCBC;'>5</span> Bryan  
+#&gt; <span style='color: #BCBCBC;'>6</span> Jamie  
+#&gt; <span style='color: #949494;'># … with 10 more rows</span>
+#&gt; <span style='color: #949494;'>#
+#&gt; # Edge Data: 144 × 5</span>
+#&gt;    from    to friend_tie social_tie task_tie
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     1     5          0       1.2       0.3
+#&gt; <span style='color: #BCBCBC;'>2</span>     1     8          0       0.15      0  
+#&gt; <span style='color: #BCBCBC;'>3</span>     1     9          0       2.85      0.3
+#&gt; <span style='color: #949494;'># … with 141 more rows</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

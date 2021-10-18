@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -100,6 +100,18 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/blockmodel.html">Practical 5</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -171,11 +183,12 @@ Expected clustering and paths is the mean of twomode_clustering and mean_distanc
 over 100 random simulations with the same row and column sums.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='graph_clustering.html'>graph_clustering</a></code> for how clustering is calculated</p>
+    <div class='dont-index'><p><code><a href='cohesion.html'>graph_transitivity</a></code> and <code><a href='cohesion.html'>graph_equivalency</a></code>
+for how clustering is calculated</p>
 <p>Other two-mode measures: 
 <code><a href='centrality.html'>centrality</a></code>,
 <code><a href='centralization.html'>centralization</a></code>,
-<code><a href='graph_clustering.html'>graph_clustering</a>()</code>,
+<code><a href='cohesion.html'>cohesion</a></code>,
 <code><a href='node_constraint.html'>node_constraint</a>()</code></p>
 <p>Other node-level measures: 
 <code><a href='centrality.html'>centrality</a></code>,
@@ -186,18 +199,18 @@ over 100 random simulations with the same row and column sums.</p>
 </div><div class='output co'>#&gt;    Num  ObsClust  ExpClust  ClustRat  ObsPath  ExpPath   PathRat SmallWorld
 #&gt; 1    1        NA        NA        NA       NA       NA        NA         NA
 #&gt; 2    2 0.5000000 0.3750000 1.3333333 1.866667 1.880000 0.9929078  1.3428571
-#&gt; 3    3 0.5600000 0.4199670 1.3334381 1.833333 2.268838 0.8080493  1.6501939
-#&gt; 4    4 0.5882353 0.5821307 1.0104867 1.822222 2.192000 0.8313058  1.2155415
-#&gt; 5    5 0.6268657 0.6814121 0.9199509 1.897436 2.320966 0.8175199  1.1252948
-#&gt; 6    6 0.6129032 0.7065574 0.8674500 2.033333 2.420673 0.8399868  1.0326948
-#&gt; 7    7 0.5544554 0.6501435 0.8528201 2.152632 2.505425 0.8591882  0.9925882
-#&gt; 8    8 0.5388740 0.6507949 0.8280243 2.108696 2.486087 0.8481987  0.9762150
-#&gt; 9    9 0.5095917 0.6132394 0.8309834 2.165242 2.486439 0.8708206  0.9542532
-#&gt; 10  10 0.4997785 0.5515935 0.9060631 2.195767 2.423492 0.9060344  1.0000317
-#&gt; 11  11 0.4854123 0.5074914 0.9564935 2.221675 2.409261 0.9221395  1.0372547
-#&gt; 12  12 0.4952520 0.4808845 1.0298773 2.239080 2.372506 0.9437619  1.0912470
-#&gt; 13  13 0.4888287 0.4794970 1.0194614 2.266667 2.396559 0.9458004  1.0778822
-#&gt; 14  14 0.4871634 0.4752306 1.0251096 2.290323 2.406855 0.9515832  1.0772675</div></pre>
+#&gt; 3    3 0.5600000 0.4753368 1.1781121 1.833333 2.256458 0.8124827  1.4500150
+#&gt; 4    4 0.5882353 0.5803230 1.0136343 1.822222 2.207464 0.8254823  1.2279297
+#&gt; 5    5 0.6268657 0.6587770 0.9515598 1.897436 2.293013 0.8274860  1.1499407
+#&gt; 6    6 0.6129032 0.6942312 0.8828518 2.033333 2.418101 0.8408801  1.0499140
+#&gt; 7    7 0.5544554 0.6603908 0.8395868 2.152632 2.512056 0.8569201  0.9797726
+#&gt; 8    8 0.5388740 0.6630561 0.8127125 2.108696 2.494470 0.8453481  0.9613939
+#&gt; 9    9 0.5095917 0.6090163 0.8367457 2.165242 2.493390 0.8683928  0.9635567
+#&gt; 10  10 0.4997785 0.5489262 0.9104657 2.195767 2.434392 0.9019778  1.0094103
+#&gt; 11  11 0.4854123 0.5012310 0.9684402 2.221675 2.404138 0.9241046  1.0479768
+#&gt; 12  12 0.4952520 0.4796585 1.0325097 2.239080 2.369057 0.9451356  1.0924461
+#&gt; 13  13 0.4888287 0.4709668 1.0379262 2.266667 2.379441 0.9526048  1.0895664
+#&gt; 14  14 0.4871634 0.4704597 1.0355052 2.290323 2.395282 0.9561807  1.0829598</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

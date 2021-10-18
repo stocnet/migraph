@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -100,6 +100,18 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/blockmodel.html">Practical 5</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -156,7 +168,9 @@
   <span class='va'>object</span>,
   directed <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"all"</span>, <span class='st'>"out"</span>, <span class='st'>"in"</span>, <span class='st'>"total"</span><span class='op'>)</span>,
   normalized <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span>
+
+<span class='fu'>graph_eigenvector</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,7 +215,7 @@ Social Network Analysis</em>, edited by John Scott and Peter J Carrington, 417â€
 
     <div class='dont-index'><p>Other two-mode measures: 
 <code><a href='centrality.html'>centrality</a></code>,
-<code><a href='graph_clustering.html'>graph_clustering</a>()</code>,
+<code><a href='cohesion.html'>cohesion</a></code>,
 <code><a href='node_constraint.html'>node_constraint</a>()</code>,
 <code><a href='node_smallworld.html'>node_smallworld</a>()</code></p></div>
 
@@ -224,7 +238,8 @@ Social Network Analysis</em>, edited by John Scott and Peter J Carrington, 417â€
 #&gt; 
 #&gt; $nodes2
 #&gt; [1] 0.1982068
-#&gt; </div></pre>
+#&gt; </div><div class='input'><span class='fu'>graph_eigenvector</span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.5274298</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
