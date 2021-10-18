@@ -19,5 +19,5 @@ The proportion of all (balanced or imbalanced) triplets that are balanced
 Structural balance
 }
 \examples{
-graph_balance(marvel_frien)
+graph_balance(ison_marvel_relationships)
 }

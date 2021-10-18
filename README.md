@@ -54,7 +54,7 @@ Functions are given intuitive and succinct names that avoid conflicts with exist
 #### Measures
 
 - Centrality: `node_degree()`, `node_closeness()`, `node_betweenness()`, and `node_eigenvector()`
-- Centralization: `graph_degree()`, `graph_closeness()`, and `graph_betweenness()`
+- Centralization: `graph_degree()`, `graph_closeness()`, `graph_betweenness()`, and `graph_eigenvector()`
 - Cohesion: `graph_density()`, `graph_reciprocity()`, `graph_transitivity()`, `graph_equivalency()`, 
 `node_constraint()`, `node_smallworld()`, `node_triad_census()` and `graph_triad_census()`
 
