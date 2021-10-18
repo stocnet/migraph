@@ -70,7 +70,6 @@ reference:
       including data used in the book _Multimodal Political Networks_ (prefixed with `mpn_`) 
       and for the course 'Social Networks Theories and Methods' (`ison_`).
     contents:
-      - adolescent_society
       - brandes
       - southern_women
       - starts_with("mpn_")
