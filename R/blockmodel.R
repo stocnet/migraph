@@ -268,3 +268,10 @@ blockmodel <- function(object, clusters){
   out
 }
 
+#' @export
+reduce_graph <- function(blockmodel, block_labels = NULL){
+  reduced <- igraph::graph_from_adjacency_matrix(blockmodel$block.model, weighted = T)
+  reduced <- igraph::delete_edges(reduced, which(is.nan(igraph::E(reduced)$weight)))
+  if(!is.null(block_labels)) igraph::V(reduced)$name <- block_labels
+  reduced
+}
