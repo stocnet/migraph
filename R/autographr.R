@@ -7,6 +7,10 @@
 #' @param algorithm an igraph layout algorithm,
 #' currently defaults to Fruchterman-Reingold,
 #' but Kamada-Kawai and 'stress' also available
+#' @param labels logical, whether to print node names
+#' as labels if present
+#' @param node_size an override in case this
+#' needs to be manually set
 #' @param node_color node variable in quotation marks
 #' that should be used for colouring the nodes
 #' @param ... extra arguments
@@ -36,7 +40,7 @@ autographr <- auto_graph <- function(object,
   if(is_directed(g)){
     p <- p + ggraph::geom_edge_link(edge_alpha = 0.4,
                             arrow = arrow(angle = 15,
-                                          length = unit(4, 'mm'),
+                                          length = unit(3, 'mm'),
                                           type = "closed"), 
                             end_cap = ggraph::circle(3, 'mm'))
   } else {

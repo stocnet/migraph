@@ -20,6 +20,12 @@ autographr(
 currently defaults to Fruchterman-Reingold,
 but Kamada-Kawai and 'stress' also available}
 
+\item{labels}{logical, whether to print node names
+as labels if present}
+
+\item{node_size}{an override in case this
+needs to be manually set}
+
 \item{node_color}{node variable in quotation marks
 that should be used for colouring the nodes}
 
