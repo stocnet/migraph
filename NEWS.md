@@ -3,7 +3,9 @@
 ## Methods
 - Added `to_main_component()` to extract the main component of a network
 - Added `to_onemode()` for moving to multimodal igraph objects
-- Fixed coercion to igraph from data frames and updated read script
+- Fixed coercion to `{igraph}` from data frames and updated read script
+- Added `to_named()` method for naming unlabeled networks
+- Added `to_simplex()` method to delete edge types and their edges from multiplex networks
 
 ## Data
 - Added `ison_mm`, `ison_mb`, `ison_bm`, and `ison_bb` projection illustration data
@@ -11,6 +13,7 @@
 - Data now listed at the bottom of the website References page
 - Added ` ison_marvel_teams` and `ison_marvel_relationships` datasets
 - Renamed `adolescent_society` dataset to `ison_coleman`for consistency
+- Added `ison_m182` dataset of friends, social and task ties between 16 anonymous students
 
 ## Measures
 - Added `graph_balance()` for measuring structural balance
@@ -19,6 +22,7 @@
 
 ## Models
 - Added `cluster_structural_equivalence()` and `cluster_regular_equivalence()`
+- Added `cluster_triad_census()`
 
 ## Visualization
 - Added `autographr()` for plotting graphs with sensible defaults
