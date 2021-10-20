@@ -15,7 +15,7 @@
 #' 
 #' - **Gender**: binary character, 43 "Male" and 10 "Female"
 #' - **PowerOrigin**: binary character, 2 "Alien", 1 "Cyborg", 5 "God/Eternal",
-#' 22 "Human", 1 "Infection", 16 "Mutant", 5 "Radiation", 1 "Robot" 
+#' 22 "Human", 1 "Infection", 16 "Mutant", 5 "Radiation", 1 "Robot"
 #' - **Appearances**: integer, in how many comic book issues they appeared in
 #' - **Attractive**: binary integer, 41 1 (yes) and 12 0 (no)
 #' - **Rich**: binary integer, 11 1 (yes) and 42 0 (no)
@@ -42,7 +42,7 @@
 #                                                               "Rich" = Insanely.Rich) %>% as_tibble()
 # marvel_affil <- as_igraph(as.matrix(read.csv("/Users/hollway/Dropbox/Teaching/Courses/ISON/Data/Marvel/Affiliation.csv", row.names = 1)))
 # library(tidygraph)
-# marvel_affil <- marvel_affil %>% as_tidygraph() %>% activate(nodes) %>% 
+# marvel_affil <- marvel_affil %>% as_tidygraph() %>% activate(nodes) %>%
 #   mutate(Gender = marvel_nodes$Gender[match(V(marvel_affil)$name, marvel_nodes$Character)],
 #          PowerOrigin = marvel_nodes$Type[match(V(marvel_affil)$name, marvel_nodes$Character)],
 #          Appearances = marvel_nodes$Appearances[match(V(marvel_affil)$name, marvel_nodes$Character)],

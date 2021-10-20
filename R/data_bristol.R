@@ -14,7 +14,7 @@
 #'   \item{2_}{97 Bristol Civic Organizations}
 #'   \item{3_}{17 Major Protest and Civic Events in Bristol, 1990-2002}
 #' }
-#' @source Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021. 
-#' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}. 
+#' @source Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
+#' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
 #' Cambridge University Press. Cambridge University Press.
 "mpn_bristol"

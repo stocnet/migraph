@@ -14,7 +14,9 @@
 #' @param node_color node variable in quotation marks
 #' that should be used for colouring the nodes
 #' @param ... extra arguments
-#' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text geom_conn_bundle get_con geom_node_point scale_edge_width_continuous geom_node_label
+#' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text
+#' @impotFrom ggraph geom_conn_bundle get_con geom_node_point
+#' @importFrom ggraph scale_edge_width_continuous geom_node_label
 #' @importFrom igraph get.vertex.attribute
 #' @examples
 #' autographr(ison_coleman)
@@ -26,72 +28,69 @@ autographr <- auto_graph <- function(object,
                                      node_size = NULL,
                                      node_color = NULL,
                                      ...) {
-  
   name <- weight <- NULL # initialize variables to avoid CMD check notes
   g <- as_tidygraph(object)
   # algorithm <- match.arg(algorithm)
-  
   # Add layout
   lo <- ggraph::create_layout(g, algorithm)
-  
   p <- ggraph::ggraph(lo) + ggplot2::theme_void()
-  
   # Add edges
-  if(is_directed(g)){
-    if(is_weighted(g)){
+  if (is_directed(g)) {
+    if (is_weighted(g)) {
       p <- p + ggraph::geom_edge_link(aes(width = weight),
                                       edge_alpha = 0.4,
                                       arrow = arrow(angle = 15,
                                                     length = unit(3, 'mm'),
                                                     type = "closed"), 
-                                      end_cap = ggraph::circle(3, 'mm')) + 
-        ggraph::scale_edge_width_continuous(range = c(.2,1), 
+                                      end_cap = ggraph::circle(3, 'mm')) +
+        ggraph::scale_edge_width_continuous(range = c(.2, 1), 
                                             guide = "none")
     } else {
       p <- p + ggraph::geom_edge_link(edge_alpha = 0.4,
                                       arrow = arrow(angle = 15,
-                                                    length = unit(3, 'mm'),
-                                                    type = "closed"), 
-                                      end_cap = ggraph::circle(3, 'mm'))
+                                                    length = unit(3, "mm"),
+                                                    type = "closed"),
+                                      end_cap = ggraph::circle(3, "mm"))
     }
   } else {
-    if(is_weighted(g)){
+    if (is_weighted(g)) {
       p <- p + ggraph::geom_edge_link0(aes(width = weight),
                                edge_alpha = 0.4) + 
-        ggraph::scale_edge_width_continuous(range = c(.2,1), 
+        ggraph::scale_edge_width_continuous(range = c(.2, 1),
                                     guide = "none")
     } else {
       p <- p + ggraph::geom_edge_link0(edge_alpha = 0.4)
     }
   }
-  
-  if(!is.null(node_size)){
-    if(is.numeric(node_size)){
+  if (!is.null(node_size)) {
+    if (is.numeric(node_size)) {
       nsize <- node_size
     } else {
       nsize <- node_size(g)
     }
   } else {
-    nsize <- (100/igraph::vcount(g))/2
+    nsize <- (100 / igraph::vcount(g)) / 2
   }
-  
   # Add nodes
-  if(is_twomode(g)){
-    if(!is.null(node_color)){
-      
-      
+  if (is_twomode(g)) {
+    if (!is.null(node_color)) {
       color_factor <- as.factor(igraph::get.vertex.attribute(g, node_color))
       p <- p + geom_node_point(aes(color = color_factor),
                                size = nsize,
-                               shape = ifelse(igraph::V(g)$type, "square", "circle")) +
-        scale_colour_brewer(palette = "Set1", guide = "none")
+                               shape = ifelse(igraph::V(g)$type,
+                                              "square",
+                                              "circle")) +
+        scale_colour_brewer(palette = "Set1",
+                            guide = "none")
     } else {
       p <- p + geom_node_point(size = nsize,
-                               shape = ifelse(igraph::V(g)$type, "square", "circle"))
+                               shape = ifelse(igraph::V(g)$type,
+                                              "square",
+                                              "circle"))
     }
   } else {
-    if(!is.null(node_color)){
-      color_factor <- as.factor(igraph::get.vertex.attribute(g, node_color))
+    if (!is.null(node_color)) {
+      color_factor <- as.factor(igraph::get.vertex.attribute(g,node_color))
       p <- p + geom_node_point(aes(color = color_factor),
                                size = nsize) +
         scale_colour_brewer(palette = "Set1", guide = "none")
@@ -100,19 +99,28 @@ autographr <- auto_graph <- function(object,
     }
   }
   # Plot one mode
-  if (labels & is_labelled(g) & !is_twomode(g)) p <- p + ggraph::geom_node_label(aes(label = name),
-                                                                       label.padding = 0.15,
-                                                                       label.size = 0,
-                                                                       repel = TRUE)
+  if (labels & is_labelled(g) & !is_twomode(g)) {
+    p <- p + ggraph::geom_node_label(aes(label = name),
+                                     label.padding = 0.15,
+                                     label.size = 0,
+                                     repel = TRUE)
   p
+  }
   # Plot two modes
-  if(labels & is_labelled(g) & is_twomode(g)) p <- p + ggraph::geom_node_label(aes(label = name),
-                                                                      label.padding = 0.15,
-                                                                      label.size = 0,
-                                                                      fontface = ifelse(igraph::V(g)$type, "bold", "plain"),
-                                                                      size = ifelse(igraph::V(g)$type, 4, 3),
-                                                                      hjust = "inward",
-                                                                      repel = TRUE)
+  if (labels & is_labelled(g) & is_twomode(g)) {
+    p <- p + ggraph::geom_node_label(aes(label = name),
+                                     label.padding = 0.15,
+                                     label.size = 0,
+                                     fontface = ifelse(igraph::V(g)$type,
+                                                       "bold",
+                                                       "plain"),
+                                     size = ifelse(igraph::V(g)$type,
+                                                   4,
+                                                   3),
+                                     hjust = "inward",
+                                     repel = TRUE)
+  p
+  }
   p
 }
 
