@@ -24,22 +24,27 @@ netlm(formula, data, ...)
 
 \item{...}{Arguments passed on to \code{lm()}.}
 
-\item{object}{an object of class "netlm", usually as a result of a call to \code{netlm()}.}
+\item{object}{an object of class "netlm", usually as a result of a call to
+\code{netlm()}.}
 
-\item{reps}{Integer indicating the number of draws to use for quantile estimation.
-(Relevant to the null hypothesis test only - the analysis itself is unaffected by this parameter.)
-Note that, as for all Monte Carlo procedures, convergence is slower for more extreme quantiles.
+\item{reps}{Integer indicating the number of draws to use for quantile
+estimation. (Relevant to the null hypothesis test only - the analysis
+itself is unaffected by this parameter.)
+Note that, as for all Monte Carlo procedures, convergence is slower for more
+extreme quantiles.
 By default, reps=1000.}
 
-\item{x}{an object of class "summary.netlm", usually, a result of a call to \code{summary.netlm()}.}
+\item{x}{an object of class "summary.netlm", usually, a result of a call to
+\code{summary.netlm()}.}
 
 \item{digits}{the number of significant digits to use when printing.}
 
-\item{signif.stars}{logical. If TRUE, ‘significance stars’ are printed for each coefficient.}
+\item{signif.stars}{logical. If TRUE, ‘significance stars’ are printed for
+each coefficient.}
 }
 \description{
-This function extends the multiple regression quadratic assignment procedure (MRQAP)
-of network linear model to two mode networks.
+This function extends the multiple regression quadratic assignment procedure
+(MRQAP) of network linear model to two mode networks.
 }
 \examples{
 mat1 <- matrix(c(0,1,1,0,0,1,1,1),4,2)

@@ -29,7 +29,8 @@ to_simplex(object)
 to_named(object)
 }
 \arguments{
-\item{object}{A matrix, \code{{igraph}} graph, \code{{tidygraph}} tbl_graph, or \code{{network}} object.}
+\item{object}{A matrix, \code{{igraph}} graph, \code{{tidygraph}} tbl_graph, or
+\code{{network}} object.}
 
 \item{threshold}{For a matrix, the threshold to binarise/dichotomise at.}
 
@@ -39,7 +40,8 @@ to_named(object)
 Note that \code{to_onemode()}, which is currently only implemented for igraph,
 is not the same as \code{project_rows()} and \code{project_cols()}.
 There is no transformation involved; \code{to_onemode()} simply deletes the 'type'
-attribute from vertices, removing the bipartite note, but retaining all vertices.
+attribute from vertices, removing the bipartite note, but retaining all
+vertices.
 }
 \examples{
 to_unweighted(project_rows(southern_women))

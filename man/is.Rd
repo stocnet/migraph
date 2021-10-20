@@ -17,7 +17,8 @@ is_directed(object)
 is_labelled(object)
 }
 \arguments{
-\item{object}{A migraph-consistent class object (matrix, edgelist, igraph, network, tidygraph)}
+\item{object}{A migraph-consistent class object
+(matrix, edgelist, igraph, network, tidygraph)}
 }
 \value{
 TRUE if object is a two-mode network, otherwise FALSE

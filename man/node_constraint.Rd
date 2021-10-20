@@ -21,9 +21,10 @@ A named vector (one-mode) or a list of two named vectors (\verb{$nodes1}, \verb{
 }
 \description{
 This function measures constraint for both one-mode and two-mode networks.
-For one-mode networks, the function wraps the implementation of Ron Burt's measure
-in \code{{igraph}}.
-For two-mode networks, the function employs the extension outlined in Hollway et al. (2020).
+For one-mode networks, the function wraps the implementation of Ron Burt's
+measure in \code{{igraph}}.
+For two-mode networks, the function employs the extension outlined
+in Hollway et al. (2020).
 }
 \examples{
 node_constraint(southern_women)

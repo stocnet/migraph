@@ -12,21 +12,23 @@ node_smallworld(object, n = 100)
 \item{n}{Number of simulations}
 }
 \value{
-Returns a table of small-world related metrics for each second-mode node.
+Returns a table of small-world related metrics for each second-mode
+node.
 }
 \description{
 Calculates small-world metrics for two-mode networks
 }
 \details{
-The first column of the returned table is simply the number of the second-mode column.
-The next three columns report the observed and expected clustering,
-and the ratio of the former to the later.
+The first column of the returned table is simply the number of
+the second-mode column. The next three columns report the observed and
+expected clustering, and the ratio of the former to the later.
 The next three columns report the observed and expected path-length,
 and the ratio of the former to the later.
 The last column reports the ratio of the observed/expected clustering ratio
-to the observed/expected path-length ratio, which is known as a small-world metric.
-Expected clustering and paths is the mean of twomode_clustering and mean_distance
-over 100 random simulations with the same row and column sums.
+to the observed/expected path-length ratio, which is known as a small-world
+metric.
+Expected clustering and paths is the mean of twomode_clustering and
+mean_distance over 100 random simulations with the same row and column sums.
 }
 \examples{
 node_smallworld(southern_women)
