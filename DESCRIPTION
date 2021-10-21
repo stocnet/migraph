@@ -38,6 +38,7 @@ Imports:
     stringr,
     gridExtra,
     sna,
+    knitr,
     readxl,
     RColorBrewer,
     ggdendro
@@ -45,7 +46,6 @@ Suggests:
     testthat,
     roxygen2,
     covr,
-    knitr,
     rmarkdown
 Authors@R: 
     c(person(given = "James",
