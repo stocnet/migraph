@@ -15,7 +15,7 @@
 #' that should be used for colouring the nodes
 #' @param ... extra arguments
 #' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text
-#' @impotFrom ggraph geom_conn_bundle get_con geom_node_point
+#' @importFrom ggraph geom_conn_bundle get_con geom_node_point
 #' @importFrom ggraph scale_edge_width_continuous geom_node_label
 #' @importFrom igraph get.vertex.attribute
 #' @examples
@@ -28,17 +28,28 @@ autographr <- auto_graph <- function(object,
                                      node_size = NULL,
                                      node_color = NULL,
                                      ...) {
+  
   name <- weight <- NULL # initialize variables to avoid CMD check notes
   g <- as_tidygraph(object)
-  # algorithm <- match.arg(algorithm)
+  
   # Add layout
   lo <- ggraph::create_layout(g, algorithm)
   p <- ggraph::ggraph(lo) + ggplot2::theme_void()
+  
   # Add edges
+  if(is_signed(g)){
+    edge_linetype <- ifelse(igraph::E(g)$sign >= 0, "solid", "dashed")
+    edge_colour <- ifelse(igraph::E(g)$sign >= 0, "#0072B2", "#E20020")
+  } else {
+    edge_linetype <- "solid"
+    edge_colour <- "black"
+  }
   if (is_directed(g)) {
     if (is_weighted(g)) {
       p <- p + ggraph::geom_edge_link(aes(width = weight),
                                       edge_alpha = 0.4,
+                                      edge_linetype = edge_linetype,
+                                      edge_colour = edge_colour,
                                       arrow = arrow(angle = 15,
                                                     length = unit(3, 'mm'),
                                                     type = "closed"), 
@@ -47,6 +58,8 @@ autographr <- auto_graph <- function(object,
                                             guide = "none")
     } else {
       p <- p + ggraph::geom_edge_link(edge_alpha = 0.4,
+                                      edge_linetype = edge_linetype,
+                                      edge_colour = edge_colour,
                                       arrow = arrow(angle = 15,
                                                     length = unit(3, "mm"),
                                                     type = "closed"),
@@ -55,11 +68,15 @@ autographr <- auto_graph <- function(object,
   } else {
     if (is_weighted(g)) {
       p <- p + ggraph::geom_edge_link0(aes(width = weight),
-                               edge_alpha = 0.4) + 
+                                       edge_linetype = edge_linetype,
+                                       edge_colour = edge_colour,
+                                       edge_alpha = 0.4) + 
         ggraph::scale_edge_width_continuous(range = c(.2, 1),
                                     guide = "none")
     } else {
-      p <- p + ggraph::geom_edge_link0(edge_alpha = 0.4)
+      p <- p + ggraph::geom_edge_link0(edge_linetype = edge_linetype,
+                                       edge_colour = edge_colour,
+                                       edge_alpha = 0.4)
     }
   }
   if (!is.null(node_size)) {
