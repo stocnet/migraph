@@ -45,6 +45,17 @@ is_labelled <- function(object) {
   igraph::is.named(object)
 }
 
+#' @rdname is
+#' @importFrom igraph edge_attr_names
+#' @return TRUE if object is a signed network, otherwise FALSE
+#' @examples
+#' is_signed(southern_women)
+#' @export
+is_signed <- function(object) {
+  object <- as_igraph(object)
+  "sign" %in% igraph::edge_attr_names(object)
+}
+
 # igraph::is.chordal()
 # igraph::is.connected()
 # igraph::is.dag()
