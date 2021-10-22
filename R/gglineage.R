@@ -8,6 +8,7 @@
 #' @importFrom ggraph create_layout ggraph geom_edge_diagonal
 #' @importFrom ggplot2 theme_void coord_flip scale_x_reverse
 #' @importFrom rlang .data
+#' @importFrom stringr str_detect str_extract
 #' @examples
 #' cites <- tibble::tibble(qID1 = c("BNLHPB_2016P:BNLHPB_1970A",
 #' "PARIS_2015A","INOOTO_2015A", "RUS-USA[UUF]_2015A",

@@ -1,3 +1,32 @@
+# migraph 0.8.1
+
+## Package
+
+- Fixed codecov url bug
+- Removed several package dependencies by moving `plot_releases()` to another package
+- Made many dependencies more explicit
+- Entire package 'linted'
+
+## Classes
+
+- Added `is_signed()` to logically test whether the network is a signed network
+- Added `to_unsigned()` for extracting networks of either "positive" or "negative" ties from a signed network
+- Added `tbl_graph` methods for all other `to_` functions
+- Reexported `activate()` from `{tidygraph}`
+
+## Visualisation
+
+- Added sensible plotting defaults for signed networks in `autographr()`
+- Removed `plot_releases()` from this package
+
+## Measures
+
+- Refactored `graph_balance()` to be much faster, following David Schoch's `{signnet}` package (see that package for further extensions)
+
+## Data
+
+- Updated the edge 'sign' attribute of `ison_marvel_relationships` to be a double (`-1`/`1`) to be compatible with the new `graph_balance()` and `{signnet}`
+
 # migraph 0.8.0
 
 ## Classes
