@@ -11,6 +11,7 @@
 #' be based on the "first" or the "last" network.
 #' @importFrom gridExtra grid.arrange
 #' @importFrom rlang .data
+#' @importFrom ggplot2 stat
 #' @examples
 #' mpn_elite_mex2 <- mpn_elite_mex  %>%
 #'                   tidygraph::activate(edges) %>%
@@ -51,16 +52,15 @@ ggevolution <- function(..., layout = "kk",
   }
   g1 <- ggraph::ggraph(l1) +
     ggraph::geom_node_point() +
-    ggraph::geom_edge_link(ggplot2::aes(alpha = stat(.data$index)),
-                           show.legend = FALSE) +
+    ggraph::geom_edge_link(alpha = 0.4) +
     ggplot2::theme_void() +
-    ggraph::geom_node_text(ggplot2::aes(label = .data$name))
+    ggraph::geom_node_text(ggplot2::aes(label = .data$name), 
+                           repel = TRUE)
   g2 <- ggraph::ggraph(l2) +
     ggraph::geom_node_point() +
-    ggraph::geom_edge_link(ggplot2::aes(alpha = stat(.data$index)),
-                           show.legend = FALSE) +
+    ggraph::geom_edge_link(alpha = 0.4) +
     ggplot2::theme_void() +
-    ggraph::geom_node_text(ggplot2::aes(label = .data$name),
+    ggraph::geom_node_text(ggplot2::aes(label = .data$name), 
                            repel = TRUE)
   gridExtra::grid.arrange(g1, g2, 
                           ncol = length(networks))

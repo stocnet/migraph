@@ -5,8 +5,8 @@
 #' whatever its composition.
 #' @param object migraph-consistent object
 #' @param algorithm an igraph layout algorithm,
-#' currently defaults to Fruchterman-Reingold,
-#' but Kamada-Kawai and 'stress' also available
+#' currently defaults to 'stress'
+#' but Fruchterman-Reingold and Kamada-Kawai also available
 #' @param labels logical, whether to print node names
 #' as labels if present
 #' @param node_size an override in case this
@@ -18,6 +18,7 @@
 #' @importFrom ggraph geom_conn_bundle get_con geom_node_point
 #' @importFrom ggraph scale_edge_width_continuous geom_node_label
 #' @importFrom igraph get.vertex.attribute
+#' @importFrom ggplot2 aes arrow unit scale_color_brewer
 #' @examples
 #' autographr(ison_coleman)
 #' autographr(ison_karateka)
@@ -46,12 +47,12 @@ autographr <- auto_graph <- function(object,
   }
   if (is_directed(g)) {
     if (is_weighted(g)) {
-      p <- p + ggraph::geom_edge_link(aes(width = weight),
+      p <- p + ggraph::geom_edge_link(ggplot2::aes(width = weight),
                                       edge_alpha = 0.4,
                                       edge_linetype = edge_linetype,
                                       edge_colour = edge_colour,
-                                      arrow = arrow(angle = 15,
-                                                    length = unit(3, 'mm'),
+                                      arrow = ggplot2::arrow(angle = 15,
+                                                    length = ggplot2::unit(3, 'mm'),
                                                     type = "closed"), 
                                       end_cap = ggraph::circle(3, 'mm')) +
         ggraph::scale_edge_width_continuous(range = c(.2, 1), 
@@ -60,14 +61,14 @@ autographr <- auto_graph <- function(object,
       p <- p + ggraph::geom_edge_link(edge_alpha = 0.4,
                                       edge_linetype = edge_linetype,
                                       edge_colour = edge_colour,
-                                      arrow = arrow(angle = 15,
-                                                    length = unit(3, "mm"),
+                                      arrow = ggplot2::arrow(angle = 15,
+                                                    length = ggplot2::unit(3, "mm"),
                                                     type = "closed"),
                                       end_cap = ggraph::circle(3, "mm"))
     }
   } else {
     if (is_weighted(g)) {
-      p <- p + ggraph::geom_edge_link0(aes(width = weight),
+      p <- p + ggraph::geom_edge_link0(ggplot2::aes(width = weight),
                                        edge_linetype = edge_linetype,
                                        edge_colour = edge_colour,
                                        edge_alpha = 0.4) + 
@@ -92,15 +93,15 @@ autographr <- auto_graph <- function(object,
   if (is_twomode(g)) {
     if (!is.null(node_color)) {
       color_factor <- as.factor(igraph::get.vertex.attribute(g, node_color))
-      p <- p + geom_node_point(aes(color = color_factor),
+      p <- p + ggraph::geom_node_point(ggplot2::aes(color = color_factor),
                                size = nsize,
                                shape = ifelse(igraph::V(g)$type,
                                               "square",
                                               "circle")) +
-        scale_colour_brewer(palette = "Set1",
+        ggplot2::scale_colour_brewer(palette = "Set1",
                             guide = "none")
     } else {
-      p <- p + geom_node_point(size = nsize,
+      p <- p + ggraph::geom_node_point(size = nsize,
                                shape = ifelse(igraph::V(g)$type,
                                               "square",
                                               "circle"))
@@ -108,16 +109,16 @@ autographr <- auto_graph <- function(object,
   } else {
     if (!is.null(node_color)) {
       color_factor <- as.factor(igraph::get.vertex.attribute(g,node_color))
-      p <- p + geom_node_point(aes(color = color_factor),
+      p <- p + ggraph::geom_node_point(aes(color = color_factor),
                                size = nsize) +
-        scale_colour_brewer(palette = "Set1", guide = "none")
+        ggplot2::scale_colour_brewer(palette = "Set1", guide = "none")
     } else {
-      p <- p + geom_node_point(size = nsize)
+      p <- p + ggraph::geom_node_point(size = nsize)
     }
   }
   # Plot one mode
   if (labels & is_labelled(g) & !is_twomode(g)) {
-    p <- p + ggraph::geom_node_label(aes(label = name),
+    p <- p + ggraph::geom_node_label(ggplot2::aes(label = name),
                                      label.padding = 0.15,
                                      label.size = 0,
                                      repel = TRUE)
@@ -125,7 +126,7 @@ autographr <- auto_graph <- function(object,
   }
   # Plot two modes
   if (labels & is_labelled(g) & is_twomode(g)) {
-    p <- p + ggraph::geom_node_label(aes(label = name),
+    p <- p + ggraph::geom_node_label(ggplot2::aes(label = name),
                                      label.padding = 0.15,
                                      label.size = 0,
                                      fontface = ifelse(igraph::V(g)$type,
