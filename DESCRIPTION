@@ -32,21 +32,22 @@ Imports:
     tibble,
     tidyr,
     network,
+    sna,
     httr,
     jsonlite,
     lubridate,
     stringr,
     gridExtra,
-    sna,
     knitr,
     readxl,
     RColorBrewer,
-    ggdendro
+    ggdendro,
+    rmarkdown,
+    signnet
 Suggests: 
     testthat,
     roxygen2,
-    covr,
-    rmarkdown
+    covr
 Authors@R: 
     c(person(given = "James",
              family = "Hollway",
