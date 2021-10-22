@@ -8,6 +8,7 @@
 \alias{to_onemode}
 \alias{to_main_component}
 \alias{to_uniplex}
+\alias{to_unsigned}
 \alias{to_simplex}
 \alias{to_named}
 \title{Tools for reformatting networks, graphs, and matrices}
@@ -24,6 +25,8 @@ to_main_component(object)
 
 to_uniplex(object, edge)
 
+to_unsigned(object, keep = c("positive", "negative"))
+
 to_simplex(object)
 
 to_named(object)
@@ -35,6 +38,9 @@ to_named(object)
 \item{threshold}{For a matrix, the threshold to binarise/dichotomise at.}
 
 \item{edge}{the name of an edge attribute to retain from a graph}
+
+\item{keep}{in the case of a signed network, whether to retain
+the "positive" or "negative" ties}
 }
 \description{
 Note that \code{to_onemode()}, which is currently only implemented for igraph,
@@ -49,6 +55,8 @@ to_unnamed(project_rows(southern_women))
 to_undirected(ison_coleman)
 to_onemode(ison_marvel_teams)
 to_uniplex(ison_m182, "friend_tie")
+to_unsigned(ison_marvel_relationships, "positive")
+to_unsigned(ison_marvel_relationships, "negative")
 to_simplex(ison_m182)
 to_named(ison_m182)
 }
