@@ -1,23 +1,24 @@
 #' Structural balance
 #' @param object a migraph-consistent object
-#' @importFrom utils combn
-#' @importFrom igraph E get.edges
-#' @source Gábor Csárdi: http://r.789695.n4.nabble.com/Social-Network-Analysis-td825041.html
-#' @return The proportion of all (balanced or imbalanced) triplets that are balanced
+#' @param method one of "triangles" (the default), "walk", or "frustration".
+#' @importFrom signnet balance_score
+#' @references Estrada, Ernesto (2019). Rethinking structural balance in signed social networks. 
+#' _Discrete Applied Mathematics_, 268: 70--90.
+#' 
+#' Aref, Samin, and Mark C Wilson (2018). Measuring partial balance in signed networks. 
+#' _Journal of Complex Networks_, 6(4): 566–595.
+#' @return "triangles" returns the proportion of balanced triangles,
+#' ranging between `0` if all triangles are imbalanced and `1` if all triangles are balanced.
+#' 
+#' "walk" is based on eigenvalues of the signed and underlying unsigned network. 
+#' Check the paper by Estrada for details. 
+#' 
+#' “frustration” assumes that the network can be partitioned into two groups, 
+#' where intra group edges are positive and inter group edges are negative. 
+#' The index is defined as the sum of intra group negative and inter group positive edges. 
+#' Note that the problem is NP complete and only an upper bound is returned (based on simulated annealing). 
+#' Exact methods can be found in the work of Aref.
 #' @export
-graph_balance <- function(object) { 
-  g <- as_igraph(object)
-  triples <- utils::combn(1:vcount(g) - 1, 3)
-  good <- bad <- 0
-  for (t in seq_len(ncol(triples))) {
-    tri <- triples[,t]
-    edges <- igraph::E(g) [ tri %--% tri ]
-    if (length(unique(igraph::get.edges(g, edges))) < 3) { next }
-    if (prod(igraph::E(g)[edges]$sign) > 0) {
-      good <- good + 1
-    } else {
-      bad <- bad + 1
-    }
-  }
-  good / sum(c(good, bad))
+graph_balance <- function(object, method = "triangles") { 
+  signnet::balance_score(as_igraph(object), method)
 }
