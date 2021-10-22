@@ -6,6 +6,7 @@
 \alias{is_weighted}
 \alias{is_directed}
 \alias{is_labelled}
+\alias{is_signed}
 \title{Tests of network properties}
 \usage{
 is_twomode(object)
@@ -15,9 +16,12 @@ is_weighted(object)
 is_directed(object)
 
 is_labelled(object)
+
+is_signed(object)
 }
 \arguments{
-\item{object}{A migraph-consistent class object (matrix, edgelist, igraph, network, tidygraph)}
+\item{object}{A migraph-consistent class object
+(matrix, edgelist, igraph, network, tidygraph)}
 }
 \value{
 TRUE if object is a two-mode network, otherwise FALSE
@@ -27,6 +31,8 @@ TRUE if object is a weighted network, otherwise FALSE
 TRUE if object is a directed network, otherwise FALSE
 
 TRUE if object is a labelled network, otherwise FALSE
+
+TRUE if object is a signed network, otherwise FALSE
 }
 \description{
 Tests of network properties
@@ -36,4 +42,5 @@ is_twomode(southern_women)
 is_weighted(southern_women)
 is_directed(southern_women)
 is_labelled(southern_women)
+is_signed(southern_women)
 }

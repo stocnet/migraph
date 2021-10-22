@@ -1,12 +1,13 @@
 #' Tests of network properties
 #' @name is
-#' @param object A migraph-consistent class object (matrix, edgelist, igraph, network, tidygraph)
+#' @param object A migraph-consistent class object
+#' (matrix, edgelist, igraph, network, tidygraph)
 #' @importFrom igraph is.bipartite
 #' @return TRUE if object is a two-mode network, otherwise FALSE
 #' @examples
 #' is_twomode(southern_women)
 #' @export
-is_twomode <- function(object){
+is_twomode <- function(object) {
   object <- as_igraph(object)
   igraph::is.bipartite(object)
 }
@@ -17,7 +18,7 @@ is_twomode <- function(object){
 #' @examples
 #' is_weighted(southern_women)
 #' @export
-is_weighted <- function(object){
+is_weighted <- function(object) {
   object <- as_igraph(object)
   igraph::is.weighted(object)
 }
@@ -28,7 +29,7 @@ is_weighted <- function(object){
 #' @examples
 #' is_directed(southern_women)
 #' @export
-is_directed <- function(object){
+is_directed <- function(object) {
   object <- as_igraph(object)
   igraph::is.directed(object)
 }
@@ -39,9 +40,20 @@ is_directed <- function(object){
 #' @examples
 #' is_labelled(southern_women)
 #' @export
-is_labelled <- function(object){
+is_labelled <- function(object) {
   object <- as_igraph(object)
   igraph::is.named(object)
+}
+
+#' @rdname is
+#' @importFrom igraph edge_attr_names
+#' @return TRUE if object is a signed network, otherwise FALSE
+#' @examples
+#' is_signed(southern_women)
+#' @export
+is_signed <- function(object) {
+  object <- as_igraph(object)
+  "sign" %in% igraph::edge_attr_names(object)
 }
 
 # igraph::is.chordal()

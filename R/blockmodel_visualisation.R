@@ -11,33 +11,54 @@
 #' plot(usa_concor)
 #' @export
 plot.blockmodel <- function(x, ...){
-  
   plot_data <- x$blocked.data
   plot_data <- as.data.frame(plot_data) %>%
     tibble::rownames_to_column("Var1") %>%
     tidyr::pivot_longer(!.data$Var1, names_to = "Var2", values_to = "value")
-  
-  g <- ggplot2::ggplot(plot_data, ggplot2::aes(.data$Var2, .data$Var1)) + 
-    ggplot2::geom_tile(ggplot2::aes(fill = .data$value), colour = "white") + 
+  g <- ggplot2::ggplot(plot_data, ggplot2::aes(.data$Var2, .data$Var1)) +
+    ggplot2::geom_tile(ggplot2::aes(fill = .data$value), colour = "white") +
     ggplot2::scale_fill_gradient(low = "white", high = "black") +
-    ggplot2::theme_grey(base_size = 9) + 
-    ggplot2::labs(x = "", y = "") + 
+    ggplot2::theme_grey(base_size = 9) +
+    ggplot2::labs(x = "", y = "") +
     ggplot2::theme(legend.position = "none",
                    axis.ticks = ggplot2::element_blank(),
-                   axis.text.y = ggplot2::element_text(size = 9 * 0.8, colour = "grey50"),
-                   axis.text.x = ggplot2::element_text(size = 9 * 0.8, 
-                                                       angle = 30, hjust = 0, colour = "grey50"))
+                   axis.text.y = ggplot2::element_text(size = 9 * 0.8,
+                                                       colour = "grey50"),
+                   axis.text.x = ggplot2::element_text(size = 9 * 0.8,
+                                                       angle = 30, hjust = 0,
+                                                       colour = "grey50"))
   
-  if(x$modes==1){
-    g <- g + ggplot2::scale_x_discrete(expand = c(0, 0), position = "top", limits = colnames(x$blocked.data)[x$order.vector]) +
-      ggplot2::scale_y_discrete(expand = c(0, 0), limits = rev(rownames(x$blocked.data)[x$order.vector])) + 
-      ggplot2::geom_vline(xintercept = c(1+which(diff(x$block.membership)!=0))-.5, colour = "red") +
-      ggplot2::geom_hline(yintercept = nrow(x$blocked.data) - c(1+which(diff(x$block.membership)!=0))+1.5, colour = "red")
+  if (x$modes == 1) {
+    g <- g + ggplot2::scale_x_discrete(
+                        expand = c(0, 0),
+                        position = "top",
+                        limits = colnames(x$blocked.data)[x$order.vector]) +
+      ggplot2::scale_y_discrete(
+                        expand = c(0, 0),
+                        limits = rev(rownames(x$blocked.data)[x$order.vector])) + 
+      ggplot2::geom_vline(
+                        xintercept = c(1 + which(diff(x$block.membership) != 0))
+                        - .5,
+                        colour = "red") +
+      ggplot2::geom_hline(yintercept = nrow(x$blocked.data) -
+                            c(1 + which(diff(x$block.membership) != 0)) +
+                            1.5, 
+                          colour = "red")
   } else {
-    g <- g + ggplot2::scale_y_discrete(expand = c(0, 0), limits = rev(rownames(x$blocked.data)[x$order.vector$nodes1])) +
-      ggplot2::scale_x_discrete(expand = c(0, 0), position = "top", limits = colnames(x$blocked.data)[x$order.vector$nodes2]) + 
-      ggplot2::geom_vline(xintercept = c(1+which(diff(x$block.membership$nodes2)!=0))-.5, colour = "blue") +
-      ggplot2::geom_hline(yintercept = nrow(x$blocked.data) - c(1+which(diff(x$block.membership$nodes1)!=0))+1.5, colour = "red")
+    g <- g + ggplot2::scale_y_discrete(
+                          expand = c(0, 0),
+                          limits = rev(rownames(x$blocked.data)[x$order.vector$nodes1])) +
+      ggplot2::scale_x_discrete(expand = c(0, 0),
+                                position = "top",
+                                limits = colnames(x$blocked.data)[x$order.vector$nodes2]) +
+      ggplot2::geom_vline(xintercept =
+                            c(1 + which(diff(x$block.membership$nodes2) != 0))
+                            - .5,
+                          colour = "blue") +
+      ggplot2::geom_hline(yintercept = nrow(x$blocked.data)
+                          - c(1 + which(diff(x$block.membership$nodes1) != 0))
+                          + 1.5,
+                          colour = "red")
   }
   g
   
@@ -60,19 +81,18 @@ plot.blockmodel <- function(x, ...){
 #' ggtree(res, 4)
 #' @export
 ggtree <- function(hc, k = NULL){
-  
-  if(is.null(k)){
+  if (is.null(k)) {
     ggdendro::ggdendrogram(hc, rotate = TRUE)
   } else {
-    
     colors <- suppressWarnings(RColorBrewer::brewer.pal(k, "Set3"))
     colors <- (colors[stats::cutree(hc, k = k)])[hc$order]
-    
     ggdendro::ggdendrogram(hc, rotate = TRUE) +
-      ggplot2::geom_hline(yintercept = hc$height[length(hc$order) - k], linetype = 2,
+      ggplot2::geom_hline(yintercept = hc$height[length(hc$order) - k],
+                          linetype = 2,
                           color = "#E20020") +
       ggplot2::theme(axis.text.x = ggplot2::element_text(colour = "#E20020"),
-                     axis.text.y = suppressWarnings(ggplot2::element_text(colour = colors)))
+                     axis.text.y = suppressWarnings(
+                       ggplot2::element_text(colour = colors)))
   }
   
 }
@@ -84,23 +104,24 @@ ggtree <- function(hc, k = NULL){
 #' ggidentify_clusters(res, t(node_triad_census(mpn_elite_mex)))
 #' @export
 ggidentify_clusters <- function(hc, mat, method = "elbow"){
-  
   vertices <- ncol(mat)
   observedcorrelation <- cor(mat)
   
-  clusterCorr <- function (observed_cor_matrix, cluster_vector){
+  clusterCorr <- function(observed_cor_matrix, cluster_vector) {
     num_vertices = nrow(observed_cor_matrix)
     cluster_cor_mat <- observed_cor_matrix
     for (i in 1:num_vertices) {
       for (j in 1:num_vertices) {
-        cluster_cor_mat[i, j] = mean(observed_cor_matrix[which(cluster_vector[row(observed_cor_matrix)] == 
-                                                                 cluster_vector[i] & cluster_vector[col(observed_cor_matrix)] == 
-                                                                 cluster_vector[j])])
+        cluster_cor_mat[i, j] =
+          mean(observed_cor_matrix
+               [which(cluster_vector[row(observed_cor_matrix)] ==
+                        cluster_vector[i] &
+                        cluster_vector[col(observed_cor_matrix)] ==
+                        cluster_vector[j])])
       }
     }
     return(cluster_cor_mat)
   }
-  
   resultlist <- list()
   correlations <- vector()
   for (i in 2:(vertices)) {
@@ -116,31 +137,27 @@ ggidentify_clusters <- function(hc, mat, method = "elbow"){
     correlations <- c(correlations, clustered_observed_cors)
   }
   resultlist$correlations <- c(0, correlations)
-  
   dafr <- data.frame(clusters = 1:vertices, correlations = c(0, correlations))
   # resultlist
-  
   correct <- NULL # to satisfy the error god
   elbow_finder <- function(x_values, y_values) {
     # Max values to create line
     max_df <- data.frame(x = c(min(x_values), max(x_values)), 
                          y = c(min(y_values), max(y_values)))
-    
     # Creating straight line between the max values
     fit <- lm(max_df$y ~ max_df$x)
-    
     # Distance from point to line
     distances <- vector()
-    for(i in seq_len(length(x_values))) {
-      distances <- c(distances, 
-                     abs(stats::coef(fit)[2]*x_values[i] - y_values[i] + coef(fit)[1]) / 
-                       sqrt(stats::coef(fit)[2]^2 + 1^2))
+    for (i in seq_len(length(x_values))) {
+      distances <- c(distances,
+                     abs(stats::coef(fit)[2]*x_values[i] -
+                           y_values[i] +
+                           coef(fit)[1]) /
+                           sqrt(stats::coef(fit)[2]^2 + 1^2))
     }
-    
     # Max distance point
     x_max_dist <- x_values[which.max(distances)]
     # y_max_dist <- y_values[which.max(distances)]
-    
     # return(c(x_max_dist, y_max_dist))
     x_max_dist
   }
@@ -151,12 +168,11 @@ ggidentify_clusters <- function(hc, mat, method = "elbow"){
   #                    correct = ifelse(dafr$clusters == elbow_finder(dafr$clusters, dafr$correlations),
   #                                     "#E20020", "#6f7072"))
   # dapr[1,] <- NULL
-  
-  ggplot2::ggplot(dafr, aes(x = clusters, y = correlations)) + 
+  ggplot2::ggplot(dafr, aes(x = clusters, y = correlations)) +
     ggplot2::geom_line(color = "#6f7072") +
-    ggplot2::geom_point(aes(color = correct), size = 2) + 
+    ggplot2::geom_point(aes(color = correct), size = 2) +
     ggplot2::scale_color_manual(values = c("#6f7072", "#E20020")) +
-    ggplot2::scale_y_continuous(limits = c(0,1)) +
-    ggplot2::theme_minimal() + 
+    ggplot2::scale_y_continuous(limits = c(0, 1)) +
+    ggplot2::theme_minimal() +
     ggplot2::guides(color = "none")
 }

@@ -24,7 +24,7 @@ but further extensions expected.
 \examples{
 mpn_elite_mex2 <- mpn_elite_mex  \%>\%
                   tidygraph::activate(edges) \%>\%
-tidygraph::reroute(from = sample.int(11, 44, replace = TRUE), 
+tidygraph::reroute(from = sample.int(11, 44, replace = TRUE),
 to = sample.int(11, 44, replace = TRUE))
 ggevolution(mpn_elite_mex, mpn_elite_mex2)
 ggevolution(mpn_elite_mex, mpn_elite_mex2, based_on = "last")

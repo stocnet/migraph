@@ -5,7 +5,7 @@
 #' @name ison_coleman
 #' @usage data(ison_coleman)
 #' @format tidygraph graph object
-#' @references Coleman, James S. 1961. The Adolescent Society. 
+#' @references Coleman, James S. 1961. The Adolescent Society.
 #' New York:Free Press.
 #' 
 #' Feld, Scott. 1991. “Why your friends have more friends than you do”

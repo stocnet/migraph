@@ -6,3 +6,5 @@ inst/doc
 data-raw/*
 docs/
 working/*
+/doc/
+/Meta/

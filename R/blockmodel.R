@@ -50,7 +50,7 @@ cluster_structural_equivalence <- function(mat){
 #' @export
 cluster_regular_equivalence <- function(object){
   triads <- node_triad_census(object)
-  triads <- triads[,-which(colSums(triads)==0)]
+  triads <- triads[,-which(colSums(triads) == 0)]
   correlations <- cor(t(triads))
   dissimilarity <- 1 - correlations
   distances <- stats::as.dist(dissimilarity)
@@ -75,7 +75,7 @@ blockmodel_concor <- function(object, p = 1,
                            cutoff = 0.999, max.iter = 25, 
                            block.content = "density"){
   
-  if(is.list(object) & !is.tbl_graph(object)){
+  if (is.list(object) & !is.tbl_graph(object)) {
     mat <- lapply(object, function(x) as_matrix(x))
     mat <- do.call(rbind, mat)
   } else mat <- as_matrix(object)
@@ -85,7 +85,7 @@ blockmodel_concor <- function(object, p = 1,
       if (ncol(m0) < 2) stop("Too few columns to partition.")
       mi <- stats::cor(m0)
       iter <- 1
-      while(any(abs(mi) <= cutoff) & iter <= max.iter) {
+      while (any(abs(mi) <= cutoff) & iter <= max.iter) {
         mi <- cor(mi)
         iter <- iter + 1
       }
@@ -93,7 +93,7 @@ blockmodel_concor <- function(object, p = 1,
       list(m0[, group, drop = FALSE], m0[, !group, drop = FALSE])
     }
     p_list <- list(mat)
-    for(i in 1:p) {
+    for (i in 1:p) {
       p_list <- unlist(lapply(p_list, 
                               function(x) partition(x, cutoff, max.iter)), 
                        recursive = FALSE)
@@ -109,7 +109,7 @@ blockmodel_concor <- function(object, p = 1,
     df[match(colnames(mat), df$vertex), ]
   }  
     
-  if(is_twomode(mat)){
+  if (is_twomode(mat)) {
     memb <- list()
     memb$nodes1 <- concor(t(mat), p, cutoff, max.iter)
     memb$nodes2 <- concor(mat, p, cutoff, max.iter)
@@ -118,14 +118,14 @@ blockmodel_concor <- function(object, p = 1,
     memb <- concor(mat, p, cutoff, max.iter)
   }
   
-  if(length(dim(mat)) > 2){
+  if (length(dim(mat)) > 2) {
     d <- mat
   } else {
     d <- array(dim = c(1, nrow(mat), ncol(mat)))
     d[1, , ] <- mat
   }
   
-  if(is_twomode(mat)){
+  if (is_twomode(mat)) {
     b1 <- memb$nodes1$block
     rn <- max(b1)
     b2 <- memb$nodes2$block
@@ -175,8 +175,11 @@ blockmodel_concor <- function(object, p = 1,
         bm[i, j, k] <- "complete"
       else if (all(apply(d[i, b1 == j, b2 == k, drop = FALSE], 
                          2, sum, na.rm = TRUE) > 0, apply(d[i, b1 == j, 
-                                                            b2 == k, drop = FALSE], 3, sum, na.rm = TRUE) > 
-                   0)) 
+                                                            b2 == k,
+                                                            drop = FALSE],
+                                                          3,
+                                                          sum,
+                                                          na.rm = TRUE) > 0)) 
         bm[i, j, k] <- "1 covered"
       else if (all(apply(d[i, b1 == j, b2 == k, drop = FALSE], 
                          2, sum, na.rm = TRUE) > 0)) 
@@ -191,16 +194,21 @@ blockmodel_concor <- function(object, p = 1,
   out <- list()
   out$blocked.data <- mat
   out$plabels <- dimnames(mat)
-  if(is_twomode(mat)){
-    out$membership <- list(nodes1 = memb$nodes1$block, nodes2 = memb$nodes2$block)
-    out$block.membership <- list(nodes1 = sort(memb$nodes1$block), nodes2 = sort(memb$nodes2$block))
-    out$order.vector <- list(nodes1 = unlist(lapply(1:rn, function(x) which(memb$nodes1$block==x))),
-                             nodes2 = unlist(lapply(1:rn, function(x) which(memb$nodes2$block==x))))
+  if (is_twomode(mat)) {
+    out$membership <- list(nodes1 = memb$nodes1$block,
+                           nodes2 = memb$nodes2$block)
+    out$block.membership <- list(nodes1 = sort(memb$nodes1$block),
+                                 nodes2 = sort(memb$nodes2$block))
+    out$order.vector <- list(nodes1 = unlist(lapply(1:rn,
+                              function(x) which(memb$nodes1$block == x))),
+                             nodes2 = unlist(lapply(1:rn,
+                              function(x) which(memb$nodes2$block == x))))
     out$modes <- 2
   } else {
     out$membership <- memb$block
     out$block.membership <- sort(memb$block)
-    out$order.vector <- unlist(lapply(1:rn, function(x) which(memb$block==x)))
+    out$order.vector <- unlist(lapply(1:rn,
+                                      function(x) which(memb$block == x)))
     out$modes <- 1
   }
   out$cluster.method <- "CONCOR"
@@ -215,23 +223,21 @@ blockmodel_concor <- function(object, p = 1,
   }
   attr(out, "class") <- "blockmodel"
   out
-    
 }
 
 #' @rdname blockmodel
 #' @param x An object of class "blockmodel"
 #' @param ... Additional arguments passed to generic print method
 #' @export
-print.blockmodel <- function (x, ...){
-
-  if(is.null(x$modes)){
+print.blockmodel <- function(x, ...) {
+  if (is.null(x$modes)) {
     sna::print.blockmodel(x)
-  } else if(x$modes == 1) {
+  } else if (x$modes == 1) {
     cat("\nNetwork Blockmodel:\n\n")
     cat("Block membership:\n\n")
-    if (is.null(x$plabels)){
+    if (is.null(x$plabels)) {
       plab <- seq_len(x$block.membership)[x$order.vector]
-    } else if(is.list(x$plabels)){
+    } else if (is.list(x$plabels)) {
       plab <- x$plabels[[1]]
     } else {
       plab <- x$plabels
@@ -243,7 +249,7 @@ print.blockmodel <- function (x, ...){
     cat("\nNetwork Blockmodel:\n\n")
     cat("Block membership:\n\n")
     cat("  First nodeset:\n\n")
-    if (is.null(x$plabels)){
+    if (is.null(x$plabels)) {
       plab <- seq_len(x$block.membership$nodes1)[x$order.vector$nodes1]
     } else {
       plab <- x$plabels[[1]]
@@ -252,7 +258,7 @@ print.blockmodel <- function (x, ...){
     dimnames(temp) <- list("", plab)
     print(temp[1, order(x$order.vector$nodes1)], ...)
     cat("\n  Second nodeset:\n\n")
-    if (is.null(x$plabels)){
+    if (is.null(x$plabels)) {
       plab <- seq_len(x$block.membership$nodes2)[x$order.vector$nodes2]
     } else {
       plab <- x$plabels[[2]]
@@ -282,8 +288,10 @@ print.blockmodel <- function (x, ...){
 #' @rdname blockmodel
 #' @export
 reduce_graph <- function(blockmodel, block_labels = NULL){
-  reduced <- igraph::graph_from_adjacency_matrix(blockmodel$block.model, weighted = T)
-  reduced <- igraph::delete_edges(reduced, which(is.nan(igraph::E(reduced)$weight)))
-  if(!is.null(block_labels)) igraph::V(reduced)$name <- block_labels
+  reduced <- igraph::graph_from_adjacency_matrix(blockmodel$block.model,
+                                                 weighted = T)
+  reduced <- igraph::delete_edges(reduced,
+                                  which(is.nan(igraph::E(reduced)$weight)))
+  if (!is.null(block_labels)) igraph::V(reduced)$name <- block_labels
   reduced
 }

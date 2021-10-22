@@ -7,6 +7,8 @@
 #' @param labels Whether to plot node labels or not. Default: TRUE.
 #' @importFrom ggraph create_layout ggraph geom_edge_diagonal
 #' @importFrom ggplot2 theme_void coord_flip scale_x_reverse
+#' @importFrom rlang .data
+#' @importFrom stringr str_detect str_extract
 #' @examples
 #' cites <- tibble::tibble(qID1 = c("BNLHPB_2016P:BNLHPB_1970A",
 #' "PARIS_2015A","INOOTO_2015A", "RUS-USA[UUF]_2015A",
@@ -18,17 +20,29 @@
 #' gglineage(cites)
 #' @export
 gglineage <- function(object, labels = TRUE){
-  index <- nodes <- name <- from <- NULL # to avoid CMD check notes
+  nodes <- NULL # Avoid R CMD check note
   object <- as_tidygraph(object)
-  if (all(stringr::str_detect(attr(object[1], "names"), "[:digit:]{4}"))){
-    object <- object %>% activate(nodes) %>% mutate(year = stringr::str_extract(name, "[:digit:]{4}"))
+  if (all(stringr::str_detect(attr(object[1], "names"), "[:digit:]{4}"))) {
+    object <- object %>%
+      activate(nodes) %>%
+      mutate(year = stringr::str_extract(.data$name,
+                                         "[:digit:]{4}"))
   }
-  lo <- ggraph::create_layout(object, layout = "igraph", algorithm = "sugiyama", maxiter = 100000)
-  if(!is.null(lo$year)) lo$y = lo$year
+  lo <- ggraph::create_layout(object, layout = "igraph",
+                              algorithm = "sugiyama",
+                              maxiter = 100000)
+  if (!is.null(lo$year)) lo$y = lo$year
   g <- ggraph::ggraph(object, graph = lo) +
-    ggraph::geom_edge_diagonal(aes(edge_color = as.factor(from)), show.legend = FALSE) +
+    ggraph::geom_edge_diagonal(aes(edge_color = as.factor(.data$from)),
+                               show.legend = FALSE) +
     ggraph::geom_node_point(shape = 3) +
-    ggplot2::theme_void() + ggplot2::coord_flip() + ggplot2::scale_x_reverse()
-  if(labels) g <- g + ggraph::geom_node_text(aes(label = name), nudge_x = 0.1, repel = TRUE)
+    ggplot2::theme_void() +
+    ggplot2::coord_flip() +
+    ggplot2::scale_x_reverse()
+  if (labels) {
+    g <- g + ggraph::geom_node_text(aes(label = .data$name),
+                                    nudge_x = 0.1,
+                                    repel = TRUE)
+  }
   g
 }

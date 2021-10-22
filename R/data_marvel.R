@@ -15,7 +15,7 @@
 #' 
 #' - **Gender**: binary character, 43 "Male" and 10 "Female"
 #' - **PowerOrigin**: binary character, 2 "Alien", 1 "Cyborg", 5 "God/Eternal",
-#' 22 "Human", 1 "Infection", 16 "Mutant", 5 "Radiation", 1 "Robot" 
+#' 22 "Human", 1 "Infection", 16 "Mutant", 5 "Radiation", 1 "Robot"
 #' - **Appearances**: integer, in how many comic book issues they appeared in
 #' - **Attractive**: binary integer, 41 1 (yes) and 12 0 (no)
 #' - **Rich**: binary integer, 11 1 (yes) and 42 0 (no)
@@ -35,23 +35,3 @@
 #' @usage data(ison_marvel_relationships)
 #' @format One-mode igraph of 53 Marvel comic book characters and 558 signed (`1` = friends, `-1` = enemies) undirected ties
 "ison_marvel_relationships"
-
-# marvel_nodes <- read.csv("/Users/hollway/Dropbox/Teaching/Courses/ISON/Data/Marvel/Attributes.csv")
-# library(dplyr)
-# marvel_nodes <- marvel_nodes %>% select(-Birthday) %>% rename("Attractive" = Attractive.Male.Female,
-#                                                               "Rich" = Insanely.Rich) %>% as_tibble()
-# marvel_affil <- as_igraph(as.matrix(read.csv("/Users/hollway/Dropbox/Teaching/Courses/ISON/Data/Marvel/Affiliation.csv", row.names = 1)))
-# library(tidygraph)
-# marvel_affil <- marvel_affil %>% as_tidygraph() %>% activate(nodes) %>% 
-#   mutate(Gender = marvel_nodes$Gender[match(V(marvel_affil)$name, marvel_nodes$Character)],
-#          PowerOrigin = marvel_nodes$Type[match(V(marvel_affil)$name, marvel_nodes$Character)],
-#          Appearances = marvel_nodes$Appearances[match(V(marvel_affil)$name, marvel_nodes$Character)],
-#          Attractive = marvel_nodes$Attractive[match(V(marvel_affil)$name, marvel_nodes$Character)],
-#          Rich = marvel_nodes$Rich[match(V(marvel_affil)$name, marvel_nodes$Character)],
-#          Intellect = marvel_nodes$Intellect[match(V(marvel_affil)$name, marvel_nodes$Character)],
-#          Omnilingual = marvel_nodes$Omni.lingual[match(V(marvel_affil)$name, marvel_nodes$Character)],
-#          UnarmedCombat = marvel_nodes$Unarmed.Combat[match(V(marvel_affil)$name, marvel_nodes$Character)],
-#          ArmedCombat = marvel_nodes$Weapon.Master[match(V(marvel_affil)$name, marvel_nodes$Character)])
-# marvel_frien <- read.csv("/Users/hollway/Dropbox/Teaching/Courses/ISON/Data/Marvel/Marvel Ties 02-13.csv")
-# marvel_frien <- subset(marvel_frien, marvel_frien$Character.1 %in% marvel_nodes$Character & marvel_frien$Character.2 %in% marvel_nodes$Character)
-# marvel_frien <- graph_from_data_frame(marvel_frien, directed = FALSE, vertices = marvel_nodes)

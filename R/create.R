@@ -2,14 +2,14 @@
 #' 
 #' These functions create a variety of different network objects.
 #' Despite the common function names and syntax with existing packages,
-#' the common `n` argument can not only be passed 
+#' the common `n` argument can not only be passed
 #' a single integer to return a one-mode network,
 #' but also a vector of \emph{two} integers to return a two-mode network.
 #' 
 #' @name create
 #' @family creation
-#' @param n Number of nodes. 
-#' If a single integer is given, e.g. `n = 10`, 
+#' @param n Number of nodes.
+#' If a single integer is given, e.g. `n = 10`,
 #' the function will create a one-mode network.
 #' If a vector of two integers is given, e.g. `n = c(5,10)`,
 #' the function will create a two-mode network.
@@ -24,16 +24,14 @@
 #' g <- create_empty(c(8,6))
 #' autographr(g)
 #' @export
-create_empty <- function(n){
-  
-  if(length(n)==1){
+create_empty <- function(n) {
+  if (length(n) == 1) {
     out <- matrix(0, n, n)
     out <- igraph::graph_from_adjacency_matrix(out)
-  } else if (length(n)==2){
+  } else if (length(n) == 2) {
     out <- matrix(0, n[1], n[2])
     out <- igraph::graph_from_incidence_matrix(out)
   } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
-  
   out
 }
 
@@ -43,17 +41,16 @@ create_empty <- function(n){
 #' g <- create_complete(c(8,6))
 #' autographr(g)
 #' @export
-create_complete <- function(n){
+create_complete <- function(n) {
   
-  if(length(n)==1){
+  if (length(n) == 1) {
     out <- matrix(1, n, n)
     diag(out) <- 0
     out <- igraph::graph_from_adjacency_matrix(out)
-  } else if (length(n)==2){
+  } else if (length(n) == 2) {
     out <- matrix(1, n[1], n[2])
     out <- igraph::graph_from_incidence_matrix(out)
   } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
-  
   out
 }
 
@@ -68,42 +65,41 @@ create_complete <- function(n){
 #' autographr(g)
 #' @export
 create_ring <- function(n, width = 1, directed = FALSE, ...) {
-  
-  if(length(n)==1){
-    if(width==1){
-     out <- igraph::make_ring(n, directed, ...) 
+  if (length(n) == 1) {
+    if (width == 1) {
+     out <- igraph::make_ring(n, directed, ...)
     } else {
       out <- w <- as_matrix(igraph::make_ring(n, directed, ...))
-      for(i in 1:(width-1)){
+      for (i in 1:(width - 1)) {
         w <- roll_over(w)
         out <- out + w
       }
       diag(out) <- 0
       out[out > 1] <- 1
-      if(directed){
+      if (directed) {
         out <- igraph::graph_from_adjacency_matrix(out, mode = "directed")
       } else out <- igraph::graph_from_adjacency_matrix(out, mode = "undirected")
     }
-  } else if (length(n)==2){
+  } else if (length(n) == 2) {
     n1 <- n[1]
     n2 <- n[2]
     mat <- matrix(0, n1, n2)
     diag(mat) <- 1
-    while(any(rowSums(mat)==0)){
-      top <- mat[rowSums(mat)==1,]
-      bot <- mat[rowSums(mat)==0,]
+    while (any(rowSums(mat) == 0)) {
+      top <- mat[rowSums(mat) == 1, ]
+      bot <- mat[rowSums(mat) == 0, ]
       diag(bot) <- 1
       mat <- rbind(top, bot)
     }
-    while(any(colSums(mat)==0)){
-      left <- mat[,colSums(mat)==1]
-      right <- mat[,colSums(mat)==0]
+    while (any(colSums(mat) == 0)) {
+      left <- mat[, colSums(mat) == 1]
+      right <- mat[, colSums(mat) == 0]
       diag(right) <- 1
       mat <- cbind(left, right)
     }
-    if(width!=0) mat <- mat + roll_over(mat)
-    if(width > 1){
-      for(i in 1:(width-1)){
+    if (width != 0) mat <- mat + roll_over(mat)
+    if (width > 1) {
+      for (i in 1:(width - 1)) {
         w <- roll_over(mat)
         mat <- mat + w
       }
@@ -122,22 +118,23 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
 #' autographr(create_components(c(10, 12), components = 3))
 #' @export
 create_components <- function(n, components = 2) {
-  
-  if(length(n)==1){
-    if(components > n) stop("Cannot have more components than nodes in the graph.")
+  if (length(n) == 1) {
+    if (components > n) stop("Cannot have more components than nodes in the graph.")
     out <- matrix(0, n, n)
-    for(x in split(1:n, sort(1:n %% components))){
-      out[x,x] <- 1
+    for (x in split(1:n, sort(1:n %% components))) {
+      out[x, x] <- 1
     }
     diag(out) <- 0
     out <- igraph::graph_from_adjacency_matrix(out)
-  } else if (length(n)==2){
-    if(components > n[1] | components > n[2]) stop("Cannot have more components than nodes in any nodeset.")
+  } else if (length(n) == 2) {
+    if (components > n[1] | components > n[2]) {
+      stop("Cannot have more components than nodes in any nodeset.")
+    }
     out <- matrix(0, n[1], n[2])
-    for(x in 1:components){
+    for (x in 1:components) {
       rows <- split(1:n[1], sort(1:n[1] %% components))[[x]]
       cols <- split(1:n[2], sort(1:n[2] %% components))[[x]]
-      out[rows,cols] <- 1
+      out[rows, cols] <- 1
     }
     out <- igraph::graph_from_incidence_matrix(out)
   } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
@@ -150,31 +147,30 @@ create_components <- function(n, components = 2) {
 #' @examples
 #' autographr(create_star(c(12,1)))
 #' @export
-create_star <- function(n, directed = "in"){
+create_star <- function(n, directed = "in") {
   
-  if(length(n)==1){
+  if (length(n) == 1) {
     out <- matrix(0, n, n)
-    if(directed == "in"){
-      out[,1] <- 1
+    if (directed == "in") {
+      out[, 1] <- 1
     } else {
-      out[1,] <- 1
+      out[1, ] <- 1
     }
     out <- igraph::graph_from_adjacency_matrix(out)
-  } else if (length(n)==2){
+  } else if (length(n) == 2) {
     out <- matrix(0, n[1], n[2])
-    if(directed == "in"){
-      out[,1] <- 1
+    if (directed == "in") {
+      out[, 1] <- 1
     } else {
-      out[1,] <- 1
+      out[1, ] <- 1
     }
     out <- igraph::graph_from_incidence_matrix(out)
   } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
   out
 }
-
 # Helper function
-roll_over <- function(w){
-  cbind(w[,ncol(w)], w[,1:(ncol(w)-1)])
+roll_over <- function(w) {
+  cbind(w[, ncol(w)], w[, 1:(ncol(w) - 1)])
 }
 
 # #' @rdname create

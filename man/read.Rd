@@ -18,8 +18,8 @@ write_ucinet(
 )
 }
 \arguments{
-\item{file, header_file}{A character string giving the path to the header (.##h) file.
-If the function is called without a header_file specified,
+\item{file, header_file}{A character string giving the path to the header
+(.##h) file. If the function is called without a header_file specified,
 an OS-specific file picker is opened to help users select it.}
 
 \item{object}{A migraph-consistent object to be exported.}

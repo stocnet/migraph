@@ -35,30 +35,28 @@ NULL
 #' graph_density(mpn_elite_mex)
 #' graph_density(mpn_elite_usa_advice)
 #' @export
-graph_density <- function(object){
-  if(is_twomode(object)){
+graph_density <- function(object) {
+  if (is_twomode(object)) {
     mat <- as_matrix(object)
-    sum(mat)/(nrow(mat)*ncol(mat))
+    sum(mat) / (nrow(mat) * ncol(mat))
   } else {
-    igraph::edge_density(as_igraph(object))  
+    igraph::edge_density(as_igraph(object))
   }
 }
-
 #' @rdname cohesion
 #' @importFrom igraph reciprocity
 #' @examples
 #' graph_reciprocity(southern_women)
 #' @export
-graph_reciprocity <- function(object){
+graph_reciprocity <- function(object) {
   igraph::reciprocity(as_igraph(object))
 }
-
 #' @rdname cohesion
 #' @importFrom igraph transitivity
 #' @examples
 #' graph_transitivity(southern_women)
 #' @export
-graph_transitivity <- function(object){
+graph_transitivity <- function(object) {
   igraph::transitivity(as_igraph(object))
 }
 
@@ -66,41 +64,38 @@ graph_transitivity <- function(object){
 #' @examples
 #' graph_equivalency(southern_women)
 #' @export
-graph_equivalency <- function(object, object2 = NULL){
-  
-  if(!is.null(object2)){ # run three-mode clustering
+graph_equivalency <- function(object, object2 = NULL) {
+  if (!is.null(object2)) { # run three-mode clustering
     mat1 <- as_matrix(object)
     mat2 <- as_matrix(object2)
     c <- ncol(mat1)
-    
     twopaths1 <- crossprod(mat1)
     indegrees <- diag(twopaths1)
     diag(twopaths1) <- 0
     twopaths2 <- tcrossprod(mat2)
     outdegrees <- diag(twopaths2)
     diag(twopaths2) <- 0
-    
     twopaths <- twopaths1 + twopaths2
     degrees <- indegrees + outdegrees
-    
     output <- sum(twopaths * (twopaths - 1)) /
-      (sum(twopaths * (twopaths - 1)) + sum(twopaths *
-                                              (matrix(degrees, c, c) - twopaths)))
-    if(is.nan(output)) output <- 1
-  } else if (is_twomode(object)){
+      (sum(twopaths * (twopaths - 1)) +
+         sum(twopaths *
+             (matrix(degrees, c, c) - twopaths)))
+    if (is.nan(output)) output <- 1
+  } else if (is_twomode(object)) {
     mat <- as_matrix(object)
     c <- ncol(mat)
     indegrees <- colSums(mat)
     twopaths <- crossprod(mat)
     diag(twopaths) <- 0
     output <- sum(twopaths * (twopaths - 1)) /
-      (sum(twopaths * (twopaths - 1)) + sum(twopaths *
-                                              (matrix(indegrees, c, c) - twopaths)))
-    if(is.nan(output)) output <- 1
+      (sum(twopaths * (twopaths - 1)) +
+         sum(twopaths *
+             (matrix(indegrees, c, c) - twopaths)))
+    if (is.nan(output)) output <- 1
   } else {
     graph <- as_igraph(object)
     output <- igraph::transitivity(graph)
   }
   output
 }
-

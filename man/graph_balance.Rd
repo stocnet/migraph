@@ -4,16 +4,19 @@
 \alias{graph_balance}
 \title{Structural balance}
 \source{
-Gábor Csárdi: http://r.789695.n4.nabble.com/Social-Network-Analysis-td825041.html
+\code{{signnet}} by David Schoch
 }
 \usage{
-graph_balance(object)
+graph_balance(object, method = "triangles")
 }
 \arguments{
 \item{object}{a migraph-consistent object}
+
+\item{method}{one of "triangles" (the default), "walk", or "frustration".}
 }
 \value{
-The proportion of all (balanced or imbalanced) triplets that are balanced
+"triangles" returns the proportion of balanced triangles,
+ranging between \code{0} if all triangles are imbalanced and \code{1} if all triangles are balanced.
 }
 \description{
 Structural balance

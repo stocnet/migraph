@@ -17,13 +17,14 @@ as_tidygraph(object, twomode = FALSE)
 as_network(object)
 }
 \arguments{
-\item{object}{A data frame edgelist, matrix, igraph, tidygraph, or network object.}
+\item{object}{A data frame edgelist, matrix, igraph, tidygraph, or
+network object.}
 
-\item{weight}{An option to override the heuristics for distinguishing weighted
-networks. By default FALSE.}
+\item{weight}{An option to override the heuristics for distinguishing
+weighted networks. By default FALSE.}
 
-\item{twomode}{An option to override the heuristics for distinguishing incidence
-from adjacency matrices. By default FALSE.}
+\item{twomode}{An option to override the heuristics for distinguishing
+incidence from adjacency matrices. By default FALSE.}
 }
 \value{
 The currently implemented coercions or translations are:\tabular{lccccc}{

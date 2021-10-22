@@ -17,8 +17,8 @@ autographr(
 \item{object}{migraph-consistent object}
 
 \item{algorithm}{an igraph layout algorithm,
-currently defaults to Fruchterman-Reingold,
-but Kamada-Kawai and 'stress' also available}
+currently defaults to 'stress'
+but Fruchterman-Reingold and Kamada-Kawai also available}
 
 \item{labels}{logical, whether to print node names
 as labels if present}
