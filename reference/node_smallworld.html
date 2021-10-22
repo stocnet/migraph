@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1</span>
       </span>
     </div>
 
@@ -169,18 +169,20 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a table of small-world related metrics for each second-mode node.</p>
+    <p>Returns a table of small-world related metrics for each second-mode
+node.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The first column of the returned table is simply the number of the second-mode column.
-The next three columns report the observed and expected clustering,
-and the ratio of the former to the later.
+    <p>The first column of the returned table is simply the number of
+the second-mode column. The next three columns report the observed and
+expected clustering, and the ratio of the former to the later.
 The next three columns report the observed and expected path-length,
 and the ratio of the former to the later.
 The last column reports the ratio of the observed/expected clustering ratio
-to the observed/expected path-length ratio, which is known as a small-world metric.
-Expected clustering and paths is the mean of twomode_clustering and mean_distance
-over 100 random simulations with the same row and column sums.</p>
+to the observed/expected path-length ratio, which is known as a small-world
+metric.
+Expected clustering and paths is the mean of twomode_clustering and
+mean_distance over 100 random simulations with the same row and column sums.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='cohesion.html'>graph_transitivity</a></code> and <code><a href='cohesion.html'>graph_equivalency</a></code>
@@ -198,19 +200,19 @@ for how clustering is calculated</p>
     <pre class="examples"><div class='input'><span class='fu'>node_smallworld</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;    Num  ObsClust  ExpClust  ClustRat  ObsPath  ExpPath   PathRat SmallWorld
 #&gt; 1    1        NA        NA        NA       NA       NA        NA         NA
-#&gt; 2    2 0.5000000 0.3750000 1.3333333 1.866667 1.880000 0.9929078  1.3428571
-#&gt; 3    3 0.5600000 0.4753368 1.1781121 1.833333 2.256458 0.8124827  1.4500150
-#&gt; 4    4 0.5882353 0.5803230 1.0136343 1.822222 2.207464 0.8254823  1.2279297
-#&gt; 5    5 0.6268657 0.6587770 0.9515598 1.897436 2.293013 0.8274860  1.1499407
-#&gt; 6    6 0.6129032 0.6942312 0.8828518 2.033333 2.418101 0.8408801  1.0499140
-#&gt; 7    7 0.5544554 0.6603908 0.8395868 2.152632 2.512056 0.8569201  0.9797726
-#&gt; 8    8 0.5388740 0.6630561 0.8127125 2.108696 2.494470 0.8453481  0.9613939
-#&gt; 9    9 0.5095917 0.6090163 0.8367457 2.165242 2.493390 0.8683928  0.9635567
-#&gt; 10  10 0.4997785 0.5489262 0.9104657 2.195767 2.434392 0.9019778  1.0094103
-#&gt; 11  11 0.4854123 0.5012310 0.9684402 2.221675 2.404138 0.9241046  1.0479768
-#&gt; 12  12 0.4952520 0.4796585 1.0325097 2.239080 2.369057 0.9451356  1.0924461
-#&gt; 13  13 0.4888287 0.4709668 1.0379262 2.266667 2.379441 0.9526048  1.0895664
-#&gt; 14  14 0.4871634 0.4704597 1.0355052 2.290323 2.395282 0.9561807  1.0829598</div></pre>
+#&gt; 2    2 0.5000000 0.3400000 1.4705882 1.866667 1.909333 0.9776536  1.5042017
+#&gt; 3    3 0.5600000 0.4727656 1.1845193 1.833333 2.263074 0.8101074  1.4621757
+#&gt; 4    4 0.5882353 0.5942506 0.9898775 1.822222 2.203862 0.8268313  1.1971940
+#&gt; 5    5 0.6268657 0.6504287 0.9637731 1.897436 2.289615 0.8287138  1.1629746
+#&gt; 6    6 0.6129032 0.6969292 0.8794339 2.033333 2.418601 0.8407062  1.0460657
+#&gt; 7    7 0.5544554 0.6603741 0.8396081 2.152632 2.504127 0.8596336  0.9767046
+#&gt; 8    8 0.5388740 0.6621312 0.8138478 2.108696 2.508261 0.8407003  0.9680594
+#&gt; 9    9 0.5095917 0.6188697 0.8234233 2.165242 2.477322 0.8740253  0.9421046
+#&gt; 10  10 0.4997785 0.5489482 0.9104292 2.195767 2.429418 0.9038244  1.0073077
+#&gt; 11  11 0.4854123 0.5002567 0.9703263 2.221675 2.403153 0.9244834  1.0495875
+#&gt; 12  12 0.4952520 0.4811558 1.0292966 2.239080 2.372966 0.9435790  1.0908431
+#&gt; 13  13 0.4888287 0.4725497 1.0344493 2.266667 2.388559 0.9489682  1.0900779
+#&gt; 14  14 0.4871634 0.4701715 1.0361399 2.290323 2.408669 0.9508663  1.0896798</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

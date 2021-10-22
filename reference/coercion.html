@@ -95,7 +95,7 @@ edgelists (as data frames)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1</span>
       </span>
     </div>
 
@@ -183,17 +183,18 @@ These include:</p><ul>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>A data frame edgelist, matrix, igraph, tidygraph, or network object.</p></td>
+      <td><p>A data frame edgelist, matrix, igraph, tidygraph, or
+network object.</p></td>
     </tr>
     <tr>
       <th>weight</th>
-      <td><p>An option to override the heuristics for distinguishing weighted
-networks. By default FALSE.</p></td>
+      <td><p>An option to override the heuristics for distinguishing
+weighted networks. By default FALSE.</p></td>
     </tr>
     <tr>
       <th>twomode</th>
-      <td><p>An option to override the heuristics for distinguishing incidence
-from adjacency matrices. By default FALSE.</p></td>
+      <td><p>An option to override the heuristics for distinguishing
+incidence from adjacency matrices. By default FALSE.</p></td>
     </tr>
     </table>
 
@@ -233,9 +234,9 @@ This information is usually already embedded in <code>{igraph}</code>,
 #&gt; A 0 0 1
 #&gt; B 1 0 1
 #&gt; C 1 1 0</div><div class='input'><span class='fu'>as_igraph</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; IGRAPH e7727af DN-- 6 5 -- 
+</div><div class='output co'>#&gt; IGRAPH 2c4fb50 DN-- 6 5 -- 
 #&gt; + attr: name (v/c)
-#&gt; + edges from e7727af (vertex names):
+#&gt; + edges from 2c4fb50 (vertex names):
 #&gt; [1] A-&gt;I B-&gt;G B-&gt;I C-&gt;G C-&gt;H</div><div class='input'><span class='fu'>as_tidygraph</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tbl_graph: 6 nodes and 5 edges
 #&gt; #

@@ -53,8 +53,8 @@
 
 
 <meta property="og:title" content="Linear regression for multimodal network data — netlm" />
-<meta property="og:description" content="This function extends the multiple regression quadratic assignment procedure (MRQAP)
-of network linear model to two mode networks." />
+<meta property="og:description" content="This function extends the multiple regression quadratic assignment procedure
+(MRQAP) of network linear model to two mode networks." />
 <meta property="og:image" content="https://snlab-ch.github.io/migraph/logo.png" />
 
 
@@ -87,7 +87,7 @@ of network linear model to two mode networks." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1</span>
       </span>
     </div>
 
@@ -150,8 +150,8 @@ of network linear model to two mode networks." />
     </div>
 
     <div class="ref-description">
-    <p>This function extends the multiple regression quadratic assignment procedure (MRQAP)
-of network linear model to two mode networks.</p>
+    <p>This function extends the multiple regression quadratic assignment procedure
+(MRQAP) of network linear model to two mode networks.</p>
     </div>
 
     <pre class="usage"><span class='fu'>netlm</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -184,18 +184,22 @@ of network linear model to two mode networks.</p>
     </tr>
     <tr>
       <th>object</th>
-      <td><p>an object of class "netlm", usually as a result of a call to <code>netlm()</code>.</p></td>
+      <td><p>an object of class "netlm", usually as a result of a call to
+<code>netlm()</code>.</p></td>
     </tr>
     <tr>
       <th>reps</th>
-      <td><p>Integer indicating the number of draws to use for quantile estimation.
-(Relevant to the null hypothesis test only - the analysis itself is unaffected by this parameter.)
-Note that, as for all Monte Carlo procedures, convergence is slower for more extreme quantiles.
+      <td><p>Integer indicating the number of draws to use for quantile
+estimation. (Relevant to the null hypothesis test only - the analysis
+itself is unaffected by this parameter.)
+Note that, as for all Monte Carlo procedures, convergence is slower for more
+extreme quantiles.
 By default, reps=1000.</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>an object of class "summary.netlm", usually, a result of a call to <code>summary.netlm()</code>.</p></td>
+      <td><p>an object of class "summary.netlm", usually, a result of a call to
+<code>summary.netlm()</code>.</p></td>
     </tr>
     <tr>
       <th>digits</th>
@@ -203,7 +207,8 @@ By default, reps=1000.</p></td>
     </tr>
     <tr>
       <th>signif.stars</th>
-      <td><p>logical. If TRUE, ‘significance stars’ are printed for each coefficient.</p></td>
+      <td><p>logical. If TRUE, ‘significance stars’ are printed for
+each coefficient.</p></td>
     </tr>
     </table>
 
@@ -222,8 +227,8 @@ By default, reps=1000.</p></td>
 #&gt; 
 #&gt; Coefficients:
 #&gt;             coefs pvals
-#&gt; (Intercept) 0.375 0.377
-#&gt; mat2        0.250 0.838
+#&gt; (Intercept) 0.375 0.380
+#&gt; mat2        0.250 0.836
 #&gt; mat3        0.250 0.780
 #&gt; 
 #&gt; Multiple R-squared:  0.1333,	Adjusted R-squared:  -0.2133</div></pre>

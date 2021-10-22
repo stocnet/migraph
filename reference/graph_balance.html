@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1</span>
       </span>
     </div>
 
@@ -152,7 +152,7 @@
     <p>Structural balance</p>
     </div>
 
-    <pre class="usage"><span class='fu'>graph_balance</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>graph_balance</span><span class='op'>(</span><span class='va'>object</span>, method <span class='op'>=</span> <span class='st'>"triangles"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,14 +161,19 @@
       <th>object</th>
       <td><p>a migraph-consistent object</p></td>
     </tr>
+    <tr>
+      <th>method</th>
+      <td><p>one of "triangles" (the default), "walk", or "frustration".</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p>Gábor Csárdi: http://r.789695.n4.nabble.com/Social-Network-Analysis-td825041.html</p>
+    <p><code>{signnet}</code> by David Schoch</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The proportion of all (balanced or imbalanced) triplets that are balanced</p>
+    <p>"triangles" returns the proportion of balanced triangles,
+ranging between <code>0</code> if all triangles are imbalanced and <code>1</code> if all triangles are balanced.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
