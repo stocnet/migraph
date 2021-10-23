@@ -84,7 +84,7 @@ ggtree <- function(hc, k = NULL){
   if (is.null(k)) {
     ggdendro::ggdendrogram(hc, rotate = TRUE)
   } else {
-    colors <- suppressWarnings(RColorBrewer::brewer.pal(k, "Set3"))
+    colors <- suppressWarnings(RColorBrewer::brewer.pal(k, "Set1"))
     colors <- (colors[stats::cutree(hc, k = k)])[hc$order]
     ggdendro::ggdendrogram(hc, rotate = TRUE) +
       ggplot2::geom_hline(yintercept = hc$height[length(hc$order) - k],

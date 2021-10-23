@@ -1,3 +1,26 @@
+# migraph 0.8.2
+
+## Package
+
+- Fixed CRAN package check dependencies bug where 'knitr' and 'rmarkdown' were listed as Imports without being used in the package
+
+## Classes
+
+- Fixed bug where bipartite edge lists were not being recognised as a twomode network by `as_igraph()`
+- Fixed bug where `to_uniplex()` was not returning a weighted graph
+
+## Models
+
+- Fixed bug where `blockmodel()` was not retaining node names in all parts of the object structure
+
+## Visualization
+
+- Closed #107 by choosing better brewer pallette (though note this is not a very deep pallette with only 9 colors)
+
+## Vignettes
+
+- Expanded on the blockmodelling vignette with more intro, discussion, interpretation clues
+
 # migraph 0.8.1
 
 ## Package

@@ -11,6 +11,7 @@
 \alias{to_unsigned}
 \alias{to_simplex}
 \alias{to_named}
+\alias{to_multilevel}
 \title{Tools for reformatting networks, graphs, and matrices}
 \usage{
 to_unweighted(object, threshold = 1)
@@ -30,6 +31,8 @@ to_unsigned(object, keep = c("positive", "negative"))
 to_simplex(object)
 
 to_named(object)
+
+to_multilevel(object)
 }
 \arguments{
 \item{object}{A matrix, \code{{igraph}} graph, \code{{tidygraph}} tbl_graph, or
@@ -59,4 +62,5 @@ to_unsigned(ison_marvel_relationships, "positive")
 to_unsigned(ison_marvel_relationships, "negative")
 to_simplex(ison_m182)
 to_named(ison_m182)
+to_multilevel(mpn_elite_usa_advice)
 }
