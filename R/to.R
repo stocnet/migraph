@@ -220,9 +220,8 @@ to_named <- function(object) UseMethod("to_named")
 
 #' @export
 to_named.tbl_graph <- function(object) {
-  as_tidygraph(object) %>%
-    mutate(name = sample(baby_names,
-                         igraph::vcount(object)))
+  object %>% mutate(name = sample(baby_names,
+                                  igraph::vcount(object)))
 }
 
 #' @export
@@ -231,3 +230,24 @@ to_named.igraph <- function(object) {
                                     igraph::vcount(object))
   object
 }
+
+#' @rdname to
+#' @examples
+#' to_multilevel(ison_m182)
+#' @export
+to_multilevel <- function(object) UseMethod("to_multilevel")
+
+#' @export
+to_multilevel.tbl_graph <- function(object) {
+  object %>%
+    mutate(lvl = ifelse(type, 2, 1)) %>% 
+    select(-type)
+}
+
+#' @export
+to_multilevel.igraph <- function(object) {
+  igraph::V(object)$lvl <- ifelse(igraph::V(object)$type, 2, 1)
+  object <- igraph::delete_vertex_attr(object, "type")
+  object
+}
+
