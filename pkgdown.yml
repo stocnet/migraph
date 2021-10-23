@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   blockmodel: blockmodel.html
-last_built: 2021-10-22T11:40Z
+last_built: 2021-10-23T15:43Z
 urls:
   reference: https://snlab-ch.github.io/migraph//reference
   article: https://snlab-ch.github.io/migraph//articles

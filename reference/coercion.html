@@ -95,7 +95,7 @@ edgelists (as data frames)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2</span>
       </span>
     </div>
 
@@ -234,23 +234,23 @@ This information is usually already embedded in <code>{igraph}</code>,
 #&gt; A 0 0 1
 #&gt; B 1 0 1
 #&gt; C 1 1 0</div><div class='input'><span class='fu'>as_igraph</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; IGRAPH 2c4fb50 DN-- 6 5 -- 
-#&gt; + attr: name (v/c)
-#&gt; + edges from 2c4fb50 (vertex names):
+</div><div class='output co'>#&gt; IGRAPH ffb9f44 DN-B 6 5 -- 
+#&gt; + attr: name (v/c), type (v/l)
+#&gt; + edges from ffb9f44 (vertex names):
 #&gt; [1] A-&gt;I B-&gt;G B-&gt;I C-&gt;G C-&gt;H</div><div class='input'><span class='fu'>as_tidygraph</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tbl_graph: 6 nodes and 5 edges
 #&gt; #
 #&gt; # A rooted tree
 #&gt; #
-#&gt; # Node Data: 6 × 1 (active)</span>
-#&gt;   name 
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> A    
-#&gt; <span style='color: #BCBCBC;'>2</span> B    
-#&gt; <span style='color: #BCBCBC;'>3</span> C    
-#&gt; <span style='color: #BCBCBC;'>4</span> I    
-#&gt; <span style='color: #BCBCBC;'>5</span> G    
-#&gt; <span style='color: #BCBCBC;'>6</span> H    
+#&gt; # Node Data: 6 × 2 (active)</span>
+#&gt;   name  type 
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> A     FALSE
+#&gt; <span style='color: #BCBCBC;'>2</span> B     FALSE
+#&gt; <span style='color: #BCBCBC;'>3</span> C     FALSE
+#&gt; <span style='color: #BCBCBC;'>4</span> I     TRUE 
+#&gt; <span style='color: #BCBCBC;'>5</span> G     TRUE 
+#&gt; <span style='color: #BCBCBC;'>6</span> H     TRUE 
 #&gt; <span style='color: #949494;'>#
 #&gt; # Edge Data: 5 × 2</span>
 #&gt;    from    to

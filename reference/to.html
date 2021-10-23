@@ -90,7 +90,7 @@ vertices." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2</span>
       </span>
     </div>
 
@@ -176,7 +176,9 @@ vertices.</p>
 
 <span class='fu'>to_simplex</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
 
-<span class='fu'>to_named</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></pre>
+<span class='fu'>to_named</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
+
+<span class='fu'>to_multilevel</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,9 +206,9 @@ the "positive" or "negative" ties</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>to_unweighted</span><span class='op'>(</span><span class='fu'><a href='project.html'>project_rows</a></span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; IGRAPH 5a1756b UN-- 18 139 -- 
+</div><div class='output co'>#&gt; IGRAPH c0cc1f7 UN-- 18 139 -- 
 #&gt; + attr: name (v/c)
-#&gt; + edges from 5a1756b (vertex names):
+#&gt; + edges from c0cc1f7 (vertex names):
 #&gt;  [1] EVELYN --LAURA     EVELYN --BRENDA    EVELYN --THERESA   EVELYN --CHARLOTTE
 #&gt;  [5] EVELYN --FRANCES   EVELYN --ELEANOR   EVELYN --RUTH      EVELYN --PEARL    
 #&gt;  [9] EVELYN --NORA      EVELYN --VERNE     EVELYN --MYRA      EVELYN --KATHERINE
@@ -216,9 +218,9 @@ the "positive" or "negative" ties</p></td>
 #&gt; [25] LAURA  --NORA      LAURA  --VERNE     LAURA  --SYLVIA    LAURA  --HELEN    
 #&gt; [29] LAURA  --MYRA      LAURA  --KATHERINE LAURA  --DOROTHY   THERESA--BRENDA   
 #&gt; + ... omitted several edges</div><div class='input'><span class='fu'>to_unnamed</span><span class='op'>(</span><span class='fu'><a href='project.html'>project_rows</a></span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; IGRAPH bf7fe2f U-W- 18 139 -- 
+</div><div class='output co'>#&gt; IGRAPH b88676f U-W- 18 139 -- 
 #&gt; + attr: weight (e/n)
-#&gt; + edges from bf7fe2f:
+#&gt; + edges from b88676f:
 #&gt;   [1] 1-- 2 1-- 4 1-- 3 1-- 5 1-- 6 1-- 7 1-- 9 1-- 8 1--14 1--10 1--11 1--12
 #&gt;  [13] 1--13 1--15 1--16 1--17 1--18 2-- 4 2-- 3 2-- 5 2-- 6 2-- 7 2-- 9 2-- 8
 #&gt;  [25] 2--14 2--10 2--13 2--15 2--11 2--12 2--16 3-- 4 3-- 5 3-- 6 3-- 7 3-- 9
@@ -278,11 +280,11 @@ the "positive" or "negative" ties</p></td>
 #&gt; <span style='color: #949494;'># … with 10 more rows</span>
 #&gt; <span style='color: #949494;'>#
 #&gt; # Edge Data: 62 × 3</span>
-#&gt;    from    to friend_tie
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span>     2     1          1
-#&gt; <span style='color: #BCBCBC;'>2</span>     2     7          1
-#&gt; <span style='color: #BCBCBC;'>3</span>     2     8          1
+#&gt;    from    to weight
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     2     1      1
+#&gt; <span style='color: #BCBCBC;'>2</span>     2     7      1
+#&gt; <span style='color: #BCBCBC;'>3</span>     2     8      1
 #&gt; <span style='color: #949494;'># … with 59 more rows</span></div><div class='input'><span class='fu'>to_unsigned</span><span class='op'>(</span><span class='va'>ison_marvel_relationships</span>, <span class='st'>"positive"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tbl_graph: 53 nodes and 277 edges
 #&gt; #
@@ -373,7 +375,29 @@ the "positive" or "negative" ties</p></td>
 #&gt; <span style='color: #BCBCBC;'>1</span>     1     5          0       1.2       0.3
 #&gt; <span style='color: #BCBCBC;'>2</span>     1     8          0       0.15      0  
 #&gt; <span style='color: #BCBCBC;'>3</span>     1     9          0       2.85      0.3
-#&gt; <span style='color: #949494;'># … with 141 more rows</span></div></pre>
+#&gt; <span style='color: #949494;'># … with 141 more rows</span></div><div class='input'><span class='fu'>to_multilevel</span><span class='op'>(</span><span class='va'>mpn_elite_usa_advice</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tbl_graph: 34 nodes and 46 edges
+#&gt; #
+#&gt; # An undirected simple graph with 1 component
+#&gt; #
+#&gt; # Node Data: 34 × 2 (active)</span>
+#&gt;   name       lvl
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> Albright     1
+#&gt; <span style='color: #BCBCBC;'>2</span> Argyros      1
+#&gt; <span style='color: #BCBCBC;'>3</span> Armitage     1
+#&gt; <span style='color: #BCBCBC;'>4</span> Curry        1
+#&gt; <span style='color: #BCBCBC;'>5</span> Fukuyama     1
+#&gt; <span style='color: #BCBCBC;'>6</span> Gray         1
+#&gt; <span style='color: #949494;'># … with 28 more rows</span>
+#&gt; <span style='color: #949494;'>#
+#&gt; # Edge Data: 46 × 2</span>
+#&gt;    from    to
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     1    17
+#&gt; <span style='color: #BCBCBC;'>2</span>     1    19
+#&gt; <span style='color: #BCBCBC;'>3</span>     1    21
+#&gt; <span style='color: #949494;'># … with 43 more rows</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
