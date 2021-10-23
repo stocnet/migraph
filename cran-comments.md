@@ -9,4 +9,4 @@
 
 0 errors | 0 warnings | 0 notes
 
-- Fixed codecov url bug in README
+- Fixed CRAN package check dependencies bug where 'knitr' and 'rmarkdown' were listed as Imports without being used in the package
