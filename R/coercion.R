@@ -119,6 +119,9 @@ as_igraph.data.frame <- function(object,
                                  weight = FALSE,
                                  twomode = FALSE) {
   graph <- igraph::graph_from_data_frame(object)
+  if(length(intersect(c(object[,1]), c(object[,2]))) == 0){
+    igraph::V(graph)$type <- igraph::V(graph)$name %in% object[,2]
+  }
   graph
 }
 
