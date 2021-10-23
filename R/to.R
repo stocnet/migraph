@@ -144,7 +144,7 @@ to_main_component.igraph <- function(object) {
 
 #' @rdname to
 #' @importFrom igraph delete_edges edge_attr_names delete_edge_attr
-#' @importFrom igraph E get.edge.attribute
+#' @importFrom igraph E get.edge.attribute edge_attr_names
 #' @examples
 #' to_uniplex(ison_m182, "friend_tie")
 #' @export
@@ -165,6 +165,7 @@ to_uniplex.igraph <- function(object, edge){
       out <- igraph::delete_edge_attr(out, e) 
     }
   }
+  if(is.numeric(igraph::get.edge.attribute(object, edge))) names(igraph::edge_attr(out)) <- "weight"
   out
 }
 
