@@ -62,10 +62,11 @@ cluster_regular_equivalence <- function(object){
 #' @importFrom sna blockmodel
 #' @export
 blockmodel <- function(object, clusters){
-  mat <- as_matrix(object)
+  mat <- as_matrix(object, weight = TRUE)
   out <- sna::blockmodel(mat, clusters)
   out$modes <- 1
-  out$plabels <- rownames(mat)
+  rownames(out$blocked.data) <- out$plabels <- rownames(mat)
+  colnames(out$blocked.data) <- out$glabels <- colnames(mat)
   out
 }
 
