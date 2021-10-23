@@ -234,15 +234,13 @@ to_named.igraph <- function(object) {
 
 #' @rdname to
 #' @examples
-#' to_multilevel(ison_m182)
+#' to_multilevel(mpn_elite_usa_advice)
 #' @export
 to_multilevel <- function(object) UseMethod("to_multilevel")
 
 #' @export
 to_multilevel.tbl_graph <- function(object) {
-  object %>%
-    mutate(lvl = ifelse(type, 2, 1)) %>% 
-    select(-type)
+  as_tidygraph(to_multilevel(as_igraph(object)))
 }
 
 #' @export
