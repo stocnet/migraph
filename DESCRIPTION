@@ -37,7 +37,9 @@ Imports:
     stringr,
     tibble,
     tidygraph,
-    tidyr
+    tidyr,
+    concaveman,
+    ggforce
 Suggests: 
     knitr,
     testthat,
