@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 # Setting up
 
 For this lab, we'll use a few different packages for data and analysis.
-We're going to use the `ison_m182` dataset from last week, now directly from the package.
+We're going to use the `ison_m182` dataset again, directly from the package.
 
 ```{r setup}
 suppressPackageStartupMessages(library(migraph)) # note that you may need a special version for what follows...
