@@ -6,18 +6,24 @@
 \alias{graph_reciprocity}
 \alias{graph_transitivity}
 \alias{graph_equivalency}
+\alias{graph_congruency}
 \title{Cohesion for one-, two-, and three- mode networks}
 \usage{
 graph_density(object)
 
-graph_reciprocity(object)
+graph_reciprocity(object, method = "default")
 
 graph_transitivity(object)
 
-graph_equivalency(object, object2 = NULL)
+graph_equivalency(object)
+
+graph_congruency(object, object2)
 }
 \arguments{
 \item{object}{A one-mode or two-mode matrix, igraph, or tidygraph}
+
+\item{method}{For reciprocity, either \code{default} or \code{ratio}.
+See \code{?igraph::reciprocity}}
 
 \item{object2}{Optionally, a second (two-mode) matrix, igraph, or tidygraph}
 }
@@ -31,10 +37,10 @@ to the number of possible ties.
 For one-mode networks, shallow wrappers of igraph versions exist via
 \code{graph_reciprocity} and \code{graph_transitivity}.
 
-For two-mode networks, \code{graph_equivalence} calculates the proportion of three-paths in the network
+For two-mode networks, \code{graph_equivalency} calculates the proportion of three-paths in the network
 that are closed by fourth tie to establish a "shared four-cycle" structure.
 
-For three-mode networks, \code{graph_equivalence} calculates the proportion of three-paths spanning the two two-mode networks
+For three-mode networks, \code{graph_congruency} calculates the proportion of three-paths spanning the two two-mode networks
 that are closed by a fourth tie to establish a "congruent four-cycle" structure.
 }
 \examples{
