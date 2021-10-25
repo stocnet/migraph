@@ -17,6 +17,6 @@ mat1 <- create_ring(5,10)
 mat2 <- create_ring(5,8)
 
 test_that("three-mode clustering calculated correctly",{
-  expect_equal(round(graph_equivalency(mat1, mat2), 4), 0.7143)
+  expect_equal(round(graph_congruency(mat1, mat2), 4), 0.7143)
 })
 

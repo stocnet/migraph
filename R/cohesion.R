@@ -102,4 +102,5 @@ graph_congruency <- function(object, object2){
        sum(twopaths *
              (matrix(degrees, c, c) - twopaths)))
   if (is.nan(output)) output <- 1
+  output
 }
