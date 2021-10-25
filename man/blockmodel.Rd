@@ -2,8 +2,6 @@
 % Please edit documentation in R/blockmodel.R
 \name{blockmodel}
 \alias{blockmodel}
-\alias{cluster_structural_equivalence}
-\alias{cluster_regular_equivalence}
 \alias{blockmodel_concor}
 \alias{print.blockmodel}
 \alias{reduce_graph}
@@ -12,10 +10,6 @@
 \url{https://github.com/aslez/concoR}
 }
 \usage{
-cluster_structural_equivalence(mat)
-
-cluster_regular_equivalence(object)
-
 blockmodel(object, clusters)
 
 blockmodel_concor(
@@ -31,9 +25,7 @@ blockmodel_concor(
 reduce_graph(blockmodel, block_labels = NULL)
 }
 \arguments{
-\item{mat}{a (long) matrix of ties}
-
-\item{object}{a migraph-consistent object}
+\item{object}{A migraph-consistent object (matrix, igraph, tidygraph).}
 
 \item{clusters}{the vector of cluster membership for the blockmodel}
 
@@ -67,8 +59,6 @@ plot(mex_concor)
 usa_concor <- blockmodel_concor(mpn_elite_usa_advice)
 usa_concor
 plot(usa_concor)
-res <- cluster_structural_equivalence(node_tie_census(mpn_elite_mex))
-res <- cluster_regular_equivalence(node_triad_census(mpn_elite_mex))
 }
 \references{
 Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.

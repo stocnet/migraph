@@ -101,11 +101,11 @@ ggtree <- function(hc, k = NULL){
 #' @importFrom sna gcor
 #' @importFrom stats cutree coef
 #' @examples
-#' ggidentify_clusters(res, t(node_triad_census(mpn_elite_mex)))
+#' ggidentify_clusters(res, node_triad_census(mpn_elite_mex))
 #' @export
-ggidentify_clusters <- function(hc, mat, method = "elbow"){
-  vertices <- ncol(mat)
-  observedcorrelation <- cor(mat)
+ggidentify_clusters <- function(hc, census, method = "elbow"){
+  vertices <- nrow(census)
+  observedcorrelation <- cor(t(census))
   
   clusterCorr <- function(observed_cor_matrix, cluster_vector) {
     num_vertices = nrow(observed_cor_matrix)

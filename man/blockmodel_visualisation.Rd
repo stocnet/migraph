@@ -11,7 +11,7 @@
 
 ggtree(hc, k = NULL)
 
-ggidentify_clusters(hc, mat, method = "elbow")
+ggidentify_clusters(hc, census, method = "elbow")
 }
 \arguments{
 \item{x}{A blockmodel-class object.}
@@ -25,9 +25,9 @@ but, if specified, \code{ggtree} will color branches and
 add a line to indicate where the corresponding cluster
 cut would be.}
 
-\item{mat}{the matrix}
-
 \item{method}{only "elbow" is currently implemented.}
+
+\item{mat}{the matrix}
 }
 \description{
 ggplot2-based plotting of blockmodel results
@@ -39,5 +39,5 @@ usa_concor <- blockmodel_concor(mpn_elite_usa_advice)
 plot(usa_concor)
 res <- cluster_regular_equivalence(mpn_elite_mex)
 ggtree(res, 4)
-ggidentify_clusters(res, t(node_triad_census(mpn_elite_mex)))
+ggidentify_clusters(res, node_triad_census(mpn_elite_mex))
 }
