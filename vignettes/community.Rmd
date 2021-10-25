@@ -1,0 +1,116 @@
+---
+title: "Practical 4"
+author: "James Hollway"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Practical 4}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+For this lab, we'll mostly rely on the `{igraph}` and `{migraph}` packages for analysis.
+The data we're going to use is included in the `{migraph}` package
+
+```{r setup}
+suppressPackageStartupMessages(library(igraph))
+suppressPackageStartupMessages(library(migraph))
+data("ison_m182", package = "migraph")
+# ?migraph::ison_m182
+```
+
+Note that you do not need to load the package using library() to get the data.
+Now you know how to create new matrices in R, load .csv files, 
+saved .RData files, and data from packages!
+
+# Working with Multiplex Networks
+
+This dataset is multiplex, meaning that it contains 
+several different types of ties: friendship, social and task interactions.
+
+The network is anonymous, but I think it would be nice to add some names,
+even if it's just pretend. Luckily, I've added a function for this.
+This makes plotting the network just a wee bit more accessible:
+
+```{r addingnames}
+ison_m182 <- to_named(ison_m182)
+autographr(ison_m182)
+```
+
+There are actually three different types of tie here. 
+Let's separate them out into separate networks.
+
+```{r separatingnets}
+(m182_friend <- to_uniplex(ison_m182, "friend_tie"))
+gfriend <- autographr(m182_friend) + ggtitle("Friendship")
+(m182_social <- to_uniplex(ison_m182, "social_tie"))
+gsocial <- autographr(m182_social) + ggtitle("Social")
+(m182_task <- to_uniplex(ison_m182, "task_tie"))
+gtask <- autographr(m182_task) + ggtitle("Task")
+grid.arrange(gfriend, gsocial, gtask, ncol = 3)
+```
+
+# Cohesion
+
+Let's concentrate on the task network for now and calculate a few basic
+measures of cohesion: density, reciprocity, transitivity, and components.
+
+## Density
+
+Because this is a directed network, 
+
+```{r dens-explicit}
+length(E(m182_task))/(length(V(m182_task))*(length(V(m182_task))-1))
+```
+
+but we can also just use the `{migraph}` function...
+
+```{r dens}
+graph_density(m182_task)
+```
+
+Same result? Is this high or low?
+
+## Closure
+
+Next let's calculate reciprocity.
+
+```{r recip}
+graph_reciprocity(m182_task)
+```
+
+Next let's calculate transitivity.
+
+```{r trans}
+graph_transitivity(m182_task)
+```
+
+What can we say about task closure in this network?
+
+## Components
+
+Now let's look at the friend network.
+
+```{r comp-no}
+graph_components(m182_friend)
+graph_components(m182_friend, method = "strong")
+```
+
+How many components are there? Why?
+ 
+We can use the membership vector in the resulting object to color nodes:
+
+```{r comp-memb}
+m182_friend <- m182_friend %>% 
+  mutate(weak_comp = node_components(m182_friend),
+         strong_comp = node_components(m182_friend, method = "strong"))
+autographr(m182_friend, node_color = "weak_comp")
+autographr(m182_friend, node_color = "strong_comp")
+```
+
