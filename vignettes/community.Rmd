@@ -114,6 +114,178 @@ autographr(m182_friend, node_color = "weak_comp")
 autographr(m182_friend, node_color = "strong_comp")
 ```
 
+# Community Detection
+
+Ok, the friendship network has 3-4 components, but how many 'groups' are there?
+Just visually, it looks like there are two denser clusters within the main component.
+
+Today we'll use the friend subgraph for exploring community detection methods.
+For clarity and simplicity, concentrate on the main component and 
+consider friendship undirected:
+
+```{r manip-fri}
+(m182_friend <- to_main_component(m182_friend))
+(m182_friend <- to_undirected(m182_friend))
+autographr(m182_friend)
+```
+
+Comparing m182_friend before and after these operations, 
+you'll notice the number of edges decreases as reciprocated directed ties
+are consolidated into single undirected ties, 
+and the number of vertices decreases as isolates are removed.
+
+There is no one single best community detection algorithm. 
+Instead there are several, each with their strengths and weaknesses. 
+Since this is a rather small network, we'll focus on the following methods: 
+walktrap, edge betweenness, and fast greedy.
+`{igraph}` also includes others though too; all are named cluster_...
+As you use them, consider how they portray clusters and consider which one(s) 
+afford a sensible view of the social world as cohesively organized.
+
+## Walktrap
+
+This algorithm detects communities through a series of short random walks, 
+with the idea that nodes encountered on any given random walk 
+are more likely to be within a community than not.
+It was proposed by Pons and Latapy (2005).
+
+The algorithm initially treats all nodes as communities of their own, then 
+merges them into larger communities, still larger communities, and so on.
+In each step a new community is created from two other communities, 
+and its ID will be one larger than the largest community ID so far. 
+This means that before the first merge we have n communities 
+(the number of vertices in the graph) numbered from zero to n-1.
+The first merge creates community n, the second community n+1, etc. 
+This merge history is returned by the function: 
+` # ?igraph::cluster_walktrap`
+
+Note the "steps=" argument that specifies the length of the random walks.
+This is set to 4 by default, which is what is recommended by Pons and Latapy.
+However, Waugh et al (2009) found that for many groups (Congresses), 
+these lengths did not provide the maximum modularity score. 
+To be thorough in their attempts to optimize modularity, they ran the walktrap 
+algorithm 50 times for each group (using random walks of lengths 1–50) and 
+selected the network partition with the highest modularity value from those 50. 
+They call this the "maximum modularity partition" and insert the parenthetical 
+"(though, strictly speaking, this cannot be proven to be the optimum without 
+computationally-prohibitive exhaustive enumeration (Brandes et al. 2008))."
+
+So let's try and get a community classification using the walktrap algorithm
+with path lengths of the random walks specified to be 50.
+
+```{r walk}
+friend_wt <- cluster_walktrap(m182_friend, steps=50)
+friend_wt
+```
+
+This says that dividing the graph into 2 communities maximises modularity,
+one with the nodes 2, 7, 8, 13, 14, and the other 1, 3, 5, 6, 9, 10, 11, 12, 15, 
+resulting in a modularity of `r friend_wt$modularity`.
+
+ADVANCED, we will also come back to this next week:
+We can visualise how clusters are hierarchically nested in a dendrogram.
+
+```{r walkdendro}
+friend_dend <- as.dendrogram(friend_wt, use.modularity=TRUE)
+ggtree(friend_dend)
+```
+
+Note the x-axis reflects the distance metric used by the walktrap algorithm.
+For more on this see Pons and Latapy, http://arxiv.org/abs/physics/0512106.
+
+We can also visualise the clusters on the original network
+How does the following look? Plausible?
+
+```{r walkplot}
+m182_friend <- m182_friend %>% 
+  mutate(walk_comm = friend_wt$membership)
+autographr(m182_friend, node_color = "walk_comm")
+# to be fancy, we could even draw the group borders around the nodes
+autographr(m182_friend, node_group = "walk_comm")
+# or both!
+autographr(m182_friend, 
+           node_color = "walk_comm", 
+           node_group = "walk_comm")
+```
+
+This can be helpful when polygons overlap to better identify membership
+Or use node color and size to indicate other attributes...
+
+## Edge Betweenness
+
+Edge betweenness `?cluster_edge_betweenness` 
+is like betweenness centrality but for edges not nodes.
+The edge-betweenness score of an edge measures the number of
+shortest paths from one vertex to another that go through it.
+
+The idea of the edge-betweenness based community structure detection is that 
+it is likely that edges connecting separate clusters have high edge-betweenness, 
+as all the shortest paths from one cluster to another must traverse through them. 
+So if we iteratively remove the edge with the highest edge-betweenness score 
+we will get a hierarchical map (dendrogram) of the communities in the graph. 
+
+The following works similarly to walktrap, but no need to set a step length. 
+
+```{r eb}
+friend_eb <- cluster_edge_betweenness(m182_friend)
+friend_eb
+```
+
+How does community membership differ here from that found by walktrap?
+
+We can see how the edge betweenness community detection method works
+here: http://jfaganuk.github.io/2015/01/24/basic-network-analysis/
+We can see which edges were removed in which order here:
+
+```{r ebdendro}
+friend_eb$removed.edges
+friend_eb$modularity
+ggtree(as.dendrogram(friend_eb, use.modularity = T))
+```
+
+To visualise the result:
+
+```{r ebplot}
+m182_friend <- m182_friend %>% 
+  mutate(eb_comm = friend_eb$membership)
+autographr(m182_friend, 
+           node_color = "eb_comm", 
+           node_group = "eb_comm")
+```
+
+For more on this algorithm, see M Newman and M Girvan: Finding and 
+evaluating community structure in networks, Physical Review E 69, 026113
+(2004), http://arxiv.org/abs/cond-mat/0308217. 
+
+## Fast Greedy
+
+This algorithm `?cluster_fast_greedy` is the Clauset-Newman-Moore algorithm. 
+Whereas edge betweenness was divisive (top-down), 
+the fast greedy algorithm is agglomerative (bottom-up).
+
+At each step, the algorithm seeks a merge that would most increase modularity.
+This is very fast, but has the disadvantage of being a greedy algorithm, 
+so it might not produce the best overall community partitioning, 
+although I personally find it both useful and in many cases quite "accurate". 
+
+```{r fg}
+friend_fg <- cluster_fast_greedy(m182_friend)
+friend_fg # Does this result in a different community partition?
+friend_fg$modularity # Compare this to the edge betweenness procedure
+
+# Again, we can visualise these communities in different ways:
+ggtree(as.dendrogram(friend_fg, use.modularity = T)) # dendrogram
+m182_friend <- m182_friend %>% 
+  mutate(fg_comm = friend_fg$membership)
+autographr(m182_friend, 
+           node_color = "fg_comm", 
+           node_group = "fg_comm")
+```
+
+See A Clauset, MEJ Newman, C Moore: 
+Finding community structure in very large networks, 
+http://www.arxiv.org/abs/cond-mat/0408187
+
 # Two-mode network: Southern women
 
 The next dataset is also available in migraph.
