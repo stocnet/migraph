@@ -1,3 +1,34 @@
+# migraph 0.8.3
+
+## Package
+
+- Closed #108 by adding cohesion and community vignette
+
+## Classes
+
+- Fixed #122 by retaining edge weights from igraph in `as_matrix()` where available
+
+## Measures
+
+- Split `graph_equivalency()` into the same for two-mode networks and `graph_congruency() `for three-mode (two two-mode) networks
+- Added option for `graph_reciprocity()` method
+- Added `graph_components()` and `node_components()`
+
+## Modelling
+
+- Fixed #113 by retaining node labels through census functions
+- Closed #114 by transposing `node_tie_census()` output so that it's consistent with `node_triad_census()` and future node_census functions
+- Closed #121 by renaming `cluster_triad_census()` to `group_triad_census()`
+- Added `group_tie_census()`
+
+## Visualization
+
+- Added option to `autographr()` for plotting convex/concave hulls
+
+## Data
+
+- Fixed some `ison_m182` documentation
+
 # migraph 0.8.2
 
 ## Package
