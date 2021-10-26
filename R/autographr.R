@@ -42,6 +42,13 @@ autographr <- auto_graph <- function(object,
   
   # Add layout
   lo <- ggraph::create_layout(g, algorithm)
+  if("graph" %in% names(attributes(lo))){
+    if(!setequal(names(as.data.frame(attr(lo, "graph"))), names(lo))){
+      for(n in setdiff(names(as.data.frame(attr(lo, "graph"))), names(lo))){
+        lo[n] <- igraph::get.vertex.attribute(g, n)
+      }
+    } 
+  }
   p <- ggraph::ggraph(lo) + ggplot2::theme_void()
   
   # Add edges
