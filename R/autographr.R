@@ -13,12 +13,18 @@
 #' needs to be manually set
 #' @param node_color node variable in quotation marks
 #' that should be used for colouring the nodes
+#' @param node_group node variable in quotation marks
+#' that should be used for drawing convex but also concave hulls
+#' around clusters of nodes.
+#' These groupings will be labelled with the categories of the variable passed. 
 #' @param ... extra arguments
 #' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text
 #' @importFrom ggraph geom_conn_bundle get_con geom_node_point
 #' @importFrom ggraph scale_edge_width_continuous geom_node_label
 #' @importFrom igraph get.vertex.attribute
-#' @importFrom ggplot2 aes arrow unit scale_color_brewer
+#' @importFrom ggplot2 aes arrow unit scale_color_brewer scale_fill_brewer
+#' @importFrom ggforce geom_mark_hull
+#' @import concaveman
 #' @examples
 #' autographr(ison_coleman)
 #' autographr(ison_karateka)
@@ -28,6 +34,7 @@ autographr <- auto_graph <- function(object,
                                      labels = TRUE,
                                      node_size = NULL,
                                      node_color = NULL,
+                                     node_group = NULL,
                                      ...) {
   
   name <- weight <- NULL # initialize variables to avoid CMD check notes
@@ -35,6 +42,13 @@ autographr <- auto_graph <- function(object,
   
   # Add layout
   lo <- ggraph::create_layout(g, algorithm)
+  if("graph" %in% names(attributes(lo))){
+    if(!setequal(names(as.data.frame(attr(lo, "graph"))), names(lo))){
+      for(n in setdiff(names(as.data.frame(attr(lo, "graph"))), names(lo))){
+        lo[n] <- igraph::get.vertex.attribute(g, n)
+      }
+    } 
+  }
   p <- ggraph::ggraph(lo) + ggplot2::theme_void()
   
   # Add edges
@@ -89,6 +103,7 @@ autographr <- auto_graph <- function(object,
   } else {
     nsize <- (100 / igraph::vcount(g)) / 2
   }
+  
   # Add nodes
   if (is_twomode(g)) {
     if (!is.null(node_color)) {
@@ -138,6 +153,13 @@ autographr <- auto_graph <- function(object,
                                      hjust = "inward",
                                      repel = TRUE)
   p
+  }
+  if(!is.null(node_group)){
+    p <- p + ggforce::geom_mark_hull(ggplot2::aes(x = lo$x, y = lo$y,
+                                         fill = as.factor(igraph::get.vertex.attribute(g, node_group)),
+                                         label = as.factor(igraph::get.vertex.attribute(g, node_group))),
+                                     concavity = 2) +
+      ggplot2::scale_fill_brewer(palette = "Set1", guide = "none")
   }
   p
 }

@@ -52,8 +52,12 @@ reference:
     desc: "Functions for plotting and visually graphs of different types:"
     contents:
       - autographr
+      - layouts
       - starts_with("plot")
-      - starts_with("gg")
+      - ggidentify
+      - gglineage
+      - ggevolution
+      - ggatyear
   - title: "Measures"
     desc: "Functions for measuring multimodal and multilevel networks:"
     contents:
@@ -63,6 +67,7 @@ reference:
     desc: "Functions for modelling multimodal and multilevel networks:"
     contents:
       - netlm
+      - starts_with("cluster")
       - starts_with("blockmodel")
   - title: "Data"
     desc: |

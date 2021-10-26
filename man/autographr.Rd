@@ -10,6 +10,7 @@ autographr(
   labels = TRUE,
   node_size = NULL,
   node_color = NULL,
+  node_group = NULL,
   ...
 )
 }
@@ -28,6 +29,11 @@ needs to be manually set}
 
 \item{node_color}{node variable in quotation marks
 that should be used for colouring the nodes}
+
+\item{node_group}{node variable in quotation marks
+that should be used for drawing convex but also concave hulls
+around clusters of nodes.
+These groupings will be labelled with the categories of the variable passed.}
 
 \item{...}{extra arguments}
 }

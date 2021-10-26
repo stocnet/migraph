@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 # Setting up
 
 For this lab, we'll use a few different packages for data and analysis.
-We're going to use the `ison_m182` dataset from last week, now directly from the package.
+We're going to use the `ison_m182` dataset again, directly from the package.
 
 ```{r setup}
 suppressPackageStartupMessages(library(migraph)) # note that you may need a special version for what follows...
@@ -87,7 +87,7 @@ and incoming ties to reveal their tie partners.
 
 ```{r construct-cor}
 dim(node_tie_census(ison_m182))
-head(structural_combo <- node_tie_census(ison_m182))
+head(structural_combo <- node_tie_census(ison_m182))[,c(1,17,33,49,65,81)]
 ```
 
 We can see that the result is a matrix of `r dim(node_tie_census(ison_m182))[1]` rows
@@ -104,7 +104,7 @@ based on the distances in dissimilarity in their outgoing and incoming ties.
 Or you can just run the following line:
 
 ```{r cluster-str}
-(str_res <- cluster_structural_equivalence(structural_combo))
+(str_res <- cluster_structural_equivalence(ison_m182))
 ```
 
 This object doesn't tell us much,
@@ -219,6 +219,11 @@ autographr(task_reduced)
 autographr(friend_reduced)
 ```
 
+What can help interpreting these profiles is getting the summaries of average weight ties by group.
+
+```{r str-group}
+group_tie_census(m182_task, str_clu)
+```
 
 ```
 # ADVANCED: Note on deductive clustering:
@@ -288,7 +293,7 @@ Like before, we'll loop through each possible cluster solution
 and see how well they match the observed matrix of triad type correlations.
 
 ```{r regid}
-ggidentify_clusters(reg_res, t(task_triads))
+ggidentify_clusters(reg_res, task_triads)
 ```
 
 The cluster correlation plot seems a bit ambiguous here, at least visually.
@@ -327,7 +332,7 @@ Each cell is the average number of the given triad type for each individual
 in the cluster:
 
 ```{r clustercensus}
-cluster_triad_census(m182_task, reg_clu)
+group_triad_census(m182_task, reg_clu)
 ```
 
 ```

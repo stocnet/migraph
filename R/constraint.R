@@ -62,3 +62,30 @@ node_constraint <- function(object, nodes = V(object), weights = NULL) {
   }
   res
 }
+
+#' Identifying nodes' component membership
+#' @param object a migraph-consistent object
+#' @param method For directed networks, 
+#' either `weak` if edge direction is irrelevant,
+#' or `strong` if edge direction is salient.
+#' Ignored if network undirected. 
+#' @importFrom igraph components
+#' @export
+node_components <- function(object, method = c("weak", "strong")){
+  object <- as_igraph(object)
+  igraph::components(object, mode = method)$membership
+}
+
+#' Number of components in the network
+#' @param object a migraph-consistent object
+#' @param method For directed networks, 
+#' either `weak` if edge direction is irrelevant,
+#' or `strong` if edge direction is salient.
+#' Ignored if network undirected. 
+#' @importFrom igraph components
+#' @export
+graph_components <- function(object, method = c("weak", "strong")){
+  object <- as_igraph(object)
+  igraph::components(object, mode = method)$no
+}
+

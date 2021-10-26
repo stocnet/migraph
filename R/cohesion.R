@@ -8,13 +8,15 @@
 #' For one-mode networks, shallow wrappers of igraph versions exist via 
 #' `graph_reciprocity` and `graph_transitivity`.
 #' 
-#' For two-mode networks, `graph_equivalence` calculates the proportion of three-paths in the network
+#' For two-mode networks, `graph_equivalency` calculates the proportion of three-paths in the network
 #' that are closed by fourth tie to establish a "shared four-cycle" structure.
 #' 
-#' For three-mode networks, `graph_equivalence` calculates the proportion of three-paths spanning the two two-mode networks
+#' For three-mode networks, `graph_congruency` calculates the proportion of three-paths spanning the two two-mode networks
 #' that are closed by a fourth tie to establish a "congruent four-cycle" structure.
 #' @param object A one-mode or two-mode matrix, igraph, or tidygraph
 #' @param object2 Optionally, a second (two-mode) matrix, igraph, or tidygraph
+#' @param method For reciprocity, either `default` or `ratio`.
+#' See `?igraph::reciprocity`
 #' @name cohesion
 #' @family one-mode measures
 #' @family two-mode measures
@@ -48,8 +50,8 @@ graph_density <- function(object) {
 #' @examples
 #' graph_reciprocity(southern_women)
 #' @export
-graph_reciprocity <- function(object) {
-  igraph::reciprocity(as_igraph(object))
+graph_reciprocity <- function(object, method = "default") {
+  igraph::reciprocity(as_igraph(object), mode = method)
 }
 #' @rdname cohesion
 #' @importFrom igraph transitivity
@@ -64,25 +66,8 @@ graph_transitivity <- function(object) {
 #' @examples
 #' graph_equivalency(southern_women)
 #' @export
-graph_equivalency <- function(object, object2 = NULL) {
-  if (!is.null(object2)) { # run three-mode clustering
-    mat1 <- as_matrix(object)
-    mat2 <- as_matrix(object2)
-    c <- ncol(mat1)
-    twopaths1 <- crossprod(mat1)
-    indegrees <- diag(twopaths1)
-    diag(twopaths1) <- 0
-    twopaths2 <- tcrossprod(mat2)
-    outdegrees <- diag(twopaths2)
-    diag(twopaths2) <- 0
-    twopaths <- twopaths1 + twopaths2
-    degrees <- indegrees + outdegrees
-    output <- sum(twopaths * (twopaths - 1)) /
-      (sum(twopaths * (twopaths - 1)) +
-         sum(twopaths *
-             (matrix(degrees, c, c) - twopaths)))
-    if (is.nan(output)) output <- 1
-  } else if (is_twomode(object)) {
+graph_equivalency <- function(object) {
+  if (is_twomode(object)) {
     mat <- as_matrix(object)
     c <- ncol(mat)
     indegrees <- colSums(mat)
@@ -93,9 +78,29 @@ graph_equivalency <- function(object, object2 = NULL) {
          sum(twopaths *
              (matrix(indegrees, c, c) - twopaths)))
     if (is.nan(output)) output <- 1
-  } else {
-    graph <- as_igraph(object)
-    output <- igraph::transitivity(graph)
-  }
+  } else stop("This function expects a two-mode network")
+  output
+}
+
+#' @rdname cohesion
+#' @export
+graph_congruency <- function(object, object2){
+  if(missing(object) | missing(object2)) stop("This function expects two two-mode networks")
+  mat1 <- as_matrix(object)
+  mat2 <- as_matrix(object2)
+  c <- ncol(mat1)
+  twopaths1 <- crossprod(mat1)
+  indegrees <- diag(twopaths1)
+  diag(twopaths1) <- 0
+  twopaths2 <- tcrossprod(mat2)
+  outdegrees <- diag(twopaths2)
+  diag(twopaths2) <- 0
+  twopaths <- twopaths1 + twopaths2
+  degrees <- indegrees + outdegrees
+  output <- sum(twopaths * (twopaths - 1)) /
+    (sum(twopaths * (twopaths - 1)) +
+       sum(twopaths *
+             (matrix(degrees, c, c) - twopaths)))
+  if (is.nan(output)) output <- 1
   output
 }

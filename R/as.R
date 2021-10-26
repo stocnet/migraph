@@ -89,11 +89,24 @@ as_matrix.matrix <- function(object, weight = FALSE) {
 
 #' @export
 as_matrix.igraph <- function(object, weight = FALSE) {
-      if (is_twomode(object)) {
-        mat <- igraph::as_incidence_matrix(object, sparse = FALSE)
-      } else {
-        mat <- igraph::as_adjacency_matrix(object, sparse = FALSE)
-      }
+  if (is_twomode(object)) {
+    if (is_weighted(object)){
+      mat <- igraph::as_incidence_matrix(object, sparse = FALSE,
+                                         attr = igraph::edge_attr_names(object)[[1]])
+    } else {
+      mat <- igraph::as_incidence_matrix(object, sparse = FALSE,
+                                         attr = NULL)
+    }
+  } else {
+    if (is_weighted(object)){
+      mat <- igraph::as_adjacency_matrix(object, sparse = FALSE,
+                                         attr = igraph::edge_attr_names(object)[[1]])
+    } else {
+      mat <- igraph::as_adjacency_matrix(object, sparse = FALSE,
+                                         attr = NULL)
+    }
+  }
+  mat
 }
 
 #' @export

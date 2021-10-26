@@ -2,25 +2,38 @@
 % Please edit documentation in R/census.R
 \name{census}
 \alias{census}
-\alias{node_triad_census}
 \alias{node_tie_census}
-\alias{cluster_triad_census}
-\title{Triad census by nodes or clusters}
+\alias{node_triad_census}
+\alias{group_tie_census}
+\alias{group_triad_census}
+\title{Census by nodes or clusters}
 \usage{
-node_triad_census(object)
-
 node_tie_census(object)
 
-cluster_triad_census(object, clusters)
+node_triad_census(object)
+
+group_tie_census(object, clusters, decimals = 2)
+
+group_triad_census(object, clusters, decimals = 2)
 }
 \arguments{
 \item{object}{a migraph-consistent object}
 
 \item{clusters}{a vector of cluster assignment}
+
+\item{decimals}{number of decimal points to round to}
 }
 \description{
-Triad census by nodes or clusters
+These functions include ways to take a census of the positions of nodes
+in a network. These include a triad census based on the triad profile
+of nodes, but also a tie census based on the particular tie partners
+of nodes. Included also are group census functions for summarising
+the profiles of clusters of nodes in a network.
 }
 \examples{
-node_triad_census(ison_coleman)
+task_eg <- to_named(to_uniplex(ison_m182, "task_tie"))
+(tie_cen <- node_tie_census(task_eg))
+(triad_cen <- node_triad_census(task_eg))
+group_tie_census(task_eg, cutree(cluster_structural_equivalence(task_eg), 4))
+group_triad_census(task_eg, cutree(cluster_regular_equivalence(task_eg), 4))
 }
