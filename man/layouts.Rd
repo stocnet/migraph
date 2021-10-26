@@ -14,11 +14,12 @@ layout_tbl_graph_kkgrid(object, circular = FALSE, maxiter = 1000)
 layout_tbl_graph_gogrid(object, circular = FALSE, maxiter = 1000)
 }
 \arguments{
-\item{x}{A migraph-consistent network/graph}
+\item{object}{A migraph-consistent network/graph}
 
-\item{algorithm}{An initial network layout,
-currently either Kamada-Kawai ("kk") or
-Fruchterman-Reingold ("fr")}
+\item{circular}{Should the layout be transformed into a radial representation.
+Only possible for some layouts. Defaults to FALSE}
+
+\item{maxiter}{maximum number of iterations, where appropriate}
 }
 \description{
 Layouts for one- and two-mode networks

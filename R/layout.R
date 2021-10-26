@@ -4,10 +4,10 @@
 #' @details The function uses approximate pattern matching
 #' to redistributes the coarse layouts on the square grid points, while
 #' preserving the topological relationships among the nodes (see Inoue et al. 2012). 
-#' @param x A migraph-consistent network/graph
-#' @param algorithm An initial network layout,
-#' currently either Kamada-Kawai ("kk") or
-#' Fruchterman-Reingold ("fr")
+#' @param object A migraph-consistent network/graph
+#' @param circular Should the layout be transformed into a radial representation. 
+#' Only possible for some layouts. Defaults to FALSE
+#' @param maxiter maximum number of iterations, where appropriate
 #' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text
 #' @importFrom igraph as_edgelist
 #' @importFrom stats dist

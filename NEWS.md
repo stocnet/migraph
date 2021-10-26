@@ -24,6 +24,11 @@
 ## Visualization
 
 - Added option to `autographr()` for plotting convex/concave hulls
+- Closed #124 by making `ggraphgrid()` a set of layout functions:
+  - `layout_tbl_graph_frgrid()` or `autographr(object, "frgrid")` for snapping Fruchterman-Reingold to a grid
+  - `layout_tbl_graph_kkgrid()` or `autographr(object, "kkgrid")` for snapping Kamada-Kawai to a grid
+  - `layout_tbl_graph_gogrid()` or `autographr(object, "gogrid")` for snapping graph optimisation to a grid
+  - `ggraphgrid()` has been deprecated
 
 ## Data
 

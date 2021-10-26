@@ -21,12 +21,6 @@ The function uses approximate pattern matching
 to redistributes the coarse layouts on the square grid points, while
 preserving the topological relationships among the nodes (see Inoue et al. 2012).
 }
-\examples{
-ggraphgrid(mpn_elite_mex)
-ggraphgrid(mpn_elite_usa_advice)
-ggraphgrid(mpn_elite_usa_money)
-ggraphgrid(mpn_ryanair)
-}
 \references{
 Inoue et al. (2012).
 Application of Approximate Pattern Matching in Two Dimensional
