@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
       </span>
     </div>
 
@@ -109,7 +109,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/blockmodel.html">Practical 5</a>
+      <a href="../articles/p4community.html">Practical 4</a>
+    </li>
+    <li>
+      <a href="../articles/p5blockmodel.html">Practical 5</a>
     </li>
   </ul>
 </li>
@@ -152,11 +155,7 @@
     <p>Blockmodelling</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cluster_structural_equivalence</span><span class='op'>(</span><span class='va'>mat</span><span class='op'>)</span>
-
-<span class='fu'>cluster_regular_equivalence</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
-
-<span class='fu'>blockmodel</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>clusters</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>blockmodel</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>clusters</span><span class='op'>)</span>
 
 <span class='fu'>blockmodel_concor</span><span class='op'>(</span>
   <span class='va'>object</span>,
@@ -175,12 +174,8 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mat</th>
-      <td><p>a (long) matrix of ties</p></td>
-    </tr>
-    <tr>
       <th>object</th>
-      <td><p>a migraph-consistent object</p></td>
+      <td><p>A migraph-consistent object (matrix, igraph, tidygraph).</p></td>
     </tr>
     <tr>
       <th>clusters</th>
@@ -280,9 +275,7 @@ Social Network Analysis and Comparison with Multidimensional Scaling.
 #&gt;      [,1]      [,2]
 #&gt; [1,] 0.05 0.2833333
 #&gt; [2,] 0.25 0.0750000</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>usa_concor</span><span class='op'>)</span>
-</div><div class='img'><img src='blockmodel-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>cluster_structural_equivalence</span><span class='op'>(</span><span class='fu'><a href='census.html'>node_tie_census</a></span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>cluster_regular_equivalence</span><span class='op'>(</span><span class='fu'><a href='census.html'>node_triad_census</a></span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span><span class='op'>)</span>
-</div></pre>
+</div><div class='img'><img src='blockmodel-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

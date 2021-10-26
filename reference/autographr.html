@@ -88,7 +88,7 @@ whatever its composition." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
       </span>
     </div>
 
@@ -111,7 +111,10 @@ whatever its composition." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/blockmodel.html">Practical 5</a>
+      <a href="../articles/p4community.html">Practical 4</a>
+    </li>
+    <li>
+      <a href="../articles/p5blockmodel.html">Practical 5</a>
     </li>
   </ul>
 </li>
@@ -162,6 +165,7 @@ whatever its composition.</p>
   labels <span class='op'>=</span> <span class='cn'>TRUE</span>,
   node_size <span class='op'>=</span> <span class='cn'>NULL</span>,
   node_color <span class='op'>=</span> <span class='cn'>NULL</span>,
+  node_group <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -192,6 +196,13 @@ needs to be manually set</p></td>
       <th>node_color</th>
       <td><p>node variable in quotation marks
 that should be used for colouring the nodes</p></td>
+    </tr>
+    <tr>
+      <th>node_group</th>
+      <td><p>node variable in quotation marks
+that should be used for drawing convex but also concave hulls
+around clusters of nodes.
+These groupings will be labelled with the categories of the variable passed.</p></td>
     </tr>
     <tr>
       <th>...</th>

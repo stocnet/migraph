@@ -10,7 +10,7 @@
     <loc>https://snlab-ch.github.io/migraph//reference/blockmodel.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/blockmodel_visualisation.html</loc>
+    <loc>https://snlab-ch.github.io/migraph//reference/blockmodel_vis.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph//reference/brandes.html</loc>
@@ -23,6 +23,12 @@
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph//reference/centralization.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph//reference/cluster.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph//reference/cluster_triad_census.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph//reference/coercion.html</loc>
@@ -55,6 +61,9 @@
     <loc>https://snlab-ch.github.io/migraph//reference/graph_balance.html</loc>
   </url>
   <url>
+    <loc>https://snlab-ch.github.io/migraph//reference/graph_components.html</loc>
+  </url>
+  <url>
     <loc>https://snlab-ch.github.io/migraph//reference/graph_triad_census.html</loc>
   </url>
   <url>
@@ -73,7 +82,10 @@
     <loc>https://snlab-ch.github.io/migraph//reference/ison_projection.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/marvel.html</loc>
+    <loc>https://snlab-ch.github.io/migraph//reference/layouts.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph//reference/m182.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph//reference/mpn_bristol.html</loc>
@@ -100,6 +112,9 @@
     <loc>https://snlab-ch.github.io/migraph//reference/netlm.html</loc>
   </url>
   <url>
+    <loc>https://snlab-ch.github.io/migraph//reference/node_components.html</loc>
+  </url>
+  <url>
     <loc>https://snlab-ch.github.io/migraph//reference/node_constraint.html</loc>
   </url>
   <url>
@@ -121,6 +136,9 @@
     <loc>https://snlab-ch.github.io/migraph//reference/to.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//articles/blockmodel.html</loc>
+    <loc>https://snlab-ch.github.io/migraph//articles/p4community.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph//articles/p5blockmodel.html</loc>
   </url>
 </urlset>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Triad census by nodes or clusters — census • migraph</title>
+<title>Census by nodes or clusters — census • migraph</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,12 @@
 
 
 
-<meta property="og:title" content="Triad census by nodes or clusters — census" />
-<meta property="og:description" content="Triad census by nodes or clusters" />
+<meta property="og:title" content="Census by nodes or clusters — census" />
+<meta property="og:description" content="These functions include ways to take a census of the positions of nodes
+in a network. These include a triad census based on the triad profile
+of nodes, but also a tie census based on the particular tie partners
+of nodes. Included also are group census functions for summarising
+the profiles of clusters of nodes in a network." />
 <meta property="og:image" content="https://snlab-ch.github.io/migraph/logo.png" />
 
 
@@ -86,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
       </span>
     </div>
 
@@ -109,7 +113,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/blockmodel.html">Practical 5</a>
+      <a href="../articles/p4community.html">Practical 4</a>
+    </li>
+    <li>
+      <a href="../articles/p5blockmodel.html">Practical 5</a>
     </li>
   </ul>
 </li>
@@ -143,20 +150,26 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Triad census by nodes or clusters</h1>
+    <h1>Census by nodes or clusters</h1>
     <small class="dont-index">Source: <a href='https://github.com/snlab-ch/migraph/blob/master/R/census.R'><code>R/census.R</code></a></small>
     <div class="hidden name"><code>census.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Triad census by nodes or clusters</p>
+    <p>These functions include ways to take a census of the positions of nodes
+in a network. These include a triad census based on the triad profile
+of nodes, but also a tie census based on the particular tie partners
+of nodes. Included also are group census functions for summarising
+the profiles of clusters of nodes in a network.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>node_triad_census</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>node_tie_census</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
 
-<span class='fu'>node_tie_census</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
+<span class='fu'>node_triad_census</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
 
-<span class='fu'>cluster_triad_census</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>clusters</span><span class='op'>)</span></pre>
+<span class='fu'>group_tie_census</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>clusters</span>, decimals <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+
+<span class='fu'>group_triad_census</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>clusters</span>, decimals <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,20 +182,170 @@
       <th>clusters</th>
       <td><p>a vector of cluster assignment</p></td>
     </tr>
+    <tr>
+      <th>decimals</th>
+      <td><p>number of decimal points to round to</p></td>
+    </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>node_triad_census</span><span class='op'>(</span><span class='va'>ison_coleman</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      003 012 102 201 210 300
-#&gt; [1,]  15   0   6   0   0   0
-#&gt; [2,]   3   0  12   4   0   2
-#&gt; [3,]   9   0   8   3   0   1
-#&gt; [4,]  18   0   3   0   0   0
-#&gt; [5,]  16   0   5   0   0   0
-#&gt; [6,]  17   0   4   0   0   0
-#&gt; [7,]  19   0   2   0   0   0
-#&gt; [8,]  20   0   1   0   0   0</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>task_eg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='to.html'>to_named</a></span><span class='op'>(</span><span class='fu'><a href='to.html'>to_uniplex</a></span><span class='op'>(</span><span class='va'>ison_m182</span>, <span class='st'>"task_tie"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>(</span><span class='va'>tie_cen</span> <span class='op'>&lt;-</span> <span class='fu'>node_tie_census</span><span class='op'>(</span><span class='va'>task_eg</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         fromCarole fromGayle fromCiara fromRamona fromHarold fromCharley
+#&gt; Carole        0.00      0.00      0.00       0.00       0.30        0.00
+#&gt; Gayle         0.00      0.00      0.00       0.00       0.00        0.00
+#&gt; Ciara         0.00      0.00      0.00       0.00       0.15        0.75
+#&gt; Ramona        0.00      0.00      0.00       0.00       0.00        0.00
+#&gt; Harold        0.30      0.00      0.15       0.00       0.00        0.45
+#&gt; Charley       0.00      0.00      0.60       0.00       0.75        0.00
+#&gt; Suzanne       0.00      0.75      0.00       0.00       0.00        0.00
+#&gt; Derrick       0.00      0.30      0.00       0.00       0.00        0.00
+#&gt; Kiara         0.30      0.00      0.00       0.00       0.00        0.00
+#&gt; Tamika        0.30      0.00      0.00       0.15       0.00        0.15
+#&gt; Kent          0.00      0.00      0.30       0.00       2.10        0.30
+#&gt; Rachel        0.15      0.00      0.00       0.00       0.00        0.00
+#&gt; Braden        0.00      0.90      0.00       0.00       0.15        0.00
+#&gt; Isla          0.00      0.15      0.00       0.00       0.00        0.00
+#&gt; Chris         0.15      0.15      0.00       0.00       0.00        0.00
+#&gt; Bettie        5.10      4.80      0.30       0.90       1.80        0.90
+#&gt;         fromSuzanne fromDerrick fromKiara fromTamika fromKent fromRachel
+#&gt; Carole         0.00        0.00      0.15       0.15     0.00       0.00
+#&gt; Gayle          1.20        0.45      0.00       0.00     0.00       0.00
+#&gt; Ciara          0.00        0.00      0.00       0.00     0.15       0.00
+#&gt; Ramona         0.00        0.00      0.00       0.15     0.00       0.00
+#&gt; Harold         0.00        0.00      0.00       0.00     1.80       0.00
+#&gt; Charley        0.00        0.00      0.00       0.30     0.45       0.00
+#&gt; Suzanne        0.00        0.30      0.00       0.00     0.00       0.00
+#&gt; Derrick        0.15        0.00      0.00       0.00     0.00       0.00
+#&gt; Kiara          0.00        0.00      0.00       0.45     0.00       2.40
+#&gt; Tamika         0.00        0.00      0.30       0.00     0.00       0.45
+#&gt; Kent           0.00        0.00      0.00       0.00     0.00       0.00
+#&gt; Rachel         0.00        0.00      2.70       0.75     0.00       0.00
+#&gt; Braden         0.30        0.75      0.00       0.00     0.00       0.00
+#&gt; Isla           0.00        0.15      0.00       0.00     0.00       0.00
+#&gt; Chris          0.00        0.00      0.15       0.30     0.00       0.75
+#&gt; Bettie         2.85        2.40      2.40       5.40     1.05       4.50
+#&gt;         fromBraden fromIsla fromChris fromBettie toCarole toGayle toCiara
+#&gt; Carole        0.00     0.00      0.15       4.65     0.00    0.00    0.00
+#&gt; Gayle         1.05     0.30      0.00       4.80     0.00    0.00    0.00
+#&gt; Ciara         0.00     0.00      0.00       0.75     0.00    0.00    0.00
+#&gt; Ramona        0.00     0.00      0.00       1.05     0.00    0.00    0.00
+#&gt; Harold        0.00     0.15      0.00       2.40     0.30    0.00    0.15
+#&gt; Charley       0.00     0.15      0.00       1.20     0.00    0.00    0.75
+#&gt; Suzanne       0.30     0.15      0.00       2.40     0.00    1.20    0.00
+#&gt; Derrick       0.60     0.30      0.00       1.95     0.00    0.45    0.00
+#&gt; Kiara         0.00     0.00      0.15       2.85     0.15    0.00    0.00
+#&gt; Tamika        0.00     0.00      0.30       5.40     0.15    0.00    0.00
+#&gt; Kent          0.00     0.00      0.00       1.20     0.00    0.00    0.15
+#&gt; Rachel        0.00     0.00      0.45       5.25     0.00    0.00    0.00
+#&gt; Braden        0.00     0.00      0.00       3.90     0.00    1.05    0.00
+#&gt; Isla          0.00     0.00      0.00       3.90     0.00    0.30    0.00
+#&gt; Chris         0.00     0.00      0.00       5.55     0.15    0.00    0.00
+#&gt; Bettie        4.50     3.15      6.60       0.00     4.65    4.80    0.75
+#&gt;         toRamona toHarold toCharley toSuzanne toDerrick toKiara toTamika toKent
+#&gt; Carole      0.00     0.30      0.00      0.00      0.00    0.30     0.30    0.0
+#&gt; Gayle       0.00     0.00      0.00      0.75      0.30    0.00     0.00    0.0
+#&gt; Ciara       0.00     0.15      0.60      0.00      0.00    0.00     0.00    0.3
+#&gt; Ramona      0.00     0.00      0.00      0.00      0.00    0.00     0.15    0.0
+#&gt; Harold      0.00     0.00      0.75      0.00      0.00    0.00     0.00    2.1
+#&gt; Charley     0.00     0.45      0.00      0.00      0.00    0.00     0.15    0.3
+#&gt; Suzanne     0.00     0.00      0.00      0.00      0.15    0.00     0.00    0.0
+#&gt; Derrick     0.00     0.00      0.00      0.30      0.00    0.00     0.00    0.0
+#&gt; Kiara       0.00     0.00      0.00      0.00      0.00    0.00     0.30    0.0
+#&gt; Tamika      0.15     0.00      0.30      0.00      0.00    0.45     0.00    0.0
+#&gt; Kent        0.00     1.80      0.45      0.00      0.00    0.00     0.00    0.0
+#&gt; Rachel      0.00     0.00      0.00      0.00      0.00    2.40     0.45    0.0
+#&gt; Braden      0.00     0.00      0.00      0.30      0.60    0.00     0.00    0.0
+#&gt; Isla        0.00     0.15      0.15      0.15      0.30    0.00     0.00    0.0
+#&gt; Chris       0.00     0.00      0.00      0.00      0.00    0.15     0.30    0.0
+#&gt; Bettie      1.05     2.40      1.20      2.40      1.95    2.85     5.40    1.2
+#&gt;         toRachel toBraden toIsla toChris toBettie
+#&gt; Carole      0.15     0.00   0.00    0.15     5.10
+#&gt; Gayle       0.00     0.90   0.15    0.15     4.80
+#&gt; Ciara       0.00     0.00   0.00    0.00     0.30
+#&gt; Ramona      0.00     0.00   0.00    0.00     0.90
+#&gt; Harold      0.00     0.15   0.00    0.00     1.80
+#&gt; Charley     0.00     0.00   0.00    0.00     0.90
+#&gt; Suzanne     0.00     0.30   0.00    0.00     2.85
+#&gt; Derrick     0.00     0.75   0.15    0.00     2.40
+#&gt; Kiara       2.70     0.00   0.00    0.15     2.40
+#&gt; Tamika      0.75     0.00   0.00    0.30     5.40
+#&gt; Kent        0.00     0.00   0.00    0.00     1.05
+#&gt; Rachel      0.00     0.00   0.00    0.75     4.50
+#&gt; Braden      0.00     0.00   0.00    0.00     4.50
+#&gt; Isla        0.00     0.00   0.00    0.00     3.15
+#&gt; Chris       0.45     0.00   0.00    0.00     6.60
+#&gt; Bettie      5.25     3.90   3.90    5.55     0.00</div><div class='input'><span class='op'>(</span><span class='va'>triad_cen</span> <span class='op'>&lt;-</span> <span class='fu'>node_triad_census</span><span class='op'>(</span><span class='va'>task_eg</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         003 012 102 021D 021U 021C 111D 111U 030T 030C 201 120D 120U 120C 210
+#&gt; Carole   36   9  45    0    0    0    0    1    0    0   3    0    0    0   4
+#&gt; Gayle    45  10  38    0    0    0    1    1    0    0   1    0    0    0   3
+#&gt; Ciara    55   0  44    0    0    0    0    0    0    0   0    0    0    0   0
+#&gt; Ramona  102   0   3    0    0    0    0    0    0    0   0    0    0    0   0
+#&gt; Harold   55   0  37    0    0    0    2    1    0    0   4    0    0    0   0
+#&gt; Charley  65  19  10    0    0    0    5    0    0    0   3    1    0    0   2
+#&gt; Suzanne  91   1  13    0    0    0    0    0    0    0   0    0    0    0   0
+#&gt; Derrick  91   1  13    0    0    0    0    0    0    0   0    0    0    0   0
+#&gt; Kiara    90   1  14    0    0    0    0    0    0    0   0    0    0    0   0
+#&gt; Tamika   86   1  18    0    0    0    0    0    0    0   0    0    0    0   0
+#&gt; Kent     95   0  10    0    0    0    0    0    0    0   0    0    0    0   0
+#&gt; Rachel   90   1  14    0    0    0    0    0    0    0   0    0    0    0   0
+#&gt; Braden   93   1  11    0    0    0    0    0    0    0   0    0    0    0   0
+#&gt; Isla     90   3  12    0    0    0    0    0    0    0   0    0    0    0   0
+#&gt; Chris    88   2  15    0    0    0    0    0    0    0   0    0    0    0   0
+#&gt; Bettie    0   0   0    0    0    0    0    0    0    0  73    0    0    0   6
+#&gt;         300
+#&gt; Carole    7
+#&gt; Gayle     6
+#&gt; Ciara     6
+#&gt; Ramona    0
+#&gt; Harold    6
+#&gt; Charley   0
+#&gt; Suzanne   0
+#&gt; Derrick   0
+#&gt; Kiara     0
+#&gt; Tamika    0
+#&gt; Kent      0
+#&gt; Rachel    0
+#&gt; Braden    0
+#&gt; Isla      0
+#&gt; Chris     0
+#&gt; Bettie   26</div><div class='input'><span class='fu'>group_tie_census</span><span class='op'>(</span><span class='va'>task_eg</span>, <span class='fu'><a href='https://rdrr.io/r/stats/cutree.html'>cutree</a></span><span class='op'>(</span><span class='fu'><a href='cluster.html'>cluster_structural_equivalence</a></span><span class='op'>(</span><span class='va'>task_eg</span><span class='op'>)</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         fromCarole fromGayle fromCiara fromRamona fromHarold fromCharley
+#&gt; Block 1       0.08       0.2      0.00       0.01       0.04        0.01
+#&gt; Block 2       0.15       0.0      0.07       0.00       0.07        0.60
+#&gt; Block 3       0.00       0.0      0.45       0.00       1.43        0.15
+#&gt; Block 4       5.10       4.8      0.30       0.90       1.80        0.90
+#&gt;         fromSuzanne fromDerrick fromKiara fromTamika fromKent fromRachel
+#&gt; Block 1        0.15        0.15       0.3       0.16     0.00       0.33
+#&gt; Block 2        0.00        0.00       0.0       0.00     0.98       0.00
+#&gt; Block 3        0.00        0.00       0.0       0.15     0.22       0.00
+#&gt; Block 4        2.85        2.40       2.4       5.40     1.05       4.50
+#&gt;         fromBraden fromIsla fromChris fromBettie toCarole toGayle toCiara
+#&gt; Block 1       0.18     0.07       0.1       3.79     0.04    0.27    0.00
+#&gt; Block 2       0.00     0.07       0.0       1.57     0.15    0.00    0.07
+#&gt; Block 3       0.00     0.07       0.0       1.20     0.00    0.00    0.45
+#&gt; Block 4       4.50     3.15       6.6       0.00     4.65    4.80    0.75
+#&gt;         toRamona toHarold toCharley toSuzanne toDerrick toKiara toTamika toKent
+#&gt; Block 1     0.01     0.04      0.04      0.14      0.12    0.30     0.14   0.00
+#&gt; Block 2     0.00     0.07      0.68      0.00      0.00    0.00     0.00   1.20
+#&gt; Block 3     0.00     1.12      0.22      0.00      0.00    0.00     0.07   0.15
+#&gt; Block 4     1.05     2.40      1.20      2.40      1.95    2.85     5.40   1.20
+#&gt;         toRachel toBraden toIsla toChris toBettie
+#&gt; Block 1     0.37     0.18   0.03    0.14     3.87
+#&gt; Block 2     0.00     0.07   0.00    0.00     1.05
+#&gt; Block 3     0.00     0.00   0.00    0.00     0.98
+#&gt; Block 4     5.25     3.90   3.90    5.55     0.00</div><div class='input'><span class='fu'>group_triad_census</span><span class='op'>(</span><span class='va'>task_eg</span>, <span class='fu'><a href='https://rdrr.io/r/stats/cutree.html'>cutree</a></span><span class='op'>(</span><span class='fu'><a href='cluster.html'>cluster_regular_equivalence</a></span><span class='op'>(</span><span class='va'>task_eg</span><span class='op'>)</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;           003  012   102 021D 021U 021C 111D 111U 030T 030C   201 120D 120U
+#&gt; Block 1 36.00 9.00 45.00    0    0    0 0.00 1.00    0    0  3.00 0.00    0
+#&gt; Block 2 51.67 3.33 39.67    0    0    0 1.00 0.67    0    0  1.67 0.00    0
+#&gt; Block 3 89.18 2.73 12.09    0    0    0 0.45 0.00    0    0  0.27 0.09    0
+#&gt; Block 4  0.00 0.00  0.00    0    0    0 0.00 0.00    0    0 73.00 0.00    0
+#&gt;         120C  210 300
+#&gt; Block 1    0 4.00   7
+#&gt; Block 2    0 1.00   6
+#&gt; Block 3    0 0.18   0
+#&gt; Block 4    0 6.00  26</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

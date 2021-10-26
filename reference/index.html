@@ -85,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
       </span>
     </div>
 
@@ -108,7 +108,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/blockmodel.html">Practical 5</a>
+      <a href="../articles/p4community.html">Practical 4</a>
+    </li>
+    <li>
+      <a href="../articles/p5blockmodel.html">Practical 5</a>
     </li>
   </ul>
 </li>
@@ -242,21 +245,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="blockmodel_visualisation.html">plot(<i>&lt;blockmodel&gt;</i>)</a></code> <code><a href="blockmodel_visualisation.html">ggtree()</a></code> <code><a href="blockmodel_visualisation.html">ggidentify_clusters()</a></code> </p>
+          <p><code><a href="layouts.html">layout_tbl_graph_frgrid()</a></code> <code><a href="layouts.html">layout_tbl_graph_kkgrid()</a></code> <code><a href="layouts.html">layout_tbl_graph_gogrid()</a></code> </p>
+        </td>
+        <td><p>Layouts for one- and two-mode networks</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="blockmodel_vis.html">plot(<i>&lt;blockmodel&gt;</i>)</a></code> <code><a href="blockmodel_vis.html">ggtree()</a></code> <code><a href="blockmodel_vis.html">ggidentify_clusters()</a></code> </p>
         </td>
         <td><p>ggplot2-based plotting of blockmodel results</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ggatyear.html">ggatyear()</a></code> </p>
-        </td>
-        <td><p>Plotting network at particular timepoint (year)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ggevolution.html">ggevolution()</a></code> </p>
-        </td>
-        <td><p>Plot the evolution of a network</p></td>
       </tr><tr>
         
         <td>
@@ -273,9 +270,15 @@ measure.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="ggraphgrid.html">ggraphgrid()</a></code> </p>
+          <p><code><a href="ggevolution.html">ggevolution()</a></code> </p>
         </td>
-        <td><p>Plot graph to grid</p></td>
+        <td><p>Plot the evolution of a network</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ggatyear.html">ggatyear()</a></code> </p>
+        </td>
+        <td><p>Plotting network at particular timepoint (year)</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -292,15 +295,21 @@ measure.</p></td>
       <tr>
         
         <td>
-          <p><code><a href="census.html">node_triad_census()</a></code> <code><a href="census.html">node_tie_census()</a></code> <code><a href="census.html">cluster_triad_census()</a></code> </p>
+          <p><code><a href="census.html">node_tie_census()</a></code> <code><a href="census.html">node_triad_census()</a></code> <code><a href="census.html">group_tie_census()</a></code> <code><a href="census.html">group_triad_census()</a></code> </p>
         </td>
-        <td><p>Triad census by nodes or clusters</p></td>
+        <td><p>Census by nodes or clusters</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="centrality.html">node_degree()</a></code> <code><a href="centrality.html">node_closeness()</a></code> <code><a href="centrality.html">node_betweenness()</a></code> <code><a href="centrality.html">node_eigenvector()</a></code> </p>
         </td>
         <td><p>Centrality for one- and two-mode networks</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="node_components.html">node_components()</a></code> </p>
+        </td>
+        <td><p>Identifying nodes' component membership</p></td>
       </tr><tr>
         
         <td>
@@ -322,7 +331,7 @@ measure.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="cohesion.html">graph_density()</a></code> <code><a href="cohesion.html">graph_reciprocity()</a></code> <code><a href="cohesion.html">graph_transitivity()</a></code> <code><a href="cohesion.html">graph_equivalency()</a></code> </p>
+          <p><code><a href="cohesion.html">graph_density()</a></code> <code><a href="cohesion.html">graph_reciprocity()</a></code> <code><a href="cohesion.html">graph_transitivity()</a></code> <code><a href="cohesion.html">graph_equivalency()</a></code> <code><a href="cohesion.html">graph_congruency()</a></code> </p>
         </td>
         <td><p>Cohesion for one-, two-, and three- mode networks</p></td>
       </tr><tr>
@@ -331,6 +340,12 @@ measure.</p></td>
           <p><code><a href="graph_balance.html">graph_balance()</a></code> </p>
         </td>
         <td><p>Structural balance</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="graph_components.html">graph_components()</a></code> </p>
+        </td>
+        <td><p>Number of components in the network</p></td>
       </tr><tr>
         
         <td>
@@ -359,13 +374,19 @@ measure.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="blockmodel.html">cluster_structural_equivalence()</a></code> <code><a href="blockmodel.html">cluster_regular_equivalence()</a></code> <code><a href="blockmodel.html">blockmodel()</a></code> <code><a href="blockmodel.html">blockmodel_concor()</a></code> <code><a href="blockmodel.html">print(<i>&lt;blockmodel&gt;</i>)</a></code> <code><a href="blockmodel.html">reduce_graph()</a></code> </p>
+          <p><code><a href="cluster.html">cluster_structural_equivalence()</a></code> <code><a href="cluster.html">cluster_regular_equivalence()</a></code> </p>
+        </td>
+        <td><p>Clustering algorithms</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="blockmodel.html">blockmodel()</a></code> <code><a href="blockmodel.html">blockmodel_concor()</a></code> <code><a href="blockmodel.html">print(<i>&lt;blockmodel&gt;</i>)</a></code> <code><a href="blockmodel.html">reduce_graph()</a></code> </p>
         </td>
         <td><p>Blockmodelling</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="blockmodel_visualisation.html">plot(<i>&lt;blockmodel&gt;</i>)</a></code> <code><a href="blockmodel_visualisation.html">ggtree()</a></code> <code><a href="blockmodel_visualisation.html">ggidentify_clusters()</a></code> </p>
+          <p><code><a href="blockmodel_vis.html">plot(<i>&lt;blockmodel&gt;</i>)</a></code> <code><a href="blockmodel_vis.html">ggtree()</a></code> <code><a href="blockmodel_vis.html">ggidentify_clusters()</a></code> </p>
         </td>
         <td><p>ggplot2-based plotting of blockmodel results</p></td>
       </tr>
@@ -462,7 +483,7 @@ measure.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="marvel.html">ison_m182</a></code> </p>
+          <p><code><a href="m182.html">ison_m182</a></code> </p>
         </td>
         <td><p>Multiplex igraph of friends, social, and task ties between 16 anonymous students</p></td>
       </tr>

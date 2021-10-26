@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
       </span>
     </div>
 
@@ -109,7 +109,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/blockmodel.html">Practical 5</a>
+      <a href="../articles/p4community.html">Practical 4</a>
+    </li>
+    <li>
+      <a href="../articles/p5blockmodel.html">Practical 5</a>
     </li>
   </ul>
 </li>
@@ -154,11 +157,13 @@
 
     <pre class="usage"><span class='fu'>graph_density</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
 
-<span class='fu'>graph_reciprocity</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
+<span class='fu'>graph_reciprocity</span><span class='op'>(</span><span class='va'>object</span>, method <span class='op'>=</span> <span class='st'>"default"</span><span class='op'>)</span>
 
 <span class='fu'>graph_transitivity</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
 
-<span class='fu'>graph_equivalency</span><span class='op'>(</span><span class='va'>object</span>, object2 <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+<span class='fu'>graph_equivalency</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
+
+<span class='fu'>graph_congruency</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>object2</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,6 +171,11 @@
     <tr>
       <th>object</th>
       <td><p>A one-mode or two-mode matrix, igraph, or tidygraph</p></td>
+    </tr>
+    <tr>
+      <th>method</th>
+      <td><p>For reciprocity, either <code>default</code> or <code>ratio</code>.
+See <code><a href='https://rdrr.io/pkg/igraph/man/reciprocity.html'>?igraph::reciprocity</a></code></p></td>
     </tr>
     <tr>
       <th>object2</th>
@@ -179,9 +189,9 @@
 to the number of possible ties.</p>
 <p>For one-mode networks, shallow wrappers of igraph versions exist via
 <code>graph_reciprocity</code> and <code>graph_transitivity</code>.</p>
-<p>For two-mode networks, <code>graph_equivalence</code> calculates the proportion of three-paths in the network
+<p>For two-mode networks, <code>graph_equivalency</code> calculates the proportion of three-paths in the network
 that are closed by fourth tie to establish a "shared four-cycle" structure.</p>
-<p>For three-mode networks, <code>graph_equivalence</code> calculates the proportion of three-paths spanning the two two-mode networks
+<p>For three-mode networks, <code>graph_congruency</code> calculates the proportion of three-paths spanning the two two-mode networks
 that are closed by a fourth tie to establish a "congruent four-cycle" structure.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
