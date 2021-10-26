@@ -20,6 +20,8 @@ group_triad_census(object, clusters, decimals = 2)
 \item{object}{a migraph-consistent object}
 
 \item{clusters}{a vector of cluster assignment}
+
+\item{decimals}{number of decimal points to round to}
 }
 \description{
 These functions include ways to take a census of the positions of nodes
@@ -33,5 +35,5 @@ task_eg <- to_named(to_uniplex(ison_m182, "task_tie"))
 (tie_cen <- node_tie_census(task_eg))
 (triad_cen <- node_triad_census(task_eg))
 group_tie_census(task_eg, cutree(cluster_structural_equivalence(task_eg), 4))
-group_triad_census(task_eg, cutree(cluster_regular_equivalence(friend_eg), 4))
+group_triad_census(task_eg, cutree(cluster_regular_equivalence(task_eg), 4))
 }

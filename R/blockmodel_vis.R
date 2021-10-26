@@ -1,5 +1,5 @@
 #' ggplot2-based plotting of blockmodel results
-#' @name blockmodel_visualisation
+#' @name blockmodel_vis
 #' @param x A blockmodel-class object.
 #' @param ... Additional arguments passed on to ggplot2.
 #' @importFrom tibble rownames_to_column
@@ -70,9 +70,8 @@ plot.blockmodel <- function(x, ...){
 #' but, if specified, `ggtree` will color branches and
 #' add a line to indicate where the corresponding cluster
 #' cut would be.
-#' @param mat the matrix
 #' @param method only "elbow" is currently implemented.
-#' @name blockmodel_visualisation
+#' @name blockmodel_vis
 #' @importFrom ggdendro ggdendrogram
 #' @importFrom RColorBrewer brewer.pal
 #' @importFrom stats cutree
@@ -97,7 +96,8 @@ ggtree <- function(hc, k = NULL){
   
 }
 
-#' @rdname blockmodel_visualisation
+#' @rdname blockmodel_vis
+#' @param census output from some node_*_census function
 #' @importFrom sna gcor
 #' @importFrom stats cutree coef
 #' @examples
