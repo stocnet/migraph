@@ -137,8 +137,28 @@ cluster_triad_census <- function(object, clusters) {
   group_triad_census(object, clusters)
 }
 
-#' Triad census for the whole graph
+#' Censuses for the whole graph
+#' @name graph_census
 #' @param object a migraph-consistent object
+NULL
+
+#' @rdname graph_census
+#' @examples 
+#' graph_dyad_census(ison_coleman)
+#' @export
+graph_dyad_census <- function(object) {
+  if (is_twomode(object)) {
+    stop("A twomode or multilevel option for a dyad census is not yet implemented.")
+  } else {
+    out <- suppressWarnings(igraph::dyad_census(as_igraph(object)))
+    out <- unlist(out)
+    names(out) <- c("Mutual", "Asymmetric", "Null")
+    if (!is_directed(object)) out <- out[c(1, 3)]
+    out
+  }
+}
+
+#' @rdname graph_census
 #' @examples 
 #' graph_triad_census(ison_coleman)
 #' @export
