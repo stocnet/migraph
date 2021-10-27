@@ -10,6 +10,18 @@ ggplot2::ggtitle
 #' @export
 ggplot2::labs
 
+#' @importFrom ggplot2 xlab
+#' @export
+ggplot2::xlab
+
+#' @importFrom ggplot2 ylab
+#' @export
+ggplot2::ylab
+
+#' @importFrom ggplot2 ggsave
+#' @export
+ggplot2::ggsave
+
 #' @importFrom gridExtra grid.arrange
 #' @export
 gridExtra::grid.arrange
