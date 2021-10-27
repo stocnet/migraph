@@ -64,9 +64,8 @@ to_unnamed.tbl_graph <- function(object) {
 
 #' @export
 to_unnamed.network <- function(object) {
-  out <- as_igraph(object)
-  out <- igraph::delete_vertex_attr(out, "name")
-  as_network(out)
+  out <- network::delete.vertex.attribute(object, "vertex.names")
+  out
 }
 
 #' @export
