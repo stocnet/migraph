@@ -165,7 +165,7 @@ to_uniplex.igraph <- function(object, edge){
       out <- igraph::delete_edge_attr(out, e) 
     }
   }
-  if(is.numeric(igraph::get.edge.attribute(object, edge))) names(igraph::edge_attr(out)) <- "weight"
+  if (is.numeric(igraph::get.edge.attribute(object, edge))) names(igraph::edge_attr(out)) <- "weight"
   out
 }
 
@@ -184,9 +184,9 @@ to_unsigned.tbl_graph <- function(object, keep = c("positive", "negative")){
 
 #' @export
 to_unsigned.igraph <- function(object, keep = c("positive", "negative")){
-  if(is_signed(object)){
+  if (is_signed(object)) {
     keep <- match.arg(keep)
-    if(keep == "positive"){
+    if (keep == "positive") {
       out <- igraph::delete_edges(object, which(igraph::E(object)$sign < 0))
     } else {
       out <- igraph::delete_edges(object, which(igraph::E(object)$sign > 0))
