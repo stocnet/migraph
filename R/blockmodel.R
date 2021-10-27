@@ -46,7 +46,7 @@ blockmodel_concor <- function(object, p = 1,
                            cutoff = 0.999, max.iter = 25, 
                            block.content = "density"){
   
-  if (is.list(object) & !is.tbl_graph(object)) {
+  if (is.list(object) & !is.igraph(object)) {
     mat <- lapply(object, function(x) as_matrix(x))
     mat <- do.call(rbind, mat)
   } else mat <- as_matrix(object)
