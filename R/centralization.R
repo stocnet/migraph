@@ -16,6 +16,8 @@
 #' @param normalized Logical scalar, whether the centrality scores are normalized.
 #' Different denominators are used depending on whether the object is one-mode or two-mode,
 #' the type of centrality, and other arguments.
+#' @param digits whether to round the resulting score, by default 2.
+#' Add FALSE to turn all rounding off.
 #' @return A single centralization score if the object was one-mode,
 #' and two centralization scores if the object was two-mode.
 #' In the case of a two-mode network, 
@@ -30,7 +32,8 @@
 #' @export
 graph_degree <- function(object,
                          directed = c("all", "out", "in", "total"), 
-                         normalized = TRUE){
+                         normalized = TRUE, 
+                         digits = 2){
   
   directed <- match.arg(directed)
   
@@ -53,10 +56,11 @@ graph_degree <- function(object,
       out$nodes1 <- sum(max(rowSums(mat)) - rowSums(mat))/((ncol(mat) - 1)*(nrow(mat) - 1))
       out$nodes2 <- sum(max(colSums(mat)) - colSums(mat))/((ncol(mat) - 1)*(nrow(mat) - 1))
     }
+    if(!isFALSE(digits)) out <- lapply(out, round, digits)
   } else {
     out <- igraph::centr_degree(graph = object, mode = directed, normalized = normalized)$centralization
+    if(!isFALSE(digits)) out <- round(out, digits)
   }
-
   out
 }
 
@@ -66,7 +70,8 @@ graph_degree <- function(object,
 #' @export
 graph_closeness <- function(object,
                             directed = c("all", "out", "in", "total"), 
-                            normalized = TRUE){
+                            normalized = TRUE, 
+                            digits = 2){
   
   directed <- match.arg(directed)
   graph <- as_igraph(object)
@@ -115,12 +120,13 @@ graph_closeness <- function(object,
         out$nodes2 <- sum(max(clcent[mode]) - clcent) / sum(term1, term2, term3, term4)
       }
     }
+    if(!isFALSE(digits)) out <- lapply(out, round, digits)
   } else {
     out <- igraph::centr_clo(graph = graph,
                              mode = directed,
                              normalized = normalized)$centralization
+    if(!isFALSE(digits)) out <- round(out, digits)
   }
-  
   out
 }
 
@@ -130,7 +136,8 @@ graph_closeness <- function(object,
 #' @export
 graph_betweenness <- function(object,
                               directed = c("all", "out", "in", "total"), 
-                              normalized = TRUE) {
+                              normalized = TRUE, 
+                              digits = 2) {
   
   directed <- match.arg(directed)
   graph <- as_igraph(object)
@@ -173,20 +180,24 @@ graph_betweenness <- function(object,
         out$nodes2 <- sum(max(becent[mode]) - becent[mode]) / (2 * (mode2 - 1)^2 * (mode1 - 1))
       }
     }
+    if(!isFALSE(digits)) out <- lapply(out, round, digits)
   } else {
     out <- igraph::centr_betw(graph = graph)$centralization
+    if(!isFALSE(digits)) out <- round(out, digits)
   }
-  
   out
 }
+
 #' @rdname centralization
 #' @examples
 #' graph_eigenvector(mpn_elite_mex)
 #' @export
-graph_eigenvector <- function(object){
+graph_eigenvector <- function(object, digits = 2){
   if (is_twomode(object)) {
     stop("Eignevector centrality for two-mode networks is not yet implemented.")
   } else {
-    igraph::centr_eigen(as_igraph(object))$centralization
+    out <- igraph::centr_eigen(as_igraph(object))$centralization
+    if(!isFALSE(digits)) out <- round(out, digits)
   }
+  out
 }

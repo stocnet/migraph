@@ -11,22 +11,25 @@
 graph_degree(
   object,
   directed = c("all", "out", "in", "total"),
-  normalized = TRUE
+  normalized = TRUE,
+  digits = 2
 )
 
 graph_closeness(
   object,
   directed = c("all", "out", "in", "total"),
-  normalized = TRUE
+  normalized = TRUE,
+  digits = 2
 )
 
 graph_betweenness(
   object,
   directed = c("all", "out", "in", "total"),
-  normalized = TRUE
+  normalized = TRUE,
+  digits = 2
 )
 
-graph_eigenvector(object)
+graph_eigenvector(object, digits = 2)
 }
 \arguments{
 \item{object}{A matrix, igraph graph, or tidygraph object.}
@@ -43,6 +46,9 @@ against only the centrality scores of the other nodes in that nodeset.}
 \item{normalized}{Logical scalar, whether the centrality scores are normalized.
 Different denominators are used depending on whether the object is one-mode or two-mode,
 the type of centrality, and other arguments.}
+
+\item{digits}{whether to round the resulting score, by default 2.
+Add FALSE to turn all rounding off.}
 }
 \value{
 A single centralization score if the object was one-mode,
