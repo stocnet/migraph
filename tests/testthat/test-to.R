@@ -100,7 +100,7 @@ test_that("unsigned works", {
 })
 
 testnamed <- ison_m182
-igraph::V(testnamed)$name  <- sample(migraph:::baby_names,
+igraph::V(testnamed)$name  <- sample(baby_names,
                                      igraph::vcount(testnamed))
 test_that("to_named works", {
   expect_equal(c(as_matrix(to_named(ison_m182))), c(as_matrix(testnamed)))
