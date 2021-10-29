@@ -31,17 +31,11 @@ preserving the topological relationships among the nodes (see Inoue et al. 2012)
 }
 \examples{
 autographr(mpn_elite_mex, "frgrid")
-autographr(mpn_elite_usa_advice, "frgrid")
-autographr(mpn_elite_usa_money, "frgrid")
 autographr(mpn_ryanair, "frgrid")
 autographr(mpn_elite_mex, "kkgrid")
-autographr(mpn_elite_usa_advice, "kkgrid")
-autographr(mpn_elite_usa_money, "kkgrid")
 autographr(mpn_ryanair, "kkgrid")
 autographr(mpn_elite_mex, "gogrid")
-autographr(mpn_elite_usa_advice, "gogrid")
-autographr(mpn_elite_usa_money, "gogrid")
-autographr(mpn_ryanair, "graphopt")
+autographr(mpn_ryanair, "gogrid")
 }
 \references{
 Inoue et al. (2012).

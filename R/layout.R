@@ -21,8 +21,6 @@ NULL
 #' @rdname layouts
 #' @examples
 #' autographr(mpn_elite_mex, "frgrid")
-#' autographr(mpn_elite_usa_advice, "frgrid")
-#' autographr(mpn_elite_usa_money, "frgrid")
 #' autographr(mpn_ryanair, "frgrid")
 #' @export
 layout_tbl_graph_frgrid <- function(object, circular = FALSE, maxiter = 1000){
@@ -36,8 +34,6 @@ layout_tbl_graph_frgrid <- function(object, circular = FALSE, maxiter = 1000){
 #' @rdname layouts
 #' @examples
 #' autographr(mpn_elite_mex, "kkgrid")
-#' autographr(mpn_elite_usa_advice, "kkgrid")
-#' autographr(mpn_elite_usa_money, "kkgrid")
 #' autographr(mpn_ryanair, "kkgrid")
 #' @export
 layout_tbl_graph_kkgrid <- function(object, circular = FALSE, maxiter = 1000){
@@ -51,9 +47,7 @@ layout_tbl_graph_kkgrid <- function(object, circular = FALSE, maxiter = 1000){
 #' @rdname layouts
 #' @examples
 #' autographr(mpn_elite_mex, "gogrid")
-#' autographr(mpn_elite_usa_advice, "gogrid")
-#' autographr(mpn_elite_usa_money, "gogrid")
-#' autographr(mpn_ryanair, "graphopt")
+#' autographr(mpn_ryanair, "gogrid")
 #' @export
 layout_tbl_graph_gogrid <- function(object, circular = FALSE, maxiter = 1000){
   xy <- as.data.frame(igraph::layout_with_graphopt(object, niter = maxiter))
