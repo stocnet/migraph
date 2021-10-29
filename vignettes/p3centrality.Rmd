@@ -23,7 +23,7 @@ the 'base' approach in R by default,
 and the 'grid' approach made popular by the famous and very flexible `{ggplot2}` package.^['gg' stands for the Grammar of Graphics.]
 Approaches to plotting _graphs_ or _networks_ in R can be similarly divided.
 The two classic packages are `{igraph}` and `{sna}`, both building upon the base R graphics engine,
-but newer packages [`{ggnetwork}`](https://www.r-bloggers.com/ggnetwork-network-geometries-for-ggplot2/) and 
+but newer packages [`{ggnetwork}`](https://www.r-bloggers.com/2016/03/ggnetwork-network-geometries-for-ggplot2/) and 
 [`{ggraph}`](https://ggraph.data-imaginist.com/index.html) build upon a grid approach.^[
 Others include: 'Networkly' for creating 2-D and 3-D interactive networks
 that can be rendered with plotly and can be easily integrated into
@@ -31,7 +31,7 @@ shiny apps or markdown documents;
 'visNetwork' interacts with javascript (vis.js) to make interactive networks
 (http://datastorm-open.github.io/visNetwork/); and
 'networkD3' interacts with javascript (D3) to make interactive networks
-(https://www.r-bloggers.com/network-visualization-part-6-d3-and-r-networkd3/).
+(https://www.r-bloggers.com/2016/10/network-visualization-part-6-d3-and-r-networkd3/).
 ]
 `{migraph}` builds upon the ggplot2/ggraph engine for plotting.
 
@@ -109,9 +109,9 @@ stresscent()
 ```
 
 There are also some dedicated centrality packages,
-such as [centiserve](http://www.centiserver.org),
+such as [centiserve](https://www.centiserver.org/),
 CINNA, influenceR, and keyplayer.
-There are also pretty exhaustive [discussions of this online](https://www.r-bloggers.com/network-centrality-in-r-an-introduction/).
+There are also pretty exhaustive [discussions of this online](https://www.r-bloggers.com/2018/12/network-centrality-in-r-an-introduction/).
 
 # Plotting different centrality measures
 
