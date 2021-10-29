@@ -7,6 +7,12 @@
 - Using `to_unnamed()` on 'network' objects now operates on them directly
 - Elaborated `to_` documentation significantly
 - Fixed bug in `to_onemode()` that was tripping `blockmodel()` on networks that are already one-mode
+- Added `is_connected()` to test whether network is connected, `method = ` argument can be specified as `weak` or `strong`
+
+## Data
+
+- Added `create_tree()` and `create_lattice()`, and made `create_star()` a bit faster for one-mode networks
+- Added `generate_smallworld()` and `generate_scalefree()`, though only for one-mode networks currently
 
 ## Measures
 

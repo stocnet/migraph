@@ -4,12 +4,12 @@
 \alias{node_smallworld}
 \title{Watts-Strogatz small-world model for two-mode networks}
 \usage{
-node_smallworld(object, n = 100)
+node_smallworld(object, niter = 100)
 }
 \arguments{
 \item{object}{A matrix, igraph graph, or tidygraph object}
 
-\item{n}{Number of simulations}
+\item{niter}{Number of simulations}
 }
 \value{
 Returns a table of small-world related metrics for each second-mode
@@ -21,7 +21,7 @@ Calculates small-world metrics for two-mode networks
 \details{
 The first column of the returned table is simply the number of
 the second-mode column. The next three columns report the observed and
-expected clustering, and the ratio of the former to the later.
+expected clustering, and the ratio of the former to the latter.
 The next three columns report the observed and expected path-length,
 and the ratio of the former to the later.
 The last column reports the ratio of the observed/expected clustering ratio

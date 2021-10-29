@@ -21,7 +21,7 @@ create_components(n, components = 2)
 
 create_star(n, directed = c("undirected", "in", "out"))
 
-create_tree(n, directed = c("undirected", "in", "out"), children = 2)
+create_tree(n, directed = c("undirected", "in", "out"), branches = 2)
 
 create_lattice(n, directed = c("undirected", "in", "out"))
 }
@@ -39,6 +39,8 @@ the function will create a two-mode network.}
 \item{...}{Additional arguments passed on to igraph.}
 
 \item{components}{Number of components to create.}
+
+\item{branches}{How many branches at each level}
 }
 \value{
 By default an igraph object will be returned,
@@ -62,6 +64,12 @@ that loops around is of a certain width or thickness.
 
 \code{create_components()} creates a graph in which the nodes are clustered
 into separate components.
+
+\code{create_star()} creates a graph of the given dimensions that has a maximally central node
+
+\code{create_tree()} creates a graph of the given dimensions with successive branches
+
+\code{create_lattice()} creates a graph of the given dimensions with ties to all neighbouring nodes
 }
 \examples{
 g <- create_empty(c(8,6))
@@ -71,11 +79,14 @@ autographr(g)
 g <- create_ring(c(8,6), width = 2)
 autographr(g)
 autographr(create_components(c(10, 12), components = 3))
-autographr(create_star(c(12,1)))
-autographr(create_tree(12))
-autographr(create_lattice(5))
-autographr(create_lattice(c(5,5)))
-autographr(create_lattice(c(5,5,5)))
+autographr(create_star(c(12,1), "in"))
+tr1 <- autographr(create_tree(12))
+tr2 <- autographr(create_tree(12), "tree")
+grid.arrange(tr1, tr2, ncol = 2)
+cl1 <- autographr(create_lattice(5))
+cl2 <- autographr(create_lattice(c(5,5)))
+cl3 <- autographr(create_lattice(c(5,5,5)))
+grid.arrange(cl1, cl2, cl3, ncol = 3)
 }
 \seealso{
 as_matrix as_tidygraph as_network

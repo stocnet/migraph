@@ -143,9 +143,10 @@ create_components <- function(n, components = 2) {
 
 #' @rdname create
 #' @param directed One of the following options: "in", "out", or "undirected" (DEFAULT).
+#' @details `create_star()` creates a graph of the given dimensions that has a maximally central node
 #' @importFrom igraph graph_from_adjacency_matrix graph_from_incidence_matrix make_star
 #' @examples
-#' autographr(create_star(c(12,1)))
+#' autographr(create_star(c(12,1), "in"))
 #' @export
 create_star <- function(n, 
                         directed = c("undirected","in","out")) {
@@ -170,28 +171,33 @@ roll_over <- function(w) {
   cbind(w[, ncol(w)], w[, 1:(ncol(w) - 1)])
 }
 
-
 #' @rdname create
 #' @param directed One of the following options: "in", "out", or "undirected" (DEFAULT).
+#' @param branches How many branches at each level
+#' @details `create_tree()` creates a graph of the given dimensions with successive branches
 #' @importFrom igraph make_tree
 #' @examples
-#' autographr(create_tree(12))
+#' tr1 <- autographr(create_tree(12))
+#' tr2 <- autographr(create_tree(12), "tree")
+#' grid.arrange(tr1, tr2, ncol = 2)
 #' @export
 create_tree <- function(n, 
                         directed = c("undirected","in","out"), 
-                        children = 2) {
+                        branches = 2) {
   if(length(n)>1) stop("`create_tree()` not yet implemented for two-mode networks")
   directed <- match.arg(directed)
-  igraph::make_tree(sum(n), children = children, mode = directed)
+  igraph::make_tree(sum(n), children = branches, mode = directed)
 }
 
 #' @rdname create
 #' @param directed One of the following options: "in", "out", or "undirected" (DEFAULT).
+#' @details `create_lattice()` creates a graph of the given dimensions with ties to all neighbouring nodes
 #' @importFrom igraph make_lattice
 #' @examples
-#' autographr(create_lattice(5))
-#' autographr(create_lattice(c(5,5)))
-#' autographr(create_lattice(c(5,5,5)))
+#' cl1 <- autographr(create_lattice(5))
+#' cl2 <- autographr(create_lattice(c(5,5)))
+#' cl3 <- autographr(create_lattice(c(5,5,5)))
+#' grid.arrange(cl1, cl2, cl3, ncol = 3)
 #' @export
 create_lattice <- function(n, 
                         directed = c("undirected","in","out")) {

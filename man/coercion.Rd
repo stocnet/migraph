@@ -76,3 +76,10 @@ as_igraph(test)
 as_tidygraph(test)
 as_network(test)
 }
+\seealso{
+Other manipulation: 
+\code{\link{is}()},
+\code{\link{project}},
+\code{\link{to}}
+}
+\concept{manipulation}

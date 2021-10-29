@@ -2,14 +2,14 @@
 #' 
 #' Calculates small-world metrics for two-mode networks
 #' @param object A matrix, igraph graph, or tidygraph object
-#' @param n Number of simulations
+#' @param niter Number of simulations
 #' @family two-mode measures
 #' @family node-level measures
 #' @return Returns a table of small-world related metrics for each second-mode
 #' node.
 #' @details The first column of the returned table is simply the number of
 #' the second-mode column. The next three columns report the observed and
-#' expected clustering, and the ratio of the former to the later.
+#' expected clustering, and the ratio of the former to the latter.
 #' The next three columns report the observed and expected path-length,
 #' and the ratio of the former to the later.
 #' The last column reports the ratio of the observed/expected clustering ratio
@@ -24,7 +24,7 @@
 #' @importFrom igraph graph_from_incidence_matrix mean_distance
 #' @importFrom stats r2dtable
 #' @export
-node_smallworld <- function(object, n=100) {
+node_smallworld <- function(object, niter = 100) {
   mat <- as_matrix(object)
   out <- matrix(NA, ncol(mat), 7)
   for (c in 2:ncol(mat)) {
@@ -36,7 +36,7 @@ node_smallworld <- function(object, n=100) {
       out[c, 1] <- graph_transitivity(m)
     }
     out[c, 4] <- igraph::mean_distance(g)
-    r <- stats::r2dtable(n, rowSums(m), colSums(m))
+    r <- stats::r2dtable(niter, rowSums(m), colSums(m))
     if (is_twomode(object)) {
       out[c, 2] <- mean(unlist(lapply(r, graph_equivalency)))
     } else {

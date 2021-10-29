@@ -16,7 +16,9 @@ NULL
 #' @rdname generate
 #' @importFrom igraph sample_bipartite erdos.renyi.game
 #' @examples
-#' autographr(generate_random(c(10, 12), 0.25))
+#' er1 <- autographr(generate_random(12, 0.4))
+#' er2 <- autographr(generate_random(c(6, 6), 0.4))
+#' grid.arrange(er1, er2, ncol = 2)
 #' @export
 generate_random <- function(n, p, m) {
   if (length(n) == 1) {
@@ -39,6 +41,10 @@ generate_random <- function(n, p, m) {
 
 #' @rdname generate
 #' @importFrom igraph sample_smallworld
+#' @examples
+#' sw1 <- autographr(generate_smallworld(12, 0.025))
+#' sw2 <- autographr(generate_smallworld(12, 0.25))
+#' grid.arrange(sw1, sw2, ncol = 2)
 #' @export
 generate_smallworld <- function(n, p = 0.05) {
   igraph::sample_smallworld(dim = 1, size = n, 
@@ -47,6 +53,10 @@ generate_smallworld <- function(n, p = 0.05) {
 
 #' @rdname generate
 #' @importFrom igraph sample_pa
+#' @examples
+#' sf1 <- autographr(generate_scalefree(12, 0.25))
+#' sf2 <- autographr(generate_scalefree(12, 1.25))
+#' grid.arrange(sf1, sf2, ncol = 2)
 #' @export
 generate_scalefree <- function(n, p = 1) {
   igraph::sample_pa(n, power = p)

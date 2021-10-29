@@ -9,6 +9,7 @@
 #' - `{tidygraph}` `tbl_graph` objects
 #' - `{network}` `network` objects
 #' @name coercion
+#' @family manipulation
 #' @param object A data frame edgelist, matrix, igraph, tidygraph, or
 #' network object.
 #' @param twomode An option to override the heuristics for distinguishing

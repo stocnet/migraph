@@ -14,6 +14,7 @@
 #' and weights the ties between them on the basis of
 #' their joint ties to nodes in the first mode (rows).
 #' @name project
+#' @family manipulation
 #' @param object A matrix, `igraph` graph or `tidygraph` tbl_graph object.
 #' @importFrom igraph bipartite.projection
 #' @importFrom tidygraph as_tbl_graph

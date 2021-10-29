@@ -1,5 +1,6 @@
 #' Tests of network properties
 #' @name is
+#' @family manipulation
 #' @param object A migraph-consistent class object
 #' (matrix, edgelist, igraph, network, tidygraph)
 #' @importFrom igraph is.bipartite

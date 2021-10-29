@@ -98,3 +98,10 @@ to_simplex(ison_m182)
 to_named(ison_m182)
 to_multilevel(mpn_elite_usa_advice)
 }
+\seealso{
+Other manipulation: 
+\code{\link{coercion}},
+\code{\link{is}()},
+\code{\link{project}}
+}
+\concept{manipulation}

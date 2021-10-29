@@ -20,6 +20,7 @@
 #' | onemode  |  |   | X | X |   |
 #' | multilevel  |  |   | X | X |   |
 #' @name to
+#' @family manipulation
 #' @param object A matrix, `{igraph}` graph, `{tidygraph}` tbl_graph, or
 #' `{network}` object.
 #' @param edge the name of an edge attribute to retain from a graph

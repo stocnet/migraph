@@ -53,3 +53,10 @@ is_labelled(southern_women)
 is_signed(southern_women)
 is_connected(southern_women)
 }
+\seealso{
+Other manipulation: 
+\code{\link{coercion}},
+\code{\link{project}},
+\code{\link{to}}
+}
+\concept{manipulation}
