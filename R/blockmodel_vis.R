@@ -103,25 +103,10 @@ ggtree <- function(hc, k = NULL){
 #' @examples
 #' ggidentify_clusters(res, node_triad_census(mpn_elite_mex))
 #' @export
-ggidentify_clusters <- function(hc, census, method = "elbow"){
+ggidentify_clusters <- function(hc, census, method = c("elbow", "strict")){
   vertices <- nrow(census)
   observedcorrelation <- cor(t(census))
   
-  clusterCorr <- function(observed_cor_matrix, cluster_vector) {
-    num_vertices = nrow(observed_cor_matrix)
-    cluster_cor_mat <- observed_cor_matrix
-    for (i in 1:num_vertices) {
-      for (j in 1:num_vertices) {
-        cluster_cor_mat[i, j] =
-          mean(observed_cor_matrix
-               [which(cluster_vector[row(observed_cor_matrix)] ==
-                        cluster_vector[i] &
-                        cluster_vector[col(observed_cor_matrix)] ==
-                        cluster_vector[j])])
-      }
-    }
-    return(cluster_cor_mat)
-  }
   resultlist <- list()
   correlations <- vector()
   for (i in 2:(vertices)) {
@@ -136,43 +121,67 @@ ggidentify_clusters <- function(hc, census, method = "elbow"){
     resultlist <- c(resultlist, cluster_result)
     correlations <- c(correlations, clustered_observed_cors)
   }
-  resultlist$correlations <- c(0, correlations)
-  dafr <- data.frame(clusters = 1:vertices, correlations = c(0, correlations))
+  resultlist$correlations <- c(correlations)
+  dafr <- data.frame(clusters = 2:vertices, correlations = c(correlations))
   # resultlist
   correct <- NULL # to satisfy the error god
-  elbow_finder <- function(x_values, y_values) {
-    # Max values to create line
-    max_df <- data.frame(x = c(min(x_values), max(x_values)), 
-                         y = c(min(y_values), max(y_values)))
-    # Creating straight line between the max values
-    fit <- lm(max_df$y ~ max_df$x)
-    # Distance from point to line
-    distances <- vector()
-    for (i in seq_len(length(x_values))) {
-      distances <- c(distances,
-                     abs(stats::coef(fit)[2]*x_values[i] -
-                           y_values[i] +
-                           coef(fit)[1]) /
-                           sqrt(stats::coef(fit)[2]^2 + 1^2))
-    }
-    # Max distance point
-    x_max_dist <- x_values[which.max(distances)]
-    # y_max_dist <- y_values[which.max(distances)]
-    # return(c(x_max_dist, y_max_dist))
-    x_max_dist
-  }
-  dafr$correct <- ifelse(dafr$clusters == elbow_finder(dafr$clusters, dafr$correlations),
-                         "#E20020", "#6f7072")
-  # dapr <- data.frame(clusters = 1:vertices,
-  #                    correlations = c(0, correlations),
-  #                    correct = ifelse(dafr$clusters == elbow_finder(dafr$clusters, dafr$correlations),
-  #                                     "#E20020", "#6f7072"))
-  # dapr[1,] <- NULL
+  
+  if(method == "elbow"){
+    dafr$correct <- ifelse(dafr$clusters == elbow_finder(dafr$clusters, dafr$correlations),
+                           "#E20020", "#6f7072")
+  } else if (method == "strict"){
+    dafr$correct <- "#6f7072"
+    dafr$correct[which(elementwise.all.equal(dafr$correlations, 1))[1]] <- "#E20020"
+  } else stop("This k selection method is not recognised")
+
   ggplot2::ggplot(dafr, aes(x = clusters, y = correlations)) +
     ggplot2::geom_line(color = "#6f7072") +
     ggplot2::geom_point(aes(color = correct), size = 2) +
     ggplot2::scale_color_manual(values = c("#6f7072", "#E20020")) +
-    ggplot2::scale_y_continuous(limits = c(0, 1)) +
+    # ggplot2::scale_y_continuous(limits = c(0, 1)) +
     ggplot2::theme_minimal() +
     ggplot2::guides(color = "none")
 }
+
+elbow_finder <- function(x_values, y_values) {
+  # Max values to create line
+  if(min(x_values)==1) x_values <- x_values[2:length(x_values)]
+  if(min(y_values)==0) y_values <- y_values[2:length(y_values)]
+  max_df <- data.frame(x = c(min(x_values), max(x_values)), 
+                       y = c(min(y_values), max(y_values)))
+  # Creating straight line between the max values
+  fit <- lm(max_df$y ~ max_df$x)
+  # Distance from point to line
+  distances <- vector()
+  for (i in seq_len(length(x_values))) {
+    distances <- c(distances,
+                   abs(stats::coef(fit)[2]*x_values[i] -
+                         y_values[i] +
+                         coef(fit)[1]) /
+                     sqrt(stats::coef(fit)[2]^2 + 1^2))
+  }
+  # Max distance point
+  x_max_dist <- x_values[which.max(distances)]
+  # y_max_dist <- y_values[which.max(distances)]
+  # return(c(x_max_dist, y_max_dist))
+  x_max_dist
+}
+
+clusterCorr <- function(observed_cor_matrix, cluster_vector) {
+  num_vertices = nrow(observed_cor_matrix)
+  cluster_cor_mat <- observed_cor_matrix
+  for (i in 1:num_vertices) {
+    for (j in 1:num_vertices) {
+      cluster_cor_mat[i, j] =
+        mean(observed_cor_matrix
+             [which(cluster_vector[row(observed_cor_matrix)] ==
+                      cluster_vector[i] &
+                      cluster_vector[col(observed_cor_matrix)] ==
+                      cluster_vector[j])])
+    }
+  }
+  return(cluster_cor_mat)
+}
+
+elementwise.all.equal <- Vectorize(function(x, y) {isTRUE(all.equal(x, y))})
+

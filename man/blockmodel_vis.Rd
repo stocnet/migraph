@@ -11,7 +11,7 @@
 
 ggtree(hc, k = NULL)
 
-ggidentify_clusters(hc, census, method = "elbow")
+ggidentify_clusters(hc, census, method = c("elbow", "strict"))
 }
 \arguments{
 \item{x}{A blockmodel-class object.}
