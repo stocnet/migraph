@@ -8,3 +8,4 @@ docs/
 working/*
 /doc/
 /Meta/
+tests/testthat/Rplots.pdf
