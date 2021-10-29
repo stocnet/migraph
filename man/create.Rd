@@ -7,6 +7,8 @@
 \alias{create_ring}
 \alias{create_components}
 \alias{create_star}
+\alias{create_tree}
+\alias{create_lattice}
 \title{Create networks with particular structures}
 \usage{
 create_empty(n)
@@ -17,7 +19,11 @@ create_ring(n, width = 1, directed = FALSE, ...)
 
 create_components(n, components = 2)
 
-create_star(n, directed = "in")
+create_star(n, directed = c("undirected", "in", "out"))
+
+create_tree(n, directed = c("undirected", "in", "out"), children = 2)
+
+create_lattice(n, directed = c("undirected", "in", "out"))
 }
 \arguments{
 \item{n}{Number of nodes.
@@ -28,7 +34,7 @@ the function will create a two-mode network.}
 
 \item{width}{The width or breadth of the ring. This is typically double the degree.}
 
-\item{directed}{One of the following options: "in", "out", or "none".}
+\item{directed}{One of the following options: "in", "out", or "undirected" (DEFAULT).}
 
 \item{...}{Additional arguments passed on to igraph.}
 
@@ -66,6 +72,10 @@ g <- create_ring(c(8,6), width = 2)
 autographr(g)
 autographr(create_components(c(10, 12), components = 3))
 autographr(create_star(c(12,1)))
+autographr(create_tree(12))
+autographr(create_lattice(5))
+autographr(create_lattice(c(5,5)))
+autographr(create_lattice(c(5,5,5)))
 }
 \seealso{
 as_matrix as_tidygraph as_network
