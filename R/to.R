@@ -1,10 +1,24 @@
 #' Tools for reformatting networks, graphs, and matrices
 #' 
-#' Note that `to_onemode()`, which is currently only implemented for igraph,
-#' is not the same as `project_rows()` and `project_cols()`.
-#' There is no transformation involved; `to_onemode()` simply deletes the 'type'
-#' attribute from vertices, removing the bipartite note, but retaining all
-#' vertices.
+#' These functions offer tools for transforming certain properties of migraph-consistent objects 
+#' (that is, matrices, igraph, tidygraph, or network objects).
+#' 
+#' @details 
+#' Since some modifications are easier to implement for some objects than others,
+#' here are the currently implemented modifications:
+#' 
+#' |  to_      | edgelists | matrices  |igraph  |tidygraph  |network  |
+#' | ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|
+#' | unweighted  |  | X | X | X | X |
+#' | undirected  |  | X | X | X | X |
+#' | unsigned  |  |  | X | X |   |
+#' | uniplex  |  |   | X | X |   |
+#' | unnamed  |  | X | X | X | X |
+#' | named  |  | X | X | X | X |
+#' | simplex  |  |   | X | X |   |
+#' | main_component  |  |   | X | X |   |
+#' | onemode  |  |   | X | X |   |
+#' | multilevel  |  |   | X | X |   |
 #' @name to
 #' @param object A matrix, `{igraph}` graph, `{tidygraph}` tbl_graph, or
 #' `{network}` object.
@@ -12,6 +26,24 @@
 #' @param keep in the case of a signed network, whether to retain
 #' the "positive" or "negative" ties
 #' @param threshold For a matrix, the threshold to binarise/dichotomise at.
+#' @returns
+#' All `to_` functions return an object of the same class as that provided. 
+#' So passing it an igraph object will return an igraph object
+#' and passing it a network object will return a network object,
+#' with certain modifications as outlined below:
+#' - `to_unweighted()` returns an object that has all edge weights removed
+#' - `to_unnamed()` returns an object that has all vertex names removed
+#' - `to_named()` returns an object that has random vertex names added
+#' - `to_undirected()` returns an object that has any edge direction removed
+#' - `to_onemode()` returns an object that has any type/mode attributes removed,
+#' but otherwise includes all the same nodes and ties.
+#' Note that this is not the same as `project_rows()` or `project_cols()`,
+#' which return only some of the nodes and new ties established by coincidence.
+#' - `to_main_component()` returns an object that includes only the main component
+#' and not any smaller components or isolates
+#' - `to_uniplex()` returns an object that includes only a single type of tie
+#' - `to_simplex()` returns an object that has all loops or self-ties removed
+#' - `to_unsigned()` returns an object that has 
 #' @examples
 #' to_unweighted(project_rows(southern_women))
 #' @export
