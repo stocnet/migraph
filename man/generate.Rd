@@ -3,9 +3,15 @@
 \name{generate}
 \alias{generate}
 \alias{generate_random}
+\alias{generate_smallworld}
+\alias{generate_scalefree}
 \title{Create networks from particular probabilities}
 \usage{
 generate_random(n, p, m)
+
+generate_smallworld(n, p = 0.05)
+
+generate_scalefree(n, p = 1)
 }
 \arguments{
 \item{n}{Integer of length 1 or 2.}

@@ -11,6 +11,9 @@
 #' If `length(n)==1`, then a two-mode network will be returned.
 #' The first number is the number of nodes in the first nodeset (rows),
 #' and the second number becomes the number of nodes in the second nodeset (columns).
+NULL
+
+#' @rdname generate
 #' @importFrom igraph sample_bipartite erdos.renyi.game
 #' @examples
 #' autographr(generate_random(c(10, 12), 0.25))
@@ -33,6 +36,22 @@ generate_random <- function(n, p, m) {
   }
   g
 }
+
+#' @rdname generate
+#' @importFrom igraph sample_smallworld
+#' @export
+generate_smallworld <- function(n, p = 0.05) {
+  igraph::sample_smallworld(dim = 1, size = n, 
+                            nei = 2, p = p)
+}
+
+#' @rdname generate
+#' @importFrom igraph sample_pa
+#' @export
+generate_scalefree <- function(n, p = 1) {
+  igraph::sample_pa(n, power = p)
+}
+
 
 # igraph::ba.game()
 # igraph::grg.game()
