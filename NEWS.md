@@ -1,3 +1,10 @@
+# migraph 0.8.5
+
+## Package
+
+- Updated various URLs in the vignettes to pass CRAN tests
+- Reduce number of layout examples to avoid examples taking too long to run
+
 # migraph 0.8.4
 
 ## Classes

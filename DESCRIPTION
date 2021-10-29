@@ -1,6 +1,6 @@
 Package: migraph
 Title: Multimodal and Multilevel Network Analysis
-Version: 0.8.4
+Version: 0.8.5
 Date: 2021-10-29
 Description: A set of tools that extend common social network analysis packages
    for analysing multimodal and multilevel networks.
