@@ -1,3 +1,33 @@
+# migraph 0.8.4
+
+## Classes
+
+- Closed #128 by adding `as_edgelist()` methods for converting other objects into edgelists
+  - Note that this currently returns a tibble
+- Using `to_unnamed()` on 'network' objects now operates on them directly
+- Elaborated `to_` documentation significantly
+- Fixed bug in `to_onemode()` that was tripping `blockmodel()` on networks that are already one-mode
+
+## Measures
+
+- Added rounding to centralization measures, by default `=2`
+- Closed #109 by adding centrality vignette
+
+## Modelling
+
+- Added `graph_dyad_census()` for more graph profile options
+- Fixed bug with `blockmodel_concor()` when an object was of class 'igraph' but not 'tbl_graph'
+- Fixed bug in how `blockmodel()` was treating two-mode networks
+- Closed #116 by offering both `"elbow"` and `"strict"` methods for _k_-identification
+  - Fixed bug in elbow method that biased heavily bipartitioned data
+- Closed #131 by refactoring `ggidentify_clusters()` for speed 
+  - Takes now roughly half the time (see issue for details)
+
+## Visualization
+
+- Added `ggdistrib()` for easy plotting of degree and other node score distributions
+- Reexported `ggsave()`, `xlab()` and `ylab()` from `{ggplot2}` for easier plot annotation
+
 # migraph 0.8.3
 
 ## Package
