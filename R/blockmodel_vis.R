@@ -104,8 +104,10 @@ ggtree <- function(hc, k = NULL){
 #' ggidentify_clusters(res, node_triad_census(mpn_elite_mex))
 #' @export
 ggidentify_clusters <- function(hc, census, method = c("elbow", "strict")){
+  
   vertices <- nrow(census)
   observedcorrelation <- cor(t(census))
+  method <- match.arg(method)
   
   resultlist <- list()
   correlations <- vector()
@@ -121,11 +123,13 @@ ggidentify_clusters <- function(hc, census, method = c("elbow", "strict")){
     resultlist <- c(resultlist, cluster_result)
     correlations <- c(correlations, clustered_observed_cors)
   }
+
   resultlist$correlations <- c(correlations)
   dafr <- data.frame(clusters = 2:vertices, correlations = c(correlations))
   # resultlist
   correct <- NULL # to satisfy the error god
   
+  # k identification method
   if(method == "elbow"){
     dafr$correct <- ifelse(dafr$clusters == elbow_finder(dafr$clusters, dafr$correlations),
                            "#E20020", "#6f7072")
@@ -134,6 +138,7 @@ ggidentify_clusters <- function(hc, census, method = c("elbow", "strict")){
     dafr$correct[which(elementwise.all.equal(dafr$correlations, 1))[1]] <- "#E20020"
   } else stop("This k selection method is not recognised")
 
+  # plotting
   ggplot2::ggplot(dafr, aes(x = clusters, y = correlations)) +
     ggplot2::geom_line(color = "#6f7072") +
     ggplot2::geom_point(aes(color = correct), size = 2) +
@@ -162,25 +167,23 @@ elbow_finder <- function(x_values, y_values) {
   }
   # Max distance point
   x_max_dist <- x_values[which.max(distances)]
-  # y_max_dist <- y_values[which.max(distances)]
-  # return(c(x_max_dist, y_max_dist))
   x_max_dist
 }
 
 clusterCorr <- function(observed_cor_matrix, cluster_vector) {
   num_vertices = nrow(observed_cor_matrix)
   cluster_cor_mat <- observed_cor_matrix
-  for (i in 1:num_vertices) {
-    for (j in 1:num_vertices) {
-      cluster_cor_mat[i, j] =
-        mean(observed_cor_matrix
-             [which(cluster_vector[row(observed_cor_matrix)] ==
-                      cluster_vector[i] &
-                      cluster_vector[col(observed_cor_matrix)] ==
-                      cluster_vector[j])])
-    }
-  }
-  return(cluster_cor_mat)
+
+  obycor <- function(i, j) mean(observed_cor_matrix[which(cluster_vector[row(observed_cor_matrix)] ==
+                                         cluster_vector[i] &
+                                         cluster_vector[col(observed_cor_matrix)] ==
+                                         cluster_vector[j])])
+  obycor_v <- Vectorize(obycor)
+  cluster_cor_mat <- outer(1:num_vertices,
+                           1:num_vertices,
+                           obycor_v)
+  dimnames(cluster_cor_mat) <- dimnames(observed_cor_matrix)
+  cluster_cor_mat
 }
 
 elementwise.all.equal <- Vectorize(function(x, y) {isTRUE(all.equal(x, y))})
