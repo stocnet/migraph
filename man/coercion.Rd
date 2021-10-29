@@ -2,12 +2,15 @@
 % Please edit documentation in R/as.R
 \name{coercion}
 \alias{coercion}
+\alias{as_edgelist}
 \alias{as_matrix}
 \alias{as_igraph}
 \alias{as_tidygraph}
 \alias{as_network}
 \title{Coercion between graph/network object classes}
 \usage{
+as_edgelist(object, weight = FALSE)
+
 as_matrix(object, weight = FALSE)
 
 as_igraph(object, weight = FALSE, twomode = FALSE)
@@ -29,7 +32,7 @@ incidence from adjacency matrices. By default FALSE.}
 \value{
 The currently implemented coercions or translations are:\tabular{lccccc}{
    to/from \tab edgelists \tab matrices \tab igraph \tab tidygraph \tab network \cr
-   edgelists (data frames) \tab  \tab  \tab  \tab  \tab  \cr
+   edgelists (data frames) \tab  \tab X \tab X \tab X \tab X \cr
    matrices \tab X \tab X \tab X \tab X \tab X \cr
    igraph \tab X \tab X \tab X \tab X \tab X \cr
    tidygraph \tab X \tab X \tab X \tab X \tab X \cr
@@ -73,3 +76,10 @@ as_igraph(test)
 as_tidygraph(test)
 as_network(test)
 }
+\seealso{
+Other manipulation: 
+\code{\link{is}()},
+\code{\link{project}},
+\code{\link{to}}
+}
+\concept{manipulation}

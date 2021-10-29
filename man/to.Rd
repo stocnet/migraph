@@ -45,12 +45,46 @@ to_multilevel(object)
 \item{keep}{in the case of a signed network, whether to retain
 the "positive" or "negative" ties}
 }
+\value{
+All \code{to_} functions return an object of the same class as that provided.
+So passing it an igraph object will return an igraph object
+and passing it a network object will return a network object,
+with certain modifications as outlined below:
+\itemize{
+\item \code{to_unweighted()} returns an object that has all edge weights removed
+\item \code{to_unnamed()} returns an object that has all vertex names removed
+\item \code{to_named()} returns an object that has random vertex names added
+\item \code{to_undirected()} returns an object that has any edge direction removed
+\item \code{to_onemode()} returns an object that has any type/mode attributes removed,
+but otherwise includes all the same nodes and ties.
+Note that this is not the same as \code{project_rows()} or \code{project_cols()},
+which return only some of the nodes and new ties established by coincidence.
+\item \code{to_main_component()} returns an object that includes only the main component
+and not any smaller components or isolates
+\item \code{to_uniplex()} returns an object that includes only a single type of tie
+\item \code{to_simplex()} returns an object that has all loops or self-ties removed
+\item \code{to_unsigned()} returns an object that has
+}
+}
 \description{
-Note that \code{to_onemode()}, which is currently only implemented for igraph,
-is not the same as \code{project_rows()} and \code{project_cols()}.
-There is no transformation involved; \code{to_onemode()} simply deletes the 'type'
-attribute from vertices, removing the bipartite note, but retaining all
-vertices.
+These functions offer tools for transforming certain properties of migraph-consistent objects
+(that is, matrices, igraph, tidygraph, or network objects).
+}
+\details{
+Since some modifications are easier to implement for some objects than others,
+here are the currently implemented modifications:\tabular{lccccc}{
+   to_ \tab edgelists \tab matrices \tab igraph \tab tidygraph \tab network \cr
+   unweighted \tab  \tab X \tab X \tab X \tab X \cr
+   undirected \tab  \tab X \tab X \tab X \tab X \cr
+   unsigned \tab  \tab  \tab X \tab X \tab  \cr
+   uniplex \tab  \tab  \tab X \tab X \tab  \cr
+   unnamed \tab  \tab X \tab X \tab X \tab X \cr
+   named \tab  \tab X \tab X \tab X \tab X \cr
+   simplex \tab  \tab  \tab X \tab X \tab  \cr
+   main_component \tab  \tab  \tab X \tab X \tab  \cr
+   onemode \tab  \tab  \tab X \tab X \tab  \cr
+   multilevel \tab  \tab  \tab X \tab X \tab  \cr
+}
 }
 \examples{
 to_unweighted(project_rows(southern_women))
@@ -64,3 +98,10 @@ to_simplex(ison_m182)
 to_named(ison_m182)
 to_multilevel(mpn_elite_usa_advice)
 }
+\seealso{
+Other manipulation: 
+\code{\link{coercion}},
+\code{\link{is}()},
+\code{\link{project}}
+}
+\concept{manipulation}

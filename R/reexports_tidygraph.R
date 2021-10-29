@@ -26,6 +26,10 @@ tidygraph::.E
 #' @export
 tidygraph::mutate
 
+#' @importFrom tidygraph filter
+#' @export
+tidygraph::filter
+
 #' @importFrom tidygraph activate
 #' @export
 tidygraph::activate

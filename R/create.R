@@ -142,21 +142,18 @@ create_components <- function(n, components = 2) {
 }
 
 #' @rdname create
-#' @param directed One of the following options: "in", "out", or "none".
-#' @importFrom igraph graph_from_adjacency_matrix graph_from_incidence_matrix
+#' @param directed One of the following options: "in", "out", or "undirected" (DEFAULT).
+#' @details `create_star()` creates a graph of the given dimensions that has a maximally central node
+#' @importFrom igraph graph_from_adjacency_matrix graph_from_incidence_matrix make_star
 #' @examples
-#' autographr(create_star(c(12,1)))
+#' autographr(create_star(c(12,1), "in"))
 #' @export
-create_star <- function(n, directed = "in") {
+create_star <- function(n, 
+                        directed = c("undirected","in","out")) {
   
+  directed <- match.arg(directed)
   if (length(n) == 1) {
-    out <- matrix(0, n, n)
-    if (directed == "in") {
-      out[, 1] <- 1
-    } else {
-      out[1, ] <- 1
-    }
-    out <- igraph::graph_from_adjacency_matrix(out)
+    out <- igraph::make_star(n, mode = directed)
   } else if (length(n) == 2) {
     out <- matrix(0, n[1], n[2])
     if (directed == "in") {
@@ -168,10 +165,48 @@ create_star <- function(n, directed = "in") {
   } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
   out
 }
+
 # Helper function
 roll_over <- function(w) {
   cbind(w[, ncol(w)], w[, 1:(ncol(w) - 1)])
 }
+
+#' @rdname create
+#' @param directed One of the following options: "in", "out", or "undirected" (DEFAULT).
+#' @param branches How many branches at each level
+#' @details `create_tree()` creates a graph of the given dimensions with successive branches
+#' @importFrom igraph make_tree
+#' @examples
+#' tr1 <- autographr(create_tree(12))
+#' tr2 <- autographr(create_tree(12), "tree")
+#' grid.arrange(tr1, tr2, ncol = 2)
+#' @export
+create_tree <- function(n, 
+                        directed = c("undirected","in","out"), 
+                        branches = 2) {
+  if(length(n)>1) stop("`create_tree()` not yet implemented for two-mode networks")
+  directed <- match.arg(directed)
+  igraph::make_tree(sum(n), children = branches, mode = directed)
+}
+
+#' @rdname create
+#' @param directed One of the following options: "in", "out", or "undirected" (DEFAULT).
+#' @details `create_lattice()` creates a graph of the given dimensions with ties to all neighbouring nodes
+#' @importFrom igraph make_lattice
+#' @examples
+#' cl1 <- autographr(create_lattice(5))
+#' cl2 <- autographr(create_lattice(c(5,5)))
+#' cl3 <- autographr(create_lattice(c(5,5,5)))
+#' grid.arrange(cl1, cl2, cl3, ncol = 3)
+#' @export
+create_lattice <- function(n, 
+                        directed = c("undirected","in","out")) {
+  directed <- match.arg(directed)
+  igraph::make_lattice(n, 
+                       directed = directed!="undirected")
+}
+
+
 
 # #' @rdname create
 #' #' @details Creates a nested two-mode network.
@@ -229,3 +264,4 @@ roll_over <- function(w) {
 #' # mat.hier[1:2,2] <- 1
 #' # mat.hier[1:2,3] <- 1
 #' # mat.hier[3:4,4] <- 1
+

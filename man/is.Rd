@@ -7,6 +7,7 @@
 \alias{is_directed}
 \alias{is_labelled}
 \alias{is_signed}
+\alias{is_connected}
 \title{Tests of network properties}
 \usage{
 is_twomode(object)
@@ -18,10 +19,15 @@ is_directed(object)
 is_labelled(object)
 
 is_signed(object)
+
+is_connected(object, method = c("weak", "strong"))
 }
 \arguments{
 \item{object}{A migraph-consistent class object
 (matrix, edgelist, igraph, network, tidygraph)}
+
+\item{method}{Whether to identify components if only "weak"ly connected
+or also "strong"ly connected.}
 }
 \value{
 TRUE if object is a two-mode network, otherwise FALSE
@@ -33,6 +39,8 @@ TRUE if object is a directed network, otherwise FALSE
 TRUE if object is a labelled network, otherwise FALSE
 
 TRUE if object is a signed network, otherwise FALSE
+
+TRUE if object is a connected network, otherwise FALSE
 }
 \description{
 Tests of network properties
@@ -43,4 +51,12 @@ is_weighted(southern_women)
 is_directed(southern_women)
 is_labelled(southern_women)
 is_signed(southern_women)
+is_connected(southern_women)
 }
+\seealso{
+Other manipulation: 
+\code{\link{coercion}},
+\code{\link{project}},
+\code{\link{to}}
+}
+\concept{manipulation}

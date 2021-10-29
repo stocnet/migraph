@@ -7,6 +7,9 @@
 \alias{ggplot}
 \alias{ggtitle}
 \alias{labs}
+\alias{xlab}
+\alias{ylab}
+\alias{ggsave}
 \alias{grid.arrange}
 \alias{is.igraph}
 \alias{is_bipartite}
@@ -19,6 +22,7 @@
 \alias{.N}
 \alias{.E}
 \alias{mutate}
+\alias{filter}
 \alias{activate}
 \title{Objects exported from other packages}
 \keyword{internal}
@@ -27,7 +31,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ggplot2}{\code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2:labs]{ggtitle}}, \code{\link[ggplot2]{labs}}}
+  \item{ggplot2}{\code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2:labs]{ggtitle}}, \code{\link[ggplot2]{labs}}, \code{\link[ggplot2:labs]{xlab}}, \code{\link[ggplot2:labs]{ylab}}}
 
   \item{gridExtra}{\code{\link[gridExtra:arrangeGrob]{grid.arrange}}}
 
@@ -37,6 +41,6 @@ below to see their documentation.
 
   \item{network}{\code{\link[network:network]{as.network}}, \code{\link[network:network]{is.network}}}
 
-  \item{tidygraph}{\code{\link[tidygraph:context_accessors]{.E}}, \code{\link[tidygraph:context_accessors]{.G}}, \code{\link[tidygraph:context_accessors]{.N}}, \code{\link[tidygraph]{activate}}, \code{\link[tidygraph:tbl_graph]{is.tbl_graph}}, \code{\link[tidygraph:reexports]{mutate}}, \code{\link[tidygraph]{with_graph}}}
+  \item{tidygraph}{\code{\link[tidygraph:context_accessors]{.E}}, \code{\link[tidygraph:context_accessors]{.G}}, \code{\link[tidygraph:context_accessors]{.N}}, \code{\link[tidygraph]{activate}}, \code{\link[tidygraph:reexports]{filter}}, \code{\link[tidygraph:tbl_graph]{is.tbl_graph}}, \code{\link[tidygraph:reexports]{mutate}}, \code{\link[tidygraph]{with_graph}}}
 }}
 

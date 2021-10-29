@@ -9,6 +9,7 @@
 #' - `{tidygraph}` `tbl_graph` objects
 #' - `{network}` `network` objects
 #' @name coercion
+#' @family manipulation
 #' @param object A data frame edgelist, matrix, igraph, tidygraph, or
 #' network object.
 #' @param twomode An option to override the heuristics for distinguishing
@@ -45,11 +46,54 @@
 #' 
 #' |  to/from      | edgelists           | matrices  |igraph  |tidygraph  |network  |
 #' | ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|
-#' | edgelists (data frames)  |  |  |  |  |  |
+#' | edgelists (data frames)  |  | X | X | X | X |
 #' | matrices                 | X | X | X | X | X |
 #' | igraph                   | X | X | X | X | X |
 #' | tidygraph                | X | X | X | X | X |
 #' | network                  | X | X | X | X | X |
+NULL
+
+#' @rdname coercion
+#' @importFrom igraph as_edgelist
+#' @export
+as_edgelist <- function(object, weight = FALSE) UseMethod("as_edgelist")
+
+#' @export
+as_edgelist.igraph <- function(object, weight = FALSE){
+  out <- igraph::as_edgelist(object)
+  colnames(out) <- c("from", "to")
+  tibble::as_tibble(out)
+}
+
+#' @export
+as_edgelist.tbl_graph <- function(object, weight = FALSE){
+  out <- igraph::as_edgelist(object)
+  colnames(out) <- c("from", "to")
+  tibble::as_tibble(out)
+}
+
+#' @export
+as_edgelist.network <- function(object, weight = FALSE){
+  out <- sna::as.edgelist.sna(object)
+  edges <- as.data.frame(out)
+  if(is_twomode(object)){
+    edges <- edges[((nrow(edges)/2)+1):nrow(edges),]
+  }
+  names(edges) <- c("from", "to", "weight")
+  if(is_labelled(object)){
+    names <- attr(out, "vnames")
+    edges[,1] <- names[edges[,1]]
+    edges[,2] <- names[edges[,2]]
+  }
+  tibble::as_tibble(edges)
+}
+
+#' @export
+as_edgelist.matrix <- function(object, weight = FALSE){
+  as_edgelist.igraph(as_igraph(object))
+}
+
+#' @rdname coercion
 #' @export
 as_matrix <- function(object, weight = FALSE) UseMethod("as_matrix")
 
@@ -170,10 +214,10 @@ as_igraph.tbl_graph <- function(object,
 as_igraph.network <- function(object, weight = FALSE, 
                                 twomode = FALSE) {
   if (network::is.bipartite(object)) {
-    graph <- network::as.matrix.network.incidence(object)
+    graph <- sna::as.sociomatrix.sna(object)
     graph <- igraph::graph_from_incidence_matrix(graph)
   } else {
-    graph <- network::as.matrix.network.adjacency(object)
+    graph <- sna::as.sociomatrix.sna(object)
     graph <- igraph::graph_from_adjacency_matrix(graph)
   }
   graph

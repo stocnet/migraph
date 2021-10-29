@@ -1,17 +1,50 @@
 #' Tools for reformatting networks, graphs, and matrices
 #' 
-#' Note that `to_onemode()`, which is currently only implemented for igraph,
-#' is not the same as `project_rows()` and `project_cols()`.
-#' There is no transformation involved; `to_onemode()` simply deletes the 'type'
-#' attribute from vertices, removing the bipartite note, but retaining all
-#' vertices.
+#' These functions offer tools for transforming certain properties of migraph-consistent objects 
+#' (that is, matrices, igraph, tidygraph, or network objects).
+#' 
+#' @details 
+#' Since some modifications are easier to implement for some objects than others,
+#' here are the currently implemented modifications:
+#' 
+#' |  to_      | edgelists | matrices  |igraph  |tidygraph  |network  |
+#' | ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|
+#' | unweighted  |  | X | X | X | X |
+#' | undirected  |  | X | X | X | X |
+#' | unsigned  |  |  | X | X |   |
+#' | uniplex  |  |   | X | X |   |
+#' | unnamed  |  | X | X | X | X |
+#' | named  |  | X | X | X | X |
+#' | simplex  |  |   | X | X |   |
+#' | main_component  |  |   | X | X |   |
+#' | onemode  |  |   | X | X |   |
+#' | multilevel  |  |   | X | X |   |
 #' @name to
+#' @family manipulation
 #' @param object A matrix, `{igraph}` graph, `{tidygraph}` tbl_graph, or
 #' `{network}` object.
 #' @param edge the name of an edge attribute to retain from a graph
 #' @param keep in the case of a signed network, whether to retain
 #' the "positive" or "negative" ties
 #' @param threshold For a matrix, the threshold to binarise/dichotomise at.
+#' @returns
+#' All `to_` functions return an object of the same class as that provided. 
+#' So passing it an igraph object will return an igraph object
+#' and passing it a network object will return a network object,
+#' with certain modifications as outlined below:
+#' - `to_unweighted()` returns an object that has all edge weights removed
+#' - `to_unnamed()` returns an object that has all vertex names removed
+#' - `to_named()` returns an object that has random vertex names added
+#' - `to_undirected()` returns an object that has any edge direction removed
+#' - `to_onemode()` returns an object that has any type/mode attributes removed,
+#' but otherwise includes all the same nodes and ties.
+#' Note that this is not the same as `project_rows()` or `project_cols()`,
+#' which return only some of the nodes and new ties established by coincidence.
+#' - `to_main_component()` returns an object that includes only the main component
+#' and not any smaller components or isolates
+#' - `to_uniplex()` returns an object that includes only a single type of tie
+#' - `to_simplex()` returns an object that has all loops or self-ties removed
+#' - `to_unsigned()` returns an object that has 
 #' @examples
 #' to_unweighted(project_rows(southern_women))
 #' @export
@@ -64,9 +97,8 @@ to_unnamed.tbl_graph <- function(object) {
 
 #' @export
 to_unnamed.network <- function(object) {
-  out <- as_igraph(object)
-  out <- igraph::delete_vertex_attr(out, "name")
-  as_network(out)
+  out <- network::delete.vertex.attribute(object, "vertex.names")
+  out
 }
 
 #' @export
@@ -122,7 +154,7 @@ to_onemode.tbl_graph <- function(object) {
 
 #' @export
 to_onemode.igraph <- function(object) {
-  object <- igraph::delete_vertex_attr(object, "type")
+  if("type" %in% igraph::vertex_attr_names(object)) object <- igraph::delete_vertex_attr(object, "type")
   object
 }
 
@@ -165,7 +197,7 @@ to_uniplex.igraph <- function(object, edge){
       out <- igraph::delete_edge_attr(out, e) 
     }
   }
-  if(is.numeric(igraph::get.edge.attribute(object, edge))) names(igraph::edge_attr(out)) <- "weight"
+  if (is.numeric(igraph::get.edge.attribute(object, edge))) names(igraph::edge_attr(out)) <- "weight"
   out
 }
 
@@ -184,9 +216,9 @@ to_unsigned.tbl_graph <- function(object, keep = c("positive", "negative")){
 
 #' @export
 to_unsigned.igraph <- function(object, keep = c("positive", "negative")){
-  if(is_signed(object)){
+  if (is_signed(object)) {
     keep <- match.arg(keep)
-    if(keep == "positive"){
+    if (keep == "positive") {
       out <- igraph::delete_edges(object, which(igraph::E(object)$sign < 0))
     } else {
       out <- igraph::delete_edges(object, which(igraph::E(object)$sign > 0))

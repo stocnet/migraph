@@ -29,7 +29,7 @@ test_that("component creation works", {
 test_that("star creation works", {
   expect_true(!is_twomode(create_star(5)))
   expect_true(is_twomode(create_star(c(5,5))))
-  expect_equal(unname(as_matrix(create_star(c(2,2)))), matrix(c(1,1,0,0),2,2))
+  expect_equal(unname(as_matrix(create_star(c(2,2), "in"))), matrix(c(1,1,0,0),2,2))
   expect_equal(unname(as_matrix(create_star(c(2,2), directed = "out"))), matrix(c(1,0,1,0),2,2))
   expect_error(create_star(c(5,5,5)), "single integer")
 })

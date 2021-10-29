@@ -33,3 +33,10 @@ their joint ties to nodes in the first mode (rows).
 project_rows(southern_women)
 project_cols(southern_women)
 }
+\seealso{
+Other manipulation: 
+\code{\link{coercion}},
+\code{\link{is}()},
+\code{\link{to}}
+}
+\concept{manipulation}

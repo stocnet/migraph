@@ -1,5 +1,6 @@
 #' Tests of network properties
 #' @name is
+#' @family manipulation
 #' @param object A migraph-consistent class object
 #' (matrix, edgelist, igraph, network, tidygraph)
 #' @importFrom igraph is.bipartite
@@ -56,8 +57,21 @@ is_signed <- function(object) {
   "sign" %in% igraph::edge_attr_names(object)
 }
 
+#' @rdname is
+#' @param method Whether to identify components if only "weak"ly connected
+#' or also "strong"ly connected.
+#' @importFrom igraph is.connected
+#' @return TRUE if object is a connected network, otherwise FALSE
+#' @examples
+#' is_connected(southern_women)
+#' @export
+is_connected <- function(object, method = c("weak", "strong")) {
+  method <- match.arg(method)
+  object <- as_igraph(object)
+  igraph::is.connected(object, mode = method)
+}
+
 # igraph::is.chordal()
-# igraph::is.connected()
 # igraph::is.dag()
 # igraph::is.degree.sequence()
 # igraph::is.graphical.degree.sequence()
