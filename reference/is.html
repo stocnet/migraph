@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.4</span>
       </span>
     </div>
 
@@ -108,6 +108,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/p3centrality.html">Practical 3</a>
+    </li>
     <li>
       <a href="../articles/p4community.html">Practical 4</a>
     </li>
@@ -163,7 +166,9 @@
 
 <span class='fu'>is_labelled</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
 
-<span class='fu'>is_signed</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></pre>
+<span class='fu'>is_signed</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
+
+<span class='fu'>is_connected</span><span class='op'>(</span><span class='va'>object</span>, method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"weak"</span>, <span class='st'>"strong"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -172,6 +177,11 @@
       <th>object</th>
       <td><p>A migraph-consistent class object
 (matrix, edgelist, igraph, network, tidygraph)</p></td>
+    </tr>
+    <tr>
+      <th>method</th>
+      <td><p>Whether to identify components if only "weak"ly connected
+or also "strong"ly connected.</p></td>
     </tr>
     </table>
 
@@ -182,6 +192,13 @@
 <p>TRUE if object is a directed network, otherwise FALSE</p>
 <p>TRUE if object is a labelled network, otherwise FALSE</p>
 <p>TRUE if object is a signed network, otherwise FALSE</p>
+<p>TRUE if object is a connected network, otherwise FALSE</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other manipulation: 
+<code><a href='coercion.html'>coercion</a></code>,
+<code><a href='project.html'>project</a></code>,
+<code><a href='to.html'>to</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>is_twomode</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span>
@@ -189,7 +206,8 @@
 </div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is_directed</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is_labelled</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is_signed</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] FALSE</div></pre>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is_connected</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

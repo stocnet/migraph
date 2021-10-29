@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.4</span>
       </span>
     </div>
 
@@ -108,6 +108,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/p3centrality.html">Practical 3</a>
+    </li>
     <li>
       <a href="../articles/p4community.html">Practical 4</a>
     </li>
@@ -155,7 +158,11 @@
     <p>Create networks from particular probabilities</p>
     </div>
 
-    <pre class="usage"><span class='fu'>generate_random</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>p</span>, <span class='va'>m</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>generate_random</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>p</span>, <span class='va'>m</span><span class='op'>)</span>
+
+<span class='fu'>generate_smallworld</span><span class='op'>(</span><span class='va'>n</span>, p <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span>
+
+<span class='fu'>generate_scalefree</span><span class='op'>(</span><span class='va'>n</span>, p <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -188,8 +195,16 @@ and the second number becomes the number of nodes in the second nodeset (columns
 <code><a href='create.html'>create</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>generate_random</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>12</span><span class='op'>)</span>, <span class='fl'>0.25</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='generate-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='va'>er1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>generate_random</span><span class='op'>(</span><span class='fl'>12</span>, <span class='fl'>0.4</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>er2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>generate_random</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6</span>, <span class='fl'>6</span><span class='op'>)</span>, <span class='fl'>0.4</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html'>grid.arrange</a></span><span class='op'>(</span><span class='va'>er1</span>, <span class='va'>er2</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='img'><img src='generate-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>sw1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>generate_smallworld</span><span class='op'>(</span><span class='fl'>12</span>, <span class='fl'>0.025</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>sw2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>generate_smallworld</span><span class='op'>(</span><span class='fl'>12</span>, <span class='fl'>0.25</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html'>grid.arrange</a></span><span class='op'>(</span><span class='va'>sw1</span>, <span class='va'>sw2</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='img'><img src='generate-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>sf1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>generate_scalefree</span><span class='op'>(</span><span class='fl'>12</span>, <span class='fl'>0.25</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>sf2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>generate_scalefree</span><span class='op'>(</span><span class='fl'>12</span>, <span class='fl'>1.25</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html'>grid.arrange</a></span><span class='op'>(</span><span class='va'>sf1</span>, <span class='va'>sf2</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='img'><img src='generate-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

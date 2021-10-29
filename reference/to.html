@@ -53,11 +53,8 @@
 
 
 <meta property="og:title" content="Tools for reformatting networks, graphs, and matrices — to" />
-<meta property="og:description" content="Note that to_onemode(), which is currently only implemented for igraph,
-is not the same as project_rows() and project_cols().
-There is no transformation involved; to_onemode() simply deletes the 'type'
-attribute from vertices, removing the bipartite note, but retaining all
-vertices." />
+<meta property="og:description" content="These functions offer tools for transforming certain properties of migraph-consistent objects
+(that is, matrices, igraph, tidygraph, or network objects)." />
 <meta property="og:image" content="https://snlab-ch.github.io/migraph/logo.png" />
 
 
@@ -90,7 +87,7 @@ vertices." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.4</span>
       </span>
     </div>
 
@@ -112,6 +109,9 @@ vertices." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/p3centrality.html">Practical 3</a>
+    </li>
     <li>
       <a href="../articles/p4community.html">Practical 4</a>
     </li>
@@ -156,11 +156,8 @@ vertices." />
     </div>
 
     <div class="ref-description">
-    <p>Note that <code>to_onemode()</code>, which is currently only implemented for igraph,
-is not the same as <code><a href='project.html'>project_rows()</a></code> and <code><a href='project.html'>project_cols()</a></code>.
-There is no transformation involved; <code>to_onemode()</code> simply deletes the 'type'
-attribute from vertices, removing the bipartite note, but retaining all
-vertices.</p>
+    <p>These functions offer tools for transforming certain properties of migraph-consistent objects
+(that is, matrices, igraph, tidygraph, or network objects).</p>
     </div>
 
     <pre class="usage"><span class='fu'>to_unweighted</span><span class='op'>(</span><span class='va'>object</span>, threshold <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
@@ -206,12 +203,57 @@ the "positive" or "negative" ties</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>All <code>to_</code> functions return an object of the same class as that provided.
+So passing it an igraph object will return an igraph object
+and passing it a network object will return a network object,
+with certain modifications as outlined below:</p><ul>
+<li><p><code>to_unweighted()</code> returns an object that has all edge weights removed</p></li>
+<li><p><code>to_unnamed()</code> returns an object that has all vertex names removed</p></li>
+<li><p><code>to_named()</code> returns an object that has random vertex names added</p></li>
+<li><p><code>to_undirected()</code> returns an object that has any edge direction removed</p></li>
+<li><p><code>to_onemode()</code> returns an object that has any type/mode attributes removed,
+but otherwise includes all the same nodes and ties.
+Note that this is not the same as <code><a href='project.html'>project_rows()</a></code> or <code><a href='project.html'>project_cols()</a></code>,
+which return only some of the nodes and new ties established by coincidence.</p></li>
+<li><p><code>to_main_component()</code> returns an object that includes only the main component
+and not any smaller components or isolates</p></li>
+<li><p><code>to_uniplex()</code> returns an object that includes only a single type of tie</p></li>
+<li><p><code>to_simplex()</code> returns an object that has all loops or self-ties removed</p></li>
+<li><p><code>to_unsigned()</code> returns an object that has</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Since some modifications are easier to implement for some objects than others,
+here are the currently implemented modifications:</p><table class='table'>
+<tr><td>to_</td><td>edgelists</td><td>matrices</td><td>igraph</td><td>tidygraph</td><td>network</td></tr>
+<tr><td>unweighted</td><td></td><td>X</td><td>X</td><td>X</td><td>X</td></tr>
+<tr><td>undirected</td><td></td><td>X</td><td>X</td><td>X</td><td>X</td></tr>
+<tr><td>unsigned</td><td></td><td></td><td>X</td><td>X</td><td></td></tr>
+<tr><td>uniplex</td><td></td><td></td><td>X</td><td>X</td><td></td></tr>
+<tr><td>unnamed</td><td></td><td>X</td><td>X</td><td>X</td><td>X</td></tr>
+<tr><td>named</td><td></td><td>X</td><td>X</td><td>X</td><td>X</td></tr>
+<tr><td>simplex</td><td></td><td></td><td>X</td><td>X</td><td></td></tr>
+<tr><td>main_component</td><td></td><td></td><td>X</td><td>X</td><td></td></tr>
+<tr><td>onemode</td><td></td><td></td><td>X</td><td>X</td><td></td></tr>
+<tr><td>multilevel</td><td></td><td></td><td>X</td><td>X</td><td></td></tr>
+</table>
+
+
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other manipulation: 
+<code><a href='coercion.html'>coercion</a></code>,
+<code><a href='is.html'>is</a>()</code>,
+<code><a href='project.html'>project</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>to_unweighted</span><span class='op'>(</span><span class='fu'><a href='project.html'>project_rows</a></span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; IGRAPH 3a1a4b2 UN-- 18 139 -- 
+</div><div class='output co'>#&gt; IGRAPH e70f47f UN-- 18 139 -- 
 #&gt; + attr: name (v/c)
-#&gt; + edges from 3a1a4b2 (vertex names):
+#&gt; + edges from e70f47f (vertex names):
 #&gt;  [1] EVELYN --LAURA     EVELYN --BRENDA    EVELYN --THERESA   EVELYN --CHARLOTTE
 #&gt;  [5] EVELYN --FRANCES   EVELYN --ELEANOR   EVELYN --RUTH      EVELYN --PEARL    
 #&gt;  [9] EVELYN --NORA      EVELYN --VERNE     EVELYN --MYRA      EVELYN --KATHERINE
@@ -221,9 +263,9 @@ the "positive" or "negative" ties</p></td>
 #&gt; [25] LAURA  --NORA      LAURA  --VERNE     LAURA  --SYLVIA    LAURA  --HELEN    
 #&gt; [29] LAURA  --MYRA      LAURA  --KATHERINE LAURA  --DOROTHY   THERESA--BRENDA   
 #&gt; + ... omitted several edges</div><div class='input'><span class='fu'>to_unnamed</span><span class='op'>(</span><span class='fu'><a href='project.html'>project_rows</a></span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; IGRAPH eda2c29 U-W- 18 139 -- 
+</div><div class='output co'>#&gt; IGRAPH 09eaf94 U-W- 18 139 -- 
 #&gt; + attr: weight (e/n)
-#&gt; + edges from eda2c29:
+#&gt; + edges from 09eaf94:
 #&gt;   [1] 1-- 2 1-- 4 1-- 3 1-- 5 1-- 6 1-- 7 1-- 9 1-- 8 1--14 1--10 1--11 1--12
 #&gt;  [13] 1--13 1--15 1--16 1--17 1--18 2-- 4 2-- 3 2-- 5 2-- 6 2-- 7 2-- 9 2-- 8
 #&gt;  [25] 2--14 2--10 2--13 2--15 2--11 2--12 2--16 3-- 4 3-- 5 3-- 6 3-- 7 3-- 9

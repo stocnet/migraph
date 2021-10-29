@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.4</span>
       </span>
     </div>
 
@@ -108,6 +108,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/p3centrality.html">Practical 3</a>
+    </li>
     <li>
       <a href="../articles/p4community.html">Practical 4</a>
     </li>
@@ -155,7 +158,7 @@
     <p>Calculates small-world metrics for two-mode networks</p>
     </div>
 
-    <pre class="usage"><span class='fu'>node_smallworld</span><span class='op'>(</span><span class='va'>object</span>, n <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>node_smallworld</span><span class='op'>(</span><span class='va'>object</span>, niter <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,7 +168,7 @@
       <td><p>A matrix, igraph graph, or tidygraph object</p></td>
     </tr>
     <tr>
-      <th>n</th>
+      <th>niter</th>
       <td><p>Number of simulations</p></td>
     </tr>
     </table>
@@ -178,7 +181,7 @@ node.</p>
 
     <p>The first column of the returned table is simply the number of
 the second-mode column. The next three columns report the observed and
-expected clustering, and the ratio of the former to the later.
+expected clustering, and the ratio of the former to the latter.
 The next three columns report the observed and expected path-length,
 and the ratio of the former to the later.
 The last column reports the ratio of the observed/expected clustering ratio
@@ -203,11 +206,11 @@ for how clustering is calculated</p>
     <pre class="examples"><div class='input'><span class='fu'>node_smallworld</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;    Num  ObsClust  ExpClust  ClustRat  ObsPath  ExpPath   PathRat SmallWorld
 #&gt; 1    1        NA        NA        NA       NA       NA        NA         NA
-#&gt; 2    2 0.5000000 0.3850000 1.2987013 1.866667 1.872000 0.9971510  1.3024119
-#&gt; 3    3 0.5600000 0.4461553 1.2551682 1.833333 2.218352 0.8264392  1.5187665
-#&gt; 4    4 0.5882353 0.6187832 0.9506322 1.822222 2.212356 0.8236568  1.1541607
-#&gt; 5    5 0.6268657 0.6603962 0.9492266 1.897436 2.321282 0.8174086  1.1612633
-#&gt; 6    6 0.6129032 0.7123905 0.8603472 2.033333 2.420154 0.8401668  1.0240196
+#&gt; 2    2 0.5000000 0.4050000 1.2345679 1.866667 1.858667 1.0043042  1.2292769
+#&gt; 3    3 0.5600000 0.4163541 1.3450088 1.833333 2.279665 0.8042116  1.6724564
+#&gt; 4    4 0.5882353 0.5981622 0.9834043 1.822222 2.200356 0.8281487  1.1874731
+#&gt; 5    5 0.6268657 0.6661476 0.9410313 1.897436 2.318205 0.8184935  1.1497113
+#&gt; 6    6 0.6129032 0.7292901 0.8404108 2.033333 2.432988 0.8357352  1.0055946
 #&gt; 7    7 0.5544554 0.6649757 0.8337981 2.152632 2.523474 0.8530430  0.9774397
 #&gt; 8    8 0.5388740 0.6590359 0.8176702 2.108696 2.512174 0.8393908  0.9741234
 #&gt; 9    9 0.5095917 0.6058027 0.8411843 2.165242 2.465242 0.8783081  0.9577326

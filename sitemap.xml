@@ -49,22 +49,22 @@
     <loc>https://snlab-ch.github.io/migraph//reference/ggevolution.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/ggidentify.html</loc>
-  </url>
-  <url>
     <loc>https://snlab-ch.github.io/migraph//reference/gglineage.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph//reference/ggraphgrid.html</loc>
   </url>
   <url>
+    <loc>https://snlab-ch.github.io/migraph//reference/ggtools.html</loc>
+  </url>
+  <url>
     <loc>https://snlab-ch.github.io/migraph//reference/graph_balance.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/graph_components.html</loc>
+    <loc>https://snlab-ch.github.io/migraph//reference/graph_census.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/graph_triad_census.html</loc>
+    <loc>https://snlab-ch.github.io/migraph//reference/graph_components.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph//reference/is.html</loc>
@@ -134,6 +134,9 @@
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph//reference/to.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph//articles/p3centrality.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph//articles/p4community.html</loc>
