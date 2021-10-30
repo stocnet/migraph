@@ -191,7 +191,7 @@ ggtree(friend_dend)
 ```
 
 Note the x-axis reflects the distance metric used by the walktrap algorithm.
-For more on this see Pons and Latapy, http://arxiv.org/abs/physics/0512106.
+For more on this see Pons and Latapy, https://arxiv.org/abs/physics/0512106.
 
 We can also visualise the clusters on the original network
 How does the following look? Plausible?
@@ -255,7 +255,7 @@ autographr(m182_friend,
 
 For more on this algorithm, see M Newman and M Girvan: Finding and 
 evaluating community structure in networks, Physical Review E 69, 026113
-(2004), http://arxiv.org/abs/cond-mat/0308217. 
+(2004), https://arxiv.org/abs/cond-mat/0308217. 
 
 ## Fast Greedy
 
@@ -284,7 +284,7 @@ autographr(m182_friend,
 
 See A Clauset, MEJ Newman, C Moore: 
 Finding community structure in very large networks, 
-http://www.arxiv.org/abs/cond-mat/0408187
+https://arxiv.org/abs/cond-mat/0408187
 
 # Two-mode network: Southern women
 

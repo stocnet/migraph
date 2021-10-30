@@ -8,3 +8,7 @@
 ## R CMD check results
 
 0 errors | 0 warnings | 0 notes
+
+- Fixed pretest issues relating to moved URLs
+- Reduced number of long examples in documentation
+- Cannot do anything about days since last submission
