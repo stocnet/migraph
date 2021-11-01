@@ -24,3 +24,13 @@ test_that("summary and print work correctly for netlm",{
   expect_equal(test$adj.r.squared, -0.2133333, tolerance = 0.01)
   # expect_equal(test$pvals, c(0.38, 0.84, 0.79), tolerance = 0.05)
 })
+
+test_that("print method work correctly for netlm",{
+  set.seed(123)
+  test <- summary(netlm(mat1 ~ mat2 + mat3, lmat))
+  test <- capture.output(print(test))
+  expect_equal(test[[2]], "Call:")
+  expect_equal(test[[3]], "netlm(formula = mat1 ~ mat2 + mat3, data = lmat)")
+  expect_equal(test[[6]], "Coefficients:")
+  expect_equal(test[[8]], "(Intercept) 0.375 0.361")
+})
