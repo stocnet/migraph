@@ -112,4 +112,4 @@ other excellent R packages such as
 [`{netmem}`](https://github.com/anespinosa/netmem), 
 and [`{tnet}`](https://toreopsahl.com/tnet/),
 and implements many additional features currently only available outside the R ecosystem
-in packages such as [**UCINET**](https://sites.google.com/site/ucinetsoftware/downloads).
+in packages such as [**UCINET**](https://sites.google.com/site/ucinetsoftware/download?authuser=0).
