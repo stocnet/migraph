@@ -38,10 +38,14 @@ ggidentify <- function(object, node_measure, identify_function = max) {
 #' @export
 ggdistrib <- function(object, node_measure){
   distrib <- node_measure(object)
-  ggplot2::qplot(distrib, geom="histogram", 
-                 binwidth=ifelse(max(distrib)>1, 1, 
-                                 ifelse(max(distrib)>.1, .1, .01))) + 
+  ggplot2::ggplot(as.data.frame(distrib)) +
+    ggplot2::geom_histogram(ggplot2::aes(distrib),
+                            binwidth = ifelse(max(distrib) > 1, 1,
+                                              ifelse(max(distrib) > .1,
+                                                     .1,
+                                                     .01))) +
     ggplot2::theme_classic() +
+    ggplot2::theme(panel.grid.major = ggplot2::element_line(colour = "grey90")) +
     ggplot2::xlab("Score") +
     ggplot2::ylab("Frequency")
 }
