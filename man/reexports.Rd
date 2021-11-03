@@ -9,6 +9,7 @@
 \alias{labs}
 \alias{xlab}
 \alias{ylab}
+\alias{aes}
 \alias{ggsave}
 \alias{grid.arrange}
 \alias{is.igraph}
@@ -31,7 +32,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ggplot2}{\code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2:labs]{ggtitle}}, \code{\link[ggplot2]{labs}}, \code{\link[ggplot2:labs]{xlab}}, \code{\link[ggplot2:labs]{ylab}}}
+  \item{ggplot2}{\code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2:labs]{ggtitle}}, \code{\link[ggplot2]{labs}}, \code{\link[ggplot2:labs]{xlab}}, \code{\link[ggplot2:labs]{ylab}}}
 
   \item{gridExtra}{\code{\link[gridExtra:arrangeGrob]{grid.arrange}}}
 

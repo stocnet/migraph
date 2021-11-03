@@ -126,17 +126,6 @@ group_triad_census <- function(object, clusters, decimals = 2) {
   cluster_triad_mat 
 }
 
-#' @title Get triad census summary by group
-#' `r lifecycle::badge("deprecated")`
-#' @keywords internal
-#' @description Deprecated on 2021-10-26.
-#' @return `group_triad_census()`
-#' @export
-cluster_triad_census <- function(object, clusters) {
-  .Deprecated("group_triad_census")
-  group_triad_census(object, clusters)
-}
-
 #' Censuses for the whole graph
 #' @name graph_census
 #' @param object a migraph-consistent object
