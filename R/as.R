@@ -3,8 +3,8 @@
 #' The `as_` functions in `{migraph}` coerce objects
 #' between several common classes of social network objects.
 #' These include:
+#' - edgelists, as data frames or tibbles
 #' - adjacency and incidence matrices
-#' - edgelists (as data frames)
 #' - `{igraph}` `graph` objects
 #' - `{tidygraph}` `tbl_graph` objects
 #' - `{network}` `network` objects

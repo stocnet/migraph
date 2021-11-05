@@ -16,6 +16,7 @@ NULL
 #' ggidentify(brandes, node_eigenvector)
 #' @export
 ggidentify <- function(object, node_measure, identify_function = max) {
+  object <- as_tidygraph(object)
   measure <- node_measure(object)
   colord <- ifelse(measure == identify_function(measure),
                "max", "other")

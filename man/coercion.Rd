@@ -44,8 +44,8 @@ The \code{as_} functions in \code{{migraph}} coerce objects
 between several common classes of social network objects.
 These include:
 \itemize{
+\item edgelists, as data frames or tibbles
 \item adjacency and incidence matrices
-\item edgelists (as data frames)
 \item \code{{igraph}} \code{graph} objects
 \item \code{{tidygraph}} \code{tbl_graph} objects
 \item \code{{network}} \code{network} objects

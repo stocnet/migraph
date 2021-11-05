@@ -14,6 +14,7 @@ NULL
 #' @export
 cluster_structural_equivalence <- function(object){
   mat <- node_tie_census(object)
+  if(any(colSums(t(mat))==0)) stop("Please remove any isolates before using this function.")
   correlations <- cor(t(mat))
   dissimilarity <- 1 - correlations
   distances <- stats::as.dist(dissimilarity)
