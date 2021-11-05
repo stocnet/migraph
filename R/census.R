@@ -107,6 +107,50 @@ node_quad_census <- function(object){
   out
 }
 
+#' @rdname graph_census
+#' @source Alejandro Espinosa 'netmem'
+#' @examples 
+#' (mixed_cen <- graph_mixed_census(to_unsigned(ison_marvel_relationships, "positive"), ison_marvel_teams))
+#' @export
+graph_mixed_census <- function (object, object2, B2=NULL) {
+  if(is_twomode(object)) stop("First object should be a one-mode network")
+  if(!is_twomode(object2)) stop("Second object should be a two-mode network")
+  if(graph_dimensions(object)[1]!=graph_dimensions(object2)[1]) stop("Non-conformable arrays")
+  
+  m1 <- as_matrix(object)
+  m2 <- as_matrix(object2)
+  cp <- function(m) (-m + 1)
+  
+  onemode.reciprocal <- m1 * t(m1)
+  onemode.forward <- m1 * cp(t(m1))
+  onemode.backward <- cp(m1) * t(m1)
+  onemode.null <- cp(m1) * cp(t(m1))
+  diag(onemode.forward) <- 0
+  diag(onemode.backward) <- 0
+  diag(onemode.null) <- 0
+  
+  bipartite.twopath <- m2 %*% t(m2)
+  bipartite.null <- cp(m2) %*% cp(t(m2))
+  bipartite.onestep1 <- m2 %*% cp(t(m2))
+  bipartite.onestep2 <- cp(m2) %*% t(m2)
+  diag(bipartite.twopath) <- 0
+  diag(bipartite.null) <- 0
+  diag(bipartite.onestep1) <- 0
+  diag(bipartite.onestep2) <- 0
+  
+  res <- c("22" = sum(onemode.reciprocal * bipartite.twopath) / 2,
+           "21" = sum(onemode.forward * bipartite.twopath) / 2 + sum(onemode.backward * bipartite.twopath) / 2,
+           "20" = sum(onemode.null * bipartite.twopath) / 2,
+           "12" = sum(onemode.reciprocal * bipartite.onestep1) / 2 + sum(onemode.reciprocal * bipartite.onestep2) / 2,
+           "11D" = sum(onemode.forward * bipartite.onestep1) / 2 + sum(onemode.backward * bipartite.onestep2) / 2,
+           "11U" = sum(onemode.forward * bipartite.onestep2) / 2 + sum(onemode.backward * bipartite.onestep1) / 2,
+           "10" = sum(onemode.null * bipartite.onestep2) / 2 + sum(onemode.null * bipartite.onestep1) / 2,
+           "02" = sum(onemode.reciprocal * bipartite.null) / 2,
+           "01" = sum(onemode.forward * bipartite.null) / 2 + sum(onemode.backward * bipartite.null) / 2,
+           "00" = sum(onemode.null * bipartite.null) / 2)  
+  return(res)
+}
+
 #' @rdname census
 #' @examples 
 #' group_tie_census(task_eg, cutree(cluster_structural_equivalence(task_eg), 4))
