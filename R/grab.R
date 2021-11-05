@@ -29,3 +29,15 @@ graph_nodes <- function(object){
 graph_edges <- function(object){
   igraph::ecount(as_igraph(object))
 }
+
+#' @rdname grab
+#' @export
+graph_dimensions <- function(object){
+  if(is_twomode(object)){
+    c(sum(!V(as_igraph(object))$type),
+      sum(V(as_igraph(object))$type))
+  } else {
+    igraph::vcount(as_igraph(object))
+  }
+}
+
