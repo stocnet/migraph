@@ -62,8 +62,6 @@ generate_scalefree <- function(n, p = 1) {
   igraph::sample_pa(n, power = p)
 }
 
-
-# igraph::ba.game()
 # igraph::grg.game()
 # igraph::sbm.game()
 # igraph::hrg.game()

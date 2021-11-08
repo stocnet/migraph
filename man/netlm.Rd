@@ -4,7 +4,7 @@
 \alias{netlm}
 \alias{summary.netlm}
 \alias{print.summary.netlm}
-\title{Linear regression for multimodal network data}
+\title{Linear regression for network data}
 \usage{
 netlm(formula, data, ...)
 
