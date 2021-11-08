@@ -83,12 +83,13 @@ node_triad_census <- function(object){
 
 #' @rdname census
 #' @importFrom oaqc oaqc
+#' @importFrom tidygraph %E>%
 #' @examples 
 #' (quad_cen <- node_quad_census(southern_women))
 #' @export
 node_quad_census <- function(object){
-  graph <- object %>% as_tidygraph() %>% 
-    activate(edges) %>% as.data.frame()
+  graph <- object %>% as_tidygraph() %E>% 
+    as.data.frame()
   out <- oaqc::oaqc(graph)[[1]]
   out <- out[-1,]
   rownames(out) <- node_names(object)
@@ -108,11 +109,17 @@ node_quad_census <- function(object){
 }
 
 #' @rdname graph_census
+#' @param object2 A second, two-mode migraph-consistent object
+#' @references 
+#' Hollway, James, Alessandro Lomi, Francesca Pallotti, and Christoph Stadtfeld. 
+#' “\href{https://doi.org/10.1017/nws.2017.8}{Multilevel Social Spaces: The Network Dynamics of Organizational Fields}.” 
+#' _Network Science_ 5, no. 2 (June 2017): 187–212.
 #' @source Alejandro Espinosa 'netmem'
 #' @examples 
-#' (mixed_cen <- graph_mixed_census(to_unsigned(ison_marvel_relationships, "positive"), ison_marvel_teams))
+#' marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
+#' (mixed_cen <- graph_mixed_census(marvel_friends, ison_marvel_teams))
 #' @export
-graph_mixed_census <- function (object, object2, B2=NULL) {
+graph_mixed_census <- function (object, object2) {
   if(is_twomode(object)) stop("First object should be a one-mode network")
   if(!is_twomode(object2)) stop("Second object should be a two-mode network")
   if(graph_dimensions(object)[1]!=graph_dimensions(object2)[1]) stop("Non-conformable arrays")

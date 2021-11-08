@@ -52,8 +52,9 @@ to_unweighted <- function(object, threshold = 1) UseMethod("to_unweighted")
 
 #' @export
 to_unweighted.tbl_graph <- function(object, threshold = 1) {
-    out <- igraph::delete_edge_attr(object, "weight")
-    tidygraph::as_tbl_graph(out)
+  if ("weight" %in% igraph::edge_attr_names(object)) 
+    object <- igraph::delete_edge_attr(object, "weight")
+  tidygraph::as_tbl_graph(object)
 }
 
 #' @export

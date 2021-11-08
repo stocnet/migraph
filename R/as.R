@@ -168,12 +168,12 @@ as_matrix.network <- function(object, weight = FALSE) {
 #' @importFrom igraph graph_from_adjacency_matrix
 #' @export
 as_igraph <- function(object,
-                      weight = FALSE,
+                      weight = TRUE,
                       twomode = FALSE) UseMethod("as_igraph")
 
 #' @export
 as_igraph.data.frame <- function(object,
-                                 weight = FALSE,
+                                 weight = TRUE,
                                  twomode = FALSE) {
   graph <- igraph::graph_from_data_frame(object)
   if(length(intersect(c(object[,1]), c(object[,2]))) == 0){
@@ -184,19 +184,27 @@ as_igraph.data.frame <- function(object,
 
 #' @export
 as_igraph.matrix <- function(object,
-                             weight = FALSE,
+                             weight = TRUE,
                              twomode = FALSE) {
   if (nrow(object) != ncol(object) | twomode) {
-    graph <- igraph::graph_from_incidence_matrix(object)
+    if(weight){
+      graph <- igraph::graph_from_incidence_matrix(object, weighted = TRUE)
+    } else {
+      graph <- igraph::graph_from_incidence_matrix(object, weighted = FALSE)
+    }
   } else {
-    graph <- igraph::graph_from_adjacency_matrix(object)
+    if(weight){
+      graph <- igraph::graph_from_adjacency_matrix(object, weighted = TRUE)
+    } else {
+      graph <- igraph::graph_from_adjacency_matrix(object)
+    }
   }
   graph
 }
 
 #' @export
 as_igraph.igraph <- function(object,
-                             weight = FALSE,
+                             weight = TRUE,
                              twomode = FALSE) {
   class(object) <- "igraph"
   object
@@ -211,8 +219,9 @@ as_igraph.tbl_graph <- function(object,
 }
 
 #' @export
-as_igraph.network <- function(object, weight = FALSE, 
-                                twomode = FALSE) {
+as_igraph.network <- function(object, 
+                              weight = TRUE, 
+                              twomode = FALSE) {
   if (network::is.bipartite(object)) {
     graph <- sna::as.sociomatrix.sna(object)
     graph <- igraph::graph_from_incidence_matrix(graph)

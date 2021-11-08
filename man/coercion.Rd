@@ -13,7 +13,7 @@ as_edgelist(object, weight = FALSE)
 
 as_matrix(object, weight = FALSE)
 
-as_igraph(object, weight = FALSE, twomode = FALSE)
+as_igraph(object, weight = TRUE, twomode = FALSE)
 
 as_tidygraph(object, twomode = FALSE)
 
