@@ -6,26 +6,23 @@
 \usage{
 autographr(
   object,
-  algorithm = "stress",
+  layout = "stress",
   labels = TRUE,
-  node_size = NULL,
   node_color = NULL,
   node_group = NULL,
+  node_shape = NULL,
+  node_size = NULL,
   ...
 )
 }
 \arguments{
 \item{object}{migraph-consistent object}
 
-\item{algorithm}{an igraph layout algorithm,
-currently defaults to 'stress'
-but Fruchterman-Reingold and Kamada-Kawai also available}
+\item{layout}{an igraph layout algorithm,
+currently defaults to 'stress'}
 
 \item{labels}{logical, whether to print node names
 as labels if present}
-
-\item{node_size}{an override in case this
-needs to be manually set}
 
 \item{node_color}{node variable in quotation marks
 that should be used for colouring the nodes}
@@ -34,6 +31,10 @@ that should be used for colouring the nodes}
 that should be used for drawing convex but also concave hulls
 around clusters of nodes.
 These groupings will be labelled with the categories of the variable passed.}
+
+\item{node_shape}{An override in case this needs to be set manually.}
+
+\item{node_size}{An override in case this needs to be set manually.}
 
 \item{...}{extra arguments}
 }

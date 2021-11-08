@@ -1,3 +1,43 @@
+# migraph 0.8.6
+
+## Package
+
+- Closed #75 by updating the README
+
+## Manipulation
+
+- Added some functions for grabbing key information from objects
+  - `node_names()` for quickly accessing node labels
+  - `node_attribute()` for quickly accessing a certain nodal attribute
+  - `edge_weights()` for quickly accessing edge weights
+  - `graph_nodes()` for quickly accessing a count of nodes in the graph, note that for two-mode networks this will be a vector of length 2
+  - `graph_edges()` for quickly accessing a count of edges in the graph
+  - `graph_dimensions()` is currently a copy of `graph_nodes()`
+- Added some functions for adding key information to objects
+  - `add_node_attributes()` for adding particular nodal attributes
+  - `add_edge_attributes()` for adding edges from another graph
+  - `copy_edge_attributes()` for copying all nodal attributes from another graph
+- Improved twomode and weighted handling of several functions
+
+## Measures
+
+- Added diversity functions
+  - `graph_blau_index()` for summarising diversity of an attribute in a network or group
+  - `graph_ei_index()` for summarising diversity of an attribute over a network's ties
+
+## Modelling
+
+- Closed #119 by adding `node_quad_census()`, especially useful for two-mode blockmodelling
+- Closed #95 and #120 by adding `graph_mixed_census()`
+- Closed #97 by adding test functions
+  - `test_random()` carries out a conditional uniform graph (CUG) test
+  - `test_permutation()` carries out a quadratic assignment procedure (QAP) test
+
+## Visualization
+
+- Closed #135 by reexporting `aes()` from `{ggplot2}`
+- Added `node_shape` option to `autographr()`
+
 # migraph 0.8.5
 
 ## Package

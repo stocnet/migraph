@@ -21,4 +21,5 @@ provided by a certain distance calculation.
 \examples{
 ggtree(cluster_structural_equivalence(mpn_elite_mex))
 ggtree(cluster_regular_equivalence(mpn_elite_mex))
+ggtree(cluster_regular_equivalence(mpn_elite_usa_advice))
 }

@@ -4,13 +4,12 @@
 #' graphing function that makes best use of the data,
 #' whatever its composition.
 #' @param object migraph-consistent object
-#' @param algorithm an igraph layout algorithm,
+#' @param layout an igraph layout algorithm,
 #' currently defaults to 'stress'
-#' but Fruchterman-Reingold and Kamada-Kawai also available
 #' @param labels logical, whether to print node names
 #' as labels if present
-#' @param node_size an override in case this
-#' needs to be manually set
+#' @param node_shape An override in case this needs to be set manually.
+#' @param node_size An override in case this needs to be set manually.
 #' @param node_color node variable in quotation marks
 #' that should be used for colouring the nodes
 #' @param node_group node variable in quotation marks
@@ -30,18 +29,19 @@
 #' autographr(ison_karateka)
 #' @export
 autographr <- auto_graph <- function(object,
-                                     algorithm = "stress",
+                                     layout = "stress",
                                      labels = TRUE,
-                                     node_size = NULL,
                                      node_color = NULL,
                                      node_group = NULL,
+                                     node_shape = NULL,
+                                     node_size = NULL,
                                      ...) {
   
   name <- weight <- NULL # initialize variables to avoid CMD check notes
   g <- as_tidygraph(object)
   
   # Add layout
-  lo <- ggraph::create_layout(g, algorithm)
+  lo <- ggraph::create_layout(g, layout)
   if("graph" %in% names(attributes(lo))){
     if(!setequal(names(as.data.frame(attr(lo, "graph"))), names(lo))){
       for(n in setdiff(names(as.data.frame(attr(lo, "graph"))), names(lo))){
@@ -105,30 +105,38 @@ autographr <- auto_graph <- function(object,
   }
   
   # Add nodes
+  if(!is.null(node_shape)){
+    node_shape <- as.factor(igraph::get.vertex.attribute(g, node_shape))
+    node_shape <- c("circle","square","triangle")[node_shape]
+  } else if(is_twomode(g)){
+    node_shape <- ifelse(igraph::V(g)$type,
+                         "square",
+                         "circle")
+  } else {
+    node_shape <- "circle"
+  }
   if (is_twomode(g)) {
     if (!is.null(node_color)) {
       color_factor <- as.factor(igraph::get.vertex.attribute(g, node_color))
       p <- p + ggraph::geom_node_point(ggplot2::aes(color = color_factor),
                                size = nsize,
-                               shape = ifelse(igraph::V(g)$type,
-                                              "square",
-                                              "circle")) +
+                               shape = node_shape) +
         ggplot2::scale_colour_brewer(palette = "Set1",
                             guide = "none")
     } else {
       p <- p + ggraph::geom_node_point(size = nsize,
-                               shape = ifelse(igraph::V(g)$type,
-                                              "square",
-                                              "circle"))
+                               shape = node_shape)
     }
   } else {
     if (!is.null(node_color)) {
       color_factor <- as.factor(igraph::get.vertex.attribute(g,node_color))
       p <- p + ggraph::geom_node_point(aes(color = color_factor),
-                               size = nsize) +
+                               size = nsize,
+                               shape = node_shape) +
         ggplot2::scale_colour_brewer(palette = "Set1", guide = "none")
     } else {
-      p <- p + ggraph::geom_node_point(size = nsize)
+      p <- p + ggraph::geom_node_point(size = nsize,
+                                       shape = node_shape)
     }
   }
   # Plot one mode
@@ -144,12 +152,12 @@ autographr <- auto_graph <- function(object,
     p <- p + ggraph::geom_node_label(ggplot2::aes(label = name),
                                      label.padding = 0.15,
                                      label.size = 0,
-                                     fontface = ifelse(igraph::V(g)$type,
-                                                       "bold",
-                                                       "plain"),
-                                     size = ifelse(igraph::V(g)$type,
-                                                   4,
-                                                   3),
+                                     # fontface = ifelse(igraph::V(g)$type,
+                                     #                   "bold",
+                                     #                   "plain"),
+                                     # size = ifelse(igraph::V(g)$type,
+                                     #               4,
+                                     #               3),
                                      hjust = "inward",
                                      repel = TRUE)
   p

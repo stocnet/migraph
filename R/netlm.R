@@ -1,4 +1,4 @@
-#' Linear regression for multimodal network data
+#' Linear regression for network data
 #' 
 #' This function extends the multiple regression quadratic assignment procedure
 #' (MRQAP) of network linear model to two mode networks.

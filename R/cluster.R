@@ -14,6 +14,7 @@ NULL
 #' @export
 cluster_structural_equivalence <- function(object){
   mat <- node_tie_census(object)
+  if(any(colSums(t(mat))==0)) stop("Please remove any isolates before using this function.")
   correlations <- cor(t(mat))
   dissimilarity <- 1 - correlations
   distances <- stats::as.dist(dissimilarity)
@@ -24,10 +25,15 @@ cluster_structural_equivalence <- function(object){
 #' @rdname cluster
 #' @examples
 #' ggtree(cluster_regular_equivalence(mpn_elite_mex))
+#' ggtree(cluster_regular_equivalence(mpn_elite_usa_advice))
 #' @export
 cluster_regular_equivalence <- function(object){
-  triads <- node_triad_census(object)
-  triads <- triads[,-which(colSums(triads) == 0)]
+  if(is_twomode(object)){
+    triads <- as.matrix(node_quad_census(object))
+  } else {
+    triads <- node_triad_census(object)
+  }
+  if(any(colSums(triads) == 0)) triads <- triads[,-which(colSums(triads) == 0)]
   correlations <- cor(t(triads))
   dissimilarity <- 1 - correlations
   distances <- stats::as.dist(dissimilarity)

@@ -15,7 +15,7 @@
 ## About the package
 
 This package extends existing network analysis packages for analysing multimodal and multilevel networks.
-The package is intended as a software companion to the forthcoming book:
+The package is intended as a software companion to the book:
 
 > David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos (2021) [*Multimodal Political Networks*](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128).
 Cambridge University Press: Cambridge.
@@ -37,31 +37,42 @@ as well as with objects from the following packages:
 - [`{network}`](http://statnet.org)
 - [`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html)
 
-Since v0.6.3, `{migraph}` can also import and export to [UCINET](http://www.analytictech.com/archive/ucinet.htm) files.
+`{migraph}` can also import and export to Excel edgelists and 
+[UCINET](http://www.analytictech.com/archive/ucinet.htm) files.
 
 ### Extends your current network analysis workflow
 
 `{migraph}` offers a range of measures and models with sensible defaults.
-Most wrap existing functions in common packages for use with one-mode networks,
-but extend these to treat and/or normalise for two-mode (and sometime three-mode) networks correctly.
-Functions are given intuitive and succinct names that avoid conflicts with existing function names wherever possible.
+Many wrap existing functions in common packages for use with one-mode networks,
+but extend these to treat and/or normalise for two-mode (and sometimes three-mode) networks correctly.
+Functions are given intuitive and succinct names that avoid conflicts 
+with existing function names wherever possible.
 
 #### Manipulation
 
-- `project_rows()` and `project_cols()`
-- `to_undirected()`, `to_unnamed()`, `to_unweighted()`, `to_onemode()`, and `to_main_component()`
+- Coercion between classes: `as_igraph()`, `as_tidygraph()`, `as_network()`, `as_edgelist()`, and `as_matrix()`
+- Logical tests of properties: e.g. `is_twomode()`, `is_directed()`, `is_labelled()`, `is_weighted()`
+- Transforming properties: `to_undirected()`, `to_unnamed()`, `to_unweighted()`, `to_onemode()`, and `to_main_component()`
+- From two-mode to one-mode: `project_rows()` and `project_cols()`
 
 #### Measures
 
 - Centrality: `node_degree()`, `node_closeness()`, `node_betweenness()`, and `node_eigenvector()`
 - Centralization: `graph_degree()`, `graph_closeness()`, `graph_betweenness()`, and `graph_eigenvector()`
-- Cohesion: `graph_density()`, `graph_reciprocity()`, `graph_transitivity()`, `graph_equivalency()`, 
-`node_constraint()`, `node_smallworld()`, `node_triad_census()` and `graph_triad_census()`
+- Cohesion: `graph_density()`, `graph_reciprocity()`, `graph_transitivity()`, `graph_equivalency()`, and `graph_congruency()`
+- Censuses: `node_tie_census()`, `node_dyad_census()`, `node_triad_census()`, `node_mixed_census()`, `node_quad_census()`, and `graph_triad_census()`
+- Other measures: e.g. `node_constraint()`, `node_smallworld()`
 
 #### Models
 
 - Blockmodelling: `blockmodel_concor()`, `cluster_structural_equivalence()`, `cluster_regular_equivalence()`
 - Linear regression: `netlm()`
+
+#### Visualization
+
+- `autographr()` for plotting graphs with sensible defaults based on their properties
+- New layouts: e.g. `layout_tbl_graph_frgrid()` for snapping Fruchterman-Reingold to a grid
+- Class-based plots: e.g. `plot.blockmodel()`
 
 Please explore [the list of functions](https://snlab-ch.github.io/migraph/reference/index.html) to find out more.
 
@@ -78,8 +89,11 @@ You can then begin to use `{migraph}` by loading the package:
 
 `library(migraph)`
 
-This will load all other required packages and
-also make the data contained within the package available.
+This will load any required packages and make the data contained within the package available.
+The version from CRAN also has all the vignettes built and included.
+You can check them out with:
+
+`vignettes(package = "migraph")`
 
 ### Development
 
@@ -88,8 +102,8 @@ for slightly earlier access to new features or for testing,
 you may wish to download and install the binaries from Github
 or install from source locally.
 
-Binaries for all major OSes -- Windows, Mac, and Linux -- 
-can be found by clicking on the latest release [here](https://github.com/snlab-ch/migraph/releases/latest).
+The latest binary releases for all major OSes -- Windows, Mac, and Linux -- 
+can be found [here](https://github.com/snlab-ch/migraph/releases/latest).
 Download the appropriate binary for your operating system,
 and install using an adapted version of the following commands:
 
@@ -98,7 +112,7 @@ and install using an adapted version of the following commands:
 - For Unix: `install.packages("~/Downloads/migraph_linuxOS.tar.gz", repos = NULL)`
 
 To install from source the latest main version of `{migraph}` from Github, 
-please install the `{remotes}` package from CRAN and then enter into the console:
+please install the `{remotes}` or `{devtools}` package from CRAN and then:
 
 - For latest stable version: `remotes::install_github("snlab-ch/migraph")`
 - For latest development version: `remotes::install_github("snlab-ch/migraph@develop")`
@@ -109,7 +123,6 @@ It draws together, updates, and builds upon many functions currently available i
 other excellent R packages such as 
 [`{bipartite}`](https://github.com/biometry/bipartite), 
 [`{multinet}`](https://CRAN.R-project.org/package=multinet), 
-[`{netmem}`](https://github.com/anespinosa/netmem), 
 and [`{tnet}`](https://toreopsahl.com/tnet/),
 and implements many additional features currently only available outside the R ecosystem
-in packages such as [**UCINET**](https://sites.google.com/site/ucinetsoftware/downloads).
+in packages such as [**UCINET**](https://sites.google.com/site/ucinetsoftware/download?authuser=0).

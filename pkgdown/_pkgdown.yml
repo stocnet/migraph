@@ -48,6 +48,7 @@ reference:
       - starts_with("is_")
       - starts_with("to_")
       - starts_with("project_")
+      - copy_node_attributes
   - title: "Visualisation"
     desc: "Functions for plotting and visually graphs of different types:"
     contents:
@@ -67,6 +68,7 @@ reference:
     desc: "Functions for modelling multimodal and multilevel networks:"
     contents:
       - netlm
+      - starts_with("test")
       - starts_with("cluster")
       - starts_with("blockmodel")
   - title: "Data"

@@ -13,7 +13,7 @@ as_edgelist(object, weight = FALSE)
 
 as_matrix(object, weight = FALSE)
 
-as_igraph(object, weight = FALSE, twomode = FALSE)
+as_igraph(object, weight = TRUE, twomode = FALSE)
 
 as_tidygraph(object, twomode = FALSE)
 
@@ -44,8 +44,8 @@ The \code{as_} functions in \code{{migraph}} coerce objects
 between several common classes of social network objects.
 These include:
 \itemize{
+\item edgelists, as data frames or tibbles
 \item adjacency and incidence matrices
-\item edgelists (as data frames)
 \item \code{{igraph}} \code{graph} objects
 \item \code{{tidygraph}} \code{tbl_graph} objects
 \item \code{{network}} \code{network} objects

@@ -18,6 +18,10 @@ ggplot2::xlab
 #' @export
 ggplot2::ylab
 
+#' @importFrom ggplot2 aes
+#' @export
+ggplot2::aes
+
 #' @importFrom ggplot2 ggsave
 #' @export
 ggplot2::ggsave

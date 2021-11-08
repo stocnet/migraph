@@ -71,6 +71,14 @@ is_connected <- function(object, method = c("weak", "strong")) {
   igraph::is.connected(object, mode = method)
 }
 
+#' @rdname is
+#' @importFrom igraph is.loop
+#' @export
+is_complex <- function(object) {
+  object <- as_igraph(object)
+  any(igraph::is.loop(object))
+}
+
 # igraph::is.chordal()
 # igraph::is.dag()
 # igraph::is.degree.sequence()
