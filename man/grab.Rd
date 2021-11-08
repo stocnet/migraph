@@ -3,6 +3,7 @@
 \name{grab}
 \alias{grab}
 \alias{node_names}
+\alias{node_attribute}
 \alias{edge_weights}
 \alias{graph_nodes}
 \alias{graph_edges}
@@ -10,6 +11,8 @@
 \title{Helpers to grab various attributes from nodes or edges in a graph}
 \usage{
 node_names(object)
+
+node_attribute(object, attribute)
 
 edge_weights(object)
 
@@ -22,6 +25,8 @@ graph_dimensions(object)
 \arguments{
 \item{object}{A data frame edgelist, matrix, igraph, tidygraph, or
 network object.}
+
+\item{attribute}{An attribute name.}
 }
 \description{
 Helpers to grab various attributes from nodes or edges in a graph

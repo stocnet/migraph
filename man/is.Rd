@@ -8,6 +8,7 @@
 \alias{is_labelled}
 \alias{is_signed}
 \alias{is_connected}
+\alias{is_complex}
 \title{Tests of network properties}
 \usage{
 is_twomode(object)
@@ -21,6 +22,8 @@ is_labelled(object)
 is_signed(object)
 
 is_connected(object, method = c("weak", "strong"))
+
+is_complex(object)
 }
 \arguments{
 \item{object}{A migraph-consistent class object
