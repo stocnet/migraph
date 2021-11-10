@@ -36,3 +36,27 @@ copy_node_attributes <- function(object, object2){
   }
   object
 }
+
+#' @rdname add
+#' @importFrom igraph add_edges
+#' @examples 
+#' mutate_edges(acmeEmails, sameSex, "sameSex")
+#' @export
+mutate_edges <- function(data, object, name){
+  el <- c(t(as.matrix(as_edgelist(object))))
+  out <- igraph::add_edges(as_igraph(data),
+                           el, object = 1) %>% 
+    as_tidygraph()
+  
+  # as_tidygraph(data) %>% bind_edges()
+  # 
+  # data %>% activate(edges) %>% 
+  #   tidyr::nest(from, to) %>% 
+  #   mutate(data = map(data, ~ map_dfc(., na.omit))) %>% 
+  #   unnest()
+  
+  if(!missing(name)){
+    out %>% activate(edges) %>% 
+      rename(!!name := "object")
+  } else out
+}
