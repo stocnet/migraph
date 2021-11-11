@@ -10,3 +10,7 @@ test_that("Blau index function works", {
                list(`Cluster 1` = 0.19, `Cluster 2` = 0.44,
                     `Cluster 3` = 0, `Cluster 4` = 0, `Cluster 5` = 0) )
 })
+
+test_that("EI index function works", {
+expect_equal(round(graph_ei_index(ison_marvel_relationships, "Gender"), 2), -0.39)
+})
