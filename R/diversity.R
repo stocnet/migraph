@@ -42,8 +42,12 @@ graph_blau_index <- function(object, attribute, clusters = NULL){
 #' @export
 graph_ei_index <- function(object, attribute){
   m <- as_matrix(object)
-  if(length(attribute) == 1 && is.character(attribute)) attribute <- node_attribute(object, attribute)
-  if (is.character(attribute)) attribute <- as.factor(attribute)
+  if (length(attribute) == 1 && is.character(attribute)) {
+    attribute <- node_attribute(object, attribute)
+  }
+  if (is.character(attribute) | is.numeric(attribute)) {
+    attribute <- as.factor(attribute)
+  }
   same <- outer(attribute, attribute, "==")
   nInternal <- sum(m * same)
   nExternal <- sum(m) - nInternal
