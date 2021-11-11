@@ -1,7 +1,11 @@
 #' Measures of network diversity
+#' 
+#' These functions offer ways to summarise the heterogeneity of an attribute
+#' across a network, within groups of a network, or the distribution of ties
+#' across this attribute.
 #' @inheritParams as_igraph
 #' @param attribute The name of a vertex attribute to measure the diversity of.
-#' @param clusters A nodal cluster membership vector.
+#' @param clusters A nodal cluster membership vector or name of a vertex attribute.
 #' @name diversity
 NULL
 
