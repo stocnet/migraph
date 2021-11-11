@@ -6,25 +6,30 @@
 NULL
 
 #' @rdname diversity
+#' @examples
+#' graph_blau_index(ison_marvel_relationships, "Gender")
+#' graph_blau_index(ison_marvel_relationships, "Attractive")
+#' graph_blau_index(ison_marvel_relationships, "Gender", "Rich")
 #' @export
 graph_blau_index <- function(object, attribute, clusters = NULL){
   blau <- function(features) { 1 - sum((table(features)/length(features))^2) }
+  attr <- node_attribute(object, attribute)
   if (is.null(clusters)) {
-    blauout <- blau(node_attribute(object, attribute))
-  }
-  if (!is.null(clusters) & !is.numeric(clusters)) {
-    object <- as_igraph(object)
-    V(object)$clusters <- node_attribute(object, clusters)
-    blauout <- list()
-    for (i in c(1:max(V(object)$clusters))) {
-      currentcluster <- igraph::delete.vertices(object, V(object)[clusters != i])
-      blauout[[i]] <- blau(node_attribute(currentcluster, attribute))
-    }
-    names(blauout) <- paste0("Cluster ", c(1:max(V(object)$clusters)))
-  }
+    blauout <- blau(attr)
+  } else if (is.numeric(clusters) && is.vector(clusters)){
+    blauout <- vapply(unique(clusters), 
+                      function(i) blau(attr[clusters == i]),
+                      numeric(1))
+    names(blauout) <- paste0("Cluster ", unique(clusters))
+  } else if (is.character(clusters)) {
+    clu <- node_attribute(object, clusters)
+    blauout <- vapply(unique(clu), 
+                      function(i) blau(attr[clu == i]),
+                      numeric(1))
+    names(blauout) <- paste0("Cluster ", unique(clu))
+  } else stop("`clusters` must be the name of a nodal variable in the object.")
   blauout
 }
-
 
 #' @rdname diversity
 #' @export
