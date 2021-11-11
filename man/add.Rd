@@ -5,6 +5,7 @@
 \alias{add_node_attributes}
 \alias{add_edge_attributes}
 \alias{copy_node_attributes}
+\alias{mutate_edges}
 \title{Adding and copying attributes from one graph to another}
 \usage{
 add_node_attributes(object, attr_name, vector)
@@ -12,6 +13,8 @@ add_node_attributes(object, attr_name, vector)
 add_edge_attributes(object, object2)
 
 copy_node_attributes(object, object2)
+
+mutate_edges(data, object, name)
 }
 \arguments{
 \item{object}{A data frame edgelist, matrix, igraph, tidygraph, or
@@ -25,4 +28,7 @@ network object.}
 }
 \description{
 Adding and copying attributes from one graph to another
+}
+\examples{
+mutate_edges(acmeEmails, sameSex, "sameSex")
 }

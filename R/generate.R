@@ -3,6 +3,8 @@
 #' @name generate
 #' @family creation
 #' @param n Integer of length 1 or 2.
+#'   If passed a migraph-consistent object, a random network
+#'   of the same dimensions and density as the original network will be returned.
 #' @param p Number of edges in the network over the number of edges possible
 #' @param m Number of edges in the network
 #' @details Creates a random network.
@@ -20,18 +22,35 @@ NULL
 #' er2 <- autographr(generate_random(c(6, 6), 0.4))
 #' grid.arrange(er1, er2, ncol = 2)
 #' @export
-generate_random <- function(n, p, m) {
-  if (length(n) == 1) {
-    type <- ifelse(is.null(p), "gnm", "gnp")
-    if (is.null(p)) p <- m
-    g <- igraph::erdos.renyi.game(n, p, type = type)
+generate_random <- function(n, p, m, directed = FALSE) {
+  if(is_migraph(n)){
+    m <- graph_edges(n)
+    directed <- is_directed(n)
+    if(is_twomode(n)){
+      g <- igraph::sample_bipartite(graph_dims(n)[1], 
+                                    graph_dims(n)[2],
+                                    m = m, type = "gnm",
+                                    directed = directed,
+                                    mode = "out")
+    } else {
+      g <- igraph::erdos.renyi.game(graph_nodes(n), 
+                                    m, type = "gnm", 
+                                    directed = directed)
+    }
+  } else if (length(n) == 1) {
+    type <- ifelse(missing(p) || is.null(p), "gnm", "gnp")
+    if (missing(p) || is.null(p)) p <- m
+    g <- igraph::erdos.renyi.game(n, 
+                                  p, type = type, 
+                                  directed = directed)
   } else if (length(n) == 2) {
-    type <- ifelse(is.null(p), "gnm", "gnp")
+    type <- ifelse(missing(p) || is.null(p), "gnm", "gnp")
     g <- igraph::sample_bipartite(n[1],
                                   n[2],
                                   p = p,
                                   m = m,
-                                  directed = FALSE,
+                                  type = type,
+                                  directed = directed,
                                   mode = "out")
   } else {
     stop("`n` must be of length=1 for a one-mode network or length=2 for a two-mode network.")

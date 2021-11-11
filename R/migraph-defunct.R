@@ -6,6 +6,18 @@
 NULL
 
 #' @rdname defunct
+#' @description Deprecated on 2021-10-18.
+#' @return `graph_transitivity()` or `graph_equivalency()`,
+#'   depending on whether the object is a one-mode or two-mode object, respectively.
+#' @export
+graph_clustering <- function(object) {
+  .Deprecated("graph_transitivity")
+  if(is_twomode(object)){
+    graph_equivalency(object)
+  } else graph_transitivity(object)
+}
+
+#' @rdname defunct
 #' @description Deprecated on 2021-10-26.
 #' @return `group_triad_census()`
 #' @export

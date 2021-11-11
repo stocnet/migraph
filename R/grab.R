@@ -28,13 +28,7 @@ edge_weights <- function(object){
 #' @rdname grab
 #' @export
 graph_nodes <- function(object){
-  if(is_twomode(object)){
-    out <- c(sum(!igraph::V(as_igraph(object))$type),
-             sum(igraph::V(as_igraph(object))$type))
-  } else {
-    out <- igraph::vcount(as_igraph(object))
-  }
-  out
+  igraph::vcount(as_igraph(object))
 }
 
 #' @rdname grab
@@ -45,10 +39,10 @@ graph_edges <- function(object){
 
 #' @rdname grab
 #' @export
-graph_dimensions <- function(object){
+graph_dims <- function(object){
   if(is_twomode(object)){
-    c(sum(!V(as_igraph(object))$type),
-      sum(V(as_igraph(object))$type))
+    c(sum(!igraph::V(as_igraph(object))$type),
+      sum(igraph::V(as_igraph(object))$type))
   } else {
     igraph::vcount(as_igraph(object))
   }

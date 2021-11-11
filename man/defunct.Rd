@@ -2,16 +2,24 @@
 % Please edit documentation in R/migraph-defunct.R
 \name{defunct}
 \alias{defunct}
+\alias{graph_clustering}
 \alias{cluster_triad_census}
 \title{Defunct functions}
 \usage{
+graph_clustering(object)
+
 cluster_triad_census(object, clusters)
 }
 \value{
+\code{graph_transitivity()} or \code{graph_equivalency()},
+depending on whether the object is a one-mode or two-mode object, respectively.
+
 \code{group_triad_census()}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+Deprecated on 2021-10-18.
 
 Deprecated on 2021-10-26.
 }

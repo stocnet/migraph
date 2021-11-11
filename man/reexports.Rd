@@ -23,8 +23,10 @@
 \alias{.N}
 \alias{.E}
 \alias{mutate}
+\alias{rename}
 \alias{filter}
 \alias{activate}
+\alias{bind_edges}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -42,6 +44,6 @@ below to see their documentation.
 
   \item{network}{\code{\link[network:network]{as.network}}, \code{\link[network:network]{is.network}}}
 
-  \item{tidygraph}{\code{\link[tidygraph:context_accessors]{.E}}, \code{\link[tidygraph:context_accessors]{.G}}, \code{\link[tidygraph:context_accessors]{.N}}, \code{\link[tidygraph]{activate}}, \code{\link[tidygraph:reexports]{filter}}, \code{\link[tidygraph:tbl_graph]{is.tbl_graph}}, \code{\link[tidygraph:reexports]{mutate}}, \code{\link[tidygraph]{with_graph}}}
+  \item{tidygraph}{\code{\link[tidygraph:context_accessors]{.E}}, \code{\link[tidygraph:context_accessors]{.G}}, \code{\link[tidygraph:context_accessors]{.N}}, \code{\link[tidygraph]{activate}}, \code{\link[tidygraph:bind_graphs]{bind_edges}}, \code{\link[tidygraph:reexports]{filter}}, \code{\link[tidygraph:tbl_graph]{is.tbl_graph}}, \code{\link[tidygraph:reexports]{mutate}}, \code{\link[tidygraph:reexports]{rename}}, \code{\link[tidygraph]{with_graph}}}
 }}
 

@@ -5,17 +5,24 @@
 #' whatever its composition.
 #' @param object migraph-consistent object
 #' @param layout an igraph layout algorithm,
-#' currently defaults to 'stress'
+#'   currently defaults to 'stress'
 #' @param labels logical, whether to print node names
-#' as labels if present
-#' @param node_shape An override in case this needs to be set manually.
-#' @param node_size An override in case this needs to be set manually.
-#' @param node_color node variable in quotation marks
-#' that should be used for colouring the nodes
-#' @param node_group node variable in quotation marks
-#' that should be used for drawing convex but also concave hulls
-#' around clusters of nodes.
-#' These groupings will be labelled with the categories of the variable passed. 
+#'   as labels if present
+#' @param node_shape Node variable in quotation marks to be used for 
+#'   the shapes of the nodes. 
+#'   Shapes will be follow the ordering "circle", "square", "triangle",
+#'   so this aesthetic should be used for a variable with only a few categories.
+#' @param node_size Node variable in quotation marks to be used for 
+#'   the size of the nodes.
+#'   This can be any continuous variable on the nodes of the network.
+#'   Since this function expects this to be an existing variable,
+#'   it is recommended to calculate all node-related statistics prior
+#'   to using this function.
+#' @param node_color Node variable in quotation marks to be used for 
+#'   colouring the nodes.
+#' @param node_group Node variable in quotation marks to be used for
+#'   drawing convex but also concave hulls around clusters of nodes.
+#'   These groupings will be labelled with the categories of the variable passed. 
 #' @param ... extra arguments
 #' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text
 #' @importFrom ggraph geom_conn_bundle get_con geom_node_point
@@ -95,7 +102,9 @@ autographr <- auto_graph <- function(object,
     }
   }
   if (!is.null(node_size)) {
-    if (is.numeric(node_size)) {
+    if (is.character(node_size)) {
+      nsize <- node_attribute(g, node_size)
+    } else if (is.numeric(node_size)) {
       nsize <- node_size
     } else {
       nsize <- node_size(g)

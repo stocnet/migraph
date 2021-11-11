@@ -7,14 +7,16 @@
 \alias{generate_scalefree}
 \title{Create networks from particular probabilities}
 \usage{
-generate_random(n, p, m)
+generate_random(n, p, m, directed = FALSE)
 
 generate_smallworld(n, p = 0.05)
 
 generate_scalefree(n, p = 1)
 }
 \arguments{
-\item{n}{Integer of length 1 or 2.}
+\item{n}{Integer of length 1 or 2.
+If passed a migraph-consistent object, a random network
+of the same dimensions and density as the original network will be returned.}
 
 \item{p}{Number of edges in the network over the number of edges possible}
 
