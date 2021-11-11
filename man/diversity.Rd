@@ -27,4 +27,6 @@ across this attribute.
 graph_blau_index(ison_marvel_relationships, "Gender")
 graph_blau_index(ison_marvel_relationships, "Attractive")
 graph_blau_index(ison_marvel_relationships, "Gender", "Rich")
+graph_ei_index(ison_marvel_relationships, "Gender")
+graph_ei_index(ison_marvel_relationships, "Attractive")
 }

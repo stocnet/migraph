@@ -36,6 +36,9 @@ graph_blau_index <- function(object, attribute, clusters = NULL){
 }
 
 #' @rdname diversity
+#' @examples 
+#' graph_ei_index(ison_marvel_relationships, "Gender")
+#' graph_ei_index(ison_marvel_relationships, "Attractive")
 #' @export
 graph_ei_index <- function(object, attribute){
   m <- as_matrix(object)

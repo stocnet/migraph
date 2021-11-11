@@ -1,0 +1,134 @@
+---
+title: "Practical 7"
+author: "James Hollway"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Practical 7}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Setting up
+
+For this lab, we'll explore a couple of different datasets.
+First, let's examine heterogeneity within the Marvel relationships dataset.
+Since this is a signed network, let's first extract just the friendships.
+We'll also concentrate on just the main component (no isolates).
+And, for the sake of simplicity, just the characters that appear
+in the comics more than average for these characters.
+
+```{r setup}
+library(migraph)
+marvel_friends <- to_unsigned(ison_marvel_relationships, keep = "positive")
+marvel_friends <- to_main_component(marvel_friends)
+marvel_friends <- marvel_friends %>% filter(Appearances >= mean(Appearances))
+marvel_friends
+```
+
+This gives us a dataset of nearly twenty characters and a little more than 100 edges.
+Recall that this data has several nodal attributes.
+Let's explore a couple of these attributes visually.
+
+```{r vis}
+autographr(marvel_friends, 
+           node_shape = "Gender",
+           node_color = "PowerOrigin")
+```
+
+There seems to be a bit of a distribution of some of these variables.
+
+# Calculating diversity
+
+## Calculating Blau index
+
+We can begin by calculating the Blau diversity for each attribute.
+
+```{r blau}
+graph_blau_index(marvel_friends, "Gender")
+graph_blau_index(marvel_friends, "PowerOrigin")
+graph_blau_index(marvel_friends, "Attractive")
+graph_blau_index(marvel_friends, "Rich")
+graph_blau_index(marvel_friends, "Intellect")
+```
+
+Looks like there is more diversity in terms of where these characters got
+their powers, whether they have significant intellectual powers,
+and their gender, than their attractiveness or their wealth.
+
+We can also cross-reference this diversity.
+For example, we might be interested in whether our comic book heroes
+are equally gender diverse across their (power) origin stories,
+or equally intellectually diverse across gender.^[Note that this works for calculated categorical variables too, such as cluster/group assignment from community detection or equivalence classes.]
+
+```{r crossref}
+graph_blau_index(marvel_friends, "Gender", "PowerOrigin")
+graph_blau_index(marvel_friends, "Intellect", "Gender")
+```
+
+Looks like some origin stories are much more diverse than others.
+Gods (just Thor here) and humans are all men,
+whereas those with mutant or radiation origin stories are more gender diverse.
+There doesn't seem to be any significant difference in intellect 
+across gender categories however.
+We can visualise this quite effectively using the `node_groups` argument:
+
+```{r blaugroups}
+autographr(marvel_friends, 
+           node_group = "PowerOrigin", 
+           node_shape = "Gender")
+autographr(marvel_friends, 
+           node_group = "Gender", 
+           node_shape = "Intellect")
+```
+
+## Calculating EI index
+
+Calculating the EI index follows the same syntax.
+Remember that a negative EI index indicates that there are more
+ties between nodes of the same class than between nodes of different classes.
+
+```{r ei}
+(obs.gender <- graph_ei_index(marvel_friends, "Gender"))
+(obs.powers <- graph_ei_index(marvel_friends, "PowerOrigin")) 
+(obs.attract <- graph_ei_index(marvel_friends, "Attractive")) 
+```
+
+Looks like there might be some gender homophily present,
+but the score for power origin homophily is so close to 0 that
+it does not seem to signal much.
+There seems to be a fairly large effect for homophily on the basis of looks though...
+
+But ultimately these are just scores,
+and this doesn't tell us whether this is any more or less than
+what we might expect the score to be by chance for a network
+of this size and density and distribution of that attribute.
+
+To get at that, we will simulate a series of random graphs
+(Erdös-Renyi/Bernoulli) of the same dimensions and
+distribution of the attribute to find out whether there is
+more homophily or heterophily than expected by chance.
+
+```{r rando}
+(rand.gender <- test_random(marvel_friends, graph_ei_index, attribute = "Gender"))
+(rand.power <- test_random(marvel_friends, graph_ei_index, attribute = "PowerOrigin"))
+(rand.attract <- test_random(marvel_friends, graph_ei_index, attribute = "Attractive"))
+par(mfrow=c(1,3))
+plot(rand.gender)
+plot(rand.power)
+plot(rand.attract)
+```
+
+This is really interesting.
+It looks like we cannot reject the null hypothesis that there is no homophily
+for gender nor for attractiveness,
+but we can reject the null hypothesis with respect to their power origin story.
+While the effect itself is close to 0 (neither strong homophily nor heterophily),
+all the random networks generated returned larger EI scores, between .1 and .4.
+So there is significantly less heterophily here than expected.
