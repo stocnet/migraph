@@ -26,3 +26,12 @@ cluster_triad_census <- function(object, clusters) {
   group_triad_census(object, clusters)
 }
 
+#' @rdname defunct
+#' @description Deprecated on 2021-11-08.
+#' @return `test_random()`
+#' @export
+test_cug <- function(object, FUN, ..., nSim = 1000) {
+  .Deprecated("test_random")
+  test_random(object, FUN, ..., nSim)
+}
+
