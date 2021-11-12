@@ -35,3 +35,69 @@
 #' @usage data(ison_marvel_relationships)
 #' @format One-mode igraph of 53 Marvel comic book characters and 558 signed (`1` = friends, `-1` = enemies) undirected ties
 "ison_marvel_relationships"
+
+#' Two-mode projection examples
+#'
+#' @docType data
+#' @keywords datasets
+#' @name ison_projection
+#' @usage data(ison_mm)
+#' @format Directed two-mode igraph with 6 nodes and 6 edges
+"ison_mm"
+
+#' @rdname ison_projection
+#' @usage data(ison_bm)
+#' @format Directed two-mode igraph with 8 nodes and 9 edges
+"ison_bm"
+
+#' @rdname ison_projection
+#' @usage data(ison_mb)
+#' @format Directed two-mode igraph with 8 nodes and 9 edges
+"ison_mb"
+
+#' @rdname ison_projection
+#' @usage data(ison_bb)
+#' @format Directed two-mode igraph with 10 nodes and 12 edges
+"ison_bb"
+
+#' Multiplex igraph of friends, social, and task ties between 16 anonymous students
+#' 
+#' M182 was an honors algebra class and friendship, social, and task ties
+#' were collected/observed.
+#' @docType data
+#' @keywords datasets
+#' @name m182
+#' @usage data(ison_m182)
+#' @source See also `data(studentnets.M182, package = "NetData")`
+#' Larger comprehensive data set publicly available, contact Daniel A. McFarland for details.
+#' @format Multiplex tidygraph of friends, social, and task ties between 16 anonymous students
+#' The edge attribute `friend_ties` contains friendship ties,
+#' where `2` = best friends, `1` = friend, and `0` is not a friend.
+#' `social_ties` consists of social interactions per hour,
+#' and `task_ties` consists of task interactions per hour.
+"ison_m182"
+
+#' One-mode subset of adolescent society dataset
+#'
+#' @docType data
+#' @keywords datasets
+#' @name ison_coleman
+#' @usage data(ison_coleman)
+#' @format tidygraph graph object
+#' @references Coleman, James S. 1961. The Adolescent Society.
+#' New York:Free Press.
+#' 
+#' Feld, Scott. 1991. “Why your friends have more friends than you do”
+#' American Journal of Sociology 96(6): 1464-1477.
+"ison_coleman"
+
+#' Zachary's kareteka network
+#'
+#' @docType data
+#' @keywords datasets
+#' @name ison_community
+#' @usage data(ison_karateka)
+#' @format Undirected one-mode igraph with 34 nodes and 78 edges
+"ison_karateka"
+
+
