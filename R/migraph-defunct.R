@@ -35,3 +35,12 @@ test_cug <- function(object, FUN, ..., nSim = 1000) {
   test_random(object, FUN, ..., nSim)
 }
 
+#' @rdname defunct
+#' @description Deprecated on 2021-11-10.
+#' @return `graph_dims()`
+#' @export
+graph_dimensions <- function(object) {
+  .Deprecated("graph_dims")
+  graph_dims(object)
+}
+
