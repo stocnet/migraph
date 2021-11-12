@@ -30,5 +30,5 @@ network object.}
 Adding and copying attributes from one graph to another
 }
 \examples{
-mutate_edges(acmeEmails, sameSex, "sameSex")
+mutate_edges(ison_marvel_relationships, ison_marvel_teams, "teams")
 }

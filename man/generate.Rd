@@ -46,8 +46,8 @@ grid.arrange(sw1, sw2, ncol = 2)
 sf1 <- autographr(generate_scalefree(12, 0.25))
 sf2 <- autographr(generate_scalefree(12, 1.25))
 grid.arrange(sf1, sf2, ncol = 2)
-em1 <- autographr(mpn_elite_mex)
-em2 <- autographr(generate_permutation(mpn_elite_mex))
+em1 <- autographr(mpn_elite_usa_advice)
+em2 <- autographr(generate_permutation(mpn_elite_usa_advice))
 grid.arrange(em1, em2, ncol = 2)
 }
 \seealso{

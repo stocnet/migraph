@@ -122,7 +122,7 @@ node_quad_census <- function(object){
 graph_mixed_census <- function (object, object2) {
   if(is_twomode(object)) stop("First object should be a one-mode network")
   if(!is_twomode(object2)) stop("Second object should be a two-mode network")
-  if(graph_dimensions(object)[1]!=graph_dimensions(object2)[1]) stop("Non-conformable arrays")
+  if(graph_dims(object)[1]!=graph_dims(object2)[1]) stop("Non-conformable arrays")
   
   m1 <- as_matrix(object)
   m2 <- as_matrix(object2)

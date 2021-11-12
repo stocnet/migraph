@@ -94,6 +94,7 @@ generate_permutation <- function(object) {
     out <- sna::rmperm(as_network(object))
     if(is_labelled(object)) dimnames(out) <- dimnames(as_matrix(object))
   }
+  out <- copy_node_attributes(out, object)
   out
 }
 

@@ -40,7 +40,7 @@ copy_node_attributes <- function(object, object2){
 #' @rdname add
 #' @importFrom igraph add_edges
 #' @examples 
-#' mutate_edges(acmeEmails, sameSex, "sameSex")
+#' mutate_edges(ison_marvel_relationships, ison_marvel_teams, "teams")
 #' @export
 mutate_edges <- function(data, object, name){
   el <- c(t(as.matrix(as_edgelist(object))))
