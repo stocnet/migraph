@@ -21,15 +21,24 @@ NULL
 #' @export
 test_random <- function(object, FUN, ..., nSim = 1000){
   args <- unlist(list(...))
-  obsd <- FUN(object, args)
+  if (!is.null(args)) {
+    obsd <- FUN(object, args)
+  } else {
+    obsd <- FUN(object)
+  }
   n <- graph_nodes(object)
   d <- graph_density(object)
   rands <- lapply(1:nSim, generate_random, n = n, p = d)
   if (length(args) > 0) {
     rands <- lapply(rands, copy_node_attributes, object2 = object)
   }
-  simd <- vapply(rands,
-                 FUN, args, FUN.VALUE = numeric(1))
+  if (!is.null(args)) {
+    simd <- vapply(rands,
+                  FUN, args, FUN.VALUE = numeric(1))
+  } else {
+    simd <- vapply(rands,
+                   FUN, FUN.VALUE = numeric(1))
+  }
   out <- list(obs.stat = obsd,
               rep.stat = simd,
               mode = is_directed(object),
@@ -50,7 +59,11 @@ test_random <- function(object, FUN, ..., nSim = 1000){
 #' @export
 test_permutation <- function(object, FUN, ..., nSim = 1000){
   args <- unlist(list(...))
-  obsd <- FUN(object, args)
+  if (!is.null(args)) {
+    obsd <- FUN(object, args)
+  } else {
+    obsd <- FUN(object)
+  }
   n <- graph_nodes(object)
   d <- graph_density(object)
   net <- as_network(object)
@@ -58,8 +71,13 @@ test_permutation <- function(object, FUN, ..., nSim = 1000){
   if(length(args)>0){
     rands <- lapply(rands, copy_node_attributes, object2 = object)
   }
-  simd <- vapply(rands,
-                 FUN, args, FUN.VALUE = numeric(1))
+  if (!is.null(args)) {
+    simd <- vapply(rands,
+                   FUN, args, FUN.VALUE = numeric(1))
+  } else {
+    simd <- vapply(rands,
+                   FUN, FUN.VALUE = numeric(1))
+  }
   out <- list(testval = obsd,
               dist = simd,
               plteobs = mean(simd <= obsd),
