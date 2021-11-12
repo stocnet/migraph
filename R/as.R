@@ -1,4 +1,4 @@
-#' Coercion between graph/network object classes 
+#' Coercion between graph/network/edgelist/matrix object classes 
 #' 
 #' The `as_` functions in `{migraph}` coerce objects
 #' between several common classes of social network objects.
@@ -8,6 +8,12 @@
 #' - `{igraph}` `graph` objects
 #' - `{tidygraph}` `tbl_graph` objects
 #' - `{network}` `network` objects
+#' 
+#' An effort is made for all of these coercion routines to be as lossless
+#' as possible, though some object classes are better at retaining certain
+#' kinds of information than others.
+#' Note also that there are some reserved column names in one or more
+#' object classes, which could otherwise lead to some unexpected results.
 #' @name coercion
 #' @family manipulation
 #' @param object A data frame edgelist, matrix, igraph, tidygraph, or

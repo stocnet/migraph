@@ -5,6 +5,7 @@
 \alias{add_node_attributes}
 \alias{add_edge_attributes}
 \alias{copy_node_attributes}
+\alias{mutate_edges}
 \title{Adding and copying attributes from one graph to another}
 \usage{
 add_node_attributes(object, attr_name, vector)
@@ -12,10 +13,11 @@ add_node_attributes(object, attr_name, vector)
 add_edge_attributes(object, object2)
 
 copy_node_attributes(object, object2)
+
+mutate_edges(object, object2, attr_name)
 }
 \arguments{
-\item{object}{A data frame edgelist, matrix, igraph, tidygraph, or
-network object.}
+\item{object}{A migraph-consistent object.}
 
 \item{attr_name}{Name of the new attribute in the resulting object.}
 
@@ -25,4 +27,8 @@ network object.}
 }
 \description{
 Adding and copying attributes from one graph to another
+}
+\examples{
+mpn_elite_mex
+mutate_edges(mpn_elite_mex, generate_permutation(mpn_elite_mex), "permutation")
 }

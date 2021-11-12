@@ -79,6 +79,19 @@ is_complex <- function(object) {
   any(igraph::is.loop(object))
 }
 
+#' @rdname is
+#' @importFrom igraph is.igraph
+#' @importFrom tidygraph is.tbl_graph
+#' @importFrom network is.network
+#' @export
+is_migraph <- function(object){
+  tidygraph::is.tbl_graph(object) |
+    network::is.network(object) |
+    igraph::is.igraph(object) |
+    is.data.frame(object) |
+    is.matrix(object)
+}
+
 # igraph::is.chordal()
 # igraph::is.dag()
 # igraph::is.degree.sequence()

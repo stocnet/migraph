@@ -20,11 +20,11 @@ group_tie_census(object, clusters, decimals = 2)
 group_triad_census(object, clusters, decimals = 2)
 }
 \arguments{
-\item{object}{a migraph-consistent object}
+\item{object}{A migraph-consistent object.}
 
-\item{clusters}{a vector of cluster assignment}
+\item{clusters}{a vector of cluster assignment.}
 
-\item{decimals}{number of decimal points to round to}
+\item{decimals}{Number of decimal points to round to.}
 }
 \description{
 These functions include ways to take a census of the positions of nodes

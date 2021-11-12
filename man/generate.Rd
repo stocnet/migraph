@@ -5,20 +5,29 @@
 \alias{generate_random}
 \alias{generate_smallworld}
 \alias{generate_scalefree}
+\alias{generate_permutation}
 \title{Create networks from particular probabilities}
 \usage{
-generate_random(n, p, m)
+generate_random(n, p, m, directed = FALSE)
 
 generate_smallworld(n, p = 0.05)
 
 generate_scalefree(n, p = 1)
+
+generate_permutation(object)
 }
 \arguments{
-\item{n}{Integer of length 1 or 2.}
+\item{n}{Integer of length 1 or 2.
+If passed a migraph-consistent object, a random network
+of the same dimensions and density as the original network will be returned.}
 
 \item{p}{Number of edges in the network over the number of edges possible}
 
 \item{m}{Number of edges in the network}
+
+\item{directed}{Whether to generate network as directed. By default FALSE.}
+
+\item{object}{a migraph-consistent object}
 }
 \description{
 Create networks from particular probabilities
@@ -41,6 +50,9 @@ grid.arrange(sw1, sw2, ncol = 2)
 sf1 <- autographr(generate_scalefree(12, 0.25))
 sf2 <- autographr(generate_scalefree(12, 1.25))
 grid.arrange(sf1, sf2, ncol = 2)
+em1 <- autographr(mpn_elite_usa_advice)
+em2 <- autographr(generate_permutation(mpn_elite_usa_advice))
+grid.arrange(em1, em2, ncol = 2)
 }
 \seealso{
 Other creation: 

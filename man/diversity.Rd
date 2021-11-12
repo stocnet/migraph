@@ -16,8 +16,18 @@ network object.}
 
 \item{attribute}{The name of a vertex attribute to measure the diversity of.}
 
-\item{clusters}{A nodal cluster membership vector.}
+\item{clusters}{A nodal cluster membership vector or name of a vertex attribute.}
 }
 \description{
-Measures of network diversity
+These functions offer ways to summarise the heterogeneity of an attribute
+across a network, within groups of a network, or the distribution of ties
+across this attribute.
+}
+\examples{
+marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
+graph_blau_index(marvel_friends, "Gender")
+graph_blau_index(marvel_friends, "Attractive")
+graph_blau_index(marvel_friends, "Gender", "Rich")
+graph_ei_index(marvel_friends, "Gender")
+graph_ei_index(marvel_friends, "Attractive")
 }

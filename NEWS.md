@@ -1,3 +1,35 @@
+# migraph 0.8.7
+
+## Package
+
+- Added new issue templates and refined the wording in existing templates
+- Improved documentation across many help pages
+- Closed #146 by adding vignette on homophily
+
+## Data
+
+- Added `generate_permutation()` which takes an object and returns an object
+  with the edges permuted, but retaining all nodal attributes
+- Made `generate_random()` also work with an existing object as input,
+  in which it will return a random graph with the same dimensions and density
+- Consolidated data scripts
+
+## Manipulation
+
+- Added `mutate_edges()` for adding new edges as attributes to existing edges
+  in an object
+
+## Measures
+
+- Closed #159 by fixing bug in `graph_blau_index()`
+- Closed #157 by fixing bug in `graph_ei_index()`
+- Closed #156 and #158 by fixing bugs with `test_random()` (defunct `test_cug()`)
+
+## Visualisation
+
+- Closed #148 and #153 by making all `autographr()` arguments take variable names in
+  quotation marks
+
 # migraph 0.8.6
 
 ## Package

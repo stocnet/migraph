@@ -26,6 +26,10 @@ tidygraph::.E
 #' @export
 tidygraph::mutate
 
+#' @importFrom tidygraph rename
+#' @export
+tidygraph::rename
+
 #' @importFrom tidygraph filter
 #' @export
 tidygraph::filter
@@ -33,6 +37,10 @@ tidygraph::filter
 #' @importFrom tidygraph activate
 #' @export
 tidygraph::activate
+
+#' @importFrom tidygraph bind_edges
+#' @export
+tidygraph::bind_edges
 
 expect_nodes <- function() {
   if (!.graph_context$free() && .graph_context$active() != "nodes") {

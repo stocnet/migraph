@@ -4,7 +4,7 @@
 #' together with methods for calculating the hierarchical clusters
 #' provided by a certain distance calculation.
 #' @name cluster
-#' @param object a migraph-consistent object
+#' @param object A migraph-consistent object.
 #' @importFrom stats as.dist hclust
 NULL
 
