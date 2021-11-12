@@ -49,6 +49,15 @@ There seems to be a bit of a distribution of some of these variables.
 ## Calculating Blau index
 
 We can begin by calculating the Blau diversity for each attribute.
+Recall that the Blau index for any given diversity variable is:
+
+$$1 - \sum p_i^2$$
+
+where $p$ represents the proportion belonging to any given category,
+and $i$ indexes each of the given categories.
+As such a perfectly homogeneous group would receive a score of 0,
+while a perfectly heterogeneous group (with members spread evenly over the maximum categories)
+would receive a score of 1.
 
 ```{r blau}
 graph_blau_index(marvel_friends, "Gender")
@@ -91,8 +100,13 @@ autographr(marvel_friends,
 ## Calculating EI index
 
 Calculating the EI index follows the same syntax.
-Remember that a negative EI index indicates that there are more
-ties between nodes of the same class than between nodes of different classes.
+Recall that the EI index is calculated as:
+
+$$\frac{E-I}{E+I}$$
+
+where $E$ is the number of ties present between a variable's categories (i.e. external),
+and $I$ is the number of ties present within a variable's categories (i.e. internal).
+As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1 suggests perfect heterophily.
 
 ```{r ei}
 (obs.gender <- graph_ei_index(marvel_friends, "Gender"))
@@ -109,6 +123,10 @@ But ultimately these are just scores,
 and this doesn't tell us whether this is any more or less than
 what we might expect the score to be by chance for a network
 of this size and density and distribution of that attribute.
+
+# Testing scores
+
+## Conditional uniform graph tests
 
 To get at that, we will simulate a series of random graphs
 (Erdös-Renyi/Bernoulli) of the same dimensions and
@@ -132,3 +150,52 @@ but we can reject the null hypothesis with respect to their power origin story.
 While the effect itself is close to 0 (neither strong homophily nor heterophily),
 all the random networks generated returned larger EI scores, between .1 and .4.
 So there is significantly less heterophily here than expected.
+
+## Quadratic assignment procedure tests
+
+But perhaps the random graph is not the best reference group for establishing whether
+there is a significant homophily effect here.
+Another approach is to use permutations of the network.
+Permuting the network retains the structure of the network, 
+but reassigns any labels (variables) randomly.
+Let's first plot the observed data and some permuted data next to each other.
+
+```{r perm}
+old <- autographr(marvel_friends, 
+                  labels = FALSE, node_size = 6, 
+                  node_color = "PowerOrigin", 
+                  node_shape = "Gender")
+new <- autographr(generate_permutation(marvel_friends),
+                   labels = FALSE, node_size = 6,
+                  node_color = "PowerOrigin",
+                  node_shape = "Gender")
+grid.arrange(old, new)
+```
+
+This single permutation suggests there might otherwise be some more even mixing of these
+attributes, but it is just a single permutation.
+Let's try a test that runs this over a succession of permutations,
+just as we did with random graphs.
+
+```{r test_permute}
+par(mfrow=c(1,2))
+perm.gender <- test_permutation(marvel_friends, graph_ei_index, attribute = "Gender")
+plot(perm.gender) # Sorry the labelling on this is not right yet, will fix this next...
+perm.power <- test_permutation(marvel_friends, graph_ei_index, attribute = "PowerOrigin")
+plot(perm.power)
+```
+
+Again, we see that there is perhaps nothing so surprising that we got the homophily score
+for gender that we did, but the lack of power origin heterophily is surprising.
+
+```{r cugqap}
+plot(rand.gender)
+plot(rand.power)
+plot(perm.gender)
+plot(perm.power)
+```
+
+Note how distributions are generally wider when permuting the observed network 
+than creating a random distribution.
+That is, we expect a larger spread in the EI index for a network of this structure.
+
