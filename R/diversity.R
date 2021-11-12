@@ -11,9 +11,10 @@ NULL
 
 #' @rdname diversity
 #' @examples
-#' graph_blau_index(ison_marvel_relationships, "Gender")
-#' graph_blau_index(ison_marvel_relationships, "Attractive")
-#' graph_blau_index(ison_marvel_relationships, "Gender", "Rich")
+#' marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
+#' graph_blau_index(marvel_friends, "Gender")
+#' graph_blau_index(marvel_friends, "Attractive")
+#' graph_blau_index(marvel_friends, "Gender", "Rich")
 #' @export
 graph_blau_index <- function(object, attribute, clusters = NULL){
   blau <- function(features) { 1 - sum((table(features)/length(features))^2) }
@@ -37,8 +38,8 @@ graph_blau_index <- function(object, attribute, clusters = NULL){
 
 #' @rdname diversity
 #' @examples 
-#' graph_ei_index(ison_marvel_relationships, "Gender")
-#' graph_ei_index(ison_marvel_relationships, "Rich")
+#' graph_ei_index(marvel_friends, "Gender")
+#' graph_ei_index(marvel_friends, "Attractive")
 #' @export
 graph_ei_index <- function(object, attribute){
   m <- as_matrix(object)

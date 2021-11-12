@@ -24,9 +24,10 @@ across a network, within groups of a network, or the distribution of ties
 across this attribute.
 }
 \examples{
-graph_blau_index(ison_marvel_relationships, "Gender")
-graph_blau_index(ison_marvel_relationships, "Attractive")
-graph_blau_index(ison_marvel_relationships, "Gender", "Rich")
-graph_ei_index(ison_marvel_relationships, "Gender")
-graph_ei_index(ison_marvel_relationships, "Attractive")
+marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
+graph_blau_index(marvel_friends, "Gender")
+graph_blau_index(marvel_friends, "Attractive")
+graph_blau_index(marvel_friends, "Gender", "Rich")
+graph_ei_index(marvel_friends, "Gender")
+graph_ei_index(marvel_friends, "Attractive")
 }
