@@ -25,11 +25,11 @@ test_random <- function(object, FUN, ..., nSim = 1000){
   n <- graph_nodes(object)
   d <- graph_density(object)
   rands <- lapply(1:nSim, generate_random, n = n, p = d)
-  if(length(args)>0){
+  if (length(args) > 0) {
     rands <- lapply(rands, copy_node_attributes, object2 = object)
   }
   simd <- vapply(rands,
-         FUN, args, FUN.VALUE = numeric(1))
+                 FUN, args, FUN.VALUE = numeric(1))
   out <- list(obs.stat = obsd,
               rep.stat = simd,
               mode = is_directed(object),
@@ -41,7 +41,6 @@ test_random <- function(object, FUN, ..., nSim = 1000){
   class(out) <- "cug.test"
   out
 }
-
 #' @rdname tests
 #' @importFrom sna rmperm
 #' @examples 
