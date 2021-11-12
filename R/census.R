@@ -6,9 +6,9 @@
 #' of nodes. Included also are group census functions for summarising
 #' the profiles of clusters of nodes in a network.
 #' @name census
-#' @param object a migraph-consistent object
-#' @param clusters a vector of cluster assignment
-#' @param decimals number of decimal points to round to
+#' @param object A migraph-consistent object.
+#' @param clusters a vector of cluster assignment.
+#' @param decimals Number of decimal points to round to.
 #' @importFrom igraph vcount graph.neighborhood delete_vertices triad_census
 NULL
 
@@ -108,8 +108,13 @@ node_quad_census <- function(object){
   out
 }
 
+#' Censuses for the whole graph
+#' @name graph_census
+#' @param object A migraph-consistent object.
+#' @param object2 A second, two-mode migraph-consistent object.
+NULL
+
 #' @rdname graph_census
-#' @param object2 A second, two-mode migraph-consistent object
 #' @references 
 #' Hollway, James, Alessandro Lomi, Francesca Pallotti, and Christoph Stadtfeld. 
 #' “\href{https://doi.org/10.1017/nws.2017.8}{Multilevel Social Spaces: The Network Dynamics of Organizational Fields}.” 
@@ -202,11 +207,6 @@ group_triad_census <- function(object, clusters, decimals = 2) {
   }
   cluster_triad_mat 
 }
-
-#' Censuses for the whole graph
-#' @name graph_census
-#' @param object a migraph-consistent object
-NULL
 
 #' @rdname graph_census
 #' @examples 

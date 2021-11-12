@@ -16,13 +16,13 @@ autographr(
 )
 }
 \arguments{
-\item{object}{migraph-consistent object}
+\item{object}{A migraph-consistent object.}
 
-\item{layout}{an igraph layout algorithm,
-currently defaults to 'stress'}
+\item{layout}{An igraph layout algorithm,
+currently defaults to 'stress'.}
 
-\item{labels}{logical, whether to print node names
-as labels if present}
+\item{labels}{Logical, whether to print node names
+as labels if present.}
 
 \item{node_color}{Node variable in quotation marks to be used for
 colouring the nodes.}
@@ -43,7 +43,7 @@ Since this function expects this to be an existing variable,
 it is recommended to calculate all node-related statistics prior
 to using this function.}
 
-\item{...}{extra arguments}
+\item{...}{Extra arguments.}
 }
 \description{
 The aim of this function is to provide users with a quick and easy

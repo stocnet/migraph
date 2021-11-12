@@ -3,11 +3,11 @@
 #' The aim of this function is to provide users with a quick and easy
 #' graphing function that makes best use of the data,
 #' whatever its composition.
-#' @param object migraph-consistent object
-#' @param layout an igraph layout algorithm,
-#'   currently defaults to 'stress'
-#' @param labels logical, whether to print node names
-#'   as labels if present
+#' @param object A migraph-consistent object.
+#' @param layout An igraph layout algorithm,
+#'   currently defaults to 'stress'.
+#' @param labels Logical, whether to print node names
+#'   as labels if present.
 #' @param node_shape Node variable in quotation marks to be used for 
 #'   the shapes of the nodes. 
 #'   Shapes will be follow the ordering "circle", "square", "triangle",
@@ -23,7 +23,7 @@
 #' @param node_group Node variable in quotation marks to be used for
 #'   drawing convex but also concave hulls around clusters of nodes.
 #'   These groupings will be labelled with the categories of the variable passed. 
-#' @param ... extra arguments
+#' @param ... Extra arguments.
 #' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text
 #' @importFrom ggraph geom_conn_bundle get_con geom_node_point
 #' @importFrom ggraph scale_edge_width_continuous geom_node_label

@@ -5,8 +5,10 @@
 #' @param n Integer of length 1 or 2.
 #'   If passed a migraph-consistent object, a random network
 #'   of the same dimensions and density as the original network will be returned.
+#' @param object a migraph-consistent object
 #' @param p Number of edges in the network over the number of edges possible
 #' @param m Number of edges in the network
+#' @param directed Whether to generate network as directed. By default FALSE.
 #' @details Creates a random network.
 #' If `length(n)==1`, then a one-mode network will be returned,
 #' equivalent to an Erdös-Renyi graph.

@@ -14,11 +14,10 @@ add_edge_attributes(object, object2)
 
 copy_node_attributes(object, object2)
 
-mutate_edges(data, object, name)
+mutate_edges(object, object2, attr_name)
 }
 \arguments{
-\item{object}{A data frame edgelist, matrix, igraph, tidygraph, or
-network object.}
+\item{object}{A migraph-consistent object.}
 
 \item{attr_name}{Name of the new attribute in the resulting object.}
 
@@ -30,5 +29,6 @@ network object.}
 Adding and copying attributes from one graph to another
 }
 \examples{
-mutate_edges(ison_marvel_relationships, ison_marvel_teams, "teams")
+mpn_elite_mex
+mutate_edges(mpn_elite_mex, generate_permutation(mpn_elite_mex), "permutation")
 }

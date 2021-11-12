@@ -24,6 +24,10 @@ of the same dimensions and density as the original network will be returned.}
 \item{p}{Number of edges in the network over the number of edges possible}
 
 \item{m}{Number of edges in the network}
+
+\item{directed}{Whether to generate network as directed. By default FALSE.}
+
+\item{object}{a migraph-consistent object}
 }
 \description{
 Create networks from particular probabilities

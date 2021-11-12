@@ -1,6 +1,6 @@
 #' Adding and copying attributes from one graph to another
 #' 
-#' @inheritParams as_igraph
+#' @param object A migraph-consistent object.
 #' @param object2 A second object to copy nodes or edges from.
 #' @param attr_name Name of the new attribute in the resulting object.
 #' @param vector A vector of values for the new attribute.
@@ -39,13 +39,16 @@ copy_node_attributes <- function(object, object2){
 
 #' @rdname add
 #' @importFrom igraph add_edges
+#' @importFrom rlang :=
 #' @examples 
-#' mutate_edges(ison_marvel_relationships, ison_marvel_teams, "teams")
+#' mpn_elite_mex
+#' mutate_edges(mpn_elite_mex, generate_permutation(mpn_elite_mex), "permutation")
 #' @export
-mutate_edges <- function(data, object, name){
-  el <- c(t(as.matrix(as_edgelist(object))))
-  out <- igraph::add_edges(as_igraph(data),
-                           el, object = 1) %>% 
+mutate_edges <- function(object, object2, attr_name){
+  edges <- NULL
+  el <- c(t(as.matrix(as_edgelist(object2))))
+  out <- igraph::add_edges(as_igraph(object),
+                           el, object2 = 1) %>% 
     as_tidygraph()
   
   # as_tidygraph(data) %>% bind_edges()
@@ -55,8 +58,8 @@ mutate_edges <- function(data, object, name){
   #   mutate(data = map(data, ~ map_dfc(., na.omit))) %>% 
   #   unnest()
   
-  if(!missing(name)){
+  if(!missing(attr_name)){
     out %>% activate(edges) %>% 
-      rename(!!name := "object")
+      rename(!!attr_name := "object2")
   } else out
 }
