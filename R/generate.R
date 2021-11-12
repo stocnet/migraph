@@ -81,6 +81,35 @@ generate_scalefree <- function(n, p = 1) {
   igraph::sample_pa(n, power = p)
 }
 
+#' @rdname generate
+#' @examples
+#' em1 <- autographr(mpn_elite_usa_advice)
+#' em2 <- autographr(generate_permutation(mpn_elite_usa_advice))
+#' grid.arrange(em1, em2, ncol = 2)
+#' @export
+generate_permutation <- function(object) {
+  if(is_twomode(object)){
+    out <- rbperm(as_matrix(object))
+  } else {
+    out <- sna::rmperm(as_network(object))
+    if(is_labelled(object)) dimnames(out) <- dimnames(as_matrix(object))
+  }
+  out
+}
+
+rbperm <- function(m) {
+  n <- sample(1:dim(m)[1])
+  o <- sample(1:dim(m)[2])
+  if(is_labelled(m)){
+    p <- matrix(data = m[n, o], nrow = dim(m)[1], ncol = dim(m)[2],
+                dimnames = dimnames(m))
+  } else {
+    p <- matrix(data = m[n, o], nrow = dim(m)[1], ncol = dim(m)[2])
+  }
+  p
+}
+
+
 # igraph::grg.game()
 # igraph::sbm.game()
 # igraph::hrg.game()

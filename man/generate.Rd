@@ -5,6 +5,7 @@
 \alias{generate_random}
 \alias{generate_smallworld}
 \alias{generate_scalefree}
+\alias{generate_permutation}
 \title{Create networks from particular probabilities}
 \usage{
 generate_random(n, p, m, directed = FALSE)
@@ -12,6 +13,8 @@ generate_random(n, p, m, directed = FALSE)
 generate_smallworld(n, p = 0.05)
 
 generate_scalefree(n, p = 1)
+
+generate_permutation(object)
 }
 \arguments{
 \item{n}{Integer of length 1 or 2.
@@ -43,6 +46,9 @@ grid.arrange(sw1, sw2, ncol = 2)
 sf1 <- autographr(generate_scalefree(12, 0.25))
 sf2 <- autographr(generate_scalefree(12, 1.25))
 grid.arrange(sf1, sf2, ncol = 2)
+em1 <- autographr(mpn_elite_mex)
+em2 <- autographr(generate_permutation(mpn_elite_mex))
+grid.arrange(em1, em2, ncol = 2)
 }
 \seealso{
 Other creation: 
