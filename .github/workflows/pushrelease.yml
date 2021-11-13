@@ -80,6 +80,7 @@ jobs:
 
   release:
     name: Bump version and release
+    if: ${{ always() }}
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -158,6 +159,7 @@ jobs:
 
   pkgdown:
     name: Build and deploy website
+    if: ${{ always() }}
     needs: release
     runs-on: macOS-latest
     env:
