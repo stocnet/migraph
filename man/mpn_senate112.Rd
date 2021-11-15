@@ -30,7 +30,7 @@ which met from January 3, 2011 to January 3, 2013.
 Although the Senate has 100 seats, 103 persons served during this period due
 to two resignations and a death. However, the third replacement occurred
 only two days before the end and cast no votes on the bills investigated
-here. Hence, the number of Senators we analyzed is 102.
+here. Hence, the number of Senators analyzed is 102.
 }
 \details{
 CQ Almanac identified 25 key bills on which the Senate voted during the
