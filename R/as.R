@@ -254,29 +254,43 @@ as_igraph.tbl_graph <- function(object,
 
 #' @export
 as_igraph.network <- function(object, 
-                              weight = TRUE, 
+                              weight = FALSE, 
                               twomode = FALSE) {
-  
+  # Extract node attributes
   attr <- names(object[[3]][[1]])
-  
+  # Convert to igraph
   if (network::is.bipartite(object)) {
-    graph <- sna::as.sociomatrix.sna(object)
-    graph <- igraph::graph_from_incidence_matrix(graph)
+    if (weight) {
+      graph <- sna::as.sociomatrix.sna(list1net, attrname = "weight")
+      graph <- igraph::graph_from_incidence_matrix(graph, weighted = TRUE)
+    } else {
+      graph <- sna::as.sociomatrix.sna(object)
+      graph <- igraph::graph_from_incidence_matrix(graph) 
+    }
   } else {
-    graph <- sna::as.sociomatrix.sna(object)
-    graph <- igraph::graph_from_adjacency_matrix(graph,
+    if (weight) {
+      graph <- sna::as.sociomatrix.sna(object, attrname = "weight")
+      graph <- igraph::graph_from_adjacency_matrix(graph,
+                                                   weighted = TRUE,
+                                                   mode = ifelse(object$gal$directed,
+                                                                 "directed",
+                                                                 "undirected"))
+    } else {
+      graph <- sna::as.sociomatrix.sna(object)
+      graph <- igraph::graph_from_adjacency_matrix(graph,
                                                  mode = ifelse(object$gal$directed,
                                                                "directed",
                                                                "undirected"))
+    }
   }
-  if(length(attr) > 2){
-    for(a in attr[2:length(attr)]){
+  # Add remaining node level attributes
+  if (length(attr) > 2) {
+    for (a in attr[2:length(attr)]) {
       graph <- add_node_attributes(graph, 
                                    attr_name = a, 
                                    vector = sapply(object[[3]], "[[", a))
     }
   }
-  
   graph
 }
 
