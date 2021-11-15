@@ -165,8 +165,25 @@ as_matrix.tbl_graph <- function(object, weight = FALSE) {
 }
 
 #' @export
-as_matrix.network <- function(object, weight = FALSE) {
-  network::as.matrix.network(object)
+as_matrix.network <- function(object,
+                              weight = FALSE,
+                              bipartite = FALSE) {
+  if (is_bipartite(object)) {
+    if (weight) {
+      network::as.matrix.network(object,
+                                 attrname = "weight",
+                                 expand.bipartite = bipartite)
+    } else {
+      network::as.matrix.network(object,
+                                 expand.bipartite = bipartite)
+    }
+  } else {
+    if (weight) {
+      network::as.matrix.network(object, attrname = "weight")
+    } else {
+      network::as.matrix.network(object)
+    }
+  }
 }
 
 #' @rdname coercion
