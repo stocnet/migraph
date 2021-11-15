@@ -13,7 +13,7 @@
 #' | undirected  |  | X | X | X | X |
 #' | unsigned  |  |  | X | X |   |
 #' | uniplex  |  |   | X | X |   |
-#' | unnamed  |  | X | X | X | X |
+#' | unnamed  | X | X | X | X | X |
 #' | named  |  | X | X | X | X |
 #' | simplex  |  |   | X | X |   |
 #' | main_component  |  |   | X | X |   |
@@ -108,6 +108,15 @@ to_unnamed.matrix <- function(object) {
   rownames(out) <- NULL
   colnames(out) <- NULL
   out
+}
+
+#' @export
+to_unnamed.data.frame <- function(object) {
+  out <- object
+  names <- unique(unlist(c(out[,1],out[,2])))
+  out[,1] <- match(unlist(object[,1]), names)
+  out[,2] <- match(unlist(object[,2]), names)
+  tibble::as_tibble(out)
 }
 
 #' @rdname to
