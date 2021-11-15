@@ -31,8 +31,12 @@ is_weighted <- function(object) {
 #' is_directed(southern_women)
 #' @export
 is_directed <- function(object) {
-  object <- as_igraph(object)
-  igraph::is.directed(object)
+  if(network::is.network(object)){
+    object$gal$directed
+  } else {
+    object <- as_igraph(object)
+    igraph::is.directed(object)
+  }
 }
 
 #' @rdname is
