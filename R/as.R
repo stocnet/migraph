@@ -82,11 +82,11 @@ as_edgelist.tbl_graph <- function(object, weight = FALSE){
 as_edgelist.network <- function(object, weight = FALSE){
   out <- sna::as.edgelist.sna(object)
   edges <- as.data.frame(out)
-  if(is_twomode(object)){
-    edges <- edges[((nrow(edges)/2)+1):nrow(edges),]
+  if (is_twomode(object)) {
+    edges <- edges[((nrow(edges)/2) + 1):nrow(edges),]
   }
   names(edges) <- c("from", "to", "weight")
-  if(is_labelled(object)){
+  if (is_labelled(object)) {
     names <- attr(out, "vnames")
     edges[,1] <- names[edges[,1]]
     edges[,2] <- names[edges[,2]]
