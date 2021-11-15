@@ -117,17 +117,24 @@ as_matrix.data.frame <- function(object, weight = FALSE){
         nodes1 <- sort(nodes1)
         nodes2 <- as.character(unique(object[,2]))
         nodes2 <- sort(nodes2)
+        maxlen <- max(length(nodes1), length(nodes2))
         if (nrow(object) != length(nodes1)*length(nodes2)) {
-          allcombs <- expand.grid(object[,1:2], stringsAsFactors = FALSE)
-          allcombs <- subset(allcombs, !duplicated(allcombs))
-          object <- merge(allcombs, object, all.x = TRUE)
+          if (length(nodes1) > length(nodes2)) {
+            temp <- data.frame(from = nodes1, to = nodes1)
+            allcombs <- expand.grid(temp[, 1], temp[, 1])
+          } else {
+            temp <- data.frame(from = nodes2, to = nodes2)
+            allcombs <- expand.grid(temp[, 1], temp[, 2])
+          }
+          object <- merge(allcombs, object, by.x = c(1,2), by.y = c(1,2),
+                          all.x = TRUE)
           object <- object[order(object[,2], object[,1]),]
           object[is.na(object)] <- 0
         }
         out <- structure(as.numeric(object[,3]),
-                         .Dim = c(as.integer(length(nodes1)),
-                                  as.integer(length(nodes2))),
-                         .Dimnames = list(nodes1, nodes2))
+                         .Dim = c(as.integer(maxlen),
+                                  as.integer(maxlen)),
+                         .Dimnames = list(nodes2, nodes2))
       }
   out
 }
