@@ -198,15 +198,19 @@ as_matrix.network <- function(object,
 #' @importFrom igraph graph_from_adjacency_matrix
 #' @export
 as_igraph <- function(object,
-                      weight = TRUE,
+                      weight = FALSE,
                       twomode = FALSE) UseMethod("as_igraph")
 
 #' @export
 as_igraph.data.frame <- function(object,
-                                 weight = TRUE,
+                                 weight = FALSE,
                                  twomode = FALSE) {
+  # Warn if no column named weight and weight set to true
+  if (weight & !("weight" %in% names(object))) {
+    stop("Please rename the weight column of your dataframe to 'weight'")
+  }
   graph <- igraph::graph_from_data_frame(object)
-  if(length(intersect(c(object[,1]), c(object[,2]))) == 0){
+  if (length(intersect(c(object[,1]), c(object[,2]))) == 0) {
     igraph::V(graph)$type <- igraph::V(graph)$name %in% object[,2]
   }
   graph
