@@ -228,6 +228,9 @@ as_igraph.tbl_graph <- function(object,
 as_igraph.network <- function(object, 
                               weight = TRUE, 
                               twomode = FALSE) {
+  
+  attr <- names(object[[3]][[1]])
+  
   if (network::is.bipartite(object)) {
     graph <- sna::as.sociomatrix.sna(object)
     graph <- igraph::graph_from_incidence_matrix(graph)
@@ -238,6 +241,14 @@ as_igraph.network <- function(object,
                                                                "directed",
                                                                "undirected"))
   }
+  if(length(attr) > 2){
+    for(a in attr[2:length(attr)]){
+      graph <- add_node_attributes(graph, 
+                                   attr_name = a, 
+                                   vector = sapply(object[[3]], "[[", a))
+    }
+  }
+  
   graph
 }
 
