@@ -233,7 +233,10 @@ as_igraph.network <- function(object,
     graph <- igraph::graph_from_incidence_matrix(graph)
   } else {
     graph <- sna::as.sociomatrix.sna(object)
-    graph <- igraph::graph_from_adjacency_matrix(graph)
+    graph <- igraph::graph_from_adjacency_matrix(graph,
+                                                 mode = ifelse(object$gal$directed,
+                                                               "directed",
+                                                               "undirected"))
   }
   graph
 }
