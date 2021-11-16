@@ -117,24 +117,17 @@ as_matrix.data.frame <- function(object, weight = FALSE){
         nodes1 <- sort(nodes1)
         nodes2 <- as.character(unique(object[,2]))
         nodes2 <- sort(nodes2)
-        maxlen <- max(length(nodes1), length(nodes2))
         if (nrow(object) != length(nodes1)*length(nodes2)) {
-          if (length(nodes1) > length(nodes2)) {
-            temp <- data.frame(from = nodes1, to = nodes1)
-            allcombs <- expand.grid(temp[, 1], temp[, 1])
-          } else {
-            temp <- data.frame(from = nodes2, to = nodes2)
-            allcombs <- expand.grid(temp[, 1], temp[, 2])
-          }
-          object <- merge(allcombs, object, by.x = c(1,2), by.y = c(1,2),
-                          all.x = TRUE)
+          allcombs <- expand.grid(object[,1:2], stringsAsFactors = FALSE)
+          allcombs <- subset(allcombs, !duplicated(allcombs))
+          object <- merge(allcombs, object, all.x = TRUE)
           object <- object[order(object[,2], object[,1]),]
           object[is.na(object)] <- 0
         }
         out <- structure(as.numeric(object[,3]),
-                         .Dim = c(as.integer(maxlen),
-                                  as.integer(maxlen)),
-                         .Dimnames = list(nodes2, nodes2))
+                         .Dim = c(as.integer(length(nodes1)),
+                                  as.integer(length(nodes2))),
+                         .Dimnames = list(nodes1, nodes2))
       }
   out
 }
@@ -167,25 +160,25 @@ as_matrix.igraph <- function(object, weight = FALSE) {
 }
 
 #' @export
-as_matrix.tbl_graph <- function(object, weight = FALSE) {
+as_matrix.tbl_graph <- function(object, 
+                                weight = FALSE) {
   as_matrix(as_igraph(object))
 }
 
 #' @export
 as_matrix.network <- function(object,
-                              weight = FALSE,
-                              bipartite = FALSE) {
-  if (is_bipartite(object)) {
-    if (weight) {
+                              weight = FALSE) {
+  if (network::is.bipartite(object)) {
+    if ("weight" %in% network::list.edge.attributes(object)) {
       network::as.matrix.network(object,
                                  attrname = "weight",
-                                 expand.bipartite = bipartite)
+                                 expand.bipartite = network::is.bipartite(object))
     } else {
       network::as.matrix.network(object,
-                                 expand.bipartite = bipartite)
+                                 expand.bipartite = network::is.bipartite(object))
     }
   } else {
-    if (weight) {
+    if ("weight" %in% network::list.edge.attributes(object)) {
       network::as.matrix.network(object, attrname = "weight")
     } else {
       network::as.matrix.network(object)
@@ -260,7 +253,7 @@ as_igraph.network <- function(object,
   attr <- names(object[[3]][[1]])
   # Convert to igraph
   if (network::is.bipartite(object)) {
-    if (weight) {
+    if ("weight" %in% network::list.edge.attributes(object)) {
       graph <- sna::as.sociomatrix.sna(list1net, attrname = "weight")
       graph <- igraph::graph_from_incidence_matrix(graph, weighted = TRUE)
     } else {
@@ -268,7 +261,7 @@ as_igraph.network <- function(object,
       graph <- igraph::graph_from_incidence_matrix(graph) 
     }
   } else {
-    if (weight) {
+    if ("weight" %in% network::list.edge.attributes(object)) {
       graph <- sna::as.sociomatrix.sna(object, attrname = "weight")
       graph <- igraph::graph_from_adjacency_matrix(graph,
                                                    weighted = TRUE,
@@ -334,11 +327,12 @@ as_network.network <- function(object) {
 
 #' @export
 as_network.matrix <- function(object) {
-  if (is_twomode(object)) {
-    network::as.network(object, bipartite = TRUE)
-  } else {
-    network::as.network(object, bipartite = FALSE)
-  }
+    network::as.network(object, 
+                        bipartite = is_twomode(object),
+                        ignore.eval = ifelse(is_weighted(object),
+                                             FALSE, TRUE),
+                        names.eval = ifelse(is_weighted(object),
+                                            "weight", NULL))
 }
 
 #' @export
