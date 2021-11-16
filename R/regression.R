@@ -14,10 +14,10 @@
 #' mat2 <- matrix(c(0,1,0,1,0,1,0,1),4,2)
 #' mat3 <- matrix(c(0,0,1,1,0,0,1,1),4,2)
 #' lmat <- list(mat1 = mat1, mat2 = mat2, mat3 = mat3)
-#' model1 <- netlm(mat1 ~ mat2 + mat3, lmat)
+#' model1 <- network_reg(mat1 ~ mat2 + mat3, lmat)
 #' summary(model1)
 #' @export
-netlm <- function(formula, data, ...) {
+network_reg <- function(formula, data, ...) {
   if (!is.list(data)) stop("netlm() expects a list of matrices.")
   if (!is.matrix(data[[1]])) stop("netlm() expects a list of matrices.")
   orig <- data

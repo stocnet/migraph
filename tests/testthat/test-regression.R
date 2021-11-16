@@ -3,22 +3,22 @@ mat2 <- matrix(c(0,1,0,1,0,1,0,1),4,2)
 mat3 <- matrix(c(0,0,1,1,0,0,1,1),4,2)
 lmat <- list(mat1 = mat1, mat2 = mat2, mat3 = mat3)
 
-test_that("netlm expects correctly",{
-  expect_error(netlm(mat1 ~ mat2 + mat3, mat1), "expects a list")
-  expect_error(netlm(mat1 ~ mat2 + mat3, lapply(lmat, function(x) as.data.frame(x))), "expects a list of matrices")
+test_that("network_reg expects correctly",{
+  expect_error(network_reg(mat1 ~ mat2 + mat3, mat1), "expects a list")
+  expect_error(network_reg(mat1 ~ mat2 + mat3, lapply(lmat, function(x) as.data.frame(x))), "expects a list of matrices")
 })
 
-test_that("netlm estimates correctly",{
+test_that("network_reg estimates correctly",{
   set.seed(123)
-  test <- netlm(mat1 ~ mat2 + mat3, lmat)
+  test <- network_reg(mat1 ~ mat2 + mat3, lmat)
   expect_s3_class(test, "netlm")
   expect_equal(unname(test$coefficients), c(0.375, 0.250, 0.250))
 })
 
-test_that("summary and print work correctly for netlm",{
+test_that("summary and print work correctly for network_reg",{
   set.seed(123)
   expect_error(summary.netlm(lmat), "expects an object of class 'netlm'")
-  test <- summary(netlm(mat1 ~ mat2 + mat3, lmat))
+  test <- summary(network_reg(mat1 ~ mat2 + mat3, lmat))
   expect_s3_class(test, "summary.netlm")
   expect_equal(test$r.squared, 0.1333333, tolerance = 0.01)
   expect_equal(test$adj.r.squared, -0.2133333, tolerance = 0.01)
@@ -27,10 +27,10 @@ test_that("summary and print work correctly for netlm",{
 
 test_that("print method work correctly for netlm",{
   set.seed(123)
-  test <- summary(netlm(mat1 ~ mat2 + mat3, lmat))
+  test <- summary(network_reg(mat1 ~ mat2 + mat3, lmat))
   test <- capture.output(print(test))
   expect_equal(test[[2]], "Call:")
-  expect_equal(test[[3]], "netlm(formula = mat1 ~ mat2 + mat3, data = lmat)")
+  expect_equal(test[[3]], "network_reg(formula = mat1 ~ mat2 + mat3, data = lmat)")
   expect_equal(test[[6]], "Coefficients:")
   expect_equal(test[[8]], "(Intercept) 0.375 0.361")
 })
