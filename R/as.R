@@ -66,8 +66,7 @@ as_edgelist <- function(object, weight = FALSE) UseMethod("as_edgelist")
 
 #' @export
 as_edgelist.igraph <- function(object, weight = FALSE){
-  out <- igraph::as_edgelist(object)
-  colnames(out) <- c("from", "to")
+  out <- igraph::get.data.frame(object)
   tibble::as_tibble(out)
 }
 
