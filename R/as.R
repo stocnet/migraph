@@ -254,7 +254,7 @@ as_igraph.network <- function(object,
   # Convert to igraph
   if (network::is.bipartite(object)) {
     if ("weight" %in% network::list.edge.attributes(object)) {
-      graph <- sna::as.sociomatrix.sna(list1net, attrname = "weight")
+      graph <- sna::as.sociomatrix.sna(object, attrname = "weight")
       graph <- igraph::graph_from_incidence_matrix(graph, weighted = TRUE)
     } else {
       graph <- sna::as.sociomatrix.sna(object)
