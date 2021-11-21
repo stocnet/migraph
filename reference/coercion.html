@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Coercion between graph/network object classes — coercion • migraph</title>
+<title>Coercion between graph/network/edgelist/matrix object classes — coercion • migraph</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,12 +52,12 @@
 
 
 
-<meta property="og:title" content="Coercion between graph/network object classes — coercion" />
+<meta property="og:title" content="Coercion between graph/network/edgelist/matrix object classes — coercion" />
 <meta property="og:description" content="The as_ functions in {migraph} coerce objects
 between several common classes of social network objects.
 These include:
+edgelists, as data frames or tibbles
 adjacency and incidence matrices
-edgelists (as data frames)
 {igraph} graph objects
 {tidygraph} tbl_graph objects
 {network} network objects
@@ -95,7 +95,7 @@ edgelists (as data frames)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.7</span>
       </span>
     </div>
 
@@ -125,6 +125,9 @@ edgelists (as data frames)
     </li>
     <li>
       <a href="../articles/p5blockmodel.html">Practical 5</a>
+    </li>
+    <li>
+      <a href="../articles/p7linearmodel.html">Practical 7</a>
     </li>
   </ul>
 </li>
@@ -158,7 +161,7 @@ edgelists (as data frames)
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Coercion between graph/network object classes</h1>
+    <h1>Coercion between graph/network/edgelist/matrix object classes</h1>
     <small class="dont-index">Source: <a href='https://github.com/snlab-ch/migraph/blob/master/R/as.R'><code>R/as.R</code></a></small>
     <div class="hidden name"><code>coercion.Rd</code></div>
     </div>
@@ -167,8 +170,8 @@ edgelists (as data frames)
     <p>The <code>as_</code> functions in <code>{migraph}</code> coerce objects
 between several common classes of social network objects.
 These include:</p><ul>
+<li><p>edgelists, as data frames or tibbles</p></li>
 <li><p>adjacency and incidence matrices</p></li>
-<li><p>edgelists (as data frames)</p></li>
 <li><p><code>{igraph}</code> <code>graph</code> objects</p></li>
 <li><p><code>{tidygraph}</code> <code>tbl_graph</code> objects</p></li>
 <li><p><code>{network}</code> <code>network</code> objects</p></li>
@@ -180,7 +183,7 @@ These include:</p><ul>
 
 <span class='fu'>as_matrix</span><span class='op'>(</span><span class='va'>object</span>, weight <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>as_igraph</span><span class='op'>(</span><span class='va'>object</span>, weight <span class='op'>=</span> <span class='cn'>FALSE</span>, twomode <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'>as_igraph</span><span class='op'>(</span><span class='va'>object</span>, weight <span class='op'>=</span> <span class='cn'>TRUE</span>, twomode <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='fu'>as_tidygraph</span><span class='op'>(</span><span class='va'>object</span>, twomode <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
@@ -220,7 +223,12 @@ incidence from adjacency matrices. By default FALSE.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Behaviour is a little different depending on the data format.</p>
+    <p>An effort is made for all of these coercion routines to be as lossless
+as possible, though some object classes are better at retaining certain
+kinds of information than others.
+Note also that there are some reserved column names in one or more
+object classes, which could otherwise lead to some unexpected results.</p>
+<p>Behaviour is a little different depending on the data format.</p>
 <p>If the data frame is a 2 column edgelist,
 the first column will become the rows
 and the second column will become the columns.
@@ -241,53 +249,57 @@ This information is usually already embedded in <code>{igraph}</code>,
 <code><a href='to.html'>to</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>test</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>id1 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"C"</span><span class='op'>)</span>,
-                   id2 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"I"</span>,<span class='st'>"G"</span>,<span class='st'>"I"</span>,<span class='st'>"G"</span>,<span class='st'>"H"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>as_matrix</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   G H I
-#&gt; A 0 0 1
-#&gt; B 1 0 1
-#&gt; C 1 1 0</div><div class='input'><span class='fu'>as_igraph</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; IGRAPH b0c10a9 DN-B 6 5 -- 
-#&gt; + attr: name (v/c), type (v/l)
-#&gt; + edges from b0c10a9 (vertex names):
-#&gt; [1] A-&gt;I B-&gt;G B-&gt;I C-&gt;G C-&gt;H</div><div class='input'><span class='fu'>as_tidygraph</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tbl_graph: 6 nodes and 5 edges
-#&gt; #
-#&gt; # A rooted tree
-#&gt; #
-#&gt; # Node Data: 6 × 2 (active)</span>
-#&gt;   name  type 
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> A     FALSE
-#&gt; <span style='color: #BCBCBC;'>2</span> B     FALSE
-#&gt; <span style='color: #BCBCBC;'>3</span> C     FALSE
-#&gt; <span style='color: #BCBCBC;'>4</span> I     TRUE 
-#&gt; <span style='color: #BCBCBC;'>5</span> G     TRUE 
-#&gt; <span style='color: #BCBCBC;'>6</span> H     TRUE 
-#&gt; <span style='color: #949494;'>#
-#&gt; # Edge Data: 5 × 2</span>
-#&gt;    from    to
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span>     1     4
-#&gt; <span style='color: #BCBCBC;'>2</span>     2     5
-#&gt; <span style='color: #BCBCBC;'>3</span>     2     4
-#&gt; <span style='color: #949494;'># … with 2 more rows</span></div><div class='input'><span class='fu'>as_network</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  Network attributes:
-#&gt;   vertices = 3 
-#&gt;   directed = TRUE 
-#&gt;   hyper = FALSE 
-#&gt;   loops = FALSE 
-#&gt;   multiple = FALSE 
-#&gt;   bipartite = FALSE 
-#&gt;   total edges= 5 
-#&gt;     missing edges= 0 
-#&gt;     non-missing edges= 5 
-#&gt; 
-#&gt;  Vertex attribute names: 
-#&gt;     vertex.names 
-#&gt; 
-#&gt; No edge attributes</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>test</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>id1 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"C"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                   id2 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"I"</span>,<span class='st'>"G"</span>,<span class='st'>"I"</span>,<span class='st'>"G"</span>,<span class='st'>"H"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>as_matrix</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   G H I</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> A 0 0 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> B 1 0 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> C 1 1 0</span>
+<span class='r-in'><span class='fu'>as_igraph</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> IGRAPH faf3efa DN-B 6 5 -- </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> + attr: name (v/c), type (v/l)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> + edges from faf3efa (vertex names):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] A-&gt;I B-&gt;G B-&gt;I C-&gt;G C-&gt;H</span>
+<span class='r-in'><span class='fu'>as_tidygraph</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tbl_graph: 6 nodes and 5 edges</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A rooted tree</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># Node Data: 6 × 2 (active)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   name  type </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> A     FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> B     FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> C     FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> I     TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span> G     TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span> H     TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># Edge Data: 5 × 2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    from    to</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span>     1     4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span>     2     5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span>     2     4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 2 more rows</span></span>
+<span class='r-in'><span class='fu'>as_network</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Network attributes:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   vertices = 3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   directed = TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   hyper = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   loops = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   multiple = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   bipartite = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   total edges= 5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     missing edges= 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     non-missing edges= 5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Vertex attribute names: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     vertex.names </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> No edge attributes</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

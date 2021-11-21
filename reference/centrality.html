@@ -89,7 +89,7 @@ Importantly, these functions also offer correct normalization for two-mode netwo
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.7</span>
       </span>
     </div>
 
@@ -119,6 +119,9 @@ Importantly, these functions also offer correct normalization for two-mode netwo
     </li>
     <li>
       <a href="../articles/p5blockmodel.html">Practical 5</a>
+    </li>
+    <li>
+      <a href="../articles/p7linearmodel.html">Practical 7</a>
     </li>
   </ul>
 </li>
@@ -266,63 +269,71 @@ the function will return a <code>tidygraph</code> object where the nodes have be
 <code><a href='node_smallworld.html'>node_smallworld</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>node_degree</span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   Alvarezx     Beteta     Blanco Bustamente    Gortari     Lozano     Madrid 
-#&gt;          2          5          2          3          5          6          5 
-#&gt;    Margain       Mena   Portillo      Rojas 
-#&gt;          8          3          4          1 </div><div class='input'><span class='fu'>node_degree</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    EVELYN     LAURA   THERESA    BRENDA CHARLOTTE   FRANCES   ELEANOR     PEARL 
-#&gt;         8         7         8         7         4         4         4         3 
-#&gt;      RUTH     VERNE      MYRA KATHERINE    SYLVIA      NORA     HELEN   DOROTHY 
-#&gt;         4         4         4         6         7         8         7         4 
-#&gt;    OLIVIA     FLORA        E1        E2        E3        E4        E5        E6 
-#&gt;         2         2         3         3         6         4         8         8 
-#&gt;        E7        E8        E9       E10       E11       E12       E13       E14 
-#&gt;        10        14        12         6         4         7         4         4 </div><div class='input'><span class='fu'>node_closeness</span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   Alvarezx     Beteta     Blanco Bustamente    Gortari     Lozano     Madrid 
-#&gt; 0.04761905 0.06666667 0.05263158 0.05555556 0.06250000 0.07142857 0.06250000 
-#&gt;    Margain       Mena   Portillo      Rojas 
-#&gt; 0.07692308 0.05555556 0.05882353 0.03703704 </div><div class='input'><span class='fu'>node_closeness</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     EVELYN      LAURA    THERESA     BRENDA  CHARLOTTE    FRANCES    ELEANOR 
-#&gt; 0.01666667 0.01515152 0.01666667 0.01515152 0.01250000 0.01388889 0.01388889 
-#&gt;      PEARL       RUTH      VERNE       MYRA  KATHERINE     SYLVIA       NORA 
-#&gt; 0.01388889 0.01470588 0.01470588 0.01428571 0.01515152 0.01612903 0.01666667 
-#&gt;      HELEN    DOROTHY     OLIVIA      FLORA         E1         E2         E3 
-#&gt; 0.01612903 0.01428571 0.01219512 0.01219512 0.01190476 0.01190476 0.01282051 
-#&gt;         E4         E5         E6         E7         E8         E9        E10 
-#&gt; 0.01219512 0.01351351 0.01562500 0.01666667 0.01923077 0.01785714 0.01282051 
-#&gt;        E11        E12        E13        E14 
-#&gt; 0.01219512 0.01315789 0.01219512 0.01219512 </div><div class='input'><span class='fu'>node_betweenness</span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   Alvarezx     Beteta     Blanco Bustamente    Gortari     Lozano     Madrid 
-#&gt;   0.000000  13.333333   0.000000  18.500000   2.166667  19.000000   2.166667 
-#&gt;    Margain       Mena   Portillo      Rojas 
-#&gt;  25.500000   0.000000   3.333333   0.000000 </div><div class='input'><span class='fu'>node_betweenness</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      EVELYN       LAURA     THERESA      BRENDA   CHARLOTTE     FRANCES 
-#&gt;  42.7599983  22.8565396  38.7392641  22.0119104   4.7279418   4.7516238 
-#&gt;     ELEANOR       PEARL        RUTH       VERNE        MYRA   KATHERINE 
-#&gt;   4.1356871   2.9762664   7.3608922   6.3676024   5.9435242  16.2889210 
-#&gt;      SYLVIA        NORA       HELEN     DOROTHY      OLIVIA       FLORA 
-#&gt;  25.2987307  43.9377835  30.7265229   5.9435242   2.0866336   2.0866336 
-#&gt;          E1          E2          E3          E4          E5          E6 
-#&gt;   0.9737485   0.9440910   8.1977508   3.4529893  16.9812110  28.0103112 
-#&gt;          E7          E8          E9         E10         E11         E12 
-#&gt;  58.0969236 108.2616581  96.2294880   6.8185655   9.0194398  10.2353650 
-#&gt;         E13         E14 
-#&gt;   1.8892292   1.8892292 </div><div class='input'><span class='fu'>node_eigenvector</span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   Alvarezx     Beteta     Blanco Bustamente    Gortari     Lozano     Madrid 
-#&gt; 0.15638683 0.34382531 0.17579240 0.15407997 0.37681994 0.37444178 0.38138413 
-#&gt;    Margain       Mena   Portillo      Rojas 
-#&gt; 0.48115951 0.25321407 0.27999270 0.03165737 </div><div class='input'><span class='fu'>node_eigenvector</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     EVELYN      LAURA    THERESA     BRENDA  CHARLOTTE    FRANCES    ELEANOR 
-#&gt; 0.29913625 0.28092924 0.33382479 0.28434268 0.16055764 0.20319443 0.22547488 
-#&gt;      PEARL       RUTH      VERNE       MYRA  KATHERINE     SYLVIA       NORA 
-#&gt; 0.18677117 0.23829269 0.23101265 0.20662026 0.24263486 0.29098916 0.27036422 
-#&gt;      HELEN    DOROTHY     OLIVIA      FLORA         E1         E2         E3 
-#&gt; 0.24964055 0.20662026 0.07752323 0.07752323 0.15211097 0.16106257 0.25183346 
-#&gt;         E4         E5         E6         E7         E8         E9        E10 
-#&gt; 0.18428786 0.30462311 0.31606479 0.36943483 0.45192837 0.35686135 0.22825957 
-#&gt;        E11        E12        E13        E14 
-#&gt; 0.11234306 0.25511942 0.17743466 0.17743466 </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>node_degree</span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Alvarezx     Beteta     Blanco Bustamente    Gortari     Lozano     Madrid </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          2          5          2          3          5          6          5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    Margain       Mena   Portillo      Rojas </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          8          3          4          1 </span>
+<span class='r-in'><span class='fu'>node_degree</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    EVELYN     LAURA   THERESA    BRENDA CHARLOTTE   FRANCES   ELEANOR     PEARL </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         8         7         8         7         4         4         4         3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      RUTH     VERNE      MYRA KATHERINE    SYLVIA      NORA     HELEN   DOROTHY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         4         4         4         6         7         8         7         4 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    OLIVIA     FLORA        E1        E2        E3        E4        E5        E6 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         2         2         3         3         6         4         8         8 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        E7        E8        E9       E10       E11       E12       E13       E14 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        10        14        12         6         4         7         4         4 </span>
+<span class='r-in'><span class='fu'>node_closeness</span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Alvarezx     Beteta     Blanco Bustamente    Gortari     Lozano     Madrid </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.04761905 0.06666667 0.05263158 0.05555556 0.06250000 0.07142857 0.06250000 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    Margain       Mena   Portillo      Rojas </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.07692308 0.05555556 0.05882353 0.03703704 </span>
+<span class='r-in'><span class='fu'>node_closeness</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     EVELYN      LAURA    THERESA     BRENDA  CHARLOTTE    FRANCES    ELEANOR </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.01666667 0.01515152 0.01666667 0.01515152 0.01250000 0.01388889 0.01388889 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      PEARL       RUTH      VERNE       MYRA  KATHERINE     SYLVIA       NORA </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.01388889 0.01470588 0.01470588 0.01428571 0.01515152 0.01612903 0.01666667 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      HELEN    DOROTHY     OLIVIA      FLORA         E1         E2         E3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.01612903 0.01428571 0.01219512 0.01219512 0.01190476 0.01190476 0.01282051 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         E4         E5         E6         E7         E8         E9        E10 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.01219512 0.01351351 0.01562500 0.01666667 0.01923077 0.01785714 0.01282051 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        E11        E12        E13        E14 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.01219512 0.01315789 0.01219512 0.01219512 </span>
+<span class='r-in'><span class='fu'>node_betweenness</span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Alvarezx     Beteta     Blanco Bustamente    Gortari     Lozano     Madrid </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0.000000  13.333333   0.000000  18.500000   2.166667  19.000000   2.166667 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    Margain       Mena   Portillo      Rojas </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  25.500000   0.000000   3.333333   0.000000 </span>
+<span class='r-in'><span class='fu'>node_betweenness</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      EVELYN       LAURA     THERESA      BRENDA   CHARLOTTE     FRANCES </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  42.7599983  22.8565396  38.7392641  22.0119104   4.7279418   4.7516238 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     ELEANOR       PEARL        RUTH       VERNE        MYRA   KATHERINE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4.1356871   2.9762664   7.3608922   6.3676024   5.9435242  16.2889210 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      SYLVIA        NORA       HELEN     DOROTHY      OLIVIA       FLORA </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  25.2987307  43.9377835  30.7265229   5.9435242   2.0866336   2.0866336 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          E1          E2          E3          E4          E5          E6 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0.9737485   0.9440910   8.1977508   3.4529893  16.9812110  28.0103112 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          E7          E8          E9         E10         E11         E12 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  58.0969236 108.2616581  96.2294880   6.8185655   9.0194398  10.2353650 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         E13         E14 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1.8892292   1.8892292 </span>
+<span class='r-in'><span class='fu'>node_eigenvector</span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Alvarezx     Beteta     Blanco Bustamente    Gortari     Lozano     Madrid </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.15638683 0.34382531 0.17579240 0.15407997 0.37681994 0.37444178 0.38138413 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    Margain       Mena   Portillo      Rojas </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.48115951 0.25321407 0.27999270 0.03165737 </span>
+<span class='r-in'><span class='fu'>node_eigenvector</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     EVELYN      LAURA    THERESA     BRENDA  CHARLOTTE    FRANCES    ELEANOR </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.29913625 0.28092924 0.33382479 0.28434268 0.16055764 0.20319443 0.22547488 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      PEARL       RUTH      VERNE       MYRA  KATHERINE     SYLVIA       NORA </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.18677117 0.23829269 0.23101265 0.20662026 0.24263486 0.29098916 0.27036422 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      HELEN    DOROTHY     OLIVIA      FLORA         E1         E2         E3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.24964055 0.20662026 0.07752323 0.07752323 0.15211097 0.16106257 0.25183346 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         E4         E5         E6         E7         E8         E9        E10 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.18428786 0.30462311 0.31606479 0.36943483 0.45192837 0.35686135 0.22825957 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        E11        E12        E13        E14 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.11234306 0.25511942 0.17743466 0.17743466 </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

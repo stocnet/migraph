@@ -89,7 +89,7 @@ measure." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.7</span>
       </span>
     </div>
 
@@ -119,6 +119,9 @@ measure." />
     </li>
     <li>
       <a href="../articles/p5blockmodel.html">Practical 5</a>
+    </li>
+    <li>
+      <a href="../articles/p7linearmodel.html">Practical 7</a>
     </li>
   </ul>
 </li>
@@ -188,15 +191,27 @@ e.g. max, min, mean, etc.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ggidentify</span><span class='op'>(</span><span class='va'>brandes</span>, <span class='va'>node_degree</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Using `stress` as default layout</span></div><div class='img'><img src='ggtools-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>ggidentify</span><span class='op'>(</span><span class='va'>brandes</span>, <span class='va'>node_betweenness</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Using `stress` as default layout</span></div><div class='img'><img src='ggtools-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>ggidentify</span><span class='op'>(</span><span class='va'>brandes</span>, <span class='va'>node_closeness</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Using `stress` as default layout</span></div><div class='img'><img src='ggtools-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>ggidentify</span><span class='op'>(</span><span class='va'>brandes</span>, <span class='va'>node_eigenvector</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Using `stress` as default layout</span></div><div class='img'><img src='ggtools-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>ggdistrib</span><span class='op'>(</span><span class='va'>brandes</span>, <span class='va'>node_degree</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtools-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>ggdistrib</span><span class='op'>(</span><span class='va'>brandes</span>, <span class='va'>node_betweenness</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtools-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>ggdistrib</span><span class='op'>(</span><span class='va'>brandes</span>, <span class='va'>node_closeness</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtools-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>ggdistrib</span><span class='op'>(</span><span class='va'>brandes</span>, <span class='va'>node_eigenvector</span><span class='op'>)</span>
-</div><div class='img'><img src='ggtools-8.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>ggidentify</span><span class='op'>(</span><span class='va'>brandes</span>, <span class='va'>node_degree</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using `stress` as default layout</span>
+<span class='r-plt img'><img src='ggtools-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'>ggidentify</span><span class='op'>(</span><span class='va'>brandes</span>, <span class='va'>node_betweenness</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using `stress` as default layout</span>
+<span class='r-plt img'><img src='ggtools-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'>ggidentify</span><span class='op'>(</span><span class='va'>brandes</span>, <span class='va'>node_closeness</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using `stress` as default layout</span>
+<span class='r-plt img'><img src='ggtools-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'>ggidentify</span><span class='op'>(</span><span class='va'>brandes</span>, <span class='va'>node_eigenvector</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using `stress` as default layout</span>
+<span class='r-plt img'><img src='ggtools-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'>ggdistrib</span><span class='op'>(</span><span class='va'>brandes</span>, <span class='va'>node_degree</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='ggtools-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'>ggdistrib</span><span class='op'>(</span><span class='va'>brandes</span>, <span class='va'>node_betweenness</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='ggtools-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'>ggdistrib</span><span class='op'>(</span><span class='va'>brandes</span>, <span class='va'>node_closeness</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='ggtools-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'>ggdistrib</span><span class='op'>(</span><span class='va'>brandes</span>, <span class='va'>node_eigenvector</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='ggtools-8.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

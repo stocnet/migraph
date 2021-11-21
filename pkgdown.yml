@@ -5,7 +5,8 @@ articles:
   p3centrality: p3centrality.html
   p4community: p4community.html
   p5blockmodel: p5blockmodel.html
-last_built: 2021-10-30T13:22Z
+  p7linearmodel: p7linearmodel.html
+last_built: 2021-11-21T16:38Z
 urls:
   reference: https://snlab-ch.github.io/migraph//reference
   article: https://snlab-ch.github.io/migraph//articles

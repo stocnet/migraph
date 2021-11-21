@@ -90,7 +90,7 @@ but also a vector of two integers to return a two-mode network." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.7</span>
       </span>
     </div>
 
@@ -120,6 +120,9 @@ but also a vector of two integers to return a two-mode network." />
     </li>
     <li>
       <a href="../articles/p5blockmodel.html">Practical 5</a>
+    </li>
+    <li>
+      <a href="../articles/p7linearmodel.html">Practical 7</a>
     </li>
   </ul>
 </li>
@@ -236,22 +239,29 @@ into separate components.</p>
 <code><a href='generate.html'>generate</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'>create_empty</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>8</span>,<span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span>
-</div><div class='img'><img src='create-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'>create_complete</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>8</span>,<span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span>
-</div><div class='img'><img src='create-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'>create_ring</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>8</span>,<span class='fl'>6</span><span class='op'>)</span>, width <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-<span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span>
-</div><div class='img'><img src='create-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>create_components</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>12</span><span class='op'>)</span>, components <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='create-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>create_star</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>12</span>,<span class='fl'>1</span><span class='op'>)</span>, <span class='st'>"in"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='create-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>tr1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>create_tree</span><span class='op'>(</span><span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>tr2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>create_tree</span><span class='op'>(</span><span class='fl'>12</span><span class='op'>)</span>, <span class='st'>"tree"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html'>grid.arrange</a></span><span class='op'>(</span><span class='va'>tr1</span>, <span class='va'>tr2</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='img'><img src='create-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>cl1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>create_lattice</span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>cl2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>create_lattice</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>cl3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>create_lattice</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html'>grid.arrange</a></span><span class='op'>(</span><span class='va'>cl1</span>, <span class='va'>cl2</span>, <span class='va'>cl3</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-</div><div class='img'><img src='create-7.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'>create_empty</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>8</span>,<span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='create-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'>create_complete</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>8</span>,<span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='create-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'>create_ring</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>8</span>,<span class='fl'>6</span><span class='op'>)</span>, width <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='create-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>create_components</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>12</span><span class='op'>)</span>, components <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='create-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>create_star</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>12</span>,<span class='fl'>1</span><span class='op'>)</span>, <span class='st'>"in"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='create-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>tr1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>create_tree</span><span class='op'>(</span><span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>tr2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>create_tree</span><span class='op'>(</span><span class='fl'>12</span><span class='op'>)</span>, <span class='st'>"tree"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html'>grid.arrange</a></span><span class='op'>(</span><span class='va'>tr1</span>, <span class='va'>tr2</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='create-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>cl1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>create_lattice</span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>cl2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>create_lattice</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>cl3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='fu'>create_lattice</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html'>grid.arrange</a></span><span class='op'>(</span><span class='va'>cl1</span>, <span class='va'>cl2</span>, <span class='va'>cl3</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='create-7.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

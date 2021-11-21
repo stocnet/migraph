@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.7</span>
       </span>
     </div>
 
@@ -70,6 +70,9 @@
     </li>
     <li>
       <a href="../articles/p5blockmodel.html">Practical 5</a>
+    </li>
+    <li>
+      <a href="../articles/p7linearmodel.html">Practical 7</a>
     </li>
   </ul>
 </li>
@@ -138,14 +141,14 @@
 <span class="co">#&gt; # A directed simple graph with 3 components</span>
 <span class="co">#&gt; #</span>
 <span class="co">#&gt; # Node Data: 16 × 1 (active)</span>
-<span class="co">#&gt;   name   </span>
-<span class="co">#&gt;   &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 Roxanne</span>
-<span class="co">#&gt; 2 Eric   </span>
-<span class="co">#&gt; 3 Owen   </span>
-<span class="co">#&gt; 4 Elaine </span>
-<span class="co">#&gt; 5 Maud   </span>
-<span class="co">#&gt; 6 Morgan </span>
+<span class="co">#&gt;   name  </span>
+<span class="co">#&gt;   &lt;chr&gt; </span>
+<span class="co">#&gt; 1 Gavin </span>
+<span class="co">#&gt; 2 Kellie</span>
+<span class="co">#&gt; 3 Luna  </span>
+<span class="co">#&gt; 4 Susan </span>
+<span class="co">#&gt; 5 Marie </span>
+<span class="co">#&gt; 6 Caleb </span>
 <span class="co">#&gt; # … with 10 more rows</span>
 <span class="co">#&gt; #</span>
 <span class="co">#&gt; # Edge Data: 62 × 3</span>
@@ -162,14 +165,14 @@
 <span class="co">#&gt; # A directed simple graph with 1 component</span>
 <span class="co">#&gt; #</span>
 <span class="co">#&gt; # Node Data: 16 × 1 (active)</span>
-<span class="co">#&gt;   name   </span>
-<span class="co">#&gt;   &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 Roxanne</span>
-<span class="co">#&gt; 2 Eric   </span>
-<span class="co">#&gt; 3 Owen   </span>
-<span class="co">#&gt; 4 Elaine </span>
-<span class="co">#&gt; 5 Maud   </span>
-<span class="co">#&gt; 6 Morgan </span>
+<span class="co">#&gt;   name  </span>
+<span class="co">#&gt;   &lt;chr&gt; </span>
+<span class="co">#&gt; 1 Gavin </span>
+<span class="co">#&gt; 2 Kellie</span>
+<span class="co">#&gt; 3 Luna  </span>
+<span class="co">#&gt; 4 Susan </span>
+<span class="co">#&gt; 5 Marie </span>
+<span class="co">#&gt; 6 Caleb </span>
 <span class="co">#&gt; # … with 10 more rows</span>
 <span class="co">#&gt; #</span>
 <span class="co">#&gt; # Edge Data: 129 × 3</span>
@@ -186,14 +189,14 @@
 <span class="co">#&gt; # A directed simple graph with 1 component</span>
 <span class="co">#&gt; #</span>
 <span class="co">#&gt; # Node Data: 16 × 1 (active)</span>
-<span class="co">#&gt;   name   </span>
-<span class="co">#&gt;   &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 Roxanne</span>
-<span class="co">#&gt; 2 Eric   </span>
-<span class="co">#&gt; 3 Owen   </span>
-<span class="co">#&gt; 4 Elaine </span>
-<span class="co">#&gt; 5 Maud   </span>
-<span class="co">#&gt; 6 Morgan </span>
+<span class="co">#&gt;   name  </span>
+<span class="co">#&gt;   &lt;chr&gt; </span>
+<span class="co">#&gt; 1 Gavin </span>
+<span class="co">#&gt; 2 Kellie</span>
+<span class="co">#&gt; 3 Luna  </span>
+<span class="co">#&gt; 4 Susan </span>
+<span class="co">#&gt; 5 Marie </span>
+<span class="co">#&gt; 6 Caleb </span>
 <span class="co">#&gt; # … with 10 more rows</span>
 <span class="co">#&gt; #</span>
 <span class="co">#&gt; # Edge Data: 88 × 3</span>
@@ -249,7 +252,7 @@
 <p>How many components are there? Why?</p>
 <p>We can use the membership vector in the resulting object to color nodes:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>weak_comp <span class="op">=</span> <span class="fu"><a href="../reference/node_components.html">node_components</a></span><span class="op">(</span><span class="va">m182_friend</span><span class="op">)</span>,
          strong_comp <span class="op">=</span> <span class="fu"><a href="../reference/node_components.html">node_components</a></span><span class="op">(</span><span class="va">m182_friend</span>, method <span class="op">=</span> <span class="st">"strong"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_friend</span>, node_color <span class="op">=</span> <span class="st">"weak_comp"</span><span class="op">)</span></code></pre></div>
@@ -271,14 +274,14 @@
 <span class="co">#&gt; # A directed simple graph with 1 component</span>
 <span class="co">#&gt; #</span>
 <span class="co">#&gt; # Node Data: 14 × 3 (active)</span>
-<span class="co">#&gt;   name    weak_comp strong_comp</span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Roxanne         1           4</span>
-<span class="co">#&gt; 2 Eric            1           3</span>
-<span class="co">#&gt; 3 Owen            1           3</span>
-<span class="co">#&gt; 4 Maud            1           3</span>
-<span class="co">#&gt; 5 Morgan          1           3</span>
-<span class="co">#&gt; 6 Thomas          1           3</span>
+<span class="co">#&gt;   name   weak_comp strong_comp</span>
+<span class="co">#&gt;   &lt;chr&gt;      &lt;dbl&gt;       &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Gavin          1           4</span>
+<span class="co">#&gt; 2 Kellie         1           3</span>
+<span class="co">#&gt; 3 Luna           1           3</span>
+<span class="co">#&gt; 4 Marie          1           3</span>
+<span class="co">#&gt; 5 Caleb          1           3</span>
+<span class="co">#&gt; 6 Celia          1           3</span>
 <span class="co">#&gt; # … with 8 more rows</span>
 <span class="co">#&gt; #</span>
 <span class="co">#&gt; # Edge Data: 62 × 3</span>
@@ -294,14 +297,14 @@
 <span class="co">#&gt; # An undirected simple graph with 1 component</span>
 <span class="co">#&gt; #</span>
 <span class="co">#&gt; # Node Data: 14 × 3 (active)</span>
-<span class="co">#&gt;   name    weak_comp strong_comp</span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Roxanne         1           4</span>
-<span class="co">#&gt; 2 Eric            1           3</span>
-<span class="co">#&gt; 3 Owen            1           3</span>
-<span class="co">#&gt; 4 Maud            1           3</span>
-<span class="co">#&gt; 5 Morgan          1           3</span>
-<span class="co">#&gt; 6 Thomas          1           3</span>
+<span class="co">#&gt;   name   weak_comp strong_comp</span>
+<span class="co">#&gt;   &lt;chr&gt;      &lt;dbl&gt;       &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Gavin          1           4</span>
+<span class="co">#&gt; 2 Kellie         1           3</span>
+<span class="co">#&gt; 3 Luna           1           3</span>
+<span class="co">#&gt; 4 Marie          1           3</span>
+<span class="co">#&gt; 5 Caleb          1           3</span>
+<span class="co">#&gt; 6 Celia          1           3</span>
 <span class="co">#&gt; # … with 8 more rows</span>
 <span class="co">#&gt; #</span>
 <span class="co">#&gt; # Edge Data: 42 × 3</span>
@@ -328,11 +331,11 @@
 <span class="co">#&gt; IGRAPH clustering walktrap, groups: 2, mod: 0.33</span>
 <span class="co">#&gt; + groups:</span>
 <span class="co">#&gt;   $`1`</span>
-<span class="co">#&gt;   [1] "Eric"   "Thomas" "Andrea" "Dennis" "Kate"  </span>
+<span class="co">#&gt;   [1] "Kellie" "Celia"  "David"  "Shawn"  "Avery" </span>
 <span class="co">#&gt;   </span>
 <span class="co">#&gt;   $`2`</span>
-<span class="co">#&gt;   [1] "Roxanne" "Owen"    "Maud"    "Morgan"  "Junior"  "Lindsay" "Tom"    </span>
-<span class="co">#&gt;   [8] "Lizzie"  "Marcus" </span>
+<span class="co">#&gt;   [1] "Gavin"   "Luna"    "Marie"   "Caleb"   "Augusta" "Miley"   "Dominic"</span>
+<span class="co">#&gt;   [8] "Jenna"   "Jaden"  </span>
 <span class="co">#&gt; </span></code></pre></div>
 <p>This says that dividing the graph into 2 communities maximises modularity, one with the nodes 2, 7, 8, 13, 14, and the other 1, 3, 5, 6, 9, 10, 11, 12, 15, resulting in a modularity of 0, -0.0560204, -0.0241837, -0.02, -0.0261224, -0.0076531, 0.0076531, 0.0546939, 0.0760204, 0.1005102, 0.1641837, 0.2284694, 0.3264286, 0.</p>
 <p>ADVANCED, we will also come back to this next week: We can visualise how clusters are hierarchically nested in a dendrogram.</p>
@@ -343,7 +346,7 @@
 <p>Note the x-axis reflects the distance metric used by the walktrap algorithm. For more on this see Pons and Latapy, <a href="https://arxiv.org/abs/physics/0512106" class="uri">https://arxiv.org/abs/physics/0512106</a>.</p>
 <p>We can also visualise the clusters on the original network How does the following look? Plausible?</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>walk_comm <span class="op">=</span> <span class="va">friend_wt</span><span class="op">$</span><span class="va">membership</span><span class="op">)</span>
 <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_friend</span>, node_color <span class="op">=</span> <span class="st">"walk_comm"</span><span class="op">)</span></code></pre></div>
 <p><img src="p4community_files/figure-html/walkplot-1.png" width="700"></p>
@@ -377,13 +380,13 @@
 <span class="co">#&gt; IGRAPH clustering edge betweenness, groups: 3, mod: 0.41</span>
 <span class="co">#&gt; + groups:</span>
 <span class="co">#&gt;   $`1`</span>
-<span class="co">#&gt;   [1] "Roxanne" "Junior"  "Lindsay" "Lizzie"  "Marcus" </span>
+<span class="co">#&gt;   [1] "Gavin"   "Augusta" "Miley"   "Jenna"   "Jaden"  </span>
 <span class="co">#&gt;   </span>
 <span class="co">#&gt;   $`2`</span>
-<span class="co">#&gt;   [1] "Eric"   "Thomas" "Andrea" "Dennis" "Kate"  </span>
+<span class="co">#&gt;   [1] "Kellie" "Celia"  "David"  "Shawn"  "Avery" </span>
 <span class="co">#&gt;   </span>
 <span class="co">#&gt;   $`3`</span>
-<span class="co">#&gt;   [1] "Owen"   "Maud"   "Morgan" "Tom"   </span>
+<span class="co">#&gt;   [1] "Luna"    "Marie"   "Caleb"   "Dominic"</span>
 <span class="co">#&gt; </span></code></pre></div>
 <p>How does community membership differ here from that found by walktrap?</p>
 <p>We can see how the edge betweenness community detection method works here: <a href="http://jfaganuk.github.io/2015/01/24/basic-network-analysis/" class="uri">http://jfaganuk.github.io/2015/01/24/basic-network-analysis/</a> We can see which edges were removed in which order here:</p>
@@ -399,7 +402,7 @@
 <p><img src="p4community_files/figure-html/ebdendro-1.png" width="700"></p>
 <p>To visualise the result:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>eb_comm <span class="op">=</span> <span class="va">friend_eb</span><span class="op">$</span><span class="va">membership</span><span class="op">)</span>
 <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_friend</span>, 
            node_color <span class="op">=</span> <span class="st">"eb_comm"</span>, 
@@ -418,13 +421,13 @@
 <span class="co">#&gt; IGRAPH clustering fast greedy, groups: 3, mod: 0.41</span>
 <span class="co">#&gt; + groups:</span>
 <span class="co">#&gt;   $`1`</span>
-<span class="co">#&gt;   [1] "Roxanne" "Junior"  "Lindsay" "Lizzie"  "Marcus" </span>
+<span class="co">#&gt;   [1] "Gavin"   "Augusta" "Miley"   "Jenna"   "Jaden"  </span>
 <span class="co">#&gt;   </span>
 <span class="co">#&gt;   $`2`</span>
-<span class="co">#&gt;   [1] "Owen"   "Maud"   "Morgan" "Tom"   </span>
+<span class="co">#&gt;   [1] "Luna"    "Marie"   "Caleb"   "Dominic"</span>
 <span class="co">#&gt;   </span>
 <span class="co">#&gt;   $`3`</span>
-<span class="co">#&gt;   [1] "Eric"   "Thomas" "Andrea" "Dennis" "Kate"  </span>
+<span class="co">#&gt;   [1] "Kellie" "Celia"  "David"  "Shawn"  "Avery" </span>
 <span class="co">#&gt; </span>
 <span class="va">friend_fg</span><span class="op">$</span><span class="va">modularity</span> <span class="co"># Compare this to the edge betweenness procedure</span>
 <span class="co">#&gt;  [1] -7.224490e-02 -2.520408e-02  1.357143e-02  6.673469e-02  1.157143e-01</span>
@@ -435,7 +438,7 @@
 <span class="fu"><a href="../reference/blockmodel_vis.html">ggtree</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html">as.dendrogram</a></span><span class="op">(</span><span class="va">friend_fg</span>, use.modularity <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span> <span class="co"># dendrogram</span></code></pre></div>
 <p><img src="p4community_files/figure-html/fg-1.png" width="700"></p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>fg_comm <span class="op">=</span> <span class="va">friend_fg</span><span class="op">$</span><span class="va">membership</span><span class="op">)</span>
 <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_friend</span>, 
            node_color <span class="op">=</span> <span class="st">"fg_comm"</span>, 
@@ -471,8 +474,8 @@
 <p>Now what if we are only interested in one part of the network? For that, we can obtain a ‘projection’ of the two-mode network. There are two ways of doing this. The hard way…</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">twomode_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/coercion.html">as_matrix</a></span><span class="op">(</span><span class="va">southern_women</span><span class="op">)</span>
-<span class="va">women_matrix</span> <span class="op">&lt;-</span> <span class="va">twomode_matrix</span> <span class="op">%*%</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">twomode_matrix</span><span class="op">)</span>
-<span class="va">event_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">twomode_matrix</span><span class="op">)</span> <span class="op">%*%</span> <span class="va">twomode_matrix</span></code></pre></div>
+<span class="va">women_matrix</span> <span class="op">&lt;-</span> <span class="va">twomode_matrix</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">twomode_matrix</span><span class="op">)</span>
+<span class="va">event_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">twomode_matrix</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="va">twomode_matrix</span></code></pre></div>
 <p>Or the easy way</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">women_graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/project.html">project_rows</a></span><span class="op">(</span><span class="va">southern_women</span><span class="op">)</span>

@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.7</span>
       </span>
     </div>
 
@@ -116,6 +116,9 @@
     </li>
     <li>
       <a href="../articles/p5blockmodel.html">Practical 5</a>
+    </li>
+    <li>
+      <a href="../articles/p7linearmodel.html">Practical 7</a>
     </li>
   </ul>
 </li>
@@ -233,52 +236,56 @@ Social Network Analysis and Comparison with Multidimensional Scaling.
 <em>Journal of Mathematical Psychology</em>, 12: 328--383.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>mex_concor</span> <span class='op'>&lt;-</span> <span class='fu'>blockmodel_concor</span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span>
-<span class='va'>mex_concor</span>
-</div><div class='output co'>#&gt; 
-#&gt; Network Blockmodel:
-#&gt; 
-#&gt; Block membership:
-#&gt; 
-#&gt;   Alvarezx     Beteta    Gortari     Lozano     Madrid     Blanco    Margain 
-#&gt;          1          1          2          2          2          1          2 
-#&gt;       Mena   Portillo      Rojas Bustamente 
-#&gt;          2          2          2          1 
-#&gt; 
-#&gt; Reduced form blockmodel:
-#&gt; 
-#&gt; 	 
-#&gt;      [,1]      [,2]
-#&gt; [1,]  0.0 0.5000000
-#&gt; [2,]  0.5 0.3265306</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>mex_concor</span><span class='op'>)</span>
-</div><div class='img'><img src='blockmodel-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>usa_concor</span> <span class='op'>&lt;-</span> <span class='fu'>blockmodel_concor</span><span class='op'>(</span><span class='va'>mpn_elite_usa_advice</span><span class='op'>)</span>
-<span class='va'>usa_concor</span>
-</div><div class='output co'>#&gt; 
-#&gt; Network Blockmodel:
-#&gt; 
-#&gt; Block membership:
-#&gt; 
-#&gt;   First nodeset:
-#&gt; 
-#&gt;  Albright Greenberg     Hills   Argyros  Armitage Kissinger     Curry  Fukuyama 
-#&gt;         1         2         2         1         1         2         1         1 
-#&gt;  Peterson      Gray Scowcroft      Wald      West   Zakheim 
-#&gt;         2         1         2         2         2         2 
-#&gt; 
-#&gt;   Second nodeset:
-#&gt; 
-#&gt;   ACUS   FPRI  GMFUS    AEI HOOVER  ASPEN    IAD   CATO    IIE    CFR    CGD 
-#&gt;      1      2      2      1      2      1      2      1      2      1      1 
-#&gt;   CNAS     MI    NAF   RAND    CNI     RF    RFF   CSIS    EWI 
-#&gt;      1      2      2      2      1      2      2      1      1 
-#&gt; 
-#&gt; Reduced form blockmodel:
-#&gt; 
-#&gt; 	 
-#&gt;      [,1]      [,2]
-#&gt; [1,] 0.05 0.2833333
-#&gt; [2,] 0.25 0.0750000</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>usa_concor</span><span class='op'>)</span>
-</div><div class='img'><img src='blockmodel-2.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>mex_concor</span> <span class='op'>&lt;-</span> <span class='fu'>blockmodel_concor</span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>mex_concor</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Network Blockmodel:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block membership:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Alvarezx     Beteta    Gortari     Lozano     Madrid     Blanco    Margain </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          1          1          2          2          2          1          2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Mena   Portillo      Rojas Bustamente </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          2          2          2          1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Reduced form blockmodel:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      [,1]      [,2]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,]  0.0 0.5000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,]  0.5 0.3265306</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>mex_concor</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='blockmodel-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>usa_concor</span> <span class='op'>&lt;-</span> <span class='fu'>blockmodel_concor</span><span class='op'>(</span><span class='va'>mpn_elite_usa_advice</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>usa_concor</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Network Blockmodel:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block membership:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   First nodeset:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Albright Greenberg     Hills   Argyros  Armitage Kissinger     Curry  Fukuyama </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         1         2         2         1         1         2         1         1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Peterson      Gray Scowcroft      Wald      West   Zakheim </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         2         1         2         2         2         2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Second nodeset:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ACUS   FPRI  GMFUS    AEI HOOVER  ASPEN    IAD   CATO    IIE    CFR    CGD </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      1      2      2      1      2      1      2      1      2      1      1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   CNAS     MI    NAF   RAND    CNI     RF    RFF   CSIS    EWI </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      1      2      2      2      1      2      2      1      1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Reduced form blockmodel:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      [,1]      [,2]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 0.05 0.2833333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 0.25 0.0750000</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>usa_concor</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='blockmodel-2.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

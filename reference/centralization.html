@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.7</span>
       </span>
     </div>
 
@@ -116,6 +116,9 @@
     </li>
     <li>
       <a href="../articles/p5blockmodel.html">Practical 5</a>
+    </li>
+    <li>
+      <a href="../articles/p7linearmodel.html">Practical 7</a>
     </li>
   </ul>
 </li>
@@ -234,26 +237,30 @@ Social Network Analysis</em>, edited by John Scott and Peter J Carrington, 417â€
 <code><a href='node_smallworld.html'>node_smallworld</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>graph_degree</span><span class='op'>(</span><span class='va'>southern_women</span>, directed <span class='op'>=</span> <span class='st'>"in"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $nodes1
-#&gt; [1] 0.23
-#&gt; 
-#&gt; $nodes2
-#&gt; [1] 0.47
-#&gt; </div><div class='input'><span class='fu'>graph_closeness</span><span class='op'>(</span><span class='va'>southern_women</span>, directed <span class='op'>=</span> <span class='st'>"in"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $nodes1
-#&gt; [1] 0.21
-#&gt; 
-#&gt; $nodes2
-#&gt; [1] 0.53
-#&gt; </div><div class='input'><span class='fu'>graph_betweenness</span><span class='op'>(</span><span class='va'>southern_women</span>, directed <span class='op'>=</span> <span class='st'>"in"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $nodes1
-#&gt; [1] 0.07
-#&gt; 
-#&gt; $nodes2
-#&gt; [1] 0.2
-#&gt; </div><div class='input'><span class='fu'>graph_eigenvector</span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.53</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>graph_degree</span><span class='op'>(</span><span class='va'>southern_women</span>, directed <span class='op'>=</span> <span class='st'>"in"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nodes1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.23</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nodes2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.47</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>graph_closeness</span><span class='op'>(</span><span class='va'>southern_women</span>, directed <span class='op'>=</span> <span class='st'>"in"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nodes1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.21</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nodes2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.53</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>graph_betweenness</span><span class='op'>(</span><span class='va'>southern_women</span>, directed <span class='op'>=</span> <span class='st'>"in"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nodes1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.07</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nodes2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>graph_eigenvector</span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.53</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

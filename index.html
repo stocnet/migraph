@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.7</span>
       </span>
     </div>
 
@@ -79,6 +79,9 @@
     </li>
     <li>
       <a href="articles/p5blockmodel.html">Practical 5</a>
+    </li>
+    <li>
+      <a href="articles/p7linearmodel.html">Practical 7</a>
     </li>
   </ul>
 </li>
@@ -120,7 +123,7 @@
 <div id="about-the-package" class="section level2">
 <h2 class="hasAnchor">
 <a href="#about-the-package" class="anchor"></a>About the package</h2>
-<p>This package extends existing network analysis packages for analysing multimodal and multilevel networks. The package is intended as a software companion to the forthcoming book:</p>
+<p>This package extends existing network analysis packages for analysing multimodal and multilevel networks. The package is intended as a software companion to the book:</p>
 <blockquote>
 <p>David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos (2021) <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128"><em>Multimodal Political Networks</em></a>. Cambridge University Press: Cambridge.</p>
 </blockquote>
@@ -143,21 +146,23 @@
 <li><a href="http://statnet.org"><code>{network}</code></a></li>
 <li><a href="https://tidygraph.data-imaginist.com/index.html"><code>{tidygraph}</code></a></li>
 </ul>
-<p>Since v0.6.3, <a href="https://github.com/snlab-ch/migraph">migraph</a> can also import and export to <a href="http://www.analytictech.com/archive/ucinet.htm">UCINET</a> files.</p>
+<p><a href="https://github.com/snlab-ch/migraph">migraph</a> can also import and export to Excel edgelists and <a href="http://www.analytictech.com/archive/ucinet.htm">UCINET</a> files.</p>
 </div>
 <div id="extends-your-current-network-analysis-workflow" class="section level3">
 <h3 class="hasAnchor">
 <a href="#extends-your-current-network-analysis-workflow" class="anchor"></a>Extends your current network analysis workflow</h3>
-<p><a href="https://github.com/snlab-ch/migraph">migraph</a> offers a range of measures and models with sensible defaults. Most wrap existing functions in common packages for use with one-mode networks, but extend these to treat and/or normalise for two-mode (and sometime three-mode) networks correctly. Functions are given intuitive and succinct names that avoid conflicts with existing function names wherever possible.</p>
+<p><a href="https://github.com/snlab-ch/migraph">migraph</a> offers a range of measures and models with sensible defaults. Many wrap existing functions in common packages for use with one-mode networks, but extend these to treat and/or normalise for two-mode (and sometimes three-mode) networks correctly. Functions are given intuitive and succinct names that avoid conflicts with existing function names wherever possible.</p>
 <div id="manipulation" class="section level4">
 <h4 class="hasAnchor">
 <a href="#manipulation" class="anchor"></a>Manipulation</h4>
 <ul>
-<li>
-<code><a href="reference/project.html">project_rows()</a></code> and <code><a href="reference/project.html">project_cols()</a></code>
+<li>Coercion between classes: <code><a href="reference/coercion.html">as_igraph()</a></code>, <code><a href="reference/coercion.html">as_tidygraph()</a></code>, <code><a href="reference/coercion.html">as_network()</a></code>, <code><a href="reference/coercion.html">as_edgelist()</a></code>, and <code><a href="reference/coercion.html">as_matrix()</a></code>
 </li>
-<li>
-<code><a href="reference/to.html">to_undirected()</a></code>, <code><a href="reference/to.html">to_unnamed()</a></code>, <code><a href="reference/to.html">to_unweighted()</a></code>, <code><a href="reference/to.html">to_onemode()</a></code>, and <code><a href="reference/to.html">to_main_component()</a></code>
+<li>Logical tests of properties: e.g. <code><a href="reference/is.html">is_twomode()</a></code>, <code><a href="reference/is.html">is_directed()</a></code>, <code><a href="reference/is.html">is_labelled()</a></code>, <code><a href="reference/is.html">is_weighted()</a></code>
+</li>
+<li>Transforming properties: <code><a href="reference/to.html">to_undirected()</a></code>, <code><a href="reference/to.html">to_unnamed()</a></code>, <code><a href="reference/to.html">to_unweighted()</a></code>, <code><a href="reference/to.html">to_onemode()</a></code>, and <code><a href="reference/to.html">to_main_component()</a></code>
+</li>
+<li>From two-mode to one-mode: <code><a href="reference/project.html">project_rows()</a></code> and <code><a href="reference/project.html">project_cols()</a></code>
 </li>
 </ul>
 </div>
@@ -169,7 +174,11 @@
 </li>
 <li>Centralization: <code><a href="reference/centralization.html">graph_degree()</a></code>, <code><a href="reference/centralization.html">graph_closeness()</a></code>, <code><a href="reference/centralization.html">graph_betweenness()</a></code>, and <code><a href="reference/centralization.html">graph_eigenvector()</a></code>
 </li>
-<li>Cohesion: <code><a href="reference/cohesion.html">graph_density()</a></code>, <code><a href="reference/cohesion.html">graph_reciprocity()</a></code>, <code><a href="reference/cohesion.html">graph_transitivity()</a></code>, <code><a href="reference/cohesion.html">graph_equivalency()</a></code>, <code><a href="reference/node_constraint.html">node_constraint()</a></code>, <code><a href="reference/node_smallworld.html">node_smallworld()</a></code>, <code><a href="reference/census.html">node_triad_census()</a></code> and <code><a href="reference/graph_census.html">graph_triad_census()</a></code>
+<li>Cohesion: <code><a href="reference/cohesion.html">graph_density()</a></code>, <code><a href="reference/cohesion.html">graph_reciprocity()</a></code>, <code><a href="reference/cohesion.html">graph_transitivity()</a></code>, <code><a href="reference/cohesion.html">graph_equivalency()</a></code>, and <code><a href="reference/cohesion.html">graph_congruency()</a></code>
+</li>
+<li>Censuses: <code><a href="reference/census.html">node_tie_census()</a></code>, <code>node_dyad_census()</code>, <code><a href="reference/census.html">node_triad_census()</a></code>, <code>node_mixed_census()</code>, <code><a href="reference/census.html">node_quad_census()</a></code>, and <code><a href="reference/graph_census.html">graph_triad_census()</a></code>
+</li>
+<li>Other measures: e.g. <code><a href="reference/node_constraint.html">node_constraint()</a></code>, <code><a href="reference/node_smallworld.html">node_smallworld()</a></code>
 </li>
 </ul>
 </div>
@@ -180,6 +189,17 @@
 <li>Blockmodelling: <code><a href="reference/blockmodel.html">blockmodel_concor()</a></code>, <code><a href="reference/cluster.html">cluster_structural_equivalence()</a></code>, <code><a href="reference/cluster.html">cluster_regular_equivalence()</a></code>
 </li>
 <li>Linear regression: <code><a href="reference/netlm.html">netlm()</a></code>
+</li>
+</ul>
+</div>
+<div id="visualization" class="section level4">
+<h4 class="hasAnchor">
+<a href="#visualization" class="anchor"></a>Visualization</h4>
+<ul>
+<li>
+<code><a href="reference/autographr.html">autographr()</a></code> for plotting graphs with sensible defaults based on their properties</li>
+<li>New layouts: e.g. <code><a href="reference/layouts.html">layout_tbl_graph_frgrid()</a></code> for snapping Fruchterman-Reingold to a grid</li>
+<li>Class-based plots: e.g. <code><a href="reference/blockmodel_vis.html">plot.blockmodel()</a></code>
 </li>
 </ul>
 <p>Please explore <a href="https://snlab-ch.github.io/migraph/reference/index.html">the list of functions</a> to find out more.</p>
@@ -193,29 +213,30 @@
 <h3 class="hasAnchor">
 <a href="#stable" class="anchor"></a>Stable</h3>
 <p>The easiest way to install the latest stable version of <a href="https://github.com/snlab-ch/migraph">migraph</a> is via CRAN. Simply open the R console and enter:</p>
-<p><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages('migraph')</a></code></p>
+<p><code>install.packages('migraph')</code></p>
 <p>You can then begin to use <a href="https://github.com/snlab-ch/migraph">migraph</a> by loading the package:</p>
 <p><code><a href="https://github.com/snlab-ch/migraph">library(migraph)</a></code></p>
-<p>This will load all other required packages and also make the data contained within the package available.</p>
+<p>This will load any required packages and make the data contained within the package available. The version from CRAN also has all the vignettes built and included. You can check them out with:</p>
+<p><code>vignettes(package = "migraph")</code></p>
 </div>
 <div id="development" class="section level3">
 <h3 class="hasAnchor">
 <a href="#development" class="anchor"></a>Development</h3>
 <p>For the latest development version, for slightly earlier access to new features or for testing, you may wish to download and install the binaries from Github or install from source locally.</p>
-<p>Binaries for all major OSes – Windows, Mac, and Linux – can be found by clicking on the latest release <a href="https://github.com/snlab-ch/migraph/releases/latest">here</a>. Download the appropriate binary for your operating system, and install using an adapted version of the following commands:</p>
+<p>The latest binary releases for all major OSes – Windows, Mac, and Linux – can be found <a href="https://github.com/snlab-ch/migraph/releases/latest">here</a>. Download the appropriate binary for your operating system, and install using an adapted version of the following commands:</p>
 <ul>
-<li>For Windows: <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("~/Downloads/migraph_winOS.zip", repos = NULL)</a></code>
+<li>For Windows: <code>install.packages("~/Downloads/migraph_winOS.zip", repos = NULL)</code>
 </li>
-<li>For Mac: <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("~/Downloads/migraph_macOS.tgz", repos = NULL)</a></code>
+<li>For Mac: <code>install.packages("~/Downloads/migraph_macOS.tgz", repos = NULL)</code>
 </li>
-<li>For Unix: <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("~/Downloads/migraph_linuxOS.tar.gz", repos = NULL)</a></code>
+<li>For Unix: <code>install.packages("~/Downloads/migraph_linuxOS.tar.gz", repos = NULL)</code>
 </li>
 </ul>
-<p>To install from source the latest main version of <a href="https://github.com/snlab-ch/migraph">migraph</a> from Github, please install the <a href="https://remotes.r-lib.org">remotes</a> package from CRAN and then enter into the console:</p>
+<p>To install from source the latest main version of <a href="https://github.com/snlab-ch/migraph">migraph</a> from Github, please install the <a href="https://remotes.r-lib.org">remotes</a> or <a href="https://devtools.r-lib.org/">devtools</a> package from CRAN and then:</p>
 <ul>
-<li>For latest stable version: <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("snlab-ch/migraph")</a></code>
+<li>For latest stable version: <code>remotes::install_github("snlab-ch/migraph")</code>
 </li>
-<li>For latest development version: <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("snlab-ch/migraph@develop")</a></code>
+<li>For latest development version: <code>remotes::install_github("snlab-ch/migraph@develop")</code>
 </li>
 </ul>
 </div>
@@ -223,7 +244,7 @@
 <div id="relationship-to-other-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#relationship-to-other-packages" class="anchor"></a>Relationship to other packages</h2>
-<p>It draws together, updates, and builds upon many functions currently available in other excellent R packages such as <a href="https://github.com/biometry/bipartite"><code>{bipartite}</code></a>, <a href="https://CRAN.R-project.org/package=multinet"><code>{multinet}</code></a>, <a href="https://github.com/anespinosa/netmem"><code>{netmem}</code></a>, and <a href="https://toreopsahl.com/tnet/"><code>{tnet}</code></a>, and implements many additional features currently only available outside the R ecosystem in packages such as <a href="https://sites.google.com/site/ucinetsoftware/downloads"><strong>UCINET</strong></a>.</p>
+<p>It draws together, updates, and builds upon many functions currently available in other excellent R packages such as <a href="https://github.com/biometry/bipartite"><code>{bipartite}</code></a>, <a href="https://CRAN.R-project.org/package=multinet"><code>{multinet}</code></a>, and <a href="https://toreopsahl.com/tnet/"><code>{tnet}</code></a>, and implements many additional features currently only available outside the R ecosystem in packages such as <a href="https://sites.google.com/site/ucinetsoftware/download?authuser=0"><strong>UCINET</strong></a>.</p>
 </div>
 </div>
   </div>

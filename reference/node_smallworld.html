@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.7</span>
       </span>
     </div>
 
@@ -116,6 +116,9 @@
     </li>
     <li>
       <a href="../articles/p5blockmodel.html">Practical 5</a>
+    </li>
+    <li>
+      <a href="../articles/p7linearmodel.html">Practical 7</a>
     </li>
   </ul>
 </li>
@@ -203,22 +206,23 @@ for how clustering is calculated</p>
 <code><a href='node_constraint.html'>node_constraint</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>node_smallworld</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    Num  ObsClust  ExpClust  ClustRat  ObsPath  ExpPath   PathRat SmallWorld
-#&gt; 1    1        NA        NA        NA       NA       NA        NA         NA
-#&gt; 2    2 0.5000000 0.4100000 1.2195122 1.866667 1.856000 1.0057471  1.2125436
-#&gt; 3    3 0.5600000 0.4841700 1.1566185 1.833333 2.235909 0.8199499  1.4105966
-#&gt; 4    4 0.5882353 0.5770549 1.0193749 1.822222 2.171937 0.8389850  1.2150097
-#&gt; 5    5 0.6268657 0.6655406 0.9418894 1.897436 2.308205 0.8220395  1.1457957
-#&gt; 6    6 0.6129032 0.6962638 0.8802744 2.033333 2.419333 0.8404519  1.0473822
-#&gt; 7    7 0.5544554 0.6528224 0.8493205 2.152632 2.505579 0.8591354  0.9885758
-#&gt; 8    8 0.5388740 0.6755339 0.7977009 2.108696 2.528752 0.8338879  0.9566044
-#&gt; 9    9 0.5095917 0.6089927 0.8367780 2.165242 2.478974 0.8734427  0.9580228
-#&gt; 10  10 0.4997785 0.5437966 0.9190541 2.195767 2.427302 0.9046124  1.0159645
-#&gt; 11  11 0.4854123 0.5028010 0.9654163 2.221675 2.402562 0.9247109  1.0440196
-#&gt; 12  12 0.4952520 0.4795154 1.0328176 2.239080 2.373609 0.9433231  1.0948715
-#&gt; 13  13 0.4888287 0.4649410 1.0513779 2.266667 2.386280 0.9498747  1.1068596
-#&gt; 14  14 0.4871634 0.4745335 1.0266155 2.290323 2.411935 0.9495787  1.0811274</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>node_smallworld</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    Num  ObsClust  ExpClust  ClustRat  ObsPath  ExpPath   PathRat SmallWorld</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    1        NA        NA        NA       NA       NA        NA         NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2    2 0.5000000 0.3650000 1.3698630 1.866667 1.896000 0.9845288  1.3913894</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3    3 0.5600000 0.4903449 1.1420533 1.833333 2.223687 0.8244566  1.3852194</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4    4 0.5882353 0.5886342 0.9993223 1.822222 2.175492 0.8376138  1.1930586</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5    5 0.6268657 0.6682203 0.9381123 1.897436 2.300513 0.8247882  1.1373977</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6    6 0.6129032 0.6936599 0.8835788 2.033333 2.399000 0.8475754  1.0424782</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7    7 0.5544554 0.6535207 0.8484130 2.152632 2.512632 0.8567239  0.9902992</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8    8 0.5388740 0.6712407 0.8028029 2.108696 2.527810 0.8341987  0.9623642</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9    9 0.5095917 0.6088078 0.8370323 2.165242 2.477892 0.8738244  0.9578953</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10  10 0.4997785 0.5460266 0.9153005 2.195767 2.433598 0.9022720  1.0144397</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11  11 0.4854123 0.5027647 0.9654860 2.221675 2.404532 0.9239531  1.0449512</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12  12 0.4952520 0.4902675 1.0101669 2.239080 2.378989 0.9411901  1.0732868</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13  13 0.4888287 0.4744821 1.0302364 2.266667 2.386409 0.9498234  1.0846610</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14  14 0.4871634 0.4754476 1.0246416 2.290323 2.404395 0.9525566  1.0756753</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

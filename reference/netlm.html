@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Linear regression for multimodal network data — netlm • migraph</title>
+<title>Linear regression for network data — netlm • migraph</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,7 +52,7 @@
 
 
 
-<meta property="og:title" content="Linear regression for multimodal network data — netlm" />
+<meta property="og:title" content="Linear regression for network data — netlm" />
 <meta property="og:description" content="This function extends the multiple regression quadratic assignment procedure
 (MRQAP) of network linear model to two mode networks." />
 <meta property="og:image" content="https://snlab-ch.github.io/migraph/logo.png" />
@@ -87,7 +87,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.7</span>
       </span>
     </div>
 
@@ -117,6 +117,9 @@
     </li>
     <li>
       <a href="../articles/p5blockmodel.html">Practical 5</a>
+    </li>
+    <li>
+      <a href="../articles/p7linearmodel.html">Practical 7</a>
     </li>
   </ul>
 </li>
@@ -150,7 +153,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Linear regression for multimodal network data</h1>
+    <h1>Linear regression for network data</h1>
     <small class="dont-index">Source: <a href='https://github.com/snlab-ch/migraph/blob/master/R/netlm.R'><code>R/netlm.R</code></a></small>
     <div class="hidden name"><code>netlm.Rd</code></div>
     </div>
@@ -220,24 +223,25 @@ each coefficient.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>mat1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span>
-<span class='va'>mat2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span>
-<span class='va'>mat3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span>
-<span class='va'>lmat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mat1 <span class='op'>=</span> <span class='va'>mat1</span>, mat2 <span class='op'>=</span> <span class='va'>mat2</span>, mat3 <span class='op'>=</span> <span class='va'>mat3</span><span class='op'>)</span>
-<span class='va'>model1</span> <span class='op'>&lt;-</span> <span class='fu'>netlm</span><span class='op'>(</span><span class='va'>mat1</span> <span class='op'>~</span> <span class='va'>mat2</span> <span class='op'>+</span> <span class='va'>mat3</span>, <span class='va'>lmat</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>model1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; Call:
-#&gt; netlm(formula = mat1 ~ mat2 + mat3, data = lmat)
-#&gt; 
-#&gt; 
-#&gt; Coefficients:
-#&gt;             coefs pvals
-#&gt; (Intercept) 0.375 0.378
-#&gt; mat2        0.250 0.827
-#&gt; mat3        0.250 0.797
-#&gt; 
-#&gt; Multiple R-squared:  0.1333,	Adjusted R-squared:  -0.2133</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>mat1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>mat2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>mat3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>lmat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mat1 <span class='op'>=</span> <span class='va'>mat1</span>, mat2 <span class='op'>=</span> <span class='va'>mat2</span>, mat3 <span class='op'>=</span> <span class='va'>mat3</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>model1</span> <span class='op'>&lt;-</span> <span class='fu'>netlm</span><span class='op'>(</span><span class='va'>mat1</span> <span class='op'>~</span> <span class='va'>mat2</span> <span class='op'>+</span> <span class='va'>mat3</span>, <span class='va'>lmat</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>model1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Call:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> netlm(formula = mat1 ~ mat2 + mat3, data = lmat)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Coefficients:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             coefs pvals</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (Intercept) 0.375 0.379</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mat2        0.250 0.825</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mat3        0.250 0.795</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Multiple R-squared:  0.1333,	Adjusted R-squared:  -0.2133</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -88,7 +88,7 @@ into a corresponding one-mode object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.7</span>
       </span>
     </div>
 
@@ -118,6 +118,9 @@ into a corresponding one-mode object." />
     </li>
     <li>
       <a href="../articles/p5blockmodel.html">Practical 5</a>
+    </li>
+    <li>
+      <a href="../articles/p7linearmodel.html">Practical 7</a>
     </li>
   </ul>
 </li>
@@ -193,31 +196,33 @@ their joint ties to nodes in the first mode (rows).</p>
 <code><a href='to.html'>to</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>project_rows</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; IGRAPH 0526460 UNW- 18 139 -- 
-#&gt; + attr: name (v/c), weight (e/n)
-#&gt; + edges from 0526460 (vertex names):
-#&gt;  [1] EVELYN --LAURA     EVELYN --BRENDA    EVELYN --THERESA   EVELYN --CHARLOTTE
-#&gt;  [5] EVELYN --FRANCES   EVELYN --ELEANOR   EVELYN --RUTH      EVELYN --PEARL    
-#&gt;  [9] EVELYN --NORA      EVELYN --VERNE     EVELYN --MYRA      EVELYN --KATHERINE
-#&gt; [13] EVELYN --SYLVIA    EVELYN --HELEN     EVELYN --DOROTHY   EVELYN --OLIVIA   
-#&gt; [17] EVELYN --FLORA     LAURA  --BRENDA    LAURA  --THERESA   LAURA  --CHARLOTTE
-#&gt; [21] LAURA  --FRANCES   LAURA  --ELEANOR   LAURA  --RUTH      LAURA  --PEARL    
-#&gt; [25] LAURA  --NORA      LAURA  --VERNE     LAURA  --SYLVIA    LAURA  --HELEN    
-#&gt; [29] LAURA  --MYRA      LAURA  --KATHERINE LAURA  --DOROTHY   THERESA--BRENDA   
-#&gt; + ... omitted several edges</div><div class='input'><span class='fu'>project_cols</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; IGRAPH 4f0b02a UNW- 14 66 -- 
-#&gt; + attr: name (v/c), weight (e/n)
-#&gt; + edges from 4f0b02a (vertex names):
-#&gt;  [1] E1 --E2  E1 --E3  E1 --E4  E1 --E5  E1 --E6  E1 --E8  E1 --E9  E1 --E7 
-#&gt;  [9] E2 --E3  E2 --E4  E2 --E5  E2 --E6  E2 --E8  E2 --E9  E2 --E7  E3 --E4 
-#&gt; [17] E3 --E5  E3 --E6  E3 --E8  E3 --E9  E3 --E7  E4 --E5  E4 --E6  E4 --E8 
-#&gt; [25] E4 --E9  E4 --E7  E5 --E6  E5 --E8  E5 --E9  E5 --E7  E6 --E8  E6 --E9 
-#&gt; [33] E6 --E7  E6 --E10 E6 --E11 E6 --E12 E6 --E13 E6 --E14 E7 --E8  E7 --E9 
-#&gt; [41] E7 --E12 E7 --E10 E7 --E13 E7 --E14 E7 --E11 E8 --E9  E8 --E12 E8 --E10
-#&gt; [49] E8 --E13 E8 --E14 E8 --E11 E9 --E12 E9 --E10 E9 --E13 E9 --E14 E9 --E11
-#&gt; [57] E10--E12 E10--E13 E10--E14 E10--E11 E11--E12 E11--E13 E11--E14 E12--E13
-#&gt; + ... omitted several edges</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>project_rows</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> IGRAPH 53a0ccc UNW- 18 139 -- </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> + attr: name (v/c), weight (e/n)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> + edges from 53a0ccc (vertex names):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] EVELYN --LAURA     EVELYN --BRENDA    EVELYN --THERESA   EVELYN --CHARLOTTE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5] EVELYN --FRANCES   EVELYN --ELEANOR   EVELYN --RUTH      EVELYN --PEARL    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9] EVELYN --NORA      EVELYN --VERNE     EVELYN --MYRA      EVELYN --KATHERINE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13] EVELYN --SYLVIA    EVELYN --HELEN     EVELYN --DOROTHY   EVELYN --OLIVIA   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17] EVELYN --FLORA     LAURA  --BRENDA    LAURA  --THERESA   LAURA  --CHARLOTTE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21] LAURA  --FRANCES   LAURA  --ELEANOR   LAURA  --RUTH      LAURA  --PEARL    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25] LAURA  --NORA      LAURA  --VERNE     LAURA  --SYLVIA    LAURA  --HELEN    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29] LAURA  --MYRA      LAURA  --KATHERINE LAURA  --DOROTHY   THERESA--BRENDA   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> + ... omitted several edges</span>
+<span class='r-in'><span class='fu'>project_cols</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> IGRAPH 0ddb90d UNW- 14 66 -- </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> + attr: name (v/c), weight (e/n)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> + edges from 0ddb90d (vertex names):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] E1 --E2  E1 --E3  E1 --E4  E1 --E5  E1 --E6  E1 --E8  E1 --E9  E1 --E7 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9] E2 --E3  E2 --E4  E2 --E5  E2 --E6  E2 --E8  E2 --E9  E2 --E7  E3 --E4 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17] E3 --E5  E3 --E6  E3 --E8  E3 --E9  E3 --E7  E4 --E5  E4 --E6  E4 --E8 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25] E4 --E9  E4 --E7  E5 --E6  E5 --E8  E5 --E9  E5 --E7  E6 --E8  E6 --E9 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33] E6 --E7  E6 --E10 E6 --E11 E6 --E12 E6 --E13 E6 --E14 E7 --E8  E7 --E9 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [41] E7 --E12 E7 --E10 E7 --E13 E7 --E14 E7 --E11 E8 --E9  E8 --E12 E8 --E10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [49] E8 --E13 E8 --E14 E8 --E11 E9 --E12 E9 --E10 E9 --E13 E9 --E14 E9 --E11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [57] E10--E12 E10--E13 E10--E14 E10--E11 E11--E12 E11--E13 E11--E14 E12--E13</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> + ... omitted several edges</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

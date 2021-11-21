@@ -90,7 +90,7 @@ in Hollway et al. (2020)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.7</span>
       </span>
     </div>
 
@@ -120,6 +120,9 @@ in Hollway et al. (2020)." />
     </li>
     <li>
       <a href="../articles/p5blockmodel.html">Practical 5</a>
+    </li>
+    <li>
+      <a href="../articles/p7linearmodel.html">Practical 7</a>
     </li>
   </ul>
 </li>
@@ -210,21 +213,22 @@ If there is no such edge attribute all edges will have the same weight.</p></td>
 <code><a href='node_smallworld.html'>node_smallworld</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>node_constraint</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $nodes1
-#&gt;    EVELYN     LAURA   THERESA    BRENDA CHARLOTTE   FRANCES   ELEANOR     PEARL 
-#&gt; 0.2762653 0.3064327 0.2939747 0.3165819 0.3836124 0.4124206 0.4153548 0.4610301 
-#&gt;      RUTH     VERNE      MYRA KATHERINE    SYLVIA      NORA     HELEN   DOROTHY 
-#&gt; 0.3980074 0.4070206 0.4340622 0.3458163 0.3227868 0.2575799 0.2776485 0.4340622 
-#&gt;    OLIVIA     FLORA 
-#&gt; 0.6109484 0.6109484 
-#&gt; 
-#&gt; $nodes2
-#&gt;        E1        E2        E3        E4        E5        E6        E7        E8 
-#&gt; 0.4763417 0.4755694 0.3380092 0.3938692 0.2745576 0.2405726 0.1924070 0.1703620 
-#&gt;        E9       E10       E11       E12       E13       E14 
-#&gt; 0.1605623 0.3266384 0.3078799 0.2920485 0.4317052 0.4317052 
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>node_constraint</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nodes1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    EVELYN     LAURA   THERESA    BRENDA CHARLOTTE   FRANCES   ELEANOR     PEARL </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.2762653 0.3064327 0.2939747 0.3165819 0.3836124 0.4124206 0.4153548 0.4610301 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      RUTH     VERNE      MYRA KATHERINE    SYLVIA      NORA     HELEN   DOROTHY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.3980074 0.4070206 0.4340622 0.3458163 0.3227868 0.2575799 0.2776485 0.4340622 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    OLIVIA     FLORA </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.6109484 0.6109484 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $nodes2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        E1        E2        E3        E4        E5        E6        E7        E8 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.4763417 0.4755694 0.3380092 0.3938692 0.2745576 0.2405726 0.1924070 0.1703620 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        E9       E10       E11       E12       E13       E14 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.1605623 0.3266384 0.3078799 0.2920485 0.4317052 0.4317052 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
