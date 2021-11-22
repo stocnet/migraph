@@ -51,7 +51,7 @@ test_that("Undirected works",{
   expect_equal(to_undirected(as_matrix(southern_women)),
                as_matrix(southern_women))
   expect_equal(as_matrix(to_undirected(as_network(ison_coleman)))[1, ],
-               as.numeric(as_matrix(as_network(sna::symmetrize(as_network(ison_coleman))))[1, ]))
+               sna::symmetrize(as_network(ison_coleman))[1, ])
 })
 
 test_that("To onemode works",{

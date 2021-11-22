@@ -42,8 +42,6 @@ test_that("as_network converts correctly",{
   expect_s3_class(as_network(mpn_elite_usa_money), "network")
 })
 
-data3 <- igraph::graph_from_edgelist(as.matrix(data2))
-
 test_that("as_edgelist converts correctly", {
   expect_s3_class(as_edgelist(as_igraph(data2)), "tbl_df")
   expect_equal(as_edgelist(as_igraph(data2)), tibble::as_tibble(data2))
