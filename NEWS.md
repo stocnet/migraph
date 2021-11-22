@@ -1,3 +1,38 @@
+# migraph 0.8.8
+
+## Package
+
+- Added start to network linear model part of practical 7 vignette
+- Thanks to @BBieri for adding many tests and working on igraph<->network interchange 
+
+## Data
+
+- Added `ison_eies` dataset for use in practical 7 vignette
+
+## Manipulation
+
+- The `as_matrix()` method for networks now works with two-mode and weighted networks
+- The `as_igraph()` method for matrices now checks for weights independently of coercion
+- The `as_igraph()` method for networks now works with two-mode and weighted networks
+- The `as_network()` method for matrices now works with two-mode and weighted networks
+- The `as_network()` method for edgelists, igraph, and tidygraphs now works with weighted networks
+- Added `to_unnamed()` method for edge lists
+- Added `to_simplex()` method for matrices
+- Added `to_main_component()` method for networks
+- Added `to_multilevel()` method for matrices
+- `mutate_edges()` now coalesces rows of edges 
+
+## Measures
+
+- Fixed bug where clusters were not being reported in the correct order in `graph_blau_index()`
+
+## Modelling
+
+- Fixed one-mode bug with `generate_permutation()` and thus `test_permutation()`
+- Renamed `netlm()` to `network_reg()` to avoid frustrating conflicts
+  - `network_reg()` now accepts migraph-consistent objects
+  - `network_reg()` now accepts formula terms such as `ego()`, `alter()`, and `same()`
+
 # migraph 0.8.7
 
 ## Package
