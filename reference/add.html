@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.8</span>
       </span>
     </div>
 
@@ -192,52 +192,16 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='va'>mpn_elite_mex</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tbl_graph: 11 nodes and 44 edges</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A directed simple graph with 1 component</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># Node Data: 11 × 1 (active)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   name      </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> Alvarezx  </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> Beteta    </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> Blanco    </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> Bustamente</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span> Gortari   </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span> Lozano    </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 5 more rows</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># Edge Data: 44 × 2</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>    from    to</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span>     1     8</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span>     1    10</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span>     2     4</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 41 more rows</span></span>
-<span class='r-in'><span class='fu'>mutate_edges</span><span class='op'>(</span><span class='va'>mpn_elite_mex</span>, <span class='fu'><a href='generate.html'>generate_permutation</a></span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span>, <span class='st'>"permutation"</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tbl_graph: 11 nodes and 88 edges</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A directed multigraph with 1 component</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># Edge Data: 88 × 3 (active)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>    from    to permutation</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span>     1     8          <span style='color: #BB0000;'>NA</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span>     1    10          <span style='color: #BB0000;'>NA</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span>     2     4          <span style='color: #BB0000;'>NA</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span>     2     5          <span style='color: #BB0000;'>NA</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span>     2     7          <span style='color: #BB0000;'>NA</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span>     2     8          <span style='color: #BB0000;'>NA</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 82 more rows</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># Node Data: 11 × 1</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   name    </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> Alvarezx</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> Beteta  </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> Blanco  </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 8 more rows</span></span>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='add-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>both</span> <span class='op'>&lt;-</span> <span class='fu'>mutate_edges</span><span class='op'>(</span><span class='va'>mpn_elite_mex</span>, <span class='fu'><a href='generate.html'>generate_random</a></span><span class='op'>(</span><span class='va'>mpn_elite_mex</span><span class='op'>)</span>, <span class='st'>"random"</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in summarise(., across(everything(), function(x) {    out &lt;- suppressWarnings(max(x, na.rm = TRUE))    if (is.infinite(out))         out &lt;- 0    out}), .groups = "keep"):</span> could not find function "summarise"</span>
+<span class='r-in'><span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='va'>both</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in as_tidygraph(object):</span> object 'both' not found</span>
+<span class='r-in'><span class='va'>random</span> <span class='op'>&lt;-</span> <span class='fu'><a href='to.html'>to_uniplex</a></span><span class='op'>(</span><span class='va'>both</span>, <span class='st'>"random"</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in to_uniplex(both, "random"):</span> object 'both' not found</span>
+<span class='r-in'><span class='fu'><a href='autographr.html'>autographr</a></span><span class='op'>(</span><span class='va'>random</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in as_tidygraph(object):</span> object 'random' not found</span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

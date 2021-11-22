@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Multilevel two-mode affiliation, signed one-mode networks of Marvel comic book characters — ison_marvel • migraph</title>
+<title>1DW 32(2) 440(1) EIES messages — ison_eies • migraph</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,8 @@
 
 
 
-<meta property="og:title" content="Multilevel two-mode affiliation, signed one-mode networks of Marvel comic book characters — ison_marvel" />
-<meta property="og:description" content="Multilevel two-mode affiliation, signed one-mode networks of Marvel comic book characters" />
+<meta property="og:title" content="1DW 32(2) 440(1) EIES messages — ison_eies" />
+<meta property="og:description" content="1DW 32(2) 440(1) EIES messages" />
 <meta property="og:image" content="https://snlab-ch.github.io/migraph/logo.png" />
 
 
@@ -152,51 +152,32 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Multilevel two-mode affiliation, signed one-mode networks of Marvel comic book characters</h1>
+    <h1>1DW 32(2) 440(1) EIES messages</h1>
     <small class="dont-index">Source: <a href='https://github.com/snlab-ch/migraph/blob/master/R/data_ison.R'><code>R/data_ison.R</code></a></small>
-    <div class="hidden name"><code>ison_marvel.Rd</code></div>
+    <div class="hidden name"><code>ison_eies.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Multilevel two-mode affiliation, signed one-mode networks of Marvel comic book characters</p>
+    <p>1DW 32(2) 440(1) EIES messages</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ison_marvel_teams</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ison_marvel_relationships</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ison_eies</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>Two-mode igraph of 53 Marvel comic book characters and 141 team-ups, with 683 team affiliations between them</p>
-<p>One-mode igraph of 53 Marvel comic book characters and 558 signed (<code>1</code> = friends, <code>-1</code> = enemies) undirected ties</p>
+    <p>tidygraph graph object</p>
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p>Umut Yüksel, 31 March 2017</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p>networkdata package</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>This package includes two datasets related to the Marvel <em>comic book</em> universe.
-The first, <code>ison_marvel_teams</code>,  is a two-mode affiliation network of 53 Marvel comic book characters and their
-affiliations to 141 different teams.
-This network includes only information about nodes' names and nodeset,
-but additional nodal data can be taken from the other Marvel dataset here.</p>
-<p>The second network, <code>ison_marvel_relationships</code>, is a one-mode signed network
-of friendships and enmities between the 53 Marvel comic book characters.
-Friendships are indicated by a positive sign in the edge <code>sign</code> attribute,
-whereas enmities are indicated by a negative sign in this edge attribute.
-Additional nodal variables have been coded and included by Dr Umut Yüksel:</p><ul>
-<li><p><strong>Gender</strong>: binary character, 43 "Male" and 10 "Female"</p></li>
-<li><p><strong>PowerOrigin</strong>: binary character, 2 "Alien", 1 "Cyborg", 5 "God/Eternal",
-22 "Human", 1 "Infection", 16 "Mutant", 5 "Radiation", 1 "Robot"</p></li>
-<li><p><strong>Appearances</strong>: integer, in how many comic book issues they appeared in</p></li>
-<li><p><strong>Attractive</strong>: binary integer, 41 1 (yes) and 12 0 (no)</p></li>
-<li><p><strong>Rich</strong>: binary integer, 11 1 (yes) and 42 0 (no)</p></li>
-<li><p><strong>Intellect</strong>: binary integer, 39 1 (yes) and 14 0 (no)</p></li>
-<li><p><strong>Omnilingual</strong>: binary integer, 8 1 (yes) and 45 0 (no)</p></li>
-<li><p><strong>UnarmedCombat</strong>: binary integer, 51 1 (yes) and 2 0 (no)</p></li>
-<li><p><strong>ArmedCombat</strong>: binary integer, 25 1 (yes) and 28 0 (no)</p></li>
-</ul>
-
+    <p>Freeman, S. C. and L. C. Freeman (1979).
+The networkers network: A study of the impact of a new communications medium on sociometric structure.
+Social Science Research Reports No 46. Irvine CA, University of California.</p>
+<p>Wasserman S. and K. Faust (1994).
+Social Network Analysis: Methods and Applications.
+Cambridge University Press, Cambridge.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -90,7 +90,7 @@ the profiles of clusters of nodes in a network." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.8</span>
       </span>
     </div>
 
@@ -200,126 +200,126 @@ the profiles of clusters of nodes in a network.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='r-in'><span class='va'>task_eg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='to.html'>to_named</a></span><span class='op'>(</span><span class='fu'><a href='to.html'>to_uniplex</a></span><span class='op'>(</span><span class='va'>ison_m182</span>, <span class='st'>"task_tie"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-in'><span class='op'>(</span><span class='va'>tie_cen</span> <span class='op'>&lt;-</span> <span class='fu'>node_tie_census</span><span class='op'>(</span><span class='va'>task_eg</span><span class='op'>)</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>           fromDerrick fromKiara fromTamika fromKent fromRachel fromBraden</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Derrick          0.00      0.00       0.00     0.00       0.30       0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Kiara            0.00      0.00       0.00     0.00       0.00       0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Tamika           0.00      0.00       0.00     0.00       0.15       0.75</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Kent             0.00      0.00       0.00     0.00       0.00       0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Rachel           0.30      0.00       0.15     0.00       0.00       0.45</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Braden           0.00      0.00       0.60     0.00       0.75       0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Isla             0.00      0.75       0.00     0.00       0.00       0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Chris            0.00      0.30       0.00     0.00       0.00       0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Bettie           0.30      0.00       0.00     0.00       0.00       0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Celia            0.30      0.00       0.00     0.15       0.00       0.15</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Heather          0.00      0.00       0.30     0.00       2.10       0.30</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Mae              0.15      0.00       0.00     0.00       0.00       0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Nicolas          0.00      0.90       0.00     0.00       0.15       0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Micah            0.00      0.15       0.00     0.00       0.00       0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Johnathan        0.15      0.15       0.00     0.00       0.00       0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Adriana          5.10      4.80       0.30     0.90       1.80       0.90</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>           fromIsla fromChris fromBettie fromCelia fromHeather fromMae</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Derrick       0.00      0.00       0.15      0.15        0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Kiara         1.20      0.45       0.00      0.00        0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Tamika        0.00      0.00       0.00      0.00        0.15    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Kent          0.00      0.00       0.00      0.15        0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Rachel        0.00      0.00       0.00      0.00        1.80    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Braden        0.00      0.00       0.00      0.30        0.45    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Isla          0.00      0.30       0.00      0.00        0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Chris         0.15      0.00       0.00      0.00        0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Bettie        0.00      0.00       0.00      0.45        0.00    2.40</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Celia         0.00      0.00       0.30      0.00        0.00    0.45</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Heather       0.00      0.00       0.00      0.00        0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Mae           0.00      0.00       2.70      0.75        0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Nicolas       0.30      0.75       0.00      0.00        0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Micah         0.00      0.15       0.00      0.00        0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Johnathan     0.00      0.00       0.15      0.30        0.00    0.75</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Adriana       2.85      2.40       2.40      5.40        1.05    4.50</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>           fromNicolas fromMicah fromJohnathan fromAdriana toDerrick toKiara</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Derrick          0.00      0.00          0.15        4.65      0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Kiara            1.05      0.30          0.00        4.80      0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Tamika           0.00      0.00          0.00        0.75      0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Kent             0.00      0.00          0.00        1.05      0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Rachel           0.00      0.15          0.00        2.40      0.30    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Braden           0.00      0.15          0.00        1.20      0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Isla             0.30      0.15          0.00        2.40      0.00    1.20</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Chris            0.60      0.30          0.00        1.95      0.00    0.45</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Bettie           0.00      0.00          0.15        2.85      0.15    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Celia            0.00      0.00          0.30        5.40      0.15    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Heather          0.00      0.00          0.00        1.20      0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Mae              0.00      0.00          0.45        5.25      0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Nicolas          0.00      0.00          0.00        3.90      0.00    1.05</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Micah            0.00      0.00          0.00        3.90      0.00    0.30</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Johnathan        0.00      0.00          0.00        5.55      0.15    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Adriana          4.50      3.15          6.60        0.00      4.65    4.80</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>           toTamika toKent toRachel toBraden toIsla toChris toBettie toCelia</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Derrick       0.00   0.00     0.30     0.00   0.00    0.00     0.30    0.30</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Kiara         0.00   0.00     0.00     0.00   0.75    0.30     0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Tamika        0.00   0.00     0.15     0.60   0.00    0.00     0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Kent          0.00   0.00     0.00     0.00   0.00    0.00     0.00    0.15</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Rachel        0.15   0.00     0.00     0.75   0.00    0.00     0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Braden        0.75   0.00     0.45     0.00   0.00    0.00     0.00    0.15</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Isla          0.00   0.00     0.00     0.00   0.00    0.15     0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Chris         0.00   0.00     0.00     0.00   0.30    0.00     0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Bettie        0.00   0.00     0.00     0.00   0.00    0.00     0.00    0.30</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Celia         0.00   0.15     0.00     0.30   0.00    0.00     0.45    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Heather       0.15   0.00     1.80     0.45   0.00    0.00     0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Mae           0.00   0.00     0.00     0.00   0.00    0.00     2.40    0.45</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Nicolas       0.00   0.00     0.00     0.00   0.30    0.60     0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Micah         0.00   0.00     0.15     0.15   0.15    0.30     0.00    0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Johnathan     0.00   0.00     0.00     0.00   0.00    0.00     0.15    0.30</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Adriana       0.75   1.05     2.40     1.20   2.40    1.95     2.85    5.40</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>           toHeather toMae toNicolas toMicah toJohnathan toAdriana</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Derrick         0.0  0.15      0.00    0.00        0.15      5.10</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Kiara           0.0  0.00      0.90    0.15        0.15      4.80</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Tamika          0.3  0.00      0.00    0.00        0.00      0.30</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Kent            0.0  0.00      0.00    0.00        0.00      0.90</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Rachel          2.1  0.00      0.15    0.00        0.00      1.80</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Braden          0.3  0.00      0.00    0.00        0.00      0.90</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Isla            0.0  0.00      0.30    0.00        0.00      2.85</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Chris           0.0  0.00      0.75    0.15        0.00      2.40</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Bettie          0.0  2.70      0.00    0.00        0.15      2.40</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Celia           0.0  0.75      0.00    0.00        0.30      5.40</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Heather         0.0  0.00      0.00    0.00        0.00      1.05</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Mae             0.0  0.00      0.00    0.00        0.75      4.50</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Nicolas         0.0  0.00      0.00    0.00        0.00      4.50</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Micah           0.0  0.00      0.00    0.00        0.00      3.15</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Johnathan       0.0  0.45      0.00    0.00        0.00      6.60</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Adriana         1.2  5.25      3.90    3.90        5.55      0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           fromAdrienne fromKendall fromCathy fromSkylar fromNathaniel</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Adrienne          0.00        0.00      0.00       0.00          0.30</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Kendall           0.00        0.00      0.00       0.00          0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cathy             0.00        0.00      0.00       0.00          0.15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Skylar            0.00        0.00      0.00       0.00          0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Nathaniel         0.30        0.00      0.15       0.00          0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Alejandra         0.00        0.00      0.60       0.00          0.75</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Ernest            0.00        0.75      0.00       0.00          0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Eliana            0.00        0.30      0.00       0.00          0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Josiah            0.30        0.00      0.00       0.00          0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Eileen            0.30        0.00      0.00       0.15          0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Valeria           0.00        0.00      0.30       0.00          2.10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Edna              0.15        0.00      0.00       0.00          0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Christy           0.00        0.90      0.00       0.00          0.15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cody              0.00        0.15      0.00       0.00          0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Angela            0.15        0.15      0.00       0.00          0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Duane             5.10        4.80      0.30       0.90          1.80</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           fromAlejandra fromErnest fromEliana fromJosiah fromEileen fromValeria</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Adrienne           0.00       0.00       0.00       0.15       0.15        0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Kendall            0.00       1.20       0.45       0.00       0.00        0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cathy              0.75       0.00       0.00       0.00       0.00        0.15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Skylar             0.00       0.00       0.00       0.00       0.15        0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Nathaniel          0.45       0.00       0.00       0.00       0.00        1.80</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Alejandra          0.00       0.00       0.00       0.00       0.30        0.45</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Ernest             0.00       0.00       0.30       0.00       0.00        0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Eliana             0.00       0.15       0.00       0.00       0.00        0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Josiah             0.00       0.00       0.00       0.00       0.45        0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Eileen             0.15       0.00       0.00       0.30       0.00        0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Valeria            0.30       0.00       0.00       0.00       0.00        0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Edna               0.00       0.00       0.00       2.70       0.75        0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Christy            0.00       0.30       0.75       0.00       0.00        0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cody               0.00       0.00       0.15       0.00       0.00        0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Angela             0.00       0.00       0.00       0.15       0.30        0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Duane              0.90       2.85       2.40       2.40       5.40        1.05</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           fromEdna fromChristy fromCody fromAngela fromDuane toAdrienne</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Adrienne      0.00        0.00     0.00       0.15      4.65       0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Kendall       0.00        1.05     0.30       0.00      4.80       0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cathy         0.00        0.00     0.00       0.00      0.75       0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Skylar        0.00        0.00     0.00       0.00      1.05       0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Nathaniel     0.00        0.00     0.15       0.00      2.40       0.30</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Alejandra     0.00        0.00     0.15       0.00      1.20       0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Ernest        0.00        0.30     0.15       0.00      2.40       0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Eliana        0.00        0.60     0.30       0.00      1.95       0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Josiah        2.40        0.00     0.00       0.15      2.85       0.15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Eileen        0.45        0.00     0.00       0.30      5.40       0.15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Valeria       0.00        0.00     0.00       0.00      1.20       0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Edna          0.00        0.00     0.00       0.45      5.25       0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Christy       0.00        0.00     0.00       0.00      3.90       0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cody          0.00        0.00     0.00       0.00      3.90       0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Angela        0.75        0.00     0.00       0.00      5.55       0.15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Duane         4.50        4.50     3.15       6.60      0.00       4.65</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           toKendall toCathy toSkylar toNathaniel toAlejandra toErnest toEliana</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Adrienne       0.00    0.00     0.00        0.30        0.00     0.00     0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Kendall        0.00    0.00     0.00        0.00        0.00     0.75     0.30</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cathy          0.00    0.00     0.00        0.15        0.60     0.00     0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Skylar         0.00    0.00     0.00        0.00        0.00     0.00     0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Nathaniel      0.00    0.15     0.00        0.00        0.75     0.00     0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Alejandra      0.00    0.75     0.00        0.45        0.00     0.00     0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Ernest         1.20    0.00     0.00        0.00        0.00     0.00     0.15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Eliana         0.45    0.00     0.00        0.00        0.00     0.30     0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Josiah         0.00    0.00     0.00        0.00        0.00     0.00     0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Eileen         0.00    0.00     0.15        0.00        0.30     0.00     0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Valeria        0.00    0.15     0.00        1.80        0.45     0.00     0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Edna           0.00    0.00     0.00        0.00        0.00     0.00     0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Christy        1.05    0.00     0.00        0.00        0.00     0.30     0.60</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cody           0.30    0.00     0.00        0.15        0.15     0.15     0.30</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Angela         0.00    0.00     0.00        0.00        0.00     0.00     0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Duane          4.80    0.75     1.05        2.40        1.20     2.40     1.95</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           toJosiah toEileen toValeria toEdna toChristy toCody toAngela toDuane</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Adrienne      0.30     0.30       0.0   0.15      0.00   0.00     0.15    5.10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Kendall       0.00     0.00       0.0   0.00      0.90   0.15     0.15    4.80</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cathy         0.00     0.00       0.3   0.00      0.00   0.00     0.00    0.30</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Skylar        0.00     0.15       0.0   0.00      0.00   0.00     0.00    0.90</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Nathaniel     0.00     0.00       2.1   0.00      0.15   0.00     0.00    1.80</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Alejandra     0.00     0.15       0.3   0.00      0.00   0.00     0.00    0.90</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Ernest        0.00     0.00       0.0   0.00      0.30   0.00     0.00    2.85</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Eliana        0.00     0.00       0.0   0.00      0.75   0.15     0.00    2.40</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Josiah        0.00     0.30       0.0   2.70      0.00   0.00     0.15    2.40</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Eileen        0.45     0.00       0.0   0.75      0.00   0.00     0.30    5.40</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Valeria       0.00     0.00       0.0   0.00      0.00   0.00     0.00    1.05</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Edna          2.40     0.45       0.0   0.00      0.00   0.00     0.75    4.50</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Christy       0.00     0.00       0.0   0.00      0.00   0.00     0.00    4.50</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cody          0.00     0.00       0.0   0.00      0.00   0.00     0.00    3.15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Angela        0.15     0.30       0.0   0.45      0.00   0.00     0.00    6.60</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Duane         2.85     5.40       1.2   5.25      3.90   3.90     5.55    0.00</span>
 <span class='r-in'><span class='op'>(</span><span class='va'>triad_cen</span> <span class='op'>&lt;-</span> <span class='fu'>node_triad_census</span><span class='op'>(</span><span class='va'>task_eg</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>           003 012 102 021D 021U 021C 111D 111U 030T 030C 201 120D 120U 120C 210</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Derrick    36   9  45    0    0    0    0    1    0    0   3    0    0    0   4</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Kiara      45  10  38    0    0    0    1    1    0    0   1    0    0    0   3</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Tamika     55   0  44    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Kent      102   0   3    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Rachel     55   0  37    0    0    0    2    1    0    0   4    0    0    0   0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Braden     65  19  10    0    0    0    5    0    0    0   3    1    0    0   2</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Isla       91   1  13    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Chris      91   1  13    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Bettie     90   1  14    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Celia      86   1  18    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Heather    95   0  10    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Mae        90   1  14    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Nicolas    93   1  11    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Micah      90   3  12    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Johnathan  88   2  15    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Adriana     0   0   0    0    0    0    0    0    0    0  73    0    0    0   6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Adrienne   36   9  45    0    0    0    0    1    0    0   3    0    0    0   4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Kendall    45  10  38    0    0    0    1    1    0    0   1    0    0    0   3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cathy      55   0  44    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Skylar    102   0   3    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Nathaniel  55   0  37    0    0    0    2    1    0    0   4    0    0    0   0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Alejandra  65  19  10    0    0    0    5    0    0    0   3    1    0    0   2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Ernest     91   1  13    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Eliana     91   1  13    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Josiah     90   1  14    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Eileen     86   1  18    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Valeria    95   0  10    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Edna       90   1  14    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Christy    93   1  11    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cody       90   3  12    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Angela     88   2  15    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Duane       0   0   0    0    0    0    0    0    0    0  73    0    0    0   6</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>           300</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Derrick     7</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Kiara       6</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Tamika      6</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Kent        0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Rachel      6</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Braden      0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Isla        0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Chris       0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Bettie      0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Celia       0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Heather     0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Mae         0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Nicolas     0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Micah       0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Johnathan   0</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Adriana    26</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Adrienne    7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Kendall     6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cathy       6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Skylar      0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Nathaniel   6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Alejandra   0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Ernest      0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Eliana      0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Josiah      0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Eileen      0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Valeria     0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Edna        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Christy     0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cody        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Angela      0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Duane      26</span>
 <span class='r-in'><span class='op'>(</span><span class='va'>quad_cen</span> <span class='op'>&lt;-</span> <span class='fu'>node_quad_census</span><span class='op'>(</span><span class='va'>southern_women</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>             E4  I41  I40  H4 L42 L41 L40 U42 U41 Y43 Y41  04</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> EVELYN    1402 1046  474 202 397 692 148 200  78  56 190  75</span>
@@ -355,31 +355,31 @@ the profiles of clusters of nodes in a network.</p>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> E13       1924  777 1014 148 124 414 338  16 112   4  61  28</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> E14       1924  777 1014 148 124 414 338  16 112   4  61  28</span>
 <span class='r-in'><span class='fu'>group_tie_census</span><span class='op'>(</span><span class='va'>task_eg</span>, <span class='fu'><a href='https://rdrr.io/r/stats/cutree.html'>cutree</a></span><span class='op'>(</span><span class='fu'><a href='cluster.html'>cluster_structural_equivalence</a></span><span class='op'>(</span><span class='va'>task_eg</span><span class='op'>)</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>         fromDerrick fromKiara fromTamika fromKent fromRachel fromBraden</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 1        0.08       0.2       0.00     0.01       0.04       0.01</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 2        0.15       0.0       0.07     0.00       0.07       0.60</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 3        0.00       0.0       0.45     0.00       1.43       0.15</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 4        5.10       4.8       0.30     0.90       1.80       0.90</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>         fromIsla fromChris fromBettie fromCelia fromHeather fromMae fromNicolas</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 1     0.15      0.15        0.3      0.16        0.00    0.33        0.18</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 2     0.00      0.00        0.0      0.00        0.98    0.00        0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 3     0.00      0.00        0.0      0.15        0.22    0.00        0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 4     2.85      2.40        2.4      5.40        1.05    4.50        4.50</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>         fromMicah fromJohnathan fromAdriana toDerrick toKiara toTamika toKent</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 1      0.07           0.1        3.79      0.04    0.27     0.00   0.01</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 2      0.07           0.0        1.57      0.15    0.00     0.07   0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 3      0.07           0.0        1.20      0.00    0.00     0.45   0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 4      3.15           6.6        0.00      4.65    4.80     0.75   1.05</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>         toRachel toBraden toIsla toChris toBettie toCelia toHeather toMae</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 1     0.04     0.04   0.14    0.12     0.30    0.14      0.00  0.37</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 2     0.07     0.68   0.00    0.00     0.00    0.00      1.20  0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 3     1.12     0.22   0.00    0.00     0.00    0.07      0.15  0.00</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 4     2.40     1.20   2.40    1.95     2.85    5.40      1.20  5.25</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>         toNicolas toMicah toJohnathan toAdriana</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 1      0.18    0.03        0.14      3.87</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 2      0.07    0.00        0.00      1.05</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 3      0.00    0.00        0.00      0.98</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 4      3.90    3.90        5.55      0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         fromAdrienne fromKendall fromCathy fromSkylar fromNathaniel</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 1         0.08         0.2      0.00       0.01          0.04</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 2         0.15         0.0      0.07       0.00          0.07</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 3         0.00         0.0      0.45       0.00          1.43</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 4         5.10         4.8      0.30       0.90          1.80</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         fromAlejandra fromErnest fromEliana fromJosiah fromEileen fromValeria</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 1          0.01       0.15       0.15        0.3       0.16        0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 2          0.60       0.00       0.00        0.0       0.00        0.98</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 3          0.15       0.00       0.00        0.0       0.15        0.22</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 4          0.90       2.85       2.40        2.4       5.40        1.05</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         fromEdna fromChristy fromCody fromAngela fromDuane toAdrienne toKendall</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 1     0.33        0.18     0.07        0.1      3.79       0.04      0.27</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 2     0.00        0.00     0.07        0.0      1.57       0.15      0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 3     0.00        0.00     0.07        0.0      1.20       0.00      0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 4     4.50        4.50     3.15        6.6      0.00       4.65      4.80</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         toCathy toSkylar toNathaniel toAlejandra toErnest toEliana toJosiah</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 1    0.00     0.01        0.04        0.04     0.14     0.12     0.30</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 2    0.07     0.00        0.07        0.68     0.00     0.00     0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 3    0.45     0.00        1.12        0.22     0.00     0.00     0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 4    0.75     1.05        2.40        1.20     2.40     1.95     2.85</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         toEileen toValeria toEdna toChristy toCody toAngela toDuane</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 1     0.14      0.00   0.37      0.18   0.03     0.14    3.87</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 2     0.00      1.20   0.00      0.07   0.00     0.00    1.05</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 3     0.07      0.15   0.00      0.00   0.00     0.00    0.98</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Block 4     5.40      1.20   5.25      3.90   3.90     5.55    0.00</span>
 <span class='r-in'><span class='fu'>group_triad_census</span><span class='op'>(</span><span class='va'>task_eg</span>, <span class='fu'><a href='https://rdrr.io/r/stats/cutree.html'>cutree</a></span><span class='op'>(</span><span class='fu'><a href='cluster.html'>cluster_regular_equivalence</a></span><span class='op'>(</span><span class='va'>task_eg</span><span class='op'>)</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>           003  012   102 021D 021U 021C 111D 111U 030T 030C   201 120D 120U</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Block 1 36.00 9.00 45.00    0    0    0 0.00 1.00    0    0  3.00 0.00    0</span>

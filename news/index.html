@@ -85,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.8</span>
       </span>
     </div>
 
@@ -155,38 +155,100 @@
       <small>Source: <a href='https://github.com/snlab-ch/migraph/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="migraph-087" class="section level1">
-<h1 class="page-header" data-toc-text="0.8.7">
-<a href="#migraph-087" class="anchor"></a>migraph 0.8.7<small> Unreleased </small>
+    <div id="migraph-088" class="section level1">
+<h1 class="page-header" data-toc-text="0.8.8">
+<a href="#migraph-088" class="anchor"></a>migraph 0.8.8<small> Unreleased </small>
 </h1>
 <div id="package" class="section level2">
 <h2 class="hasAnchor">
 <a href="#package" class="anchor"></a>Package</h2>
 <ul>
-<li>Added new issue templates and refined the wording in existing templates</li>
-<li>Improved documentation across many help pages</li>
-<li>Closed <a href='https://github.com/snlab-ch/migraph/issues/146'>#146</a> by adding vignette on homophily</li>
+<li>Added start to network linear model part of practical 7 vignette</li>
+<li>Thanks to <a href='https://github.com/BBieri'>@BBieri</a> for adding many tests and working on igraph&lt;-&gt;network interchange</li>
 </ul>
 </div>
 <div id="data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h2>
 <ul>
-<li>Added <code><a href="../reference/generate.html">generate_permutation()</a></code> which takes an object and returns an object with the edges permuted, but retaining all nodal attributes</li>
-<li>Made <code><a href="../reference/generate.html">generate_random()</a></code> also work with an existing object as input, in which it will return a random graph with the same dimensions and density</li>
-<li>Consolidated data scripts</li>
+<li>Added <code>ison_eies</code> dataset for use in practical 7 vignette</li>
 </ul>
 </div>
 <div id="manipulation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#manipulation" class="anchor"></a>Manipulation</h2>
 <ul>
-<li>Added <code><a href="../reference/add.html">mutate_edges()</a></code> for adding new edges as attributes to existing edges in an object</li>
+<li>The <code><a href="../reference/coercion.html">as_matrix()</a></code> method for networks now works with two-mode and weighted networks</li>
+<li>The <code><a href="../reference/coercion.html">as_igraph()</a></code> method for matrices now checks for weights independently of coercion</li>
+<li>The <code><a href="../reference/coercion.html">as_igraph()</a></code> method for networks now works with two-mode and weighted networks</li>
+<li>The <code><a href="../reference/coercion.html">as_network()</a></code> method for matrices now works with two-mode and weighted networks</li>
+<li>The <code><a href="../reference/coercion.html">as_network()</a></code> method for edgelists, igraph, and tidygraphs now works with weighted networks</li>
+<li>Added <code><a href="../reference/to.html">to_unnamed()</a></code> method for edge lists</li>
+<li>Added <code><a href="../reference/to.html">to_simplex()</a></code> method for matrices</li>
+<li>Added <code><a href="../reference/to.html">to_main_component()</a></code> method for networks</li>
+<li>Added <code><a href="../reference/to.html">to_multilevel()</a></code> method for matrices</li>
+<li>
+<code><a href="../reference/add.html">mutate_edges()</a></code> now coalesces rows of edges</li>
 </ul>
 </div>
 <div id="measures" class="section level2">
 <h2 class="hasAnchor">
 <a href="#measures" class="anchor"></a>Measures</h2>
+<ul>
+<li>Fixed bug where clusters were not being reported in the correct order in <code><a href="../reference/diversity.html">graph_blau_index()</a></code>
+</li>
+</ul>
+</div>
+<div id="modelling" class="section level2">
+<h2 class="hasAnchor">
+<a href="#modelling" class="anchor"></a>Modelling</h2>
+<ul>
+<li>Fixed one-mode bug with <code><a href="../reference/generate.html">generate_permutation()</a></code> and thus <code><a href="../reference/tests.html">test_permutation()</a></code>
+</li>
+<li>Renamed <code><a href="../reference/netlm.html">netlm()</a></code> to <code><a href="../reference/netlm.html">network_reg()</a></code> to avoid frustrating conflicts
+<ul>
+<li>
+<code><a href="../reference/netlm.html">network_reg()</a></code> now accepts migraph-consistent objects</li>
+<li>
+<code><a href="../reference/netlm.html">network_reg()</a></code> now accepts formula terms such as <code><a href="https://rdrr.io/pkg/igraph/man/ego.html">ego()</a></code>, <code>alter()</code>, and <code>same()</code>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+    <div id="migraph-087" class="section level1">
+<h1 class="page-header" data-toc-text="0.8.7">
+<a href="#migraph-087" class="anchor"></a>migraph 0.8.7<small> Unreleased </small>
+</h1>
+<div id="package-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#package-1" class="anchor"></a>Package</h2>
+<ul>
+<li>Added new issue templates and refined the wording in existing templates</li>
+<li>Improved documentation across many help pages</li>
+<li>Closed <a href='https://github.com/snlab-ch/migraph/issues/146'>#146</a> by adding vignette on homophily</li>
+</ul>
+</div>
+<div id="data-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#data-1" class="anchor"></a>Data</h2>
+<ul>
+<li>Added <code><a href="../reference/generate.html">generate_permutation()</a></code> which takes an object and returns an object with the edges permuted, but retaining all nodal attributes</li>
+<li>Made <code><a href="../reference/generate.html">generate_random()</a></code> also work with an existing object as input, in which it will return a random graph with the same dimensions and density</li>
+<li>Consolidated data scripts</li>
+</ul>
+</div>
+<div id="manipulation-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#manipulation-1" class="anchor"></a>Manipulation</h2>
+<ul>
+<li>Added <code><a href="../reference/add.html">mutate_edges()</a></code> for adding new edges as attributes to existing edges in an object</li>
+</ul>
+</div>
+<div id="measures-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#measures-1" class="anchor"></a>Measures</h2>
 <ul>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/159'>#159</a> by fixing bug in <code><a href="../reference/diversity.html">graph_blau_index()</a></code>
 </li>
@@ -207,16 +269,16 @@
 <h1 class="page-header" data-toc-text="0.8.6">
 <a href="#migraph-086" class="anchor"></a>migraph 0.8.6<small> Unreleased </small>
 </h1>
-<div id="package-1" class="section level2">
+<div id="package-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-1" class="anchor"></a>Package</h2>
+<a href="#package-2" class="anchor"></a>Package</h2>
 <ul>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/75'>#75</a> by updating the README</li>
 </ul>
 </div>
-<div id="manipulation-1" class="section level2">
+<div id="manipulation-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#manipulation-1" class="anchor"></a>Manipulation</h2>
+<a href="#manipulation-2" class="anchor"></a>Manipulation</h2>
 <ul>
 <li>Added some functions for grabbing key information from objects
 <ul>
@@ -231,7 +293,7 @@
 <li>
 <code><a href="../reference/grab.html">graph_edges()</a></code> for quickly accessing a count of edges in the graph</li>
 <li>
-<code>graph_dimensions()</code> is currently a copy of <code><a href="../reference/grab.html">graph_nodes()</a></code>
+<code><a href="../reference/defunct.html">graph_dimensions()</a></code> is currently a copy of <code><a href="../reference/grab.html">graph_nodes()</a></code>
 </li>
 </ul>
 </li>
@@ -248,9 +310,9 @@
 <li>Improved twomode and weighted handling of several functions</li>
 </ul>
 </div>
-<div id="measures-1" class="section level2">
+<div id="measures-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#measures-1" class="anchor"></a>Measures</h2>
+<a href="#measures-2" class="anchor"></a>Measures</h2>
 <ul>
 <li>Added diversity functions
 <ul>
@@ -262,9 +324,9 @@
 </li>
 </ul>
 </div>
-<div id="modelling" class="section level2">
+<div id="modelling-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#modelling" class="anchor"></a>Modelling</h2>
+<a href="#modelling-1" class="anchor"></a>Modelling</h2>
 <ul>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/119'>#119</a> by adding <code><a href="../reference/census.html">node_quad_census()</a></code>, especially useful for two-mode blockmodelling</li>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/95'>#95</a> and <a href='https://github.com/snlab-ch/migraph/issues/120'>#120</a> by adding <code><a href="../reference/graph_census.html">graph_mixed_census()</a></code>
@@ -294,9 +356,9 @@
 <h1 class="page-header" data-toc-text="0.8.5">
 <a href="#migraph-085" class="anchor"></a>migraph 0.8.5<small> 2021-10-30 </small>
 </h1>
-<div id="package-2" class="section level2">
+<div id="package-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-2" class="anchor"></a>Package</h2>
+<a href="#package-3" class="anchor"></a>Package</h2>
 <ul>
 <li>Updated various URLs in the vignettes to pass CRAN tests</li>
 <li>Reduce number of layout examples to avoid examples taking too long to run</li>
@@ -323,26 +385,26 @@
 </li>
 </ul>
 </div>
-<div id="data-1" class="section level2">
+<div id="data-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-1" class="anchor"></a>Data</h2>
+<a href="#data-2" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code><a href="../reference/create.html">create_tree()</a></code> and <code><a href="../reference/create.html">create_lattice()</a></code>, and made <code><a href="../reference/create.html">create_star()</a></code> a bit faster for one-mode networks</li>
 <li>Added <code><a href="../reference/generate.html">generate_smallworld()</a></code> and <code><a href="../reference/generate.html">generate_scalefree()</a></code>, though only for one-mode networks currently</li>
 </ul>
 </div>
-<div id="measures-2" class="section level2">
+<div id="measures-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#measures-2" class="anchor"></a>Measures</h2>
+<a href="#measures-3" class="anchor"></a>Measures</h2>
 <ul>
 <li>Added rounding to centralization measures, by default <code>=2</code>
 </li>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/109'>#109</a> by adding centrality vignette</li>
 </ul>
 </div>
-<div id="modelling-1" class="section level2">
+<div id="modelling-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#modelling-1" class="anchor"></a>Modelling</h2>
+<a href="#modelling-2" class="anchor"></a>Modelling</h2>
 <ul>
 <li>Added <code><a href="../reference/graph_census.html">graph_dyad_census()</a></code> for more graph profile options</li>
 <li>Fixed bug with <code><a href="../reference/blockmodel.html">blockmodel_concor()</a></code> when an object was of class ‘igraph’ but not ‘tbl_graph’</li>
@@ -372,9 +434,9 @@
 <h1 class="page-header" data-toc-text="0.8.3">
 <a href="#migraph-083" class="anchor"></a>migraph 0.8.3<small> Unreleased </small>
 </h1>
-<div id="package-3" class="section level2">
+<div id="package-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-3" class="anchor"></a>Package</h2>
+<a href="#package-4" class="anchor"></a>Package</h2>
 <ul>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/108'>#108</a> by adding cohesion and community vignette</li>
 </ul>
@@ -386,9 +448,9 @@
 <li>Fixed <a href='https://github.com/snlab-ch/migraph/issues/122'>#122</a> by retaining edge weights from igraph in <code><a href="../reference/coercion.html">as_matrix()</a></code> where available</li>
 </ul>
 </div>
-<div id="measures-3" class="section level2">
+<div id="measures-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#measures-3" class="anchor"></a>Measures</h2>
+<a href="#measures-4" class="anchor"></a>Measures</h2>
 <ul>
 <li>Split <code><a href="../reference/cohesion.html">graph_equivalency()</a></code> into the same for two-mode networks and <code><a href="../reference/cohesion.html">graph_congruency()</a></code>for three-mode (two two-mode) networks</li>
 <li>Added option for <code><a href="../reference/cohesion.html">graph_reciprocity()</a></code> method</li>
@@ -396,9 +458,9 @@
 </li>
 </ul>
 </div>
-<div id="modelling-2" class="section level2">
+<div id="modelling-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#modelling-2" class="anchor"></a>Modelling</h2>
+<a href="#modelling-3" class="anchor"></a>Modelling</h2>
 <ul>
 <li>Fixed <a href='https://github.com/snlab-ch/migraph/issues/113'>#113</a> by retaining node labels through census functions</li>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/114'>#114</a> by transposing <code><a href="../reference/census.html">node_tie_census()</a></code> output so that it’s consistent with <code><a href="../reference/census.html">node_triad_census()</a></code> and future node_census functions</li>
@@ -427,9 +489,9 @@
 </li>
 </ul>
 </div>
-<div id="data-2" class="section level2">
+<div id="data-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-2" class="anchor"></a>Data</h2>
+<a href="#data-3" class="anchor"></a>Data</h2>
 <ul>
 <li>Fixed some <code>ison_m182</code> documentation</li>
 </ul>
@@ -439,9 +501,9 @@
 <h1 class="page-header" data-toc-text="0.8.2">
 <a href="#migraph-082" class="anchor"></a>migraph 0.8.2<small> 2021-10-25 </small>
 </h1>
-<div id="package-4" class="section level2">
+<div id="package-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-4" class="anchor"></a>Package</h2>
+<a href="#package-5" class="anchor"></a>Package</h2>
 <ul>
 <li>Fixed CRAN package check dependencies bug where ‘knitr’ and ‘rmarkdown’ were listed as Imports without being used in the package</li>
 </ul>
@@ -481,9 +543,9 @@
 <h1 class="page-header" data-toc-text="0.8.1">
 <a href="#migraph-081" class="anchor"></a>migraph 0.8.1<small> 2021-10-22 </small>
 </h1>
-<div id="package-5" class="section level2">
+<div id="package-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-5" class="anchor"></a>Package</h2>
+<a href="#package-6" class="anchor"></a>Package</h2>
 <ul>
 <li>Fixed codecov url bug</li>
 <li>Removed several package dependencies by moving <code>plot_releases()</code> to another package</li>
@@ -511,16 +573,16 @@
 <li>Removed <code>plot_releases()</code> from this package</li>
 </ul>
 </div>
-<div id="measures-4" class="section level2">
+<div id="measures-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#measures-4" class="anchor"></a>Measures</h2>
+<a href="#measures-5" class="anchor"></a>Measures</h2>
 <ul>
 <li>Refactored <code><a href="../reference/graph_balance.html">graph_balance()</a></code> to be much faster, following David Schoch’s <a href="https://github.com/schochastics/signnet">signnet</a> package (see that package for further extensions)</li>
 </ul>
 </div>
-<div id="data-3" class="section level2">
+<div id="data-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-3" class="anchor"></a>Data</h2>
+<a href="#data-4" class="anchor"></a>Data</h2>
 <ul>
 <li>Updated the edge ‘sign’ attribute of <code>ison_marvel_relationships</code> to be a double (<code>-1</code>/<code>1</code>) to be compatible with the new <code><a href="../reference/graph_balance.html">graph_balance()</a></code> and <a href="https://github.com/schochastics/signnet">signnet</a>
 </li>
@@ -543,9 +605,9 @@
 <li>Added <code><a href="../reference/to.html">to_named()</a></code> method for randomly naming unlabeled networks</li>
 </ul>
 </div>
-<div id="data-4" class="section level2">
+<div id="data-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-4" class="anchor"></a>Data</h2>
+<a href="#data-5" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>ison_mm</code>, <code>ison_mb</code>, <code>ison_bm</code>, and <code>ison_bb</code> projection illustration data</li>
 <li>Added <code>ison_karateka</code> community detection illustration data</li>
@@ -555,9 +617,9 @@
 <li>Data now listed at the bottom of the website References page</li>
 </ul>
 </div>
-<div id="measures-5" class="section level2">
+<div id="measures-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#measures-5" class="anchor"></a>Measures</h2>
+<a href="#measures-6" class="anchor"></a>Measures</h2>
 <ul>
 <li>Added <code><a href="../reference/centralization.html">graph_eigenvector()</a></code> for one mode networks</li>
 <li>Added <code><a href="../reference/graph_balance.html">graph_balance()</a></code> for measuring structural balance</li>
@@ -619,9 +681,9 @@
 <h1 class="page-header" data-toc-text="0.7.2">
 <a href="#migraph-072" class="anchor"></a>migraph 0.7.2<small> Unreleased </small>
 </h1>
-<div id="data-5" class="section level2">
+<div id="data-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-5" class="anchor"></a>Data</h2>
+<a href="#data-6" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>brandes</code> dataset for teaching centrality measures</li>
 <li>Added <code>adolescent_society</code> dataset for teaching friendship paradox</li>
@@ -638,9 +700,9 @@
 <li>Added <code><a href="../reference/ggtools.html">ggidentify()</a></code> for 1F identifying nodes with maximum scores based on some arbitrary function</li>
 </ul>
 </div>
-<div id="manipulation-2" class="section level2">
+<div id="manipulation-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#manipulation-2" class="anchor"></a>Manipulation</h2>
+<a href="#manipulation-3" class="anchor"></a>Manipulation</h2>
 <ul>
 <li>Added <code><a href="../reference/to.html">to_undirected()</a></code> for symmetrising networks of all types</li>
 <li>Made existing <code>to_</code> functions S3 methods</li>
@@ -731,9 +793,9 @@
 <h1 class="page-header" data-toc-text="0.6.5">
 <a href="#migraph-065" class="anchor"></a>migraph 0.6.5<small> 2021-05-10 </small>
 </h1>
-<div id="package-6" class="section level2">
+<div id="package-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-6" class="anchor"></a>Package</h2>
+<a href="#package-7" class="anchor"></a>Package</h2>
 <ul>
 <li>Removed unused package dependencies (<a href="https://r6.r-lib.org">R6</a>, <a href="https://ggraph.data-imaginist.com">ggraph</a>)</li>
 <li>Avoided M1mac check issue by dropping sensitive <code><a href="../reference/netlm.html">netlm()</a></code> test</li>
@@ -754,9 +816,9 @@
 <h1 class="page-header" data-toc-text="0.6.4">
 <a href="#migraph-064" class="anchor"></a>migraph 0.6.4<small> Unreleased </small>
 </h1>
-<div id="package-7" class="section level2">
+<div id="package-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-7" class="anchor"></a>Package</h2>
+<a href="#package-8" class="anchor"></a>Package</h2>
 <ul>
 <li>Extended R version dependence back to 3.6.*</li>
 </ul>
@@ -782,9 +844,9 @@
 <h1 class="page-header" data-toc-text="0.6.3">
 <a href="#migraph-063" class="anchor"></a>migraph 0.6.3<small> 2021-04-26 </small>
 </h1>
-<div id="package-8" class="section level2">
+<div id="package-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-8" class="anchor"></a>Package</h2>
+<a href="#package-9" class="anchor"></a>Package</h2>
 <ul>
 <li>
 <p>Updated README</p>
@@ -816,9 +878,9 @@
 </li>
 </ul>
 </div>
-<div id="data-6" class="section level2">
+<div id="data-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-6" class="anchor"></a>Data</h2>
+<a href="#data-7" class="anchor"></a>Data</h2>
 <ul>
 <li>
 <p>Added <a href='https://github.com/csteglich'>@csteglich</a> ’s <code><a href="../reference/read.html">read_ucinet()</a></code> and <code><a href="../reference/read.html">write_ucinet()</a></code> functions</p>
@@ -862,9 +924,9 @@
 <a href="#migraph-062" class="anchor"></a>migraph 0.6.2<small> 2021-04-15 </small>
 </h1>
 <p>2021-04-13</p>
-<div id="package-9" class="section level2">
+<div id="package-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-9" class="anchor"></a>Package</h2>
+<a href="#package-10" class="anchor"></a>Package</h2>
 <ul>
 <li>Reran <code>usethis::use_mit_license("James Hollway")</code>. MIT License file now contains only the standard two lines.</li>
 <li>Removed <code>\dontrun</code> from examples. <code><a href="../reference/netlm.html">netlm()</a></code> now runs in &lt;5 seconds.</li>
@@ -877,9 +939,9 @@
 <a href="#migraph-061" class="anchor"></a>migraph 0.6.1<small> Unreleased </small>
 </h1>
 <p>2021-04-11</p>
-<div id="package-10" class="section level2">
+<div id="package-11" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-10" class="anchor"></a>Package</h2>
+<a href="#package-11" class="anchor"></a>Package</h2>
 <ul>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/21'>#21</a> by elaborating DESCRIPTION file in preparation for CRAN submission</li>
 <li>Updated several old URLs in documentation</li>
@@ -899,17 +961,17 @@
 <a href="#migraph-060" class="anchor"></a>migraph 0.6.0<small> Unreleased </small>
 </h1>
 <p>2021-03-03</p>
-<div id="package-11" class="section level2">
+<div id="package-12" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-11" class="anchor"></a>Package</h2>
+<a href="#package-12" class="anchor"></a>Package</h2>
 <ul>
 <li>Moved package’s Github repository from <code>jhollway/</code> to <code>snlab-ch/</code> organisation</li>
 <li>Trimmed some package dependencies and added others</li>
 </ul>
 </div>
-<div id="data-7" class="section level2">
+<div id="data-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-7" class="anchor"></a>Data</h2>
+<a href="#data-8" class="anchor"></a>Data</h2>
 <ul>
 <li>
 <p>Elaborated documentation for the remainder of the datasets</p>
@@ -919,9 +981,9 @@
 </li>
 </ul>
 </div>
-<div id="measures-6" class="section level2">
+<div id="measures-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#measures-6" class="anchor"></a>Measures</h2>
+<a href="#measures-7" class="anchor"></a>Measures</h2>
 <ul>
 <li>Fixed bug in <code><a href="../reference/centralization.html">graph_degree()</a></code> where data was hard-coded in</li>
 </ul>
@@ -945,9 +1007,9 @@
 <a href="#migraph-050" class="anchor"></a>migraph 0.5.0<small> Unreleased </small>
 </h1>
 <p>2021-02-06</p>
-<div id="package-12" class="section level2">
+<div id="package-13" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-12" class="anchor"></a>Package</h2>
+<a href="#package-13" class="anchor"></a>Package</h2>
 <ul>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/81'>#81</a> by making <a href="https://github.com/snlab-ch/migraph">migraph</a> depend on R versions 4.0 or above</li>
 <li>Updated PR template</li>
@@ -967,9 +1029,9 @@
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/79'>#79</a> by adding <code><a href="../reference/is.html">is_twomode()</a></code> function to check whether network is two-mode on all object types</li>
 </ul>
 </div>
-<div id="data-8" class="section level2">
+<div id="data-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-8" class="anchor"></a>Data</h2>
+<a href="#data-9" class="anchor"></a>Data</h2>
 <ul>
 <li>
 <p>Renamed several datasets and elaborated their documentation</p>
@@ -1001,9 +1063,9 @@
 </li>
 </ul>
 </div>
-<div id="measures-7" class="section level2">
+<div id="measures-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#measures-7" class="anchor"></a>Measures</h2>
+<a href="#measures-8" class="anchor"></a>Measures</h2>
 <ul>
 <li>
 <p>Renamed <code>centrality_</code> functions with <code>node_</code> prefix and ensured they all also wrapped one-mode measures</p>
@@ -1070,18 +1132,18 @@
 <a href="#migraph-041" class="anchor"></a>migraph 0.4.1<small> Unreleased </small>
 </h1>
 <p>2021-01-11</p>
-<div id="package-13" class="section level2">
+<div id="package-14" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-13" class="anchor"></a>Package</h2>
+<a href="#package-14" class="anchor"></a>Package</h2>
 <ul>
 <li>pkgdown now deploys after release</li>
 <li>Reexported a number of <a href="https://igraph.org">igraph</a> and <a href="https://tidygraph.data-imaginist.com">tidygraph</a> functions for internal use</li>
 <li>Completed some <code>convert_</code> and <code>project_</code> documentation</li>
 </ul>
 </div>
-<div id="data-9" class="section level2">
+<div id="data-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-9" class="anchor"></a>Data</h2>
+<a href="#data-10" class="anchor"></a>Data</h2>
 <ul>
 <li>Updated mpn_ data source references</li>
 </ul>
@@ -1109,9 +1171,9 @@
 <a href="#migraph-040" class="anchor"></a>migraph 0.4.0<small> Unreleased </small>
 </h1>
 <p>2021-01-08</p>
-<div id="package-14" class="section level2">
+<div id="package-15" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-14" class="anchor"></a>Package</h2>
+<a href="#package-15" class="anchor"></a>Package</h2>
 <ul>
 <li>
 <p>Package name change from roctopus to <a href="https://github.com/snlab-ch/migraph">migraph</a></p>
@@ -1122,18 +1184,18 @@
 <li><p>Now builds Linux binary too</p></li>
 </ul>
 </div>
-<div id="manipulation-3" class="section level2">
+<div id="manipulation-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#manipulation-3" class="anchor"></a>Manipulation</h2>
+<a href="#manipulation-4" class="anchor"></a>Manipulation</h2>
 <ul>
 <li>Added <code><a href="../reference/project.html">project_rows()</a></code> and <code><a href="../reference/project.html">project_cols()</a></code> to make it easier to project two-mode networks in different formats (matrix, igraph, tidygraph) into projected versions in the same format</li>
 <li>Closed <a href='https://github.com/snlab-ch/migraph/issues/30'>#30</a> with conversion from different data frame formats, e.g. weighted and unweighted edgelists, into an incidence matrix with <code><a href="https://rdrr.io/pkg/igraph/man/as_incidence_matrix.html">as_incidence_matrix()</a></code>
 </li>
 </ul>
 </div>
-<div id="data-10" class="section level2">
+<div id="data-11" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-10" class="anchor"></a>Data</h2>
+<a href="#data-11" class="anchor"></a>Data</h2>
 <ul>
 <li>Renamed data related to the book “Multimodal Political Networks” with “mpn_” prefix</li>
 </ul>
@@ -1144,9 +1206,9 @@
 <a href="#roctopus-030" class="anchor"></a>roctopus 0.3.0<small> Unreleased </small>
 </h1>
 <p>2020-11-06</p>
-<div id="data-11" class="section level2">
+<div id="data-12" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-11" class="anchor"></a>Data</h2>
+<a href="#data-12" class="anchor"></a>Data</h2>
 <ul>
 <li>
 <p>Data creation updated for <a href="https://tidygraph.data-imaginist.com">tidygraph</a> defaults</p>
@@ -1186,9 +1248,9 @@
 </li>
 </ul>
 </div>
-<div id="package-15" class="section level2">
+<div id="package-16" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-15" class="anchor"></a>Package</h2>
+<a href="#package-16" class="anchor"></a>Package</h2>
 <ul>
 <li>Added tests for <code>netlm2()</code>
 </li>
@@ -1196,9 +1258,9 @@
 </li>
 </ul>
 </div>
-<div id="data-12" class="section level2">
+<div id="data-13" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-12" class="anchor"></a>Data</h2>
+<a href="#data-13" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>opensecrets</code> data</li>
 <li>Added <code>powerelite</code> data</li>
@@ -1210,9 +1272,9 @@
 <a href="#roctopus-025" class="anchor"></a>roctopus 0.2.5<small> Unreleased </small>
 </h1>
 <p>2020-07-21</p>
-<div id="package-16" class="section level2">
+<div id="package-17" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-16" class="anchor"></a>Package</h2>
+<a href="#package-17" class="anchor"></a>Package</h2>
 <ul>
 <li>Renamed data documentation scripts</li>
 <li>Added tests for most <code>create_()</code> functions</li>
@@ -1227,9 +1289,9 @@
 <a href="#roctopus-024" class="anchor"></a>roctopus 0.2.4<small> Unreleased </small>
 </h1>
 <p>2020-07-20</p>
-<div id="package-17" class="section level2">
+<div id="package-18" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-17" class="anchor"></a>Package</h2>
+<a href="#package-18" class="anchor"></a>Package</h2>
 <ul>
 <li>Added <code>row_project()</code> and <code>col_project()</code> functions to make it easier to remember project directions</li>
 </ul>
@@ -1240,18 +1302,18 @@
 <a href="#roctopus-023" class="anchor"></a>roctopus 0.2.3<small> Unreleased </small>
 </h1>
 <p>2020-07-19</p>
-<div id="data-13" class="section level2">
+<div id="data-14" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-13" class="anchor"></a>Data</h2>
+<a href="#data-14" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>mexicanpower</code> dataset</li>
 <li>Added <code>senate112</code> datasets</li>
 <li>Updated <code>evs</code> datasets to matrices</li>
 </ul>
 </div>
-<div id="package-18" class="section level2">
+<div id="package-19" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-18" class="anchor"></a>Package</h2>
+<a href="#package-19" class="anchor"></a>Package</h2>
 <ul>
 <li>Added <code>df_to_mat()</code> function for converting regular adjacency and incidence data frames into matrices</li>
 </ul>
@@ -1262,16 +1324,16 @@
 <a href="#roctopus-021" class="anchor"></a>roctopus 0.2.1<small> Unreleased </small>
 </h1>
 <p>2020-07-17</p>
-<div id="data-14" class="section level2">
+<div id="data-15" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-14" class="anchor"></a>Data</h2>
+<a href="#data-15" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>ryanair</code> dataset from Christopoulos 2006</li>
 </ul>
 </div>
-<div id="package-19" class="section level2">
+<div id="package-20" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-19" class="anchor"></a>Package</h2>
+<a href="#package-20" class="anchor"></a>Package</h2>
 <ul>
 <li>Split workflow into pull-request and merge/push prompted actions</li>
 <li>Added codecov calculation to workflows</li>
@@ -1283,9 +1345,9 @@
 <a href="#roctopus-020" class="anchor"></a>roctopus 0.2.0<small> Unreleased </small>
 </h1>
 <p>2020-07-03</p>
-<div id="data-15" class="section level2">
+<div id="data-16" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-15" class="anchor"></a>Data</h2>
+<a href="#data-16" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>evs</code> datasets from Knoke et al 2020</li>
 </ul>
@@ -1296,9 +1358,9 @@
 <a href="#roctopus-010" class="anchor"></a>roctopus 0.1.0<small> Unreleased </small>
 </h1>
 <p>2020-06-30</p>
-<div id="data-16" class="section level2">
+<div id="data-17" class="section level2">
 <h2 class="hasAnchor">
-<a href="#data-16" class="anchor"></a>Data</h2>
+<a href="#data-17" class="anchor"></a>Data</h2>
 <ul>
 <li>Added <code>bristol</code> dataset from Knoke et al 2020</li>
 </ul>
@@ -1309,9 +1371,9 @@
 <a href="#roctopus-004" class="anchor"></a>roctopus 0.0.4<small> Unreleased </small>
 </h1>
 <p>2018-12-20</p>
-<div id="package-20" class="section level2">
+<div id="package-21" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-20" class="anchor"></a>Package</h2>
+<a href="#package-21" class="anchor"></a>Package</h2>
 <ul>
 <li>Added hex sticker</li>
 <li>Updated README with more detailed installation information</li>
@@ -1364,9 +1426,9 @@
 <a href="#roctopus-002" class="anchor"></a>roctopus 0.0.2<small> Unreleased </small>
 </h1>
 <p>2018-08-14</p>
-<div id="package-21" class="section level2">
+<div id="package-22" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-21" class="anchor"></a>Package</h2>
+<a href="#package-22" class="anchor"></a>Package</h2>
 <ul>
 <li>Renamed package to <code>roctopus</code>
 </li>
@@ -1401,9 +1463,9 @@
 <a href="#roctopus-001" class="anchor"></a>roctopus 0.0.1<small> Unreleased </small>
 </h1>
 <p>2018-07-30</p>
-<div id="package-22" class="section level2">
+<div id="package-23" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-22" class="anchor"></a>Package</h2>
+<a href="#package-23" class="anchor"></a>Package</h2>
 <ul>
 <li>Initialised package</li>
 <li>Added <code>README.md</code> file with instructions on how to install package</li>

@@ -95,7 +95,7 @@ adjacency and incidence matrices
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.8</span>
       </span>
     </div>
 
@@ -183,7 +183,7 @@ These include:</p><ul>
 
 <span class='fu'>as_matrix</span><span class='op'>(</span><span class='va'>object</span>, weight <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>as_igraph</span><span class='op'>(</span><span class='va'>object</span>, weight <span class='op'>=</span> <span class='cn'>TRUE</span>, twomode <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'>as_igraph</span><span class='op'>(</span><span class='va'>object</span>, weight <span class='op'>=</span> <span class='cn'>FALSE</span>, twomode <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='fu'>as_tidygraph</span><span class='op'>(</span><span class='va'>object</span>, twomode <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
@@ -257,9 +257,9 @@ This information is usually already embedded in <code>{igraph}</code>,
 <span class='r-out co'><span class='r-pr'>#&gt;</span> B 1 0 1</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> C 1 1 0</span>
 <span class='r-in'><span class='fu'>as_igraph</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> IGRAPH faf3efa DN-B 6 5 -- </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> IGRAPH 75594ba DN-B 6 5 -- </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> + attr: name (v/c), type (v/l)</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> + edges from faf3efa (vertex names):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> + edges from 75594ba (vertex names):</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] A-&gt;I B-&gt;G B-&gt;I C-&gt;G C-&gt;H</span>
 <span class='r-in'><span class='fu'>as_tidygraph</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tbl_graph: 6 nodes and 5 edges</span></span>
@@ -285,15 +285,15 @@ This information is usually already embedded in <code>{igraph}</code>,
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 2 more rows</span></span>
 <span class='r-in'><span class='fu'>as_network</span><span class='op'>(</span><span class='va'>test</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>  Network attributes:</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   vertices = 3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   vertices = 6 </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   directed = TRUE </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   hyper = FALSE </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   loops = FALSE </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   multiple = FALSE </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   bipartite = FALSE </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   total edges= 5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   total edges= 10 </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>     missing edges= 0 </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>     non-missing edges= 5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     non-missing edges= 10 </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>  Vertex attribute names: </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>     vertex.names </span>

@@ -87,7 +87,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.8</span>
       </span>
     </div>
 
@@ -154,7 +154,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Linear regression for network data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/snlab-ch/migraph/blob/master/R/netlm.R'><code>R/netlm.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/snlab-ch/migraph/blob/master/R/regression.R'><code>R/regression.R</code></a></small>
     <div class="hidden name"><code>netlm.Rd</code></div>
     </div>
 
@@ -163,7 +163,7 @@
 (MRQAP) of network linear model to two mode networks.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>netlm</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>network_reg</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for netlm</span>
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, reps <span class='op'>=</span> <span class='fl'>1000</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -194,7 +194,7 @@
     <tr>
       <th>object</th>
       <td><p>an object of class "netlm", usually as a result of a call to
-<code>netlm()</code>.</p></td>
+<code>network_reg()</code>.</p></td>
     </tr>
     <tr>
       <th>reps</th>
@@ -227,20 +227,25 @@ each coefficient.</p></td>
 <span class='r-in'><span class='va'>mat2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span></span>
 <span class='r-in'><span class='va'>mat3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span></span>
 <span class='r-in'><span class='va'>lmat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mat1 <span class='op'>=</span> <span class='va'>mat1</span>, mat2 <span class='op'>=</span> <span class='va'>mat2</span>, mat3 <span class='op'>=</span> <span class='va'>mat3</span><span class='op'>)</span></span>
-<span class='r-in'><span class='va'>model1</span> <span class='op'>&lt;-</span> <span class='fu'>netlm</span><span class='op'>(</span><span class='va'>mat1</span> <span class='op'>~</span> <span class='va'>mat2</span> <span class='op'>+</span> <span class='va'>mat3</span>, <span class='va'>lmat</span><span class='op'>)</span></span>
-<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>model1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>model1</span> <span class='op'>&lt;-</span> <span class='fu'>network_reg</span><span class='op'>(</span><span class='va'>mat1</span> <span class='op'>~</span> <span class='va'>mat2</span> <span class='op'>+</span> <span class='va'>mat3</span>, <span class='va'>lmat</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in UseMethod("as_tidygraph"):</span> no applicable method for 'as_tidygraph' applied to an object of class "list"</span>
+<span class='r-in'><span class='va'>model1</span> <span class='op'>&lt;-</span> <span class='fu'>network_reg</span><span class='op'>(</span><span class='va'>weight</span> <span class='op'>~</span> <span class='fu'>same</span><span class='op'>(</span><span class='va'>Discipline</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>same</span><span class='op'>(</span><span class='va'>Citations</span><span class='op'>)</span>, <span class='va'>ison_eies</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>model1</span>, reps <span class='op'>=</span> <span class='fl'>2000</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Call:</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> netlm(formula = mat1 ~ mat2 + mat3, data = lmat)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> network_reg(formula = weight ~ same(Discipline) + same(Citations), </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     data = ison_eies)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Coefficients:</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>             coefs pvals</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> (Intercept) 0.375 0.379</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> mat2        0.250 0.825</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> mat3        0.250 0.795</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     coefs  pvals  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (Intercept)        13.920 0.2480  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> `same Discipline`   4.256 0.7800  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> `same Citations`  -15.289 0.0925 .</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Multiple R-squared:  0.1333,	Adjusted R-squared:  -0.2133</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Multiple R-squared:  0.007416,	Adjusted R-squared:  0.005472</span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
