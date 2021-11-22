@@ -199,3 +199,24 @@ Note how distributions are generally wider when permuting the observed network
 than creating a random distribution.
 That is, we expect a larger spread in the EI index for a network of this structure.
 
+# Network linear models
+
+Next let us examine another network and see to what degree homophily plays a role.
+Here we are going to use the EIES dataset.
+The data were collected as part of an early experiment on communication between social network researchers who were using an Electronic Information Exchange System (EIES).
+The main network consists of 32 scholars with directed ties weighted by the total number of messages sent from $i$ to $j$ over the period of the study.
+Nodal attributes collected include the primary discipline and number of citations in the social science citation index at the start of the study.
+
+```{r intro-eies}
+autographr(ison_eies,
+           node_color = "Discipline")
+```
+
+Let's say that we are interested in whether these researchers send more emails
+to those who are cited more, or whether there is disciplinary homophily.
+
+```{r qap-attr}
+model1 <- network_reg(weight ~ ego(Citations) + alter(Citations) + same(Discipline), ison_eies)
+summary(model1)
+```
+

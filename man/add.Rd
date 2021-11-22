@@ -30,5 +30,8 @@ Adding and copying attributes from one graph to another
 }
 \examples{
 autographr(mpn_elite_mex)
-autographr(mutate_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random"))
+both <- mutate_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
+autographr(both)
+random <- to_uniplex(both, "random")
+autographr(random)
 }
