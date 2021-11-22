@@ -170,10 +170,13 @@ as_matrix.network <- function(object,
     if ("weight" %in% network::list.edge.attributes(object)) {
       network::as.matrix.network(object,
                                  attrname = "weight",
-                                 expand.bipartite = network::is.bipartite(object))
+                                 expand.bipartite = FALSE)
+      # Note: if expand.bipartite is true it returns the full matrix. If false
+      # it returns the sparse one that we want. Use to_multilevel(mat)
+      # on the resulting matrix to do the conversion if needed.
     } else {
       network::as.matrix.network(object,
-                                 expand.bipartite = network::is.bipartite(object))
+                                 expand.bipartite = FALSE)
     }
   } else {
     if ("weight" %in% network::list.edge.attributes(object)) {
