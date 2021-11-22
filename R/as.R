@@ -171,9 +171,9 @@ as_matrix.network <- function(object,
       network::as.matrix.network(object,
                                  attrname = "weight",
                                  expand.bipartite = FALSE)
-      # Note: if expand.bipartite is true it returns the full matrix. If false
-      # it returns the sparse one that we want. Use to_multilevel(mat)
-      # on the resulting matrix to do the conversion if needed.
+      # Note: if expand.bipartite is true it returns the adjacency matrix. If
+      # false it returns the incidence matrix that we want. Use
+      # to_multilevel(mat) on the resulting matrix to do the conversion if needed.
     } else {
       network::as.matrix.network(object,
                                  expand.bipartite = FALSE)
