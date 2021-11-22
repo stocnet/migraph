@@ -15,10 +15,10 @@
 #' | uniplex  |  |   | X | X |   |
 #' | unnamed  | X | X | X | X | X |
 #' | named  |  | X | X | X | X |
-#' | simplex  |  |   | X | X |   |
-#' | main_component  |  |   | X | X |   |
+#' | simplex  |  | X | X | X |   |
+#' | main_component  |  |   | X | X | X |
 #' | onemode  |  |   | X | X |   |
-#' | multilevel  |  |   | X | X |   |
+#' | multilevel  |  | X | X | X |   |
 #' @name to
 #' @family manipulation
 #' @param object A matrix, `{igraph}` graph, `{tidygraph}` tbl_graph, or
@@ -184,6 +184,11 @@ to_main_component.igraph <- function(object) {
   igraph::delete.vertices(object, comps$membership != max.comp)
 }
 
+#' @export
+to_main_component.network <- function(object) {
+  sna::component.largest(object, result = "graph")
+}
+
 #' @rdname to
 #' @importFrom igraph delete_edges edge_attr_names delete_edge_attr
 #' @importFrom igraph E get.edge.attribute edge_attr_names
@@ -253,6 +258,13 @@ to_simplex.tbl_graph <- function(object) {
 #' @export
 to_simplex.igraph <- function(object) {
   igraph::simplify(object)
+}
+
+#' @export
+to_simplex.matrix <- function(object) {
+  out <- object
+  diag(out) <- 0
+  out
 }
 
 #' @rdname to

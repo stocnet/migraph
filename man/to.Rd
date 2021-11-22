@@ -80,10 +80,10 @@ here are the currently implemented modifications:\tabular{lccccc}{
    uniplex \tab  \tab  \tab X \tab X \tab  \cr
    unnamed \tab X \tab X \tab X \tab X \tab X \cr
    named \tab  \tab X \tab X \tab X \tab X \cr
-   simplex \tab  \tab  \tab X \tab X \tab  \cr
-   main_component \tab  \tab  \tab X \tab X \tab  \cr
+   simplex \tab  \tab X \tab X \tab X \tab  \cr
+   main_component \tab  \tab  \tab X \tab X \tab X \cr
    onemode \tab  \tab  \tab X \tab X \tab  \cr
-   multilevel \tab  \tab  \tab X \tab X \tab  \cr
+   multilevel \tab  \tab X \tab X \tab X \tab  \cr
 }
 }
 \examples{
