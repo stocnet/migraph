@@ -13,12 +13,12 @@
 #' | undirected  |  | X | X | X | X |
 #' | unsigned  |  |  | X | X |   |
 #' | uniplex  |  |   | X | X |   |
-#' | unnamed  |  | X | X | X | X |
+#' | unnamed  | X | X | X | X | X |
 #' | named  |  | X | X | X | X |
-#' | simplex  |  |   | X | X |   |
-#' | main_component  |  |   | X | X |   |
+#' | simplex  |  | X | X | X |   |
+#' | main_component  |  |   | X | X | X |
 #' | onemode  |  |   | X | X |   |
-#' | multilevel  |  |   | X | X |   |
+#' | multilevel  |  | X | X | X |   |
 #' @name to
 #' @family manipulation
 #' @param object A matrix, `{igraph}` graph, `{tidygraph}` tbl_graph, or
@@ -110,6 +110,15 @@ to_unnamed.matrix <- function(object) {
   out
 }
 
+#' @export
+to_unnamed.data.frame <- function(object) {
+  out <- object
+  names <- unique(unlist(c(out[,1],out[,2])))
+  out[,1] <- match(unlist(object[,1]), names)
+  out[,2] <- match(unlist(object[,2]), names)
+  tibble::as_tibble(out)
+}
+
 #' @rdname to
 #' @examples
 #' to_undirected(ison_coleman)
@@ -173,6 +182,11 @@ to_main_component.igraph <- function(object) {
   comps <- igraph::components(object)
   max.comp <- which.max(comps$csize)
   igraph::delete.vertices(object, comps$membership != max.comp)
+}
+
+#' @export
+to_main_component.network <- function(object) {
+  sna::component.largest(object, result = "graph")
 }
 
 #' @rdname to
@@ -246,6 +260,13 @@ to_simplex.igraph <- function(object) {
   igraph::simplify(object)
 }
 
+#' @export
+to_simplex.matrix <- function(object) {
+  out <- object
+  diag(out) <- 0
+  out
+}
+
 #' @rdname to
 #' @examples
 #' to_named(ison_m182)
@@ -281,5 +302,14 @@ to_multilevel.igraph <- function(object) {
   igraph::V(object)$lvl <- ifelse(igraph::V(object)$type, 2, 1)
   object <- igraph::delete_vertex_attr(object, "type")
   object
+}
+
+#' @export
+to_multilevel.matrix <- function(object) {
+  top <- cbind(matrix(0, nrow(object), nrow(object)), object)
+  bottom <- cbind(t(object), matrix(0, ncol(object), ncol(object)))
+  out <- rbind(top, bottom)
+  colnames(out) <- rownames(out)
+  out
 }
 

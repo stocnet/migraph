@@ -19,30 +19,36 @@ simple_edge_df_unweighted <- data.frame(
   to = c("a", "b", "a", "a", "b")
 )
 
-test_that("Unweight works", {
+test_that("to_unweight works", {
   expect_equal(to_unweighted(matrix(0:8,3,3)), matrix(c(0, rep(1,8)),3,3))
   expect_equal(to_unweighted(southern_women), southern_women)
   expect_equal(c(to_unnamed(as_matrix(to_unweighted(project_rows(southern_women)))))[1:4],
                c(0,1,1,1))
   expect_equal(c(to_unweighted(as_tidygraph(test_weighted)))[8],
                c(as_tidygraph(test_unweighted))[8])
-  # expect_equal(c(to_unweighted(as_network(simple_edge_df_weighted))),
-  #               c(as.matrix(as_network(simple_edge_df_unweighted))))
+  expect_equal(to_unweighted(as_network(simple_edge_df_weighted)),
+                as_network(simple_edge_df_unweighted))
 })
 
 unnamedsouthern <- igraph::remove.vertex.attribute(southern_women, "name")
 test_unnamed <- igraph::remove.vertex.attribute(as_tidygraph(test_weighted),
                                                 "name")
-test_that("Unnamed works",{
+test_that("to_unnamed works",{
   expect_equal(to_unnamed(southern_women), igraph::remove.vertex.attribute(southern_women, "name"))
+  expect_equal(to_unnamed(igraph::remove.vertex.attribute(southern_women, "name")),
+               igraph::remove.vertex.attribute(southern_women, "name"))
   expect_equal(c(to_unnamed(as_tidygraph(test_weighted)))[8], c(test_unnamed)[8])
   expect_equal(to_unnamed(as_network(southern_women)),
                network::delete.vertex.attribute(as_network(southern_women), "vertex.names"))
   expect_equal(c(as_matrix(to_unnamed(as_igraph(ison_m182)))),
                c(as_matrix(as_igraph(ison_m182))))
+  expect_equal(to_unnamed(test_unweighted),
+               structure(list(source = c(1L, 1L, 1L, 1L, 1L, 2L, 3L, 3L, 4L, 4L, 5L, 6L),
+                              target = c(3L, 3L, 4L, 5L, 2L, 1L, 7L, 8L, 9L, 10L, 6L, 6L)),
+                         row.names = c(NA, -12L), class = c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("Undirected works",{
+test_that("to_undirected works",{
   expect_equal(c(to_undirected(as_igraph(ison_m182)))[3], c(igraph::as.undirected(ison_m182))[3])
   expect_equal(as_matrix(to_undirected(as_tidygraph(test_weighted))),
                as_matrix(as_tidygraph(igraph::as.undirected(as_tidygraph(test_weighted)))))
@@ -51,10 +57,10 @@ test_that("Undirected works",{
   expect_equal(to_undirected(as_matrix(southern_women)),
                as_matrix(southern_women))
   expect_equal(as_matrix(to_undirected(as_network(ison_coleman)))[1, ],
-               as.numeric(as_matrix(as_network(sna::symmetrize(as_network(ison_coleman))))[1, ]))
+               sna::symmetrize(as_network(ison_coleman))[1, ])
 })
 
-test_that("To onemode works",{
+test_that("to_onemode works",{
   expect_equal(c(to_onemode(ison_marvel_teams))[3], c(igraph::delete_vertex_attr(ison_marvel_teams, "type"))[3])
   expect_equal(as_matrix(to_onemode(as_tidygraph(ison_marvel_teams))),
                as_matrix(as_tidygraph(igraph::delete_vertex_attr(ison_marvel_teams, "type"))))
@@ -64,7 +70,7 @@ comps <- igraph::components(ison_marvel_teams)
 max.comp <- which.max(ison_marvel_teams$csize)
 test <- igraph::delete.vertices(ison_marvel_teams, comps$membership != max.comp)
 
-test_that("To main component works",{
+test_that("to_main_component works",{
   expect_equal(as_matrix(to_main_component(ison_marvel_teams)), as_matrix(test))
   expect_equal(as_matrix(to_main_component(as_tidygraph(ison_marvel_teams))),
                as_matrix(test))
@@ -80,23 +86,26 @@ if (length(edge_names) > 1) {
 }
 if (is.numeric(igraph::get.edge.attribute(ison_m182, "friend_tie"))) names(igraph::edge_attr(out)) <- "weight"
 
-test_that("To Uniplex works", {
+test_that("to_uniplex works", {
   expect_equal(as_matrix(to_uniplex(ison_m182, "friend_tie")), as_matrix(out))
   expect_equal(as_matrix(to_uniplex(as_tidygraph(ison_m182), "friend_tie")), as_matrix(out))
 })
 
-test_that("To simplex works", {
+test_that("to_simplex works", {
   expect_equal(as_matrix(to_simplex(ison_m182)), as_matrix(ison_m182))
 })
 
 testunsigned <- igraph::delete_edges(ison_marvel_relationships, which(igraph::E(ison_marvel_relationships)$sign < 0))
 testunsigned2 <- igraph::delete_edges(ison_m182, which(igraph::E(ison_m182)$sign < 0))
+testunsigned3 <- igraph::delete_edges(ison_m182, which(igraph::E(ison_m182)$sign > 0))
 
-test_that("unsigned works", {
+test_that("to_unsigned works", {
   expect_equal(c(as_matrix(to_unsigned(ison_marvel_relationships, "positive"))),
                c(as_matrix(testunsigned)))
   expect_equal(c(as_matrix(to_unsigned(ison_m182, "positive"))),
                c(as_matrix(testunsigned2)))
+  expect_equal(c(as_matrix(to_unsigned(ison_m182, "negative"))),
+               c(as_matrix(testunsigned3)))
 })
 
 testnamed <- ison_m182

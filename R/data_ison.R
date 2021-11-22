@@ -100,4 +100,20 @@
 #' @format Undirected one-mode igraph with 34 nodes and 78 edges
 "ison_karateka"
 
+#' 1DW 32(2) 440(1) EIES messages
+#'
+#' @docType data
+#' @keywords datasets
+#' @name ison_eies
+#' @usage data(ison_eies)
+#' @format tidygraph graph object
+#' @source networkdata package
+#' @references Freeman, S. C. and L. C. Freeman (1979). 
+#' The networkers network: A study of the impact of a new communications medium on sociometric structure. 
+#' Social Science Research Reports No 46. Irvine CA, University of California.
+#' 
+#' Wasserman S. and K. Faust (1994). 
+#' Social Network Analysis: Methods and Applications.
+#' Cambridge University Press, Cambridge.
+"ison_eies"
 

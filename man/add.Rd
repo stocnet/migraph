@@ -29,6 +29,9 @@ mutate_edges(object, object2, attr_name)
 Adding and copying attributes from one graph to another
 }
 \examples{
-mpn_elite_mex
-mutate_edges(mpn_elite_mex, generate_permutation(mpn_elite_mex), "permutation")
+autographr(mpn_elite_mex)
+both <- mutate_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
+autographr(both)
+random <- to_uniplex(both, "random")
+autographr(random)
 }

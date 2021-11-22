@@ -41,8 +41,11 @@ copy_node_attributes <- function(object, object2){
 #' @importFrom igraph add_edges
 #' @importFrom rlang :=
 #' @examples 
-#' mpn_elite_mex
-#' mutate_edges(mpn_elite_mex, generate_permutation(mpn_elite_mex), "permutation")
+#' autographr(mpn_elite_mex)
+#' both <- mutate_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
+#' autographr(both)
+#' random <- to_uniplex(both, "random")
+#' autographr(random)
 #' @export
 mutate_edges <- function(object, object2, attr_name){
   edges <- NULL
@@ -51,15 +54,21 @@ mutate_edges <- function(object, object2, attr_name){
                            el, object2 = 1) %>% 
     as_tidygraph()
   
-  # as_tidygraph(data) %>% bind_edges()
-  # 
-  # data %>% activate(edges) %>% 
-  #   tidyr::nest(from, to) %>% 
-  #   mutate(data = map(data, ~ map_dfc(., na.omit))) %>% 
-  #   unnest()
-  
   if(!missing(attr_name)){
-    out %>% activate(edges) %>% 
+    out <- out %>% activate(edges) %>% 
       rename(!!attr_name := "object2")
-  } else out
+  }
+  
+  edges <- out %>% activate(edges) %>% as.data.frame() %>% group_by(from, to) %>% 
+    summarise(across(everything(), 
+                     function(x){
+                       out <- suppressWarnings(max(x, na.rm = TRUE))
+                       if(is.infinite(out)) out <- 0
+                       out
+                     }), 
+              .groups = "keep") %>% ungroup()
+  nodes <- out %>% activate(nodes) %>% as.data.frame()
+  tidygraph::tbl_graph(nodes, edges, 
+                       directed = is_directed(object))
+  
 }

@@ -5,6 +5,7 @@
 \alias{graph_clustering}
 \alias{cluster_triad_census}
 \alias{test_cug}
+\alias{graph_dimensions}
 \title{Defunct functions}
 \usage{
 graph_clustering(object)
@@ -12,6 +13,8 @@ graph_clustering(object)
 cluster_triad_census(object, clusters)
 
 test_cug(object, FUN, ..., nSim = 1000)
+
+graph_dimensions(object)
 }
 \value{
 \code{graph_transitivity()} or \code{graph_equivalency()},
@@ -20,6 +23,8 @@ depending on whether the object is a one-mode or two-mode object, respectively.
 \code{group_triad_census()}
 
 \code{test_random()}
+
+\code{graph_dims()}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -29,5 +34,7 @@ Deprecated on 2021-10-18.
 Deprecated on 2021-10-26.
 
 Deprecated on 2021-11-08.
+
+Deprecated on 2021-11-10.
 }
 \keyword{internal}

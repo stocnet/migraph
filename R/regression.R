@@ -14,24 +14,57 @@
 #' mat2 <- matrix(c(0,1,0,1,0,1,0,1),4,2)
 #' mat3 <- matrix(c(0,0,1,1,0,0,1,1),4,2)
 #' lmat <- list(mat1 = mat1, mat2 = mat2, mat3 = mat3)
-#' model1 <- netlm(mat1 ~ mat2 + mat3, lmat)
-#' summary(model1)
+#' model1 <- network_reg(mat1 ~ mat2 + mat3, lmat)
+#' model1 <- network_reg(weight ~ same(Discipline) + same(Citations), ison_eies)
+#' summary(model1, reps = 2000)
 #' @export
-netlm <- function(formula, data, ...) {
-  if (!is.list(data)) stop("netlm() expects a list of matrices.")
-  if (!is.matrix(data[[1]])) stop("netlm() expects a list of matrices.")
-  orig <- data
-  data <- dplyr::bind_cols(purrr::map(data, function(x) c(x)))
-  out <- lm(formula, data, ...)
+network_reg <- function(formula, data, ...) {
+  
+  matrixList <- convertToMatrixList(formula, data)
+  formula <- convertFormula(formula, matrixList)
+  vectorList <- dplyr::bind_cols(purrr::map(matrixList, function(x) c(x)))
+  out <- lm(formula, vectorList, ...)
   class(out) <- "netlm"
   out$call <- match.call()
-  out$matrices <- orig
+  out$matrices <- matrixList
   invisible(out)
+  
 }
 
+convertFormula <- function(formula, new_names){
+  as.formula(paste(paste(formula[[2]],"~"),
+                   paste(paste0("`", names(new_names)[-1], "`"), collapse = " + ")))
+}
+
+convertToMatrixList <- function(formula, data){
+  data <- as_tidygraph(data)
+  DV <- as_matrix(data)
+  IVnames <- getRHSNames(formula)
+  IVs <- lapply(IVnames, function(x){
+    if(x[[1]] == "ego"){
+      out <- matrix(node_attribute(data, x[[2]]),
+                    nrow(DV), ncol(DV))
+    } else if (x[[1]] == "alter"){
+      out <- matrix(node_attribute(data, x[[2]]),
+                    nrow(DV), ncol(DV), byrow = TRUE)
+    } else if (x[[1]] == "same"){
+      rows <- matrix(node_attribute(data, x[[2]]),
+                     nrow(DV), ncol(DV))
+      cols <- matrix(node_attribute(data, x[[2]]),
+                     nrow(DV), ncol(DV), byrow = TRUE)
+      out <- (rows==cols)*1
+    }
+    out
+  })
+  out <- c(list(DV),IVs)
+  names(out) <- c(formula[[2]],
+                  sapply(IVnames, paste, collapse = " "))
+  out
+}
+  
 #' @rdname netlm
 #' @param object an object of class "netlm", usually as a result of a call to
-#' `netlm()`.
+#' `network_reg()`.
 #' @param reps Integer indicating the number of draws to use for quantile
 #' estimation. (Relevant to the null hypothesis test only - the analysis
 #' itself is unaffected by this parameter.) 
@@ -42,29 +75,22 @@ netlm <- function(formula, data, ...) {
 #' @importFrom stats ecdf lm
 #' @export
 summary.netlm <- function(object, reps = 1000, ...) {
-  if (class(object) != "netlm") {
-    stop("This function expects an object of class 'netlm'.")
-  }
-  xn <- attr(object$terms, "term.labels")
-  yn <- as.character(object$terms[[2]])
 
-  # Selecting the matrices in the data list
+  # Getting necessary elements
+  xn <- gsub("`", "", attr(object$terms, "term.labels"))
+  yn <- as.character(object$terms[[2]])
   IV <- object$matrices[xn]
   DV <- object$matrices[yn][[1]]
+  
   # Permutation, list of matrices
-  rbperm <- function(m) {
-    n <- sample(1:dim(m)[1])
-    o <- sample(1:dim(m)[2])
-    p <- matrix(data = m[n, o], nrow = dim(m)[1], ncol = dim(m)[2])
-    p
-  }
-  permDist <- matrix(0, reps, length(object$coefficients))
-  for (i in 1:reps) {
-    tempDV <- rbperm(DV)
-    permDist[i, ] <- (lm(as.numeric(unlist(tempDV)) ~
-                          Reduce(cbind, lapply(seq_len(length(IV)),
-                                              function(x) unlist(IV[x][1]))), ...))$coefficients
-  }
+  permDist <- t(sapply(1:reps, function(i){
+    tempDV <- as_matrix(generate_permutation(DV))
+    unname((lm(as.numeric(unlist(tempDV)) ~
+                           Reduce(cbind, lapply(seq_len(length(IV)),
+                                                function(x) unlist(IV[x][1])))))$coefficients)
+    
+  }))
+  
   out <- object
   class(out) <- "summary.netlm"
   out$permDist <- permDist
@@ -126,4 +152,32 @@ print.summary.netlm <- function(x,
   cat("Multiple R-squared: ", formatC(x$r.squared, digits = digits))
   cat(",\tAdjusted R-squared: ", formatC(x$adj.r.squared, digits = digits))
   cat("\n")
+}
+
+# inspired by the ergm package function parser
+extractFormulaTerms <- function(rhs) {
+  # most inner term reached
+  if (is.symbol(rhs)) {
+    return(rhs)
+  }
+  if (!is.call(rhs[[1]]) &&
+      rhs[[1]] != "+" &&
+      rhs[[1]] != "*") {
+    return(rhs)
+    # return(list(rightHandSide[[1]], rightHandSide[[2]]))
+  } else {
+    return(c(extractFormulaTerms(rhs[[2]]), rhs[[3]]))
+  }
+}
+
+getRHSNames <- function(formula) {
+  rhs <- extractFormulaTerms(formula[[3]])
+  # embed single parameter models in list
+  if (!is.list(rhs)) rhs <- list(rhs)
+  rhsNames <- lapply(rhs, function(term) lapply(term, deparse))
+}
+
+getDependentName <- function(formula) {
+  dep <- list(formula[[2]])
+  depName <- unlist(lapply(dep, deparse))
 }

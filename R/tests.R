@@ -66,11 +66,7 @@ test_permutation <- function(object, FUN, ..., nSim = 1000){
   }
   n <- graph_nodes(object)
   d <- graph_density(object)
-  net <- as_network(object)
-  rands <- lapply(1:nSim, function(x) as_igraph(sna::rmperm(as_network(net))))
-  if(length(args)>0){
-    rands <- lapply(rands, copy_node_attributes, object2 = object)
-  }
+  rands <- lapply(1:nSim, function(x) as_igraph(generate_permutation(object)))
   if (!is.null(args)) {
     simd <- vapply(rands,
                    FUN, args, FUN.VALUE = numeric(1))

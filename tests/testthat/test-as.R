@@ -2,10 +2,10 @@ mat1 <- matrix(c(0,1,1,0,0,1,1,1,0),3,3)
 rownames(mat1) <- LETTERS[1:3]
 colnames(mat1) <- LETTERS[7:9]
 
-data1 <- data.frame(id1 = c("A","B","B","C","C"),
-                    id2 = c("I","G","I","G","H"))
+data1 <- data.frame(from = c("A","B","B","C","C"),
+                    to = c("I","G","I","G","H"))
 data2 <- data1
-data2$weight <- 1
+data2$weight <- 1:5
 
 test_that("data frame converted to matrix correctly",{
   a <- as_matrix(data1)
@@ -40,4 +40,12 @@ test_that("as_network converts correctly",{
   expect_s3_class(as_network(mat1), "network")
   expect_s3_class(as_network(southern_women), "network")
   expect_s3_class(as_network(mpn_elite_usa_money), "network")
+})
+
+test_that("as_edgelist converts correctly", {
+  expect_s3_class(as_edgelist(as_igraph(data2)), "tbl_df")
+  expect_equal(as_edgelist(as_igraph(data2)), tibble::as_tibble(data2))
+  expect_equal(as_edgelist(as_igraph(data1)), tibble::as_tibble(data1))
+  expect_equal(as_edgelist(as_tidygraph(data2)), tibble::as_tibble(data2))
+  expect_equal(as_edgelist(as_tidygraph(data1)), tibble::as_tibble(data1))
 })

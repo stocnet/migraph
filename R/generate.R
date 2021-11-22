@@ -91,16 +91,26 @@ generate_scalefree <- function(n, p = 1) {
 #' @export
 generate_permutation <- function(object) {
   if(is_twomode(object)){
-    out <- rbperm(as_matrix(object))
+    out <- r2perm(as_matrix(object))
   } else {
-    out <- sna::rmperm(as_network(object))
-    if(is_labelled(object)) dimnames(out) <- dimnames(as_matrix(object))
+    out <- r1perm(as_matrix(object))
   }
   out <- copy_node_attributes(out, object)
   out
 }
 
-rbperm <- function(m) {
+r1perm <- function(m) {
+  n <- sample(1:dim(m)[1])
+  if(is_labelled(m)){
+    p <- matrix(data = m[n, n], nrow = dim(m)[1], ncol = dim(m)[2],
+                dimnames = dimnames(m))
+  } else {
+    p <- matrix(data = m[n, n], nrow = dim(m)[1], ncol = dim(m)[2])
+  }
+  p
+}
+
+r2perm <- function(m) {
   n <- sample(1:dim(m)[1])
   o <- sample(1:dim(m)[2])
   if(is_labelled(m)){
