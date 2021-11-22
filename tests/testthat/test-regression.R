@@ -1,36 +1,25 @@
-mat1 <- matrix(c(0,1,1,0,0,1,1,1),4,2)
-mat2 <- matrix(c(0,1,0,1,0,1,0,1),4,2)
-mat3 <- matrix(c(0,0,1,1,0,0,1,1),4,2)
-lmat <- list(mat1 = mat1, mat2 = mat2, mat3 = mat3)
-
-test_that("network_reg expects correctly",{
-  expect_error(network_reg(mat1 ~ mat2 + mat3, mat1), "expects a list")
-  expect_error(network_reg(mat1 ~ mat2 + mat3, lapply(lmat, function(x) as.data.frame(x))), "expects a list of matrices")
-})
-
 test_that("network_reg estimates correctly",{
   set.seed(123)
-  test <- network_reg(mat1 ~ mat2 + mat3, lmat)
+  test <- network_reg(weight ~ ego(Citations) + alter(Citations) + same(Discipline), ison_eies)
   expect_s3_class(test, "netlm")
-  expect_equal(unname(test$coefficients), c(0.375, 0.250, 0.250))
+  expect_equal(round(unname(test$coefficients),3), c(19.506, -0.150, -0.127, 4.194))
 })
 
 test_that("summary and print work correctly for network_reg",{
   set.seed(123)
-  expect_error(summary.netlm(lmat), "expects an object of class 'netlm'")
-  test <- summary(network_reg(mat1 ~ mat2 + mat3, lmat))
+  test <- summary(network_reg(weight ~ ego(Citations) + alter(Citations) + same(Discipline), ison_eies))
   expect_s3_class(test, "summary.netlm")
-  expect_equal(test$r.squared, 0.1333333, tolerance = 0.01)
-  expect_equal(test$adj.r.squared, -0.2133333, tolerance = 0.01)
+  expect_equal(test$r.squared, 0.0223, tolerance = 0.01)
+  expect_equal(test$adj.r.squared, 0.0194, tolerance = 0.01)
   # expect_equal(test$pvals, c(0.38, 0.84, 0.79), tolerance = 0.05)
 })
 
 test_that("print method work correctly for netlm",{
   set.seed(123)
-  test <- summary(network_reg(mat1 ~ mat2 + mat3, lmat))
+  test <- summary(network_reg(weight ~ ego(Citations) + alter(Citations) + same(Discipline), ison_eies))
   test <- capture.output(print(test))
   expect_equal(test[[2]], "Call:")
-  expect_equal(test[[3]], "network_reg(formula = mat1 ~ mat2 + mat3, data = lmat)")
-  expect_equal(test[[6]], "Coefficients:")
-  expect_equal(test[[8]], "(Intercept) 0.375 0.361")
+  expect_equal(test[[3]], "network_reg(formula = weight ~ ego(Citations) + alter(Citations) + ")
+  expect_equal(test[[7]], "Coefficients:")
+  expect_equal(test[[13]], "---")
 })
