@@ -32,6 +32,7 @@ graph_blau_index <- function(object, attribute, clusters = NULL){
                       function(i) blau(attr[clu == i]),
                       numeric(1))
     names(blauout) <- paste0("Cluster ", unique(clu))
+    blauout <- blauout[order(names(blauout))]
   } else stop("`clusters` must be the name of a nodal variable in the object.")
   blauout
 }
