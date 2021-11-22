@@ -292,3 +292,12 @@ to_multilevel.igraph <- function(object) {
   object
 }
 
+#' @export
+to_multilevel.matrix <- function(object) {
+  top <- cbind(matrix(0, nrow(object), nrow(object)), object)
+  bottom <- cbind(t(object), matrix(0, ncol(object), ncol(object)))
+  out <- rbind(top, bottom)
+  colnames(out) <- rownames(out)
+  out
+}
+
