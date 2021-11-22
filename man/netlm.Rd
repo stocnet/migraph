@@ -26,7 +26,7 @@ network_reg(formula, data, ...)
 \item{...}{Arguments passed on to \code{lm()}.}
 
 \item{object}{an object of class "netlm", usually as a result of a call to
-\code{netlm()}.}
+\code{network_reg()}.}
 
 \item{reps}{Integer indicating the number of draws to use for quantile
 estimation. (Relevant to the null hypothesis test only - the analysis
@@ -53,5 +53,6 @@ mat2 <- matrix(c(0,1,0,1,0,1,0,1),4,2)
 mat3 <- matrix(c(0,0,1,1,0,0,1,1),4,2)
 lmat <- list(mat1 = mat1, mat2 = mat2, mat3 = mat3)
 model1 <- network_reg(mat1 ~ mat2 + mat3, lmat)
-summary(model1)
+model1 <- network_reg(weight ~ same(Discipline) + same(Citations), ison_eies)
+summary(model1, reps = 2000)
 }
