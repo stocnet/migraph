@@ -212,16 +212,15 @@ as_igraph.data.frame <- function(object,
 
 #' @export
 as_igraph.matrix <- function(object,
-                             weight = TRUE,
                              twomode = FALSE) {
   if (nrow(object) != ncol(object) | twomode) {
-    if(weight){
+    if (!(all(object %in% c(0, 1)))) { # Detect if weighted
       graph <- igraph::graph_from_incidence_matrix(object, weighted = TRUE)
     } else {
-      graph <- igraph::graph_from_incidence_matrix(object, weighted = FALSE)
+      graph <- igraph::graph_from_incidence_matrix(object)
     }
   } else {
-    if(weight){
+    if (!(all(object %in% c(0, 1)))) { # Detect if weighted
       graph <- igraph::graph_from_adjacency_matrix(object, weighted = TRUE)
     } else {
       graph <- igraph::graph_from_adjacency_matrix(object)
