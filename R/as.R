@@ -342,19 +342,29 @@ as_network.matrix <- function(object) {
 #' @export
 as_network.igraph <- function(object) {
   if (is_weighted(object)) {
-    as_network(as_matrix(object, weight = TRUE))
+    attr <- as.data.frame(igraph::get.vertex.attribute(object))
+    out <- as_network(as_matrix(object, weight = TRUE))
+    out <- network::set.vertex.attribute(out, names(attr), attr)
   } else {
-    as_network(as_matrix(object))
+    attr <- as.data.frame(igraph::get.vertex.attribute(object))
+    out <- as_network(as_matrix(object))
+    out <- network::set.vertex.attribute(out, names(attr), attr)
   }
+  out
 }
 
 #' @export
 as_network.tbl_graph <- function(object) {
   if (is_weighted(object)) {
-    as_network(as_matrix(object, weight = TRUE))
+    attr <- as.data.frame(activate(object, nodes))[-1]
+    out <- as_network(as_matrix(object, weight = TRUE))
+    out <- network::set.vertex.attribute(out, names(attr), attr)
   } else {
-    as_network(as_matrix(object))
+    attr <- as.data.frame(activate(object, nodes))[-1]
+    out <- as_network(as_matrix(object))
+    out <- network::set.vertex.attribute(out, names(attr), attr)
   }
+  out
 }
 
 #' @export
