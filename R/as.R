@@ -327,25 +327,41 @@ as_network.network <- function(object) {
 
 #' @export
 as_network.matrix <- function(object) {
-    network::as.network(object, 
-                        bipartite = is_twomode(object),
-                        ignore.eval = ifelse(is_weighted(object),
-                                             FALSE, TRUE),
-                        names.eval = ifelse(is_weighted(object),
-                                            "weight", NULL))
+  # Convert to non-sparse matrix
+  out <- to_multilevel(object)
+  network::as.network(out, 
+                      bipartite   = ifelse(is_twomode(object),
+                                           nrow(object),
+                                           FALSE),
+                      ignore.eval = ifelse(is_weighted(object),
+                                           FALSE, TRUE),
+                      names.eval  = ifelse(is_weighted(object),
+                                           "weight", NULL))
 }
 
 #' @export
 as_network.igraph <- function(object) {
-  as_network(as_matrix(object))
+  if (is_weighted(object)) {
+    as_network(as_matrix(object, weight = TRUE))
+  } else {
+    as_network(as_matrix(object))
+  }
 }
 
 #' @export
 as_network.tbl_graph <- function(object) {
-  as_network(as_matrix(object))
+  if (is_weighted(object)) {
+    as_network(as_matrix(object, weight = TRUE))
+  } else {
+    as_network(as_matrix(object))
+  }
 }
 
 #' @export
 as_network.data.frame <- function(object) {
-  as_network(as_matrix(object))
+  if (is_weighted(object)) {
+    as_network(as_matrix(object, weight = TRUE))
+  } else {
+    as_network(as_matrix(object))
+  }
 }
