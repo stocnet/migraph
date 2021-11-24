@@ -327,7 +327,7 @@ as_network.network <- function(object) {
 
 #' @export
 as_network.matrix <- function(object) {
-  # Convert to non-sparse matrix
+  # Convert to adjacency matrix
   out <- to_multilevel(object)
   network::as.network(out, 
                       bipartite   = ifelse(is_twomode(object),
@@ -341,27 +341,26 @@ as_network.matrix <- function(object) {
 
 #' @export
 as_network.igraph <- function(object) {
-  if (is_weighted(object)) {
-    as_network(as_matrix(object, weight = TRUE))
-  } else {
-    as_network(as_matrix(object))
-  }
+    attr <- as.data.frame(igraph::get.vertex.attribute(object))
+    attr <- subset(attr, select = c(-name, -type))
+    out <- as_network(as_matrix(object, weight = is_weighted(object)))
+    if (length(attr) > 0) {
+      out <- network::set.vertex.attribute(out, names(attr), attr)
+    }
+  out
 }
 
 #' @export
 as_network.tbl_graph <- function(object) {
-  if (is_weighted(object)) {
-    as_network(as_matrix(object, weight = TRUE))
-  } else {
-    as_network(as_matrix(object))
+  attr <- as.data.frame(activate(object, nodes))[-1]
+  out <- as_network(as_matrix(object, weight = is_weighted(object)))
+  if (length(attr) > 0) {
+    out <- network::set.vertex.attribute(out, names(attr), attr)
   }
+  out
 }
 
 #' @export
 as_network.data.frame <- function(object) {
-  if (is_weighted(object)) {
-    as_network(as_matrix(object, weight = TRUE))
-  } else {
-    as_network(as_matrix(object))
-  }
+  as_network(as_matrix(object, weight = is_weighted(object)))
 }
