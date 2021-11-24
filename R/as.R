@@ -212,6 +212,7 @@ as_igraph.data.frame <- function(object,
 
 #' @export
 as_igraph.matrix <- function(object,
+                             weight = FALSE,
                              twomode = FALSE) {
   if (nrow(object) != ncol(object) | twomode) {
     if (!(all(object %in% c(0, 1)))) { # Detect if weighted
@@ -231,7 +232,7 @@ as_igraph.matrix <- function(object,
 
 #' @export
 as_igraph.igraph <- function(object,
-                             weight = TRUE,
+                             weight = FALSE,
                              twomode = FALSE) {
   class(object) <- "igraph"
   object
@@ -341,12 +342,13 @@ as_network.matrix <- function(object) {
 
 #' @export
 as_network.igraph <- function(object) {
-    attr <- as.data.frame(igraph::get.vertex.attribute(object))
-    attr <- subset(attr, select = c(-name, -type))
-    out <- as_network(as_matrix(object, weight = is_weighted(object)))
-    if (length(attr) > 0) {
-      out <- network::set.vertex.attribute(out, names(attr), attr)
-    }
+  name <- type <- NULL
+  attr <- as.data.frame(igraph::get.vertex.attribute(object))
+  attr <- subset(attr, select = c(-name, -type))
+  out <- as_network(as_matrix(object, weight = is_weighted(object)))
+  if (length(attr) > 0) {
+    out <- network::set.vertex.attribute(out, names(attr), attr)
+  }
   out
 }
 
