@@ -66,9 +66,9 @@ to_unweighted.igraph <- function(object, threshold = 1) {
 
 #' @export
 to_unweighted.network <- function(object, threshold = 1) {
-    out <- as_igraph(object)
-    out <- igraph::delete_edge_attr(out, "weight")
-    as_network(out)
+    out <- network::delete.edge.attribute(object,
+                                          attrname = "weight")
+    out
 }
 
 #' @export
