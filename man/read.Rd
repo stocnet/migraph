@@ -2,12 +2,17 @@
 % Please edit documentation in R/read.R
 \name{read}
 \alias{read}
-\alias{read_edgelist}
+\alias{read_graph}
 \alias{read_ucinet}
 \alias{write_ucinet}
 \title{Reading from/writing to external formats}
 \usage{
-read_edgelist(file)
+read_graph(
+  file = file.choose(),
+  csv = c(",", ";"),
+  to = c("igraph", "tidygraph", "network"),
+  ...
+)
 
 read_ucinet(header_file)
 
@@ -22,6 +27,13 @@ write_ucinet(
 (.##h) file. If the function is called without a header_file specified,
 an OS-specific file picker is opened to help users select it.}
 
+\item{csv}{Allows users to specify whether their csv file is comma or column
+separated.}
+
+\item{to}{Selects the output formal the graph is converted to when imported.}
+
+\item{...}{Additional parameters passed to the read/write function.}
+
 \item{object}{A migraph-consistent object to be exported.}
 
 \item{filename}{UCINET filename (without ## extension).
@@ -30,16 +42,23 @@ and be saved to the working directory.}
 
 \item{name}{name of matrix to be known in UCINET.
 By default the name will be the same as the object.}
+
+\item{graph}{Graph object to be written from}
+
+\item{path}{Specify the path where the file will be written.}
 }
 \value{
-By default, \code{\link[=read_ucinet]{read_ucinet()}} and \code{\link[=read_edgelist]{read_edgelist()}}
-will import into an igraph format,
-but can be easily coerced from there into other formats.
+By default, \code{\link[=read_ucinet]{read_ucinet()}} will import into an igraph format.
+\code{\link[=read_graph]{read_graph()}} allows users to choose the format among those supported
+by \code{{migraph}}. Note that graphs can be easily coerced into other formats
+with \code{{migraph}}'s \code{as_} methods.
 
 A pair of UCINET files in V6404 file format (.##h, .##h)
 }
 \description{
-These functions import from and export to UCINET network files.
+These functions read and write graphs from and to a variety of formats.
+The \code{read_ucinet()} and \code{write_ucinet()} functions import from and export
+to UCINET network files.
 }
 \details{
 These functions only work with relatively recent UCINET

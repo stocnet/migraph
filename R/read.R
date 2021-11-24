@@ -1,13 +1,22 @@
 #' Reading from/writing to external formats
 #' 
-#' These functions import from and export to UCINET network files.
+#' These functions read and write graphs from and to a variety of formats.
+#' The `read_ucinet()` and `write_ucinet()` functions import from and export
+#' to UCINET network files.
 #' @name read
 #' @param file,header_file A character string giving the path to the header
 #' (.##h) file. If the function is called without a header_file specified,
 #' an OS-specific file picker is opened to help users select it.
-#' @return By default, [read_ucinet()] and [read_edgelist()] 
-#' will import into an igraph format, 
-#' but can be easily coerced from there into other formats.
+#' @param graph Graph object to be written from
+#' @param csv Allows users to specify whether their csv file is comma or column
+#' separated.
+#' @param to Selects the output formal the graph is converted to when imported.
+#' @param path Specify the path where the file will be written.
+#' @param ... Additional parameters passed to the read/write function.
+#' @return By default, [read_ucinet()] will import into an igraph format.
+#' [read_graph()] allows users to choose the format among those supported
+#' by `{migraph}`. Note that graphs can be easily coerced into other formats
+#' with `{migraph}`'s `as_` methods.
 #' @details These functions only work with relatively recent UCINET
 #' file formats, e.g. type 6406 files.
 #' To import earlier UCINET file types, you will need to update them first.
@@ -20,15 +29,60 @@
 #' horseplay <- read_ucinet("WIRING-RDGAM.##h")
 #' }
 #' @author Christian Steglich, 18 June 2015
+#' @importFrom utils read.csv read.csv2 read.table write.csv write.csv2
 #' @seealso [convert]
 NULL
 
 #' @rdname read
-#' @importFrom readxl read_xlsx
 #' @export
-read_edgelist <- function(file) {
-  xl <- readxl::read_xlsx(file, col_names = TRUE)
-  as_igraph(xl)
+read_graph <- function(file = file.choose(),
+                          csv = c(",", ";"),
+                          to = c("igraph", "tidygraph", "network"),
+                          ...) {
+  # Import process given the file type
+  if (grepl("csv$", file)) {
+    if (csv == ",") {
+      out <- read.csv(file, header = TRUE, ...) # For US
+    } else {
+      out <- read.csv2(file, header = TRUE, ...) # For EU
+    }
+  } else if (grepl("xlsx$|xls$", file)) {
+    out <- readxl::read_xlsx(file, col_names = TRUE, ...)
+  } else if (grepl("dta$", file)) {
+    stop("Please use haven::read_dta to import Stata files.")
+  } else if (grepl("RData$", file)) {
+    out <- loadRData(file, ...)
+  } else if (grepl("txt$", file)) {
+    out <- read.table(file, header = TRUE, ...)
+  } else if (grepl("paj$|net$", file)) {
+    out <- network::read.paj(file, ...) #network's read.paj function
+  } else stop("File type not recognised: try igraph::read_graph()")
+  # Transform to network object if necessary
+  if (!is_graph(out)) {
+    if (to == "network") {
+      out <- migraph::as_igraph(out)
+    } else if (to == "tidygraph") {
+      out <- migraph::as_tidygraph(out)
+    } else {
+      out <- migraph::as_igraph(out)
+    }
+  }
+  return(out)
+}
+
+write_graph <- function(graph,
+                        path,
+                        csv = c(";", ","),
+                        ...){
+  if (missing(graph)) { # Create a csv file from a template
+    template <- data.frame(from = 1:3,
+                           to = c(2, 3, 4),
+                           weight = rep(1, 3))
+    if (csv == ",") write.csv(template, file = path, ...)
+    if (csv == ";") write.csv2(template, file = path)
+  } else if (is.igraph(graph)) { # Write an igraph graph to a connection
+    igraph::write_graph(graph = object, file = path, ...)
+  }
 }
 
 #' @rdname read
@@ -239,4 +293,10 @@ write_ucinet <- function(object,
 	  writeBin(t(mat)[i], UCINET.data, size = 4, endian = 'little')
 	}
 	close(UCINET.data)
+}
+
+# Little helper function to import RData objects
+loadRData <- function(fileName){
+  load(fileName)
+  mget(ls()[ls() != "fileName"])
 }
