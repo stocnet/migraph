@@ -73,10 +73,10 @@ autographr <- auto_graph <- function(object,
                                       edge_linetype = edge_linetype,
                                       edge_colour = edge_colour,
                                       arrow = ggplot2::arrow(angle = 15,
-                                                    length = ggplot2::unit(3, 'mm'),
+                                                    length = ggplot2::unit(2, 'mm'),
                                                     type = "closed"), 
-                                      end_cap = ggraph::circle(3, 'mm')) +
-        ggraph::scale_edge_width_continuous(range = c(.2, 1), 
+                                      end_cap = ggraph::circle(1.5, 'mm')) +
+        ggraph::scale_edge_width_continuous(range = c(.2, 1.5), 
                                             guide = "none")
     } else {
       p <- p + ggraph::geom_edge_link(edge_alpha = 0.4,
@@ -101,6 +101,8 @@ autographr <- auto_graph <- function(object,
                                        edge_alpha = 0.4)
     }
   }
+  
+  # Node size
   if (!is.null(node_size)) {
     if (is.character(node_size)) {
       nsize <- node_attribute(g, node_size)
@@ -110,7 +112,7 @@ autographr <- auto_graph <- function(object,
       nsize <- node_size(g)
     }
   } else {
-    nsize <- (100 / igraph::vcount(g)) / 2
+    nsize <- ifelse(igraph::vcount(g) <= 10, 5, (100 / igraph::vcount(g)) / 2)
   }
   
   # Add nodes
