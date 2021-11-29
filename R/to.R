@@ -164,7 +164,7 @@ to_onemode.tbl_graph <- function(object) {
 
 #' @export
 to_onemode.igraph <- function(object) {
-  if("type" %in% igraph::vertex_attr_names(object)) object <- igraph::delete_vertex_attr(object, "type")
+  if ("type" %in% igraph::vertex_attr_names(object)) object <- igraph::delete_vertex_attr(object, "type")
   object
 }
 

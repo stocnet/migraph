@@ -103,7 +103,7 @@ as_matrix <- function(object, weight = FALSE) UseMethod("as_matrix")
 
 #' @export
 as_matrix.data.frame <- function(object, weight = FALSE){
-  if("tbl_df" %in% class(object)) object <- as.data.frame(object)
+  if ("tbl_df" %in% class(object)) object <- as.data.frame(object)
   
       if (ncol(object) == 2 | !weight) {
         object <- data.frame(object) # in case it's a tibble
@@ -140,7 +140,7 @@ as_matrix.matrix <- function(object, weight = FALSE) {
 #' @export
 as_matrix.igraph <- function(object, weight = FALSE) {
   if (is_twomode(object)) {
-    if (is_weighted(object)){
+    if (is_weighted(object)) {
       mat <- igraph::as_incidence_matrix(object, sparse = FALSE,
                                          attr = igraph::edge_attr_names(object)[[1]])
     } else {
@@ -148,7 +148,7 @@ as_matrix.igraph <- function(object, weight = FALSE) {
                                          attr = NULL)
     }
   } else {
-    if (is_weighted(object)){
+    if (is_weighted(object)) {
       mat <- igraph::as_adjacency_matrix(object, sparse = FALSE,
                                          attr = igraph::edge_attr_names(object)[[1]])
     } else {
@@ -201,7 +201,7 @@ as_igraph <- function(object,
 as_igraph.data.frame <- function(object,
                                  weight = FALSE,
                                  twomode = FALSE) {
-  if("tbl_df" %in% class(object)) object <- as.data.frame(object)
+  if ("tbl_df" %in% class(object)) object <- as.data.frame(object)
   
   # Warn if no column named weight and weight set to true
   if (weight & !("weight" %in% names(object))) {
@@ -368,7 +368,7 @@ as_network.tbl_graph <- function(object) {
 
 #' @export
 as_network.data.frame <- function(object) {
-  if("tbl_df" %in% class(object)) object <- as.data.frame(object)
+  if ("tbl_df" %in% class(object)) object <- as.data.frame(object)
   if (is_weighted(object)) {
     as_network(as_matrix(object, weight = TRUE))
   } else {
