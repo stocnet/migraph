@@ -186,7 +186,8 @@ to_main_component.igraph <- function(object) {
 
 #' @export
 to_main_component.network <- function(object) {
-  sna::component.largest(object, result = "graph")
+  network::delete.vertices(object, 
+                           which(!sna::component.largest(object, result = "membership")))
 }
 
 #' @rdname to
