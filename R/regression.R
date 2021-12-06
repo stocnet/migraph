@@ -31,6 +31,7 @@ network_reg <- function(formula, data, ...) {
   
 }
 
+#' @importFrom stats as.formula
 convertFormula <- function(formula, new_names){
   as.formula(paste(paste(formula[[2]],"~"),
                    paste(paste0("`", names(new_names)[-1], "`"), collapse = " + ")))

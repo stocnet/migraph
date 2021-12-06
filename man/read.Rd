@@ -34,6 +34,9 @@ If left unspecified, an OS-specific file picker is opened to help users select i
 Note that in \code{read_ucinet()} the file path should be to the header file (.##h),
 if it exists.}
 
+\item{sv}{Allows users to specify whether their csv file is
+\code{"comma"} (English) or \code{"semi-colon"} (European) separated.}
+
 \item{...}{Additional parameters passed to the read/write function.}
 
 \item{object}{A migraph-consistent object to be exported.}
@@ -44,9 +47,6 @@ and be saved to the working directory.}
 
 \item{name}{name of matrix to be known in UCINET.
 By default the name will be the same as the object.}
-
-\item{csv}{Allows users to specify whether their csv file is
-comma (English) or semi-colon (European) separated.}
 
 \item{to}{Selects the output formal the graph is converted to when imported.}
 

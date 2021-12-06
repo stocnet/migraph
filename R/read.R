@@ -12,8 +12,8 @@
 #' Note that in `read_ucinet()` the file path should be to the header file (.##h),
 #' if it exists.
 #' @param object A migraph-consistent object to be exported.
-#' @param csv Allows users to specify whether their csv file is 
-#' comma (English) or semi-colon (European) separated.
+#' @param sv Allows users to specify whether their csv file is 
+#' `"comma"` (English) or `"semi-colon"` (European) separated.
 #' @param to Selects the output formal the graph is converted to when imported.
 #' @param path Specify the path where the file will be written.
 #' @param ... Additional parameters passed to the read/write function.
@@ -113,7 +113,7 @@ read_nodelist <- function(file = file.choose(),
       out <- read.csv2(file, header = TRUE, ...) # For EU
     }
   } else if (grepl("xlsx$|xls$", file)) {
-    out <- readxl::read_xlsx(file, col_names = TRUE, ...)
+    out <- xlsx::read.xlsx(file, header = TRUE, ...)
   }
 }
 

@@ -288,9 +288,15 @@ reduce_graph <- function(blockmodel, block_labels = NULL){
 }
 
 #' @rdname blockmodel
+#' @param node_measure A vector or matrix of node-level statistics,
+#' such as centrality measures or a census.
+#' @param sumFUN A function by which the values should be aggregated
+#' or summarised. By default `mean`.
 #' @examples 
-#' summarise_statistics(node_degree(mpn_elite_mex), cutree(cluster_structural_equivalence(mpn_elite_mex), 3))
-#' summarise_statistics(node_triad_census(mpn_elite_mex), cutree(cluster_structural_equivalence(mpn_elite_mex), 3))
+#' summarise_statistics(node_degree(mpn_elite_mex), 
+#'           cutree(cluster_structural_equivalence(mpn_elite_mex), 3))
+#' summarise_statistics(node_triad_census(mpn_elite_mex), 
+#'           cutree(cluster_structural_equivalence(mpn_elite_mex), 3))
 #' @export
 summarise_statistics <- function(node_measure, 
                                  clusters = NULL,
