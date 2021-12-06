@@ -8,6 +8,7 @@
   * Closed #137 by adding `read_edgelist()` for importing edgelists from Excel and csv files
   * Closed #170 by adding `read_pajek()` for importing .net and .paj files
   * Added `write_edgelist()` for exporting into Excel
+  * Closed #140 by adding links to further data resources
 
 ## Manipulation
 * Fixed bugs in `as_` and `to_` functions
@@ -18,6 +19,13 @@
 * Added `is_graph()` to check if an object is a graph or not
 * Extended `as_network()` to retain attributes
 * Updated `to_unweighted()` to prevent conversion of network object into igraph object when deleting weights
+* Fixed tests for `to_` and `regression` functions
+
+## Measures
+* Closed #143 by adding nodal summary by cluster function `summarise_statistics()`
+
+## Modelling
+* Fixed `network_reg()` example
 
 ## Visualisation
 * Closed #117 by updating the node/edge/arrow size limits in `autographr()`
