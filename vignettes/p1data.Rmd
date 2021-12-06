@@ -36,6 +36,7 @@ Edgelists are typically the main object to be imported,
 and we can import them from an Excel file or a `.csv` file.^[Note that if you import from a .csv file, please specify whether the separation value should be commas (`sv = "comma"`) or semi-colons (`sv = "semi-colon"`).]
 
 ```{r importedges, include = TRUE, eval = FALSE}
+library(migraph)
 g1 <- read_edgelist("~Downloads/mynetworkdata.xlsx")
 g1 <- read_edgelist("~Downloads/mynetworkdata.csv")
 g1 <- read_edgelist()
@@ -76,82 +77,126 @@ write_pajek()
 read_ucinet()
 write_ucinet()
 ```
-  
+
 # Converting between formats
 
-By default, read and write edgelists and nodelists will import objects
+By default, `read_` and `write_` `edgelist` and `nodelist` will import objects
 into a data frame or tibble format or 'class' object,
-and read and write pajek or ucinet will import objects into a
-tidygraph class format
+and `read_` and `write_` `pajek` or `ucinet` will import objects into a
+tidygraph class format.
 
-These can be already useful, as `{migraph}` functions work
-with most main classes of network/graph objects in R: 
+These can be already useful, as `{migraph}` functions recognise and 
+work with most main classes of network/graph objects in R: 
 edgelists, matrices, igraph, tidygraph, and network objects.
 
-However it is sometimes necessary to convert a given object from one type
-or 'class' to another.
-
-Once you have data imported into R, it may be necessary to change
-its format 
+However it is sometimes necessary to convert a given object 
+from one class to another.
+Here we can use any of a collection of coercion functions, 
+all prefixed by `as_`, to move from any of those objects
+that `{migraph}` recognises to any other.
   
-If you prefer to work with the data as objects other than edgelist or tidygraph objects, they can also be easily converted into other formats using the `as_` functions in `{migraph}` that are discussed below. (Yay!) In a single step, objects are easily converted between several common classes of social network objects, including edgelists, matrices, igraphs, tidygraphs, and networks.
+Let's use one of the built in datasets in `{migraph}` to demonstrate this.
+Davis, Gardner and Gardner's (1941) `southern_women` dataset is a classic
+two-mode network, so let's use this to start with.
+`{migraph}` stores this dataset as an 'igraph' object,
+though other included datasets are in 'tidygraph' or sometimes 'network' formats.
   
-Some examples below:
-  
-```{as, include = TRUE, eval = FALSE}
-as_edgelist(igraph1, weight = FALSE) # to convert 'igraph1' (an igraph object) to an edgelist object
-as_matrix(igraph1, weight = TRUE) # to convert 'igraph1' (an igraph object) to a matrix object
-as_igraph(matrix1, twomode = TRUE) # to convert 'matrix1' (a matrix object) to an igraph object
-as_tidygraph(matrix1, twomode = FALSE) # to convert 'matrix1' (a matrix object) to a tidygraph object
-as_network(igraph1, weight = FALSE) # to convert 'igraph1' (an igraph object) to a network object
+```{r as}
+library(migraph)
+southern_women # this is in igraph format
+as_tidygraph(southern_women) # now let's make it a tidygraph tbl_graph object
+as_network(southern_women) # a network object
+as_matrix(southern_women) # a matrix object
+# this is an incidence matrix since it is a two-mode network
+# if it were a one-mode network, the function would return an adjacency matrix
+as_edgelist(southern_women) # an edgelist data frame/tibble
 ```
   
 Note that for converting into edgelist, matrix, or igraph objects, you can specify if you want to keep it as a weighted network (if your original data included this property) using the argument `weight = TRUE` or `weight = FALSE`.
-For converting into igraph and tidygraph objects, there is the option of retaining the network as a two-mode network (keeping different types of nodes) or simplifying it into a one-mode network. Just specify it using the argument `twomode = TRUE` or `twomode = FALSE` respectively. 
-  
-## Combining data
-  
-We may also want to modify the structure or properties of our networks to facilitate analysis. Once again, this can be easily achieved in `{migraph}` using the `to_` and `add_` functions. All of the functions named below work on **igraph** and **tidygraph** objects, although some will also work on edgelist, matrix, and network objects.
-  
-### Multiplex and multilevel network data
-  
-If you want to include different types of ties in your network, `{migraph}` also contains functions that enable us to add edge and node attributes, constructing multiplex network data containing different types of ties from various objects. 
-  
-To insert additional edge attributes from another file/object, use `add_edge_attributes()` to copy edge attributes from another file/object into your network data. You can also use `mutate_edges()` to extract the edges from another network and insert them into your network as edge attributes.
+For converting into igraph and tidygraph objects, there is the option of retaining the network as a two-mode network (keeping different types of nodes) or simplifying it into a one-mode network. 
+Just specify it using the argument `twomode = TRUE` or `twomode = FALSE` respectively.
 
-`{migraph}` also contains functions to differentiate the nodes in your data. To add node attributes to your data from another file/object, use `add_node_attributes()` to input node attributes manually in R or use `copy_node_attributes()` to copy over node attributes from another file into your network.
-For network data that includes different types of nodes and ties between and within these nodesets, we can also convert the data into a multilevel network structure easily using `to_multilevel()`.
+# Simplifying network data
   
-Some examples:
-  
-```{multiplex, include = TRUE, eval = FALSE}
-add_node_attributes(mynetwork, attribute_name, c("a", "b", "c")) # where c("a", "b", "c") is the vector of attributes you want to add to your network
-copy_node_attributes(mynetwork, othernetwork) # where 'othernetwork' contains the attributes you want to add to your nodes
-add_edge_attributes(mynetwork, othernetwork) # where 'othernetwork' contains the attributes you want to add to your edges
-mutate_edges(mynetwork, othernetwork, attribute_name) # where 'othernetwork' contains the edges you want to add to your network as edge attributes
-to_multilevel(mpn_elite_usa_advice)
-```
-    
-### Simplifying network data
-  
-We can also simplify the network data using functions in `{migraph}`. 
-`to_uniplex()` simplifies a network to contain only a single type of tie, while `to_simplex()` removes all loops or self-ties in the network. `to_onemode()` converts multimodal networks into networks with only one type of node and `to_main_component()` identifies and subsets the main component from a larger network, reducing the number of nodes and ties we are working with.
+Generally, `{migraph}` attempts to retain as much information as possible when converting objects between different classes.
+The presumption is that users should explicitly decide to reduce or simplify
+their data.
 
-```{uniplex, include = TRUE, eval = FALSE}
-to_onemode(ison_marvel_teams)
-to_main_component(bignetwork)
-to_uniplex(ison_m182, edge = "friend_tie") # include the argument 'edge = ' to specify the type of tie you want to retain
-to_simplex(ison_m182)
-```
-  
-### Basic properties of network data
-  
-To alter the properties of your network such as 'weights', 'signs', 'names' and 'directedness', just use the following `to_` functions (all named very intuitively!) to manipulate your network data. Remove weights using `to_unweighted`, remove signs using `to_unsigned()`, convert a directed network into an undirected one using `to_undirected`, or add/remove names using `to_named()`/`to_unnamed()` respectively.
-  
-```{combine, include = TRUE, eval = FALSE}
-to_unweighted(mynetwork, threshold = 1) # `threshold = 1` converts weights beyond '1' into '1'
+`{migraph}` includes [a number of functions](https://snlab-ch.github.io/migraph/reference/to.html) 
+for transforming (or removing) certain properties of network objects.
+For example: 
+
+- `to_unnamed()` removes/anonymises all vertex/node labels
+- `to_undirected()` replaces directed ties with an undirected tie (if an arc in either direction is present)
+- `to_unweighted()` binarises or dichotomises a network around a particular threshold (by default `1`)
+- `to_unsigned()` returns just the "positive" or "negative" ties from a signed network, respectively
+- `to_uniplex()` reduces a multigraph or multiplex network to one with a single set of edges or ties
+- `to_simplex()` removes all loops or self-ties from a complex network
+
+Then there are a few more special functions included here too:
+
+- `to_multilevel()` extends objects to more than two modes and sets of interlocking ties
+- `to_onemode()` converts multimodal networks into networks with only one type of node 
+- `to_main_component()` identifies and returns only the main component of a network
+- `to_named()` adds random names to an anonymous network, which can be useful for pedagogical purposes
+
+```{r combine}
 to_unnamed(ison_marvel_relationships)
-to_undirected(directednetwork)
-to_unsigned(ison_marvel_relationships, keep = c("positive", "negative")) # retain only one type of ties (positive OR negative)
 to_named(ison_m182)
+to_undirected(ison_m182)
+to_unsigned(ison_marvel_relationships, keep = "positive")
 ```
+
+Note that for two-mode networks, there are also functions for converting or 'projecting' two-mode networks into one-mode networks.
+
+```{r project}
+project_rows(southern_women)
+project_cols(southern_women)
+```
+
+# Adding data
+
+If you import one or more edgelists and nodelists, 
+it can be useful to bind these together in an igraph, tidygraph, or network class object.
+
+Adding nodal attributes to a given network is relatively straightforward.
+One can bind a single new attribute to the nodes with `add_node_attribute()`
+or copy a set of attributes from one network/graph to another with `copy_node_attributes()`.
+But often the easiest way to do this is to take a network/graph,
+make sure it is first coerced into a tidygraph object,
+and then add any additional nodal attributes (including measures from `{migraph}`)
+as follows:
+
+```{r mutate}
+as_tidygraph(mpn_elite_mex) %>% 
+  mutate(order = 1:11,
+         color = "red",
+         degree = node_degree(mpn_elite_mex))
+```
+
+Adding edge attributes or new edges is not quite so straightforward,
+in part because you will need to decide which it is that you want to do.
+If you would like to just add a new edge attribute to an existing set of edges,
+without adding any new edges, then `add_edge_attributes()` operates similarly
+to `add_node_attributes()` above.
+But if the result should be a multiplex network in the ties in the different
+component networks only partially overlap,
+then you will need to use `mutate_edges()`:^[Note that this function is still a work-in-progress.]
+
+```{r mutateedges}
+generate_random(10, .3) %>% 
+  mutate_edges(generate_random(10, .3), "next")
+```
+
+# Retrieving data
+
+Lastly, sometimes we want to extract certain information from a network or graph object.
+Here too `{migraph}` has you covered.
+
+```{r grab}
+node_names(mpn_elite_mex) # gets the names of the nodes
+node_attribute(ison_marvel_relationships, "Gender") # gets any named nodal attribute
+edge_attribute(ison_marvel_relationships, "sign") # gets any named edge attribute
+edge_weights(mpn_elite_mex)
+```
+
