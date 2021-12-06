@@ -137,10 +137,10 @@ to_undirected.tbl_graph <- function(object) {
   as_tidygraph(igraph::as.undirected(object))
 }
 
-#' @importFrom sna symmetrize
 #' @export
 to_undirected.network <- function(object) {
-  sna::symmetrize(object)
+  object$gal$directed <- FALSE
+  object
 }
 
 #' @export
