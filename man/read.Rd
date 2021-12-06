@@ -47,10 +47,6 @@ and be saved to the working directory.}
 
 \item{name}{name of matrix to be known in UCINET.
 By default the name will be the same as the object.}
-
-\item{to}{Selects the output formal the graph is converted to when imported.}
-
-\item{path}{Specify the path where the file will be written.}
 }
 \value{
 The \code{read_edgelist()} and \code{read_nodelist()} functions will import

@@ -14,8 +14,6 @@
 #' @param object A migraph-consistent object to be exported.
 #' @param sv Allows users to specify whether their csv file is 
 #' `"comma"` (English) or `"semi-colon"` (European) separated.
-#' @param to Selects the output formal the graph is converted to when imported.
-#' @param path Specify the path where the file will be written.
 #' @param ... Additional parameters passed to the read/write function.
 #' @return The `read_edgelist()` and `read_nodelist()` functions will import 
 #' into edgelist (tibble) format which can then be coerced or combined into
@@ -256,8 +254,8 @@ read_ucinet <- function(file = file.choose(),
       ))
     }
     # begin of main function code:
-    header <- read_ucinet_header(header_file)
-    file <- sub(".##h","", header_file)
+    header <- read_ucinet_header(file)
+    file <- sub(".##h","", file)
     UCINET.data <- file(paste(file, ".##d", sep = ""), "rb")
     thedata <- vector()
     for (i in 1:(header$dims[1]*header$dims[2]))
