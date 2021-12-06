@@ -7,6 +7,7 @@
 \alias{read_nodelist}
 \alias{write_nodelist}
 \alias{read_pajek}
+\alias{write_pajek}
 \alias{read_ucinet}
 \alias{write_ucinet}
 \title{Reading from/writing to external formats}
@@ -20,6 +21,8 @@ read_nodelist(file = file.choose(), sv = c("comma", "semi-colon"), ...)
 write_nodelist(object, filename, name, ...)
 
 read_pajek(file = file.choose(), ...)
+
+write_pajek(object, filename, ...)
 
 read_ucinet(file = file.choose(), ...)
 
@@ -81,7 +84,19 @@ that hold various datasets in different formats. See for example:
 \item \href{http://vlado.fmf.uni-lj.si/pub/networks/data/}{Pajek data}
 }
 
-These functions only work with relatively recent UCINET
+See also:
+\itemize{
+\item \href{http://networkdata.schochastics.net/}{networkdata}
+\item \href{http://www-personal.umich.edu/~mejn/netdata/}{GML datasets}
+\item \href{http://networkdata.ics.uci.edu/}{UCIrvine Network Data Repository}
+\item \href{http://konect.cc/}{KONECT project}
+\item \href{http://snap.stanford.edu/data/}{SNAP Stanford Large Network Dataset Collection}
+}
+
+Please let us know if you identify any further repositories
+of social or political networks and we would be happy to add them here.
+
+The \verb{_ucinet} functions only work with relatively recent UCINET
 file formats, e.g. type 6406 files.
 To import earlier UCINET file types, you will need to update them first.
 To import multiple matrices packed into a single UCINET file,
@@ -98,6 +113,8 @@ you will need to unpack them and convert them one by one.
 \item \code{write_nodelist}: Writing nodelists to Excel files
 
 \item \code{read_pajek}: Reading pajek (.net/.paj) files
+
+\item \code{write_pajek}: Writing pajek .net files
 
 \item \code{read_ucinet}: Reading UCINET files
 

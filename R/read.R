@@ -144,6 +144,22 @@ read_pajek <- function(file = file.choose(), ...){
   as_tidygraph(out)
 }
 
+#' @describeIn read Writing pajek .net files
+#' @importFrom igraph write_graph
+#' @export
+write_pajek <- function(object,
+                        filename,
+                        ...){
+  if(missing(filename)){
+    object_name <- deparse(substitute(object))
+    filename <- paste0(getwd(), "/", object_name, ".net")
+  } 
+  igraph::write_graph(as_igraph(object),
+                             file = filename,
+                             format = "pajek",
+                             ...)
+}
+
 # igraph::write_graph(graph = object, file = path, ...)
 
 #' @describeIn read Reading UCINET files
