@@ -286,3 +286,25 @@ reduce_graph <- function(blockmodel, block_labels = NULL){
   if (!is.null(block_labels)) igraph::V(reduced)$name <- block_labels
   reduced
 }
+
+#' @rdname blockmodel
+#' @examples 
+#' summarise_statistics(node_degree(mpn_elite_mex), cutree(cluster_structural_equivalence(mpn_elite_mex), 3))
+#' summarise_statistics(node_triad_census(mpn_elite_mex), cutree(cluster_structural_equivalence(mpn_elite_mex), 3))
+#' @export
+summarise_statistics <- function(node_measure, 
+                                 clusters = NULL,
+                                 sumFUN = mean){
+  if(is.matrix(node_measure)){
+    out <- t(sapply(unique(clusters), 
+                  function(x) apply(node_measure[clusters == x, ], 2, sumFUN)))
+    rownames(out) <- unique(clusters)
+  } else {
+    out <- vapply(unique(clusters), 
+                  function(x) sumFUN(node_measure[clusters == x]), FUN.VALUE = 1)
+    names(out) <- unique(clusters)
+  }
+  out
+}
+
+
