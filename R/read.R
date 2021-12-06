@@ -79,6 +79,16 @@ write_edgelist <- function(object,
   xlsx::write.xlsx(out, file = filename, sheetName = name, row.names = FALSE, ...)
 }
 
+
+#' @describeIn read Reading pajek (.net/.paj) files
+#' @importFrom network read.paj
+#' @export
+read_pajek <- function(file = file.choose(), ...){
+  out <- network::read.paj(file, ...)
+  if(!is.network(out)) out <- out[[1]][[1]]
+  as_tidygraph(out)
+}
+
     out <- read.table(file, header = TRUE, ...)
   } else if (grepl("paj$|net$", file)) {
     out <- network::read.paj(file, ...) #network's read.paj function
