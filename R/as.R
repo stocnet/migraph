@@ -273,6 +273,14 @@ as_igraph.network <- function(object,
                                                    mode = ifelse(object$gal$directed,
                                                                  "directed",
                                                                  "undirected"))
+    } else if (length(network::list.edge.attributes(object)) > 1) {
+      object$gal$multiple <- FALSE
+      graph <- sna::as.sociomatrix.sna(object, attrname = network::list.edge.attributes(object)[1])
+      graph <- igraph::graph_from_adjacency_matrix(graph,
+                                                   weighted = TRUE,
+                                                   mode = ifelse(object$gal$directed,
+                                                                 "directed",
+                                                                 "undirected"))
     } else {
       graph <- sna::as.sociomatrix.sna(object)
       graph <- igraph::graph_from_adjacency_matrix(graph,
