@@ -4,6 +4,7 @@
 \alias{grab}
 \alias{node_names}
 \alias{node_attribute}
+\alias{edge_attribute}
 \alias{edge_weights}
 \alias{graph_nodes}
 \alias{graph_edges}
@@ -13,6 +14,8 @@
 node_names(object)
 
 node_attribute(object, attribute)
+
+edge_attribute(object, attribute)
 
 edge_weights(object)
 

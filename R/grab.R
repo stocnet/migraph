@@ -18,6 +18,12 @@ node_attribute <- function(object, attribute){
 
 #' @rdname grab
 #' @export
+edge_attribute <- function(object, attribute){
+  igraph::get.edge.attribute(as_igraph(object), attribute)
+}
+
+#' @rdname grab
+#' @export
 edge_weights <- function(object){
   object <- as_igraph(object)
   out <- igraph::get.edge.attribute(object, "weight")
