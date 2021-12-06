@@ -2,6 +2,10 @@
 #' 
 #' This function extends the multiple regression quadratic assignment procedure
 #' (MRQAP) of network linear model to two mode networks.
+#' It also works with combined graph/network objects by constructing the
+#' various dependent and independent matrices for the user.
+#' Lastly, because it relies on an object that contains all this information
+#' it can offer a more informative formula-based system for specifying the model.
 #' @name netlm
 #' @param formula A formula describing the relationship being tested.
 #' @param data A named list of matrices, graphs, or a tidygraph object.
@@ -10,11 +14,6 @@
 #' @importFrom purrr map
 #' @importFrom stats lm
 #' @examples
-#' mat1 <- matrix(c(0,1,1,0,0,1,1,1),4,2)
-#' mat2 <- matrix(c(0,1,0,1,0,1,0,1),4,2)
-#' mat3 <- matrix(c(0,0,1,1,0,0,1,1),4,2)
-#' lmat <- list(mat1 = mat1, mat2 = mat2, mat3 = mat3)
-#' model1 <- network_reg(mat1 ~ mat2 + mat3, lmat)
 #' model1 <- network_reg(weight ~ same(Discipline) + same(Citations), ison_eies)
 #' summary(model1, reps = 2000)
 #' @export
@@ -31,6 +30,7 @@ network_reg <- function(formula, data, ...) {
   
 }
 
+#' @importFrom stats as.formula
 convertFormula <- function(formula, new_names){
   as.formula(paste(paste(formula[[2]],"~"),
                    paste(paste0("`", names(new_names)[-1], "`"), collapse = " + ")))

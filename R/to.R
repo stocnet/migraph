@@ -66,9 +66,9 @@ to_unweighted.igraph <- function(object, threshold = 1) {
 
 #' @export
 to_unweighted.network <- function(object, threshold = 1) {
-    out <- as_igraph(object)
-    out <- igraph::delete_edge_attr(out, "weight")
-    as_network(out)
+    out <- network::delete.edge.attribute(object,
+                                          attrname = "weight")
+    out
 }
 
 #' @export
@@ -137,10 +137,10 @@ to_undirected.tbl_graph <- function(object) {
   as_tidygraph(igraph::as.undirected(object))
 }
 
-#' @importFrom sna symmetrize
 #' @export
 to_undirected.network <- function(object) {
-  sna::symmetrize(object)
+  object$gal$directed <- FALSE
+  object
 }
 
 #' @export
@@ -164,7 +164,7 @@ to_onemode.tbl_graph <- function(object) {
 
 #' @export
 to_onemode.igraph <- function(object) {
-  if("type" %in% igraph::vertex_attr_names(object)) object <- igraph::delete_vertex_attr(object, "type")
+  if ("type" %in% igraph::vertex_attr_names(object)) object <- igraph::delete_vertex_attr(object, "type")
   object
 }
 
@@ -186,7 +186,8 @@ to_main_component.igraph <- function(object) {
 
 #' @export
 to_main_component.network <- function(object) {
-  sna::component.largest(object, result = "graph")
+  network::delete.vertices(object, 
+                           which(!sna::component.largest(object, result = "membership")))
 }
 
 #' @rdname to

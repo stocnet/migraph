@@ -1,17 +1,51 @@
 #' Reading from/writing to external formats
 #' 
-#' These functions import from and export to UCINET network files.
-#' @name read
-#' @param file,header_file A character string giving the path to the header
-#' (.##h) file. If the function is called without a header_file specified,
-#' an OS-specific file picker is opened to help users select it.
-#' @return By default, [read_ucinet()] and [read_edgelist()] 
-#' will import into an igraph format, 
-#' but can be easily coerced from there into other formats.
-#' @details These functions only work with relatively recent UCINET
+#' Users regularly need to work with a variety of external data formats.
+#' The following functions offers ways to import from some common external
+#' file formats into objects that `{migraph}` and other graph/network packages
+#' in R can work with.
+#' Note that these functions are not as actively maintained as others 
+#' in the package, so please let us know if any are not currently working 
+#' for you by raising an issue on Github.
+#' @param file A character string with the system path to the file to import.
+#' If left unspecified, an OS-specific file picker is opened to help users select it.
+#' Note that in `read_ucinet()` the file path should be to the header file (.##h),
+#' if it exists.
+#' @param object A migraph-consistent object to be exported.
+#' @param sv Allows users to specify whether their csv file is 
+#' `"comma"` (English) or `"semi-colon"` (European) separated.
+#' @param ... Additional parameters passed to the read/write function.
+#' @return The `read_edgelist()` and `read_nodelist()` functions will import 
+#' into edgelist (tibble) format which can then be coerced or combined into
+#' different graph objects from there.
+#' 
+#' The `read_pajek()` and `read_ucinet()` functions will import into
+#' a tidygraph format, since they already contain both edge and attribute data.
+#' Note that all graphs can be easily coerced into other formats 
+#' with `{migraph}`'s `as_` methods.
+#' 
+#' The `write_`functions export to different file formats,
+#' depending on the function.
+#' @details There are a number of repositories for network data
+#' that hold various datasets in different formats. See for example:
+#' 
+#' - [UCINET data](https://sites.google.com/site/ucinetsoftware/datasets?authuser=0)
+#' - [Pajek data](http://vlado.fmf.uni-lj.si/pub/networks/data/)
+#' 
+#' See also:
+#' 
+#' - [networkdata](http://networkdata.schochastics.net/)
+#' - [GML datasets](http://www-personal.umich.edu/~mejn/netdata/)
+#' - [UCIrvine Network Data Repository](http://networkdata.ics.uci.edu/)
+#' - [KONECT project](http://konect.cc/)
+#' - [SNAP Stanford Large Network Dataset Collection](http://snap.stanford.edu/data/)
+#' 
+#' Please let us know if you identify any further repositories 
+#' of social or political networks and we would be happy to add them here.
+#' 
+#' The `_ucinet` functions only work with relatively recent UCINET
 #' file formats, e.g. type 6406 files.
 #' To import earlier UCINET file types, you will need to update them first.
-#' 
 #' To import multiple matrices packed into a single UCINET file,
 #' you will need to unpack them and convert them one by one.
 #' @examples
@@ -20,150 +54,252 @@
 #' horseplay <- read_ucinet("WIRING-RDGAM.##h")
 #' }
 #' @author Christian Steglich, 18 June 2015
-#' @seealso [convert]
+#' @importFrom utils read.csv read.csv2 read.table write.csv write.csv2
+#' @name read
+#' @seealso [coercion]
 NULL
 
-#' @rdname read
-#' @importFrom readxl read_xlsx
+#' @describeIn read Reading edgelists from Excel/csv files
+#' @importFrom xlsx read.xlsx
 #' @export
-read_edgelist <- function(file) {
-  xl <- readxl::read_xlsx(file, col_names = TRUE)
-  as_igraph(xl)
-}
-
-#' @rdname read
-#' @export
-read_ucinet <- function(header_file) {
-  if (missing(header_file)) {
-    header_file <- file.choose()
+read_edgelist <- function(file = file.choose(), 
+                          sv = c("comma", "semi-colon"),
+                          ...){
+  sv <- match.arg(sv)
+  if (grepl("csv$", file)) {
+    if (sv == "comma") {
+      out <- read.csv(file, header = TRUE, ...) # For US
+    } else {
+      out <- read.csv2(file, header = TRUE, ...) # For EU
+    }
+  } else if (grepl("xlsx$|xls$", file)) {
+    out <- xlsx::read.xlsx(file, header = TRUE, ...)
   }
-	read_ucinet_header <- function(header_file) {
-	  UCINET.header <- file(header_file, "rb")
-		ignore <- readBin(UCINET.header, what = "int", size = 1)
-		headerversion <- paste(
-			rawToChar(readBin(UCINET.header, what = "raw", size = 1)),
-			rawToChar(readBin(UCINET.header, what = "raw", size = )),
-			rawToChar(readBin(UCINET.header, what = "raw", size = 1)),
-			rawToChar(readBin(UCINET.header, what = "raw", size = 1)),
-			rawToChar(readBin(UCINET.header, what = "raw", size = 1)),
-			sep = "")
-		if (!(headerversion %in% c('DATE:', 'V6404'))) {
-			close(UCINET.header)
-			stop(paste('unknown header type; try more recent UCINET file types'))
-		}
-		year <- 2000 + readBin(UCINET.header, what = "int", size = 2)
-		month <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",
-			"Sep", "Oct", "Nov", "Dec")[readBin(UCINET.header, what = "int", size = 2)]
-		day <- readBin(UCINET.header, what = "int", size = 2)
-		dow <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
-			"Saturday", "Sunday")[readBin(UCINET.header, what = "int",size = 2)]
-		labtype <- readBin(UCINET.header, what = "int", size = 2)
-		infile.dt <- c("nodt", "bytedt" ,"booleandt", "shortintdt", "worddt",
-			"smallintdt", "longintdt", "singledt", "realdt", "doubledt",
-			"compdt", "extendeddt", "labeldt", "setdt", "stringdt", "pointerdt",
-			"chardt", "integerdt", "nodelistdt", "sparsedt", "int64dt")[
-			readBin(UCINET.header, what = "int", size = 1)]
-		ndim <- readBin(UCINET.header, what = "int", size = 2)
-		if (headerversion == "V6404") {fct = 2} else {fct = 1}
-		dims <- c(readBin(UCINET.header, what = "int", size = 2 * fct),
-			readBin(UCINET.header, what = "int", size = 2*fct))
-		if (ndim == 3) {
-			dims[3] <- readBin(UCINET.header, what = "int", size = 2*fct)
-		}
-		if (!(ndim == 2 | ndim == 3 & dims[3] == 1)) {
-			close(UCINET.header)
-			stop(paste('UCINET file with',dims[3],'levels; please convert separately'))
-		}
-		t.length <- readBin(UCINET.header, what = "int", size = 1)
-		if (t.length > 0) {
-			titl <- vapply(seq_len(t.length), function(i) {
-				rawToChar(readBin(UCINET.header, what = "raw", size = 1))
-			})
-			titl <- paste(titl, collapse = "")
-		} else {titl <- ""}
-		haslab <- c(readBin(UCINET.header, what = "logical", size = 1),
-			readBin(UCINET.header, what = "logical",size = 1))
-		if (ndim == 3) {
-			haslab[3] <- readBin(UCINET.header, what = "logical", size = 1)
-		}
-		dim.labels <- list()
-		for (arr.dim in seq_len(length(dims))) {
-		if (haslab[arr.dim]) {
-			dim.labels[[arr.dim]] <- rep(NA,dims[arr.dim])
-			for (i in seq_len(dims[arr.dim])) {
-				lab <- ""
-				lablen <- readBin(UCINET.header, what = "int", size = 2)
-				for (let in seq_len(lablen)) {
-					lab <- paste(lab,
-						rawToChar(readBin(UCINET.header, what = "raw", size = 1)),
-						sep = "")
-				}
-				dim.labels[[arr.dim]][i] <- lab
-			}
-		}}
-		close(UCINET.header)
-		if (ndim == 3 & dims[3] == 1) {
-			titl <- dim.labels[[3]][1]
-			# warning(paste('UCINET file with one level; level name "',
-			# 	titl,'" treated as network name',sep=''))
-			ndim <- 2
-			dims <- dims[1:2]
-			haslab <- haslab[1:2]
-			dim.labels <- dim.labels[1:2]
-		}
-		return(list(
-			headerversion = headerversion,
-			date = paste(dow,paste(day,month,year,sep = "-")),
-			labtype = labtype,
-			infile.dt = infile.dt,
-			ndim = ndim,
-			dims = dims,
-			titl = titl,
-			haslab = haslab,
-			dim.labels = dim.labels
-		))
-	}
-	# begin of main function code:
-	header <- read_ucinet_header(header_file)
-	file <- sub(".##h","", header_file)
-	UCINET.data <- file(paste(file, ".##d", sep = ""), "rb")
-	thedata <- vector()
-	for (i in 1:(header$dims[1]*header$dims[2]))
-		thedata[i] <- readBin(UCINET.data,
-		                      what = "numeric",
-		                      size = 4,
-		                      endian = "little")
-	close(UCINET.data)
-	mat <- matrix(thedata,
-	              nrow = header$dims[2],
-	              ncol = header$dims[1],
-	              dimnames = header$dim.labels[c(2,1)],
-	              byrow = TRUE)
-	# put additional info from header file on matrix
-	if (header$title != "") {attr(mat,"title") <- header$title}
-	attr(mat,"date") <- header$date
-	#attr(mat,'labtype') <- header$labtype
-	#attr(mat,'infile.dt') <- header$infile.dt
-	as_igraph(mat)
 }
 
-#' @rdname read
-#' @param object A migraph-consistent object to be exported.
+#' @describeIn read Writing edgelists to Excel files
+#' @importFrom xlsx write.xlsx
+#' @export
+write_edgelist <- function(object,
+                           filename,
+                           name,
+                          ...){
+  if(missing(object)){
+    out <- data.frame(from = c("A", "B", "C"),
+                         to = c("B", "C", "A"),
+                         weight = c(1.1, 11, 110))
+    object_name <- "test"
+  } else {
+    object_name <- deparse(substitute(object))
+    out <- as.data.frame(as_edgelist(object))
+  }
+  if(missing(filename)) filename <- paste0(getwd(), "/", object_name, ".xlsx")
+  if(missing(name)) name <- object_name
+  xlsx::write.xlsx(out, file = filename, sheetName = name, row.names = FALSE, ...)
+}
+
+#' @describeIn read Reading nodelists from Excel/csv files
+#' @export
+read_nodelist <- function(file = file.choose(),
+                          sv = c("comma", "semi-colon"),
+                          ...){
+  sv <- match.arg(sv)
+  if (grepl("csv$", file)) {
+    if (sv == ",") {
+      out <- read.csv(file, header = TRUE, ...) # For US
+    } else {
+      out <- read.csv2(file, header = TRUE, ...) # For EU
+    }
+  } else if (grepl("xlsx$|xls$", file)) {
+    out <- xlsx::read.xlsx(file, header = TRUE, ...)
+  }
+}
+
+#' @describeIn read Writing nodelists to Excel files
+#' @export
+write_nodelist <- function(object,
+                           filename,
+                           name,
+                           ...){
+  if(missing(object)){
+    out <- data.frame(type = c(FALSE, FALSE, TRUE),
+                      name = c("A", "B", "C"))
+    object_name <- "test"
+  } else {
+    object_name <- deparse(substitute(object))
+    out <- as.data.frame(as_tidygraph(object))
+  }
+  if(missing(filename)) filename <- paste0(getwd(), "/", object_name, ".xlsx")
+  if(missing(name)) name <- object_name
+  xlsx::write.xlsx(out, file = filename, sheetName = name, row.names = FALSE, ...)
+}
+
+#' @describeIn read Reading pajek (.net/.paj) files
+#' @importFrom network read.paj
+#' @export
+read_pajek <- function(file = file.choose(), ...){
+  out <- network::read.paj(file, ...)
+  if(!is.network(out)) out <- out[[1]][[1]]
+  as_tidygraph(out)
+}
+
+#' @describeIn read Writing pajek .net files
+#' @importFrom igraph write_graph
+#' @export
+write_pajek <- function(object,
+                        filename,
+                        ...){
+  if(missing(filename)){
+    object_name <- deparse(substitute(object))
+    filename <- paste0(getwd(), "/", object_name, ".net")
+  } 
+  igraph::write_graph(as_igraph(object),
+                             file = filename,
+                             format = "pajek",
+                             ...)
+}
+
+# igraph::write_graph(graph = object, file = path, ...)
+
+#' @describeIn read Reading UCINET files
+#' @export
+read_ucinet <- function(file = file.choose(),
+                        ...) {
+
+  if(grepl(".##h$", file)){
+    read_ucinet_header <- function(header_file) {
+      UCINET.header <- file(header_file, "rb")
+      ignore <- readBin(UCINET.header, what = "int", size = 1)
+      headerversion <- paste(
+        rawToChar(readBin(UCINET.header, what = "raw", size = 1)),
+        rawToChar(readBin(UCINET.header, what = "raw", size = )),
+        rawToChar(readBin(UCINET.header, what = "raw", size = 1)),
+        rawToChar(readBin(UCINET.header, what = "raw", size = 1)),
+        rawToChar(readBin(UCINET.header, what = "raw", size = 1)),
+        sep = "")
+      if (!(headerversion %in% c('DATE:', 'V6404'))) {
+        close(UCINET.header)
+        stop(paste('unknown header type; try more recent UCINET file types'))
+      }
+      year <- 2000 + readBin(UCINET.header, what = "int", size = 2)
+      month <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",
+                 "Sep", "Oct", "Nov", "Dec")[readBin(UCINET.header, what = "int", size = 2)]
+      day <- readBin(UCINET.header, what = "int", size = 2)
+      dow <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+               "Saturday", "Sunday")[readBin(UCINET.header, what = "int",size = 2)]
+      labtype <- readBin(UCINET.header, what = "int", size = 2)
+      infile.dt <- c("nodt", "bytedt" ,"booleandt", "shortintdt", "worddt",
+                     "smallintdt", "longintdt", "singledt", "realdt", "doubledt",
+                     "compdt", "extendeddt", "labeldt", "setdt", "stringdt", "pointerdt",
+                     "chardt", "integerdt", "nodelistdt", "sparsedt", "int64dt")[
+                       readBin(UCINET.header, what = "int", size = 1)]
+      ndim <- readBin(UCINET.header, what = "int", size = 2)
+      if (headerversion == "V6404") {fct = 2} else {fct = 1}
+      dims <- c(readBin(UCINET.header, what = "int", size = 2 * fct),
+                readBin(UCINET.header, what = "int", size = 2*fct))
+      if (ndim == 3) {
+        dims[3] <- readBin(UCINET.header, what = "int", size = 2*fct)
+      }
+      if (!(ndim == 2 | ndim == 3 & dims[3] == 1)) {
+        close(UCINET.header)
+        stop(paste('UCINET file with',dims[3],'levels; please convert separately'))
+      }
+      t.length <- readBin(UCINET.header, what = "int", size = 1)
+      if (t.length > 0) {
+        titl <- vapply(seq_len(t.length), function(i) {
+          rawToChar(readBin(UCINET.header, what = "raw", size = 1))
+        })
+        titl <- paste(titl, collapse = "")
+      } else {titl <- ""}
+      haslab <- c(readBin(UCINET.header, what = "logical", size = 1),
+                  readBin(UCINET.header, what = "logical",size = 1))
+      if (ndim == 3) {
+        haslab[3] <- readBin(UCINET.header, what = "logical", size = 1)
+      }
+      dim.labels <- list()
+      for (arr.dim in seq_len(length(dims))) {
+        if (haslab[arr.dim]) {
+          dim.labels[[arr.dim]] <- rep(NA,dims[arr.dim])
+          for (i in seq_len(dims[arr.dim])) {
+            lab <- ""
+            lablen <- readBin(UCINET.header, what = "int", size = 2)
+            for (let in seq_len(lablen)) {
+              lab <- paste(lab,
+                           rawToChar(readBin(UCINET.header, what = "raw", size = 1)),
+                           sep = "")
+            }
+            dim.labels[[arr.dim]][i] <- lab
+          }
+        }}
+      close(UCINET.header)
+      if (ndim == 3 & dims[3] == 1) {
+        titl <- dim.labels[[3]][1]
+        # warning(paste('UCINET file with one level; level name "',
+        # 	titl,'" treated as network name',sep=''))
+        ndim <- 2
+        dims <- dims[1:2]
+        haslab <- haslab[1:2]
+        dim.labels <- dim.labels[1:2]
+      }
+      return(list(
+        headerversion = headerversion,
+        date = paste(dow,paste(day,month,year,sep = "-")),
+        labtype = labtype,
+        infile.dt = infile.dt,
+        ndim = ndim,
+        dims = dims,
+        titl = titl,
+        haslab = haslab,
+        dim.labels = dim.labels
+      ))
+    }
+    # begin of main function code:
+    header <- read_ucinet_header(file)
+    file <- sub(".##h","", file)
+    UCINET.data <- file(paste(file, ".##d", sep = ""), "rb")
+    thedata <- vector()
+    for (i in 1:(header$dims[1]*header$dims[2]))
+      thedata[i] <- readBin(UCINET.data,
+                            what = "numeric",
+                            size = 4,
+                            endian = "little")
+    close(UCINET.data)
+    mat <- matrix(thedata,
+                  nrow = header$dims[2],
+                  ncol = header$dims[1],
+                  dimnames = header$dim.labels[c(2,1)],
+                  byrow = TRUE)
+    # put additional info from header file on matrix
+    if (header$title != "") {attr(mat,"title") <- header$title}
+    attr(mat,"date") <- header$date
+    #attr(mat,'labtype') <- header$labtype
+    #attr(mat,'infile.dt') <- header$infile.dt
+    as_tidygraph(mat)
+  }
+
+}
+
+#' @describeIn read Writing UCINET files
 #' @param filename UCINET filename (without ## extension).
 #' By default the files will have the same name as the object
 #' and be saved to the working directory.
 #' @param name name of matrix to be known in UCINET.
 #' By default the name will be the same as the object.
-#' @return A pair of UCINET files in V6404 file format (.##h, .##h)
+#' @return A pair of UCINET files in V6404 file format (.##h, .##d)
 #' @examples
 #' \dontrun{
 #' # export it again to UCINET under a different name:
-#' write.ucinet(horseplay,"R&D-horseplay")
+#' write_ucinet(horseplay,"R&D-horseplay")
 #' }
 #' @export
 write_ucinet <- function(object,
-                         filename = deparse(substitute(object)),
-                         name = deparse(substitute(object))) {
+                         filename,
+                         name) {
+  
+  object_name <- deparse(substitute(object))
+  if(missing(filename)) filename <- paste0(getwd(), "/", object_name, ".xlsx")
+  if(missing(name)) name <- object_name
+  
   mat <- as_matrix(object)
 	# start with UCINET header file:
 	UCINET.header <- file(paste(filename, ".##h", sep = ""), "wb")

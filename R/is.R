@@ -96,6 +96,17 @@ is_migraph <- function(object){
     is.matrix(object)
 }
 
+#' @rdname is
+#' @importFrom igraph is.igraph
+#' @importFrom tidygraph is.tbl_graph
+#' @importFrom network is.network
+#' @export
+is_graph <- function(object){
+  tidygraph::is.tbl_graph(object) |
+    network::is.network(object) |
+    igraph::is.igraph(object)
+}
+
 # igraph::is.chordal()
 # igraph::is.dag()
 # igraph::is.degree.sequence()

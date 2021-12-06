@@ -1,7 +1,7 @@
 Package: migraph
 Title: Multimodal and Multilevel Network Analysis
-Version: 0.8.8
-Date: 2021-11-22
+Version: 0.8.9
+Date: 2021-12-06
 Description: A set of tools that extend common social network analysis packages
    for analysing multimodal and multilevel networks.
    It includes functions for one- and two-mode (and sometimes three-mode) 
@@ -32,7 +32,6 @@ Imports:
     oaqc,
     purrr,
     RColorBrewer,
-    readxl,
     rlang,
     sna,
     stringr,
@@ -40,7 +39,8 @@ Imports:
     tidygraph,
     tidyr,
     concaveman,
-    ggforce
+    ggforce,
+    xlsx
 Suggests: 
     knitr,
     testthat,

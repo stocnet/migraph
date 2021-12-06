@@ -5,6 +5,7 @@
 \alias{blockmodel_concor}
 \alias{print.blockmodel}
 \alias{reduce_graph}
+\alias{summarise_statistics}
 \title{Blockmodelling}
 \source{
 \url{https://github.com/aslez/concoR}
@@ -23,6 +24,8 @@ blockmodel_concor(
 \method{print}{blockmodel}(x, ...)
 
 reduce_graph(blockmodel, block_labels = NULL)
+
+summarise_statistics(node_measure, clusters = NULL, sumFUN = mean)
 }
 \arguments{
 \item{object}{A migraph-consistent object (matrix, igraph, tidygraph).}
@@ -48,6 +51,12 @@ Options are: "density", "sum", "meanrowsum", "meancolsum",
 
 \item{block_labels}{A character vector manually providing labels
 for the blocks in the blockmodel}
+
+\item{node_measure}{A vector or matrix of node-level statistics,
+such as centrality measures or a census.}
+
+\item{sumFUN}{A function by which the values should be aggregated
+or summarised. By default \code{mean}.}
 }
 \description{
 Blockmodelling
@@ -59,6 +68,10 @@ plot(mex_concor)
 usa_concor <- blockmodel_concor(mpn_elite_usa_advice)
 usa_concor
 plot(usa_concor)
+summarise_statistics(node_degree(mpn_elite_mex), 
+          cutree(cluster_structural_equivalence(mpn_elite_mex), 3))
+summarise_statistics(node_triad_census(mpn_elite_mex), 
+          cutree(cluster_structural_equivalence(mpn_elite_mex), 3))
 }
 \references{
 Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.

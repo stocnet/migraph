@@ -14,7 +14,7 @@ add_node_attributes <- function(object, attr_name, vector){
   if(length(vector)!=graph_nodes(object)) 
     stop("Attribute vector must be same length as nodes in object.")
   object <- as_igraph(object)
-  vertex_attr(object, name = attr_name) <- vector
+  igraph::vertex_attr(object, name = attr_name) <- vector
   object
 }
 
@@ -40,6 +40,7 @@ copy_node_attributes <- function(object, object2){
 #' @rdname add
 #' @importFrom igraph add_edges
 #' @importFrom rlang :=
+#' @importFrom dplyr mutate summarise across group_by everything
 #' @examples 
 #' autographr(mpn_elite_mex)
 #' both <- mutate_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
@@ -49,6 +50,8 @@ copy_node_attributes <- function(object, object2){
 #' @export
 mutate_edges <- function(object, object2, attr_name){
   edges <- NULL
+  from <- NULL
+  to <- NULL
   el <- c(t(as.matrix(as_edgelist(object2))))
   out <- igraph::add_edges(as_igraph(object),
                            el, object2 = 1) %>% 
@@ -59,8 +62,11 @@ mutate_edges <- function(object, object2, attr_name){
       rename(!!attr_name := "object2")
   }
   
-  edges <- out %>% activate(edges) %>% as.data.frame() %>% group_by(from, to) %>% 
-    summarise(across(everything(), 
+  edges <- out %>%
+    activate(edges) %>%
+    as.data.frame() %>%
+    dplyr::group_by(from, to) %>%
+    dplyr::summarise(across(everything(), 
                      function(x){
                        out <- suppressWarnings(max(x, na.rm = TRUE))
                        if(is.infinite(out)) out <- 0

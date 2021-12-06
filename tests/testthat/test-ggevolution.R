@@ -11,4 +11,10 @@ test_that("ggevolution function works", {
   expect_named(testplot[1], c('grobs', 'layout', 'widths', 'heights', 'respect', 'name', 'gp', 'vp', 'children', 'childrenOrder'))
   expect_false(isTRUE(all.equal(testplot, testplot2)))
   expect_false(isTRUE(all.equal(testplot, testplot3)))
+  expect_error(ggevolution(mpn_elite_mex, mpn_elite_mex2, mpn_elite_mex2))
 })
+
+# Needs an internal time series network
+# test_that("ggatyear function works", {
+#   ggatyear(qEnviron::memberships$IEADB_MEM[1:10, ], 1902)
+# })

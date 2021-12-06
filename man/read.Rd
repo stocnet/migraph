@@ -3,24 +3,41 @@
 \name{read}
 \alias{read}
 \alias{read_edgelist}
+\alias{write_edgelist}
+\alias{read_nodelist}
+\alias{write_nodelist}
+\alias{read_pajek}
+\alias{write_pajek}
 \alias{read_ucinet}
 \alias{write_ucinet}
 \title{Reading from/writing to external formats}
 \usage{
-read_edgelist(file)
+read_edgelist(file = file.choose(), sv = c("comma", "semi-colon"), ...)
 
-read_ucinet(header_file)
+write_edgelist(object, filename, name, ...)
 
-write_ucinet(
-  object,
-  filename = deparse(substitute(object)),
-  name = deparse(substitute(object))
-)
+read_nodelist(file = file.choose(), sv = c("comma", "semi-colon"), ...)
+
+write_nodelist(object, filename, name, ...)
+
+read_pajek(file = file.choose(), ...)
+
+write_pajek(object, filename, ...)
+
+read_ucinet(file = file.choose(), ...)
+
+write_ucinet(object, filename, name)
 }
 \arguments{
-\item{file, header_file}{A character string giving the path to the header
-(.##h) file. If the function is called without a header_file specified,
-an OS-specific file picker is opened to help users select it.}
+\item{file}{A character string with the system path to the file to import.
+If left unspecified, an OS-specific file picker is opened to help users select it.
+Note that in \code{read_ucinet()} the file path should be to the header file (.##h),
+if it exists.}
+
+\item{sv}{Allows users to specify whether their csv file is
+\code{"comma"} (English) or \code{"semi-colon"} (European) separated.}
+
+\item{...}{Additional parameters passed to the read/write function.}
 
 \item{object}{A migraph-consistent object to be exported.}
 
@@ -32,23 +49,74 @@ and be saved to the working directory.}
 By default the name will be the same as the object.}
 }
 \value{
-By default, \code{\link[=read_ucinet]{read_ucinet()}} and \code{\link[=read_edgelist]{read_edgelist()}}
-will import into an igraph format,
-but can be easily coerced from there into other formats.
+The \code{read_edgelist()} and \code{read_nodelist()} functions will import
+into edgelist (tibble) format which can then be coerced or combined into
+different graph objects from there.
 
-A pair of UCINET files in V6404 file format (.##h, .##h)
+The \code{read_pajek()} and \code{read_ucinet()} functions will import into
+a tidygraph format, since they already contain both edge and attribute data.
+Note that all graphs can be easily coerced into other formats
+with \code{{migraph}}'s \code{as_} methods.
+
+The \code{write_}functions export to different file formats,
+depending on the function.
+
+A pair of UCINET files in V6404 file format (.##h, .##d)
 }
 \description{
-These functions import from and export to UCINET network files.
+Users regularly need to work with a variety of external data formats.
+The following functions offers ways to import from some common external
+file formats into objects that \code{{migraph}} and other graph/network packages
+in R can work with.
+Note that these functions are not as actively maintained as others
+in the package, so please let us know if any are not currently working
+for you by raising an issue on Github.
 }
 \details{
-These functions only work with relatively recent UCINET
+There are a number of repositories for network data
+that hold various datasets in different formats. See for example:
+\itemize{
+\item \href{https://sites.google.com/site/ucinetsoftware/datasets?authuser=0}{UCINET data}
+\item \href{http://vlado.fmf.uni-lj.si/pub/networks/data/}{Pajek data}
+}
+
+See also:
+\itemize{
+\item \href{http://networkdata.schochastics.net/}{networkdata}
+\item \href{http://www-personal.umich.edu/~mejn/netdata/}{GML datasets}
+\item \href{http://networkdata.ics.uci.edu/}{UCIrvine Network Data Repository}
+\item \href{http://konect.cc/}{KONECT project}
+\item \href{http://snap.stanford.edu/data/}{SNAP Stanford Large Network Dataset Collection}
+}
+
+Please let us know if you identify any further repositories
+of social or political networks and we would be happy to add them here.
+
+The \verb{_ucinet} functions only work with relatively recent UCINET
 file formats, e.g. type 6406 files.
 To import earlier UCINET file types, you will need to update them first.
-
 To import multiple matrices packed into a single UCINET file,
 you will need to unpack them and convert them one by one.
 }
+\section{Functions}{
+\itemize{
+\item \code{read_edgelist}: Reading edgelists from Excel/csv files
+
+\item \code{write_edgelist}: Writing edgelists to Excel files
+
+\item \code{read_nodelist}: Reading nodelists from Excel/csv files
+
+\item \code{write_nodelist}: Writing nodelists to Excel files
+
+\item \code{read_pajek}: Reading pajek (.net/.paj) files
+
+\item \code{write_pajek}: Writing pajek .net files
+
+\item \code{read_ucinet}: Reading UCINET files
+
+\item \code{write_ucinet}: Writing UCINET files
+}}
+
 \examples{
 \dontrun{
 # import Roethlisberger & Dickson's horseplay game data set:
@@ -56,11 +124,11 @@ horseplay <- read_ucinet("WIRING-RDGAM.##h")
 }
 \dontrun{
 # export it again to UCINET under a different name:
-write.ucinet(horseplay,"R&D-horseplay")
+write_ucinet(horseplay,"R&D-horseplay")
 }
 }
 \seealso{
-\link{convert}
+\link{coercion}
 }
 \author{
 Christian Steglich, 18 June 2015
