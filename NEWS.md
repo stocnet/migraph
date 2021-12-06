@@ -7,7 +7,7 @@
 * Added `read_` and `write_` functions and updated documentation
   * Closed #137 by adding `read_edgelist()` for importing edgelists from Excel and csv files
   * Closed #170 by adding `read_pajek()` for importing .net and .paj files
-  * Added `write_edgelist()` for exporting into Excel
+  * Added `write_edgelist()`, `write_nodelist`, `write_pajek()`, and `write_ucinet()` for exporting into various file formats (Excel, pajek, and ucinet)
   * Closed #140 by adding links to further data resources
 
 ## Manipulation
