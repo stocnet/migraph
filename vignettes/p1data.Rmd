@@ -1,9 +1,9 @@
 ---
-title: "Importing and Connecting data"
+title: "Practical 1"
 author: "James Hollway"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Importing and Connecting data}
+  %\VignetteIndexEntry{Practical 1}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,32 +15,84 @@ knitr::opts_chunk$set(
 )
 ```
 
-Data that we want to employ in network analysis may come in many different formats. Fortunately, `{migraph}` has a range of tools to help you import your data and manipulate it.
-  
+# Working with network data
+
+While `{migraph}` includes a number of datasets (see [here](https://snlab-ch.github.io/migraph/reference/index.html#section-data)),
+and there are several packages in R that already include
+a range of social network data,
+there often comes a time when it is necessary to import and analyse data
+from other sources.
+Fortunately, `{migraph}` has a range of tools you can employ to import your data and manipulate it.
+
 # Import data
-  
-To import your data, simply use the `read` functions in `{migraph}` and select the file from your directory. Currently, `{migraph}` supports excel and csv files as well as UCINET and pajek network files.
-  
-1. `read_edgelist()` and `read_nodelist()` imports data that is in a .csv, .xlsx or .xls format into an edgelist (tibble) format in R. This can be easily converted into other formats (see below on 'Manipulating Data').
-  
-2. `read_ucinet()` only imports from UCINET network files.
-  
-3. `read_pajek()` imports files in .net or .pak formats.
-  
-The `read_pajek()` and `read_ucinet()` functions will import into a tidygraph format in R, since they already contain both edge and attribute data.
-  
-Note that when the file name is unspecified, a file picker is opened for you to select the file you want to import.
-  
-```{Import data, include = TRUE, eval = FALSE}
-# To save the data to your environment as an object, remember to assign and name the imported file ('edgelist_1' in this first example)
-edgelist_1 <- read_edgelist(sv = ",") # or ";"
-tidygraph_1 <- read_ucinet()
-tidygraph_2 <- read_pajek()
+
+`{migraph}` includes several functions that help 
+read from (import) and write to (export) network data 
+in a growing number of formats.
+
+One format most users are long familiar with is Excel.
+In Excel, users are typically collecting network data as edgelists, nodelists, or both.
+Edgelists are typically the main object to be imported,
+and we can import them from an Excel file or a `.csv` file.^[Note that if you import from a .csv file, please specify whether the separation value should be commas (`sv = "comma"`) or semi-colons (`sv = "semi-colon"`).]
+
+```{r importedges, include = TRUE, eval = FALSE}
+g1 <- read_edgelist("~Downloads/mynetworkdata.xlsx")
+g1 <- read_edgelist("~Downloads/mynetworkdata.csv")
+g1 <- read_edgelist()
+n1 <- read_nodelist()
+```
+
+If you do not specify a particular file name, 
+a helpful popup will open that assists you with locating and importing a file
+from your operating system.
+Importing a nodelist of nodal attributes operates very similarly.
+
+In some cases, users will be faced with having to collect data themselves,
+or wish to first manipulate the data in Excel before importing it,
+but may be uncertain about the expected format of an edgelist.
+Here it may be useful to try exporting one of the built-in datasets
+in `{migraph}` to see how complete network data looks.
+If this is potentially complex, 
+calling `write_edgelist()` without any arguments will export a test
+file with a barebones structure that you can overwrite with your own data.
+
+```{r exportdata, include = FALSE, eval = FALSE}
+write_edgelist(southern_women)
+write_edgelist()
+write_nodelist(southern_women)
+write_nodelist()
+```
+
+There are other functions here too that help import from or export to
+common external network data formats.
+Here are some examples:
+
+```{r otherimports, include = TRUE, eval = FALSE}
+# for importing .net or .paj files
+read_pajek()
+write_pajek()
+# for importing .##h files 
+# (.##d files are automatically imported alongside)
+read_ucinet()
+write_ucinet()
 ```
   
-# Manipulating data
-  
-## Converting between formats
+# Converting between formats
+
+By default, read and write edgelists and nodelists will import objects
+into a data frame or tibble format or 'class' object,
+and read and write pajek or ucinet will import objects into a
+tidygraph class format
+
+These can be already useful, as `{migraph}` functions work
+with most main classes of network/graph objects in R: 
+edgelists, matrices, igraph, tidygraph, and network objects.
+
+However it is sometimes necessary to convert a given object from one type
+or 'class' to another.
+
+Once you have data imported into R, it may be necessary to change
+its format 
   
 If you prefer to work with the data as objects other than edgelist or tidygraph objects, they can also be easily converted into other formats using the `as_` functions in `{migraph}` that are discussed below. (Yay!) In a single step, objects are easily converted between several common classes of social network objects, including edgelists, matrices, igraphs, tidygraphs, and networks.
   
