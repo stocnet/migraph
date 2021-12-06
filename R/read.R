@@ -66,6 +66,19 @@ read_graph <- function(file = file.choose(),
   } else if (grepl("RData$", file)) {
     out <- loadRData(file, ...)
   } else if (grepl("txt$", file)) {
+#' @describeIn read Writing edgelists to Excel/csv files
+#' @importFrom xlsx write.xlsx
+#' @export
+write_edgelist <- function(object,
+                           filename,
+                           name,
+                          ...){
+  out <- as.data.frame(as_edgelist(object))
+  if(missing(filename)) filename <- paste0(getwd(), "/", deparse(substitute(object)), ".xlsx")
+  if(missing(name)) name <- deparse(substitute(object))
+  xlsx::write.xlsx(out, file = filename, sheetName = name, row.names = FALSE, ...)
+}
+
     out <- read.table(file, header = TRUE, ...)
   } else if (grepl("paj$|net$", file)) {
     out <- network::read.paj(file, ...) #network's read.paj function
