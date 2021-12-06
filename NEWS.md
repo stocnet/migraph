@@ -7,19 +7,19 @@
 * Added `read_` and `write_` functions and updated documentation
   * Closed #137 by adding `read_edgelist()` for importing edgelists from Excel and csv files
   * Closed #170 by adding `read_pajek()` for importing .net and .paj files
-  * Added `write_edgelist()`, `write_nodelist`, `write_pajek()`, and `write_ucinet()` for exporting into various file formats (Excel, pajek, and ucinet)
+  * Added `write_edgelist()`, `write_nodelist`, `write_pajek()`, and `write_ucinet()` for exporting into various file formats (Excel, csv, Pajek, and UCINET)
   * Closed #140 by adding links to further data resources
 
 ## Manipulation
+* Added `is_graph()` to check if an object is a graph or not
+* Extended `as_network()` to retain attributes
 * Fixed bugs in `as_` and `to_` functions
   * Fixed bug in `as_` functions to convert from dataframes instead of tibbles
   * Fixed bug in conversion from network to igraph object in `as_igraph()` function
   * Fixed bug in `to_undirected()` function to work with network objects
   * Fixed bug in `to_main_component()` function so that it retains vertex attributes in network objects
-* Added `is_graph()` to check if an object is a graph or not
-* Extended `as_network()` to retain attributes
+* Added `edge_attribute()` to grab a named edge attribute from a graph/network
 * Updated `to_unweighted()` to prevent conversion of network object into igraph object when deleting weights
-* Fixed tests for `to_` and `regression` functions
 
 ## Measures
 * Closed #143 by adding nodal summary by cluster function `summarise_statistics()`
