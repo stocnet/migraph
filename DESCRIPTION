@@ -32,7 +32,6 @@ Imports:
     oaqc,
     purrr,
     RColorBrewer,
-    readxl,
     rlang,
     sna,
     stringr,
@@ -40,7 +39,8 @@ Imports:
     tidygraph,
     tidyr,
     concaveman,
-    ggforce
+    ggforce,
+    xlsx
 Suggests: 
     knitr,
     testthat,

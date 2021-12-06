@@ -62,6 +62,7 @@
 NULL
 
 #' @describeIn read Reading edgelists from Excel/csv files
+#' @importFrom xlsx read.xlsx
 #' @export
 read_edgelist <- function(file = file.choose(), 
                           sv = c("comma", "semi-colon"),
@@ -74,7 +75,7 @@ read_edgelist <- function(file = file.choose(),
       out <- read.csv2(file, header = TRUE, ...) # For EU
     }
   } else if (grepl("xlsx$|xls$", file)) {
-    out <- readxl::read_xlsx(file, col_names = TRUE, ...)
+    out <- xlsx::read.xlsx(file, header = TRUE, ...)
   }
 }
 
