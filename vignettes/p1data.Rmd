@@ -3,7 +3,7 @@ title: "Importing and Connecting data"
 author: "James Hollway"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Import and connect data}
+  %\VignetteIndexEntry{Importing and Connecting data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
