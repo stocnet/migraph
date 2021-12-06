@@ -74,9 +74,17 @@ write_edgelist <- function(object,
                            filename,
                            name,
                           ...){
-  out <- as.data.frame(as_edgelist(object))
-  if(missing(filename)) filename <- paste0(getwd(), "/", deparse(substitute(object)), ".xlsx")
-  if(missing(name)) name <- deparse(substitute(object))
+  if(missing(object)){
+    out <- data.frame(from = c("A", "B", "C"),
+                         to = c("B", "C", "A"),
+                         weight = c(1.1, 11, 110))
+    object_name <- "test"
+  } else {
+    object_name <- deparse(substitute(object))
+    out <- as.data.frame(as_edgelist(object))
+  }
+  if(missing(filename)) filename <- paste0(getwd(), "/", object_name, ".xlsx")
+  if(missing(name)) name <- object_name
   xlsx::write.xlsx(out, file = filename, sheetName = name, row.names = FALSE, ...)
 }
 
