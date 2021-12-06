@@ -1,3 +1,27 @@
+# migraph 0.8.9
+
+## Package
+* Closed #139 by adding vignette on importing and connecting data
+
+## Import and export
+* Added `read_` and `write_` functions and updated documentation
+  * Closed #137 by adding `read_edgelist()` for importing edgelists from Excel and csv files
+  * Closed #170 by adding `read_pajek()` for importing .net and .paj files
+  * Added `write_edgelist()` for exporting into Excel
+
+## Manipulation
+* Fixed bugs in `as_` and `to_` functions
+  * Fixed bug in `as_` functions to convert from dataframes instead of tibbles
+  * Fixed bug in conversion from network to igraph object in `as_igraph()` function
+  * Fixed bug in `to_undirected()` function to work with network objects
+  * Fixed bug in `to_main_component()` function so that it retains vertex attributes in network objects
+* Added `is_graph()` to check if an object is a graph or not
+* Extended `as_network()` to retain attributes
+* Updated `to_unweighted()` to prevent conversion of network object into igraph object when deleting weights
+
+## Visualisation
+* Closed #117 by updating the node/edge/arrow size limits in `autographr()`
+
 # migraph 0.8.8
 
 ## Package
