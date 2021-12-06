@@ -34,7 +34,18 @@
 #' - [UCINET data](https://sites.google.com/site/ucinetsoftware/datasets?authuser=0)
 #' - [Pajek data](http://vlado.fmf.uni-lj.si/pub/networks/data/)
 #' 
-#' These functions only work with relatively recent UCINET
+#' See also:
+#' 
+#' - [networkdata](http://networkdata.schochastics.net/)
+#' - [GML datasets](http://www-personal.umich.edu/~mejn/netdata/)
+#' - [UCIrvine Network Data Repository](http://networkdata.ics.uci.edu/)
+#' - [KONECT project](http://konect.cc/)
+#' - [SNAP Stanford Large Network Dataset Collection](http://snap.stanford.edu/data/)
+#' 
+#' Please let us know if you identify any further repositories 
+#' of social or political networks and we would be happy to add them here.
+#' 
+#' The `_ucinet` functions only work with relatively recent UCINET
 #' file formats, e.g. type 6406 files.
 #' To import earlier UCINET file types, you will need to update them first.
 #' To import multiple matrices packed into a single UCINET file,
