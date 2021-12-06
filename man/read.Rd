@@ -23,11 +23,7 @@ read_pajek(file = file.choose(), ...)
 
 read_ucinet(file = file.choose(), ...)
 
-write_ucinet(
-  object,
-  filename = deparse(substitute(object)),
-  name = deparse(substitute(object))
-)
+write_ucinet(object, filename, name)
 }
 \arguments{
 \item{file}{A character string with the system path to the file to import.

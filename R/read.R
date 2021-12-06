@@ -267,8 +267,13 @@ read_ucinet <- function(file = file.choose(),
 #' }
 #' @export
 write_ucinet <- function(object,
-                         filename = deparse(substitute(object)),
-                         name = deparse(substitute(object))) {
+                         filename,
+                         name) {
+  
+  object_name <- deparse(substitute(object))
+  if(missing(filename)) filename <- paste0(getwd(), "/", object_name, ".xlsx")
+  if(missing(name)) name <- object_name
+  
   mat <- as_matrix(object)
 	# start with UCINET header file:
 	UCINET.header <- file(paste(filename, ".##h", sep = ""), "wb")
