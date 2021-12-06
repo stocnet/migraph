@@ -17,9 +17,13 @@
 #' @param to Selects the output formal the graph is converted to when imported.
 #' @param path Specify the path where the file will be written.
 #' @param ... Additional parameters passed to the read/write function.
-#' @return By default, all the following `read_` functions will import 
-#' into a tidygraph format.
-#' Note that graphs can be easily coerced into other formats 
+#' @return The `read_edgelist()` and `read_nodelist()` functions will import 
+#' into edgelist (tibble) format which can then be coerced or combined into
+#' different graph objects from there.
+#' 
+#' The `read_pajek()` and `read_ucinet()` functions will import into
+#' a tidygraph format, since they already contain both edge and attribute data.
+#' Note that all graphs can be easily coerced into other formats 
 #' with `{migraph}`'s `as_` methods.
 #' 
 #' The `write_`functions export to different file formats,
@@ -46,26 +50,23 @@
 #' @seealso [coercion]
 NULL
 
-#' @rdname read
+#' @describeIn read Reading edgelists from Excel/csv files
 #' @export
-read_graph <- function(file = file.choose(),
-                          csv = c(",", ";"),
-                          to = c("igraph", "tidygraph", "network"),
-                          ...) {
-  # Import process given the file type
+read_edgelist <- function(file = file.choose(), 
+                          sv = c("comma", "semi-colon"),
+                          ...){
+  sv <- match.arg(sv)
   if (grepl("csv$", file)) {
-    if (csv == ",") {
+    if (sv == "comma") {
       out <- read.csv(file, header = TRUE, ...) # For US
     } else {
       out <- read.csv2(file, header = TRUE, ...) # For EU
     }
   } else if (grepl("xlsx$|xls$", file)) {
     out <- readxl::read_xlsx(file, col_names = TRUE, ...)
-  } else if (grepl("dta$", file)) {
-    stop("Please use haven::read_dta to import Stata files.")
-  } else if (grepl("RData$", file)) {
-    out <- loadRData(file, ...)
-  } else if (grepl("txt$", file)) {
+  }
+}
+
 #' @describeIn read Writing edgelists to Excel/csv files
 #' @importFrom xlsx write.xlsx
 #' @export
