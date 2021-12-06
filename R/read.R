@@ -1,26 +1,38 @@
 #' Reading from/writing to external formats
 #' 
-#' These functions read and write graphs from and to a variety of formats.
-#' The `read_ucinet()` and `write_ucinet()` functions import from and export
-#' to UCINET network files.
-#' @name read
-#' @param file,header_file A character string giving the path to the header
-#' (.##h) file. If the function is called without a header_file specified,
-#' an OS-specific file picker is opened to help users select it.
-#' @param graph Graph object to be written from
+#' Users regularly need to work with a variety of external data formats.
+#' The following functions offers ways to import from some common external
+#' file formats into objects that `{migraph}` and other graph/network packages
+#' in R can work with.
+#' Note that these functions are not as actively maintained as others 
+#' in the package, so please let us know if any are not currently working 
+#' for you by raising an issue on Github.
+#' @param file A character string with the system path to the file to import.
+#' If left unspecified, an OS-specific file picker is opened to help users select it.
+#' Note that in `read_ucinet()` the file path should be to the header file (.##h),
+#' if it exists.
+#' @param object A migraph-consistent object to be exported.
 #' @param csv Allows users to specify whether their csv file is comma or column
 #' separated.
 #' @param to Selects the output formal the graph is converted to when imported.
 #' @param path Specify the path where the file will be written.
 #' @param ... Additional parameters passed to the read/write function.
-#' @return By default, [read_ucinet()] will import into an igraph format.
-#' [read_graph()] allows users to choose the format among those supported
-#' by `{migraph}`. Note that graphs can be easily coerced into other formats
+#' @return By default, all the following `read_` functions will import 
+#' into a tidygraph format.
+#' Note that graphs can be easily coerced into other formats 
 #' with `{migraph}`'s `as_` methods.
-#' @details These functions only work with relatively recent UCINET
+#' 
+#' The `write_`functions export to different file formats,
+#' depending on the function.
+#' @details There are a number of repositories for network data
+#' that hold various datasets in different formats. See for example:
+#' 
+#' - [UCINET data](https://sites.google.com/site/ucinetsoftware/datasets?authuser=0)
+#' - [Pajek data](http://vlado.fmf.uni-lj.si/pub/networks/data/)
+#' 
+#' These functions only work with relatively recent UCINET
 #' file formats, e.g. type 6406 files.
 #' To import earlier UCINET file types, you will need to update them first.
-#' 
 #' To import multiple matrices packed into a single UCINET file,
 #' you will need to unpack them and convert them one by one.
 #' @examples
@@ -30,7 +42,8 @@
 #' }
 #' @author Christian Steglich, 18 June 2015
 #' @importFrom utils read.csv read.csv2 read.table write.csv write.csv2
-#' @seealso [convert]
+#' @name read
+#' @seealso [coercion]
 NULL
 
 #' @rdname read
