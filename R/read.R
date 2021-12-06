@@ -12,8 +12,8 @@
 #' Note that in `read_ucinet()` the file path should be to the header file (.##h),
 #' if it exists.
 #' @param object A migraph-consistent object to be exported.
-#' @param csv Allows users to specify whether their csv file is comma or column
-#' separated.
+#' @param csv Allows users to specify whether their csv file is 
+#' comma (English) or semi-colon (European) separated.
 #' @param to Selects the output formal the graph is converted to when imported.
 #' @param path Specify the path where the file will be written.
 #' @param ... Additional parameters passed to the read/write function.
@@ -67,7 +67,7 @@ read_edgelist <- function(file = file.choose(),
   }
 }
 
-#' @describeIn read Writing edgelists to Excel/csv files
+#' @describeIn read Writing edgelists to Excel files
 #' @importFrom xlsx write.xlsx
 #' @export
 write_edgelist <- function(object,
@@ -88,6 +88,41 @@ write_edgelist <- function(object,
   xlsx::write.xlsx(out, file = filename, sheetName = name, row.names = FALSE, ...)
 }
 
+#' @describeIn read Reading nodelists from Excel/csv files
+#' @export
+read_nodelist <- function(file = file.choose(),
+                          sv = c("comma", "semi-colon"),
+                          ...){
+  sv <- match.arg(sv)
+  if (grepl("csv$", file)) {
+    if (sv == ",") {
+      out <- read.csv(file, header = TRUE, ...) # For US
+    } else {
+      out <- read.csv2(file, header = TRUE, ...) # For EU
+    }
+  } else if (grepl("xlsx$|xls$", file)) {
+    out <- readxl::read_xlsx(file, col_names = TRUE, ...)
+  }
+}
+
+#' @describeIn read Writing nodelists to Excel files
+#' @export
+write_nodelist <- function(object,
+                           filename,
+                           name,
+                           ...){
+  if(missing(object)){
+    out <- data.frame(type = c(FALSE, FALSE, TRUE),
+                      name = c("A", "B", "C"))
+    object_name <- "test"
+  } else {
+    object_name <- deparse(substitute(object))
+    out <- as.data.frame(as_tidygraph(object))
+  }
+  if(missing(filename)) filename <- paste0(getwd(), "/", object_name, ".xlsx")
+  if(missing(name)) name <- object_name
+  xlsx::write.xlsx(out, file = filename, sheetName = name, row.names = FALSE, ...)
+}
 
 #' @describeIn read Reading pajek (.net/.paj) files
 #' @importFrom network read.paj
