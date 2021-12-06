@@ -366,6 +366,7 @@ as_network.igraph <- function(object) {
 
 #' @export
 as_network.tbl_graph <- function(object) {
+  nodes <- NULL
   attr <- as.data.frame(activate(object, nodes))[-1]
   out <- as_network(as_matrix(object, weight = is_weighted(object)))
   if (length(attr) > 0) {

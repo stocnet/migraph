@@ -50,6 +50,8 @@ copy_node_attributes <- function(object, object2){
 #' @export
 mutate_edges <- function(object, object2, attr_name){
   edges <- NULL
+  from <- NULL
+  to <- NULL
   el <- c(t(as.matrix(as_edgelist(object2))))
   out <- igraph::add_edges(as_igraph(object),
                            el, object2 = 1) %>% 
