@@ -1,13 +1,15 @@
+test <- network_reg(weight ~ ego(Citations) + alter(Citations) + same(Discipline), ison_eies)
+
 test_that("network_reg estimates correctly",{
   set.seed(123)
-  test <- network_reg(weight ~ ego(Citations) + alter(Citations) + same(Discipline), ison_eies)
   expect_s3_class(test, "netlm")
   expect_equal(round(unname(test$coefficients),3), c(19.506, -0.150, -0.127, 4.194))
 })
 
+test <- summary(test, reps = 100)
+
 test_that("summary and print work correctly for network_reg",{
   set.seed(123)
-  test <- summary(network_reg(weight ~ ego(Citations) + alter(Citations) + same(Discipline), ison_eies))
   expect_s3_class(test, "summary.netlm")
   expect_equal(test$r.squared, 0.0223, tolerance = 0.01)
   expect_equal(test$adj.r.squared, 0.0194, tolerance = 0.01)
@@ -16,7 +18,6 @@ test_that("summary and print work correctly for network_reg",{
 
 test_that("print method work correctly for netlm",{
   set.seed(123)
-  test <- summary(network_reg(weight ~ ego(Citations) + alter(Citations) + same(Discipline), ison_eies))
   test <- capture.output(print(test))
   expect_equal(test[[2]], "Call:")
   expect_equal(test[[3]], "network_reg(formula = weight ~ ego(Citations) + alter(Citations) + ")
