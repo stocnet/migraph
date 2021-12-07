@@ -3,6 +3,7 @@ inst/doc
 .Rhistory
 .RData
 .Ruserdata
+.DS_Store
 data-raw/*
 docs/
 working/*
