@@ -6,5 +6,5 @@ test_that("is tests work", {
   expect_true(is_connected(southern_women))
   expect_false(is_complex(southern_women))
   expect_true(is_graph(southern_women))
-  expect_true(is_directed(as_network(southern_women)))
+  expect_false(is_directed(as_network(southern_women)))
 })
