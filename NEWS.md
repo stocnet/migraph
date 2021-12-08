@@ -1,3 +1,13 @@
+# migraph 0.8.10
+
+## Import and export
+* Replaced xlsx dependency in `read_edgelist()` and `read_nodelist()` to readxl to avoid Java dependency
+* Replaced xlsx dependency in `write_edgelist()` and `write_nodelist()` to avoid Java dependency
+  * Note that these functions will now export to .csv rather than .xlsx
+  
+## Manipulation
+* Fixed direction recognition bug in `as_network()`, `as_igraph()`, and `is_directed()`
+
 # migraph 0.8.9
 
 ## Package
