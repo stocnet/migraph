@@ -219,16 +219,24 @@ as_igraph.matrix <- function(object,
                              weight = FALSE,
                              twomode = FALSE) {
   if (nrow(object) != ncol(object) | twomode) {
-    if (!(all(object %in% c(0, 1)))) { # Detect if weighted
-      graph <- igraph::graph_from_incidence_matrix(object, weighted = TRUE)
+    if(!(all(object %in% c(0, 1)))){
+      graph <- igraph::graph_from_incidence_matrix(object, 
+                                                   weighted = TRUE, 
+                                                   directed = FALSE)
     } else {
-      graph <- igraph::graph_from_incidence_matrix(object)
+      graph <- igraph::graph_from_incidence_matrix(object, 
+                                                   directed = FALSE)
     }
   } else {
-    if (!(all(object %in% c(0, 1)))) { # Detect if weighted
-      graph <- igraph::graph_from_adjacency_matrix(object, weighted = TRUE)
+    if(!(all(object %in% c(0, 1)))){
+      graph <- igraph::graph_from_adjacency_matrix(object, 
+                                                   mode = ifelse(all(object == t(object)),
+                                                                 "undirected", "directed"),
+                                                   weighted = TRUE)
     } else {
-      graph <- igraph::graph_from_adjacency_matrix(object)
+      graph <- igraph::graph_from_adjacency_matrix(object, 
+                                                   mode = ifelse(all(object == t(object)),
+                                                                 "undirected", "directed"))
     }
   }
   graph
@@ -343,6 +351,7 @@ as_network.matrix <- function(object) {
   # Convert to adjacency matrix
   out <- to_multilevel(object)
   network::as.network(out, 
+                      directed = is_directed(object),
                       bipartite   = ifelse(is_twomode(object),
                                            nrow(object),
                                            FALSE),

@@ -102,11 +102,11 @@ you will need to unpack them and convert them one by one.
 \itemize{
 \item \code{read_edgelist}: Reading edgelists from Excel/csv files
 
-\item \code{write_edgelist}: Writing edgelists to Excel files
+\item \code{write_edgelist}: Writing edgelists to csv files
 
 \item \code{read_nodelist}: Reading nodelists from Excel/csv files
 
-\item \code{write_nodelist}: Writing nodelists to Excel files
+\item \code{write_nodelist}: Writing nodelists to csv files
 
 \item \code{read_pajek}: Reading pajek (.net/.paj) files
 
