@@ -60,7 +60,7 @@
 NULL
 
 #' @describeIn read Reading edgelists from Excel/csv files
-#' @importFrom xlsx read.xlsx
+#' @importFrom readxl read_excel
 #' @export
 read_edgelist <- function(file = file.choose(), 
                           sv = c("comma", "semi-colon"),
@@ -73,12 +73,12 @@ read_edgelist <- function(file = file.choose(),
       out <- read.csv2(file, header = TRUE, ...) # For EU
     }
   } else if (grepl("xlsx$|xls$", file)) {
-    out <- xlsx::read.xlsx(file, header = TRUE, ...)
+    out <- readxl::read_excel(file, header = TRUE, ...)
   }
+  out
 }
 
-#' @describeIn read Writing edgelists to Excel files
-#' @importFrom xlsx write.xlsx
+#' @describeIn read Writing edgelists to csv files
 #' @export
 write_edgelist <- function(object,
                            filename,
@@ -93,12 +93,13 @@ write_edgelist <- function(object,
     object_name <- deparse(substitute(object))
     out <- as.data.frame(as_edgelist(object))
   }
-  if(missing(filename)) filename <- paste0(getwd(), "/", object_name, ".xlsx")
+  if(missing(filename)) filename <- paste0(getwd(), "/", object_name, ".csv")
   if(missing(name)) name <- object_name
-  xlsx::write.xlsx(out, file = filename, sheetName = name, row.names = FALSE, ...)
+  write.csv(out, file = filename, row.names = FALSE, ...)
 }
 
 #' @describeIn read Reading nodelists from Excel/csv files
+#' @importFrom readxl read_excel
 #' @export
 read_nodelist <- function(file = file.choose(),
                           sv = c("comma", "semi-colon"),
@@ -111,11 +112,12 @@ read_nodelist <- function(file = file.choose(),
       out <- read.csv2(file, header = TRUE, ...) # For EU
     }
   } else if (grepl("xlsx$|xls$", file)) {
-    out <- xlsx::read.xlsx(file, header = TRUE, ...)
+    out <- readxl::read_excel(file, header = TRUE, ...)
   }
+  out
 }
 
-#' @describeIn read Writing nodelists to Excel files
+#' @describeIn read Writing nodelists to csv files
 #' @export
 write_nodelist <- function(object,
                            filename,
@@ -129,9 +131,9 @@ write_nodelist <- function(object,
     object_name <- deparse(substitute(object))
     out <- as.data.frame(as_tidygraph(object))
   }
-  if(missing(filename)) filename <- paste0(getwd(), "/", object_name, ".xlsx")
+  if(missing(filename)) filename <- paste0(getwd(), "/", object_name, ".csv")
   if(missing(name)) name <- object_name
-  xlsx::write.xlsx(out, file = filename, sheetName = name, row.names = FALSE, ...)
+  write.csv(out, file = filename, row.names = FALSE, ...)
 }
 
 #' @describeIn read Reading pajek (.net/.paj) files
