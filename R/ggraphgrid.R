@@ -1,6 +1,7 @@
 #' Plot graph to grid
 #'
 #' For quick and easy graphing of networks to a grid plot
+#' @noRd
 #' @details The function uses approximate pattern matching
 #' to redistributes the coarse layouts on the square grid points, while
 #' preserving the topological relationships among the nodes (see Inoue et al. 2012). 
