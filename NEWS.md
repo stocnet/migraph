@@ -7,6 +7,7 @@
 ## Package
 - Fixed #173 by extending `as_network()` method to convert correctly form
   an `{igraph}` to a `{network}` object.
+- Removed `ggraphgrid()` documentation
 
 # migraph 0.8.10
 
