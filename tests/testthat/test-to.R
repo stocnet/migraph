@@ -56,8 +56,8 @@ test_that("to_undirected works",{
                ((as_matrix(ison_coleman) + t(as_matrix(ison_coleman))) > 0) * 1)
   expect_equal(to_undirected(as_matrix(southern_women)),
                as_matrix(southern_women))
-  expect_equal(unname(as_matrix(to_undirected(as_network(ison_coleman)))[1, ]),
-               c(rep(0,9),1,rep(0,6)))
+  expect_equal(as_matrix(to_undirected(as_network(ison_coleman))),
+               as_matrix(to_undirected(ison_coleman)))
 })
 
 test_that("to_onemode works",{

@@ -348,13 +348,16 @@ as_network.network <- function(object) {
 
 #' @export
 as_network.matrix <- function(object) {
-  # Convert to adjacency matrix
-  out <- to_multilevel(object)
+  # Convert to adjacency matrix if not square already
+  if (nrow(object) != ncol(object)) {
+    out <- to_multilevel(object)
+  } else out <- object
   network::as.network(out, 
                       directed = is_directed(object),
                       bipartite   = ifelse(is_twomode(object),
                                            nrow(object),
                                            FALSE),
+                      loops = ifelse(sum(diag(out)) > 0, TRUE, FALSE),
                       ignore.eval = ifelse(is_weighted(object),
                                            FALSE, TRUE),
                       names.eval  = ifelse(is_weighted(object),
@@ -365,7 +368,8 @@ as_network.matrix <- function(object) {
 as_network.igraph <- function(object) {
   name <- type <- NULL
   attr <- as.data.frame(igraph::get.vertex.attribute(object))
-  attr <- subset(attr, select = c(-name, -type))
+  if ("name" %in% colnames(attr)) attr <- subset(attr, select = c(-name))
+  if ("type" %in% colnames(attr)) attr <- subset(attr, select = c(-type))
   out <- as_network(as_matrix(object, weight = is_weighted(object)))
   if (length(attr) > 0) {
     out <- network::set.vertex.attribute(out, names(attr), attr)
