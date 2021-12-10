@@ -28,6 +28,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -40,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.11</span>
       </span>
     </div>
 
@@ -63,6 +65,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/p1data.html">Practical 1</a>
+    </li>
+    <li>
       <a href="../articles/p3centrality.html">Practical 3</a>
     </li>
     <li>
@@ -82,7 +87,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/snlab-ch/migraph/">
+  <a href="https://github.com/snlab-ch/migraph/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -107,26 +112,26 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Practical 4</h1>
-                        <h4 class="author">James Hollway</h4>
+                        <h4 data-toc-skip class="author">James Hollway</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/master/vignettes/p4community.Rmd"><code>vignettes/p4community.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/vignettes/p4community.Rmd" class="external-link"><code>vignettes/p4community.Rmd</code></a></small>
       <div class="hidden name"><code>p4community.Rmd</code></div>
 
     </div>
 
     
     
-<p>For this lab, we’ll mostly rely on the <a href="https://igraph.org">igraph</a> and <a href="https://github.com/snlab-ch/migraph">migraph</a> packages for analysis. The data we’re going to use is included in the <a href="https://github.com/snlab-ch/migraph">migraph</a> package</p>
+<p>For this lab, we’ll mostly rely on the <a href="https://igraph.org" class="external-link">igraph</a> and <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> packages for analysis. The data we’re going to use is included in the <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> package</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/snlab-ch/migraph">migraph</a></span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"ison_m182"</span>, package <span class="op">=</span> <span class="st">"migraph"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a></span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ison_m182"</span>, package <span class="op">=</span> <span class="st">"migraph"</span><span class="op">)</span>
 <span class="co"># ?migraph::ison_m182</span></code></pre></div>
 <p>Note that you do not need to load the package using library() to get the data. Now you know how to create new matrices in R, load .csv files, saved .RData files, and data from packages!</p>
-<div id="working-with-multiplex-networks" class="section level1">
-<h1 class="hasAnchor">
-<a href="#working-with-multiplex-networks" class="anchor"></a>Working with Multiplex Networks</h1>
+<div class="section level1">
+<h1 id="working-with-multiplex-networks">Working with Multiplex Networks<a class="anchor" aria-label="anchor" href="#working-with-multiplex-networks"></a>
+</h1>
 <p>This dataset is multiplex, meaning that it contains several different types of ties: friendship, social and task interactions.</p>
 <p>The network is anonymous, but I think it would be nice to add some names, even if it’s just pretend. Luckily, I’ve added a function for this. This makes plotting the network just a wee bit more accessible:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -136,100 +141,100 @@
 <p>There are actually three different types of tie here. Let’s separate them out into separate networks.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to.html">to_uniplex</a></span><span class="op">(</span><span class="va">ison_m182</span>, <span class="st">"friend_tie"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tbl_graph: 16 nodes and 62 edges</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # A directed simple graph with 3 components</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # Node Data: 16 × 1 (active)</span>
-<span class="co">#&gt;   name   </span>
-<span class="co">#&gt;   &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 Melinda</span>
-<span class="co">#&gt; 2 Donald </span>
-<span class="co">#&gt; 3 Josue  </span>
-<span class="co">#&gt; 4 Beth   </span>
-<span class="co">#&gt; 5 Effie  </span>
-<span class="co">#&gt; 6 Tonya  </span>
-<span class="co">#&gt; # … with 10 more rows</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # Edge Data: 62 × 3</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 16 nodes and 62 edges</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # A directed simple graph with 3 components</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Node Data: 16 × 1 (active)</span></span>
+<span class="co">#&gt;   name     </span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Mackenzie</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Kathy    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Nina     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Willow   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Sheila   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Tanner   </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 10 more rows</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Edge Data: 62 × 3</span></span>
 <span class="co">#&gt;    from    to weight</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     2     1      1</span>
-<span class="co">#&gt; 2     2     7      1</span>
-<span class="co">#&gt; 3     2     8      1</span>
-<span class="co">#&gt; # … with 59 more rows</span>
-<span class="va">gfriend</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_friend</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Friendship"</span><span class="op">)</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     2     1      1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2     7      1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     8      1</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 59 more rows</span></span>
+<span class="va">gfriend</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_friend</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Friendship"</span><span class="op">)</span>
 <span class="op">(</span><span class="va">m182_social</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to.html">to_uniplex</a></span><span class="op">(</span><span class="va">ison_m182</span>, <span class="st">"social_tie"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tbl_graph: 16 nodes and 129 edges</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # A directed simple graph with 1 component</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # Node Data: 16 × 1 (active)</span>
-<span class="co">#&gt;   name   </span>
-<span class="co">#&gt;   &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 Melinda</span>
-<span class="co">#&gt; 2 Donald </span>
-<span class="co">#&gt; 3 Josue  </span>
-<span class="co">#&gt; 4 Beth   </span>
-<span class="co">#&gt; 5 Effie  </span>
-<span class="co">#&gt; 6 Tonya  </span>
-<span class="co">#&gt; # … with 10 more rows</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # Edge Data: 129 × 3</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 16 nodes and 129 edges</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # A directed simple graph with 1 component</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Node Data: 16 × 1 (active)</span></span>
+<span class="co">#&gt;   name     </span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Mackenzie</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Kathy    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Nina     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Willow   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Sheila   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Tanner   </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 10 more rows</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Edge Data: 129 × 3</span></span>
 <span class="co">#&gt;    from    to weight</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     5   1.2 </span>
-<span class="co">#&gt; 2     1     8   0.15</span>
-<span class="co">#&gt; 3     1     9   2.85</span>
-<span class="co">#&gt; # … with 126 more rows</span>
-<span class="va">gsocial</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_social</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Social"</span><span class="op">)</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     5   1.2 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     8   0.15</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1     9   2.85</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 126 more rows</span></span>
+<span class="va">gsocial</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_social</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Social"</span><span class="op">)</span>
 <span class="op">(</span><span class="va">m182_task</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to.html">to_uniplex</a></span><span class="op">(</span><span class="va">ison_m182</span>, <span class="st">"task_tie"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tbl_graph: 16 nodes and 88 edges</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # A directed simple graph with 1 component</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # Node Data: 16 × 1 (active)</span>
-<span class="co">#&gt;   name   </span>
-<span class="co">#&gt;   &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 Melinda</span>
-<span class="co">#&gt; 2 Donald </span>
-<span class="co">#&gt; 3 Josue  </span>
-<span class="co">#&gt; 4 Beth   </span>
-<span class="co">#&gt; 5 Effie  </span>
-<span class="co">#&gt; 6 Tonya  </span>
-<span class="co">#&gt; # … with 10 more rows</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # Edge Data: 88 × 3</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 16 nodes and 88 edges</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # A directed simple graph with 1 component</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Node Data: 16 × 1 (active)</span></span>
+<span class="co">#&gt;   name     </span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Mackenzie</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Kathy    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Nina     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Willow   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Sheila   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Tanner   </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 10 more rows</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Edge Data: 88 × 3</span></span>
 <span class="co">#&gt;    from    to weight</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     5    0.3</span>
-<span class="co">#&gt; 2     1     9    0.3</span>
-<span class="co">#&gt; 3     1    10    0.3</span>
-<span class="co">#&gt; # … with 85 more rows</span>
-<span class="va">gtask</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_task</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Task"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span><span class="va">gfriend</span>, <span class="va">gsocial</span>, <span class="va">gtask</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     5    0.3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     9    0.3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1    10    0.3</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 85 more rows</span></span>
+<span class="va">gtask</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_task</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Task"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">gfriend</span>, <span class="va">gsocial</span>, <span class="va">gtask</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <p><img src="p4community_files/figure-html/separatingnets-1.png" width="700"></p>
 </div>
-<div id="cohesion" class="section level1">
-<h1 class="hasAnchor">
-<a href="#cohesion" class="anchor"></a>Cohesion</h1>
+<div class="section level1">
+<h1 id="cohesion">Cohesion<a class="anchor" aria-label="anchor" href="#cohesion"></a>
+</h1>
 <p>Let’s concentrate on the task network for now and calculate a few basic measures of cohesion: density, reciprocity, transitivity, and components.</p>
-<div id="density" class="section level2">
-<h2 class="hasAnchor">
-<a href="#density" class="anchor"></a>Density</h2>
+<div class="section level2">
+<h2 id="density">Density<a class="anchor" aria-label="anchor" href="#density"></a>
+</h2>
 <p>Because this is a directed network,</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">m182_task</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">m182_task</span><span class="op">)</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">m182_task</span><span class="op">)</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html" class="external-link">E</a></span><span class="op">(</span><span class="va">m182_task</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">m182_task</span><span class="op">)</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">m182_task</span><span class="op">)</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.3666667</span></code></pre></div>
-<p>but we can also just use the <a href="https://github.com/snlab-ch/migraph">migraph</a> function…</p>
+<p>but we can also just use the <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> function…</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/cohesion.html">graph_density</a></span><span class="op">(</span><span class="va">m182_task</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.3666667</span></code></pre></div>
 <p>Same result? Is this high or low?</p>
 </div>
-<div id="closure" class="section level2">
-<h2 class="hasAnchor">
-<a href="#closure" class="anchor"></a>Closure</h2>
+<div class="section level2">
+<h2 id="closure">Closure<a class="anchor" aria-label="anchor" href="#closure"></a>
+</h2>
 <p>Next let’s calculate reciprocity.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/cohesion.html">graph_reciprocity</a></span><span class="op">(</span><span class="va">m182_task</span><span class="op">)</span>
@@ -240,9 +245,9 @@
 <span class="co">#&gt; [1] 0.5684211</span></code></pre></div>
 <p>What can we say about task closure in this network?</p>
 </div>
-<div id="components" class="section level2">
-<h2 class="hasAnchor">
-<a href="#components" class="anchor"></a>Components</h2>
+<div class="section level2">
+<h2 id="components">Components<a class="anchor" aria-label="anchor" href="#components"></a>
+</h2>
 <p>Now let’s look at the friend network.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/graph_components.html">graph_components</a></span><span class="op">(</span><span class="va">m182_friend</span><span class="op">)</span>
@@ -252,8 +257,8 @@
 <p>How many components are there? Why?</p>
 <p>We can use the membership vector in the resulting object to color nodes:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>weak_comp <span class="op">=</span> <span class="fu"><a href="../reference/node_components.html">node_components</a></span><span class="op">(</span><span class="va">m182_friend</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>weak_comp <span class="op">=</span> <span class="fu"><a href="../reference/node_components.html">node_components</a></span><span class="op">(</span><span class="va">m182_friend</span><span class="op">)</span>,
          strong_comp <span class="op">=</span> <span class="fu"><a href="../reference/node_components.html">node_components</a></span><span class="op">(</span><span class="va">m182_friend</span>, method <span class="op">=</span> <span class="st">"strong"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_friend</span>, node_color <span class="op">=</span> <span class="st">"weak_comp"</span><span class="op">)</span></code></pre></div>
 <p><img src="p4community_files/figure-html/comp-memb-1.png" width="700"></p>
@@ -262,92 +267,92 @@
 <p><img src="p4community_files/figure-html/comp-memb-2.png" width="700"></p>
 </div>
 </div>
-<div id="community-detection" class="section level1">
-<h1 class="hasAnchor">
-<a href="#community-detection" class="anchor"></a>Community Detection</h1>
+<div class="section level1">
+<h1 id="community-detection">Community Detection<a class="anchor" aria-label="anchor" href="#community-detection"></a>
+</h1>
 <p>Ok, the friendship network has 3-4 components, but how many ‘groups’ are there? Just visually, it looks like there are two denser clusters within the main component.</p>
 <p>Today we’ll use the friend subgraph for exploring community detection methods. For clarity and simplicity, concentrate on the main component and consider friendship undirected:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to.html">to_main_component</a></span><span class="op">(</span><span class="va">m182_friend</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tbl_graph: 14 nodes and 62 edges</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # A directed simple graph with 1 component</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # Node Data: 14 × 3 (active)</span>
-<span class="co">#&gt;   name    weak_comp strong_comp</span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Melinda         1           4</span>
-<span class="co">#&gt; 2 Donald          1           3</span>
-<span class="co">#&gt; 3 Josue           1           3</span>
-<span class="co">#&gt; 4 Effie           1           3</span>
-<span class="co">#&gt; 5 Tonya           1           3</span>
-<span class="co">#&gt; 6 Roxanne         1           3</span>
-<span class="co">#&gt; # … with 8 more rows</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # Edge Data: 62 × 3</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 14 nodes and 62 edges</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # A directed simple graph with 1 component</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Node Data: 14 × 3 (active)</span></span>
+<span class="co">#&gt;   name      weak_comp strong_comp</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Mackenzie         1           4</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Kathy             1           3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Nina              1           3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Sheila            1           3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Tanner            1           3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Jo                1           3</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 8 more rows</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Edge Data: 62 × 3</span></span>
 <span class="co">#&gt;    from    to weight</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     2     1      1</span>
-<span class="co">#&gt; 2     2     6      1</span>
-<span class="co">#&gt; 3     2     7      1</span>
-<span class="co">#&gt; # … with 59 more rows</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     2     1      1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2     6      1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     7      1</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 59 more rows</span></span>
 <span class="op">(</span><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to.html">to_undirected</a></span><span class="op">(</span><span class="va">m182_friend</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tbl_graph: 14 nodes and 42 edges</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # An undirected simple graph with 1 component</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # Node Data: 14 × 3 (active)</span>
-<span class="co">#&gt;   name    weak_comp strong_comp</span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Melinda         1           4</span>
-<span class="co">#&gt; 2 Donald          1           3</span>
-<span class="co">#&gt; 3 Josue           1           3</span>
-<span class="co">#&gt; 4 Effie           1           3</span>
-<span class="co">#&gt; 5 Tonya           1           3</span>
-<span class="co">#&gt; 6 Roxanne         1           3</span>
-<span class="co">#&gt; # … with 8 more rows</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # Edge Data: 42 × 3</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 14 nodes and 42 edges</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # An undirected simple graph with 1 component</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Node Data: 14 × 3 (active)</span></span>
+<span class="co">#&gt;   name      weak_comp strong_comp</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Mackenzie         1           4</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Kathy             1           3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Nina              1           3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Sheila            1           3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Tanner            1           3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Jo                1           3</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 8 more rows</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Edge Data: 42 × 3</span></span>
 <span class="co">#&gt;    from    to weight</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     2      1</span>
-<span class="co">#&gt; 2     1     4      1</span>
-<span class="co">#&gt; 3     3     4      2</span>
-<span class="co">#&gt; # … with 39 more rows</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     2      1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     4      1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3     4      2</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 39 more rows</span></span>
 <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_friend</span><span class="op">)</span></code></pre></div>
 <p><img src="p4community_files/figure-html/manip-fri-1.png" width="700"></p>
 <p>Comparing m182_friend before and after these operations, you’ll notice the number of edges decreases as reciprocated directed ties are consolidated into single undirected ties, and the number of vertices decreases as isolates are removed.</p>
-<p>There is no one single best community detection algorithm. Instead there are several, each with their strengths and weaknesses. Since this is a rather small network, we’ll focus on the following methods: walktrap, edge betweenness, and fast greedy. <a href="https://igraph.org">igraph</a> also includes others though too; all are named cluster_… As you use them, consider how they portray clusters and consider which one(s) afford a sensible view of the social world as cohesively organized.</p>
-<div id="walktrap" class="section level2">
-<h2 class="hasAnchor">
-<a href="#walktrap" class="anchor"></a>Walktrap</h2>
+<p>There is no one single best community detection algorithm. Instead there are several, each with their strengths and weaknesses. Since this is a rather small network, we’ll focus on the following methods: walktrap, edge betweenness, and fast greedy. <a href="https://igraph.org" class="external-link">igraph</a> also includes others though too; all are named cluster_… As you use them, consider how they portray clusters and consider which one(s) afford a sensible view of the social world as cohesively organized.</p>
+<div class="section level2">
+<h2 id="walktrap">Walktrap<a class="anchor" aria-label="anchor" href="#walktrap"></a>
+</h2>
 <p>This algorithm detects communities through a series of short random walks, with the idea that nodes encountered on any given random walk are more likely to be within a community than not. It was proposed by Pons and Latapy (2005).</p>
 <p>The algorithm initially treats all nodes as communities of their own, then merges them into larger communities, still larger communities, and so on. In each step a new community is created from two other communities, and its ID will be one larger than the largest community ID so far. This means that before the first merge we have n communities (the number of vertices in the graph) numbered from zero to n-1. The first merge creates community n, the second community n+1, etc. This merge history is returned by the function: <code># ?igraph::cluster_walktrap</code></p>
 <p>Note the “steps=” argument that specifies the length of the random walks. This is set to 4 by default, which is what is recommended by Pons and Latapy. However, Waugh et al (2009) found that for many groups (Congresses), these lengths did not provide the maximum modularity score. To be thorough in their attempts to optimize modularity, they ran the walktrap algorithm 50 times for each group (using random walks of lengths 1–50) and selected the network partition with the highest modularity value from those 50. They call this the “maximum modularity partition” and insert the parenthetical “(though, strictly speaking, this cannot be proven to be the optimum without computationally-prohibitive exhaustive enumeration (Brandes et al. 2008)).”</p>
 <p>So let’s try and get a community classification using the walktrap algorithm with path lengths of the random walks specified to be 50.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">friend_wt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cluster_walktrap.html">cluster_walktrap</a></span><span class="op">(</span><span class="va">m182_friend</span>, steps<span class="op">=</span><span class="fl">50</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">friend_wt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cluster_walktrap.html" class="external-link">cluster_walktrap</a></span><span class="op">(</span><span class="va">m182_friend</span>, steps<span class="op">=</span><span class="fl">50</span><span class="op">)</span>
 <span class="va">friend_wt</span>
 <span class="co">#&gt; IGRAPH clustering walktrap, groups: 2, mod: 0.33</span>
 <span class="co">#&gt; + groups:</span>
 <span class="co">#&gt;   $`1`</span>
-<span class="co">#&gt;   [1] "Donald"  "Roxanne" "Lucas"   "Gene"    "Vicky"  </span>
+<span class="co">#&gt;   [1] "Kathy" "Jo"    "Lula"  "Nancy" "Ivy"  </span>
 <span class="co">#&gt;   </span>
 <span class="co">#&gt;   $`2`</span>
-<span class="co">#&gt;   [1] "Melinda"  "Josue"    "Effie"    "Tonya"    "Harper"   "Sandra"  </span>
-<span class="co">#&gt;   [7] "Summer"   "Charlene" "Clifford"</span>
+<span class="co">#&gt;   [1] "Mackenzie" "Nina"      "Sheila"    "Tanner"    "Wilbur"    "Leola"    </span>
+<span class="co">#&gt;   [7] "Alton"     "Brayden"   "Javier"   </span>
 <span class="co">#&gt; </span></code></pre></div>
 <p>This says that dividing the graph into 2 communities maximises modularity, one with the nodes 2, 7, 8, 13, 14, and the other 1, 3, 5, 6, 9, 10, 11, 12, 15, resulting in a modularity of 0, -0.0560204, -0.0241837, -0.02, -0.0261224, -0.0076531, 0.0076531, 0.0546939, 0.0760204, 0.1005102, 0.1641837, 0.2284694, 0.3264286, 0.</p>
 <p>ADVANCED, we will also come back to this next week: We can visualise how clusters are hierarchically nested in a dendrogram.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">friend_dend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html">as.dendrogram</a></span><span class="op">(</span><span class="va">friend_wt</span>, use.modularity<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">friend_dend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">as.dendrogram</a></span><span class="op">(</span><span class="va">friend_wt</span>, use.modularity<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="../reference/blockmodel_vis.html">ggtree</a></span><span class="op">(</span><span class="va">friend_dend</span><span class="op">)</span></code></pre></div>
 <p><img src="p4community_files/figure-html/walkdendro-1.png" width="700"></p>
-<p>Note the x-axis reflects the distance metric used by the walktrap algorithm. For more on this see Pons and Latapy, <a href="https://arxiv.org/abs/physics/0512106" class="uri">https://arxiv.org/abs/physics/0512106</a>.</p>
+<p>Note the x-axis reflects the distance metric used by the walktrap algorithm. For more on this see Pons and Latapy, <a href="https://arxiv.org/abs/physics/0512106" class="external-link uri">https://arxiv.org/abs/physics/0512106</a>.</p>
 <p>We can also visualise the clusters on the original network How does the following look? Plausible?</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>walk_comm <span class="op">=</span> <span class="va">friend_wt</span><span class="op">$</span><span class="va">membership</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>walk_comm <span class="op">=</span> <span class="va">friend_wt</span><span class="op">$</span><span class="va">membership</span><span class="op">)</span>
 <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_friend</span>, node_color <span class="op">=</span> <span class="st">"walk_comm"</span><span class="op">)</span></code></pre></div>
 <p><img src="p4community_files/figure-html/walkplot-1.png" width="700"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
@@ -362,14 +367,14 @@
 <p><img src="p4community_files/figure-html/walkplot-3.png" width="700"></p>
 <p>This can be helpful when polygons overlap to better identify membership Or use node color and size to indicate other attributes…</p>
 </div>
-<div id="edge-betweenness" class="section level2">
-<h2 class="hasAnchor">
-<a href="#edge-betweenness" class="anchor"></a>Edge Betweenness</h2>
-<p>Edge betweenness <code><a href="https://rdrr.io/pkg/igraph/man/cluster_edge_betweenness.html">?cluster_edge_betweenness</a></code> is like betweenness centrality but for edges not nodes. The edge-betweenness score of an edge measures the number of shortest paths from one vertex to another that go through it.</p>
+<div class="section level2">
+<h2 id="edge-betweenness">Edge Betweenness<a class="anchor" aria-label="anchor" href="#edge-betweenness"></a>
+</h2>
+<p>Edge betweenness <code><a href="https://rdrr.io/pkg/igraph/man/cluster_edge_betweenness.html" class="external-link">?cluster_edge_betweenness</a></code> is like betweenness centrality but for edges not nodes. The edge-betweenness score of an edge measures the number of shortest paths from one vertex to another that go through it.</p>
 <p>The idea of the edge-betweenness based community structure detection is that it is likely that edges connecting separate clusters have high edge-betweenness, as all the shortest paths from one cluster to another must traverse through them. So if we iteratively remove the edge with the highest edge-betweenness score we will get a hierarchical map (dendrogram) of the communities in the graph.</p>
 <p>The following works similarly to walktrap, but no need to set a step length.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">friend_eb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cluster_edge_betweenness.html">cluster_edge_betweenness</a></span><span class="op">(</span><span class="va">m182_friend</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">friend_eb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cluster_edge_betweenness.html" class="external-link">cluster_edge_betweenness</a></span><span class="op">(</span><span class="va">m182_friend</span><span class="op">)</span>
 <span class="co">#&gt; Warning in cluster_edge_betweenness(m182_friend): At community.c:461 :Membership</span>
 <span class="co">#&gt; vector will be selected based on the lowest modularity score.</span>
 <span class="co">#&gt; Warning in cluster_edge_betweenness(m182_friend): At community.c:468 :Modularity</span>
@@ -380,16 +385,16 @@
 <span class="co">#&gt; IGRAPH clustering edge betweenness, groups: 3, mod: 0.41</span>
 <span class="co">#&gt; + groups:</span>
 <span class="co">#&gt;   $`1`</span>
-<span class="co">#&gt;   [1] "Melinda"  "Harper"   "Sandra"   "Charlene" "Clifford"</span>
+<span class="co">#&gt;   [1] "Mackenzie" "Wilbur"    "Leola"     "Brayden"   "Javier"   </span>
 <span class="co">#&gt;   </span>
 <span class="co">#&gt;   $`2`</span>
-<span class="co">#&gt;   [1] "Donald"  "Roxanne" "Lucas"   "Gene"    "Vicky"  </span>
+<span class="co">#&gt;   [1] "Kathy" "Jo"    "Lula"  "Nancy" "Ivy"  </span>
 <span class="co">#&gt;   </span>
 <span class="co">#&gt;   $`3`</span>
-<span class="co">#&gt;   [1] "Josue"  "Effie"  "Tonya"  "Summer"</span>
+<span class="co">#&gt;   [1] "Nina"   "Sheila" "Tanner" "Alton" </span>
 <span class="co">#&gt; </span></code></pre></div>
 <p>How does community membership differ here from that found by walktrap?</p>
-<p>We can see how the edge betweenness community detection method works here: <a href="http://jfaganuk.github.io/2015/01/24/basic-network-analysis/" class="uri">http://jfaganuk.github.io/2015/01/24/basic-network-analysis/</a> We can see which edges were removed in which order here:</p>
+<p>We can see how the edge betweenness community detection method works here: <a href="http://jfaganuk.github.io/2015/01/24/basic-network-analysis/" class="external-link uri">http://jfaganuk.github.io/2015/01/24/basic-network-analysis/</a> We can see which edges were removed in which order here:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">friend_eb</span><span class="op">$</span><span class="va">removed.edges</span>
 <span class="co">#&gt;  [1] 34  8 38  1 39 31 10 37 12 13 15  2 22 18 16  4 24 35 28 29 27 23 14 36 26</span>
@@ -398,36 +403,36 @@
 <span class="co">#&gt;  [1] -0.07224490 -0.05285714 -0.03438776  0.02806122  0.04653061  0.07102041</span>
 <span class="co">#&gt;  [7]  0.12418367  0.17316327  0.23836735  0.28132653  0.31602041  0.40785714</span>
 <span class="co">#&gt; [13]  0.32642857  0.00000000</span>
-<span class="fu"><a href="../reference/blockmodel_vis.html">ggtree</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html">as.dendrogram</a></span><span class="op">(</span><span class="va">friend_eb</span>, use.modularity <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/blockmodel_vis.html">ggtree</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">as.dendrogram</a></span><span class="op">(</span><span class="va">friend_eb</span>, use.modularity <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="p4community_files/figure-html/ebdendro-1.png" width="700"></p>
 <p>To visualise the result:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>eb_comm <span class="op">=</span> <span class="va">friend_eb</span><span class="op">$</span><span class="va">membership</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>eb_comm <span class="op">=</span> <span class="va">friend_eb</span><span class="op">$</span><span class="va">membership</span><span class="op">)</span>
 <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_friend</span>, 
            node_color <span class="op">=</span> <span class="st">"eb_comm"</span>, 
            node_group <span class="op">=</span> <span class="st">"eb_comm"</span><span class="op">)</span></code></pre></div>
 <p><img src="p4community_files/figure-html/ebplot-1.png" width="700"></p>
-<p>For more on this algorithm, see M Newman and M Girvan: Finding and evaluating community structure in networks, Physical Review E 69, 026113 (2004), <a href="https://arxiv.org/abs/cond-mat/0308217" class="uri">https://arxiv.org/abs/cond-mat/0308217</a>.</p>
+<p>For more on this algorithm, see M Newman and M Girvan: Finding and evaluating community structure in networks, Physical Review E 69, 026113 (2004), <a href="https://arxiv.org/abs/cond-mat/0308217" class="external-link uri">https://arxiv.org/abs/cond-mat/0308217</a>.</p>
 </div>
-<div id="fast-greedy" class="section level2">
-<h2 class="hasAnchor">
-<a href="#fast-greedy" class="anchor"></a>Fast Greedy</h2>
-<p>This algorithm <code><a href="https://rdrr.io/pkg/igraph/man/cluster_fast_greedy.html">?cluster_fast_greedy</a></code> is the Clauset-Newman-Moore algorithm. Whereas edge betweenness was divisive (top-down), the fast greedy algorithm is agglomerative (bottom-up).</p>
+<div class="section level2">
+<h2 id="fast-greedy">Fast Greedy<a class="anchor" aria-label="anchor" href="#fast-greedy"></a>
+</h2>
+<p>This algorithm <code><a href="https://rdrr.io/pkg/igraph/man/cluster_fast_greedy.html" class="external-link">?cluster_fast_greedy</a></code> is the Clauset-Newman-Moore algorithm. Whereas edge betweenness was divisive (top-down), the fast greedy algorithm is agglomerative (bottom-up).</p>
 <p>At each step, the algorithm seeks a merge that would most increase modularity. This is very fast, but has the disadvantage of being a greedy algorithm, so it might not produce the best overall community partitioning, although I personally find it both useful and in many cases quite “accurate”.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">friend_fg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cluster_fast_greedy.html">cluster_fast_greedy</a></span><span class="op">(</span><span class="va">m182_friend</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">friend_fg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cluster_fast_greedy.html" class="external-link">cluster_fast_greedy</a></span><span class="op">(</span><span class="va">m182_friend</span><span class="op">)</span>
 <span class="va">friend_fg</span> <span class="co"># Does this result in a different community partition?</span>
 <span class="co">#&gt; IGRAPH clustering fast greedy, groups: 3, mod: 0.41</span>
 <span class="co">#&gt; + groups:</span>
 <span class="co">#&gt;   $`1`</span>
-<span class="co">#&gt;   [1] "Melinda"  "Harper"   "Sandra"   "Charlene" "Clifford"</span>
+<span class="co">#&gt;   [1] "Mackenzie" "Wilbur"    "Leola"     "Brayden"   "Javier"   </span>
 <span class="co">#&gt;   </span>
 <span class="co">#&gt;   $`2`</span>
-<span class="co">#&gt;   [1] "Josue"  "Effie"  "Tonya"  "Summer"</span>
+<span class="co">#&gt;   [1] "Nina"   "Sheila" "Tanner" "Alton" </span>
 <span class="co">#&gt;   </span>
 <span class="co">#&gt;   $`3`</span>
-<span class="co">#&gt;   [1] "Donald"  "Roxanne" "Lucas"   "Gene"    "Vicky"  </span>
+<span class="co">#&gt;   [1] "Kathy" "Jo"    "Lula"  "Nancy" "Ivy"  </span>
 <span class="co">#&gt; </span>
 <span class="va">friend_fg</span><span class="op">$</span><span class="va">modularity</span> <span class="co"># Compare this to the edge betweenness procedure</span>
 <span class="co">#&gt;  [1] -7.224490e-02 -2.520408e-02  1.357143e-02  6.673469e-02  1.157143e-01</span>
@@ -435,24 +440,24 @@
 <span class="co">#&gt; [11]  3.731633e-01  4.078571e-01  3.264286e-01  1.110223e-16</span>
 
 <span class="co"># Again, we can visualise these communities in different ways:</span>
-<span class="fu"><a href="../reference/blockmodel_vis.html">ggtree</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html">as.dendrogram</a></span><span class="op">(</span><span class="va">friend_fg</span>, use.modularity <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span> <span class="co"># dendrogram</span></code></pre></div>
+<span class="fu"><a href="../reference/blockmodel_vis.html">ggtree</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">as.dendrogram</a></span><span class="op">(</span><span class="va">friend_fg</span>, use.modularity <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span> <span class="co"># dendrogram</span></code></pre></div>
 <p><img src="p4community_files/figure-html/fg-1.png" width="700"></p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>fg_comm <span class="op">=</span> <span class="va">friend_fg</span><span class="op">$</span><span class="va">membership</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>fg_comm <span class="op">=</span> <span class="va">friend_fg</span><span class="op">$</span><span class="va">membership</span><span class="op">)</span>
 <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_friend</span>, 
            node_color <span class="op">=</span> <span class="st">"fg_comm"</span>, 
            node_group <span class="op">=</span> <span class="st">"fg_comm"</span><span class="op">)</span></code></pre></div>
 <p><img src="p4community_files/figure-html/fg-2.png" width="700"></p>
-<p>See A Clauset, MEJ Newman, C Moore: Finding community structure in very large networks, <a href="https://arxiv.org/abs/cond-mat/0408187" class="uri">https://arxiv.org/abs/cond-mat/0408187</a></p>
+<p>See A Clauset, MEJ Newman, C Moore: Finding community structure in very large networks, <a href="https://arxiv.org/abs/cond-mat/0408187" class="external-link uri">https://arxiv.org/abs/cond-mat/0408187</a></p>
 </div>
 </div>
-<div id="two-mode-network-southern-women" class="section level1">
-<h1 class="hasAnchor">
-<a href="#two-mode-network-southern-women" class="anchor"></a>Two-mode network: Southern women</h1>
+<div class="section level1">
+<h1 id="two-mode-network-southern-women">Two-mode network: Southern women<a class="anchor" aria-label="anchor" href="#two-mode-network-southern-women"></a>
+</h1>
 <p>The next dataset is also available in migraph. Let’s take a look at the loaded objects.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"southern_women"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"southern_women"</span><span class="op">)</span>
 <span class="va">southern_women</span>
 <span class="co">#&gt; IGRAPH f8d9f5f UN-B 32 93 -- </span>
 <span class="co">#&gt; + attr: type (v/l), name (v/c)</span>
@@ -468,14 +473,14 @@
 <span class="co">#&gt; + ... omitted several edges</span>
 <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">southern_women</span>, node_color <span class="op">=</span> <span class="st">"type"</span><span class="op">)</span></code></pre></div>
 <p><img src="p4community_files/figure-html/setup-women-1.png" width="700"></p>
-<div id="project-two-mode-network-into-two-one-mode-networks" class="section level2">
-<h2 class="hasAnchor">
-<a href="#project-two-mode-network-into-two-one-mode-networks" class="anchor"></a>Project two-mode network into two one-mode networks</h2>
+<div class="section level2">
+<h2 id="project-two-mode-network-into-two-one-mode-networks">Project two-mode network into two one-mode networks<a class="anchor" aria-label="anchor" href="#project-two-mode-network-into-two-one-mode-networks"></a>
+</h2>
 <p>Now what if we are only interested in one part of the network? For that, we can obtain a ‘projection’ of the two-mode network. There are two ways of doing this. The hard way…</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">twomode_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/coercion.html">as_matrix</a></span><span class="op">(</span><span class="va">southern_women</span><span class="op">)</span>
-<span class="va">women_matrix</span> <span class="op">&lt;-</span> <span class="va">twomode_matrix</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">twomode_matrix</span><span class="op">)</span>
-<span class="va">event_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">twomode_matrix</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="va">twomode_matrix</span></code></pre></div>
+<span class="va">women_matrix</span> <span class="op">&lt;-</span> <span class="va">twomode_matrix</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">twomode_matrix</span><span class="op">)</span>
+<span class="va">event_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">twomode_matrix</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">twomode_matrix</span></code></pre></div>
 <p>Or the easy way</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">women_graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/project.html">project_rows</a></span><span class="op">(</span><span class="va">southern_women</span><span class="op">)</span>
@@ -496,9 +501,9 @@
 <p>What do we learn from this?</p>
 </div>
 </div>
-<div id="taskunit-test" class="section level1">
-<h1 class="hasAnchor">
-<a href="#taskunit-test" class="anchor"></a>Task/Unit Test</h1>
+<div class="section level1">
+<h1 id="taskunit-test">Task/Unit Test<a class="anchor" aria-label="anchor" href="#taskunit-test"></a>
+</h1>
 <ol style="list-style-type: decimal">
 <li>What is the difference between communities and components?</li>
 <li>Produce a plot comparing 3 community detection procedures used here on a (women) projection of the southern_women dataset. Identify which you prefer, and explain why.</li>
@@ -519,11 +524,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://jameshollway.com">James Hollway</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://jameshollway.com" class="external-link">James Hollway</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>

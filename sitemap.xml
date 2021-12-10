@@ -1,165 +1,195 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://snlab-ch.github.io/migraph//index.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/404.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/add.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/autographr.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/blockmodel.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/blockmodel_vis.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/brandes.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/census.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/articles/p1data.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/centrality.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/articles/p3centrality.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/centralization.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/articles/p4community.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/cluster.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/articles/p5blockmodel.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/coercion.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/articles/p7linearmodel.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/cohesion.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/authors.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/create.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/index.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/defunct.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/news/index.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/diversity.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/pull_request_template.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/generate.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/add.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/ggatyear.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/autographr.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/ggevolution.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/blockmodel.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/gglineage.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/blockmodel_vis.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/ggraphgrid.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/brandes.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/ggtools.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/census.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/grab.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/centrality.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/graph_balance.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/centralization.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/graph_census.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/cluster.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/graph_components.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/coercion.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/is.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/cohesion.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/ison_coleman.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/create.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/ison_community.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/defunct.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/ison_eies.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/diversity.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/ison_marvel.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/generate.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/ison_projection.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/ggatyear.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/layouts.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/ggevolution.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/m182.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/gglineage.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/mpn_bristol.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/ggtools.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/mpn_elite_mex.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/grab.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/mpn_elite_usa_advice.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/graph_balance.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/mpn_elite_usa_money.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/graph_census.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/mpn_evs.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/graph_components.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/mpn_ryanair.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/mpn_senate112.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/is.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/netlm.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/ison_coleman.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/node_components.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/ison_community.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/node_constraint.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/ison_eies.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/node_smallworld.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/ison_marvel.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/project.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/ison_projection.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/read.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/layouts.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/reexports.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/m182.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/southern_women.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/mpn_bristol.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/tests.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/mpn_elite_mex.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//reference/to.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/mpn_elite_usa_advice.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//articles/p3centrality.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/mpn_elite_usa_money.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//articles/p4community.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/mpn_evs.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//articles/p5blockmodel.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/mpn_ryanair.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph//articles/p7linearmodel.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/mpn_senate112.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/netlm.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/node_components.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/node_constraint.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/node_smallworld.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/project.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/read.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/reexports.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/southern_women.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/tests.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/to.html</loc>
   </url>
 </urlset>

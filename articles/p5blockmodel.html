@@ -28,6 +28,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -40,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.11</span>
       </span>
     </div>
 
@@ -63,6 +65,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/p1data.html">Practical 1</a>
+    </li>
+    <li>
       <a href="../articles/p3centrality.html">Practical 3</a>
     </li>
     <li>
@@ -82,7 +87,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/snlab-ch/migraph/">
+  <a href="https://github.com/snlab-ch/migraph/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -107,23 +112,23 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Practical 5</h1>
-                        <h4 class="author">James Hollway</h4>
+                        <h4 data-toc-skip class="author">James Hollway</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/master/vignettes/p5blockmodel.Rmd"><code>vignettes/p5blockmodel.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/vignettes/p5blockmodel.Rmd" class="external-link"><code>vignettes/p5blockmodel.Rmd</code></a></small>
       <div class="hidden name"><code>p5blockmodel.Rmd</code></div>
 
     </div>
 
     
     
-<div id="setting-up" class="section level1">
-<h1 class="hasAnchor">
-<a href="#setting-up" class="anchor"></a>Setting up</h1>
+<div class="section level1">
+<h1 id="setting-up">Setting up<a class="anchor" aria-label="anchor" href="#setting-up"></a>
+</h1>
 <p>For this lab, we’ll use a few different packages for data and analysis. We’re going to use the <code>ison_m182</code> dataset again, directly from the package.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/snlab-ch/migraph">migraph</a></span><span class="op">)</span><span class="op">)</span> <span class="co"># note that you may need a special version for what follows...</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"ison_m182"</span>, package <span class="op">=</span> <span class="st">"migraph"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a></span><span class="op">)</span><span class="op">)</span> <span class="co"># note that you may need a special version for what follows...</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ison_m182"</span>, package <span class="op">=</span> <span class="st">"migraph"</span><span class="op">)</span></code></pre></div>
 <p>The network is anonymous, but I think it would be nice to add some names, even if it’s just pretend. Luckily, I’ve added a function for this. This makes plotting the network just a wee bit more accessible:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ison_m182</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to.html">to_named</a></span><span class="op">(</span><span class="va">ison_m182</span><span class="op">)</span>
@@ -132,89 +137,89 @@
 <p>There are actually three different types of tie here. Let’s separate them out into separate networks.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to.html">to_uniplex</a></span><span class="op">(</span><span class="va">ison_m182</span>, <span class="st">"friend_tie"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tbl_graph: 16 nodes and 62 edges</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # A directed simple graph with 3 components</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # Node Data: 16 × 1 (active)</span>
-<span class="co">#&gt;   name   </span>
-<span class="co">#&gt;   &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 Tamara </span>
-<span class="co">#&gt; 2 Jesse  </span>
-<span class="co">#&gt; 3 Phyllis</span>
-<span class="co">#&gt; 4 Mya    </span>
-<span class="co">#&gt; 5 Yvette </span>
-<span class="co">#&gt; 6 Dawn   </span>
-<span class="co">#&gt; # … with 10 more rows</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # Edge Data: 62 × 3</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 16 nodes and 62 edges</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # A directed simple graph with 3 components</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Node Data: 16 × 1 (active)</span></span>
+<span class="co">#&gt;   name    </span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Max     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Dylan   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Athena  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Carlos  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Brooklyn</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Jaime   </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 10 more rows</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Edge Data: 62 × 3</span></span>
 <span class="co">#&gt;    from    to weight</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     2     1      1</span>
-<span class="co">#&gt; 2     2     7      1</span>
-<span class="co">#&gt; 3     2     8      1</span>
-<span class="co">#&gt; # … with 59 more rows</span>
-<span class="va">gfriend</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_friend</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Friendship"</span><span class="op">)</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     2     1      1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2     7      1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     8      1</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 59 more rows</span></span>
+<span class="va">gfriend</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_friend</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Friendship"</span><span class="op">)</span>
 <span class="op">(</span><span class="va">m182_social</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to.html">to_uniplex</a></span><span class="op">(</span><span class="va">ison_m182</span>, <span class="st">"social_tie"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tbl_graph: 16 nodes and 129 edges</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # A directed simple graph with 1 component</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # Node Data: 16 × 1 (active)</span>
-<span class="co">#&gt;   name   </span>
-<span class="co">#&gt;   &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 Tamara </span>
-<span class="co">#&gt; 2 Jesse  </span>
-<span class="co">#&gt; 3 Phyllis</span>
-<span class="co">#&gt; 4 Mya    </span>
-<span class="co">#&gt; 5 Yvette </span>
-<span class="co">#&gt; 6 Dawn   </span>
-<span class="co">#&gt; # … with 10 more rows</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # Edge Data: 129 × 3</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 16 nodes and 129 edges</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # A directed simple graph with 1 component</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Node Data: 16 × 1 (active)</span></span>
+<span class="co">#&gt;   name    </span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Max     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Dylan   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Athena  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Carlos  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Brooklyn</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Jaime   </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 10 more rows</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Edge Data: 129 × 3</span></span>
 <span class="co">#&gt;    from    to weight</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     5   1.2 </span>
-<span class="co">#&gt; 2     1     8   0.15</span>
-<span class="co">#&gt; 3     1     9   2.85</span>
-<span class="co">#&gt; # … with 126 more rows</span>
-<span class="va">gsocial</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_social</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Social"</span><span class="op">)</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     5   1.2 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     8   0.15</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1     9   2.85</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 126 more rows</span></span>
+<span class="va">gsocial</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_social</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Social"</span><span class="op">)</span>
 <span class="op">(</span><span class="va">m182_task</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to.html">to_uniplex</a></span><span class="op">(</span><span class="va">ison_m182</span>, <span class="st">"task_tie"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tbl_graph: 16 nodes and 88 edges</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # A directed simple graph with 1 component</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # Node Data: 16 × 1 (active)</span>
-<span class="co">#&gt;   name   </span>
-<span class="co">#&gt;   &lt;chr&gt;  </span>
-<span class="co">#&gt; 1 Tamara </span>
-<span class="co">#&gt; 2 Jesse  </span>
-<span class="co">#&gt; 3 Phyllis</span>
-<span class="co">#&gt; 4 Mya    </span>
-<span class="co">#&gt; 5 Yvette </span>
-<span class="co">#&gt; 6 Dawn   </span>
-<span class="co">#&gt; # … with 10 more rows</span>
-<span class="co">#&gt; #</span>
-<span class="co">#&gt; # Edge Data: 88 × 3</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 16 nodes and 88 edges</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # A directed simple graph with 1 component</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Node Data: 16 × 1 (active)</span></span>
+<span class="co">#&gt;   name    </span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Max     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Dylan   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Athena  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Carlos  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Brooklyn</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Jaime   </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 10 more rows</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Edge Data: 88 × 3</span></span>
 <span class="co">#&gt;    from    to weight</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     5    0.3</span>
-<span class="co">#&gt; 2     1     9    0.3</span>
-<span class="co">#&gt; 3     1    10    0.3</span>
-<span class="co">#&gt; # … with 85 more rows</span>
-<span class="va">gtask</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_task</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Task"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span><span class="va">gfriend</span>, <span class="va">gsocial</span>, <span class="va">gtask</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     5    0.3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     9    0.3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1    10    0.3</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 85 more rows</span></span>
+<span class="va">gtask</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_task</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Task"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">gfriend</span>, <span class="va">gsocial</span>, <span class="va">gtask</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <p><img src="p5blockmodel_files/figure-html/separatingnets-1.png" width="700"></p>
 </div>
-<div id="structural-holes-and-constraint" class="section level1">
-<h1 class="hasAnchor">
-<a href="#structural-holes-and-constraint" class="anchor"></a>Structural Holes and Constraint</h1>
-<p>Where might innovation be most likely to occur in these networks? Let’s take a look at which actors are least constrained by their position in the task network to begin with. <a href="https://github.com/snlab-ch/migraph">migraph</a> makes this easy enough with the <code><a href="../reference/node_constraint.html">node_constraint()</a></code> function.</p>
+<div class="section level1">
+<h1 id="structural-holes-and-constraint">Structural Holes and Constraint<a class="anchor" aria-label="anchor" href="#structural-holes-and-constraint"></a>
+</h1>
+<p>Where might innovation be most likely to occur in these networks? Let’s take a look at which actors are least constrained by their position in the task network to begin with. <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> makes this easy enough with the <code><a href="../reference/node_constraint.html">node_constraint()</a></code> function.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/node_constraint.html">node_constraint</a></span><span class="op">(</span><span class="va">m182_task</span><span class="op">)</span>
-<span class="co">#&gt;    Tamara     Jesse   Phyllis       Mya    Yvette      Dawn     Grant     Jaime </span>
+<span class="co">#&gt;       Max     Dylan    Athena    Carlos  Brooklyn     Jaime      Nova     Cindy </span>
 <span class="co">#&gt; 0.9296725 0.8770476 0.6636775 0.9867478 0.6107876 0.6090524 0.8995527 0.8935226 </span>
-<span class="co">#&gt;    Stella   Claudia     Daisy Alejandro      Gary Alejandra     Gavin   Carolyn </span>
+<span class="co">#&gt;   Miranda   Annette   Bridget      Drew    Margie    Jordan     Maude     Clara </span>
 <span class="co">#&gt; 0.8916714 0.8954317 0.7044446 0.8114632 0.8643100 0.9072766 0.9571695 0.1462941</span></code></pre></div>
 <p>We see that this function returns a vector of constraint scores that can range between 0 and 1. Let’s size the nodes according to this score, and identify the node with the minimum constraint score.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -223,30 +228,30 @@
 <p><img src="p5blockmodel_files/figure-html/constraintplot-1.png" width="700"></p>
 <p>Why minimum? And what can we learn from this plot about where innovation might occur within this network?</p>
 </div>
-<div id="structural-equivalence" class="section level1">
-<h1 class="hasAnchor">
-<a href="#structural-equivalence" class="anchor"></a>Structural Equivalence</h1>
+<div class="section level1">
+<h1 id="structural-equivalence">Structural Equivalence<a class="anchor" aria-label="anchor" href="#structural-equivalence"></a>
+</h1>
 <p>Now we are going to identify and interpret the roles or relations between a set of structurally equivalent positions. We’re going to identify structurally equivalent positions across all the data that we have, including ‘task’, ‘social’ and ‘friend’ ties, but the unit test this week will ask you to run this on a uniplex version of this network.</p>
-<div id="constructing-a-multiplex-matrix" class="section level2">
-<h2 class="hasAnchor">
-<a href="#constructing-a-multiplex-matrix" class="anchor"></a>Constructing a multiplex matrix</h2>
+<div class="section level2">
+<h2 id="constructing-a-multiplex-matrix">Constructing a multiplex matrix<a class="anchor" aria-label="anchor" href="#constructing-a-multiplex-matrix"></a>
+</h2>
 <p>Ok, so to begin with we need to obtain the profiles that we are going to correlate to identify same/similar positions. For structural equivalence, we can start with a census of all the outgoing and incoming ties to reveal their tie partners.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="fu"><a href="../reference/census.html">node_tie_census</a></span><span class="op">(</span><span class="va">ison_m182</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu"><a href="../reference/census.html">node_tie_census</a></span><span class="op">(</span><span class="va">ison_m182</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] 16 96</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">structural_combo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/census.html">node_tie_census</a></span><span class="op">(</span><span class="va">ison_m182</span><span class="op">)</span><span class="op">)</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">17</span>,<span class="fl">33</span>,<span class="fl">49</span>,<span class="fl">65</span>,<span class="fl">81</span><span class="op">)</span><span class="op">]</span>
-<span class="co">#&gt;         fromTamara toTamara fromTamara toTamara fromTamara toTamara</span>
-<span class="co">#&gt; Tamara           0        0        0.0      0.0        0.0      0.0</span>
-<span class="co">#&gt; Jesse            0        1        0.0      0.0        0.0      0.0</span>
-<span class="co">#&gt; Phyllis          0        0        0.0      0.0        0.0      0.0</span>
-<span class="co">#&gt; Mya              0        0        0.0      0.0        0.0      0.0</span>
-<span class="co">#&gt; Yvette           0        1        1.2      1.2        0.3      0.3</span>
-<span class="co">#&gt; Dawn             0        1        0.0      0.0        0.0      0.0</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">structural_combo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/census.html">node_tie_census</a></span><span class="op">(</span><span class="va">ison_m182</span><span class="op">)</span><span class="op">)</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">17</span>,<span class="fl">33</span>,<span class="fl">49</span>,<span class="fl">65</span>,<span class="fl">81</span><span class="op">)</span><span class="op">]</span>
+<span class="co">#&gt;          fromMax toMax fromMax toMax fromMax toMax</span>
+<span class="co">#&gt; Max            0     0     0.0   0.0     0.0   0.0</span>
+<span class="co">#&gt; Dylan          0     1     0.0   0.0     0.0   0.0</span>
+<span class="co">#&gt; Athena         0     0     0.0   0.0     0.0   0.0</span>
+<span class="co">#&gt; Carlos         0     0     0.0   0.0     0.0   0.0</span>
+<span class="co">#&gt; Brooklyn       0     1     1.2   1.2     0.3   0.3</span>
+<span class="co">#&gt; Jaime          0     1     0.0   0.0     0.0   0.0</span></code></pre></div>
 <p>We can see that the result is a matrix of 16 rows and 96 columns, because we want to catalogue or take a census of all the different incoming/outgoing partners our 16 nodes might have across these three networks. Note also that the result is a weighted matrix; what would you do if you wanted it to be binary?</p>
 </div>
-<div id="calculating-structural-dissimilarity" class="section level2">
-<h2 class="hasAnchor">
-<a href="#calculating-structural-dissimilarity" class="anchor"></a>Calculating structural (dis)similarity</h2>
+<div class="section level2">
+<h2 id="calculating-structural-dissimilarity">Calculating structural (dis)similarity<a class="anchor" aria-label="anchor" href="#calculating-structural-dissimilarity"></a>
+</h2>
 <p>The next step, once we have our data (the tie census), is to cluster nodes by their equivalence. In summary, we’re going to hierarchically cluster the nodes based on the distances in dissimilarity in their outgoing and incoming ties. Or you can just run the following line:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">str_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cluster.html">cluster_structural_equivalence</a></span><span class="op">(</span><span class="va">ison_m182</span><span class="op">)</span><span class="op">)</span>
@@ -256,7 +261,7 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Cluster method   : complete </span>
 <span class="co">#&gt; Number of objects: 16</span></code></pre></div>
-<p>This object doesn’t tell us much, but we can investigate it more using <a href="https://github.com/snlab-ch/migraph">migraph</a>’s <code><a href="../reference/blockmodel_vis.html">ggtree()</a></code>. This is a dendrogram of the hierarchical clustering object. Basically, as we move to the right, we’re allowing for more and more dissimilarity among those we cluster together. A fork or branching point indicates the level of dissimilarity at which those two or more nodes would be said to be equivalent.</p>
+<p>This object doesn’t tell us much, but we can investigate it more using <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code><a href="../reference/blockmodel_vis.html">ggtree()</a></code>. This is a dendrogram of the hierarchical clustering object. Basically, as we move to the right, we’re allowing for more and more dissimilarity among those we cluster together. A fork or branching point indicates the level of dissimilarity at which those two or more nodes would be said to be equivalent.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/blockmodel_vis.html">ggtree</a></span><span class="op">(</span><span class="va">str_res</span><span class="op">)</span></code></pre></div>
 <p><img src="p5blockmodel_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
@@ -268,39 +273,39 @@
 <p><img src="p5blockmodel_files/figure-html/unnamed-chunk-2-3.png" width="700"></p>
 <p>Ok, so we can draw a line and this establishes how many clusters we have (or vice versa), but also which nodes belong to which cluster. But how many clusters should we pick?</p>
 </div>
-<div id="identifying-number-of-clusters" class="section level2">
-<h2 class="hasAnchor">
-<a href="#identifying-number-of-clusters" class="anchor"></a>Identifying number of clusters</h2>
+<div class="section level2">
+<h2 id="identifying-number-of-clusters">Identifying number of clusters<a class="anchor" aria-label="anchor" href="#identifying-number-of-clusters"></a>
+</h2>
 <p>To establish that, we need to iterate through all of our options, calculating for each how correlated this pattern is with the observed network. We then plot this and, using the “elbow method”, decide how many clusters.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/blockmodel_vis.html">ggidentify_clusters</a></span><span class="op">(</span><span class="va">str_res</span>, <span class="va">structural_combo</span><span class="op">)</span></code></pre></div>
 <p><img src="p5blockmodel_files/figure-html/idstrclust-1.png" width="700"></p>
 <p>When there is one cluster for each vertex in the network, cell values will be identical to the observed correlation matrix, and when there is one cluster for the whole network, the values will all be equal to the average correlation across the observed matrix. So the correlations in each by-cluster matrix are correlated with the observed correlation matrix to see how well each by-cluster matrix fits the data.</p>
 <p>Ok, so it looks here as if there is a clear bend in the elbow/knee at four clusters. This is reasonably parsimonious and well-fitting. More clusters than this only distinguishes nodes that are less dissimilar.</p>
-<p>We can use <code><a href="https://rdrr.io/r/stats/cutree.html">cutree()</a></code> to cut the tree at our desired point and return the resulting vector of cluster assignments.</p>
+<p>We can use <code><a href="https://rdrr.io/r/stats/cutree.html" class="external-link">cutree()</a></code> to cut the tree at our desired point and return the resulting vector of cluster assignments.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">str_clu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cutree.html">cutree</a></span><span class="op">(</span><span class="va">str_res</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;    Tamara     Jesse   Phyllis       Mya    Yvette      Dawn     Grant     Jaime </span>
-<span class="co">#&gt;         1         2         3         1         3         3         2         2 </span>
-<span class="co">#&gt;    Stella   Claudia     Daisy Alejandro      Gary Alejandra     Gavin   Carolyn </span>
-<span class="co">#&gt;         1         1         3         1         2         2         1         4</span></code></pre></div>
+<code class="sourceCode R"><span class="op">(</span><span class="va">str_clu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cutree.html" class="external-link">cutree</a></span><span class="op">(</span><span class="va">str_res</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;      Max    Dylan   Athena   Carlos Brooklyn    Jaime     Nova    Cindy </span>
+<span class="co">#&gt;        1        2        3        1        3        3        2        2 </span>
+<span class="co">#&gt;  Miranda  Annette  Bridget     Drew   Margie   Jordan    Maude    Clara </span>
+<span class="co">#&gt;        1        1        3        1        2        2        1        4</span></code></pre></div>
 <p>This we can use for various things. Most immediately, we may wish to see these cluster assignments mapped onto our networks. All we need to do is add the variable to existing networks and plot them:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m182_task</span> <span class="op">&lt;-</span> <span class="va">m182_task</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/coercion.html">as_tidygraph</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>clu <span class="op">=</span> <span class="va">str_clu</span><span class="op">)</span>
-<span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_task</span>, node_color <span class="op">=</span> <span class="st">"clu"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Task"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">m182_task</span> <span class="op">&lt;-</span> <span class="va">m182_task</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/coercion.html">as_tidygraph</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>clu <span class="op">=</span> <span class="va">str_clu</span><span class="op">)</span>
+<span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_task</span>, node_color <span class="op">=</span> <span class="st">"clu"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Task"</span><span class="op">)</span></code></pre></div>
 <p><img src="p5blockmodel_files/figure-html/strclu-plots-1.png" width="700"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m182_social</span> <span class="op">&lt;-</span> <span class="va">m182_social</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/coercion.html">as_tidygraph</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>clu <span class="op">=</span> <span class="va">str_clu</span><span class="op">)</span>
-<span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_social</span>, node_color <span class="op">=</span> <span class="st">"clu"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Social"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">m182_social</span> <span class="op">&lt;-</span> <span class="va">m182_social</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/coercion.html">as_tidygraph</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>clu <span class="op">=</span> <span class="va">str_clu</span><span class="op">)</span>
+<span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_social</span>, node_color <span class="op">=</span> <span class="st">"clu"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Social"</span><span class="op">)</span></code></pre></div>
 <p><img src="p5blockmodel_files/figure-html/strclu-plots-2.png" width="700"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/coercion.html">as_tidygraph</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>clu <span class="op">=</span> <span class="va">str_clu</span><span class="op">)</span>
-<span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_friend</span>, node_color <span class="op">=</span> <span class="st">"clu"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Friend"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">m182_friend</span> <span class="op">&lt;-</span> <span class="va">m182_friend</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/coercion.html">as_tidygraph</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>clu <span class="op">=</span> <span class="va">str_clu</span><span class="op">)</span>
+<span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_friend</span>, node_color <span class="op">=</span> <span class="st">"clu"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Friend"</span><span class="op">)</span></code></pre></div>
 <p><img src="p5blockmodel_files/figure-html/strclu-plots-3.png" width="700"></p>
 </div>
-<div id="blockmodelling" class="section level2">
-<h2 class="hasAnchor">
-<a href="#blockmodelling" class="anchor"></a>Blockmodelling</h2>
+<div class="section level2">
+<h2 id="blockmodelling">Blockmodelling<a class="anchor" aria-label="anchor" href="#blockmodelling"></a>
+</h2>
 <p>Now we can use the 4-cluster solution to generate blockmodels. We’ll do this on the valued network, but binary is possible too.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">task_blockmodel</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/blockmodel.html">blockmodel</a></span><span class="op">(</span><span class="va">m182_task</span>, <span class="va">str_clu</span><span class="op">)</span><span class="op">)</span>
@@ -309,20 +314,20 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Block membership:</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    Tamara     Grant Alejandro     Jesse      Gary Alejandra     Jaime    Stella </span>
-<span class="co">#&gt;         1         2         3         1         3         3         2         2 </span>
-<span class="co">#&gt;   Phyllis       Mya     Gavin    Yvette   Claudia     Daisy      Dawn   Carolyn </span>
-<span class="co">#&gt;         1         1         3         1         2         2         1         4 </span>
+<span class="co">#&gt;      Max     Nova     Drew    Dylan   Margie   Jordan    Cindy  Miranda </span>
+<span class="co">#&gt;        1        2        3        1        3        3        2        2 </span>
+<span class="co">#&gt;   Athena   Carlos    Maude Brooklyn  Annette  Bridget    Jaime    Clara </span>
+<span class="co">#&gt;        1        1        3        1        2        2        1        4 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Reduced form blockmodel:</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;   Tamara Jesse Phyllis Mya Yvette Dawn Grant Jaime Stella Claudia Daisy Alejandro Gary Alejandra Gavin Carolyn </span>
+<span class="co">#&gt;   Max Dylan Athena Carlos Brooklyn Jaime Nova Cindy Miranda Annette Bridget Drew Margie Jordan Maude Clara </span>
 <span class="co">#&gt;         Block 1 Block 2 Block 3 Block 4</span>
 <span class="co">#&gt; Block 1 0.36000  0.0000  0.0250  4.1500</span>
 <span class="co">#&gt; Block 2 0.00500  0.4050  0.0150  3.5400</span>
 <span class="co">#&gt; Block 3 0.01875  0.0075  0.6625  1.0125</span>
 <span class="co">#&gt; Block 4 4.12500  3.3900  1.3875     NaN</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">task_blockmodel</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">task_blockmodel</span><span class="op">)</span></code></pre></div>
 <p><img src="p5blockmodel_files/figure-html/structblock-1.png" width="700"></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">social_blockmodel</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/blockmodel.html">blockmodel</a></span><span class="op">(</span><span class="va">m182_social</span>, <span class="va">str_clu</span><span class="op">)</span><span class="op">)</span>
@@ -331,20 +336,20 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Block membership:</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    Tamara     Grant Alejandro     Jesse      Gary Alejandra     Jaime    Stella </span>
-<span class="co">#&gt;         1         2         3         1         3         3         2         2 </span>
-<span class="co">#&gt;   Phyllis       Mya     Gavin    Yvette   Claudia     Daisy      Dawn   Carolyn </span>
-<span class="co">#&gt;         1         1         3         1         2         2         1         4 </span>
+<span class="co">#&gt;      Max     Nova     Drew    Dylan   Margie   Jordan    Cindy  Miranda </span>
+<span class="co">#&gt;        1        2        3        1        3        3        2        2 </span>
+<span class="co">#&gt;   Athena   Carlos    Maude Brooklyn  Annette  Bridget    Jaime    Clara </span>
+<span class="co">#&gt;        1        1        3        1        2        2        1        4 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Reduced form blockmodel:</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;   Tamara Jesse Phyllis Mya Yvette Dawn Grant Jaime Stella Claudia Daisy Alejandro Gary Alejandra Gavin Carolyn </span>
+<span class="co">#&gt;   Max Dylan Athena Carlos Brooklyn Jaime Nova Cindy Miranda Annette Bridget Drew Margie Jordan Maude Clara </span>
 <span class="co">#&gt;         Block 1 Block 2 Block 3 Block 4</span>
 <span class="co">#&gt; Block 1 2.83500  0.1000  0.2250   1.250</span>
 <span class="co">#&gt; Block 2 0.09500  5.2875  0.0825   1.920</span>
 <span class="co">#&gt; Block 3 0.24375  0.0750  4.5750   0.075</span>
 <span class="co">#&gt; Block 4 0.92500  1.2000  0.3375     NaN</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">social_blockmodel</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">social_blockmodel</span><span class="op">)</span></code></pre></div>
 <p><img src="p5blockmodel_files/figure-html/structblock-2.png" width="700"></p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">friend_blockmodel</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/blockmodel.html">blockmodel</a></span><span class="op">(</span><span class="va">m182_friend</span>, <span class="va">str_clu</span><span class="op">)</span><span class="op">)</span>
@@ -353,39 +358,39 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Block membership:</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    Tamara     Grant Alejandro     Jesse      Gary Alejandra     Jaime    Stella </span>
-<span class="co">#&gt;         1         2         3         1         3         3         2         2 </span>
-<span class="co">#&gt;   Phyllis       Mya     Gavin    Yvette   Claudia     Daisy      Dawn   Carolyn </span>
-<span class="co">#&gt;         1         1         3         1         2         2         1         4 </span>
+<span class="co">#&gt;      Max     Nova     Drew    Dylan   Margie   Jordan    Cindy  Miranda </span>
+<span class="co">#&gt;        1        2        3        1        3        3        2        2 </span>
+<span class="co">#&gt;   Athena   Carlos    Maude Brooklyn  Annette  Bridget    Jaime    Clara </span>
+<span class="co">#&gt;        1        1        3        1        2        2        1        4 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Reduced form blockmodel:</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;   Tamara Jesse Phyllis Mya Yvette Dawn Grant Jaime Stella Claudia Daisy Alejandro Gary Alejandra Gavin Carolyn </span>
+<span class="co">#&gt;   Max Dylan Athena Carlos Brooklyn Jaime Nova Cindy Miranda Annette Bridget Drew Margie Jordan Maude Clara </span>
 <span class="co">#&gt;           Block 1    Block 2    Block 3 Block 4</span>
 <span class="co">#&gt; Block 1 0.6000000 0.03333333 0.04166667       0</span>
 <span class="co">#&gt; Block 2 0.1000000 1.00000000 0.10000000       0</span>
 <span class="co">#&gt; Block 3 0.3333333 0.15000000 1.16666667       0</span>
 <span class="co">#&gt; Block 4 0.0000000 0.00000000 0.00000000     NaN</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">friend_blockmodel</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">friend_blockmodel</span><span class="op">)</span></code></pre></div>
 <p><img src="p5blockmodel_files/figure-html/structblock-3.png" width="700"></p>
 <p>What do these plots show? Plotting the blockmodel like this is particularly useful for characterising what the profile of ties (partners) is for each position/equivalence class. We might characterise them like so:</p>
 <ul>
-<li>Tamara, Mya, Stella, Claudia, Alejandro, Gavin work together only in reciprocal pairs on tasks, preferring to approach Carolyn but also those of the other two roles. While they hang out with each other socially quite a bit, friendship from groups 2 and 3 are preferred. We shall call them <em>freaks</em>.</li>
-<li>Jesse, Grant, Jaime, Gary, Alejandra also work together only in reciprocal pairs, preferring to work collaboratively with group 1 or also Carolyn. They also tend to count those from group 1 as friends, and hang out with everyone else but themselves. We shall call them <em>squares</em>.</li>
-<li>Phyllis, Yvette, Dawn, Daisy will work with either some in group 1 and 3, or 2, but again prefer Carolyn for task advice. They are pretty good friends with each other though, and pretty happy to socialise with everyone. We shall call them <em>nerds</em>.</li>
-<li>Carolyn is a loner, no friends, but everyone hangs out with them for task advice, therefore the <em>geek</em>.</li>
+<li>Max, Carlos, Miranda, Annette, Drew, Maude work together only in reciprocal pairs on tasks, preferring to approach Clara but also those of the other two roles. While they hang out with each other socially quite a bit, friendship from groups 2 and 3 are preferred. We shall call them <em>freaks</em>.</li>
+<li>Dylan, Nova, Cindy, Margie, Jordan also work together only in reciprocal pairs, preferring to work collaboratively with group 1 or also Clara. They also tend to count those from group 1 as friends, and hang out with everyone else but themselves. We shall call them <em>squares</em>.</li>
+<li>Athena, Brooklyn, Jaime, Bridget will work with either some in group 1 and 3, or 2, but again prefer Clara for task advice. They are pretty good friends with each other though, and pretty happy to socialise with everyone. We shall call them <em>nerds</em>.</li>
+<li>Clara is a loner, no friends, but everyone hangs out with them for task advice, therefore the <em>geek</em>.</li>
 </ul>
 </div>
-<div id="reduced-graph" class="section level2">
-<h2 class="hasAnchor">
-<a href="#reduced-graph" class="anchor"></a>Reduced graph</h2>
+<div class="section level2">
+<h2 id="reduced-graph">Reduced graph<a class="anchor" aria-label="anchor" href="#reduced-graph"></a>
+</h2>
 <p>Finally, we can reduce the graph to just interactions between roles. Let’s start off by graphing the valued/weighted blockmodel.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">group_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Freaks"</span>,<span class="st">"Squares"</span>,<span class="st">"Nerds"</span>,<span class="st">"Geek"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">group_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Freaks"</span>,<span class="st">"Squares"</span>,<span class="st">"Nerds"</span>,<span class="st">"Geek"</span><span class="op">)</span>
 <span class="op">(</span><span class="va">social_reduced</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/blockmodel.html">reduce_graph</a></span><span class="op">(</span><span class="va">social_blockmodel</span>, <span class="va">group_labels</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; IGRAPH e663e07 DNW- 4 15 -- </span>
+<span class="co">#&gt; IGRAPH 96cb438 DNW- 4 15 -- </span>
 <span class="co">#&gt; + attr: name (v/c), weight (e/n)</span>
-<span class="co">#&gt; + edges from e663e07 (vertex names):</span>
+<span class="co">#&gt; + edges from 96cb438 (vertex names):</span>
 <span class="co">#&gt;  [1] Freaks -&gt;Freaks  Freaks -&gt;Squares Freaks -&gt;Nerds   Freaks -&gt;Geek   </span>
 <span class="co">#&gt;  [5] Squares-&gt;Freaks  Squares-&gt;Squares Squares-&gt;Nerds   Squares-&gt;Geek   </span>
 <span class="co">#&gt;  [9] Nerds  -&gt;Freaks  Nerds  -&gt;Squares Nerds  -&gt;Nerds   Nerds  -&gt;Geek   </span>
@@ -394,9 +399,9 @@
 <p><img src="p5blockmodel_files/figure-html/strredgraph-1.png" width="700"></p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">task_reduced</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/blockmodel.html">reduce_graph</a></span><span class="op">(</span><span class="va">task_blockmodel</span>, <span class="va">group_labels</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; IGRAPH 85eb173 DNW- 4 14 -- </span>
+<span class="co">#&gt; IGRAPH e740d2c DNW- 4 14 -- </span>
 <span class="co">#&gt; + attr: name (v/c), weight (e/n)</span>
-<span class="co">#&gt; + edges from 85eb173 (vertex names):</span>
+<span class="co">#&gt; + edges from e740d2c (vertex names):</span>
 <span class="co">#&gt;  [1] Freaks -&gt;Freaks  Freaks -&gt;Nerds   Freaks -&gt;Geek    Squares-&gt;Freaks </span>
 <span class="co">#&gt;  [5] Squares-&gt;Squares Squares-&gt;Nerds   Squares-&gt;Geek    Nerds  -&gt;Freaks </span>
 <span class="co">#&gt;  [9] Nerds  -&gt;Squares Nerds  -&gt;Nerds   Nerds  -&gt;Geek    Geek   -&gt;Freaks </span>
@@ -405,9 +410,9 @@
 <p><img src="p5blockmodel_files/figure-html/strredgraph-2.png" width="700"></p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">friend_reduced</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/blockmodel.html">reduce_graph</a></span><span class="op">(</span><span class="va">friend_blockmodel</span>, <span class="va">group_labels</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; IGRAPH 5933129 DNW- 4 9 -- </span>
+<span class="co">#&gt; IGRAPH 01db559 DNW- 4 9 -- </span>
 <span class="co">#&gt; + attr: name (v/c), weight (e/n)</span>
-<span class="co">#&gt; + edges from 5933129 (vertex names):</span>
+<span class="co">#&gt; + edges from 01db559 (vertex names):</span>
 <span class="co">#&gt; [1] Freaks -&gt;Freaks  Freaks -&gt;Squares Freaks -&gt;Nerds   Squares-&gt;Freaks </span>
 <span class="co">#&gt; [5] Squares-&gt;Squares Squares-&gt;Nerds   Nerds  -&gt;Freaks  Nerds  -&gt;Squares</span>
 <span class="co">#&gt; [9] Nerds  -&gt;Nerds</span>
@@ -416,102 +421,102 @@
 <p>What can help interpreting these profiles is getting the summaries of average weight ties by group.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/census.html">group_tie_census</a></span><span class="op">(</span><span class="va">m182_task</span>, <span class="va">str_clu</span><span class="op">)</span>
-<span class="co">#&gt;         fromTamara fromJesse fromPhyllis fromMya fromYvette fromDawn fromGrant</span>
-<span class="co">#&gt; Block 1       0.15      0.02        0.00    0.02       0.05     0.02      0.00</span>
-<span class="co">#&gt; Block 2       0.00      0.42        0.00    0.00       0.03     0.00      0.33</span>
-<span class="co">#&gt; Block 3       0.07      0.00        0.26    0.00       0.75     0.38      0.00</span>
-<span class="co">#&gt; Block 4       5.10      4.80        0.30    0.90       1.80     0.90      2.85</span>
-<span class="co">#&gt;         fromJaime fromStella fromClaudia fromDaisy fromAlejandro fromGary</span>
-<span class="co">#&gt; Block 1      0.00       0.55        0.30      0.00           0.6     0.00</span>
-<span class="co">#&gt; Block 2      0.33       0.00        0.00      0.00           0.0     0.39</span>
-<span class="co">#&gt; Block 3      0.00       0.00        0.07      0.60           0.0     0.00</span>
-<span class="co">#&gt; Block 4      2.40       2.40        5.40      1.05           4.5     4.50</span>
-<span class="co">#&gt;         fromAlejandra fromGavin fromCarolyn toTamara toJesse toPhyllis toMya</span>
-<span class="co">#&gt; Block 1          0.00      0.17        4.12     0.07     0.0      0.00  0.02</span>
-<span class="co">#&gt; Block 2          0.15      0.00        3.39     0.00     0.6      0.00  0.00</span>
-<span class="co">#&gt; Block 3          0.07      0.00        1.39     0.07     0.0      0.26  0.00</span>
-<span class="co">#&gt; Block 4          3.15      6.60        0.00     4.65     4.8      0.75  1.05</span>
-<span class="co">#&gt;         toYvette toDawn toGrant toJaime toStella toClaudia toDaisy toAlejandro</span>
-<span class="co">#&gt; Block 1     0.05   0.05     0.0    0.00     0.55      0.25    0.00        0.68</span>
-<span class="co">#&gt; Block 2     0.03   0.03     0.3    0.27     0.00      0.00    0.00        0.00</span>
-<span class="co">#&gt; Block 3     0.60   0.45     0.0    0.00     0.00      0.04    0.68        0.00</span>
-<span class="co">#&gt; Block 4     2.40   1.20     2.4    1.95     2.85      5.40    1.20        5.25</span>
-<span class="co">#&gt;         toGary toAlejandra toGavin toCarolyn</span>
-<span class="co">#&gt; Block 1   0.00        0.00    0.22      4.15</span>
-<span class="co">#&gt; Block 2   0.39        0.06    0.03      3.54</span>
-<span class="co">#&gt; Block 3   0.04        0.00    0.00      1.01</span>
-<span class="co">#&gt; Block 4   3.90        3.90    5.55      0.00</span></code></pre></div>
-<pre><code># ADVANCED: Note on deductive clustering:
+<span class="co">#&gt;         fromMax fromDylan fromAthena fromCarlos fromBrooklyn fromJaime fromNova</span>
+<span class="co">#&gt; Block 1    0.15      0.02       0.00       0.02         0.05      0.02     0.00</span>
+<span class="co">#&gt; Block 2    0.00      0.42       0.00       0.00         0.03      0.00     0.33</span>
+<span class="co">#&gt; Block 3    0.07      0.00       0.26       0.00         0.75      0.38     0.00</span>
+<span class="co">#&gt; Block 4    5.10      4.80       0.30       0.90         1.80      0.90     2.85</span>
+<span class="co">#&gt;         fromCindy fromMiranda fromAnnette fromBridget fromDrew fromMargie</span>
+<span class="co">#&gt; Block 1      0.00        0.55        0.30        0.00      0.6       0.00</span>
+<span class="co">#&gt; Block 2      0.33        0.00        0.00        0.00      0.0       0.39</span>
+<span class="co">#&gt; Block 3      0.00        0.00        0.07        0.60      0.0       0.00</span>
+<span class="co">#&gt; Block 4      2.40        2.40        5.40        1.05      4.5       4.50</span>
+<span class="co">#&gt;         fromJordan fromMaude fromClara toMax toDylan toAthena toCarlos</span>
+<span class="co">#&gt; Block 1       0.00      0.17      4.12  0.07     0.0     0.00     0.02</span>
+<span class="co">#&gt; Block 2       0.15      0.00      3.39  0.00     0.6     0.00     0.00</span>
+<span class="co">#&gt; Block 3       0.07      0.00      1.39  0.07     0.0     0.26     0.00</span>
+<span class="co">#&gt; Block 4       3.15      6.60      0.00  4.65     4.8     0.75     1.05</span>
+<span class="co">#&gt;         toBrooklyn toJaime toNova toCindy toMiranda toAnnette toBridget toDrew</span>
+<span class="co">#&gt; Block 1       0.05    0.05    0.0    0.00      0.55      0.25      0.00   0.68</span>
+<span class="co">#&gt; Block 2       0.03    0.03    0.3    0.27      0.00      0.00      0.00   0.00</span>
+<span class="co">#&gt; Block 3       0.60    0.45    0.0    0.00      0.00      0.04      0.68   0.00</span>
+<span class="co">#&gt; Block 4       2.40    1.20    2.4    1.95      2.85      5.40      1.20   5.25</span>
+<span class="co">#&gt;         toMargie toJordan toMaude toClara</span>
+<span class="co">#&gt; Block 1     0.00     0.00    0.22    4.15</span>
+<span class="co">#&gt; Block 2     0.39     0.06    0.03    3.54</span>
+<span class="co">#&gt; Block 3     0.04     0.00    0.00    1.01</span>
+<span class="co">#&gt; Block 4     3.90     3.90    5.55    0.00</span></code></pre></div>
+<pre><code><span class="co"># ADVANCED: Note on deductive clustering:</span>
 
-# It's pretty straightforward to alter the code above to test hypotheses.
-# Simply supply your own cluster vector, where the elements in the vector are in 
-# the same order as the vertices in the matrix, and the values represent the
-# cluster to which each vertex belongs. 
+<span class="co"># It's pretty straightforward to alter the code above to test hypotheses.</span>
+<span class="co"># Simply supply your own cluster vector, where the elements in the vector are in </span>
+<span class="co"># the same order as the vertices in the matrix, and the values represent the</span>
+<span class="co"># cluster to which each vertex belongs. </span>
 
-  task_social_cors &lt;- cor(task_social)
+  <span class="va">task_social_cors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">task_social</span><span class="op">)</span>
   
-# For example, if you believed that actors 2, 7, and 8 formed one group, 
-# actor 16 former another group, and everyone else formed a third group, 
-# you could represent this as follows:
-dedclust = c(1, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 3)
+<span class="co"># For example, if you believed that actors 2, 7, and 8 formed one group, </span>
+<span class="co"># actor 16 former another group, and everyone else formed a third group, </span>
+<span class="co"># you could represent this as follows:</span>
+<span class="va">dedclust</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>
 
-# Then examine the fitness of this cluster configuration as follows:
-dedclust_mat &lt;- NetCluster::generate_cluster_cor_mat(task_social_cors, dedclust)
-dedclust_mat
-gcor(dedclust_mat, task_social_cors)</code></pre>
+<span class="co"># Then examine the fitness of this cluster configuration as follows:</span>
+<span class="va">dedclust_mat</span> <span class="op">&lt;-</span> <span class="fu">NetCluster</span><span class="fu">::</span><span class="fu">generate_cluster_cor_mat</span><span class="op">(</span><span class="va">task_social_cors</span>, <span class="va">dedclust</span><span class="op">)</span>
+<span class="va">dedclust_mat</span>
+<span class="fu">gcor</span><span class="op">(</span><span class="va">dedclust_mat</span>, <span class="va">task_social_cors</span><span class="op">)</span></code></pre>
 </div>
 </div>
-<div id="regular-equivalence" class="section level1">
-<h1 class="hasAnchor">
-<a href="#regular-equivalence" class="anchor"></a>Regular Equivalence</h1>
-<div id="constructing-a-triad-census" class="section level2">
-<h2 class="hasAnchor">
-<a href="#constructing-a-triad-census" class="anchor"></a>Constructing a triad census</h2>
+<div class="section level1">
+<h1 id="regular-equivalence">Regular Equivalence<a class="anchor" aria-label="anchor" href="#regular-equivalence"></a>
+</h1>
+<div class="section level2">
+<h2 id="constructing-a-triad-census">Constructing a triad census<a class="anchor" aria-label="anchor" href="#constructing-a-triad-census"></a>
+</h2>
 <p>We’re going to use the same pair of networks as with structural equivalence. But this time we’re not going to get the correlation of ties, but rather the correlation of profiles/patterns of local configurations. How can we identify patterns of local configurations? We’ll measure these profiles in terms of triad counts.</p>
 <p>Now, there is a function for calculating triad censuses:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="fu"><a href="../reference/graph_census.html">graph_triad_census</a></span><span class="op">(</span><span class="va">m182_task</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;  003  012  102 021D 021U 021C 111D 111U 030T 030C  201 120D 120U 120C  210  300 </span>
 <span class="co">#&gt;  133   38  212    2    0    1   14   13    0    0   93    1    0    0   11   42</span></code></pre></div>
-<p>But as you can see, it just gives a aggregated tally for the whole network and not one differentiated by actor (which is what we need). Fortunately, <a href="https://github.com/snlab-ch/migraph">migraph</a> offers a node-level triad census too.</p>
+<p>But as you can see, it just gives a aggregated tally for the whole network and not one differentiated by actor (which is what we need). Fortunately, <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> offers a node-level triad census too.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># (By putting parentheses around this command, it'll assign AND print!)</span>
 <span class="op">(</span><span class="va">task_triads</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/census.html">node_triad_census</a></span><span class="op">(</span><span class="va">m182_task</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;           003 012 102 021D 021U 021C 111D 111U 030T 030C 201 120D 120U 120C 210</span>
-<span class="co">#&gt; Tamara     36   9  45    0    0    0    0    1    0    0   3    0    0    0   4</span>
-<span class="co">#&gt; Jesse      45  10  38    0    0    0    1    1    0    0   1    0    0    0   3</span>
-<span class="co">#&gt; Phyllis    55   0  44    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class="co">#&gt; Mya       102   0   3    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class="co">#&gt; Yvette     55   0  37    0    0    0    2    1    0    0   4    0    0    0   0</span>
-<span class="co">#&gt; Dawn       65  19  10    0    0    0    5    0    0    0   3    1    0    0   2</span>
-<span class="co">#&gt; Grant      91   1  13    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class="co">#&gt; Jaime      91   1  13    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class="co">#&gt; Stella     90   1  14    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class="co">#&gt; Claudia    86   1  18    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class="co">#&gt; Daisy      95   0  10    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class="co">#&gt; Alejandro  90   1  14    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class="co">#&gt; Gary       93   1  11    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class="co">#&gt; Alejandra  90   3  12    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class="co">#&gt; Gavin      88   2  15    0    0    0    0    0    0    0   0    0    0    0   0</span>
-<span class="co">#&gt; Carolyn     0   0   0    0    0    0    0    0    0    0  73    0    0    0   6</span>
-<span class="co">#&gt;           300</span>
-<span class="co">#&gt; Tamara      7</span>
-<span class="co">#&gt; Jesse       6</span>
-<span class="co">#&gt; Phyllis     6</span>
-<span class="co">#&gt; Mya         0</span>
-<span class="co">#&gt; Yvette      6</span>
-<span class="co">#&gt; Dawn        0</span>
-<span class="co">#&gt; Grant       0</span>
-<span class="co">#&gt; Jaime       0</span>
-<span class="co">#&gt; Stella      0</span>
-<span class="co">#&gt; Claudia     0</span>
-<span class="co">#&gt; Daisy       0</span>
-<span class="co">#&gt; Alejandro   0</span>
-<span class="co">#&gt; Gary        0</span>
-<span class="co">#&gt; Alejandra   0</span>
-<span class="co">#&gt; Gavin       0</span>
-<span class="co">#&gt; Carolyn    26</span></code></pre></div>
-<p>Can you recall what these MAD codes mean? MAN might be easier to remember, for NULL dyads is the last, but MAD is probably more appropriate. <code><a href="https://rdrr.io/pkg/igraph/man/triad_census.html">?igraph::triad.census</a></code> can be used to check what each of the MAD codes means.</p>
+<span class="co">#&gt;          003 012 102 021D 021U 021C 111D 111U 030T 030C 201 120D 120U 120C 210</span>
+<span class="co">#&gt; Max       36   9  45    0    0    0    0    1    0    0   3    0    0    0   4</span>
+<span class="co">#&gt; Dylan     45  10  38    0    0    0    1    1    0    0   1    0    0    0   3</span>
+<span class="co">#&gt; Athena    55   0  44    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class="co">#&gt; Carlos   102   0   3    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class="co">#&gt; Brooklyn  55   0  37    0    0    0    2    1    0    0   4    0    0    0   0</span>
+<span class="co">#&gt; Jaime     65  19  10    0    0    0    5    0    0    0   3    1    0    0   2</span>
+<span class="co">#&gt; Nova      91   1  13    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class="co">#&gt; Cindy     91   1  13    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class="co">#&gt; Miranda   90   1  14    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class="co">#&gt; Annette   86   1  18    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class="co">#&gt; Bridget   95   0  10    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class="co">#&gt; Drew      90   1  14    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class="co">#&gt; Margie    93   1  11    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class="co">#&gt; Jordan    90   3  12    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class="co">#&gt; Maude     88   2  15    0    0    0    0    0    0    0   0    0    0    0   0</span>
+<span class="co">#&gt; Clara      0   0   0    0    0    0    0    0    0    0  73    0    0    0   6</span>
+<span class="co">#&gt;          300</span>
+<span class="co">#&gt; Max        7</span>
+<span class="co">#&gt; Dylan      6</span>
+<span class="co">#&gt; Athena     6</span>
+<span class="co">#&gt; Carlos     0</span>
+<span class="co">#&gt; Brooklyn   6</span>
+<span class="co">#&gt; Jaime      0</span>
+<span class="co">#&gt; Nova       0</span>
+<span class="co">#&gt; Cindy      0</span>
+<span class="co">#&gt; Miranda    0</span>
+<span class="co">#&gt; Annette    0</span>
+<span class="co">#&gt; Bridget    0</span>
+<span class="co">#&gt; Drew       0</span>
+<span class="co">#&gt; Margie     0</span>
+<span class="co">#&gt; Jordan     0</span>
+<span class="co">#&gt; Maude      0</span>
+<span class="co">#&gt; Clara     26</span></code></pre></div>
+<p>Can you recall what these MAD codes mean? MAN might be easier to remember, for NULL dyads is the last, but MAD is probably more appropriate. <code><a href="https://rdrr.io/pkg/igraph/man/triad_census.html" class="external-link">?igraph::triad.census</a></code> can be used to check what each of the MAD codes means.</p>
 <p>As with the structural equivalence, we can simply run our function and return an object that has hierarchically clustered our nodes, but this time it will be based on their (dis)similarity from each others patterns of ties.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">reg_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cluster.html">cluster_regular_equivalence</a></span><span class="op">(</span><span class="va">m182_task</span><span class="op">)</span>
@@ -527,18 +532,18 @@ gcor(dedclust_mat, task_social_cors)</code></pre>
 <code class="sourceCode R"><span class="fu"><a href="../reference/blockmodel_vis.html">ggtree</a></span><span class="op">(</span><span class="va">reg_res</span>, <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <p><img src="p5blockmodel_files/figure-html/cutreereg-1.png" width="700"></p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">reg_clu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cutree.html">cutree</a></span><span class="op">(</span><span class="va">reg_res</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;    Tamara     Jesse   Phyllis       Mya    Yvette      Dawn     Grant     Jaime </span>
-<span class="co">#&gt;         1         1         1         1         1         1         1         1 </span>
-<span class="co">#&gt;    Stella   Claudia     Daisy Alejandro      Gary Alejandra     Gavin   Carolyn </span>
-<span class="co">#&gt;         1         1         1         1         1         1         1         2</span>
-<span class="va">m182_task</span> <span class="op">&lt;-</span> <span class="va">m182_task</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/coercion.html">as_tidygraph</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>regclu <span class="op">=</span> <span class="va">reg_clu</span><span class="op">)</span>
-<span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_task</span>, node_color <span class="op">=</span> <span class="st">"regclu"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Task"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="op">(</span><span class="va">reg_clu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cutree.html" class="external-link">cutree</a></span><span class="op">(</span><span class="va">reg_res</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;      Max    Dylan   Athena   Carlos Brooklyn    Jaime     Nova    Cindy </span>
+<span class="co">#&gt;        1        1        1        1        1        1        1        1 </span>
+<span class="co">#&gt;  Miranda  Annette  Bridget     Drew   Margie   Jordan    Maude    Clara </span>
+<span class="co">#&gt;        1        1        1        1        1        1        1        2</span>
+<span class="va">m182_task</span> <span class="op">&lt;-</span> <span class="va">m182_task</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/coercion.html">as_tidygraph</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>regclu <span class="op">=</span> <span class="va">reg_clu</span><span class="op">)</span>
+<span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">m182_task</span>, node_color <span class="op">=</span> <span class="st">"regclu"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Task"</span><span class="op">)</span></code></pre></div>
 <p><img src="p5blockmodel_files/figure-html/cutreereg-2.png" width="700"></p>
 </div>
-<div id="blockmodelling-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#blockmodelling-1" class="anchor"></a>Blockmodelling</h2>
+<div class="section level2">
+<h2 id="blockmodelling-1">Blockmodelling<a class="anchor" aria-label="anchor" href="#blockmodelling-1"></a>
+</h2>
 <p>As before, we can use these clusters to blockmodel the task network.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">task_blockmodel</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/blockmodel.html">blockmodel</a></span><span class="op">(</span><span class="va">m182_task</span>, <span class="va">reg_clu</span><span class="op">)</span><span class="op">)</span>
@@ -547,29 +552,29 @@ gcor(dedclust_mat, task_social_cors)</code></pre>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Block membership:</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    Tamara     Jesse   Phyllis       Mya    Yvette      Dawn     Grant     Jaime </span>
-<span class="co">#&gt;         1         1         1         1         1         1         1         1 </span>
-<span class="co">#&gt;    Stella   Claudia     Daisy Alejandro      Gary Alejandra     Gavin   Carolyn </span>
-<span class="co">#&gt;         1         1         1         1         1         1         1         2 </span>
+<span class="co">#&gt;      Max    Dylan   Athena   Carlos Brooklyn    Jaime     Nova    Cindy </span>
+<span class="co">#&gt;        1        1        1        1        1        1        1        1 </span>
+<span class="co">#&gt;  Miranda  Annette  Bridget     Drew   Margie   Jordan    Maude    Clara </span>
+<span class="co">#&gt;        1        1        1        1        1        1        1        2 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Reduced form blockmodel:</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;   Tamara Jesse Phyllis Mya Yvette Dawn Grant Jaime Stella Claudia Daisy Alejandro Gary Alejandra Gavin Carolyn </span>
+<span class="co">#&gt;   Max Dylan Athena Carlos Brooklyn Jaime Nova Cindy Miranda Annette Bridget Drew Margie Jordan Maude Clara </span>
 <span class="co">#&gt;           Block 1 Block 2</span>
 <span class="co">#&gt; Block 1 0.1357143    3.11</span>
 <span class="co">#&gt; Block 2 3.1500000     NaN</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">task_blockmodel</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">task_blockmodel</span><span class="op">)</span></code></pre></div>
 <p><img src="p5blockmodel_files/figure-html/regblock-1.png" width="700"></p>
 </div>
-<div id="reduced-graph-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#reduced-graph-1" class="anchor"></a>Reduced graph</h2>
+<div class="section level2">
+<h2 id="reduced-graph-1">Reduced graph<a class="anchor" aria-label="anchor" href="#reduced-graph-1"></a>
+</h2>
 <p>Finally, we can reduce the graph to just interactions between roles. Obviously this is not particularly informative with only two clusters though…</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">task_reduced</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/blockmodel.html">reduce_graph</a></span><span class="op">(</span><span class="va">task_blockmodel</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Regulars"</span>,<span class="st">"Geek"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; IGRAPH 7ff61ac DNW- 2 3 -- </span>
+<code class="sourceCode R"><span class="op">(</span><span class="va">task_reduced</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/blockmodel.html">reduce_graph</a></span><span class="op">(</span><span class="va">task_blockmodel</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Regulars"</span>,<span class="st">"Geek"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; IGRAPH 33b9ccd DNW- 2 3 -- </span>
 <span class="co">#&gt; + attr: name (v/c), weight (e/n)</span>
-<span class="co">#&gt; + edges from 7ff61ac (vertex names):</span>
+<span class="co">#&gt; + edges from 33b9ccd (vertex names):</span>
 <span class="co">#&gt; [1] Regulars-&gt;Regulars Regulars-&gt;Geek     Geek    -&gt;Regulars</span>
 <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">task_reduced</span><span class="op">)</span></code></pre></div>
 <p><img src="p5blockmodel_files/figure-html/regredgraph-1.png" width="700"></p>
@@ -582,36 +587,36 @@ gcor(dedclust_mat, task_social_cors)</code></pre>
 <span class="co">#&gt;         210   300</span>
 <span class="co">#&gt; Block 1 0.6  1.67</span>
 <span class="co">#&gt; Block 2 6.0 26.00</span></code></pre></div>
-<pre><code># ADVANCED: Note that we can also blockmodel our communities from last week.
-# walktrap_blockmodel &lt;- blockmodel(get.adjacency(m182_main, sparse = F), 
-#                                   friend_wt$membership)
-# plot(walktrap_blockmodel)
-# walktrap_blockmodel
-# # And graphs that from the reduced form blockmodels...
-# walktrap_blockmodel_red &lt;- graph.adjacency(walktrap_blockmodel$block.model, weighted = T)
-# plot(walktrap_blockmodel_red, edge.width = E(walktrap_blockmodel_red)$weight,
-#      vertex.color = rainbow(2) )
-# # Admittedly, not terribly interesting...
-# 
-# edgebet_blockmodel &lt;- blockmodel(get.adjacency(m182_main, sparse = F), 
-#                                  friend_eb$membership)
-# plot(edgebet_blockmodel) # blockmodel
-# edgebet_blockmodel_red &lt;- graph.adjacency(edgebet_blockmodel$block.model, weighted = T)
-# plot(edgebet_blockmodel_red, edge.width=E(edgebet_blockmodel_red)$weight,
-#      vertex.color=rainbow(3) ) # reduced graph
-# # Cool
-# 
-# fastgreed_blockmodel &lt;- blockmodel(get.adjacency(m182_main, sparse = F), 
-#                                    friend_fg$membership)
-# plot(fastgreed_blockmodel) # blockmodel
-# fastgreed_blockmodel_red &lt;- graph.adjacency(fastgreed_blockmodel$block.model, weighted = T)
-# plot(fastgreed_blockmodel_red, edge.width=E(fastgreed_blockmodel_red)$weight,
-#      vertex.color=rainbow(3) ) # reduced graph</code></pre>
+<pre><code><span class="co"># ADVANCED: Note that we can also blockmodel our communities from last week.</span>
+<span class="co"># walktrap_blockmodel &lt;- blockmodel(get.adjacency(m182_main, sparse = F), </span>
+<span class="co">#                                   friend_wt$membership)</span>
+<span class="co"># plot(walktrap_blockmodel)</span>
+<span class="co"># walktrap_blockmodel</span>
+<span class="co"># # And graphs that from the reduced form blockmodels...</span>
+<span class="co"># walktrap_blockmodel_red &lt;- graph.adjacency(walktrap_blockmodel$block.model, weighted = T)</span>
+<span class="co"># plot(walktrap_blockmodel_red, edge.width = E(walktrap_blockmodel_red)$weight,</span>
+<span class="co">#      vertex.color = rainbow(2) )</span>
+<span class="co"># # Admittedly, not terribly interesting...</span>
+<span class="co"># </span>
+<span class="co"># edgebet_blockmodel &lt;- blockmodel(get.adjacency(m182_main, sparse = F), </span>
+<span class="co">#                                  friend_eb$membership)</span>
+<span class="co"># plot(edgebet_blockmodel) # blockmodel</span>
+<span class="co"># edgebet_blockmodel_red &lt;- graph.adjacency(edgebet_blockmodel$block.model, weighted = T)</span>
+<span class="co"># plot(edgebet_blockmodel_red, edge.width=E(edgebet_blockmodel_red)$weight,</span>
+<span class="co">#      vertex.color=rainbow(3) ) # reduced graph</span>
+<span class="co"># # Cool</span>
+<span class="co"># </span>
+<span class="co"># fastgreed_blockmodel &lt;- blockmodel(get.adjacency(m182_main, sparse = F), </span>
+<span class="co">#                                    friend_fg$membership)</span>
+<span class="co"># plot(fastgreed_blockmodel) # blockmodel</span>
+<span class="co"># fastgreed_blockmodel_red &lt;- graph.adjacency(fastgreed_blockmodel$block.model, weighted = T)</span>
+<span class="co"># plot(fastgreed_blockmodel_red, edge.width=E(fastgreed_blockmodel_red)$weight,</span>
+<span class="co">#      vertex.color=rainbow(3) ) # reduced graph</span></code></pre>
 </div>
 </div>
-<div id="unit-test" class="section level1">
-<h1 class="hasAnchor">
-<a href="#unit-test" class="anchor"></a>Unit Test</h1>
+<div class="section level1">
+<h1 id="unit-test">Unit Test<a class="anchor" aria-label="anchor" href="#unit-test"></a>
+</h1>
 <ol style="list-style-type: decimal">
 <li>Visualise the m182 FRIENDSHIP network, sizing the vertices by constraint and identifying the structural hole What would being in a structural hole mean here?</li>
 <li>Plot labelled, reduced graph of REGULARLY equivalent classes on friendship network only</li>
@@ -631,11 +636,13 @@ gcor(dedclust_mat, task_social_cors)</code></pre>
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://jameshollway.com">James Hollway</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://jameshollway.com" class="external-link">James Hollway</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
