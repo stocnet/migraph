@@ -1,3 +1,13 @@
+# migraph 0.8.11
+
+## Import and export
+- Fixed #172 by removing redundant header argument in `read_nodelist()` and
+  `read_edgelist()`
+
+## Package
+- Fixed #173 by extending `as_network()` method to convert correctly form
+  an `{igraph}` to a `{network}` object.
+
 # migraph 0.8.10
 
 ## Import and export
