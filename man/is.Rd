@@ -11,6 +11,16 @@
 \alias{is_complex}
 \alias{is_migraph}
 \alias{is_graph}
+\alias{is_chordal}
+\alias{is_dag}
+\alias{is_degseq}
+\alias{is_graphical}
+\alias{is_matching}
+\alias{is_max_matching}
+\alias{any_multiple}
+\alias{which_multiple}
+\alias{which_mutual}
+\alias{is_simple}
 \title{Tests of network properties}
 \usage{
 is_twomode(object)
@@ -30,6 +40,28 @@ is_complex(object)
 is_migraph(object)
 
 is_graph(object)
+
+is_chordal(object, ...)
+
+is_dag(object)
+
+is_degseq(object, ...)
+
+is_graphical(object, ...)
+
+is_matching(object, matching, types = NULL)
+
+is_max_matching(object, matching, types = NULL)
+
+any_multiple(object)
+
+which_multiple(object)
+
+which_multiple(object)
+
+which_mutual(object)
+
+is_simple(object)
 }
 \arguments{
 \item{object}{A migraph-consistent class object
@@ -37,6 +69,8 @@ is_graph(object)
 
 \item{method}{Whether to identify components if only "weak"ly connected
 or also "strong"ly connected.}
+
+\item{...}{Additional parameters passed onto the underlying \code{is_} function.}
 }
 \value{
 TRUE if object is a two-mode network, otherwise FALSE
