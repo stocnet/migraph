@@ -48,7 +48,8 @@ reference:
       - starts_with("is_")
       - starts_with("to_")
       - starts_with("project_")
-      - copy_node_attributes
+      - add
+      - edge
   - title: "Visualisation"
     desc: "Functions for plotting and visually graphs of different types:"
     contents:
