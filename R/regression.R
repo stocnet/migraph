@@ -6,7 +6,7 @@
 #' various dependent and independent matrices for the user.
 #' Lastly, because it relies on an object that contains all this information
 #' it can offer a more informative formula-based system for specifying the model.
-#' @name netlm
+#' @name regression
 #' @param formula A formula describing the relationship being tested.
 #' @param data A named list of matrices, graphs, or a tidygraph object.
 #' @param ... Arguments passed on to `lm()`.
@@ -62,7 +62,7 @@ convertToMatrixList <- function(formula, data){
   out
 }
   
-#' @rdname netlm
+#' @rdname regression
 #' @param object an object of class "netlm", usually as a result of a call to
 #' `network_reg()`.
 #' @param reps Integer indicating the number of draws to use for quantile
@@ -122,7 +122,7 @@ summary.netlm <- function(object, reps = 1000, ...) {
   out
 }
 
-#' @rdname netlm
+#' @rdname regression
 #' @param x an object of class "summary.netlm", usually, a result of a call to
 #' `summary.netlm()`.
 #' @param digits the number of significant digits to use when printing.

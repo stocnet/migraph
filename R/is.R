@@ -138,25 +138,3 @@ is_acyclic <- function(object){
   object <- as_igraph(object)
   igraph::is_dag(object)
 }
-
-
-# Development notes:
-# 
-# igraph::is_chordal() Done, Needs testing
-# igraph::is_dag() Done, Needs testing
-# igraph::is.degree.sequence() -> is_degseq() Done, Needs testing
-# igraph::is.graphical.degree.sequence() -> is_graphical() Done, Needs testing
-# igraph::is.hierarchical()
-# igraph::is.loop() -> is_complex Done, needs testing
-# igraph::is_matching() Done, needs testing
-# igraph::is_max_matching() Done, needs testing
-# igraph::max_bipartite_match() Not an is function,
-#                               maybe worth implementing somewhere else
-# igraph::is.multiple() -> which_multiple() Done, needs testing
-# igraph::any_multiple() Done, needs testing
-# igraph::which_loop() Done, needs testing
-# igraph::is.mutual() 
-# igraph::is.simple() Done, needs testing. Might be redundant with the is_complex() function
-# 
-# We should separate vertex level functions and graph level ones by using which
-# and is respectively.
