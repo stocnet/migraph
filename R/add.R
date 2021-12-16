@@ -9,10 +9,23 @@ NULL
 
 #' @rdname add
 #' @importFrom igraph vertex_attr<-
+#' @examples 
+#' add_node_attributes(mpn_elite_mex, "wealth", 1:11)
+#' add_node_attributes(mpn_elite_usa_advice, "wealth", 1:14)
 #' @export
 add_node_attributes <- function(object, attr_name, vector){
-  if(length(vector)!=graph_nodes(object)) 
-    stop("Attribute vector must be same length as nodes in object.")
+  if(length(vector)!=graph_nodes(object)){
+    if(is_twomode(object) && any(length(vector) == graph_dims(object))){
+      if(length(vector) == graph_dims(object)[1]){
+        vector <- c(vector, rep(NA, graph_dims(object)[2]))
+      } else if (length(vector) == graph_dims(object)[2]){
+        vector <- c(rep(NA, graph_dims(object)[1]), vector)
+      }
+    } else 
+      stop("Attribute vector must be same length as nodes in object.")
+  }
+    
+    
   object <- as_igraph(object)
   igraph::vertex_attr(object, name = attr_name) <- vector
   object
@@ -47,6 +60,7 @@ copy_node_attributes <- function(object, object2){
 #' autographr(both)
 #' random <- to_uniplex(both, "random")
 #' autographr(random)
+#' autographr(to_uniplex(both, "orig"))
 #' @export
 mutate_edges <- function(object, object2, attr_name){
   edges <- NULL
