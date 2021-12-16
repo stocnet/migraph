@@ -30,5 +30,7 @@ Identifying edges by certain properties
 }}
 
 \examples{
+edge_mutual(ison_m182)
 edge_multiple(ison_m182)
+edge_loop(ison_m182)
 }
