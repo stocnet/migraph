@@ -53,7 +53,12 @@ mutate_edges <- function(object, object2, attr_name){
   from <- NULL
   to <- NULL
   el <- c(t(as.matrix(as_edgelist(object2))))
-  out <- igraph::add_edges(as_igraph(object),
+  obj <- as_tidygraph(object) %>% 
+    activate(edges)
+  if(ncol(as.data.frame(obj)) < 3){
+    obj <- obj %>% igraph::set_edge_attr("orig", value = 1)
+  } 
+  out <- igraph::add_edges(as_igraph(obj),
                            el, object2 = 1) %>% 
     as_tidygraph()
   
@@ -64,7 +69,7 @@ mutate_edges <- function(object, object2, attr_name){
   
   edges <- out %>%
     activate(edges) %>%
-    as.data.frame() %>%
+    as.data.frame() %>% 
     dplyr::group_by(from, to) %>%
     dplyr::summarise(across(everything(), 
                      function(x){
