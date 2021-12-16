@@ -42,11 +42,12 @@ Imports:
     ggforce,
     readxl
 Suggests: 
+    covr,
     knitr,
-    testthat,
+    patchwork,
     rmarkdown,
     roxygen2,
-    covr
+    testthat
 Authors@R: 
     c(person(given = "James",
              family = "Hollway",
