@@ -9,6 +9,8 @@
 \alias{graph_nodes}
 \alias{graph_edges}
 \alias{graph_dims}
+\alias{graph_node_attributes}
+\alias{graph_edge_attributes}
 \title{Helpers to grab various attributes from nodes or edges in a graph}
 \usage{
 node_names(object)
@@ -24,6 +26,10 @@ graph_nodes(object)
 graph_edges(object)
 
 graph_dims(object)
+
+graph_node_attributes(object)
+
+graph_edge_attributes(object)
 }
 \arguments{
 \item{object}{A data frame edgelist, matrix, igraph, tidygraph, or
