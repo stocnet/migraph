@@ -52,6 +52,9 @@ Lastly, because it relies on an object that contains all this information
 it can offer a more informative formula-based system for specifying the model.
 }
 \examples{
-model1 <- network_reg(weight ~ same(Discipline) + same(Citations), ison_eies)
+messages <- mutate_edges(ison_eies, 
+  generate_random(ison_eies), attr_name = "random")
+model1 <- network_reg(weight ~ random + 
+  same(Discipline) + same(Citations), messages)
 summary(model1, reps = 2000)
 }
