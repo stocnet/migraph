@@ -24,6 +24,13 @@ cluster_triad_census <- function(object, clusters) {
   group_triad_census(object, clusters)
 }
 
+#' @describeIn defunct Deprecated on 2021-10-26.
+ggraphgrid <- function(x, algorithm = c("kk", "fr")) {
+  .Deprecated("autographr(x, 'frgrid'")
+  if(algorithm == "fr") autographr(x, "frgrid")
+  if(algorithm == "kk") autographr(x, "kkgrid")
+}
+
 #' @describeIn defunct Deprecated on 2021-11-08.
 #' Returns `test_random()`
 #' @export
@@ -47,4 +54,3 @@ netlm <- function(formula, data, ...) {
   .Deprecated("network_reg")
   network_reg(formula, data, ...)
 }
-

@@ -4,7 +4,6 @@
 #' properties.
 #' @param object A migraph-consistent class object
 #' (matrix, edgelist, igraph, network, tidygraph)
-#' @param ... Additional parameters passed onto the underlying `is_` function.
 #' @return TRUE if the condition is met, or FALSE otherwise.
 #' @family manipulation
 #' @name is
