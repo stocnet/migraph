@@ -18,7 +18,7 @@
 #'   generate_random(ison_eies), attr_name = "random")
 #' model1 <- network_reg(weight ~ random + 
 #'   same(Discipline) + same(Citations), messages)
-#' summary(model1, reps = 2000)
+#' summary(model1, reps = 200) # increase reps for publication
 #' @export
 network_reg <- function(formula, data, ...) {
   
