@@ -1,3 +1,10 @@
+# migraph 0.8.13
+
+## Modelling
+
+* Closed #149 by adding extra column to node_tie_census in `cluster_structural_equivalence()` for isolates
+  - Note that this renders all isolates structurally equivalent
+
 # migraph 0.8.12
 
 ## Package
