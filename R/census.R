@@ -117,7 +117,7 @@ NULL
 #' @rdname graph_census
 #' @references 
 #' Hollway, James, Alessandro Lomi, Francesca Pallotti, and Christoph Stadtfeld. 
-#' “\href{https://doi.org/10.1017/nws.2017.8}{Multilevel Social Spaces: The Network Dynamics of Organizational Fields}.” 
+#' “\doi{10.1017/nws.2017.8}{Multilevel Social Spaces: The Network Dynamics of Organizational Fields}.” 
 #' _Network Science_ 5, no. 2 (June 2017): 187–212.
 #' @source Alejandro Espinosa 'netmem'
 #' @examples 
