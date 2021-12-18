@@ -4,6 +4,7 @@
 \alias{defunct}
 \alias{graph_clustering}
 \alias{cluster_triad_census}
+\alias{ggraphgrid}
 \alias{test_cug}
 \alias{graph_dimensions}
 \alias{netlm}
@@ -12,6 +13,8 @@
 graph_clustering(object)
 
 cluster_triad_census(object, clusters)
+
+ggraphgrid(x, algorithm = c("kk", "fr"))
 
 test_cug(object, FUN, ..., nSim = 1000)
 
@@ -30,6 +33,8 @@ depending on whether the object is a one-mode or two-mode object, respectively.
 
 \item \code{cluster_triad_census}: Deprecated on 2021-10-26.
 Returns \code{group_triad_census()}
+
+\item \code{ggraphgrid}: Deprecated on 2021-10-26.
 
 \item \code{test_cug}: Deprecated on 2021-11-08.
 Returns \code{test_random()}

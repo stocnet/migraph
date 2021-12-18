@@ -46,8 +46,6 @@ is_acyclic(object)
 
 \item{method}{Whether to identify components if only "weak"ly connected
 or also "strong"ly connected.}
-
-\item{...}{Additional parameters passed onto the underlying \code{is_} function.}
 }
 \value{
 TRUE if the condition is met, or FALSE otherwise.
