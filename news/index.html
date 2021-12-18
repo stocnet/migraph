@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.12</span>
       </span>
     </div>
 
@@ -81,6 +81,27 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="0.8.12" id="migraph-0812">migraph 0.8.12<a class="anchor" aria-label="anchor" href="#migraph-0812"></a></h2>
+<div class="section level3">
+<h3 id="package-0-8-12">Package<a class="anchor" aria-label="anchor" href="#package-0-8-12"></a></h3>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/168" class="external-link">#168</a> by adding <a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a> to suggested packages in DESCRIPTION</li>
+<li>Updated function reference page on website</li>
+</ul></div>
+<div class="section level3">
+<h3 id="manipulation-0-8-12">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-12"></a></h3>
+<ul><li>Updated <code>add_</code> functions
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/178" class="external-link">#178</a> by adding name to existing edges when further edges added in <code><a href="../reference/add.html">mutate_edges()</a></code>
+</li>
+<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/179" class="external-link">#179</a> by inferring an attribute vector is for one of the two modes where possible in <code><a href="../reference/add.html">add_node_attributes()</a></code>
+</li>
+</ul></li>
+<li>Added <code>is_</code> methods: <code><a href="../reference/is.html">is_multiplex()</a></code>, <code><a href="../reference/is.html">is_uniplex()</a></code>, <code><a href="../reference/is.html">is_acyclic()</a></code>
+</li>
+<li>Added <code>edge_</code> functions to identify edges by properties: <code><a href="../reference/edge.html">edge_mutual()</a></code>, <code><a href="../reference/edge.html">edge_multiple()</a></code>, <code><a href="../reference/edge.html">edge_loop()</a></code>
+</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.11" id="migraph-0811">migraph 0.8.11<a class="anchor" aria-label="anchor" href="#migraph-0811"></a></h2>
 <div class="section level3">
 <h3 id="import-and-export-0-8-11">Import and export<a class="anchor" aria-label="anchor" href="#import-and-export-0-8-11"></a></h3>
@@ -90,7 +111,7 @@
 <div class="section level3">
 <h3 id="package-0-8-11">Package<a class="anchor" aria-label="anchor" href="#package-0-8-11"></a></h3>
 <ul><li>Fixed <a href="https://github.com/snlab-ch/migraph/issues/173" class="external-link">#173</a> by extending <code><a href="../reference/coercion.html">as_network()</a></code> method to convert correctly form an <a href="https://igraph.org" class="external-link">igraph</a> to a <a href="http://statnet.org/" class="external-link">network</a> object.</li>
-<li>Removed <code>ggraphgrid()</code> documentation</li>
+<li>Removed <code><a href="../reference/defunct.html">ggraphgrid()</a></code> documentation</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -143,7 +164,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="modelling-0-8-9">Modelling<a class="anchor" aria-label="anchor" href="#modelling-0-8-9"></a></h3>
-<ul><li>Fixed <code><a href="../reference/netlm.html">network_reg()</a></code> example</li>
+<ul><li>Fixed <code><a href="../reference/regression.html">network_reg()</a></code> example</li>
 </ul></div>
 <div class="section level3">
 <h3 id="visualisation-0-8-9">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation-0-8-9"></a></h3>
@@ -185,11 +206,11 @@
 <h3 id="modelling-0-8-8">Modelling<a class="anchor" aria-label="anchor" href="#modelling-0-8-8"></a></h3>
 <ul><li>Fixed one-mode bug with <code><a href="../reference/generate.html">generate_permutation()</a></code> and thus <code><a href="../reference/tests.html">test_permutation()</a></code>
 </li>
-<li>Renamed <code><a href="../reference/netlm.html">netlm()</a></code> to <code><a href="../reference/netlm.html">network_reg()</a></code> to avoid frustrating conflicts
+<li>Renamed <code><a href="../reference/defunct.html">netlm()</a></code> to <code><a href="../reference/regression.html">network_reg()</a></code> to avoid frustrating conflicts
 <ul><li>
-<code><a href="../reference/netlm.html">network_reg()</a></code> now accepts migraph-consistent objects</li>
+<code><a href="../reference/regression.html">network_reg()</a></code> now accepts migraph-consistent objects</li>
 <li>
-<code><a href="../reference/netlm.html">network_reg()</a></code> now accepts formula terms such as <code><a href="https://rdrr.io/pkg/igraph/man/ego.html" class="external-link">ego()</a></code>, <code>alter()</code>, and <code>same()</code>
+<code><a href="../reference/regression.html">network_reg()</a></code> now accepts formula terms such as <code><a href="https://rdrr.io/pkg/igraph/man/ego.html" class="external-link">ego()</a></code>, <code>alter()</code>, and <code>same()</code>
 </li>
 </ul></li>
 </ul></div>
@@ -366,7 +387,7 @@
 <div class="section level3">
 <h3 id="visualization-0-8-3">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-8-3"></a></h3>
 <ul><li>Added option to <code><a href="../reference/autographr.html">autographr()</a></code> for plotting convex/concave hulls</li>
-<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/124" class="external-link">#124</a> by making <code>ggraphgrid()</code> a set of layout functions:
+<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/124" class="external-link">#124</a> by making <code><a href="../reference/defunct.html">ggraphgrid()</a></code> a set of layout functions:
 <ul><li>
 <code><a href="../reference/layouts.html">layout_tbl_graph_frgrid()</a></code> or <code>autographr(object, "frgrid")</code> for snapping Fruchterman-Reingold to a grid</li>
 <li>
@@ -374,7 +395,7 @@
 <li>
 <code><a href="../reference/layouts.html">layout_tbl_graph_gogrid()</a></code> or <code>autographr(object, "gogrid")</code> for snapping graph optimisation to a grid</li>
 <li>
-<code>ggraphgrid()</code> has been deprecated</li>
+<code><a href="../reference/defunct.html">ggraphgrid()</a></code> has been deprecated</li>
 </ul></li>
 </ul></div>
 <div class="section level3">
@@ -513,7 +534,7 @@
 <h3 id="visualization-0-7-2">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-7-2"></a></h3>
 <ul><li>Added <code>ggraphlabel()</code> for one-function (1F) plotting label-based network graphs</li>
 <li>Added <code><a href="../reference/ggevolution.html">ggevolution()</a></code> for 1F-plotting begin/end graph comparisons</li>
-<li>Added <code>ggraphgrid()</code> for 1F snap-to-grid graph layouts based on Fruchterman-Reingold or Kamada-Kawai</li>
+<li>Added <code><a href="../reference/defunct.html">ggraphgrid()</a></code> for 1F snap-to-grid graph layouts based on Fruchterman-Reingold or Kamada-Kawai</li>
 <li>Added <code><a href="../reference/ggtools.html">ggidentify()</a></code> for 1F identifying nodes with maximum scores based on some arbitrary function</li>
 </ul></div>
 <div class="section level3">
@@ -545,7 +566,7 @@
 <h3 id="visualisation-0-7-0">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation-0-7-0"></a></h3>
 <ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/92" class="external-link">#92</a> by adding <code><a href="../reference/gglineage.html">gglineage()</a></code> for graphing a citation network through time</li>
 <li>Closed <a href="https://github.com/snlab-ch/migraph/issues/99" class="external-link">#99</a> by adding <code><a href="../reference/ggevolution.html">ggevolution()</a></code> for graphing two timepoints of the same network side by side</li>
-<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/102" class="external-link">#102</a> by adding <code>ggraphgrid()</code> for locking a graph to a grid</li>
+<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/102" class="external-link">#102</a> by adding <code><a href="../reference/defunct.html">ggraphgrid()</a></code> for locking a graph to a grid</li>
 <li>Slight improvements to <code><a href="https://rdrr.io/pkg/igraph/man/plot.igraph.html" class="external-link">plot.igraph()</a></code> defaults</li>
 </ul></div>
 <div class="section level3">
@@ -577,7 +598,7 @@
 <div class="section level3">
 <h3 id="package-0-6-5">Package<a class="anchor" aria-label="anchor" href="#package-0-6-5"></a></h3>
 <ul><li>Removed unused package dependencies (<a href="https://r6.r-lib.org" class="external-link">R6</a>, <a href="https://ggraph.data-imaginist.com" class="external-link">ggraph</a>)</li>
-<li>Avoided M1mac check issue by dropping sensitive <code><a href="../reference/netlm.html">netlm()</a></code> test</li>
+<li>Avoided M1mac check issue by dropping sensitive <code><a href="../reference/defunct.html">netlm()</a></code> test</li>
 <li>Added some tests</li>
 </ul></div>
 <div class="section level3">
@@ -665,7 +686,7 @@
 <div class="section level3">
 <h3 id="package-0-6-2">Package<a class="anchor" aria-label="anchor" href="#package-0-6-2"></a></h3>
 <ul><li>Reran <code>usethis::use_mit_license("James Hollway")</code>. MIT License file now contains only the standard two lines.</li>
-<li>Removed <code>\dontrun</code> from examples. <code><a href="../reference/netlm.html">netlm()</a></code> now runs in &lt;5 seconds.</li>
+<li>Removed <code>\dontrun</code> from examples. <code><a href="../reference/defunct.html">netlm()</a></code> now runs in &lt;5 seconds.</li>
 <li>Fixed missing website item</li>
 </ul></div>
 </div>
@@ -794,9 +815,9 @@
 <div class="section level3">
 <h3 id="models-0-5-0">Models<a class="anchor" aria-label="anchor" href="#models-0-5-0"></a></h3>
 <ul><li>
-<p>Re-added <code><a href="../reference/netlm.html">netlm()</a></code> for performing linear regression for multimodal network data</p>
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/76" class="external-link">#76</a> by changing <code><a href="../reference/netlm.html">netlm()</a></code> to accept a formula-based input</li>
-<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/77" class="external-link">#77</a> by adding <code><a href="../reference/netlm.html">print.summary.netlm()</a></code> for <code><a href="../reference/netlm.html">netlm()</a></code> regressions</li>
+<p>Re-added <code><a href="../reference/defunct.html">netlm()</a></code> for performing linear regression for multimodal network data</p>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/76" class="external-link">#76</a> by changing <code><a href="../reference/defunct.html">netlm()</a></code> to accept a formula-based input</li>
+<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/77" class="external-link">#77</a> by adding <code><a href="../reference/regression.html">print.summary.netlm()</a></code> for <code><a href="../reference/defunct.html">netlm()</a></code> regressions</li>
 </ul></li>
 </ul></div>
 <div class="section level3">

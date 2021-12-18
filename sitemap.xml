@@ -88,6 +88,9 @@
     <loc>https://snlab-ch.github.io/migraph/reference/diversity.html</loc>
   </url>
   <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/edge.html</loc>
+  </url>
+  <url>
     <loc>https://snlab-ch.github.io/migraph/reference/generate.html</loc>
   </url>
   <url>
@@ -163,9 +166,6 @@
     <loc>https://snlab-ch.github.io/migraph/reference/mpn_senate112.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/netlm.html</loc>
-  </url>
-  <url>
     <loc>https://snlab-ch.github.io/migraph/reference/node_components.html</loc>
   </url>
   <url>
@@ -182,6 +182,9 @@
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/reexports.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/regression.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/southern_women.html</loc>
