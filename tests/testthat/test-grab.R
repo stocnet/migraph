@@ -1,6 +1,7 @@
 net <- as_tidygraph(data.frame(from = c("A", "B", "C", "D","E"),
                                to = c("B", "C", "D", "E", "A"))) %>%
-  dplyr::mutate(name = c("Lisa", "John", "Lily", "Ben", "Adam"))
+  dplyr::mutate(name = c("Lisa", "John", "Lily", "Ben", "Adam")) %>%
+  dplyr::mutate(gender = c("female", "male", "female", "male", "male"))
 
 net2 <- as_tidygraph(data.frame(from = c("A", "B", "C", "D","E"),
                                 to = c("B", "C", "D", "E", "A"))) %>%
@@ -44,4 +45,14 @@ test_that("graph_dims works", {
   expect_equal(graph_dims(net3), c(5, 7))
   expect_length(graph_dims(net3), 2)
   expect_false(length(graph_dims(net3)) == 1)
+})
+
+test_that("graph_node_attributes works", {
+  expect_equal(graph_node_attributes(net), c("name", "gender"))
+  expect_length(graph_node_attributes(net), 2)
+})
+
+test_that("graph_edge_attributes works", {
+  expect_equal(graph_edge_attributes(net2), "weight")
+  expect_length(graph_edge_attributes(net2), 1)
 })

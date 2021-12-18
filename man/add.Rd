@@ -29,9 +29,12 @@ mutate_edges(object, object2, attr_name)
 Adding and copying attributes from one graph to another
 }
 \examples{
+add_node_attributes(mpn_elite_mex, "wealth", 1:11)
+add_node_attributes(mpn_elite_usa_advice, "wealth", 1:14)
 autographr(mpn_elite_mex)
 both <- mutate_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
 autographr(both)
 random <- to_uniplex(both, "random")
 autographr(random)
+autographr(to_uniplex(both, "orig"))
 }

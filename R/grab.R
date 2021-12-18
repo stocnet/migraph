@@ -54,3 +54,16 @@ graph_dims <- function(object){
   }
 }
 
+#' @rdname grab
+#' @importFrom igraph list.vertex.attributes
+#' @export
+graph_node_attributes <- function(object){
+  igraph::list.vertex.attributes(as_igraph(object))
+}
+
+#' @rdname grab
+#' @importFrom igraph list.edge.attributes
+#' @export
+graph_edge_attributes <- function(object){
+  igraph::list.edge.attributes(as_igraph(object))
+}

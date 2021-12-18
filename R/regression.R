@@ -6,7 +6,7 @@
 #' various dependent and independent matrices for the user.
 #' Lastly, because it relies on an object that contains all this information
 #' it can offer a more informative formula-based system for specifying the model.
-#' @name netlm
+#' @name regression
 #' @param formula A formula describing the relationship being tested.
 #' @param data A named list of matrices, graphs, or a tidygraph object.
 #' @param ... Arguments passed on to `lm()`.
@@ -14,8 +14,11 @@
 #' @importFrom purrr map
 #' @importFrom stats lm
 #' @examples
-#' model1 <- network_reg(weight ~ same(Discipline) + same(Citations), ison_eies)
-#' summary(model1, reps = 2000)
+#' messages <- mutate_edges(ison_eies, 
+#'   generate_random(ison_eies), attr_name = "random")
+#' model1 <- network_reg(weight ~ random + 
+#'   same(Discipline) + same(Citations), messages)
+#' summary(model1, reps = 200) # increase reps for publication
 #' @export
 network_reg <- function(formula, data, ...) {
   
@@ -38,7 +41,8 @@ convertFormula <- function(formula, new_names){
 
 convertToMatrixList <- function(formula, data){
   data <- as_tidygraph(data)
-  DV <- as_matrix(data)
+  DV <- as_matrix(to_uniplex(data, 
+                             edge = getDependentName(formula)))
   IVnames <- getRHSNames(formula)
   IVs <- lapply(IVnames, function(x){
     if(x[[1]] == "ego"){
@@ -53,6 +57,11 @@ convertToMatrixList <- function(formula, data){
       cols <- matrix(node_attribute(data, x[[2]]),
                      nrow(DV), ncol(DV), byrow = TRUE)
       out <- (rows==cols)*1
+    } else {
+      if (x[[1]] %in% graph_edge_attributes(data)){
+        out <- as_matrix(to_uniplex(data, 
+                                    edge = x[[1]]))
+      }
     }
     out
   })
@@ -61,8 +70,36 @@ convertToMatrixList <- function(formula, data){
                   sapply(IVnames, paste, collapse = " "))
   out
 }
-  
-#' @rdname netlm
+
+# inspired by the ergm package function parser
+extractFormulaTerms <- function(rhs) {
+  # most inner term reached
+  if (is.symbol(rhs)) {
+    return(rhs)
+  }
+  if (!is.call(rhs[[1]]) &&
+      rhs[[1]] != "+" &&
+      rhs[[1]] != "*") {
+    return(rhs)
+    # return(list(rightHandSide[[1]], rightHandSide[[2]]))
+  } else {
+    return(c(extractFormulaTerms(rhs[[2]]), rhs[[3]]))
+  }
+}
+
+getRHSNames <- function(formula) {
+  rhs <- extractFormulaTerms(formula[[3]])
+  # embed single parameter models in list
+  if (!is.list(rhs)) rhs <- list(rhs)
+  rhsNames <- lapply(rhs, function(term) lapply(term, deparse))
+}
+
+getDependentName <- function(formula) {
+  dep <- list(formula[[2]])
+  depName <- unlist(lapply(dep, deparse))
+}
+
+#' @rdname regression
 #' @param object an object of class "netlm", usually as a result of a call to
 #' `network_reg()`.
 #' @param reps Integer indicating the number of draws to use for quantile
@@ -122,7 +159,7 @@ summary.netlm <- function(object, reps = 1000, ...) {
   out
 }
 
-#' @rdname netlm
+#' @rdname regression
 #' @param x an object of class "summary.netlm", usually, a result of a call to
 #' `summary.netlm()`.
 #' @param digits the number of significant digits to use when printing.
@@ -142,6 +179,7 @@ print.summary.netlm <- function(x,
       "\n\n", sep = "")
   cat("\nCoefficients:\n")
   coefs <- x$coefficients
+  names(coefs) <- gsub("`", "", names(coefs))
   pvals <- x$pvals
   coefs <- cbind(coefs, pvals)
   printCoefmat(coefs,
@@ -154,30 +192,3 @@ print.summary.netlm <- function(x,
   cat("\n")
 }
 
-# inspired by the ergm package function parser
-extractFormulaTerms <- function(rhs) {
-  # most inner term reached
-  if (is.symbol(rhs)) {
-    return(rhs)
-  }
-  if (!is.call(rhs[[1]]) &&
-      rhs[[1]] != "+" &&
-      rhs[[1]] != "*") {
-    return(rhs)
-    # return(list(rightHandSide[[1]], rightHandSide[[2]]))
-  } else {
-    return(c(extractFormulaTerms(rhs[[2]]), rhs[[3]]))
-  }
-}
-
-getRHSNames <- function(formula) {
-  rhs <- extractFormulaTerms(formula[[3]])
-  # embed single parameter models in list
-  if (!is.list(rhs)) rhs <- list(rhs)
-  rhsNames <- lapply(rhs, function(term) lapply(term, deparse))
-}
-
-getDependentName <- function(formula) {
-  dep <- list(formula[[2]])
-  depName <- unlist(lapply(dep, deparse))
-}

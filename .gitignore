@@ -10,3 +10,4 @@ working/*
 /doc/
 /Meta/
 tests/testthat/Rplots.pdf
+.DS_Store

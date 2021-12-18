@@ -31,14 +31,14 @@ navbar:
       text: News
       href: news/index.html
 reference:
-  - title: "Creation and Simulation"
+  - title: "Making"
     desc: "Functions for creating and simulating multimodal and multilevel networks:"
     contents:
       - starts_with("create_")
       - starts_with("generate_")
       - starts_with("read")
       - starts_with("write")
-  - title: "Class and Type Manipulation"
+  - title: "Manipulation"
     desc: |
       Functions for coercing objects between different classes, 
       testing the properties of migraph-consistent objects,
@@ -48,8 +48,9 @@ reference:
       - starts_with("is_")
       - starts_with("to_")
       - starts_with("project_")
-      - copy_node_attributes
-  - title: "Visualisation"
+      - add
+      - grab
+  - title: "Mapping"
     desc: "Functions for plotting and visually graphs of different types:"
     contents:
       - autographr
@@ -62,12 +63,24 @@ reference:
   - title: "Measures"
     desc: "Functions for measuring multimodal and multilevel networks:"
     contents:
-      - starts_with("node_")
-      - starts_with("graph_")
+      - centrality
+      - centralization
+      - cohesion
+      - diversity
+      - node_constraint
+      - node_smallworld
+      - node_components
+      - graph_components
+      - graph_balance
+      - edge
+  - title: "Motifs"
+    desc: "Functions for calculating subgraphs in multimodal and multilevel networks:"
+    contents:
+      - ends_with("_census")
   - title: "Models"
     desc: "Functions for modelling multimodal and multilevel networks:"
     contents:
-      - netlm
+      - regression
       - starts_with("test")
       - starts_with("cluster")
       - starts_with("blockmodel")

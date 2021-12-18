@@ -1,3 +1,19 @@
+# migraph 0.8.12
+
+## Package
+* Closed #168 by adding `{patchwork}` to suggested packages in DESCRIPTION
+* Updated function reference page on website
+
+## Manipulation
+* Updated `add_` functions
+  * Closed #178 by adding name to existing edges when further edges added in 
+  `mutate_edges()`
+  * Closed #179 by inferring an attribute vector is for one of the two modes 
+  where possible in `add_node_attributes()`
+* Added `is_` methods: `is_multiplex()`, `is_uniplex()`, `is_acyclic()`
+* Added `edge_` functions to identify edges by properties: `edge_mutual()`, 
+`edge_multiple()`, `edge_loop()`
+
 # migraph 0.8.11
 
 ## Import and export
@@ -12,12 +28,15 @@
 # migraph 0.8.10
 
 ## Import and export
-* Replaced xlsx dependency in `read_edgelist()` and `read_nodelist()` to readxl to avoid Java dependency
-* Replaced xlsx dependency in `write_edgelist()` and `write_nodelist()` to avoid Java dependency
+* Replaced xlsx dependency in `read_edgelist()` and `read_nodelist()` to readxl 
+to avoid Java dependency
+* Replaced xlsx dependency in `write_edgelist()` and `write_nodelist()` to avoid
+Java dependency
   * Note that these functions will now export to .csv rather than .xlsx
   
 ## Manipulation
-* Fixed direction recognition bug in `as_network()`, `as_igraph()`, and `is_directed()`
+* Fixed direction recognition bug in `as_network()`, `as_igraph()`, and 
+`is_directed()`
 
 # migraph 0.8.9
 
@@ -26,21 +45,28 @@
 
 ## Import and export
 * Added `read_` and `write_` functions and updated documentation
-  * Closed #137 by adding `read_edgelist()` for importing edgelists from Excel and csv files
+  * Closed #137 by adding `read_edgelist()` for importing edgelists from
+  Excel and csv files
   * Closed #170 by adding `read_pajek()` for importing .net and .paj files
-  * Added `write_edgelist()`, `write_nodelist`, `write_pajek()`, and `write_ucinet()` for exporting into various file formats (Excel, csv, Pajek, and UCINET)
+  * Added `write_edgelist()`, `write_nodelist`, `write_pajek()`, and 
+  `write_ucinet()` for exporting into various file formats (Excel, csv, 
+  Pajek, and UCINET)
   * Closed #140 by adding links to further data resources
 
 ## Manipulation
 * Added `is_graph()` to check if an object is a graph or not
 * Extended `as_network()` to retain attributes
 * Fixed bugs in `as_` and `to_` functions
-  * Fixed bug in `as_` functions to convert from dataframes instead of tibbles
-  * Fixed bug in conversion from network to igraph object in `as_igraph()` function
+  * Fixed bug in `as_` functions to convert from dataframes instead of 
+  tibbles
+  * Fixed bug in conversion from network to igraph object in `as_igraph()` 
+  function
   * Fixed bug in `to_undirected()` function to work with network objects
-  * Fixed bug in `to_main_component()` function so that it retains vertex attributes in network objects
+  * Fixed bug in `to_main_component()` function so that it retains vertex 
+  attributes in network objects
 * Added `edge_attribute()` to grab a named edge attribute from a graph/network
-* Updated `to_unweighted()` to prevent conversion of network object into igraph object when deleting weights
+* Updated `to_unweighted()` to prevent conversion of network object into igraph 
+object when deleting weights
 
 ## Measures
 * Closed #143 by adding nodal summary by cluster function `summarise_statistics()`

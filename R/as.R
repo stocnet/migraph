@@ -219,7 +219,7 @@ as_igraph.matrix <- function(object,
                              weight = FALSE,
                              twomode = FALSE) {
   if (nrow(object) != ncol(object) | twomode) {
-    if(!(all(object %in% c(0, 1)))){
+    if (!(all(object %in% c(0, 1)))) {
       graph <- igraph::graph_from_incidence_matrix(object, 
                                                    weighted = TRUE, 
                                                    directed = FALSE)
@@ -228,7 +228,7 @@ as_igraph.matrix <- function(object,
                                                    directed = FALSE)
     }
   } else {
-    if(!(all(object %in% c(0, 1)))){
+    if (!(all(object %in% c(0, 1)))) {
       graph <- igraph::graph_from_adjacency_matrix(object, 
                                                    mode = ifelse(all(object == t(object)),
                                                                  "undirected", "directed"),

@@ -9,10 +9,23 @@ NULL
 
 #' @rdname add
 #' @importFrom igraph vertex_attr<-
+#' @examples 
+#' add_node_attributes(mpn_elite_mex, "wealth", 1:11)
+#' add_node_attributes(mpn_elite_usa_advice, "wealth", 1:14)
 #' @export
 add_node_attributes <- function(object, attr_name, vector){
-  if(length(vector)!=graph_nodes(object)) 
-    stop("Attribute vector must be same length as nodes in object.")
+  if(length(vector)!=graph_nodes(object)){
+    if(is_twomode(object) && any(length(vector) == graph_dims(object))){
+      if(length(vector) == graph_dims(object)[1]){
+        vector <- c(vector, rep(NA, graph_dims(object)[2]))
+      } else if (length(vector) == graph_dims(object)[2]){
+        vector <- c(rep(NA, graph_dims(object)[1]), vector)
+      }
+    } else 
+      stop("Attribute vector must be same length as nodes in object.")
+  }
+    
+    
   object <- as_igraph(object)
   igraph::vertex_attr(object, name = attr_name) <- vector
   object
@@ -47,13 +60,19 @@ copy_node_attributes <- function(object, object2){
 #' autographr(both)
 #' random <- to_uniplex(both, "random")
 #' autographr(random)
+#' autographr(to_uniplex(both, "orig"))
 #' @export
 mutate_edges <- function(object, object2, attr_name){
   edges <- NULL
   from <- NULL
   to <- NULL
   el <- c(t(as.matrix(as_edgelist(object2))))
-  out <- igraph::add_edges(as_igraph(object),
+  obj <- as_tidygraph(object) %>% 
+    activate(edges)
+  if(ncol(as.data.frame(obj)) < 3){
+    obj <- obj %>% igraph::set_edge_attr("orig", value = 1)
+  } 
+  out <- igraph::add_edges(as_igraph(obj),
                            el, object2 = 1) %>% 
     as_tidygraph()
   
@@ -64,7 +83,7 @@ mutate_edges <- function(object, object2, attr_name){
   
   edges <- out %>%
     activate(edges) %>%
-    as.data.frame() %>%
+    as.data.frame() %>% 
     dplyr::group_by(from, to) %>%
     dplyr::summarise(across(everything(), 
                      function(x){

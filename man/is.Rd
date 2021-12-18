@@ -2,6 +2,8 @@
 % Please edit documentation in R/is.R
 \name{is}
 \alias{is}
+\alias{is_migraph}
+\alias{is_graph}
 \alias{is_twomode}
 \alias{is_weighted}
 \alias{is_directed}
@@ -9,10 +11,15 @@
 \alias{is_signed}
 \alias{is_connected}
 \alias{is_complex}
-\alias{is_migraph}
-\alias{is_graph}
+\alias{is_multiplex}
+\alias{is_uniplex}
+\alias{is_acyclic}
 \title{Tests of network properties}
 \usage{
+is_migraph(object)
+
+is_graph(object)
+
 is_twomode(object)
 
 is_weighted(object)
@@ -27,9 +34,11 @@ is_connected(object, method = c("weak", "strong"))
 
 is_complex(object)
 
-is_migraph(object)
+is_multiplex(object)
 
-is_graph(object)
+is_uniplex(object)
+
+is_acyclic(object)
 }
 \arguments{
 \item{object}{A migraph-consistent class object
@@ -39,21 +48,39 @@ is_graph(object)
 or also "strong"ly connected.}
 }
 \value{
-TRUE if object is a two-mode network, otherwise FALSE
-
-TRUE if object is a weighted network, otherwise FALSE
-
-TRUE if object is a directed network, otherwise FALSE
-
-TRUE if object is a labelled network, otherwise FALSE
-
-TRUE if object is a signed network, otherwise FALSE
-
-TRUE if object is a connected network, otherwise FALSE
+TRUE if the condition is met, or FALSE otherwise.
 }
 \description{
-Tests of network properties
+These functions implement tests for various network
+properties.
 }
+\section{Functions}{
+\itemize{
+\item \code{is_migraph}: Tests whether network is migraph-compatible
+
+\item \code{is_graph}: Tests whether network contains graph-level information
+
+\item \code{is_twomode}: Tests whether network is a two-mode network
+
+\item \code{is_weighted}: Tests whether network is weighted
+
+\item \code{is_directed}: Tests whether network is directed
+
+\item \code{is_labelled}: Tests whether network includes names for the nodes
+
+\item \code{is_signed}: Tests whether network is signed positive/negative
+
+\item \code{is_connected}: Tests whether network is (weakly/strongly) connected
+
+\item \code{is_complex}: Tests whether network contains any loops
+
+\item \code{is_multiplex}: Tests whether network is multiplex
+
+\item \code{is_uniplex}: Tests whether network is simple (both uniplex and simplex)
+
+\item \code{is_acyclic}: Tests whether network is a directed acyclic graph
+}}
+
 \examples{
 is_twomode(southern_women)
 is_weighted(southern_women)
@@ -61,6 +88,9 @@ is_directed(southern_women)
 is_labelled(southern_women)
 is_signed(southern_women)
 is_connected(southern_women)
+is_complex(southern_women)
+is_uniplex(ison_m182)
+is_acyclic(ison_m182)
 }
 \seealso{
 Other manipulation: 
