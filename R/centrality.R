@@ -10,7 +10,8 @@
 #' @param object Either an igraph graph object or a matrix.
 #' @param weights The weight of the edges to use for the calculation. 
 #' Will be evaluated in the context of the edge data.
-#' @param mode How should edges be followed. Ignored for undirected graphs
+#' @param mode How should edges be followed (in or out). By default, outdegree of
+#' the node is calculated. Ignored for undirected graphs.
 #' @param loops Should loops be included in the calculation
 #' @param normalized Should the output be normalized for one or two-modes networks
 #' @importFrom rlang enquo eval_tidy

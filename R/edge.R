@@ -33,3 +33,24 @@ edge_loop <- function(object){
   igraph::which_loop(object)
 }
 
+#' @describeIn edge Calculate number of shortest paths going through an edge
+#' @importFrom igraph estimate_edge_betweenness
+#' @examples
+#' edge_betweenness(ison_coleman)
+#' @export
+edge_betweenness <- function(object) {
+  object <- as_igraph(object)
+  igraph::estimate_edge_betweenness(object)
+}
+
+#' @describeIn edge Calculate the lengths of the shortest paths
+#' @importFrom igraph shortest_paths
+#' @examples
+#' edge_closeness(ison_coleman)
+#' @export
+# edge_closeness <- function(object) {
+#   object <- as_igraph(object)
+#   
+#   out
+# }
+

@@ -4,6 +4,7 @@ test_mat <- as_matrix(southern_women)
 
 test_that("one mode degree centrality calculated correctly",{
   expect_equal(unname(node_degree(mpn_elite_mex)[1:5]), c(2,5,2,3,5))
+  expect_equal(node_degree(ison_eies, mode = "in")[1:5], c(29, 24, 11, 18, 8))
 })
 
 test_that("two mode degree centrality calculated correctly",{
