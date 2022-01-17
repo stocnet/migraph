@@ -32,7 +32,6 @@ layers of code to the initial `ggraph()` function, one can create a tailored plo
 to visualise the network more aesthetically and appropriately for analysis.
   
 ```{r ggrapheg, echo=TRUE, message=FALSE, warning=FALSE}
-library(graphlayouts)
 library(ggplot2)
 library(ggraph)
 library(dplyr)
