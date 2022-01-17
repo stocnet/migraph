@@ -5,7 +5,6 @@
 \alias{edge_mutual}
 \alias{edge_multiple}
 \alias{edge_loop}
-\alias{edge_betweenness}
 \title{Identifying edges by certain properties}
 \usage{
 edge_mutual(object)
@@ -13,8 +12,6 @@ edge_mutual(object)
 edge_multiple(object)
 
 edge_loop(object)
-
-edge_betweenness(object)
 }
 \arguments{
 \item{object}{A migraph-consistent class object
@@ -30,13 +27,10 @@ Identifying edges by certain properties
 \item \code{edge_multiple}: Identify edges that are multiples
 
 \item \code{edge_loop}: Identify edges that are loops
-
-\item \code{edge_betweenness}: Calculate number of shortest paths going through an edge
 }}
 
 \examples{
 edge_mutual(ison_m182)
 edge_multiple(ison_m182)
 edge_loop(ison_m182)
-edge_betweenness(ison_coleman)
 }
