@@ -48,7 +48,8 @@ node_eigenvector(
 \item{weights}{The weight of the edges to use for the calculation.
 Will be evaluated in the context of the edge data.}
 
-\item{mode}{How should edges be followed. Ignored for undirected graphs}
+\item{mode}{How should edges be followed (in or out). By default, outdegree of
+the node is calculated. Ignored for undirected graphs.}
 
 \item{loops}{Should loops be included in the calculation}
 
