@@ -6,6 +6,7 @@
 \alias{edge_multiple}
 \alias{edge_loop}
 \alias{edge_betweenness}
+\alias{edge_closeness}
 \title{Identifying edges by certain properties}
 \usage{
 edge_mutual(object)
@@ -15,6 +16,8 @@ edge_multiple(object)
 edge_loop(object)
 
 edge_betweenness(object)
+
+edge_closeness(object)
 }
 \arguments{
 \item{object}{A migraph-consistent class object
@@ -32,6 +35,10 @@ Identifying edges by certain properties
 \item \code{edge_loop}: Identify edges that are loops
 
 \item \code{edge_betweenness}: Calculate number of shortest paths going through an edge
+
+\item \code{edge_closeness}: Calculate the average distance of a tie to
+other ties in the network. Row names indicate the node at the head of the
+first tie and column names indicate the node at the tail of the last tie.
 }}
 
 \examples{
@@ -39,4 +46,5 @@ edge_mutual(ison_m182)
 edge_multiple(ison_m182)
 edge_loop(ison_m182)
 edge_betweenness(ison_coleman)
+edge_closeness(ison_coleman)
 }

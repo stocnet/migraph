@@ -18,3 +18,10 @@ test_that("edge_loop works", {
 test_that("edge_betweenness works", {
   expect_length(edge_betweenness(ison_coleman), igraph::ecount(ison_coleman))
 })
+
+test_that("edge_closeness works", {
+  expect_equal(class(edge_closeness(ison_coleman)), c("matrix", "array"))
+  expect_equal(dim(edge_closeness(ison_eies)), 
+               c(igraph::vcount(ison_eies), igraph::vcount(ison_eies)))
+  expect_equal(edge_closeness(graph1)[1,2:5], c(0,1,1,0))
+})

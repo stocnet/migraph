@@ -34,23 +34,24 @@ edge_loop <- function(object){
 }
 
 #' @describeIn edge Calculate number of shortest paths going through an edge
-#' @importFrom igraph estimate_edge_betweenness
+#' @importFrom igraph edge_betweenness
 #' @examples
 #' edge_betweenness(ison_coleman)
 #' @export
-edge_betweenness <- function(object) {
+edge_betweenness <- function(object){
   object <- as_igraph(object)
-  igraph::estimate_edge_betweenness(object)
+  igraph::edge_betweenness(object)
 }
 
-#' @describeIn edge Calculate the lengths of the shortest paths
-#' @importFrom igraph shortest_paths
+#' @describeIn edge Calculate the average distance of a tie to 
+#' other ties in the network. Row names indicate the node at the head of the 
+#' first tie and column names indicate the node at the tail of the last tie.
+#' @importFrom igraph distances
 #' @examples
 #' edge_closeness(ison_coleman)
 #' @export
-# edge_closeness <- function(object) {
-#   object <- as_igraph(object)
-#   
-#   out
-# }
-
+edge_closeness <- function(object){
+  dist <- igraph::distances(object)
+  out <- ifelse(dist==0, NA, dist-1)
+  out
+}
