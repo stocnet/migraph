@@ -48,6 +48,12 @@ test_that("to_unnamed works",{
                          row.names = c(NA, -12L), class = c("tbl_df", "tbl", "data.frame")))
 })
 
+names_southern <- igraph::get.vertex.attribute(southern_women, "name")
+
+test_that("to_named works", {
+  expect_equal(to_named(southern_women, names_southern), southern_women)
+})
+
 test_that("to_undirected works",{
   expect_equal(c(to_undirected(as_igraph(ison_m182)))[3], c(igraph::as.undirected(ison_m182))[3])
   expect_equal(as_matrix(to_undirected(as_tidygraph(test_weighted))),

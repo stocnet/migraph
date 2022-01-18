@@ -30,7 +30,7 @@ to_unsigned(object, keep = c("positive", "negative"))
 
 to_simplex(object)
 
-to_named(object)
+to_named(object, names = NULL)
 
 to_multilevel(object)
 }
@@ -44,6 +44,8 @@ to_multilevel(object)
 
 \item{keep}{in the case of a signed network, whether to retain
 the "positive" or "negative" ties}
+
+\item{names}{Character vector of the node names. Null by default.}
 }
 \value{
 All \code{to_} functions return an object of the same class as that provided.

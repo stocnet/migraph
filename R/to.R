@@ -27,6 +27,7 @@
 #' @param keep in the case of a signed network, whether to retain
 #' the "positive" or "negative" ties
 #' @param threshold For a matrix, the threshold to binarise/dichotomise at.
+#' @param names Character vector of the node names. Null by default.
 #' @returns
 #' All `to_` functions return an object of the same class as that provided. 
 #' So passing it an igraph object will return an igraph object
@@ -272,18 +273,27 @@ to_simplex.matrix <- function(object) {
 #' @examples
 #' to_named(ison_m182)
 #' @export
-to_named <- function(object) UseMethod("to_named")
+to_named <- function(object, names = NULL) UseMethod("to_named")
 
 #' @export
-to_named.tbl_graph <- function(object) {
-  object %>% mutate(name = sample(baby_names,
-                                  igraph::vcount(object)))
+to_named.tbl_graph <- function(object, names = NULL) {
+  if (!is.null(names)) {
+    object <- object %>% mutate(name = names)
+  } else {
+    object <- object %>% mutate(name = sample(baby_names,
+                                    igraph::vcount(object)))
+  }
+  object
 }
 
 #' @export
-to_named.igraph <- function(object) {
-  igraph::V(object)$name  <- sample(baby_names,
-                                    igraph::vcount(object))
+to_named.igraph <- function(object, names = NULL) {
+  if (!is.null(names)) {
+    igraph::V(object)$name  <- names
+  } else {
+    igraph::V(object)$name  <- sample(baby_names,
+                                      igraph::vcount(object))
+  }
   object
 }
 
