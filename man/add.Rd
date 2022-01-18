@@ -10,7 +10,7 @@
 \usage{
 add_node_attributes(object, attr_name, vector)
 
-add_edge_attributes(object, object2)
+add_edge_attributes(object, attr_name, vector)
 
 copy_node_attributes(object, object2)
 
@@ -31,6 +31,7 @@ Adding and copying attributes from one graph to another
 \examples{
 add_node_attributes(mpn_elite_mex, "wealth", 1:11)
 add_node_attributes(mpn_elite_usa_advice, "wealth", 1:14)
+add_edge_attributes(ison_coleman, "weight", c(1,2,1,1,1,3,2,2,3,1))
 autographr(mpn_elite_mex)
 both <- mutate_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
 autographr(both)
