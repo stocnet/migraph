@@ -12,6 +12,8 @@ autographr(
   node_group = NULL,
   node_shape = NULL,
   node_size = NULL,
+  node_measure = NULL,
+  identify_function = max,
   ...
 )
 }
@@ -42,6 +44,12 @@ This can be any continuous variable on the nodes of the network.
 Since this function expects this to be an existing variable,
 it is recommended to calculate all node-related statistics prior
 to using this function.}
+
+\item{node_measure}{Name of the node level measure function e.g.
+\code{node_degree}. \code{NULL} by default.}
+
+\item{identify_function}{Name of the function used to determine the
+highlighted node e.g. \code{max}, \code{min}, etc. \code{max} by default.}
 
 \item{...}{Extra arguments.}
 }

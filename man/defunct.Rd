@@ -8,6 +8,7 @@
 \alias{test_cug}
 \alias{graph_dimensions}
 \alias{netlm}
+\alias{ggidentify}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 graph_clustering(object)
@@ -21,6 +22,8 @@ test_cug(object, FUN, ..., nSim = 1000)
 graph_dimensions(object)
 
 netlm(formula, data, ...)
+
+ggidentify(object, node_measure, identify_function = max)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -44,6 +47,11 @@ Returns \code{graph_dims()}
 
 \item \code{netlm}: Deprecated on 2021-11-16.
 Returns \code{network_reg()}
+
+\item \code{ggidentify}: Deprecated on 2022-01-24.
+This function is deprecated and its functionality is included in the more
+general purpose \code{autographr()} function. Please refer to its documentation
+for more details about the new implementation.
 }}
 
 \keyword{internal}
