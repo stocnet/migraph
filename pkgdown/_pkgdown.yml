@@ -56,7 +56,7 @@ reference:
       - autographr
       - layouts
       - starts_with("plot")
-      - ggidentify
+      - ggdistrib
       - gglineage
       - ggevolution
       - ggatyear
