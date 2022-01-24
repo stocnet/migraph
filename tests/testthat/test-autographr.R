@@ -16,21 +16,71 @@ test_that("autographr works for unweighted, unsigned, directed networks", {
 })
 
 # Unweighted, signed, undirected network
+test_ison_coleman <- autographr(ison_coleman)
 
 test_that("autographr works for unweighted, signed, undirected networks", {
   # Node position
-  expect_equal(round(test_brandes[["data"]][["x"]][[1]]), 3)
-  expect_equal(round(test_brandes[["data"]][["y"]][[1]]), -1)
+  expect_equal(round(test_ison_coleman[["data"]][["x"]][[1]]), 1)
+  expect_equal(round(test_ison_coleman[["data"]][["y"]][[1]]), 2)
   # Edge parameters
-  expect_equal(test_brandes[["layers"]][[1]][["aes_params"]][["edge_alpha"]], 0.4)
-  expect_equal(test_brandes[["layers"]][[1]][["aes_params"]][["edge_linetype"]], "solid")
-  expect_equal(test_brandes[["layers"]][[1]][["aes_params"]][["edge_colour"]], "black")
-  expect_equal(as.character(test_brandes[["layers"]][[1]][["aes_params"]][["end_cap"]]), "circle")
+  expect_equal(test_ison_coleman[["layers"]][[1]][["aes_params"]][["edge_alpha"]], 0.4)
+  expect_equal(test_ison_coleman[["layers"]][[1]][["aes_params"]][["edge_linetype"]], "solid")
+  expect_equal(test_ison_coleman[["layers"]][[1]][["aes_params"]][["edge_colour"]], "black")
   # Node parameters
-  expect_equal(round(test_brandes[["layers"]][[2]][["aes_params"]][["size"]]), 5)
-  expect_equal(as.character(test_brandes[["layers"]][[2]][["aes_params"]][["shape"]]), "circle")
+  expect_equal(round(test_ison_coleman[["layers"]][[2]][["aes_params"]][["size"]]), 5)
+  expect_equal(as.character(test_ison_coleman[["layers"]][[2]][["aes_params"]][["shape"]]), "circle")
 })
 
-# Weighted network
+# Test node_measure function with ison_coleman
+test_node_measure_max <- autographr(ison_coleman,
+  node_measure = node_betweenness,
+  identify_function = max
+)
+test_node_measure_min <- autographr(ison_coleman,
+  node_measure = node_betweenness,
+  identify_function = min
+)
 
-# Bipartite network
+test_that("autographr works with node_measure functionality", {
+  # Node color is determined by factor levels
+  expect_equal(
+    rlang::as_label(test_node_measure_max[["layers"]][[2]][["mapping"]][["colour"]]),
+    "color_factor"
+  )
+  expect_equal(
+    rlang::as_label(test_node_measure_min[["layers"]][[2]][["mapping"]][["colour"]]),
+    "color_factor"
+  )
+  # Node size
+  expect_equal(test_node_measure_max[["layers"]][[2]][["geom"]][["default_aes"]][["size"]], 1.5)
+  expect_equal(test_node_measure_min[["layers"]][[2]][["geom"]][["default_aes"]][["size"]], 1.5)
+})
+
+# Weighted and directed network: ison_eies
+
+test_ison_eies <- autographr(ison_eies)
+
+test_that("autographr works for unsigned, weighted and directed networks", {
+  # Arrows
+  expect_equal(test_ison_eies[["layers"]][[1]][["geom_params"]][["arrow"]][["angle"]], 15)
+  # Node size
+  expect_equal(test_ison_eies[["layers"]][[2]][["geom"]][["default_aes"]][["size"]], 1.5)
+})
+
+# Bipartite network: mpn_usa_advice
+
+test_usa_advice <- autographr(mpn_elite_usa_advice)
+
+test_that("autographr works for signed, unweighted and undirected bipartite networks", {
+  # Names
+  expect_equal(test_usa_advice[["data"]][["name"]][[1]], "Albright")
+  # Edges
+  expect_equal(test_usa_advice[["layers"]][[1]][["aes_params"]][["edge_linetype"]], "solid")
+  expect_equal(test_usa_advice[["layers"]][[1]][["aes_params"]][["edge_colour"]], "black")
+  expect_equal(test_usa_advice[["layers"]][[1]][["aes_params"]][["edge_alpha"]], 0.4)
+  # Nodes
+  expect_equal(test_usa_advice[["layers"]][[2]][["aes_params"]][["shape"]][1:3], rep("circle", 3))
+  expect_equal(round(test_usa_advice[["layers"]][[2]][["aes_params"]][["size"]]), 1)
+  # Labels
+  expect_equal(rlang::as_label(test_usa_advice[["layers"]][[3]][["mapping"]][["label"]]), "name")
+})
