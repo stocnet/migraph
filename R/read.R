@@ -175,7 +175,7 @@ read_ucinet <- function(file = file.choose(),
       ignore <- readBin(UCINET.header, what = "int", size = 1)
       headerversion <- paste(
         rawToChar(readBin(UCINET.header, what = "raw", size = 1)),
-        rawToChar(readBin(UCINET.header, what = "raw", size = )),
+        rawToChar(readBin(UCINET.header, what = "raw", size = 1)),
         rawToChar(readBin(UCINET.header, what = "raw", size = 1)),
         rawToChar(readBin(UCINET.header, what = "raw", size = 1)),
         rawToChar(readBin(UCINET.header, what = "raw", size = 1)),
@@ -273,13 +273,14 @@ read_ucinet <- function(file = file.choose(),
                   dimnames = header$dim.labels[c(2,1)],
                   byrow = TRUE)
     # put additional info from header file on matrix
-    if (header$title != "") {attr(mat,"title") <- header$title}
+    if (!(is.null(header$title))) {
+      attr(mat,"title") <- header$title
+    }
     attr(mat,"date") <- header$date
     #attr(mat,'labtype') <- header$labtype
     #attr(mat,'infile.dt') <- header$infile.dt
     as_tidygraph(mat)
   }
-
 }
 
 #' @describeIn read Writing UCINET files
