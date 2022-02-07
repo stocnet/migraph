@@ -107,7 +107,7 @@ read_nodelist <- function(file = file.choose(),
                           ...){
   sv <- match.arg(sv)
   if (grepl("csv$", file)) {
-    if (sv == ",") {
+    if (sv == "comma") {
       out <- read.csv(file, header = TRUE, ...) # For US
     } else {
       out <- read.csv2(file, header = TRUE, ...) # For EU
