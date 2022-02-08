@@ -13,14 +13,29 @@ net_edge1 <- data.frame(
   to = c("C", "D", "A", "A", "B"))
 
 test_that("add_node_attributes works", {
+  # Test on one mode network
   expect_equal(as_tidygraph(add_node_attributes(net_node1, "attribute", 
                                                 c("friend", "family", "friend", "friend", "family"))), 
                net_node2)
+  # On two mode network
+  # First nodeset
+  south1 <- add_node_attributes(southern_women, "Age", rep(25, 18))
+  expect_equal(node_attribute(south1, "Age"), c(rep(25, 18), rep(NA, 14)))
+  # Second nodeset
+  south2 <- add_node_attributes(southern_women, "Budget", rep(100, 14))
+  expect_equal(node_attribute(south2, "Budget"), c(rep(NA, 18), rep(100, 14)))
+  # Test error when wrong number of attributes
+  expect_error(add_node_attributes(southern_women, "Budget", rep(100, 15)))
 })
 
 test_that("copy_node_attributes works", {
   expect_equal(as_tidygraph(copy_node_attributes(net_node1, net_node2)), 
                net_node2)
+  # Test error when different number of dimensions
+  net_node3 <- as_tidygraph(data.frame(
+    from = c("A", "B", "C"),
+    to = c("B", "C", "D")))
+  expect_error(copy_node_attributes(net_node1, net_node3))
 })
 
 test_that("add_edge_attributes works", {
@@ -30,4 +45,9 @@ test_that("add_edge_attributes works", {
                c(1,2,1,2,1))
   expect_equal(class(add_edge_attributes(net_edge1, "weight", c(1,2,1,2,1))), 
                "igraph")
+})
+
+test_that("mutate_edges works", {
+  testmutateedges <- mutate_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
+  expect_equal(class(testmutateedges), c("tbl_graph", "igraph"))
 })
