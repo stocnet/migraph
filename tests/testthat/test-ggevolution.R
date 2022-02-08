@@ -12,9 +12,12 @@ test_that("ggevolution function works", {
   expect_false(isTRUE(all.equal(testplot, testplot2)))
   expect_false(isTRUE(all.equal(testplot, testplot3)))
   expect_error(ggevolution(mpn_elite_mex, mpn_elite_mex2, mpn_elite_mex2))
+  expect_error(ggevolution(mpn_elite_mex, mpn_elite_mex2, based_on = "hello"))
 })
 
-# Needs an internal time series network
+# Note: Could be replaced by an internal time series network
 # test_that("ggatyear function works", {
-#   ggatyear(qEnviron::memberships$IEADB_MEM[1:10, ], 1902)
+#   # Import test dataset
+#   test <- readRDS(test_path("sheets", "testtsnet.rds"))
+#   ggatyear(test, 1902)
 # })
