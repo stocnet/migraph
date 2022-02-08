@@ -79,6 +79,6 @@ test_permutation <- function(object, FUN, ..., nSim = 1000){
               plteobs = mean(simd <= obsd),
               pgteobs = mean(simd >= obsd),
               reps = nSim)
-  class(out) <- "qaptest"
+  class(out) <- "qap.test"
   out
 }
