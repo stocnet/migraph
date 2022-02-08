@@ -25,6 +25,8 @@ cluster_triad_census <- function(object, clusters) {
 }
 
 #' @describeIn defunct Deprecated on 2021-10-26.
+#' Returns `autographr()` with corresponding layouts
+#' @export
 ggraphgrid <- function(x, algorithm = c("kk", "fr")) {
   .Deprecated("autographr(x, 'frgrid'")
   if(algorithm == "fr") autographr(x, "frgrid")

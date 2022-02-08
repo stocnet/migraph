@@ -38,6 +38,7 @@ depending on whether the object is a one-mode or two-mode object, respectively.
 Returns \code{group_triad_census()}
 
 \item \code{ggraphgrid}: Deprecated on 2021-10-26.
+Returns \code{autographr()} with corresponding layouts
 
 \item \code{test_cug}: Deprecated on 2021-11-08.
 Returns \code{test_random()}
