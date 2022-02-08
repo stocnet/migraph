@@ -84,3 +84,16 @@ test_that("autographr works for signed, unweighted and undirected bipartite netw
   # Labels
   expect_equal(rlang::as_label(test_usa_advice[["layers"]][[3]][["mapping"]][["label"]]), "name")
 })
+
+# Testing the node_color, node_size, node_group, and node_shape args by specifying a node attribute
+test_that("autographr works for fancy node mods", {
+  ison_marvel_relationships <- dplyr::mutate(ison_marvel_relationships, nodesize = Appearances/1000)
+  testcolnodes <- autographr(ison_marvel_relationships,
+                             node_color = "Gender",
+                             node_size = "nodesize",
+                             node_shape = "Attractive",
+                             node_group = "Rich")
+  expect_equal(class(testcolnodes), c("ggraph","gg","ggplot"))
+  expect_equal(round(testcolnodes$data$x[1]), 4)
+  expect_equal(round(testcolnodes$data$y[1]), 3)
+})
