@@ -61,4 +61,3 @@ test_that("test_permutation works", {
   expect_equal(qaptest2$reps, 200)
   expect_equal(attributes(qaptest2)$class, "qap.test")
 })
-
