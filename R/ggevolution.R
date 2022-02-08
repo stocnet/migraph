@@ -47,8 +47,6 @@ ggevolution <- function(..., layout = "kk",
     l3 <- ggraph::create_layout(l3, layout = "igraph", algorithm = layout)
     l1$x <- l2$x <- l3$x
     l1$y <- l2$y <- l3$y
-  } else {
-    warning("No other bases currently implemented. Defaulting to individual layouts.")
   }
   g1 <- ggraph::ggraph(l1) +
     ggraph::geom_node_point() +
