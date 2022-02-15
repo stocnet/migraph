@@ -121,11 +121,7 @@ cost_function <- function(layout, graph, max_repulse_distance = max(layout[, 1])
   }
 
 plot_gl <- function(x, tmax, tmin, rmin, fmin, ne, rc, p) {
-  
-  l <- NULL # initialize variables to avoid CMD check notes
-  index <- NULL # initialize variables to avoid CMD check notes
-  a <- NULL # initialize variables to avoid CMD check notes
-  
+  l <- index <- a <- NULL # initialize variables to avoid CMD check notes
   x <- as_tidygraph(x)
   lo <- ggraph::create_layout(x, layout = "igraph", algorithm = "randomly")
   lo[, 1] <- round(lo[, 1] * 1000)
