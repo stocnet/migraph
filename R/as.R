@@ -84,11 +84,18 @@ as_edgelist.network <- function(object, weight = FALSE){
     edges <- edges[((nrow(edges)/2) + 1):nrow(edges),]
   }
   names(edges) <- c("from", "to", "weight")
+  # Handle node names
   if (is_labelled(object)) {
     names <- attr(out, "vnames")
     edges[,1] <- names[edges[,1]]
     edges[,2] <- names[edges[,2]]
   }
+  # Handle edge weights
+  if (is_weighted(object)) {
+    edges[,3] <- network::get.edge.attribute(object, "weight")
+  }
+  # Remove weight column if only unity weights.
+  if (all(edges$weight == 1)) edges <- edges[, -3]
   tibble::as_tibble(edges)
 }
 
@@ -391,9 +398,5 @@ as_network.tbl_graph <- function(object) {
 #' @export
 as_network.data.frame <- function(object) {
   if ("tbl_df" %in% class(object)) object <- as.data.frame(object)
-  if (is_weighted(object)) {
-    as_network(as_matrix(object, weight = TRUE))
-  } else {
-    as_network(as_matrix(object))
-  }
+  as.network(object)
 }
