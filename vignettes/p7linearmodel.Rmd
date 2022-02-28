@@ -177,7 +177,7 @@ attributes, but it is just a single permutation.
 Let's try a test that runs this over a succession of permutations,
 just as we did with random graphs.
 
-```{r test_permute}
+```{r test_permute, eval=FALSE}
 par(mfrow=c(1,2))
 perm.gender <- test_permutation(marvel_friends, graph_ei_index, attribute = "Gender")
 plot(perm.gender) # Sorry the labelling on this is not right yet, will fix this next...
@@ -191,8 +191,8 @@ for gender that we did, but the lack of power origin heterophily is surprising.
 ```{r cugqap}
 plot(rand.gender)
 plot(rand.power)
-plot(perm.gender)
-plot(perm.power)
+# plot(perm.gender)
+# plot(perm.power)
 ```
 
 Note how distributions are generally wider when permuting the observed network 
