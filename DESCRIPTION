@@ -40,7 +40,9 @@ Imports:
     tidyr,
     concaveman,
     ggforce,
-    readxl
+    readxl,
+    countrycode,
+    cshapes
 Suggests: 
     covr,
     knitr,
