@@ -1,14 +1,27 @@
 #' Linear regression for network data
 #' 
-#' This function extends the multiple regression quadratic assignment procedure
-#' (MRQAP) of network linear model to two mode networks.
-#' It also works with combined graph/network objects by constructing the
-#' various dependent and independent matrices for the user.
-#' Lastly, because it relies on an object that contains all this information
-#' it can offer a more informative formula-based system for specifying the model.
+#' This function provides a parallelised implementation of
+#' the multiple regression quadratic assignment procedure (MRQAP)
+#' for both one-mode and two-mode network linear models.
+#' It offers several advantages:
+#' - it works with combined graph/network objects such as igraph and network objects
+#' by constructing the various dependent and independent matrices for the user.
+#' - it offers a more intuitive formula-based system for specifying the model.
+#' - it offers more straightforward printing of results that can combine with
+#' results from fitting other models.
 #' @name regression
 #' @param formula A formula describing the relationship being tested.
-#' @param data A named list of matrices, graphs, or a tidygraph object.
+#' @param data An igraph, network, or tidygraph object.
+#' @param method A method for establishing the null hypothesis.
+#' Currently 
+#' Note that "qap" currently defaults to Dekker et al's double semi-partialling technique.
+#' @param times Integer indicating the number of draws to use for quantile
+#' estimation. (Relevant to the null hypothesis test only - the analysis
+#' itself is unaffected by this parameter.) 
+#' Note that, as for all Monte Carlo procedures, convergence is slower for more
+#' extreme quantiles.
+#' By default, times=1000.
+#' 1,000 - 10,000 repetitions recommended for publication-ready results.
 #' @param ... Arguments passed on to `lm()`.
 #' @importFrom dplyr bind_cols
 #' @importFrom purrr map
@@ -16,11 +29,31 @@
 #' @examples
 #' messages <- mutate_edges(ison_eies, 
 #'   generate_random(ison_eies), attr_name = "random")
-#' model1 <- network_reg(weight ~ random + 
-#'   same(Discipline) + same(Citations), messages)
-#' summary(model1, reps = 200) # increase reps for publication
+#' tictoc::tic()
+#' (model1 <- network_reg(weight ~ random + 
+#'   same(Discipline) + same(Citations), messages, times = 500))
+#' tictoc::toc()
+#' library(profvis)
+#' profvis(model1 <- network_reg(weight ~ random + 
+#'   same(Discipline) + same(Citations), messages, times = 500))
+#' tictoc::tic()
+#' (model2 <- network_reg(weight ~ random + 
+#'   same(Discipline) + same(Citations), data = messages, 
+#'   method = "netlm", times = 500))
+#' tictoc::toc()
+#' library(microbenchmark)
+#' microbenchmark(network_reg(weight ~ random + 
+#'   same(Discipline) + same(Citations), messages, times = 100),
+#'   network_reg(weight ~ random + 
+#'   same(Discipline) + same(Citations), messages, times = 100, method = "netlm"),
+#'   times = 25)
+#' tidy(model1)
 #' @export
-network_reg <- function(formula, data, ...) {
+network_reg <- function(formula, data,
+                        method = c("qap","netlm"),
+                        times = 1000, 
+                        verbose = FALSE,
+                        ...) {
   
   matrixList <- convertToMatrixList(formula, data)
   formula <- convertFormula(formula, matrixList)

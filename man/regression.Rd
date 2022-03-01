@@ -3,58 +3,69 @@
 \name{regression}
 \alias{regression}
 \alias{network_reg}
-\alias{summary.netlm}
-\alias{print.summary.netlm}
 \title{Linear regression for network data}
 \usage{
-network_reg(formula, data, ...)
-
-\method{summary}{netlm}(object, reps = 1000, ...)
-
-\method{print}{summary.netlm}(
-  x,
-  digits = max(3, getOption("digits") - 3),
-  signif.stars = getOption("show.signif.stars"),
+network_reg(
+  formula,
+  data,
+  method = c("qap", "netlm"),
+  times = 1000,
+  verbose = FALSE,
   ...
 )
 }
 \arguments{
 \item{formula}{A formula describing the relationship being tested.}
 
-\item{data}{A named list of matrices, graphs, or a tidygraph object.}
+\item{data}{An igraph, network, or tidygraph object.}
 
-\item{...}{Arguments passed on to \code{lm()}.}
+\item{method}{A method for establishing the null hypothesis.
+Currently
+Note that "qap" currently defaults to Dekker et al's double semi-partialling technique.}
 
-\item{object}{an object of class "netlm", usually as a result of a call to
-\code{network_reg()}.}
-
-\item{reps}{Integer indicating the number of draws to use for quantile
+\item{times}{Integer indicating the number of draws to use for quantile
 estimation. (Relevant to the null hypothesis test only - the analysis
 itself is unaffected by this parameter.)
 Note that, as for all Monte Carlo procedures, convergence is slower for more
 extreme quantiles.
-By default, reps=1000.}
+By default, times=1000.
+1,000 - 10,000 repetitions recommended for publication-ready results.}
 
-\item{x}{an object of class "summary.netlm", usually, a result of a call to
-\code{summary.netlm()}.}
-
-\item{digits}{the number of significant digits to use when printing.}
-
-\item{signif.stars}{logical. If TRUE, ‘significance stars’ are printed for
-each coefficient.}
+\item{...}{Arguments passed on to \code{lm()}.}
 }
 \description{
-This function extends the multiple regression quadratic assignment procedure
-(MRQAP) of network linear model to two mode networks.
-It also works with combined graph/network objects by constructing the
-various dependent and independent matrices for the user.
-Lastly, because it relies on an object that contains all this information
-it can offer a more informative formula-based system for specifying the model.
+This function provides a parallelised implementation of
+the multiple regression quadratic assignment procedure (MRQAP)
+for both one-mode and two-mode network linear models.
+It offers several advantages:
+\itemize{
+\item it works with combined graph/network objects such as igraph and network objects
+by constructing the various dependent and independent matrices for the user.
+\item it offers a more intuitive formula-based system for specifying the model.
+\item it offers more straightforward printing of results that can combine with
+results from fitting other models.
+}
 }
 \examples{
 messages <- mutate_edges(ison_eies, 
   generate_random(ison_eies), attr_name = "random")
-model1 <- network_reg(weight ~ random + 
-  same(Discipline) + same(Citations), messages)
-summary(model1, reps = 200) # increase reps for publication
+tictoc::tic()
+(model1 <- network_reg(weight ~ random + 
+  same(Discipline) + same(Citations), messages, times = 500))
+tictoc::toc()
+library(profvis)
+profvis(model1 <- network_reg(weight ~ random + 
+  same(Discipline) + same(Citations), messages, times = 500))
+tictoc::tic()
+(model2 <- network_reg(weight ~ random + 
+  same(Discipline) + same(Citations), data = messages, 
+  method = "netlm", times = 500))
+tictoc::toc()
+library(microbenchmark)
+microbenchmark(network_reg(weight ~ random + 
+  same(Discipline) + same(Citations), messages, times = 100),
+  network_reg(weight ~ random + 
+  same(Discipline) + same(Citations), messages, times = 100, method = "netlm"),
+  times = 25)
+tidy(model1)
 }
