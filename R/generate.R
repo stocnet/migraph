@@ -90,11 +90,11 @@ generate_scalefree <- function(n, p = 1) {
 #' grid.arrange(em1, em2, ncol = 2)
 #' @export
 generate_permutation <- function(object, with_attr = TRUE) {
-  if(!is.matrix(object)) object <- as_matrix(object)
+  out <- as_matrix(object)
   if(is_twomode(object)){
-    out <- r2perm(object)
+    out <- r2perm(out)
   } else {
-    out <- r1perm(object)
+    out <- r1perm(out)
   }
   if(with_attr) out <- copy_node_attributes(out, object)
   out

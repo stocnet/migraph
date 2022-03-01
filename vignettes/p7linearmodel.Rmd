@@ -165,7 +165,7 @@ old <- autographr(marvel_friends,
                   labels = FALSE, node_size = 6, 
                   node_color = "PowerOrigin", 
                   node_shape = "Gender")
-new <- autographr(generate_permutation(marvel_friends),
+new <- autographr(generate_permutation(marvel_friends, with_attr = TRUE),
                    labels = FALSE, node_size = 6,
                   node_color = "PowerOrigin",
                   node_shape = "Gender")
@@ -215,7 +215,7 @@ autographr(ison_eies,
 Let's say that we are interested in whether these researchers send more emails
 to those who are cited more, or whether there is disciplinary homophily.
 
-```{r qap-attr}
+```{r qap-attr, eval=FALSE}
 model1 <- network_reg(weight ~ ego(Citations) + alter(Citations) + same(Discipline), ison_eies)
 summary(model1)
 ```
