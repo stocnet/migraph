@@ -96,9 +96,23 @@ test_that("write_pajek works", {
   on.exit(unlink(file)) # Unlink file
 })
 
-# test_that("read_ucinet works", {
-#   testuci <- read_ucinet(testthat::test_path("sheets", "davis.dat"))
-#   expect_true(is.tbl_graph(testpaj))
-#   edgetest <- as_edgelist(testpaj)
-#   expect_equal(head(toupper(edgetest$from)), head(migraph::as_edgelist(southern_women)$from))
-# })
+test_that("read_ucinet works", {
+  testuci <- read_ucinet(testthat::test_path("sheets", "ucinettest.##h"))
+  expect_true(is.tbl_graph(testuci))
+  expect_equal(nrow(as_edgelist(testuci)), 78)
+  expect_equal(ncol(as_edgelist(testuci)), 2)
+  expect_equal(node_names(testuci), NULL)
+  expect_error(read_ucinet(testthat::test_path("sheets", "ucinettest")))
+  expect_error(read_ucinet(testthat::test_path("sheets", "ucinettest1.##h")))
+})
+
+test_that("write_ucinet works", {
+  file <-  tempfile() # Create file
+  write_ucinet(ison_coleman, file)
+  testuci2 <- read_ucinet(paste0(file, ".##h"))
+  expect_true(is.tbl_graph(testuci2))
+  edgetest2 <- as_edgelist(testuci2)
+  # Note, the write ucinet function forgets certain attributes
+  expect_equal(length(edgetest2$from), length(as_edgelist(ison_coleman)$from))
+  on.exit(unlink(file)) # Unlink file
+})
