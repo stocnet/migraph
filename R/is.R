@@ -38,9 +38,21 @@ is_graph <- function(object){
 #' @examples
 #' is_twomode(southern_women)
 #' @export
-is_twomode <- function(object) {
-  object <- as_igraph(object)
+is_twomode <- function(object) UseMethod("is_twomode")
+
+#' @export
+is_twomode.igraph <- function(object) {
   igraph::is.bipartite(object)
+}
+
+#' @export
+is_twomode.tbl_graph <- function(object) {
+  igraph::is.bipartite(object)
+}
+
+#' @export
+is_twomode.matrix <- function(object) {
+  dim(object)[1] != dim(object)[2]
 }
 
 #' @describeIn is Tests whether network is weighted
@@ -72,9 +84,21 @@ is_directed <- function(object) {
 #' @examples
 #' is_labelled(southern_women)
 #' @export
-is_labelled <- function(object) {
-  object <- as_igraph(object)
+is_labelled <- function(object) UseMethod("is_labelled")
+
+#' @export
+is_labelled.igraph <- function(object) {
   igraph::is.named(object)
+}
+
+#' @export
+is_labelled.tbl_graph <- function(object) {
+  igraph::is.named(object)
+}
+
+#' @export
+is_labelled.matrix <- function(object) {
+  !is.null(dimnames(object))
 }
 
 #' @describeIn is Tests whether network is signed positive/negative
@@ -105,9 +129,21 @@ is_connected <- function(object, method = c("weak", "strong")) {
 #' @examples
 #' is_complex(southern_women)
 #' @export
-is_complex <- function(object) {
-  object <- as_igraph(object)
+is_complex <- function(object) UseMethod("is_complex")
+
+#' @export
+is_complex.igraph <- function(object) {
   any(igraph::which_loop(object))
+}
+
+#' @export
+is_complex.tbl_graph <- function(object) {
+  any(igraph::which_loop(object))
+}
+
+#' @export
+is_complex.matrix <- function(object) {
+  !(is_twomode(object) || all(is.na(diag(object))) || all(diag(object) == 0))
 }
 
 #' @describeIn is Tests whether network is multiplex
