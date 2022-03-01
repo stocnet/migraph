@@ -2,14 +2,13 @@ url: https://snlab-ch.github.io/migraph/
 development:
     mode: auto
 template:
-  params:
-    bootswatch: journal
-    docsearch:
-      api_key: 204dadbc12ed450b5ef1209c8c44b558
-      index_name: migraph
+  bootstrap: 5
+  bootswatch: journal
 authors:
   James Hollway:
     href: https://jameshollway.com
+  Bernhard Bieri:
+    href: https://bernhardbieri.ch
 navbar:
   structure:
     left:
@@ -17,9 +16,10 @@ navbar:
     - intro
     - reference
     - articles
-    - tutorials
     - news
-    right: github
+    right:
+    - search
+    - github
   components:
     home:
       icon: fa-home fa-lg
@@ -30,6 +30,9 @@ navbar:
     news:
       text: News
       href: news/index.html
+    github:
+      icon: "fab fa-github fa-lg"
+      href: https://github.com/snlab-ch/migraph
 reference:
   - title: "Making"
     desc: "Functions for creating and simulating multimodal and multilevel networks:"
