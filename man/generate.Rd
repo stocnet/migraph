@@ -14,7 +14,7 @@ generate_smallworld(n, p = 0.05)
 
 generate_scalefree(n, p = 1)
 
-generate_permutation(object)
+generate_permutation(object, with_attr = TRUE)
 }
 \arguments{
 \item{n}{Integer of length 1 or 2.

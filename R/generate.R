@@ -89,13 +89,14 @@ generate_scalefree <- function(n, p = 1) {
 #' em2 <- autographr(generate_permutation(mpn_elite_usa_advice))
 #' grid.arrange(em1, em2, ncol = 2)
 #' @export
-generate_permutation <- function(object) {
+generate_permutation <- function(object, with_attr = TRUE) {
+  if(!is.matrix(object)) object <- as_matrix(object)
   if(is_twomode(object)){
-    out <- r2perm(as_matrix(object))
+    out <- r2perm(object)
   } else {
-    out <- r1perm(as_matrix(object))
+    out <- r1perm(object)
   }
-  out <- copy_node_attributes(out, object)
+  if(with_attr) out <- copy_node_attributes(out, object)
   out
 }
 
