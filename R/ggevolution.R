@@ -65,11 +65,12 @@ ggevolution <- function(..., layout = "kk",
   
 }
 
-#' Plotting network at particular timepoint (year)
+#' Plotting a network at a particular timepoint (year)
 #' 
 #' @param edgelist a manyverse edgelist, expecting `Beg` and `End` variables,
 #' among others
 #' @param year numeric year, gets expanded to first of January that year
+#' @return A plot of the network of agreements signed in the specified year.
 #' @importFrom ggraph geom_edge_link geom_node_point geom_node_text
 #' @importFrom ggplot2 aes theme_void
 #' @examples 
@@ -77,22 +78,22 @@ ggevolution <- function(..., layout = "kk",
 #' ggatyear(membs, 1900)
 #' }
 #' @export
-ggatyear <- function(edgelist, year) {
+ggatyear <- function(edgelist, year, layout) {
   name <- type <- NULL # Initialize variables
-  graph <- as_tidygraph(edgelist[edgelist$Beg < paste0(year,
-                                                       "-01-01") &
-                                   edgelist$End > paste0(year,
-                                                         "-01-01"), ])
-  ggraph(graph,
-         layout = "dynamic") +
+  # Create subsetted graph
+  graph <- as_tidygraph(dplyr::filter(edgelist, .data$Beg >
+                                        paste0(year, "-01-01") &
+                                        .data$Beg < paste0(year + 1, "-01-01")))
+  ggraph::ggraph(graph,
+                 layout = "bipartite") +
     ggraph::geom_edge_link0(colour = "black",
                             alpha = 0.18) +
     ggraph::geom_node_point(shape = ifelse(igraph::V(graph)$type,
                                            15,
                                            16),
-                    color = ifelse(igraph::V(graph)$type,
-                                   "orange",
-                                   "darkolivegreen")) +
+                            color = ifelse(igraph::V(graph)$type,
+                                           "orange",
+                                           "darkolivegreen")) +
     ggraph::geom_node_text(ggplot2::aes(label = ifelse(type, "", name)),
                            family = "sans",
                            color = "dodgerblue4",
