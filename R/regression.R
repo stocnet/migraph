@@ -190,8 +190,8 @@ convertToMatrixList <- function(formula, data){
     }
     out
   })
-  out <- c(list(DV),IVs)
-  names(out) <- c(formula[[2]],
+  out <- c(list(DV), list(matrix(1, dim(DV)[1], dim(DV)[2])), IVs)
+  names(out) <- c(formula[[2]], "(intercept)",
                   sapply(IVnames, paste, collapse = " "))
   out
 }
