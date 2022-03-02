@@ -56,20 +56,11 @@ network_reg <- function(formula, data,
                         ...) {
   
   matrixList <- convertToMatrixList(formula, data)
-  formula <- convertFormula(formula, matrixList)
-  vectorList <- dplyr::bind_cols(purrr::map(matrixList, function(x) c(x)))
-  out <- lm(formula, vectorList, ...)
-  class(out) <- "netlm"
-  out$call <- match.call()
-  out$matrices <- matrixList
-  invisible(out)
+  convForm <- convertFormula(formula, matrixList)
+  
   
 }
 
-#' @importFrom stats as.formula
-convertFormula <- function(formula, new_names){
-  as.formula(paste(paste(formula[[2]],"~"),
-                   paste(paste0("`", names(new_names)[-1], "`"), collapse = " + ")))
 }
 
 convertToMatrixList <- function(formula, data){
@@ -103,6 +94,13 @@ convertToMatrixList <- function(formula, data){
                   sapply(IVnames, paste, collapse = " "))
   out
 }
+
+#' @importFrom stats as.formula
+convertFormula <- function(formula, new_names){
+  stats::as.formula(paste(paste(formula[[2]],"~"),
+                   paste(paste0("`", names(new_names)[-1], "`"), collapse = " + ")))
+}
+
 
 # inspired by the ergm package function parser
 extractFormulaTerms <- function(rhs) {
