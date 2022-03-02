@@ -26,6 +26,11 @@
 #'   extreme quantiles.
 #'   By default, times=1000.
 #'   1,000 - 10,000 repetitions recommended for publication-ready results.
+#' @param parallel If `{furrr}` is installed, and the number of simulations is high,
+#'   current thinking is `times >= 1000`, 
+#'   then multiple cores can be used to accelerate the function.
+#' @param verbose If `parallel` is TRUE, 
+#'   should the function also report on its progress.
 #' @importFrom dplyr bind_cols
 #' @importFrom purrr map
 #' @importFrom stats lm
@@ -38,7 +43,7 @@
 #'   generate_random(ison_eies), attr_name = "random")
 #' (model1 <- network_reg(weight ~ random + 
 #'   same(Discipline) + same(Citations), messages, times = 500))
-#'  messaged <- messages %>% activate(edges) %>% 
+#' messaged <- messages %>% activate(edges) %>% 
 #'    tidygraph::mutate(weight = (weight > 0)*1)
 #' (model2 <- network_reg(weight ~ random + 
 #'   same(Discipline) + same(Citations), messaged, times = 500))

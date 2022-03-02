@@ -36,6 +36,13 @@ Note that, as for all Monte Carlo procedures, convergence is slower for more
 extreme quantiles.
 By default, times=1000.
 1,000 - 10,000 repetitions recommended for publication-ready results.}
+
+\item{parallel}{If \code{{furrr}} is installed, and the number of simulations is high,
+current thinking is \code{times >= 1000},
+then multiple cores can be used to accelerate the function.}
+
+\item{verbose}{If \code{parallel} is TRUE,
+should the function also report on its progress.}
 }
 \description{
 This function provides a parallelised implementation of
@@ -55,7 +62,7 @@ messages <- mutate_edges(ison_eies,
   generate_random(ison_eies), attr_name = "random")
 (model1 <- network_reg(weight ~ random + 
   same(Discipline) + same(Citations), messages, times = 500))
- messaged <- messages \%>\% activate(edges) \%>\% 
+messaged <- messages \%>\% activate(edges) \%>\% 
    tidygraph::mutate(weight = (weight > 0)*1)
 (model2 <- network_reg(weight ~ random + 
   same(Discipline) + same(Citations), messaged, times = 500))
