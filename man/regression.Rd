@@ -8,19 +8,25 @@
 network_reg(
   formula,
   data,
-  method = c("qap", "netlm"),
+  method = c("qap", "qapy"),
   times = 1000,
-  verbose = FALSE,
-  ...
+  parallel = FALSE,
+  verbose = FALSE
 )
 }
 \arguments{
-\item{formula}{A formula describing the relationship being tested.}
+\item{formula}{A formula describing the relationship being tested.
+Several additional terms are available to assist users investigate
+the effects they are interested in. These include:
+\itemize{
+\item \code{ego()} tests whether a nodal attribute relates to outgoing ties
+\item \code{alter()} tests whether a nodal attribute relates to incoming ties
+\item \code{same()} adds a 1 if two nodes' attribute values are the same
+}}
 
 \item{data}{An igraph, network, or tidygraph object.}
 
 \item{method}{A method for establishing the null hypothesis.
-Currently
 Note that "qap" currently defaults to Dekker et al's double semi-partialling technique.}
 
 \item{times}{Integer indicating the number of draws to use for quantile
@@ -30,8 +36,6 @@ Note that, as for all Monte Carlo procedures, convergence is slower for more
 extreme quantiles.
 By default, times=1000.
 1,000 - 10,000 repetitions recommended for publication-ready results.}
-
-\item{...}{Arguments passed on to \code{lm()}.}
 }
 \description{
 This function provides a parallelised implementation of
@@ -49,23 +53,11 @@ results from fitting other models.
 \examples{
 messages <- mutate_edges(ison_eies, 
   generate_random(ison_eies), attr_name = "random")
-tictoc::tic()
 (model1 <- network_reg(weight ~ random + 
   same(Discipline) + same(Citations), messages, times = 500))
-tictoc::toc()
-library(profvis)
-profvis(model1 <- network_reg(weight ~ random + 
-  same(Discipline) + same(Citations), messages, times = 500))
-tictoc::tic()
+ messaged <- messages \%>\% activate(edges) \%>\% 
+   tidygraph::mutate(weight = (weight > 0)*1)
 (model2 <- network_reg(weight ~ random + 
-  same(Discipline) + same(Citations), data = messages, 
-  method = "netlm", times = 500))
-tictoc::toc()
-library(microbenchmark)
-microbenchmark(network_reg(weight ~ random + 
-  same(Discipline) + same(Citations), messages, times = 100),
-  network_reg(weight ~ random + 
-  same(Discipline) + same(Citations), messages, times = 100, method = "netlm"),
-  times = 25)
+  same(Discipline) + same(Citations), messaged, times = 500))
 tidy(model1)
 }

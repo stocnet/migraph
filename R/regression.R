@@ -32,27 +32,12 @@
 #' @examples
 #' messages <- mutate_edges(ison_eies, 
 #'   generate_random(ison_eies), attr_name = "random")
-#' tictoc::tic()
 #' (model1 <- network_reg(weight ~ random + 
 #'   same(Discipline) + same(Citations), messages, times = 500))
-#' tictoc::toc()
-#' library(profvis)
-#' profvis(model1 <- network_reg(weight ~ random + 
-#'   same(Discipline) + same(Citations), messages, times = 500))
-#' tictoc::tic()
+#'  messaged <- messages %>% activate(edges) %>% 
+#'    tidygraph::mutate(weight = (weight > 0)*1)
 #' (model2 <- network_reg(weight ~ random + 
-#'   same(Discipline) + same(Citations), data = messages, 
-#'   method = "netlm", times = 500))
-#' tictoc::toc()
-#' library(microbenchmark)
-#' microbenchmark(network_reg(weight ~ random + 
-#'   same(Discipline) + same(Citations), messages, times = 60),
-#'   network_reg(weight ~ random + 
-#'   same(Discipline) + same(Citations), messages, times = 60, method = "netlm"),
-#'   network_reg(weight ~ random + 
-#'   same(Discipline) + same(Citations), messages, times = 60,
-#'   parallel = TRUE, verbose = TRUE),
-#'   times = 25)
+#'   same(Discipline) + same(Citations), messaged, times = 500))
 #' tidy(model1)
 #' @export
 network_reg <- function(formula, data,
@@ -65,90 +50,89 @@ network_reg <- function(formula, data,
   convForm <- convertFormula(formula, matrixList)
   
   method <- match.arg(method)
-    g <- matrixList
-    intercept <- FALSE
-    nx <- length(matrixList) - 1
-    n <- dim(matrixList[[1]])
-    
-    directed <- ifelse(is_directed(matrixList[[1]]), "digraph", "graph")
-    valued <- is_weighted(matrixList[[1]])
-    diag <- is_complex(matrixList[[1]])
 
-    if (any(sapply(lapply(g, is.na), any))) 
-      stop("Missing data supplied; this may pose problems for certain null hypotheses.")
+  g <- matrixList
+  intercept <- FALSE
+  nx <- length(matrixList) - 1
+  n <- dim(matrixList[[1]])
+  
+  directed <- ifelse(is_directed(matrixList[[1]]), "digraph", "graph")
+  valued <- is_weighted(matrixList[[1]])
+  diag <- is_complex(matrixList[[1]])
+  
+  if (any(sapply(lapply(g, is.na), any))) 
+    stop("Missing data supplied; this may pose problems for certain null hypotheses.")
+  
+  fit.base <- gfit(g, 
+                   directed = directed, 
+                   diag = diag, 
+                   rety = TRUE)
+  fit <- list()
+  fit$coefficients <- qr.coef(fit.base[[1]], fit.base[[2]])
+  fit$fitted.values <- qr.fitted(fit.base[[1]], fit.base[[2]])
+  fit$residuals <- qr.resid(fit.base[[1]], fit.base[[2]])
+  fit$qr <- fit.base[[1]]
+  fit$rank <- fit.base[[1]]$rank
+  fit$n <- length(fit.base[[2]])
+  fit$df.residual <- fit$n - fit$rank
+  fit$tstat <- fit$coefficients/sqrt(diag(chol2inv(fit$qr$qr)) * 
+                                       sum(fit$residuals^2)/(fit$n - fit$rank))
+  
+  if (method == "qap"){
+    xsel <- matrix(TRUE, n, n)
+    if (!diag) 
+      diag(xsel) <- FALSE
+    if (directed == "graph") 
+      xsel[upper.tri(xsel)] <- FALSE
+    repdist <- matrix(0, times, nx)
     
-    fit.base <- gfit(g, 
-                     directed = directed, 
-                     diag = diag, 
-                     rety = TRUE)
-    fit <- list()
-    fit$coefficients <- qr.coef(fit.base[[1]], fit.base[[2]])
-    fit$fitted.values <- qr.fitted(fit.base[[1]], fit.base[[2]])
-    fit$residuals <- qr.resid(fit.base[[1]], fit.base[[2]])
-    fit$qr <- fit.base[[1]]
-    fit$rank <- fit.base[[1]]$rank
-    fit$n <- length(fit.base[[2]])
-    fit$df.residual <- fit$n - fit$rank
-    fit$tstat <- fit$coefficients/sqrt(diag(chol2inv(fit$qr$qr)) * 
-                                           sum(fit$residuals^2)/(fit$n - fit$rank))
-    
-    if (method == "qap"){
-      xsel <- matrix(TRUE, n, n)
-      if (!diag) 
-        diag(xsel) <- FALSE
-      if (directed == "graph") 
-        xsel[upper.tri(xsel)] <- FALSE
-      repdist <- matrix(0, times, nx)
-      
-      for (i in 1:nx) {
-        if(valued)
-          xfit <- nlgfit(g[1 + c(i, (1:nx)[-i])], 
+    for (i in 1:nx) {
+      if(valued)
+        xfit <- nlgfit(g[1 + c(i, (1:nx)[-i])], 
                        directed = directed, 
                        diag = diag, rety = TRUE)
-        else
-          xfit <- nlmfit(g[1 + c(i, (1:nx)[-i])], 
-                         directed = directed, 
-                         diag = diag, rety = TRUE)
-        xres <- g[[1 + i]]
-        xres[xsel] <- qr.resid(xfit[[1]], xfit[[2]])
-        if (directed == "graph")
-          xres[upper.tri(xres)] <- t(xres)[upper.tri(xres)]
-        if(parallel & times >= 1000){
-          future::plan("multisession")
-          repdist[,i] <- furrr::future_map_dbl(1:times, function(j){
-            nlmfit(c(g[-(1 + i)],
+      else
+        xfit <- nlmfit(g[1 + c(i, (1:nx)[-i])], 
+                       directed = directed, 
+                       diag = diag, rety = TRUE)
+      xres <- g[[1 + i]]
+      xres[xsel] <- qr.resid(xfit[[1]], xfit[[2]])
+      if (directed == "graph")
+        xres[upper.tri(xres)] <- t(xres)[upper.tri(xres)]
+      if(parallel & times >= 1000){
+        future::plan("multisession")
+        repdist[,i] <- furrr::future_map_dbl(1:times, function(j){
+          nlmfit(c(g[-(1 + i)],
                    list(generate_permutation(xres, with_attr = FALSE))),
                  directed = directed, diag = diag,
                  rety = FALSE)[nx]
-          }, .progress = verbose, .options = furrr::furrr_options(seed = T))
-        } else {
-          repdist[,i] <- purrr::map_dbl(1:times, function(j){
-            nlmfit(c(g[-(1 + i)],
+        }, .progress = verbose, .options = furrr::furrr_options(seed = T))
+      } else {
+        repdist[,i] <- purrr::map_dbl(1:times, function(j){
+          nlmfit(c(g[-(1 + i)],
                    list(generate_permutation(xres, with_attr = FALSE))),
                  directed = directed, diag = diag,
                  rety = FALSE)[nx]
-          })
-        }
+        })
       }
-
-      fit$dist <- repdist
-      fit$pleeq <- apply(sweep(fit$dist, 2, fit$tstat, "<="), 
-                         2, mean)
-      fit$pgreq <- apply(sweep(fit$dist, 2, fit$tstat, ">="), 
-                         2, mean)
-      fit$pgreqabs <- apply(sweep(abs(fit$dist), 2, abs(fit$tstat), 
-                                  ">="), 2, mean)
-      fit$nullhyp <- "QAP-DSP"
-      fit$names <- names(matrixList)[-1]
-      fit$intercept <- intercept
-      if(valued) 
-        class(fit) <- "netlogit"
-      else 
-        class(fit) <- "netlm"
-      fit  
-      
     }
-      
+    
+    fit$dist <- repdist
+    fit$pleeq <- apply(sweep(fit$dist, 2, fit$tstat, "<="), 
+                       2, mean)
+    fit$pgreq <- apply(sweep(fit$dist, 2, fit$tstat, ">="), 
+                       2, mean)
+    fit$pgreqabs <- apply(sweep(abs(fit$dist), 2, abs(fit$tstat), 
+                                ">="), 2, mean)
+    fit$nullhyp <- "QAP-DSP"
+    fit$names <- names(matrixList)[-1]
+    fit$intercept <- intercept
+    if(valued) 
+      class(fit) <- "netlogit"
+    else 
+      class(fit) <- "netlm"
+    fit  
+    
   }
   
 }
