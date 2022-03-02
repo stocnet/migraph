@@ -119,8 +119,9 @@ network_reg <- function(formula, data,
     }
   }
 
+  # Null ####
   if (method == "qap"){
-    xsel <- matrix(TRUE, n, n)
+    xsel <- matrix(TRUE, n[1], n[2])
     if (!diag) 
       diag(xsel) <- FALSE
     if (directed == "graph") 
