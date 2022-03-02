@@ -128,14 +128,9 @@ network_reg <- function(formula, data,
     repdist <- matrix(0, times, nx)
     
     for (i in 1:nx) {
-      if(valued)
-        xfit <- nlgfit(g[1 + c(i, (1:nx)[-i])], 
-                       directed = directed, 
-                       diag = diag, rety = TRUE)
-      else
-        xfit <- nlmfit(g[1 + c(i, (1:nx)[-i])], 
-                       directed = directed, 
-                       diag = diag, rety = TRUE)
+      xfit <- nlmfit(g[1 + c(i, (1:nx)[-i])], 
+                     directed = directed, 
+                     diag = diag, rety = TRUE)
       xres <- g[[1 + i]]
       xres[xsel] <- qr.resid(xfit[[1]], xfit[[2]])
       if (directed == "graph")
