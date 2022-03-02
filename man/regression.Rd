@@ -61,3 +61,8 @@ messages <- mutate_edges(ison_eies,
   same(Discipline) + same(Citations), messaged, times = 500))
 tidy(model1)
 }
+\references{
+Dekker, D., Krackhard, D., Snijders, T.A.B (2007)
+Sensitivity of MRQAP tests to collinearity and autocorrelation conditions.
+Psychometrika 72(4): 563-581.
+}

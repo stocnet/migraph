@@ -24,7 +24,7 @@ read_pajek(file = file.choose(), ...)
 
 write_pajek(object, filename, ...)
 
-read_ucinet(file = file.choose(), ...)
+read_ucinet(file = file.choose())
 
 write_ucinet(object, filename, name)
 }
@@ -32,7 +32,8 @@ write_ucinet(object, filename, name)
 \item{file}{A character string with the system path to the file to import.
 If left unspecified, an OS-specific file picker is opened to help users select it.
 Note that in \code{read_ucinet()} the file path should be to the header file (.##h),
-if it exists.}
+if it exists and that it is currently not possible to import multiple
+networks from a single UCINET file. Please convert these one by one.}
 
 \item{sv}{Allows users to specify whether their csv file is
 \code{"comma"} (English) or \code{"semi-colon"} (European) separated.}
@@ -124,7 +125,7 @@ horseplay <- read_ucinet("WIRING-RDGAM.##h")
 }
 \dontrun{
 # export it again to UCINET under a different name:
-write_ucinet(horseplay,"R&D-horseplay")
+write_ucinet(horseplay, "R&D-horseplay")
 }
 }
 \seealso{

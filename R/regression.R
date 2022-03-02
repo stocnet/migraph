@@ -29,6 +29,10 @@
 #' @importFrom dplyr bind_cols
 #' @importFrom purrr map
 #' @importFrom stats lm
+#' @references 
+#'   Dekker, D., Krackhard, D., Snijders, T.A.B (2007) 
+#'   Sensitivity of MRQAP tests to collinearity and autocorrelation conditions. 
+#'   Psychometrika 72(4): 563-581.
 #' @examples
 #' messages <- mutate_edges(ison_eies, 
 #'   generate_random(ison_eies), attr_name = "random")
