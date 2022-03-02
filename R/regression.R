@@ -71,6 +71,7 @@ network_reg <- function(formula, data,
     n <- dim(matrixList[[1]])
     
     directed <- ifelse(is_directed(matrixList[[1]]), "digraph", "graph")
+    valued <- is_weighted(matrixList[[1]])
     diag <- is_complex(matrixList[[1]])
 
     if (any(sapply(lapply(g, is.na), any))) 
@@ -98,10 +99,16 @@ network_reg <- function(formula, data,
       if (directed == "graph") 
         xsel[upper.tri(xsel)] <- FALSE
       repdist <- matrix(0, times, nx)
+      
       for (i in 1:nx) {
-        xfit <- gfit(g[1 + c(i, (1:nx)[-i])], 
-                     directed = directed, 
-                     diag = diag, rety = TRUE)
+        if(valued)
+          xfit <- nlgfit(g[1 + c(i, (1:nx)[-i])], 
+                       directed = directed, 
+                       diag = diag, rety = TRUE)
+        else
+          xfit <- nlmfit(g[1 + c(i, (1:nx)[-i])], 
+                         directed = directed, 
+                         diag = diag, rety = TRUE)
         xres <- g[[1 + i]]
         xres[xsel] <- qr.resid(xfit[[1]], xfit[[2]])
         if (directed == "graph")
@@ -134,7 +141,10 @@ network_reg <- function(formula, data,
       fit$nullhyp <- "QAP-DSP"
       fit$names <- names(matrixList)[-1]
       fit$intercept <- intercept
-      class(fit) <- "netlm"
+      if(valued) 
+        class(fit) <- "netlogit"
+      else 
+        class(fit) <- "netlm"
       fit  
       
     }
@@ -158,7 +168,7 @@ gettval <- function(x, y, tol) {
   coef/se
 }
 
-gfit <- function(glist, directed, diag, rety) {
+nlmfit <- function(glist, directed, diag, rety) {
   z <- as.matrix(vectorise_list(glist, simplex = !diag, 
                                 directed = (directed == "digraph")))
   if (!rety) {
@@ -169,6 +179,13 @@ gfit <- function(glist, directed, diag, rety) {
   }
 }
 
+nlgfit <- function(glist, directed, diag, rety) {
+  z <- as.matrix(vectorise_list(glist, simplex = !diag, 
+                                directed = (directed == "digraph")))
+  stats::glm.fit(z[,2:ncol(z)], z[,1], 
+                 family = binomial(), intercept = FALSE)
+}
+
 vectorise_list <- function(glist, simplex, directed){
   if(missing(simplex)) simplex <- !is_complex(glist[[1]])
   if(missing(directed)) directed <- is_directed(glist[[1]])
@@ -177,8 +194,6 @@ vectorise_list <- function(glist, simplex, directed){
   if(!directed)
     glist[[1]][upper.tri(glist[[1]])] <- NA
   suppressMessages(na.omit(dplyr::bind_cols(purrr::map(glist, function(x) c(x)))))
-}
-
 }
 
 convertToMatrixList <- function(formula, data){
