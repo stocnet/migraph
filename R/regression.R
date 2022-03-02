@@ -55,6 +55,7 @@ network_reg <- function(formula, data,
                         parallel = FALSE,
                         verbose = FALSE) {
   
+  # Setup ####
   matrixList <- convertToMatrixList(formula, data)
   convForm <- convertFormula(formula, matrixList)
   
@@ -72,21 +73,52 @@ network_reg <- function(formula, data,
   if (any(sapply(lapply(g, is.na), any))) 
     stop("Missing data supplied; this may pose problems for certain null hypotheses.")
   
-  fit.base <- gfit(g, 
-                   directed = directed, 
-                   diag = diag, 
-                   rety = TRUE)
-  fit <- list()
-  fit$coefficients <- qr.coef(fit.base[[1]], fit.base[[2]])
-  fit$fitted.values <- qr.fitted(fit.base[[1]], fit.base[[2]])
-  fit$residuals <- qr.resid(fit.base[[1]], fit.base[[2]])
-  fit$qr <- fit.base[[1]]
-  fit$rank <- fit.base[[1]]$rank
-  fit$n <- length(fit.base[[2]])
-  fit$df.residual <- fit$n - fit$rank
-  fit$tstat <- fit$coefficients/sqrt(diag(chol2inv(fit$qr$qr)) * 
-                                       sum(fit$residuals^2)/(fit$n - fit$rank))
-  
+  # Base ####
+  if(valued){
+    fit.base <- nlmfit(g, 
+                       directed = directed, 
+                       diag = diag, 
+                       rety = TRUE)
+    fit <- list()
+    fit$coefficients <- qr.coef(fit.base[[1]], fit.base[[2]])
+    fit$fitted.values <- qr.fitted(fit.base[[1]], fit.base[[2]])
+    fit$residuals <- qr.resid(fit.base[[1]], fit.base[[2]])
+    fit$qr <- fit.base[[1]]
+    fit$rank <- fit.base[[1]]$rank
+    fit$n <- length(fit.base[[2]])
+    fit$df.residual <- fit$n - fit$rank
+    fit$tstat <- fit$coefficients/sqrt(diag(chol2inv(fit$qr$qr)) * 
+                                         sum(fit$residuals^2)/(fit$n - fit$rank))
+  } else {
+    fit.base <- nlgfit(g, 
+                       directed = directed, 
+                       diag = diag)
+    fit <- list()
+    fit$coefficients <- fit.base$coefficients
+    fit$fitted.values <- fit.base$fitted.values
+    fit$residuals <- fit.base$residuals
+    fit$se <- sqrt(diag(chol2inv(fit.base$qr$qr)))
+    fit$tstat <- fit$coefficients/fit$se
+    fit$linear.predictors <- fit.base$linear.predictors
+    fit$n <- length(fit.base$y)
+    fit$df.model <- fit.base$rank
+    fit$df.residual <- fit.base$df.residual
+    fit$deviance <- fit.base$deviance
+    fit$null.deviance <- fit.base$null.deviance
+    fit$df.null <- fit.base$df.null
+    fit$aic <- fit.base$aic
+    fit$bic <- fit$deviance + fit$df.model * log(fit$n)
+    fit$qr <- fit.base$qr
+    fit$ctable <- table(as.numeric(fit$fitted.values >= 0.5), 
+                        fit.base$y, dnn = c("Predicted", "Actual"))
+    if (NROW(fit$ctable) == 1) {
+      if (rownames(fit$ctable) == "0") 
+        fit$ctable <- rbind(fit$ctable, c(0, 0))
+      else fit$ctable <- rbind(c(0, 0), fit$ctable)
+      rownames(fit$ctable) <- c("0", "1")
+    }
+  }
+
   if (method == "qap"){
     xsel <- matrix(TRUE, n, n)
     if (!diag) 
