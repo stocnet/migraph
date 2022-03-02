@@ -11,18 +11,21 @@
 #' results from fitting other models.
 #' @name regression
 #' @param formula A formula describing the relationship being tested.
+#'   Several additional terms are available to assist users investigate
+#'   the effects they are interested in. These include:
+#'   - `ego()` tests whether a nodal attribute relates to outgoing ties
+#'   - `alter()` tests whether a nodal attribute relates to incoming ties
+#'   - `same()` adds a 1 if two nodes' attribute values are the same
 #' @param data An igraph, network, or tidygraph object.
 #' @param method A method for establishing the null hypothesis.
-#' Currently 
-#' Note that "qap" currently defaults to Dekker et al's double semi-partialling technique.
+#'   Note that "qap" currently defaults to Dekker et al's double semi-partialling technique.
 #' @param times Integer indicating the number of draws to use for quantile
-#' estimation. (Relevant to the null hypothesis test only - the analysis
-#' itself is unaffected by this parameter.) 
-#' Note that, as for all Monte Carlo procedures, convergence is slower for more
-#' extreme quantiles.
-#' By default, times=1000.
-#' 1,000 - 10,000 repetitions recommended for publication-ready results.
-#' @param ... Arguments passed on to `lm()`.
+#'   estimation. (Relevant to the null hypothesis test only - the analysis
+#'   itself is unaffected by this parameter.) 
+#'   Note that, as for all Monte Carlo procedures, convergence is slower for more
+#'   extreme quantiles.
+#'   By default, times=1000.
+#'   1,000 - 10,000 repetitions recommended for publication-ready results.
 #' @importFrom dplyr bind_cols
 #' @importFrom purrr map
 #' @importFrom stats lm
@@ -43,9 +46,12 @@
 #' tictoc::toc()
 #' library(microbenchmark)
 #' microbenchmark(network_reg(weight ~ random + 
-#'   same(Discipline) + same(Citations), messages, times = 100),
+#'   same(Discipline) + same(Citations), messages, times = 60),
 #'   network_reg(weight ~ random + 
-#'   same(Discipline) + same(Citations), messages, times = 100, method = "netlm"),
+#'   same(Discipline) + same(Citations), messages, times = 60, method = "netlm"),
+#'   network_reg(weight ~ random + 
+#'   same(Discipline) + same(Citations), messages, times = 60,
+#'   parallel = TRUE, verbose = TRUE),
 #'   times = 25)
 #' tidy(model1)
 #' @export
