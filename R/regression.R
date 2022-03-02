@@ -56,10 +56,10 @@
 #' tidy(model1)
 #' @export
 network_reg <- function(formula, data,
-                        method = c("qap","netlm"),
-                        times = 1000, 
-                        verbose = FALSE,
-                        ...) {
+                        method = c("qap","qapy"),
+                        times = 1000,
+                        parallel = FALSE,
+                        verbose = FALSE) {
   
   matrixList <- convertToMatrixList(formula, data)
   convForm <- convertFormula(formula, matrixList)
@@ -106,13 +106,24 @@ network_reg <- function(formula, data,
         xres[xsel] <- qr.resid(xfit[[1]], xfit[[2]])
         if (directed == "graph")
           xres[upper.tri(xres)] <- t(xres)[upper.tri(xres)]
-        repdist[,i] <- purrr::map_dbl(1:times, function(j){
-          gfit(c(g[-(1 + i)],
-                 list(generate_permutation(xres, with_attr = FALSE))),
-               directed = directed, diag = diag,
-               rety = FALSE)[nx]
+        if(parallel & times >= 1000){
+          future::plan("multisession")
+          repdist[,i] <- furrr::future_map_dbl(1:times, function(j){
+            nlmfit(c(g[-(1 + i)],
+                   list(generate_permutation(xres, with_attr = FALSE))),
+                 directed = directed, diag = diag,
+                 rety = FALSE)[nx]
+          }, .progress = verbose, .options = furrr::furrr_options(seed = T))
+        } else {
+          repdist[,i] <- purrr::map_dbl(1:times, function(j){
+            nlmfit(c(g[-(1 + i)],
+                   list(generate_permutation(xres, with_attr = FALSE))),
+                 directed = directed, diag = diag,
+                 rety = FALSE)[nx]
           })
+        }
       }
+
       fit$dist <- repdist
       fit$pleeq <- apply(sweep(fit$dist, 2, fit$tstat, "<="), 
                          2, mean)
