@@ -137,19 +137,37 @@ network_reg <- function(formula, data,
         xres[upper.tri(xres)] <- t(xres)[upper.tri(xres)]
       if(parallel & times >= 1000){
         future::plan("multisession")
-        repdist[,i] <- furrr::future_map_dbl(1:times, function(j){
-          nlmfit(c(g[-(1 + i)],
-                   list(generate_permutation(xres, with_attr = FALSE))),
-                 directed = directed, diag = diag,
-                 rety = FALSE)[nx]
-        }, .progress = verbose, .options = furrr::furrr_options(seed = T))
+        if(valued){
+          repdist[,i] <- furrr::future_map_dbl(1:times, function(j){
+            nlmfit(c(g[-(1 + i)],
+                     list(generate_permutation(xres, with_attr = FALSE))),
+                   directed = directed, diag = diag,
+                   rety = FALSE)[nx]
+          }, .progress = verbose, .options = furrr::furrr_options(seed = T))
+        } else {
+          repdist[,i] <- furrr::future_map_dbl(1:times, function(j){
+            repfit <- nlgfit(c(g[-(1 + i)],
+                               list(generate_permutation(xres, with_attr = FALSE))),
+                             directed = directed, diag = diag)
+            repfit$coef[nx]/sqrt(diag(chol2inv(repfit$qr$qr)))[nx]
+          }, .progress = verbose, .options = furrr::furrr_options(seed = T))
+        }
       } else {
-        repdist[,i] <- purrr::map_dbl(1:times, function(j){
-          nlmfit(c(g[-(1 + i)],
-                   list(generate_permutation(xres, with_attr = FALSE))),
-                 directed = directed, diag = diag,
-                 rety = FALSE)[nx]
-        })
+        if(valued){
+          repdist[,i] <- purrr::map_dbl(1:times, function(j){
+            nlmfit(c(g[-(1 + i)],
+                     list(generate_permutation(xres, with_attr = FALSE))),
+                   directed = directed, diag = diag,
+                   rety = FALSE)[nx]
+          })
+        } else {
+          repdist[,i] <- purrr::map_dbl(1:times, function(j){
+            repfit <- nlgfit(c(g[-(1 + i)],
+                     list(generate_permutation(xres, with_attr = FALSE))),
+                   directed = directed, diag = diag)
+            repfit$coef[nx]/sqrt(diag(chol2inv(repfit$qr$qr)))[nx]
+          })
+        }
       }
     }
     
@@ -164,9 +182,9 @@ network_reg <- function(formula, data,
     fit$names <- names(matrixList)[-1]
     fit$intercept <- intercept
     if(valued) 
-      class(fit) <- "netlogit"
-    else 
       class(fit) <- "netlm"
+    else 
+      class(fit) <- "netlogit"
     fit  
     
   }
@@ -199,7 +217,7 @@ nlmfit <- function(glist, directed, diag, rety) {
   }
 }
 
-nlgfit <- function(glist, directed, diag, rety) {
+nlgfit <- function(glist, directed, diag) {
   z <- as.matrix(vectorise_list(glist, simplex = !diag, 
                                 directed = (directed == "digraph")))
   stats::glm.fit(z[,2:ncol(z)], z[,1], 
