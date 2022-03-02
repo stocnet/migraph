@@ -60,9 +60,21 @@ is_twomode.matrix <- function(object) {
 #' @examples
 #' is_weighted(southern_women)
 #' @export
-is_weighted <- function(object) {
-  object <- as_igraph(object)
+is_weighted <- function(object) UseMethod("is_weighted")
+
+#' @export
+is_weighted.igraph <- function(object) {
   igraph::is.weighted(object)
+}
+
+#' @export
+is_weighted.tbl_graph <- function(object) {
+  igraph::is.weighted(object)
+}
+
+#' @export
+is_weighted.matrix <- function(object) {
+  !all(object == 0 || object == 1)
 }
 
 #' @describeIn is Tests whether network is directed
