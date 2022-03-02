@@ -58,7 +58,108 @@ network_reg <- function(formula, data,
   matrixList <- convertToMatrixList(formula, data)
   convForm <- convertFormula(formula, matrixList)
   
+  method <- match.arg(method)
+    g <- matrixList
+    intercept <- FALSE
+    nx <- length(matrixList) - 1
+    n <- dim(matrixList[[1]])
+    
+    directed <- ifelse(is_directed(matrixList[[1]]), "digraph", "graph")
+    diag <- is_complex(matrixList[[1]])
+
+    if (any(sapply(lapply(g, is.na), any))) 
+      stop("Missing data supplied; this may pose problems for certain null hypotheses.")
+    
+    fit.base <- gfit(g, 
+                     directed = directed, 
+                     diag = diag, 
+                     rety = TRUE)
+    fit <- list()
+    fit$coefficients <- qr.coef(fit.base[[1]], fit.base[[2]])
+    fit$fitted.values <- qr.fitted(fit.base[[1]], fit.base[[2]])
+    fit$residuals <- qr.resid(fit.base[[1]], fit.base[[2]])
+    fit$qr <- fit.base[[1]]
+    fit$rank <- fit.base[[1]]$rank
+    fit$n <- length(fit.base[[2]])
+    fit$df.residual <- fit$n - fit$rank
+    fit$tstat <- fit$coefficients/sqrt(diag(chol2inv(fit$qr$qr)) * 
+                                           sum(fit$residuals^2)/(fit$n - fit$rank))
+    
+    if (method == "qap"){
+      xsel <- matrix(TRUE, n, n)
+      if (!diag) 
+        diag(xsel) <- FALSE
+      if (directed == "graph") 
+        xsel[upper.tri(xsel)] <- FALSE
+      repdist <- matrix(0, times, nx)
+      for (i in 1:nx) {
+        xfit <- gfit(g[1 + c(i, (1:nx)[-i])], 
+                     directed = directed, 
+                     diag = diag, rety = TRUE)
+        xres <- g[[1 + i]]
+        xres[xsel] <- qr.resid(xfit[[1]], xfit[[2]])
+        if (directed == "graph")
+          xres[upper.tri(xres)] <- t(xres)[upper.tri(xres)]
+        repdist[,i] <- purrr::map_dbl(1:times, function(j){
+          gfit(c(g[-(1 + i)],
+                 list(generate_permutation(xres, with_attr = FALSE))),
+               directed = directed, diag = diag,
+               rety = FALSE)[nx]
+          })
+      }
+      fit$dist <- repdist
+      fit$pleeq <- apply(sweep(fit$dist, 2, fit$tstat, "<="), 
+                         2, mean)
+      fit$pgreq <- apply(sweep(fit$dist, 2, fit$tstat, ">="), 
+                         2, mean)
+      fit$pgreqabs <- apply(sweep(abs(fit$dist), 2, abs(fit$tstat), 
+                                  ">="), 2, mean)
+      fit$nullhyp <- "QAP-DSP"
+      fit$names <- names(matrixList)[-1]
+      fit$intercept <- intercept
+      class(fit) <- "netlm"
+      fit  
+      
+    }
+      
+  }
   
+}
+
+###################
+
+gettval <- function(x, y, tol) {
+  xqr <- qr(x, tol = tol)
+  coef <- qr.coef(xqr, y)
+  resid <- qr.resid(xqr, y)
+  rank <- xqr$rank
+  n <- length(y)
+  rdf <- n - rank
+  resvar <- sum(resid^2)/rdf
+  cvm <- chol2inv(xqr$qr)
+  se <- sqrt(diag(cvm) * resvar)
+  coef/se
+}
+
+gfit <- function(glist, directed, diag, rety) {
+  z <- as.matrix(vectorise_list(glist, simplex = !diag, 
+                                directed = (directed == "digraph")))
+  if (!rety) {
+    gettval(z[,2:ncol(z)], z[,1], tol = 1e-07)
+  }
+  else {
+    list(qr(z[,2:ncol(z)], tol = 1e-07), z[,1])
+  }
+}
+
+vectorise_list <- function(glist, simplex, directed){
+  if(missing(simplex)) simplex <- !is_complex(glist[[1]])
+  if(missing(directed)) directed <- is_directed(glist[[1]])
+  if(simplex)
+    diag(glist[[1]]) <- NA
+  if(!directed)
+    glist[[1]][upper.tri(glist[[1]])] <- NA
+  suppressMessages(na.omit(dplyr::bind_cols(purrr::map(glist, function(x) c(x)))))
 }
 
 }
