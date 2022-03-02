@@ -74,7 +74,7 @@ is_weighted.tbl_graph <- function(object) {
 
 #' @export
 is_weighted.matrix <- function(object) {
-  !all(object == 0 || object == 1)
+  !all(object == 0 | object == 1)
 }
 
 #' @describeIn is Tests whether network is directed
