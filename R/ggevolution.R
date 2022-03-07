@@ -78,26 +78,17 @@ ggevolution <- function(..., layout = "kk",
 #' ggatyear(membs, 1900)
 #' }
 #' @export
-ggatyear <- function(edgelist, year, layout) {
+ggatyear <- function(edgelist, year, ...) {
   name <- type <- NULL # Initialize variables
+  # Some input checks and corrections
+  if (!(is.numeric(year))) year <- as.numeric(year)
+  if (!("Beg" %in% names(edgelist))) stop("Your edgelist does not contain a date column named Beg.")
+  if (!("End" %in% names(edgelist))) stop("Your edgelist does not contain a date column named End.")
   # Create subsetted graph
   graph <- as_tidygraph(dplyr::filter(edgelist, .data$Beg >
                                         paste0(year, "-01-01") &
                                         .data$Beg < paste0(year + 1, "-01-01")))
-  ggraph::ggraph(graph,
-                 layout = "bipartite") +
-    ggraph::geom_edge_link0(colour = "black",
-                            alpha = 0.18) +
-    ggraph::geom_node_point(shape = ifelse(igraph::V(graph)$type,
-                                           15,
-                                           16),
-                            color = ifelse(igraph::V(graph)$type,
-                                           "orange",
-                                           "darkolivegreen")) +
-    ggraph::geom_node_text(ggplot2::aes(label = ifelse(type, "", name)),
-                           family = "sans",
-                           color = "dodgerblue4",
-                           repel = TRUE) +
-    ggplot2::theme_void() +
+  # Plot graph with autographr
+  autographr(graph, ...) +
     ggtitle(year)
 }
