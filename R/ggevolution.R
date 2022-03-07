@@ -67,9 +67,10 @@ ggevolution <- function(..., layout = "kk",
 
 #' Plotting a network at a particular timepoint (year)
 #' 
-#' @param edgelist a manyverse edgelist, expecting `Beg` and `End` variables,
+#' @param edgelist A manyverse edgelist, expecting `Beg` and `End` variables,
 #' among others
-#' @param year numeric year, gets expanded to first of January that year
+#' @param year Numeric year, gets expanded to first of January that year
+#' @param ... Additional arguments passed on to `autographr()`.
 #' @return A plot of the network of agreements signed in the specified year.
 #' @importFrom ggraph geom_edge_link geom_node_point geom_node_text
 #' @importFrom ggplot2 aes theme_void

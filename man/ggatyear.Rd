@@ -2,18 +2,23 @@
 % Please edit documentation in R/ggevolution.R
 \name{ggatyear}
 \alias{ggatyear}
-\title{Plotting network at particular timepoint (year)}
+\title{Plotting a network at a particular timepoint (year)}
 \usage{
-ggatyear(edgelist, year)
+ggatyear(edgelist, year, ...)
 }
 \arguments{
-\item{edgelist}{a manyverse edgelist, expecting \code{Beg} and \code{End} variables,
+\item{edgelist}{A manyverse edgelist, expecting \code{Beg} and \code{End} variables,
 among others}
 
-\item{year}{numeric year, gets expanded to first of January that year}
+\item{year}{Numeric year, gets expanded to first of January that year}
+
+\item{...}{Additional arguments passed on to \code{autographr()}.}
+}
+\value{
+A plot of the network of agreements signed in the specified year.
 }
 \description{
-Plotting network at particular timepoint (year)
+Plotting a network at a particular timepoint (year)
 }
 \examples{
 \dontrun{
