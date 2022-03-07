@@ -16,8 +16,20 @@ test_that("ggevolution function works", {
 })
 
 # Note: Could be replaced by an internal time series network
-# test_that("ggatyear function works", {
-#   # Import test dataset
-#   test <- readRDS(test_path("sheets", "testtsnet.rds"))
-#   ggatyear(test, 1902)
-# })
+test_that("ggatyear function works", {
+  # Import test dataset
+  # Note: The suppressed warnig relates to an igraph conversion method between
+  # edgelists and tidygraph objects when the former contains NA's. This does
+  # not affect the behavior of the function.
+  test <- suppressWarnings(ggatyear(readRDS(test_path("sheets", "testtsnet.Rds")), 1990, node_color = "type", node_shape = "type", node_size = 0.3))
+  expect_equal(class(test), c("ggraph", "gg", "ggplot"))
+  expect_equal(names(test), c("data", "layers", "scales", "mapping",
+                              "theme", "coordinates", 
+                              "facet", "plot_env", "labels"))
+  expect_true(all(test$data$circular == FALSE))
+  expect_equal(class(test$data$type), "logical")
+  expect_equal(length(test$data$type), 230)
+  expect_equal(test[["labels"]][["title"]], 1990)
+  expect_equal(unique(test[["layers"]][[2]][["aes_params"]][["shape"]]),
+               c("circle", "square"))
+})
