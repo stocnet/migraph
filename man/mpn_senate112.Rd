@@ -8,11 +8,17 @@
 \alias{mpn_OverSxP}
 \title{Two-mode 112th Congress Senate Voting}
 \format{
-Matrix of 51 rows (Senators) and 63 columns (PACS)
+\code{tbl_graph} network object. It is a bimodal, directed, named,
+weighted graph of 51 Senators (\code{type = FALSE}) and 63 PACS (\code{type = TRUE})
+and 2791 edges.
 
-Matrix of 62 rows (Senators) and 72 columns (PACS)
+\code{tbl_graph} network object. It is a bimodal, directed, named,
+weighted graph of 62 Senators (\code{type = FALSE}) and 72 PACS (\code{type = TRUE})
+and 3675 edges.
 
-Matrix of 20 rows (Senators) and 32 columns (PACS)
+\code{tbl_graph} network object. It is a bimodal, directed, named,
+weighted graph of 20 Senators (\code{type = FALSE}) and 32 PACS (\code{type = TRUE})
+and 614 edges.
 }
 \source{
 Knoke, Diani, Hollway, and Christopoulos. 2021. \emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.

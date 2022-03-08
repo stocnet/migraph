@@ -5,7 +5,8 @@
 \alias{mpn_elite_usa_money}
 \title{Three-mode American power elite database}
 \format{
-Matrix with 26 rows and 6+6 columns
+\code{tbl_graph} network object. The network is bipartite, undirected,
+named, and unweighted. It contains 38 nodes and 103 edges.
 }
 \usage{
 data(mpn_elite_usa_money)

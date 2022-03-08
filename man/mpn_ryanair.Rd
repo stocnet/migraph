@@ -5,7 +5,8 @@
 \alias{mpn_ryanair}
 \title{One-mode EU policy influence network, June 2004}
 \format{
-Matrix with 20 rows/columns
+\code{tbl_graph} network object. The network is simple, directed, named
+and weighted. It contains 20 nodes and 177 edges.
 }
 \source{
 Christopoulos, Dimitrios C. 2006.

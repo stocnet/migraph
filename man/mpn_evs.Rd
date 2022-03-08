@@ -11,7 +11,7 @@
 \alias{mpn_UK_2008}
 \title{Two-mode European Values Survey, 1990 and 2008}
 \format{
-Matrices with 14 columns:
+\code{tbl_graph} object based on an association matrix with 14 columns:
 \describe{
 \item{Welfare}{1 if individual associated}
 \item{Religious}{1 if individual associated}

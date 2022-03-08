@@ -5,7 +5,8 @@
 \alias{mpn_elite_mex}
 \title{One-mode Mexican power elite database}
 \format{
-Matrix with 11 rows/columns
+\code{tbl_graph} network object. The network is simple, directed, named
+and unweighted. It contains 11 nodes and 44 edges.
 }
 \source{
 Knoke, David. 1990. \emph{Political Networks}.

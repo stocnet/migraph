@@ -13,7 +13,8 @@
 #' @keywords datasets
 #' @name mpn_elite_mex
 #' @usage data(mpn_elite_mex)
-#' @format Matrix with 11 rows/columns
+#' @format `tbl_graph` network object. The network is simple, directed, named
+#' and unweighted. It contains 11 nodes and 44 edges.
 #' @source Knoke, David. 1990. \emph{Political Networks}.
 #' 
 #' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
@@ -34,7 +35,8 @@
 #' @keywords datasets
 #' @name mpn_elite_usa_advice
 #' @usage data(mpn_elite_usa_advice)
-#' @format Matrix with 14 rows and 20 columns
+#' @format `tbl_graph` network object. The network is bipartite, undirected,
+#' named, and unweighted. It contains 32 nodes and 46 edges.
 #' @references
 #' Domhoff, G William. 2016. \href{https://whorulesamerica.ucsc.edu/power_elite/}{“Who Rules America? Power Elite Database.”}
 #' 
@@ -56,7 +58,8 @@
 #' @keywords datasets
 #' @name mpn_elite_usa_money
 #' @usage data(mpn_elite_usa_money)
-#' @format Matrix with 26 rows and 6+6 columns
+#' @format `tbl_graph` network object. The network is bipartite, undirected,
+#' named, and unweighted. It contains 38 nodes and 103 edges.
 #' @references
 #' Domhoff, G William. 2016. \href{https://whorulesamerica.ucsc.edu/power_elite/}{“Who Rules America? Power Elite Database.”}
 #' 
@@ -70,7 +73,7 @@
 
 #' Multimodal (3) Bristol protest events, 1990-2002
 #'
-#' A multimodal (3) matrix containing individuals affiliations to civic organizations
+#' A multimodal (3) network containing individuals affiliations to civic organizations
 #' in Bristol and their participation in major protest and civic events between 1990-2002,
 #' and the involvement of the organizations in these events.
 #'
@@ -78,12 +81,14 @@
 #' @keywords datasets
 #' @name mpn_bristol
 #' @usage data(mpn_bristol)
-#' @format A matrix with 264 rows and columns. Node IDs are prefaced with a type identifier:
+#' @format A `tbl_graph` object with 264 rows and columns. Node IDs are 
+#' prefaced with a type identifier:
 #' \describe{
 #'   \item{1_}{150 Individuals, anonymised}
 #'   \item{2_}{97 Bristol Civic Organizations}
 #'   \item{3_}{17 Major Protest and Civic Events in Bristol, 1990-2002}
 #' }
+#' The network is weighted, named, and directed.
 #' @source Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
 #' Cambridge University Press. Cambridge University Press.
@@ -107,7 +112,8 @@
 #' @keywords datasets
 #' @name mpn_ryanair
 #' @usage data(mpn_ryanair)
-#' @format Matrix with 20 rows/columns
+#' @format `tbl_graph` network object. The network is simple, directed, named
+#' and weighted. It contains 20 nodes and 177 edges.
 #' @source Christopoulos, Dimitrios C. 2006.
 #' “Relational Attributes of Political Entrepreneurs: a Network Perspective.”
 #' \emph{Journal of European Public Policy} 13 (5): 757–78.
@@ -141,18 +147,24 @@
 #' @keywords datasets
 #' @name mpn_senate112
 #' @usage data(mpn_DemSxP)
-#' @format Matrix of 51 rows (Senators) and 63 columns (PACS)
+#' @format `tbl_graph` network object. It is a bimodal, directed, named,
+#' weighted graph of 51 Senators (`type = FALSE`) and 63 PACS (`type = TRUE`)
+#' and 2791 edges.
 #' @source Knoke, Diani, Hollway, and Christopoulos. 2021. \emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
 "mpn_DemSxP"
 
 #' @rdname mpn_senate112
 #' @usage data(mpn_RepSxP)
-#' @format Matrix of 62 rows (Senators) and 72 columns (PACS)
+#' @format `tbl_graph` network object. It is a bimodal, directed, named,
+#' weighted graph of 62 Senators (`type = FALSE`) and 72 PACS (`type = TRUE`)
+#' and 3675 edges.
 "mpn_RepSxP"
 
 #' @rdname mpn_senate112
 #' @usage data(mpn_OverSxP)
-#' @format Matrix of 20 rows (Senators) and 32 columns (PACS)
+#' @format `tbl_graph` network object. It is a bimodal, directed, named,
+#' weighted graph of 20 Senators (`type = FALSE`) and 32 PACS (`type = TRUE`)
+#' and 614 edges.
 "mpn_OverSxP"
 
 #' Two-mode European Values Survey, 1990 and 2008
@@ -167,7 +179,7 @@
 #' @keywords datasets
 #' @name mpn_evs
 #' @usage data(mpn_IT_1990)
-#' @format Matrices with 14 columns:
+#' @format `tbl_graph` object based on an association matrix with 14 columns:
 #' \describe{
 #'   \item{Welfare}{1 if individual associated}
 #'   \item{Religious}{1 if individual associated}
