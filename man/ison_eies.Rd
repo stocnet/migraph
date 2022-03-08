@@ -3,9 +3,11 @@
 \docType{data}
 \name{ison_eies}
 \alias{ison_eies}
-\title{1DW 32(2) 440(1) EIES messages}
+\title{Freeman's EIES dataset}
 \format{
-tidygraph graph object
+\code{tbl_graph} network object. The network is directed, simple, unnamed
+, and weighted. It contains 32 nodes and 440 edges as well as two node level
+attributes: \code{Citations}; \code{Discipline}.
 }
 \source{
 networkdata package
@@ -14,7 +16,15 @@ networkdata package
 data(ison_eies)
 }
 \description{
-1DW 32(2) 440(1) EIES messages
+Freeman's EIES dataset
+}
+\details{
+A directed, simple, unnamed, weighted graph with 32 nodes and 440
+edges. Nodes are academics and edges illustrate the communication patterns
+on an Electronic Information Exchange System among them. Node attributes
+include the number of citations (\code{Citations}) and the discipline of the
+researchers (\code{Discipline}). Edge weights illustrate the number of emails
+sent from one academic to another over the studied time period.
 }
 \references{
 Freeman, S. C. and L. C. Freeman (1979).

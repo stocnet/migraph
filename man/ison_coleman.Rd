@@ -3,15 +3,16 @@
 \docType{data}
 \name{ison_coleman}
 \alias{ison_coleman}
-\title{One-mode subset of adolescent society dataset}
+\title{One-mode subset of the adolescent society dataset.}
 \format{
-tidygraph graph object
+A undirected one-mode tbl_graph object of 8 named nodes and 10
+edges.
 }
 \usage{
 data(ison_coleman)
 }
 \description{
-One-mode subset of adolescent society dataset
+One-mode subset of the adolescent society dataset.
 }
 \references{
 Coleman, James S. 1961. The Adolescent Society.

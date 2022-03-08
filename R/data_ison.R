@@ -36,54 +36,61 @@
 #' @format One-mode igraph of 53 Marvel comic book characters and 558 signed (`1` = friends, `-1` = enemies) undirected ties
 "ison_marvel_relationships"
 
-#' Two-mode projection examples
+#' Two-mode projection examples.
+#' 
+#' @details These datasets should only be used
+#' for demonstration purposes as they do not describe a real world network.
+#' All examples contain named nodes.
 #'
 #' @docType data
 #' @keywords datasets
 #' @name ison_projection
 #' @usage data(ison_mm)
-#' @format Directed two-mode igraph with 6 nodes and 6 edges
+#' @format Directed two-mode `{igraph}` object with 6 nodes and 6 edges
 "ison_mm"
 
 #' @rdname ison_projection
 #' @usage data(ison_bm)
-#' @format Directed two-mode igraph with 8 nodes and 9 edges
+#' @format Directed two-mode `{igraph}` object with 8 nodes and 9 edges
 "ison_bm"
 
 #' @rdname ison_projection
 #' @usage data(ison_mb)
-#' @format Directed two-mode igraph with 8 nodes and 9 edges
+#' @format Directed two-mode `{igraph}` object with 8 nodes and 9 edges
 "ison_mb"
 
 #' @rdname ison_projection
 #' @usage data(ison_bb)
-#' @format Directed two-mode igraph with 10 nodes and 12 edges
+#' @format Directed two-mode `{igraph}` object with 10 nodes and 12 edges
 "ison_bb"
 
-#' Multiplex igraph of friends, social, and task ties between 16 anonymous students
+#' Multiplex graph object of friends, social, and task ties.
 #' 
-#' M182 was an honors algebra class and friendship, social, and task ties
-#' were collected/observed.
-#' @docType data
-#' @keywords datasets
-#' @name m182
-#' @usage data(ison_m182)
-#' @source See also `data(studentnets.M182, package = "NetData")`
-#' Larger comprehensive data set publicly available, contact Daniel A. McFarland for details.
-#' @format Multiplex tidygraph of friends, social, and task ties between 16 anonymous students
+#' @details Multiplex graph object of friends, social, and task ties between 16 #' anonymous students. M182 was an honors algebra class where researchers
+#' collected friendship, social, and task ties between 16 students.
 #' The edge attribute `friend_ties` contains friendship ties,
 #' where `2` = best friends, `1` = friend, and `0` is not a friend.
 #' `social_ties` consists of social interactions per hour,
 #' and `task_ties` consists of task interactions per hour.
+#' @docType data
+#' @keywords datasets
+#' @name ison_m182
+#' @usage data(ison_m182)
+#' @source See also `data(studentnets.M182, package = "NetData")`
+#' Larger comprehensive data set publicly available, contact Daniel A. McFarland for details.
+#' @format Multiplex `tbl_graph` object of friends, social, and task ties 
+#' between 16 anonymous students.
+
 "ison_m182"
 
-#' One-mode subset of adolescent society dataset
+#' One-mode subset of the adolescent society dataset.
 #'
 #' @docType data
 #' @keywords datasets
 #' @name ison_coleman
 #' @usage data(ison_coleman)
-#' @format tidygraph graph object
+#' @format A undirected one-mode tbl_graph object of 8 named nodes and 10
+#' edges.
 #' @references Coleman, James S. 1961. The Adolescent Society.
 #' New York:Free Press.
 #' 
@@ -91,22 +98,38 @@
 #' American Journal of Sociology 96(6): 1464-1477.
 "ison_coleman"
 
-#' Zachary's kareteka network
+#' Zachary's karateka network.
+#' 
+#' @details Zachary's karateka network. The network was observed in a 
+#' university Karate club in 1977. The network describes association patterns
+#' among 34 members and maps out allegiance patterns between members and either
+#' Mr. Hi, the instructor, or the John A. the club president after an argument
+#' about hiking the price for lessons. The allegiance of each node is 
+#' listed in the `obc` argument which takes the value 1 if the individual
+#' sided with Mr. Hi after the fight and 2 if the individual sided with John A.
 #'
 #' @docType data
 #' @keywords datasets
 #' @name ison_community
 #' @usage data(ison_karateka)
-#' @format Undirected one-mode igraph with 34 nodes and 78 edges
+#' @format Undirected one-mode igraph with 34 named nodes and 78 edges.
 "ison_karateka"
 
-#' 1DW 32(2) 440(1) EIES messages
+#' Freeman's EIES dataset
 #'
+#'@details A directed, simple, unnamed, weighted graph with 32 nodes and 440
+#' edges. Nodes are academics and edges illustrate the communication patterns
+#' on an Electronic Information Exchange System among them. Node attributes
+#' include the number of citations (`Citations`) and the discipline of the
+#' researchers (`Discipline`). Edge weights illustrate the number of emails
+#' sent from one academic to another over the studied time period.
 #' @docType data
 #' @keywords datasets
 #' @name ison_eies
 #' @usage data(ison_eies)
-#' @format tidygraph graph object
+#' @format `tbl_graph` network object. The network is directed, simple, unnamed
+#' , and weighted. It contains 32 nodes and 440 edges as well as two node level
+#' attributes: `Citations`; `Discipline`.
 #' @source networkdata package
 #' @references Freeman, S. C. and L. C. Freeman (1979). 
 #' The networkers network: A study of the impact of a new communications medium on sociometric structure. 
