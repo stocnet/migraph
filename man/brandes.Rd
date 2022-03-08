@@ -3,7 +3,8 @@
 \docType{data}
 \name{brandes}
 \alias{brandes}
-\title{One-mode centrality demonstration structure}
+\title{One-mode centrality demonstration network. This network should solely be used
+for demonstration purposes as it does not describe a real network.}
 \format{
 A tidygraph \code{tbl_graph} with 11 nodes and 24 edges.
 }
@@ -11,6 +12,7 @@ A tidygraph \code{tbl_graph} with 11 nodes and 24 edges.
 data(brandes)
 }
 \description{
-One-mode centrality demonstration structure
+One-mode centrality demonstration network. This network should solely be used
+for demonstration purposes as it does not describe a real network.
 }
 \keyword{datasets}
