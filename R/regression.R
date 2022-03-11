@@ -49,6 +49,8 @@
 #'   same(Discipline) + same(Citations), messaged, times = 500))
 #' tidy(model1)
 #' tidy(model2, exponentiate = TRUE)
+#' glance(model1)
+#' glance(model2)
 #' @export
 network_reg <- function(formula, data,
                         method = c("qap","qapy"),
@@ -63,7 +65,6 @@ network_reg <- function(formula, data,
   method <- match.arg(method)
 
   g <- matrixList
-  intercept <- FALSE
   nx <- length(matrixList) - 1
   n <- dim(matrixList[[1]])
   
@@ -107,6 +108,7 @@ network_reg <- function(formula, data,
     fit$deviance <- fit.base$deviance
     fit$null.deviance <- fit.base$null.deviance
     fit$df.null <- fit.base$df.null
+    fit$rank <- fit.base$rank
     fit$aic <- fit.base$aic
     fit$bic <- fit$deviance + fit$df.model * log(fit$n)
     fit$qr <- fit.base$qr
@@ -182,7 +184,7 @@ network_reg <- function(formula, data,
                                 ">="), 2, mean)
     fit$nullhyp <- "QAP-DSP"
     fit$names <- names(matrixList)[-1]
-    fit$intercept <- intercept
+    fit$intercept <- TRUE
     if(valued) 
       class(fit) <- "netlm"
     else 
@@ -320,6 +322,7 @@ tidy.netlm <- function(x, conf.int = FALSE, conf.level = 0.95, ...) {
   if (conf.int) {
     ci <- apply(x$dist, 2, quantile, c(.025, .975))
     ci <- cbind(data.frame(term = x$names), t(ci))
+    names(ci) <- c("term", "conf.low", "conf.high")
     result <- dplyr::left_join(result, ci, by = "term")
   }
   
@@ -342,9 +345,94 @@ tidy.netlogit <- function(x, conf.int = FALSE, conf.level = 0.95,
   if (conf.int) {
     ci <- apply(x$dist, 2, quantile, c(.025, .975))
     ci <- cbind(data.frame(term = x$names), t(ci))
+    names(ci) <- c("term", "conf.low", "conf.high")
     result <- dplyr::left_join(result, ci, by = "term")
   }
   
   result
+}
+
+#' @importFrom generics glance
+#' @export
+generics::glance
+
+#' @method glance netlm
+#' @export
+glance.netlm <- function(x, ...) {
+  
+  mss <- sum((fitted(x) - mean(fitted(x)))^2)
+  rss <- sum(resid(x)^2)
+  qn <- NROW(x$qr$qr)
+  df.int <- x$intercept
+  rdf <- qn - x$rank
+  resvar <- rss/rdf
+  fstatistic <- c(value = (mss/(x$rank - df.int))/resvar, numdf = x$rank - 
+                    df.int, dendf = rdf)
+  r.squared <- mss/(mss + rss)
+  adj.r.squared <- 1 - (1 - r.squared) * ((qn - df.int)/rdf)
+  sigma <- sqrt(resvar)
+  
+    tibble::tibble(
+      r.squared = r.squared,
+      adj.r.squared = adj.r.squared,
+      sigma = sigma,
+      statistic = fstatistic["value"],
+      p.value = pf(
+        fstatistic["value"],
+        fstatistic["numdf"],
+        fstatistic["dendf"],
+        lower.tail = FALSE
+      ),
+      df = fstatistic["numdf"],
+      # logLik = as.numeric(stats::logLik(x)),
+      # AIC = stats::AIC(x),
+      # BIC = stats::BIC(x),
+      # deviance = stats::deviance(x),
+      df.residual = stats::df.residual(x),
+      nobs = x$n
+    )
+}
+
+#' @method glance netlogit
+#' @export
+glance.netlogit <- function(x, ...) {
+  
+  # mss <- sum((fitted(x) - mean(fitted(x)))^2)
+  # rss <- sum(resid(x)^2)
+  # qn <- NROW(x$qr$qr)
+  # df.int <- x$intercept
+  # rdf <- qn - x$rank
+  # resvar <- rss/rdf
+  # fstatistic <- c(value = (mss/(x$rank - df.int))/resvar, numdf = x$rank - 
+  #                   df.int, dendf = rdf)
+  # r.squared <- mss/(mss + rss)
+  # adj.r.squared <- 1 - (1 - r.squared) * ((qn - df.int)/rdf)
+  # sigma <- sqrt(resvar)
+  
+  tibble::tibble(
+    # r.squared = r.squared,
+    # adj.r.squared = adj.r.squared,
+    # sigma = sigma,
+    # statistic = fstatistic["value"],
+    # p.value = pf(
+    #   fstatistic["value"],
+    #   fstatistic["numdf"],
+    #   fstatistic["dendf"],
+    #   lower.tail = FALSE
+    # ),
+    # df = fstatistic["numdf"],
+    # logLik = as.numeric(stats::logLik(x)),
+    pseudo.r.squared = (x$null.deviance - x$deviance)/(x$null.deviance - x$deviance + 
+                                                         x$df.null),
+    AIC = x$aic,
+    AICc = x$aic + (2*x$rank^2 + 2*x$rank)/(x$n-x$rank-1),
+    BIC = x$bic,
+    chi.squared = 1 - stats::pchisq(x$null.deviance - x$deviance, df = x$df.null - 
+                               x$df.residual),
+    deviance = x$deviance,
+    null.deviance = x$null.deviance,
+    df.residual = stats::df.residual(x),
+    nobs = x$n
+  )
 }
 

@@ -67,6 +67,9 @@ messaged <- messages \%>\% activate(edges) \%>\%
 (model2 <- network_reg(weight ~ random + 
   same(Discipline) + same(Citations), messaged, times = 500))
 tidy(model1)
+tidy(model2, exponentiate = TRUE)
+glance(model1)
+glance(model2)
 }
 \references{
 Dekker, D., Krackhard, D., Snijders, T.A.B (2007)
