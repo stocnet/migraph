@@ -48,6 +48,7 @@
 #' (model2 <- network_reg(weight ~ random + 
 #'   same(Discipline) + same(Citations), messaged, times = 500))
 #' tidy(model1)
+#' tidy(model2, exponentiate = TRUE)
 #' @export
 network_reg <- function(formula, data,
                         method = c("qap","qapy"),
@@ -301,3 +302,49 @@ getDependentName <- function(formula) {
   dep <- list(formula[[2]])
   depName <- unlist(lapply(dep, deparse))
 }
+
+#' @importFrom generics tidy
+#' @export
+generics::tidy
+
+#' @method tidy netlm
+#' @export
+tidy.netlm <- function(x, conf.int = FALSE, conf.level = 0.95, ...) {
+  
+  result <- tibble::tibble(term = x$names,
+                           estimate = x$coefficients,
+                           std.error = NA_real_,
+                           statistic = x$tstat,
+                           p.value = x$pgreqabs)
+  
+  if (conf.int) {
+    ci <- apply(x$dist, 2, quantile, c(.025, .975))
+    ci <- cbind(data.frame(term = x$names), t(ci))
+    result <- dplyr::left_join(result, ci, by = "term")
+  }
+  
+  result
+}
+
+#' @method tidy netlogit
+#' @export
+tidy.netlogit <- function(x, conf.int = FALSE, conf.level = 0.95, 
+                          exponentiate = FALSE, ...) {
+  
+  result <- tibble::tibble(term = x$names,
+                           estimate = `if`(exponentiate, 
+                                             exp(x$coefficients), 
+                                             x$coefficients),
+                           std.error = NA_real_,
+                           statistic = x$tstat,
+                           p.value = x$pgreqabs)
+  
+  if (conf.int) {
+    ci <- apply(x$dist, 2, quantile, c(.025, .975))
+    ci <- cbind(data.frame(term = x$names), t(ci))
+    result <- dplyr::left_join(result, ci, by = "term")
+  }
+  
+  result
+}
+
