@@ -123,7 +123,44 @@ network_reg <- function(formula, data,
   }
 
   # Null ####
-  if (method == "qap"){
+  # qapy for univariate ####
+  if (method == "qapy" | nx == 2){
+    if(parallel & times >= 1000){
+      future::plan("multisession")
+      if(valued){
+        repdist <- furrr::future_map_dfr(1:times, function(j){
+          nlmfit(c(list(generate_permutation(g[[1]], with_attr = FALSE)),
+                   g[2:(nx+1)]),
+                 directed = directed, diag = diag,
+                 rety = FALSE)
+        }, .progress = verbose, .options = furrr::furrr_options(seed = T))
+      } else {
+        repdist <- furrr::future_map_dfr(1:times, function(j){
+          repfit <- nlgfit(c(list(generate_permutation(g[[1]], with_attr = FALSE)),
+                             g[2:(nx+1)]),
+                           directed = directed, diag = diag)
+          repfit$coef/sqrt(diag(chol2inv(repfit$qr$qr)))
+        }, .progress = verbose, .options = furrr::furrr_options(seed = T))
+      }
+    } else {
+      if(valued){
+        repdist <- purrr::map_dfr(1:times, function(j){
+          nlmfit(c(list(generate_permutation(g[[1]], with_attr = FALSE)),
+                   g[2:(nx+1)]),
+                 directed = directed, diag = diag,
+                 rety = FALSE)
+        })
+      } else {
+        repdist <- purrr::map_dfr(1:times, function(j){
+          repfit <- nlgfit(c(list(generate_permutation(g[[1]], with_attr = FALSE)),
+                             g[2:(nx+1)]),
+                           directed = directed, diag = diag)
+          repfit$coef/sqrt(diag(chol2inv(repfit$qr$qr)))
+        })
+      }
+    }
+    # qapspp for multivariate ####
+    } else if (method == "qap"){
     xsel <- matrix(TRUE, n[1], n[2])
     if (!diag) 
       diag(xsel) <- FALSE
@@ -175,23 +212,25 @@ network_reg <- function(formula, data,
       }
     }
     
-    fit$dist <- repdist
-    fit$pleeq <- apply(sweep(fit$dist, 2, fit$tstat, "<="), 
-                       2, mean)
-    fit$pgreq <- apply(sweep(fit$dist, 2, fit$tstat, ">="), 
-                       2, mean)
-    fit$pgreqabs <- apply(sweep(abs(fit$dist), 2, abs(fit$tstat), 
-                                ">="), 2, mean)
-    fit$nullhyp <- "QAP-DSP"
-    fit$names <- names(matrixList)[-1]
-    fit$intercept <- TRUE
-    if(valued) 
-      class(fit) <- "netlm"
-    else 
-      class(fit) <- "netlogit"
-    fit  
-    
   }
+  
+  fit$dist <- repdist
+  fit$pleeq <- apply(sweep(fit$dist, 2, fit$tstat, "<="), 
+                     2, mean)
+  fit$pgreq <- apply(sweep(fit$dist, 2, fit$tstat, ">="), 
+                     2, mean)
+  fit$pgreqabs <- apply(sweep(abs(fit$dist), 2, abs(fit$tstat), 
+                              ">="), 2, mean)
+  if(method == "qapy" | nx == 2) 
+    fit$nullhyp <- "QAPy"
+  else fit$nullhyp <- "QAP-DSP"
+  fit$names <- names(matrixList)[-1]
+  fit$intercept <- TRUE
+  if(valued) 
+    class(fit) <- "netlm"
+  else 
+    class(fit) <- "netlogit"
+  fit  
   
 }
 
