@@ -295,6 +295,18 @@ convertToMatrixList <- function(formula, data){
       cols <- matrix(node_attribute(data, x[[2]]),
                      nrow(DV), ncol(DV), byrow = TRUE)
       out <- (rows==cols)*1
+    } else if (x[[1]] == "dist"){
+      rows <- matrix(node_attribute(data, x[[2]]),
+                     nrow(DV), ncol(DV))
+      cols <- matrix(node_attribute(data, x[[2]]),
+                     nrow(DV), ncol(DV), byrow = TRUE)
+      out <- abs(rows - cols)
+    } else if (x[[1]] == "sim"){
+      rows <- matrix(node_attribute(data, x[[2]]),
+                     nrow(DV), ncol(DV))
+      cols <- matrix(node_attribute(data, x[[2]]),
+                     nrow(DV), ncol(DV), byrow = TRUE)
+      out <- abs(1- abs(rows - cols)/max(abs(rows - cols)))
     } else {
       if (x[[1]] %in% graph_edge_attributes(data)){
         out <- as_matrix(to_uniplex(data, 
