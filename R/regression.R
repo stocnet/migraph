@@ -274,7 +274,8 @@ vectorise_list <- function(glist, simplex, directed){
     diag(glist[[1]]) <- NA
   if(!directed)
     glist[[1]][upper.tri(glist[[1]])] <- NA
-  suppressMessages(na.omit(dplyr::bind_cols(purrr::map(glist, function(x) c(x)))))
+  suppressMessages(na.omit(dplyr::bind_cols(purrr::map(glist, 
+                                                       function(x) c(x)))))
 }
 
 convertToMatrixList <- function(formula, data){
@@ -282,42 +283,47 @@ convertToMatrixList <- function(formula, data){
   DV <- as_matrix(to_uniplex(data, 
                              edge = getDependentName(formula)))
   IVnames <- getRHSNames(formula)
-  IVs <- lapply(IVnames, function(x){
-    if(x[[1]] == "ego"){
-      out <- matrix(node_attribute(data, x[[2]]),
-                    nrow(DV), ncol(DV))
-    } else if (x[[1]] == "alter"){
-      out <- matrix(node_attribute(data, x[[2]]),
-                    nrow(DV), ncol(DV), byrow = TRUE)
-    } else if (x[[1]] == "same"){
-      rows <- matrix(node_attribute(data, x[[2]]),
-                     nrow(DV), ncol(DV))
-      cols <- matrix(node_attribute(data, x[[2]]),
-                     nrow(DV), ncol(DV), byrow = TRUE)
-      out <- (rows==cols)*1
-    } else if (x[[1]] == "dist"){
-      rows <- matrix(node_attribute(data, x[[2]]),
-                     nrow(DV), ncol(DV))
-      cols <- matrix(node_attribute(data, x[[2]]),
-                     nrow(DV), ncol(DV), byrow = TRUE)
-      out <- abs(rows - cols)
-    } else if (x[[1]] == "sim"){
-      rows <- matrix(node_attribute(data, x[[2]]),
-                     nrow(DV), ncol(DV))
-      cols <- matrix(node_attribute(data, x[[2]]),
-                     nrow(DV), ncol(DV), byrow = TRUE)
-      out <- abs(1- abs(rows - cols)/max(abs(rows - cols)))
-    } else {
-      if (x[[1]] %in% graph_edge_attributes(data)){
-        out <- as_matrix(to_uniplex(data, 
-                                    edge = x[[1]]))
+  IVs <- lapply(IVnames, function(IV){
+    out <- lapply(1:length(IV), function(elem){
+      if(IV[[elem]][1] == "ego"){
+        out <- matrix(node_attribute(data, IV[[elem]][2]),
+                      nrow(DV), ncol(DV))
+      } else if (IV[[elem]][1] == "alter"){
+        out <- matrix(node_attribute(data, IV[[elem]][2]),
+                      nrow(DV), ncol(DV), byrow = TRUE)
+      } else if (IV[[elem]][1] == "same"){
+        rows <- matrix(node_attribute(data, IV[[elem]][2]),
+                       nrow(DV), ncol(DV))
+        cols <- matrix(node_attribute(data, IV[[elem]][2]),
+                       nrow(DV), ncol(DV), byrow = TRUE)
+        out <- (rows==cols)*1
+      } else if (IV[[elem]][1] == "dist"){
+        rows <- matrix(node_attribute(data, IV[[elem]][2]),
+                       nrow(DV), ncol(DV))
+        cols <- matrix(node_attribute(data, IV[[elem]][2]),
+                       nrow(DV), ncol(DV), byrow = TRUE)
+        out <- abs(rows - cols)
+      } else if (IV[[elem]][1] == "sim"){
+        rows <- matrix(node_attribute(data, IV[[elem]][2]),
+                       nrow(DV), ncol(DV))
+        cols <- matrix(node_attribute(data, IV[[elem]][2]),
+                       nrow(DV), ncol(DV), byrow = TRUE)
+        out <- abs(1- abs(rows - cols)/max(abs(rows - cols)))
+      } else {
+        if (IV[[elem]][1] %in% graph_edge_attributes(data)){
+          out <- as_matrix(to_uniplex(data, 
+                                      edge = IV[[elem]][1]))
+        }
       }
-    }
-    out
-  })
+    })
+    if(length(out)==2){
+      out[[1]] * out[[2]]
+    } else {
+      out[[1]]
+    }})
   out <- c(list(DV), list(matrix(1, dim(DV)[1], dim(DV)[2])), IVs)
   names(out) <- c(formula[[2]], "(intercept)",
-                  sapply(IVnames, paste, collapse = " "))
+                  sapply(c(attr(terms(formula), "term.labels")), paste, collapse = " "))
   out
 }
 
