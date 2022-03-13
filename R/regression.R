@@ -327,28 +327,12 @@ convertFormula <- function(formula, new_names){
                    paste(paste0("`", names(new_names)[-1], "`"), collapse = " + ")))
 }
 
-
-# inspired by the ergm package function parser
-extractFormulaTerms <- function(rhs) {
-  # most inner term reached
-  if (is.symbol(rhs)) {
-    return(rhs)
-  }
-  if (!is.call(rhs[[1]]) &&
-      rhs[[1]] != "+" &&
-      rhs[[1]] != "*") {
-    return(rhs)
-    # return(list(rightHandSide[[1]], rightHandSide[[2]]))
-  } else {
-    return(c(extractFormulaTerms(rhs[[2]]), rhs[[3]]))
-  }
-}
-
 getRHSNames <- function(formula) {
-  rhs <- extractFormulaTerms(formula[[3]])
+  rhs <- c(attr(terms(formula), "term.labels"))
+  rhs <- strsplit(rhs, ":")
   # embed single parameter models in list
   if (!is.list(rhs)) rhs <- list(rhs)
-  rhsNames <- lapply(rhs, function(term) lapply(term, deparse))
+  lapply(rhs, function(term) strsplit(gsub("\\)", "", term), "\\("))
 }
 
 getDependentName <- function(formula) {
