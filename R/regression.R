@@ -52,7 +52,7 @@
 #'   By default FALSE.
 #'   See [`progressr`] for more.
 #' @importFrom dplyr bind_cols
-#' @importFrom purrr map
+#' @importFrom furrr future_map_dfr
 #' @importFrom stats lm
 #' @references 
 #'   Dekker, D., Krackhard, D., Snijders, T.A.B (2007) 
@@ -75,7 +75,7 @@
 network_reg <- function(formula, data,
                         method = c("qap","qapy"),
                         times = 1000,
-                        parallel = FALSE,
+                        strategy = "sequential",
                         verbose = FALSE) {
   
   # Setup ####
@@ -145,42 +145,24 @@ network_reg <- function(formula, data,
   # Null ####
   # qapy for univariate ####
   if (method == "qapy" | nx == 2){
-    if(parallel & times >= 1000){
-      future::plan("multisession")
-      if(valued){
-        repdist <- furrr::future_map_dfr(1:times, function(j){
-          nlmfit(c(list(generate_permutation(g[[1]], with_attr = FALSE)),
-                   g[2:(nx+1)]),
-                 directed = directed, diag = diag,
-                 rety = FALSE)
-        }, .progress = verbose, .options = furrr::furrr_options(seed = T))
-      } else {
-        repdist <- furrr::future_map_dfr(1:times, function(j){
-          repfit <- nlgfit(c(list(generate_permutation(g[[1]], with_attr = FALSE)),
-                             g[2:(nx+1)]),
-                           directed = directed, diag = diag)
-          repfit$coef/sqrt(diag(chol2inv(repfit$qr$qr)))
-        }, .progress = verbose, .options = furrr::furrr_options(seed = T))
-      }
+    future::plan(strategy)
+    if(valued){
+      repdist <- furrr::future_map_dfr(1:times, function(j){
+        nlmfit(c(list(generate_permutation(g[[1]], with_attr = FALSE)),
+                 g[2:(nx+1)]),
+               directed = directed, diag = diag,
+               rety = FALSE)
+      }, .progress = verbose, .options = furrr::furrr_options(seed = T))
     } else {
-      if(valued){
-        repdist <- purrr::map_dfr(1:times, function(j){
-          nlmfit(c(list(generate_permutation(g[[1]], with_attr = FALSE)),
-                   g[2:(nx+1)]),
-                 directed = directed, diag = diag,
-                 rety = FALSE)
-        })
-      } else {
-        repdist <- purrr::map_dfr(1:times, function(j){
-          repfit <- nlgfit(c(list(generate_permutation(g[[1]], with_attr = FALSE)),
-                             g[2:(nx+1)]),
-                           directed = directed, diag = diag)
-          repfit$coef/sqrt(diag(chol2inv(repfit$qr$qr)))
-        })
-      }
+      repdist <- furrr::future_map_dfr(1:times, function(j){
+        repfit <- nlgfit(c(list(generate_permutation(g[[1]], with_attr = FALSE)),
+                           g[2:(nx+1)]),
+                         directed = directed, diag = diag)
+        repfit$coef/sqrt(diag(chol2inv(repfit$qr$qr)))
+      }, .progress = verbose, .options = furrr::furrr_options(seed = T))
     }
     # qapspp for multivariate ####
-    } else if (method == "qap"){
+  } else if (method == "qap"){
     xsel <- matrix(TRUE, n[1], n[2])
     if (!diag) 
       diag(xsel) <- FALSE
@@ -196,44 +178,26 @@ network_reg <- function(formula, data,
       xres[xsel] <- qr.resid(xfit[[1]], xfit[[2]])
       if (directed == "graph")
         xres[upper.tri(xres)] <- t(xres)[upper.tri(xres)]
-      if(parallel & times >= 1000){
-        future::plan("multisession")
-        if(valued){
-          repdist[,i] <- furrr::future_map_dbl(1:times, function(j){
-            nlmfit(c(g[-(1 + i)],
-                     list(generate_permutation(xres, with_attr = FALSE))),
-                   directed = directed, diag = diag,
-                   rety = FALSE)[nx]
-          }, .progress = verbose, .options = furrr::furrr_options(seed = T))
-        } else {
-          repdist[,i] <- furrr::future_map_dbl(1:times, function(j){
-            repfit <- nlgfit(c(g[-(1 + i)],
-                               list(generate_permutation(xres, with_attr = FALSE))),
-                             directed = directed, diag = diag)
-            repfit$coef[nx]/sqrt(diag(chol2inv(repfit$qr$qr)))[nx]
-          }, .progress = verbose, .options = furrr::furrr_options(seed = T))
-        }
+      
+      future::plan(strategy)
+      if(valued){
+        repdist[,i] <- furrr::future_map_dbl(1:times, function(j){
+          nlmfit(c(g[-(1 + i)],
+                   list(generate_permutation(xres, with_attr = FALSE))),
+                 directed = directed, diag = diag,
+                 rety = FALSE)[nx]
+        }, .progress = verbose, .options = furrr::furrr_options(seed = T))
       } else {
-        if(valued){
-          repdist[,i] <- purrr::map_dbl(1:times, function(j){
-            nlmfit(c(g[-(1 + i)],
-                     list(generate_permutation(xres, with_attr = FALSE))),
-                   directed = directed, diag = diag,
-                   rety = FALSE)[nx]
-          })
-        } else {
-          repdist[,i] <- purrr::map_dbl(1:times, function(j){
-            repfit <- nlgfit(c(g[-(1 + i)],
-                     list(generate_permutation(xres, with_attr = FALSE))),
-                   directed = directed, diag = diag)
-            repfit$coef[nx]/sqrt(diag(chol2inv(repfit$qr$qr)))[nx]
-          })
-        }
+        repdist[,i] <- furrr::future_map_dbl(1:times, function(j){
+          repfit <- nlgfit(c(g[-(1 + i)],
+                             list(generate_permutation(xres, with_attr = FALSE))),
+                           directed = directed, diag = diag)
+          repfit$coef[nx]/sqrt(diag(chol2inv(repfit$qr$qr)))[nx]
+        }, .progress = verbose, .options = furrr::furrr_options(seed = T))
       }
     }
-    
   }
-  
+
   fit$dist <- repdist
   fit$pleeq <- apply(sweep(fit$dist, 2, fit$tstat, "<="), 
                      2, mean)
@@ -497,3 +461,7 @@ glance.netlogit <- function(x, ...) {
   )
 }
 
+# to be implemented...
+# #' @importFrom generics augment
+# #' @export
+# generics::augment
