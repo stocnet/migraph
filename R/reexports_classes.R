@@ -24,7 +24,7 @@ sna::print.summary.netlm
 
 #' @importFrom magrittr %>%
 #' @export
-magrittr::`%>%`
+dplyr::`%>%`
 
 #' @importFrom tidygraph with_graph
 #' @export

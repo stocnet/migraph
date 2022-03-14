@@ -38,6 +38,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
+  \item{dplyr}{\code{\link[dplyr:reexports]{\%>\%}}}
+
   \item{generics}{\code{\link[generics]{glance}}, \code{\link[generics]{tidy}}}
 
   \item{ggplot2}{\code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2:labs]{ggtitle}}, \code{\link[ggplot2]{labs}}, \code{\link[ggplot2:labs]{xlab}}, \code{\link[ggplot2:labs]{ylab}}}
@@ -45,8 +47,6 @@ below to see their documentation.
   \item{gridExtra}{\code{\link[gridExtra:arrangeGrob]{grid.arrange}}}
 
   \item{igraph}{\code{\link[igraph:is_igraph]{is.igraph}}, \code{\link[igraph:make_bipartite_graph]{is_bipartite}}}
-
-  \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
 
   \item{network}{\code{\link[network:network]{as.network}}, \code{\link[network:network]{is.network}}}
 
