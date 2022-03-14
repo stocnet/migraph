@@ -10,7 +10,7 @@ network_reg(
   data,
   method = c("qap", "qapy"),
   times = 1000,
-  parallel = FALSE,
+  strategy = "sequential",
   verbose = FALSE
 )
 }
@@ -37,12 +37,17 @@ extreme quantiles.
 By default, times=1000.
 1,000 - 10,000 repetitions recommended for publication-ready results.}
 
-\item{parallel}{If \code{{furrr}} is installed, and the number of simulations is high,
-current thinking is \code{times >= 1000},
-then multiple cores can be used to accelerate the function.}
+\item{strategy}{If \code{{furrr}} is installed,
+then multiple cores can be used to accelerate the function.
+By default \code{"sequential"},
+but if multiple cores available,
+then \code{"multisession"} or \code{"multicore"} may be useful.
+Generally this is useful only when \code{times} > 1000.
+See \code{\link{furrr}} for more.}
 
-\item{verbose}{If \code{parallel} is TRUE,
-should the function also report on its progress.}
+\item{verbose}{Whether the function should report on its progress.
+By default FALSE.
+See \code{\link{progressr}} for more.}
 }
 \description{
 This function provides a parallelised implementation of

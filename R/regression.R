@@ -1,21 +1,36 @@
 #' Linear regression for network data
 #' 
-#' This function provides a parallelised implementation of
+#' This function provides an implementation of
 #' the multiple regression quadratic assignment procedure (MRQAP)
 #' for both one-mode and two-mode network linear models.
 #' It offers several advantages:
 #' - it works with combined graph/network objects such as igraph and network objects
-#' by constructing the various dependent and independent matrices for the user.
-#' - it offers a more intuitive formula-based system for specifying the model.
-#' - it offers more straightforward printing of results that can combine with
-#' results from fitting other models.
+#'   by constructing the various dependent and independent matrices for the user.
+#' - it uses a more intuitive formula-based system for specifying the model,
+#'   with several ways to specify how nodal attributes should be handled.
+#' - it relies on [`furrr`] for parallelising 
+#'   and [`progressr`] for reporting progress to the user,
+#'   which can be useful when many simulations are required.
+#' - results are [`tidymodel`]-compatible, 
+#'   with `tidy()` and `glance()` reports to facilitate comparison
+#'   with results from different models.
 #' @name regression
 #' @param formula A formula describing the relationship being tested.
 #'   Several additional terms are available to assist users investigate
 #'   the effects they are interested in. These include:
-#'   - `ego()` tests whether a nodal attribute relates to outgoing ties
-#'   - `alter()` tests whether a nodal attribute relates to incoming ties
-#'   - `same()` adds a 1 if two nodes' attribute values are the same
+#'   - `ego()` constructs a matrix where the cells reflect the value of
+#'   a named nodal attribute for an edge's sending node
+#'   - `alter()` constructs a matrix where the cells reflect the value of
+#'   a named nodal attribute for an edge's receiving node
+#'   - `same()` constructs a matrix where a 1 reflects 
+#'   if two nodes' attribute values are the same
+#'   - `dist()` constructs a matrix where the cells reflect the
+#'   absolute difference between the attribute's values 
+#'   for the sending and receiving nodes
+#'   - `sim()` constructs a matrix where the cells reflect the
+#'   proportional similarity between the attribute's values 
+#'   for the sending and receiving nodes
+#'   - dyadic covariates (other networks) can just be named
 #' @param data An igraph, network, or tidygraph object.
 #' @param method A method for establishing the null hypothesis.
 #'   Note that "qap" currently defaults to Dekker et al's double semi-partialling technique.
@@ -26,11 +41,16 @@
 #'   extreme quantiles.
 #'   By default, times=1000.
 #'   1,000 - 10,000 repetitions recommended for publication-ready results.
-#' @param parallel If `{furrr}` is installed, and the number of simulations is high,
-#'   current thinking is `times >= 1000`, 
+#' @param strategy If `{furrr}` is installed, 
 #'   then multiple cores can be used to accelerate the function.
-#' @param verbose If `parallel` is TRUE, 
-#'   should the function also report on its progress.
+#'   By default `"sequential"`, 
+#'   but if multiple cores available,
+#'   then `"multisession"` or `"multicore"` may be useful.
+#'   Generally this is useful only when `times` > 1000.
+#'   See [`furrr`] for more.
+#' @param verbose Whether the function should report on its progress.
+#'   By default FALSE.
+#'   See [`progressr`] for more.
 #' @importFrom dplyr bind_cols
 #' @importFrom purrr map
 #' @importFrom stats lm
