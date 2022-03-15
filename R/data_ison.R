@@ -131,7 +131,8 @@
 #' , and weighted. It contains 32 nodes and 440 edges as well as two node level
 #' attributes: `Citations`; `Discipline`.
 #' @source networkdata package
-#' @references Freeman, S. C. and L. C. Freeman (1979). 
+#' @references 
+#' Freeman, S. C. and L. C. Freeman (1979). 
 #' The networkers network: A study of the impact of a new communications medium on sociometric structure. 
 #' Social Science Research Reports No 46. Irvine CA, University of California.
 #' 
@@ -140,3 +141,27 @@
 #' Cambridge University Press, Cambridge.
 "ison_eies"
 
+#' One-mode centrality demonstration network. This network should solely be used
+#' for demonstration purposes as it does not describe a real network.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name ison_brandes
+#' @usage data(ison_brandes)
+#' @format A tidygraph `tbl_graph` with 11 nodes and 24 edges.
+"ison_brandes"
+
+#' Two-mode southern women dataset
+#'
+#' Two-mode network dataset collected by Davis, Gardner and Gardner (1941) about the attendance pattern of women at informal social events during a 9 month
+#' period. Events and women are named.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name ison_southern_women
+#' @usage data(ison_southern_women)
+#' @format `{igraph}` two-mode graph object with 18 women and 14 informal social
+#' events.
+#' @references Davis, A., Gardner, B., and Gardner, R. 1941. \emph{Deep South}.
+#' Chicago: University of Chicago Press.
+"ison_southern_women"

@@ -90,11 +90,9 @@ reference:
       - starts_with("blockmodel")
   - title: "Data"
     desc: |
-      The package contains a range of different multimodal, multilevel, and multiplex data,
+      The package contains two collections of multimodal, multilevel, and multiplex network data,
       including data used in the book _Multimodal Political Networks_ (prefixed with `mpn_`)
       and for the course 'Social Networks Theories and Methods' (`ison_`).
     contents:
-      - brandes
-      - southern_women
       - starts_with("mpn_")
       - starts_with("ison_")
