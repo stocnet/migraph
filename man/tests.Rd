@@ -6,9 +6,23 @@
 \alias{test_permutation}
 \title{Conditional uniform graph and permutation tests}
 \usage{
-test_random(object, FUN, ..., nSim = 1000)
+test_random(
+  object,
+  FUN,
+  ...,
+  times = 1000,
+  strategy = "sequential",
+  verbose = FALSE
+)
 
-test_permutation(object, FUN, ..., nSim = 1000)
+test_permutation(
+  object,
+  FUN,
+  ...,
+  times = 1000,
+  strategy = "sequential",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{object}{A data frame edgelist, matrix, igraph, tidygraph, or
@@ -19,7 +33,15 @@ network object.}
 \item{...}{Additional arguments to be passed on to FUN,
 e.g. the name of the attribute.}
 
-\item{nSim}{The number of Monte Carlo simulations to perform.}
+\item{times}{Integer indicating the number of draws to use for quantile
+estimation.
+By default, times=1000.
+1,000 - 10,000 repetitions recommended for publication-ready results.}
+
+\item{parallel}{If \code{{furrr}} is installed,
+then multiple cores can be used to accelerate the function.
+By default FALSE.
+Recommended if \code{times} > 1000.}
 }
 \description{
 These functions conduct conditional uniform graph (CUG)
@@ -30,9 +52,9 @@ marvel_friends <- to_unsigned(ison_marvel_relationships)
 marvel_friends <- to_main_component(marvel_friends) \%>\% 
   filter(PowerOrigin == "Human")
 (cugtest <- test_random(marvel_friends, graph_ei_index, attribute = "Attractive",
-  nSim = 200))
+  times = 2000))
 plot(cugtest)
 (qaptest <- test_permutation(marvel_friends, graph_ei_index, attribute = "Attractive",
-  nSim = 200))
+  times = 200))
 plot(qaptest)
 }
