@@ -109,3 +109,31 @@ test_permutation <- function(object, FUN, ...,
   class(out) <- "qap.test"
   out
 }
+
+#' @export
+plot.cug.test <- function(result){
+  data <- data.frame(Statistic = result$rep.stat)
+  p <- ggplot2::ggplot(data, 
+                  ggplot2::aes(x = Statistic)) + 
+    ggplot2::geom_density(fill = "lightgrey") + ggplot2::theme_classic() + 
+    ggplot2::geom_vline(ggplot2::aes(xintercept = result$obs.stat),
+                        color="red", size=1.5) + ggplot2::ylab("Density")
+  if(all(data$Statistic >= -1 & data$Statistic <= 1)) 
+    p <- p + ggplot2::expand_limits(x=0) + ggplot2::geom_vline(ggplot2::aes(xintercept = 0),
+                                                               linetype="dashed")
+  p
+}
+
+#' @export
+plot.qap.test <- function(result){
+  data <- data.frame(Statistic = result$dist)
+  p <- ggplot2::ggplot(data, 
+                       ggplot2::aes(x = Statistic)) + 
+    ggplot2::geom_density(fill = "lightgrey") + ggplot2::theme_classic() + 
+    ggplot2::geom_vline(ggplot2::aes(xintercept = result$testval),
+                        color="red", size=1.5) + ggplot2::ylab("Density")
+  if(all(data$Statistic >= -1 & data$Statistic <= 1)) 
+    p <- p + ggplot2::expand_limits(x=0) + ggplot2::geom_vline(ggplot2::aes(xintercept = 0),
+                                                               linetype="dashed")
+  p
+}
