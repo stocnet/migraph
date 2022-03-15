@@ -45,11 +45,13 @@ add_edge_attributes <- function(object, attr_name, vector){
 #' @rdname add
 #' @export
 copy_node_attributes <- function(object, object2){
-  if(graph_nodes(object) != graph_nodes(object2)) stop("Objects need to be of compatible dimensions.")
+  if(graph_nodes(object) != graph_nodes(object2)) 
+    stop("Objects need to be of compatible dimensions.")
   object <- as_igraph(object)
   object2 <- as_igraph(object2)
   for(a in igraph::vertex_attr_names(object2)){
-    object <- igraph::set.vertex.attribute(object, a, value = igraph::get.vertex.attribute(object2, a))
+    object <- igraph::set.vertex.attribute(object, a, 
+                                           value = igraph::get.vertex.attribute(object2, a))
   }
   object
 }

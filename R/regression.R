@@ -14,6 +14,10 @@
 #' - results are [`tidymodel`]-compatible, 
 #'   with `tidy()` and `glance()` reports to facilitate comparison
 #'   with results from different models.
+#' Note that a t- or z-value is always used as the test statistic,
+#' and properties of the dependent network 
+#' -- modes, directedness, loops, etc --
+#' will always be respected in permutations and analysis.
 #' @name regression
 #' @param formula A formula describing the relationship being tested.
 #'   Several additional terms are available to assist users investigate
@@ -33,7 +37,9 @@
 #'   - dyadic covariates (other networks) can just be named
 #' @param data An igraph, network, or tidygraph object.
 #' @param method A method for establishing the null hypothesis.
-#'   Note that "qap" currently defaults to Dekker et al's double semi-partialling technique.
+#'   Note that "qap" uses Dekker et al's (2007) double semi-partialling technique,
+#'   whereas "qapy" permutes only the $y$ variable.
+#'   "qap" is the default.
 #' @param times Integer indicating the number of draws to use for quantile
 #'   estimation. (Relevant to the null hypothesis test only - the analysis
 #'   itself is unaffected by this parameter.) 
@@ -51,13 +57,18 @@
 #' @param verbose Whether the function should report on its progress.
 #'   By default FALSE.
 #'   See [`progressr`] for more.
-#' @importFrom dplyr bind_cols
-#' @importFrom furrr future_map_dfr
-#' @importFrom stats lm
+#' @importFrom dplyr bind_cols left_join
+#' @importFrom tibble tibble
+#' @importFrom furrr future_map_dfr furrr_options
+#' @importFrom stats glm.fit as.formula df.residual pchisq
 #' @references 
-#'   Dekker, D., Krackhard, D., Snijders, T.A.B (2007) 
-#'   Sensitivity of MRQAP tests to collinearity and autocorrelation conditions. 
-#'   Psychometrika 72(4): 563-581.
+#'   Krackhardt, David (1988) 
+#'   “Predicting with Networks: Nonparametric Multiple Regression Analysis of Dyadic Data.” 
+#'   _Social Networks_ 10(4):359–81.
+#'   
+#'   Dekker, David, Krackhard, David, Snijders, Tom A.B (2007) 
+#'   “Sensitivity of MRQAP tests to collinearity and autocorrelation conditions.”
+#'   _Psychometrika_ 72(4): 563-581.
 #' @examples
 #' messages <- mutate_edges(ison_eies, 
 #'   generate_random(ison_eies), attr_name = "random")
@@ -258,7 +269,7 @@ vectorise_list <- function(glist, simplex, directed){
     diag(glist[[1]]) <- NA
   if(!directed)
     glist[[1]][upper.tri(glist[[1]])] <- NA
-  suppressMessages(na.omit(dplyr::bind_cols(purrr::map(glist, 
+  suppressMessages(na.omit(dplyr::bind_cols(furrr::future_map(glist, 
                                                        function(x) c(x)))))
 }
 
@@ -460,8 +471,3 @@ glance.netlogit <- function(x, ...) {
     nobs = x$n
   )
 }
-
-# to be implemented...
-# #' @importFrom generics augment
-# #' @export
-# generics::augment

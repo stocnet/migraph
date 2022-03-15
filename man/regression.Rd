@@ -19,15 +19,27 @@ network_reg(
 Several additional terms are available to assist users investigate
 the effects they are interested in. These include:
 \itemize{
-\item \code{ego()} tests whether a nodal attribute relates to outgoing ties
-\item \code{alter()} tests whether a nodal attribute relates to incoming ties
-\item \code{same()} adds a 1 if two nodes' attribute values are the same
+\item \code{ego()} constructs a matrix where the cells reflect the value of
+a named nodal attribute for an edge's sending node
+\item \code{alter()} constructs a matrix where the cells reflect the value of
+a named nodal attribute for an edge's receiving node
+\item \code{same()} constructs a matrix where a 1 reflects
+if two nodes' attribute values are the same
+\item \code{dist()} constructs a matrix where the cells reflect the
+absolute difference between the attribute's values
+for the sending and receiving nodes
+\item \code{sim()} constructs a matrix where the cells reflect the
+proportional similarity between the attribute's values
+for the sending and receiving nodes
+\item dyadic covariates (other networks) can just be named
 }}
 
 \item{data}{An igraph, network, or tidygraph object.}
 
 \item{method}{A method for establishing the null hypothesis.
-Note that "qap" currently defaults to Dekker et al's double semi-partialling technique.}
+Note that "qap" uses Dekker et al's (2007) double semi-partialling technique,
+whereas "qapy" permutes only the $y$ variable.
+"qap" is the default.}
 
 \item{times}{Integer indicating the number of draws to use for quantile
 estimation. (Relevant to the null hypothesis test only - the analysis
@@ -50,16 +62,25 @@ By default FALSE.
 See \code{\link{progressr}} for more.}
 }
 \description{
-This function provides a parallelised implementation of
+This function provides an implementation of
 the multiple regression quadratic assignment procedure (MRQAP)
 for both one-mode and two-mode network linear models.
 It offers several advantages:
 \itemize{
 \item it works with combined graph/network objects such as igraph and network objects
 by constructing the various dependent and independent matrices for the user.
-\item it offers a more intuitive formula-based system for specifying the model.
-\item it offers more straightforward printing of results that can combine with
-results from fitting other models.
+\item it uses a more intuitive formula-based system for specifying the model,
+with several ways to specify how nodal attributes should be handled.
+\item it relies on \code{\link{furrr}} for parallelising
+and \code{\link{progressr}} for reporting progress to the user,
+which can be useful when many simulations are required.
+\item results are \code{\link{tidymodel}}-compatible,
+with \code{tidy()} and \code{glance()} reports to facilitate comparison
+with results from different models.
+Note that a t- or z-value is always used as the test statistic,
+and properties of the dependent network
+-- modes, directedness, loops, etc --
+will always be respected in permutations and analysis.
 }
 }
 \examples{
@@ -77,7 +98,11 @@ glance(model1)
 glance(model2)
 }
 \references{
-Dekker, D., Krackhard, D., Snijders, T.A.B (2007)
-Sensitivity of MRQAP tests to collinearity and autocorrelation conditions.
-Psychometrika 72(4): 563-581.
+Krackhardt, David (1988)
+“Predicting with Networks: Nonparametric Multiple Regression Analysis of Dyadic Data.”
+\emph{Social Networks} 10(4):359–81.
+
+Dekker, David, Krackhard, David, Snijders, Tom A.B (2007)
+“Sensitivity of MRQAP tests to collinearity and autocorrelation conditions.”
+\emph{Psychometrika} 72(4): 563-581.
 }

@@ -31,7 +31,7 @@ All `{migraph}` measures and models work with data in base formats:
 - adjacency and incidence _matrices_
 - one-mode and two-mode _data frame_ edgelists
 
-as well as with objects from the following packages:
+as well as with objects constructed from the following packages:
 
 - [`{igraph}`](https://igraph.org/r/)
 - [`{network}`](http://statnet.org)
@@ -66,7 +66,7 @@ with existing function names wherever possible.
 #### Models
 
 - Blockmodelling: `blockmodel_concor()`, `cluster_structural_equivalence()`, `cluster_regular_equivalence()`
-- Linear regression: `netlm()`
+- Linear and logistic regression for networks (via MRQAP): `network_reg()`
 
 #### Visualization
 
