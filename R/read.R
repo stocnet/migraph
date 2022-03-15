@@ -143,10 +143,29 @@ write_nodelist <- function(object,
 
 #' @describeIn read Reading pajek (.net/.paj) files
 #' @importFrom network read.paj
+#' @importFrom stringr str_remove_all str_trim
 #' @export
 read_pajek <- function(file = file.choose(), ...) {
   out <- network::read.paj(file, ...)
   if (!is.network(out)) out <- out[[1]][[1]]
+  out <- as_tidygraph(out)
+  if(grepl("Partition", read.delim(file))){
+    clus <- strsplit(paste(read.delim(file)), "\\*")[[1]]
+    clus <- clus[grepl("^Vertices|^Partition", clus)][-1]
+    if(length(clus) %% 2 != 0) stop("Unexpected .pajek file structure.")
+    namo <- clus[c(TRUE, FALSE)]
+    attr <- clus[c(FALSE, TRUE)]
+    for (i in 1:length(namo)){
+      vct <- strsplit(attr[i], ",")[[1]][-1]
+      vct <- stringr::str_remove_all(vct, "\"")
+      vct <- stringr::str_trim(vct)
+      vct <- vct[!grepl("^$", vct)]
+      if(all(grepl("^-?[0-9.]+$", vct))) vct <- as.numeric(vct)
+      out <- add_node_attributes(out, 
+                                 attr_name = strsplit(namo[i], " |\\.")[[1]][2],
+                                 vector = vct)
+    }
+  } 
   as_tidygraph(out)
 }
 
