@@ -82,12 +82,12 @@ test_that("read_pajek works", {
   testpaj <- read_pajek(testthat::test_path("sheets", "SouthernWomen.paj"))
   expect_true(is.tbl_graph(testpaj))
   edgetest <- as_edgelist(testpaj)
-  expect_equal(head(toupper(edgetest$from)), head(migraph::as_edgelist(southern_women)$from))
+  expect_equal(head(toupper(edgetest$from)), head(migraph::as_edgelist(ison_southern_women)$from))
 })
 
 test_that("write_pajek works", {
   file <-  tempfile() # Create file
-  write_pajek(southern_women, file)
+  write_pajek(ison_southern_women, file)
   testpaj2 <- read_pajek(file)
   expect_true(is.tbl_graph(testpaj2))
   edgetest2 <- as_edgelist(testpaj2)

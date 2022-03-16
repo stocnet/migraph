@@ -51,7 +51,7 @@ test_that("graph dyad census works", {
   expect_equal(names(test), c("Mutual", "Null"))
   expect_equal(class(test), "integer")
   # Error
-  expect_error(graph_dyad_census(southern_women))
+  expect_error(graph_dyad_census(ison_southern_women))
 })
 
 test <- graph_triad_census(ison_coleman)
@@ -61,11 +61,11 @@ test_that("graph triad census works", {
   expect_equal(names(test), c("003", "012", "102", "201", "210", "300"))
   expect_equal(class(test), "numeric")
   # Error
-  expect_error(graph_triad_census(southern_women))
+  expect_error(graph_triad_census(ison_southern_women))
 })
 
 test_that("node quad census works", {
-  quad_cen <- node_quad_census(southern_women)
+  quad_cen <- node_quad_census(ison_southern_women)
   expect_equal(class(quad_cen), c("matrix", "array"))
   expect_equal(quad_cen[1,1], 1402)
 })
@@ -77,7 +77,7 @@ test_that("graph mixed census works", {
   expect_equal(unname(mixed_cen[1]), 1137)
   expect_equal(names(mixed_cen[1]), "22")
   # Errors
-  expect_error(graph_mixed_census(southern_women, ison_marvel_teams))
-  expect_error(graph_mixed_census(ison_marvel_teams, southern_women))
+  expect_error(graph_mixed_census(ison_southern_women, ison_marvel_teams))
+  expect_error(graph_mixed_census(ison_marvel_teams, ison_southern_women))
   expect_error(graph_mixed_census(ison_karateka, ison_marvel_teams))
 })

@@ -1,5 +1,5 @@
 # Unweighted, unsigned, directed network
-test_brandes <- autographr(migraph::brandes)
+test_brandes <- autographr(migraph::ison_brandes)
 
 test_that("autographr works for unweighted, unsigned, directed networks", {
   # Node position

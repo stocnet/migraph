@@ -1,6 +1,6 @@
-test_tbl <- as_tidygraph(southern_women)
-test_igr <- southern_women
-test_mat <- as_matrix(southern_women)
+test_tbl <- as_tidygraph(ison_southern_women)
+test_igr <- ison_southern_women
+test_mat <- as_matrix(ison_southern_women)
 
 test_that("one mode degree centrality calculated correctly",{
   expect_equal(unname(node_degree(mpn_elite_mex)[1:5]), c(2,5,2,3,5))

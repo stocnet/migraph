@@ -33,8 +33,8 @@ test_that("GO grid layout works",{
 # Testing the helper functions (quite simple for now)
 
 test_that("helpers work",{
-  expect_equal(class(localmin(layout_tbl_graph_gogrid(brandes), brandes)), "data.frame")
-  expect_equal(class(get_vacant_points(layout_tbl_graph_gogrid(brandes))), "data.frame")
-  expect_equal(class(get_vacant_points(layout_tbl_graph_gogrid(brandes))), "data.frame")
-  expect_equal(class(cost_function(layout_tbl_graph_gogrid(brandes), brandes)), c("matrix", "array"))
+  expect_equal(class(localmin(layout_tbl_graph_gogrid(ison_brandes), ison_brandes)), "data.frame")
+  expect_equal(class(get_vacant_points(layout_tbl_graph_gogrid(ison_brandes))), "data.frame")
+  expect_equal(class(get_vacant_points(layout_tbl_graph_gogrid(ison_brandes))), "data.frame")
+  expect_equal(class(cost_function(layout_tbl_graph_gogrid(ison_brandes), ison_brandes)), c("matrix", "array"))
 })

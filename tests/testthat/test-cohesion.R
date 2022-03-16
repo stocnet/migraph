@@ -10,7 +10,7 @@ test_that("one-mode object clustering is reported correctly",{
 })
 
 test_that("two-mode object clustering is reported correctly",{
-  expect_equal(round(graph_equivalency(southern_women), 4), 0.4872)
+  expect_equal(round(graph_equivalency(ison_southern_women), 4), 0.4872)
 })
 
 mat1 <- create_ring(5,10)

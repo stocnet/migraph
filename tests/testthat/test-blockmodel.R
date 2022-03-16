@@ -49,9 +49,9 @@ test_that("concor works on one-mode networks", {
   expect_equal(class(test), "blockmodel")
   # Bimodal
   # Set things up
-  str_resbi <- cluster_structural_equivalence(southern_women)
+  str_resbi <- cluster_structural_equivalence(ison_southern_women)
   str_clubi <- cutree(str_resbi, 4)
-  testbi <- blockmodel(southern_women, str_clubi)
+  testbi <- blockmodel(ison_southern_women, str_clubi)
   # Test stuff
   expect_equal(unname(testbi$block.membership[[1]]),
                c(1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2))

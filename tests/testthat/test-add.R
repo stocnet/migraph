@@ -19,13 +19,13 @@ test_that("add_node_attributes works", {
                net_node2)
   # On two mode network
   # First nodeset
-  south1 <- add_node_attributes(southern_women, "Age", rep(25, 18))
+  south1 <- add_node_attributes(ison_southern_women, "Age", rep(25, 18))
   expect_equal(node_attribute(south1, "Age"), c(rep(25, 18), rep(NA, 14)))
   # Second nodeset
-  south2 <- add_node_attributes(southern_women, "Budget", rep(100, 14))
+  south2 <- add_node_attributes(ison_southern_women, "Budget", rep(100, 14))
   expect_equal(node_attribute(south2, "Budget"), c(rep(NA, 18), rep(100, 14)))
   # Test error when wrong number of attributes
-  expect_error(add_node_attributes(southern_women, "Budget", rep(100, 15)))
+  expect_error(add_node_attributes(ison_southern_women, "Budget", rep(100, 15)))
 })
 
 test_that("copy_node_attributes works", {

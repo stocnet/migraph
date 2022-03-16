@@ -21,8 +21,8 @@ simple_edge_df_unweighted <- data.frame(
 
 test_that("to_unweight works", {
   expect_equal(to_unweighted(matrix(0:8,3,3)), matrix(c(0, rep(1,8)),3,3))
-  expect_equal(to_unweighted(southern_women), southern_women)
-  expect_equal(c(to_unnamed(as_matrix(to_unweighted(project_rows(southern_women)))))[1:4],
+  expect_equal(to_unweighted(ison_southern_women), ison_southern_women)
+  expect_equal(c(to_unnamed(as_matrix(to_unweighted(project_rows(ison_southern_women)))))[1:4],
                c(0,1,1,1))
   expect_equal(c(to_unweighted(as_tidygraph(test_weighted)))[8],
                c(as_tidygraph(test_unweighted))[8])
@@ -30,16 +30,17 @@ test_that("to_unweight works", {
                 as_network(simple_edge_df_unweighted))
 })
 
-unnamedsouthern <- igraph::remove.vertex.attribute(southern_women, "name")
+unnamedsouthern <- igraph::remove.vertex.attribute(ison_southern_women, "name")
 test_unnamed <- igraph::remove.vertex.attribute(as_tidygraph(test_weighted),
                                                 "name")
 test_that("to_unnamed works",{
-  expect_equal(to_unnamed(southern_women), igraph::remove.vertex.attribute(southern_women, "name"))
-  expect_equal(to_unnamed(igraph::remove.vertex.attribute(southern_women, "name")),
-               igraph::remove.vertex.attribute(southern_women, "name"))
+  expect_equal(to_unnamed(ison_southern_women), 
+               igraph::remove.vertex.attribute(ison_southern_women, "name"))
+  expect_equal(to_unnamed(igraph::remove.vertex.attribute(ison_southern_women, "name")),
+               igraph::remove.vertex.attribute(ison_southern_women, "name"))
   expect_equal(c(to_unnamed(as_tidygraph(test_weighted)))[8], c(test_unnamed)[8])
-  expect_equal(to_unnamed(as_network(southern_women)),
-               network::delete.vertex.attribute(as_network(southern_women), "vertex.names"))
+  expect_equal(to_unnamed(as_network(ison_southern_women)),
+               network::delete.vertex.attribute(as_network(ison_southern_women), "vertex.names"))
   expect_equal(c(as_matrix(to_unnamed(as_igraph(ison_m182)))),
                c(as_matrix(as_igraph(ison_m182))))
   expect_equal(to_unnamed(test_unweighted),
@@ -48,10 +49,10 @@ test_that("to_unnamed works",{
                          row.names = c(NA, -12L), class = c("tbl_df", "tbl", "data.frame")))
 })
 
-names_southern <- igraph::get.vertex.attribute(southern_women, "name")
+names_southern <- igraph::get.vertex.attribute(ison_southern_women, "name")
 
 test_that("to_named works", {
-  expect_equal(to_named(southern_women, names_southern), southern_women)
+  expect_equal(to_named(ison_southern_women, names_southern), ison_southern_women)
 })
 
 test_that("to_undirected works",{
@@ -60,8 +61,8 @@ test_that("to_undirected works",{
                as_matrix(as_tidygraph(igraph::as.undirected(as_tidygraph(test_weighted)))))
   expect_equal(to_undirected(as_matrix(ison_coleman)),
                ((as_matrix(ison_coleman) + t(as_matrix(ison_coleman))) > 0) * 1)
-  expect_equal(to_undirected(as_matrix(southern_women)),
-               as_matrix(southern_women))
+  expect_equal(to_undirected(as_matrix(ison_southern_women)),
+               as_matrix(ison_southern_women))
   expect_equal(as_matrix(to_undirected(as_network(ison_coleman))),
                as_matrix(to_undirected(ison_coleman)))
 })
