@@ -36,7 +36,7 @@ is_graph <- function(object){
 #' @describeIn is Tests whether network is a two-mode network
 #' @importFrom igraph is.bipartite
 #' @examples
-#' is_twomode(southern_women)
+#' is_twomode(ison_southern_women)
 #' @export
 is_twomode <- function(object) UseMethod("is_twomode")
 
@@ -55,10 +55,16 @@ is_twomode.matrix <- function(object) {
   dim(object)[1] != dim(object)[2]
 }
 
+#' @export
+is_twomode.network <- function(object) {
+  object <- as_matrix(object)
+  dim(object)[1] != dim(object)[2]
+}
+
 #' @describeIn is Tests whether network is weighted
 #' @importFrom igraph is.weighted
 #' @examples
-#' is_weighted(southern_women)
+#' is_weighted(ison_southern_women)
 #' @export
 is_weighted <- function(object) UseMethod("is_weighted")
 
@@ -77,10 +83,16 @@ is_weighted.matrix <- function(object) {
   !all(object == 0 | object == 1)
 }
 
+#' @export
+is_weighted.network <- function(object) {
+  object <- as_matrix(object)
+  !all(object == 0 | object == 1)
+}
+
 #' @describeIn is Tests whether network is directed
 #' @importFrom igraph is.directed
 #' @examples
-#' is_directed(southern_women)
+#' is_directed(ison_southern_women)
 #' @export
 is_directed <- function(object) {
   if(network::is.network(object)){
@@ -94,7 +106,7 @@ is_directed <- function(object) {
 #' @describeIn is Tests whether network includes names for the nodes
 #' @importFrom igraph is.named
 #' @examples
-#' is_labelled(southern_women)
+#' is_labelled(ison_southern_women)
 #' @export
 is_labelled <- function(object) UseMethod("is_labelled")
 
@@ -113,10 +125,16 @@ is_labelled.matrix <- function(object) {
   !is.null(dimnames(object))
 }
 
+#' @export
+is_labelled.network <- function(object) {
+  object <- as_matrix(object)
+  !is.null(dimnames(object))
+}
+
 #' @describeIn is Tests whether network is signed positive/negative
 #' @importFrom igraph edge_attr_names
 #' @examples
-#' is_signed(southern_women)
+#' is_signed(ison_southern_women)
 #' @export
 is_signed <- function(object) {
   object <- as_igraph(object)
@@ -128,7 +146,7 @@ is_signed <- function(object) {
 #' or also "strong"ly connected.
 #' @importFrom igraph is.connected
 #' @examples
-#' is_connected(southern_women)
+#' is_connected(ison_southern_women)
 #' @export
 is_connected <- function(object, method = c("weak", "strong")) {
   method <- match.arg(method)
@@ -139,7 +157,7 @@ is_connected <- function(object, method = c("weak", "strong")) {
 #' @describeIn is Tests whether network contains any loops
 #' @importFrom igraph is.loop
 #' @examples
-#' is_complex(southern_women)
+#' is_complex(ison_southern_women)
 #' @export
 is_complex <- function(object) UseMethod("is_complex")
 
