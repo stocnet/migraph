@@ -6,6 +6,6 @@ test_that("constraint scores are reported correctly for two-mode notworks",{
 om <- igraph::graph(edges = c(1,2, 2,3), n = 4, directed = FALSE) 
 
 test_that("constraint scores are reported correctly for one-mode notworks",{
-  expect_equal(round(unname(node_constraint(mpn_elite_mex)[1:3]),2), c(0.71, 0.39, 0.66))
+  expect_equal(round(unname(node_constraint(mpn_elite_mex)[1:3]),2), c(0.45, 0.35, 0.28))
 })
 
