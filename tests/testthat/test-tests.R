@@ -2,16 +2,15 @@
 
 test_that("test_random works", {
   # Set the cugtest up
-  marvel_friends <- to_unsigned(ison_marvel_relationships)
-  marvel_friends <- to_main_component(marvel_friends)
-  marvel_friends <- dplyr::filter(marvel_friends, PowerOrigin == "Human")
+  marvel_friends <- to_main_component(to_unsigned(ison_marvel_relationships)) %>%
+    dplyr::filter(PowerOrigin == "Human")
   cugtest <- test_random(marvel_friends,
                           graph_ei_index,
                           attribute = "Attractive",
-                          nSim = 200)
+                          times = 200)
   cugtest2 <- test_random(marvel_friends,
                          graph_betweenness,
-                         nSim = 200)
+                         times = 200)
   # Test stuff cug1
   expect_equal(round(cugtest$obs.stat, 3), -0.857)
   expect_equal(length(cugtest$rep.stat), 200) # NB: Stochastic
@@ -42,10 +41,10 @@ test_that("test_permutation works", {
   qaptest <- test_permutation(marvel_friends,
                               graph_ei_index,
                               attribute = "Attractive",
-                              nSim = 200)
+                              times = 200)
   qaptest2 <- test_permutation(marvel_friends,
                               graph_betweenness,
-                              nSim = 200)
+                              times = 200)
   # Test stuff qap1
   expect_equal(round(qaptest$testval, 3), -0.857)
   expect_equal(length(qaptest$dist), 200) # NB: Stochastic
