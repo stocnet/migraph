@@ -3,16 +3,26 @@
 # 1. Testing blockmodel_concor()
 
 test_that("concor works on one-mode networks", {
-  expect_equal(blockmodel_concor(mpn_elite_mex)$membership, c(1,1,2,2,2,1,2,2,2,2,1))
-  expect_equal(blockmodel_concor(mpn_elite_mex, p = 2)$membership, c(1,1,3,3,4,2,3,4,3,4,2))
-  expect_equal(blockmodel_concor(mpn_elite_mex, p = 3)$membership, c(1,2,5,6,7,3,5,8,5,7,4))
-  expect_equal(blockmodel_concor(mpn_elite_mex, block.content = "meanrowsum")$membership, c(1,1,2,2,2,1,2,2,2,2,1))
-  expect_equal(blockmodel_concor(mpn_elite_mex, block.content = "meancolsum")$membership, c(1,1,2,2,2,1,2,2,2,2,1))
-  expect_equal(blockmodel_concor(mpn_elite_mex, block.content = "sum")$membership, c(1,1,2,2,2,1,2,2,2,2,1))
-  expect_equal(blockmodel_concor(mpn_elite_mex, block.content = "median")$membership, c(1,1,2,2,2,1,2,2,2,2,1))
-  expect_equal(blockmodel_concor(mpn_elite_mex, block.content = "min")$membership, c(1,1,2,2,2,1,2,2,2,2,1))
-  expect_equal(blockmodel_concor(mpn_elite_mex, block.content = "max")$membership, c(1,1,2,2,2,1,2,2,2,2,1))
-  expect_equal(blockmodel_concor(mpn_elite_mex, block.content = "types")$membership, c(1,1,2,2,2,1,2,2,2,2,1))
+  expect_equal(blockmodel_concor(mpn_elite_mex)$membership[1:11], 
+               c(1,1,1,1,1,1,1,1,1,1,1))
+  expect_equal(blockmodel_concor(mpn_elite_mex, p = 2)$membership[1:11], 
+               c(1,1,1,2,1,1,1,1,1,2,2))
+  expect_equal(blockmodel_concor(mpn_elite_mex, p = 3)$membership[1:11], 
+               c(1,2,2,3,1,1,2,1,2,3,4))
+  expect_equal(blockmodel_concor(mpn_elite_mex, block.content = "meanrowsum")$membership[1:11], 
+               c(1,1,1,1,1,1,1,1,1,1,1))
+  expect_equal(blockmodel_concor(mpn_elite_mex, block.content = "meancolsum")$membership[1:11], 
+               c(1,1,1,1,1,1,1,1,1,1,1))
+  expect_equal(blockmodel_concor(mpn_elite_mex, block.content = "sum")$membership[1:11], 
+               c(1,1,1,1,1,1,1,1,1,1,1))
+  expect_equal(blockmodel_concor(mpn_elite_mex, block.content = "median")$membership[1:11], 
+               c(1,1,1,1,1,1,1,1,1,1,1))
+  expect_equal(blockmodel_concor(mpn_elite_mex, block.content = "min")$membership[1:11], 
+               c(1,1,1,1,1,1,1,1,1,1,1))
+  expect_equal(blockmodel_concor(mpn_elite_mex, block.content = "max")$membership[1:11], 
+               c(1,1,1,1,1,1,1,1,1,1,1))
+  expect_equal(blockmodel_concor(mpn_elite_mex, block.content = "types")$membership[1:11], 
+               c(1,1,1,1,1,1,1,1,1,1,1))
 })
 
 test_that("concor works on two-mode networks", {
@@ -97,7 +107,7 @@ test_that("concor works on one-mode networks", {
                                cutree(cluster_structural_equivalence(mpn_elite_mex), 3))
   # Test stuff
   expect_equal(class(test), "numeric")
-  expect_equal(round(unname(test), 2), c(3.50, 3.25, 5.67))
+  expect_equal(round(unname(test), 2), c(6.22, 6.63, 7.43))
   expect_equal(class(test2), c("matrix", "array"))
-  expect_equal(round(test2[1], 2), 28.25)
+  expect_equal(round(test2[1], 2), 480)
 })
