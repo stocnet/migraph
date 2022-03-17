@@ -323,12 +323,16 @@ convertToMatrixList <- function(formula, data){
                        nrow(DV), ncol(DV), byrow = TRUE)
         out <- (rows==cols)*1
       } else if (IV[[elem]][1] == "dist"){
+        if(is.character(node_attribute(data, IV[[elem]][2])))
+          stop("Distance undefined for factors.")
         rows <- matrix(node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV))
         cols <- matrix(node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV), byrow = TRUE)
         out <- abs(rows - cols)
       } else if (IV[[elem]][1] == "sim"){
+        if(is.character(node_attribute(data, IV[[elem]][2])))
+          stop("Similarity undefined for factors.")
         rows <- matrix(node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV))
         cols <- matrix(node_attribute(data, IV[[elem]][2]),
