@@ -34,7 +34,7 @@ test_that("two mode betweenness centralisation calculated correctly", {
 })
 
 test_that("one-mode centralisation is calculated correctly", {
-  expect_equal(graph_degree(mpn_elite_mex, digits = 2), 0.44)
-  expect_equal(graph_closeness(mpn_elite_mex, digits = 2), 0.42)
-  expect_equal(graph_betweenness(mpn_elite_mex, digits = 3), 0.218)
+  expect_equal(graph_degree(mpn_elite_mex, digits = 2), 0.30)
+  expect_equal(graph_closeness(mpn_elite_mex, digits = 2), 0.39)
+  expect_equal(graph_betweenness(mpn_elite_mex, digits = 3), 0.202)
 })
