@@ -15,9 +15,9 @@ test_that("edge_loop works", {
   expect_false(edge_loop(graph2)[2], edge_loop(graph2)[3], edge_loop(graph2)[4])
 })
 
-test_that("edge_betweenness works", {
-  expect_length(edge_betweenness(ison_coleman), igraph::ecount(ison_coleman))
-})
+# test_that("edge_betweenness works", {
+#   expect_length(edge_betweenness(ison_coleman), igraph::ecount(ison_coleman))
+# })
 
 test_that("edge_closeness works", {
   expect_equal(class(edge_closeness(ison_coleman)), c("matrix", "array"))
