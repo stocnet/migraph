@@ -82,13 +82,13 @@ properties.
 }}
 
 \examples{
-is_twomode(southern_women)
-is_weighted(southern_women)
-is_directed(southern_women)
-is_labelled(southern_women)
-is_signed(southern_women)
-is_connected(southern_women)
-is_complex(southern_women)
+is_twomode(ison_southern_women)
+is_weighted(ison_southern_women)
+is_directed(ison_southern_women)
+is_labelled(ison_southern_women)
+is_signed(ison_southern_women)
+is_connected(ison_southern_women)
+is_complex(ison_southern_women)
 is_uniplex(ison_m182)
 is_acyclic(ison_m182)
 }
