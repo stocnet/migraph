@@ -281,11 +281,41 @@ convertToMatrixList <- function(formula, data){
   IVs <- lapply(IVnames, function(IV){
     out <- lapply(1:length(IV), function(elem){
       if(IV[[elem]][1] == "ego"){
-        out <- matrix(node_attribute(data, IV[[elem]][2]),
-                      nrow(DV), ncol(DV))
+        vct <- node_attribute(data, IV[[elem]][2])
+        if(is.character(vct) | is.factor(vct)){
+          fct <- factor(vct)
+          if(length(levels(fct)) == 2){
+            out <- matrix(as.numeric(fct)-1,
+                          nrow(DV), ncol(DV))
+          } else {
+            out <- lapply(2:length(levels(fct)),
+                          function (x) matrix((as.numeric(fct)==x)*1,
+                                              nrow(DV), ncol(DV)))
+            names(out) <- paste(paste(IV[[elem]], collapse = " "), 
+                                levels(fct)[2:length(levels(fct))])
+            out <- out
+          }
+        } else {
+          out <- matrix(vct, nrow(DV), ncol(DV))
+        }
       } else if (IV[[elem]][1] == "alter"){
-        out <- matrix(node_attribute(data, IV[[elem]][2]),
-                      nrow(DV), ncol(DV), byrow = TRUE)
+          vct <- node_attribute(data, IV[[elem]][2])
+          if(is.character(vct) | is.factor(vct)){
+            fct <- factor(vct)
+            if(length(levels(fct)) == 2){
+              out <- matrix(as.numeric(fct)-1,
+                            nrow(DV), ncol(DV))
+            } else {
+              out <- lapply(2:length(levels(fct)),
+                            function (x) matrix((as.numeric(fct)==x)*1,
+                                                nrow(DV), ncol(DV)))
+              names(out) <- paste(paste(IV[[elem]], collapse = " "), 
+                                  levels(fct)[2:length(levels(fct))])
+              out <- out
+            }
+          } else {
+            out <- matrix(vct, nrow(DV), ncol(DV), byrow = TRUE)
+          }
       } else if (IV[[elem]][1] == "same"){
         rows <- matrix(node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV))
@@ -316,9 +346,12 @@ convertToMatrixList <- function(formula, data){
     } else {
       out[[1]]
     }})
+  IVs <- purrr::flatten(IVs)
   out <- c(list(DV), list(matrix(1, dim(DV)[1], dim(DV)[2])), IVs)
-  names(out) <- c(formula[[2]], "(intercept)",
-                  sapply(c(attr(terms(formula), "term.labels")), paste, collapse = " "))
+  names(out)[1:2] <- c(formula[[2]], "(intercept)")
+  # names(out) <- c(formula[[2]], "(intercept)",
+  #                 sapply(c(attr(terms(formula), "term.labels")), 
+  #                        paste, collapse = " "))
   out
 }
 
