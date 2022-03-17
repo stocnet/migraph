@@ -54,7 +54,8 @@ marvel_friends <- to_main_component(marvel_friends) \%>\%
 (cugtest <- test_random(marvel_friends, graph_ei_index, attribute = "Attractive",
   times = 2000))
 plot(cugtest)
-(qaptest <- test_permutation(marvel_friends, graph_ei_index, attribute = "Attractive",
-  times = 200))
+(qaptest <- test_permutation(marvel_friends, 
+                graph_ei_index, attribute = "Attractive",
+                times = 200))
 plot(qaptest)
 }

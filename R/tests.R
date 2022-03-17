@@ -69,8 +69,9 @@ test_random <- function(object, FUN, ...,
 #' @rdname tests
 #' @importFrom sna rmperm
 #' @examples 
-#' (qaptest <- test_permutation(marvel_friends, graph_ei_index, attribute = "Attractive",
-#'   times = 200))
+#' (qaptest <- test_permutation(marvel_friends, 
+#'                 graph_ei_index, attribute = "Attractive",
+#'                 times = 200))
 #' plot(qaptest)
 #' @export
 test_permutation <- function(object, FUN, ..., 
@@ -111,29 +112,81 @@ test_permutation <- function(object, FUN, ...,
 }
 
 #' @export
-plot.cug.test <- function(result){
+plot.cug.test <- function(result, 
+                          threshold = .95, 
+                          tails = c("two", "one")){
   data <- data.frame(Statistic = result$rep.stat)
   p <- ggplot2::ggplot(data, 
                   ggplot2::aes(x = Statistic)) + 
-    ggplot2::geom_density(fill = "lightgrey") + ggplot2::theme_classic() + 
+    ggplot2::geom_density()
+  if(all(data$Statistic >= -1 & data$Statistic <= 1)){
+    p <- p + ggplot2::expand_limits(x=0) + 
+      ggplot2::geom_vline(ggplot2::aes(xintercept = 0),
+                          linetype="dashed")
+    if(any(data$Statistic < 0)) p <- p + ggplot2::expand_limits(x=-1)
+    if(any(data$Statistic > 0)) p <- p + ggplot2::expand_limits(x=1)
+  }
+  d <- ggplot2::ggplot_build(p)$data[[1]]
+  tails = match.arg(tails)
+  if(tails == "one"){
+    if(result$obs.stat < quantile(data$Statistic, .5)){
+      thresh <- quantile(data$Statistic, 1 - threshold)
+      p <- p + ggplot2::geom_area(data = subset(d, x < thresh), 
+                             aes(x = x, y = y), fill = "lightgrey")
+    } else {
+      thresh <- quantile(data$Statistic, threshold)
+      p <- p + ggplot2::geom_area(data = subset(d, x > thresh), 
+                             aes(x = x, y = y), fill = "lightgrey")
+    }
+  } else if (tails == "two"){
+    thresh <- quantile(data$Statistic, 
+                       c((1-threshold)/2, ((1-threshold)/2)+threshold))
+    p <- p + ggplot2::geom_area(data = subset(d, x < thresh[1]), 
+                           aes(x = x, y = y), fill = "lightgrey") + 
+      ggplot2::geom_area(data = subset(d, x > thresh[2]), 
+                         aes(x = x, y = y), fill = "lightgrey")
+  }
+  p + ggplot2::theme_classic() + ggplot2::geom_density() +
     ggplot2::geom_vline(ggplot2::aes(xintercept = result$obs.stat),
-                        color="red", size=1.5) + ggplot2::ylab("Density")
-  if(all(data$Statistic >= -1 & data$Statistic <= 1)) 
-    p <- p + ggplot2::expand_limits(x=0) + ggplot2::geom_vline(ggplot2::aes(xintercept = 0),
-                                                               linetype="dashed")
-  p
+                        color="red", size=1.2) + ggplot2::ylab("Density")
 }
 
 #' @export
-plot.qap.test <- function(result){
+plot.qap.test <- function(result, 
+                          threshold = .95, 
+                          tails = c("two", "one")){
   data <- data.frame(Statistic = result$dist)
   p <- ggplot2::ggplot(data, 
                        ggplot2::aes(x = Statistic)) + 
-    ggplot2::geom_density(fill = "lightgrey") + ggplot2::theme_classic() + 
+    ggplot2::geom_density()
+  if(all(data$Statistic >= -1 & data$Statistic <= 1)){
+    p <- p + ggplot2::expand_limits(x=0) + 
+      ggplot2::geom_vline(ggplot2::aes(xintercept = 0),
+                          linetype="dashed")
+    if(any(data$Statistic < 0)) p <- p + ggplot2::expand_limits(x=-1)
+    if(any(data$Statistic > 0)) p <- p + ggplot2::expand_limits(x=1)
+  }
+  d <- ggplot2::ggplot_build(p)$data[[1]]
+  tails = match.arg(tails)
+  if(tails == "one"){
+    if(result$testval < quantile(data$Statistic, .5)){
+      thresh <- quantile(data$Statistic, 1 - threshold)
+      p <- p + ggplot2::geom_area(data = subset(d, x < thresh), 
+                                  aes(x = x, y = y), fill = "lightgrey")
+    } else {
+      thresh <- quantile(data$Statistic, threshold)
+      p <- p + ggplot2::geom_area(data = subset(d, x > thresh), 
+                                  aes(x = x, y = y), fill = "lightgrey")
+    }
+  } else if (tails == "two"){
+    thresh <- quantile(data$Statistic, 
+                       c((1-threshold)/2, ((1-threshold)/2)+threshold))
+    p <- p + ggplot2::geom_area(data = subset(d, x < thresh[1]), 
+                                aes(x = x, y = y), fill = "lightgrey") + 
+      ggplot2::geom_area(data = subset(d, x > thresh[2]), 
+                         aes(x = x, y = y), fill = "lightgrey")
+  }
+  p + ggplot2::theme_classic() + ggplot2::geom_density() +
     ggplot2::geom_vline(ggplot2::aes(xintercept = result$testval),
-                        color="red", size=1.5) + ggplot2::ylab("Density")
-  if(all(data$Statistic >= -1 & data$Statistic <= 1)) 
-    p <- p + ggplot2::expand_limits(x=0) + ggplot2::geom_vline(ggplot2::aes(xintercept = 0),
-                                                               linetype="dashed")
-  p
+                        color="red", size=1.2) + ggplot2::ylab("Density")
 }
