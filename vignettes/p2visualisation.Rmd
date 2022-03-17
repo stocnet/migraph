@@ -105,7 +105,7 @@ network graphs using the `plot()` function.
 ```{r igrapheg, echo=TRUE, warning=FALSE, message=FALSE}
 library(igraph)
 library(migraph)
-g <- as.igraph(brandes)
+g <- as.igraph(ison_brandes)
 plot(g, vertex.size = igraph::degree(g)*5, # *5 to scale nodes
      vertex.shape = "circle",
      vertex.color = RColorBrewer::brewer.pal(12, "Set3"),
@@ -133,7 +133,7 @@ the network.
   
 ```{r migrapheg, echo=TRUE}
 library(migraph)
-autographr(brandes)
+autographr(ison_brandes)
 ```
   
 We can also specify the colours, groups, shapes, and sizes of nodes in 
