@@ -87,7 +87,8 @@ will always be respected in permutations and analysis.
 messages <- mutate_edges(ison_eies, 
   generate_random(ison_eies), attr_name = "random")
 (model1 <- network_reg(weight ~ random + 
-  same(Discipline) + same(Citations), messages, times = 500))
+  ego(Discipline) + same(Discipline) + 
+  ego(Citations) + same(Citations), messages, times = 500))
 messaged <- messages \%>\% activate(edges) \%>\% 
    tidygraph::mutate(weight = (weight > 0)*1)
 (model2 <- network_reg(weight ~ random + 

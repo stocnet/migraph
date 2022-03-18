@@ -73,7 +73,8 @@
 #' messages <- mutate_edges(ison_eies, 
 #'   generate_random(ison_eies), attr_name = "random")
 #' (model1 <- network_reg(weight ~ random + 
-#'   same(Discipline) + same(Citations), messages, times = 500))
+#'   ego(Discipline) + same(Discipline) + 
+#'   ego(Citations) + same(Citations), messages, times = 500))
 #' messaged <- messages %>% activate(edges) %>% 
 #'    tidygraph::mutate(weight = (weight > 0)*1)
 #' (model2 <- network_reg(weight ~ random + 
@@ -287,6 +288,8 @@ convertToMatrixList <- function(formula, data){
           if(length(levels(fct)) == 2){
             out <- matrix(as.numeric(fct)-1,
                           nrow(DV), ncol(DV))
+            names(out) <- paste(IV[[elem]], collapse = " ")
+            out <- out
           } else {
             out <- lapply(2:length(levels(fct)),
                           function (x) matrix((as.numeric(fct)==x)*1,
@@ -297,6 +300,9 @@ convertToMatrixList <- function(formula, data){
           }
         } else {
           out <- matrix(vct, nrow(DV), ncol(DV))
+          out <- list(out)
+          names(out) <- paste(IV[[elem]], collapse = " ")
+          out <- out
         }
       } else if (IV[[elem]][1] == "alter"){
           vct <- node_attribute(data, IV[[elem]][2])
@@ -305,6 +311,8 @@ convertToMatrixList <- function(formula, data){
             if(length(levels(fct)) == 2){
               out <- matrix(as.numeric(fct)-1,
                             nrow(DV), ncol(DV))
+              names(out) <- paste(IV[[elem]], collapse = " ")
+              out <- out
             } else {
               out <- lapply(2:length(levels(fct)),
                             function (x) matrix((as.numeric(fct)==x)*1,
@@ -315,6 +323,9 @@ convertToMatrixList <- function(formula, data){
             }
           } else {
             out <- matrix(vct, nrow(DV), ncol(DV), byrow = TRUE)
+            out <- list(out)
+            names(out) <- paste(IV[[elem]], collapse = " ")
+            out <- out
           }
       } else if (IV[[elem]][1] == "same"){
         rows <- matrix(node_attribute(data, IV[[elem]][2]),
@@ -322,6 +333,9 @@ convertToMatrixList <- function(formula, data){
         cols <- matrix(node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV), byrow = TRUE)
         out <- (rows==cols)*1
+        out <- list(out)
+        names(out) <- paste(IV[[elem]], collapse = " ")
+        out <- out
       } else if (IV[[elem]][1] == "dist"){
         if(is.character(node_attribute(data, IV[[elem]][2])))
           stop("Distance undefined for factors.")
@@ -330,6 +344,9 @@ convertToMatrixList <- function(formula, data){
         cols <- matrix(node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV), byrow = TRUE)
         out <- abs(rows - cols)
+        out <- list(out)
+        names(out) <- paste(IV[[elem]], collapse = " ")
+        out <- out
       } else if (IV[[elem]][1] == "sim"){
         if(is.character(node_attribute(data, IV[[elem]][2])))
           stop("Similarity undefined for factors.")
@@ -338,17 +355,29 @@ convertToMatrixList <- function(formula, data){
         cols <- matrix(node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV), byrow = TRUE)
         out <- abs(1- abs(rows - cols)/max(abs(rows - cols)))
+        out <- list(out)
+        names(out) <- paste(IV[[elem]], collapse = " ")
+        out <- out
       } else {
         if (IV[[elem]][1] %in% graph_edge_attributes(data)){
           out <- as_matrix(to_uniplex(data, 
                                       edge = IV[[elem]][1]))
+          out <- list(out)
+          names(out) <- IV[[elem]][1]
+          out <- out
         }
       }
     })
     if(length(out)==2){
-      out[[1]] * out[[2]]
+      if(is.list(out[[1]] * out[[2]]))
+        out[[1]] * out[[2]] else{
+          list(out[[1]] * out[[2]])
+        } 
     } else {
-      out[[1]]
+      if(is.list(out[[1]]))
+        out[[1]] else{
+          list(out[[1]])
+        } 
     }})
   IVs <- purrr::flatten(IVs)
   out <- c(list(DV), list(matrix(1, dim(DV)[1], dim(DV)[2])), IVs)
