@@ -75,10 +75,10 @@
 #' (model1 <- network_reg(weight ~ random + 
 #'   ego(Discipline) + same(Discipline) + 
 #'   ego(Citations) + same(Citations), messages, times = 500))
-#' messaged <- messages %>% activate(edges) %>% 
-#'    tidygraph::mutate(weight = (weight > 0)*1)
-#' (model2 <- network_reg(weight ~ random + 
-#'   same(Discipline) + same(Citations), messaged, times = 500))
+#' messages <- messages %>% activate(edges) %>% 
+#'    tidygraph::mutate(messaged = (weight > 0)*1)
+#' (model2 <- network_reg(messaged ~ random * 
+#'   same(Discipline) + sim(Citations), messages, times = 500))
 #' tidy(model1)
 #' tidy(model2, exponentiate = TRUE)
 #' glance(model1)
@@ -369,10 +369,10 @@ convertToMatrixList <- function(formula, data){
       }
     })
     if(length(out)==2){
-      if(is.list(out[[1]] * out[[2]]))
-        out[[1]] * out[[2]] else{
-          list(out[[1]] * out[[2]])
-        } 
+      namo <- paste(sapply(out, names), collapse = ":")
+      out <- list(out[[1]][[1]] * out[[2]][[1]])
+      names(out) <- namo
+      out
     } else {
       if(is.list(out[[1]]))
         out[[1]] else{

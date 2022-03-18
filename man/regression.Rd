@@ -92,7 +92,7 @@ messages <- mutate_edges(ison_eies,
 messaged <- messages \%>\% activate(edges) \%>\% 
    tidygraph::mutate(weight = (weight > 0)*1)
 (model2 <- network_reg(weight ~ random + 
-  same(Discipline) + same(Citations), messaged, times = 500))
+  same(Discipline) * same(Citations), messaged, times = 500))
 tidy(model1)
 tidy(model2, exponentiate = TRUE)
 glance(model1)
