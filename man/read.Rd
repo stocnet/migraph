@@ -65,7 +65,7 @@ depending on the function.
 A pair of UCINET files in V6404 file format (.##h, .##d)
 }
 \description{
-Users regularly need to work with a variety of external data formats.
+Researchers regularly need to work with a variety of external data formats.
 The following functions offers ways to import from some common external
 file formats into objects that \code{{migraph}} and other graph/network packages
 in R can work with.

@@ -1,6 +1,6 @@
 #' Reading from/writing to external formats
 #'
-#' Users regularly need to work with a variety of external data formats.
+#' Researchers regularly need to work with a variety of external data formats.
 #' The following functions offers ways to import from some common external
 #' file formats into objects that `{migraph}` and other graph/network packages
 #' in R can work with.

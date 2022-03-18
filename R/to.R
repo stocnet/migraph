@@ -323,4 +323,3 @@ to_multilevel.matrix <- function(object) {
   colnames(out) <- rownames(out)
   out
 }
-
