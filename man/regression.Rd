@@ -71,6 +71,8 @@ It offers several advantages:
 by constructing the various dependent and independent matrices for the user.
 \item it uses a more intuitive formula-based system for specifying the model,
 with several ways to specify how nodal attributes should be handled.
+\item it can handle categorical variables (factors/characters) and
+interactions intuitively.
 \item it relies on \code{\link{furrr}} for parallelising
 and \code{\link{progressr}} for reporting progress to the user,
 which can be useful when many simulations are required.
@@ -89,10 +91,10 @@ messages <- mutate_edges(ison_eies,
 (model1 <- network_reg(weight ~ random + 
   ego(Discipline) + same(Discipline) + 
   ego(Citations) + same(Citations), messages, times = 500))
-messaged <- messages \%>\% activate(edges) \%>\% 
-   tidygraph::mutate(weight = (weight > 0)*1)
-(model2 <- network_reg(weight ~ random + 
-  same(Discipline) * same(Citations), messaged, times = 500))
+messages <- messages \%>\% activate(edges) \%>\% 
+   tidygraph::mutate(messaged = (weight > 0)*1)
+(model2 <- network_reg(messaged ~ random * 
+  same(Discipline) + sim(Citations), messages, times = 500))
 tidy(model1)
 tidy(model2, exponentiate = TRUE)
 glance(model1)
@@ -106,4 +108,7 @@ Krackhardt, David (1988)
 Dekker, David, Krackhard, David, Snijders, Tom A.B (2007)
 “Sensitivity of MRQAP tests to collinearity and autocorrelation conditions.”
 \emph{Psychometrika} 72(4): 563-581.
+}
+\seealso{
+\link{p7linearmodel}
 }

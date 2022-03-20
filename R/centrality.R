@@ -17,12 +17,12 @@
 #' @importFrom rlang enquo eval_tidy
 #' @importFrom igraph graph_from_incidence_matrix is_bipartite degree V
 #' @references 
-#' Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
+#' Borgatti, Stephen P., and Martin G. Everett (1997). "Network analysis of 2-mode data." _Social Networks_ 19(3): 243-270.
 #' 
-#' Faust, Katherine. "Centrality in affiliation networks." Social networks 19.2 (1997): 157-191.
+#' Faust, Katherine (1997). "Centrality in affiliation networks." _Social Networks_ 19(2): 157-191.
 #' @examples
 #' node_degree(mpn_elite_mex)
-#' node_degree(southern_women)
+#' node_degree(ison_southern_women)
 #' @return Depending on how and what kind of an object is passed to the function,
 #' the function will return a `tidygraph` object where the nodes have been updated
 #' @export
@@ -140,7 +140,7 @@ node_betweenness <- function(object,
 #' @param normalized For one-mode networks, should Borgatti and Everett normalization be applied?
 #' @examples
 #' node_eigenvector(mpn_elite_mex)
-#' node_eigenvector(southern_women)
+#' node_eigenvector(ison_southern_women)
 #' @return A numeric vector giving the eigenvector centrality measure of each node.
 #' @export 
 node_eigenvector <- function(object, 
@@ -171,4 +171,3 @@ node_eigenvector <- function(object,
   }
   out
 }
-

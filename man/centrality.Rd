@@ -81,18 +81,18 @@ Importantly, these functions also offer correct normalization for two-mode netwo
 }
 \examples{
 node_degree(mpn_elite_mex)
-node_degree(southern_women)
+node_degree(ison_southern_women)
 node_closeness(mpn_elite_mex)
 node_closeness(southern_women)
 node_betweenness(mpn_elite_mex)
 node_betweenness(southern_women)
 node_eigenvector(mpn_elite_mex)
-node_eigenvector(southern_women)
+node_eigenvector(ison_southern_women)
 }
 \references{
-Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
+Borgatti, Stephen P., and Martin G. Everett (1997). "Network analysis of 2-mode data." \emph{Social Networks} 19(3): 243-270.
 
-Faust, Katherine. "Centrality in affiliation networks." Social networks 19.2 (1997): 157-191.
+Faust, Katherine (1997). "Centrality in affiliation networks." \emph{Social Networks} 19(2): 157-191.
 }
 \seealso{
 Other two-mode measures: 

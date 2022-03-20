@@ -8,6 +8,8 @@
 #'   by constructing the various dependent and independent matrices for the user.
 #' - it uses a more intuitive formula-based system for specifying the model,
 #'   with several ways to specify how nodal attributes should be handled.
+#' - it can handle categorical variables (factors/characters) and
+#'   interactions intuitively.
 #' - it relies on [`furrr`] for parallelising 
 #'   and [`progressr`] for reporting progress to the user,
 #'   which can be useful when many simulations are required.
@@ -61,6 +63,7 @@
 #' @importFrom tibble tibble
 #' @importFrom furrr future_map_dfr furrr_options
 #' @importFrom stats glm.fit as.formula df.residual pchisq
+#' @seealso [p7linearmodel]
 #' @references 
 #'   Krackhardt, David (1988) 
 #'   “Predicting with Networks: Nonparametric Multiple Regression Analysis of Dyadic Data.” 
