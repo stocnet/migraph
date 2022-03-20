@@ -65,7 +65,12 @@ reference:
       - ggatyear
       - network_map
   - title: "Measures"
-    desc: "Functions for measuring multimodal and multilevel networks:"
+    desc: |
+      Functions for measuring multimodal and multilevel networks.
+      Note that all `node_` measures return a single vector so that 
+      they can be added directly to graph objects,
+      though two-mode results will be printed in two sections
+      All `graph_` measures return a single value.
     contents:
       - centrality
       - centralization
