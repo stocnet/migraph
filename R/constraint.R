@@ -54,7 +54,8 @@ node_constraint <- function(object, nodes = V(object), weights = NULL) {
     }
     inst.res <- get_constraint_scores(as_matrix(object))
     actr.res <- get_constraint_scores(t(as_matrix(object)))
-    res <- list(nodes1 = actr.res, nodes2 = inst.res)
+    # res <- list(nodes1 = actr.res, nodes2 = inst.res)
+    res <- c(actr.res, inst.res)
 
   } else {
     object <- as_igraph(object)
