@@ -20,8 +20,8 @@ ggdistrib
 histogram.
 }
 \examples{
-ggdistrib(brandes, node_degree)
-ggdistrib(brandes, node_betweenness)
-ggdistrib(brandes, node_closeness)
-ggdistrib(brandes, node_eigenvector)
+ggdistrib(ison_brandes, node_degree)
+ggdistrib(ison_brandes, node_betweenness)
+ggdistrib(ison_brandes, node_closeness)
+ggdistrib(ison_brandes, node_eigenvector)
 }
