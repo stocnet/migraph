@@ -46,9 +46,9 @@ that are closed by a fourth tie to establish a "congruent four-cycle" structure.
 \examples{
 graph_density(mpn_elite_mex)
 graph_density(mpn_elite_usa_advice)
-graph_reciprocity(southern_women)
-graph_transitivity(southern_women)
-graph_equivalency(southern_women)
+graph_reciprocity(ison_southern_women)
+graph_transitivity(ison_southern_women)
+graph_equivalency(ison_southern_women)
 }
 \references{
 Robins, Garry L, and Malcolm Alexander. 2004.

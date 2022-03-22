@@ -8,7 +8,8 @@
 #' @return Returns a table of small-world related metrics for each second-mode
 #' node.
 #' @details The first column of the returned table is simply the number of
-#' the second-mode column. The next three columns report the observed and
+#' the second-mode column. 
+#' The next three columns report the observed and
 #' expected clustering, and the ratio of the former to the latter.
 #' The next three columns report the observed and expected path-length,
 #' and the ratio of the former to the later.
@@ -19,6 +20,7 @@
 #' mean_distance over 100 random simulations with the same row and column sums.
 #' @examples
 #' node_smallworld(ison_southern_women)
+#' node_smallworld(ison_brandes)
 #' @seealso \code{\link{graph_transitivity}} and \code{\link{graph_equivalency}}
 #' for how clustering is calculated
 #' @importFrom igraph graph_from_incidence_matrix mean_distance

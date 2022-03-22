@@ -6,10 +6,10 @@
 #' @param node_measure some arbitrary function that runs on the object and
 #' returns a numeric vector that can be used to scale the nodes
 #' @examples
-#' ggdistrib(brandes, node_degree)
-#' ggdistrib(brandes, node_betweenness)
-#' ggdistrib(brandes, node_closeness)
-#' ggdistrib(brandes, node_eigenvector)
+#' ggdistrib(ison_brandes, node_degree)
+#' ggdistrib(ison_brandes, node_betweenness)
+#' ggdistrib(ison_brandes, node_closeness)
+#' ggdistrib(ison_brandes, node_eigenvector)
 #' @export
 
 ggdistrib <- function(object, node_measure){
