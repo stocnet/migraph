@@ -2,8 +2,7 @@ url: https://snlab-ch.github.io/migraph/
 development:
     mode: auto
 template:
-  bootstrap: 5
-  bootswatch: journal
+  bootswatch: superhero
 authors:
   James Hollway:
     href: https://jameshollway.com
@@ -63,7 +62,6 @@ reference:
       - gglineage
       - ggevolution
       - ggatyear
-      - network_map
   - title: "Measures"
     desc: |
       Functions for measuring multimodal and multilevel networks.
