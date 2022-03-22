@@ -9,6 +9,8 @@
 \alias{graph_congruency}
 \alias{graph_cohesion}
 \alias{graph_adhesion}
+\alias{graph_length}
+\alias{graph_diameter}
 \title{Cohesion for one-, two-, and three- mode networks}
 \usage{
 graph_density(object)
@@ -24,6 +26,10 @@ graph_congruency(object, object2)
 graph_cohesion(object)
 
 graph_adhesion(object)
+
+graph_length(object)
+
+graph_diameter(object)
 }
 \arguments{
 \item{object}{A one-mode or two-mode matrix, igraph, or tidygraph}
@@ -59,6 +65,10 @@ graph_cohesion(ison_marvel_relationships)
 graph_cohesion(to_main_component(ison_marvel_relationships))
 graph_adhesion(ison_marvel_relationships)
 graph_adhesion(to_main_component(ison_marvel_relationships))
+graph_length(ison_marvel_relationships)
+graph_length(to_main_component(ison_marvel_relationships))
+graph_diameter(ison_marvel_relationships)
+graph_diameter(to_main_component(ison_marvel_relationships))
 }
 \references{
 Robins, Garry L, and Malcolm Alexander. 2004.

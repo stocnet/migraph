@@ -124,3 +124,28 @@ graph_cohesion <- function(object){
 graph_adhesion <- function(object){
   igraph::adhesion(as_igraph(object))
 }
+
+#' @rdname cohesion
+#' @importFrom igraph mean_distance
+#' @examples 
+#' graph_length(ison_marvel_relationships)
+#' graph_length(to_main_component(ison_marvel_relationships))
+#' @export
+graph_length <- function(object){
+  object <- as_igraph(object)
+  igraph::mean_distance(object, 
+                        directed = is_directed(object))
+}
+
+#' @rdname cohesion
+#' @importFrom igraph diameter
+#' @examples 
+#' graph_diameter(ison_marvel_relationships)
+#' graph_diameter(to_main_component(ison_marvel_relationships))
+#' @export
+graph_diameter <- function(object){
+  object <- as_igraph(object)
+  igraph::diameter(object, 
+                   directed = is_directed(object))
+}
+
