@@ -20,7 +20,8 @@ Calculates small-world metrics for two-mode networks
 }
 \details{
 The first column of the returned table is simply the number of
-the second-mode column. The next three columns report the observed and
+the second-mode column.
+The next three columns report the observed and
 expected clustering, and the ratio of the former to the latter.
 The next three columns report the observed and expected path-length,
 and the ratio of the former to the later.
@@ -32,6 +33,12 @@ mean_distance over 100 random simulations with the same row and column sums.
 }
 \examples{
 node_smallworld(ison_southern_women)
+node_smallworld(ison_brandes)
+}
+\references{
+Watts, Duncan J., and Steven H. Strogatz. 1998.
+“Collective Dynamics of ‘Small-World’ Networks.”
+Nature 393(6684):440–42.
 }
 \seealso{
 \code{\link{graph_transitivity}} and \code{\link{graph_equivalency}}
@@ -40,7 +47,7 @@ for how clustering is calculated
 Other two-mode measures: 
 \code{\link{centrality}},
 \code{\link{centralization}},
-\code{\link{cohesion}},
+\code{\link{cohesion}()},
 \code{\link{node_constraint}()}
 
 Other node-level measures: 
