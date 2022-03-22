@@ -43,16 +43,17 @@ and the second number becomes the number of nodes in the second nodeset (columns
 \examples{
 er1 <- autographr(generate_random(12, 0.4))
 er2 <- autographr(generate_random(c(6, 6), 0.4))
-grid.arrange(er1, er2, ncol = 2)
+library(patchwork)
+er1 + er2
 sw1 <- autographr(generate_smallworld(12, 0.025))
 sw2 <- autographr(generate_smallworld(12, 0.25))
-grid.arrange(sw1, sw2, ncol = 2)
+sw1 + sw2
 sf1 <- autographr(generate_scalefree(12, 0.25))
 sf2 <- autographr(generate_scalefree(12, 1.25))
-grid.arrange(sf1, sf2, ncol = 2)
+sf1 + sf2
 em1 <- autographr(mpn_elite_usa_advice)
 em2 <- autographr(generate_permutation(mpn_elite_usa_advice))
-grid.arrange(em1, em2, ncol = 2)
+em1 + em2
 }
 \seealso{
 Other creation: 

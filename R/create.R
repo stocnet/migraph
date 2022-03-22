@@ -1,10 +1,10 @@
 #' Create networks with particular structures
 #' 
-#' These functions create a variety of different network objects.
-#' Despite the common function names and syntax with existing packages,
-#' the common `n` argument can not only be passed
-#' a single integer to return a one-mode network,
-#' but also a vector of \emph{two} integers to return a two-mode network.
+#' These functions create networks with particular structural properties.
+#' They work to create both one-mode and two-mode networks,
+#' depending on whether the common `n` argument
+#' is passed a single integer (the number of nodes in the one-mode network)
+#' or a vector of \emph{two} integers to return a two-mode network.
 #' 
 #' @name create
 #' @family creation
@@ -179,7 +179,8 @@ roll_over <- function(w) {
 #' @examples
 #' tr1 <- autographr(create_tree(12))
 #' tr2 <- autographr(create_tree(12), "tree")
-#' grid.arrange(tr1, tr2, ncol = 2)
+#' library(patchwork)
+#' tr1 + tr2
 #' @export
 create_tree <- function(n, 
                         directed = c("undirected","in","out"), 
@@ -197,7 +198,8 @@ create_tree <- function(n,
 #' cl1 <- autographr(create_lattice(5))
 #' cl2 <- autographr(create_lattice(c(5,5)))
 #' cl3 <- autographr(create_lattice(c(5,5,5)))
-#' grid.arrange(cl1, cl2, cl3, ncol = 3)
+#' library(patchwork)
+#' cl1 + cl2 + cl3
 #' @export
 create_lattice <- function(n, 
                         directed = c("undirected","in","out")) {

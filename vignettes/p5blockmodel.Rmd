@@ -44,7 +44,8 @@ gfriend <- autographr(m182_friend) + ggtitle("Friendship")
 gsocial <- autographr(m182_social) + ggtitle("Social")
 (m182_task <- to_uniplex(ison_m182, "task_tie"))
 gtask <- autographr(m182_task) + ggtitle("Task")
-grid.arrange(gfriend, gsocial, gtask, ncol = 3)
+library(patchwork)
+gfriend + gsocial + gtask
 ```
 
 # Structural Holes and Constraint

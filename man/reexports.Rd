@@ -28,7 +28,6 @@
 \alias{ylab}
 \alias{aes}
 \alias{ggsave}
-\alias{grid.arrange}
 \alias{tidy}
 \alias{glance}
 \title{Objects exported from other packages}
@@ -43,8 +42,6 @@ below to see their documentation.
   \item{generics}{\code{\link[generics]{glance}}, \code{\link[generics]{tidy}}}
 
   \item{ggplot2}{\code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2:labs]{ggtitle}}, \code{\link[ggplot2]{labs}}, \code{\link[ggplot2:labs]{xlab}}, \code{\link[ggplot2:labs]{ylab}}}
-
-  \item{gridExtra}{\code{\link[gridExtra:arrangeGrob]{grid.arrange}}}
 
   \item{igraph}{\code{\link[igraph:is_igraph]{is.igraph}}, \code{\link[igraph:make_bipartite_graph]{is_bipartite}}}
 

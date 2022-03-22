@@ -48,11 +48,11 @@ but this can be coerced into other types of objects
 using \code{as_matrix()}, \code{as_tidygraph()}, or \code{as_network()}.
 }
 \description{
-These functions create a variety of different network objects.
-Despite the common function names and syntax with existing packages,
-the common \code{n} argument can not only be passed
-a single integer to return a one-mode network,
-but also a vector of \emph{two} integers to return a two-mode network.
+These functions create networks with particular structural properties.
+They work to create both one-mode and two-mode networks,
+depending on whether the common \code{n} argument
+is passed a single integer (the number of nodes in the one-mode network)
+or a vector of \emph{two} integers to return a two-mode network.
 }
 \details{
 \code{create_empty()} creates an empty graph of the given dimensions.
@@ -82,11 +82,13 @@ autographr(create_components(c(10, 12), components = 3))
 autographr(create_star(c(12,1), "in"))
 tr1 <- autographr(create_tree(12))
 tr2 <- autographr(create_tree(12), "tree")
-grid.arrange(tr1, tr2, ncol = 2)
+library(patchwork)
+tr1 + tr2
 cl1 <- autographr(create_lattice(5))
 cl2 <- autographr(create_lattice(c(5,5)))
 cl3 <- autographr(create_lattice(c(5,5,5)))
-grid.arrange(cl1, cl2, cl3, ncol = 3)
+library(patchwork)
+cl1 + cl2 + cl3
 }
 \seealso{
 as_matrix as_tidygraph as_network

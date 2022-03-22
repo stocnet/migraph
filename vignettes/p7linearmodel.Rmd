@@ -169,7 +169,8 @@ new <- autographr(generate_permutation(marvel_friends, with_attr = TRUE),
                    labels = FALSE, node_size = 6,
                   node_color = "PowerOrigin",
                   node_shape = "Gender")
-grid.arrange(old, new)
+library(patchwork)
+old + new
 ```
 
 This single permutation suggests there might otherwise be some more even mixing of these

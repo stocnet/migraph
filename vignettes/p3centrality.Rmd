@@ -169,7 +169,7 @@ See `?ggsave` for more.
 
 But what if we want to have a single image/figure with multiple plots?
 This can be a little tricky with gg-based plots,
-but fortunately the 'gridExtra' package is here to help.
+but fortunately the `{patchwork}` package is here to help.
 
 ```{r multiplot}
 gd <- ggidentify(ison_brandes, node_degree) + 
@@ -180,7 +180,8 @@ gb <- ggidentify(ison_brandes, node_betweenness) +
   ggtitle("Betweenness", subtitle = round(graph_betweenness(ison_brandes), 2))
 ge <- ggidentify(ison_brandes, node_eigenvector) + 
   ggtitle("Eigenvector")
-grid.arrange(gd, gb, gc, ge, ncol = 2)
+library(patchwork)
+(gd | gb) / (gc | ge)
 # ggsave("brandes-centralities.pdf")
 ```
 
