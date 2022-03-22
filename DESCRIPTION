@@ -25,7 +25,6 @@ Imports:
     ggdendro,
     ggraph,
     ggplot2,
-    gridExtra,
     igraph,
     network,
     oaqc,
