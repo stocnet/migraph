@@ -129,13 +129,13 @@ to_undirected <- function(object) UseMethod("to_undirected")
 #' @importFrom igraph as.undirected
 #' @export
 to_undirected.igraph <- function(object) {
-  igraph::as.undirected(object)
+  igraph::as.undirected(object, edge.attr.comb = "first")
 }
 
 #' @importFrom igraph as.undirected
 #' @export
 to_undirected.tbl_graph <- function(object) {
-  as_tidygraph(igraph::as.undirected(object))
+  as_tidygraph(igraph::as.undirected(object, edge.attr.comb = "first"))
 }
 
 #' @export
