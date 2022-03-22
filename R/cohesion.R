@@ -104,3 +104,23 @@ graph_congruency <- function(object, object2){
   if (is.nan(output)) output <- 1
   output
 }
+
+#' @rdname cohesion
+#' @importFrom igraph cohesion
+#' @examples 
+#' graph_cohesion(ison_marvel_relationships)
+#' graph_cohesion(to_main_component(ison_marvel_relationships))
+#' @export
+graph_cohesion <- function(object){
+    igraph::cohesion(as_igraph(object))
+}
+
+#' @rdname cohesion
+#' @importFrom igraph adhesion
+#' @examples 
+#' graph_adhesion(ison_marvel_relationships)
+#' graph_adhesion(to_main_component(ison_marvel_relationships))
+#' @export
+graph_adhesion <- function(object){
+  igraph::adhesion(as_igraph(object))
+}
