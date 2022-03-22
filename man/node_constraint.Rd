@@ -42,11 +42,10 @@ Other two-mode measures:
 \code{\link{centrality}},
 \code{\link{centralization}},
 \code{\link{cohesion}()},
-\code{\link{node_smallworld}()}
+\code{\link{graph_smallworld}()}
 
 Other node-level measures: 
-\code{\link{centrality}},
-\code{\link{node_smallworld}()}
+\code{\link{centrality}}
 }
 \concept{node-level measures}
 \concept{one-mode measures}

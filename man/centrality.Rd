@@ -98,12 +98,11 @@ Faust, Katherine (1997). "Centrality in affiliation networks." \emph{Social Netw
 Other two-mode measures: 
 \code{\link{centralization}},
 \code{\link{cohesion}()},
-\code{\link{node_constraint}()},
-\code{\link{node_smallworld}()}
+\code{\link{graph_smallworld}()},
+\code{\link{node_constraint}()}
 
 Other node-level measures: 
-\code{\link{node_constraint}()},
-\code{\link{node_smallworld}()}
+\code{\link{node_constraint}()}
 }
 \concept{node-level measures}
 \concept{two-mode measures}

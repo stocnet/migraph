@@ -76,8 +76,8 @@ Social Network Analysis}, edited by John Scott and Peter J Carrington, 417–33.
 Other two-mode measures: 
 \code{\link{centrality}},
 \code{\link{cohesion}()},
-\code{\link{node_constraint}()},
-\code{\link{node_smallworld}()}
+\code{\link{graph_smallworld}()},
+\code{\link{node_constraint}()}
 }
 \concept{graph-level measures}
 \concept{two-mode measures}
