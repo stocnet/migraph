@@ -77,11 +77,11 @@
 #'   generate_random(ison_eies), attr_name = "random")
 #' (model1 <- network_reg(weight ~ random + 
 #'   ego(Discipline) + same(Discipline) + 
-#'   ego(Citations) + same(Citations), messages, times = 500))
+#'   ego(Citations) + same(Citations), messages, times = 200))
 #' messages <- messages %>% activate(edges) %>% 
 #'    tidygraph::mutate(messaged = (weight > 0)*1)
 #' (model2 <- network_reg(messaged ~ random * 
-#'   same(Discipline) + sim(Citations), messages, times = 500))
+#'   same(Discipline) + sim(Citations), messages, times = 200))
 #' tidy(model1)
 #' tidy(model2, exponentiate = TRUE)
 #' glance(model1)
