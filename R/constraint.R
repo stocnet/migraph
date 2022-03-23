@@ -19,7 +19,7 @@
 #' @family two-mode measures
 #' @family node-level measures
 #' @examples
-#' node_constraint(southern_women)
+#' node_constraint(ison_southern_women)
 #' @export 
 node_constraint <- function(object, nodes = V(object), weights = NULL) {
   if (is_twomode(object)) {
@@ -61,6 +61,7 @@ node_constraint <- function(object, nodes = V(object), weights = NULL) {
     object <- as_igraph(object)
     res <- igraph::constraint(object, nodes = nodes, weights = weights)
   }
+  res <- make_measure(res, object)
   res
 }
 

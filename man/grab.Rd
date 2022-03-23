@@ -3,6 +3,7 @@
 \name{grab}
 \alias{grab}
 \alias{node_names}
+\alias{node_mode}
 \alias{node_attribute}
 \alias{edge_attribute}
 \alias{edge_weights}
@@ -14,6 +15,8 @@
 \title{Helpers to grab various attributes from nodes or edges in a graph}
 \usage{
 node_names(object)
+
+node_mode(object)
 
 node_attribute(object, attribute)
 

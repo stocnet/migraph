@@ -12,6 +12,14 @@ node_names <- function(object){
 
 #' @rdname grab
 #' @export
+node_mode <- function(object){
+  if(is_twomode(object)) 
+    igraph::get.vertex.attribute(as_igraph(object), "type")
+  else rep(FALSE, graph_nodes(object))
+}
+
+#' @rdname grab
+#' @export
 node_attribute <- function(object, attribute){
   igraph::get.vertex.attribute(as_igraph(object), attribute)
 }

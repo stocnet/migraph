@@ -41,19 +41,27 @@ node_degree <- function (object,
     weights <- NA
   }
   if (is_twomode(graph) & normalized){
-    degrees <- igraph::degree(graph = graph, v = igraph::V(graph), mode = mode, loops = loops)
-    other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
-    degrees/other_set_size
+    degrees <- igraph::degree(graph = graph, 
+                              v = igraph::V(graph), 
+                              mode = mode, loops = loops)
+    other_set_size <- ifelse(igraph::V(graph)$type, 
+                             sum(!igraph::V(graph)$type), 
+                             sum(igraph::V(graph)$type))
+    out <- degrees/other_set_size
   } else {
     if (is.null(weights)) {
-      igraph::degree(graph = graph, V = igraph::V(graph), mode = mode, loops = loops, 
-             normalized = normalized)
+      out <- igraph::degree(graph = graph, V = igraph::V(graph), 
+                     mode = mode, loops = loops,
+                     normalized = normalized)
     }
     else {
-      igraph::strength(graph = graph, vids = igraph::V(graph), mode = mode, 
-               loops = loops, weights = weights)
+      out <- igraph::strength(graph = graph, vids = igraph::V(graph), 
+                       mode = mode,
+                       loops = loops, weights = weights)
     }
   }
+  out <- make_measure(out, object)
+  out
 }
 
 #' @rdname centrality
@@ -82,16 +90,18 @@ node_closeness <- function (object,
     closeness <- igraph::closeness(graph = graph, vids = igraph::V(graph), mode = mode)
     other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
     set_size <- ifelse(igraph::V(graph)$type, sum(igraph::V(graph)$type), sum(!igraph::V(graph)$type))
-    closeness/(1/(other_set_size+2*set_size-2))
+    out <- closeness/(1/(other_set_size+2*set_size-2))
     } else {
       if (is.null(cutoff)) {
-        igraph::closeness(graph = graph, vids = igraph::V(graph), mode = mode,
+        out <- igraph::closeness(graph = graph, vids = igraph::V(graph), mode = mode,
                   weights = weights, normalized = normalized)
       } else {
-        igraph::estimate_closeness(graph = graph, vids = igraph::V(graph), mode = mode, 
+        out <- igraph::estimate_closeness(graph = graph, vids = igraph::V(graph), mode = mode, 
                            cutoff = cutoff, weights = weights, normalized = normalized)
       }
     }
+  out <- make_measure(out, object)
+  out
 } 
 
 #' @rdname centrality
@@ -122,16 +132,18 @@ node_betweenness <- function(object,
     betw_scores <- igraph::betweenness(graph = graph, v = igraph::V(graph), directed = directed, nobigint = nobigint)
     other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
     set_size <- ifelse(igraph::V(graph)$type, sum(igraph::V(graph)$type), sum(!igraph::V(graph)$type))
-    ifelse(set_size > other_set_size, 
+    out <- ifelse(set_size > other_set_size, 
            betw_scores/(2*(set_size-1)*(other_set_size-1)), 
            betw_scores/(1/2*other_set_size*(other_set_size-1)+1/2*(set_size-1)*(set_size-2)+(set_size-1)*(other_set_size-1)))
   } else {
     if (is.null(cutoff)) {
-      igraph::betweenness(graph = graph, v = igraph::V(graph), directed = directed, weights = weights, nobigint = nobigint, normalized = normalized)
+      out <- igraph::betweenness(graph = graph, v = igraph::V(graph), directed = directed, weights = weights, nobigint = nobigint, normalized = normalized)
     } else {
-      igraph::estimate_betweenness(graph = graph, vids = igraph::V(graph), directed = directed, cutoff = cutoff, weights = weights, nobigint = nobigint)
+      out <- igraph::estimate_betweenness(graph = graph, vids = igraph::V(graph), directed = directed, cutoff = cutoff, weights = weights, nobigint = nobigint)
     }
   }
+  out <- make_measure(out, object)
+  out
 }
 
 #' @rdname centrality
@@ -169,5 +181,7 @@ node_eigenvector <- function(object,
     out <- c(eigen1, eigen2)
     if (normalized) stop("Normalization not currently implemented for eigenvector centrality for two-mode networks.")
   }
+  out <- make_measure(out, object)
   out
 }
+

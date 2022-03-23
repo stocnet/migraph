@@ -27,7 +27,7 @@ For two-mode networks, the function employs the extension outlined
 in Hollway et al. (2020).
 }
 \examples{
-node_constraint(southern_women)
+node_constraint(ison_southern_women)
 }
 \references{
 Hollway, James, Jean-Frédéric Morin, and Joost Pauwelyn. 2020.
