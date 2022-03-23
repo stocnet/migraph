@@ -9,11 +9,15 @@ test_logit <- network_reg(friend ~ ego(Attractive) + alter(Intellect),
                           friends, times = 200)
 
 test_that("network_reg estimates correctly",{
-  set.seed(123)
   expect_s3_class(test, "netlm")
   expect_s3_class(test_logit, "netlogit")
   expect_equal(round(unname(test$coefficients),3), 
                c(27.196, -18.251, -3.417, -11.831, -0.103))
+})
+
+test_that("network_reg tests correctly",{
+  expect_equal(test$pgreqabs, 
+               c(0.06, 0.25, 0.76, 0.35, 0.32))
 })
 
 results <- tidy(test)
