@@ -1,4 +1,6 @@
-#' Multilevel two-mode affiliation, signed one-mode networks of Marvel comic book characters
+# Marvel ####
+
+#' Multilevel two-mode affiliation, signed one-mode networks of Marvel comic book characters (Yüksel 2017)
 #'
 #' @details
 #' This package includes two datasets related to the Marvel _comic book_ universe.
@@ -36,7 +38,9 @@
 #' @format One-mode igraph of 53 Marvel comic book characters and 558 signed (`1` = friends, `-1` = enemies) undirected ties
 "ison_marvel_relationships"
 
-#' Two-mode projection examples.
+# Projection ####
+
+#' Two-mode projection examples (Hollway 2021)
 #' 
 #' @details These datasets should only be used
 #' for demonstration purposes as they do not describe a real world network.
@@ -106,7 +110,9 @@
 #' American Journal of Sociology 96(6): 1464-1477.
 "ison_adolescent_friends"
 
-#' Zachary's karateka network.
+# Karateka ####
+
+#' One-mode karateka network (Zachary 1977)
 #' 
 #' @details Zachary's karateka network. The network was observed in a 
 #' university Karate club in 1977. The network describes association patterns
@@ -118,12 +124,17 @@
 #'
 #' @docType data
 #' @keywords datasets
-#' @name ison_community
+#' @name ison_karateka
 #' @usage data(ison_karateka)
+#' @references 
+#' Zachary, Wayne W. 1977. “An Information Flow Model for Conflict and Fission in Small Groups.” 
+#' Journal of Anthropological Research 33(4):452–73.
 #' @format Undirected one-mode igraph with 34 named nodes and 78 edges.
 "ison_karateka"
 
-#' Freeman's EIES dataset
+# EIES ####
+
+#' One-mode EIES dataset (Freeman and Freeman 1979)
 #'
 #'@details A directed, simple, unnamed, weighted graph with 32 nodes and 440
 #' edges. Nodes are academics and edges illustrate the communication patterns
@@ -149,7 +160,11 @@
 #' Cambridge University Press, Cambridge.
 "ison_eies"
 
-#' One-mode centrality demonstration network. This network should solely be used
+# Brandes ####
+
+#' One-mode centrality demonstration network
+#' 
+#' This network should solely be used
 #' for demonstration purposes as it does not describe a real network.
 #'
 #' @docType data
@@ -159,10 +174,13 @@
 #' @format A tidygraph `tbl_graph` with 11 nodes and 24 edges.
 "ison_brandes"
 
-#' Two-mode southern women dataset
+# Southern Women ####
+
+#' Two-mode southern women (Davis, Gardner and Gardner 1941)
 #'
-#' Two-mode network dataset collected by Davis, Gardner and Gardner (1941) about the attendance pattern of women at informal social events during a 9 month
-#' period. Events and women are named.
+#' Two-mode network dataset collected by Davis, Gardner and Gardner (1941) 
+#' about the attendance pattern of women at informal social events 
+#' during a 9 month period. Events and women are named.
 #'
 #' @docType data
 #' @keywords datasets

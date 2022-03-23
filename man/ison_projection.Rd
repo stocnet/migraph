@@ -7,7 +7,7 @@
 \alias{ison_bm}
 \alias{ison_mb}
 \alias{ison_bb}
-\title{Two-mode projection examples.}
+\title{Two-mode projection examples (Hollway 2021)}
 \format{
 Directed two-mode \code{{igraph}} object with 6 nodes and 6 edges
 
@@ -27,7 +27,7 @@ data(ison_mb)
 data(ison_bb)
 }
 \description{
-Two-mode projection examples.
+Two-mode projection examples (Hollway 2021)
 }
 \details{
 These datasets should only be used

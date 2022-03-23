@@ -3,7 +3,7 @@
 \docType{data}
 \name{ison_southern_women}
 \alias{ison_southern_women}
-\title{Two-mode southern women dataset}
+\title{Two-mode southern women (Davis, Gardner and Gardner 1941)}
 \format{
 \code{{igraph}} two-mode graph object with 18 women and 14 informal social
 events.
@@ -12,8 +12,9 @@ events.
 data(ison_southern_women)
 }
 \description{
-Two-mode network dataset collected by Davis, Gardner and Gardner (1941) about the attendance pattern of women at informal social events during a 9 month
-period. Events and women are named.
+Two-mode network dataset collected by Davis, Gardner and Gardner (1941)
+about the attendance pattern of women at informal social events
+during a 9 month period. Events and women are named.
 }
 \references{
 Davis, A., Gardner, B., and Gardner, R. 1941. \emph{Deep South}.

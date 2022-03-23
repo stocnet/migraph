@@ -3,7 +3,7 @@
 \docType{data}
 \name{ison_eies}
 \alias{ison_eies}
-\title{Freeman's EIES dataset}
+\title{One-mode EIES dataset (Freeman and Freeman 1979)}
 \format{
 \code{tbl_graph} network object. The network is directed, simple, unnamed
 , and weighted. It contains 32 nodes and 440 edges as well as two node level
@@ -16,7 +16,7 @@ networkdata package
 data(ison_eies)
 }
 \description{
-Freeman's EIES dataset
+One-mode EIES dataset (Freeman and Freeman 1979)
 }
 \details{
 A directed, simple, unnamed, weighted graph with 32 nodes and 440
