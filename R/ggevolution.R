@@ -13,6 +13,7 @@
 #' @importFrom rlang .data
 #' @importFrom ggplot2 stat
 #' @examples
+#' mpn_elite_mex <- mpn_elite_mex %>% filter(in_mpn == 1)
 #' mpn_elite_mex2 <- mpn_elite_mex  %>%
 #'                   tidygraph::activate(edges) %>%
 #' tidygraph::reroute(from = sample.int(11, 44, replace = TRUE),
@@ -43,7 +44,7 @@ ggevolution <- function(..., layout = "kk",
     l1$x <- l2$x
     l1$y <- l2$y
   } else if (based_on == "both") {
-    l3 <- as_igraph(networks[[1]]) + as_igraph(networks[[2]])
+    l3 <- igraph::union(as_igraph(networks[[1]]), as_igraph(networks[[2]]))
     l3 <- ggraph::create_layout(l3, layout = "igraph", algorithm = layout)
     l1$x <- l2$x <- l3$x
     l1$y <- l2$y <- l3$y
