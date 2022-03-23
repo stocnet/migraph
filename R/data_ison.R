@@ -88,22 +88,23 @@
 #' between 16 anonymous students.
 "ison_algebra_class"
 
-"ison_m182"
+# Adolescents ####
 
-#' One-mode subset of the adolescent society dataset.
+#' One-mode subset of the adolescent society (Coleman 1961)
 #'
 #' @docType data
 #' @keywords datasets
-#' @name ison_coleman
-#' @usage data(ison_coleman)
+#' @name ison_adolescent_friends
+#' @usage data(ison_adolescent_friends)
 #' @format A undirected one-mode tbl_graph object of 8 named nodes and 10
 #' edges.
-#' @references Coleman, James S. 1961. The Adolescent Society.
+#' @references 
+#' Coleman, James S. 1961. The Adolescent Society.
 #' New York:Free Press.
 #' 
 #' Feld, Scott. 1991. “Why your friends have more friends than you do”
 #' American Journal of Sociology 96(6): 1464-1477.
-"ison_coleman"
+"ison_adolescent_friends"
 
 #' Zachary's karateka network.
 #' 

@@ -25,6 +25,61 @@ Before covering `{migraph}` in more detail, we first provide a general overview
 of using `{ggraph}` and `{igraph}` to plot network data as `{migraph}` is built 
 as an addition to both packages.
   
+## Using `{migraph}`
+  
+To get a basic visualisation of the network before adding various specifications,
+the `autographr()` function in `{migraph}` is a quick and easy way to obtain a 
+clear first look of the network for preliminary investigations and understanding of
+the network.
+  
+```{r migrapheg, echo=TRUE}
+library(migraph)
+autographr(ison_brandes)
+```
+  
+We can also specify the colours, groups, shapes, and sizes of nodes in 
+the `autographr()` function using the following parameters:
+  
+* `node_colour`
+  
+* `node_shape`
+  
+* `node_size`
+  
+Append `ggtitle()` from the `{ggplot2}` package to add a title.
+`{migraph}` works well with both `{ggplot2}` and `{ggraph}` functions that can be 
+appended to create more tailored visualisations of the network.
+  
+```{r migraphexample2, echo=TRUE, message=FALSE, warning=FALSE}
+library(migraph)
+ison_adolescent_friends <- ison_adolescent_friends %>%
+  mutate(colour = RColorBrewer::brewer.pal(8, "Set3")) %>%
+  mutate(shape = "circle")
+autographr(ison_adolescent_friends,
+           labels = TRUE,
+           node_color = "colour",
+           node_shape = "shape",
+           node_size = 1.5) + 
+  ggplot2::ggtitle("Visualisation")
+```
+  
+### Visualising networks over time
+The `gglineage()`, `ggevolution()`, and `ggatyear()` functions can be used to 
+visualise the changes in the network over time. `gglineage()` shows how
+observations are connected to preceding or succeeding observations. 
+`ggevolution()` plots two networks for comparison of the changes in their 
+structure from one to the next.
+`ggatyear()` selects and plots a network at the specified point in time.
+  
+```{r migrapheg3, echo=TRUE, message=FALSE, warning=FALSE}
+library(migraph)
+mpn_elite_mex2 <- mpn_elite_mex  %>%
+  tidygraph::activate(edges) %>%
+  tidygraph::reroute(from = sample.int(11, 44, replace = TRUE),
+                     to = sample.int(11, 44, replace = TRUE))
+ggevolution(mpn_elite_mex, mpn_elite_mex2)
+```
+  
 ## Using `{ggraph}`
 The `{ggraph}` package is built off the ggplot2 package but works primarily with 
 tbl_graph objects (or objects convertible to this format). By adding different 
@@ -96,112 +151,6 @@ padding between the arrowhead and the node can also be specified.
 To change the position of the legend, add the `theme()` function from `{ggplot2}`.
 The legend can be positioned at the top, bottom, left, or right, 
 or removed using "none".
-  
-## Using `{igraph}`
-  
-Alternatively, the `{igraph}` package also enables us to produce tailored 
-network graphs using the `plot()` function.
-  
-```{r igrapheg, echo=TRUE, warning=FALSE, message=FALSE}
-library(igraph)
-library(migraph)
-g <- as.igraph(ison_brandes)
-plot(g, vertex.size = igraph::degree(g)*5, # *5 to scale nodes
-     vertex.shape = "circle",
-     vertex.color = RColorBrewer::brewer.pal(12, "Set3"),
-     # vertex.frame.color changes the node border color
-     edge.arrow.size = 0.5,
-     edge.color = "black",
-     edge.width = 0.5)
-```
-  
-As in `{ggraph}`, there is a variety of plotting parameters in the `{igraph}`
-package to change properties of nodes (referred to as 'vertex') and edges. 
-The shape of the vertex can be chosen from among “circle”, “square”, “csquare”, 
-“rectangle”, “crectangle”, “vrectangle”, “pie”, “raster”, or “sphere”.
-Labels are by default set to the names of the nodes. The font family and font style
-(bold, italic, etc) can be specified using `label.family=` and `label.font=` respectively.
-Font size is set using `label.cex=` and `label.dist=` adjusts the distance
-of the label from the center of the node.
-  
-## Using `{migraph}`
-  
-To get a basic visualisation of the network before adding various specifications,
-the `autographr()` function in `{migraph}` is a quick and easy way to obtain a 
-clear first look of the network for preliminary investigations and understanding of
-the network.
-  
-```{r migrapheg, echo=TRUE}
-library(migraph)
-autographr(ison_brandes)
-```
-  
-We can also specify the colours, groups, shapes, and sizes of nodes in 
-the `autographr()` function using the following parameters:
-  
-* `node_colour`
-  
-* `node_shape`
-  
-* `node_size`
-  
-Append `ggtitle()` from the `{ggplot2}` package to add a title.
-`{migraph}` works well with both `{ggplot2}` and `{ggraph}` functions that can be 
-appended to create more tailored visualisations of the network.
-  
-```{r migraphexample2, echo=TRUE, message=FALSE, warning=FALSE}
-library(migraph)
-ison_coleman <- ison_coleman %>%
-  mutate(colour = RColorBrewer::brewer.pal(8, "Set3")) %>%
-  mutate(shape = "circle")
-autographr(ison_coleman,
-           labels = TRUE,
-           node_color = "colour",
-           node_shape = "shape",
-           node_size = 1.5) + 
-  ggplot2::ggtitle("Visualisation")
-```
-  
-### Visualising measures
-  
-`autographr()` can also be used to plot visualisations of the network by 
-specific measures such as centrality, where the node with the maximum value of 
-measure is highlighted in a different colour.
-  
-The `ggdistrib()` function plots a histogram of the distribution of the network 
-by a measure such as closeness centrality.
-  
-### Visualising networks over time
-The `gglineage()`, `ggevolution()`, and `ggatyear()` functions can be used to 
-visualise the changes in the network over time. `gglineage()` shows how
-observations are connected to preceding or succeeding observations. 
-`ggevolution()` plots two networks for comparison of the changes in their 
-structure from one to the next.
-`ggatyear()` selects and plots a network at the specified point in time.
-  
-```{r migrapheg3, echo=TRUE, message=FALSE, warning=FALSE}
-library(migraph)
-mpn_elite_mex2 <- mpn_elite_mex  %>%
-  tidygraph::activate(edges) %>%
-  tidygraph::reroute(from = sample.int(11, 44, replace = TRUE),
-                     to = sample.int(11, 44, replace = TRUE))
-ggevolution(mpn_elite_mex, mpn_elite_mex2)
-```
-  
-### Blockmodels and tree diagrams
-Built on the `{ggplot2}` R package, the `plot()` function can be used to plot
-blockmodels. `ggtree()` plots a tree diagram of the network. The diagram can be 
-used to visualise clusters by specifying a value at `k=` to add a line that
-'cuts' the network into the specified number of clusters.
-  
-```{r migrapheg4, echo=TRUE, message=FALSE, warning=FALSE}
-library(migraph)
-usa_concor <- blockmodel_concor(mpn_elite_usa_advice)
-plot(usa_concor)
-
-res <- cluster_regular_equivalence(mpn_elite_mex)
-ggtree(res, 4)
-```
   
 # References
 * [Network Visualizations in R](http://mr.schochastics.net/netVizR.html)
