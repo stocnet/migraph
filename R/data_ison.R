@@ -64,9 +64,12 @@
 #' @format Directed two-mode `{igraph}` object with 10 nodes and 12 edges
 "ison_bb"
 
-#' Multiplex graph object of friends, social, and task ties.
+# Algebra ####
+
+#' Multiplex graph object of friends, social, and task ties (McFarland 2001)
 #' 
-#' @details Multiplex graph object of friends, social, and task ties between 16 #' anonymous students. M182 was an honors algebra class where researchers
+#' @details Multiplex graph object of friends, social, and task ties between 16 #' anonymous students. 
+#' M182 was an honors algebra class where researchers
 #' collected friendship, social, and task ties between 16 students.
 #' The edge attribute `friend_ties` contains friendship ties,
 #' where `2` = best friends, `1` = friend, and `0` is not a friend.
@@ -74,12 +77,16 @@
 #' and `task_ties` consists of task interactions per hour.
 #' @docType data
 #' @keywords datasets
-#' @name ison_m182
-#' @usage data(ison_m182)
+#' @name ison_algebra_class
+#' @usage data(ison_algebra_class)
+#' @references 
+#' McFarland, Daniel A. (2001) ``Student Resistance.'' 
+#' American Journal of Sociology, 107(3), p 612-678.
 #' @source See also `data(studentnets.M182, package = "NetData")`
 #' Larger comprehensive data set publicly available, contact Daniel A. McFarland for details.
 #' @format Multiplex `tbl_graph` object of friends, social, and task ties 
 #' between 16 anonymous students.
+"ison_algebra_class"
 
 "ison_m182"
 

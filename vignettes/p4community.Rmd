@@ -21,8 +21,8 @@ The data we're going to use is included in the `{migraph}` package
 ```{r setup}
 suppressPackageStartupMessages(library(igraph))
 suppressPackageStartupMessages(library(migraph))
-data("ison_m182", package = "migraph")
-# ?migraph::ison_m182
+data("ison_algebra_class", package = "migraph")
+# ?migraph::ison_algebra_class
 ```
 
 Note that you do not need to load the package using library() to get the data.
@@ -39,19 +39,19 @@ even if it's just pretend. Luckily, I've added a function for this.
 This makes plotting the network just a wee bit more accessible:
 
 ```{r addingnames}
-ison_m182 <- to_named(ison_m182)
-autographr(ison_m182)
+ison_algebra_class <- to_named(ison_algebra_class)
+autographr(ison_algebra_class)
 ```
 
 There are actually three different types of tie here. 
 Let's separate them out into separate networks.
 
 ```{r separatingnets}
-(m182_friend <- to_uniplex(ison_m182, "friend_tie"))
+(m182_friend <- to_uniplex(ison_algebra_class, "friend_tie"))
 gfriend <- autographr(m182_friend) + ggtitle("Friendship")
-(m182_social <- to_uniplex(ison_m182, "social_tie"))
+(m182_social <- to_uniplex(ison_algebra_class, "social_tie"))
 gsocial <- autographr(m182_social) + ggtitle("Social")
-(m182_task <- to_uniplex(ison_m182, "task_tie"))
+(m182_task <- to_uniplex(ison_algebra_class, "task_tie"))
 gtask <- autographr(m182_task) + ggtitle("Task")
 library(patchwork)
 gfriend + gsocial + gtask
