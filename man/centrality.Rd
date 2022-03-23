@@ -37,7 +37,6 @@ node_eigenvector(
   object,
   weights = NULL,
   directed = FALSE,
-  options = igraph::arpack_defaults,
   scale = FALSE,
   normalized = FALSE
 )
@@ -60,8 +59,6 @@ the node is calculated. Ignored for undirected graphs.}
 \item{directed}{Should direction of edges be used for the calculations}
 
 \item{nobigint}{Should big integers be avoided during calculations}
-
-\item{options}{Settings passed on to \code{igraph::arpack()}}
 
 \item{scale}{Should the scores be scaled to range between 0 and 1?}
 }

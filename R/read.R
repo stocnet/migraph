@@ -155,7 +155,7 @@ read_pajek <- function(file = file.choose(), ...) {
     if(length(clus) %% 2 != 0) stop("Unexpected .pajek file structure.")
     namo <- clus[c(TRUE, FALSE)]
     attr <- clus[c(FALSE, TRUE)]
-    for (i in 1:length(namo)){
+    for (i in seq_len(namo)){
       vct <- strsplit(attr[i], ",")[[1]][-1]
       vct <- stringr::str_remove_all(vct, "\"")
       vct <- stringr::str_trim(vct)

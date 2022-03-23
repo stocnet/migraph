@@ -147,7 +147,6 @@ node_betweenness <- function(object,
 }
 
 #' @rdname centrality
-#' @param options Settings passed on to `igraph::arpack()`
 #' @param scale Should the scores be scaled to range between 0 and 1? 
 #' @param normalized For one-mode networks, should Borgatti and Everett normalization be applied?
 #' @examples
@@ -157,7 +156,6 @@ node_betweenness <- function(object,
 #' @export 
 node_eigenvector <- function(object, 
                                    weights = NULL, directed = FALSE,
-                                   options = igraph::arpack_defaults, 
                                    scale = FALSE, normalized = FALSE){
   
   if(missing(object)){
@@ -173,17 +171,17 @@ node_eigenvector <- function(object,
   if (!is_twomode(graph)){
     out <- igraph::eigen_centrality(graph = graph, 
                                     directed = directed, scale = scale, 
-                                    options = options)$vector
+                                    options = igraph::arpack_defaults)$vector
     if (normalized) out <- out / sqrt(1/2)
   } else {
     eigen1 <- to_mode1(graph)
     eigen1 <- igraph::eigen_centrality(graph = eigen1, 
                                        directed = directed, scale = scale, 
-                                       options = options)$vector
+                                       options = igraph::arpack_defaults)$vector
     eigen2 <- to_mode2(graph)
     eigen2 <- igraph::eigen_centrality(graph = eigen2, 
                                        directed = directed, scale = scale, 
-                                       options = options)$vector
+                                       options = igraph::arpack_defaults)$vector
     out <- c(eigen1, eigen2)
     if (normalized) stop("Normalization not currently implemented for eigenvector centrality for two-mode networks.")
   }

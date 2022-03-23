@@ -35,7 +35,7 @@ navbar:
 reference:
   - title: "Making"
     desc: |
-      Functions for constructing, simulating, and importing 
+      Functions for constructing, simulating, and importing
       one-mode and two-mode networks:
     contents:
       - starts_with("create_")
@@ -66,7 +66,7 @@ reference:
   - title: "Measures"
     desc: |
       Functions for measuring multimodal and multilevel networks.
-      Note that all `node_` measures return a single vector so that 
+      Note that all `node_` measures return a single vector so that
       they can be added directly to graph objects,
       though two-mode results will be printed in two sections
       All `graph_` measures return a single value.

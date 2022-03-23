@@ -283,7 +283,7 @@ convertToMatrixList <- function(formula, data){
                              edge = getDependentName(formula)))
   IVnames <- getRHSNames(formula)
   IVs <- lapply(IVnames, function(IV){
-    out <- lapply(1:length(IV), function(elem){
+    out <- lapply(seq_len(IV), function(elem){
       if(IV[[elem]][1] == "ego"){
         vct <- node_attribute(data, IV[[elem]][2])
         if(is.character(vct) | is.factor(vct)){
