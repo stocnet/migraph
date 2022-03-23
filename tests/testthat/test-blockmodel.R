@@ -44,8 +44,8 @@ test_that("blockmodel print works correctly", {
 test_that("concor works on one-mode networks", {
   # Unimodal
   # Set things up
-  m182_social <- to_uniplex(ison_m182, "social_tie")
-  str_res <- cluster_structural_equivalence(ison_m182)
+  m182_social <- to_uniplex(ison_algebra_class, "social_tie")
+  str_res <- cluster_structural_equivalence(ison_algebra_class)
   str_clu <- cutree(str_res, 4)
   test <- blockmodel(m182_social, str_clu)
   # Test stuff
@@ -76,8 +76,8 @@ test_that("concor works on one-mode networks", {
 
 test_that("concor works on one-mode networks", {
   # Set things up
-  m182_social <- to_uniplex(ison_m182, "social_tie")
-  str_res <- cluster_structural_equivalence(ison_m182)
+  m182_social <- to_uniplex(ison_algebra_class, "social_tie")
+  str_res <- cluster_structural_equivalence(ison_algebra_class)
   str_clu <- cutree(str_res, 4)
   block <- blockmodel(m182_social, str_clu)
   test <- reduce_graph(blockmodel = block)
