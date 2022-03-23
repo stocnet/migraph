@@ -3,11 +3,14 @@
 \name{defunct}
 \alias{defunct}
 \alias{ggidentify}
+\alias{ggdistrib}
 \alias{project_rows}
 \alias{project_cols}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 ggidentify(object, node_measure, identify_function = max)
+
+ggdistrib(object, node_measure)
 
 project_rows(object)
 
@@ -19,6 +22,11 @@ project_cols(object)
 \section{Functions}{
 \itemize{
 \item \code{ggidentify}: Deprecated on 2022-01-24.
+This function is deprecated and its functionality is included in the more
+general purpose \code{autographr()} function. Please refer to its documentation
+for more details about the new implementation.
+
+\item \code{ggdistrib}: Deprecated on 2022-03-23.
 This function is deprecated and its functionality is included in the more
 general purpose \code{autographr()} function. Please refer to its documentation
 for more details about the new implementation.

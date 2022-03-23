@@ -36,6 +36,21 @@ ggidentify <- function(object, node_measure, identify_function = max) {
 }
 
 #' @describeIn defunct Deprecated on 2022-03-23.
+#' This function is deprecated and its functionality is included in the more
+#' general purpose `autographr()` function. Please refer to its documentation
+#' for more details about the new implementation.
+#' @export
+ggdistrib <- function(object, node_measure){
+  .Deprecated("plot.measure", package = "migraph",
+              msg = paste("This function has been converted into a",
+                          "`plot()` method for a 'measure' class object.", 
+                          "Please pass an object resulting from a `node_()`",
+                          "function to `plot()` to achieve the same result.",
+                          sep = " "),
+              old = "ggdistrib")
+}
+
+#' @describeIn defunct Deprecated on 2022-03-23.
 #' @export
 project_rows <- function(object){
   .Deprecated("to_mode1", package = "migraph",
