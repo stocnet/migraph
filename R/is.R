@@ -1,6 +1,6 @@
-#' Tests of network properties
+#' Logical tests of network properties
 #' 
-#' These functions implement tests for various network
+#' These functions implement logical tests for various network
 #' properties.
 #' @param object A migraph-consistent class object
 #' (matrix, edgelist, igraph, network, tidygraph)
@@ -18,8 +18,9 @@ is_migraph <- function(object){
   tidygraph::is.tbl_graph(object) |
     network::is.network(object) |
     igraph::is.igraph(object) |
-    is.data.frame(object) |
-    is.matrix(object)
+    (is.data.frame(object) & 
+       "from" %in% names(object) & "to" %in% names(object)) |
+    (is.matrix(object) & is.numeric(object))
 }
 
 #' @describeIn is Tests whether network contains graph-level information

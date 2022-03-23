@@ -14,7 +14,7 @@
 \alias{is_multiplex}
 \alias{is_uniplex}
 \alias{is_acyclic}
-\title{Tests of network properties}
+\title{Logical tests of network properties}
 \usage{
 is_migraph(object)
 
@@ -51,7 +51,7 @@ or also "strong"ly connected.}
 TRUE if the condition is met, or FALSE otherwise.
 }
 \description{
-These functions implement tests for various network
+These functions implement logical tests for various network
 properties.
 }
 \section{Functions}{
@@ -95,7 +95,6 @@ is_acyclic(ison_m182)
 \seealso{
 Other manipulation: 
 \code{\link{coercion}},
-\code{\link{project}},
 \code{\link{to}}
 }
 \concept{manipulation}
