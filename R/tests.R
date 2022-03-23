@@ -63,7 +63,7 @@ test_random <- function(object, FUN, ...,
               plteobs = mean(simd <= obsd),
               pgteobs = mean(simd >= obsd),
               reps = times)
-  class(out) <- "cug.test"
+  class(out) <- "cug_test"
   out
 }
 #' @rdname tests
@@ -107,12 +107,12 @@ test_permutation <- function(object, FUN, ...,
               plteobs = mean(simd <= obsd),
               pgteobs = mean(simd >= obsd),
               reps = times)
-  class(out) <- "qap.test"
+  class(out) <- "qap_test"
   out
 }
 
 #' @export
-plot.cug.test <- function(result, 
+plot.cug_test <- function(result, 
                           threshold = .95, 
                           tails = c("two", "one")){
   data <- data.frame(Statistic = result$rep.stat)
@@ -152,7 +152,7 @@ plot.cug.test <- function(result,
 }
 
 #' @export
-plot.qap.test <- function(result, 
+plot.qap_test <- function(result, 
                           threshold = .95, 
                           tails = c("two", "one")){
   data <- data.frame(Statistic = result$dist)
