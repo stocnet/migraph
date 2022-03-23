@@ -20,7 +20,7 @@ test_that("test_random works", {
   expect_equal(class(cugtest$plteobs), "numeric")
   expect_equal(class(cugtest$pgteobs), "numeric")
   expect_equal(cugtest$reps, 200)
-  expect_equal(attributes(cugtest)$class, "cug.test")
+  expect_equal(attributes(cugtest)$class, "cug_test")
   # Test stuff cug2
   expect_equal(round(cugtest2$obs.stat, 2), 0.24)
   expect_equal(length(cugtest2$rep.stat), 200) # NB: Stochastic
@@ -30,7 +30,7 @@ test_that("test_random works", {
   expect_equal(round(cugtest2$plteobs), 1)
   expect_equal(round(cugtest2$pgteobs), 0)
   expect_equal(cugtest2$reps, 200)
-  expect_equal(attributes(cugtest2)$class, "cug.test")
+  expect_equal(attributes(cugtest2)$class, "cug_test")
 })
 
 test_that("test_permutation works", {
@@ -51,12 +51,12 @@ test_that("test_permutation works", {
   expect_equal(class(qaptest$plteobs), "numeric") # NB: Stochastic
   expect_equal(class(qaptest$pgteobs), "numeric") # NB: Stochastic
   expect_equal(qaptest$reps, 200)
-  expect_equal(attributes(qaptest)$class, "qap.test")
+  expect_equal(attributes(qaptest)$class, "qap_test")
   # Test stuff qap2
   expect_equal(round(qaptest2$testval, 2), 0.24)
   expect_equal(length(qaptest2$dist), 200) # NB: Stochastic
   expect_equal(round(qaptest2$plteobs, 2), 1)
   expect_equal(round(qaptest2$pgteobs, 2), 1)
   expect_equal(qaptest2$reps, 200)
-  expect_equal(attributes(qaptest2)$class, "qap.test")
+  expect_equal(attributes(qaptest2)$class, "qap_test")
 })
