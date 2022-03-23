@@ -17,9 +17,15 @@ generate_scalefree(n, p = 1)
 generate_permutation(object, with_attr = TRUE)
 }
 \arguments{
-\item{n}{Integer of length 1 or 2.
-If passed a migraph-consistent object, a random network
-of the same dimensions and density as the original network will be returned.}
+\item{n}{Given:
+\itemize{
+\item A single integer, e.g. \code{n = 10},
+a one-mode network will be created.
+\item A vector of two integers, e.g. \code{n = c(5,10)},
+a two-mode network will be created.
+\item A migraph-compatible object,
+a network of the same dimensions will be created.
+}}
 
 \item{p}{Number of edges in the network over the number of edges possible}
 

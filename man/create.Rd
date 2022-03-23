@@ -26,11 +26,15 @@ create_tree(n, directed = c("undirected", "in", "out"), branches = 2)
 create_lattice(n, directed = c("undirected", "in", "out"))
 }
 \arguments{
-\item{n}{Number of nodes.
-If a single integer is given, e.g. \code{n = 10},
-the function will create a one-mode network.
-If a vector of two integers is given, e.g. \code{n = c(5,10)},
-the function will create a two-mode network.}
+\item{n}{Given:
+\itemize{
+\item A single integer, e.g. \code{n = 10},
+a one-mode network will be created.
+\item A vector of two integers, e.g. \code{n = c(5,10)},
+a two-mode network will be created.
+\item A migraph-compatible object,
+a network of the same dimensions will be created.
+}}
 
 \item{width}{The width or breadth of the ring. This is typically double the degree.}
 

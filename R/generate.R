@@ -2,9 +2,7 @@
 #' 
 #' @name generate
 #' @family creation
-#' @param n Integer of length 1 or 2.
-#'   If passed a migraph-consistent object, a random network
-#'   of the same dimensions and density as the original network will be returned.
+#' @inheritParams create
 #' @param object a migraph-consistent object
 #' @param p Number of edges in the network over the number of edges possible
 #' @param m Number of edges in the network

@@ -8,14 +8,18 @@
 #' 
 #' @name create
 #' @family creation
-#' @param n Number of nodes.
-#' If a single integer is given, e.g. `n = 10`,
-#' the function will create a one-mode network.
-#' If a vector of two integers is given, e.g. `n = c(5,10)`,
-#' the function will create a two-mode network.
+#' @param n Given:
+#'   \itemize{
+#'   \item A single integer, e.g. `n = 10`,
+#'   a one-mode network will be created.
+#'   \item A vector of two integers, e.g. `n = c(5,10)`,
+#'   a two-mode network will be created.
+#'   \item A migraph-compatible object,
+#'   a network of the same dimensions will be created.
+#'   }
 #' @return By default an igraph object will be returned,
-#' but this can be coerced into other types of objects
-#' using `as_matrix()`, `as_tidygraph()`, or `as_network()`.
+#'   but this can be coerced into other types of objects
+#'   using `as_matrix()`, `as_tidygraph()`, or `as_network()`.
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
 #' @seealso as_matrix as_tidygraph as_network
@@ -25,13 +29,16 @@
 #' autographr(g)
 #' @export
 create_empty <- function(n) {
+  if(is_migraph(n)){
+    n <- graph_dims(n)
+  }
   if (length(n) == 1) {
     out <- matrix(0, n, n)
     out <- igraph::graph_from_adjacency_matrix(out)
   } else if (length(n) == 2) {
     out <- matrix(0, n[1], n[2])
     out <- igraph::graph_from_incidence_matrix(out)
-  } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
+  } else stop("`n` should be a single integer, a vector of two integers for a two-mode network.")
   out
 }
 
@@ -42,7 +49,9 @@ create_empty <- function(n) {
 #' autographr(g)
 #' @export
 create_complete <- function(n) {
-  
+  if(is_migraph(n)){
+    n <- graph_dims(n)
+  }
   if (length(n) == 1) {
     out <- matrix(1, n, n)
     diag(out) <- 0
@@ -65,6 +74,9 @@ create_complete <- function(n) {
 #' autographr(g)
 #' @export
 create_ring <- function(n, width = 1, directed = FALSE, ...) {
+  if(is_migraph(n)){
+    n <- graph_dims(n)
+  }
   if (length(n) == 1) {
     if (width == 1) {
      out <- igraph::make_ring(n, directed, ...)
@@ -118,6 +130,9 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
 #' autographr(create_components(c(10, 12), components = 3))
 #' @export
 create_components <- function(n, components = 2) {
+  if(is_migraph(n)){
+    n <- graph_dims(n)
+  }
   if (length(n) == 1) {
     if (components > n) stop("Cannot have more components than nodes in the graph.")
     out <- matrix(0, n, n)
@@ -151,6 +166,9 @@ create_components <- function(n, components = 2) {
 create_star <- function(n, 
                         directed = c("undirected","in","out")) {
   
+  if(is_migraph(n)){
+    n <- graph_dims(n)
+  }
   directed <- match.arg(directed)
   if (length(n) == 1) {
     out <- igraph::make_star(n, mode = directed)
@@ -185,6 +203,9 @@ roll_over <- function(w) {
 create_tree <- function(n, 
                         directed = c("undirected","in","out"), 
                         branches = 2) {
+  if(is_migraph(n)){
+    n <- graph_dims(n)
+  }
   if(length(n)>1) stop("`create_tree()` not yet implemented for two-mode networks")
   directed <- match.arg(directed)
   igraph::make_tree(sum(n), children = branches, mode = directed)
@@ -203,12 +224,13 @@ create_tree <- function(n,
 #' @export
 create_lattice <- function(n, 
                         directed = c("undirected","in","out")) {
+  if(is_migraph(n)){
+    n <- graph_dims(n)
+  }
   directed <- match.arg(directed)
   igraph::make_lattice(n, 
                        directed = directed!="undirected")
 }
-
-
 
 # #' @rdname create
 #' #' @details Creates a nested two-mode network.
