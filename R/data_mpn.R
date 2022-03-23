@@ -1,3 +1,5 @@
+# Mexican elite ####
+
 #' One-mode Mexican power elite database
 #'
 #' This data contains the full network of 35 members of the Mexican power elite.
@@ -31,7 +33,9 @@
 #' Cambridge University Press. Cambridge University Press.
 "mpn_elite_mex"
 
-#' Two-mode American power elite database
+# US elite ####
+
+#' Two-mode and three-mode American power elite database
 #'
 #' A 2-mode network of persons serving as directors or trustees of think tanks.
 #' Think tanks are “public-policy research analysis and engagement organizations
@@ -42,7 +46,7 @@
 #'
 #' @docType data
 #' @keywords datasets
-#' @name mpn_elite_usa_advice
+#' @name mpn_elite_usa
 #' @usage data(mpn_elite_usa_advice)
 #' @format `tbl_graph` network object. The network is bipartite, undirected,
 #' named, and unweighted. It contains 32 nodes and 46 edges.
@@ -65,7 +69,7 @@
 #'
 #' @docType data
 #' @keywords datasets
-#' @name mpn_elite_usa_money
+#' @rdname mpn_elite_usa
 #' @usage data(mpn_elite_usa_money)
 #' @format `tbl_graph` network object. The network is bipartite, undirected,
 #' named, and unweighted. It contains 38 nodes and 103 edges.
@@ -79,6 +83,8 @@
 #' Cambridge University Press. Cambridge University Press.
 "mpn_elite_usa_money"
 
+
+# Bristol ####
 
 #' Multimodal (3) Bristol protest events, 1990-2002
 #'
@@ -102,6 +108,8 @@
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
 #' Cambridge University Press. Cambridge University Press.
 "mpn_bristol"
+
+# Ryanair ####
 
 #' One-mode EU policy influence network, June 2004
 #'
@@ -129,6 +137,8 @@
 #' 
 #' Knoke, Diani, Hollway, and Christopoulos. 2021. \emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
 "mpn_ryanair"
+
+# Senate voting ####
 
 #' Two-mode 112th Congress Senate Voting
 #'
@@ -175,6 +185,8 @@
 #' weighted graph of 20 Senators (`type = FALSE`) and 32 PACS (`type = TRUE`)
 #' and 614 edges.
 "mpn_OverSxP"
+
+# EVS ####
 
 #' Two-mode European Values Survey, 1990 and 2008
 #'
