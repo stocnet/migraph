@@ -95,13 +95,26 @@ is_weighted.network <- function(object) {
 #' @examples
 #' is_directed(ison_southern_women)
 #' @export
-is_directed <- function(object) {
-  if(network::is.network(object)){
-    object$gal$directed
-  } else {
-    object <- as_igraph(object)
+is_directed <- function(object) UseMethod("is_directed")
+
+#' @export
+is_directed.igraph <- function(object) {
     igraph::is.directed(object)
-  }
+}
+
+#' @export
+is_directed.tbl_graph <- function(object) {
+  igraph::is.directed(object)
+}
+
+#' @export
+is_directed.network <- function(object) {
+    object$gal$directed
+}
+
+#' @export
+is_directed.matrix <- function(object) {
+  isSymmetric(object)
 }
 
 #' @describeIn is Tests whether network includes names for the nodes
