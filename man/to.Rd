@@ -12,6 +12,8 @@
 \alias{to_simplex}
 \alias{to_named}
 \alias{to_multilevel}
+\alias{to_mode1}
+\alias{to_mode2}
 \title{Tools for reformatting networks, graphs, and matrices}
 \usage{
 to_unweighted(object, threshold = 1)
@@ -33,6 +35,10 @@ to_simplex(object)
 to_named(object, names = NULL)
 
 to_multilevel(object)
+
+to_mode1(object)
+
+to_mode2(object)
 }
 \arguments{
 \item{object}{A matrix, \code{{igraph}} graph, \code{{tidygraph}} tbl_graph, or
@@ -88,6 +94,19 @@ here are the currently implemented modifications:\tabular{lccccc}{
    multilevel \tab  \tab X \tab X \tab X \tab  \cr
 }
 }
+\section{Functions}{
+\itemize{
+\item \code{to_mode1}: results in a weighted one-mode object
+that retains the column nodes from a two-mode object,
+and weights the ties between them on the basis of
+their joint ties to nodes in the first mode (rows).
+
+\item \code{to_mode2}: results in a weighted one-mode object
+that retains the row nodes from a two-mode object,
+and weights the ties between them on the basis of
+their joint ties to nodes in the second mode (columns)
+}}
+
 \examples{
 to_unweighted(project_rows(southern_women))
 to_unnamed(project_rows(southern_women))
@@ -99,11 +118,12 @@ to_unsigned(ison_marvel_relationships, "negative")
 to_simplex(ison_m182)
 to_named(ison_m182)
 to_multilevel(mpn_elite_usa_advice)
+to_mode1(ison_southern_women)
+to_mode2(ison_southern_women)
 }
 \seealso{
 Other manipulation: 
 \code{\link{coercion}},
-\code{\link{is}()},
-\code{\link{project}}
+\code{\link{is}()}
 }
 \concept{manipulation}

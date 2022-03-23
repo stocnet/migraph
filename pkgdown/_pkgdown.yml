@@ -34,7 +34,9 @@ navbar:
       href: https://github.com/snlab-ch/migraph
 reference:
   - title: "Making"
-    desc: "Functions for creating and simulating multimodal and multilevel networks:"
+    desc: |
+      Functions for constructing, simulating, and importing 
+      one-mode and two-mode networks:
     contents:
       - starts_with("create_")
       - starts_with("generate_")
@@ -49,7 +51,6 @@ reference:
       - starts_with("as_")
       - starts_with("is_")
       - starts_with("to_")
-      - starts_with("project_")
       - add
       - grab
   - title: "Mapping"
@@ -75,7 +76,7 @@ reference:
       - cohesion
       - diversity
       - node_constraint
-      - node_smallworld
+      - graph_smallworld
       - node_components
       - graph_components
       - graph_balance

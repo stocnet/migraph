@@ -323,3 +323,53 @@ to_multilevel.matrix <- function(object) {
   colnames(out) <- rownames(out)
   out
 }
+
+#' @describeIn to results in a weighted one-mode object
+#' that retains the column nodes from a two-mode object,
+#' and weights the ties between them on the basis of
+#' their joint ties to nodes in the first mode (rows).
+#' @importFrom igraph bipartite.projection
+#' @examples
+#' to_mode1(ison_southern_women)
+#' @export
+to_mode1 <- function(object) UseMethod("to_mode1")
+
+#' @export
+to_mode1.matrix <- function(object) {
+  object %*% t(object)
+}
+
+#' @export
+to_mode1.igraph <- function(object) {
+  igraph::bipartite.projection(object)$proj1
+}
+
+#' @export
+to_mode1.tbl_graph <- function(object) {
+  as_tidygraph(igraph::bipartite.projection(object)$proj1)
+}
+
+#' @describeIn to results in a weighted one-mode object
+#' that retains the row nodes from a two-mode object,
+#' and weights the ties between them on the basis of
+#' their joint ties to nodes in the second mode (columns)
+#' @importFrom igraph bipartite.projection
+#' @examples
+#' to_mode2(ison_southern_women)
+#' @export
+to_mode2 <- function(object) UseMethod("to_mode2")
+
+#' @export
+to_mode2.matrix <- function(object) {
+  t(object) %*% object
+}
+
+#' @export
+to_mode2.igraph <- function(object) {
+  igraph::bipartite.projection(object)$proj2
+}
+
+#' @export
+to_mode2.tbl_graph <- function(object) {
+  as_tidygraph(igraph::bipartite.projection(object)$proj2)
+}

@@ -34,3 +34,19 @@ ggidentify <- function(object, node_measure, identify_function = max) {
                                 values = c("red", "blue")) +
     ggplot2::theme(legend.position = "none")
 }
+
+#' @describeIn defunct Deprecated on 2022-03-23.
+#' @export
+project_rows <- function(object){
+  .Deprecated("to_mode1", package = "migraph",
+              old = "project_rows")
+  to_mode1(object)
+}
+
+#' @describeIn defunct Deprecated on 2022-03-23.
+#' @export
+project_cols <- function(object){
+  .Deprecated("to_mode2", package = "migraph",
+              old = "project_cols")
+  to_mode2(object)
+}

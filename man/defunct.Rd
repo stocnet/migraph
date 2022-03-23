@@ -3,9 +3,15 @@
 \name{defunct}
 \alias{defunct}
 \alias{ggidentify}
+\alias{project_rows}
+\alias{project_cols}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 ggidentify(object, node_measure, identify_function = max)
+
+project_rows(object)
+
+project_cols(object)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -16,6 +22,10 @@ ggidentify(object, node_measure, identify_function = max)
 This function is deprecated and its functionality is included in the more
 general purpose \code{autographr()} function. Please refer to its documentation
 for more details about the new implementation.
+
+\item \code{project_rows}: Deprecated on 2022-03-23.
+
+\item \code{project_cols}: Deprecated on 2022-03-23.
 }}
 
 \keyword{internal}
