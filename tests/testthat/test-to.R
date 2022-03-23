@@ -22,7 +22,7 @@ simple_edge_df_unweighted <- data.frame(
 test_that("to_unweight works", {
   expect_equal(to_unweighted(matrix(0:8,3,3)), matrix(c(0, rep(1,8)),3,3))
   expect_equal(to_unweighted(ison_southern_women), ison_southern_women)
-  expect_equal(c(to_unnamed(as_matrix(to_unweighted(project_rows(ison_southern_women)))))[1:4],
+  expect_equal(c(to_unnamed(as_matrix(to_unweighted(to_mode1(ison_southern_women)))))[1:4],
                c(0,1,1,1))
   expect_equal(c(to_unweighted(as_tidygraph(test_weighted)))[8],
                c(as_tidygraph(test_unweighted))[8])
@@ -130,4 +130,22 @@ testmultilevel <- igraph::delete_vertex_attr(testmultilevel, "type")
 test_that("multilevel works", {
   expect_equal(to_multilevel(mpn_elite_usa_advice), testmultilevel)
   expect_equal(to_multilevel(as_igraph(mpn_elite_usa_advice)), as_igraph(testmultilevel))
+})
+
+mat1 <- matrix(c(0,1,1,0,0,1,1,1),2,4)
+mat2 <- matrix(c(2,1,1,3),2,2)
+mat3 <- matrix(c(1,0,1,1,0,1,0,1,1,0,1,1,1,1,1,2),4,4)
+
+test_that("matrix projected correctly by rows",{
+  expect_equal(to_mode1(mat1), mat2)
+  expect_true(igraph::is_weighted(to_mode1(ison_southern_women)))
+  expect_true(is_graph(to_mode1(mpn_elite_usa_advice)))
+  expect_error(to_mode1(as.data.frame(mat1)), "no applicable method")
+})
+
+test_that("matrix projected correctly by columns",{
+  expect_equal(to_mode2(mat1), mat3)
+  expect_true(is_weighted(to_mode2(ison_southern_women)))
+  expect_true(is_graph(to_mode2(mpn_elite_usa_advice)))
+  expect_error(to_mode2(as.data.frame(mat1)), "no applicable method")
 })

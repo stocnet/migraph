@@ -171,13 +171,19 @@ node_eigenvector <- function(object,
     weights <- NA
   }
   if (!is_twomode(graph)){
-    out <- igraph::eigen_centrality(graph = graph, directed = directed, scale = scale, options = options)$vector
+    out <- igraph::eigen_centrality(graph = graph, 
+                                    directed = directed, scale = scale, 
+                                    options = options)$vector
     if (normalized) out <- out / sqrt(1/2)
   } else {
-    eigen1 <- project_rows(graph)
-    eigen1 <- igraph::eigen_centrality(graph = eigen1, directed = directed, scale = scale, options = options)$vector
-    eigen2 <- project_cols(graph)
-    eigen2 <- igraph::eigen_centrality(graph = eigen2, directed = directed, scale = scale, options = options)$vector
+    eigen1 <- to_mode1(graph)
+    eigen1 <- igraph::eigen_centrality(graph = eigen1, 
+                                       directed = directed, scale = scale, 
+                                       options = options)$vector
+    eigen2 <- to_mode2(graph)
+    eigen2 <- igraph::eigen_centrality(graph = eigen2, 
+                                       directed = directed, scale = scale, 
+                                       options = options)$vector
     out <- c(eigen1, eigen2)
     if (normalized) stop("Normalization not currently implemented for eigenvector centrality for two-mode networks.")
   }
