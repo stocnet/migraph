@@ -1,4 +1,5 @@
 # Tests for blockmodel visualization
+set.seed(123)
 usa_concor <- blockmodel_concor(mpn_elite_usa_advice)
 test <- plot(usa_concor)
 
@@ -23,6 +24,6 @@ test_that("blockmodelviz works", {
   expect_equal(class(test)[1], "gg")
   expect_equal(length(test$layers), 2)
   expect_equal(test$data$clusters[1:10], c(2, 3, 4, 5 , 6, 7, 8, 9, 10, 11))
-  expect_equal(round(test$data$correlations[1:2], 2), c(0.83, 0.90))
+  expect_equal(round(test$data$correlations[1:2], 2), c(0.76, 0.96), tolerance = 0.07)
   expect_equal(test$data$correct[1:3], c("#6f7072", "#6f7072", "#E20020"))
 })
