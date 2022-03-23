@@ -212,15 +212,15 @@ blockmodel_concor <- function(object, p = 1,
     out$block.model <- bm
     # dimnames(out$block.model) <- list(glabels, rlabels, rlabels)
   }
-  attr(out, "class") <- "blockmodel"
+  class(out) <- "block_model"
   out
 }
 
 #' @rdname blockmodel
-#' @param x An object of class "blockmodel"
+#' @param x An object of class "block_model"
 #' @param ... Additional arguments passed to generic print method
 #' @export
-print.blockmodel <- function(x, ...) {
+print.block_model <- function(x, ...) {
   if (is.null(x$modes)) {
     sna::print.blockmodel(x)
   } else if (x$modes == 1) {

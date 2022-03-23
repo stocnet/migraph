@@ -3,7 +3,7 @@
 \name{blockmodel}
 \alias{blockmodel}
 \alias{blockmodel_concor}
-\alias{print.blockmodel}
+\alias{print.block_model}
 \alias{reduce_graph}
 \alias{summarise_statistics}
 \title{Blockmodelling}
@@ -21,7 +21,7 @@ blockmodel_concor(
   block.content = "density"
 )
 
-\method{print}{blockmodel}(x, ...)
+\method{print}{block_model}(x, ...)
 
 reduce_graph(blockmodel, block_labels = NULL)
 
@@ -43,7 +43,7 @@ calculating block content.
 Options are: "density", "sum", "meanrowsum", "meancolsum",
 "median", "min", "max".}
 
-\item{x}{An object of class "blockmodel"}
+\item{x}{An object of class "block_model"}
 
 \item{...}{Additional arguments passed to generic print method}
 

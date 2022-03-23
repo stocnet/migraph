@@ -10,7 +10,7 @@
 #' usa_concor <- blockmodel_concor(mpn_elite_usa_advice)
 #' plot(usa_concor)
 #' @export
-plot.blockmodel <- function(x, ...){
+plot.block_model <- function(x, ...){
   plot_data <- x$blocked.data
   plot_data <- as.data.frame(plot_data) %>%
     tibble::rownames_to_column("Var1") %>%

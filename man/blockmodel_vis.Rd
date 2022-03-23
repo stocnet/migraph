@@ -2,12 +2,12 @@
 % Please edit documentation in R/blockmodel_vis.R
 \name{blockmodel_vis}
 \alias{blockmodel_vis}
-\alias{plot.blockmodel}
+\alias{plot.block_model}
 \alias{ggtree}
 \alias{ggidentify_clusters}
 \title{ggplot2-based plotting of blockmodel results}
 \usage{
-\method{plot}{blockmodel}(x, ...)
+\method{plot}{block_model}(x, ...)
 
 ggtree(hc, k = NULL)
 
