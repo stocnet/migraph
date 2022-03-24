@@ -6,7 +6,7 @@ NULL
 #' @describeIn edge Identify edges that are mutual/reciprocated
 #' @importFrom igraph which_mutual
 #' @examples 
-#' edge_mutual(ison_m182)
+#' edge_mutual(ison_algebra_class)
 #' @export
 edge_mutual <- function(object){
   object <- as_igraph(object) # allow for custom edge selection
@@ -16,7 +16,7 @@ edge_mutual <- function(object){
 #' @describeIn edge Identify edges that are multiples
 #' @importFrom igraph which_multiple
 #' @examples 
-#' edge_multiple(ison_m182)
+#' edge_multiple(ison_algebra_class)
 #' @export
 edge_multiple <- function(object){
   object <- as_igraph(object)
@@ -26,7 +26,7 @@ edge_multiple <- function(object){
 #' @describeIn edge Identify edges that are loops
 #' @importFrom igraph which_loop
 #' @examples 
-#' edge_loop(ison_m182)
+#' edge_loop(ison_algebra_class)
 #' @export
 edge_loop <- function(object){
   object <- as_igraph(object)
@@ -36,7 +36,7 @@ edge_loop <- function(object){
 #' @describeIn edge Calculate number of shortest paths going through an edge
 #' @importFrom igraph edge_betweenness
 #' @examples
-#' edge_betweenness(ison_coleman)
+#' edge_betweenness(ison_adolescent_friends)
 #' @export
 edge_betweenness <- function(object){
   object <- as_igraph(object)
@@ -48,7 +48,7 @@ edge_betweenness <- function(object){
 #' first tie and column names indicate the node at the tail of the last tie.
 #' @importFrom igraph distances
 #' @examples
-#' edge_closeness(ison_coleman)
+#' edge_closeness(ison_adolescent_friends)
 #' @export
 edge_closeness <- function(object){
   dist <- igraph::distances(object)

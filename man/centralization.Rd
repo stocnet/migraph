@@ -63,9 +63,9 @@ append \verb{$nodes2} to the end of the function call or returned object.
 These functions measure the overall centralization for a network.
 }
 \examples{
-graph_degree(southern_women, directed = "in")
-graph_closeness(southern_women, directed = "in")
-graph_betweenness(southern_women, directed = "in")
+graph_degree(ison_southern_women, directed = "in")
+graph_closeness(ison_southern_women, directed = "in")
+graph_betweenness(ison_southern_women, directed = "in")
 graph_eigenvector(mpn_elite_mex)
 }
 \references{

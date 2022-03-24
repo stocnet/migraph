@@ -100,8 +100,8 @@ is_labelled(ison_southern_women)
 is_signed(ison_southern_women)
 is_connected(ison_southern_women)
 is_complex(ison_southern_women)
-is_uniplex(ison_m182)
-is_acyclic(ison_m182)
+is_uniplex(ison_algebra_class)
+is_acyclic(ison_algebra_class)
 }
 \seealso{
 Other manipulation: 

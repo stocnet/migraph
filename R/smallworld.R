@@ -18,8 +18,8 @@
 #' Expected clustering and paths is the mean of twomode_clustering and
 #' mean_distance over 100 random simulations with the same row and column sums.
 #' @examples
-#' node_smallworld(ison_southern_women)
-#' node_smallworld(ison_brandes)
+#' graph_smallworld(ison_southern_women)
+#' graph_smallworld(ison_brandes)
 #' @seealso \code{\link{graph_transitivity}} and \code{\link{graph_equivalency}}
 #' for how clustering is calculated
 #' @references 

@@ -48,9 +48,9 @@ first tie and column names indicate the node at the tail of the last tie.
 }}
 
 \examples{
-edge_mutual(ison_m182)
-edge_multiple(ison_m182)
-edge_loop(ison_m182)
-edge_betweenness(ison_coleman)
-edge_closeness(ison_coleman)
+edge_mutual(ison_algebra_class)
+edge_multiple(ison_algebra_class)
+edge_loop(ison_algebra_class)
+edge_betweenness(ison_adolescent_friends)
+edge_closeness(ison_adolescent_friends)
 }

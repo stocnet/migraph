@@ -47,7 +47,7 @@
 #' - `to_simplex()` returns an object that has all loops or self-ties removed
 #' - `to_unsigned()` returns an object that has 
 #' @examples
-#' to_unweighted(project_rows(southern_women))
+#' to_unweighted(to_mode1(ison_southern_women))
 #' @export
 to_unweighted <- function(object, threshold = 1) UseMethod("to_unweighted")
 
@@ -86,7 +86,7 @@ to_unweighted.data.frame <- function(object, threshold = 1) {
 
 #' @rdname to
 #' @examples
-#' to_unnamed(to_mode1(southern_women))
+#' to_unnamed(to_mode1(ison_southern_women))
 #' @export
 to_unnamed <- function(object) UseMethod("to_unnamed")
 
@@ -201,7 +201,7 @@ to_main_component.network <- function(object) {
 #' @importFrom igraph delete_edges edge_attr_names delete_edge_attr
 #' @importFrom igraph E get.edge.attribute edge_attr_names
 #' @examples
-#' to_uniplex(ison_m182, "friend_tie")
+#' to_uniplex(ison_algebra_class, "friend_tie")
 #' @export
 to_uniplex <- function(object, edge) UseMethod("to_uniplex")
 
@@ -277,7 +277,7 @@ to_simplex.matrix <- function(object) {
 
 #' @rdname to
 #' @examples
-#' to_named(ison_m182)
+#' to_named(ison_algebra_class)
 #' @export
 to_named <- function(object, names = NULL) UseMethod("to_named")
 
