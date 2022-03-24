@@ -22,7 +22,7 @@ sna::print.netlm
 #' @export
 sna::print.summary.netlm
 
-#' @importFrom magrittr %>%
+#' @importFrom dplyr %>%
 #' @export
 dplyr::`%>%`
 

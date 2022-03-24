@@ -55,11 +55,11 @@ By default \code{"sequential"},
 but if multiple cores available,
 then \code{"multisession"} or \code{"multicore"} may be useful.
 Generally this is useful only when \code{times} > 1000.
-See \code{\link{furrr}} for more.}
+See \href{https://furrr.futureverse.org}{\code{{furrr}}} for more.}
 
 \item{verbose}{Whether the function should report on its progress.
 By default FALSE.
-See \code{\link{progressr}} for more.}
+See \href{https://progressr.futureverse.org}{\code{{progressr}}} for more.}
 }
 \description{
 This function provides an implementation of
@@ -73,10 +73,11 @@ by constructing the various dependent and independent matrices for the user.
 with several ways to specify how nodal attributes should be handled.
 \item it can handle categorical variables (factors/characters) and
 interactions intuitively.
-\item it relies on \code{\link{furrr}} for parallelising
-and \code{\link{progressr}} for reporting progress to the user,
+\item it relies on \href{https://furrr.futureverse.org}{\code{{furrr}}} for parallelising
+and \href{https://progressr.futureverse.org}{\code{{progressr}}}
+for reporting progress to the user,
 which can be useful when many simulations are required.
-\item results are \code{\link{tidymodel}}-compatible,
+\item results are \href{https://broom.tidymodels.org}{\code{{broom}}}-compatible,
 with \code{tidy()} and \code{glance()} reports to facilitate comparison
 with results from different models.
 Note that a t- or z-value is always used as the test statistic,
@@ -110,5 +111,5 @@ Dekker, David, Krackhard, David, Snijders, Tom A.B (2007)
 \emph{Psychometrika} 72(4): 563-581.
 }
 \seealso{
-\link{p7linearmodel}
+\code{vignette("p7linearmodel")}
 }

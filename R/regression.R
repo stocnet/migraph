@@ -10,10 +10,11 @@
 #'   with several ways to specify how nodal attributes should be handled.
 #' - it can handle categorical variables (factors/characters) and
 #'   interactions intuitively.
-#' - it relies on [`furrr`] for parallelising 
-#'   and [`progressr`] for reporting progress to the user,
+#' - it relies on [`{furrr}`](https://furrr.futureverse.org) for parallelising 
+#'   and [`{progressr}`](https://progressr.futureverse.org) 
+#'   for reporting progress to the user,
 #'   which can be useful when many simulations are required.
-#' - results are [`tidymodel`]-compatible, 
+#' - results are [`{broom}`](https://broom.tidymodels.org)-compatible, 
 #'   with `tidy()` and `glance()` reports to facilitate comparison
 #'   with results from different models.
 #' Note that a t- or z-value is always used as the test statistic,
@@ -55,15 +56,17 @@
 #'   but if multiple cores available,
 #'   then `"multisession"` or `"multicore"` may be useful.
 #'   Generally this is useful only when `times` > 1000.
-#'   See [`furrr`] for more.
+#'   See [`{furrr}`](https://furrr.futureverse.org) for more.
 #' @param verbose Whether the function should report on its progress.
 #'   By default FALSE.
-#'   See [`progressr`] for more.
+#'   See [`{progressr}`](https://progressr.futureverse.org) for more.
 #' @importFrom dplyr bind_cols left_join
 #' @importFrom tibble tibble
+#' @importFrom purrr flatten
+#' @importFrom future plan
 #' @importFrom furrr future_map_dfr furrr_options
 #' @importFrom stats glm.fit as.formula df.residual pchisq
-#' @seealso [p7linearmodel]
+#' @seealso `vignette("p7linearmodel")`
 #' @references 
 #'   Krackhardt, David (1988) 
 #'   “Predicting with Networks: Nonparametric Multiple Regression Analysis of Dyadic Data.” 
@@ -259,11 +262,12 @@ nlmfit <- function(glist, directed, diag, rety) {
   }
 }
 
+#' @importFrom stats binomial
 nlgfit <- function(glist, directed, diag) {
   z <- as.matrix(vectorise_list(glist, simplex = !diag, 
                                 directed = (directed == "digraph")))
   stats::glm.fit(z[,2:ncol(z)], z[,1], 
-                 family = binomial(), intercept = FALSE)
+                 family = stats::binomial(), intercept = FALSE)
 }
 
 vectorise_list <- function(glist, simplex, directed){
@@ -273,7 +277,7 @@ vectorise_list <- function(glist, simplex, directed){
     diag(glist[[1]]) <- NA
   if(!directed)
     glist[[1]][upper.tri(glist[[1]])] <- NA
-  suppressMessages(na.omit(dplyr::bind_cols(furrr::future_map(glist, 
+  suppressMessages(stats::na.omit(dplyr::bind_cols(furrr::future_map(glist, 
                                                        function(x) c(x)))))
 }
 
@@ -385,20 +389,16 @@ convertToMatrixList <- function(formula, data){
   IVs <- purrr::flatten(IVs)
   out <- c(list(DV), list(matrix(1, dim(DV)[1], dim(DV)[2])), IVs)
   names(out)[1:2] <- c(formula[[2]], "(intercept)")
-  # names(out) <- c(formula[[2]], "(intercept)",
-  #                 sapply(c(attr(terms(formula), "term.labels")), 
-  #                        paste, collapse = " "))
   out
 }
 
-#' @importFrom stats as.formula
 convertFormula <- function(formula, new_names){
   stats::as.formula(paste(paste(formula[[2]],"~"),
                    paste(paste0("`", names(new_names)[-1], "`"), collapse = " + ")))
 }
 
 getRHSNames <- function(formula) {
-  rhs <- c(attr(terms(formula), "term.labels"))
+  rhs <- c(attr(stats::terms(formula), "term.labels"))
   rhs <- strsplit(rhs, ":")
   # embed single parameter models in list
   if (!is.list(rhs)) rhs <- list(rhs)
@@ -415,6 +415,7 @@ getDependentName <- function(formula) {
 generics::tidy
 
 #' @method tidy netlm
+#' @importFrom stats quantile
 #' @export
 tidy.netlm <- function(x, conf.int = FALSE, conf.level = 0.95, ...) {
   
@@ -425,7 +426,7 @@ tidy.netlm <- function(x, conf.int = FALSE, conf.level = 0.95, ...) {
                            p.value = x$pgreqabs)
   
   if (conf.int) {
-    ci <- apply(x$dist, 2, quantile, c(.025, .975))
+    ci <- apply(x$dist, 2, stats::quantile, c(.025, .975))
     ci <- cbind(data.frame(term = x$names), t(ci))
     names(ci) <- c("term", "conf.low", "conf.high")
     result <- dplyr::left_join(result, ci, by = "term")
@@ -435,6 +436,7 @@ tidy.netlm <- function(x, conf.int = FALSE, conf.level = 0.95, ...) {
 }
 
 #' @method tidy netlogit
+#' @importFrom stats quantile
 #' @export
 tidy.netlogit <- function(x, conf.int = FALSE, conf.level = 0.95, 
                           exponentiate = FALSE, ...) {
@@ -448,7 +450,7 @@ tidy.netlogit <- function(x, conf.int = FALSE, conf.level = 0.95,
                            p.value = x$pgreqabs)
   
   if (conf.int) {
-    ci <- apply(x$dist, 2, quantile, c(.025, .975))
+    ci <- apply(x$dist, 2, stats::quantile, c(.025, .975))
     ci <- cbind(data.frame(term = x$names), t(ci))
     names(ci) <- c("term", "conf.low", "conf.high")
     result <- dplyr::left_join(result, ci, by = "term")

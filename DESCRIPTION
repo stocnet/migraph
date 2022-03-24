@@ -28,7 +28,10 @@ Imports:
     igraph,
     network,
     oaqc,
+    future,
     furrr,
+    purrr,
+    patchwork,
     RColorBrewer,
     rlang,
     sna,
@@ -38,11 +41,11 @@ Imports:
     tidyr,
     concaveman,
     ggforce,
-    readxl
+    readxl,
+    generics
 Suggests: 
     covr,
     knitr,
-    patchwork,
     rmarkdown,
     roxygen2,
     testthat
