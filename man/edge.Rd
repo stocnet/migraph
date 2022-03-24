@@ -42,9 +42,8 @@ Identifying edges by certain properties
 
 \item \code{edge_betweenness}: Calculate number of shortest paths going through an edge
 
-\item \code{edge_closeness}: Calculate the average distance of a tie to
-other ties in the network. Row names indicate the node at the head of the
-first tie and column names indicate the node at the tail of the last tie.
+\item \code{edge_closeness}: Calculate the closeness of each edge to each other edge
+in the network.
 }}
 
 \examples{
@@ -52,5 +51,9 @@ edge_mutual(ison_algebra_class)
 edge_multiple(ison_algebra_class)
 edge_loop(ison_algebra_class)
 edge_betweenness(ison_adolescent_friends)
-edge_closeness(ison_adolescent_friends)
+(ec <- edge_closeness(ison_adolescent_friends))
+plot(ec)
+ison_adolescent_friends \%>\% 
+  activate(edges) \%>\% mutate(weight = ec) \%>\% 
+  autographr()
 }

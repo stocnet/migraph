@@ -43,15 +43,33 @@ edge_betweenness <- function(object){
   igraph::edge_betweenness(object)
 }
 
-#' @describeIn edge Calculate the average distance of a tie to 
-#' other ties in the network. Row names indicate the node at the head of the 
-#' first tie and column names indicate the node at the tail of the last tie.
+#' @describeIn edge Calculate the closeness of each edge to each other edge
+#' in the network.
 #' @importFrom igraph distances
 #' @examples
-#' edge_closeness(ison_adolescent_friends)
+#' (ec <- edge_closeness(ison_adolescent_friends))
+#' plot(ec)
+#' ison_adolescent_friends %>% 
+#'   activate(edges) %>% mutate(weight = ec) %>% 
+#'   autographr()
 #' @export
 edge_closeness <- function(object){
-  dist <- igraph::distances(object)
-  out <- ifelse(dist==0, NA, dist-1)
-  out
+  edge_adj <- make_edge_adjacency(object)
+  node_closeness(edge_adj)
 }
+
+make_edge_adjacency <- function(object){
+  edges <- as_edgelist(object)
+  edges <- paste(edges$from, edges$to, sep = "-")
+  edges <- expand.grid(edges, edges)
+  edges$value <- (stringr::str_remove(edges$Var1, "-.*$") ==
+    stringr::str_remove(edges$Var2, "-.*$") |
+    stringr::str_remove(edges$Var1, "^.*-") ==
+    stringr::str_remove(edges$Var2, "-.*$") |
+    stringr::str_remove(edges$Var1, "-.*$") ==
+    stringr::str_remove(edges$Var2, "^.*-") |
+    stringr::str_remove(edges$Var1, "^.*-") ==
+    stringr::str_remove(edges$Var2, "^.*-"))*1
+  as_matrix(edges)
+}
+
