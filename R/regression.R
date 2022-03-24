@@ -38,7 +38,7 @@
 #'   proportional similarity between the attribute's values 
 #'   for the sending and receiving nodes
 #'   - dyadic covariates (other networks) can just be named
-#' @param data An igraph, network, or tidygraph object.
+#' @inheritParams is
 #' @param method A method for establishing the null hypothesis.
 #'   Note that "qap" uses Dekker et al's (2007) double semi-partialling technique,
 #'   whereas "qapy" permutes only the $y$ variable.
@@ -78,26 +78,21 @@
 #' @examples
 #' messages <- mutate_edges(ison_eies, 
 #'   generate_random(ison_eies), attr_name = "random")
-#' (model1 <- network_reg(weight ~ random + 
+#' model1 <- network_reg(weight ~ random + 
 #'   ego(Discipline) + same(Discipline) + 
-#'   ego(Citations) + same(Citations), messages, times = 200))
-#' messages <- messages %>% activate(edges) %>% 
-#'    tidygraph::mutate(messaged = (weight > 0)*1)
-#' (model2 <- network_reg(messaged ~ random * 
-#'   same(Discipline) + sim(Citations), messages, times = 200))
+#'   alter(Citations), 
+#'   messages, times = 100)
 #' tidy(model1)
-#' tidy(model2, exponentiate = TRUE)
 #' glance(model1)
-#' glance(model2)
 #' @export
-network_reg <- function(formula, data,
+network_reg <- function(formula, object,
                         method = c("qap","qapy"),
                         times = 1000,
                         strategy = "sequential",
                         verbose = FALSE) {
   
   # Setup ####
-  matrixList <- convertToMatrixList(formula, data)
+  matrixList <- convertToMatrixList(formula, object)
   convForm <- convertFormula(formula, matrixList)
   
   method <- match.arg(method)
@@ -467,14 +462,15 @@ generics::glance
 #' @export
 glance.netlm <- function(x, ...) {
   
-  mss <- sum((fitted(x) - mean(fitted(x)))^2)
-  rss <- sum(resid(x)^2)
+  mss <- sum((stats::fitted(x) - mean(stats::fitted(x)))^2)
+  rss <- sum(stats::resid(x)^2)
   qn <- NROW(x$qr$qr)
   df.int <- x$intercept
   rdf <- qn - x$rank
   resvar <- rss/rdf
-  fstatistic <- c(value = (mss/(x$rank - df.int))/resvar, numdf = x$rank - 
-                    df.int, dendf = rdf)
+  fstatistic <- c(value = (mss/(x$rank - df.int))/resvar, 
+                  numdf = x$rank - df.int, 
+                  dendf = rdf)
   r.squared <- mss/(mss + rss)
   adj.r.squared <- 1 - (1 - r.squared) * ((qn - df.int)/rdf)
   sigma <- sqrt(resvar)
@@ -484,7 +480,7 @@ glance.netlm <- function(x, ...) {
       adj.r.squared = adj.r.squared,
       sigma = sigma,
       statistic = fstatistic["value"],
-      p.value = pf(
+      p.value = stats::pf(
         fstatistic["value"],
         fstatistic["numdf"],
         fstatistic["dendf"],
@@ -534,8 +530,8 @@ glance.netlogit <- function(x, ...) {
     AIC = x$aic,
     AICc = x$aic + (2*x$rank^2 + 2*x$rank)/(x$n-x$rank-1),
     BIC = x$bic,
-    chi.squared = 1 - stats::pchisq(x$null.deviance - x$deviance, df = x$df.null - 
-                               x$df.residual),
+    chi.squared = 1 - stats::pchisq(x$null.deviance - x$deviance, 
+                                    df = x$df.null - x$df.residual),
     deviance = x$deviance,
     null.deviance = x$null.deviance,
     df.residual = stats::df.residual(x),

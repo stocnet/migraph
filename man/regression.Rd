@@ -7,7 +7,7 @@
 \usage{
 network_reg(
   formula,
-  data,
+  object,
   method = c("qap", "qapy"),
   times = 1000,
   strategy = "sequential",
@@ -34,7 +34,14 @@ for the sending and receiving nodes
 \item dyadic covariates (other networks) can just be named
 }}
 
-\item{data}{An igraph, network, or tidygraph object.}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 
 \item{method}{A method for establishing the null hypothesis.
 Note that "qap" uses Dekker et al's (2007) double semi-partialling technique,
@@ -89,17 +96,12 @@ will always be respected in permutations and analysis.
 \examples{
 messages <- mutate_edges(ison_eies, 
   generate_random(ison_eies), attr_name = "random")
-(model1 <- network_reg(weight ~ random + 
+model1 <- network_reg(weight ~ random + 
   ego(Discipline) + same(Discipline) + 
-  ego(Citations) + same(Citations), messages, times = 200))
-messages <- messages \%>\% activate(edges) \%>\% 
-   tidygraph::mutate(messaged = (weight > 0)*1)
-(model2 <- network_reg(messaged ~ random * 
-  same(Discipline) + sim(Citations), messages, times = 200))
+  alter(Citations), 
+  messages, times = 100)
 tidy(model1)
-tidy(model2, exponentiate = TRUE)
 glance(model1)
-glance(model2)
 }
 \references{
 Krackhardt, David (1988)

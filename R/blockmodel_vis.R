@@ -155,7 +155,7 @@ elbow_finder <- function(x_values, y_values) {
   max_df <- data.frame(x = c(min(x_values), max(x_values)), 
                        y = c(min(y_values), max(y_values)))
   # Creating straight line between the max values
-  fit <- lm(max_df$y ~ max_df$x)
+  fit <- stats::lm(max_df$y ~ max_df$x)
   # Distance from point to line
   distances <- vector()
   for (i in seq_len(length(x_values))) {

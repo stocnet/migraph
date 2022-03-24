@@ -25,6 +25,15 @@ test_permutation(
 )
 }
 \arguments{
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
+
 \item{FUN}{A graph-level statistic function to test.}
 
 \item{...}{Additional arguments to be passed on to FUN,
@@ -59,7 +68,7 @@ marvel_friends <- to_unsigned(ison_marvel_relationships)
 marvel_friends <- to_main_component(marvel_friends) \%>\% 
   filter(PowerOrigin == "Human")
 (cugtest <- test_random(marvel_friends, graph_ei_index, attribute = "Attractive",
-  times = 2000))
+  times = 200))
 plot(cugtest)
 (qaptest <- test_permutation(marvel_friends, 
                 graph_ei_index, attribute = "Attractive",
