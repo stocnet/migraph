@@ -39,7 +39,7 @@ Cambridge University Press: Cambridge.
 ### Works with your current network analysis workflow
 
 The package is offered as a complement to existing R packages for network analysis
-and thus tries to work well with whatever format you are already working with.
+and thus tries to work well with whatever format network objects you are already working with.
 All `{migraph}` measures and models work with data in base formats:
 
 - adjacency and incidence _matrices_
@@ -51,23 +51,56 @@ as well as with objects constructed from the following packages:
 - [`{network}`](http://statnet.org)
 - [`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html)
 
-`{migraph}`'s `as_*()` functions can be used to translate objects from
-one class into another, losing as little information as possible along the way.
+`{migraph}`'s `as_*()` functions can be used to translate objects 
+from one of the above classes into any other, and include:
+
+- `r library(migraph); paste0(ls("package:migraph")[grepl("^as_", ls("package:migraph"))], "()")`
+
+These functions are designed to be as intuitive and lossless as possible,
+outperforming many other class-coercion packages.
 
 #### Manipulation
 
-- Coercion between classes: `as_igraph()`, `as_tidygraph()`, `as_network()`, `as_edgelist()`, and `as_matrix()`
-- Logical tests of properties: e.g. `is_twomode()`, `is_directed()`, `is_labelled()`, `is_weighted()`
-- Transforming properties: `to_undirected()`, `to_unnamed()`, `to_unweighted()`, `to_onemode()`, and `to_main_component()`
-- From two-mode to one-mode: `project_rows()` and `project_cols()`
+Regardless of which class object you are working with,
+the same syntax can be used to work with and manipulate your data.
+
+`{migraph}`'s `is_*()` functions offer fast logical tests 
+of network properties, e.g.:
+
+- `r library(migraph); paste0(ls("package:migraph")[grepl("^is_", ls("package:migraph"))], "()")`
+
+`{migraph}`'s `to_*()` functions can be used on any class object 
+to transform networks into networks with other properties, e.g.:
+
+- `r library(migraph); paste0(ls("package:migraph")[grepl("^to_", ls("package:migraph"))], "()")`
 
 #### Making
 
-`{migraph}` includes algorithms for creating and generating
+`{migraph}` includes algorithms for making
 both one-mode and two-mode networks with particular properties.
+The `create_*` group of functions create networks with a particular structure,
+e.g.:
+
+- `r library(migraph); paste0(ls("package:migraph")[grepl("^create_", ls("package:migraph"))], "()")`
+
+The `generate_*` group of functions generate networks from particular
+generative mechanisms, e.g.:
+
+- `r library(migraph); paste0(ls("package:migraph")[grepl("^generate_", ls("package:migraph"))], "()")`
+
+`{migraph}` includes a number of prominent network datasets,
+especially multimodal and multiplex examples for demonstrating
+more advanced methods.
+
+- `r library(migraph); ls("package:migraph")[grepl("^mpn_", ls("package:migraph"))]`
+- `r library(migraph); ls("package:migraph")[grepl("^ison_", ls("package:migraph"))]`
 
 `{migraph}` can also import and export to Excel edgelists and nodelists,
-and [UCINET](http://www.analytictech.com/archive/ucinet.htm) files.
+[UCINET](http://www.analytictech.com/archive/ucinet.htm) and 
+[Pajek](http://mrvar.fdv.uni-lj.si/pajek/) files, e.g.:
+
+- `r library(migraph); paste0(ls("package:migraph")[grepl("^read_", ls("package:migraph"))], "()")`
+- `r library(migraph); paste0(ls("package:migraph")[grepl("^write_", ls("package:migraph"))], "()")`
 
 ### Extends your current network analysis workflow
 
@@ -83,7 +116,7 @@ with existing function names wherever possible.
 - Centralization: `graph_degree()`, `graph_closeness()`, `graph_betweenness()`, and `graph_eigenvector()`
 - Cohesion: `graph_density()`, `graph_reciprocity()`, `graph_transitivity()`, `graph_equivalency()`, and `graph_congruency()`
 - Censuses: `node_tie_census()`, `node_dyad_census()`, `node_triad_census()`, `node_mixed_census()`, `node_quad_census()`, and `graph_triad_census()`
-- Other measures: e.g. `node_constraint()`, `node_smallworld()`
+- Other measures: e.g. `node_constraint()`, `graph_smallworld()`
 
 #### Models
 

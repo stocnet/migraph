@@ -36,9 +36,9 @@ software companion to the book:
 ### Works with your current network analysis workflow
 
 The package is offered as a complement to existing R packages for
-network analysis and thus tries to work well with whatever format you
-are already working with. All `{migraph}` measures and models work with
-data in base formats:
+network analysis and thus tries to work well with whatever format
+network objects you are already working with. All `{migraph}` measures
+and models work with data in base formats:
 
 -   adjacency and incidence *matrices*
 -   one-mode and two-mode *data frame* edgelists
@@ -50,26 +50,69 @@ as well as with objects constructed from the following packages:
 -   [`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html)
 
 `{migraph}`’s `as_*()` functions can be used to translate objects from
-one class into another, losing as little information as possible along
-the way.
+one of the above classes into any other, and include:
+
+-   as\_edgelist(), as\_igraph(), as\_matrix(), as\_network(),
+    as\_tidygraph()
+
+These functions are designed to be as intuitive and lossless as
+possible, outperforming many other class-coercion packages.
 
 #### Manipulation
 
--   Coercion between classes: `as_igraph()`, `as_tidygraph()`,
-    `as_network()`, `as_edgelist()`, and `as_matrix()`
--   Logical tests of properties: e.g. `is_twomode()`, `is_directed()`,
-    `is_labelled()`, `is_weighted()`
--   Transforming properties: `to_undirected()`, `to_unnamed()`,
-    `to_unweighted()`, `to_onemode()`, and `to_main_component()`
--   From two-mode to one-mode: `project_rows()` and `project_cols()`
+Regardless of which class object you are working with, the same syntax
+can be used to work with and manipulate your data.
+
+`{migraph}`’s `is_*()` functions offer fast logical tests of network
+properties, e.g.:
+
+-   is\_acyclic(), is\_bipartite(), is\_complex(), is\_connected(),
+    is\_directed(), is\_edgelist(), is\_graph(), is\_labelled(),
+    is\_migraph(), is\_multiplex(), is\_signed(), is\_twomode(),
+    is\_uniplex(), is\_weighted()
+
+`{migraph}`’s `to_*()` functions can be used on any class object to
+transform networks into networks with other properties, e.g.:
+
+-   to\_main\_component(), to\_mode1(), to\_mode2(), to\_multilevel(),
+    to\_named(), to\_onemode(), to\_simplex(), to\_undirected(),
+    to\_uniplex(), to\_unnamed(), to\_unsigned(), to\_unweighted()
 
 #### Making
 
-`{migraph}` includes algorithms for creating and generating both
-one-mode and two-mode networks with particular properties.
+`{migraph}` includes algorithms for making both one-mode and two-mode
+networks with particular properties. The `create_*` group of functions
+create networks with a particular structure, e.g.:
+
+-   create\_complete(), create\_components(), create\_empty(),
+    create\_lattice(), create\_ring(), create\_star(), create\_tree()
+
+The `generate_*` group of functions generate networks from particular
+generative mechanisms, e.g.:
+
+-   generate\_permutation(), generate\_random(), generate\_scalefree(),
+    generate\_smallworld()
+
+`{migraph}` includes a number of prominent network datasets, especially
+multimodal and multiplex examples for demonstrating more advanced
+methods.
+
+-   mpn\_bristol, mpn\_DE\_1990, mpn\_DE\_2008, mpn\_DemSxP,
+    mpn\_elite\_mex, mpn\_elite\_usa\_advice, mpn\_elite\_usa\_money,
+    mpn\_IT\_1990, mpn\_IT\_2008, mpn\_OverSxP, mpn\_RepSxP,
+    mpn\_ryanair, mpn\_UK\_1990, mpn\_UK\_2008
+-   ison\_adolescent\_friends, ison\_algebra\_class, ison\_bb, ison\_bm,
+    ison\_brandes, ison\_eies, ison\_karateka,
+    ison\_marvel\_relationships, ison\_marvel\_teams, ison\_mb,
+    ison\_mm, ison\_southern\_women
 
 `{migraph}` can also import and export to Excel edgelists and nodelists,
-and [UCINET](http://www.analytictech.com/archive/ucinet.htm) files.
+[UCINET](http://www.analytictech.com/archive/ucinet.htm) and
+[Pajek](http://mrvar.fdv.uni-lj.si/pajek/) files, e.g.:
+
+-   read\_edgelist(), read\_nodelist(), read\_pajek(), read\_ucinet()
+-   write\_edgelist(), write\_nodelist(), write\_pajek(),
+    write\_ucinet()
 
 ### Extends your current network analysis workflow
 
@@ -92,7 +135,7 @@ function names wherever possible.
 -   Censuses: `node_tie_census()`, `node_dyad_census()`,
     `node_triad_census()`, `node_mixed_census()`, `node_quad_census()`,
     and `graph_triad_census()`
--   Other measures: e.g. `node_constraint()`, `node_smallworld()`
+-   Other measures: e.g. `node_constraint()`, `graph_smallworld()`
 
 #### Models
 
