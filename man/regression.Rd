@@ -3,7 +3,7 @@
 \name{regression}
 \alias{regression}
 \alias{network_reg}
-\title{Linear regression for network data}
+\title{Linear and logistic regression for network data}
 \usage{
 network_reg(
   formula,

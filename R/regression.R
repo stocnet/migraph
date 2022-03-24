@@ -1,4 +1,4 @@
-#' Linear regression for network data
+#' Linear and logistic regression for network data
 #' 
 #' This function provides an implementation of
 #' the multiple regression quadratic assignment procedure (MRQAP)

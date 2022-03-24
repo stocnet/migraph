@@ -33,7 +33,7 @@ NULL
 #' @export
 blockmodel <- function(object, clusters){
   # if(is_twomode(object)) object <- to_onemode(object)
-  mat <- as_matrix(to_onemode(object), weight = TRUE)
+  mat <- as_matrix(to_onemode(object))
   out <- sna::blockmodel(mat, clusters)
   if(is_twomode(object)){
     out$modes <- 2
