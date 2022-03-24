@@ -4,6 +4,7 @@
 \alias{is}
 \alias{is_migraph}
 \alias{is_graph}
+\alias{is_edgelist}
 \alias{is_twomode}
 \alias{is_weighted}
 \alias{is_directed}
@@ -19,6 +20,8 @@
 is_migraph(object)
 
 is_graph(object)
+
+is_edgelist(object)
 
 is_twomode(object)
 
@@ -59,6 +62,8 @@ properties.
 \item \code{is_migraph}: Tests whether network is migraph-compatible
 
 \item \code{is_graph}: Tests whether network contains graph-level information
+
+\item \code{is_edgelist}: Tests whether data frame is an edgelist
 
 \item \code{is_twomode}: Tests whether network is a two-mode network
 

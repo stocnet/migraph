@@ -34,6 +34,13 @@ is_graph <- function(object){
     igraph::is.igraph(object)
 }
 
+#' @describeIn is Tests whether data frame is an edgelist
+#' @export
+is_edgelist <- function(object){
+  if(!is.data.frame(object)) stop("This is not a data frame")
+  ncol(object) >= 2 & "from" %in% names(object) & "to" %in% names(object)
+}
+
 #' @describeIn is Tests whether network is a two-mode network
 #' @importFrom igraph is.bipartite
 #' @examples
@@ -86,8 +93,13 @@ is_weighted.matrix <- function(object) {
 
 #' @export
 is_weighted.network <- function(object) {
-  object <- as_matrix(object)
-  !all(object == 0 | object == 1)
+  "weight" %in% network::list.edge.attributes(object)
+}
+
+#' @export
+is_weighted.data.frame <- function(object) {
+  ncol(object)>=3 && 
+    ("weight" %in% names(object) | is.numeric(object[,3]))
 }
 
 #' @describeIn is Tests whether network is directed
