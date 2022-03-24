@@ -9,9 +9,9 @@
 #' @param layout an igraph layout. Default is Kamada-Kawai ("kk")
 #' @param based_on whether the layout of the joint plots should
 #' be based on the "first" or the "last" network.
-#' @importFrom gridExtra grid.arrange
 #' @importFrom rlang .data
 #' @importFrom ggplot2 stat
+#' @importFrom patchwork plot_layout
 #' @examples
 #' mpn_elite_mex <- mpn_elite_mex %>% filter(in_mpn == 1)
 #' mpn_elite_mex2 <- mpn_elite_mex  %>%
@@ -61,9 +61,7 @@ ggevolution <- function(..., layout = "kk",
     ggplot2::theme_void() +
     ggraph::geom_node_text(ggplot2::aes(label = .data$name), 
                            repel = TRUE)
-  gridExtra::grid.arrange(g1, g2, 
-                          ncol = length(networks))
-  
+  g1 + g2
 }
 
 #' Plotting a network at a particular timepoint (year)
