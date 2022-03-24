@@ -105,7 +105,8 @@ network_reg <- function(formula, object,
   valued <- is_weighted(matrixList[[1]])
   diag <- is_complex(matrixList[[1]])
   
-  if (any(sapply(lapply(g, is.na), any))) 
+  if (any(vapply(lapply(g, is.na), any, 
+                 FUN.VALUE = logical(1)))) 
     stop("Missing data supplied; this may pose problems for certain null hypotheses.")
   
   # Base ####
@@ -371,7 +372,8 @@ convertToMatrixList <- function(formula, data){
       }
     })
     if(length(out)==2){
-      namo <- paste(sapply(out, names), collapse = ":")
+      namo <- paste(vapply(out, names, FUN.VALUE = character(1)), 
+                    collapse = ":")
       out <- list(out[[1]][[1]] * out[[2]][[1]])
       names(out) <- namo
       out

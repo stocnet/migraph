@@ -266,9 +266,9 @@ read_ucinet <- function(file = file.choose()) {
       # Extract the title of the UCINET network
       t.length <- readBin(UCINET.header, what = "int", size = 1)
       if (t.length > 0) {
-        titl <- sapply(seq_len(t.length), function(i) {
+        titl <- vapply(seq_len(t.length), function(i) {
           rawToChar(readBin(UCINET.header, what = "raw", size = 1))
-        })
+        }, FUN.VALUE = character(1))
         titl <- paste(titl, collapse = "")
       } else {
         titl <- ""
