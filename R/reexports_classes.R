@@ -14,14 +14,6 @@ network::is.network
 #' @export
 network::as.network
 
-#' @importFrom sna print.netlm
-#' @export
-sna::print.netlm
-
-#' @importFrom sna print.summary.netlm
-#' @export
-sna::print.summary.netlm
-
 #' @importFrom dplyr %>%
 #' @export
 dplyr::`%>%`

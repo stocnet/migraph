@@ -8,8 +8,6 @@
 \alias{is_bipartite}
 \alias{is.network}
 \alias{as.network}
-\alias{print.netlm}
-\alias{print.summary.netlm}
 \alias{\%>\%}
 \alias{with_graph}
 \alias{is.tbl_graph}
@@ -46,8 +44,6 @@ below to see their documentation.
   \item{igraph}{\code{\link[igraph:is_igraph]{is.igraph}}, \code{\link[igraph:make_bipartite_graph]{is_bipartite}}}
 
   \item{network}{\code{\link[network:network]{as.network}}, \code{\link[network:network]{is.network}}}
-
-  \item{sna}{\code{\link[sna]{print.netlm}}, \code{\link[sna]{print.summary.netlm}}}
 
   \item{tidygraph}{\code{\link[tidygraph:context_accessors]{.E}}, \code{\link[tidygraph:context_accessors]{.G}}, \code{\link[tidygraph:context_accessors]{.N}}, \code{\link[tidygraph]{activate}}, \code{\link[tidygraph:bind_graphs]{bind_edges}}, \code{\link[tidygraph:reexports]{filter}}, \code{\link[tidygraph:tbl_graph]{is.tbl_graph}}, \code{\link[tidygraph:reexports]{mutate}}, \code{\link[tidygraph:reexports]{rename}}, \code{\link[tidygraph]{with_graph}}}
 }}
