@@ -9,7 +9,7 @@
 #' 
 #' |  to_      | edgelists | matrices  |igraph  |tidygraph  |network  |
 #' | ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|
-#' | unweighted  |  | X | X | X | X |
+#' | unweighted  | X | X | X | X | X |
 #' | undirected  |  | X | X | X | X |
 #' | unsigned  |  |  | X | X |   |
 #' | uniplex  |  |   | X | X |   |
@@ -78,9 +78,15 @@ to_unweighted.matrix <- function(object, threshold = 1) {
   object
 }
 
+#' @export
+to_unweighted.data.frame <- function(object, threshold = 1) {
+  if(is_edgelist(object)) object[,1:2]
+  else stop("Not an edgelist")
+}
+
 #' @rdname to
 #' @examples
-#' to_unnamed(project_rows(southern_women))
+#' to_unnamed(to_mode1(southern_women))
 #' @export
 to_unnamed <- function(object) UseMethod("to_unnamed")
 
@@ -122,7 +128,7 @@ to_unnamed.data.frame <- function(object) {
 
 #' @rdname to
 #' @examples
-#' to_undirected(ison_coleman)
+#' to_undirected(ison_adolescent_friends)
 #' @export
 to_undirected <- function(object) UseMethod("to_undirected")
 
@@ -248,7 +254,7 @@ to_unsigned.igraph <- function(object, keep = c("positive", "negative")){
 #' @rdname to
 #' @importFrom igraph simplify
 #' @examples
-#' to_simplex(ison_m182)
+#' to_simplex(ison_algebra_class)
 #' @export
 to_simplex <- function(object) UseMethod("to_simplex")
 

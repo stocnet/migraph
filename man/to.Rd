@@ -82,7 +82,7 @@ These functions offer tools for transforming certain properties of migraph-consi
 Since some modifications are easier to implement for some objects than others,
 here are the currently implemented modifications:\tabular{lccccc}{
    to_ \tab edgelists \tab matrices \tab igraph \tab tidygraph \tab network \cr
-   unweighted \tab  \tab X \tab X \tab X \tab X \cr
+   unweighted \tab X \tab X \tab X \tab X \tab X \cr
    undirected \tab  \tab X \tab X \tab X \tab X \cr
    unsigned \tab  \tab  \tab X \tab X \tab  \cr
    uniplex \tab  \tab  \tab X \tab X \tab  \cr
