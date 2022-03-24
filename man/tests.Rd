@@ -25,23 +25,30 @@ test_permutation(
 )
 }
 \arguments{
-\item{object}{A data frame edgelist, matrix, igraph, tidygraph, or
-network object.}
-
 \item{FUN}{A graph-level statistic function to test.}
 
 \item{...}{Additional arguments to be passed on to FUN,
 e.g. the name of the attribute.}
 
 \item{times}{Integer indicating the number of draws to use for quantile
-estimation.
+estimation. (Relevant to the null hypothesis test only - the analysis
+itself is unaffected by this parameter.)
+Note that, as for all Monte Carlo procedures, convergence is slower for more
+extreme quantiles.
 By default, times=1000.
 1,000 - 10,000 repetitions recommended for publication-ready results.}
 
-\item{parallel}{If \code{{furrr}} is installed,
+\item{strategy}{If \code{{furrr}} is installed,
 then multiple cores can be used to accelerate the function.
+By default \code{"sequential"},
+but if multiple cores available,
+then \code{"multisession"} or \code{"multicore"} may be useful.
+Generally this is useful only when \code{times} > 1000.
+See \href{https://furrr.futureverse.org}{\code{{furrr}}} for more.}
+
+\item{verbose}{Whether the function should report on its progress.
 By default FALSE.
-Recommended if \code{times} > 1000.}
+See \href{https://progressr.futureverse.org}{\code{{progressr}}} for more.}
 }
 \description{
 These functions conduct conditional uniform graph (CUG)

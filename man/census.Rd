@@ -20,7 +20,14 @@ group_tie_census(object, clusters, decimals = 2)
 group_triad_census(object, clusters, decimals = 2)
 }
 \arguments{
-\item{object}{A migraph-consistent object.}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 
 \item{clusters}{a vector of cluster assignment.}
 
@@ -34,10 +41,10 @@ of nodes. Included also are group census functions for summarising
 the profiles of clusters of nodes in a network.
 }
 \examples{
-task_eg <- to_named(to_uniplex(ison_m182, "task_tie"))
+task_eg <- to_named(to_uniplex(ison_algebra_class, "task_tie"))
 (tie_cen <- node_tie_census(task_eg))
 (triad_cen <- node_triad_census(task_eg))
-(quad_cen <- node_quad_census(southern_women))
+(quad_cen <- node_quad_census(ison_southern_women))
 group_tie_census(task_eg, cutree(cluster_structural_equivalence(task_eg), 4))
 group_triad_census(task_eg, cutree(cluster_regular_equivalence(task_eg), 4))
 }

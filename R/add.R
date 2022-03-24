@@ -10,7 +10,7 @@ NULL
 #' @rdname add
 #' @importFrom igraph vertex_attr<-
 #' @examples 
-#' add_node_attributes(mpn_elite_mex, "wealth", 1:11)
+#' add_node_attributes(mpn_elite_mex, "wealth", 1:35)
 #' add_node_attributes(mpn_elite_usa_advice, "wealth", 1:14)
 #' @export
 add_node_attributes <- function(object, attr_name, vector){
@@ -34,7 +34,7 @@ add_node_attributes <- function(object, attr_name, vector){
 #' @rdname add
 #' @importFrom igraph edge_attr
 #' @examples
-#' add_edge_attributes(ison_coleman, "weight", c(1,2,1,1,1,3,2,2,3,1))
+#' add_edge_attributes(ison_adolescent_friends, "weight", c(1,2,1,1,1,3,2,2,3,1))
 #' @export
 add_edge_attributes <- function(object, attr_name, vector){
   object <- as_igraph(object)

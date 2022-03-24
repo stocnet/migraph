@@ -11,8 +11,14 @@ graph_blau_index(object, attribute, clusters = NULL)
 graph_ei_index(object, attribute)
 }
 \arguments{
-\item{object}{A data frame edgelist, matrix, igraph, tidygraph, or
-network object.}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 
 \item{attribute}{The name of a vertex attribute to measure the diversity of.}
 

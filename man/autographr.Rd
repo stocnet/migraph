@@ -59,6 +59,6 @@ graphing function that makes best use of the data,
 whatever its composition.
 }
 \examples{
-autographr(ison_coleman)
+autographr(ison_adolescent_friends)
 autographr(ison_karateka)
 }

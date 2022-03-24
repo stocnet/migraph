@@ -2,8 +2,14 @@
 #' 
 #' These functions implement logical tests for various network
 #' properties.
-#' @param object A migraph-consistent class object
-#' (matrix, edgelist, igraph, network, tidygraph)
+#' @param object An object of a migraph-consistent class:
+#'   \itemize{
+#'   \item matrix, from base R
+#'   \item edgelist, a data frame from base R or tibble from tibble
+#'   \item igraph, from the igraph package
+#'   \item network, from the network package
+#'   \item tbl_graph, from the tidygraph package
+#'   }
 #' @return TRUE if the condition is met, or FALSE otherwise.
 #' @family manipulation
 #' @name is

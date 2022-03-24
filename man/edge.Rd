@@ -20,8 +20,14 @@ edge_betweenness(object)
 edge_closeness(object)
 }
 \arguments{
-\item{object}{A migraph-consistent class object
-(matrix, edgelist, igraph, network, tidygraph)}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 }
 \description{
 Identifying edges by certain properties

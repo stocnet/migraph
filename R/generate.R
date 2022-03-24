@@ -83,6 +83,8 @@ generate_scalefree <- function(n, p = 1) {
 }
 
 #' @rdname generate
+#' @param with_attr Logical. Whether any attributes of the object
+#'   should be retained. By default TRUE. 
 #' @examples
 #' em1 <- autographr(mpn_elite_usa_advice)
 #' em2 <- autographr(generate_permutation(mpn_elite_usa_advice))

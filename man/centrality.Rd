@@ -80,9 +80,9 @@ Importantly, these functions also offer correct normalization for two-mode netwo
 node_degree(mpn_elite_mex)
 node_degree(ison_southern_women)
 node_closeness(mpn_elite_mex)
-node_closeness(southern_women)
+node_closeness(ison_southern_women)
 node_betweenness(mpn_elite_mex)
-node_betweenness(southern_women)
+node_betweenness(ison_southern_women)
 node_eigenvector(mpn_elite_mex)
 node_eigenvector(ison_southern_women)
 }

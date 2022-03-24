@@ -3,18 +3,10 @@
 #' These functions conduct conditional uniform graph (CUG) 
 #' or permutation (QAP) tests of any graph-level statistic.
 #' @name tests
-#' @inheritParams as_igraph
+#' @inheritParams regression
 #' @param FUN A graph-level statistic function to test.
 #' @param ... Additional arguments to be passed on to FUN,
 #'   e.g. the name of the attribute.
-#' @param times Integer indicating the number of draws to use for quantile
-#'   estimation.
-#'   By default, times=1000.
-#'   1,000 - 10,000 repetitions recommended for publication-ready results.
-#' @param parallel If `{furrr}` is installed, 
-#'   then multiple cores can be used to accelerate the function.
-#'   By default FALSE.
-#'   Recommended if `times` > 1000.
 NULL
 
 #' @rdname tests
@@ -112,10 +104,10 @@ test_permutation <- function(object, FUN, ...,
 }
 
 #' @export
-plot.cug_test <- function(result, 
+plot.cug_test <- function(x, ...,
                           threshold = .95, 
                           tails = c("two", "one")){
-  data <- data.frame(Statistic = result$rep.stat)
+  data <- data.frame(Statistic = x$rep.stat)
   p <- ggplot2::ggplot(data, 
                   ggplot2::aes(x = Statistic)) + 
     ggplot2::geom_density()
@@ -129,7 +121,7 @@ plot.cug_test <- function(result,
   d <- ggplot2::ggplot_build(p)$data[[1]]
   tails = match.arg(tails)
   if(tails == "one"){
-    if(result$obs.stat < quantile(data$Statistic, .5)){
+    if(x$obs.stat < quantile(data$Statistic, .5)){
       thresh <- quantile(data$Statistic, 1 - threshold)
       p <- p + ggplot2::geom_area(data = subset(d, x < thresh), 
                              aes(x = x, y = y), fill = "lightgrey")
@@ -147,15 +139,15 @@ plot.cug_test <- function(result,
                          aes(x = x, y = y), fill = "lightgrey")
   }
   p + ggplot2::theme_classic() + ggplot2::geom_density() +
-    ggplot2::geom_vline(ggplot2::aes(xintercept = result$obs.stat),
+    ggplot2::geom_vline(ggplot2::aes(xintercept = x$obs.stat),
                         color="red", size=1.2) + ggplot2::ylab("Density")
 }
 
 #' @export
-plot.qap_test <- function(result, 
+plot.qap_test <- function(x, ...,
                           threshold = .95, 
                           tails = c("two", "one")){
-  data <- data.frame(Statistic = result$dist)
+  data <- data.frame(Statistic = x$dist)
   p <- ggplot2::ggplot(data, 
                        ggplot2::aes(x = Statistic)) + 
     ggplot2::geom_density()
@@ -169,7 +161,7 @@ plot.qap_test <- function(result,
   d <- ggplot2::ggplot_build(p)$data[[1]]
   tails = match.arg(tails)
   if(tails == "one"){
-    if(result$testval < quantile(data$Statistic, .5)){
+    if(x$testval < quantile(data$Statistic, .5)){
       thresh <- quantile(data$Statistic, 1 - threshold)
       p <- p + ggplot2::geom_area(data = subset(d, x < thresh), 
                                   aes(x = x, y = y), fill = "lightgrey")
@@ -187,6 +179,6 @@ plot.qap_test <- function(result,
                          aes(x = x, y = y), fill = "lightgrey")
   }
   p + ggplot2::theme_classic() + ggplot2::geom_density() +
-    ggplot2::geom_vline(ggplot2::aes(xintercept = result$testval),
+    ggplot2::geom_vline(ggplot2::aes(xintercept = x$testval),
                         color="red", size=1.2) + ggplot2::ylab("Density")
 }

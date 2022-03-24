@@ -16,8 +16,7 @@
 #' object classes, which could otherwise lead to some unexpected results.
 #' @name coercion
 #' @family manipulation
-#' @param object A data frame edgelist, matrix, igraph, tidygraph, or
-#' network object.
+#' @inheritParams is
 #' @param twomode An option to override the heuristics for distinguishing
 #' incidence from adjacency matrices. By default FALSE.
 #' @details Behaviour is a little different depending on the data format.

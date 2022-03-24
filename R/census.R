@@ -6,7 +6,7 @@
 #' of nodes. Included also are group census functions for summarising
 #' the profiles of clusters of nodes in a network.
 #' @name census
-#' @param object A migraph-consistent object.
+#' @inheritParams is
 #' @param clusters a vector of cluster assignment.
 #' @param decimals Number of decimal points to round to.
 #' @importFrom igraph vcount graph.neighborhood delete_vertices triad_census
@@ -14,7 +14,7 @@ NULL
 
 #' @rdname census
 #' @examples
-#' task_eg <- to_named(to_uniplex(ison_m182, "task_tie"))
+#' task_eg <- to_named(to_uniplex(ison_algebra_class, "task_tie"))
 #' (tie_cen <- node_tie_census(task_eg))
 #' @export
 node_tie_census <- function(object){
@@ -85,7 +85,7 @@ node_triad_census <- function(object){
 #' @importFrom oaqc oaqc
 #' @importFrom tidygraph %E>%
 #' @examples 
-#' (quad_cen <- node_quad_census(southern_women))
+#' (quad_cen <- node_quad_census(ison_southern_women))
 #' @export
 node_quad_census <- function(object){
   graph <- object %>% as_tidygraph() %E>% 
@@ -210,7 +210,7 @@ group_triad_census <- function(object, clusters, decimals = 2) {
 
 #' @rdname graph_census
 #' @examples 
-#' graph_dyad_census(ison_coleman)
+#' graph_dyad_census(ison_adolescent_friends)
 #' @export
 graph_dyad_census <- function(object) {
   if (is_twomode(object)) {
@@ -226,7 +226,7 @@ graph_dyad_census <- function(object) {
 
 #' @rdname graph_census
 #' @examples 
-#' graph_triad_census(ison_coleman)
+#' graph_triad_census(ison_adolescent_friends)
 #' @export
 graph_triad_census <- function(object) {
   if (is_twomode(object)) {

@@ -36,7 +36,7 @@
 #' @importFrom ggforce geom_mark_hull
 #' @import concaveman
 #' @examples
-#' autographr(ison_coleman)
+#' autographr(ison_adolescent_friends)
 #' autographr(ison_karateka)
 #' @export
 autographr <- auto_graph <- function(object,

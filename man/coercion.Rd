@@ -20,8 +20,14 @@ as_tidygraph(object, twomode = FALSE)
 as_network(object)
 }
 \arguments{
-\item{object}{A data frame edgelist, matrix, igraph, tidygraph, or
-network object.}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 
 \item{twomode}{An option to override the heuristics for distinguishing
 incidence from adjacency matrices. By default FALSE.}

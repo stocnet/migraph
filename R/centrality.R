@@ -69,7 +69,7 @@ node_degree <- function (object,
 #' @import tidygraph
 #' @examples
 #' node_closeness(mpn_elite_mex)
-#' node_closeness(southern_women)
+#' node_closeness(ison_southern_women)
 #' @export
 node_closeness <- function (object, 
                             weights = NULL, mode = "out", 
@@ -111,7 +111,7 @@ node_closeness <- function (object,
 #' @import tidygraph
 #' @examples
 #' node_betweenness(mpn_elite_mex)
-#' node_betweenness(southern_women)
+#' node_betweenness(ison_southern_women)
 #' @return A numeric vector giving the betweenness centrality measure of each node.
 #' @export 
 node_betweenness <- function(object, 

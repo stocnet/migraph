@@ -34,6 +34,9 @@ a network of the same dimensions will be created.
 \item{directed}{Whether to generate network as directed. By default FALSE.}
 
 \item{object}{a migraph-consistent object}
+
+\item{with_attr}{Logical. Whether any attributes of the object
+should be retained. By default TRUE.}
 }
 \description{
 Create networks from particular probabilities

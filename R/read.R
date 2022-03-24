@@ -12,7 +12,7 @@
 #' Note that in `read_ucinet()` the file path should be to the header file (.##h),
 #' if it exists and that it is currently not possible to import multiple
 #' networks from a single UCINET file. Please convert these one by one.
-#' @param object A migraph-consistent object to be exported.
+#' @inheritParams is
 #' @param sv Allows users to specify whether their csv file is
 #' `"comma"` (English) or `"semi-colon"` (European) separated.
 #' @param ... Additional parameters passed to the read/write function.
@@ -143,14 +143,15 @@ write_nodelist <- function(object,
 
 #' @describeIn read Reading pajek (.net/.paj) files
 #' @importFrom network read.paj
+#' @importFrom utils read.delim
 #' @importFrom stringr str_remove_all str_trim
 #' @export
 read_pajek <- function(file = file.choose(), ...) {
   out <- network::read.paj(file, ...)
   if (!is.network(out)) out <- out[[1]][[1]]
   out <- as_tidygraph(out)
-  if(grepl("Partition", read.delim(file))){
-    clus <- strsplit(paste(read.delim(file)), "\\*")[[1]]
+  if(grepl("Partition", utils::read.delim(file))){
+    clus <- strsplit(paste(utils::read.delim(file)), "\\*")[[1]]
     clus <- clus[grepl("^Vertices|^Partition", clus)][-1]
     if(length(clus) %% 2 != 0) stop("Unexpected .pajek file structure.")
     namo <- clus[c(TRUE, FALSE)]
@@ -357,6 +358,7 @@ read_ucinet <- function(file = file.choose()) {
 #' and be saved to the working directory.
 #' @param name name of matrix to be known in UCINET.
 #' By default the name will be the same as the object.
+#' @importFrom utils askYesNo
 #' @return A pair of UCINET files in V6404 file format (.##h, .##d)
 #' @examples
 #' \dontrun{
@@ -372,7 +374,7 @@ write_ucinet <- function(object,
   if (missing(name)) name <- object_name
   # Check to avoid overwriting files by mistake
   if (file.exists(paste(filename, ".##h", sep = ""))) {
-    overwrite <- askYesNo(paste("There is already a file called ", 
+    overwrite <- utils::askYesNo(paste("There is already a file called ", 
                             object_name, 
                             ".##h here. Do you want to overwrite it?", 
                             sep = ""))
