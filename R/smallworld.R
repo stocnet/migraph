@@ -37,7 +37,7 @@ graph_smallworld <- function(object, times = 100) {
   } else {
     obsclust <- graph_transitivity(object)
     expclust <- mean(vapply(1:times, 
-                            function(x) graph_equivalency(generate_random(object)),
+                            function(x) graph_transitivity(generate_random(object)),
                             FUN.VALUE = numeric(1)))
   }
   
