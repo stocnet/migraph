@@ -5,13 +5,13 @@
 \alias{mpn_elite_usa}
 \alias{mpn_elite_usa_advice}
 \alias{mpn_elite_usa_money}
-\title{Two-mode and three-mode American power elite database}
+\title{Two-mode and three-mode American power elite database (Domhoff 2016)}
 \format{
-\code{tbl_graph} network object. The network is bipartite, undirected,
-named, and unweighted. It contains 32 nodes and 46 edges.
+\code{mpn_elite_usa_advice} is a two-mode, named, and unweighted \code{tbl_graph}
+with 32 nodes and 46 edges.
 
-\code{tbl_graph} network object. The network is bipartite, undirected,
-named, and unweighted. It contains 38 nodes and 103 edges.
+\code{mpn_elite_usa_advice} is a two-mode, named, and unweighted \code{tbl_graph}
+with 38 nodes and 103 edges.
 }
 \usage{
 data(mpn_elite_usa_advice)
@@ -19,14 +19,14 @@ data(mpn_elite_usa_advice)
 data(mpn_elite_usa_money)
 }
 \description{
-A 2-mode network of persons serving as directors or trustees of think tanks.
+\code{mpn_elite_usa_advice} is a 2-mode network of persons serving as directors or trustees of think tanks.
 Think tanks are “public-policy research analysis and engagement organizations
 that generate policy-oriented research, analysis, and advice on domestic and international issues,
 thereby enabling policymakers and the public to make informed decisions about public policy” (McGann 2016: 6).
 The Power Elite Database (Domhoff 2016) includes information on the directors of 33 prominent think tanks in 2012.
 Here we include only 14 directors who held three or more seats among 20 think tanks.
 
-This data is based on 26 elites who sat on the boards of directors
+\code{mpn_elite_usa_money} is based on 26 elites who sat on the boards of directors
 for at least two of six economic policy making organizations (Domhoff 2016),
 and also made campaign contributions to one or more of six candidates
 running in the primary election contests for the 2008 Presidential nominations
@@ -34,12 +34,6 @@ of the Republican Party (Rudy Giuliani, John McCain, Mitt Romney)
 or the Democratic Party (Hillary Clinton, Christopher Dodd, Barack Obama).
 }
 \references{
-Domhoff, G William. 2016. \href{https://whorulesamerica.ucsc.edu/power_elite/}{“Who Rules America? Power Elite Database.”}
-
-Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
-\href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
-Cambridge University Press. Cambridge University Press.
-
 Domhoff, G William. 2016. \href{https://whorulesamerica.ucsc.edu/power_elite/}{“Who Rules America? Power Elite Database.”}
 
 The Center for Responsive Politics. 2019. \href{http://www.opensecrets.org}{“OpenSecrets.”}

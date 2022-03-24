@@ -3,7 +3,7 @@
 \docType{data}
 \name{mpn_bristol}
 \alias{mpn_bristol}
-\title{Multimodal (3) Bristol protest events, 1990-2002}
+\title{Multimodal (3) Bristol protest events, 1990-2002 (Diani and Bison 2004)}
 \format{
 A \code{tbl_graph} object with 264 rows and columns. Node IDs are
 prefaced with a type identifier:
@@ -26,5 +26,10 @@ data(mpn_bristol)
 A multimodal (3) network containing individuals affiliations to civic organizations
 in Bristol and their participation in major protest and civic events between 1990-2002,
 and the involvement of the organizations in these events.
+}
+\references{
+Diani, Mario, and Ivano Bison. 2004.
+“Organizations, Coalitions, and Movements.”
+Theory and Society 33(3–4):281–309.
 }
 \keyword{datasets}

@@ -3,7 +3,7 @@
 \docType{data}
 \name{mpn_elite_mex}
 \alias{mpn_elite_mex}
-\title{One-mode Mexican power elite database}
+\title{One-mode Mexican power elite database (Knoke 1990)}
 \format{
 \code{tbl_graph} network object.
 The network is simple, undirected, and named.
