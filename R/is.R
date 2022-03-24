@@ -69,6 +69,12 @@ is_twomode.network <- function(object) {
   dim(object)[1] != dim(object)[2]
 }
 
+#' @export
+is_twomode.data.frame <- function(object) {
+  is_edgelist(object) && 
+    length(intersect(object[,1], object[,2])) == 0
+}
+
 #' @describeIn is Tests whether network is weighted
 #' @importFrom igraph is.weighted
 #' @examples
