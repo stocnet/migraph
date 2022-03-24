@@ -110,30 +110,35 @@ as_matrix <- function(object) UseMethod("as_matrix")
 as_matrix.data.frame <- function(object){
   if ("tbl_df" %in% class(object)) object <- as.data.frame(object)
   
-      if (ncol(object) == 2 | !weight) {
-        object <- data.frame(object) # in case it's a tibble
-        object <- as.data.frame(table(c(object[,1]),
-                                      c(object[,2])))
-      }
-      if (ncol(object) == 3) {
-        # Adds a third (weight) column to a two-column edgelist
-        # object <- object[order(object[,1], object[,2]),]
-        nodes1 <- as.character(unique(object[,1]))
-        nodes1 <- sort(nodes1)
-        nodes2 <- as.character(unique(object[,2]))
-        nodes2 <- sort(nodes2)
-        if (nrow(object) != length(nodes1)*length(nodes2)) {
-          allcombs <- expand.grid(object[,1:2], stringsAsFactors = FALSE)
-          allcombs <- subset(allcombs, !duplicated(allcombs))
-          object <- merge(allcombs, object, all.x = TRUE)
-          object <- object[order(object[,2], object[,1]),]
-          object[is.na(object)] <- 0
-        }
-        out <- structure(as.numeric(object[,3]),
-                         .Dim = c(as.integer(length(nodes1)),
-                                  as.integer(length(nodes2))),
-                         .Dimnames = list(nodes1, nodes2))
-      }
+  if (ncol(object) == 2 | !is_weighted(object)) {
+    object <- data.frame(object) # in case it's a tibble
+    object <- as.data.frame(table(c(object[,1]),
+                                  c(object[,2])))
+    names(object) <- c("from","to","weight")
+  }
+  if (ncol(object) == 3) {
+    # Adds a third (weight) column to a two-column edgelist
+    # object <- object[order(object[,1], object[,2]),]
+    nodes1 <- as.character(unique(object[,1]))
+    nodes1 <- sort(nodes1)
+    nodes2 <- as.character(unique(object[,2]))
+    nodes2 <- sort(nodes2)
+    if(length(intersect(nodes1, nodes2)) > 0 &
+       !setequal(nodes1, nodes2))
+      nodes1 <- nodes2 <- sort(unique(c(nodes1,nodes2)))
+    if (nrow(object) != length(nodes1)*length(nodes2)) {
+      allcombs <- expand.grid(nodes1, nodes2, stringsAsFactors = FALSE)
+      allcombs <- subset(allcombs, !duplicated(allcombs))
+      names(allcombs) <- c("from","to")
+      object <- merge(allcombs, object, all.x = TRUE)
+      object <- object[order(object[,2], object[,1]),]
+      object[is.na(object)] <- 0
+    }
+    out <- structure(as.numeric(object[,3]),
+                     .Dim = c(as.integer(length(nodes1)),
+                              as.integer(length(nodes2))),
+                     .Dimnames = list(nodes1, nodes2))
+  }
   out
 }
 

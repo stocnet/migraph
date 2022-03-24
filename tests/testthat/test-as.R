@@ -1,8 +1,11 @@
 # Tests for the as_ conversion methods
 
-mat1 <- matrix(c(0,1,0,1,0,1,0,1,0,0,0,1),3,4)
-rownames(mat1) <- LETTERS[1:3]
+mat1 <- matrix(c(0,1,0,0,1,0,1,0,0,1,0,1,0,0,0,0),4,4, byrow = TRUE)
+rownames(mat1) <- LETTERS[1:4]
 colnames(mat1) <- LETTERS[1:4]
+mat2 <- matrix(c(0,1,0,0,3,0,2,0,0,5,0,4,0,0,0,0),4,4, byrow = TRUE)
+rownames(mat2) <- LETTERS[1:4]
+colnames(mat2) <- LETTERS[1:4]
 # Unweighted test
 data1 <- data.frame(from = c("A","B","B","C","C"),
                     to = c("B","C","A","D","B"))
@@ -15,9 +18,8 @@ data3 <- data1
 data3$hello <- 1:5
 
 test_that("data frame converted to matrix correctly",{
-  a <- as_matrix(data1)
-  expect_true(is.matrix(a))
-  expect_equal(as_matrix(data2), mat1)
+  expect_equal(as_matrix(data1), mat1)
+  expect_equal(as_matrix(data2), mat2)
 })
 
 test_that("as_matrix converts correctly",{

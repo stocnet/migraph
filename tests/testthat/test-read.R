@@ -22,15 +22,15 @@ test_that("read_edgelist works", {
 test_that("write_edgelist works", {
   file <-  tempfile() # Create file
   file2 <- tempfile() # Create file
-  edgelisttest <- as_igraph(dplyr::tibble(From = c(1, 2, 2),
-                                          To = c(2, 1, 3),
-                                          Weight = c(1, 2, 3)))
+  edgelisttest <- as_igraph(dplyr::tibble(from = c(1, 2, 2),
+                                          to = c(2, 1, 3),
+                                          weight = c(1, 2, 3)))
   write_edgelist(edgelisttest,
                  filename = file)
   expect_equal(read.csv(file),
                data.frame(from = c(1, 2, 2),
                              to = c(2, 1, 3),
-                             Weight = c(1, 2, 3)))
+                             weight = c(1, 2, 3)))
   write_edgelist(filename = file2)
   expect_equal(read.csv(file2), data.frame(from = c("A", "B", "C"),
                                            to = c("B", "C", "A"),
@@ -38,7 +38,6 @@ test_that("write_edgelist works", {
   on.exit(unlink(file)) # Unlink file
   on.exit(unlink(file2)) #Unlink file
 })
-
 
 test_that("read_nodelist works", {
   expect_equal(read_nodelist(testthat::test_path("sheets", "test.xlsx")),
