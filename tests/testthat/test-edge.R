@@ -15,13 +15,20 @@ test_that("edge_loop works", {
   expect_false(edge_loop(graph2)[2], edge_loop(graph2)[3], edge_loop(graph2)[4])
 })
 
-# test_that("edge_betweenness works", {
-#   expect_length(edge_betweenness(ison_coleman), igraph::ecount(ison_coleman))
-# })
+test_that("edge_betweenness works", {
+  expect_s3_class(edge_betweenness(ison_adolescent_friends), 
+                  "measure")
+  expect_length(edge_betweenness(ison_adolescent_friends), 
+                graph_edges(ison_adolescent_friends))
+  expect_equal(unname(edge_betweenness(ison_adolescent_friends)[1:3]), 
+               c(7,3,5), tolerance = 0.001)
+})
 
 test_that("edge_closeness works", {
-  expect_equal(class(edge_closeness(ison_adolescent_friends)), c("matrix", "array"))
-  expect_equal(dim(edge_closeness(ison_eies)), 
-               c(igraph::vcount(ison_eies), igraph::vcount(ison_eies)))
-  expect_equal(edge_closeness(graph1)[1,2:5], c(0,1,1,0))
+  expect_s3_class(edge_closeness(ison_adolescent_friends), 
+               "measure")
+  expect_length(edge_closeness(ison_adolescent_friends), 
+               graph_edges(ison_adolescent_friends))
+  expect_equal(unname(edge_closeness(ison_adolescent_friends)[1:3]), 
+               c(0.0625,0.0769,0.0666), tolerance = 0.001)
 })

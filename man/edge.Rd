@@ -50,7 +50,11 @@ in the network.
 edge_mutual(ison_algebra_class)
 edge_multiple(ison_algebra_class)
 edge_loop(ison_algebra_class)
-edge_betweenness(ison_adolescent_friends)
+(eb <- edge_betweenness(ison_adolescent_friends))
+plot(eb)
+ison_adolescent_friends \%>\% 
+  activate(edges) \%>\% mutate(weight = eb) \%>\% 
+  autographr()
 (ec <- edge_closeness(ison_adolescent_friends))
 plot(ec)
 ison_adolescent_friends \%>\% 
