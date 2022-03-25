@@ -14,6 +14,7 @@
 \alias{to_multilevel}
 \alias{to_mode1}
 \alias{to_mode2}
+\alias{to_edges}
 \title{Tools for reformatting networks, graphs, and matrices}
 \usage{
 to_unweighted(object, threshold = 1)
@@ -39,6 +40,8 @@ to_multilevel(object)
 to_mode1(object)
 
 to_mode2(object)
+
+to_edges(object)
 }
 \arguments{
 \item{object}{A matrix, \code{{igraph}} graph, \code{{tidygraph}} tbl_graph, or
@@ -57,26 +60,27 @@ the "positive" or "negative" ties}
 All \code{to_} functions return an object of the same class as that provided.
 So passing it an igraph object will return an igraph object
 and passing it a network object will return a network object,
-with certain modifications as outlined below:
+with certain modifications as outlined for each function.
 \itemize{
-\item \code{to_unweighted()} returns an object that has all edge weights removed
 \item \code{to_unnamed()} returns an object that has all vertex names removed
 \item \code{to_named()} returns an object that has random vertex names added
 \item \code{to_undirected()} returns an object that has any edge direction removed
 \item \code{to_onemode()} returns an object that has any type/mode attributes removed,
 but otherwise includes all the same nodes and ties.
-Note that this is not the same as \code{project_rows()} or \code{project_cols()},
+Note that this is not the same as \code{to_mode1()} or \code{to_mode2()},
 which return only some of the nodes and new ties established by coincidence.
 \item \code{to_main_component()} returns an object that includes only the main component
 and not any smaller components or isolates
-\item \code{to_uniplex()} returns an object that includes only a single type of tie
 \item \code{to_simplex()} returns an object that has all loops or self-ties removed
-\item \code{to_unsigned()} returns an object that has
 }
 }
 \description{
-These functions offer tools for transforming certain properties of migraph-consistent objects
+These functions offer tools for transforming certain properties
+of migraph-consistent objects
 (that is, matrices, igraph, tidygraph, or network objects).
+Unlike the \link{as} group of functions,
+these functions always return the same object type as they are given,
+and are concerned with transforming these object's properties.
 }
 \details{
 Since some modifications are easier to implement for some objects than others,
@@ -96,30 +100,47 @@ here are the currently implemented modifications:\tabular{lccccc}{
 }
 \section{Functions}{
 \itemize{
-\item \code{to_mode1}: results in a weighted one-mode object
+\item \code{to_unweighted}: Returns an object that has all edge weights removed
+
+\item \code{to_uniplex}: Returns an object that includes only a single type of tie
+
+\item \code{to_unsigned}: Returns a network with either just the "positive" ties
+or just the "negative" ties
+
+\item \code{to_mode1}: Results in a weighted one-mode object
 that retains the column nodes from a two-mode object,
 and weights the ties between them on the basis of
 their joint ties to nodes in the first mode (rows).
 
-\item \code{to_mode2}: results in a weighted one-mode object
+\item \code{to_mode2}: Results in a weighted one-mode object
 that retains the row nodes from a two-mode object,
 and weights the ties between them on the basis of
 their joint ties to nodes in the second mode (columns)
+
+\item \code{to_edges}: Returns a matrix (named if possible)
+where the edges are the nodes
 }}
 
 \examples{
-to_unweighted(to_mode1(ison_southern_women))
+  autographr(to_mode2(ison_southern_women)) +
+  autographr(to_unweighted(to_mode2(ison_southern_women)))
 to_unnamed(to_mode1(ison_southern_women))
 to_undirected(ison_adolescent_friends)
 to_onemode(ison_marvel_teams)
-to_uniplex(ison_algebra_class, "friend_tie")
-to_unsigned(ison_marvel_relationships, "positive")
-to_unsigned(ison_marvel_relationships, "negative")
+autographr(ison_algebra_class) + 
+autographr(to_uniplex(ison_algebra_class, "friend_tie"))
+(autographr(ison_marvel_relationships) |
+autographr(to_main_component(ison_marvel_relationships))) /
+  (autographr(to_main_component(to_unsigned(ison_marvel_relationships, "positive"))) |
+  autographr(to_main_component(to_unsigned(ison_marvel_relationships, "negative"))))
 to_simplex(ison_algebra_class)
 to_named(ison_algebra_class)
 to_multilevel(mpn_elite_usa_advice)
-to_mode1(ison_southern_women)
-to_mode2(ison_southern_women)
+autographr(ison_southern_women) /
+ (autographr(to_mode1(ison_southern_women)) |
+ autographr(to_mode2(ison_southern_women)))
+autographr(ison_adolescent_friends) +
+  autographr(to_edges(ison_adolescent_friends))
 }
 \seealso{
 Other manipulation: 

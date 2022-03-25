@@ -1,7 +1,11 @@
 #' Tools for reformatting networks, graphs, and matrices
 #' 
-#' These functions offer tools for transforming certain properties of migraph-consistent objects 
+#' These functions offer tools for transforming certain properties 
+#' of migraph-consistent objects
 #' (that is, matrices, igraph, tidygraph, or network objects).
+#' Unlike the [as] group of functions,
+#' these functions always return the same object type as they are given,
+#' and are concerned with transforming these object's properties.
 #' 
 #' @details 
 #' Since some modifications are easier to implement for some objects than others,
@@ -32,8 +36,7 @@
 #' All `to_` functions return an object of the same class as that provided. 
 #' So passing it an igraph object will return an igraph object
 #' and passing it a network object will return a network object,
-#' with certain modifications as outlined below:
-#' - `to_unweighted()` returns an object that has all edge weights removed
+#' with certain modifications as outlined for each function.
 #' - `to_unnamed()` returns an object that has all vertex names removed
 #' - `to_named()` returns an object that has random vertex names added
 #' - `to_undirected()` returns an object that has any edge direction removed
@@ -43,11 +46,13 @@
 #' which return only some of the nodes and new ties established by coincidence.
 #' - `to_main_component()` returns an object that includes only the main component
 #' and not any smaller components or isolates
-#' - `to_uniplex()` returns an object that includes only a single type of tie
 #' - `to_simplex()` returns an object that has all loops or self-ties removed
-#' - `to_unsigned()` returns an object that has 
+NULL
+
+#' @describeIn to Returns an object that has all edge weights removed
 #' @examples
-#' to_unweighted(to_mode1(ison_southern_women))
+#'   autographr(to_mode2(ison_southern_women)) +
+#'   autographr(to_unweighted(to_mode2(ison_southern_women)))
 #' @export
 to_unweighted <- function(object, threshold = 1) UseMethod("to_unweighted")
 
@@ -198,11 +203,12 @@ to_main_component.network <- function(object) {
                                            result = "membership")))
 }
 
-#' @rdname to
+#' @describeIn to Returns an object that includes only a single type of tie
 #' @importFrom igraph delete_edges edge_attr_names delete_edge_attr
 #' @importFrom igraph E get.edge.attribute edge_attr_names
 #' @examples
-#' to_uniplex(ison_algebra_class, "friend_tie")
+#' autographr(ison_algebra_class) + 
+#' autographr(to_uniplex(ison_algebra_class, "friend_tie"))
 #' @export
 to_uniplex <- function(object, edge) UseMethod("to_uniplex")
 
@@ -226,19 +232,22 @@ to_uniplex.igraph <- function(object, edge){
   out
 }
 
-#' @rdname to
+#' @describeIn to Returns a network with either just the "positive" ties
+#'   or just the "negative" ties
 #' @examples
-#' to_unsigned(ison_marvel_relationships, "positive")
-#' to_unsigned(ison_marvel_relationships, "negative")
+#' (autographr(ison_marvel_relationships) |
+#' autographr(to_main_component(ison_marvel_relationships))) /
+#'   (autographr(to_main_component(to_unsigned(ison_marvel_relationships, "positive"))) |
+#'   autographr(to_main_component(to_unsigned(ison_marvel_relationships, "negative"))))
 #' @export
 to_unsigned <- function(object, 
-                        keep = c("positive", "negative")) 
-  UseMethod("to_unsigned")
+                        keep = c("positive", "negative")) UseMethod("to_unsigned")
 
 #' @export
 to_unsigned.tbl_graph <- function(object, 
                              keep = c("positive", "negative")){
-  out <- to_unsigned(as_igraph(object))
+  keep <- match.arg(keep)
+  out <- to_unsigned(as_igraph(object), keep = keep)
   as_tidygraph(out)
 }
 
@@ -338,13 +347,15 @@ to_multilevel.matrix <- function(object) {
   out
 }
 
-#' @describeIn to results in a weighted one-mode object
+#' @describeIn to Results in a weighted one-mode object
 #' that retains the column nodes from a two-mode object,
 #' and weights the ties between them on the basis of
 #' their joint ties to nodes in the first mode (rows).
 #' @importFrom igraph bipartite.projection
 #' @examples
-#' to_mode1(ison_southern_women)
+#' autographr(ison_southern_women) /
+#'  (autographr(to_mode1(ison_southern_women)) |
+#'  autographr(to_mode2(ison_southern_women)))
 #' @export
 to_mode1 <- function(object) UseMethod("to_mode1")
 
@@ -363,13 +374,10 @@ to_mode1.tbl_graph <- function(object) {
   as_tidygraph(igraph::bipartite.projection(object)$proj1)
 }
 
-#' @describeIn to results in a weighted one-mode object
+#' @describeIn to Results in a weighted one-mode object
 #' that retains the row nodes from a two-mode object,
 #' and weights the ties between them on the basis of
 #' their joint ties to nodes in the second mode (columns)
-#' @importFrom igraph bipartite.projection
-#' @examples
-#' to_mode2(ison_southern_women)
 #' @export
 to_mode2 <- function(object) UseMethod("to_mode2")
 
@@ -387,3 +395,28 @@ to_mode2.igraph <- function(object) {
 to_mode2.tbl_graph <- function(object) {
   as_tidygraph(igraph::bipartite.projection(object)$proj2)
 }
+
+#' @describeIn to Returns a matrix (named if possible) 
+#'   where the edges are the nodes
+#' @examples 
+#' autographr(ison_adolescent_friends) +
+#'   autographr(to_edges(ison_adolescent_friends))
+#' @export
+to_edges <- function(object){
+  edges <- as_edgelist(object)
+  edges <- paste(edges$from, edges$to, sep = "-")
+  edges <- expand.grid(edges, edges)
+  edges$value <- (stringr::str_remove(edges$Var1, "-.*$") ==
+                    stringr::str_remove(edges$Var2, "-.*$") |
+                  stringr::str_remove(edges$Var1, "^.*-") ==
+                    stringr::str_remove(edges$Var2, "-.*$") |
+                  stringr::str_remove(edges$Var1, "-.*$") ==
+                    stringr::str_remove(edges$Var2, "^.*-") |
+                  stringr::str_remove(edges$Var1, "^.*-") ==
+                    stringr::str_remove(edges$Var2, "^.*-"))*1
+  edges <- dplyr::filter(edges, value == 1)
+  edges$value <- NULL
+  names(edges) <- c("from","to")
+  as_matrix(edges)
+}
+
