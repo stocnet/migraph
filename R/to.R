@@ -39,7 +39,7 @@
 #' - `to_undirected()` returns an object that has any edge direction removed
 #' - `to_onemode()` returns an object that has any type/mode attributes removed,
 #' but otherwise includes all the same nodes and ties.
-#' Note that this is not the same as `project_rows()` or `project_cols()`,
+#' Note that this is not the same as `to_mode1()` or `to_mode2()`,
 #' which return only some of the nodes and new ties established by coincidence.
 #' - `to_main_component()` returns an object that includes only the main component
 #' and not any smaller components or isolates
@@ -194,7 +194,8 @@ to_main_component.igraph <- function(object) {
 #' @export
 to_main_component.network <- function(object) {
   network::delete.vertices(object, 
-                           which(!sna::component.largest(object, result = "membership")))
+             which(!sna::component.largest(object,
+                                           result = "membership")))
 }
 
 #' @rdname to
@@ -213,14 +214,15 @@ to_uniplex.tbl_graph <- function(object, edge){
 #' @export
 to_uniplex.igraph <- function(object, edge){
   out <- igraph::delete_edges(object,
-                              igraph::E(object)[igraph::get.edge.attribute(object, edge) == 0])
+                  igraph::E(object)[igraph::get.edge.attribute(object, edge) == 0])
   edge_names <- igraph::edge_attr_names(object)
   if (length(edge_names) > 1) {
     for (e in setdiff(edge_names, edge)) {
       out <- igraph::delete_edge_attr(out, e) 
     }
   }
-  if (is.numeric(igraph::get.edge.attribute(object, edge))) names(igraph::edge_attr(out)) <- "weight"
+  if (is.numeric(igraph::get.edge.attribute(object, edge))) 
+    names(igraph::edge_attr(out)) <- "weight"
   out
 }
 
@@ -229,22 +231,28 @@ to_uniplex.igraph <- function(object, edge){
 #' to_unsigned(ison_marvel_relationships, "positive")
 #' to_unsigned(ison_marvel_relationships, "negative")
 #' @export
-to_unsigned <- function(object, keep = c("positive", "negative")) UseMethod("to_unsigned")
+to_unsigned <- function(object, 
+                        keep = c("positive", "negative")) 
+  UseMethod("to_unsigned")
 
 #' @export
-to_unsigned.tbl_graph <- function(object, keep = c("positive", "negative")){
+to_unsigned.tbl_graph <- function(object, 
+                             keep = c("positive", "negative")){
   out <- to_unsigned(as_igraph(object))
   as_tidygraph(out)
 }
 
 #' @export
-to_unsigned.igraph <- function(object, keep = c("positive", "negative")){
+to_unsigned.igraph <- function(object, 
+                               keep = c("positive", "negative")){
   if (is_signed(object)) {
     keep <- match.arg(keep)
     if (keep == "positive") {
-      out <- igraph::delete_edges(object, which(igraph::E(object)$sign < 0))
+      out <- igraph::delete_edges(object, 
+                                  which(igraph::E(object)$sign < 0))
     } else {
-      out <- igraph::delete_edges(object, which(igraph::E(object)$sign > 0))
+      out <- igraph::delete_edges(object, 
+                                  which(igraph::E(object)$sign > 0))
     }
     out <- igraph::delete_edge_attr(out, "sign")
     out
@@ -287,7 +295,7 @@ to_named.tbl_graph <- function(object, names = NULL) {
     object <- object %>% mutate(name = names)
   } else {
     object <- object %>% mutate(name = sample(baby_names,
-                                    igraph::vcount(object)))
+                                    graph_nodes(object)))
   }
   object
 }
@@ -298,7 +306,7 @@ to_named.igraph <- function(object, names = NULL) {
     igraph::V(object)$name  <- names
   } else {
     igraph::V(object)$name  <- sample(baby_names,
-                                      igraph::vcount(object))
+                                      graph_nodes(object))
   }
   object
 }
