@@ -133,6 +133,9 @@ as_matrix.data.frame <- function(object){
       object <- object[order(object[,2], object[,1]),]
       object[is.na(object)] <- 0
     }
+    object <- dplyr::arrange(object, 
+                             as.character(from), 
+                             as.character(to))
     out <- structure(as.numeric(object[,3]),
                      .Dim = c(as.integer(length(nodes1)),
                               as.integer(length(nodes2))),
