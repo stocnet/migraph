@@ -82,7 +82,9 @@ generate_scalefree <- function(n, p = 1) {
   igraph::sample_pa(n, power = p)
 }
 
-#' @rdname generate
+#' @describeIn generate This generates a permutation of the original network
+#'   using a Fisher-Yates shuffle on both the rows and columns (for a one-mode network)
+#'   or on each of the rows and columns (for a two-mode network).
 #' @param with_attr Logical. Whether any attributes of the object
 #'   should be retained. By default TRUE. 
 #' @examples

@@ -49,6 +49,13 @@ If \code{length(n)==1}, then a two-mode network will be returned.
 The first number is the number of nodes in the first nodeset (rows),
 and the second number becomes the number of nodes in the second nodeset (columns).
 }
+\section{Functions}{
+\itemize{
+\item \code{generate_permutation}: This generates a permutation of the original network
+using a Fisher-Yates shuffle on both the rows and columns (for a one-mode network)
+or on each of the rows and columns (for a two-mode network).
+}}
+
 \examples{
 er1 <- autographr(generate_random(12, 0.4))
 er2 <- autographr(generate_random(c(6, 6), 0.4))

@@ -30,6 +30,8 @@ print.measure <- function(x, ...,
 plot.measure <- function(x, ..., 
                          method = c("hist", "dens")){
   method <- match.arg(method)
+  if(is.null(attr(x, "mode"))) 
+    attr(x, "mode") <- rep(FALSE, length(x))
   data <- data.frame(Score = x, Mode = attr(x, "mode"))
   if(any(attr(x, "mode"))){
     if(method == "hist"){
