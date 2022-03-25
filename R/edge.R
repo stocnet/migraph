@@ -63,22 +63,7 @@ edge_betweenness <- function(object){
 #'   autographr()
 #' @export
 edge_closeness <- function(object){
-  edge_adj <- make_edge_adjacency(object)
+  edge_adj <- to_edges(object)
   node_closeness(edge_adj)
-}
-
-make_edge_adjacency <- function(object){
-  edges <- as_edgelist(object)
-  edges <- paste(edges$from, edges$to, sep = "-")
-  edges <- expand.grid(edges, edges)
-  edges$value <- (stringr::str_remove(edges$Var1, "-.*$") ==
-    stringr::str_remove(edges$Var2, "-.*$") |
-    stringr::str_remove(edges$Var1, "^.*-") ==
-    stringr::str_remove(edges$Var2, "-.*$") |
-    stringr::str_remove(edges$Var1, "-.*$") ==
-    stringr::str_remove(edges$Var2, "^.*-") |
-    stringr::str_remove(edges$Var1, "^.*-") ==
-    stringr::str_remove(edges$Var2, "^.*-"))*1
-  as_matrix(edges)
 }
 
