@@ -91,3 +91,29 @@ graph_components <- function(object, method = c("weak", "strong")){
   igraph::components(object, mode = method)$no
 }
 
+#' @importFrom igraph articulation_points
+#' @export
+node_cuts <- function(object){
+  if(is_labelled(object)){
+    out <- node_names(object) %in% 
+      attr(igraph::articulation_points(as_igraph(object)), "names")
+    names(out) <- node_names(object)
+  } else {
+    out <- 1:graph_nodes(object) %in% 
+      igraph::articulation_points(as_igraph(object))
+  }
+  out
+}
+
+#' @importFrom igraph decompose delete.edges
+#' @export
+edge_bridges <- function(object){
+  num_comp <- length( igraph::decompose(as_igraph(object)) )
+  out <- vapply(seq_len(graph_edges(object)), function(x){
+    length( igraph::decompose(igraph::delete.edges(object, x)) ) > num_comp
+  }, FUN.VALUE = logical(1))
+  if(is_labelled(object)) 
+    names(out) <- attr(igraph::E(ison_adolescent_friends), "vnames")
+  out
+}
+
