@@ -65,12 +65,16 @@ node_constraint <- function(object, nodes = V(object), weights = NULL) {
   res
 }
 
-#' Identifying nodes' component membership
+#' Network connectedness
 #' @param object a migraph-consistent object
+#' @name connectedness
+NULL
+
+#' @describeIn connectedness Returns nodes' component membership
 #' @param method For directed networks, 
-#' either `weak` if edge direction is irrelevant,
-#' or `strong` if edge direction is salient.
-#' Ignored if network undirected. 
+#'   either `weak` if edge direction is irrelevant,
+#'   or `strong` if edge direction is salient.
+#'   Ignored if network undirected. 
 #' @importFrom igraph components
 #' @export
 node_components <- function(object, method = c("weak", "strong")){
@@ -78,12 +82,7 @@ node_components <- function(object, method = c("weak", "strong")){
   igraph::components(object, mode = method)$membership
 }
 
-#' Number of components in the network
-#' @param object a migraph-consistent object
-#' @param method For directed networks, 
-#' either `weak` if edge direction is irrelevant,
-#' or `strong` if edge direction is salient.
-#' Ignored if network undirected. 
+#' @describeIn connectedness Returns number of components in the network
 #' @importFrom igraph components
 #' @export
 graph_components <- function(object, method = c("weak", "strong")){
@@ -91,6 +90,8 @@ graph_components <- function(object, method = c("weak", "strong")){
   igraph::components(object, mode = method)$no
 }
 
+#' @describeIn connectedness Returns logical of which nodes cut
+#'   or act as articulation points in a network
 #' @importFrom igraph articulation_points
 #' @export
 node_cuts <- function(object){
@@ -105,6 +106,8 @@ node_cuts <- function(object){
   out
 }
 
+#' @describeIn connectedness Returns logical of which nodes cut
+#'   or act as articulation points in a network
 #' @importFrom igraph decompose delete.edges
 #' @export
 edge_bridges <- function(object){
@@ -113,7 +116,7 @@ edge_bridges <- function(object){
     length( igraph::decompose(igraph::delete.edges(object, x)) ) > num_comp
   }, FUN.VALUE = logical(1))
   if(is_labelled(object)) 
-    names(out) <- attr(igraph::E(ison_adolescent_friends), "vnames")
+    names(out) <- attr(igraph::E(object), "vnames")
   out
 }
 
