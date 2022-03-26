@@ -30,5 +30,5 @@ test_that("edge_closeness works", {
   expect_length(edge_closeness(ison_adolescent_friends), 
                graph_edges(ison_adolescent_friends))
   expect_equal(unname(edge_closeness(ison_adolescent_friends)[1:3]), 
-               c(0.0625,0.0769,0.0666), tolerance = 0.001)
+               c(0.0714,0.0667,0.0769), tolerance = 0.001)
 })
