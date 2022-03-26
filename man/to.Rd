@@ -3,7 +3,6 @@
 \name{to}
 \alias{to}
 \alias{to_unweighted}
-\alias{to_unnamed}
 \alias{to_undirected}
 \alias{to_onemode}
 \alias{to_main_component}
@@ -11,6 +10,7 @@
 \alias{to_unsigned}
 \alias{to_simplex}
 \alias{to_named}
+\alias{to_unnamed}
 \alias{to_multilevel}
 \alias{to_mode1}
 \alias{to_mode2}
@@ -18,8 +18,6 @@
 \title{Tools for reformatting networks, graphs, and matrices}
 \usage{
 to_unweighted(object, threshold = 1)
-
-to_unnamed(object)
 
 to_undirected(object)
 
@@ -34,6 +32,8 @@ to_unsigned(object, keep = c("positive", "negative"))
 to_simplex(object)
 
 to_named(object, names = NULL)
+
+to_unnamed(object)
 
 to_multilevel(object)
 
@@ -62,15 +62,11 @@ So passing it an igraph object will return an igraph object
 and passing it a network object will return a network object,
 with certain modifications as outlined for each function.
 \itemize{
-\item \code{to_unnamed()} returns an object that has all vertex names removed
-\item \code{to_named()} returns an object that has random vertex names added
 \item \code{to_undirected()} returns an object that has any edge direction removed
 \item \code{to_onemode()} returns an object that has any type/mode attributes removed,
 but otherwise includes all the same nodes and ties.
 Note that this is not the same as \code{to_mode1()} or \code{to_mode2()},
 which return only some of the nodes and new ties established by coincidence.
-\item \code{to_main_component()} returns an object that includes only the main component
-and not any smaller components or isolates
 \item \code{to_simplex()} returns an object that has all loops or self-ties removed
 }
 }
@@ -102,10 +98,17 @@ here are the currently implemented modifications:\tabular{lccccc}{
 \itemize{
 \item \code{to_unweighted}: Returns an object that has all edge weights removed
 
+\item \code{to_main_component}: Returns an object that includes only the main component
+without any smaller components or isolates
+
 \item \code{to_uniplex}: Returns an object that includes only a single type of tie
 
 \item \code{to_unsigned}: Returns a network with either just the "positive" ties
 or just the "negative" ties
+
+\item \code{to_named}: Returns an object that has random vertex names added
+
+\item \code{to_unnamed}: Returns an object with all vertex names removed
 
 \item \code{to_mode1}: Results in a weighted one-mode object
 that retains the column nodes from a two-mode object,
@@ -124,9 +127,10 @@ where the edges are the nodes
 \examples{
   autographr(to_mode2(ison_southern_women)) +
   autographr(to_unweighted(to_mode2(ison_southern_women)))
-to_unnamed(to_mode1(ison_southern_women))
 to_undirected(ison_adolescent_friends)
 to_onemode(ison_marvel_teams)
+autographr(ison_marvel_relationships) +
+  autographr(to_main_component(ison_marvel_relationships))
 autographr(ison_algebra_class) + 
 autographr(to_uniplex(ison_algebra_class, "friend_tie"))
 (autographr(ison_marvel_relationships) |
@@ -134,7 +138,9 @@ autographr(to_main_component(ison_marvel_relationships))) /
   (autographr(to_main_component(to_unsigned(ison_marvel_relationships, "positive"))) |
   autographr(to_main_component(to_unsigned(ison_marvel_relationships, "negative"))))
 to_simplex(ison_algebra_class)
-to_named(ison_algebra_class)
+autographr(ison_algebra_class) + ggtitle("Original") + 
+  autographr(to_named(ison_algebra_class)) + ggtitle("Named") + 
+  autographr(to_unnamed(to_named(ison_algebra_class))) + ggtitle("Unnamed")
 to_multilevel(mpn_elite_usa_advice)
 autographr(ison_southern_women) /
  (autographr(to_mode1(ison_southern_women)) |

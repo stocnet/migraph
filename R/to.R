@@ -37,15 +37,11 @@
 #' So passing it an igraph object will return an igraph object
 #' and passing it a network object will return a network object,
 #' with certain modifications as outlined for each function.
-#' - `to_unnamed()` returns an object that has all vertex names removed
-#' - `to_named()` returns an object that has random vertex names added
 #' - `to_undirected()` returns an object that has any edge direction removed
 #' - `to_onemode()` returns an object that has any type/mode attributes removed,
 #' but otherwise includes all the same nodes and ties.
 #' Note that this is not the same as `to_mode1()` or `to_mode2()`,
 #' which return only some of the nodes and new ties established by coincidence.
-#' - `to_main_component()` returns an object that includes only the main component
-#' and not any smaller components or isolates
 #' - `to_simplex()` returns an object that has all loops or self-ties removed
 NULL
 
@@ -87,48 +83,6 @@ to_unweighted.matrix <- function(object, threshold = 1) {
 to_unweighted.data.frame <- function(object, threshold = 1) {
   if(is_edgelist(object)) object[,1:2]
   else stop("Not an edgelist")
-}
-
-#' @rdname to
-#' @examples
-#' to_unnamed(to_mode1(ison_southern_women))
-#' @export
-to_unnamed <- function(object) UseMethod("to_unnamed")
-
-#' @export
-to_unnamed.igraph <- function(object) {
-  if ("name" %in% igraph::vertex_attr_names(object)) {
-    igraph::delete_vertex_attr(object, "name")
-  } else object
-}
-
-#' @export
-to_unnamed.tbl_graph <- function(object) {
-    out <- igraph::delete_vertex_attr(object, "name")
-    tidygraph::as_tbl_graph(out)
-}
-
-#' @export
-to_unnamed.network <- function(object) {
-  out <- network::delete.vertex.attribute(object, "vertex.names")
-  out
-}
-
-#' @export
-to_unnamed.matrix <- function(object) {
-  out <- object
-  rownames(out) <- NULL
-  colnames(out) <- NULL
-  out
-}
-
-#' @export
-to_unnamed.data.frame <- function(object) {
-  out <- object
-  names <- unique(unlist(c(out[,1],out[,2])))
-  out[,1] <- match(unlist(object[,1]), names)
-  out[,2] <- match(unlist(object[,2]), names)
-  tibble::as_tibble(out)
 }
 
 #' @rdname to
@@ -180,7 +134,11 @@ to_onemode.igraph <- function(object) {
   object
 }
 
-#' @rdname to
+#' @describeIn to Returns an object that includes only the main component
+#' without any smaller components or isolates
+#' @examples 
+#' autographr(ison_marvel_relationships) +
+#'   autographr(to_main_component(ison_marvel_relationships))
 #' @export
 to_main_component <- function(object) UseMethod("to_main_component")
 
@@ -292,9 +250,11 @@ to_simplex.matrix <- function(object) {
   out
 }
 
-#' @rdname to
+#' @describeIn to Returns an object that has random vertex names added
 #' @examples
-#' to_named(ison_algebra_class)
+#' autographr(ison_algebra_class) + ggtitle("Original") + 
+#'   autographr(to_named(ison_algebra_class)) + ggtitle("Named") + 
+#'   autographr(to_unnamed(to_named(ison_algebra_class))) + ggtitle("Unnamed")
 #' @export
 to_named <- function(object, names = NULL) UseMethod("to_named")
 
@@ -318,6 +278,46 @@ to_named.igraph <- function(object, names = NULL) {
                                       graph_nodes(object))
   }
   object
+}
+
+#' @describeIn to Returns an object with all vertex names removed
+#' @export
+to_unnamed <- function(object) UseMethod("to_unnamed")
+
+#' @export
+to_unnamed.igraph <- function(object) {
+  if ("name" %in% igraph::vertex_attr_names(object)) {
+    igraph::delete_vertex_attr(object, "name")
+  } else object
+}
+
+#' @export
+to_unnamed.tbl_graph <- function(object) {
+  out <- igraph::delete_vertex_attr(object, "name")
+  tidygraph::as_tbl_graph(out)
+}
+
+#' @export
+to_unnamed.network <- function(object) {
+  out <- network::delete.vertex.attribute(object, "vertex.names")
+  out
+}
+
+#' @export
+to_unnamed.matrix <- function(object) {
+  out <- object
+  rownames(out) <- NULL
+  colnames(out) <- NULL
+  out
+}
+
+#' @export
+to_unnamed.data.frame <- function(object) {
+  out <- object
+  names <- unique(unlist(c(out[,1],out[,2])))
+  out[,1] <- match(unlist(object[,1]), names)
+  out[,2] <- match(unlist(object[,2]), names)
+  tibble::as_tibble(out)
 }
 
 #' @rdname to
@@ -414,7 +414,7 @@ to_edges <- function(object){
                     stringr::str_remove(edges$Var2, "^.*-") |
                   stringr::str_remove(edges$Var1, "^.*-") ==
                     stringr::str_remove(edges$Var2, "^.*-"))*1
-  edges <- dplyr::filter(edges, value == 1)
+  edges <- dplyr::filter(edges, .data$value == 1)
   edges$value <- NULL
   names(edges) <- c("from","to")
   as_matrix(edges)
