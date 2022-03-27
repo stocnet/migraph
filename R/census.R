@@ -81,9 +81,37 @@ node_triad_census <- function(object){
   out # This line says the function returns the output
 }
 
-#' @rdname census
+#' @describeIn census Returns a census of nodes' positions
+#'   in motifs of four nodes.
+#' @details The quad census uses the `{oaqc}` package to do
+#'   the heavy lifting of counting the number of each orbits.
+#'   See `vignette('oaqc')`.
+#'   However, our function relabels some of the motifs
+#'   to avoid conflicts and improve some consistency with 
+#'   other census-labelling practices.
+#'   The letter-number pairing of these labels indicate
+#'   the number and configuration of ties.
+#'   For now, we offer a rough translation:
+#'   
+#' | migraph | Ortmann and Brandes      
+#' | ------------- |------------- |
+#' | E4  | co-K4
+#' | I40, I41  | co-diamond
+#' | H4  | co-C4
+#' | L42, L41, L40 | co-paw
+#' | D42, D40 | co-claw
+#' | U42, U41 | P4
+#' | Y43, Y41 | claw
+#' | P43, P42, P41 | paw
+#' | 04 | C4
+#' | Z42, Z43 | diamond
+#' | X4 | K4
 #' @importFrom oaqc oaqc
 #' @importFrom tidygraph %E>%
+#' @references 
+#'  Ortmann, Mark, and Ulrik Brandes. 2017. 
+#'  “\href{doi: 10.1007/s41109-017-0027-2}{Efficient Orbit-Aware Triad and Quad Census in Directed and Undirected Graphs}.” 
+#'  \emph{Applied Network Science} 2(1):13.
 #' @examples 
 #' (quad_cen <- node_quad_census(ison_southern_women))
 #' @export

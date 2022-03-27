@@ -40,6 +40,36 @@ of nodes, but also a tie census based on the particular tie partners
 of nodes. Included also are group census functions for summarising
 the profiles of clusters of nodes in a network.
 }
+\details{
+The quad census uses the \code{{oaqc}} package to do
+the heavy lifting of counting the number of each orbits.
+See \code{vignette('oaqc')}.
+However, our function relabels some of the motifs
+to avoid conflicts and improve some consistency with
+other census-labelling practices.
+The letter-number pairing of these labels indicate
+the number and configuration of ties.
+For now, we offer a rough translation:\tabular{ll}{
+   migraph \tab Ortmann and Brandes \cr
+   E4 \tab co-K4 \cr
+   I40, I41 \tab co-diamond \cr
+   H4 \tab co-C4 \cr
+   L42, L41, L40 \tab co-paw \cr
+   D42, D40 \tab co-claw \cr
+   U42, U41 \tab P4 \cr
+   Y43, Y41 \tab claw \cr
+   P43, P42, P41 \tab paw \cr
+   04 \tab C4 \cr
+   Z42, Z43 \tab diamond \cr
+   X4 \tab K4 \cr
+}
+}
+\section{Functions}{
+\itemize{
+\item \code{node_quad_census}: Returns a census of nodes' positions
+in motifs of four nodes.
+}}
+
 \examples{
 task_eg <- to_named(to_uniplex(ison_algebra_class, "task_tie"))
 (tie_cen <- node_tie_census(task_eg))
@@ -47,4 +77,9 @@ task_eg <- to_named(to_uniplex(ison_algebra_class, "task_tie"))
 (quad_cen <- node_quad_census(ison_southern_women))
 group_tie_census(task_eg, cutree(cluster_structural_equivalence(task_eg), 4))
 group_triad_census(task_eg, cutree(cluster_regular_equivalence(task_eg), 4))
+}
+\references{
+Ortmann, Mark, and Ulrik Brandes. 2017.
+“\href{doi: 10.1007/s41109-017-0027-2}{Efficient Orbit-Aware Triad and Quad Census in Directed and Undirected Graphs}.”
+\emph{Applied Network Science} 2(1):13.
 }
