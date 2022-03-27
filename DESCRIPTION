@@ -32,7 +32,6 @@ Imports:
     furrr,
     purrr,
     patchwork,
-    RColorBrewer,
     rlang,
     sna,
     stringr,

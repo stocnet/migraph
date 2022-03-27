@@ -73,17 +73,16 @@ plot.block_model <- function(x, ...){
 #' @param method only "elbow" is currently implemented.
 #' @name blockmodel_vis
 #' @importFrom ggdendro ggdendrogram
-#' @importFrom RColorBrewer brewer.pal
 #' @importFrom stats cutree
 #' @examples
 #' res <- cluster_regular_equivalence(mpn_elite_mex)
-#' ggtree(res, 4)
+#' ggtree(res, 8)
 #' @export
 ggtree <- function(hc, k = NULL){
   if (is.null(k)) {
     ggdendro::ggdendrogram(hc, rotate = TRUE)
   } else {
-    colors <- suppressWarnings(RColorBrewer::brewer.pal(k, "Set1"))
+    colors <- colorsafe_palette[seq_len(k)]
     colors <- (colors[stats::cutree(hc, k = k)])[hc$order]
     ggdendro::ggdendrogram(hc, rotate = TRUE) +
       ggplot2::geom_hline(yintercept = hc$height[length(hc$order) - k],
@@ -187,4 +186,5 @@ clusterCorr <- function(observed_cor_matrix, cluster_vector) {
 }
 
 elementwise.all.equal <- Vectorize(function(x, y) {isTRUE(all.equal(x, y))})
+
 
