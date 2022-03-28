@@ -76,7 +76,7 @@ plot.block_model <- function(x, ...){
 #' @importFrom stats cutree
 #' @examples
 #' res <- cluster_regular_equivalence(mpn_elite_mex)
-#' ggtree(res, 8)
+#' ggtree(res, 3)
 #' @export
 ggtree <- function(hc, k = NULL){
   if (is.null(k)) {

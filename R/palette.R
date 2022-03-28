@@ -1,4 +1,3 @@
-#' @export
 colorsafe_palette <- c("#1B9E77","#D95F02","#7570B3","#E7298A",
                        "#66A61E","#E6AB02","#A6761D","#666666")
 # colorsafe_palette <- c('#000000','#d73027','#4575b4',
