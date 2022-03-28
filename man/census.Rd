@@ -71,7 +71,7 @@ in motifs of four nodes.
 }}
 
 \examples{
-task_eg <- to_named(to_uniplex(ison_algebra_class, "task_tie"))
+task_eg <- to_named(to_uniplex(ison_algebra, "task_tie"))
 (tie_cen <- node_tie_census(task_eg))
 (triad_cen <- node_triad_census(task_eg))
 (quad_cen <- node_quad_census(ison_southern_women))

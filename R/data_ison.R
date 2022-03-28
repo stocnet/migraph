@@ -81,8 +81,8 @@
 #' and `task_ties` consists of task interactions per hour.
 #' @docType data
 #' @keywords datasets
-#' @name ison_algebra_class
-#' @usage data(ison_algebra_class)
+#' @name ison_algebra
+#' @usage data(ison_algebra)
 #' @references 
 #' McFarland, Daniel A. (2001) ``Student Resistance.'' 
 #' American Journal of Sociology, 107(3), p 612-678.
@@ -90,7 +90,7 @@
 #' Larger comprehensive data set publicly available, contact Daniel A. McFarland for details.
 #' @format Multiplex `tbl_graph` object of friends, social, and task ties 
 #' between 16 anonymous students.
-"ison_algebra_class"
+"ison_algebra"
 
 # Adolescents ####
 

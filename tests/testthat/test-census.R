@@ -1,6 +1,6 @@
 # Census function family tests
 set.seed(123)
-task_eg <- to_named(to_uniplex(ison_algebra_class, "task_tie"))
+task_eg <- to_named(to_uniplex(ison_algebra, "task_tie"))
 test <- node_tie_census(task_eg)
 
 test_that("nodetie census works", {

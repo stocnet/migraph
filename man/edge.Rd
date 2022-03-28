@@ -47,9 +47,9 @@ in the network.
 }}
 
 \examples{
-edge_mutual(ison_algebra_class)
-edge_multiple(ison_algebra_class)
-edge_loop(ison_algebra_class)
+edge_mutual(ison_algebra)
+edge_multiple(ison_algebra)
+edge_loop(ison_algebra)
 (eb <- edge_betweenness(ison_adolescents))
 plot(eb)
 ison_adolescents \%>\% 

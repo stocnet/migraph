@@ -142,8 +142,8 @@ Then there are a few more special functions included here too:
 
 ```{r combine}
 to_unnamed(ison_marvel_relationships)
-to_named(ison_algebra_class)
-to_undirected(ison_algebra_class)
+to_named(ison_algebra)
+to_undirected(ison_algebra)
 to_unsigned(ison_marvel_relationships, keep = "positive")
 ```
 

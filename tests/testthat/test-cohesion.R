@@ -6,7 +6,7 @@ test_that("density works", {
 })
 
 test_that("one-mode object clustering is reported correctly",{
-  expect_equal(round(graph_transitivity(ison_algebra_class), 2), 0.7)
+  expect_equal(round(graph_transitivity(ison_algebra), 2), 0.7)
 })
 
 test_that("two-mode object clustering is reported correctly",{

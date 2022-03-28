@@ -131,16 +131,16 @@ to_undirected(ison_adolescents)
 to_onemode(ison_marvel_teams)
 autographr(ison_marvel_relationships) +
   autographr(to_main_component(ison_marvel_relationships))
-autographr(ison_algebra_class) + 
-autographr(to_uniplex(ison_algebra_class, "friend_tie"))
+autographr(ison_algebra) + 
+autographr(to_uniplex(ison_algebra, "friend_tie"))
 (autographr(ison_marvel_relationships) |
 autographr(to_main_component(ison_marvel_relationships))) /
   (autographr(to_main_component(to_unsigned(ison_marvel_relationships, "positive"))) |
   autographr(to_main_component(to_unsigned(ison_marvel_relationships, "negative"))))
-to_simplex(ison_algebra_class)
-autographr(ison_algebra_class) + ggtitle("Original") + 
-  autographr(to_named(ison_algebra_class)) + ggtitle("Named") + 
-  autographr(to_unnamed(to_named(ison_algebra_class))) + ggtitle("Unnamed")
+to_simplex(ison_algebra)
+autographr(ison_algebra) + ggtitle("Original") + 
+  autographr(to_named(ison_algebra)) + ggtitle("Named") + 
+  autographr(to_unnamed(to_named(ison_algebra))) + ggtitle("Unnamed")
 to_multilevel(mpn_elite_usa_advice)
 autographr(ison_southern_women) /
  (autographr(to_mode1(ison_southern_women)) |

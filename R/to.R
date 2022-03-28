@@ -165,8 +165,8 @@ to_main_component.network <- function(object) {
 #' @importFrom igraph delete_edges edge_attr_names delete_edge_attr
 #' @importFrom igraph E get.edge.attribute edge_attr_names
 #' @examples
-#' autographr(ison_algebra_class) + 
-#' autographr(to_uniplex(ison_algebra_class, "friend_tie"))
+#' autographr(ison_algebra) + 
+#' autographr(to_uniplex(ison_algebra, "friend_tie"))
 #' @export
 to_uniplex <- function(object, edge) UseMethod("to_uniplex")
 
@@ -229,7 +229,7 @@ to_unsigned.igraph <- function(object,
 #' @rdname to
 #' @importFrom igraph simplify
 #' @examples
-#' to_simplex(ison_algebra_class)
+#' to_simplex(ison_algebra)
 #' @export
 to_simplex <- function(object) UseMethod("to_simplex")
 
@@ -252,9 +252,9 @@ to_simplex.matrix <- function(object) {
 
 #' @describeIn to Returns an object that has random vertex names added
 #' @examples
-#' autographr(ison_algebra_class) + ggtitle("Original") + 
-#'   autographr(to_named(ison_algebra_class)) + ggtitle("Named") + 
-#'   autographr(to_unnamed(to_named(ison_algebra_class))) + ggtitle("Unnamed")
+#' autographr(ison_algebra) + ggtitle("Original") + 
+#'   autographr(to_named(ison_algebra)) + ggtitle("Named") + 
+#'   autographr(to_unnamed(to_named(ison_algebra))) + ggtitle("Unnamed")
 #' @export
 to_named <- function(object, names = NULL) UseMethod("to_named")
 

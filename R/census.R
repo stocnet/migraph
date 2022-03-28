@@ -14,7 +14,7 @@ NULL
 
 #' @rdname census
 #' @examples
-#' task_eg <- to_named(to_uniplex(ison_algebra_class, "task_tie"))
+#' task_eg <- to_named(to_uniplex(ison_algebra, "task_tie"))
 #' (tie_cen <- node_tie_census(task_eg))
 #' @export
 node_tie_census <- function(object){

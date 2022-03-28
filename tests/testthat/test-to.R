@@ -41,8 +41,8 @@ test_that("to_unnamed works",{
   expect_equal(c(to_unnamed(as_tidygraph(test_weighted)))[8], c(test_unnamed)[8])
   expect_equal(to_unnamed(as_network(ison_southern_women)),
                network::delete.vertex.attribute(as_network(ison_southern_women), "vertex.names"))
-  expect_equal(c(as_matrix(to_unnamed(as_igraph(ison_algebra_class)))),
-               c(as_matrix(as_igraph(ison_algebra_class))))
+  expect_equal(c(as_matrix(to_unnamed(as_igraph(ison_algebra)))),
+               c(as_matrix(as_igraph(ison_algebra))))
   expect_equal(to_unnamed(test_unweighted),
                structure(list(source = c(1L, 1L, 1L, 1L, 1L, 2L, 3L, 3L, 4L, 4L, 5L, 6L),
                               target = c(3L, 3L, 4L, 5L, 2L, 1L, 7L, 8L, 9L, 10L, 6L, 6L)),
@@ -56,8 +56,8 @@ test_that("to_named works", {
 })
 
 test_that("to_undirected works",{
-  expect_equal(c(to_undirected(as_igraph(ison_algebra_class)))[3], 
-               c(igraph::as.undirected(ison_algebra_class, edge.attr.comb = "first"))[3])
+  expect_equal(c(to_undirected(as_igraph(ison_algebra)))[3], 
+               c(igraph::as.undirected(ison_algebra, edge.attr.comb = "first"))[3])
   expect_equal(as_matrix(to_undirected(as_tidygraph(test_weighted))),
                as_matrix(igraph::as.undirected(as_tidygraph(test_weighted),edge.attr.comb = "first")))
   expect_equal(to_undirected(as_matrix(ison_adolescents)),
@@ -84,44 +84,44 @@ test_that("to_main_component works",{
                as_matrix(test))
 })
 
-out <- igraph::delete_edges(ison_algebra_class,
-                            igraph::E(ison_algebra_class)[igraph::get.edge.attribute(ison_algebra_class, "friend_tie") == 0])
-edge_names <- igraph::edge_attr_names(ison_algebra_class)
+out <- igraph::delete_edges(ison_algebra,
+                            igraph::E(ison_algebra)[igraph::get.edge.attribute(ison_algebra, "friend_tie") == 0])
+edge_names <- igraph::edge_attr_names(ison_algebra)
 if (length(edge_names) > 1) {
   for (e in setdiff(edge_names, "friend_tie")) {
     out <- igraph::delete_edge_attr(out, e) 
   }
 }
-if (is.numeric(igraph::get.edge.attribute(ison_algebra_class, "friend_tie"))) names(igraph::edge_attr(out)) <- "weight"
+if (is.numeric(igraph::get.edge.attribute(ison_algebra, "friend_tie"))) names(igraph::edge_attr(out)) <- "weight"
 
 test_that("to_uniplex works", {
-  expect_equal(as_matrix(to_uniplex(ison_algebra_class, "friend_tie")), as_matrix(out))
-  expect_equal(as_matrix(to_uniplex(as_tidygraph(ison_algebra_class), "friend_tie")), as_matrix(out))
+  expect_equal(as_matrix(to_uniplex(ison_algebra, "friend_tie")), as_matrix(out))
+  expect_equal(as_matrix(to_uniplex(as_tidygraph(ison_algebra), "friend_tie")), as_matrix(out))
 })
 
 test_that("to_simplex works", {
-  expect_equal(as_matrix(to_simplex(ison_algebra_class)), as_matrix(ison_algebra_class))
+  expect_equal(as_matrix(to_simplex(ison_algebra)), as_matrix(ison_algebra))
 })
 
 testunsigned <- igraph::delete_edges(ison_marvel_relationships, which(igraph::E(ison_marvel_relationships)$sign < 0))
-testunsigned2 <- igraph::delete_edges(ison_algebra_class, which(igraph::E(ison_algebra_class)$sign < 0))
-testunsigned3 <- igraph::delete_edges(ison_algebra_class, which(igraph::E(ison_algebra_class)$sign > 0))
+testunsigned2 <- igraph::delete_edges(ison_algebra, which(igraph::E(ison_algebra)$sign < 0))
+testunsigned3 <- igraph::delete_edges(ison_algebra, which(igraph::E(ison_algebra)$sign > 0))
 
 test_that("to_unsigned works", {
   expect_equal(c(as_matrix(to_unsigned(ison_marvel_relationships, "positive"))),
                c(as_matrix(testunsigned)))
-  expect_equal(c(as_matrix(to_unsigned(ison_algebra_class, "positive"))),
+  expect_equal(c(as_matrix(to_unsigned(ison_algebra, "positive"))),
                c(as_matrix(testunsigned2)))
-  expect_equal(c(as_matrix(to_unsigned(ison_algebra_class, "negative"))),
+  expect_equal(c(as_matrix(to_unsigned(ison_algebra, "negative"))),
                c(as_matrix(testunsigned3)))
 })
 
-testnamed <- ison_algebra_class
+testnamed <- ison_algebra
 igraph::V(testnamed)$name  <- sample(baby_names,
                                      igraph::vcount(testnamed))
 test_that("to_named works", {
-  expect_equal(c(as_matrix(to_named(ison_algebra_class))), c(as_matrix(testnamed)))
-  expect_equal(c(as_matrix(to_named(as_igraph(ison_algebra_class)))), c(as_matrix(testnamed)))
+  expect_equal(c(as_matrix(to_named(ison_algebra))), c(as_matrix(testnamed)))
+  expect_equal(c(as_matrix(to_named(as_igraph(ison_algebra)))), c(as_matrix(testnamed)))
 })
 
 testmultilevel <- mpn_elite_usa_advice

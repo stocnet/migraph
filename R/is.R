@@ -225,7 +225,7 @@ is_multiplex <- function(object){
 #' @describeIn is Tests whether network is simple (both uniplex and simplex)
 #' @importFrom igraph is.simple
 #' @examples 
-#' is_uniplex(ison_algebra_class)
+#' is_uniplex(ison_algebra)
 #' @export
 is_uniplex <- function(object){
   object <- as_igraph(object)
@@ -235,7 +235,7 @@ is_uniplex <- function(object){
 #' @describeIn is Tests whether network is a directed acyclic graph
 #' @importFrom igraph is_dag
 #' @examples 
-#' is_acyclic(ison_algebra_class)
+#' is_acyclic(ison_algebra)
 #' @export
 is_acyclic <- function(object){
   object <- as_igraph(object)
