@@ -8,9 +8,10 @@
 #'   currently defaults to 'stress'.
 #' @param labels Logical, whether to print node names
 #'   as labels if present.
-#' @param node_shape Node variable in quotation marks to be used for 
-#'   the shapes of the nodes. 
-#'   Shapes will be follow the ordering "circle", "square", "triangle",
+#' @param node_shape Character string in quotation marks referring to the name 
+#'   of a node attribute already present in the graph to be used for the shapes 
+#'   of the nodes. 
+#'   Shapes follow the ordering "circle", "square", "triangle",
 #'   so this aesthetic should be used for a variable with only a few categories.
 #' @param node_size Node variable in quotation marks to be used for 
 #'   the size of the nodes.
@@ -19,7 +20,8 @@
 #'   it is recommended to calculate all node-related statistics prior
 #'   to using this function.
 #' @param node_color Node variable in quotation marks to be used for 
-#'   colouring the nodes.
+#'   colouring the nodes. It is easiest if this is added as a node attribute to
+#'   the graph before plotting.
 #' @param node_group Node variable in quotation marks to be used for
 #'   drawing convex but also concave hulls around clusters of nodes.
 #'   These groupings will be labelled with the categories of the variable passed.
@@ -36,8 +38,11 @@
 #' @importFrom ggforce geom_mark_hull
 #' @import concaveman
 #' @examples
-#' autographr(ison_adolescent_friends)
-#' autographr(ison_karateka)
+#' ison_adolescent_friends <- ison_adolescent_friends %>% 
+#'  dplyr::mutate(shape = rep(c("circle", "square"), times = 4)) %>%
+#'  dplyr::mutate(color = rep(c("blue", "red"), times = 4))
+#' autographr(ison_adolescent_friends, node_shape = "shape", node_color = "color")
+#' autographr(ison_karateka, node_size = rep(c(0.8), times = 34))
 #' @export
 autographr <- auto_graph <- function(object,
                                      layout = "stress",
