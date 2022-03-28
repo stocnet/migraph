@@ -238,7 +238,7 @@ group_triad_census <- function(object, clusters, decimals = 2) {
 
 #' @rdname graph_census
 #' @examples 
-#' graph_dyad_census(ison_adolescent_friends)
+#' graph_dyad_census(ison_adolescents)
 #' @export
 graph_dyad_census <- function(object) {
   if (is_twomode(object)) {
@@ -254,7 +254,7 @@ graph_dyad_census <- function(object) {
 
 #' @rdname graph_census
 #' @examples 
-#' graph_triad_census(ison_adolescent_friends)
+#' graph_triad_census(ison_adolescents)
 #' @export
 graph_triad_census <- function(object) {
   if (is_twomode(object)) {

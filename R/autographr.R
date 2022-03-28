@@ -40,10 +40,10 @@
 #' @importFrom ggforce geom_mark_hull
 #' @import concaveman
 #' @examples
-#' ison_adolescent_friends <- ison_adolescent_friends %>% 
+#' ison_adolescents <- ison_adolescents %>% 
 #'  dplyr::mutate(shape = rep(c("circle", "square"), times = 4)) %>%
 #'  dplyr::mutate(color = rep(c("blue", "red"), times = 4))
-#' autographr(ison_adolescent_friends, node_shape = "shape", node_color = "color")
+#' autographr(ison_adolescents, node_shape = "shape", node_color = "color")
 #' autographr(ison_karateka, node_size = rep(c(0.8), times = 34))
 #' autographr(ison_eies, node_measure = node_betweenness, identify_function = max)
 #' @export

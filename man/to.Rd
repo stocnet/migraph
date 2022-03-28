@@ -127,7 +127,7 @@ where the edges are the nodes
 \examples{
   autographr(to_mode2(ison_southern_women)) +
   autographr(to_unweighted(to_mode2(ison_southern_women)))
-to_undirected(ison_adolescent_friends)
+to_undirected(ison_adolescents)
 to_onemode(ison_marvel_teams)
 autographr(ison_marvel_relationships) +
   autographr(to_main_component(ison_marvel_relationships))
@@ -145,8 +145,8 @@ to_multilevel(mpn_elite_usa_advice)
 autographr(ison_southern_women) /
  (autographr(to_mode1(ison_southern_women)) |
  autographr(to_mode2(ison_southern_women)))
-autographr(ison_adolescent_friends) +
-  autographr(to_edges(ison_adolescent_friends))
+autographr(ison_adolescents) +
+  autographr(to_edges(ison_adolescents))
 }
 \seealso{
 Other manipulation: 

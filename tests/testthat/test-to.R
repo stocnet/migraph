@@ -60,12 +60,12 @@ test_that("to_undirected works",{
                c(igraph::as.undirected(ison_algebra_class, edge.attr.comb = "first"))[3])
   expect_equal(as_matrix(to_undirected(as_tidygraph(test_weighted))),
                as_matrix(igraph::as.undirected(as_tidygraph(test_weighted),edge.attr.comb = "first")))
-  expect_equal(to_undirected(as_matrix(ison_adolescent_friends)),
-               ((as_matrix(ison_adolescent_friends) + t(as_matrix(ison_adolescent_friends))) > 0) * 1)
+  expect_equal(to_undirected(as_matrix(ison_adolescents)),
+               ((as_matrix(ison_adolescents) + t(as_matrix(ison_adolescents))) > 0) * 1)
   expect_equal(to_undirected(as_matrix(ison_southern_women)),
                as_matrix(ison_southern_women))
-  expect_equal(as_matrix(to_undirected(as_network(ison_adolescent_friends))),
-               as_matrix(to_undirected(ison_adolescent_friends)))
+  expect_equal(as_matrix(to_undirected(as_network(ison_adolescents))),
+               as_matrix(to_undirected(ison_adolescents)))
 })
 
 test_that("to_onemode works",{

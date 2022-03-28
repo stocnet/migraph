@@ -16,7 +16,7 @@ test_that("autographr works for unweighted, unsigned, directed networks", {
 })
 
 # Unweighted, signed, undirected network
-test_ison_coleman <- autographr(ison_adolescent_friends)
+test_ison_coleman <- autographr(ison_adolescents)
 
 test_that("autographr works for unweighted, signed, undirected networks", {
   # Node position
@@ -32,11 +32,11 @@ test_that("autographr works for unweighted, signed, undirected networks", {
 })
 
 # Test node_measure function with ison_coleman
-test_node_measure_max <- autographr(ison_adolescent_friends,
+test_node_measure_max <- autographr(ison_adolescents,
   node_measure = node_betweenness,
   identify_function = max
 )
-test_node_measure_min <- autographr(ison_adolescent_friends,
+test_node_measure_min <- autographr(ison_adolescents,
   node_measure = node_betweenness,
   identify_function = min
 )

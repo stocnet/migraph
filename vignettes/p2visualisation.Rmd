@@ -52,13 +52,8 @@ appended to create more tailored visualisations of the network.
   
 ```{r migraphexample2, echo=TRUE, message=FALSE, warning=FALSE}
 library(migraph)
-ison_adolescent_friends <- ison_adolescent_friends %>%
-  mutate(colour = RColorBrewer::brewer.pal(8, "Set3")) %>%
-  mutate(shape = "circle")
-autographr(ison_adolescent_friends,
+autographr(ison_adolescents,
            labels = TRUE,
-           node_color = "colour",
-           node_shape = "shape",
            node_size = 1.5) + 
   ggplot2::ggtitle("Visualisation")
 ```
@@ -81,21 +76,19 @@ ggevolution(mpn_elite_mex, mpn_elite_mex2)
 ```
   
 ## Using `{ggraph}`
-The `{ggraph}` package is built off the ggplot2 package but works primarily with 
-tbl_graph objects (or objects convertible to this format). By adding different 
-layers of code to the initial `ggraph()` function, one can create a tailored plot 
-to visualise the network more aesthetically and appropriately for analysis.
+
+For more flexibility with visualizations, 
+`{migraph}` users are encouraged to use the excellent `{ggraph}` package.
+`{ggraph}` is built upon the venerable `{ggplot2}` package
+and works with `tbl_graph` and `igraph` objects.
+As with `{ggplot2}`, `{ggraph}` users are expected to build
+a particular plot from the ground up,
+adding explicit layers to visualise the nodes and edges.
   
 ```{r ggrapheg, echo=TRUE, message=FALSE, warning=FALSE}
-library(ggplot2)
 library(ggraph)
-library(dplyr)
-library(igraph)
-mex <- migraph::mpn_elite_mex
-edge_attr(mex, "weight") <- 1:3
-ggraph(mex, layout = "fr") + 
-  geom_edge_link0(aes(edge_width = weight), 
-                  edge_colour = "dark grey", 
+ggraph(mpn_elite_mex, layout = "fr") + 
+  geom_edge_link(edge_colour = "dark grey", 
                   arrow = arrow(angle = 45,
                                 length = unit(2, "mm"),
                                 type = "closed"),

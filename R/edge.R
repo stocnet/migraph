@@ -36,9 +36,9 @@ edge_loop <- function(object){
 #' @describeIn edge Calculate number of shortest paths going through an edge
 #' @importFrom igraph edge_betweenness
 #' @examples
-#' (eb <- edge_betweenness(ison_adolescent_friends))
+#' (eb <- edge_betweenness(ison_adolescents))
 #' plot(eb)
-#' ison_adolescent_friends %>% 
+#' ison_adolescents %>% 
 #'   activate(edges) %>% mutate(weight = eb) %>% 
 #'   autographr()
 #' @export
@@ -56,9 +56,9 @@ edge_betweenness <- function(object){
 #' in the network.
 #' @importFrom igraph distances
 #' @examples
-#' (ec <- edge_closeness(ison_adolescent_friends))
+#' (ec <- edge_closeness(ison_adolescents))
 #' plot(ec)
-#' ison_adolescent_friends %>% 
+#' ison_adolescents %>% 
 #'   activate(edges) %>% mutate(weight = ec) %>% 
 #'   autographr()
 #' @export

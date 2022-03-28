@@ -16,19 +16,19 @@ test_that("edge_loop works", {
 })
 
 test_that("edge_betweenness works", {
-  expect_s3_class(edge_betweenness(ison_adolescent_friends), 
+  expect_s3_class(edge_betweenness(ison_adolescents), 
                   "measure")
-  expect_length(edge_betweenness(ison_adolescent_friends), 
-                graph_edges(ison_adolescent_friends))
-  expect_equal(unname(edge_betweenness(ison_adolescent_friends)[1:3]), 
+  expect_length(edge_betweenness(ison_adolescents), 
+                graph_edges(ison_adolescents))
+  expect_equal(unname(edge_betweenness(ison_adolescents)[1:3]), 
                c(7,3,5), tolerance = 0.001)
 })
 
 test_that("edge_closeness works", {
-  expect_s3_class(edge_closeness(ison_adolescent_friends), 
+  expect_s3_class(edge_closeness(ison_adolescents), 
                "measure")
-  expect_length(edge_closeness(ison_adolescent_friends), 
-               graph_edges(ison_adolescent_friends))
-  expect_equal(unname(edge_closeness(ison_adolescent_friends)[1:3]), 
+  expect_length(edge_closeness(ison_adolescents), 
+               graph_edges(ison_adolescents))
+  expect_equal(unname(edge_closeness(ison_adolescents)[1:3]), 
                c(0.0714,0.0667,0.0769), tolerance = 0.001)
 })

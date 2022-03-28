@@ -107,11 +107,11 @@ test_that("read_ucinet works", {
 
 test_that("write_ucinet works", {
   file <-  tempfile() # Create file
-  write_ucinet(ison_adolescent_friends, file)
+  write_ucinet(ison_adolescents, file)
   testuci2 <- read_ucinet(paste0(file, ".##h"))
   expect_true(is.tbl_graph(testuci2))
   edgetest2 <- as_edgelist(testuci2)
   # Note, the write ucinet function forgets certain attributes
-  expect_equal(length(edgetest2$from), length(as_edgelist(ison_adolescent_friends)$from))
+  expect_equal(length(edgetest2$from), length(as_edgelist(ison_adolescents)$from))
   on.exit(unlink(file)) # Unlink file
 })

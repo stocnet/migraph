@@ -87,7 +87,7 @@ to_unweighted.data.frame <- function(object, threshold = 1) {
 
 #' @rdname to
 #' @examples
-#' to_undirected(ison_adolescent_friends)
+#' to_undirected(ison_adolescents)
 #' @export
 to_undirected <- function(object) UseMethod("to_undirected")
 
@@ -399,8 +399,8 @@ to_mode2.tbl_graph <- function(object) {
 #' @describeIn to Returns a matrix (named if possible) 
 #'   where the edges are the nodes
 #' @examples 
-#' autographr(ison_adolescent_friends) +
-#'   autographr(to_edges(ison_adolescent_friends))
+#' autographr(ison_adolescents) +
+#'   autographr(to_edges(ison_adolescents))
 #' @export
 to_edges <- function(object){
   edges <- as_edgelist(object)

@@ -44,7 +44,7 @@ test_that("group triad census works", {
   expect_equal(colnames(test)[1:3], c("003", "012", "102"))
 })
 
-test <- graph_dyad_census(ison_adolescent_friends)
+test <- graph_dyad_census(ison_adolescents)
 test_that("graph dyad census works", {
   expect_equal(test[[1]], 10)
   expect_equal(test[[2]], 18)
@@ -54,7 +54,7 @@ test_that("graph dyad census works", {
   expect_error(graph_dyad_census(ison_southern_women))
 })
 
-test <- graph_triad_census(ison_adolescent_friends)
+test <- graph_triad_census(ison_adolescents)
 test_that("graph triad census works", {
   expect_equal(test[[1]], 13)
   expect_equal(test[[3]], 29)

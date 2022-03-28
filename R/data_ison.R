@@ -98,8 +98,8 @@
 #'
 #' @docType data
 #' @keywords datasets
-#' @name ison_adolescent_friends
-#' @usage data(ison_adolescent_friends)
+#' @name ison_adolescents
+#' @usage data(ison_adolescents)
 #' @format A undirected one-mode tbl_graph object of 8 named nodes and 10
 #' edges.
 #' @references 
@@ -108,7 +108,7 @@
 #' 
 #' Feld, Scott. 1991. “Why your friends have more friends than you do”
 #' American Journal of Sociology 96(6): 1464-1477.
-"ison_adolescent_friends"
+"ison_adolescents"
 
 # Karateka ####
 
