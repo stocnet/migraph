@@ -61,7 +61,6 @@
 NULL
 
 #' @describeIn read Reading edgelists from Excel/csv files
-#' @importFrom readxl read_excel
 #' @export
 read_edgelist <- function(file = file.choose(),
                           sv = c("comma", "semi-colon"),
@@ -74,7 +73,9 @@ read_edgelist <- function(file = file.choose(),
       out <- read.csv2(file, header = TRUE, ...) # For EU
     }
   } else if (grepl("xlsx$|xls$", file)) {
-    out <- readxl::read_excel(file, ...)
+    if(requireNamespace("readxl", quietly = TRUE)){
+      out <- readxl::read_excel(file, ...)  
+    } else stop("Please install `readxl` from CRAN to import Excel files.")
   }
   out
 }
@@ -102,7 +103,6 @@ write_edgelist <- function(object,
 }
 
 #' @describeIn read Reading nodelists from Excel/csv files
-#' @importFrom readxl read_excel
 #' @export
 read_nodelist <- function(file = file.choose(),
                           sv = c("comma", "semi-colon"),
@@ -115,7 +115,9 @@ read_nodelist <- function(file = file.choose(),
       out <- read.csv2(file, header = TRUE, ...) # For EU
     }
   } else if (grepl("xlsx$|xls$", file)) {
-    out <- readxl::read_excel(file, ...)
+    if(requireNamespace("readxl", quietly = TRUE)){
+      out <- readxl::read_excel(file, ...)  
+    } else stop("Please install `readxl` from CRAN to import Excel files.")
   }
   out
 }
