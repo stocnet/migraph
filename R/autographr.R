@@ -2,7 +2,9 @@
 #' 
 #' The aim of this function is to provide users with a quick and easy
 #' graphing function that makes best use of the data,
-#' whatever its composition.
+#' whatever its composition. Users can also tailor the plot according to their 
+#' preferences regarding node size, colour, and shape. The function also supports
+#' visualisation of network measures such as centrality.
 #' @param object A migraph-consistent object.
 #' @param layout An igraph layout algorithm,
 #'   currently defaults to 'stress'.
@@ -43,6 +45,7 @@
 #'  dplyr::mutate(color = rep(c("blue", "red"), times = 4))
 #' autographr(ison_adolescent_friends, node_shape = "shape", node_color = "color")
 #' autographr(ison_karateka, node_size = rep(c(0.8), times = 34))
+#' autographr(ison_eies, node_measure = node_betweenness, identify_function = max)
 #' @export
 autographr <- auto_graph <- function(object,
                                      layout = "stress",
