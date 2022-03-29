@@ -1,7 +1,7 @@
 #' Create networks with particular structures
 #' 
 #' These functions create networks with particular structural properties.
-#' They work to create both one-mode and two-mode networks,
+#' They can create either one-mode and two-mode networks,
 #' depending on whether the common `n` argument
 #' is passed a single integer (the number of nodes in the one-mode network)
 #' or a vector of \emph{two} integers to return a two-mode network.
@@ -23,10 +23,11 @@
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
 #' @seealso as_matrix as_tidygraph as_network
-#' @details `create_empty()` creates an empty graph of the given dimensions.
+NULL
+
+#' @describeIn create Creates an empty graph of the given dimensions.
 #' @examples
-#' g <- create_empty(c(8,6))
-#' autographr(g)
+#' autographr(create_empty(c(8,6)))
 #' @export
 create_empty <- function(n) {
   if(is_migraph(n)){
@@ -42,8 +43,7 @@ create_empty <- function(n) {
   out
 }
 
-#' @rdname create
-#' @details `create_complete()` creates a filled graph of the given dimensions.
+#' @describeIn create Creates a filled graph of the given dimensions.
 #' @examples
 #' g <- create_complete(c(8,6))
 #' autographr(g)
@@ -63,12 +63,11 @@ create_complete <- function(n) {
   out
 }
 
-#' @rdname create
+#' @describeIn create Creates a ring or chord graph of the given dimensions
+#' that loops around is of a certain width or thickness.
 #' @param width The width or breadth of the ring. This is typically double the degree.
 #' @param directed Whether the graph should be directed. By default FALSE.
 #' @param ... Additional arguments passed on to igraph.
-#' @details `create_ring()` creates a ring or chord graph of the given dimensions
-#' that loops around is of a certain width or thickness.
 #' @examples
 #' g <- create_ring(c(8,6), width = 2)
 #' autographr(g)
@@ -122,10 +121,9 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
   out
 }
 
-#' @rdname create
-#' @param components Number of components to create.
-#' @details \code{create_components()} creates a graph in which the nodes are clustered
+#' @describeIn create Creates a graph in which the nodes are clustered
 #' into separate components.
+#' @param components Number of components to create.
 #' @examples
 #' autographr(create_components(c(10, 12), components = 3))
 #' @export
@@ -156,25 +154,24 @@ create_components <- function(n, components = 2) {
   out
 }
 
-#' @rdname create
-#' @param directed One of the following options: "in", "out", or "undirected" (DEFAULT).
-#' @details `create_star()` creates a graph of the given dimensions that has a maximally central node
+#' @describeIn create Creates a graph of the given dimensions that has a maximally central node
+#' @param direction One of the following options: "in", "out", or "undirected" (DEFAULT).
 #' @importFrom igraph graph_from_adjacency_matrix graph_from_incidence_matrix make_star
 #' @examples
 #' autographr(create_star(c(12,1), "in"))
 #' @export
 create_star <- function(n, 
-                        directed = c("undirected","in","out")) {
+                        direction = c("undirected","in","out")) {
   
   if(is_migraph(n)){
     n <- graph_dims(n)
   }
-  directed <- match.arg(directed)
+  direction <- match.arg(direction)
   if (length(n) == 1) {
-    out <- igraph::make_star(n, mode = directed)
+    out <- igraph::make_star(n, mode = direction)
   } else if (length(n) == 2) {
     out <- matrix(0, n[1], n[2])
-    if (directed == "in") {
+    if (direction == "in") {
       out[, 1] <- 1
     } else {
       out[1, ] <- 1
@@ -189,15 +186,13 @@ roll_over <- function(w) {
   cbind(w[, ncol(w)], w[, 1:(ncol(w) - 1)])
 }
 
-#' @rdname create
+#' @describeIn create Creates a graph of the given dimensions with successive branches.
 #' @param directed One of the following options: "in", "out", or "undirected" (DEFAULT).
-#' @param branches How many branches at each level
-#' @details `create_tree()` creates a graph of the given dimensions with successive branches
+#' @param branches How many branches at each level.
 #' @importFrom igraph make_tree
 #' @examples
 #' tr1 <- autographr(create_tree(12))
 #' tr2 <- autographr(create_tree(12), "tree")
-#' library(patchwork)
 #' tr1 + tr2
 #' @export
 create_tree <- function(n, 
@@ -211,15 +206,13 @@ create_tree <- function(n,
   igraph::make_tree(sum(n), children = branches, mode = directed)
 }
 
-#' @rdname create
+#' @describeIn create Creates a graph of the given dimensions with ties to all neighbouring nodes
 #' @param directed One of the following options: "in", "out", or "undirected" (DEFAULT).
-#' @details `create_lattice()` creates a graph of the given dimensions with ties to all neighbouring nodes
 #' @importFrom igraph make_lattice
 #' @examples
 #' cl1 <- autographr(create_lattice(5))
 #' cl2 <- autographr(create_lattice(c(5,5)))
 #' cl3 <- autographr(create_lattice(c(5,5,5)))
-#' library(patchwork)
 #' cl1 + cl2 + cl3
 #' @export
 create_lattice <- function(n, 

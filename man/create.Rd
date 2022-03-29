@@ -19,7 +19,7 @@ create_ring(n, width = 1, directed = FALSE, ...)
 
 create_components(n, components = 2)
 
-create_star(n, directed = c("undirected", "in", "out"))
+create_star(n, direction = c("undirected", "in", "out"))
 
 create_tree(n, directed = c("undirected", "in", "out"), branches = 2)
 
@@ -44,7 +44,9 @@ a network of the same dimensions will be created.
 
 \item{components}{Number of components to create.}
 
-\item{branches}{How many branches at each level}
+\item{direction}{One of the following options: "in", "out", or "undirected" (DEFAULT).}
+
+\item{branches}{How many branches at each level.}
 }
 \value{
 By default an igraph object will be returned,
@@ -53,31 +55,32 @@ using \code{as_matrix()}, \code{as_tidygraph()}, or \code{as_network()}.
 }
 \description{
 These functions create networks with particular structural properties.
-They work to create both one-mode and two-mode networks,
+They can create either one-mode and two-mode networks,
 depending on whether the common \code{n} argument
 is passed a single integer (the number of nodes in the one-mode network)
 or a vector of \emph{two} integers to return a two-mode network.
 }
-\details{
-\code{create_empty()} creates an empty graph of the given dimensions.
+\section{Functions}{
+\itemize{
+\item \code{create_empty}: Creates an empty graph of the given dimensions.
 
-\code{create_complete()} creates a filled graph of the given dimensions.
+\item \code{create_complete}: Creates a filled graph of the given dimensions.
 
-\code{create_ring()} creates a ring or chord graph of the given dimensions
+\item \code{create_ring}: Creates a ring or chord graph of the given dimensions
 that loops around is of a certain width or thickness.
 
-\code{create_components()} creates a graph in which the nodes are clustered
+\item \code{create_components}: Creates a graph in which the nodes are clustered
 into separate components.
 
-\code{create_star()} creates a graph of the given dimensions that has a maximally central node
+\item \code{create_star}: Creates a graph of the given dimensions that has a maximally central node
 
-\code{create_tree()} creates a graph of the given dimensions with successive branches
+\item \code{create_tree}: Creates a graph of the given dimensions with successive branches.
 
-\code{create_lattice()} creates a graph of the given dimensions with ties to all neighbouring nodes
-}
+\item \code{create_lattice}: Creates a graph of the given dimensions with ties to all neighbouring nodes
+}}
+
 \examples{
-g <- create_empty(c(8,6))
-autographr(g)
+autographr(create_empty(c(8,6)))
 g <- create_complete(c(8,6))
 autographr(g)
 g <- create_ring(c(8,6), width = 2)
@@ -86,12 +89,10 @@ autographr(create_components(c(10, 12), components = 3))
 autographr(create_star(c(12,1), "in"))
 tr1 <- autographr(create_tree(12))
 tr2 <- autographr(create_tree(12), "tree")
-library(patchwork)
 tr1 + tr2
 cl1 <- autographr(create_lattice(5))
 cl2 <- autographr(create_lattice(c(5,5)))
 cl3 <- autographr(create_lattice(c(5,5,5)))
-library(patchwork)
 cl1 + cl2 + cl3
 }
 \seealso{
