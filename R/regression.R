@@ -68,11 +68,11 @@
 #' @importFrom stats glm.fit as.formula df.residual pchisq
 #' @seealso `vignette("p7linearmodel")`
 #' @references 
-#'   Krackhardt, David (1988) 
+#'   Krackhardt, David (1988).
 #'   “Predicting with Networks: Nonparametric Multiple Regression Analysis of Dyadic Data.” 
 #'   _Social Networks_ 10(4):359–81.
 #'   
-#'   Dekker, David, Krackhard, David, Snijders, Tom A.B (2007) 
+#'   Dekker, David, Krackhard, David, Snijders, Tom A.B (2007).
 #'   “Sensitivity of MRQAP tests to collinearity and autocorrelation conditions.”
 #'   _Psychometrika_ 72(4): 563-581.
 #' @examples
@@ -84,6 +84,7 @@
 #'   messages, times = 100)
 #' tidy(model1)
 #' glance(model1)
+#' plot(model1)
 #' @export
 network_reg <- function(formula, object,
                         method = c("qap","qapy"),
@@ -539,4 +540,40 @@ glance.netlogit <- function(x, ...) {
     df.residual = stats::df.residual(x),
     nobs = x$n
   )
+}
+
+#' @export
+plot.netlm <- function(x, ...){
+  distrib <- x$dist
+  distrib <- as.data.frame(distrib)
+  names(distrib) <- x$names
+  distrib$obs <- seq_len(nrow(distrib))
+  distrib <- tidyr::pivot_longer(distrib, -obs)
+  distrib$coef <- rep(unname(x$coefficients), nrow(x$dist))
+  distrib$tstat <- rep(unname(x$tstat), nrow(x$dist))
+  distrib$name <- factor(distrib$name, x$names)
+  ggplot(distrib, ggplot2::aes(value, name)) + 
+    geom_violin(draw_quantiles = c(0.025, 0.975)) + theme_minimal() +
+    ylab("") + xlab("Statistic") + 
+    geom_point(aes(x = tstat), size = 2, 
+               colour = "red") +
+    scale_y_discrete(limits=rev)
+}
+
+#' @export
+plot.netlogit <- function(x, ...){
+  distrib <- x$dist
+  distrib <- as.data.frame(distrib)
+  names(distrib) <- x$names
+  distrib$obs <- seq_len(nrow(distrib))
+  distrib <- tidyr::pivot_longer(distrib, -obs)
+  distrib$coef <- rep(unname(x$coefficients), nrow(x$dist))
+  distrib$tstat <- rep(unname(x$tstat), nrow(x$dist))
+  distrib$name <- factor(distrib$name, x$names)
+  ggplot(distrib, ggplot2::aes(value, name)) + 
+    geom_violin(draw_quantiles = c(0.025, 0.975)) + theme_minimal() +
+    ylab("") + xlab("Statistic") + 
+    geom_point(aes(x = tstat), size = 2, 
+               colour = "red") +
+    scale_y_discrete(limits=rev)
 }

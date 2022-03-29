@@ -102,13 +102,14 @@ model1 <- network_reg(weight ~ random +
   messages, times = 100)
 tidy(model1)
 glance(model1)
+plot(model1)
 }
 \references{
-Krackhardt, David (1988)
+Krackhardt, David (1988).
 “Predicting with Networks: Nonparametric Multiple Regression Analysis of Dyadic Data.”
 \emph{Social Networks} 10(4):359–81.
 
-Dekker, David, Krackhard, David, Snijders, Tom A.B (2007)
+Dekker, David, Krackhard, David, Snijders, Tom A.B (2007).
 “Sensitivity of MRQAP tests to collinearity and autocorrelation conditions.”
 \emph{Psychometrika} 72(4): 563-581.
 }
