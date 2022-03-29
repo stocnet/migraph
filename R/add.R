@@ -1,5 +1,7 @@
 #' Adding and copying attributes from one graph to another
 #' 
+#' These functions allow users to add attributes to a graph from another graph
+#' or from a specified vector supplied by the user.
 #' @param object A migraph-consistent object.
 #' @param object2 A second object to copy nodes or edges from.
 #' @param attr_name Name of the new attribute in the resulting object.
@@ -8,6 +10,8 @@
 NULL
 
 #' @rdname add
+#' @describeIn add Insert specified values from a vector into the graph 
+#' as node attributes
 #' @importFrom igraph vertex_attr<-
 #' @examples 
 #' add_node_attributes(mpn_elite_mex, "wealth", 1:35)
@@ -32,6 +36,8 @@ add_node_attributes <- function(object, attr_name, vector){
 }
 
 #' @rdname add
+#' @describeIn add Insert specified values from a vector into the graph 
+#' as edge attributes
 #' @importFrom igraph edge_attr
 #' @examples
 #' add_edge_attributes(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
@@ -43,6 +49,7 @@ add_edge_attributes <- function(object, attr_name, vector){
 }
 
 #' @rdname add
+#' @describeIn add Copies node attributes from a given graph into specified graph
 #' @export
 copy_node_attributes <- function(object, object2){
   if(graph_nodes(object) != graph_nodes(object2)) 
@@ -57,6 +64,8 @@ copy_node_attributes <- function(object, object2){
 }
 
 #' @rdname add
+#' @describeIn add Copies edges from another graph to specified graph and 
+#' adds an edge attribute identifying the edges that were newly added
 #' @importFrom igraph add_edges
 #' @importFrom rlang :=
 #' @importFrom dplyr mutate summarise across group_by everything
