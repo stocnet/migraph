@@ -27,7 +27,7 @@ NULL
 
 #' @describeIn create Creates an empty graph of the given dimensions.
 #' @examples
-#' autographr(create_empty(c(8,6))) +
+#' autographr(create_empty(c(8,6)))
 #' autographr(create_complete(c(8,6)))
 #' @export
 create_empty <- function(n) {
