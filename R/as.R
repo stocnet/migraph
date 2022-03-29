@@ -47,9 +47,9 @@
 #' @return
 #' The currently implemented coercions or translations are:
 #' 
-#' |  to/from      | edgelists           | matrices  |igraph  |tidygraph  |network  |
+#' |  to/from  | edgelists  | matrices  |igraph  |tidygraph  |network  |
 #' | ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|
-#' | edgelists (data frames)  |  | X | X | X | X |
+#' | edgelists (data frames)  | X | X | X | X | X |
 #' | matrices                 | X | X | X | X | X |
 #' | igraph                   | X | X | X | X | X |
 #' | tidygraph                | X | X | X | X | X |
@@ -99,6 +99,17 @@ as_edgelist.network <- function(object){
 #' @export
 as_edgelist.matrix <- function(object){
   as_edgelist.igraph(as_igraph(object))
+}
+
+#' @export
+as_edgelist.data.frame <- function(object){
+  if(ncol(object) == 2 && names(object) != c("from", "to")){
+    names(object) <- c("from", "to")
+    object
+  } else if(ncol(object) == 3 && names(object) != c("from", "to", "weight")){
+    names(object) <- c("from", "to", "weight")
+    object
+  } else object
 }
 
 #' @rdname coercion

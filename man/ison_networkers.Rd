@@ -5,7 +5,7 @@
 \alias{ison_networkers}
 \title{One-mode EIES dataset (Freeman and Freeman 1979)}
 \format{
-\code{tbl_graph} network object. The network is directed, simple, unnamed
+\code{tbl_graph} network object. The network is directed, simple, named
 , and weighted. It contains 32 nodes and 440 edges as well as two node level
 attributes: \code{Citations}; \code{Discipline}.
 }
@@ -16,10 +16,7 @@ networkdata package
 data(ison_networkers)
 }
 \description{
-One-mode EIES dataset (Freeman and Freeman 1979)
-}
-\details{
-A directed, simple, unnamed, weighted graph with 32 nodes and 440
+A directed, simple, named, weighted graph with 32 nodes and 440
 edges. Nodes are academics and edges illustrate the communication patterns
 on an Electronic Information Exchange System among them. Node attributes
 include the number of citations (\code{Citations}) and the discipline of the
@@ -28,11 +25,11 @@ sent from one academic to another over the studied time period.
 }
 \references{
 Freeman, S. C. and L. C. Freeman (1979).
-The networkers network: A study of the impact of a new communications medium on sociometric structure.
+\emph{The networkers network: A study of the impact of a new communications medium on sociometric structure}.
 Social Science Research Reports No 46. Irvine CA, University of California.
 
 Wasserman S. and K. Faust (1994).
-Social Network Analysis: Methods and Applications.
+\emph{Social Network Analysis: Methods and Applications}.
 Cambridge University Press, Cambridge.
 }
 \keyword{datasets}

@@ -35,7 +35,7 @@ incidence from adjacency matrices. By default FALSE.}
 \value{
 The currently implemented coercions or translations are:\tabular{lccccc}{
    to/from \tab edgelists \tab matrices \tab igraph \tab tidygraph \tab network \cr
-   edgelists (data frames) \tab  \tab X \tab X \tab X \tab X \cr
+   edgelists (data frames) \tab X \tab X \tab X \tab X \tab X \cr
    matrices \tab X \tab X \tab X \tab X \tab X \cr
    igraph \tab X \tab X \tab X \tab X \tab X \cr
    tidygraph \tab X \tab X \tab X \tab X \tab X \cr

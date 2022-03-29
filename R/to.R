@@ -280,6 +280,20 @@ to_named.igraph <- function(object, names = NULL) {
   object
 }
 
+#' @export
+to_named.data.frame <- function(object, names = NULL) {
+  if (!is.null(names)) {
+    object[,1]  <- names[as.numeric(object[,1])]
+    object[,2]  <- names[as.numeric(object[,2])]
+  } else {
+    object[,1]  <- sample(baby_names, 
+                          graph_nodes(object))[as.numeric(object[,1])]
+    object[,2]  <- sample(baby_names, 
+                          graph_nodes(object))[as.numeric(object[,2])]
+  }
+  object
+}
+
 #' @describeIn to Returns an object with all vertex names removed
 #' @export
 to_unnamed <- function(object) UseMethod("to_unnamed")
