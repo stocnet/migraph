@@ -132,11 +132,11 @@
 #' @format Undirected one-mode igraph with 34 named nodes and 78 edges.
 "ison_karateka"
 
-# EIES ####
+# Networkers ####
 
 #' One-mode EIES dataset (Freeman and Freeman 1979)
 #'
-#'@details A directed, simple, unnamed, weighted graph with 32 nodes and 440
+#' @description A directed, simple, named, weighted graph with 32 nodes and 440
 #' edges. Nodes are academics and edges illustrate the communication patterns
 #' on an Electronic Information Exchange System among them. Node attributes
 #' include the number of citations (`Citations`) and the discipline of the
@@ -144,21 +144,21 @@
 #' sent from one academic to another over the studied time period.
 #' @docType data
 #' @keywords datasets
-#' @name ison_eies
-#' @usage data(ison_eies)
-#' @format `tbl_graph` network object. The network is directed, simple, unnamed
+#' @name ison_networkers
+#' @usage data(ison_networkers)
+#' @format `tbl_graph` network object. The network is directed, simple, named
 #' , and weighted. It contains 32 nodes and 440 edges as well as two node level
 #' attributes: `Citations`; `Discipline`.
 #' @source networkdata package
 #' @references 
 #' Freeman, S. C. and L. C. Freeman (1979). 
-#' The networkers network: A study of the impact of a new communications medium on sociometric structure. 
+#' \emph{The networkers network: A study of the impact of a new communications medium on sociometric structure}. 
 #' Social Science Research Reports No 46. Irvine CA, University of California.
 #' 
 #' Wasserman S. and K. Faust (1994). 
-#' Social Network Analysis: Methods and Applications.
+#' \emph{Social Network Analysis: Methods and Applications}.
 #' Cambridge University Press, Cambridge.
-"ison_eies"
+"ison_networkers"
 
 # Brandes ####
 

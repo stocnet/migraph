@@ -1,6 +1,6 @@
 set.seed(123)
 test <- network_reg(weight ~ ego(Discipline) + alter(Citations), 
-                     ison_eies, times = 200)
+                     ison_networkers, times = 200)
 
 friends <- ison_marvel_relationships %>% 
   activate(edges) %>% 

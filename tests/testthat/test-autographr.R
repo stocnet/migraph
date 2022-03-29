@@ -56,15 +56,15 @@ test_that("autographr works with node_measure functionality", {
   expect_equal(test_node_measure_min[["layers"]][[2]][["geom"]][["default_aes"]][["size"]], 1.5)
 })
 
-# Weighted and directed network: ison_eies
+# Weighted and directed network: ison_networkers
 
-test_ison_eies <- autographr(ison_eies)
+test_ison_networkers <- autographr(ison_networkers)
 
 test_that("autographr works for unsigned, weighted and directed networks", {
   # Arrows
-  expect_equal(test_ison_eies[["layers"]][[1]][["geom_params"]][["arrow"]][["angle"]], 15)
+  expect_equal(test_ison_networkers[["layers"]][[1]][["geom_params"]][["arrow"]][["angle"]], 15)
   # Node size
-  expect_equal(test_ison_eies[["layers"]][[2]][["geom"]][["default_aes"]][["size"]], 1.5)
+  expect_equal(test_ison_networkers[["layers"]][[2]][["geom"]][["default_aes"]][["size"]], 1.5)
 })
 
 # Bipartite network: mpn_usa_advice

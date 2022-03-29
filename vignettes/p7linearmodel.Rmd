@@ -215,8 +215,8 @@ The main network consists of 32 scholars with directed ties weighted by the tota
 Nodal attributes collected include the primary discipline and number of citations in the social science citation index at the start of the study.
 
 ```{r intro-eies}
-ison_eies
-autographr(ison_eies,
+ison_networkers
+autographr(ison_networkers,
            node_color = "Discipline")
 ```
 
@@ -229,7 +229,7 @@ Let's start with a pretty maximally specified model (note that it doesn't make s
 
 ```{r qap-max}
 model1 <- network_reg(weight ~ alter(Citations) + same(Discipline), 
-                      ison_eies, times = 200)
+                      ison_networkers, times = 200)
 model1
 ```
 

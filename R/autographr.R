@@ -45,7 +45,7 @@
 #'  dplyr::mutate(color = rep(c("blue", "red"), times = 4))
 #' autographr(ison_adolescents, node_shape = "shape", node_color = "color")
 #' autographr(ison_karateka, node_size = rep(c(0.8), times = 34))
-#' autographr(ison_eies, node_measure = node_betweenness, identify_function = max)
+#' autographr(ison_networkers, node_measure = node_betweenness, identify_function = max)
 #' @export
 autographr <- auto_graph <- function(object,
                                      layout = "stress",
@@ -126,7 +126,7 @@ autographr <- auto_graph <- function(object,
       nsize <- node_size(g)
     }
   } else {
-    nsize <- ifelse(igraph::vcount(g) <= 10, 5, (100 / igraph::vcount(g)) / 2)
+    nsize <- ifelse(graph_nodes(g) <= 10, 5, (100 / graph_nodes(g)) / 2)
   }
   # Import the ggidentify functionality highlighting a node.
   if (!is.null(node_measure) & !is.null(identify_function)) {
