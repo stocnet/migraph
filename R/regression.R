@@ -548,15 +548,16 @@ plot.netlm <- function(x, ...){
   distrib <- as.data.frame(distrib)
   names(distrib) <- x$names
   distrib$obs <- seq_len(nrow(distrib))
-  distrib <- tidyr::pivot_longer(distrib, -obs)
+  distrib <- tidyr::pivot_longer(distrib, -.data$obs)
   distrib$coef <- rep(unname(x$coefficients), nrow(x$dist))
   distrib$tstat <- rep(unname(x$tstat), nrow(x$dist))
   distrib$name <- factor(distrib$name, x$names)
-  ggplot(distrib, ggplot2::aes(value, name)) + 
-    geom_violin(draw_quantiles = c(0.025, 0.975)) + theme_minimal() +
+  ggplot2::ggplot(distrib, ggplot2::aes(.data$value, .data$name)) + 
+    ggplot2::geom_violin(draw_quantiles = c(0.025, 0.975)) + 
+    ggplot2::theme_minimal() +
     ylab("") + xlab("Statistic") + 
-    geom_point(aes(x = tstat), size = 2, 
-               colour = "red") +
+    ggplot2::geom_point(aes(x = .data$tstat), size = 2, 
+                        colour = "red") +
     scale_y_discrete(limits=rev)
 }
 
@@ -566,14 +567,15 @@ plot.netlogit <- function(x, ...){
   distrib <- as.data.frame(distrib)
   names(distrib) <- x$names
   distrib$obs <- seq_len(nrow(distrib))
-  distrib <- tidyr::pivot_longer(distrib, -obs)
+  distrib <- tidyr::pivot_longer(distrib, -.data$obs)
   distrib$coef <- rep(unname(x$coefficients), nrow(x$dist))
   distrib$tstat <- rep(unname(x$tstat), nrow(x$dist))
   distrib$name <- factor(distrib$name, x$names)
-  ggplot(distrib, ggplot2::aes(value, name)) + 
-    geom_violin(draw_quantiles = c(0.025, 0.975)) + theme_minimal() +
+  ggplot2::ggplot(distrib, ggplot2::aes(.data$value, .data$name)) + 
+    ggplot2::geom_violin(draw_quantiles = c(0.025, 0.975)) + 
+    ggplot2::theme_minimal() +
     ylab("") + xlab("Statistic") + 
-    geom_point(aes(x = tstat), size = 2, 
+    ggplot2::geom_point(aes(x = .data$tstat), size = 2, 
                colour = "red") +
     scale_y_discrete(limits=rev)
 }

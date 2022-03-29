@@ -27,7 +27,8 @@ NULL
 
 #' @describeIn create Creates an empty graph of the given dimensions.
 #' @examples
-#' autographr(create_empty(c(8,6)))
+#' autographr(create_empty(c(8,6))) +
+#' autographr(create_complete(c(8,6)))
 #' @export
 create_empty <- function(n) {
   if(is_migraph(n)){
@@ -43,10 +44,8 @@ create_empty <- function(n) {
   out
 }
 
-#' @describeIn create Creates a filled graph of the given dimensions.
-#' @examples
-#' g <- create_complete(c(8,6))
-#' autographr(g)
+#' @describeIn create Creates a filled graph of the given dimensions,
+#'   with every possible tie realised.
 #' @export
 create_complete <- function(n) {
   if(is_migraph(n)){
@@ -69,8 +68,8 @@ create_complete <- function(n) {
 #' @param directed Whether the graph should be directed. By default FALSE.
 #' @param ... Additional arguments passed on to igraph.
 #' @examples
-#' g <- create_ring(c(8,6), width = 2)
-#' autographr(g)
+#' autographr(create_ring(8, width = 2)) + 
+#' autographr(create_ring(c(8,6), width = 2))
 #' @export
 create_ring <- function(n, width = 1, directed = FALSE, ...) {
   if(is_migraph(n)){
@@ -123,7 +122,7 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
 
 #' @describeIn create Creates a graph in which the nodes are clustered
 #' into separate components.
-#' @param components Number of components to create.
+#' @param components Number of components to divide the nodes into.
 #' @examples
 #' autographr(create_components(c(10, 12), components = 3))
 #' @export
@@ -158,6 +157,8 @@ create_components <- function(n, components = 2) {
 #' @param direction One of the following options: "in", "out", or "undirected" (DEFAULT).
 #' @importFrom igraph graph_from_adjacency_matrix graph_from_incidence_matrix make_star
 #' @examples
+#' autographr(create_star(12, "in")) +
+#' autographr(create_star(12, "out")) +
 #' autographr(create_star(c(12,1), "in"))
 #' @export
 create_star <- function(n, 
@@ -187,42 +188,41 @@ roll_over <- function(w) {
 }
 
 #' @describeIn create Creates a graph of the given dimensions with successive branches.
-#' @param directed One of the following options: "in", "out", or "undirected" (DEFAULT).
+#' @param direction One of the following options: "in", "out", or "undirected" (DEFAULT).
 #' @param branches How many branches at each level.
 #' @importFrom igraph make_tree
 #' @examples
-#' tr1 <- autographr(create_tree(12))
-#' tr2 <- autographr(create_tree(12), "tree")
-#' tr1 + tr2
+#' autographr(create_tree(15, direction = "out")) + 
+#' autographr(create_tree(15, direction = "out"), "tree") + 
+#' autographr(create_tree(15, direction = "out", branches = 3), "tree")
 #' @export
 create_tree <- function(n, 
-                        directed = c("undirected","in","out"), 
+                        direction = c("undirected","in","out"), 
                         branches = 2) {
   if(is_migraph(n)){
     n <- graph_dims(n)
   }
   if(length(n)>1) stop("`create_tree()` not yet implemented for two-mode networks")
-  directed <- match.arg(directed)
-  igraph::make_tree(sum(n), children = branches, mode = directed)
+  direction <- match.arg(direction)
+  igraph::make_tree(sum(n), children = branches, mode = direction)
 }
 
 #' @describeIn create Creates a graph of the given dimensions with ties to all neighbouring nodes
-#' @param directed One of the following options: "in", "out", or "undirected" (DEFAULT).
+#' @param direction One of the following options: "in", "out", or "undirected" (DEFAULT).
 #' @importFrom igraph make_lattice
 #' @examples
-#' cl1 <- autographr(create_lattice(5))
-#' cl2 <- autographr(create_lattice(c(5,5)))
-#' cl3 <- autographr(create_lattice(c(5,5,5)))
-#' cl1 + cl2 + cl3
+#' autographr(create_lattice(5), layout = "kk") +
+#' autographr(create_lattice(c(5,5))) +
+#' autographr(create_lattice(c(5,5,5)))
 #' @export
 create_lattice <- function(n, 
-                        directed = c("undirected","in","out")) {
+                           direction = c("undirected","in","out")) {
   if(is_migraph(n)){
     n <- graph_dims(n)
   }
-  directed <- match.arg(directed)
+  direction <- match.arg(direction)
   igraph::make_lattice(n, 
-                       directed = directed!="undirected")
+                       directed = direction!="undirected")
 }
 
 # #' @rdname create

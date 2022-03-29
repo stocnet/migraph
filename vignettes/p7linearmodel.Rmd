@@ -230,8 +230,18 @@ Let's start with a pretty maximally specified model (note that it doesn't make s
 ```{r qap-max}
 model1 <- network_reg(weight ~ alter(Citations) + same(Discipline), 
                       ison_networkers, times = 200)
-model1
 ```
+
+We can use tidy methods to get the salient information from this model,
+and `{migraph}` includes also a plot method for these results to
+facilitate the quick interpretation of these results.
+
+```{r qap-interp}
+tidy(model1)
+glance(model1)
+plot(model1)
+```
+
 
 Hmm, looks like we can't say much from this fit.
 You can try and increase the number of `times` we permute,

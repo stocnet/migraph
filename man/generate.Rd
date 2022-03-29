@@ -39,37 +39,35 @@ a network of the same dimensions will be created.
 should be retained. By default TRUE.}
 }
 \description{
-Create networks from particular probabilities
-}
-\details{
-Creates a random network.
-If \code{length(n)==1}, then a one-mode network will be returned,
-equivalent to an Erdös-Renyi graph.
-If \code{length(n)==1}, then a two-mode network will be returned.
-The first number is the number of nodes in the first nodeset (rows),
-and the second number becomes the number of nodes in the second nodeset (columns).
+These functions are similar to the \verb{create_*} functions,
+but include some random element. They are particularly useful for
+creating a distribution of networks for exploring or testing
+network properties.
 }
 \section{Functions}{
 \itemize{
-\item \code{generate_permutation}: This generates a permutation of the original network
+\item \code{generate_random}: Generates a random network with a particular probability.
+
+\item \code{generate_smallworld}: Generates a small-world structure
+following the lattice rewiring model.
+
+\item \code{generate_scalefree}: Generates a scale-free structure
+following the preferential attachment model.
+
+\item \code{generate_permutation}: Generates a permutation of the original network
 using a Fisher-Yates shuffle on both the rows and columns (for a one-mode network)
 or on each of the rows and columns (for a two-mode network).
 }}
 
 \examples{
-er1 <- autographr(generate_random(12, 0.4))
-er2 <- autographr(generate_random(c(6, 6), 0.4))
-library(patchwork)
-er1 + er2
-sw1 <- autographr(generate_smallworld(12, 0.025))
-sw2 <- autographr(generate_smallworld(12, 0.25))
-sw1 + sw2
-sf1 <- autographr(generate_scalefree(12, 0.25))
-sf2 <- autographr(generate_scalefree(12, 1.25))
-sf1 + sf2
-em1 <- autographr(mpn_elite_usa_advice)
-em2 <- autographr(generate_permutation(mpn_elite_usa_advice))
-em1 + em2
+autographr(generate_random(12, 0.4)) +
+autographr(generate_random(c(6, 6), 0.4))
+autographr(generate_smallworld(12, 0.025)) +
+autographr(generate_smallworld(12, 0.25))
+autographr(generate_scalefree(12, 0.25)) +
+autographr(generate_scalefree(12, 1.25))
+autographr(mpn_elite_usa_advice) +
+autographr(generate_permutation(mpn_elite_usa_advice))
 }
 \seealso{
 Other creation: 

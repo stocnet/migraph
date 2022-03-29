@@ -21,9 +21,9 @@ create_components(n, components = 2)
 
 create_star(n, direction = c("undirected", "in", "out"))
 
-create_tree(n, directed = c("undirected", "in", "out"), branches = 2)
+create_tree(n, direction = c("undirected", "in", "out"), branches = 2)
 
-create_lattice(n, directed = c("undirected", "in", "out"))
+create_lattice(n, direction = c("undirected", "in", "out"))
 }
 \arguments{
 \item{n}{Given:
@@ -38,11 +38,11 @@ a network of the same dimensions will be created.
 
 \item{width}{The width or breadth of the ring. This is typically double the degree.}
 
-\item{directed}{One of the following options: "in", "out", or "undirected" (DEFAULT).}
+\item{directed}{Whether the graph should be directed. By default FALSE.}
 
 \item{...}{Additional arguments passed on to igraph.}
 
-\item{components}{Number of components to create.}
+\item{components}{Number of components to divide the nodes into.}
 
 \item{direction}{One of the following options: "in", "out", or "undirected" (DEFAULT).}
 
@@ -64,7 +64,8 @@ or a vector of \emph{two} integers to return a two-mode network.
 \itemize{
 \item \code{create_empty}: Creates an empty graph of the given dimensions.
 
-\item \code{create_complete}: Creates a filled graph of the given dimensions.
+\item \code{create_complete}: Creates a filled graph of the given dimensions,
+with every possible tie realised.
 
 \item \code{create_ring}: Creates a ring or chord graph of the given dimensions
 that loops around is of a certain width or thickness.
@@ -80,20 +81,20 @@ into separate components.
 }}
 
 \examples{
-autographr(create_empty(c(8,6)))
-g <- create_complete(c(8,6))
-autographr(g)
-g <- create_ring(c(8,6), width = 2)
-autographr(g)
+autographr(create_empty(c(8,6))) +
+autographr(create_complete(c(8,6)))
+autographr(create_ring(8, width = 2)) + 
+autographr(create_ring(c(8,6), width = 2))
 autographr(create_components(c(10, 12), components = 3))
+autographr(create_star(12, "in")) +
+autographr(create_star(12, "out")) +
 autographr(create_star(c(12,1), "in"))
-tr1 <- autographr(create_tree(12))
-tr2 <- autographr(create_tree(12), "tree")
-tr1 + tr2
-cl1 <- autographr(create_lattice(5))
-cl2 <- autographr(create_lattice(c(5,5)))
-cl3 <- autographr(create_lattice(c(5,5,5)))
-cl1 + cl2 + cl3
+autographr(create_tree(15, direction = "out")) + 
+autographr(create_tree(15, direction = "out"), "tree") + 
+autographr(create_tree(15, direction = "out", branches = 3), "tree")
+autographr(create_lattice(5), layout = "kk") +
+autographr(create_lattice(c(5,5))) +
+autographr(create_lattice(c(5,5,5)))
 }
 \seealso{
 as_matrix as_tidygraph as_network
