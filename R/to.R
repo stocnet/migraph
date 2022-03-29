@@ -23,6 +23,8 @@
 #' | main_component  |  |   | X | X | X |
 #' | onemode  |  |   | X | X |   |
 #' | multilevel  |  | X | X | X |   |
+#' | mode1 | | X | X | X | |
+#' | mode2 | | X | X | X | |
 #' @name to
 #' @family manipulation
 #' @param object A matrix, `{igraph}` graph, `{tidygraph}` tbl_graph, or

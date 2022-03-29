@@ -92,6 +92,8 @@ here are the currently implemented modifications:\tabular{lccccc}{
    main_component \tab  \tab  \tab X \tab X \tab X \cr
    onemode \tab  \tab  \tab X \tab X \tab  \cr
    multilevel \tab  \tab X \tab X \tab X \tab  \cr
+   mode1 \tab  \tab X \tab X \tab X \tab  \cr
+   mode2 \tab  \tab X \tab X \tab X \tab  \cr
 }
 }
 \section{Functions}{
