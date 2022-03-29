@@ -181,11 +181,11 @@ without adding any new edges, then `add_edge_attributes()` operates similarly
 to `add_node_attributes()` above.
 But if the result should be a multiplex network in the ties in the different
 component networks only partially overlap,
-then you will need to use `mutate_edges()`:^[Note that this function is still a work-in-progress.]
+then you will need to use `join_edges()`:^[Note that this function is still a work-in-progress.]
 
 ```{r mutateedges}
 generate_random(10, .3) %>% 
-  mutate_edges(generate_random(10, .3), "next")
+  join_edges(generate_random(10, .3), "next")
 ```
 
 # Retrieving data

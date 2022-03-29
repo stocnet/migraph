@@ -5,7 +5,7 @@
 \alias{add_node_attributes}
 \alias{add_edge_attributes}
 \alias{copy_node_attributes}
-\alias{mutate_edges}
+\alias{join_edges}
 \title{Adding and copying attributes from one graph to another}
 \usage{
 add_node_attributes(object, attr_name, vector)
@@ -14,7 +14,7 @@ add_edge_attributes(object, attr_name, vector)
 
 copy_node_attributes(object, object2)
 
-mutate_edges(object, object2, attr_name)
+join_edges(object, object2, attr_name)
 }
 \arguments{
 \item{object}{A migraph-consistent object.}
@@ -33,7 +33,7 @@ add_node_attributes(mpn_elite_mex, "wealth", 1:35)
 add_node_attributes(mpn_elite_usa_advice, "wealth", 1:14)
 add_edge_attributes(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
 autographr(mpn_elite_mex)
-both <- mutate_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
+both <- join_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
 autographr(both)
 random <- to_uniplex(both, "random")
 autographr(random)

@@ -47,7 +47,7 @@ test_that("add_edge_attributes works", {
                "igraph")
 })
 
-test_that("mutate_edges works", {
-  testmutateedges <- mutate_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
+test_that("join_edges works", {
+  testmutateedges <- join_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
   expect_equal(class(testmutateedges), c("tbl_graph", "igraph"))
 })

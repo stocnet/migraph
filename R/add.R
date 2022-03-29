@@ -62,13 +62,13 @@ copy_node_attributes <- function(object, object2){
 #' @importFrom dplyr mutate summarise across group_by everything
 #' @examples 
 #' autographr(mpn_elite_mex)
-#' both <- mutate_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
+#' both <- join_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
 #' autographr(both)
 #' random <- to_uniplex(both, "random")
 #' autographr(random)
 #' autographr(to_uniplex(both, "orig"))
 #' @export
-mutate_edges <- function(object, object2, attr_name){
+join_edges <- function(object, object2, attr_name){
   edges <- NULL
   from <- NULL
   to <- NULL

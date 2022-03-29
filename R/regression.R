@@ -76,8 +76,8 @@
 #'   “Sensitivity of MRQAP tests to collinearity and autocorrelation conditions.”
 #'   _Psychometrika_ 72(4): 563-581.
 #' @examples
-#' messages <- mutate_edges(ison_eies, 
-#'   generate_random(ison_eies), attr_name = "random")
+#' messages <- join_edges(ison_networkers, 
+#'   generate_random(ison_networkers), attr_name = "random")
 #' model1 <- network_reg(weight ~ random + 
 #'   ego(Discipline) + same(Discipline) + 
 #'   alter(Citations), 
