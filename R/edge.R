@@ -54,7 +54,6 @@ edge_betweenness <- function(object){
 
 #' @describeIn edge Calculate the closeness of each edge to each other edge
 #' in the network.
-#' @importFrom igraph distances
 #' @examples
 #' (ec <- edge_closeness(ison_adolescents))
 #' plot(ec)
