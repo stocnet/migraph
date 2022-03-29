@@ -65,3 +65,12 @@ project_cols <- function(object){
               old = "project_cols")
   to_mode2(object)
 }
+
+#' @describeIn defunct Deprecated on 2022-03-29.
+#' @export
+mutate_edges <- function(object, object2, attr_name){
+  .Deprecated("join_edges", package = "migraph",
+              old = "mutate_edges")
+  join_edges(object = object, object2 = object2, 
+             attr_name = attr_name)
+}
