@@ -26,7 +26,8 @@
 ## Manipulation
 
 - All `as_*()` functions now retain weights where present; if you want an unweighted result, use `is_unweighted()` afterwards
-  - `as_edgelist.network()` better handles edge weights
+  - `as_edgelist.network()` now better handles edge weights
+  - `as_matrix.igraph()` now better handles edge signs
 - Pivoted to S3 methods for most manipulation functions for better dispatching and performance
   - Added matrix, data.frame, network, igraph, and tbl_graph methods for `is_twomode()`, `is_directed()`, `is_weighted()`, `is_labelled()`, `is_signed()`, `is_multiplex()`, `is_complex()`, and `is_graph()`
   - Added data.frame methods for `as_edgelist()`,  and `to_unweighted()`, and improved the data.frame method for `as_matrix()`

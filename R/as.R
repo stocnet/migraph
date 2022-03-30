@@ -1,5 +1,6 @@
 #' Coercion between graph/network/edgelist/matrix object classes 
 #' 
+#' @description
 #' The `as_` functions in `{migraph}` coerce objects
 #' between several common classes of social network objects.
 #' These include:
@@ -17,21 +18,27 @@
 #' @name coercion
 #' @family manipulation
 #' @inheritParams is
-#' @param twomode An option to override the heuristics for distinguishing
-#' incidence from adjacency matrices. By default FALSE.
-#' @details Behaviour is a little different depending on the data format.
+#' @param twomode Logical option used to override the heuristics for 
+#' distinguishing incidence from adjacency matrices. By default FALSE.
+#' @details 
+#' Edgelists are expected to be held in data.frame or tibble class objects.
+#' The first two columns of such an object are expected to be the
+#' senders and receivers of a tie, respectively, and are typically
+#' named "from" and "to" (even in the case of an undirected network).
+#' These columns can contain integers to identify nodes or character
+#' strings/factors if the network is labelled.
+#' If the sets of senders and receivers overlap, a one-mode network
+#' is inferred. If the sets contain no overlap, a two-mode network
+#' is inferred.
+#' If a third, numeric column is present, a weighted network
+#' will be created.
 #' 
-#' If the data frame is a 2 column edgelist,
-#' the first column will become the rows
-#' and the second column will become the columns.
-#' If the data frame is a 3 column edgelist,
-#' then the third column will be used as 
-#' the cell values or tie weights.
-#' 
+#' Matrices can be either adjacency (one-mode) or incidence (two-mode) matrices.
 #' Incidence matrices are typically inferred from unequal dimensions,
 #' but since in rare cases a matrix with equal dimensions may still
 #' be an incidence matrix, an additional argument `twomode` can be
 #' specified to override this heuristic.
+#' 
 #' This information is usually already embedded in `{igraph}`, 
 #' `{tidygraph}`, and `{network}` objects.
 #' @importFrom tidygraph as_tbl_graph is.tbl_graph
@@ -40,6 +47,7 @@
 #' @examples
 #' test <- data.frame(id1 = c("A","B","B","C","C"),
 #'                    id2 = c("I","G","I","G","H"))
+#' as_edgelist(test)
 #' as_matrix(test)
 #' as_igraph(test)
 #' as_tidygraph(test)
@@ -163,7 +171,7 @@ as_matrix.matrix <- function(object) {
 #' @export
 as_matrix.igraph <- function(object) {
   if (is_twomode(object)) {
-    if (is_weighted(object)) {
+    if (is_weighted(object) | is_signed(object)) {
       mat <- igraph::as_incidence_matrix(object, sparse = FALSE,
                                          attr = igraph::edge_attr_names(object)[[1]])
     } else {
@@ -171,7 +179,7 @@ as_matrix.igraph <- function(object) {
                                          attr = NULL)
     }
   } else {
-    if (is_weighted(object)) {
+    if (is_weighted(object) | is_signed(object)) {
       mat <- igraph::as_adjacency_matrix(object, sparse = FALSE,
                                          attr = igraph::edge_attr_names(object)[[1]])
     } else {

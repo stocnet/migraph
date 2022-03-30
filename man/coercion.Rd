@@ -29,8 +29,8 @@ as_network(object)
 \item tbl_graph, from the tidygraph package
 }}
 
-\item{twomode}{An option to override the heuristics for distinguishing
-incidence from adjacency matrices. By default FALSE.}
+\item{twomode}{Logical option used to override the heuristics for
+distinguishing incidence from adjacency matrices. By default FALSE.}
 }
 \value{
 The currently implemented coercions or translations are:\tabular{lccccc}{
@@ -53,33 +53,39 @@ These include:
 \item \code{{tidygraph}} \code{tbl_graph} objects
 \item \code{{network}} \code{network} objects
 }
-}
-\details{
+
 An effort is made for all of these coercion routines to be as lossless
 as possible, though some object classes are better at retaining certain
 kinds of information than others.
 Note also that there are some reserved column names in one or more
 object classes, which could otherwise lead to some unexpected results.
+}
+\details{
+Edgelists are expected to be held in data.frame or tibble class objects.
+The first two columns of such an object are expected to be the
+senders and receivers of a tie, respectively, and are typically
+named "from" and "to" (even in the case of an undirected network).
+These columns can contain integers to identify nodes or character
+strings/factors if the network is labelled.
+If the sets of senders and receivers overlap, a one-mode network
+is inferred. If the sets contain no overlap, a two-mode network
+is inferred.
+If a third, numeric column is present, a weighted network
+will be created.
 
-Behaviour is a little different depending on the data format.
-
-If the data frame is a 2 column edgelist,
-the first column will become the rows
-and the second column will become the columns.
-If the data frame is a 3 column edgelist,
-then the third column will be used as
-the cell values or tie weights.
-
+Matrices can be either adjacency (one-mode) or incidence (two-mode) matrices.
 Incidence matrices are typically inferred from unequal dimensions,
 but since in rare cases a matrix with equal dimensions may still
 be an incidence matrix, an additional argument \code{twomode} can be
 specified to override this heuristic.
+
 This information is usually already embedded in \code{{igraph}},
 \code{{tidygraph}}, and \code{{network}} objects.
 }
 \examples{
 test <- data.frame(id1 = c("A","B","B","C","C"),
                    id2 = c("I","G","I","G","H"))
+as_edgelist(test)
 as_matrix(test)
 as_igraph(test)
 as_tidygraph(test)
