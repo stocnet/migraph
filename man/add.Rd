@@ -36,6 +36,20 @@ join_edges(object, object2, attr_name)
 These functions allow users to add attributes to a graph from another graph
 or from a specified vector supplied by the user.
 }
+\section{Functions}{
+\itemize{
+\item \code{add_node_attributes}: Insert specified values from a vector into the graph
+as node attributes
+
+\item \code{add_edge_attributes}: Insert specified values from a vector into the graph
+as edge attributes
+
+\item \code{copy_node_attributes}: Copies node attributes from a given graph into specified graph
+
+\item \code{join_edges}: Copies edges from another graph to specified graph and
+adds an edge attribute identifying the edges that were newly added
+}}
+
 \examples{
 add_node_attributes(mpn_elite_mex, "wealth", 1:35)
 add_node_attributes(mpn_elite_usa_advice, "wealth", 1:14)

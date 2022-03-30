@@ -9,7 +9,6 @@
 #' @name add
 NULL
 
-#' @rdname add
 #' @describeIn add Insert specified values from a vector into the graph 
 #' as node attributes
 #' @importFrom igraph vertex_attr<-
@@ -35,7 +34,6 @@ add_node_attributes <- function(object, attr_name, vector){
   object
 }
 
-#' @rdname add
 #' @describeIn add Insert specified values from a vector into the graph 
 #' as edge attributes
 #' @importFrom igraph edge_attr
@@ -48,7 +46,6 @@ add_edge_attributes <- function(object, attr_name, vector){
   object
 }
 
-#' @rdname add
 #' @describeIn add Copies node attributes from a given graph into specified graph
 #' @export
 copy_node_attributes <- function(object, object2){
@@ -63,7 +60,6 @@ copy_node_attributes <- function(object, object2){
   object
 }
 
-#' @rdname add
 #' @describeIn add Copies edges from another graph to specified graph and 
 #' adds an edge attribute identifying the edges that were newly added
 #' @importFrom igraph add_edges

@@ -16,7 +16,7 @@
 
 ## Making
 
-- Moved to @describeIn documentation
+- Moved to @describeIn documentation (closed #215)
 - Distinguished `directed` and `direction` arguments in some functions; whereas `directed` is always logical (TRUE/FALSE), `direction` expects a character string, e.g. "in", "out", or "undirected"
 - `generate_permutation()` now has an additional logical argument, `with_attr`, that indicates whether any attributes from the original data should be passed to the permuted object
 - All `create_*()` functions now accept existing objects as their first argument and will create networks with the same dimensions
