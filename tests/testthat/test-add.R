@@ -1,41 +1,53 @@
+# object without nodal attributes
 net_node1 <- as_tidygraph(data.frame(
   from = c("A", "B", "C", "D","E"),
   to = c("B", "C", "D", "E", "A")))
 
+# object with nodal attributes
 net_node2 <- net_node1 %>%
   dplyr::mutate(attribute = c("friend", "family", "friend", "friend", "family"))
 
-# net_edge1 <- as_tidygraph(data.frame(
-#   from = c("A", "B", "C", "D","E"),
-#   to = c("C", "D", "E", "A", "B")))
-# 
-# net_edge2 <- as_tidygraph(data.frame(
-#   from = c("A", "B", "C", "D","E"),
-#   to = c("D", "D", "E", "A", "C")))
-
-# net_edge3 <- as_tidygraph(data.frame(
-#   from = c("A", "A", "B", "C", "D","E", "E"),
-#   to = c("C", "D", "D", "E", "A", "B", "C"))) %>%
-#   igraph::set_edge_attr("attribute", value = c(0, 1, 1, 1, 1, 0, 1))
-# 
-# net_edge4 <- net_edge1 %>%
-#   igraph::set_edge_attr("weight", value = c(0, 1, 1, 1, 1))
+# object without edge attributes
+net_edge1 <- data.frame(
+  from = c("A", "B", "C", "D","E"),
+  to = c("C", "D", "A", "A", "B"))
 
 test_that("add_node_attributes works", {
+  # Test on one mode network
   expect_equal(as_tidygraph(add_node_attributes(net_node1, "attribute", 
                                                 c("friend", "family", "friend", "friend", "family"))), 
                net_node2)
+  # On two mode network
+  # First nodeset
+  south1 <- add_node_attributes(ison_southern_women, "Age", rep(25, 18))
+  expect_equal(node_attribute(south1, "Age"), c(rep(25, 18), rep(NA, 14)))
+  # Second nodeset
+  south2 <- add_node_attributes(ison_southern_women, "Budget", rep(100, 14))
+  expect_equal(node_attribute(south2, "Budget"), c(rep(NA, 18), rep(100, 14)))
+  # Test error when wrong number of attributes
+  expect_error(add_node_attributes(ison_southern_women, "Budget", rep(100, 15)))
 })
 
 test_that("copy_node_attributes works", {
   expect_equal(as_tidygraph(copy_node_attributes(net_node1, net_node2)), 
                net_node2)
+  # Test error when different number of dimensions
+  net_node3 <- as_tidygraph(data.frame(
+    from = c("A", "B", "C"),
+    to = c("B", "C", "D")))
+  expect_error(copy_node_attributes(net_node1, net_node3))
 })
 
-# test_that("add_edge_attributes works", {
-#   expect_equal(add_edge_attributes(net_edge1, net_edge4), net_edge4)
-# })
+test_that("add_edge_attributes works", {
+  expect_equal(edge_attribute(add_edge_attributes(net_edge1, "weight", 
+                                                  c(1,2,1,2,1)), 
+                              "weight"), 
+               c(1,2,1,2,1))
+  expect_equal(class(add_edge_attributes(net_edge1, "weight", c(1,2,1,2,1))), 
+               "igraph")
+})
 
-# test_that("mutate_edges works", {
-#   expect_equal(mutate_edges(net_edge1, net_edge2, "attribute"), net_edge3)
-# })
+test_that("join_edges works", {
+  testmutateedges <- join_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
+  expect_equal(class(testmutateedges), c("tbl_graph", "igraph"))
+})

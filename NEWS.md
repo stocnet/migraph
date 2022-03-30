@@ -1,3 +1,104 @@
+# migraph 0.9.0
+
+## Package
+
+- Recognised contributors Henrique Sposito and Jael Tan
+- Updated dependencies
+  - `{readxl}` is now _suggested_, but required if importing from an Excel sheet
+  - `{patchwork}` replaces `{gridExtra}` to make for more concise multiplot visualisations
+  - `{dplyr}` also serves to export `{magrittr}`'s pipe
+  - `{RColorBrewer}` has been dropped and the `Dark2` discrete set of colors is now internal
+- README has been updated and now compiles from a .Rmd file
+- Changed website theme to 'superhero'
+- All prior deprecated functions have been removed
+- Increased testing to ~80% (closed #126, #212)
+- CITATION has been updated too
+
+## Making
+
+- Moved to @describeIn documentation (closed #215)
+- Distinguished `directed` and `direction` arguments in some functions; whereas `directed` is always logical (TRUE/FALSE), `direction` expects a character string, e.g. "in", "out", or "undirected"
+- `generate_permutation()` now has an additional logical argument, `with_attr`, that indicates whether any attributes from the original data should be passed to the permuted object
+- All `create_*()` functions now accept existing objects as their first argument and will create networks with the same dimensions
+- `read_pajek()` now imports nodal attributes alongside the main edges
+- `read_ucinet()` now enjoys clearer documentation 
+
+## Manipulation
+
+- All `as_*()` functions now retain weights where present; if you want an unweighted result, use `is_unweighted()` afterwards
+  - `as_edgelist.network()` now better handles edge weights
+  - `as_matrix.igraph()` now better handles edge signs
+- Pivoted to S3 methods for most manipulation functions for better dispatching and performance
+  - Added matrix, data.frame, network, igraph, and tbl_graph methods for `is_twomode()`, `is_directed()`, `is_weighted()`, `is_labelled()`, `is_signed()`, `is_multiplex()`, `is_complex()`, and `is_graph()`
+  - Added data.frame methods for `as_edgelist()`,  and `to_unweighted()`, and improved the data.frame method for `as_matrix()`
+  - Added data.frame and matrix methods for `to_named()` and `to_unsigned()`
+- Added `to_edges()` for creating adjacency matrices using a network's edges as nodes
+- Renamed `project_rows()` and `project_cols()` functions to `to_mode1()` and `to_mode2()`, which is both more consistent with other functions naming conventions and more generic by avoiding the matrix-based row/column distinction
+- Added `node_mode()`, which returns a vector of the mode assignments of the nodes in a network
+- Added `edge_signs()`, which returns a vector of the sign assignments of the edges in a network
+
+## Mapping
+
+- Added 'visualization' vignette that starts to introduce how `autographr()` works and how `{ggraph}` extends this
+- `autographr()` now incorporates `ggidentify()` functionality (closed #150)
+- `{patchwork}` is now used to assemble multiple plots together
+- Fixed #204 layout issues with `ggatyear()` 
+
+## Measures
+
+- Added new `measure` class and directed most `node_*()` functions to create objects of this class
+  - A print method for this class prints an abbreviated vector (the full vector is always still contained within the object) and prints elements from both modes in the event that the original object was two-mode (closed #202)
+  - A plot method replaces `ggdistrib()` and offers "hist" and "dens" methods for histograms and density plots respectively
+- Added some edge-based centrality measures (closed #165)
+  - `edge_betweenness()` wraps `{igraph}`'s function of the same name
+  - `edge_closeness()` measures the closeness centrality of nodes in an edge adjacency
+- Added several more measures of connectedness
+  - `node_cuts()` identifies articulation points (nodes) in a network
+  - `edge_bridges()` identifies edges that serve as bridges in a network
+  - `graph_cohesion()` measures how many nodes would need to be removed to increase the number of components (closed #192)
+  - `graph_adhesion()` measures how many edges would need to be removed to increase the number of components
+  - `graph_length()` measures the average path length
+  - `graph_diameter()` measures the longest path length
+- Removed `node_smallworld()` and added `graph_smallworld()`, which works with both one- and two-mode networks (fixed #214)
+
+## Motifs
+
+- Added some guidance to the naming convention used in `node_quad_census()`
+
+## Models
+
+- Extended `network_reg()`'s formula-based system
+  - `network_reg()` can now handle binary and multiple categorical variables (factors and characters, closed #211); 
+  - `network_reg()` can now manage interactions specified in the common syntax; `var1 * var2` expands to `var1 + var2 + var1:var2` (closed #163)
+  - `dist()` and `sim()` effects have been added (closed #207)
+- `network_reg()` now employs logistic regression to estimate a binary outcome and linear regression to estimate a continuous outcome (closed #184)
+- `network_reg()` now uses Dekker et al's semi-partialling procedure by default for multivariate specifications (closed #206), defaulting to _y_-permutations in the case of a single predictor (closed #208)
+- Added parallelisation to Monte Carlo based tests
+  - Refactored `network_reg()`, relying on `{furrr}` for potential parallelisation and `{progressr}` for progress reports (closed #185, #186)
+  - Refactored `test_random()` and `test_permutation()`, relying on `{furrr}` for potential parallelisation and `{progressr}` for progress reports; note that `nSim` argument now `times` (closed #199)
+- Added `{broom}` S3 methods for `netlm` and `netlogit` class objects (closed #183)
+  - `tidy()` extracts coefficients and related values
+  - `glance()`extracts model-level values such as `R^2`
+- Added plot method for `netlm` and `netlogit` class objects (closed #216), which plots the empirical distribution for each test statistic, indicates percentiles relating to common critical values, and superimposes the observed coefficients
+- Added plot method for `cug_test` and `qap_test` class objects, which plots the empirical distribution, highlighting tails beyond some critical value (closed #213), and superimposing the observed coefficient and, possibly, 0
+- Relabelled some classes to avoid loading conflicts with `{sna}`
+  - `print.block_model()` replaces `print.blockmodel()`
+  - `plot.block_model()` replaces `plot.blockmodel()`
+- Reduced the number of simulations used in tests, examples, and vignettes to avoid CRAN warnings
+
+## Data
+
+- Updated several names of datasets for consistency and conciseness
+  - `ison_southern_women` instead of `southern_women`
+  - `ison_brandes` instead of `brandes`
+  - `ison_networkers` instead of `ison_eies`
+  - `ison_algebra` instead of `ison_m182`
+  - `ison_adolescents` instead of `ison_coleman`
+- Extended several datasets
+  - `mpn_elite_mex` is extended with data from Pajek and with help from Frank Heber
+  - `ison_networkers` becomes named with information from `{tnet}`
+- Elaborated documentation of most `mpn_*` and `ison_*` datasets, including references/sources
+
 # migraph 0.8.13
 
 ## Modelling

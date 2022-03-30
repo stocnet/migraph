@@ -6,16 +6,23 @@
 \alias{mpn_DemSxP}
 \alias{mpn_RepSxP}
 \alias{mpn_OverSxP}
-\title{Two-mode 112th Congress Senate Voting}
+\title{Two-mode 112th Congress Senate Voting (Knoke et al. 2021)}
 \format{
-Matrix of 51 rows (Senators) and 63 columns (PACS)
+\code{tbl_graph} network object. It is a bimodal, directed, named,
+weighted graph of 51 Senators (\code{type = FALSE}) and 63 PACS (\code{type = TRUE})
+and 2791 edges.
 
-Matrix of 62 rows (Senators) and 72 columns (PACS)
+\code{tbl_graph} network object. It is a bimodal, directed, named,
+weighted graph of 62 Senators (\code{type = FALSE}) and 72 PACS (\code{type = TRUE})
+and 3675 edges.
 
-Matrix of 20 rows (Senators) and 32 columns (PACS)
+\code{tbl_graph} network object. It is a bimodal, directed, named,
+weighted graph of 20 Senators (\code{type = FALSE}) and 32 PACS (\code{type = TRUE})
+and 614 edges.
 }
 \source{
-Knoke, Diani, Hollway, and Christopoulos. 2021. \emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
+Knoke, Diani, Hollway, and Christopoulos. 2021.
+\emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
 }
 \usage{
 data(mpn_DemSxP)
@@ -31,8 +38,7 @@ Although the Senate has 100 seats, 103 persons served during this period due
 to two resignations and a death. However, the third replacement occurred
 only two days before the end and cast no votes on the bills investigated
 here. Hence, the number of Senators analyzed is 102.
-}
-\details{
+
 CQ Almanac identified 25 key bills on which the Senate voted during the
 112th Congress, and which Democratic and Republican Senators voting “yea”
 and “nay” on each proposal.

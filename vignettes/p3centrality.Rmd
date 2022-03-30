@@ -37,19 +37,19 @@ shiny apps or markdown documents;
 
 ```{r setup}
 library(migraph)
-brandes
-autographr(brandes)
+ison_brandes
+autographr(ison_brandes)
 ```
 
-For this exercise, we'll use the `brandes` dataset.
+For this exercise, we'll use the `ison_brandes` dataset.
 This dataset is in a 'tidygraph' format, 
 but migraph makes it easy to coerce this into other forms
 to be compatible with other packages.
 
 ```{r coercion}
-as_igraph(brandes)
-as_network(brandes)
-mat <- as_matrix(brandes)
+as_igraph(ison_brandes)
+as_network(ison_brandes)
+mat <- as_matrix(ison_brandes)
 ```
 
 # Calculating different centrality measures
@@ -62,7 +62,7 @@ Just sum the rows or columns of the matrix!
 rowSums(mat) == colSums(mat)
 # Are they all equal? Why?
 # You can also just use a built in command in migraph though:
-node_degree(brandes)
+node_degree(ison_brandes)
 ```
 
 Often we are interested in the distribution of (degree) centrality in a network.
@@ -70,16 +70,16 @@ Often we are interested in the distribution of (degree) centrality in a network.
 though there are more elaborate ways to do this in base and grid graphics.
 
 ```{r distrib}
-ggdistrib(brandes, node_degree)
+ggdistrib(ison_brandes, node_degree)
 ```
 
 Other measures of centrality can be a little trickier to calculate by hand.
 Fortunately, we can use functions from migraph to help:
 
 ```{r micent}
-node_betweenness(brandes)
-node_closeness(brandes)
-node_eigenvector(brandes)
+node_betweenness(ison_brandes)
+node_closeness(ison_brandes)
+node_eigenvector(ison_brandes)
 # TASK: Can you create degree distributions for each of these?
 ```
 
@@ -121,10 +121,10 @@ This is basically doing the same as what was in the original script,
 just gives you the function to do this:
 
 ```{r ggid}
-ggidentify(brandes, node_degree)
-ggidentify(brandes, node_betweenness)
-ggidentify(brandes, node_closeness)
-ggidentify(brandes, node_eigenvector)
+ggidentify(ison_brandes, node_degree)
+ggidentify(ison_brandes, node_betweenness)
+ggidentify(ison_brandes, node_closeness)
+ggidentify(ison_brandes, node_eigenvector)
 ```
 
 How neat!
@@ -136,12 +136,12 @@ Here we are no longer interested in the level of the node,
 but in the level of the whole graph, so the syntax is:
 
 ```{r centzn}
-graph_degree(brandes)
-graph_betweenness(brandes)
-graph_closeness(brandes)
-graph_eigenvector(brandes) # note that graph_eigenvector() is not yet implemented for two-mode networks
-graph_eigenvector(brandes, digits = 4)
-graph_eigenvector(brandes, digits = FALSE)
+graph_degree(ison_brandes)
+graph_betweenness(ison_brandes)
+graph_closeness(ison_brandes)
+graph_eigenvector(ison_brandes) # note that graph_eigenvector() is not yet implemented for two-mode networks
+graph_eigenvector(ison_brandes, digits = 4)
+graph_eigenvector(ison_brandes, digits = FALSE)
 ```
 
 By default, these scores are rounded to 2 decimal places,
@@ -169,18 +169,19 @@ See `?ggsave` for more.
 
 But what if we want to have a single image/figure with multiple plots?
 This can be a little tricky with gg-based plots,
-but fortunately the 'gridExtra' package is here to help.
+but fortunately the `{patchwork}` package is here to help.
 
 ```{r multiplot}
-gd <- ggidentify(brandes, node_degree) + 
-  ggtitle("Degree", subtitle = graph_degree(brandes))
-gc <- ggidentify(brandes, node_closeness) + 
-  ggtitle("Closeness", subtitle = round(graph_closeness(brandes), 2))
-gb <- ggidentify(brandes, node_betweenness) + 
-  ggtitle("Betweenness", subtitle = round(graph_betweenness(brandes), 2))
-ge <- ggidentify(brandes, node_eigenvector) + 
+gd <- ggidentify(ison_brandes, node_degree) + 
+  ggtitle("Degree", subtitle = graph_degree(ison_brandes))
+gc <- ggidentify(ison_brandes, node_closeness) + 
+  ggtitle("Closeness", subtitle = round(graph_closeness(ison_brandes), 2))
+gb <- ggidentify(ison_brandes, node_betweenness) + 
+  ggtitle("Betweenness", subtitle = round(graph_betweenness(ison_brandes), 2))
+ge <- ggidentify(ison_brandes, node_eigenvector) + 
   ggtitle("Eigenvector")
-grid.arrange(gd, gb, gc, ge, ncol = 2)
+library(patchwork)
+(gd | gb) / (gc | ge)
 # ggsave("brandes-centralities.pdf")
 ```
 

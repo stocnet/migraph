@@ -1,6 +1,22 @@
-#' @importFrom magrittr %>%
+#' @importFrom igraph is.igraph
 #' @export
-magrittr::`%>%`
+igraph::is.igraph
+
+#' @importFrom igraph is_bipartite
+#' @export
+igraph::is_bipartite
+
+#' @importFrom network is.network
+#' @export
+network::is.network
+
+#' @importFrom network as.network
+#' @export
+network::as.network
+
+#' @importFrom dplyr %>%
+#' @export
+dplyr::`%>%`
 
 #' @importFrom tidygraph with_graph
 #' @export

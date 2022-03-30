@@ -1,28 +1,23 @@
 #' Create networks from particular probabilities
 #' 
+#' @description These functions are similar to the `create_*` functions,
+#'   but include some random element. They are particularly useful for
+#'   creating a distribution of networks for exploring or testing
+#'   network properties.
 #' @name generate
 #' @family creation
-#' @param n Integer of length 1 or 2.
-#'   If passed a migraph-consistent object, a random network
-#'   of the same dimensions and density as the original network will be returned.
+#' @inheritParams create
 #' @param object a migraph-consistent object
 #' @param p Number of edges in the network over the number of edges possible
 #' @param m Number of edges in the network
 #' @param directed Whether to generate network as directed. By default FALSE.
-#' @details Creates a random network.
-#' If `length(n)==1`, then a one-mode network will be returned,
-#' equivalent to an Erdös-Renyi graph.
-#' If `length(n)==1`, then a two-mode network will be returned.
-#' The first number is the number of nodes in the first nodeset (rows),
-#' and the second number becomes the number of nodes in the second nodeset (columns).
 NULL
 
-#' @rdname generate
+#' @describeIn generate Generates a random network with a particular probability.
 #' @importFrom igraph sample_bipartite erdos.renyi.game
 #' @examples
-#' er1 <- autographr(generate_random(12, 0.4))
-#' er2 <- autographr(generate_random(c(6, 6), 0.4))
-#' grid.arrange(er1, er2, ncol = 2)
+#' autographr(generate_random(12, 0.4)) +
+#' autographr(generate_random(c(6, 6), 0.4))
 #' @export
 generate_random <- function(n, p, m, directed = FALSE) {
   if(is_migraph(n)){
@@ -60,42 +55,46 @@ generate_random <- function(n, p, m, directed = FALSE) {
   g
 }
 
-#' @rdname generate
+#' @describeIn generate Generates a small-world structure
+#'   following the lattice rewiring model.
 #' @importFrom igraph sample_smallworld
 #' @examples
-#' sw1 <- autographr(generate_smallworld(12, 0.025))
-#' sw2 <- autographr(generate_smallworld(12, 0.25))
-#' grid.arrange(sw1, sw2, ncol = 2)
+#' autographr(generate_smallworld(12, 0.025)) +
+#' autographr(generate_smallworld(12, 0.25))
 #' @export
 generate_smallworld <- function(n, p = 0.05) {
   igraph::sample_smallworld(dim = 1, size = n, 
                             nei = 2, p = p)
 }
 
-#' @rdname generate
+#' @describeIn generate Generates a scale-free structure
+#'   following the preferential attachment model.
 #' @importFrom igraph sample_pa
 #' @examples
-#' sf1 <- autographr(generate_scalefree(12, 0.25))
-#' sf2 <- autographr(generate_scalefree(12, 1.25))
-#' grid.arrange(sf1, sf2, ncol = 2)
+#' autographr(generate_scalefree(12, 0.25)) +
+#' autographr(generate_scalefree(12, 1.25))
 #' @export
 generate_scalefree <- function(n, p = 1) {
   igraph::sample_pa(n, power = p)
 }
 
-#' @rdname generate
+#' @describeIn generate Generates a permutation of the original network
+#'   using a Fisher-Yates shuffle on both the rows and columns (for a one-mode network)
+#'   or on each of the rows and columns (for a two-mode network).
+#' @param with_attr Logical. Whether any attributes of the object
+#'   should be retained. By default TRUE. 
 #' @examples
-#' em1 <- autographr(mpn_elite_usa_advice)
-#' em2 <- autographr(generate_permutation(mpn_elite_usa_advice))
-#' grid.arrange(em1, em2, ncol = 2)
+#' autographr(mpn_elite_usa_advice) +
+#' autographr(generate_permutation(mpn_elite_usa_advice))
 #' @export
-generate_permutation <- function(object) {
+generate_permutation <- function(object, with_attr = TRUE) {
+  out <- as_matrix(object)
   if(is_twomode(object)){
-    out <- r2perm(as_matrix(object))
+    out <- r2perm(out)
   } else {
-    out <- r1perm(as_matrix(object))
+    out <- r1perm(out)
   }
-  out <- copy_node_attributes(out, object)
+  if(with_attr) out <- copy_node_attributes(out, object)
   out
 }
 

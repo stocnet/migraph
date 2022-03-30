@@ -5,6 +5,8 @@
 \alias{edge_mutual}
 \alias{edge_multiple}
 \alias{edge_loop}
+\alias{edge_betweenness}
+\alias{edge_closeness}
 \title{Identifying edges by certain properties}
 \usage{
 edge_mutual(object)
@@ -12,10 +14,20 @@ edge_mutual(object)
 edge_multiple(object)
 
 edge_loop(object)
+
+edge_betweenness(object)
+
+edge_closeness(object)
 }
 \arguments{
-\item{object}{A migraph-consistent class object
-(matrix, edgelist, igraph, network, tidygraph)}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 }
 \description{
 Identifying edges by certain properties
@@ -27,10 +39,25 @@ Identifying edges by certain properties
 \item \code{edge_multiple}: Identify edges that are multiples
 
 \item \code{edge_loop}: Identify edges that are loops
+
+\item \code{edge_betweenness}: Calculate number of shortest paths going through an edge
+
+\item \code{edge_closeness}: Calculate the closeness of each edge to each other edge
+in the network.
 }}
 
 \examples{
-edge_mutual(ison_m182)
-edge_multiple(ison_m182)
-edge_loop(ison_m182)
+edge_mutual(ison_algebra)
+edge_multiple(ison_algebra)
+edge_loop(ison_algebra)
+(eb <- edge_betweenness(ison_adolescents))
+plot(eb)
+ison_adolescents \%>\% 
+  activate(edges) \%>\% mutate(weight = eb) \%>\% 
+  autographr()
+(ec <- edge_closeness(ison_adolescents))
+plot(ec)
+ison_adolescents \%>\% 
+  activate(edges) \%>\% mutate(weight = ec) \%>\% 
+  autographr()
 }

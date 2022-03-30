@@ -9,10 +9,11 @@
 #' @param layout an igraph layout. Default is Kamada-Kawai ("kk")
 #' @param based_on whether the layout of the joint plots should
 #' be based on the "first" or the "last" network.
-#' @importFrom gridExtra grid.arrange
 #' @importFrom rlang .data
 #' @importFrom ggplot2 stat
+#' @importFrom patchwork plot_layout
 #' @examples
+#' mpn_elite_mex <- mpn_elite_mex %>% filter(in_mpn == 1)
 #' mpn_elite_mex2 <- mpn_elite_mex  %>%
 #'                   tidygraph::activate(edges) %>%
 #' tidygraph::reroute(from = sample.int(11, 44, replace = TRUE),
@@ -43,12 +44,10 @@ ggevolution <- function(..., layout = "kk",
     l1$x <- l2$x
     l1$y <- l2$y
   } else if (based_on == "both") {
-    l3 <- as_igraph(networks[[1]]) + as_igraph(networks[[2]])
+    l3 <- igraph::union(as_igraph(networks[[1]]), as_igraph(networks[[2]]))
     l3 <- ggraph::create_layout(l3, layout = "igraph", algorithm = layout)
     l1$x <- l2$x <- l3$x
     l1$y <- l2$y <- l3$y
-  } else {
-    warning("No other bases currently implemented. Defaulting to individual layouts.")
   }
   g1 <- ggraph::ggraph(l1) +
     ggraph::geom_node_point() +
@@ -62,16 +61,16 @@ ggevolution <- function(..., layout = "kk",
     ggplot2::theme_void() +
     ggraph::geom_node_text(ggplot2::aes(label = .data$name), 
                            repel = TRUE)
-  gridExtra::grid.arrange(g1, g2, 
-                          ncol = length(networks))
-  
+  g1 + g2
 }
 
-#' Plotting network at particular timepoint (year)
+#' Plotting a network at a particular timepoint (year)
 #' 
-#' @param edgelist a manyverse edgelist, expecting `Beg` and `End` variables,
+#' @param edgelist A manyverse edgelist, expecting `Beg` and `End` variables,
 #' among others
-#' @param year numeric year, gets expanded to first of January that year
+#' @param year Numeric year, gets expanded to first of January that year
+#' @param ... Additional arguments passed on to `autographr()`.
+#' @return A plot of the network of agreements signed in the specified year.
 #' @importFrom ggraph geom_edge_link geom_node_point geom_node_text
 #' @importFrom ggplot2 aes theme_void
 #' @examples 
@@ -79,26 +78,17 @@ ggevolution <- function(..., layout = "kk",
 #' ggatyear(membs, 1900)
 #' }
 #' @export
-ggatyear <- function(edgelist, year) {
+ggatyear <- function(edgelist, year, ...) {
   name <- type <- NULL # Initialize variables
-  graph <- as_tidygraph(edgelist[edgelist$Beg < paste0(year,
-                                                       "-01-01") &
-                                   edgelist$End > paste0(year,
-                                                         "-01-01"), ])
-  ggraph(graph,
-         layout = "dynamic") +
-    ggraph::geom_edge_link0(colour = "black",
-                            alpha = 0.18) +
-    ggraph::geom_node_point(shape = ifelse(igraph::V(graph)$type,
-                                           15,
-                                           16),
-                    color = ifelse(igraph::V(graph)$type,
-                                   "orange",
-                                   "darkolivegreen")) +
-    ggraph::geom_node_text(ggplot2::aes(label = ifelse(type, "", name)),
-                           family = "sans",
-                           color = "dodgerblue4",
-                           repel = TRUE) +
-    ggplot2::theme_void() +
+  # Some input checks and corrections
+  if (!(is.numeric(year))) year <- as.numeric(year)
+  if (!("Beg" %in% names(edgelist))) stop("Your edgelist does not contain a date column named Beg.")
+  if (!("End" %in% names(edgelist))) stop("Your edgelist does not contain a date column named End.")
+  # Create subsetted graph
+  graph <- as_tidygraph(dplyr::filter(edgelist, .data$Beg >
+                                        paste0(year, "-01-01") &
+                                        .data$Beg < paste0(year + 1, "-01-01")))
+  # Plot graph with autographr
+  autographr(graph, ...) +
     ggtitle(year)
 }

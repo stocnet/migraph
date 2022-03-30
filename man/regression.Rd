@@ -3,58 +3,116 @@
 \name{regression}
 \alias{regression}
 \alias{network_reg}
-\alias{summary.netlm}
-\alias{print.summary.netlm}
-\title{Linear regression for network data}
+\title{Linear and logistic regression for network data}
 \usage{
-network_reg(formula, data, ...)
-
-\method{summary}{netlm}(object, reps = 1000, ...)
-
-\method{print}{summary.netlm}(
-  x,
-  digits = max(3, getOption("digits") - 3),
-  signif.stars = getOption("show.signif.stars"),
-  ...
+network_reg(
+  formula,
+  object,
+  method = c("qap", "qapy"),
+  times = 1000,
+  strategy = "sequential",
+  verbose = FALSE
 )
 }
 \arguments{
-\item{formula}{A formula describing the relationship being tested.}
+\item{formula}{A formula describing the relationship being tested.
+Several additional terms are available to assist users investigate
+the effects they are interested in. These include:
+\itemize{
+\item \code{ego()} constructs a matrix where the cells reflect the value of
+a named nodal attribute for an edge's sending node
+\item \code{alter()} constructs a matrix where the cells reflect the value of
+a named nodal attribute for an edge's receiving node
+\item \code{same()} constructs a matrix where a 1 reflects
+if two nodes' attribute values are the same
+\item \code{dist()} constructs a matrix where the cells reflect the
+absolute difference between the attribute's values
+for the sending and receiving nodes
+\item \code{sim()} constructs a matrix where the cells reflect the
+proportional similarity between the attribute's values
+for the sending and receiving nodes
+\item dyadic covariates (other networks) can just be named
+}}
 
-\item{data}{A named list of matrices, graphs, or a tidygraph object.}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 
-\item{...}{Arguments passed on to \code{lm()}.}
+\item{method}{A method for establishing the null hypothesis.
+Note that "qap" uses Dekker et al's (2007) double semi-partialling technique,
+whereas "qapy" permutes only the $y$ variable.
+"qap" is the default.}
 
-\item{object}{an object of class "netlm", usually as a result of a call to
-\code{network_reg()}.}
-
-\item{reps}{Integer indicating the number of draws to use for quantile
+\item{times}{Integer indicating the number of draws to use for quantile
 estimation. (Relevant to the null hypothesis test only - the analysis
 itself is unaffected by this parameter.)
 Note that, as for all Monte Carlo procedures, convergence is slower for more
 extreme quantiles.
-By default, reps=1000.}
+By default, times=1000.
+1,000 - 10,000 repetitions recommended for publication-ready results.}
 
-\item{x}{an object of class "summary.netlm", usually, a result of a call to
-\code{summary.netlm()}.}
+\item{strategy}{If \code{{furrr}} is installed,
+then multiple cores can be used to accelerate the function.
+By default \code{"sequential"},
+but if multiple cores available,
+then \code{"multisession"} or \code{"multicore"} may be useful.
+Generally this is useful only when \code{times} > 1000.
+See \href{https://furrr.futureverse.org}{\code{{furrr}}} for more.}
 
-\item{digits}{the number of significant digits to use when printing.}
-
-\item{signif.stars}{logical. If TRUE, ‘significance stars’ are printed for
-each coefficient.}
+\item{verbose}{Whether the function should report on its progress.
+By default FALSE.
+See \href{https://progressr.futureverse.org}{\code{{progressr}}} for more.}
 }
 \description{
-This function extends the multiple regression quadratic assignment procedure
-(MRQAP) of network linear model to two mode networks.
-It also works with combined graph/network objects by constructing the
-various dependent and independent matrices for the user.
-Lastly, because it relies on an object that contains all this information
-it can offer a more informative formula-based system for specifying the model.
+This function provides an implementation of
+the multiple regression quadratic assignment procedure (MRQAP)
+for both one-mode and two-mode network linear models.
+It offers several advantages:
+\itemize{
+\item it works with combined graph/network objects such as igraph and network objects
+by constructing the various dependent and independent matrices for the user.
+\item it uses a more intuitive formula-based system for specifying the model,
+with several ways to specify how nodal attributes should be handled.
+\item it can handle categorical variables (factors/characters) and
+interactions intuitively.
+\item it relies on \href{https://furrr.futureverse.org}{\code{{furrr}}} for parallelising
+and \href{https://progressr.futureverse.org}{\code{{progressr}}}
+for reporting progress to the user,
+which can be useful when many simulations are required.
+\item results are \href{https://broom.tidymodels.org}{\code{{broom}}}-compatible,
+with \code{tidy()} and \code{glance()} reports to facilitate comparison
+with results from different models.
+Note that a t- or z-value is always used as the test statistic,
+and properties of the dependent network
+-- modes, directedness, loops, etc --
+will always be respected in permutations and analysis.
+}
 }
 \examples{
-messages <- mutate_edges(ison_eies, 
-  generate_random(ison_eies), attr_name = "random")
+messages <- join_edges(ison_networkers, 
+  generate_random(ison_networkers), attr_name = "random")
 model1 <- network_reg(weight ~ random + 
-  same(Discipline) + same(Citations), messages)
-summary(model1, reps = 200) # increase reps for publication
+  ego(Discipline) + same(Discipline) + 
+  alter(Citations), 
+  messages, times = 100)
+tidy(model1)
+glance(model1)
+plot(model1)
+}
+\references{
+Krackhardt, David (1988).
+“Predicting with Networks: Nonparametric Multiple Regression Analysis of Dyadic Data.”
+\emph{Social Networks} 10(4):359–81.
+
+Dekker, David, Krackhard, David, Snijders, Tom A.B (2007).
+“Sensitivity of MRQAP tests to collinearity and autocorrelation conditions.”
+\emph{Psychometrika} 72(4): 563-581.
+}
+\seealso{
+\code{vignette("p7linearmodel")}
 }

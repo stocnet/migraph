@@ -37,7 +37,6 @@ node_eigenvector(
   object,
   weights = NULL,
   directed = FALSE,
-  options = igraph::arpack_defaults,
   scale = FALSE,
   normalized = FALSE
 )
@@ -48,7 +47,8 @@ node_eigenvector(
 \item{weights}{The weight of the edges to use for the calculation.
 Will be evaluated in the context of the edge data.}
 
-\item{mode}{How should edges be followed. Ignored for undirected graphs}
+\item{mode}{How should edges be followed (in or out). By default, outdegree of
+the node is calculated. Ignored for undirected graphs.}
 
 \item{loops}{Should loops be included in the calculation}
 
@@ -59,8 +59,6 @@ Will be evaluated in the context of the edge data.}
 \item{directed}{Should direction of edges be used for the calculations}
 
 \item{nobigint}{Should big integers be avoided during calculations}
-
-\item{options}{Settings passed on to \code{igraph::arpack()}}
 
 \item{scale}{Should the scores be scaled to range between 0 and 1?}
 }
@@ -80,29 +78,28 @@ Importantly, these functions also offer correct normalization for two-mode netwo
 }
 \examples{
 node_degree(mpn_elite_mex)
-node_degree(southern_women)
+node_degree(ison_southern_women)
 node_closeness(mpn_elite_mex)
-node_closeness(southern_women)
+node_closeness(ison_southern_women)
 node_betweenness(mpn_elite_mex)
-node_betweenness(southern_women)
+node_betweenness(ison_southern_women)
 node_eigenvector(mpn_elite_mex)
-node_eigenvector(southern_women)
+node_eigenvector(ison_southern_women)
 }
 \references{
-Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
+Borgatti, Stephen P., and Martin G. Everett (1997). "Network analysis of 2-mode data." \emph{Social Networks} 19(3): 243-270.
 
-Faust, Katherine. "Centrality in affiliation networks." Social networks 19.2 (1997): 157-191.
+Faust, Katherine (1997). "Centrality in affiliation networks." \emph{Social Networks} 19(2): 157-191.
 }
 \seealso{
 Other two-mode measures: 
 \code{\link{centralization}},
-\code{\link{cohesion}},
-\code{\link{node_constraint}()},
-\code{\link{node_smallworld}()}
+\code{\link{cohesion}()},
+\code{\link{graph_smallworld}()},
+\code{\link{node_constraint}()}
 
 Other node-level measures: 
-\code{\link{node_constraint}()},
-\code{\link{node_smallworld}()}
+\code{\link{node_constraint}()}
 }
 \concept{node-level measures}
 \concept{two-mode measures}

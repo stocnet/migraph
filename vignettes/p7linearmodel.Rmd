@@ -134,12 +134,18 @@ distribution of the attribute to find out whether there is
 more homophily or heterophily than expected by chance.
 
 ```{r rando}
-(rand.gender <- test_random(marvel_friends, graph_ei_index, attribute = "Gender"))
-(rand.power <- test_random(marvel_friends, graph_ei_index, attribute = "PowerOrigin"))
-(rand.attract <- test_random(marvel_friends, graph_ei_index, attribute = "Attractive"))
-par(mfrow=c(1,3))
-plot(rand.gender)
-plot(rand.power)
+rand.gender <- test_random(marvel_friends, 
+                            graph_ei_index, attribute = "Gender", 
+                           times = 200)
+rand.power <- test_random(marvel_friends, 
+                           graph_ei_index, attribute = "PowerOrigin", 
+                           times = 200)
+rand.attract <- test_random(marvel_friends, 
+                             graph_ei_index, attribute = "Attractive", 
+                           times = 200)
+library(patchwork)
+plot(rand.gender) / 
+plot(rand.power) /
 plot(rand.attract)
 ```
 
@@ -165,11 +171,12 @@ old <- autographr(marvel_friends,
                   labels = FALSE, node_size = 6, 
                   node_color = "PowerOrigin", 
                   node_shape = "Gender")
-new <- autographr(generate_permutation(marvel_friends),
+new <- autographr(generate_permutation(marvel_friends, with_attr = TRUE),
                    labels = FALSE, node_size = 6,
                   node_color = "PowerOrigin",
                   node_shape = "Gender")
-grid.arrange(old, new)
+library(patchwork)
+old + new
 ```
 
 This single permutation suggests there might otherwise be some more even mixing of these
@@ -178,21 +185,21 @@ Let's try a test that runs this over a succession of permutations,
 just as we did with random graphs.
 
 ```{r test_permute}
-par(mfrow=c(1,2))
-perm.gender <- test_permutation(marvel_friends, graph_ei_index, attribute = "Gender")
-plot(perm.gender) # Sorry the labelling on this is not right yet, will fix this next...
-perm.power <- test_permutation(marvel_friends, graph_ei_index, attribute = "PowerOrigin")
-plot(perm.power)
+perm.gender <- test_permutation(marvel_friends, 
+                                graph_ei_index, attribute = "Gender",
+                                times = 200)
+perm.power <- test_permutation(marvel_friends, 
+                               graph_ei_index, attribute = "PowerOrigin",
+                                times = 200)
 ```
 
 Again, we see that there is perhaps nothing so surprising that we got the homophily score
 for gender that we did, but the lack of power origin heterophily is surprising.
 
 ```{r cugqap}
-plot(rand.gender)
-plot(rand.power)
-plot(perm.gender)
-plot(perm.power)
+library(patchwork)
+(plot(rand.gender) | plot(rand.power)) /
+(plot(perm.gender) | plot(perm.power))
 ```
 
 Note how distributions are generally wider when permuting the observed network 
@@ -208,15 +215,34 @@ The main network consists of 32 scholars with directed ties weighted by the tota
 Nodal attributes collected include the primary discipline and number of citations in the social science citation index at the start of the study.
 
 ```{r intro-eies}
-autographr(ison_eies,
+ison_networkers
+autographr(ison_networkers,
            node_color = "Discipline")
 ```
 
-Let's say that we are interested in whether these researchers send more emails
-to those who are cited more, or whether there is disciplinary homophily.
+Let's use both the continuous `Citations` and the categorical `Discipline` variables and come up with a couple of key hypotheses:
 
-```{r qap-attr}
-model1 <- network_reg(weight ~ ego(Citations) + alter(Citations) + same(Discipline), ison_eies)
-summary(model1)
+- whether these researchers send more emails to those who are cited more
+- whether there is disciplinary homophily
+
+Let's start with a pretty maximally specified model (note that it doesn't make sense to include both ego and alter effects because these are undirected :
+
+```{r qap-max}
+model1 <- network_reg(weight ~ alter(Citations) + same(Discipline), 
+                      ison_networkers, times = 200)
 ```
 
+We can use tidy methods to get the salient information from this model,
+and `{migraph}` includes also a plot method for these results to
+facilitate the quick interpretation of these results.
+
+```{r qap-interp}
+tidy(model1)
+glance(model1)
+plot(model1)
+```
+
+
+Hmm, looks like we can't say much from this fit.
+You can try and increase the number of `times` we permute,
+but it's unlike to make much difference.

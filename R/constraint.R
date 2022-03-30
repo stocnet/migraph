@@ -19,7 +19,7 @@
 #' @family two-mode measures
 #' @family node-level measures
 #' @examples
-#' node_constraint(southern_women)
+#' node_constraint(ison_southern_women)
 #' @export 
 node_constraint <- function(object, nodes = V(object), weights = NULL) {
   if (is_twomode(object)) {
@@ -54,38 +54,14 @@ node_constraint <- function(object, nodes = V(object), weights = NULL) {
     }
     inst.res <- get_constraint_scores(as_matrix(object))
     actr.res <- get_constraint_scores(t(as_matrix(object)))
-    res <- list(nodes1 = actr.res, nodes2 = inst.res)
+    # res <- list(nodes1 = actr.res, nodes2 = inst.res)
+    res <- c(actr.res, inst.res)
 
   } else {
     object <- as_igraph(object)
     res <- igraph::constraint(object, nodes = nodes, weights = weights)
   }
+  res <- make_measure(res, object)
   res
-}
-
-#' Identifying nodes' component membership
-#' @param object a migraph-consistent object
-#' @param method For directed networks, 
-#' either `weak` if edge direction is irrelevant,
-#' or `strong` if edge direction is salient.
-#' Ignored if network undirected. 
-#' @importFrom igraph components
-#' @export
-node_components <- function(object, method = c("weak", "strong")){
-  object <- as_igraph(object)
-  igraph::components(object, mode = method)$membership
-}
-
-#' Number of components in the network
-#' @param object a migraph-consistent object
-#' @param method For directed networks, 
-#' either `weak` if edge direction is irrelevant,
-#' or `strong` if edge direction is salient.
-#' Ignored if network undirected. 
-#' @importFrom igraph components
-#' @export
-graph_components <- function(object, method = c("weak", "strong")){
-  object <- as_igraph(object)
-  igraph::components(object, mode = method)$no
 }
 

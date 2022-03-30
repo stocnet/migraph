@@ -3,9 +3,12 @@
 \docType{data}
 \name{mpn_elite_mex}
 \alias{mpn_elite_mex}
-\title{One-mode Mexican power elite database}
+\title{One-mode Mexican power elite database (Knoke 1990)}
 \format{
-Matrix with 11 rows/columns
+\code{tbl_graph} network object.
+The network is simple, undirected, and named.
+The full network contains 35 nodes and 117 edges,
+and the subsetted network contains 11 nodes and 44 edges.
 }
 \source{
 Knoke, David. 1990. \emph{Political Networks}.
@@ -18,13 +21,20 @@ Cambridge University Press. Cambridge University Press.
 data(mpn_elite_mex)
 }
 \description{
-A network of 11 core members of the 1990s Mexican power elite (Knoke 2017),
-three of which were successively elected presidents of Mexico:
-José López Portillo (1976-82), Miguel de la Madrid (1982-88), and Carlos Salinas de Gortari (1988-94,
-who was also the son of another core member, Raúl Salinas Lozano).
+This data contains the full network of 35 members of the Mexican power elite.
 The undirected lines connecting pairs of men represent any formal, informal,
 or organizational relation between a dyad;
 for example, “common belonging (school, sports, business, political participation),
 or a common interest (political power)” (Mendieta et al. 1997: 37).
+Additional nodal attributes include their full name, place of birth, state,
+and region (1=North, 2=Centre, 3=South, original coding added by
+\href{https://jameshollway.com/courses/ison/heber_post}{Frank Heber}),
+as well as their year of entry into politics
+and whether they are civilian (0) or affiliated with the military (1).
+An additional variable "in_mpn" can be used to subset this network
+to a network of 11 core members of the 1990s Mexican power elite (Knoke 2017),
+three of which were successively elected presidents of Mexico:
+José López Portillo (1976-82), Miguel de la Madrid (1982-88), and Carlos Salinas de Gortari (1988-94,
+who was also the son of another core member, Raúl Salinas Lozano).
 }
 \keyword{datasets}

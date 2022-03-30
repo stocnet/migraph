@@ -2,37 +2,46 @@
 % Please edit documentation in R/to.R
 \name{to}
 \alias{to}
-\alias{to_unweighted}
-\alias{to_unnamed}
 \alias{to_undirected}
-\alias{to_onemode}
-\alias{to_main_component}
-\alias{to_uniplex}
+\alias{to_unweighted}
 \alias{to_unsigned}
-\alias{to_simplex}
+\alias{to_unnamed}
 \alias{to_named}
+\alias{to_uniplex}
+\alias{to_simplex}
+\alias{to_main_component}
+\alias{to_mode1}
+\alias{to_mode2}
+\alias{to_onemode}
 \alias{to_multilevel}
+\alias{to_edges}
 \title{Tools for reformatting networks, graphs, and matrices}
 \usage{
-to_unweighted(object, threshold = 1)
-
-to_unnamed(object)
-
 to_undirected(object)
 
-to_onemode(object)
-
-to_main_component(object)
-
-to_uniplex(object, edge)
+to_unweighted(object, threshold = 1)
 
 to_unsigned(object, keep = c("positive", "negative"))
 
+to_unnamed(object)
+
+to_named(object, names = NULL)
+
+to_uniplex(object, edge)
+
 to_simplex(object)
 
-to_named(object)
+to_main_component(object)
+
+to_mode1(object)
+
+to_mode2(object)
+
+to_onemode(object)
 
 to_multilevel(object)
+
+to_edges(object)
 }
 \arguments{
 \item{object}{A matrix, \code{{igraph}} graph, \code{{tidygraph}} tbl_graph, or
@@ -40,68 +49,115 @@ to_multilevel(object)
 
 \item{threshold}{For a matrix, the threshold to binarise/dichotomise at.}
 
-\item{edge}{the name of an edge attribute to retain from a graph}
+\item{keep}{In the case of a signed network, whether to retain
+the "positive" or "negative" ties.}
 
-\item{keep}{in the case of a signed network, whether to retain
-the "positive" or "negative" ties}
+\item{names}{Character vector of the node names. NULL by default.}
+
+\item{edge}{Character string naming an edge attribute to retain from a graph.}
 }
 \value{
 All \code{to_} functions return an object of the same class as that provided.
 So passing it an igraph object will return an igraph object
 and passing it a network object will return a network object,
-with certain modifications as outlined below:
-\itemize{
-\item \code{to_unweighted()} returns an object that has all edge weights removed
-\item \code{to_unnamed()} returns an object that has all vertex names removed
-\item \code{to_named()} returns an object that has random vertex names added
-\item \code{to_undirected()} returns an object that has any edge direction removed
-\item \code{to_onemode()} returns an object that has any type/mode attributes removed,
-but otherwise includes all the same nodes and ties.
-Note that this is not the same as \code{project_rows()} or \code{project_cols()},
-which return only some of the nodes and new ties established by coincidence.
-\item \code{to_main_component()} returns an object that includes only the main component
-and not any smaller components or isolates
-\item \code{to_uniplex()} returns an object that includes only a single type of tie
-\item \code{to_simplex()} returns an object that has all loops or self-ties removed
-\item \code{to_unsigned()} returns an object that has
-}
+with certain modifications as outlined for each function.
 }
 \description{
-These functions offer tools for transforming certain properties of migraph-consistent objects
+These functions offer tools for transforming certain properties
+of migraph-consistent objects
 (that is, matrices, igraph, tidygraph, or network objects).
+Unlike the \verb{as_*()} group of functions,
+these functions always return the same object type as they are given,
+only transforming these objects' properties.
 }
 \details{
 Since some modifications are easier to implement for some objects than others,
 here are the currently implemented modifications:\tabular{lccccc}{
    to_ \tab edgelists \tab matrices \tab igraph \tab tidygraph \tab network \cr
-   unweighted \tab  \tab X \tab X \tab X \tab X \cr
+   unweighted \tab X \tab X \tab X \tab X \tab X \cr
    undirected \tab  \tab X \tab X \tab X \tab X \cr
-   unsigned \tab  \tab  \tab X \tab X \tab  \cr
+   unsigned \tab X \tab X \tab X \tab X \tab  \cr
    uniplex \tab  \tab  \tab X \tab X \tab  \cr
    unnamed \tab X \tab X \tab X \tab X \tab X \cr
-   named \tab  \tab X \tab X \tab X \tab X \cr
+   named \tab X \tab X \tab X \tab X \tab X \cr
    simplex \tab  \tab X \tab X \tab X \tab  \cr
    main_component \tab  \tab  \tab X \tab X \tab X \cr
    onemode \tab  \tab  \tab X \tab X \tab  \cr
    multilevel \tab  \tab X \tab X \tab X \tab  \cr
+   mode1 \tab  \tab X \tab X \tab X \tab  \cr
+   mode2 \tab  \tab X \tab X \tab X \tab  \cr
 }
 }
+\section{Functions}{
+\itemize{
+\item \code{to_undirected}: Returns an object that has any edge direction removed,
+so that any pair of nodes with at least one directed edge will be
+connected by an undirected edge in the new network.
+This is equivalent to the "collapse" mode in \code{{igraph}}.
+
+\item \code{to_unweighted}: Returns an object that has all edge weights removed
+
+\item \code{to_unsigned}: Returns a network with either just the "positive" ties
+or just the "negative" ties
+
+\item \code{to_unnamed}: Returns an object with all vertex names removed
+
+\item \code{to_named}: Returns an object that has random vertex names added
+
+\item \code{to_uniplex}: Returns an object that includes only a single type of tie
+
+\item \code{to_simplex}: Returns an object that has all loops or self-ties removed
+
+\item \code{to_main_component}: Returns an object that includes only the main component
+without any smaller components or isolates
+
+\item \code{to_mode1}: Results in a weighted one-mode object
+that retains the row nodes from a two-mode object,
+and weights the ties between them on the basis of
+their joint ties to nodes in the second mode (columns)
+
+\item \code{to_mode2}: Results in a weighted one-mode object
+that retains the column nodes from a two-mode object,
+and weights the ties between them on the basis of
+their joint ties to nodes in the first mode (rows).
+
+\item \code{to_onemode}: Returns an object that has any type/mode attributes removed,
+but otherwise includes all the same nodes and ties.
+Note that this is not the same as \code{to_mode1()} or \code{to_mode2()},
+which return only some of the nodes and new ties established by coincidence.
+
+\item \code{to_multilevel}: Returns a network that is not divided into two mode types
+but embeds two or more modes into a multimodal network structure.
+
+\item \code{to_edges}: Returns a matrix (named if possible)
+where the edges are the nodes
+}}
+
 \examples{
-to_unweighted(project_rows(southern_women))
-to_unnamed(project_rows(southern_women))
-to_undirected(ison_coleman)
-to_onemode(ison_marvel_teams)
-to_uniplex(ison_m182, "friend_tie")
-to_unsigned(ison_marvel_relationships, "positive")
-to_unsigned(ison_marvel_relationships, "negative")
-to_simplex(ison_m182)
-to_named(ison_m182)
-to_multilevel(mpn_elite_usa_advice)
+autographr(ison_algebra) +
+autographr(to_undirected(ison_adolescents))
+  autographr(to_mode2(ison_southern_women)) +
+  autographr(to_unweighted(to_mode2(ison_southern_women)))
+(autographr(ison_marvel_relationships) |
+autographr(to_main_component(ison_marvel_relationships))) /
+  (autographr(to_main_component(to_unsigned(ison_marvel_relationships, "positive"))) |
+  autographr(to_main_component(to_unsigned(ison_marvel_relationships, "negative"))))
+autographr(ison_algebra) + ggtitle("Original") + 
+  autographr(to_named(ison_algebra)) + ggtitle("Named") + 
+  autographr(to_unnamed(to_named(ison_algebra))) + ggtitle("Unnamed")
+autographr(ison_algebra) + 
+autographr(to_uniplex(ison_algebra, "friend_tie"))
+autographr(ison_marvel_relationships) +
+  autographr(to_main_component(ison_marvel_relationships))
+autographr(ison_southern_women) /
+ (autographr(to_mode1(ison_southern_women)) |
+ autographr(to_mode2(ison_southern_women)))
+autographr(ison_adolescents) +
+  autographr(to_edges(ison_adolescents))
 }
 \seealso{
 Other manipulation: 
 \code{\link{coercion}},
-\code{\link{is}()},
-\code{\link{project}}
+\code{\link{is}()}
 }
 \concept{manipulation}

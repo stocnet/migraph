@@ -6,20 +6,58 @@
 \alias{test_permutation}
 \title{Conditional uniform graph and permutation tests}
 \usage{
-test_random(object, FUN, ..., nSim = 1000)
+test_random(
+  object,
+  FUN,
+  ...,
+  times = 1000,
+  strategy = "sequential",
+  verbose = FALSE
+)
 
-test_permutation(object, FUN, ..., nSim = 1000)
+test_permutation(
+  object,
+  FUN,
+  ...,
+  times = 1000,
+  strategy = "sequential",
+  verbose = FALSE
+)
 }
 \arguments{
-\item{object}{A data frame edgelist, matrix, igraph, tidygraph, or
-network object.}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 
 \item{FUN}{A graph-level statistic function to test.}
 
 \item{...}{Additional arguments to be passed on to FUN,
 e.g. the name of the attribute.}
 
-\item{nSim}{The number of Monte Carlo simulations to perform.}
+\item{times}{Integer indicating the number of draws to use for quantile
+estimation. (Relevant to the null hypothesis test only - the analysis
+itself is unaffected by this parameter.)
+Note that, as for all Monte Carlo procedures, convergence is slower for more
+extreme quantiles.
+By default, times=1000.
+1,000 - 10,000 repetitions recommended for publication-ready results.}
+
+\item{strategy}{If \code{{furrr}} is installed,
+then multiple cores can be used to accelerate the function.
+By default \code{"sequential"},
+but if multiple cores available,
+then \code{"multisession"} or \code{"multicore"} may be useful.
+Generally this is useful only when \code{times} > 1000.
+See \href{https://furrr.futureverse.org}{\code{{furrr}}} for more.}
+
+\item{verbose}{Whether the function should report on its progress.
+By default FALSE.
+See \href{https://progressr.futureverse.org}{\code{{progressr}}} for more.}
 }
 \description{
 These functions conduct conditional uniform graph (CUG)
@@ -30,9 +68,10 @@ marvel_friends <- to_unsigned(ison_marvel_relationships)
 marvel_friends <- to_main_component(marvel_friends) \%>\% 
   filter(PowerOrigin == "Human")
 (cugtest <- test_random(marvel_friends, graph_ei_index, attribute = "Attractive",
-  nSim = 200))
+  times = 200))
 plot(cugtest)
-(qaptest <- test_permutation(marvel_friends, graph_ei_index, attribute = "Attractive",
-  nSim = 200))
+(qaptest <- test_permutation(marvel_friends, 
+                graph_ei_index, attribute = "Attractive",
+                times = 200))
 plot(qaptest)
 }

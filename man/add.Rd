@@ -5,19 +5,26 @@
 \alias{add_node_attributes}
 \alias{add_edge_attributes}
 \alias{copy_node_attributes}
-\alias{mutate_edges}
+\alias{join_edges}
 \title{Adding and copying attributes from one graph to another}
 \usage{
 add_node_attributes(object, attr_name, vector)
 
-add_edge_attributes(object, object2)
+add_edge_attributes(object, attr_name, vector)
 
 copy_node_attributes(object, object2)
 
-mutate_edges(object, object2, attr_name)
+join_edges(object, object2, attr_name)
 }
 \arguments{
-\item{object}{A migraph-consistent object.}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 
 \item{attr_name}{Name of the new attribute in the resulting object.}
 
@@ -26,13 +33,29 @@ mutate_edges(object, object2, attr_name)
 \item{object2}{A second object to copy nodes or edges from.}
 }
 \description{
-Adding and copying attributes from one graph to another
+These functions allow users to add attributes to a graph from another graph
+or from a specified vector supplied by the user.
 }
+\section{Functions}{
+\itemize{
+\item \code{add_node_attributes}: Insert specified values from a vector into the graph
+as node attributes
+
+\item \code{add_edge_attributes}: Insert specified values from a vector into the graph
+as edge attributes
+
+\item \code{copy_node_attributes}: Copies node attributes from a given graph into specified graph
+
+\item \code{join_edges}: Copies edges from another graph to specified graph and
+adds an edge attribute identifying the edges that were newly added
+}}
+
 \examples{
-add_node_attributes(mpn_elite_mex, "wealth", 1:11)
+add_node_attributes(mpn_elite_mex, "wealth", 1:35)
 add_node_attributes(mpn_elite_usa_advice, "wealth", 1:14)
+add_edge_attributes(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
 autographr(mpn_elite_mex)
-both <- mutate_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
+both <- join_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
 autographr(both)
 random <- to_uniplex(both, "random")
 autographr(random)

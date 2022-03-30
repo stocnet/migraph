@@ -1,16 +1,19 @@
 #' Adding and copying attributes from one graph to another
 #' 
-#' @param object A migraph-consistent object.
+#' These functions allow users to add attributes to a graph from another graph
+#' or from a specified vector supplied by the user.
+#' @inheritParams is
 #' @param object2 A second object to copy nodes or edges from.
 #' @param attr_name Name of the new attribute in the resulting object.
 #' @param vector A vector of values for the new attribute.
 #' @name add
 NULL
 
-#' @rdname add
+#' @describeIn add Insert specified values from a vector into the graph 
+#' as node attributes
 #' @importFrom igraph vertex_attr<-
 #' @examples 
-#' add_node_attributes(mpn_elite_mex, "wealth", 1:11)
+#' add_node_attributes(mpn_elite_mex, "wealth", 1:35)
 #' add_node_attributes(mpn_elite_usa_advice, "wealth", 1:14)
 #' @export
 add_node_attributes <- function(object, attr_name, vector){
@@ -31,38 +34,46 @@ add_node_attributes <- function(object, attr_name, vector){
   object
 }
 
-#' @rdname add
+#' @describeIn add Insert specified values from a vector into the graph 
+#' as edge attributes
+#' @importFrom igraph edge_attr
+#' @examples
+#' add_edge_attributes(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
 #' @export
-add_edge_attributes <- function(object, object2){
-  object <- tidygraph::graph_join(as_tidygraph(object), as_tidygraph(object2))
+add_edge_attributes <- function(object, attr_name, vector){
+  object <- as_igraph(object)
+  igraph::edge_attr(object, name = attr_name) <- vector
   object
 }
 
-#' @rdname add
+#' @describeIn add Copies node attributes from a given graph into specified graph
 #' @export
 copy_node_attributes <- function(object, object2){
-  if(graph_nodes(object) != graph_nodes(object2)) stop("Objects need to be of compatible dimensions.")
+  if(graph_nodes(object) != graph_nodes(object2)) 
+    stop("Objects need to be of compatible dimensions.")
   object <- as_igraph(object)
   object2 <- as_igraph(object2)
   for(a in igraph::vertex_attr_names(object2)){
-    object <- igraph::set.vertex.attribute(object, a, value = igraph::get.vertex.attribute(object2, a))
+    object <- igraph::set.vertex.attribute(object, a, 
+                                           value = igraph::get.vertex.attribute(object2, a))
   }
   object
 }
 
-#' @rdname add
+#' @describeIn add Copies edges from another graph to specified graph and 
+#' adds an edge attribute identifying the edges that were newly added
 #' @importFrom igraph add_edges
 #' @importFrom rlang :=
 #' @importFrom dplyr mutate summarise across group_by everything
 #' @examples 
 #' autographr(mpn_elite_mex)
-#' both <- mutate_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
+#' both <- join_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
 #' autographr(both)
 #' random <- to_uniplex(both, "random")
 #' autographr(random)
 #' autographr(to_uniplex(both, "orig"))
 #' @export
-mutate_edges <- function(object, object2, attr_name){
+join_edges <- function(object, object2, attr_name){
   edges <- NULL
   from <- NULL
   to <- NULL

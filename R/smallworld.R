@@ -1,14 +1,14 @@
 #' Watts-Strogatz small-world model for two-mode networks
 #' 
-#' Calculates small-world metrics for two-mode networks
+#' Calculates small-world metrics for one- and two-mode networks.
 #' @param object A matrix, igraph graph, or tidygraph object
-#' @param niter Number of simulations
+#' @param times Number of simulations
 #' @family two-mode measures
-#' @family node-level measures
 #' @return Returns a table of small-world related metrics for each second-mode
 #' node.
 #' @details The first column of the returned table is simply the number of
-#' the second-mode column. The next three columns report the observed and
+#' the second-mode column. 
+#' The next three columns report the observed and
 #' expected clustering, and the ratio of the former to the latter.
 #' The next three columns report the observed and expected path-length,
 #' and the ratio of the former to the later.
@@ -18,40 +18,35 @@
 #' Expected clustering and paths is the mean of twomode_clustering and
 #' mean_distance over 100 random simulations with the same row and column sums.
 #' @examples
-#' node_smallworld(southern_women)
+#' graph_smallworld(ison_southern_women)
+#' graph_smallworld(ison_brandes)
 #' @seealso \code{\link{graph_transitivity}} and \code{\link{graph_equivalency}}
 #' for how clustering is calculated
-#' @importFrom igraph graph_from_incidence_matrix mean_distance
-#' @importFrom stats r2dtable
+#' @references 
+#' Watts, Duncan J., and Steven H. Strogatz. 1998. 
+#' “Collective Dynamics of ‘Small-World’ Networks.” 
+#' Nature 393(6684):440–42.
 #' @export
-node_smallworld <- function(object, niter = 100) {
-  mat <- as_matrix(object)
-  out <- matrix(NA, ncol(mat), 7)
-  for (c in 2:ncol(mat)) {
-    m <- mat[, 1:c]
-    g <- igraph::graph_from_incidence_matrix(m)
-    if (is_twomode(object)) {
-      out[c, 1] <- graph_equivalency(m)
-    } else {
-      out[c, 1] <- graph_transitivity(m)
-    }
-    out[c, 4] <- igraph::mean_distance(g)
-    r <- stats::r2dtable(niter, rowSums(m), colSums(m))
-    if (is_twomode(object)) {
-      out[c, 2] <- mean(unlist(lapply(r, graph_equivalency)))
-    } else {
-      out[c, 2] <- mean(unlist(lapply(r, graph_transitivity)))
-    }
-    out[c, 5] <- mean(unlist(lapply(lapply(r,
-                                           igraph::graph_from_incidence_matrix),
-                                    igraph::mean_distance)))
-    out[c, 3] <- out[c, 1] / out[c, 2]
-    out[c, 6] <- out[c, 4] / out[c, 5]
-    out[c, 7] <- out[c, 3] / out[c, 6]
+graph_smallworld <- function(object, times = 100) {
+  
+  if(is_twomode(object)){
+    obsclust <- graph_equivalency(object)
+    expclust <- mean(vapply(1:times, 
+                       function(x) graph_equivalency(generate_random(object)),
+                       FUN.VALUE = numeric(1)))
+  } else {
+    obsclust <- graph_transitivity(object)
+    expclust <- mean(vapply(1:times, 
+                            function(x) graph_transitivity(generate_random(object)),
+                            FUN.VALUE = numeric(1)))
   }
-  out <- cbind(seq_len(ncol(mat)), out)
-  out <- as.data.frame(out)
-  names(out) <- c("Num", "ObsClust", "ExpClust", "ClustRat",
-                  "ObsPath", "ExpPath", "PathRat", "SmallWorld")
-  out
+  
+    obspath <- graph_length(object)
+    exppath <- mean(vapply(1:times, 
+                            function(x) graph_length(generate_random(object)),
+                            FUN.VALUE = numeric(1)))
+
+  
+  (obsclust/expclust)/(obspath/exppath)
 }
+

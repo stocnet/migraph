@@ -5,52 +5,72 @@
 #' @keywords internal
 NULL
 
-#' @describeIn defunct Deprecated on 2021-10-18.
-#' Returns `graph_transitivity()` or `graph_equivalency()`,
-#'   depending on whether the object is a one-mode or two-mode object, respectively.
+#' @describeIn defunct Deprecated on 2022-01-24.
+#' This function is deprecated and its functionality is included in the more
+#' general purpose `autographr()` function. Please refer to its documentation
+#' for more details about the new implementation.
 #' @export
-graph_clustering <- function(object) {
-  .Deprecated("graph_transitivity")
-  if(is_twomode(object)){
-    graph_equivalency(object)
-  } else graph_transitivity(object)
+ggidentify <- function(object, node_measure, identify_function = max) {
+  # Deprecating the function for the time being. --> defunct in the next minor?
+  .Deprecated("autographr", package = "migraph",
+              msg = paste("This function has been included in the",
+                          "`autographr()` function. Please run",
+                          "`autographr(object, node_measure,",
+                          "identify_function)` instead.",
+                          sep = " "),
+              old = "ggidentify")
+  # The function
+  object <- as_tidygraph(object)
+  measure <- node_measure(object)
+  colord <- ifelse(measure == identify_function(measure),
+                   "max", "other")
+  # Generate output
+  ggraph::ggraph(object) +
+    ggplot2::theme_void() +
+    ggraph::geom_edge_link() +
+    ggraph::geom_node_point(aes(size = measure,
+                                colour = colord)) +
+    ggplot2::scale_color_manual(breaks = c("max", "other"),
+                                values = c("red", "blue")) +
+    ggplot2::theme(legend.position = "none")
 }
 
-#' @describeIn defunct Deprecated on 2021-10-26.
-#' Returns `group_triad_census()`
+#' @describeIn defunct Deprecated on 2022-03-23.
+#' This function is deprecated and its functionality is included in the more
+#' general purpose `autographr()` function. Please refer to its documentation
+#' for more details about the new implementation.
 #' @export
-cluster_triad_census <- function(object, clusters) {
-  .Deprecated("group_triad_census")
-  group_triad_census(object, clusters)
+ggdistrib <- function(object, node_measure){
+  .Deprecated("plot.measure", package = "migraph",
+              msg = paste("This function has been converted into a",
+                          "`plot()` method for a 'measure' class object.", 
+                          "Please pass an object resulting from a `node_()`",
+                          "function to `plot()` to achieve the same result.",
+                          sep = " "),
+              old = "ggdistrib")
 }
 
-#' @describeIn defunct Deprecated on 2021-10-26.
-ggraphgrid <- function(x, algorithm = c("kk", "fr")) {
-  .Deprecated("autographr(x, 'frgrid'")
-  if(algorithm == "fr") autographr(x, "frgrid")
-  if(algorithm == "kk") autographr(x, "kkgrid")
+#' @describeIn defunct Deprecated on 2022-03-23.
+#' @export
+project_rows <- function(object){
+  .Deprecated("to_mode1", package = "migraph",
+              old = "project_rows")
+  to_mode1(object)
 }
 
-#' @describeIn defunct Deprecated on 2021-11-08.
-#' Returns `test_random()`
+#' @describeIn defunct Deprecated on 2022-03-23.
 #' @export
-test_cug <- function(object, FUN, ..., nSim = 1000) {
-  .Deprecated("test_random")
-  test_random(object, FUN, ..., nSim)
+project_cols <- function(object){
+  .Deprecated("to_mode2", package = "migraph",
+              old = "project_cols")
+  to_mode2(object)
 }
 
-#' @describeIn defunct Deprecated on 2021-11-10.
-#' Returns `graph_dims()`
+#' @describeIn defunct Deprecated on 2022-03-29.
 #' @export
-graph_dimensions <- function(object) {
-  .Deprecated("graph_dims")
-  graph_dims(object)
-}
-
-#' @describeIn defunct Deprecated on 2021-11-16.
-#' Returns `network_reg()`
-#' @export
-netlm <- function(formula, data, ...) {
-  .Deprecated("network_reg")
-  network_reg(formula, data, ...)
+mutate_edges <- function(object, object2, attr_name){
+  .Deprecated("join_edges", package = "migraph",
+              old = "mutate_edges")
+  join_edges(object = object, object2 = object2, 
+             attr_name = attr_name)
 }

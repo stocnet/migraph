@@ -18,11 +18,11 @@ knitr::opts_chunk$set(
 # Setting up
 
 For this lab, we'll use a few different packages for data and analysis.
-We're going to use the `ison_m182` dataset again, directly from the package.
+We're going to use the `ison_algebra` dataset again, directly from the package.
 
 ```{r setup}
 suppressPackageStartupMessages(library(migraph)) # note that you may need a special version for what follows...
-data("ison_m182", package = "migraph")
+data("ison_algebra", package = "migraph")
 ```
 
 The network is anonymous, but I think it would be nice to add some names,
@@ -30,21 +30,22 @@ even if it's just pretend. Luckily, I've added a function for this.
 This makes plotting the network just a wee bit more accessible:
 
 ```{r addingnames}
-ison_m182 <- to_named(ison_m182)
-autographr(ison_m182)
+ison_algebra <- to_named(ison_algebra)
+autographr(ison_algebra)
 ```
 
 There are actually three different types of tie here. 
 Let's separate them out into separate networks.
 
 ```{r separatingnets}
-(m182_friend <- to_uniplex(ison_m182, "friend_tie"))
+(m182_friend <- to_uniplex(ison_algebra, "friend_tie"))
 gfriend <- autographr(m182_friend) + ggtitle("Friendship")
-(m182_social <- to_uniplex(ison_m182, "social_tie"))
+(m182_social <- to_uniplex(ison_algebra, "social_tie"))
 gsocial <- autographr(m182_social) + ggtitle("Social")
-(m182_task <- to_uniplex(ison_m182, "task_tie"))
+(m182_task <- to_uniplex(ison_algebra, "task_tie"))
 gtask <- autographr(m182_task) + ggtitle("Task")
-grid.arrange(gfriend, gsocial, gtask, ncol = 3)
+library(patchwork)
+gfriend + gsocial + gtask
 ```
 
 # Structural Holes and Constraint
@@ -86,12 +87,12 @@ For structural equivalence, we can start with a census of all the outgoing
 and incoming ties to reveal their tie partners.
 
 ```{r construct-cor}
-dim(node_tie_census(ison_m182))
-head(structural_combo <- node_tie_census(ison_m182))[,c(1,17,33,49,65,81)]
+dim(node_tie_census(ison_algebra))
+head(structural_combo <- node_tie_census(ison_algebra))[,c(1,17,33,49,65,81)]
 ```
 
-We can see that the result is a matrix of `r dim(node_tie_census(ison_m182))[1]` rows
-and `r dim(node_tie_census(ison_m182))[2]` columns, because we want to catalogue or take a census
+We can see that the result is a matrix of `r dim(node_tie_census(ison_algebra))[1]` rows
+and `r dim(node_tie_census(ison_algebra))[2]` columns, because we want to catalogue or take a census
 of all the different incoming/outgoing partners our 16 nodes might have across these three networks.
 Note also that the result is a weighted matrix; what would you do if you wanted it to be binary?
 
@@ -104,7 +105,7 @@ based on the distances in dissimilarity in their outgoing and incoming ties.
 Or you can just run the following line:
 
 ```{r cluster-str}
-(str_res <- cluster_structural_equivalence(ison_m182))
+(str_res <- cluster_structural_equivalence(ison_algebra))
 ```
 
 This object doesn't tell us much,

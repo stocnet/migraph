@@ -12,6 +12,8 @@ autographr(
   node_group = NULL,
   node_shape = NULL,
   node_size = NULL,
+  node_measure = NULL,
+  identify_function = max,
   ...
 )
 }
@@ -25,15 +27,17 @@ currently defaults to 'stress'.}
 as labels if present.}
 
 \item{node_color}{Node variable in quotation marks to be used for
-colouring the nodes.}
+colouring the nodes. It is easiest if this is added as a node attribute to
+the graph before plotting.}
 
 \item{node_group}{Node variable in quotation marks to be used for
 drawing convex but also concave hulls around clusters of nodes.
 These groupings will be labelled with the categories of the variable passed.}
 
-\item{node_shape}{Node variable in quotation marks to be used for
-the shapes of the nodes.
-Shapes will be follow the ordering "circle", "square", "triangle",
+\item{node_shape}{Character string in quotation marks referring to the name
+of a node attribute already present in the graph to be used for the shapes
+of the nodes.
+Shapes follow the ordering "circle", "square", "triangle",
 so this aesthetic should be used for a variable with only a few categories.}
 
 \item{node_size}{Node variable in quotation marks to be used for
@@ -43,14 +47,26 @@ Since this function expects this to be an existing variable,
 it is recommended to calculate all node-related statistics prior
 to using this function.}
 
+\item{node_measure}{Name of the node level measure function e.g.
+\code{node_degree}. \code{NULL} by default.}
+
+\item{identify_function}{Name of the function used to determine the
+highlighted node e.g. \code{max}, \code{min}, etc. \code{max} by default.}
+
 \item{...}{Extra arguments.}
 }
 \description{
 The aim of this function is to provide users with a quick and easy
 graphing function that makes best use of the data,
-whatever its composition.
+whatever its composition. Users can also tailor the plot according to their
+preferences regarding node size, colour, and shape. The function also supports
+visualisation of network measures such as centrality.
 }
 \examples{
-autographr(ison_coleman)
-autographr(ison_karateka)
+ison_adolescents <- ison_adolescents \%>\% 
+ dplyr::mutate(shape = rep(c("circle", "square"), times = 4)) \%>\%
+ dplyr::mutate(color = rep(c("blue", "red"), times = 4))
+autographr(ison_adolescents, node_shape = "shape", node_color = "color")
+autographr(ison_karateka, node_size = rep(c(0.8), times = 34))
+autographr(ison_networkers, node_measure = node_betweenness, identify_function = max)
 }

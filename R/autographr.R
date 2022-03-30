@@ -2,15 +2,18 @@
 #' 
 #' The aim of this function is to provide users with a quick and easy
 #' graphing function that makes best use of the data,
-#' whatever its composition.
+#' whatever its composition. Users can also tailor the plot according to their 
+#' preferences regarding node size, colour, and shape. The function also supports
+#' visualisation of network measures such as centrality.
 #' @param object A migraph-consistent object.
 #' @param layout An igraph layout algorithm,
 #'   currently defaults to 'stress'.
 #' @param labels Logical, whether to print node names
 #'   as labels if present.
-#' @param node_shape Node variable in quotation marks to be used for 
-#'   the shapes of the nodes. 
-#'   Shapes will be follow the ordering "circle", "square", "triangle",
+#' @param node_shape Character string in quotation marks referring to the name 
+#'   of a node attribute already present in the graph to be used for the shapes 
+#'   of the nodes. 
+#'   Shapes follow the ordering "circle", "square", "triangle",
 #'   so this aesthetic should be used for a variable with only a few categories.
 #' @param node_size Node variable in quotation marks to be used for 
 #'   the size of the nodes.
@@ -19,10 +22,15 @@
 #'   it is recommended to calculate all node-related statistics prior
 #'   to using this function.
 #' @param node_color Node variable in quotation marks to be used for 
-#'   colouring the nodes.
+#'   colouring the nodes. It is easiest if this is added as a node attribute to
+#'   the graph before plotting.
 #' @param node_group Node variable in quotation marks to be used for
 #'   drawing convex but also concave hulls around clusters of nodes.
-#'   These groupings will be labelled with the categories of the variable passed. 
+#'   These groupings will be labelled with the categories of the variable passed.
+#' @param node_measure Name of the node level measure function e.g.
+#' `node_degree`. `NULL` by default.
+#' @param identify_function Name of the function used to determine the
+#' highlighted node e.g. `max`, `min`, etc. `max` by default.
 #' @param ... Extra arguments.
 #' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text
 #' @importFrom ggraph geom_conn_bundle get_con geom_node_point
@@ -32,8 +40,12 @@
 #' @importFrom ggforce geom_mark_hull
 #' @import concaveman
 #' @examples
-#' autographr(ison_coleman)
-#' autographr(ison_karateka)
+#' ison_adolescents <- ison_adolescents %>% 
+#'  dplyr::mutate(shape = rep(c("circle", "square"), times = 4)) %>%
+#'  dplyr::mutate(color = rep(c("blue", "red"), times = 4))
+#' autographr(ison_adolescents, node_shape = "shape", node_color = "color")
+#' autographr(ison_karateka, node_size = rep(c(0.8), times = 34))
+#' autographr(ison_networkers, node_measure = node_betweenness, identify_function = max)
 #' @export
 autographr <- auto_graph <- function(object,
                                      layout = "stress",
@@ -42,6 +54,8 @@ autographr <- auto_graph <- function(object,
                                      node_group = NULL,
                                      node_shape = NULL,
                                      node_size = NULL,
+                                     node_measure = NULL,
+                                     identify_function = max,
                                      ...) {
   
   name <- weight <- NULL # initialize variables to avoid CMD check notes
@@ -76,7 +90,7 @@ autographr <- auto_graph <- function(object,
                                                     length = ggplot2::unit(2, 'mm'),
                                                     type = "closed"), 
                                       end_cap = ggraph::circle(1.5, 'mm')) +
-        ggraph::scale_edge_width_continuous(range = c(.2, 1.5), 
+        ggraph::scale_edge_width_continuous(range = c(0.2, 2.5), 
                                             guide = "none")
     } else {
       p <- p + ggraph::geom_edge_link(edge_alpha = 0.4,
@@ -112,14 +126,26 @@ autographr <- auto_graph <- function(object,
       nsize <- node_size(g)
     }
   } else {
-    nsize <- ifelse(igraph::vcount(g) <= 10, 5, (100 / igraph::vcount(g)) / 2)
+    nsize <- ifelse(graph_nodes(g) <= 10, 5, (100 / graph_nodes(g)) / 2)
   }
-  
+  # Import the ggidentify functionality highlighting a node.
+  if (!is.null(node_measure) & !is.null(identify_function)) {
+    # Measure; needs to be a node level measure
+    measure <- node_measure(g)
+    # Add as attribute
+    g <- add_node_attributes(g, "node_measure",
+                             ifelse(measure == identify_function(measure),
+                                    gsub(pattern = '.*["]([^.]+)["].*', "\\1",
+                                         deparse(identify_function)), "other"))
+    # Let the rest of the function know that it needs to color things according
+    # to the node_measure attribute.
+    node_color <- "node_measure"
+  }
   # Add nodes
-  if(!is.null(node_shape)){
+  if (!is.null(node_shape)) {
     node_shape <- as.factor(igraph::get.vertex.attribute(g, node_shape))
     node_shape <- c("circle","square","triangle")[node_shape]
-  } else if(is_twomode(g)){
+  } else if (is_twomode(g)) {
     node_shape <- ifelse(igraph::V(g)$type,
                          "square",
                          "circle")
@@ -140,7 +166,7 @@ autographr <- auto_graph <- function(object,
     }
   } else {
     if (!is.null(node_color)) {
-      color_factor <- as.factor(igraph::get.vertex.attribute(g,node_color))
+      color_factor <- as.factor(igraph::get.vertex.attribute(g, node_color))
       p <- p + ggraph::geom_node_point(aes(color = color_factor),
                                size = nsize,
                                shape = node_shape) +
@@ -173,7 +199,7 @@ autographr <- auto_graph <- function(object,
                                      repel = TRUE)
   p
   }
-  if(!is.null(node_group)){
+  if (!is.null(node_group)) {
     p <- p + ggforce::geom_mark_hull(ggplot2::aes(x = lo$x, y = lo$y,
                                          fill = as.factor(igraph::get.vertex.attribute(g, node_group)),
                                          label = as.factor(igraph::get.vertex.attribute(g, node_group))),

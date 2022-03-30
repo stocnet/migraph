@@ -58,9 +58,9 @@ calling `write_edgelist()` without any arguments will export a test
 file with a barebones structure that you can overwrite with your own data.
 
 ```{r exportdata, include = FALSE, eval = FALSE}
-write_edgelist(southern_women)
+write_edgelist(ison_southern_women)
 write_edgelist()
-write_nodelist(southern_women)
+write_nodelist(ison_southern_women)
 write_nodelist()
 ```
 
@@ -96,20 +96,20 @@ all prefixed by `as_`, to move from any of those objects
 that `{migraph}` recognises to any other.
   
 Let's use one of the built in datasets in `{migraph}` to demonstrate this.
-Davis, Gardner and Gardner's (1941) `southern_women` dataset is a classic
+Davis, Gardner and Gardner's (1941) `ison_southern_women` dataset is a classic
 two-mode network, so let's use this to start with.
 `{migraph}` stores this dataset as an 'igraph' object,
 though other included datasets are in 'tidygraph' or sometimes 'network' formats.
   
 ```{r as}
 library(migraph)
-southern_women # this is in igraph format
-as_tidygraph(southern_women) # now let's make it a tidygraph tbl_graph object
-as_network(southern_women) # a network object
-as_matrix(southern_women) # a matrix object
+ison_southern_women # this is in igraph format
+as_tidygraph(ison_southern_women) # now let's make it a tidygraph tbl_graph object
+as_network(ison_southern_women) # a network object
+as_matrix(ison_southern_women) # a matrix object
 # this is an incidence matrix since it is a two-mode network
 # if it were a one-mode network, the function would return an adjacency matrix
-as_edgelist(southern_women) # an edgelist data frame/tibble
+as_edgelist(ison_southern_women) # an edgelist data frame/tibble
 ```
   
 Note that for converting into edgelist, matrix, or igraph objects, you can specify if you want to keep it as a weighted network (if your original data included this property) using the argument `weight = TRUE` or `weight = FALSE`.
@@ -142,16 +142,16 @@ Then there are a few more special functions included here too:
 
 ```{r combine}
 to_unnamed(ison_marvel_relationships)
-to_named(ison_m182)
-to_undirected(ison_m182)
+to_named(ison_algebra)
+to_undirected(ison_algebra)
 to_unsigned(ison_marvel_relationships, keep = "positive")
 ```
 
 Note that for two-mode networks, there are also functions for converting or 'projecting' two-mode networks into one-mode networks.
 
 ```{r project}
-project_rows(southern_women)
-project_cols(southern_women)
+project_rows(ison_southern_women)
+project_cols(ison_southern_women)
 ```
 
 # Adding data
@@ -169,7 +169,7 @@ as follows:
 
 ```{r mutate}
 as_tidygraph(mpn_elite_mex) %>% 
-  mutate(order = 1:11,
+  mutate(order = 1:35,
          color = "red",
          degree = node_degree(mpn_elite_mex))
 ```
@@ -181,11 +181,11 @@ without adding any new edges, then `add_edge_attributes()` operates similarly
 to `add_node_attributes()` above.
 But if the result should be a multiplex network in the ties in the different
 component networks only partially overlap,
-then you will need to use `mutate_edges()`:^[Note that this function is still a work-in-progress.]
+then you will need to use `join_edges()`:^[Note that this function is still a work-in-progress.]
 
 ```{r mutateedges}
 generate_random(10, .3) %>% 
-  mutate_edges(generate_random(10, .3), "next")
+  join_edges(generate_random(10, .3), "next")
 ```
 
 # Retrieving data

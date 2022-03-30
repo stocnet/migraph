@@ -2,11 +2,7 @@ url: https://snlab-ch.github.io/migraph/
 development:
     mode: auto
 template:
-  params:
-    bootswatch: journal
-    docsearch:
-      api_key: 204dadbc12ed450b5ef1209c8c44b558
-      index_name: migraph
+  bootswatch: superhero
 authors:
   James Hollway:
     href: https://jameshollway.com
@@ -17,9 +13,10 @@ navbar:
     - intro
     - reference
     - articles
-    - tutorials
     - news
-    right: github
+    right:
+    - search
+    - github
   components:
     home:
       icon: fa-home fa-lg
@@ -30,9 +27,14 @@ navbar:
     news:
       text: News
       href: news/index.html
+    github:
+      icon: "fab fa-github fa-lg"
+      href: https://github.com/snlab-ch/migraph
 reference:
   - title: "Making"
-    desc: "Functions for creating and simulating multimodal and multilevel networks:"
+    desc: |
+      Functions for constructing, simulating, and importing
+      one-mode and two-mode networks:
     contents:
       - starts_with("create_")
       - starts_with("generate_")
@@ -47,7 +49,6 @@ reference:
       - starts_with("as_")
       - starts_with("is_")
       - starts_with("to_")
-      - starts_with("project_")
       - add
       - grab
   - title: "Mapping"
@@ -56,19 +57,23 @@ reference:
       - autographr
       - layouts
       - starts_with("plot")
-      - ggidentify
       - gglineage
       - ggevolution
       - ggatyear
   - title: "Measures"
-    desc: "Functions for measuring multimodal and multilevel networks:"
+    desc: |
+      Functions for measuring multimodal and multilevel networks.
+      Note that all `node_` measures return a single vector so that
+      they can be added directly to graph objects,
+      though two-mode results will be printed in two sections
+      All `graph_` measures return a single value.
     contents:
       - centrality
       - centralization
       - cohesion
       - diversity
       - node_constraint
-      - node_smallworld
+      - graph_smallworld
       - node_components
       - graph_components
       - graph_balance
@@ -86,11 +91,9 @@ reference:
       - starts_with("blockmodel")
   - title: "Data"
     desc: |
-      The package contains a range of different multimodal, multilevel, and multiplex data,
+      The package contains two collections of multimodal, multilevel, and multiplex network data,
       including data used in the book _Multimodal Political Networks_ (prefixed with `mpn_`)
       and for the course 'Social Networks Theories and Methods' (`ison_`).
     contents:
-      - brandes
-      - southern_women
       - starts_with("mpn_")
       - starts_with("ison_")

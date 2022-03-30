@@ -4,6 +4,7 @@
 \alias{is}
 \alias{is_migraph}
 \alias{is_graph}
+\alias{is_edgelist}
 \alias{is_twomode}
 \alias{is_weighted}
 \alias{is_directed}
@@ -14,11 +15,13 @@
 \alias{is_multiplex}
 \alias{is_uniplex}
 \alias{is_acyclic}
-\title{Tests of network properties}
+\title{Logical tests of network properties}
 \usage{
 is_migraph(object)
 
 is_graph(object)
+
+is_edgelist(object)
 
 is_twomode(object)
 
@@ -41,8 +44,14 @@ is_uniplex(object)
 is_acyclic(object)
 }
 \arguments{
-\item{object}{A migraph-consistent class object
-(matrix, edgelist, igraph, network, tidygraph)}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 
 \item{method}{Whether to identify components if only "weak"ly connected
 or also "strong"ly connected.}
@@ -51,7 +60,7 @@ or also "strong"ly connected.}
 TRUE if the condition is met, or FALSE otherwise.
 }
 \description{
-These functions implement tests for various network
+These functions implement logical tests for various network
 properties.
 }
 \section{Functions}{
@@ -59,6 +68,8 @@ properties.
 \item \code{is_migraph}: Tests whether network is migraph-compatible
 
 \item \code{is_graph}: Tests whether network contains graph-level information
+
+\item \code{is_edgelist}: Tests whether data frame is an edgelist
 
 \item \code{is_twomode}: Tests whether network is a two-mode network
 
@@ -82,20 +93,19 @@ properties.
 }}
 
 \examples{
-is_twomode(southern_women)
-is_weighted(southern_women)
-is_directed(southern_women)
-is_labelled(southern_women)
-is_signed(southern_women)
-is_connected(southern_women)
-is_complex(southern_women)
-is_uniplex(ison_m182)
-is_acyclic(ison_m182)
+is_twomode(ison_southern_women)
+is_weighted(ison_southern_women)
+is_directed(ison_southern_women)
+is_labelled(ison_southern_women)
+is_signed(ison_southern_women)
+is_connected(ison_southern_women)
+is_complex(ison_southern_women)
+is_uniplex(ison_algebra)
+is_acyclic(ison_algebra)
 }
 \seealso{
 Other manipulation: 
 \code{\link{coercion}},
-\code{\link{project}},
 \code{\link{to}}
 }
 \concept{manipulation}

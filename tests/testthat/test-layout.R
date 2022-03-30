@@ -29,3 +29,12 @@ test_that("GO grid layout works",{
   expect_true(class(attributes(layout_tbl_graph_gogrid(mpn_ryanair))$graph)[1]
               == "tbl_graph")
 })
+
+# Testing the helper functions (quite simple for now)
+
+test_that("helpers work",{
+  expect_equal(class(localmin(layout_tbl_graph_gogrid(ison_brandes), ison_brandes)), "data.frame")
+  expect_equal(class(get_vacant_points(layout_tbl_graph_gogrid(ison_brandes))), "data.frame")
+  expect_equal(class(get_vacant_points(layout_tbl_graph_gogrid(ison_brandes))), "data.frame")
+  expect_equal(class(cost_function(layout_tbl_graph_gogrid(ison_brandes), ison_brandes)), c("matrix", "array"))
+})

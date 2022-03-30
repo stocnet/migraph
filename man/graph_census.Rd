@@ -27,8 +27,8 @@ Censuses for the whole graph
 \examples{
 marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
 (mixed_cen <- graph_mixed_census(marvel_friends, ison_marvel_teams))
-graph_dyad_census(ison_coleman)
-graph_triad_census(ison_coleman)
+graph_dyad_census(ison_adolescents)
+graph_triad_census(ison_adolescents)
 }
 \references{
 Hollway, James, Alessandro Lomi, Francesca Pallotti, and Christoph Stadtfeld.

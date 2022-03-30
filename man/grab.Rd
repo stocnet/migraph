@@ -3,9 +3,11 @@
 \name{grab}
 \alias{grab}
 \alias{node_names}
+\alias{node_mode}
 \alias{node_attribute}
 \alias{edge_attribute}
 \alias{edge_weights}
+\alias{edge_signs}
 \alias{graph_nodes}
 \alias{graph_edges}
 \alias{graph_dims}
@@ -15,11 +17,15 @@
 \usage{
 node_names(object)
 
+node_mode(object)
+
 node_attribute(object, attribute)
 
 edge_attribute(object, attribute)
 
 edge_weights(object)
+
+edge_signs(object)
 
 graph_nodes(object)
 
@@ -32,11 +38,57 @@ graph_node_attributes(object)
 graph_edge_attributes(object)
 }
 \arguments{
-\item{object}{A data frame edgelist, matrix, igraph, tidygraph, or
-network object.}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 
-\item{attribute}{An attribute name.}
+\item{attribute}{Character string naming an attribute in the object.}
 }
 \description{
 Helpers to grab various attributes from nodes or edges in a graph
+}
+\section{Functions}{
+\itemize{
+\item \code{node_names}: Extracts the names of the nodes in a network.
+
+\item \code{node_mode}: Extracts the mode of the nodes in a network.
+
+\item \code{node_attribute}: Extracts an attribute's values for the nodes in a network.
+
+\item \code{edge_attribute}: Extracts an attribute's values for the edges in a network.
+
+\item \code{edge_weights}: Extracts the weights of the edges in a network.
+
+\item \code{edge_signs}: Extracts the signs of the edges in a network.
+
+\item \code{graph_nodes}: Returns the number of nodes (of any mode) in a network.
+
+\item \code{graph_edges}: Returns the number of edges in a network.
+
+\item \code{graph_dims}: Returns the dimensions of a network in a vector
+as long as the number of modes in the network.
+
+\item \code{graph_node_attributes}: Returns a vector of nodal attributes in a network
+
+\item \code{graph_edge_attributes}: Returns a vector of edge attributes in a network
+}}
+
+\examples{
+node_names(mpn_elite_usa_advice)
+node_mode(mpn_elite_usa_advice)
+node_attribute(mpn_elite_mex, "full_name")
+edge_attribute(ison_algebra, "task_tie")
+edge_weights(to_mode1(ison_southern_women))
+edge_signs(ison_marvel_relationships)
+graph_nodes(ison_southern_women)
+graph_edges(ison_southern_women)
+graph_dims(ison_southern_women)
+graph_dims(to_mode1(ison_southern_women))
+graph_node_attributes(mpn_elite_mex)
+graph_edge_attributes(mpn_elite_mex)
 }

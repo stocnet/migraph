@@ -19,28 +19,34 @@ create_ring(n, width = 1, directed = FALSE, ...)
 
 create_components(n, components = 2)
 
-create_star(n, directed = c("undirected", "in", "out"))
+create_star(n, direction = c("undirected", "in", "out"))
 
-create_tree(n, directed = c("undirected", "in", "out"), branches = 2)
+create_tree(n, direction = c("undirected", "in", "out"), branches = 2)
 
-create_lattice(n, directed = c("undirected", "in", "out"))
+create_lattice(n, direction = c("undirected", "in", "out"))
 }
 \arguments{
-\item{n}{Number of nodes.
-If a single integer is given, e.g. \code{n = 10},
-the function will create a one-mode network.
-If a vector of two integers is given, e.g. \code{n = c(5,10)},
-the function will create a two-mode network.}
+\item{n}{Given:
+\itemize{
+\item A single integer, e.g. \code{n = 10},
+a one-mode network will be created.
+\item A vector of two integers, e.g. \code{n = c(5,10)},
+a two-mode network will be created.
+\item A migraph-compatible object,
+a network of the same dimensions will be created.
+}}
 
 \item{width}{The width or breadth of the ring. This is typically double the degree.}
 
-\item{directed}{One of the following options: "in", "out", or "undirected" (DEFAULT).}
+\item{directed}{Whether the graph should be directed. By default FALSE.}
 
 \item{...}{Additional arguments passed on to igraph.}
 
-\item{components}{Number of components to create.}
+\item{components}{Number of components to divide the nodes into.}
 
-\item{branches}{How many branches at each level}
+\item{direction}{One of the following options: "in", "out", or "undirected" (DEFAULT).}
+
+\item{branches}{How many branches at each level.}
 }
 \value{
 By default an igraph object will be returned,
@@ -48,45 +54,47 @@ but this can be coerced into other types of objects
 using \code{as_matrix()}, \code{as_tidygraph()}, or \code{as_network()}.
 }
 \description{
-These functions create a variety of different network objects.
-Despite the common function names and syntax with existing packages,
-the common \code{n} argument can not only be passed
-a single integer to return a one-mode network,
-but also a vector of \emph{two} integers to return a two-mode network.
+These functions create networks with particular structural properties.
+They can create either one-mode and two-mode networks,
+depending on whether the common \code{n} argument
+is passed a single integer (the number of nodes in the one-mode network)
+or a vector of \emph{two} integers to return a two-mode network.
 }
-\details{
-\code{create_empty()} creates an empty graph of the given dimensions.
+\section{Functions}{
+\itemize{
+\item \code{create_empty}: Creates an empty graph of the given dimensions.
 
-\code{create_complete()} creates a filled graph of the given dimensions.
+\item \code{create_complete}: Creates a filled graph of the given dimensions,
+with every possible tie realised.
 
-\code{create_ring()} creates a ring or chord graph of the given dimensions
+\item \code{create_ring}: Creates a ring or chord graph of the given dimensions
 that loops around is of a certain width or thickness.
 
-\code{create_components()} creates a graph in which the nodes are clustered
+\item \code{create_components}: Creates a graph in which the nodes are clustered
 into separate components.
 
-\code{create_star()} creates a graph of the given dimensions that has a maximally central node
+\item \code{create_star}: Creates a graph of the given dimensions that has a maximally central node
 
-\code{create_tree()} creates a graph of the given dimensions with successive branches
+\item \code{create_tree}: Creates a graph of the given dimensions with successive branches.
 
-\code{create_lattice()} creates a graph of the given dimensions with ties to all neighbouring nodes
-}
+\item \code{create_lattice}: Creates a graph of the given dimensions with ties to all neighbouring nodes
+}}
+
 \examples{
-g <- create_empty(c(8,6))
-autographr(g)
-g <- create_complete(c(8,6))
-autographr(g)
-g <- create_ring(c(8,6), width = 2)
-autographr(g)
+autographr(create_empty(c(8,6))) +
+autographr(create_complete(c(8,6)))
+autographr(create_ring(8, width = 2)) + 
+autographr(create_ring(c(8,6), width = 2))
 autographr(create_components(c(10, 12), components = 3))
+autographr(create_star(12, "in")) +
+autographr(create_star(12, "out")) +
 autographr(create_star(c(12,1), "in"))
-tr1 <- autographr(create_tree(12))
-tr2 <- autographr(create_tree(12), "tree")
-grid.arrange(tr1, tr2, ncol = 2)
-cl1 <- autographr(create_lattice(5))
-cl2 <- autographr(create_lattice(c(5,5)))
-cl3 <- autographr(create_lattice(c(5,5,5)))
-grid.arrange(cl1, cl2, cl3, ncol = 3)
+autographr(create_tree(15, direction = "out")) + 
+autographr(create_tree(15, direction = "out"), "tree") + 
+autographr(create_tree(15, direction = "out", branches = 3), "tree")
+autographr(create_lattice(5), layout = "kk") +
+autographr(create_lattice(c(5,5))) +
+autographr(create_lattice(c(5,5,5)))
 }
 \seealso{
 as_matrix as_tidygraph as_network

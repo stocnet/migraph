@@ -1,9 +1,10 @@
-test_tbl <- as_tidygraph(southern_women)
-test_igr <- southern_women
-test_mat <- as_matrix(southern_women)
+test_tbl <- as_tidygraph(ison_southern_women)
+test_igr <- ison_southern_women
+test_mat <- as_matrix(ison_southern_women)
 
 test_that("one mode degree centrality calculated correctly",{
-  expect_equal(unname(node_degree(mpn_elite_mex)[1:5]), c(2,5,2,3,5))
+  expect_equal(unname(node_degree(mpn_elite_mex)[1:5]), c(3,6,8,6,6))
+  expect_equal(unname(node_degree(ison_networkers, mode = "in")[1:5]), c(29, 24, 11, 18, 8))
 })
 
 test_that("two mode degree centrality calculated correctly",{
@@ -22,7 +23,7 @@ test_that("two mode degree centrality calculated correctly",{
 })
 
 test_that("one mode closeness centrality calculated correctly",{
-  expect_equal(round(unname(node_closeness(mpn_elite_mex)[1:3]),2), c(0.05, 0.07, 0.05))
+  expect_equal(round(unname(node_closeness(mpn_elite_mex)[1:3]),2), c(0.01, 0.01, 0.01))
 })
 
 test_that("two mode closeness centrality calculated correctly",{
@@ -41,7 +42,7 @@ test_that("two mode closeness centrality calculated correctly",{
 })
 
 test_that("one mode betweenness centrality calculated correctly",{
-  expect_equal(round(unname(node_betweenness(mpn_elite_mex)[1:3]),2), c(0.00, 13.33, 0.00))
+  expect_equal(round(unname(node_betweenness(mpn_elite_mex)[1:3]),2), c(2.83, 4.59, 17.36))
 })
 
 test_that("two mode betweenness centrality calculated correctly",{
@@ -61,8 +62,9 @@ test_that("two mode betweenness centrality calculated correctly",{
 
 
 test_that("one mode eigenvector centrality calculated correctly",{
-  expect_equal(round(unname(node_eigenvector(mpn_elite_mex)[1:3]),2), c(0.16, 0.34, 0.18))
-  expect_equal(round(unname(node_eigenvector(mpn_elite_mex, normalized = TRUE)[1:3]),2), c(0.22, 0.49, 0.25))
+  expect_equal(round(unname(node_eigenvector(mpn_elite_mex)[1:3]),2), c(0.06, 0.08, 0.12))
+  expect_equal(round(unname(node_eigenvector(mpn_elite_mex, normalized = TRUE)[1:3]),2), 
+               c(0.08, 0.11, 0.17))
 })
 
 test_that("two mode eigenvector centrality calculated correctly",{

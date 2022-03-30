@@ -11,6 +11,10 @@
 \alias{read_ucinet}
 \alias{write_ucinet}
 \title{Reading from/writing to external formats}
+\source{
+\code{read_ucinet()} and \code{write_ucinet()} kindly supplied by Christian Steglich,
+constructed on 18 June 2015.
+}
 \usage{
 read_edgelist(file = file.choose(), sv = c("comma", "semi-colon"), ...)
 
@@ -24,7 +28,7 @@ read_pajek(file = file.choose(), ...)
 
 write_pajek(object, filename, ...)
 
-read_ucinet(file = file.choose(), ...)
+read_ucinet(file = file.choose())
 
 write_ucinet(object, filename, name)
 }
@@ -32,14 +36,22 @@ write_ucinet(object, filename, name)
 \item{file}{A character string with the system path to the file to import.
 If left unspecified, an OS-specific file picker is opened to help users select it.
 Note that in \code{read_ucinet()} the file path should be to the header file (.##h),
-if it exists.}
+if it exists and that it is currently not possible to import multiple
+networks from a single UCINET file. Please convert these one by one.}
 
 \item{sv}{Allows users to specify whether their csv file is
 \code{"comma"} (English) or \code{"semi-colon"} (European) separated.}
 
 \item{...}{Additional parameters passed to the read/write function.}
 
-\item{object}{A migraph-consistent object to be exported.}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 
 \item{filename}{UCINET filename (without ## extension).
 By default the files will have the same name as the object
@@ -64,8 +76,8 @@ depending on the function.
 A pair of UCINET files in V6404 file format (.##h, .##d)
 }
 \description{
-Users regularly need to work with a variety of external data formats.
-The following functions offers ways to import from some common external
+Researchers regularly need to work with a variety of external data formats.
+The following functions offer ways to import from some common external
 file formats into objects that \code{{migraph}} and other graph/network packages
 in R can work with.
 Note that these functions are not as actively maintained as others
@@ -124,12 +136,9 @@ horseplay <- read_ucinet("WIRING-RDGAM.##h")
 }
 \dontrun{
 # export it again to UCINET under a different name:
-write_ucinet(horseplay,"R&D-horseplay")
+write_ucinet(horseplay, "R&D-horseplay")
 }
 }
 \seealso{
 \link{coercion}
-}
-\author{
-Christian Steglich, 18 June 2015
 }

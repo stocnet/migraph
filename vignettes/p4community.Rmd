@@ -21,8 +21,8 @@ The data we're going to use is included in the `{migraph}` package
 ```{r setup}
 suppressPackageStartupMessages(library(igraph))
 suppressPackageStartupMessages(library(migraph))
-data("ison_m182", package = "migraph")
-# ?migraph::ison_m182
+data("ison_algebra", package = "migraph")
+# ?migraph::ison_algebra
 ```
 
 Note that you do not need to load the package using library() to get the data.
@@ -39,21 +39,22 @@ even if it's just pretend. Luckily, I've added a function for this.
 This makes plotting the network just a wee bit more accessible:
 
 ```{r addingnames}
-ison_m182 <- to_named(ison_m182)
-autographr(ison_m182)
+ison_algebra <- to_named(ison_algebra)
+autographr(ison_algebra)
 ```
 
 There are actually three different types of tie here. 
 Let's separate them out into separate networks.
 
 ```{r separatingnets}
-(m182_friend <- to_uniplex(ison_m182, "friend_tie"))
+(m182_friend <- to_uniplex(ison_algebra, "friend_tie"))
 gfriend <- autographr(m182_friend) + ggtitle("Friendship")
-(m182_social <- to_uniplex(ison_m182, "social_tie"))
+(m182_social <- to_uniplex(ison_algebra, "social_tie"))
 gsocial <- autographr(m182_social) + ggtitle("Social")
-(m182_task <- to_uniplex(ison_m182, "task_tie"))
+(m182_task <- to_uniplex(ison_algebra, "task_tie"))
 gtask <- autographr(m182_task) + ggtitle("Task")
-grid.arrange(gfriend, gsocial, gtask, ncol = 3)
+library(patchwork)
+gfriend + gsocial + gtask
 ```
 
 # Cohesion
@@ -292,9 +293,9 @@ The next dataset is also available in migraph.
 Let's take a look at the loaded objects.
 
 ```{r setup-women}
-data("southern_women")
-southern_women
-autographr(southern_women, node_color = "type")
+data("ison_southern_women")
+ison_southern_women
+autographr(ison_southern_women, node_color = "type")
 ```
 
 ## Project two-mode network into two one-mode networks
@@ -305,7 +306,7 @@ There are two ways of doing this.
 The hard way...
 
 ```{r hardway}
-twomode_matrix <- as_matrix(southern_women)
+twomode_matrix <- as_matrix(ison_southern_women)
 women_matrix <- twomode_matrix %*% t(twomode_matrix)
 event_matrix <- t(twomode_matrix) %*% twomode_matrix
 ```
@@ -313,9 +314,9 @@ event_matrix <- t(twomode_matrix) %*% twomode_matrix
 Or the easy way
 
 ```{r easyway}
-women_graph <- project_rows(southern_women)
+women_graph <- project_rows(ison_southern_women)
 autographr(women_graph)
-event_graph <- project_cols(southern_women)
+event_graph <- project_cols(ison_southern_women)
 autographr(event_graph)
 ```
 
@@ -323,7 +324,7 @@ Which women/events 'bind' which events/women?
 Let's return to the question of cohesion.
 
 ```{r twomode-cohesion}
-graph_equivalency(southern_women)
+graph_equivalency(ison_southern_women)
 graph_transitivity(women_graph)
 graph_transitivity(event_graph)
 ```
@@ -334,6 +335,6 @@ What do we learn from this?
 
 1. What is the difference between communities and components?
 2. Produce a plot comparing 3 community detection procedures used here on a 
-(women) projection of the southern_women dataset. Identify which you prefer, and explain why.
+(women) projection of the ison_southern_women dataset. Identify which you prefer, and explain why.
 3. Explain in no more than a paragraph why projection can lead to misleading transitivity measures.
 4. Explain in no more than a paragraph how structural balance might lead to group identity.

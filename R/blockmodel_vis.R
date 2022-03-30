@@ -10,7 +10,7 @@
 #' usa_concor <- blockmodel_concor(mpn_elite_usa_advice)
 #' plot(usa_concor)
 #' @export
-plot.blockmodel <- function(x, ...){
+plot.block_model <- function(x, ...){
   plot_data <- x$blocked.data
   plot_data <- as.data.frame(plot_data) %>%
     tibble::rownames_to_column("Var1") %>%
@@ -73,17 +73,16 @@ plot.blockmodel <- function(x, ...){
 #' @param method only "elbow" is currently implemented.
 #' @name blockmodel_vis
 #' @importFrom ggdendro ggdendrogram
-#' @importFrom RColorBrewer brewer.pal
 #' @importFrom stats cutree
 #' @examples
 #' res <- cluster_regular_equivalence(mpn_elite_mex)
-#' ggtree(res, 4)
+#' ggtree(res, 3)
 #' @export
 ggtree <- function(hc, k = NULL){
   if (is.null(k)) {
     ggdendro::ggdendrogram(hc, rotate = TRUE)
   } else {
-    colors <- suppressWarnings(RColorBrewer::brewer.pal(k, "Set1"))
+    colors <- colorsafe_palette[seq_len(k)]
     colors <- (colors[stats::cutree(hc, k = k)])[hc$order]
     ggdendro::ggdendrogram(hc, rotate = TRUE) +
       ggplot2::geom_hline(yintercept = hc$height[length(hc$order) - k],
@@ -155,7 +154,7 @@ elbow_finder <- function(x_values, y_values) {
   max_df <- data.frame(x = c(min(x_values), max(x_values)), 
                        y = c(min(y_values), max(y_values)))
   # Creating straight line between the max values
-  fit <- lm(max_df$y ~ max_df$x)
+  fit <- stats::lm(max_df$y ~ max_df$x)
   # Distance from point to line
   distances <- vector()
   for (i in seq_len(length(x_values))) {
@@ -187,4 +186,5 @@ clusterCorr <- function(observed_cor_matrix, cluster_vector) {
 }
 
 elementwise.all.equal <- Vectorize(function(x, y) {isTRUE(all.equal(x, y))})
+
 

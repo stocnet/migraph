@@ -27,7 +27,7 @@ For two-mode networks, the function employs the extension outlined
 in Hollway et al. (2020).
 }
 \examples{
-node_constraint(southern_women)
+node_constraint(ison_southern_women)
 }
 \references{
 Hollway, James, Jean-Frédéric Morin, and Joost Pauwelyn. 2020.
@@ -36,17 +36,16 @@ Hollway, James, Jean-Frédéric Morin, and Joost Pauwelyn. 2020.
 }
 \seealso{
 Other one-mode measures: 
-\code{\link{cohesion}}
+\code{\link{cohesion}()}
 
 Other two-mode measures: 
 \code{\link{centrality}},
 \code{\link{centralization}},
-\code{\link{cohesion}},
-\code{\link{node_smallworld}()}
+\code{\link{cohesion}()},
+\code{\link{graph_smallworld}()}
 
 Other node-level measures: 
-\code{\link{centrality}},
-\code{\link{node_smallworld}()}
+\code{\link{centrality}}
 }
 \concept{node-level measures}
 \concept{one-mode measures}

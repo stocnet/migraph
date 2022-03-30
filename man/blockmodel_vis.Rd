@@ -2,12 +2,12 @@
 % Please edit documentation in R/blockmodel_vis.R
 \name{blockmodel_vis}
 \alias{blockmodel_vis}
-\alias{plot.blockmodel}
+\alias{plot.block_model}
 \alias{ggtree}
 \alias{ggidentify_clusters}
 \title{ggplot2-based plotting of blockmodel results}
 \usage{
-\method{plot}{blockmodel}(x, ...)
+\method{plot}{block_model}(x, ...)
 
 ggtree(hc, k = NULL)
 
@@ -38,6 +38,6 @@ Plots for deciding on the number of network clusters
 usa_concor <- blockmodel_concor(mpn_elite_usa_advice)
 plot(usa_concor)
 res <- cluster_regular_equivalence(mpn_elite_mex)
-ggtree(res, 4)
+ggtree(res, 3)
 ggidentify_clusters(res, node_triad_census(mpn_elite_mex))
 }

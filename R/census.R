@@ -6,7 +6,7 @@
 #' of nodes. Included also are group census functions for summarising
 #' the profiles of clusters of nodes in a network.
 #' @name census
-#' @param object A migraph-consistent object.
+#' @inheritParams is
 #' @param clusters a vector of cluster assignment.
 #' @param decimals Number of decimal points to round to.
 #' @importFrom igraph vcount graph.neighborhood delete_vertices triad_census
@@ -14,7 +14,7 @@ NULL
 
 #' @rdname census
 #' @examples
-#' task_eg <- to_named(to_uniplex(ison_m182, "task_tie"))
+#' task_eg <- to_named(to_uniplex(ison_algebra, "task_tie"))
 #' (tie_cen <- node_tie_census(task_eg))
 #' @export
 node_tie_census <- function(object){
@@ -81,11 +81,39 @@ node_triad_census <- function(object){
   out # This line says the function returns the output
 }
 
-#' @rdname census
+#' @describeIn census Returns a census of nodes' positions
+#'   in motifs of four nodes.
+#' @details The quad census uses the `{oaqc}` package to do
+#'   the heavy lifting of counting the number of each orbits.
+#'   See `vignette('oaqc')`.
+#'   However, our function relabels some of the motifs
+#'   to avoid conflicts and improve some consistency with 
+#'   other census-labelling practices.
+#'   The letter-number pairing of these labels indicate
+#'   the number and configuration of ties.
+#'   For now, we offer a rough translation:
+#'   
+#' | migraph | Ortmann and Brandes      
+#' | ------------- |------------- |
+#' | E4  | co-K4
+#' | I40, I41  | co-diamond
+#' | H4  | co-C4
+#' | L42, L41, L40 | co-paw
+#' | D42, D40 | co-claw
+#' | U42, U41 | P4
+#' | Y43, Y41 | claw
+#' | P43, P42, P41 | paw
+#' | 04 | C4
+#' | Z42, Z43 | diamond
+#' | X4 | K4
 #' @importFrom oaqc oaqc
 #' @importFrom tidygraph %E>%
+#' @references 
+#'  Ortmann, Mark, and Ulrik Brandes. 2017. 
+#'  “\href{doi: 10.1007/s41109-017-0027-2}{Efficient Orbit-Aware Triad and Quad Census in Directed and Undirected Graphs}.” 
+#'  \emph{Applied Network Science} 2(1):13.
 #' @examples 
-#' (quad_cen <- node_quad_census(southern_women))
+#' (quad_cen <- node_quad_census(ison_southern_women))
 #' @export
 node_quad_census <- function(object){
   graph <- object %>% as_tidygraph() %E>% 
@@ -210,7 +238,7 @@ group_triad_census <- function(object, clusters, decimals = 2) {
 
 #' @rdname graph_census
 #' @examples 
-#' graph_dyad_census(ison_coleman)
+#' graph_dyad_census(ison_adolescents)
 #' @export
 graph_dyad_census <- function(object) {
   if (is_twomode(object)) {
@@ -226,7 +254,7 @@ graph_dyad_census <- function(object) {
 
 #' @rdname graph_census
 #' @examples 
-#' graph_triad_census(ison_coleman)
+#' graph_triad_census(ison_adolescents)
 #' @export
 graph_triad_census <- function(object) {
   if (is_twomode(object)) {

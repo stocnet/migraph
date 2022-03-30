@@ -63,9 +63,9 @@ append \verb{$nodes2} to the end of the function call or returned object.
 These functions measure the overall centralization for a network.
 }
 \examples{
-graph_degree(southern_women, directed = "in")
-graph_closeness(southern_women, directed = "in")
-graph_betweenness(southern_women, directed = "in")
+graph_degree(ison_southern_women, directed = "in")
+graph_closeness(ison_southern_women, directed = "in")
+graph_betweenness(ison_southern_women, directed = "in")
 graph_eigenvector(mpn_elite_mex)
 }
 \references{
@@ -75,9 +75,9 @@ Social Network Analysis}, edited by John Scott and Peter J Carrington, 417–33.
 \seealso{
 Other two-mode measures: 
 \code{\link{centrality}},
-\code{\link{cohesion}},
-\code{\link{node_constraint}()},
-\code{\link{node_smallworld}()}
+\code{\link{cohesion}()},
+\code{\link{graph_smallworld}()},
+\code{\link{node_constraint}()}
 }
 \concept{graph-level measures}
 \concept{two-mode measures}

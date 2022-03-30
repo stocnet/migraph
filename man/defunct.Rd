@@ -2,48 +2,43 @@
 % Please edit documentation in R/migraph-defunct.R
 \name{defunct}
 \alias{defunct}
-\alias{graph_clustering}
-\alias{cluster_triad_census}
-\alias{ggraphgrid}
-\alias{test_cug}
-\alias{graph_dimensions}
-\alias{netlm}
+\alias{ggidentify}
+\alias{ggdistrib}
+\alias{project_rows}
+\alias{project_cols}
+\alias{mutate_edges}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
-graph_clustering(object)
+ggidentify(object, node_measure, identify_function = max)
 
-cluster_triad_census(object, clusters)
+ggdistrib(object, node_measure)
 
-ggraphgrid(x, algorithm = c("kk", "fr"))
+project_rows(object)
 
-test_cug(object, FUN, ..., nSim = 1000)
+project_cols(object)
 
-graph_dimensions(object)
-
-netlm(formula, data, ...)
+mutate_edges(object, object2, attr_name)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 }
 \section{Functions}{
 \itemize{
-\item \code{graph_clustering}: Deprecated on 2021-10-18.
-Returns \code{graph_transitivity()} or \code{graph_equivalency()},
-depending on whether the object is a one-mode or two-mode object, respectively.
+\item \code{ggidentify}: Deprecated on 2022-01-24.
+This function is deprecated and its functionality is included in the more
+general purpose \code{autographr()} function. Please refer to its documentation
+for more details about the new implementation.
 
-\item \code{cluster_triad_census}: Deprecated on 2021-10-26.
-Returns \code{group_triad_census()}
+\item \code{ggdistrib}: Deprecated on 2022-03-23.
+This function is deprecated and its functionality is included in the more
+general purpose \code{autographr()} function. Please refer to its documentation
+for more details about the new implementation.
 
-\item \code{ggraphgrid}: Deprecated on 2021-10-26.
+\item \code{project_rows}: Deprecated on 2022-03-23.
 
-\item \code{test_cug}: Deprecated on 2021-11-08.
-Returns \code{test_random()}
+\item \code{project_cols}: Deprecated on 2022-03-23.
 
-\item \code{graph_dimensions}: Deprecated on 2021-11-10.
-Returns \code{graph_dims()}
-
-\item \code{netlm}: Deprecated on 2021-11-16.
-Returns \code{network_reg()}
+\item \code{mutate_edges}: Deprecated on 2022-03-29.
 }}
 
 \keyword{internal}

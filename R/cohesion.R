@@ -48,7 +48,7 @@ graph_density <- function(object) {
 #' @rdname cohesion
 #' @importFrom igraph reciprocity
 #' @examples
-#' graph_reciprocity(southern_women)
+#' graph_reciprocity(ison_southern_women)
 #' @export
 graph_reciprocity <- function(object, method = "default") {
   igraph::reciprocity(as_igraph(object), mode = method)
@@ -56,7 +56,7 @@ graph_reciprocity <- function(object, method = "default") {
 #' @rdname cohesion
 #' @importFrom igraph transitivity
 #' @examples
-#' graph_transitivity(southern_women)
+#' graph_transitivity(ison_southern_women)
 #' @export
 graph_transitivity <- function(object) {
   igraph::transitivity(as_igraph(object))
@@ -64,7 +64,7 @@ graph_transitivity <- function(object) {
 
 #' @rdname cohesion
 #' @examples
-#' graph_equivalency(southern_women)
+#' graph_equivalency(ison_southern_women)
 #' @export
 graph_equivalency <- function(object) {
   if (is_twomode(object)) {
@@ -104,3 +104,4 @@ graph_congruency <- function(object, object2){
   if (is.nan(output)) output <- 1
   output
 }
+

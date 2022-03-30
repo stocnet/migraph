@@ -7,15 +7,15 @@
 \alias{ison_bm}
 \alias{ison_mb}
 \alias{ison_bb}
-\title{Two-mode projection examples}
+\title{Two-mode projection examples (Hollway 2021)}
 \format{
-Directed two-mode igraph with 6 nodes and 6 edges
+Directed two-mode \code{{igraph}} object with 6 nodes and 6 edges
 
-Directed two-mode igraph with 8 nodes and 9 edges
+Directed two-mode \code{{igraph}} object with 8 nodes and 9 edges
 
-Directed two-mode igraph with 8 nodes and 9 edges
+Directed two-mode \code{{igraph}} object with 8 nodes and 9 edges
 
-Directed two-mode igraph with 10 nodes and 12 edges
+Directed two-mode \code{{igraph}} object with 10 nodes and 12 edges
 }
 \usage{
 data(ison_mm)
@@ -27,6 +27,11 @@ data(ison_mb)
 data(ison_bb)
 }
 \description{
-Two-mode projection examples
+Two-mode projection examples (Hollway 2021)
+}
+\details{
+These datasets should only be used
+for demonstration purposes as they do not describe a real world network.
+All examples contain named nodes.
 }
 \keyword{datasets}

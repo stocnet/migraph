@@ -9,9 +9,9 @@
 \alias{mpn_DE_2008}
 \alias{mpn_UK_1990}
 \alias{mpn_UK_2008}
-\title{Two-mode European Values Survey, 1990 and 2008}
+\title{Two-mode European Values Survey, 1990 and 2008 (EVS 2020)}
 \format{
-Matrices with 14 columns:
+\code{tbl_graph} object based on an association matrix with 14 columns:
 \describe{
 \item{Welfare}{1 if individual associated}
 \item{Religious}{1 if individual associated}
@@ -40,7 +40,7 @@ An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 10.
 An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 10.
 }
 \source{
-Knoke, Diani, Hollway, and Christopoulos. 2021. \emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
+Knoke, Diani, Hollway, and Christopoulos. 2021.
 }
 \usage{
 data(mpn_IT_1990)
@@ -61,5 +61,11 @@ of associations in three countries (Italy, Germany, and the UK) in 1990
 and 2008. The Italy data has 658 respondents in 1990 and 540 in 2008.
 The Germany data has 1369 respondents in 1990 and 503 in 2008.
 The UK data has 738 respondents in 1990 and 664 in 2008.
+}
+\references{
+EVS (2020). European Values Study Longitudinal Data File 1981-2008 (EVS 1981-2008).
+GESIS Data Archive, Cologne. ZA4804 Data file Version 3.1.0,
+https://doi.org/10.4232/1.13486.
+\emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
 }
 \keyword{datasets}

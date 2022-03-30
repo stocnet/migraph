@@ -1,7 +1,7 @@
 Package: migraph
 Title: Multimodal and Multilevel Network Analysis
-Version: 0.8.13
-Date: 2021-12-19
+Version: 0.9.0
+Date: 2022-03-31
 Description: A set of tools that extend common social network analysis packages
    for analysing multimodal and multilevel networks.
    It includes functions for one- and two-mode (and sometimes three-mode) 
@@ -21,30 +21,30 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2
 Imports: 
+    concaveman,
     dplyr,
+    generics,
     ggdendro,
-    ggraph,
+    ggforce,
     ggplot2,
-    gridExtra,
+    ggraph,
     igraph,
-    magrittr,
     network,
     oaqc,
+    future,
+    furrr,
+    patchwork,
     purrr,
-    RColorBrewer,
     rlang,
     sna,
     stringr,
     tibble,
     tidygraph,
-    tidyr,
-    concaveman,
-    ggforce,
-    readxl
+    tidyr
 Suggests: 
     covr,
     knitr,
-    patchwork,
+    readxl,
     rmarkdown,
     roxygen2,
     testthat
@@ -58,7 +58,15 @@ Authors@R:
            family = "Bieri",
            role = c("ctb"),
            email = "bernhard.bieri@graduateinstitute.ch",
-           comment = c(ORCID = "0000-0001-5943-9059"))
+           comment = c(ORCID = "0000-0001-5943-9059")),
+      person(given = "Henrique",
+             family = "Sposito",
+             role = "ctb",
+             comment = c("IHEID", ORCID = "0000-0003-3420-6085")),
+      person(given = "Jael",
+             family = "Tan",
+             role = "ctb",
+             comment = c("IHEID", ORCID = "0000-0002-6234-9764"))
     )
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr

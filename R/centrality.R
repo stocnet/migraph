@@ -10,18 +10,19 @@
 #' @param object Either an igraph graph object or a matrix.
 #' @param weights The weight of the edges to use for the calculation. 
 #' Will be evaluated in the context of the edge data.
-#' @param mode How should edges be followed. Ignored for undirected graphs
+#' @param mode How should edges be followed (in or out). By default, outdegree of
+#' the node is calculated. Ignored for undirected graphs.
 #' @param loops Should loops be included in the calculation
 #' @param normalized Should the output be normalized for one or two-modes networks
 #' @importFrom rlang enquo eval_tidy
 #' @importFrom igraph graph_from_incidence_matrix is_bipartite degree V
 #' @references 
-#' Borgatti, Stephen P., and Martin G. Everett. "Network analysis of 2-mode data." Social networks 19.3 (1997): 243-270.
+#' Borgatti, Stephen P., and Martin G. Everett (1997). "Network analysis of 2-mode data." _Social Networks_ 19(3): 243-270.
 #' 
-#' Faust, Katherine. "Centrality in affiliation networks." Social networks 19.2 (1997): 157-191.
+#' Faust, Katherine (1997). "Centrality in affiliation networks." _Social Networks_ 19(2): 157-191.
 #' @examples
 #' node_degree(mpn_elite_mex)
-#' node_degree(southern_women)
+#' node_degree(ison_southern_women)
 #' @return Depending on how and what kind of an object is passed to the function,
 #' the function will return a `tidygraph` object where the nodes have been updated
 #' @export
@@ -40,19 +41,27 @@ node_degree <- function (object,
     weights <- NA
   }
   if (is_twomode(graph) & normalized){
-    degrees <- igraph::degree(graph = graph, v = igraph::V(graph), mode = mode, loops = loops)
-    other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
-    degrees/other_set_size
+    degrees <- igraph::degree(graph = graph, 
+                              v = igraph::V(graph), 
+                              mode = mode, loops = loops)
+    other_set_size <- ifelse(igraph::V(graph)$type, 
+                             sum(!igraph::V(graph)$type), 
+                             sum(igraph::V(graph)$type))
+    out <- degrees/other_set_size
   } else {
     if (is.null(weights)) {
-      igraph::degree(graph = graph, V = igraph::V(graph), mode = mode, loops = loops, 
-             normalized = normalized)
+      out <- igraph::degree(graph = graph, V = igraph::V(graph), 
+                     mode = mode, loops = loops,
+                     normalized = normalized)
     }
     else {
-      igraph::strength(graph = graph, vids = igraph::V(graph), mode = mode, 
-               loops = loops, weights = weights)
+      out <- igraph::strength(graph = graph, vids = igraph::V(graph), 
+                       mode = mode,
+                       loops = loops, weights = weights)
     }
   }
+  out <- make_measure(out, object)
+  out
 }
 
 #' @rdname centrality
@@ -60,7 +69,7 @@ node_degree <- function (object,
 #' @import tidygraph
 #' @examples
 #' node_closeness(mpn_elite_mex)
-#' node_closeness(southern_women)
+#' node_closeness(ison_southern_women)
 #' @export
 node_closeness <- function (object, 
                             weights = NULL, mode = "out", 
@@ -81,16 +90,18 @@ node_closeness <- function (object,
     closeness <- igraph::closeness(graph = graph, vids = igraph::V(graph), mode = mode)
     other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
     set_size <- ifelse(igraph::V(graph)$type, sum(igraph::V(graph)$type), sum(!igraph::V(graph)$type))
-    closeness/(1/(other_set_size+2*set_size-2))
+    out <- closeness/(1/(other_set_size+2*set_size-2))
     } else {
       if (is.null(cutoff)) {
-        igraph::closeness(graph = graph, vids = igraph::V(graph), mode = mode,
+        out <- igraph::closeness(graph = graph, vids = igraph::V(graph), mode = mode,
                   weights = weights, normalized = normalized)
       } else {
-        igraph::estimate_closeness(graph = graph, vids = igraph::V(graph), mode = mode, 
+        out <- igraph::estimate_closeness(graph = graph, vids = igraph::V(graph), mode = mode, 
                            cutoff = cutoff, weights = weights, normalized = normalized)
       }
     }
+  out <- make_measure(out, object)
+  out
 } 
 
 #' @rdname centrality
@@ -100,7 +111,7 @@ node_closeness <- function (object,
 #' @import tidygraph
 #' @examples
 #' node_betweenness(mpn_elite_mex)
-#' node_betweenness(southern_women)
+#' node_betweenness(ison_southern_women)
 #' @return A numeric vector giving the betweenness centrality measure of each node.
 #' @export 
 node_betweenness <- function(object, 
@@ -121,30 +132,30 @@ node_betweenness <- function(object,
     betw_scores <- igraph::betweenness(graph = graph, v = igraph::V(graph), directed = directed, nobigint = nobigint)
     other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
     set_size <- ifelse(igraph::V(graph)$type, sum(igraph::V(graph)$type), sum(!igraph::V(graph)$type))
-    ifelse(set_size > other_set_size, 
+    out <- ifelse(set_size > other_set_size, 
            betw_scores/(2*(set_size-1)*(other_set_size-1)), 
            betw_scores/(1/2*other_set_size*(other_set_size-1)+1/2*(set_size-1)*(set_size-2)+(set_size-1)*(other_set_size-1)))
   } else {
     if (is.null(cutoff)) {
-      igraph::betweenness(graph = graph, v = igraph::V(graph), directed = directed, weights = weights, nobigint = nobigint, normalized = normalized)
+      out <- igraph::betweenness(graph = graph, v = igraph::V(graph), directed = directed, weights = weights, nobigint = nobigint, normalized = normalized)
     } else {
-      igraph::estimate_betweenness(graph = graph, vids = igraph::V(graph), directed = directed, cutoff = cutoff, weights = weights, nobigint = nobigint)
+      out <- igraph::estimate_betweenness(graph = graph, vids = igraph::V(graph), directed = directed, cutoff = cutoff, weights = weights, nobigint = nobigint)
     }
   }
+  out <- make_measure(out, object)
+  out
 }
 
 #' @rdname centrality
-#' @param options Settings passed on to `igraph::arpack()`
 #' @param scale Should the scores be scaled to range between 0 and 1? 
 #' @param normalized For one-mode networks, should Borgatti and Everett normalization be applied?
 #' @examples
 #' node_eigenvector(mpn_elite_mex)
-#' node_eigenvector(southern_women)
+#' node_eigenvector(ison_southern_women)
 #' @return A numeric vector giving the eigenvector centrality measure of each node.
 #' @export 
 node_eigenvector <- function(object, 
                                    weights = NULL, directed = FALSE,
-                                   options = igraph::arpack_defaults, 
                                    scale = FALSE, normalized = FALSE){
   
   if(missing(object)){
@@ -158,16 +169,23 @@ node_eigenvector <- function(object,
     weights <- NA
   }
   if (!is_twomode(graph)){
-    out <- igraph::eigen_centrality(graph = graph, directed = directed, scale = scale, options = options)$vector
+    out <- igraph::eigen_centrality(graph = graph, 
+                                    directed = directed, scale = scale, 
+                                    options = igraph::arpack_defaults)$vector
     if (normalized) out <- out / sqrt(1/2)
   } else {
-    eigen1 <- project_rows(graph)
-    eigen1 <- igraph::eigen_centrality(graph = eigen1, directed = directed, scale = scale, options = options)$vector
-    eigen2 <- project_cols(graph)
-    eigen2 <- igraph::eigen_centrality(graph = eigen2, directed = directed, scale = scale, options = options)$vector
+    eigen1 <- to_mode1(graph)
+    eigen1 <- igraph::eigen_centrality(graph = eigen1, 
+                                       directed = directed, scale = scale, 
+                                       options = igraph::arpack_defaults)$vector
+    eigen2 <- to_mode2(graph)
+    eigen2 <- igraph::eigen_centrality(graph = eigen2, 
+                                       directed = directed, scale = scale, 
+                                       options = igraph::arpack_defaults)$vector
     out <- c(eigen1, eigen2)
     if (normalized) stop("Normalization not currently implemented for eigenvector centrality for two-mode networks.")
   }
+  out <- make_measure(out, object)
   out
 }
 

@@ -3,16 +3,18 @@
 \docType{data}
 \name{mpn_ryanair}
 \alias{mpn_ryanair}
-\title{One-mode EU policy influence network, June 2004}
+\title{One-mode EU policy influence network, June 2004 (Christopoulos 2006)}
 \format{
-Matrix with 20 rows/columns
+\code{tbl_graph} network object. The network is simple, directed, named
+and weighted. It contains 20 nodes and 177 edges.
 }
 \source{
 Christopoulos, Dimitrios C. 2006.
 “Relational Attributes of Political Entrepreneurs: a Network Perspective.”
 \emph{Journal of European Public Policy} 13 (5): 757–78.
 
-Knoke, Diani, Hollway, and Christopoulos. 2021. \emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
+Knoke, Diani, Hollway, and Christopoulos. 2021.
+\emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
 }
 \usage{
 data(mpn_ryanair)
