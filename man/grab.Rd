@@ -7,6 +7,7 @@
 \alias{node_attribute}
 \alias{edge_attribute}
 \alias{edge_weights}
+\alias{edge_signs}
 \alias{graph_nodes}
 \alias{graph_edges}
 \alias{graph_dims}
@@ -23,6 +24,8 @@ node_attribute(object, attribute)
 edge_attribute(object, attribute)
 
 edge_weights(object)
+
+edge_signs(object)
 
 graph_nodes(object)
 

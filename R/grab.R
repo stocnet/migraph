@@ -39,7 +39,20 @@ edge_weights <- function(object){
   out
 }
 
-#' @rdname grab
+#' @describeIn grab Extracts the signs of the edges in a network.
+#' @examples 
+#' edge_signs(ison_marvel_relationships)
+#' @export
+edge_signs <- function(object){
+  object <- as_igraph(object)
+  out <- igraph::get.edge.attribute(object, "sign")
+  if(is.null(out)) out <- rep(1, graph_edges(object))
+  out
+}
+
+#' @describeIn grab Returns the number of nodes (of any mode) in a network.
+#' @examples
+#' graph_nodes(ison_southern_women)
 #' @export
 graph_nodes <- function(object){
   igraph::vcount(as_igraph(object))

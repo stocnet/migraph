@@ -33,6 +33,7 @@
 - Added `to_edges()` for creating adjacency matrices using a network's edges as nodes
 - Renamed `project_rows()` and `project_cols()` functions to `to_mode1()` and `to_mode2()`, which is both more consistent with other functions naming conventions and more generic by avoiding the matrix-based row/column distinction
 - Added `node_mode()`, which returns a vector of the mode assignments of the nodes in a network
+- Added `edge_signs()`, which returns a vector of the sign assignments of the edges in a network
 
 ## Mapping
 
