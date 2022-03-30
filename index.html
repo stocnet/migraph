@@ -12,14 +12,12 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/journal/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><!-- docsearch --><script src="docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
-<link href="docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Multimodal and Multilevel Network Analysis">
+<script src="pkgdown.js"></script><meta property="og:title" content="Multimodal and Multilevel Network Analysis">
 <meta property="og:description" content="A set of tools that extend common social network analysis packages
    for analysing multimodal and multilevel networks.
    It includes functions for one- and two-mode (and sometimes three-mode) 
@@ -51,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -67,7 +65,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -75,6 +73,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="articles/p1data.html">Practical 1</a>
+    </li>
+    <li>
+      <a href="articles/p2visualisation.html">Practical 2</a>
     </li>
     <li>
       <a href="articles/p3centrality.html">Practical 3</a>
@@ -96,19 +97,13 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/snlab-ch/migraph/" class="external-link">
+  <a href="https://github.com/snlab-ch/migraph" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
-<form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
-        <div class="form-group">
-          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
-      </form>
-      
-    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -138,38 +133,63 @@
 <div class="section level3">
 <h3 id="works-with-your-current-network-analysis-workflow">Works with your current network analysis workflow<a class="anchor" aria-label="anchor" href="#works-with-your-current-network-analysis-workflow"></a>
 </h3>
-<p>The package is offered as a complement to existing R packages for network analysis and thus tries to work well with your existing analytic workflows and the classes invoked. All <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> measures and models work with data in base formats:</p>
+<p>The package is offered as a complement to existing R packages for network analysis and thus tries to work well with whatever format network objects you are already working with. All <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> measures and models work with data in base formats:</p>
 <ul>
 <li>adjacency and incidence <em>matrices</em>
 </li>
 <li>one-mode and two-mode <em>data frame</em> edgelists</li>
 </ul>
-<p>as well as with objects from the following packages:</p>
+<p>as well as with objects constructed from the following packages:</p>
 <ul>
 <li><a href="https://igraph.org/r/" class="external-link"><code>{igraph}</code></a></li>
 <li><a href="http://statnet.org" class="external-link"><code>{network}</code></a></li>
 <li><a href="https://tidygraph.data-imaginist.com/index.html" class="external-link"><code>{tidygraph}</code></a></li>
 </ul>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> can also import and export to Excel edgelists and <a href="http://www.analytictech.com/archive/ucinet.htm" class="external-link">UCINET</a> files.</p>
+<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code>as_*()</code> functions can be used to translate objects from one of the above classes into any other, and include:</p>
+<ul>
+<li>as_edgelist(), as_igraph(), as_matrix(), as_network(), as_tidygraph()</li>
+</ul>
+<p>These functions are designed to be as intuitive and lossless as possible, outperforming many other class-coercion packages.</p>
+<div class="section level4">
+<h4 id="manipulation">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation"></a>
+</h4>
+<p>Regardless of which class object you are working with, the same syntax can be used to work with and manipulate your data.</p>
+<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code>is_*()</code> functions offer fast logical tests of network properties, e.g.:</p>
+<ul>
+<li>is_acyclic(), is_bipartite(), is_complex(), is_connected(), is_directed(), is_edgelist(), is_graph(), is_labelled(), is_migraph(), is_multiplex(), is_signed(), is_twomode(), is_uniplex(), is_weighted()</li>
+</ul>
+<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code>to_*()</code> functions can be used on any class object to transform networks into networks with other properties, e.g.:</p>
+<ul>
+<li>to_main_component(), to_mode1(), to_mode2(), to_multilevel(), to_named(), to_onemode(), to_simplex(), to_undirected(), to_uniplex(), to_unnamed(), to_unsigned(), to_unweighted()</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="making">Making<a class="anchor" aria-label="anchor" href="#making"></a>
+</h4>
+<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> includes algorithms for making both one-mode and two-mode networks with particular properties. The <code>create_*</code> group of functions create networks with a particular structure, e.g.:</p>
+<ul>
+<li>create_complete(), create_components(), create_empty(), create_lattice(), create_ring(), create_star(), create_tree()</li>
+</ul>
+<p>The <code>generate_*</code> group of functions generate networks from particular generative mechanisms, e.g.:</p>
+<ul>
+<li>generate_permutation(), generate_random(), generate_scalefree(), generate_smallworld()</li>
+</ul>
+<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> includes a number of prominent network datasets, especially multimodal and multiplex examples for demonstrating more advanced methods.</p>
+<ul>
+<li>mpn_bristol, mpn_DE_1990, mpn_DE_2008, mpn_DemSxP, mpn_elite_mex, mpn_elite_usa_advice, mpn_elite_usa_money, mpn_IT_1990, mpn_IT_2008, mpn_OverSxP, mpn_RepSxP, mpn_ryanair, mpn_UK_1990, mpn_UK_2008</li>
+<li>ison_adolescent_friends, ison_algebra_class, ison_bb, ison_bm, ison_brandes, ison_eies, ison_karateka, ison_marvel_relationships, ison_marvel_teams, ison_mb, ison_mm, ison_southern_women</li>
+</ul>
+<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> can also import and export to Excel edgelists and nodelists, <a href="http://www.analytictech.com/archive/ucinet.htm" class="external-link">UCINET</a> and <a href="http://mrvar.fdv.uni-lj.si/pajek/" class="external-link">Pajek</a> files, e.g.:</p>
+<ul>
+<li>read_edgelist(), read_nodelist(), read_pajek(), read_ucinet()</li>
+<li>write_edgelist(), write_nodelist(), write_pajek(), write_ucinet()</li>
+</ul>
+</div>
 </div>
 <div class="section level3">
 <h3 id="extends-your-current-network-analysis-workflow">Extends your current network analysis workflow<a class="anchor" aria-label="anchor" href="#extends-your-current-network-analysis-workflow"></a>
 </h3>
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> offers a range of measures and models with sensible defaults. Many wrap existing functions in common packages for use with one-mode networks, but extend these to treat and/or normalise for two-mode (and sometimes three-mode) networks correctly. Functions are given intuitive and succinct names that avoid conflicts with existing function names wherever possible.</p>
-<div class="section level4">
-<h4 id="manipulation">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation"></a>
-</h4>
-<ul>
-<li>Coercion between classes: <code><a href="reference/coercion.html">as_igraph()</a></code>, <code><a href="reference/coercion.html">as_tidygraph()</a></code>, <code><a href="reference/coercion.html">as_network()</a></code>, <code><a href="reference/coercion.html">as_edgelist()</a></code>, and <code><a href="reference/coercion.html">as_matrix()</a></code>
-</li>
-<li>Logical tests of properties: e.g. <code><a href="reference/is.html">is_twomode()</a></code>, <code><a href="reference/is.html">is_directed()</a></code>, <code><a href="reference/is.html">is_labelled()</a></code>, <code><a href="reference/is.html">is_weighted()</a></code>
-</li>
-<li>Transforming properties: <code><a href="reference/to.html">to_undirected()</a></code>, <code><a href="reference/to.html">to_unnamed()</a></code>, <code><a href="reference/to.html">to_unweighted()</a></code>, <code><a href="reference/to.html">to_onemode()</a></code>, and <code><a href="reference/to.html">to_main_component()</a></code>
-</li>
-<li>From two-mode to one-mode: <code><a href="reference/project.html">project_rows()</a></code> and <code><a href="reference/project.html">project_cols()</a></code>
-</li>
-</ul>
-</div>
 <div class="section level4">
 <h4 id="measures">Measures<a class="anchor" aria-label="anchor" href="#measures"></a>
 </h4>
@@ -182,7 +202,7 @@
 </li>
 <li>Censuses: <code><a href="reference/census.html">node_tie_census()</a></code>, <code>node_dyad_census()</code>, <code><a href="reference/census.html">node_triad_census()</a></code>, <code>node_mixed_census()</code>, <code><a href="reference/census.html">node_quad_census()</a></code>, and <code><a href="reference/graph_census.html">graph_triad_census()</a></code>
 </li>
-<li>Other measures: e.g. <code><a href="reference/node_constraint.html">node_constraint()</a></code>, <code><a href="reference/node_smallworld.html">node_smallworld()</a></code>
+<li>Other measures: e.g. <code><a href="reference/node_constraint.html">node_constraint()</a></code>, <code><a href="reference/graph_smallworld.html">graph_smallworld()</a></code>
 </li>
 </ul>
 </div>
@@ -192,7 +212,7 @@
 <ul>
 <li>Blockmodelling: <code><a href="reference/blockmodel.html">blockmodel_concor()</a></code>, <code><a href="reference/cluster.html">cluster_structural_equivalence()</a></code>, <code><a href="reference/cluster.html">cluster_regular_equivalence()</a></code>
 </li>
-<li>Linear regression: <code><a href="reference/defunct.html">netlm()</a></code>
+<li>Linear and logistic regression for networks (via MRQAP): <code><a href="reference/regression.html">network_reg()</a></code>
 </li>
 </ul>
 </div>
@@ -203,7 +223,7 @@
 <li>
 <code><a href="reference/autographr.html">autographr()</a></code> for plotting graphs with sensible defaults based on their properties</li>
 <li>New layouts: e.g. <code><a href="reference/layouts.html">layout_tbl_graph_frgrid()</a></code> for snapping Fruchterman-Reingold to a grid</li>
-<li>Class-based plots: e.g. <code><a href="reference/blockmodel_vis.html">plot.blockmodel()</a></code>
+<li>Class-based plots: e.g. <code>plot.blockmodel()</code>
 </li>
 </ul>
 <p>Please explore <a href="https://snlab-ch.github.io/migraph/reference/index.html">the list of functions</a> to find out more.</p>
@@ -316,27 +336,16 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
 </div>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
-  docsearch({
-    
-    
-    apiKey: '204dadbc12ed450b5ef1209c8c44b558',
-    indexName: 'migraph',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
-</body>
+
+
+  
+
+  </body>
 </html>

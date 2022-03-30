@@ -12,14 +12,12 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/journal/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
-<link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Practical 7">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Practical 7">
 <meta property="og:description" content="migraph">
 <meta property="og:image" content="https://snlab-ch.github.io/migraph/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -42,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -58,7 +56,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -66,6 +64,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="../articles/p1data.html">Practical 1</a>
+    </li>
+    <li>
+      <a href="../articles/p2visualisation.html">Practical 2</a>
     </li>
     <li>
       <a href="../articles/p3centrality.html">Practical 3</a>
@@ -87,19 +88,13 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/snlab-ch/migraph/" class="external-link">
+  <a href="https://github.com/snlab-ch/migraph" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
-<form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
-        <div class="form-group">
-          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
-      </form>
-      
-    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -122,18 +117,12 @@
 
     
     
-<div class="section level1">
-<h1 id="setting-up">Setting up<a class="anchor" aria-label="anchor" href="#setting-up"></a>
-</h1>
+<div class="section level2">
+<h2 id="setting-up">Setting up<a class="anchor" aria-label="anchor" href="#setting-up"></a>
+</h2>
 <p>For this lab, we’ll explore a couple of different datasets. First, let’s examine heterogeneity within the Marvel relationships dataset. Since this is a signed network, let’s first extract just the friendships. We’ll also concentrate on just the main component (no isolates). And, for the sake of simplicity, just the characters that appear in the comics more than average for these characters.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a></span><span class="op">)</span>
-<span class="co">#&gt; Registered S3 methods overwritten by 'migraph':</span>
-<span class="co">#&gt;   method              from</span>
-<span class="co">#&gt;   plot.blockmodel     sna </span>
-<span class="co">#&gt;   print.blockmodel    sna </span>
-<span class="co">#&gt;   print.summary.netlm sna </span>
-<span class="co">#&gt;   summary.netlm       sna</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'migraph'</span>
 <span class="co">#&gt; The following object is masked from 'package:stats':</span>
@@ -174,12 +163,12 @@
 <p><img src="p7linearmodel_files/figure-html/vis-1.png" width="700"></p>
 <p>There seems to be a bit of a distribution of some of these variables.</p>
 </div>
-<div class="section level1">
-<h1 id="calculating-diversity">Calculating diversity<a class="anchor" aria-label="anchor" href="#calculating-diversity"></a>
-</h1>
 <div class="section level2">
-<h2 id="calculating-blau-index">Calculating Blau index<a class="anchor" aria-label="anchor" href="#calculating-blau-index"></a>
+<h2 id="calculating-diversity">Calculating diversity<a class="anchor" aria-label="anchor" href="#calculating-diversity"></a>
 </h2>
+<div class="section level3">
+<h3 id="calculating-blau-index">Calculating Blau index<a class="anchor" aria-label="anchor" href="#calculating-blau-index"></a>
+</h3>
 <p>We can begin by calculating the Blau diversity for each attribute. Recall that the Blau index for any given diversity variable is:</p>
 <p><span class="math display">\[1 - \sum p_i^2\]</span></p>
 <p>where <span class="math inline">\(p\)</span> represents the proportion belonging to any given category, and <span class="math inline">\(i\)</span> indexes each of the given categories. As such a perfectly homogeneous group would receive a score of 0, while a perfectly heterogeneous group (with members spread evenly over the maximum categories) would receive a score of 1.</p>
@@ -215,9 +204,9 @@
            node_shape <span class="op">=</span> <span class="st">"Intellect"</span><span class="op">)</span></code></pre></div>
 <p><img src="p7linearmodel_files/figure-html/blaugroups-2.png" width="700"></p>
 </div>
-<div class="section level2">
-<h2 id="calculating-ei-index">Calculating EI index<a class="anchor" aria-label="anchor" href="#calculating-ei-index"></a>
-</h2>
+<div class="section level3">
+<h3 id="calculating-ei-index">Calculating EI index<a class="anchor" aria-label="anchor" href="#calculating-ei-index"></a>
+</h3>
 <p>Calculating the EI index follows the same syntax. Recall that the EI index is calculated as:</p>
 <p><span class="math display">\[\frac{E-I}{E+I}\]</span></p>
 <p>where <span class="math inline">\(E\)</span> is the number of ties present between a variable’s categories (i.e. external), and <span class="math inline">\(I\)</span> is the number of ties present within a variable’s categories (i.e. internal). As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1 suggests perfect heterophily.</p>
@@ -232,124 +221,120 @@
 <p>But ultimately these are just scores, and this doesn’t tell us whether this is any more or less than what we might expect the score to be by chance for a network of this size and density and distribution of that attribute.</p>
 </div>
 </div>
-<div class="section level1">
-<h1 id="testing-scores">Testing scores<a class="anchor" aria-label="anchor" href="#testing-scores"></a>
-</h1>
 <div class="section level2">
-<h2 id="conditional-uniform-graph-tests">Conditional uniform graph tests<a class="anchor" aria-label="anchor" href="#conditional-uniform-graph-tests"></a>
+<h2 id="testing-scores">Testing scores<a class="anchor" aria-label="anchor" href="#testing-scores"></a>
 </h2>
+<div class="section level3">
+<h3 id="conditional-uniform-graph-tests">Conditional uniform graph tests<a class="anchor" aria-label="anchor" href="#conditional-uniform-graph-tests"></a>
+</h3>
 <p>To get at that, we will simulate a series of random graphs (Erdös-Renyi/Bernoulli) of the same dimensions and distribution of the attribute to find out whether there is more homophily or heterophily than expected by chance.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">rand.gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tests.html">test_random</a></span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="va">graph_ei_index</span>, attribute <span class="op">=</span> <span class="st">"Gender"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Univariate Conditional Uniform Graph Test</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Conditioning Method: csize </span>
-<span class="co">#&gt; Graph Type: FALSE </span>
-<span class="co">#&gt; Diagonal Used: FALSE </span>
-<span class="co">#&gt; Replications: 1000 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Observed Value: -0.1962617 </span>
-<span class="co">#&gt; Pr(X&gt;=Obs): 0.598 </span>
-<span class="co">#&gt; Pr(X&lt;=Obs): 0.411</span>
-<span class="op">(</span><span class="va">rand.power</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tests.html">test_random</a></span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="va">graph_ei_index</span>, attribute <span class="op">=</span> <span class="st">"PowerOrigin"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Univariate Conditional Uniform Graph Test</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Conditioning Method: csize </span>
-<span class="co">#&gt; Graph Type: FALSE </span>
-<span class="co">#&gt; Diagonal Used: FALSE </span>
-<span class="co">#&gt; Replications: 1000 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Observed Value: -0.009345794 </span>
-<span class="co">#&gt; Pr(X&gt;=Obs): 1 </span>
-<span class="co">#&gt; Pr(X&lt;=Obs): 0</span>
-<span class="op">(</span><span class="va">rand.attract</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tests.html">test_random</a></span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="va">graph_ei_index</span>, attribute <span class="op">=</span> <span class="st">"Attractive"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Univariate Conditional Uniform Graph Test</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Conditioning Method: csize </span>
-<span class="co">#&gt; Graph Type: FALSE </span>
-<span class="co">#&gt; Diagonal Used: FALSE </span>
-<span class="co">#&gt; Replications: 1000 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Observed Value: -0.6448598 </span>
-<span class="co">#&gt; Pr(X&gt;=Obs): 0.821 </span>
-<span class="co">#&gt; Pr(X&lt;=Obs): 0.184</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rand.gender</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rand.power</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">rand.gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tests.html">test_random</a></span><span class="op">(</span><span class="va">marvel_friends</span>, 
+                            <span class="va">graph_ei_index</span>, attribute <span class="op">=</span> <span class="st">"Gender"</span>, 
+                           times <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>
+<span class="va">rand.power</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tests.html">test_random</a></span><span class="op">(</span><span class="va">marvel_friends</span>, 
+                           <span class="va">graph_ei_index</span>, attribute <span class="op">=</span> <span class="st">"PowerOrigin"</span>, 
+                           times <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>
+<span class="va">rand.attract</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tests.html">test_random</a></span><span class="op">(</span><span class="va">marvel_friends</span>, 
+                             <span class="va">graph_ei_index</span>, attribute <span class="op">=</span> <span class="st">"Attractive"</span>, 
+                           times <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rand.gender</span><span class="op">)</span> <span class="op">/</span> 
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rand.power</span><span class="op">)</span> <span class="op">/</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rand.attract</span><span class="op">)</span></code></pre></div>
 <p><img src="p7linearmodel_files/figure-html/rando-1.png" width="700"></p>
 <p>This is really interesting. It looks like we cannot reject the null hypothesis that there is no homophily for gender nor for attractiveness, but we can reject the null hypothesis with respect to their power origin story. While the effect itself is close to 0 (neither strong homophily nor heterophily), all the random networks generated returned larger EI scores, between .1 and .4. So there is significantly less heterophily here than expected.</p>
 </div>
-<div class="section level2">
-<h2 id="quadratic-assignment-procedure-tests">Quadratic assignment procedure tests<a class="anchor" aria-label="anchor" href="#quadratic-assignment-procedure-tests"></a>
-</h2>
+<div class="section level3">
+<h3 id="quadratic-assignment-procedure-tests">Quadratic assignment procedure tests<a class="anchor" aria-label="anchor" href="#quadratic-assignment-procedure-tests"></a>
+</h3>
 <p>But perhaps the random graph is not the best reference group for establishing whether there is a significant homophily effect here. Another approach is to use permutations of the network. Permuting the network retains the structure of the network, but reassigns any labels (variables) randomly. Let’s first plot the observed data and some permuted data next to each other.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">old</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">marvel_friends</span>, 
                   labels <span class="op">=</span> <span class="cn">FALSE</span>, node_size <span class="op">=</span> <span class="fl">6</span>, 
                   node_color <span class="op">=</span> <span class="st">"PowerOrigin"</span>, 
                   node_shape <span class="op">=</span> <span class="st">"Gender"</span><span class="op">)</span>
-<span class="va">new</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="fu"><a href="../reference/generate.html">generate_permutation</a></span><span class="op">(</span><span class="va">marvel_friends</span><span class="op">)</span>,
+<span class="va">new</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="fu"><a href="../reference/generate.html">generate_permutation</a></span><span class="op">(</span><span class="va">marvel_friends</span>, with_attr <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
                    labels <span class="op">=</span> <span class="cn">FALSE</span>, node_size <span class="op">=</span> <span class="fl">6</span>,
                   node_color <span class="op">=</span> <span class="st">"PowerOrigin"</span>,
                   node_shape <span class="op">=</span> <span class="st">"Gender"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">old</span>, <span class="va">new</span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span>
+<span class="va">old</span> <span class="op">+</span> <span class="va">new</span></code></pre></div>
 <p><img src="p7linearmodel_files/figure-html/perm-1.png" width="700"></p>
 <p>This single permutation suggests there might otherwise be some more even mixing of these attributes, but it is just a single permutation. Let’s try a test that runs this over a succession of permutations, just as we did with random graphs.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="va">perm.gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tests.html">test_permutation</a></span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="va">graph_ei_index</span>, attribute <span class="op">=</span> <span class="st">"Gender"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">perm.gender</span><span class="op">)</span> <span class="co"># Sorry the labelling on this is not right yet, will fix this next...</span>
-<span class="va">perm.power</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tests.html">test_permutation</a></span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="va">graph_ei_index</span>, attribute <span class="op">=</span> <span class="st">"PowerOrigin"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">perm.power</span><span class="op">)</span></code></pre></div>
-<p><img src="p7linearmodel_files/figure-html/test_permute-1.png" width="700"></p>
+<code class="sourceCode R"><span class="va">perm.gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tests.html">test_permutation</a></span><span class="op">(</span><span class="va">marvel_friends</span>, 
+                                <span class="va">graph_ei_index</span>, attribute <span class="op">=</span> <span class="st">"Gender"</span>,
+                                times <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>
+<span class="va">perm.power</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tests.html">test_permutation</a></span><span class="op">(</span><span class="va">marvel_friends</span>, 
+                               <span class="va">graph_ei_index</span>, attribute <span class="op">=</span> <span class="st">"PowerOrigin"</span>,
+                                times <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></code></pre></div>
 <p>Again, we see that there is perhaps nothing so surprising that we got the homophily score for gender that we did, but the lack of power origin heterophily is surprising.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rand.gender</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span>
+<span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rand.gender</span><span class="op">)</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rand.power</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span>
+<span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">perm.gender</span><span class="op">)</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">perm.power</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="p7linearmodel_files/figure-html/cugqap-1.png" width="700"></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rand.power</span><span class="op">)</span></code></pre></div>
-<p><img src="p7linearmodel_files/figure-html/cugqap-2.png" width="700"></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">perm.gender</span><span class="op">)</span></code></pre></div>
-<p><img src="p7linearmodel_files/figure-html/cugqap-3.png" width="700"></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">perm.power</span><span class="op">)</span></code></pre></div>
-<p><img src="p7linearmodel_files/figure-html/cugqap-4.png" width="700"></p>
 <p>Note how distributions are generally wider when permuting the observed network than creating a random distribution. That is, we expect a larger spread in the EI index for a network of this structure.</p>
 </div>
 </div>
-<div class="section level1">
-<h1 id="network-linear-models">Network linear models<a class="anchor" aria-label="anchor" href="#network-linear-models"></a>
-</h1>
+<div class="section level2">
+<h2 id="network-linear-models">Network linear models<a class="anchor" aria-label="anchor" href="#network-linear-models"></a>
+</h2>
 <p>Next let us examine another network and see to what degree homophily plays a role. Here we are going to use the EIES dataset. The data were collected as part of an early experiment on communication between social network researchers who were using an Electronic Information Exchange System (EIES). The main network consists of 32 scholars with directed ties weighted by the total number of messages sent from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> over the period of the study. Nodal attributes collected include the primary discipline and number of citations in the social science citation index at the start of the study.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_eies</span>,
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ison_networkers</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 32 nodes and 440 edges</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # A directed simple graph with 1 component</span></span>
+<span class="co"><span style="color: #949494;">#&gt; #</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Node Data: 32 × 3 (active)</span></span>
+<span class="co">#&gt;   name               Discipline   Citations</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> LIN FREEMAN        Sociology           19</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> DOUG WHITE         Anthropology         3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> EV ROGERS          Other              170</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> RICHARD ALBA       Sociology           23</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> PHIPPS ARABIE      Other               16</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> CAROL BARNER-BARRY Other                6</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 26 more rows</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Edge Data: 440 × 3</span></span>
+<span class="co">#&gt;    from    to weight</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     2    488</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     3     28</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1     4     65</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 437 more rows</span></span>
+<span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_networkers</span>,
            node_color <span class="op">=</span> <span class="st">"Discipline"</span><span class="op">)</span></code></pre></div>
 <p><img src="p7linearmodel_files/figure-html/intro-eies-1.png" width="700"></p>
-<p>Let’s say that we are interested in whether these researchers send more emails to those who are cited more, or whether there is disciplinary homophily.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">model1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/regression.html">network_reg</a></span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/ego.html" class="external-link">ego</a></span><span class="op">(</span><span class="va">Citations</span><span class="op">)</span> <span class="op">+</span> <span class="fu">alter</span><span class="op">(</span><span class="va">Citations</span><span class="op">)</span> <span class="op">+</span> <span class="fu">same</span><span class="op">(</span><span class="va">Discipline</span><span class="op">)</span>, <span class="va">ison_eies</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model1</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Call:</span>
-<span class="co">#&gt; network_reg(formula = weight ~ ego(Citations) + alter(Citations) + </span>
-<span class="co">#&gt;     same(Discipline), data = ison_eies)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coefficients:</span>
-<span class="co">#&gt;                  coefs pvals  </span>
-<span class="co">#&gt; (Intercept)     19.506 0.775  </span>
-<span class="co">#&gt; ego Citations   -0.150 0.031 *</span>
-<span class="co">#&gt; alter Citations -0.127 0.014 *</span>
-<span class="co">#&gt; same Discipline  4.194 0.808  </span>
-<span class="co">#&gt; ---</span>
-<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Multiple R-squared:  0.02229,    Adjusted R-squared:  0.01941</span></code></pre></div>
+<p>Let’s use both the continuous <code>Citations</code> and the categorical <code>Discipline</code> variables and come up with a couple of key hypotheses:</p>
+<ul>
+<li>whether these researchers send more emails to those who are cited more</li>
+<li>whether there is disciplinary homophily</li>
+</ul>
+<p>Let’s start with a pretty maximally specified model (note that it doesn’t make sense to include both ego and alter effects because these are undirected :</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/regression.html">network_reg</a></span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="fu">alter</span><span class="op">(</span><span class="va">Citations</span><span class="op">)</span> <span class="op">+</span> <span class="fu">same</span><span class="op">(</span><span class="va">Discipline</span><span class="op">)</span>, 
+                      <span class="va">ison_networkers</span>, times <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></code></pre></div>
+<p>We can use tidy methods to get the salient information from this model, and <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> includes also a plot method for these results to facilitate the quick interpretation of these results.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">model1</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 5</span></span>
+<span class="co">#&gt;   term            estimate std.error statistic p.value</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> (intercept)       15.4          <span style="color: #BB0000;">NA</span>      5.61    0.04</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> alter Citations   -<span style="color: #BB0000;">0.105</span>        <span style="color: #BB0000;">NA</span>     -<span style="color: #BB0000;">2.10</span>    0.29</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> same Discipline    6.99         <span style="color: #BB0000;">NA</span>      1.70    0.29</span>
+<span class="fu"><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance</a></span><span class="op">(</span><span class="va">model1</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 8</span></span>
+<span class="co">#&gt;   r.squared adj.r.squared sigma statistic p.value    df df.residual  nobs</span>
+<span class="co">#&gt;       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    0.014<span style="text-decoration: underline;">2</span>        0.010<span style="text-decoration: underline;">2</span>  43.4      3.55  0.029<span style="text-decoration: underline;">4</span>     2         493   496</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">model1</span><span class="op">)</span></code></pre></div>
+<p><img src="p7linearmodel_files/figure-html/qap-interp-1.png" width="700"></p>
+<p>Hmm, looks like we can’t say much from this fit. You can try and increase the number of <code>times</code> we permute, but it’s unlike to make much difference.</p>
 </div>
 <div class="footnotes">
 <hr>
@@ -376,27 +361,16 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
 </div>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
-  docsearch({
-    
-    
-    apiKey: '204dadbc12ed450b5ef1209c8c44b558',
-    indexName: 'migraph',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
-</body>
+
+
+  
+
+  </body>
 </html>

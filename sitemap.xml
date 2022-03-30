@@ -22,6 +22,9 @@
     <loc>https://snlab-ch.github.io/migraph/articles/p1data.html</loc>
   </url>
   <url>
+    <loc>https://snlab-ch.github.io/migraph/articles/p2visualisation.html</loc>
+  </url>
+  <url>
     <loc>https://snlab-ch.github.io/migraph/articles/p3centrality.html</loc>
   </url>
   <url>
@@ -58,9 +61,6 @@
     <loc>https://snlab-ch.github.io/migraph/reference/blockmodel_vis.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/brandes.html</loc>
-  </url>
-  <url>
     <loc>https://snlab-ch.github.io/migraph/reference/census.html</loc>
   </url>
   <url>
@@ -77,6 +77,9 @@
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/cohesion.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/connectedness.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/create.html</loc>
@@ -103,9 +106,6 @@
     <loc>https://snlab-ch.github.io/migraph/reference/gglineage.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/ggtools.html</loc>
-  </url>
-  <url>
     <loc>https://snlab-ch.github.io/migraph/reference/grab.html</loc>
   </url>
   <url>
@@ -115,7 +115,7 @@
     <loc>https://snlab-ch.github.io/migraph/reference/graph_census.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/graph_components.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/graph_smallworld.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/index.html</loc>
@@ -124,25 +124,31 @@
     <loc>https://snlab-ch.github.io/migraph/reference/is.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/ison_coleman.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/ison_adolescents.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/ison_community.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/ison_algebra.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/ison_eies.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/ison_brandes.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/ison_karateka.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/ison_marvel.html</loc>
   </url>
   <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/ison_networkers.html</loc>
+  </url>
+  <url>
     <loc>https://snlab-ch.github.io/migraph/reference/ison_projection.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/layouts.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/ison_southern_women.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/m182.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/layouts.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/mpn_bristol.html</loc>
@@ -151,10 +157,7 @@
     <loc>https://snlab-ch.github.io/migraph/reference/mpn_elite_mex.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/mpn_elite_usa_advice.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/mpn_elite_usa_money.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/mpn_elite_usa.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/mpn_evs.html</loc>
@@ -166,16 +169,7 @@
     <loc>https://snlab-ch.github.io/migraph/reference/mpn_senate112.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/node_components.html</loc>
-  </url>
-  <url>
     <loc>https://snlab-ch.github.io/migraph/reference/node_constraint.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/node_smallworld.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/project.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/read.html</loc>
@@ -185,9 +179,6 @@
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/regression.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/southern_women.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/tests.html</loc>
