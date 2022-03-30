@@ -17,7 +17,14 @@ copy_node_attributes(object, object2)
 join_edges(object, object2, attr_name)
 }
 \arguments{
-\item{object}{A migraph-consistent object.}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 
 \item{attr_name}{Name of the new attribute in the resulting object.}
 
@@ -26,7 +33,8 @@ join_edges(object, object2, attr_name)
 \item{object2}{A second object to copy nodes or edges from.}
 }
 \description{
-Adding and copying attributes from one graph to another
+These functions allow users to add attributes to a graph from another graph
+or from a specified vector supplied by the user.
 }
 \examples{
 add_node_attributes(mpn_elite_mex, "wealth", 1:35)

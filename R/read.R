@@ -54,7 +54,9 @@
 #' # import Roethlisberger & Dickson's horseplay game data set:
 #' horseplay <- read_ucinet("WIRING-RDGAM.##h")
 #' }
-#' @author Christian Steglich, 18 June 2015
+#' @source 
+#' `read_ucinet()` and `write_ucinet()` kindly supplied by Christian Steglich, 
+#' constructed on 18 June 2015.
 #' @importFrom utils read.csv read.csv2 read.table write.csv write.csv2
 #' @name read
 #' @seealso [coercion]

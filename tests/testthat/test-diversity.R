@@ -7,5 +7,5 @@ test_that("Blau index function works", {
 })
 
 test_that("EI index function works", {
-expect_equal(round(graph_ei_index(ison_marvel_relationships, "Gender"), 2), -0.39)
+  expect_equal(round(graph_ei_index(mpn_elite_mex, "military"), 2), -0.37)
 })

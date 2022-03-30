@@ -2,23 +2,17 @@
 % Please edit documentation in R/connected.R
 \name{connectedness}
 \alias{connectedness}
-\alias{node_components}
 \alias{graph_components}
-\alias{node_cuts}
-\alias{edge_bridges}
 \alias{graph_cohesion}
 \alias{graph_adhesion}
 \alias{graph_length}
 \alias{graph_diameter}
+\alias{node_components}
+\alias{node_cuts}
+\alias{edge_bridges}
 \title{Network connectedness}
 \usage{
-node_components(object, method = c("weak", "strong"))
-
 graph_components(object, method = c("weak", "strong"))
-
-node_cuts(object)
-
-edge_bridges(object)
 
 graph_cohesion(object)
 
@@ -27,9 +21,22 @@ graph_adhesion(object)
 graph_length(object)
 
 graph_diameter(object)
+
+node_components(object, method = c("weak", "strong"))
+
+node_cuts(object)
+
+edge_bridges(object)
 }
 \arguments{
-\item{object}{a migraph-consistent object}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 
 \item{method}{For directed networks,
 either \code{weak} if edge direction is irrelevant,
@@ -37,19 +44,30 @@ or \code{strong} if edge direction is salient.
 Ignored if network undirected.}
 }
 \description{
-Network connectedness
+These functions return values or vectors relating to how connected a network is
+and where the nodes or edges that would increase fragmentation are.
 }
 \section{Functions}{
 \itemize{
-\item \code{node_components}: Returns nodes' component membership
+\item \code{graph_components}: Returns number of components in the network.
 
-\item \code{graph_components}: Returns number of components in the network
+\item \code{graph_cohesion}: Returns the minimum number of nodes needed
+to remove from the network to increase the number of components.
+
+\item \code{graph_adhesion}: Returns the minimum number of edges needed
+to remove from the network to increase the number of components.
+
+\item \code{graph_length}: Returns the average path length in the network.
+
+\item \code{graph_diameter}: Returns the maximum path length in the network.
+
+\item \code{node_components}: Returns nodes' component membership.
 
 \item \code{node_cuts}: Returns logical of which nodes cut
-or act as articulation points in a network
+or act as articulation points in a network.
 
 \item \code{edge_bridges}: Returns logical of which nodes cut
-or act as articulation points in a network
+or act as articulation points in a network.
 }}
 
 \examples{
@@ -61,4 +79,9 @@ graph_length(ison_marvel_relationships)
 graph_length(to_main_component(ison_marvel_relationships))
 graph_diameter(ison_marvel_relationships)
 graph_diameter(to_main_component(ison_marvel_relationships))
+}
+\references{
+White, Douglas R and Frank Harary 2001.
+The Cohesiveness of Blocks In Social Networks: Node Connectivity and Conditional Density.
+\emph{Sociological Methodology} 31 (1) : 305-359.
 }

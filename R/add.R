@@ -2,7 +2,7 @@
 #' 
 #' These functions allow users to add attributes to a graph from another graph
 #' or from a specified vector supplied by the user.
-#' @param object A migraph-consistent object.
+#' @inheritParams is
 #' @param object2 A second object to copy nodes or edges from.
 #' @param attr_name Name of the new attribute in the resulting object.
 #' @param vector A vector of values for the new attribute.
