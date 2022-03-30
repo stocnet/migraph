@@ -111,10 +111,12 @@ as_edgelist.matrix <- function(object){
 
 #' @export
 as_edgelist.data.frame <- function(object){
-  if(ncol(object) == 2 && names(object) != c("from", "to")){
+  if(ncol(object) == 2 && any(names(object) != c("from", "to"))){
     names(object) <- c("from", "to")
     object
-  } else if(ncol(object) == 3 && names(object) != c("from", "to", "weight")){
+  } else if(ncol(object) == 3 && 
+            (any(names(object) != c("from", "to", "weight")) | 
+            any(names(object) != c("from", "to", "sign")))){
     names(object) <- c("from", "to", "weight")
     object
   } else object
