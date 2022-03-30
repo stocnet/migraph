@@ -29,7 +29,8 @@
   - `as_edgelist.network()` better handles edge weights
 - Pivoted to S3 methods for most manipulation functions for better dispatching and performance
   - Added matrix, data.frame, network, igraph, and tbl_graph methods for `is_twomode()`, `is_directed()`, `is_weighted()`, `is_labelled()`, `is_signed()`, `is_multiplex()`, `is_complex()`, and `is_graph()`
-  - Added data.frame methods for `as_edgelist()`, `to_named()` and `to_unweighted()`, and improved the data.frame method for `as_matrix()`
+  - Added data.frame methods for `as_edgelist()`,  and `to_unweighted()`, and improved the data.frame method for `as_matrix()`
+  - Added data.frame and matrix methods for `to_named()` and `to_unsigned()`
 - Added `to_edges()` for creating adjacency matrices using a network's edges as nodes
 - Renamed `project_rows()` and `project_cols()` functions to `to_mode1()` and `to_mode2()`, which is both more consistent with other functions naming conventions and more generic by avoiding the matrix-based row/column distinction
 - Added `node_mode()`, which returns a vector of the mode assignments of the nodes in a network

@@ -3,9 +3,9 @@
 #' These functions offer tools for transforming certain properties 
 #' of migraph-consistent objects
 #' (that is, matrices, igraph, tidygraph, or network objects).
-#' Unlike the [as] group of functions,
+#' Unlike the `as_*()` group of functions,
 #' these functions always return the same object type as they are given,
-#' and are concerned with transforming these object's properties.
+#' only transforming these objects' properties.
 #' 
 #' @details 
 #' Since some modifications are easier to implement for some objects than others,
@@ -15,10 +15,10 @@
 #' | ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|
 #' | unweighted  | X | X | X | X | X |
 #' | undirected  |  | X | X | X | X |
-#' | unsigned  |  |  | X | X |   |
+#' | unsigned  | X | X | X | X |   |
 #' | uniplex  |  |   | X | X |   |
 #' | unnamed  | X | X | X | X | X |
-#' | named  |  | X | X | X | X |
+#' | named  | X | X | X | X | X |
 #' | simplex  |  | X | X | X |   |
 #' | main_component  |  |   | X | X | X |
 #' | onemode  |  |   | X | X |   |
@@ -29,23 +29,52 @@
 #' @family manipulation
 #' @param object A matrix, `{igraph}` graph, `{tidygraph}` tbl_graph, or
 #' `{network}` object.
-#' @param edge the name of an edge attribute to retain from a graph
-#' @param keep in the case of a signed network, whether to retain
-#' the "positive" or "negative" ties
+#' @param edge Character string naming an edge attribute to retain from a graph.
+#' @param keep In the case of a signed network, whether to retain
+#' the "positive" or "negative" ties.
 #' @param threshold For a matrix, the threshold to binarise/dichotomise at.
-#' @param names Character vector of the node names. Null by default.
+#' @param names Character vector of the node names. NULL by default.
 #' @returns
 #' All `to_` functions return an object of the same class as that provided. 
 #' So passing it an igraph object will return an igraph object
 #' and passing it a network object will return a network object,
 #' with certain modifications as outlined for each function.
-#' - `to_undirected()` returns an object that has any edge direction removed
-#' - `to_onemode()` returns an object that has any type/mode attributes removed,
-#' but otherwise includes all the same nodes and ties.
-#' Note that this is not the same as `to_mode1()` or `to_mode2()`,
-#' which return only some of the nodes and new ties established by coincidence.
-#' - `to_simplex()` returns an object that has all loops or self-ties removed
 NULL
+
+#' @describeIn to Returns an object that has any edge direction removed,
+#'   so that any pair of nodes with at least one directed edge will be
+#'   connected by an undirected edge in the new network.
+#'   This is equivalent to the "collapse" mode in `{igraph}`.
+#' @examples
+#' autographr(ison_algebra) +
+#' autographr(to_undirected(ison_adolescents))
+#' @export
+to_undirected <- function(object) UseMethod("to_undirected")
+
+#' @importFrom igraph as.undirected
+#' @export
+to_undirected.igraph <- function(object) {
+  igraph::as.undirected(object, edge.attr.comb = "first")
+}
+
+#' @importFrom igraph as.undirected
+#' @export
+to_undirected.tbl_graph <- function(object) {
+  as_tidygraph(igraph::as.undirected(object, edge.attr.comb = "first"))
+}
+
+#' @export
+to_undirected.network <- function(object) {
+  object$gal$directed <- FALSE
+  object
+}
+
+#' @export
+to_undirected.matrix <- function(object) {
+  if (is_twomode(object)) {
+    object
+  } else ((object + t(object)) > 0) * 1
+}
 
 #' @describeIn to Returns an object that has all edge weights removed
 #' @examples
@@ -87,111 +116,6 @@ to_unweighted.data.frame <- function(object, threshold = 1) {
   else stop("Not an edgelist")
 }
 
-#' @rdname to
-#' @examples
-#' to_undirected(ison_adolescents)
-#' @export
-to_undirected <- function(object) UseMethod("to_undirected")
-
-#' @importFrom igraph as.undirected
-#' @export
-to_undirected.igraph <- function(object) {
-  igraph::as.undirected(object, edge.attr.comb = "first")
-}
-
-#' @importFrom igraph as.undirected
-#' @export
-to_undirected.tbl_graph <- function(object) {
-  as_tidygraph(igraph::as.undirected(object, edge.attr.comb = "first"))
-}
-
-#' @export
-to_undirected.network <- function(object) {
-  object$gal$directed <- FALSE
-  object
-}
-
-#' @export
-to_undirected.matrix <- function(object) {
-  if (is_twomode(object)) {
-    object
-  } else ((object + t(object)) > 0) * 1
-}
-
-#' @rdname to
-#' @importFrom igraph delete_vertex_attr
-#' @examples
-#' to_onemode(ison_marvel_teams)
-#' @export
-to_onemode <- function(object) UseMethod("to_onemode")
-
-#' @export
-to_onemode.tbl_graph <- function(object) {
-  as_tidygraph(to_onemode(as_igraph(object)))
-}
-
-#' @export
-to_onemode.igraph <- function(object) {
-  if ("type" %in% igraph::vertex_attr_names(object)) object <- igraph::delete_vertex_attr(object, "type")
-  object
-}
-
-#' @describeIn to Returns an object that includes only the main component
-#' without any smaller components or isolates
-#' @examples 
-#' autographr(ison_marvel_relationships) +
-#'   autographr(to_main_component(ison_marvel_relationships))
-#' @export
-to_main_component <- function(object) UseMethod("to_main_component")
-
-#' @export
-to_main_component.tbl_graph <- function(object) {
-  as_tidygraph(to_main_component(as_igraph(object)))
-}
-
-#' @export
-to_main_component.igraph <- function(object) {
-  comps <- igraph::components(object)
-  max.comp <- which.max(comps$csize)
-  igraph::delete.vertices(object, comps$membership != max.comp)
-}
-
-#' @export
-to_main_component.network <- function(object) {
-  network::delete.vertices(object, 
-             which(!sna::component.largest(object,
-                                           result = "membership")))
-}
-
-#' @describeIn to Returns an object that includes only a single type of tie
-#' @importFrom igraph delete_edges edge_attr_names delete_edge_attr
-#' @importFrom igraph E get.edge.attribute edge_attr_names
-#' @examples
-#' autographr(ison_algebra) + 
-#' autographr(to_uniplex(ison_algebra, "friend_tie"))
-#' @export
-to_uniplex <- function(object, edge) UseMethod("to_uniplex")
-
-#' @export
-to_uniplex.tbl_graph <- function(object, edge){
-  as_tidygraph(to_uniplex(as_igraph(object), edge))
-}
-
-#' @export
-to_uniplex.igraph <- function(object, edge){
-  out <- igraph::delete_edges(object,
-                  igraph::E(object)[igraph::get.edge.attribute(object, edge) == 0])
-  edge_names <- igraph::edge_attr_names(object)
-  if (length(edge_names) > 1) {
-    for (e in setdiff(edge_names, edge)) {
-      out <- igraph::delete_edge_attr(out, e) 
-    }
-  }
-  if (is.numeric(igraph::get.edge.attribute(object, edge))) 
-    names(igraph::edge_attr(out)) <- "weight"
-  out
-}
-
 #' @describeIn to Returns a network with either just the "positive" ties
 #'   or just the "negative" ties
 #' @examples
@@ -204,8 +128,38 @@ to_unsigned <- function(object,
                         keep = c("positive", "negative")) UseMethod("to_unsigned")
 
 #' @export
+to_unsigned.matrix <- function(object, 
+                               keep = c("positive", "negative")){
+  keep <- match.arg(keep)
+  out <- object
+  if(keep == "positive"){
+    out[out < 0] <- 0
+  } else if (keep == "negative"){
+    out[out > 0] <- 0
+    out <- abs(out)
+  } else stop("Indicate whether 'positive' or 'negative' ties should be kept.")
+  out
+}
+
+#' @export
+to_unsigned.data.frame <- function(object, 
+                               keep = c("positive", "negative")){
+  keep <- match.arg(keep)
+  out <- object
+  if(is_signed(object)){
+    if(keep == "positive"){
+      out$sign[out$sign < 0] <- 0
+    } else if (keep == "negative"){
+      out$sign[out$sign > 0] <- 0
+      out$sign <- out$sign(out)
+    } else stop("Indicate whether 'positive' or 'negative' ties should be kept.")
+  }
+  out
+}
+
+#' @export
 to_unsigned.tbl_graph <- function(object, 
-                             keep = c("positive", "negative")){
+                                  keep = c("positive", "negative")){
   keep <- match.arg(keep)
   out <- to_unsigned(as_igraph(object), keep = keep)
   as_tidygraph(out)
@@ -226,74 +180,6 @@ to_unsigned.igraph <- function(object,
     out <- igraph::delete_edge_attr(out, "sign")
     out
   } else object
-}
-
-#' @rdname to
-#' @importFrom igraph simplify
-#' @examples
-#' to_simplex(ison_algebra)
-#' @export
-to_simplex <- function(object) UseMethod("to_simplex")
-
-#' @export
-to_simplex.tbl_graph <- function(object) {
-  as_tidygraph(to_simplex(as_igraph(object)))
-}
-
-#' @export
-to_simplex.igraph <- function(object) {
-  igraph::simplify(object)
-}
-
-#' @export
-to_simplex.matrix <- function(object) {
-  out <- object
-  diag(out) <- 0
-  out
-}
-
-#' @describeIn to Returns an object that has random vertex names added
-#' @examples
-#' autographr(ison_algebra) + ggtitle("Original") + 
-#'   autographr(to_named(ison_algebra)) + ggtitle("Named") + 
-#'   autographr(to_unnamed(to_named(ison_algebra))) + ggtitle("Unnamed")
-#' @export
-to_named <- function(object, names = NULL) UseMethod("to_named")
-
-#' @export
-to_named.tbl_graph <- function(object, names = NULL) {
-  if (!is.null(names)) {
-    object <- object %>% mutate(name = names)
-  } else {
-    object <- object %>% mutate(name = sample(baby_names,
-                                    graph_nodes(object)))
-  }
-  object
-}
-
-#' @export
-to_named.igraph <- function(object, names = NULL) {
-  if (!is.null(names)) {
-    igraph::V(object)$name  <- names
-  } else {
-    igraph::V(object)$name  <- sample(baby_names,
-                                      graph_nodes(object))
-  }
-  object
-}
-
-#' @export
-to_named.data.frame <- function(object, names = NULL) {
-  if (!is.null(names)) {
-    object[,1]  <- names[as.numeric(object[,1])]
-    object[,2]  <- names[as.numeric(object[,2])]
-  } else {
-    object[,1]  <- sample(baby_names, 
-                          graph_nodes(object))[as.numeric(object[,1])]
-    object[,2]  <- sample(baby_names, 
-                          graph_nodes(object))[as.numeric(object[,2])]
-  }
-  object
 }
 
 #' @describeIn to Returns an object with all vertex names removed
@@ -336,37 +222,146 @@ to_unnamed.data.frame <- function(object) {
   tibble::as_tibble(out)
 }
 
-#' @rdname to
+#' @describeIn to Returns an object that has random vertex names added
 #' @examples
-#' to_multilevel(mpn_elite_usa_advice)
+#' autographr(ison_algebra) + ggtitle("Original") + 
+#'   autographr(to_named(ison_algebra)) + ggtitle("Named") + 
+#'   autographr(to_unnamed(to_named(ison_algebra))) + ggtitle("Unnamed")
 #' @export
-to_multilevel <- function(object) UseMethod("to_multilevel")
+to_named <- function(object, names = NULL) UseMethod("to_named")
 
 #' @export
-to_multilevel.tbl_graph <- function(object) {
-  as_tidygraph(to_multilevel(as_igraph(object)))
-}
-
-#' @export
-to_multilevel.igraph <- function(object) {
-  igraph::V(object)$lvl <- ifelse(igraph::V(object)$type, 2, 1)
-  object <- igraph::delete_vertex_attr(object, "type")
+to_named.tbl_graph <- function(object, names = NULL) {
+  if (!is.null(names)) {
+    object <- object %>% mutate(name = names)
+  } else {
+    object <- object %>% mutate(name = sample(baby_names,
+                                              graph_nodes(object)))
+  }
   object
 }
 
 #' @export
-to_multilevel.matrix <- function(object) {
-  top <- cbind(matrix(0, nrow(object), nrow(object)), object)
-  bottom <- cbind(t(object), matrix(0, ncol(object), ncol(object)))
-  out <- rbind(top, bottom)
-  colnames(out) <- rownames(out)
+to_named.igraph <- function(object, names = NULL) {
+  if (!is.null(names)) {
+    igraph::V(object)$name  <- names
+  } else {
+    igraph::V(object)$name  <- sample(baby_names,
+                                      graph_nodes(object))
+  }
+  object
+}
+
+#' @export
+to_named.data.frame <- function(object, names = NULL) {
+  if (!is.null(names)) {
+    object[,1]  <- names[as.numeric(object[,1])]
+    object[,2]  <- names[as.numeric(object[,2])]
+  } else {
+    object[,1]  <- sample(baby_names, 
+                          graph_nodes(object))[as.numeric(object[,1])]
+    object[,2]  <- sample(baby_names, 
+                          graph_nodes(object))[as.numeric(object[,2])]
+  }
+  object
+}
+
+#' @export
+to_named.matrix <- function(object, names = NULL) {
+  if(is.null(names)) names <- sample(baby_names, 
+                                     graph_nodes(object))
+  if(is_twomode(object)){
+    rownames(object)  <- names[1:nrow(object)]
+    colnames(object)  <- names[(nrow(object)+1):length(names)]
+  } else {
+    rownames(object)  <- names
+    colnames(object)  <- names
+  }
+  object
+}
+
+#' @describeIn to Returns an object that includes only a single type of tie
+#' @importFrom igraph delete_edges edge_attr_names delete_edge_attr
+#' @importFrom igraph E get.edge.attribute edge_attr_names
+#' @examples
+#' autographr(ison_algebra) + 
+#' autographr(to_uniplex(ison_algebra, "friend_tie"))
+#' @export
+to_uniplex <- function(object, edge) UseMethod("to_uniplex")
+
+#' @export
+to_uniplex.tbl_graph <- function(object, edge){
+  as_tidygraph(to_uniplex(as_igraph(object), edge))
+}
+
+#' @export
+to_uniplex.igraph <- function(object, edge){
+  out <- igraph::delete_edges(object,
+                              igraph::E(object)[igraph::get.edge.attribute(object, edge) == 0])
+  edge_names <- igraph::edge_attr_names(object)
+  if (length(edge_names) > 1) {
+    for (e in setdiff(edge_names, edge)) {
+      out <- igraph::delete_edge_attr(out, e) 
+    }
+  }
+  if (is.numeric(igraph::get.edge.attribute(object, edge))) 
+    names(igraph::edge_attr(out)) <- "weight"
   out
 }
 
+#' @describeIn to Returns an object that has all loops or self-ties removed
+#' @importFrom igraph simplify
+#' @export
+to_simplex <- function(object) UseMethod("to_simplex")
+
+#' @export
+to_simplex.tbl_graph <- function(object) {
+  as_tidygraph(to_simplex(as_igraph(object)))
+}
+
+#' @export
+to_simplex.igraph <- function(object) {
+  igraph::simplify(object)
+}
+
+#' @export
+to_simplex.matrix <- function(object) {
+  out <- object
+  diag(out) <- 0
+  out
+}
+
+#' @describeIn to Returns an object that includes only the main component
+#' without any smaller components or isolates
+#' @examples 
+#' autographr(ison_marvel_relationships) +
+#'   autographr(to_main_component(ison_marvel_relationships))
+#' @export
+to_main_component <- function(object) UseMethod("to_main_component")
+
+#' @export
+to_main_component.tbl_graph <- function(object) {
+  as_tidygraph(to_main_component(as_igraph(object)))
+}
+
+#' @export
+to_main_component.igraph <- function(object) {
+  comps <- igraph::components(object)
+  max.comp <- which.max(comps$csize)
+  igraph::delete.vertices(object, comps$membership != max.comp)
+}
+
+#' @export
+to_main_component.network <- function(object) {
+  network::delete.vertices(object, 
+                           which(!sna::component.largest(object,
+                                                         result = "membership")))
+}
+
 #' @describeIn to Results in a weighted one-mode object
-#' that retains the column nodes from a two-mode object,
+#' that retains the row nodes from a two-mode object,
 #' and weights the ties between them on the basis of
-#' their joint ties to nodes in the first mode (rows).
+#' their joint ties to nodes in the second mode (columns)
 #' @importFrom igraph bipartite.projection
 #' @examples
 #' autographr(ison_southern_women) /
@@ -391,9 +386,9 @@ to_mode1.tbl_graph <- function(object) {
 }
 
 #' @describeIn to Results in a weighted one-mode object
-#' that retains the row nodes from a two-mode object,
+#' that retains the column nodes from a two-mode object,
 #' and weights the ties between them on the basis of
-#' their joint ties to nodes in the second mode (columns)
+#' their joint ties to nodes in the first mode (rows).
 #' @export
 to_mode2 <- function(object) UseMethod("to_mode2")
 
@@ -410,6 +405,51 @@ to_mode2.igraph <- function(object) {
 #' @export
 to_mode2.tbl_graph <- function(object) {
   as_tidygraph(igraph::bipartite.projection(object)$proj2)
+}
+
+#' @describeIn to Returns an object that has any type/mode attributes removed,
+#'   but otherwise includes all the same nodes and ties.
+#'   Note that this is not the same as `to_mode1()` or `to_mode2()`,
+#'   which return only some of the nodes and new ties established by coincidence.
+#' @importFrom igraph delete_vertex_attr
+#' @export
+to_onemode <- function(object) UseMethod("to_onemode")
+
+#' @export
+to_onemode.tbl_graph <- function(object) {
+  as_tidygraph(to_onemode(as_igraph(object)))
+}
+
+#' @export
+to_onemode.igraph <- function(object) {
+  if ("type" %in% igraph::vertex_attr_names(object)) object <- igraph::delete_vertex_attr(object, "type")
+  object
+}
+
+#' @describeIn to Returns a network that is not divided into two mode types
+#'   but embeds two or more modes into a multimodal network structure.
+#' @export
+to_multilevel <- function(object) UseMethod("to_multilevel")
+
+#' @export
+to_multilevel.tbl_graph <- function(object) {
+  as_tidygraph(to_multilevel(as_igraph(object)))
+}
+
+#' @export
+to_multilevel.igraph <- function(object) {
+  igraph::V(object)$lvl <- ifelse(igraph::V(object)$type, 2, 1)
+  object <- igraph::delete_vertex_attr(object, "type")
+  object
+}
+
+#' @export
+to_multilevel.matrix <- function(object) {
+  top <- cbind(matrix(0, nrow(object), nrow(object)), object)
+  bottom <- cbind(t(object), matrix(0, ncol(object), ncol(object)))
+  out <- rbind(top, bottom)
+  colnames(out) <- rownames(out)
+  out
 }
 
 #' @describeIn to Returns a matrix (named if possible) 
