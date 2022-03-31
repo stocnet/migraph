@@ -1,5 +1,8 @@
 # migraph 0.9.1
 
+## Package
+
+- Streamlined some tests to reduce testing time
 
 ## Manipulation
 

@@ -27,8 +27,7 @@
 #' | mode2 | | X | X | X | |
 #' @name to
 #' @family manipulation
-#' @param object A matrix, `{igraph}` graph, `{tidygraph}` tbl_graph, or
-#' `{network}` object.
+#' @inheritParams is
 #' @param edge Character string naming an edge attribute to retain from a graph.
 #' @param keep In the case of a signed network, whether to retain
 #' the "positive" or "negative" ties.
@@ -41,13 +40,72 @@
 #' with certain modifications as outlined for each function.
 NULL
 
+#' @describeIn to Returns an object that includes only a single type of tie
+#' @importFrom igraph delete_edges edge_attr_names delete_edge_attr
+#' @importFrom igraph E get.edge.attribute edge_attr_names
+#' @examples
+#' autographr(ison_algebra)
+#' a <- to_uniplex(ison_algebra, "friend_tie")
+#' autographr(a)
+#' a <- to_main_component(a)
+#' autographr(a)
+#' a <- to_undirected(a)
+#' autographr(a)
+#' a <- to_unweighted(a)
+#' autographr(a)
+#' a <- to_named(a)
+#' autographr(a)
+#' @export
+to_uniplex <- function(object, edge) UseMethod("to_uniplex")
+
+#' @export
+to_uniplex.tbl_graph <- function(object, edge){
+  as_tidygraph(to_uniplex(as_igraph(object), edge))
+}
+
+#' @export
+to_uniplex.igraph <- function(object, edge){
+  out <- igraph::delete_edges(object,
+                              igraph::E(object)[igraph::get.edge.attribute(object, edge) == 0])
+  edge_names <- igraph::edge_attr_names(object)
+  if (length(edge_names) > 1) {
+    for (e in setdiff(edge_names, edge)) {
+      out <- igraph::delete_edge_attr(out, e) 
+    }
+  }
+  if (is.numeric(igraph::get.edge.attribute(object, edge))) 
+    names(igraph::edge_attr(out)) <- "weight"
+  out
+}
+
+#' @describeIn to Returns an object that includes only the main component
+#' without any smaller components or isolates
+#' @export
+to_main_component <- function(object) UseMethod("to_main_component")
+
+#' @export
+to_main_component.tbl_graph <- function(object) {
+  as_tidygraph(to_main_component(as_igraph(object)))
+}
+
+#' @export
+to_main_component.igraph <- function(object) {
+  comps <- igraph::components(object)
+  max.comp <- which.max(comps$csize)
+  igraph::delete.vertices(object, comps$membership != max.comp)
+}
+
+#' @export
+to_main_component.network <- function(object) {
+  network::delete.vertices(object, 
+                           which(!sna::component.largest(object,
+                                                         result = "membership")))
+}
+
 #' @describeIn to Returns an object that has any edge direction removed,
 #'   so that any pair of nodes with at least one directed edge will be
 #'   connected by an undirected edge in the new network.
 #'   This is equivalent to the "collapse" mode in `{igraph}`.
-#' @examples
-#' autographr(ison_algebra) +
-#' autographr(to_undirected(ison_adolescents))
 #' @export
 to_undirected <- function(object) UseMethod("to_undirected")
 
@@ -57,7 +115,6 @@ to_undirected.igraph <- function(object) {
   igraph::as.undirected(object, edge.attr.comb = "first")
 }
 
-#' @importFrom igraph as.undirected
 #' @export
 to_undirected.tbl_graph <- function(object) {
   as_tidygraph(igraph::as.undirected(object, edge.attr.comb = "first"))
@@ -77,9 +134,6 @@ to_undirected.matrix <- function(object) {
 }
 
 #' @describeIn to Returns an object that has all edge weights removed
-#' @examples
-#'   autographr(to_mode2(ison_southern_women)) +
-#'   autographr(to_unweighted(to_mode2(ison_southern_women)))
 #' @export
 to_unweighted <- function(object, threshold = 1) UseMethod("to_unweighted")
 
@@ -119,10 +173,8 @@ to_unweighted.data.frame <- function(object, threshold = 1) {
 #' @describeIn to Returns a network with either just the "positive" ties
 #'   or just the "negative" ties
 #' @examples
-#' (autographr(ison_marvel_relationships) |
-#' autographr(to_main_component(ison_marvel_relationships))) /
-#'   (autographr(to_main_component(to_unsigned(ison_marvel_relationships, "positive"))) |
-#'   autographr(to_main_component(to_unsigned(ison_marvel_relationships, "negative"))))
+#' autographr(to_unsigned(ison_marvel_relationships, "positive")) /
+#' autographr(to_unsigned(ison_marvel_relationships, "negative"))
 #' @export
 to_unsigned <- function(object, 
                         keep = c("positive", "negative")) UseMethod("to_unsigned")
@@ -223,10 +275,6 @@ to_unnamed.data.frame <- function(object) {
 }
 
 #' @describeIn to Returns an object that has random vertex names added
-#' @examples
-#' autographr(ison_algebra) + ggtitle("Original") + 
-#'   autographr(to_named(ison_algebra)) + ggtitle("Named") + 
-#'   autographr(to_unnamed(to_named(ison_algebra))) + ggtitle("Unnamed")
 #' @export
 to_named <- function(object, names = NULL) UseMethod("to_named")
 
@@ -280,35 +328,6 @@ to_named.matrix <- function(object, names = NULL) {
   object
 }
 
-#' @describeIn to Returns an object that includes only a single type of tie
-#' @importFrom igraph delete_edges edge_attr_names delete_edge_attr
-#' @importFrom igraph E get.edge.attribute edge_attr_names
-#' @examples
-#' autographr(ison_algebra) + 
-#' autographr(to_uniplex(ison_algebra, "friend_tie"))
-#' @export
-to_uniplex <- function(object, edge) UseMethod("to_uniplex")
-
-#' @export
-to_uniplex.tbl_graph <- function(object, edge){
-  as_tidygraph(to_uniplex(as_igraph(object), edge))
-}
-
-#' @export
-to_uniplex.igraph <- function(object, edge){
-  out <- igraph::delete_edges(object,
-                              igraph::E(object)[igraph::get.edge.attribute(object, edge) == 0])
-  edge_names <- igraph::edge_attr_names(object)
-  if (length(edge_names) > 1) {
-    for (e in setdiff(edge_names, edge)) {
-      out <- igraph::delete_edge_attr(out, e) 
-    }
-  }
-  if (is.numeric(igraph::get.edge.attribute(object, edge))) 
-    names(igraph::edge_attr(out)) <- "weight"
-  out
-}
-
 #' @describeIn to Returns an object that has all loops or self-ties removed
 #' @importFrom igraph simplify
 #' @export
@@ -331,33 +350,6 @@ to_simplex.matrix <- function(object) {
   out
 }
 
-#' @describeIn to Returns an object that includes only the main component
-#' without any smaller components or isolates
-#' @examples 
-#' autographr(ison_marvel_relationships) +
-#'   autographr(to_main_component(ison_marvel_relationships))
-#' @export
-to_main_component <- function(object) UseMethod("to_main_component")
-
-#' @export
-to_main_component.tbl_graph <- function(object) {
-  as_tidygraph(to_main_component(as_igraph(object)))
-}
-
-#' @export
-to_main_component.igraph <- function(object) {
-  comps <- igraph::components(object)
-  max.comp <- which.max(comps$csize)
-  igraph::delete.vertices(object, comps$membership != max.comp)
-}
-
-#' @export
-to_main_component.network <- function(object) {
-  network::delete.vertices(object, 
-                           which(!sna::component.largest(object,
-                                                         result = "membership")))
-}
-
 #' @describeIn to Results in a weighted one-mode object
 #' that retains the row nodes from a two-mode object,
 #' and weights the ties between them on the basis of
@@ -365,8 +357,8 @@ to_main_component.network <- function(object) {
 #' @importFrom igraph bipartite.projection
 #' @examples
 #' autographr(ison_southern_women) /
-#'  (autographr(to_mode1(ison_southern_women)) |
-#'  autographr(to_mode2(ison_southern_women)))
+#' (autographr(to_mode1(ison_southern_women)) |
+#' autographr(to_mode2(ison_southern_women)))
 #' @export
 to_mode1 <- function(object) UseMethod("to_mode1")
 
@@ -454,9 +446,9 @@ to_multilevel.matrix <- function(object) {
 
 #' @describeIn to Returns a matrix (named if possible) 
 #'   where the edges are the nodes
-#' @examples 
-#' autographr(ison_adolescents) +
-#'   autographr(to_edges(ison_adolescents))
+#' @examples
+#' autographr(ison_adolescents) +  
+#' autographr(to_edges(ison_adolescents))
 #' @export
 to_edges <- function(object){
   edges <- as_edgelist(object)
@@ -479,8 +471,9 @@ to_edges <- function(object){
 
 #' @describeIn to Returns a network subgraph filtered
 #'   on the basis of some node-related logical statement.
+#' @param ... Arguments passed on to dplyr::filter
 #' @importFrom dplyr filter
 #' @export
-to_subgraph <- function(.data, ..., .preserve = FALSE){
-  dplyr::filter(.data = .data, ..., .preserve = .preserve)
+to_subgraph <- function(object, ...){
+  dplyr::filter(.data = object, ..., .preserve = FALSE)
 }

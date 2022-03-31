@@ -1,4 +1,4 @@
-# Tests for the blockmodel family of networks
+# Tests for the blockmodel family of functions
 
 # 1. Testing blockmodel_concor()
 
@@ -53,8 +53,6 @@ test_that("concor works on one-mode networks", {
                c(1,1,1,1,1,1,2,2,2,2,2,3,3,3,3,4))
   expect_equal(unname(test$order.vector),
                c(1,4,9,10,12,15,2,7,8,13,14,3,5,6,11,16))
-  expect_equal(length(test$plabels), 16)
-  expect_equal(length(test$glabels), 16)
   expect_equal(test$cluster.method, "Prespecified")
   expect_equal(class(test), "blockmodel")
   # Bimodal

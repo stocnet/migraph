@@ -1,31 +1,36 @@
 set.seed(123)
-test <- network_reg(weight ~ ego(Discipline) + alter(Citations), 
-                     ison_networkers, times = 200)
+networkers <- ison_networkers %>% dplyr::filter(Discipline == "Sociology") %>% 
+  activate(edges) %>% mutate(messaged = 1)
 
-friends <- ison_marvel_relationships %>% 
-  activate(edges) %>% 
-  tidygraph::mutate(friend = (sign > 0)*1)
-test_logit <- network_reg(friend ~ ego(Attractive) + alter(Intellect),
-                          friends, times = 200)
+test <- network_reg(weight ~ alter(Citations) + sim(Citations), 
+                     networkers, times = 60)
+test_logit <- network_reg(messaged ~ alter(Citations) + sim(Citations), 
+                          networkers, times = 60)
 
 test_that("network_reg estimates correctly",{
   expect_s3_class(test, "netlm")
-  expect_s3_class(test_logit, "netlogit")
   expect_equal(round(unname(test$coefficients),3), 
-               c(27.196, -18.251, -3.417, -11.831, -0.103))
+               c(-11.526, -0.077, 49.250))
+  expect_s3_class(test_logit, "netlogit")
+  expect_equal(round(unname(test_logit$coefficients),3), 
+               c(-2.458, 0.007, 2.741))
 })
 
 test_that("network_reg tests correctly",{
   expect_equal(test$pgreqabs, 
-               c(0.06, 0.25, 0.76, 0.35, 0.32))
+               c(0.57, 0.83, 0.05), tolerance = 0.1)
+  expect_equal(test_logit$pgreqabs, 
+               c(0.00, 0.74, 0.02), tolerance = 0.1)
 })
 
-results <- tidy(test)
-results2 <- glance(test)
+tidys <- tidy(test)
+test_that("tidy works correctly for network_reg",{
+  expect_s3_class(tidys, "tbl_df")
+  expect_equal(round(unname(tidys$estimate[1]), 3), -11.526)
+})
 
-test_that("tidy and glance work correctly for network_reg",{
-  expect_s3_class(results, "tbl_df")
-  expect_s3_class(results2, "tbl_df")
-  expect_equal(round(unname(results$estimate[1]), 3), 27.196)
-  expect_equal(round(results2$r.squared, 4), 0.0260)
+glances <- glance(test)
+test_that("glance works correctly for network_reg",{
+  expect_s3_class(glances, "tbl_df")
+  expect_equal(round(glances$r.squared, 4), 0.051)
 })
