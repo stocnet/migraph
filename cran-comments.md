@@ -9,5 +9,5 @@
 
 0 errors | 0 warnings | 0 notes
 
-* 
+* Corrected DOI use in URL
 * Note that the regression examples can run slightly over 5 seconds
