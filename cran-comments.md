@@ -9,4 +9,5 @@
 
 0 errors | 0 warnings | 0 notes
 
-* Note that some examples (to, regression) can run slightly over 5 seconds
+* 
+* Note that the regression examples can run slightly over 5 seconds

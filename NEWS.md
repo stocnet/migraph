@@ -3,6 +3,7 @@
 ## Package
 
 - Streamlined some tests to reduce testing time
+- Fixed a DOI URL for Ortmann and Brandes reference
 
 ## Manipulation
 
