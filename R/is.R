@@ -300,7 +300,9 @@ is_complex.network <- function(object) {
   network::has.loops(object)
 }
 
-#' @describeIn is Tests whether network is multiplex
+#' @describeIn is Tests whether network is multiplex,
+#'   either from multiple rows with the same sender and receiver,
+#'   or multiple columns to the edgelist.
 #' @importFrom igraph any_multiple
 #' @export
 is_multiplex <- function(object) UseMethod("is_multiplex")
@@ -312,12 +314,14 @@ is_multiplex.matrix <- function(object){
 
 #' @export
 is_multiplex.tbl_graph <- function(object){
-  igraph::any_multiple(object)
+  igraph::any_multiple(object) |
+    length(graph_edge_attributes(object)) > 1
 }
 
 #' @export
 is_multiplex.igraph <- function(object){
-  igraph::any_multiple(object)
+  igraph::any_multiple(object) |
+    length(graph_edge_attributes(object)) > 1
 }
 
 #' @export

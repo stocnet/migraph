@@ -1,3 +1,19 @@
+# migraph 0.9.1
+
+## Package
+
+- Streamlined some tests to reduce testing time
+- Fixed a DOI URL for Ortmann and Brandes reference
+
+## Manipulation
+
+- `is_multiplex.igraph()` and `is_multiplex.tbl_graph()` now checks for multiple edge attributes
+- Added `strain()` as wrapper for `{dplyr}`'s `filter()`, renamed to avoid conflicts with `{stats}`
+
+## Data
+
+- `ison_algebra` now unlabelled
+
 # migraph 0.9.0
 
 ## Package

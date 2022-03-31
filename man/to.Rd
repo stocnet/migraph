@@ -2,21 +2,26 @@
 % Please edit documentation in R/to.R
 \name{to}
 \alias{to}
+\alias{to_uniplex}
+\alias{to_main_component}
 \alias{to_undirected}
 \alias{to_unweighted}
 \alias{to_unsigned}
 \alias{to_unnamed}
 \alias{to_named}
-\alias{to_uniplex}
 \alias{to_simplex}
-\alias{to_main_component}
 \alias{to_mode1}
 \alias{to_mode2}
 \alias{to_onemode}
 \alias{to_multilevel}
 \alias{to_edges}
+\alias{to_subgraph}
 \title{Tools for reformatting networks, graphs, and matrices}
 \usage{
+to_uniplex(object, edge)
+
+to_main_component(object)
+
 to_undirected(object)
 
 to_unweighted(object, threshold = 1)
@@ -27,11 +32,7 @@ to_unnamed(object)
 
 to_named(object, names = NULL)
 
-to_uniplex(object, edge)
-
 to_simplex(object)
-
-to_main_component(object)
 
 to_mode1(object)
 
@@ -42,10 +43,20 @@ to_onemode(object)
 to_multilevel(object)
 
 to_edges(object)
+
+to_subgraph(object, ...)
 }
 \arguments{
-\item{object}{A matrix, \code{{igraph}} graph, \code{{tidygraph}} tbl_graph, or
-\code{{network}} object.}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
+
+\item{edge}{Character string naming an edge attribute to retain from a graph.}
 
 \item{threshold}{For a matrix, the threshold to binarise/dichotomise at.}
 
@@ -54,7 +65,7 @@ the "positive" or "negative" ties.}
 
 \item{names}{Character vector of the node names. NULL by default.}
 
-\item{edge}{Character string naming an edge attribute to retain from a graph.}
+\item{...}{Arguments passed on to dplyr::filter}
 }
 \value{
 All \code{to_} functions return an object of the same class as that provided.
@@ -90,6 +101,11 @@ here are the currently implemented modifications:\tabular{lccccc}{
 }
 \section{Functions}{
 \itemize{
+\item \code{to_uniplex}: Returns an object that includes only a single type of tie
+
+\item \code{to_main_component}: Returns an object that includes only the main component
+without any smaller components or isolates
+
 \item \code{to_undirected}: Returns an object that has any edge direction removed,
 so that any pair of nodes with at least one directed edge will be
 connected by an undirected edge in the new network.
@@ -104,12 +120,7 @@ or just the "negative" ties
 
 \item \code{to_named}: Returns an object that has random vertex names added
 
-\item \code{to_uniplex}: Returns an object that includes only a single type of tie
-
 \item \code{to_simplex}: Returns an object that has all loops or self-ties removed
-
-\item \code{to_main_component}: Returns an object that includes only the main component
-without any smaller components or isolates
 
 \item \code{to_mode1}: Results in a weighted one-mode object
 that retains the row nodes from a two-mode object,
@@ -131,29 +142,30 @@ but embeds two or more modes into a multimodal network structure.
 
 \item \code{to_edges}: Returns a matrix (named if possible)
 where the edges are the nodes
+
+\item \code{to_subgraph}: Returns a network subgraph filtered
+on the basis of some node-related logical statement.
 }}
 
 \examples{
-autographr(ison_algebra) +
-autographr(to_undirected(ison_adolescents))
-  autographr(to_mode2(ison_southern_women)) +
-  autographr(to_unweighted(to_mode2(ison_southern_women)))
-(autographr(ison_marvel_relationships) |
-autographr(to_main_component(ison_marvel_relationships))) /
-  (autographr(to_main_component(to_unsigned(ison_marvel_relationships, "positive"))) |
-  autographr(to_main_component(to_unsigned(ison_marvel_relationships, "negative"))))
-autographr(ison_algebra) + ggtitle("Original") + 
-  autographr(to_named(ison_algebra)) + ggtitle("Named") + 
-  autographr(to_unnamed(to_named(ison_algebra))) + ggtitle("Unnamed")
-autographr(ison_algebra) + 
-autographr(to_uniplex(ison_algebra, "friend_tie"))
-autographr(ison_marvel_relationships) +
-  autographr(to_main_component(ison_marvel_relationships))
+autographr(ison_algebra)
+a <- to_uniplex(ison_algebra, "friend_tie")
+autographr(a)
+a <- to_main_component(a)
+autographr(a)
+a <- to_undirected(a)
+autographr(a)
+a <- to_unweighted(a)
+autographr(a)
+a <- to_named(a)
+autographr(a)
+autographr(to_unsigned(ison_marvel_relationships, "positive")) /
+autographr(to_unsigned(ison_marvel_relationships, "negative"))
 autographr(ison_southern_women) /
- (autographr(to_mode1(ison_southern_women)) |
- autographr(to_mode2(ison_southern_women)))
-autographr(ison_adolescents) +
-  autographr(to_edges(ison_adolescents))
+(autographr(to_mode1(ison_southern_women)) |
+autographr(to_mode2(ison_southern_women)))
+autographr(ison_adolescents) +  
+autographr(to_edges(ison_adolescents))
 }
 \seealso{
 Other manipulation: 

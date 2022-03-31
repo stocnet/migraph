@@ -85,7 +85,9 @@ properties.
 
 \item \code{is_complex}: Tests whether network contains any loops
 
-\item \code{is_multiplex}: Tests whether network is multiplex
+\item \code{is_multiplex}: Tests whether network is multiplex,
+either from multiple rows with the same sender and receiver,
+or multiple columns to the edgelist.
 
 \item \code{is_uniplex}: Tests whether network is simple (both uniplex and simplex)
 

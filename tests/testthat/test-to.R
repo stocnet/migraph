@@ -1,71 +1,17 @@
-test_weighted <- data.frame(
-  source = c("A","A", "A", "A", "A","J", "B", "B", "C", "C", "D","I"),
-  target = c("B","B", "C", "D", "J","A","E", "F", "G", "H", "I","I"),
-  weight = sample(1:20, 12, replace = T)
-)
-test_unweighted <- data.frame(
-  source = c("A","A", "A", "A", "A","J", "B", "B", "C", "C", "D","I"),
-  target = c("B","B", "C", "D", "J","A","E", "F", "G", "H", "I","I")
-)
-
-simple_edge_df_weighted <- data.frame(
-  from = c("b", "c", "c", "d", "a"),
-  to = c("a", "b", "a", "a", "b"),
-  weight = c(1, 1, 2, 2, 3)
-)
-
-simple_edge_df_unweighted <- data.frame(
-  from = c("b", "c", "c", "d", "a"),
-  to = c("a", "b", "a", "a", "b")
-)
-
 test_that("to_unweight works", {
-  expect_equal(to_unweighted(matrix(0:8,3,3)), matrix(c(0, rep(1,8)),3,3))
-  expect_equal(to_unweighted(ison_southern_women), ison_southern_women)
-  expect_equal(c(to_unnamed(as_matrix(to_unweighted(to_mode1(ison_southern_women)))))[1:4],
-               c(0,1,1,1))
-  expect_equal(c(to_unweighted(as_tidygraph(test_weighted)))[8],
-               c(as_tidygraph(test_unweighted))[8])
-  expect_equal(to_unweighted(as_network(simple_edge_df_weighted)),
-                as_network(simple_edge_df_unweighted))
+  women <- to_mode1(ison_southern_women)
+  expect_true(is_weighted(women))
+  expect_false(is_weighted(to_unweighted(women)))
 })
 
-unnamedsouthern <- igraph::remove.vertex.attribute(ison_southern_women, "name")
-test_unnamed <- igraph::remove.vertex.attribute(as_tidygraph(test_weighted),
-                                                "name")
 test_that("to_unnamed works",{
-  expect_equal(to_unnamed(ison_southern_women), 
-               igraph::remove.vertex.attribute(ison_southern_women, "name"))
-  expect_equal(to_unnamed(igraph::remove.vertex.attribute(ison_southern_women, "name")),
-               igraph::remove.vertex.attribute(ison_southern_women, "name"))
-  expect_equal(c(to_unnamed(as_tidygraph(test_weighted)))[8], c(test_unnamed)[8])
-  expect_equal(to_unnamed(as_network(ison_southern_women)),
-               network::delete.vertex.attribute(as_network(ison_southern_women), "vertex.names"))
-  expect_equal(c(as_matrix(to_unnamed(as_igraph(ison_algebra)))),
-               c(as_matrix(as_igraph(ison_algebra))))
-  expect_equal(to_unnamed(test_unweighted),
-               structure(list(source = c(1L, 1L, 1L, 1L, 1L, 2L, 3L, 3L, 4L, 4L, 5L, 6L),
-                              target = c(3L, 3L, 4L, 5L, 2L, 1L, 7L, 8L, 9L, 10L, 6L, 6L)),
-                         row.names = c(NA, -12L), class = c("tbl_df", "tbl", "data.frame")))
-})
-
-names_southern <- igraph::get.vertex.attribute(ison_southern_women, "name")
-
-test_that("to_named works", {
-  expect_equal(to_named(ison_southern_women, names_southern), ison_southern_women)
+  expect_true(is_labelled(ison_southern_women))
+  expect_false(is_labelled(to_unnamed(ison_southern_women)))
 })
 
 test_that("to_undirected works",{
-  expect_equal(c(to_undirected(as_igraph(ison_algebra)))[3], 
-               c(igraph::as.undirected(ison_algebra, edge.attr.comb = "first"))[3])
-  expect_equal(as_matrix(to_undirected(as_tidygraph(test_weighted))),
-               as_matrix(igraph::as.undirected(as_tidygraph(test_weighted),edge.attr.comb = "first")))
-  expect_equal(to_undirected(as_matrix(ison_adolescents)),
-               ((as_matrix(ison_adolescents) + t(as_matrix(ison_adolescents))) > 0) * 1)
-  expect_equal(to_undirected(as_matrix(ison_southern_women)),
-               as_matrix(ison_southern_women))
-  expect_equal(as_matrix(to_undirected(as_network(ison_adolescents))),
-               as_matrix(to_undirected(ison_adolescents)))
+  expect_true(is_directed(ison_algebra))
+  expect_false(is_directed(to_undirected(ison_algebra)))
 })
 
 test_that("to_onemode works",{
@@ -74,78 +20,47 @@ test_that("to_onemode works",{
                as_matrix(as_tidygraph(igraph::delete_vertex_attr(ison_marvel_teams, "type"))))
 })
 
-comps <- igraph::components(ison_marvel_teams)
-max.comp <- which.max(ison_marvel_teams$csize)
-test <- igraph::delete.vertices(ison_marvel_teams, comps$membership != max.comp)
-
 test_that("to_main_component works",{
-  expect_equal(as_matrix(to_main_component(ison_marvel_teams)), as_matrix(test))
-  expect_equal(as_matrix(to_main_component(as_tidygraph(ison_marvel_teams))),
-               as_matrix(test))
+  expect_equal(graph_nodes(ison_marvel_relationships), 53)
+  expect_equal(graph_nodes(to_main_component(ison_marvel_relationships)), 50)
 })
 
-out <- igraph::delete_edges(ison_algebra,
-                            igraph::E(ison_algebra)[igraph::get.edge.attribute(ison_algebra, "friend_tie") == 0])
-edge_names <- igraph::edge_attr_names(ison_algebra)
-if (length(edge_names) > 1) {
-  for (e in setdiff(edge_names, "friend_tie")) {
-    out <- igraph::delete_edge_attr(out, e) 
-  }
-}
-if (is.numeric(igraph::get.edge.attribute(ison_algebra, "friend_tie"))) names(igraph::edge_attr(out)) <- "weight"
-
 test_that("to_uniplex works", {
-  expect_equal(as_matrix(to_uniplex(ison_algebra, "friend_tie")), as_matrix(out))
-  expect_equal(as_matrix(to_uniplex(as_tidygraph(ison_algebra), "friend_tie")), as_matrix(out))
+  expect_true(is_multiplex(ison_algebra))
+  expect_false(is_multiplex(to_uniplex(ison_algebra, "friend_tie")))
 })
 
 test_that("to_simplex works", {
-  expect_equal(as_matrix(to_simplex(ison_algebra)), as_matrix(ison_algebra))
+  expect_true(is_complex(ison_marvel_relationships))
+  expect_false(is_complex(to_simplex(ison_marvel_relationships)))
 })
-
-testunsigned <- igraph::delete_edges(ison_marvel_relationships, which(igraph::E(ison_marvel_relationships)$sign < 0))
-testunsigned2 <- igraph::delete_edges(ison_algebra, which(igraph::E(ison_algebra)$sign < 0))
-testunsigned3 <- igraph::delete_edges(ison_algebra, which(igraph::E(ison_algebra)$sign > 0))
 
 test_that("to_unsigned works", {
-  expect_equal(c(as_matrix(to_unsigned(ison_marvel_relationships, "positive"))),
-               c(as_matrix(testunsigned)))
-  expect_equal(c(as_matrix(to_unsigned(ison_algebra, "positive"))),
-               c(as_matrix(testunsigned2)))
-  expect_equal(c(as_matrix(to_unsigned(ison_algebra, "negative"))),
-               c(as_matrix(testunsigned3)))
+  expect_true(is_signed(ison_marvel_relationships))
+  expect_false(is_signed(to_unsigned(ison_marvel_relationships)))
+  expect_false(all(as_matrix(to_unsigned(ison_marvel_relationships, "positive")) != 
+                 as_matrix(to_unsigned(ison_marvel_relationships, "negative"))))
 })
 
-testnamed <- ison_algebra
-igraph::V(testnamed)$name  <- sample(baby_names,
-                                     igraph::vcount(testnamed))
 test_that("to_named works", {
-  expect_equal(c(as_matrix(to_named(ison_algebra))), c(as_matrix(testnamed)))
-  expect_equal(c(as_matrix(to_named(as_igraph(ison_algebra)))), c(as_matrix(testnamed)))
+  expect_false(is_labelled(ison_algebra))
+  expect_true(is_labelled(to_named(ison_algebra)))
+  expect_true(is_labelled(to_named(ison_algebra, seq_len(graph_nodes(ison_algebra)))))
 })
 
-testmultilevel <- mpn_elite_usa_advice
-igraph::V(testmultilevel)$lvl <- ifelse(igraph::V(testmultilevel)$type, 2, 1)
-testmultilevel <- igraph::delete_vertex_attr(testmultilevel, "type")
 test_that("multilevel works", {
-  expect_equal(to_multilevel(mpn_elite_usa_advice), testmultilevel)
-  expect_equal(to_multilevel(as_igraph(mpn_elite_usa_advice)), as_igraph(testmultilevel))
+  expect_true(is_twomode(mpn_elite_usa_advice))
+  expect_false(is_twomode(to_multilevel(mpn_elite_usa_advice)))
 })
-
-mat1 <- matrix(c(0,1,1,0,0,1,1,1),2,4)
-mat2 <- matrix(c(2,1,1,3),2,2)
-mat3 <- matrix(c(1,0,1,1,0,1,0,1,1,0,1,1,1,1,1,2),4,4)
 
 test_that("matrix projected correctly by rows",{
-  expect_equal(to_mode1(mat1), mat2)
-  expect_true(igraph::is_weighted(to_mode1(ison_southern_women)))
-  expect_true(is_graph(to_mode1(mpn_elite_usa_advice)))
-  expect_error(to_mode1(as.data.frame(mat1)), "no applicable method")
+  expect_true(is_weighted(to_mode1(ison_southern_women)))
+  expect_true(all(node_names(to_mode1(ison_southern_women)) %in% node_names(ison_southern_women)))
+  expect_true(length(node_names(to_mode1(ison_southern_women))) != length(node_names(ison_southern_women)))
 })
 
 test_that("matrix projected correctly by columns",{
-  expect_equal(to_mode2(mat1), mat3)
   expect_true(is_weighted(to_mode2(ison_southern_women)))
-  expect_true(is_graph(to_mode2(mpn_elite_usa_advice)))
-  expect_error(to_mode2(as.data.frame(mat1)), "no applicable method")
+  expect_true(all(node_names(to_mode2(ison_southern_women)) %in% node_names(ison_southern_women)))
+  expect_true(length(node_names(to_mode2(ison_southern_women))) != length(node_names(ison_southern_women)))
 })
