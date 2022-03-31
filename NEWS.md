@@ -4,6 +4,7 @@
 ## Manipulation
 
 - `is_multiplex.igraph()` and `is_multiplex.tbl_graph()` now checks for multiple edge attributes
+- Added `strain()` as wrapper for `{dplyr}`'s `filter()`, renamed to avoid conflicts with `{stats}`
 
 ## Data
 

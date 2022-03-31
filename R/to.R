@@ -476,3 +476,11 @@ to_edges <- function(object){
   as_matrix(edges)
 }
 
+
+#' @describeIn to Returns a network subgraph filtered
+#'   on the basis of some node-related logical statement.
+#' @importFrom dplyr filter
+#' @export
+to_subgraph <- function(.data, ..., .preserve = FALSE){
+  dplyr::filter(.data = .data, ..., .preserve = .preserve)
+}

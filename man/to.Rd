@@ -15,6 +15,7 @@
 \alias{to_onemode}
 \alias{to_multilevel}
 \alias{to_edges}
+\alias{to_subgraph}
 \title{Tools for reformatting networks, graphs, and matrices}
 \usage{
 to_undirected(object)
@@ -42,6 +43,8 @@ to_onemode(object)
 to_multilevel(object)
 
 to_edges(object)
+
+to_subgraph(.data, ..., .preserve = FALSE)
 }
 \arguments{
 \item{object}{A matrix, \code{{igraph}} graph, \code{{tidygraph}} tbl_graph, or
@@ -131,6 +134,9 @@ but embeds two or more modes into a multimodal network structure.
 
 \item \code{to_edges}: Returns a matrix (named if possible)
 where the edges are the nodes
+
+\item \code{to_subgraph}: Returns a network subgraph filtered
+on the basis of some node-related logical statement.
 }}
 
 \examples{
