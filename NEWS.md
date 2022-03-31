@@ -1,6 +1,10 @@
 # migraph 0.9.1
 
 
+## Manipulation
+
+- `is_multiplex.igraph()` and `is_multiplex.tbl_graph()` now checks for multiple edge attributes
+
 ## Data
 
 - `ison_algebra` now unlabelled
