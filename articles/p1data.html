@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
       </span>
     </div>
 
@@ -311,14 +311,14 @@
 <span class="co"><span style="color: #949494;">#&gt; # A directed simple graph with 1 component</span></span>
 <span class="co"><span style="color: #949494;">#&gt; #</span></span>
 <span class="co"><span style="color: #949494;">#&gt; # Node Data: 16 × 1 (active)</span></span>
-<span class="co">#&gt;   name   </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Nettie </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Jaxson </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Roger  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Trisha </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Casey  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Lincoln</span>
+<span class="co">#&gt;   name      </span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ivy       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Nell      </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Laila     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Alison    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Kristopher</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ruth      </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 10 more rows</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#</span></span>
 <span class="co"><span style="color: #949494;">#&gt; # Edge Data: 144 × 5</span></span>
@@ -373,9 +373,9 @@
 <span class="co">#&gt; Warning: 'project_rows' is deprecated.</span>
 <span class="co">#&gt; Use 'to_mode1' instead.</span>
 <span class="co">#&gt; See help("Deprecated") and help("migraph-deprecated").</span>
-<span class="co">#&gt; IGRAPH 1e30fed UNW- 18 139 -- </span>
+<span class="co">#&gt; IGRAPH 6e0a50e UNW- 18 139 -- </span>
 <span class="co">#&gt; + attr: name (v/c), weight (e/n)</span>
-<span class="co">#&gt; + edges from 1e30fed (vertex names):</span>
+<span class="co">#&gt; + edges from 6e0a50e (vertex names):</span>
 <span class="co">#&gt;  [1] EVELYN --LAURA     EVELYN --BRENDA    EVELYN --THERESA   EVELYN --CHARLOTTE</span>
 <span class="co">#&gt;  [5] EVELYN --FRANCES   EVELYN --ELEANOR   EVELYN --RUTH      EVELYN --PEARL    </span>
 <span class="co">#&gt;  [9] EVELYN --NORA      EVELYN --VERNE     EVELYN --MYRA      EVELYN --KATHERINE</span>
@@ -389,9 +389,9 @@
 <span class="co">#&gt; Warning: 'project_cols' is deprecated.</span>
 <span class="co">#&gt; Use 'to_mode2' instead.</span>
 <span class="co">#&gt; See help("Deprecated") and help("migraph-deprecated").</span>
-<span class="co">#&gt; IGRAPH 7b94f14 UNW- 14 66 -- </span>
+<span class="co">#&gt; IGRAPH a349c32 UNW- 14 66 -- </span>
 <span class="co">#&gt; + attr: name (v/c), weight (e/n)</span>
-<span class="co">#&gt; + edges from 7b94f14 (vertex names):</span>
+<span class="co">#&gt; + edges from a349c32 (vertex names):</span>
 <span class="co">#&gt;  [1] E1 --E2  E1 --E3  E1 --E4  E1 --E5  E1 --E6  E1 --E8  E1 --E9  E1 --E7 </span>
 <span class="co">#&gt;  [9] E2 --E3  E2 --E4  E2 --E5  E2 --E6  E2 --E8  E2 --E9  E2 --E7  E3 --E4 </span>
 <span class="co">#&gt; [17] E3 --E5  E3 --E6  E3 --E8  E3 --E9  E3 --E7  E4 --E5  E4 --E6  E4 --E8 </span>
@@ -438,20 +438,20 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/generate.html">generate_random</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">.3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/add.html">join_edges</a></span><span class="op">(</span><span class="fu"><a href="../reference/generate.html">generate_random</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">.3</span><span class="op">)</span>, <span class="st">"next"</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 10 nodes and 22 edges</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 10 nodes and 19 edges</span></span>
 <span class="co"><span style="color: #949494;">#&gt; #</span></span>
-<span class="co"><span style="color: #949494;">#&gt; # An undirected simple graph with 1 component</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # An undirected simple graph with 2 components</span></span>
 <span class="co"><span style="color: #949494;">#&gt; #</span></span>
 <span class="co"><span style="color: #949494;">#&gt; # Node Data: 10 × 0 (active)</span></span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 4 more rows</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#</span></span>
-<span class="co"><span style="color: #949494;">#&gt; # Edge Data: 22 × 4</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Edge Data: 19 × 4</span></span>
 <span class="co">#&gt;    from    to  orig `next`</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     4     0      1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     5     1      0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1     6     1      1</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 19 more rows</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     2     3     1      1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2     4     1      0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     5     0      1</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 16 more rows</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="retrieving-data">Retrieving data<a class="anchor" aria-label="anchor" href="#retrieving-data"></a>
