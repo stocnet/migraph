@@ -78,7 +78,8 @@
 #' @examples
 #' networkers <- ison_networkers %>% to_subgraph(Discipline == "Sociology")
 #' model1 <- network_reg(weight ~ alter(Citations) + sim(Citations), 
-#'                       networkers, times = 60)
+#'                       networkers, times = 20)
+#' # Should be run many more `times` for publication-ready results
 #' tidy(model1)
 #' glance(model1)
 #' plot(model1)
@@ -416,7 +417,7 @@ tidy.netlm <- function(x, conf.int = FALSE, conf.level = 0.95, ...) {
   
   result <- tibble::tibble(term = x$names,
                            estimate = x$coefficients,
-                           std.error = NA_real_,
+                           # std.error = NA_real_,
                            statistic = x$tstat,
                            p.value = x$pgreqabs)
   
@@ -440,7 +441,7 @@ tidy.netlogit <- function(x, conf.int = FALSE, conf.level = 0.95,
                            estimate = `if`(exponentiate, 
                                              exp(x$coefficients), 
                                              x$coefficients),
-                           std.error = NA_real_,
+                           # std.error = NA_real_,
                            statistic = x$tstat,
                            p.value = x$pgreqabs)
   

@@ -80,6 +80,6 @@ group_triad_census(task_eg, cutree(cluster_regular_equivalence(task_eg), 4))
 }
 \references{
 Ortmann, Mark, and Ulrik Brandes. 2017.
-“\href{\doi{https://doi.org/10.1007/s41109-017-0027-2}}{Efficient Orbit-Aware Triad and Quad Census in Directed and Undirected Graphs}.”
-\emph{Applied Network Science} 2(1):13.
+“Efficient Orbit-Aware Triad and Quad Census in Directed and Undirected Graphs.”
+\emph{Applied Network Science} 2(1):13. \doi{https://doi.org/10.1007/s41109-017-0027-2}
 }
