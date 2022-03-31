@@ -22,7 +22,7 @@ only transforming these objects' properties."><meta property="og:image" content=
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
       </span>
     </div>
 
@@ -94,7 +94,11 @@ only transforming these objects' properties.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">to_undirected</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">to_uniplex</span><span class="op">(</span><span class="va">object</span>, <span class="va">edge</span><span class="op">)</span>
+
+<span class="fu">to_main_component</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
+
+<span class="fu">to_undirected</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
 
 <span class="fu">to_unweighted</span><span class="op">(</span><span class="va">object</span>, threshold <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 
@@ -104,11 +108,7 @@ only transforming these objects' properties.</p>
 
 <span class="fu">to_named</span><span class="op">(</span><span class="va">object</span>, names <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
 
-<span class="fu">to_uniplex</span><span class="op">(</span><span class="va">object</span>, <span class="va">edge</span><span class="op">)</span>
-
 <span class="fu">to_simplex</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">to_main_component</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
 
 <span class="fu">to_mode1</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
 
@@ -118,14 +118,22 @@ only transforming these objects' properties.</p>
 
 <span class="fu">to_multilevel</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
 
-<span class="fu">to_edges</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></code></pre></div>
+<span class="fu">to_edges</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
+
+<span class="fu">to_subgraph</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
-<dd><p>A matrix, <code>{igraph}</code> graph, <code>{tidygraph}</code> tbl_graph, or
-<code>{network}</code> object.</p></dd>
+<dd><p>An object of a migraph-consistent class:</p><ul><li><p>matrix, from base R</p></li>
+<li><p>edgelist, a data frame from base R or tibble from tibble</p></li>
+<li><p>igraph, from the igraph package</p></li>
+<li><p>network, from the network package</p></li>
+<li><p>tbl_graph, from the tidygraph package</p></li>
+</ul></dd>
+<dt>edge</dt>
+<dd><p>Character string naming an edge attribute to retain from a graph.</p></dd>
 <dt>threshold</dt>
 <dd><p>For a matrix, the threshold to binarise/dichotomise at.</p></dd>
 <dt>keep</dt>
@@ -133,8 +141,8 @@ only transforming these objects' properties.</p>
 the "positive" or "negative" ties.</p></dd>
 <dt>names</dt>
 <dd><p>Character vector of the node names. NULL by default.</p></dd>
-<dt>edge</dt>
-<dd><p>Character string naming an edge attribute to retain from a graph.</p></dd>
+<dt>...</dt>
+<dd><p>Arguments passed on to dplyr::filter</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -150,7 +158,10 @@ here are the currently implemented modifications:</p><table class="table table">
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>to_undirected</code>: Returns an object that has any edge direction removed,
+<ul><li><p><code>to_uniplex</code>: Returns an object that includes only a single type of tie</p></li>
+<li><p><code>to_main_component</code>: Returns an object that includes only the main component
+without any smaller components or isolates</p></li>
+<li><p><code>to_undirected</code>: Returns an object that has any edge direction removed,
 so that any pair of nodes with at least one directed edge will be
 connected by an undirected edge in the new network.
 This is equivalent to the "collapse" mode in <code>{igraph}</code>.</p></li>
@@ -159,10 +170,7 @@ This is equivalent to the "collapse" mode in <code>{igraph}</code>.</p></li>
 or just the "negative" ties</p></li>
 <li><p><code>to_unnamed</code>: Returns an object with all vertex names removed</p></li>
 <li><p><code>to_named</code>: Returns an object that has random vertex names added</p></li>
-<li><p><code>to_uniplex</code>: Returns an object that includes only a single type of tie</p></li>
 <li><p><code>to_simplex</code>: Returns an object that has all loops or self-ties removed</p></li>
-<li><p><code>to_main_component</code>: Returns an object that includes only the main component
-without any smaller components or isolates</p></li>
 <li><p><code>to_mode1</code>: Results in a weighted one-mode object
 that retains the row nodes from a two-mode object,
 and weights the ties between them on the basis of
@@ -179,6 +187,8 @@ which return only some of the nodes and new ties established by coincidence.</p>
 but embeds two or more modes into a multimodal network structure.</p></li>
 <li><p><code>to_edges</code>: Returns a matrix (named if possible)
 where the edges are the nodes</p></li>
+<li><p><code>to_subgraph</code>: Returns a network subgraph filtered
+on the basis of some node-related logical statement.</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -189,39 +199,35 @@ where the edges are the nodes</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_undirected</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="to-1.png" alt="" width="700" height="433"></span>
-<span class="r-in">  <span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_mode2</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_unweighted</span><span class="op">(</span><span class="fu">to_mode2</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">to_uniplex</span><span class="op">(</span><span class="va">ison_algebra</span>, <span class="st">"friend_tie"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="to-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="op">(</span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span> <span class="op">|</span></span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_main_component</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span></span>
-<span class="r-in">  <span class="op">(</span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_main_component</span><span class="op">(</span><span class="fu">to_unsigned</span><span class="op">(</span><span class="va">ison_marvel_relationships</span>, <span class="st">"positive"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|</span></span>
-<span class="r-in">  <span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_main_component</span><span class="op">(</span><span class="fu">to_unsigned</span><span class="op">(</span><span class="va">ison_marvel_relationships</span>, <span class="st">"negative"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ggrepel: 34 unlabeled data points (too many overlaps). Consider increasing max.overlaps</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ggrepel: 11 unlabeled data points (too many overlaps). Consider increasing max.overlaps</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ggrepel: 13 unlabeled data points (too many overlaps). Consider increasing max.overlaps</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ggrepel: 11 unlabeled data points (too many overlaps). Consider increasing max.overlaps</span>
+<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">to_main_component</span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="to-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Original"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span class="r-in">  <span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_named</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Named"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span class="r-in">  <span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_unnamed</span><span class="op">(</span><span class="fu">to_named</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Unnamed"</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">to_undirected</span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="to-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span> <span class="op">+</span> </span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_uniplex</span><span class="op">(</span><span class="va">ison_algebra</span>, <span class="st">"friend_tie"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">to_unweighted</span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="to-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_main_component</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ggrepel: 1 unlabeled data points (too many overlaps). Consider increasing max.overlaps</span>
+<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">to_named</span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="to-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span> <span class="op">/</span></span>
-<span class="r-in"> <span class="op">(</span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_mode1</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span><span class="op">)</span> <span class="op">|</span></span>
-<span class="r-in"> <span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_mode2</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_unsigned</span><span class="op">(</span><span class="va">ison_marvel_relationships</span>, <span class="st">"positive"</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span></span>
+<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_unsigned</span><span class="op">(</span><span class="va">ison_marvel_relationships</span>, <span class="st">"negative"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ggrepel: 13 unlabeled data points (too many overlaps). Consider increasing max.overlaps</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ggrepel: 7 unlabeled data points (too many overlaps). Consider increasing max.overlaps</span>
 <span class="r-plt img"><img src="to-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_edges</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span> <span class="op">/</span></span>
+<span class="r-in"><span class="op">(</span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_mode1</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span><span class="op">)</span> <span class="op">|</span></span>
+<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_mode2</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="to-8.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span> <span class="op">+</span>  </span>
+<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_edges</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="to-9.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
