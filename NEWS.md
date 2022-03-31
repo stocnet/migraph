@@ -1,9 +1,15 @@
+# migraph 0.9.2
+
+## Package
+
+- Streamlined some examples to reduce testing time
+- Fixed a DOI URL for Ortmann and Brandes reference
+
 # migraph 0.9.1
 
 ## Package
 
 - Streamlined some tests to reduce testing time
-- Fixed a DOI URL for Ortmann and Brandes reference
 
 ## Manipulation
 

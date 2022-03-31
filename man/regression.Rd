@@ -96,7 +96,8 @@ will always be respected in permutations and analysis.
 \examples{
 networkers <- ison_networkers \%>\% to_subgraph(Discipline == "Sociology")
 model1 <- network_reg(weight ~ alter(Citations) + sim(Citations), 
-                      networkers, times = 60)
+                      networkers, times = 20)
+# Should be run many more `times` for publication-ready results
 tidy(model1)
 glance(model1)
 plot(model1)
