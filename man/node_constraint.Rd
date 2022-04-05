@@ -40,7 +40,6 @@ Other one-mode measures:
 
 Other two-mode measures: 
 \code{\link{centrality}},
-\code{\link{centralization}},
 \code{\link{cohesion}()},
 \code{\link{graph_smallworld}()}
 

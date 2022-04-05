@@ -80,6 +80,10 @@ graph_eigenvector(object, digits = 2)
 
 \item{normalized}{For one-mode networks, should Borgatti and Everett normalization be applied?}
 
+\item{directed}{Should direction of edges be used for the calculations}
+
+\item{digits}{whether to round the resulting score, by default 2.
+Add FALSE to turn all rounding off.}
 
 \item{weights}{The weight of the edges to use for the calculation.
 Will be evaluated in the context of the edge data.}
@@ -87,19 +91,23 @@ Will be evaluated in the context of the edge data.}
 \item{mode}{How should edges be followed (in or out). By default, outdegree of
 the node is calculated. Ignored for undirected graphs.}
 
-\item{loops}{Should loops be included in the calculation}
-
-\item{normalized}{For one-mode networks, should Borgatti and Everett normalization be applied?}
-
 \item{cutoff}{maximum path length to use during calculations}
-
-\item{directed}{Should direction of edges be used for the calculations}
 
 \item{nobigint}{Should big integers be avoided during calculations}
 
 \item{scale}{Should the scores be scaled to range between 0 and 1?}
+
+\item{loops}{Should loops be included in the calculation}
 }
 \value{
+A single centralization score if the object was one-mode,
+and two centralization scores if the object was two-mode.
+In the case of a two-mode network,
+to return just the score for the first nodeset (rows),
+append \verb{$nodes1} to the end of the function call or returned object.
+To return just the score for the second nodeset (cols),
+append \verb{$nodes2} to the end of the function call or returned object.
+
 Depending on how and what kind of an object is passed to the function,
 the function will return a \code{tidygraph} object where the nodes have been updated
 
@@ -108,11 +116,39 @@ A numeric vector giving the betweenness centrality measure of each node.
 A numeric vector giving the eigenvector centrality measure of each node.
 }
 \description{
-These functions calculate common centrality measures for both one- and two-mode networks.
-They accept as objects matrices and \code{igraph} graphs,
-and can be used within a tidygraph workflow.
-Importantly, these functions also offer correct normalization for two-mode networks.
+These functions calculate common centrality measures for one- and two-mode networks.
+All measures attempt to use as much information as they are offered,
+including whether the networks are directed or weighted.
+If this results in unintended results,
+first transform the salient properties using the \href{to}{to_*()} functions.
+All centrality and centralization measures return normalized measures by default,
+and are correctly normalized in the case of two-mode networks.
 }
+\section{Functions}{
+\itemize{
+\item \code{node_degree}: Calculates the degree centrality of nodes in an unweighted network,
+or weighted degree/strength of nodes in a weighted network.
+
+\item \code{graph_degree}: Calculate the degree centralization for a graph
+
+\item \code{node_closeness}: Calculate the closeness centrality of nodes in a network
+
+\item \code{edge_closeness}: Calculate the closeness of each edge to each other edge
+in the network.
+
+\item \code{graph_closeness}: Calculate the closeness centralization for a graph
+
+\item \code{node_betweenness}: Calculate the betweenness centralities of nodes in a network
+
+\item \code{edge_betweenness}: Calculate number of shortest paths going through an edge
+
+\item \code{graph_betweenness}: Calculate the betweenness centralization for a graph
+
+\item \code{node_eigenvector}: Calculate the eigenvector centrality of nodes in a network
+
+\item \code{graph_eigenvector}: Calculate the eigenvector centralization for a graph
+}}
+
 \examples{
 node_degree(mpn_elite_mex)
 node_degree(ison_southern_women)
@@ -138,9 +174,22 @@ node_eigenvector(ison_southern_women)
 graph_eigenvector(mpn_elite_mex)
 }
 \references{
-Borgatti, Stephen P., and Martin G. Everett (1997). "Network analysis of 2-mode data." \emph{Social Networks} 19(3): 243-270.
+Faust, Katherine (1997).
+"Centrality in affiliation networks."
+\emph{Social Networks} 19(2): 157-191.
+\doi{https://doi.org/10.1016/S0378-8733(96)00300-0}
 
-Faust, Katherine (1997). "Centrality in affiliation networks." \emph{Social Networks} 19(2): 157-191.
+Borgatti, Stephen P., and Martin G. Everett (1997).
+"Network analysis of 2-mode data."
+\emph{Social Networks} 19(3): 243-270.
+\doi{https://doi.org/10.1016/S0378-8733(96)00301-2}
+
+Borgatti, Stephen P, and Daniel S Halgin. (2011).
+"Analyzing affiliation networks."
+In \emph{The SAGE Handbook of Social Network Analysis},
+edited by John Scott and Peter J Carrington, 417–33.
+London, UK: Sage.
+\doi{https://dx.doi.org/10.4135/9781446294413.n28}
 }
 \seealso{
 Other two-mode measures: 

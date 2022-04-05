@@ -46,7 +46,6 @@ for how clustering is calculated
 
 Other two-mode measures: 
 \code{\link{centrality}},
-\code{\link{centralization}},
 \code{\link{cohesion}()},
 \code{\link{node_constraint}()}
 }
