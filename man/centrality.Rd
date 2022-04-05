@@ -5,8 +5,10 @@
 \alias{node_degree}
 \alias{graph_degree}
 \alias{node_closeness}
+\alias{edge_closeness}
 \alias{graph_closeness}
 \alias{node_betweenness}
+\alias{edge_betweenness}
 \alias{graph_betweenness}
 \alias{node_eigenvector}
 \alias{graph_eigenvector}
@@ -29,6 +31,7 @@ node_closeness(
   cutoff = NULL
 )
 
+edge_closeness(object)
 
 graph_closeness(
   object,
@@ -44,6 +47,8 @@ node_betweenness(
   cutoff = NULL,
   nobigint = TRUE,
   normalized = FALSE
+
+edge_betweenness(object)
 
 graph_betweenness(
   object,
@@ -100,12 +105,26 @@ Importantly, these functions also offer correct normalization for two-mode netwo
 \examples{
 node_degree(mpn_elite_mex)
 node_degree(ison_southern_women)
+graph_degree(ison_southern_women, directed = "in")
 node_closeness(mpn_elite_mex)
 node_closeness(ison_southern_women)
+(ec <- edge_closeness(ison_adolescents))
+plot(ec)
+ison_adolescents \%>\% 
+  activate(edges) \%>\% mutate(weight = ec) \%>\% 
+  autographr()
+graph_closeness(ison_southern_women, directed = "in")
 node_betweenness(mpn_elite_mex)
 node_betweenness(ison_southern_women)
+(eb <- edge_betweenness(ison_adolescents))
+plot(eb)
+ison_adolescents \%>\% 
+  activate(edges) \%>\% mutate(weight = eb) \%>\% 
+  autographr()
+graph_betweenness(ison_southern_women, directed = "in")
 node_eigenvector(mpn_elite_mex)
 node_eigenvector(ison_southern_women)
+graph_eigenvector(mpn_elite_mex)
 }
 \references{
 Borgatti, Stephen P., and Martin G. Everett (1997). "Network analysis of 2-mode data." \emph{Social Networks} 19(3): 243-270.
@@ -114,7 +133,6 @@ Faust, Katherine (1997). "Centrality in affiliation networks." \emph{Social Netw
 }
 \seealso{
 Other two-mode measures: 
-\code{\link{centralization}},
 \code{\link{cohesion}()},
 \code{\link{graph_smallworld}()},
 \code{\link{node_constraint}()}

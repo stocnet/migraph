@@ -142,7 +142,19 @@ node_closeness <- function (object,
   out
 } 
 
-#' @rdname centrality
+#' @describeIn centrality Calculate the closeness of each edge to each other edge
+#' in the network.
+#' @examples
+#' (ec <- edge_closeness(ison_adolescents))
+#' plot(ec)
+#' ison_adolescents %>% 
+#'   activate(edges) %>% mutate(weight = ec) %>% 
+#'   autographr()
+#' @export
+edge_closeness <- function(object){
+  edge_adj <- to_edges(object)
+  node_closeness(edge_adj)
+}
 
 #' @describeIn centrality Calculate the closeness centralization for a graph
 #' @examples
@@ -252,7 +264,24 @@ node_betweenness <- function(object,
   out
 }
 
-#' @rdname centrality
+#' @describeIn centrality Calculate number of shortest paths going through an edge
+#' @importFrom igraph edge_betweenness
+#' @examples
+#' (eb <- edge_betweenness(ison_adolescents))
+#' plot(eb)
+#' ison_adolescents %>% 
+#'   activate(edges) %>% mutate(weight = eb) %>% 
+#'   autographr()
+#' @export
+edge_betweenness <- function(object){
+  object <- as_igraph(object)
+  edges <- as_edgelist(object)
+  edges <- paste(edges$from, edges$to, sep = "-")
+  out <- igraph::edge_betweenness(object)
+  names(out) <- edges
+  class(out) <- c("measure", class(out))
+  out
+}
 
 #' @describeIn centrality Calculate the betweenness centralization for a graph
 #' @examples
