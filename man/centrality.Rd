@@ -14,7 +14,7 @@
 \alias{graph_eigenvector}
 \title{Centrality and centralization for one- and two-mode networks}
 \usage{
-node_degree(
+node_degree(object, normalized = TRUE, direction = c("all", "out", "in"))
 
 graph_degree(
   object,

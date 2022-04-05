@@ -25,39 +25,44 @@
 #' node_degree(ison_southern_women)
 #' @return Depending on how and what kind of an object is passed to the function,
 #' the function will return a `tidygraph` object where the nodes have been updated
+NULL
+
+#' @describeIn centrality Calculates the degree centrality of nodes in an unweighted network,
+#'   or weighted degree/strength of nodes in a weighted network.
 #' @export
-node_degree <- function (object, 
-                         weights = NULL, mode = "out", 
-                         loops = TRUE, normalized = FALSE){
+node_degree <- function (object, normalized = TRUE, 
+                         direction = c("all","out","in")){
   
   if(missing(object)){
     expect_nodes()
     object <- .G()
   }
   graph <- as_igraph(object)
+  weights <- `if`(is_weighted(object), 
+                    edge_weights(object), NA)
+  direction <- match.arg(direction)
   
   # Do the calculations
-  if (is.null(weights)) {
-    weights <- NA
-  }
   if (is_twomode(graph) & normalized){
     degrees <- igraph::degree(graph = graph, 
                               v = igraph::V(graph), 
-                              mode = mode, loops = loops)
+                              mode = direction, 
+                              loops = is_complex(object))
     other_set_size <- ifelse(igraph::V(graph)$type, 
                              sum(!igraph::V(graph)$type), 
                              sum(igraph::V(graph)$type))
     out <- degrees/other_set_size
   } else {
-    if (is.null(weights)) {
-      out <- igraph::degree(graph = graph, V = igraph::V(graph), 
-                     mode = mode, loops = loops,
+    if (all(is.na(weights))) {
+      out <- igraph::degree(graph = graph, v = igraph::V(graph), 
+                     mode = direction, 
+                     loops = is_complex(object),
                      normalized = normalized)
     }
     else {
       out <- igraph::strength(graph = graph, vids = igraph::V(graph), 
-                       mode = mode,
-                       loops = loops, weights = weights)
+                       mode = direction,
+                       loops = is_complex(object), weights = weights)
     }
   }
   out <- make_measure(out, object)
