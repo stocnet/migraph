@@ -7,6 +7,7 @@
 \alias{project_rows}
 \alias{project_cols}
 \alias{mutate_edges}
+\alias{edge_mutual}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 ggidentify(object, node_measure, identify_function = max)
@@ -18,6 +19,8 @@ project_rows(object)
 project_cols(object)
 
 mutate_edges(object, object2, attr_name)
+
+edge_mutual(object)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -39,6 +42,8 @@ for more details about the new implementation.
 \item \code{project_cols}: Deprecated on 2022-03-23.
 
 \item \code{mutate_edges}: Deprecated on 2022-03-29.
+
+\item \code{edge_mutual}: Deprecated on 2022-04-05.
 }}
 
 \keyword{internal}

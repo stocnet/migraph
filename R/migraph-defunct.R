@@ -74,3 +74,13 @@ mutate_edges <- function(object, object2, attr_name){
   join_edges(object = object, object2 = object2, 
              attr_name = attr_name)
 }
+
+#' @describeIn defunct Deprecated on 2022-04-05.
+#' @export
+edge_mutual <- function(object){
+  .Deprecated("edge_reciprocal", package = "migraph",
+              old = "edge_mutual")
+  edge_reciprocal(object = object)
+}
+
+
