@@ -35,8 +35,13 @@ ggplot2-based plotting of blockmodel results
 Plots for deciding on the number of network clusters
 }
 \examples{
+# Unsigned
 usa_concor <- blockmodel_concor(mpn_elite_usa_advice)
 plot(usa_concor)
+
+# Signed network (Needs sign)
+# marvel_concor <- blockmodel_concor(ison_marvel_relationships)
+# plot(marvel)
 res <- cluster_regular_equivalence(mpn_elite_mex)
 ggtree(res, 3)
 ggidentify_clusters(res, node_triad_census(mpn_elite_mex))
