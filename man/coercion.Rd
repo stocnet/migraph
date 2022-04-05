@@ -7,7 +7,7 @@
 \alias{as_igraph}
 \alias{as_tidygraph}
 \alias{as_network}
-\title{Coercion between graph/network/edgelist/matrix object classes}
+\title{Coercion between migraph-compatible object classes}
 \usage{
 as_edgelist(object)
 

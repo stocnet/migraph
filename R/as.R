@@ -1,4 +1,4 @@
-#' Coercion between graph/network/edgelist/matrix object classes 
+#' Coercion between migraph-compatible object classes 
 #' 
 #' @description
 #' The `as_` functions in `{migraph}` coerce objects
