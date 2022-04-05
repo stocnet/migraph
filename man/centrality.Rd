@@ -3,17 +3,22 @@
 \name{centrality}
 \alias{centrality}
 \alias{node_degree}
+\alias{graph_degree}
 \alias{node_closeness}
+\alias{graph_closeness}
 \alias{node_betweenness}
+\alias{graph_betweenness}
 \alias{node_eigenvector}
-\title{Centrality for one- and two-mode networks}
+\alias{graph_eigenvector}
+\title{Centrality and centralization for one- and two-mode networks}
 \usage{
 node_degree(
+
+graph_degree(
   object,
-  weights = NULL,
-  mode = "out",
-  loops = TRUE,
-  normalized = FALSE
+  directed = c("all", "out", "in", "total"),
+  normalized = TRUE,
+  digits = 2
 )
 
 node_closeness(
@@ -24,6 +29,14 @@ node_closeness(
   cutoff = NULL
 )
 
+
+graph_closeness(
+  object,
+  directed = c("all", "out", "in", "total"),
+  normalized = TRUE,
+  digits = 2
+)
+
 node_betweenness(
   object,
   weights = NULL,
@@ -31,6 +44,12 @@ node_betweenness(
   cutoff = NULL,
   nobigint = TRUE,
   normalized = FALSE
+
+graph_betweenness(
+  object,
+  directed = c("all", "out", "in", "total"),
+  normalized = TRUE,
+  digits = 2
 )
 
 node_eigenvector(
@@ -40,6 +59,8 @@ node_eigenvector(
   scale = FALSE,
   normalized = FALSE
 )
+
+graph_eigenvector(object, digits = 2)
 }
 \arguments{
 \item{object}{Either an igraph graph object or a matrix.}
