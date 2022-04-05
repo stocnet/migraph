@@ -7,13 +7,13 @@
 #' @name centrality
 #' @family two-mode measures
 #' @family node-level measures
-#' @param object Either an igraph graph object or a matrix.
+#' @inheritParams is
 #' @param weights The weight of the edges to use for the calculation. 
 #' Will be evaluated in the context of the edge data.
 #' @param mode How should edges be followed (in or out). By default, outdegree of
 #' the node is calculated. Ignored for undirected graphs.
 #' @param loops Should loops be included in the calculation
-#' @param normalized Should the output be normalized for one or two-modes networks
+#' @param normalized Should the score be normalized. By default TRUE.
 #' @importFrom rlang enquo eval_tidy
 #' @importFrom igraph graph_from_incidence_matrix is_bipartite degree V
 #' @references 
@@ -111,7 +111,7 @@ graph_degree <- function(object,
 #' @export
 node_closeness <- function (object, 
                             weights = NULL, mode = "out", 
-                            normalized = FALSE, cutoff = NULL){
+                            normalized = TRUE, cutoff = NULL){
   
   if(missing(object)){
     expect_nodes()
@@ -234,7 +234,7 @@ graph_closeness <- function(object,
 #' @export 
 node_betweenness <- function(object, 
                                    weights = NULL, directed = TRUE,
-                                   cutoff = NULL, nobigint = TRUE, normalized = FALSE){
+                                   cutoff = NULL, nobigint = TRUE, normalized = TRUE){
 
   if(missing(object)){
     expect_nodes()
@@ -350,8 +350,8 @@ graph_betweenness <- function(object,
 #' @return A numeric vector giving the eigenvector centrality measure of each node.
 #' @export 
 node_eigenvector <- function(object, 
-                                   weights = NULL, directed = FALSE,
-                                   scale = FALSE, normalized = FALSE){
+                             weights = NULL, directed = FALSE,
+                             scale = FALSE, normalized = TRUE){
   
   if(missing(object)){
     expect_nodes()

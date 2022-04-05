@@ -27,7 +27,7 @@ node_closeness(
   object,
   weights = NULL,
   mode = "out",
-  normalized = FALSE,
+  normalized = TRUE,
   cutoff = NULL
 )
 
@@ -46,7 +46,8 @@ node_betweenness(
   directed = TRUE,
   cutoff = NULL,
   nobigint = TRUE,
-  normalized = FALSE
+  normalized = TRUE
+)
 
 edge_betweenness(object)
 
@@ -62,13 +63,23 @@ node_eigenvector(
   weights = NULL,
   directed = FALSE,
   scale = FALSE,
-  normalized = FALSE
+  normalized = TRUE
 )
 
 graph_eigenvector(object, digits = 2)
 }
 \arguments{
-\item{object}{Either an igraph graph object or a matrix.}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
+
+\item{normalized}{For one-mode networks, should Borgatti and Everett normalization be applied?}
+
 
 \item{weights}{The weight of the edges to use for the calculation.
 Will be evaluated in the context of the edge data.}
