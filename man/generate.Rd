@@ -8,7 +8,7 @@
 \alias{generate_permutation}
 \title{Create networks from particular probabilities}
 \usage{
-generate_random(n, p, m, directed = FALSE)
+generate_random(n, p = 0.5, directed = FALSE)
 
 generate_smallworld(n, p = 0.05)
 
@@ -27,9 +27,8 @@ a two-mode network will be created.
 a network of the same dimensions will be created.
 }}
 
-\item{p}{Number of edges in the network over the number of edges possible}
-
-\item{m}{Number of edges in the network}
+\item{p}{Proportion of possible edges in the network that are realised or,
+if integer greater than 1, the number of edges in the network.}
 
 \item{directed}{Whether to generate network as directed. By default FALSE.}
 
