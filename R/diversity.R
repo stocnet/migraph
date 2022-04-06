@@ -56,3 +56,13 @@ graph_ei_index <- function(object, attribute){
   ei <- (nExternal - nInternal) / sum(m)
   ei
 }
+
+#' @describeIn diversity Calculates the degree assortativity in a graph
+#' @importFrom igraph assortativity_degree
+#' @examples 
+#' graph_assortativity(mpn_elite_mex)
+#' @export
+graph_assortativity <- function(object){
+  igraph::assortativity_degree(as_igraph(object), 
+                               directed = is_directed(object))
+}
