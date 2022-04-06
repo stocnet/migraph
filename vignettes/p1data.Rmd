@@ -112,16 +112,15 @@ as_matrix(ison_southern_women) # a matrix object
 as_edgelist(ison_southern_women) # an edgelist data frame/tibble
 ```
   
-Note that for converting into edgelist, matrix, or igraph objects, you can specify if you want to keep it as a weighted network (if your original data included this property) using the argument `weight = TRUE` or `weight = FALSE`.
-For converting into igraph and tidygraph objects, there is the option of retaining the network as a two-mode network (keeping different types of nodes) or simplifying it into a one-mode network. 
-Just specify it using the argument `twomode = TRUE` or `twomode = FALSE` respectively.
+<!-- Note that for converting into edgelist, matrix, or igraph objects, you can specify if you want to keep it as a weighted network (if your original data included this property) using the argument `weight = TRUE` or `weight = FALSE`. -->
+<!-- For converting into igraph and tidygraph objects, there is the option of retaining the network as a two-mode network (keeping different types of nodes) or simplifying it into a one-mode network.  -->
+<!-- Just specify it using the argument `twomode = TRUE` or `twomode = FALSE` respectively. -->
 
-# Simplifying network data
+# Transforming network data
   
 Generally, `{migraph}` attempts to retain as much information as possible when converting objects between different classes.
 The presumption is that users should explicitly decide to reduce or simplify
 their data.
-
 `{migraph}` includes [a number of functions](https://snlab-ch.github.io/migraph/reference/to.html) 
 for transforming (or removing) certain properties of network objects.
 For example: 
@@ -150,8 +149,8 @@ to_unsigned(ison_marvel_relationships, keep = "positive")
 Note that for two-mode networks, there are also functions for converting or 'projecting' two-mode networks into one-mode networks.
 
 ```{r project}
-project_rows(ison_southern_women)
-project_cols(ison_southern_women)
+to_mode1(ison_southern_women)
+to_mode2(ison_southern_women)
 ```
 
 # Adding data
@@ -181,7 +180,7 @@ without adding any new edges, then `add_edge_attributes()` operates similarly
 to `add_node_attributes()` above.
 But if the result should be a multiplex network in the ties in the different
 component networks only partially overlap,
-then you will need to use `join_edges()`:^[Note that this function is still a work-in-progress.]
+then you will need to use `join_edges()`:
 
 ```{r mutateedges}
 generate_random(10, .3) %>% 
@@ -200,3 +199,11 @@ edge_attribute(ison_marvel_relationships, "sign") # gets any named edge attribut
 edge_weights(mpn_elite_mex)
 ```
 
+We can describe the data using similar functions.
+How many nodes in the network, or how many edges?
+
+```{r dims}
+graph_nodes(mpn_elite_mex)
+graph_edges(mpn_elite_mex)
+graph_dims(mpn_elite_mex)
+```
