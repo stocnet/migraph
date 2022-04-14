@@ -421,10 +421,12 @@ node_eigenvector <- function(object,
 #' @describeIn centrality Calculate the eigenvector centralization for a graph
 #' @examples
 #' graph_eigenvector(mpn_elite_mex)
+#' graph_eigenvector(ison_southern_women)
 #' @export
 graph_eigenvector <- function(object){
   if (is_twomode(object)) {
-    stop("Eignevector centrality for two-mode networks is not yet implemented.")
+    out <- c(igraph::centr_eigen(as_igraph(to_mode1(object)))$centralization,
+             igraph::centr_eigen(as_igraph(to_mode2(object)))$centralization)
   } else {
     out <- igraph::centr_eigen(as_igraph(object))$centralization
   }
