@@ -13,7 +13,7 @@
 #' @importFrom ggplot2 stat
 #' @importFrom patchwork plot_layout
 #' @examples
-#' mpn_elite_mex <- mpn_elite_mex %>% filter(in_mpn == 1)
+#' mpn_elite_mex <- mpn_elite_mex %>% to_subgraph(in_mpn == 1)
 #' mpn_elite_mex2 <- mpn_elite_mex  %>%
 #'                   tidygraph::activate(edges) %>%
 #' tidygraph::reroute(from = sample.int(11, 44, replace = TRUE),
@@ -85,7 +85,7 @@ ggatyear <- function(edgelist, year, ...) {
   if (!("Beg" %in% names(edgelist))) stop("Your edgelist does not contain a date column named Beg.")
   if (!("End" %in% names(edgelist))) stop("Your edgelist does not contain a date column named End.")
   # Create subsetted graph
-  graph <- as_tidygraph(dplyr::filter(edgelist, .data$Beg >
+  graph <- as_tidygraph(to_subgraph(edgelist, .data$Beg >
                                         paste0(year, "-01-01") &
                                         .data$Beg < paste0(year + 1, "-01-01")))
   # Plot graph with autographr

@@ -66,7 +66,7 @@ or permutation (QAP) tests of any graph-level statistic.
 \examples{
 marvel_friends <- to_unsigned(ison_marvel_relationships)
 marvel_friends <- to_main_component(marvel_friends) \%>\% 
-  filter(PowerOrigin == "Human")
+  to_subgraph(PowerOrigin == "Human")
 (cugtest <- test_random(marvel_friends, graph_ei_index, attribute = "Attractive",
   times = 200))
 plot(cugtest)

@@ -1,6 +1,6 @@
 # Making sure the tests family of functions works as intended.
 marvel_friends <- to_main_component(to_unsigned(ison_marvel_relationships)) %>%
-  dplyr::filter(PowerOrigin == "Human")
+  to_subgraph(PowerOrigin == "Human")
 cugtest <- test_random(marvel_friends,
                        graph_ei_index,
                        attribute = "Attractive",
@@ -22,7 +22,7 @@ test_that("test_random works", {
   expect_equal(cugtest$reps, 200)
   expect_equal(attributes(cugtest)$class, "cug_test")
   # Test stuff cug2
-  expect_equal(round(cugtest2$obs.stat, 2), 0.24)
+  expect_equal(as.numeric(cugtest2$obs.stat), 0.238, tolerance = 0.001)
   expect_equal(length(cugtest2$rep.stat), 200) # NB: Stochastic
   expect_false(cugtest2$mode)
   expect_false(cugtest2$diag)
@@ -36,29 +36,18 @@ test_that("test_random works", {
 # Set the qaptest up
 marvel_friends <- to_unsigned(ison_marvel_relationships)
 marvel_friends <- to_main_component(marvel_friends)
-marvel_friends <- dplyr::filter(marvel_friends, PowerOrigin == "Human")
+marvel_friends <- to_subgraph(marvel_friends, PowerOrigin == "Human")
 qaptest <- test_permutation(marvel_friends,
                             graph_ei_index,
                             attribute = "Attractive",
                             times = 200)
-qaptest2 <- test_permutation(marvel_friends,
-                             graph_betweenness,
-                             times = 200)
 test_that("test_permutation works", {
-  # Test stuff qap1
   expect_equal(round(qaptest$testval, 3), -0.857)
   expect_equal(length(qaptest$dist), 200) # NB: Stochastic
   expect_equal(class(qaptest$plteobs), "numeric") # NB: Stochastic
   expect_equal(class(qaptest$pgteobs), "numeric") # NB: Stochastic
   expect_equal(qaptest$reps, 200)
   expect_equal(attributes(qaptest)$class, "qap_test")
-  # Test stuff qap2
-  expect_equal(round(qaptest2$testval, 2), 0.24)
-  expect_equal(length(qaptest2$dist), 200) # NB: Stochastic
-  expect_equal(round(qaptest2$plteobs, 2), 1)
-  expect_equal(round(qaptest2$pgteobs, 2), 1)
-  expect_equal(qaptest2$reps, 200)
-  expect_equal(attributes(qaptest2)$class, "qap_test")
 })
 
 cugplot <- plot(cugtest)

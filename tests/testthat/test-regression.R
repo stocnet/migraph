@@ -1,5 +1,5 @@
 set.seed(123)
-networkers <- ison_networkers %>% dplyr::filter(Discipline == "Sociology") %>% 
+networkers <- ison_networkers %>% to_subgraph(Discipline == "Sociology") %>% 
   activate(edges) %>% mutate(messaged = 1)
 
 test <- network_reg(weight ~ alter(Citations) + sim(Citations), 
