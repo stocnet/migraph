@@ -14,21 +14,3 @@ test_that("edge_loop works", {
   expect_true(edge_loop(graph2)[1])
   expect_false(edge_loop(graph2)[2], edge_loop(graph2)[3], edge_loop(graph2)[4])
 })
-
-test_that("edge_betweenness works", {
-  expect_s3_class(edge_betweenness(ison_adolescents), 
-                  "measure")
-  expect_length(edge_betweenness(ison_adolescents), 
-                graph_edges(ison_adolescents))
-  expect_equal(unname(edge_betweenness(ison_adolescents)[1:3]), 
-               c(7,3,5), tolerance = 0.001)
-})
-
-test_that("edge_closeness works", {
-  expect_s3_class(edge_closeness(ison_adolescents), 
-               "measure")
-  expect_length(edge_closeness(ison_adolescents), 
-               graph_edges(ison_adolescents))
-  expect_equal(unname(edge_closeness(ison_adolescents)[1:3]), 
-               c(0.562,0.692,0.600), tolerance = 0.001)
-})

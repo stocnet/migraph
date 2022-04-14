@@ -77,5 +77,49 @@ test_that("two mode eigenvector centrality calculated correctly",{
   expect_equal(unname(round(node_eigenvector(test_igr, normalized = FALSE)[1:3], 2)), c(0.30, 0.28, 0.33))
   expect_equal(unname(round(node_eigenvector(test_mat, normalized = FALSE)[30:32], 2)), c(0.26, 0.18, 0.18))
   expect_equal(unname(round(node_eigenvector(test_igr, normalized = FALSE)[30:32], 2)), c(0.26, 0.18, 0.18))
-  expect_error(node_eigenvector(test_igr, normalized = TRUE), "not currently implemented")
+  expect_equal(unname(round(node_eigenvector(test_igr, normalized = TRUE)[1:3], 2)), c(0.42, 0.40, 0.47))
+})
+
+# Centralization ####
+
+test_that("one-mode centralisation is calculated correctly", {
+  expect_equal(as.numeric(graph_degree(mpn_elite_mex)), 0.303, tolerance = 0.001)
+  expect_equal(as.numeric(graph_closeness(mpn_elite_mex)), 0.386, tolerance = 0.001)
+  expect_equal(as.numeric(graph_betweenness(mpn_elite_mex)), 0.202, tolerance = 0.001)
+  expect_equal(as.numeric(graph_eigenvector(mpn_elite_mex)), 0.630, tolerance = 0.001)
+})
+
+test_that("two mode degree centralisation calculated correctly", {
+  expect_equal(as.numeric(graph_degree(ison_southern_women, normalized = FALSE)), c(0.1813, 0.5097), tolerance = 0.001)
+  expect_equal(as.numeric(graph_degree(ison_southern_women, direction = "in")), c(0.2308, 0.4661), tolerance = 0.001)
+  expect_equal(as.numeric(graph_degree(ison_southern_women, normalized = TRUE)), c(0.2268, 0.4744), tolerance = 0.001)
+})
+
+test_that("two mode closeness centralisation calculated correctly", {
+  expect_equal(as.numeric(graph_closeness(ison_southern_women, normalized = TRUE)), c(0.2843, 0.4418), tolerance = 0.001)
+  expect_equal(as.numeric(graph_closeness(ison_southern_women, direction = "in")), c(0.2135, 0.5285), tolerance = 0.001)
+})
+
+test_that("two mode betweenness centralisation calculated correctly", {
+  expect_equal(as.numeric(graph_betweenness(ison_southern_women, normalized = FALSE)), c(0.0580, 0.2073), tolerance = 0.001)
+  expect_equal(as.numeric(graph_betweenness(ison_southern_women, direction = "in")), c(0.0668, 0.1982), tolerance = 0.001)
+  expect_equal(as.numeric(graph_betweenness(ison_southern_women, normalized = TRUE)), c(0.0586, 0.207), tolerance = 0.001)
+})
+
+test_that("edge_betweenness works", {
+  expect_s3_class(edge_betweenness(ison_adolescents), 
+                  "node_measure")
+  expect_length(edge_betweenness(ison_adolescents), 
+                graph_edges(ison_adolescents))
+  expect_equal(unname(edge_betweenness(ison_adolescents)[1:3]), 
+               c(7,3,5), tolerance = 0.001)
+})
+
+test_that("edge_closeness works", {
+  expect_s3_class(edge_closeness(ison_adolescents), 
+                  "node_measure")
+  expect_length(edge_closeness(ison_adolescents), 
+                graph_edges(ison_adolescents))
+  expect_equal(unname(edge_closeness(ison_adolescents)[1:3]), 
+               c(0.562,0.692,0.600), tolerance = 0.001)
 })
