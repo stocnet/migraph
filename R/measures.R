@@ -43,7 +43,7 @@ print.graph_measure <- function(x, ...,
       print(as.numeric(x), digits = digits)
     } else {
       y <- as.numeric(x)
-      names(y) <- paste("Mode", 1:length(attr(x, "mode")))
+      names(y) <- paste("Mode", seq_len(attr(x, "mode")))
       print(y, digits = digits)
     }
 }
