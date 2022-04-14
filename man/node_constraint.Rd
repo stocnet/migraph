@@ -36,6 +36,7 @@ Hollway, James, Jean-Frédéric Morin, and Joost Pauwelyn. 2020.
 }
 \seealso{
 Other one-mode measures: 
+\code{\link{centrality}},
 \code{\link{cohesion}()}
 
 Other two-mode measures: 

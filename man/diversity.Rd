@@ -44,5 +44,5 @@ graph_blau_index(marvel_friends, "Attractive")
 graph_blau_index(marvel_friends, "Gender", "Rich")
 graph_ei_index(marvel_friends, "Gender")
 graph_ei_index(marvel_friends, "Attractive")
-graph_assortativity(marvel_friends)
+graph_assortativity(mpn_elite_mex)
 }

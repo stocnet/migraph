@@ -90,6 +90,7 @@ Cambridge University Press. Cambridge University Press.
 }
 \seealso{
 Other one-mode measures: 
+\code{\link{centrality}},
 \code{\link{node_constraint}()}
 
 Other two-mode measures: 

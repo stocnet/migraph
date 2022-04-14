@@ -9,7 +9,7 @@ test_that("autographr works for unweighted, unsigned, directed networks", {
   expect_equal(test_brandes[["layers"]][[1]][["aes_params"]][["edge_alpha"]], 0.4)
   expect_equal(test_brandes[["layers"]][[1]][["aes_params"]][["edge_linetype"]], "solid")
   expect_equal(test_brandes[["layers"]][[1]][["aes_params"]][["edge_colour"]], "black")
-  expect_equal(as.character(test_brandes[["layers"]][[1]][["aes_params"]][["end_cap"]]), "circle")
+  # expect_equal(as.character(test_brandes[["layers"]][[1]][["aes_params"]][["end_cap"]]), "circle")
   # Node parameters
   expect_equal(round(test_brandes[["layers"]][[2]][["aes_params"]][["size"]]), 5)
   expect_equal(as.character(test_brandes[["layers"]][[2]][["aes_params"]][["shape"]]), "circle")
