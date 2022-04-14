@@ -1,21 +1,21 @@
-#' Layouts for one- and two-mode networks
+#' Layouts for snapping layouts to a grid
 #'
-#' @name layouts
-#' @details The function uses approximate pattern matching
-#' to redistributes the coarse layouts on the square grid points, while
-#' preserving the topological relationships among the nodes (see Inoue et al. 2012). 
-#' @param object A migraph-consistent network/graph
+#' @description The function uses approximate pattern matching
+#'   to redistribute coarse layouts on square grid points, while
+#'   preserving the topological relationships among the nodes (see Inoue et al. 2012). 
+#' @inheritParams is
 #' @param circular Should the layout be transformed into a radial representation. 
 #' Only possible for some layouts. Defaults to FALSE
-#' @param maxiter maximum number of iterations, where appropriate
+#' @param times Maximum number of iterations, where appropriate
 #' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text
 #' @importFrom igraph as_edgelist
 #' @importFrom stats dist
 #' @references
-#' Inoue et al. (2012).
-#' Application of Approximate Pattern Matching in Two Dimensional
-#' Spaces to Grid Layout for Biochemical Network Maps.
-#' PLoS One 7 (6): e37739. doi: https://doi.org/10.1371/journal.pone.0037739.
+#' Inoue, Kentaro, Shinichi Shimozono, Hideaki Yoshida, and Hiroyuki Kurata. 2012. 
+#' “Application of Approximate Pattern Matching in Two Dimensional Spaces to Grid Layout for Biochemical Network Maps” edited by J. Bourdon. 
+#' _PLoS ONE_ 7(6):e37739.
+#' \doi{https://doi.org/10.1371/journal.pone.0037739}.
+#' @name layouts
 NULL
 
 #' @rdname layouts
@@ -23,8 +23,8 @@ NULL
 #' autographr(mpn_elite_mex, "frgrid")
 #' autographr(mpn_ryanair, "frgrid")
 #' @export
-layout_tbl_graph_frgrid <- function(object, circular = FALSE, maxiter = 1000){
-  xy <- as.data.frame(igraph::layout_with_fr(object, maxiter = maxiter))
+layout_tbl_graph_frgrid <- function(object, circular = FALSE, times = 1000){
+  xy <- as.data.frame(igraph::layout_with_fr(object, maxiter = times))
   colnames(xy) <- c("x","y")
   xy <- depth_first_recursive_search(xy)
   attr(xy, 'graph') <- as_tidygraph(object)
@@ -36,8 +36,8 @@ layout_tbl_graph_frgrid <- function(object, circular = FALSE, maxiter = 1000){
 #' autographr(mpn_elite_mex, "kkgrid")
 #' autographr(mpn_ryanair, "kkgrid")
 #' @export
-layout_tbl_graph_kkgrid <- function(object, circular = FALSE, maxiter = 1000){
-  xy <- as.data.frame(igraph::layout_with_kk(object, maxiter = maxiter))
+layout_tbl_graph_kkgrid <- function(object, circular = FALSE, times = 1000){
+  xy <- as.data.frame(igraph::layout_with_kk(object, maxiter = times))
   colnames(xy) <- c("x","y")
   xy <- depth_first_recursive_search(xy)
   attr(xy, 'graph') <- as_tidygraph(object)
@@ -49,8 +49,8 @@ layout_tbl_graph_kkgrid <- function(object, circular = FALSE, maxiter = 1000){
 #' autographr(mpn_elite_mex, "gogrid")
 #' autographr(mpn_ryanair, "gogrid")
 #' @export
-layout_tbl_graph_gogrid <- function(object, circular = FALSE, maxiter = 1000){
-  xy <- as.data.frame(igraph::layout_with_graphopt(object, niter = maxiter))
+layout_tbl_graph_gogrid <- function(object, circular = FALSE, times = 1000){
+  xy <- as.data.frame(igraph::layout_with_graphopt(object, niter = times))
   colnames(xy) <- c("x","y")
   xy <- depth_first_recursive_search(xy)
   attr(xy, 'graph') <- as_tidygraph(object)

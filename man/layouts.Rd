@@ -5,28 +5,32 @@
 \alias{layout_tbl_graph_frgrid}
 \alias{layout_tbl_graph_kkgrid}
 \alias{layout_tbl_graph_gogrid}
-\title{Layouts for one- and two-mode networks}
+\title{Layouts for snapping layouts to a grid}
 \usage{
-layout_tbl_graph_frgrid(object, circular = FALSE, maxiter = 1000)
+layout_tbl_graph_frgrid(object, circular = FALSE, times = 1000)
 
-layout_tbl_graph_kkgrid(object, circular = FALSE, maxiter = 1000)
+layout_tbl_graph_kkgrid(object, circular = FALSE, times = 1000)
 
-layout_tbl_graph_gogrid(object, circular = FALSE, maxiter = 1000)
+layout_tbl_graph_gogrid(object, circular = FALSE, times = 1000)
 }
 \arguments{
-\item{object}{A migraph-consistent network/graph}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 
 \item{circular}{Should the layout be transformed into a radial representation.
 Only possible for some layouts. Defaults to FALSE}
 
-\item{maxiter}{maximum number of iterations, where appropriate}
+\item{times}{Maximum number of iterations, where appropriate}
 }
 \description{
-Layouts for one- and two-mode networks
-}
-\details{
 The function uses approximate pattern matching
-to redistributes the coarse layouts on the square grid points, while
+to redistribute coarse layouts on square grid points, while
 preserving the topological relationships among the nodes (see Inoue et al. 2012).
 }
 \examples{
@@ -38,8 +42,8 @@ autographr(mpn_elite_mex, "gogrid")
 autographr(mpn_ryanair, "gogrid")
 }
 \references{
-Inoue et al. (2012).
-Application of Approximate Pattern Matching in Two Dimensional
-Spaces to Grid Layout for Biochemical Network Maps.
-PLoS One 7 (6): e37739. doi: https://doi.org/10.1371/journal.pone.0037739.
+Inoue, Kentaro, Shinichi Shimozono, Hideaki Yoshida, and Hiroyuki Kurata. 2012.
+“Application of Approximate Pattern Matching in Two Dimensional Spaces to Grid Layout for Biochemical Network Maps” edited by J. Bourdon.
+\emph{PLoS ONE} 7(6):e37739.
+\doi{https://doi.org/10.1371/journal.pone.0037739}.
 }

@@ -22,7 +22,7 @@ and only the layout given by the first or last network,
 but further extensions expected.
 }
 \examples{
-mpn_elite_mex <- mpn_elite_mex \%>\% filter(in_mpn == 1)
+mpn_elite_mex <- mpn_elite_mex \%>\% to_subgraph(in_mpn == 1)
 mpn_elite_mex2 <- mpn_elite_mex  \%>\%
                   tidygraph::activate(edges) \%>\%
 tidygraph::reroute(from = sample.int(11, 44, replace = TRUE),

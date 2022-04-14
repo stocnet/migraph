@@ -1,4 +1,4 @@
-#' Coercion between graph/network/edgelist/matrix object classes 
+#' Coercion between migraph-compatible object classes 
 #' 
 #' @description
 #' The `as_` functions in `{migraph}` coerce objects
@@ -19,7 +19,7 @@
 #' @family manipulation
 #' @inheritParams is
 #' @param twomode Logical option used to override the heuristics for 
-#' distinguishing incidence from adjacency matrices. By default FALSE.
+#'   distinguishing incidence from adjacency matrices. By default FALSE.
 #' @details 
 #' Edgelists are expected to be held in data.frame or tibble class objects.
 #' The first two columns of such an object are expected to be the

@@ -8,18 +8,18 @@
 #' @family creation
 #' @inheritParams create
 #' @param object a migraph-consistent object
-#' @param p Number of edges in the network over the number of edges possible
-#' @param m Number of edges in the network
+#' @param p Proportion of possible edges in the network that are realised or,
+#'   if integer greater than 1, the number of edges in the network.
 #' @param directed Whether to generate network as directed. By default FALSE.
 NULL
 
 #' @describeIn generate Generates a random network with a particular probability.
-#' @importFrom igraph sample_bipartite erdos.renyi.game
+#' @importFrom igraph sample_bipartite sample_gnp sample_gnm
 #' @examples
 #' autographr(generate_random(12, 0.4)) +
 #' autographr(generate_random(c(6, 6), 0.4))
 #' @export
-generate_random <- function(n, p, m, directed = FALSE) {
+generate_random <- function(n, p = 0.5, directed = FALSE) {
   if(is_migraph(n)){
     m <- graph_edges(n)
     directed <- is_directed(n)
@@ -30,25 +30,33 @@ generate_random <- function(n, p, m, directed = FALSE) {
                                     directed = directed,
                                     mode = "out")
     } else {
-      g <- igraph::erdos.renyi.game(graph_nodes(n), 
-                                    m, type = "gnm", 
+      g <- igraph::sample_gnm(graph_nodes(n), 
+                                    m = m,
                                     directed = directed)
     }
   } else if (length(n) == 1) {
-    type <- ifelse(missing(p) || is.null(p), "gnm", "gnp")
-    if (missing(p) || is.null(p)) p <- m
-    g <- igraph::erdos.renyi.game(n, 
-                                  p, type = type, 
-                                  directed = directed)
+    if(p > 1){
+      if(!is.integer(p)) stop("`p` must be an integer if above 1.")
+      g <- igraph::sample_gnm(n, m = p, directed = directed)
+    } else {
+      g <- igraph::sample_gnp(n, p = p, directed = directed)
+    }
   } else if (length(n) == 2) {
-    type <- ifelse(missing(p) || is.null(p), "gnm", "gnp")
-    g <- igraph::sample_bipartite(n[1],
-                                  n[2],
-                                  p = p,
-                                  m = m,
-                                  type = type,
-                                  directed = directed,
-                                  mode = "out")
+    if(p > 1){
+      if(!is.integer(p)) stop("`p` must be an integer if above 1.")
+      g <- igraph::sample_bipartite(n[1], n[2],
+                                    m = p,
+                                    type = "gmp",
+                                    directed = directed,
+                                    mode = "out")
+    } else {
+      g <- igraph::sample_bipartite(n[1], n[2],
+                                    p = p,
+                                    type = "gnp",
+                                    directed = directed,
+                                    mode = "out")
+    }
+    
   } else {
     stop("`n` must be of length=1 for a one-mode network or length=2 for a two-mode network.")
   }

@@ -69,7 +69,6 @@ reference:
       All `graph_` measures return a single value.
     contents:
       - centrality
-      - centralization
       - cohesion
       - diversity
       - node_constraint
@@ -77,7 +76,6 @@ reference:
       - node_components
       - graph_components
       - graph_balance
-      - edge
   - title: "Motifs"
     desc: "Functions for calculating subgraphs in multimodal and multilevel networks:"
     contents:

@@ -1,5 +1,6 @@
 #' Tools for reformatting networks, graphs, and matrices
 #' 
+#' @description
 #' These functions offer tools for transforming certain properties 
 #' of migraph-consistent objects
 #' (that is, matrices, igraph, tidygraph, or network objects).
@@ -7,7 +8,6 @@
 #' these functions always return the same object type as they are given,
 #' only transforming these objects' properties.
 #' 
-#' @details 
 #' Since some modifications are easier to implement for some objects than others,
 #' here are the currently implemented modifications:
 #' 
@@ -446,26 +446,16 @@ to_multilevel.matrix <- function(object) {
 
 #' @describeIn to Returns a matrix (named if possible) 
 #'   where the edges are the nodes
+#' @importFrom igraph make_line_graph E
 #' @examples
 #' autographr(ison_adolescents) +  
 #' autographr(to_edges(ison_adolescents))
 #' @export
 to_edges <- function(object){
-  edges <- as_edgelist(object)
-  edges <- paste(edges$from, edges$to, sep = "-")
-  edges <- expand.grid(edges, edges)
-  edges$value <- (stringr::str_remove(edges$Var1, "-.*$") ==
-                    stringr::str_remove(edges$Var2, "-.*$") |
-                  stringr::str_remove(edges$Var1, "^.*-") ==
-                    stringr::str_remove(edges$Var2, "-.*$") |
-                  stringr::str_remove(edges$Var1, "-.*$") ==
-                    stringr::str_remove(edges$Var2, "^.*-") |
-                  stringr::str_remove(edges$Var1, "^.*-") ==
-                    stringr::str_remove(edges$Var2, "^.*-"))*1
-  edges <- dplyr::filter(edges, .data$value == 1)
-  edges$value <- NULL
-  names(edges) <- c("from","to")
-  as_matrix(edges)
+  out <- igraph::make_line_graph(as_igraph(object))
+  out <- add_node_attributes(out, "name", attr(igraph::E(object), "vnames"))
+  igraph::V(out)$name <- gsub("\\|", "-", igraph::V(out)$name)
+  out
 }
 
 

@@ -45,7 +45,18 @@ graph_density <- function(object) {
     igraph::edge_density(as_igraph(object))
   }
 }
-#' @rdname cohesion
+
+#' @describeIn cohesion Identify edges that are mutual/reciprocated
+#' @importFrom igraph which_mutual
+#' @examples 
+#' edge_reciprocal(ison_algebra)
+#' @export
+edge_reciprocal <- function(object){
+  object <- as_igraph(object) # allow for custom edge selection
+  igraph::which_mutual(object)
+}
+
+#' @describeIn cohesion Calculate reciprocity in a network
 #' @importFrom igraph reciprocity
 #' @examples
 #' graph_reciprocity(ison_southern_women)
@@ -53,7 +64,8 @@ graph_density <- function(object) {
 graph_reciprocity <- function(object, method = "default") {
   igraph::reciprocity(as_igraph(object), mode = method)
 }
-#' @rdname cohesion
+
+#' @describeIn cohesion Calculate transitivity in a network
 #' @importFrom igraph transitivity
 #' @examples
 #' graph_transitivity(ison_southern_women)
@@ -62,7 +74,7 @@ graph_transitivity <- function(object) {
   igraph::transitivity(as_igraph(object))
 }
 
-#' @rdname cohesion
+#' @describeIn cohesion Calculate equivalence or reinforcement in a network
 #' @examples
 #' graph_equivalency(ison_southern_women)
 #' @export
@@ -82,7 +94,7 @@ graph_equivalency <- function(object) {
   output
 }
 
-#' @rdname cohesion
+#' @describeIn cohesion Calculate congruency in a network
 #' @export
 graph_congruency <- function(object, object2){
   if(missing(object) | missing(object2)) stop("This function expects two two-mode networks")
@@ -103,5 +115,25 @@ graph_congruency <- function(object, object2){
              (matrix(degrees, c, c) - twopaths)))
   if (is.nan(output)) output <- 1
   output
+}
+
+#' @describeIn cohesion Identify edges that are multiples
+#' @importFrom igraph which_multiple
+#' @examples 
+#' edge_multiple(ison_algebra)
+#' @export
+edge_multiple <- function(object){
+  object <- as_igraph(object)
+  igraph::which_multiple(object)
+}
+
+#' @describeIn cohesion Identify edges that are loops
+#' @importFrom igraph which_loop
+#' @examples 
+#' edge_loop(ison_algebra)
+#' @export
+edge_loop <- function(object){
+  object <- as_igraph(object)
+  igraph::which_loop(object)
 }
 

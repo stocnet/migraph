@@ -6,10 +6,12 @@ test_that("random creation works", {
   expect_error(generate_random(c(1,2,3)), "must be of length")
   # Bipartite graph
   expect_equal(class(generate_random(ison_southern_women, 0.4)), "igraph")
+  expect_true(is_twomode(generate_random(ison_southern_women, 0.4)))
 })
 
 test_that("generate_smallworld() works", {
   expect_equal(class(generate_smallworld(12, 0.025)), "igraph")
+  expect_equal(igraph::vcount(generate_smallworld(12, 0.025)), 12)
 })
 
 test_that("generate_scalefree() works", {

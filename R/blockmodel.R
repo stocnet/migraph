@@ -35,27 +35,27 @@ blockmodel <- function(object, clusters){
   # if(is_twomode(object)) object <- to_onemode(object)
   mat <- as_matrix(to_onemode(object))
   out <- sna::blockmodel(mat, clusters)
-  if(is_twomode(object)){
-    out$modes <- 2
+  if (is_twomode(object)) {
+    out[["modes"]] <- 2
     dims <- dim(as_matrix(object))
     nodes1 <- 1:dims[1]
-    nodes2 <- (dims[1]+1):ncol(out$blocked.data)
-    out$blocked.data <- out$blocked.data[nodes1,nodes2]
+    nodes2 <- (dims[1] + 1):ncol(out$blocked.data)
+    out[["blocked.data"]] <- out$blocked.data[nodes1,nodes2]
     memb <- out$block.membership
-    out$block.membership <- NULL
-    out$block.membership$nodes1 <- memb[nodes1]
-    out$block.membership$nodes2 <- memb[nodes2]-max(memb[nodes1])
-    out$plabels <- NULL
-    rownames(out$blocked.data) <- out$plabels$nodes1 <- rownames(as_matrix(object))
-    colnames(out$blocked.data) <- out$plabels$nodes2 <- colnames(as_matrix(object))
-    orders <- out$order.vector
-    out$order.vector <- NULL
-    out$order.vector$nodes1 <- orders[nodes1]
-    out$order.vector$nodes2 <- orders[nodes2]-max(orders[nodes1])
+    out[["block.membership"]] <- NULL
+    out[["block.membership"]][["nodes1"]] <- memb[nodes1]
+    out[["block.membership"]][["nodes2"]] <- memb[nodes2] - max(memb[nodes1])
+    out[["plabels"]] <- NULL
+    rownames(out[["blocked.data"]]) <- out[["plabels"]][["nodes1"]] <- rownames(as_matrix(object))
+    colnames(out[["blocked.data"]]) <- out[["plabels"]][["nodes2"]] <- colnames(as_matrix(object))
+    orders <- out[["order.vector"]]
+    out[["order.vector"]] <- NULL
+    out[["order.vector"]][["nodes1"]] <- orders[nodes1]
+    out[["order.vector"]][["nodes2"]] <- orders[nodes2] - max(orders[nodes1])
   } else {
-    out$modes <- 1
-    rownames(out$blocked.data) <- out$plabels <- rownames(mat)
-    colnames(out$blocked.data) <- out$glabels <- colnames(mat)
+    out[["modes"]] <- 1
+    rownames(out[["blocked.data"]]) <- out[["plabels"]] <- rownames(mat)
+    colnames(out[["blocked.data"]]) <- out[["glabels"]] <- colnames(mat)
   }
   out
 }
@@ -301,7 +301,7 @@ reduce_graph <- function(blockmodel, block_labels = NULL){
 summarise_statistics <- function(node_measure, 
                                  clusters = NULL,
                                  sumFUN = mean){
-  if(is.matrix(node_measure)){
+  if (is.matrix(node_measure)) {
     out <- t(sapply(unique(clusters), 
                   function(x) apply(node_measure[clusters == x, ], 2, sumFUN)))
     rownames(out) <- unique(clusters)
@@ -312,5 +312,3 @@ summarise_statistics <- function(node_measure,
   }
   out
 }
-
-

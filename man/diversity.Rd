@@ -4,11 +4,14 @@
 \alias{diversity}
 \alias{graph_blau_index}
 \alias{graph_ei_index}
+\alias{graph_assortativity}
 \title{Measures of network diversity}
 \usage{
 graph_blau_index(object, attribute, clusters = NULL)
 
 graph_ei_index(object, attribute)
+
+graph_assortativity(object)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -29,6 +32,11 @@ These functions offer ways to summarise the heterogeneity of an attribute
 across a network, within groups of a network, or the distribution of ties
 across this attribute.
 }
+\section{Functions}{
+\itemize{
+\item \code{graph_assortativity}: Calculates the degree assortativity in a graph
+}}
+
 \examples{
 marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
 graph_blau_index(marvel_friends, "Gender")
@@ -36,4 +44,5 @@ graph_blau_index(marvel_friends, "Attractive")
 graph_blau_index(marvel_friends, "Gender", "Rich")
 graph_ei_index(marvel_friends, "Gender")
 graph_ei_index(marvel_friends, "Attractive")
+graph_assortativity(mpn_elite_mex)
 }

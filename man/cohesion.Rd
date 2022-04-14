@@ -3,13 +3,18 @@
 \name{cohesion}
 \alias{cohesion}
 \alias{graph_density}
+\alias{edge_reciprocal}
 \alias{graph_reciprocity}
 \alias{graph_transitivity}
 \alias{graph_equivalency}
 \alias{graph_congruency}
+\alias{edge_multiple}
+\alias{edge_loop}
 \title{Cohesion for one-, two-, and three- mode networks}
 \usage{
 graph_density(object)
+
+edge_reciprocal(object)
 
 graph_reciprocity(object, method = "default")
 
@@ -18,6 +23,10 @@ graph_transitivity(object)
 graph_equivalency(object)
 
 graph_congruency(object, object2)
+
+edge_multiple(object)
+
+edge_loop(object)
 }
 \arguments{
 \item{object}{A one-mode or two-mode matrix, igraph, or tidygraph}
@@ -43,12 +52,32 @@ that are closed by fourth tie to establish a "shared four-cycle" structure.
 For three-mode networks, \code{graph_congruency} calculates the proportion of three-paths spanning the two two-mode networks
 that are closed by a fourth tie to establish a "congruent four-cycle" structure.
 }
+\section{Functions}{
+\itemize{
+\item \code{edge_reciprocal}: Identify edges that are mutual/reciprocated
+
+\item \code{graph_reciprocity}: Calculate reciprocity in a network
+
+\item \code{graph_transitivity}: Calculate transitivity in a network
+
+\item \code{graph_equivalency}: Calculate equivalence or reinforcement in a network
+
+\item \code{graph_congruency}: Calculate congruency in a network
+
+\item \code{edge_multiple}: Identify edges that are multiples
+
+\item \code{edge_loop}: Identify edges that are loops
+}}
+
 \examples{
 graph_density(mpn_elite_mex)
 graph_density(mpn_elite_usa_advice)
+edge_reciprocal(ison_algebra)
 graph_reciprocity(ison_southern_women)
 graph_transitivity(ison_southern_women)
 graph_equivalency(ison_southern_women)
+edge_multiple(ison_algebra)
+edge_loop(ison_algebra)
 }
 \references{
 Robins, Garry L, and Malcolm Alexander. 2004.
@@ -64,8 +93,6 @@ Other one-mode measures:
 \code{\link{node_constraint}()}
 
 Other two-mode measures: 
-\code{\link{centrality}},
-\code{\link{centralization}},
 \code{\link{graph_smallworld}()},
 \code{\link{node_constraint}()}
 }

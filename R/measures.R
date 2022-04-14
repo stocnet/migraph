@@ -1,11 +1,17 @@
-make_measure <- function(out, object){
-  class(out) <- c("measure", class(out))
+make_node_measure <- function(out, object){
+  class(out) <- c("node_measure", class(out))
   attr(out, "mode") <- node_mode(object)
   out
 }
 
+make_graph_measure <- function(out, object){
+  class(out) <- c("graph_measure", class(out))
+  attr(out, "mode") <- graph_dims(object)
+  out
+}
+
 #' @export
-print.measure <- function(x, ..., 
+print.node_measure <- function(x, ..., 
                           max.length = 6,
                           digits = 3){
   if(any(attr(x, "mode"))){
@@ -31,14 +37,25 @@ print.measure <- function(x, ...,
 }
 
 #' @export
-plot.measure <- function(x, ..., 
-                         method = c("hist", "dens")){
-  method <- match.arg(method)
+print.graph_measure <- function(x, ..., 
+                               digits = 3){
+    if(length(attr(x, "mode")) == 1){
+      print(as.numeric(x), digits = digits)
+    } else {
+      y <- as.numeric(x)
+      names(y) <- paste("Mode", seq_len(length(attr(x, "mode"))))
+      print(y, digits = digits)
+    }
+}
+
+#' @export
+plot.node_measure <- function(x, type = c("h", "d"), ...){
+  type <- match.arg(type)
   if(is.null(attr(x, "mode"))) 
     attr(x, "mode") <- rep(FALSE, length(x))
   data <- data.frame(Score = x, Mode = attr(x, "mode"))
   if(any(attr(x, "mode"))){
-    if(method == "hist"){
+    if(type == "h"){
       p <- ggplot2::ggplot(data = data) +
         ggplot2::geom_histogram(ggplot2::aes(x = .data$Score, 
                                              fill = .data$Mode),
@@ -58,7 +75,7 @@ plot.measure <- function(x, ...,
                                   start = 0.7, end = 0.4)
     }
   } else {
-    if(method == "hist"){
+    if(type == "h"){
       p <- ggplot2::ggplot(data = data) +
         ggplot2::geom_histogram(ggplot2::aes(x = .data$Score),
                                 binwidth = ifelse(max(data$Score) > 1, 1,

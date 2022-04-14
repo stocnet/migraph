@@ -3,66 +3,76 @@
 \name{centrality}
 \alias{centrality}
 \alias{node_degree}
+\alias{edge_degree}
+\alias{graph_degree}
 \alias{node_closeness}
+\alias{edge_closeness}
+\alias{graph_closeness}
 \alias{node_betweenness}
+\alias{edge_betweenness}
+\alias{graph_betweenness}
 \alias{node_eigenvector}
-\title{Centrality for one- and two-mode networks}
+\alias{edge_eigenvector}
+\alias{graph_eigenvector}
+\title{Centrality and centralization for one- and two-mode networks}
 \usage{
-node_degree(
-  object,
-  weights = NULL,
-  mode = "out",
-  loops = TRUE,
-  normalized = FALSE
-)
+node_degree(object, normalized = TRUE, direction = c("all", "out", "in"))
 
-node_closeness(
-  object,
-  weights = NULL,
-  mode = "out",
-  normalized = FALSE,
-  cutoff = NULL
-)
+edge_degree(object, normalized = TRUE)
 
-node_betweenness(
-  object,
-  weights = NULL,
-  directed = TRUE,
-  cutoff = NULL,
-  nobigint = TRUE,
-  normalized = FALSE
-)
+graph_degree(object, normalized = TRUE, direction = c("all", "out", "in"))
 
-node_eigenvector(
-  object,
-  weights = NULL,
-  directed = FALSE,
-  scale = FALSE,
-  normalized = FALSE
-)
+node_closeness(object, normalized = TRUE, direction = "out", cutoff = NULL)
+
+edge_closeness(object, normalized = TRUE)
+
+graph_closeness(object, normalized = TRUE, direction = c("all", "out", "in"))
+
+node_betweenness(object, normalized = TRUE, cutoff = NULL, nobigint = TRUE)
+
+edge_betweenness(object, normalized = TRUE)
+
+graph_betweenness(object, normalized = TRUE, direction = c("all", "out", "in"))
+
+node_eigenvector(object, normalized = TRUE, scale = FALSE)
+
+edge_eigenvector(object, normalized = TRUE)
+
+graph_eigenvector(object, normalized = TRUE)
 }
 \arguments{
-\item{object}{Either an igraph graph object or a matrix.}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 
-\item{weights}{The weight of the edges to use for the calculation.
-Will be evaluated in the context of the edge data.}
+\item{normalized}{Logical scalar, whether the centrality scores are normalized.
+Different denominators are used depending on whether the object is one-mode or two-mode,
+the type of centrality, and other arguments.}
 
-\item{mode}{How should edges be followed (in or out). By default, outdegree of
-the node is calculated. Ignored for undirected graphs.}
+\item{direction}{Character string, “out” bases the measure on outgoing ties,
+“in” on incoming ties, and "all" on either/the sum of the two.
+For two-mode networks, "all" uses as numerator the sum of differences
+between the maximum centrality score for the mode
+against all other centrality scores in the network,
+whereas "in" uses as numerator the sum of differences
+between the maximum centrality score for the mode
+against only the centrality scores of the other nodes in that mode.}
 
-\item{loops}{Should loops be included in the calculation}
+\item{cutoff}{Maximum path length to use during calculations.}
 
-\item{normalized}{For one-mode networks, should Borgatti and Everett normalization be applied?}
+\item{nobigint}{Whether big integers should be avoided during calculations}
 
-\item{cutoff}{maximum path length to use during calculations}
-
-\item{directed}{Should direction of edges be used for the calculations}
-
-\item{nobigint}{Should big integers be avoided during calculations}
-
-\item{scale}{Should the scores be scaled to range between 0 and 1?}
+\item{scale}{Logical scalar, whether to rescale the vector so the maximum score is 1.}
 }
 \value{
+A single centralization score if the object was one-mode,
+and two centralization scores if the object was two-mode.
+
 Depending on how and what kind of an object is passed to the function,
 the function will return a \code{tidygraph} object where the nodes have been updated
 
@@ -71,35 +81,95 @@ A numeric vector giving the betweenness centrality measure of each node.
 A numeric vector giving the eigenvector centrality measure of each node.
 }
 \description{
-These functions calculate common centrality measures for both one- and two-mode networks.
-They accept as objects matrices and \code{igraph} graphs,
-and can be used within a tidygraph workflow.
-Importantly, these functions also offer correct normalization for two-mode networks.
+These functions calculate common centrality measures for one- and two-mode networks.
+All measures attempt to use as much information as they are offered,
+including whether the networks are directed or weighted.
+If this would produce unintended results,
+first transform the salient properties using e.g. \code{\link[=to_undirected]{to_undirected()}} functions.
+All centrality and centralization measures return normalized measures by default,
+including for two-mode networks.
 }
+\section{Functions}{
+\itemize{
+\item \code{node_degree}: Calculates the degree centrality of nodes in an unweighted network,
+or weighted degree/strength of nodes in a weighted network.
+
+\item \code{edge_degree}: Calculate the degree centrality of edges in a network
+
+\item \code{graph_degree}: Calculate the degree centralization for a graph
+
+\item \code{node_closeness}: Calculate the closeness centrality of nodes in a network
+
+\item \code{edge_closeness}: Calculate the closeness of each edge to each other edge
+in the network.
+
+\item \code{graph_closeness}: Calculate the closeness centralization for a graph
+
+\item \code{node_betweenness}: Calculate the betweenness centralities of nodes in a network
+
+\item \code{edge_betweenness}: Calculate number of shortest paths going through an edge
+
+\item \code{graph_betweenness}: Calculate the betweenness centralization for a graph
+
+\item \code{node_eigenvector}: Calculate the eigenvector centrality of nodes in a network
+
+\item \code{edge_eigenvector}: Calculate the eigenvector centrality of edges in a network
+
+\item \code{graph_eigenvector}: Calculate the eigenvector centralization for a graph
+}}
+
 \examples{
 node_degree(mpn_elite_mex)
 node_degree(ison_southern_women)
+edge_degree(ison_adolescents)
+graph_degree(ison_southern_women, direction = "in")
 node_closeness(mpn_elite_mex)
 node_closeness(ison_southern_women)
+(ec <- edge_closeness(ison_adolescents))
+plot(ec)
+ison_adolescents \%>\% 
+  activate(edges) \%>\% mutate(weight = ec) \%>\% 
+  autographr()
+graph_closeness(ison_southern_women, direction = "in")
 node_betweenness(mpn_elite_mex)
 node_betweenness(ison_southern_women)
+(eb <- edge_betweenness(ison_adolescents))
+plot(eb)
+ison_adolescents \%>\% 
+  activate(edges) \%>\% mutate(weight = eb) \%>\% 
+  autographr()
+graph_betweenness(ison_southern_women, direction = "in")
 node_eigenvector(mpn_elite_mex)
 node_eigenvector(ison_southern_women)
+edge_eigenvector(ison_adolescents)
+graph_eigenvector(mpn_elite_mex)
+graph_eigenvector(ison_southern_women)
 }
 \references{
-Borgatti, Stephen P., and Martin G. Everett (1997). "Network analysis of 2-mode data." \emph{Social Networks} 19(3): 243-270.
+Faust, Katherine (1997).
+"Centrality in affiliation networks."
+\emph{Social Networks} 19(2): 157-191.
+\doi{https://doi.org/10.1016/S0378-8733(96)00300-0}
 
-Faust, Katherine (1997). "Centrality in affiliation networks." \emph{Social Networks} 19(2): 157-191.
+Borgatti, Stephen P., and Martin G. Everett (1997).
+"Network analysis of 2-mode data."
+\emph{Social Networks} 19(3): 243-270.
+\doi{https://doi.org/10.1016/S0378-8733(96)00301-2}
+
+Borgatti, Stephen P, and Daniel S Halgin. (2011).
+"Analyzing affiliation networks."
+In \emph{The SAGE Handbook of Social Network Analysis},
+edited by John Scott and Peter J Carrington, 417–33.
+London, UK: Sage.
+\doi{https://dx.doi.org/10.4135/9781446294413.n28}
+
+Bonacich, Phillip. 1991.
+“Simultaneous Group and Individual Centralities.”
+\emph{Social Networks} 13(2):155–68.
+\doi{10.1016/0378-8733(91)90018-O}.
 }
 \seealso{
-Other two-mode measures: 
-\code{\link{centralization}},
-\code{\link{cohesion}()},
-\code{\link{graph_smallworld}()},
-\code{\link{node_constraint}()}
-
-Other node-level measures: 
-\code{\link{node_constraint}()}
+\code{\link[=to_undirected]{to_undirected()}} for removing edge directions
+and \code{\link[=to_unweighted]{to_unweighted()}} for removing weights from a graph.
 }
-\concept{node-level measures}
-\concept{two-mode measures}
+\concept{measures}
