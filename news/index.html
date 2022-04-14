@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
       </span>
     </div>
 
@@ -79,7 +79,68 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.9.2" id="migraph-092">migraph 0.9.2<a class="anchor" aria-label="anchor" href="#migraph-092"></a></h2>
+<h2 class="page-header" data-toc-text="0.9.3" id="migraph-093">migraph 0.9.3<a class="anchor" aria-label="anchor" href="#migraph-093"></a></h2>
+<div class="section level3">
+<h3 id="package-0-9-3">Package<a class="anchor" aria-label="anchor" href="#package-0-9-3"></a></h3>
+<ul><li>Trialling <code>{roxytest}</code>
+</li>
+<li>Updated favicons</li>
+<li>Updated several vignettes
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/154" class="external-link">#154</a> by building out data vignette</li>
+<li>Updated centrality vignette with more modern plotting</li>
+</ul></li>
+<li>Added some more informative documentation families</li>
+</ul></div>
+<div class="section level3">
+<h3 id="making-0-9-3">Making<a class="anchor" aria-label="anchor" href="#making-0-9-3"></a></h3>
+<ul><li>Folded <code>m</code> argument into <code>p</code> for <code><a href="../reference/generate.html">generate_random()</a></code>, <code>p</code> can now be passed an integer to indicate the number of ties the network should have</li>
+</ul></div>
+<div class="section level3">
+<h3 id="manipulation-0-9-3">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-9-3"></a></h3>
+<ul><li>Refactored <code><a href="../reference/to.html">to_edges()</a></code> to be ~26 times faster on average</li>
+<li>Corrected edge labelling in <code><a href="../reference/to.html">to_edges()</a></code>
+</li>
+<li>Using <code><a href="../reference/to.html">to_subgraph()</a></code> now instead of <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">dplyr::filter()</a></code> or <code>strain()</code>
+</li>
+</ul></div>
+<div class="section level3">
+<h3 id="mapping-0-9-3">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-9-3"></a></h3>
+<ul><li>Layouts now use <code>times</code> argument instead of <code>maxiter</code>
+</li>
+</ul></div>
+<div class="section level3">
+<h3 id="measures-0-9-3">Measures<a class="anchor" aria-label="anchor" href="#measures-0-9-3"></a></h3>
+<ul><li>Renamed <code>"measure"</code> class <code>"node_measure"</code> and added <code>"graph_measure"</code> class with print method</li>
+<li>Overhaul of centrality measures
+<ul><li>Centrality and centralization measures now return normalized scores by default, <code>normalized</code> is now the second argument</li>
+<li>
+<code>directed</code> and <code>weights</code> arguments have been removed and are now imputed, if this is undesired please use <code>to_*()</code> first</li>
+<li>
+<code><a href="../reference/centrality.html">node_degree()</a></code> now calculates strength centrality if network is weighted</li>
+<li>
+<code><a href="../reference/centrality.html">node_eigenvector()</a></code> and <code><a href="../reference/centrality.html">graph_eigenvector()</a></code> both work with two-mode networks</li>
+<li>Added <code><a href="../reference/centrality.html">edge_degree()</a></code> and <code><a href="../reference/centrality.html">edge_eigenvector()</a></code>, which both just apply the corresponding nodal measure to the edge graph</li>
+</ul></li>
+<li>
+<code><a href="../reference/defunct.html">edge_mutual()</a></code> renamed to <code><a href="../reference/cohesion.html">edge_reciprocal()</a></code>
+</li>
+<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/225" class="external-link">#225</a> by adding <code><a href="../reference/diversity.html">graph_assortativity()</a></code>
+</li>
+</ul></div>
+<div class="section level3">
+<h3 id="modelling-0-9-3">Modelling<a class="anchor" aria-label="anchor" href="#modelling-0-9-3"></a></h3>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/151" class="external-link">#151</a> with blockmodel coloring for signed graphs</li>
+</ul></div>
+<div class="section level3">
+<h3 id="data-0-9-3">Data<a class="anchor" aria-label="anchor" href="#data-0-9-3"></a></h3>
+<ul><li>Dropped weight from <code>mpn_elite_mex</code>
+</li>
+<li>Dropped direction from <code>ison_brandes</code>
+</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.9.2" id="migraph-092">migraph 0.9.2<small>2022-03-31</small><a class="anchor" aria-label="anchor" href="#migraph-092"></a></h2>
 <div class="section level3">
 <h3 id="package-0-9-2">Package<a class="anchor" aria-label="anchor" href="#package-0-9-2"></a></h3>
 <ul><li>Streamlined some examples to reduce testing time</li>
@@ -96,7 +157,7 @@
 <h3 id="manipulation-0-9-1">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-9-1"></a></h3>
 <ul><li>
 <code>is_multiplex.igraph()</code> and <code>is_multiplex.tbl_graph()</code> now checks for multiple edge attributes</li>
-<li>Added <code>strain()</code> as wrapper for <a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a>’s <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code>, renamed to avoid conflicts with <code>{stats}</code>
+<li>Added <code>strain()</code> as wrapper for <a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a>’s <code><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter()</a></code>, renamed to avoid conflicts with <code>{stats}</code>
 </li>
 </ul></div>
 <div class="section level3">
@@ -177,9 +238,9 @@
 </ul></li>
 <li>Added some edge-based centrality measures (closed <a href="https://github.com/snlab-ch/migraph/issues/165" class="external-link">#165</a>)
 <ul><li>
-<code><a href="../reference/edge.html">edge_betweenness()</a></code> wraps <a href="https://igraph.org" class="external-link">igraph</a>’s function of the same name</li>
+<code><a href="../reference/centrality.html">edge_betweenness()</a></code> wraps <a href="https://igraph.org" class="external-link">igraph</a>’s function of the same name</li>
 <li>
-<code><a href="../reference/edge.html">edge_closeness()</a></code> measures the closeness centrality of nodes in an edge adjacency</li>
+<code><a href="../reference/centrality.html">edge_closeness()</a></code> measures the closeness centrality of nodes in an edge adjacency</li>
 </ul></li>
 <li>Added several more measures of connectedness
 <ul><li>
@@ -294,7 +355,7 @@
 </ul></li>
 <li>Added <code>is_</code> methods: <code><a href="../reference/is.html">is_multiplex()</a></code>, <code><a href="../reference/is.html">is_uniplex()</a></code>, <code><a href="../reference/is.html">is_acyclic()</a></code>
 </li>
-<li>Added <code>edge_</code> functions to identify edges by properties: <code><a href="../reference/edge.html">edge_mutual()</a></code>, <code><a href="../reference/edge.html">edge_multiple()</a></code>, <code><a href="../reference/edge.html">edge_loop()</a></code>
+<li>Added <code>edge_</code> functions to identify edges by properties: <code><a href="../reference/defunct.html">edge_mutual()</a></code>, <code><a href="../reference/cohesion.html">edge_multiple()</a></code>, <code><a href="../reference/cohesion.html">edge_loop()</a></code>
 </li>
 </ul></div>
 </div>
@@ -680,7 +741,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-0">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-0"></a></h3>
-<ul><li>Added <code><a href="../reference/centralization.html">graph_eigenvector()</a></code> for one mode networks</li>
+<ul><li>Added <code><a href="../reference/centrality.html">graph_eigenvector()</a></code> for one mode networks</li>
 <li>Added <code><a href="../reference/graph_balance.html">graph_balance()</a></code> for measuring structural balance</li>
 <li>Added <code><a href="../reference/census.html">node_tie_census()</a></code>, <code><a href="../reference/census.html">node_triad_census()</a></code>, <code>cluster_triad_census()</code>, and <code><a href="../reference/graph_census.html">graph_triad_census()</a></code>
 </li>
@@ -918,7 +979,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-6-0">Measures<a class="anchor" aria-label="anchor" href="#measures-0-6-0"></a></h3>
-<ul><li>Fixed bug in <code><a href="../reference/centralization.html">graph_degree()</a></code> where data was hard-coded in</li>
+<ul><li>Fixed bug in <code><a href="../reference/centrality.html">graph_degree()</a></code> where data was hard-coded in</li>
 </ul></div>
 <div class="section level3">
 <h3 id="models-0-6-0">Models<a class="anchor" aria-label="anchor" href="#models-0-6-0"></a></h3>
@@ -996,11 +1057,11 @@
 <li>
 <p>Closed <a href="https://github.com/snlab-ch/migraph/issues/32" class="external-link">#32</a> by re-adding centralization functions for one- and two-mode networks</p>
 <ul><li>
-<code><a href="../reference/centralization.html">graph_degree()</a></code> for degree centralization</li>
+<code><a href="../reference/centrality.html">graph_degree()</a></code> for degree centralization</li>
 <li>
-<code><a href="../reference/centralization.html">graph_closeness()</a></code> for closeness centralization</li>
+<code><a href="../reference/centrality.html">graph_closeness()</a></code> for closeness centralization</li>
 <li>
-<code><a href="../reference/centralization.html">graph_betweenness()</a></code> for betweenness centralization</li>
+<code><a href="../reference/centrality.html">graph_betweenness()</a></code> for betweenness centralization</li>
 </ul></li>
 <li>
 <p>Re-added <code>graph_clustering()</code> for calculating (see Knoke et al 2021):</p>

@@ -19,7 +19,7 @@ across this attribute."><meta property="og:image" content="https://snlab-ch.gith
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
       </span>
     </div>
 
@@ -90,7 +90,9 @@ across this attribute.</p>
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">graph_blau_index</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span>, clusters <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
 
-<span class="fu">graph_ei_index</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span><span class="op">)</span></code></pre></div>
+<span class="fu">graph_ei_index</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span><span class="op">)</span>
+
+<span class="fu">graph_assortativity</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -107,6 +109,11 @@ across this attribute.</p>
 <dt>clusters</dt>
 <dd><p>A nodal cluster membership vector or name of a vertex attribute.</p></dd>
 </dl></div>
+    <div id="functions">
+    <h2>Functions</h2>
+    
+<ul><li><p><code>graph_assortativity</code>: Calculates the degree assortativity in a graph</p></li>
+</ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
@@ -122,6 +129,8 @@ across this attribute.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2851986</span>
 <span class="r-in"><span class="fu">graph_ei_index</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Attractive"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.631769</span>
+<span class="r-in"><span class="fu">graph_assortativity</span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1760109</span>
 </code></pre></div>
     </div>
   </div>

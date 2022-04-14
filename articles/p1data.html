@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
       </span>
     </div>
 
@@ -154,11 +154,6 @@
 <p>Let’s use one of the built in datasets in <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> to demonstrate this. Davis, Gardner and Gardner’s (1941) <code>ison_southern_women</code> dataset is a classic two-mode network, so let’s use this to start with. <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> stores this dataset as an ‘igraph’ object, though other included datasets are in ‘tidygraph’ or sometimes ‘network’ formats.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'migraph'</span>
-<span class="co">#&gt; The following object is masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     filter</span>
 <span class="va">ison_southern_women</span> <span class="co"># this is in igraph format</span>
 <span class="co">#&gt; IGRAPH f8d9f5f UN-B 32 93 -- </span>
 <span class="co">#&gt; + attr: type (v/l), name (v/c)</span>
@@ -248,13 +243,14 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> LAURA  E1   </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">10</span> LAURA  E2   </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 83 more rows</span></span></code></pre></div>
-<p>Note that for converting into edgelist, matrix, or igraph objects, you can specify if you want to keep it as a weighted network (if your original data included this property) using the argument <code>weight = TRUE</code> or <code>weight = FALSE</code>. For converting into igraph and tidygraph objects, there is the option of retaining the network as a two-mode network (keeping different types of nodes) or simplifying it into a one-mode network. Just specify it using the argument <code>twomode = TRUE</code> or <code>twomode = FALSE</code> respectively.</p>
+<!-- Note that for converting into edgelist, matrix, or igraph objects, you can specify if you want to keep it as a weighted network (if your original data included this property) using the argument `weight = TRUE` or `weight = FALSE`. -->
+<!-- For converting into igraph and tidygraph objects, there is the option of retaining the network as a two-mode network (keeping different types of nodes) or simplifying it into a one-mode network.  -->
+<!-- Just specify it using the argument `twomode = TRUE` or `twomode = FALSE` respectively. -->
 </div>
 <div class="section level2">
-<h2 id="simplifying-network-data">Simplifying network data<a class="anchor" aria-label="anchor" href="#simplifying-network-data"></a>
+<h2 id="transforming-network-data">Transforming network data<a class="anchor" aria-label="anchor" href="#transforming-network-data"></a>
 </h2>
-<p>Generally, <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> attempts to retain as much information as possible when converting objects between different classes. The presumption is that users should explicitly decide to reduce or simplify their data.</p>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> includes <a href="https://snlab-ch.github.io/migraph/reference/to.html">a number of functions</a> for transforming (or removing) certain properties of network objects. For example:</p>
+<p>Generally, <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> attempts to retain as much information as possible when converting objects between different classes. The presumption is that users should explicitly decide to reduce or simplify their data. <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> includes <a href="https://snlab-ch.github.io/migraph/reference/to.html">a number of functions</a> for transforming (or removing) certain properties of network objects. For example:</p>
 <ul>
 <li>
 <code><a href="../reference/to.html">to_unnamed()</a></code> removes/anonymises all vertex/node labels</li>
@@ -311,14 +307,14 @@
 <span class="co"><span style="color: #949494;">#&gt; # A directed simple graph with 1 component</span></span>
 <span class="co"><span style="color: #949494;">#&gt; #</span></span>
 <span class="co"><span style="color: #949494;">#&gt; # Node Data: 16 × 1 (active)</span></span>
-<span class="co">#&gt;   name      </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ivy       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Nell      </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Laila     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Alison    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Kristopher</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ruth      </span>
+<span class="co">#&gt;   name   </span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Bryan  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Mariana</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Mamie  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Wayne  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Olga   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Kari   </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 10 more rows</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#</span></span>
 <span class="co"><span style="color: #949494;">#&gt; # Edge Data: 144 × 5</span></span>
@@ -369,13 +365,10 @@
 <span class="co">#&gt; <span style="color: #949494;"># … with 274 more rows</span></span></code></pre></div>
 <p>Note that for two-mode networks, there are also functions for converting or ‘projecting’ two-mode networks into one-mode networks.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/defunct.html">project_rows</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>
-<span class="co">#&gt; Warning: 'project_rows' is deprecated.</span>
-<span class="co">#&gt; Use 'to_mode1' instead.</span>
-<span class="co">#&gt; See help("Deprecated") and help("migraph-deprecated").</span>
-<span class="co">#&gt; IGRAPH 6e0a50e UNW- 18 139 -- </span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/to.html">to_mode1</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>
+<span class="co">#&gt; IGRAPH 0369653 UNW- 18 139 -- </span>
 <span class="co">#&gt; + attr: name (v/c), weight (e/n)</span>
-<span class="co">#&gt; + edges from 6e0a50e (vertex names):</span>
+<span class="co">#&gt; + edges from 0369653 (vertex names):</span>
 <span class="co">#&gt;  [1] EVELYN --LAURA     EVELYN --BRENDA    EVELYN --THERESA   EVELYN --CHARLOTTE</span>
 <span class="co">#&gt;  [5] EVELYN --FRANCES   EVELYN --ELEANOR   EVELYN --RUTH      EVELYN --PEARL    </span>
 <span class="co">#&gt;  [9] EVELYN --NORA      EVELYN --VERNE     EVELYN --MYRA      EVELYN --KATHERINE</span>
@@ -385,13 +378,10 @@
 <span class="co">#&gt; [25] LAURA  --NORA      LAURA  --VERNE     LAURA  --SYLVIA    LAURA  --HELEN    </span>
 <span class="co">#&gt; [29] LAURA  --MYRA      LAURA  --KATHERINE LAURA  --DOROTHY   THERESA--BRENDA   </span>
 <span class="co">#&gt; + ... omitted several edges</span>
-<span class="fu"><a href="../reference/defunct.html">project_cols</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>
-<span class="co">#&gt; Warning: 'project_cols' is deprecated.</span>
-<span class="co">#&gt; Use 'to_mode2' instead.</span>
-<span class="co">#&gt; See help("Deprecated") and help("migraph-deprecated").</span>
-<span class="co">#&gt; IGRAPH a349c32 UNW- 14 66 -- </span>
+<span class="fu"><a href="../reference/to.html">to_mode2</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>
+<span class="co">#&gt; IGRAPH 54b012e UNW- 14 66 -- </span>
 <span class="co">#&gt; + attr: name (v/c), weight (e/n)</span>
-<span class="co">#&gt; + edges from a349c32 (vertex names):</span>
+<span class="co">#&gt; + edges from 54b012e (vertex names):</span>
 <span class="co">#&gt;  [1] E1 --E2  E1 --E3  E1 --E4  E1 --E5  E1 --E6  E1 --E8  E1 --E9  E1 --E7 </span>
 <span class="co">#&gt;  [9] E2 --E3  E2 --E4  E2 --E5  E2 --E6  E2 --E8  E2 --E9  E2 --E7  E3 --E4 </span>
 <span class="co">#&gt; [17] E3 --E5  E3 --E6  E3 --E8  E3 --E9  E3 --E7  E4 --E5  E4 --E6  E4 --E8 </span>
@@ -425,33 +415,33 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Agui… Aguilar,…       <span style="text-decoration: underline;">1</span>918        1      0 Cordoba      Vera…      3     4</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Obre… Obregon,…       <span style="text-decoration: underline;">1</span>920        1      0 Siquisiva, … Sono…      1     5</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Call… Calles, …       <span style="text-decoration: underline;">1</span>924        1      0 Guaymas      Sono…      1     6</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 29 more rows, and 2 more variables: color &lt;chr&gt;, degree &lt;measure&gt;</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 29 more rows, and 2 more variables: color &lt;chr&gt;, degree &lt;node_msr&gt;</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#</span></span>
-<span class="co"><span style="color: #949494;">#&gt; # Edge Data: 117 × 3</span></span>
-<span class="co">#&gt;    from    to weight</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     2     3      1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2     5      1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     6      1</span>
+<span class="co"><span style="color: #949494;">#&gt; # Edge Data: 117 × 2</span></span>
+<span class="co">#&gt;    from    to</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     2     3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2     5</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     6</span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 114 more rows</span></span></code></pre></div>
-<p>Adding edge attributes or new edges is not quite so straightforward, in part because you will need to decide which it is that you want to do. If you would like to just add a new edge attribute to an existing set of edges, without adding any new edges, then <code><a href="../reference/add.html">add_edge_attributes()</a></code> operates similarly to <code><a href="../reference/add.html">add_node_attributes()</a></code> above. But if the result should be a multiplex network in the ties in the different component networks only partially overlap, then you will need to use <code><a href="../reference/add.html">join_edges()</a></code>:<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>Adding edge attributes or new edges is not quite so straightforward, in part because you will need to decide which it is that you want to do. If you would like to just add a new edge attribute to an existing set of edges, without adding any new edges, then <code><a href="../reference/add.html">add_edge_attributes()</a></code> operates similarly to <code><a href="../reference/add.html">add_node_attributes()</a></code> above. But if the result should be a multiplex network in the ties in the different component networks only partially overlap, then you will need to use <code><a href="../reference/add.html">join_edges()</a></code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/generate.html">generate_random</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">.3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/add.html">join_edges</a></span><span class="op">(</span><span class="fu"><a href="../reference/generate.html">generate_random</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">.3</span><span class="op">)</span>, <span class="st">"next"</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 10 nodes and 19 edges</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 10 nodes and 28 edges</span></span>
 <span class="co"><span style="color: #949494;">#&gt; #</span></span>
-<span class="co"><span style="color: #949494;">#&gt; # An undirected simple graph with 2 components</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # An undirected simple graph with 1 component</span></span>
 <span class="co"><span style="color: #949494;">#&gt; #</span></span>
 <span class="co"><span style="color: #949494;">#&gt; # Node Data: 10 × 0 (active)</span></span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 4 more rows</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#</span></span>
-<span class="co"><span style="color: #949494;">#&gt; # Edge Data: 19 × 4</span></span>
+<span class="co"><span style="color: #949494;">#&gt; # Edge Data: 28 × 4</span></span>
 <span class="co">#&gt;    from    to  orig `next`</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     2     3     1      1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2     4     1      0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     5     0      1</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 16 more rows</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     2     1      1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     3     1      0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1     4     0      1</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 25 more rows</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="retrieving-data">Retrieving data<a class="anchor" aria-label="anchor" href="#retrieving-data"></a>
@@ -508,12 +498,19 @@
 <span class="co">#&gt;  [38] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
 <span class="co">#&gt;  [75] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
 <span class="co">#&gt; [112] 1 1 1 1 1 1</span></code></pre></div>
+<p>We can describe the data using similar functions. How many nodes in the network, or how many edges?</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/grab.html">graph_nodes</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span>
+<span class="co">#&gt; [1] 35</span>
+<span class="fu"><a href="../reference/grab.html">graph_edges</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span>
+<span class="co">#&gt; [1] 117</span>
+<span class="fu"><a href="../reference/grab.html">graph_dims</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span>
+<span class="co">#&gt; [1] 35</span></code></pre></div>
 </div>
 <div class="footnotes">
 <hr>
 <ol>
 <li id="fn1"><p>Note that if you import from a .csv file, please specify whether the separation value should be commas (<code>sv = "comma"</code>) or semi-colons (<code>sv = "semi-colon"</code>).<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>Note that this function is still a work-in-progress.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>

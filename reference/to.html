@@ -4,7 +4,25 @@ of migraph-consistent objects
 (that is, matrices, igraph, tidygraph, or network objects).
 Unlike the as_*() group of functions,
 these functions always return the same object type as they are given,
-only transforming these objects' properties."><meta property="og:image" content="https://snlab-ch.github.io/migraph/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+only transforming these objects' properties.
+Since some modifications are easier to implement for some objects than others,
+here are the currently implemented modifications:
+to_edgelistsmatricesigraphtidygraphnetwork
+unweightedXXXXX
+undirectedXXXX
+unsignedXXXX
+uniplexXX
+unnamedXXXXX
+namedXXXXX
+simplexXXX
+main_componentXXX
+onemodeXX
+multilevelXXX
+mode1XXX
+mode2XXX
+
+
+"><meta property="og:image" content="https://snlab-ch.github.io/migraph/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
@@ -22,7 +40,7 @@ only transforming these objects' properties."><meta property="og:image" content=
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
       </span>
     </div>
 
@@ -91,7 +109,8 @@ of migraph-consistent objects
 Unlike the <code>as_*()</code> group of functions,
 these functions always return the same object type as they are given,
 only transforming these objects' properties.</p>
-    </div>
+<p>Since some modifications are easier to implement for some objects than others,
+here are the currently implemented modifications:</p><table class="table table"><tr><td>to_</td><td>edgelists</td><td>matrices</td><td>igraph</td><td>tidygraph</td><td>network</td></tr><tr><td>unweighted</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>undirected</td><td></td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>unsigned</td><td>X</td><td>X</td><td>X</td><td>X</td><td></td></tr><tr><td>uniplex</td><td></td><td></td><td>X</td><td>X</td><td></td></tr><tr><td>unnamed</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>named</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>simplex</td><td></td><td>X</td><td>X</td><td>X</td><td></td></tr><tr><td>main_component</td><td></td><td></td><td>X</td><td>X</td><td>X</td></tr><tr><td>onemode</td><td></td><td></td><td>X</td><td>X</td><td></td></tr><tr><td>multilevel</td><td></td><td>X</td><td>X</td><td>X</td><td></td></tr><tr><td>mode1</td><td></td><td>X</td><td>X</td><td>X</td><td></td></tr><tr><td>mode2</td><td></td><td>X</td><td>X</td><td>X</td><td></td></tr></table></div>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">to_uniplex</span><span class="op">(</span><span class="va">object</span>, <span class="va">edge</span><span class="op">)</span>
@@ -151,10 +170,6 @@ So passing it an igraph object will return an igraph object
 and passing it a network object will return a network object,
 with certain modifications as outlined for each function.</p>
     </div>
-    <div id="details">
-    <h2>Details</h2>
-    <p>Since some modifications are easier to implement for some objects than others,
-here are the currently implemented modifications:</p><table class="table table"><tr><td>to_</td><td>edgelists</td><td>matrices</td><td>igraph</td><td>tidygraph</td><td>network</td></tr><tr><td>unweighted</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>undirected</td><td></td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>unsigned</td><td>X</td><td>X</td><td>X</td><td>X</td><td></td></tr><tr><td>uniplex</td><td></td><td></td><td>X</td><td>X</td><td></td></tr><tr><td>unnamed</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>named</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>simplex</td><td></td><td>X</td><td>X</td><td>X</td><td></td></tr><tr><td>main_component</td><td></td><td></td><td>X</td><td>X</td><td>X</td></tr><tr><td>onemode</td><td></td><td></td><td>X</td><td>X</td><td></td></tr><tr><td>multilevel</td><td></td><td>X</td><td>X</td><td>X</td><td></td></tr><tr><td>mode1</td><td></td><td>X</td><td>X</td><td>X</td><td></td></tr><tr><td>mode2</td><td></td><td>X</td><td>X</td><td>X</td><td></td></tr></table></div>
     <div id="functions">
     <h2>Functions</h2>
     
@@ -193,6 +208,7 @@ on the basis of some node-related logical statement.</p></li>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other manipulation: 
+<code><a href="add.html">add</a></code>,
 <code><a href="coercion.html">coercion</a></code>,
 <code><a href="is.html">is</a>()</code></p></div>
     </div>

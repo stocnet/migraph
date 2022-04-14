@@ -20,7 +20,7 @@ network properties."><meta property="og:image" content="https://snlab-ch.github.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
       </span>
     </div>
 
@@ -90,7 +90,7 @@ network properties.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">generate_random</span><span class="op">(</span><span class="va">n</span>, <span class="va">p</span>, <span class="va">m</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">generate_random</span><span class="op">(</span><span class="va">n</span>, p <span class="op">=</span> <span class="fl">0.5</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
 <span class="fu">generate_smallworld</span><span class="op">(</span><span class="va">n</span>, p <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
 
@@ -110,9 +110,8 @@ a two-mode network will be created.</p></li>
 a network of the same dimensions will be created.</p></li>
 </ul></dd>
 <dt>p</dt>
-<dd><p>Number of edges in the network over the number of edges possible</p></dd>
-<dt>m</dt>
-<dd><p>Number of edges in the network</p></dd>
+<dd><p>Proportion of possible edges in the network that are realised or,
+if integer greater than 1, the number of edges in the network.</p></dd>
 <dt>directed</dt>
 <dd><p>Whether to generate network as directed. By default FALSE.</p></dd>
 <dt>object</dt>
