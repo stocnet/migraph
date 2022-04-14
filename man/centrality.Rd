@@ -3,6 +3,7 @@
 \name{centrality}
 \alias{centrality}
 \alias{node_degree}
+\alias{edge_degree}
 \alias{graph_degree}
 \alias{node_closeness}
 \alias{edge_closeness}
@@ -11,10 +12,13 @@
 \alias{edge_betweenness}
 \alias{graph_betweenness}
 \alias{node_eigenvector}
+\alias{edge_eigenvector}
 \alias{graph_eigenvector}
 \title{Centrality and centralization for one- and two-mode networks}
 \usage{
 node_degree(object, normalized = TRUE, direction = c("all", "out", "in"))
+
+edge_degree(object)
 
 graph_degree(
   object,
@@ -43,6 +47,8 @@ graph_betweenness(
 )
 
 node_eigenvector(object, scale = FALSE, normalized = TRUE)
+
+edge_eigenvector(object)
 
 graph_eigenvector(object)
 }
@@ -100,6 +106,8 @@ including for two-mode networks.
 \item \code{node_degree}: Calculates the degree centrality of nodes in an unweighted network,
 or weighted degree/strength of nodes in a weighted network.
 
+\item \code{edge_degree}: Calculate the degree centrality of edges in a network
+
 \item \code{graph_degree}: Calculate the degree centralization for a graph
 
 \item \code{node_closeness}: Calculate the closeness centrality of nodes in a network
@@ -117,13 +125,16 @@ in the network.
 
 \item \code{node_eigenvector}: Calculate the eigenvector centrality of nodes in a network
 
+\item \code{edge_eigenvector}: Calculate the eigenvector centrality of edges in a network
+
 \item \code{graph_eigenvector}: Calculate the eigenvector centralization for a graph
 }}
 
 \examples{
 node_degree(mpn_elite_mex)
 node_degree(ison_southern_women)
-graph_degree(ison_southern_women, directed = "in")
+edge_degree(ison_adolescents)
+graph_degree(ison_southern_women, direction = "in")
 node_closeness(mpn_elite_mex)
 node_closeness(ison_southern_women)
 (ec <- edge_closeness(ison_adolescents))
@@ -131,7 +142,7 @@ plot(ec)
 ison_adolescents \%>\% 
   activate(edges) \%>\% mutate(weight = ec) \%>\% 
   autographr()
-graph_closeness(ison_southern_women, directed = "in")
+graph_closeness(ison_southern_women, direction = "in")
 node_betweenness(mpn_elite_mex)
 node_betweenness(ison_southern_women)
 (eb <- edge_betweenness(ison_adolescents))
@@ -142,6 +153,7 @@ ison_adolescents \%>\%
 graph_betweenness(ison_southern_women, direction = "in")
 node_eigenvector(mpn_elite_mex)
 node_eigenvector(ison_southern_women)
+edge_eigenvector(ison_adolescents)
 graph_eigenvector(mpn_elite_mex)
 graph_eigenvector(ison_southern_women)
 }
@@ -168,20 +180,4 @@ Bonacich, Phillip. 1991.
 \emph{Social Networks} 13(2):155–68.
 \doi{10.1016/0378-8733(91)90018-O}.
 }
-\seealso{
-Other one-mode measures: 
-\code{\link{cohesion}()},
-\code{\link{node_constraint}()}
-
-Other two-mode measures: 
-\code{\link{cohesion}()},
-\code{\link{graph_smallworld}()},
-\code{\link{node_constraint}()}
-
-Other node-level measures: 
-\code{\link{node_constraint}()}
-}
-\concept{graph-level measures}
-\concept{node-level measures}
-\concept{one-mode measures}
-\concept{two-mode measures}
+\concept{measures}

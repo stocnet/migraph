@@ -9,10 +9,7 @@
 #'   All centrality and centralization measures return normalized measures by default,
 #'   including for two-mode networks.
 #' @name centrality
-#' @family one-mode measures
-#' @family two-mode measures
-#' @family node-level measures
-#' @family graph-level measures
+#' @family measures
 #' @inheritParams is
 #' @param normalized Logical scalar, whether the centrality scores are normalized.
 #'   Different denominators are used depending on whether the object is one-mode or two-mode,
@@ -95,9 +92,18 @@ node_degree <- function (object, normalized = TRUE,
   out
 }
 
+#' @describeIn centrality Calculate the degree centrality of edges in a network
+#' @examples 
+#' edge_degree(ison_adolescents)
+#' @export
+edge_degree <- function(object){
+  edge_adj <- to_edges(object)
+  node_degree(edge_adj)
+}
+
 #' @describeIn centrality Calculate the degree centralization for a graph
 #' @examples
-#' graph_degree(ison_southern_women, directed = "in")
+#' graph_degree(ison_southern_women, direction = "in")
 #' @export
 graph_degree <- function(object,
                          direction = c("all", "out", "in", "total"), 
@@ -191,7 +197,7 @@ edge_closeness <- function(object){
 
 #' @describeIn centrality Calculate the closeness centralization for a graph
 #' @examples
-#' graph_closeness(ison_southern_women, directed = "in")
+#' graph_closeness(ison_southern_women, direction = "in")
 #' @export
 graph_closeness <- function(object,
                             direction = c("all", "out", "in", "total"), 
@@ -416,6 +422,15 @@ node_eigenvector <- function(object,
   }
   out <- make_node_measure(out, object)
   out
+}
+
+#' @describeIn centrality Calculate the eigenvector centrality of edges in a network
+#' @examples 
+#' edge_eigenvector(ison_adolescents)
+#' @export
+edge_eigenvector <- function(object){
+  edge_adj <- to_edges(object)
+  node_eigenvector(edge_adj)
 }
 
 #' @describeIn centrality Calculate the eigenvector centralization for a graph
