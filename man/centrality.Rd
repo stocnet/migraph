@@ -18,7 +18,7 @@
 \usage{
 node_degree(object, normalized = TRUE, direction = c("all", "out", "in"))
 
-edge_degree(object)
+edge_degree(object, normalized = TRUE)
 
 graph_degree(
   object,
@@ -28,7 +28,7 @@ graph_degree(
 
 node_closeness(object, direction = "out", normalized = TRUE, cutoff = NULL)
 
-edge_closeness(object)
+edge_closeness(object, normalized = TRUE)
 
 graph_closeness(
   object,
@@ -38,7 +38,7 @@ graph_closeness(
 
 node_betweenness(object, cutoff = NULL, nobigint = TRUE, normalized = TRUE)
 
-edge_betweenness(object)
+edge_betweenness(object, normalized = TRUE)
 
 graph_betweenness(
   object,
@@ -46,11 +46,11 @@ graph_betweenness(
   normalized = TRUE
 )
 
-node_eigenvector(object, scale = FALSE, normalized = TRUE)
+node_eigenvector(object, normalized = TRUE, scale = FALSE)
 
-edge_eigenvector(object)
+edge_eigenvector(object, normalized = TRUE)
 
-graph_eigenvector(object)
+graph_eigenvector(object, normalized = TRUE)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -79,7 +79,7 @@ against only the centrality scores of the other nodes in that nodeset.}
 
 \item{nobigint}{Whether big integers should be avoided during calculations}
 
-\item{scale}{Should the scores be scaled to range between 0 and 1?}
+\item{scale}{Logical scalar, whether to rescale the vector so the maximum score is 1.}
 }
 \value{
 A single centralization score if the object was one-mode,

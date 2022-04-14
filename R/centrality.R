@@ -96,9 +96,9 @@ node_degree <- function (object, normalized = TRUE,
 #' @examples 
 #' edge_degree(ison_adolescents)
 #' @export
-edge_degree <- function(object){
+edge_degree <- function(object, normalized = TRUE){
   edge_adj <- to_edges(object)
-  node_degree(edge_adj)
+  node_degree(edge_adj, normalized = normalized)
 }
 
 #' @describeIn centrality Calculate the degree centralization for a graph
@@ -190,9 +190,9 @@ node_closeness <- function(object,
 #' expect_length(ec, graph_edges(ison_adolescents))
 #' expect_equal(unname(ec[1:3]), c(0.562,0.692,0.600), tolerance = 0.001)
 #' @export
-edge_closeness <- function(object){
+edge_closeness <- function(object, normalized = TRUE){
   edge_adj <- to_edges(object)
-  node_closeness(edge_adj)
+  node_closeness(edge_adj, normalized = normalized)
 }
 
 #' @describeIn centrality Calculate the closeness centralization for a graph
@@ -280,7 +280,7 @@ node_betweenness <- function(object,
   graph <- as_igraph(object)
   
   # Do the calculations
-  if (igraph::is_bipartite(graph) & normalized){
+  if (is_twomode(graph) & normalized){
     betw_scores <- igraph::betweenness(graph = graph, v = igraph::V(graph), 
                                        directed = is_directed(graph), nobigint = nobigint)
     other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
@@ -312,7 +312,7 @@ node_betweenness <- function(object,
 #'   activate(edges) %>% mutate(weight = eb) %>% 
 #'   autographr()
 #' @export
-edge_betweenness <- function(object){
+edge_betweenness <- function(object, normalized = TRUE){
   object <- as_igraph(object)
   edges <- as_edgelist(object)
   edges <- paste(edges$from, edges$to, sep = "-")
@@ -380,7 +380,7 @@ graph_betweenness <- function(object,
 }
 
 #' @describeIn centrality Calculate the eigenvector centrality of nodes in a network
-#' @param scale Should the scores be scaled to range between 0 and 1? 
+#' @param scale Logical scalar, whether to rescale the vector so the maximum score is 1. 
 #' @references 
 #' Bonacich, Phillip. 1991. 
 #' “Simultaneous Group and Individual Centralities.” 
@@ -391,8 +391,7 @@ graph_betweenness <- function(object,
 #' node_eigenvector(ison_southern_women)
 #' @return A numeric vector giving the eigenvector centrality measure of each node.
 #' @export 
-node_eigenvector <- function(object, 
-                             scale = FALSE, normalized = TRUE){
+node_eigenvector <- function(object, normalized = TRUE, scale = FALSE){
   
   if(missing(object)){
     expect_nodes()
@@ -428,9 +427,9 @@ node_eigenvector <- function(object,
 #' @examples 
 #' edge_eigenvector(ison_adolescents)
 #' @export
-edge_eigenvector <- function(object){
+edge_eigenvector <- function(object, normalized = TRUE){
   edge_adj <- to_edges(object)
-  node_eigenvector(edge_adj)
+  node_eigenvector(edge_adj, normalized = normalized)
 }
 
 #' @describeIn centrality Calculate the eigenvector centralization for a graph
@@ -438,12 +437,15 @@ edge_eigenvector <- function(object){
 #' graph_eigenvector(mpn_elite_mex)
 #' graph_eigenvector(ison_southern_women)
 #' @export
-graph_eigenvector <- function(object){
+graph_eigenvector <- function(object, normalized = TRUE){
   if (is_twomode(object)) {
-    out <- c(igraph::centr_eigen(as_igraph(to_mode1(object)))$centralization,
-             igraph::centr_eigen(as_igraph(to_mode2(object)))$centralization)
+    out <- c(igraph::centr_eigen(as_igraph(to_mode1(object)), 
+                                 normalized = normalized)$centralization,
+             igraph::centr_eigen(as_igraph(to_mode2(object)), 
+                                 normalized = normalized)$centralization)
   } else {
-    out <- igraph::centr_eigen(as_igraph(object))$centralization
+    out <- igraph::centr_eigen(as_igraph(object), 
+                               normalized = normalized)$centralization
   }
   out <- make_graph_measure(out, object)
   out
