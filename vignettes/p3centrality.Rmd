@@ -37,7 +37,6 @@ shiny apps or markdown documents;
 
 ```{r setup}
 library(migraph)
-ison_brandes
 autographr(ison_brandes)
 ```
 
@@ -47,6 +46,7 @@ but migraph makes it easy to coerce this into other forms
 to be compatible with other packages.
 
 ```{r coercion}
+ison_brandes
 as_igraph(ison_brandes)
 as_network(ison_brandes)
 mat <- as_matrix(ison_brandes)
@@ -70,7 +70,8 @@ Often we are interested in the distribution of (degree) centrality in a network.
 though there are more elaborate ways to do this in base and grid graphics.
 
 ```{r distrib}
-ggdistrib(ison_brandes, node_degree)
+plot(node_degree(ison_brandes), "h") +
+  plot(node_degree(ison_brandes), "d")
 ```
 
 Other measures of centrality can be a little trickier to calculate by hand.
@@ -110,7 +111,7 @@ stresscent()
 
 There are also some dedicated centrality packages,
 such as [centiserve](https://www.centiserver.org/),
-CINNA, influenceR, and keyplayer.
+`{CINNA}`, `{influenceR}`, and `{keyplayer}`.
 There are also pretty exhaustive [discussions of this online](https://www.r-bloggers.com/2018/12/network-centrality-in-r-an-introduction/).
 
 # Plotting different centrality measures
@@ -121,10 +122,10 @@ This is basically doing the same as what was in the original script,
 just gives you the function to do this:
 
 ```{r ggid}
-ggidentify(ison_brandes, node_degree)
-ggidentify(ison_brandes, node_betweenness)
-ggidentify(ison_brandes, node_closeness)
-ggidentify(ison_brandes, node_eigenvector)
+autographr(ison_brandes, node_measure = node_degree) +
+autographr(ison_brandes, node_measure = node_betweenness)
+autographr(ison_brandes, node_measure = node_closeness) +
+autographr(ison_brandes, node_measure = node_eigenvector)
 ```
 
 How neat!
@@ -139,13 +140,20 @@ but in the level of the whole graph, so the syntax is:
 graph_degree(ison_brandes)
 graph_betweenness(ison_brandes)
 graph_closeness(ison_brandes)
-graph_eigenvector(ison_brandes) # note that graph_eigenvector() is not yet implemented for two-mode networks
-graph_eigenvector(ison_brandes, digits = 4)
-graph_eigenvector(ison_brandes, digits = FALSE)
+graph_eigenvector(ison_brandes)
+graph_degree(ison_southern_women)
+graph_betweenness(ison_southern_women)
+graph_closeness(ison_southern_women)
+graph_eigenvector(ison_southern_women)
 ```
 
-By default, these scores are rounded to 2 decimal places,
-but you can alter or turn this off.
+By default, scores are printed to 3 decimal places,
+but this can be modified and, in any case, 
+the unrounded values are retained internally and passed on.
+Note that for centralization in two-mode networks,
+two values are given (as a named vector),
+since normalization typically depends on the (asymmetric)
+number of nodes in each mode.
 
 # Exporting plots to PDF
 
@@ -172,14 +180,14 @@ This can be a little tricky with gg-based plots,
 but fortunately the `{patchwork}` package is here to help.
 
 ```{r multiplot}
-gd <- ggidentify(ison_brandes, node_degree) + 
-  ggtitle("Degree", subtitle = graph_degree(ison_brandes))
-gc <- ggidentify(ison_brandes, node_closeness) + 
+gd <- autographr(ison_brandes, node_measure = node_degree) + 
+  ggtitle("Degree", subtitle = round(graph_degree(ison_brandes), 2))
+gc <- autographr(ison_brandes, node_measure = node_closeness) + 
   ggtitle("Closeness", subtitle = round(graph_closeness(ison_brandes), 2))
-gb <- ggidentify(ison_brandes, node_betweenness) + 
+gb <- autographr(ison_brandes, node_measure = node_betweenness) + 
   ggtitle("Betweenness", subtitle = round(graph_betweenness(ison_brandes), 2))
-ge <- ggidentify(ison_brandes, node_eigenvector) + 
-  ggtitle("Eigenvector")
+ge <- autographr(ison_brandes, node_measure = node_eigenvector) + 
+  ggtitle("Eigenvector", subtitle = round(graph_eigenvector(ison_brandes), 2))
 library(patchwork)
 (gd | gb) / (gc | ge)
 # ggsave("brandes-centralities.pdf")
