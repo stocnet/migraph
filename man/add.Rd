@@ -61,3 +61,10 @@ random <- to_uniplex(both, "random")
 autographr(random)
 autographr(to_uniplex(both, "orig"))
 }
+\seealso{
+Other manipulation: 
+\code{\link{coercion}},
+\code{\link{is}()},
+\code{\link{to}}
+}
+\concept{manipulation}

@@ -2,7 +2,7 @@
 
 # File R/centrality.R: @testexamples
 
-test_that("Function edge_closeness() @ L190", {
+test_that("Function edge_closeness() @ L193", {
   
   (ec <- edge_closeness(ison_adolescents))
   plot(ec)
