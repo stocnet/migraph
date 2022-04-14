@@ -192,6 +192,10 @@ node_closeness <- function (object,
 #' ison_adolescents %>% 
 #'   activate(edges) %>% mutate(weight = ec) %>% 
 #'   autographr()
+#' @testexamples
+#' expect_s3_class(ec, "node_measure")
+#' expect_length(ec, graph_edges(ison_adolescents))
+#' expect_equal(unname(ec[1:3]), c(0.562,0.692,0.600), tolerance = 0.001)
 #' @export
 edge_closeness <- function(object){
   edge_adj <- to_edges(object)
