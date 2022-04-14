@@ -80,8 +80,7 @@ of migraph-consistent objects
 Unlike the \verb{as_*()} group of functions,
 these functions always return the same object type as they are given,
 only transforming these objects' properties.
-}
-\details{
+
 Since some modifications are easier to implement for some objects than others,
 here are the currently implemented modifications:\tabular{lccccc}{
    to_ \tab edgelists \tab matrices \tab igraph \tab tidygraph \tab network \cr
@@ -169,6 +168,7 @@ autographr(to_edges(ison_adolescents))
 }
 \seealso{
 Other manipulation: 
+\code{\link{add}},
 \code{\link{coercion}},
 \code{\link{is}()}
 }

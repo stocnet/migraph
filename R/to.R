@@ -1,5 +1,6 @@
 #' Tools for reformatting networks, graphs, and matrices
 #' 
+#' @description
 #' These functions offer tools for transforming certain properties 
 #' of migraph-consistent objects
 #' (that is, matrices, igraph, tidygraph, or network objects).
@@ -7,7 +8,6 @@
 #' these functions always return the same object type as they are given,
 #' only transforming these objects' properties.
 #' 
-#' @details 
 #' Since some modifications are easier to implement for some objects than others,
 #' here are the currently implemented modifications:
 #' 
@@ -454,6 +454,7 @@ to_multilevel.matrix <- function(object) {
 to_edges <- function(object){
   out <- igraph::make_line_graph(as_igraph(object))
   out <- add_node_attributes(out, "name", attr(igraph::E(object), "vnames"))
+  igraph::V(out)$name <- gsub("\\|", "-", igraph::V(out)$name)
   out
 }
 
