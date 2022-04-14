@@ -18,55 +18,33 @@ node_degree(object, normalized = TRUE, direction = c("all", "out", "in"))
 
 graph_degree(
   object,
-  directed = c("all", "out", "in", "total"),
-  normalized = TRUE,
-  digits = 2
+  direction = c("all", "out", "in", "total"),
+  normalized = TRUE
 )
 
-node_closeness(
-  object,
-  weights = NULL,
-  mode = "out",
-  normalized = TRUE,
-  cutoff = NULL
-)
+node_closeness(object, direction = "out", normalized = TRUE, cutoff = NULL)
 
 edge_closeness(object)
 
 graph_closeness(
   object,
-  directed = c("all", "out", "in", "total"),
-  normalized = TRUE,
-  digits = 2
-)
-
-node_betweenness(
-  object,
-  weights = NULL,
-  directed = TRUE,
-  cutoff = NULL,
-  nobigint = TRUE,
+  direction = c("all", "out", "in", "total"),
   normalized = TRUE
 )
+
+node_betweenness(object, cutoff = NULL, nobigint = TRUE, normalized = TRUE)
 
 edge_betweenness(object)
 
 graph_betweenness(
   object,
-  directed = c("all", "out", "in", "total"),
-  normalized = TRUE,
-  digits = 2
-)
-
-node_eigenvector(
-  object,
-  weights = NULL,
-  directed = FALSE,
-  scale = FALSE,
+  direction = c("all", "out", "in", "total"),
   normalized = TRUE
 )
 
-graph_eigenvector(object, digits = 2)
+node_eigenvector(object, scale = FALSE, normalized = TRUE)
+
+graph_eigenvector(object)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -78,35 +56,28 @@ graph_eigenvector(object, digits = 2)
 \item tbl_graph, from the tidygraph package
 }}
 
-\item{normalized}{For one-mode networks, should Borgatti and Everett normalization be applied?}
+\item{normalized}{Logical scalar, whether the centrality scores are normalized.
+Different denominators are used depending on whether the object is one-mode or two-mode,
+the type of centrality, and other arguments.}
 
-\item{directed}{Should direction of edges be used for the calculations}
+\item{direction}{Character string, “out” for out-degree,
+“in” for in-degree, and "all" or “total” for the sum of the two.
+For two-mode networks, "all" uses as numerator the sum of differences
+between the maximum centrality score for the mode
+against all other centrality scores in the network,
+whereas "in" uses as numerator the sum of differences
+between the maximum centrality score for the mode
+against only the centrality scores of the other nodes in that nodeset.}
 
-\item{digits}{whether to round the resulting score, by default 2.
-Add FALSE to turn all rounding off.}
+\item{cutoff}{Maximum path length to use during calculations.}
 
-\item{weights}{The weight of the edges to use for the calculation.
-Will be evaluated in the context of the edge data.}
-
-\item{mode}{How should edges be followed (in or out). By default, outdegree of
-the node is calculated. Ignored for undirected graphs.}
-
-\item{cutoff}{maximum path length to use during calculations}
-
-\item{nobigint}{Should big integers be avoided during calculations}
+\item{nobigint}{Whether big integers should be avoided during calculations}
 
 \item{scale}{Should the scores be scaled to range between 0 and 1?}
-
-\item{loops}{Should loops be included in the calculation}
 }
 \value{
 A single centralization score if the object was one-mode,
 and two centralization scores if the object was two-mode.
-In the case of a two-mode network,
-to return just the score for the first nodeset (rows),
-append \verb{$nodes1} to the end of the function call or returned object.
-To return just the score for the second nodeset (cols),
-append \verb{$nodes2} to the end of the function call or returned object.
 
 Depending on how and what kind of an object is passed to the function,
 the function will return a \code{tidygraph} object where the nodes have been updated
@@ -119,10 +90,10 @@ A numeric vector giving the eigenvector centrality measure of each node.
 These functions calculate common centrality measures for one- and two-mode networks.
 All measures attempt to use as much information as they are offered,
 including whether the networks are directed or weighted.
-If this results in unintended results,
+If this would produce unintended results,
 first transform the salient properties using the \href{to}{to_*()} functions.
 All centrality and centralization measures return normalized measures by default,
-and are correctly normalized in the case of two-mode networks.
+including for two-mode networks.
 }
 \section{Functions}{
 \itemize{
@@ -168,10 +139,11 @@ plot(eb)
 ison_adolescents \%>\% 
   activate(edges) \%>\% mutate(weight = eb) \%>\% 
   autographr()
-graph_betweenness(ison_southern_women, directed = "in")
+graph_betweenness(ison_southern_women, direction = "in")
 node_eigenvector(mpn_elite_mex)
 node_eigenvector(ison_southern_women)
 graph_eigenvector(mpn_elite_mex)
+graph_eigenvector(ison_southern_women)
 }
 \references{
 Faust, Katherine (1997).
@@ -190,8 +162,17 @@ In \emph{The SAGE Handbook of Social Network Analysis},
 edited by John Scott and Peter J Carrington, 417–33.
 London, UK: Sage.
 \doi{https://dx.doi.org/10.4135/9781446294413.n28}
+
+Bonacich, Phillip. 1991.
+“Simultaneous Group and Individual Centralities.”
+\emph{Social Networks} 13(2):155–68.
+\doi{10.1016/0378-8733(91)90018-O}.
 }
 \seealso{
+Other one-mode measures: 
+\code{\link{cohesion}()},
+\code{\link{node_constraint}()}
+
 Other two-mode measures: 
 \code{\link{cohesion}()},
 \code{\link{graph_smallworld}()},
@@ -200,5 +181,7 @@ Other two-mode measures:
 Other node-level measures: 
 \code{\link{node_constraint}()}
 }
+\concept{graph-level measures}
 \concept{node-level measures}
+\concept{one-mode measures}
 \concept{two-mode measures}

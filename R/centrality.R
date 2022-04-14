@@ -4,21 +4,20 @@
 #'   These functions calculate common centrality measures for one- and two-mode networks.
 #'   All measures attempt to use as much information as they are offered,
 #'   including whether the networks are directed or weighted.
-#'   If this results in unintended results, 
+#'   If this would produce unintended results, 
 #'   first transform the salient properties using the [to_*()](to) functions.
 #'   All centrality and centralization measures return normalized measures by default,
-#'   and are correctly normalized in the case of two-mode networks.
+#'   including for two-mode networks.
 #' @name centrality
+#' @family one-mode measures
 #' @family two-mode measures
 #' @family node-level measures
+#' @family graph-level measures
 #' @inheritParams is
-#' @param weights The weight of the edges to use for the calculation. 
-#'   Will be evaluated in the context of the edge data.
-#' @param mode How should edges be followed (in or out). By default, outdegree of
-#'   the node is calculated. Ignored for undirected graphs.
-#' @param loops Should loops be included in the calculation
-#' @param normalized Should the score be normalized. By default TRUE.
-#' @param directed Character string, “out” for out-degree, 
+#' @param normalized Logical scalar, whether the centrality scores are normalized.
+#'   Different denominators are used depending on whether the object is one-mode or two-mode,
+#'   the type of centrality, and other arguments.
+#' @param direction Character string, “out” for out-degree, 
 #'   “in” for in-degree, and "all" or “total” for the sum of the two. 
 #'   For two-mode networks, "all" uses as numerator the sum of differences
 #'   between the maximum centrality score for the mode 
@@ -26,18 +25,8 @@
 #'   whereas "in" uses as numerator the sum of differences
 #'   between the maximum centrality score for the mode 
 #'   against only the centrality scores of the other nodes in that nodeset.
-#' @param normalized Logical scalar, whether the centrality scores are normalized.
-#'   Different denominators are used depending on whether the object is one-mode or two-mode,
-#'   the type of centrality, and other arguments.
-#' @param digits whether to round the resulting score, by default 2.
-#'   Add FALSE to turn all rounding off.
 #' @return A single centralization score if the object was one-mode,
 #'   and two centralization scores if the object was two-mode.
-#'   In the case of a two-mode network, 
-#'   to return just the score for the first nodeset (rows), 
-#'   append `$nodes1` to the end of the function call or returned object.
-#'   To return just the score for the second nodeset (cols), 
-#'   append `$nodes2` to the end of the function call or returned object.
 #' @importFrom rlang enquo eval_tidy
 #' @importFrom igraph graph_from_incidence_matrix is_bipartite degree V
 #' @references 
@@ -111,18 +100,17 @@ node_degree <- function (object, normalized = TRUE,
 #' graph_degree(ison_southern_women, directed = "in")
 #' @export
 graph_degree <- function(object,
-                         directed = c("all", "out", "in", "total"), 
-                         normalized = TRUE, 
-                         digits = 2){
+                         direction = c("all", "out", "in", "total"), 
+                         normalized = TRUE){
   
-  directed <- match.arg(directed)
+  direction <- match.arg(direction)
   
   if (is_twomode(object)) {
     mat <- as_matrix(object)
     mode <- c(rep(FALSE, nrow(mat)), rep(TRUE, ncol(mat)))
     
     out <- list()
-    if (directed == "all") {
+    if (direction == "all") {
       if (!normalized) {
         allcent <- c(rowSums(mat), colSums(mat))
         out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat) + ncol(mat))*ncol(mat) - 2*(ncol(mat) + nrow(mat) - 1))
@@ -132,7 +120,7 @@ graph_degree <- function(object,
         out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat) + ncol(mat) - 1) - (ncol(mat) - 1) / nrow(mat) - (ncol(mat) + nrow(mat) - 1)/nrow(mat))
         out$nodes2 <- sum(max(allcent[mode]) - allcent)/((ncol(mat) + nrow(mat) - 1) - (nrow(mat) - 1) / ncol(mat) - (nrow(mat)  + ncol(mat) - 1)/ncol(mat))
       }
-    } else if (directed == "in") {
+    } else if (direction == "in") {
       out$nodes1 <- sum(max(rowSums(mat)) - rowSums(mat))/((ncol(mat) - 1)*(nrow(mat) - 1))
       out$nodes2 <- sum(max(colSums(mat)) - colSums(mat))/((ncol(mat) - 1)*(nrow(mat) - 1))
     }
@@ -145,38 +133,37 @@ graph_degree <- function(object,
 }
 
 #' @describeIn centrality Calculate the closeness centrality of nodes in a network
-#' @param cutoff maximum path length to use during calculations 
+#' @param cutoff Maximum path length to use during calculations.
 #' @import tidygraph
 #' @examples
 #' node_closeness(mpn_elite_mex)
 #' node_closeness(ison_southern_women)
 #' @export
-node_closeness <- function (object, 
-                            weights = NULL, mode = "out", 
-                            normalized = TRUE, cutoff = NULL){
+node_closeness <- function(object, 
+                           direction = "out", 
+                           normalized = TRUE, cutoff = NULL){
   
   if(missing(object)){
     expect_nodes()
     object <- .G()
   }
+  weights <- `if`(is_weighted(object), 
+                  edge_weights(object), NA)
   graph <- as_igraph(object)
   
   # Do the calculations
-  if (is.null(weights)) {
-    weights <- NA
-  }
   if (is_twomode(graph) & normalized){
     # farness <- rowSums(igraph::distances(graph = graph))
-    closeness <- igraph::closeness(graph = graph, vids = igraph::V(graph), mode = mode)
+    closeness <- igraph::closeness(graph = graph, vids = igraph::V(graph), mode = direction)
     other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
     set_size <- ifelse(igraph::V(graph)$type, sum(igraph::V(graph)$type), sum(!igraph::V(graph)$type))
     out <- closeness/(1/(other_set_size+2*set_size-2))
     } else {
       if (is.null(cutoff)) {
-        out <- igraph::closeness(graph = graph, vids = igraph::V(graph), mode = mode,
+        out <- igraph::closeness(graph = graph, vids = igraph::V(graph), mode = direction,
                   weights = weights, normalized = normalized)
       } else {
-        out <- igraph::estimate_closeness(graph = graph, vids = igraph::V(graph), mode = mode, 
+        out <- igraph::estimate_closeness(graph = graph, vids = igraph::V(graph), mode = direction, 
                            cutoff = cutoff, weights = weights, normalized = normalized)
       }
     }
@@ -207,11 +194,10 @@ edge_closeness <- function(object){
 #' graph_closeness(ison_southern_women, directed = "in")
 #' @export
 graph_closeness <- function(object,
-                            directed = c("all", "out", "in", "total"), 
-                            normalized = TRUE, 
-                            digits = 2){
+                            direction = c("all", "out", "in", "total"), 
+                            normalized = TRUE){
   
-  directed <- match.arg(directed)
+  direction <- match.arg(direction)
   graph <- as_igraph(object)
   
   if (is_twomode(object)) {
@@ -220,7 +206,7 @@ graph_closeness <- function(object,
     mode1 <- length(mode) - sum(mode)
     mode2 <- sum(mode)
     out <- list()
-    if (directed == "in") {
+    if (direction == "in") {
       out$nodes1 <- sum(max(clcent[!mode]) - clcent[!mode])/(((mode1 - 2)*(mode1 - 1))/(2 * mode1 - 3))
       out$nodes2 <- sum(max(clcent[mode]) - clcent[mode])/(((mode2 - 2)*(mode2 - 1))/(2 * mode2 - 3))
       if (mode1 > mode2) { #28.43
@@ -269,9 +255,7 @@ graph_closeness <- function(object,
 }
 
 #' @describeIn centrality Calculate the betweenness centralities of nodes in a network
-#' @param directed Should direction of edges be used for the calculations 
-#' @param cutoff maximum path length to use during calculations
-#' @param nobigint Should big integers be avoided during calculations 
+#' @param nobigint Whether big integers should be avoided during calculations 
 #' @import tidygraph
 #' @examples
 #' node_betweenness(mpn_elite_mex)
@@ -279,21 +263,20 @@ graph_closeness <- function(object,
 #' @return A numeric vector giving the betweenness centrality measure of each node.
 #' @export 
 node_betweenness <- function(object, 
-                                   weights = NULL, directed = TRUE,
-                                   cutoff = NULL, nobigint = TRUE, normalized = TRUE){
-
+                             cutoff = NULL, nobigint = TRUE, normalized = TRUE){
+  
   if(missing(object)){
     expect_nodes()
     object <- .G()
   }
+  weights <- `if`(is_weighted(object), 
+                  edge_weights(object), NA)
   graph <- as_igraph(object)
   
   # Do the calculations
-  if (is.null(weights)) {
-    weights <- NA
-  } 
   if (igraph::is_bipartite(graph) & normalized){
-    betw_scores <- igraph::betweenness(graph = graph, v = igraph::V(graph), directed = directed, nobigint = nobigint)
+    betw_scores <- igraph::betweenness(graph = graph, v = igraph::V(graph), 
+                                       directed = is_directed(graph), nobigint = nobigint)
     other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
     set_size <- ifelse(igraph::V(graph)$type, sum(igraph::V(graph)$type), sum(!igraph::V(graph)$type))
     out <- ifelse(set_size > other_set_size, 
@@ -301,9 +284,13 @@ node_betweenness <- function(object,
            betw_scores/(1/2*other_set_size*(other_set_size-1)+1/2*(set_size-1)*(set_size-2)+(set_size-1)*(other_set_size-1)))
   } else {
     if (is.null(cutoff)) {
-      out <- igraph::betweenness(graph = graph, v = igraph::V(graph), directed = directed, weights = weights, nobigint = nobigint, normalized = normalized)
+      out <- igraph::betweenness(graph = graph, v = igraph::V(graph), 
+                                 directed = is_directed(graph), weights = weights, 
+                                 nobigint = nobigint, normalized = normalized)
     } else {
-      out <- igraph::estimate_betweenness(graph = graph, vids = igraph::V(graph), directed = directed, cutoff = cutoff, weights = weights, nobigint = nobigint)
+      out <- igraph::estimate_betweenness(graph = graph, vids = igraph::V(graph), 
+                                          directed = is_directed(graph), cutoff = cutoff, 
+                                          weights = weights, nobigint = nobigint)
     }
   }
   out <- make_node_measure(out, object)
@@ -331,14 +318,13 @@ edge_betweenness <- function(object){
 
 #' @describeIn centrality Calculate the betweenness centralization for a graph
 #' @examples
-#' graph_betweenness(ison_southern_women, directed = "in")
+#' graph_betweenness(ison_southern_women, direction = "in")
 #' @export
 graph_betweenness <- function(object,
-                              directed = c("all", "out", "in", "total"), 
-                              normalized = TRUE, 
-                              digits = 2) {
+                              direction = c("all", "out", "in", "total"), 
+                              normalized = TRUE) {
   
-  directed <- match.arg(directed)
+  direction <- match.arg(direction)
   graph <- as_igraph(object)
   
   if (is_twomode(object)) {
@@ -347,7 +333,7 @@ graph_betweenness <- function(object,
     mode1 <- length(mode) - sum(mode)
     mode2 <- sum(mode)
     out <- list()
-    if (directed == "all") {
+    if (direction == "all") {
       if (!normalized) {
         out$nodes1 <- sum(max(becent[!mode]) - becent) / ((1/2 * mode2 * (mode2 - 1) + 1/2 * (mode1 - 1)*(mode1 - 2) + (mode1 - 1) * (mode2 - 2))*(mode1 + mode2 - 1) + (mode1 - 1))
         out$nodes2 <- sum(max(becent[mode]) - becent) / ((1/2 * mode1 * (mode1 - 1) + 1/2 * (mode2 - 1)*(mode2 - 2) + (mode2 - 1) * (mode1 - 2))*(mode2 + mode1 - 1) + (mode2 - 1))
@@ -369,7 +355,7 @@ graph_betweenness <- function(object,
           out$nodes2 <- sum(max(becent[mode]) - becent) / ((mode1 + mode2 - 1)*((mode1 - 1)*(mode1 + mode2 - 2) / 2*(mode1 - 1)*(mode2 - 1)))
         }
       }
-    } else if (directed == "in") {
+    } else if (direction == "in") {
       out$nodes1 <- sum(max(becent[!mode]) - becent[!mode])/((mode1 - 1)*(1/2*mode2*(mode2 - 1) + 1/2*(mode1 - 1)*(mode1 - 2) + (mode1 - 1)*(mode2 - 1)))
       out$nodes2 <- sum(max(becent[mode]) - becent[mode])/((mode2 - 1)*(1/2*mode1*(mode1 - 1) + 1/2 * (mode2 - 1) * (mode2 - 2) + (mode2 - 1) * (mode1 - 1)))
       if (mode1 > mode2) {
@@ -389,39 +375,41 @@ graph_betweenness <- function(object,
 
 #' @describeIn centrality Calculate the eigenvector centrality of nodes in a network
 #' @param scale Should the scores be scaled to range between 0 and 1? 
-#' @param normalized For one-mode networks, should Borgatti and Everett normalization be applied?
+#' @references 
+#' Bonacich, Phillip. 1991. 
+#' “Simultaneous Group and Individual Centralities.” 
+#' _Social Networks_ 13(2):155–68. 
+#' \doi{10.1016/0378-8733(91)90018-O}.
 #' @examples
 #' node_eigenvector(mpn_elite_mex)
 #' node_eigenvector(ison_southern_women)
 #' @return A numeric vector giving the eigenvector centrality measure of each node.
 #' @export 
 node_eigenvector <- function(object, 
-                             weights = NULL, directed = FALSE,
                              scale = FALSE, normalized = TRUE){
   
   if(missing(object)){
     expect_nodes()
     object <- .G()
   }
+  weights <- `if`(is_weighted(object), 
+                  edge_weights(object), NA)
   graph <- as_igraph(object)
   
   # Do the calculations
-  if (is.null(weights)) {
-    weights <- NA
-  }
   if (!is_twomode(graph)){
     out <- igraph::eigen_centrality(graph = graph, 
-                                    directed = directed, scale = scale, 
+                                    directed = is_directed(graph), scale = scale, 
                                     options = igraph::arpack_defaults)$vector
     if (normalized) out <- out / sqrt(1/2)
   } else {
     eigen1 <- to_mode1(graph)
     eigen1 <- igraph::eigen_centrality(graph = eigen1, 
-                                       directed = directed, scale = scale, 
+                                       directed = is_directed(eigen1), scale = scale, 
                                        options = igraph::arpack_defaults)$vector
     eigen2 <- to_mode2(graph)
     eigen2 <- igraph::eigen_centrality(graph = eigen2, 
-                                       directed = directed, scale = scale, 
+                                       directed = is_directed(eigen2), scale = scale, 
                                        options = igraph::arpack_defaults)$vector
     out <- c(eigen1, eigen2)
     if (normalized) out <- out / sqrt(1/2)
