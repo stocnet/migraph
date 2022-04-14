@@ -5,23 +5,25 @@
 #'   All measures attempt to use as much information as they are offered,
 #'   including whether the networks are directed or weighted.
 #'   If this would produce unintended results, 
-#'   first transform the salient properties using the [to_*()](to) functions.
+#'   first transform the salient properties using e.g. [to_undirected()] functions.
 #'   All centrality and centralization measures return normalized measures by default,
 #'   including for two-mode networks.
 #' @name centrality
 #' @family measures
+#' @seealso [to_undirected()] for removing edge directions
+#'   and [to_unweighted()] for removing weights from a graph.
 #' @inheritParams is
 #' @param normalized Logical scalar, whether the centrality scores are normalized.
 #'   Different denominators are used depending on whether the object is one-mode or two-mode,
 #'   the type of centrality, and other arguments.
-#' @param direction Character string, “out” for out-degree, 
-#'   “in” for in-degree, and "all" or “total” for the sum of the two. 
+#' @param direction Character string, “out” bases the measure on outgoing ties, 
+#'   “in” on incoming ties, and "all" on either/the sum of the two. 
 #'   For two-mode networks, "all" uses as numerator the sum of differences
 #'   between the maximum centrality score for the mode 
 #'   against all other centrality scores in the network,
 #'   whereas "in" uses as numerator the sum of differences
 #'   between the maximum centrality score for the mode 
-#'   against only the centrality scores of the other nodes in that nodeset.
+#'   against only the centrality scores of the other nodes in that mode.
 #' @return A single centralization score if the object was one-mode,
 #'   and two centralization scores if the object was two-mode.
 #' @importFrom rlang enquo eval_tidy
@@ -105,9 +107,8 @@ edge_degree <- function(object, normalized = TRUE){
 #' @examples
 #' graph_degree(ison_southern_women, direction = "in")
 #' @export
-graph_degree <- function(object,
-                         direction = c("all", "out", "in", "total"), 
-                         normalized = TRUE){
+graph_degree <- function(object, normalized = TRUE,
+                         direction = c("all", "out", "in")){
   
   direction <- match.arg(direction)
   
@@ -132,7 +133,8 @@ graph_degree <- function(object,
     }
     out <- c("Mode 1" = out$nodes1, "Mode 2" = out$nodes2)
   } else {
-    out <- igraph::centr_degree(graph = object, mode = direction, normalized = normalized)$centralization
+    out <- igraph::centr_degree(graph = object, mode = direction, 
+                                normalized = normalized)$centralization
   }
   out <- make_graph_measure(out, object)
   out
@@ -145,9 +147,8 @@ graph_degree <- function(object,
 #' node_closeness(mpn_elite_mex)
 #' node_closeness(ison_southern_women)
 #' @export
-node_closeness <- function(object, 
-                           direction = "out", 
-                           normalized = TRUE, cutoff = NULL){
+node_closeness <- function(object, normalized = TRUE, 
+                           direction = "out", cutoff = NULL){
   
   if(missing(object)){
     expect_nodes()
@@ -199,9 +200,8 @@ edge_closeness <- function(object, normalized = TRUE){
 #' @examples
 #' graph_closeness(ison_southern_women, direction = "in")
 #' @export
-graph_closeness <- function(object,
-                            direction = c("all", "out", "in", "total"), 
-                            normalized = TRUE){
+graph_closeness <- function(object, normalized = TRUE,
+                            direction = c("all", "out", "in")){
   
   direction <- match.arg(direction)
   graph <- as_igraph(object)
@@ -268,8 +268,8 @@ graph_closeness <- function(object,
 #' node_betweenness(ison_southern_women)
 #' @return A numeric vector giving the betweenness centrality measure of each node.
 #' @export 
-node_betweenness <- function(object, 
-                             cutoff = NULL, nobigint = TRUE, normalized = TRUE){
+node_betweenness <- function(object, normalized = TRUE, 
+                             cutoff = NULL, nobigint = TRUE){
   
   if(missing(object)){
     expect_nodes()
@@ -326,9 +326,8 @@ edge_betweenness <- function(object, normalized = TRUE){
 #' @examples
 #' graph_betweenness(ison_southern_women, direction = "in")
 #' @export
-graph_betweenness <- function(object,
-                              direction = c("all", "out", "in", "total"), 
-                              normalized = TRUE) {
+graph_betweenness <- function(object, normalized = TRUE,
+                              direction = c("all", "out", "in")) {
   
   direction <- match.arg(direction)
   graph <- as_igraph(object)

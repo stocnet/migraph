@@ -20,31 +20,19 @@ node_degree(object, normalized = TRUE, direction = c("all", "out", "in"))
 
 edge_degree(object, normalized = TRUE)
 
-graph_degree(
-  object,
-  direction = c("all", "out", "in", "total"),
-  normalized = TRUE
-)
+graph_degree(object, normalized = TRUE, direction = c("all", "out", "in"))
 
-node_closeness(object, direction = "out", normalized = TRUE, cutoff = NULL)
+node_closeness(object, normalized = TRUE, direction = "out", cutoff = NULL)
 
 edge_closeness(object, normalized = TRUE)
 
-graph_closeness(
-  object,
-  direction = c("all", "out", "in", "total"),
-  normalized = TRUE
-)
+graph_closeness(object, normalized = TRUE, direction = c("all", "out", "in"))
 
-node_betweenness(object, cutoff = NULL, nobigint = TRUE, normalized = TRUE)
+node_betweenness(object, normalized = TRUE, cutoff = NULL, nobigint = TRUE)
 
 edge_betweenness(object, normalized = TRUE)
 
-graph_betweenness(
-  object,
-  direction = c("all", "out", "in", "total"),
-  normalized = TRUE
-)
+graph_betweenness(object, normalized = TRUE, direction = c("all", "out", "in"))
 
 node_eigenvector(object, normalized = TRUE, scale = FALSE)
 
@@ -66,14 +54,14 @@ graph_eigenvector(object, normalized = TRUE)
 Different denominators are used depending on whether the object is one-mode or two-mode,
 the type of centrality, and other arguments.}
 
-\item{direction}{Character string, “out” for out-degree,
-“in” for in-degree, and "all" or “total” for the sum of the two.
+\item{direction}{Character string, “out” bases the measure on outgoing ties,
+“in” on incoming ties, and "all" on either/the sum of the two.
 For two-mode networks, "all" uses as numerator the sum of differences
 between the maximum centrality score for the mode
 against all other centrality scores in the network,
 whereas "in" uses as numerator the sum of differences
 between the maximum centrality score for the mode
-against only the centrality scores of the other nodes in that nodeset.}
+against only the centrality scores of the other nodes in that mode.}
 
 \item{cutoff}{Maximum path length to use during calculations.}
 
@@ -97,7 +85,7 @@ These functions calculate common centrality measures for one- and two-mode netwo
 All measures attempt to use as much information as they are offered,
 including whether the networks are directed or weighted.
 If this would produce unintended results,
-first transform the salient properties using the \href{to}{to_*()} functions.
+first transform the salient properties using e.g. \code{\link[=to_undirected]{to_undirected()}} functions.
 All centrality and centralization measures return normalized measures by default,
 including for two-mode networks.
 }
@@ -179,5 +167,9 @@ Bonacich, Phillip. 1991.
 “Simultaneous Group and Individual Centralities.”
 \emph{Social Networks} 13(2):155–68.
 \doi{10.1016/0378-8733(91)90018-O}.
+}
+\seealso{
+\code{\link[=to_undirected]{to_undirected()}} for removing edge directions
+and \code{\link[=to_unweighted]{to_unweighted()}} for removing weights from a graph.
 }
 \concept{measures}
