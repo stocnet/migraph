@@ -1,3 +1,49 @@
+# migraph 0.9.3
+
+## Package
+
+- Trialling `{roxytest}`
+- Updated favicons
+- Updated several vignettes
+  - Closed #154 by building out data vignette
+  - Updated centrality vignette with more modern plotting
+- Added some more informative documentation families
+
+## Making
+
+- Folded `m` argument into `p` for `generate_random()`, `p` can now be passed an integer to indicate the number of ties the network should have
+
+## Manipulation
+
+- Refactored `to_edges()` to be ~26 times faster on average
+- Corrected edge labelling in `to_edges()`
+- Using `to_subgraph()` now instead of `dplyr::filter()` or `strain()`
+
+## Mapping
+
+- Layouts now use `times` argument instead of `maxiter`
+
+## Measures
+
+- Renamed `"measure"` class `"node_measure"` and added `"graph_measure"` class with print method
+- Overhaul of centrality measures
+  - Centrality and centralization measures now return normalized scores by default, `normalized` is now the second argument
+  - `directed` and `weights` arguments have been removed and are now imputed, if this is undesired please use `to_*()` first
+  - `node_degree()` now calculates strength centrality if network is weighted
+  - `node_eigenvector()` and `graph_eigenvector()` both work with two-mode networks
+  - Added `edge_degree()` and `edge_eigenvector()`, which both just apply the corresponding nodal measure to the edge graph
+- `edge_mutual()` renamed to `edge_reciprocal()`
+- Closed #225 by adding `graph_assortativity()`
+
+## Modelling
+
+- Closed #151 with blockmodel coloring for signed graphs
+
+## Data
+
+- Dropped weight from `mpn_elite_mex`
+- Dropped direction from `ison_brandes`
+
 # migraph 0.9.2
 
 ## Package
