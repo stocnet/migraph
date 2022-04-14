@@ -61,7 +61,7 @@ node_constraint <- function(object, nodes = V(object), weights = NULL) {
     object <- as_igraph(object)
     res <- igraph::constraint(object, nodes = nodes, weights = weights)
   }
-  res <- make_measure(res, object)
+  res <- make_node_measure(res, object)
   res
 }
 

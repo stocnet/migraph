@@ -102,7 +102,7 @@ node_degree <- function (object, normalized = TRUE,
                        loops = is_complex(object), weights = weights)
     }
   }
-  out <- make_measure(out, object)
+  out <- make_node_measure(out, object)
   out
 }
 
@@ -136,11 +136,11 @@ graph_degree <- function(object,
       out$nodes1 <- sum(max(rowSums(mat)) - rowSums(mat))/((ncol(mat) - 1)*(nrow(mat) - 1))
       out$nodes2 <- sum(max(colSums(mat)) - colSums(mat))/((ncol(mat) - 1)*(nrow(mat) - 1))
     }
-    if(!isFALSE(digits)) out <- lapply(out, round, digits)
+    out <- c("Mode 1" = out$nodes1, "Mode 2" = out$nodes2)
   } else {
-    out <- igraph::centr_degree(graph = object, mode = directed, normalized = normalized)$centralization
-    if(!isFALSE(digits)) out <- round(out, digits)
+    out <- igraph::centr_degree(graph = object, mode = direction, normalized = normalized)$centralization
   }
+  out <- make_graph_measure(out, object)
   out
 }
 
@@ -180,7 +180,7 @@ node_closeness <- function (object,
                            cutoff = cutoff, weights = weights, normalized = normalized)
       }
     }
-  out <- make_measure(out, object)
+  out <- make_node_measure(out, object)
   out
 } 
 
@@ -258,13 +258,13 @@ graph_closeness <- function(object,
         out$nodes2 <- sum(max(clcent[mode]) - clcent) / sum(term1, term2, term3, term4)
       }
     }
-    if(!isFALSE(digits)) out <- lapply(out, round, digits)
+    out <- c("Mode 1" = out$nodes1, "Mode 2" = out$nodes2)
   } else {
     out <- igraph::centr_clo(graph = graph,
-                             mode = directed,
+                             mode = direction,
                              normalized = normalized)$centralization
-    if(!isFALSE(digits)) out <- round(out, digits)
   }
+  out <- make_graph_measure(out, object)
   out
 }
 
@@ -306,7 +306,7 @@ node_betweenness <- function(object,
       out <- igraph::estimate_betweenness(graph = graph, vids = igraph::V(graph), directed = directed, cutoff = cutoff, weights = weights, nobigint = nobigint)
     }
   }
-  out <- make_measure(out, object)
+  out <- make_node_measure(out, object)
   out
 }
 
@@ -325,7 +325,7 @@ edge_betweenness <- function(object){
   edges <- paste(edges$from, edges$to, sep = "-")
   out <- igraph::edge_betweenness(object)
   names(out) <- edges
-  class(out) <- c("measure", class(out))
+  class(out) <- c("node_measure", class(out))
   out
 }
 
@@ -379,11 +379,11 @@ graph_betweenness <- function(object,
         out$nodes2 <- sum(max(becent[mode]) - becent[mode]) / (2 * (mode2 - 1)^2 * (mode1 - 1))
       }
     }
-    if(!isFALSE(digits)) out <- lapply(out, round, digits)
+    out <- c("Mode 1" = out$nodes1, "Mode 2" = out$nodes2)
   } else {
     out <- igraph::centr_betw(graph = graph)$centralization
-    if(!isFALSE(digits)) out <- round(out, digits)
   }
+  out <- make_graph_measure(out, object)
   out
 }
 
@@ -424,9 +424,9 @@ node_eigenvector <- function(object,
                                        directed = directed, scale = scale, 
                                        options = igraph::arpack_defaults)$vector
     out <- c(eigen1, eigen2)
-    if (normalized) stop("Normalization not currently implemented for eigenvector centrality for two-mode networks.")
+    if (normalized) out <- out / sqrt(1/2)
   }
-  out <- make_measure(out, object)
+  out <- make_node_measure(out, object)
   out
 }
 
@@ -434,12 +434,12 @@ node_eigenvector <- function(object,
 #' @examples
 #' graph_eigenvector(mpn_elite_mex)
 #' @export
-graph_eigenvector <- function(object, digits = 2){
+graph_eigenvector <- function(object){
   if (is_twomode(object)) {
     stop("Eignevector centrality for two-mode networks is not yet implemented.")
   } else {
     out <- igraph::centr_eigen(as_igraph(object))$centralization
-    if(!isFALSE(digits)) out <- round(out, digits)
   }
+  out <- make_graph_measure(out, object)
   out
 }
