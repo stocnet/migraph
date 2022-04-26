@@ -41,7 +41,7 @@ partition_kernighanlin <- function(object, n = 2){
   index <- which(sums >= 0 %in% sums)
   g1.newnames <- g1.names <- names(g1.net)
   g2.newnames <- g2.names <- names(g2.net)
-  # swap positions 1-8 in g1 and g2
+  # make swaps based on positions in sequence
   for (i in index) {
     g1.newnames[i] <- g2.names[i]
     g2.newnames[i] <- g1.names[i]
