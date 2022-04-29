@@ -1,13 +1,13 @@
 #' Kernighan-Lin algorithm for graph partitioning
 #'
+#' This function partitions a graph into two communities.
 #' @param object 
-#' @param n 
 #'
 #' @return
 #' @examples
 #' partition_kernighanlin(to_unsigned(ison_marvel_relationships, keep = "positive"))
 #' @export
-partition_kernighanlin <- function(object, n = 2){
+partition_kernighanlin <- function(object){
   # assign groups arbitrarily
   n <- igraph::vcount(object)
   group_size <- ifelse(n %% 2 == 0, n/2, (n+1)/2)
@@ -15,14 +15,14 @@ partition_kernighanlin <- function(object, n = 2){
   # count internal and external costs of each vertex
   g <- as_matrix(object)
   g1 <- g[1:group_size, 1:group_size]
-  g2 <- g[(group_size+1):as.numeric(n), (group_size+1):as.numeric(n)]
-  intergroup <- g[1:group_size, (group_size+1):as.numeric(n)]
+  g2 <- g[(group_size+1):n, (group_size+1):n]
+  intergroup <- g[1:group_size, (group_size+1):n]
   
   g2.intcosts <- rowSums(g2)
-  g2.extcosts <- rowSums(intergroup)
+  g2.extcosts <- colSums(intergroup)
   
   g1.intcosts <- rowSums(g1)
-  g1.extcosts <- colSums(intergroup)
+  g1.extcosts <- rowSums(intergroup)
   
   # count edge costs of each vertex
   g1.net <- g1.extcosts - g1.intcosts
@@ -48,7 +48,7 @@ partition_kernighanlin <- function(object, n = 2){
   }
 
   # extract names of vertices in each group after swaps
-  out <- list("group 1" = paste0(g1.newnames), "group 2" = paste0(g2.newnames))
+  out <- list("group 1" = paste0(g1.newnames), "group 2" = paste0(g2.newnames[g2.newnames!=""]))
   out
 }
 
