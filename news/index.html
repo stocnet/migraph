@@ -79,22 +79,20 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.9.3" id="migraph-093">migraph 0.9.3<a class="anchor" aria-label="anchor" href="#migraph-093"></a></h2>
+<h2 class="page-header" data-toc-text="0.9.3" id="migraph-093">migraph 0.9.3<small>2022-04-14</small><a class="anchor" aria-label="anchor" href="#migraph-093"></a></h2>
 <div class="section level3">
 <h3 id="package-0-9-3">Package<a class="anchor" aria-label="anchor" href="#package-0-9-3"></a></h3>
 <ul><li>Trialling <code>{roxytest}</code>
 </li>
 <li>Updated favicons</li>
-<li>Updated several vignettes
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/154" class="external-link">#154</a> by building out data vignette</li>
+<li>Updated several vignettes<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/154" class="external-link">#154</a> by building out data vignette</li>
 <li>Updated centrality vignette with more modern plotting</li>
 </ul></li>
 <li>Added some more informative documentation families</li>
 </ul></div>
 <div class="section level3">
 <h3 id="making-0-9-3">Making<a class="anchor" aria-label="anchor" href="#making-0-9-3"></a></h3>
-<ul><li>Folded <code>m</code> argument into <code>p</code> for <code><a href="../reference/generate.html">generate_random()</a></code>, <code>p</code> can now be passed an integer to indicate the number of ties the network should have</li>
-</ul></div>
+<ul><li>Folded <code>m</code> argument into <code>p</code> for <code><a href="../reference/generate.html">generate_random()</a></code>, <code>p</code> can now be passed an integer to indicate the number of ties the network should have</li></ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-9-3">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-9-3"></a></h3>
 <ul><li>Refactored <code><a href="../reference/to.html">to_edges()</a></code> to be ~26 times faster on average</li>
@@ -106,13 +104,11 @@
 <div class="section level3">
 <h3 id="mapping-0-9-3">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-9-3"></a></h3>
 <ul><li>Layouts now use <code>times</code> argument instead of <code>maxiter</code>
-</li>
-</ul></div>
+</li></ul></div>
 <div class="section level3">
 <h3 id="measures-0-9-3">Measures<a class="anchor" aria-label="anchor" href="#measures-0-9-3"></a></h3>
 <ul><li>Renamed <code>"measure"</code> class <code>"node_measure"</code> and added <code>"graph_measure"</code> class with print method</li>
-<li>Overhaul of centrality measures
-<ul><li>Centrality and centralization measures now return normalized scores by default, <code>normalized</code> is now the second argument</li>
+<li>Overhaul of centrality measures<ul><li>Centrality and centralization measures now return normalized scores by default, <code>normalized</code> is now the second argument</li>
 <li>
 <code>directed</code> and <code>weights</code> arguments have been removed and are now imputed, if this is undesired please use <code>to_*()</code> first</li>
 <li>
@@ -129,8 +125,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="modelling-0-9-3">Modelling<a class="anchor" aria-label="anchor" href="#modelling-0-9-3"></a></h3>
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/151" class="external-link">#151</a> with blockmodel coloring for signed graphs</li>
-</ul></div>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/151" class="external-link">#151</a> with blockmodel coloring for signed graphs</li></ul></div>
 <div class="section level3">
 <h3 id="data-0-9-3">Data<a class="anchor" aria-label="anchor" href="#data-0-9-3"></a></h3>
 <ul><li>Dropped weight from <code>mpn_elite_mex</code>
@@ -151,8 +146,7 @@
 <h2 class="page-header" data-toc-text="0.9.1" id="migraph-091">migraph 0.9.1<a class="anchor" aria-label="anchor" href="#migraph-091"></a></h2>
 <div class="section level3">
 <h3 id="package-0-9-1">Package<a class="anchor" aria-label="anchor" href="#package-0-9-1"></a></h3>
-<ul><li>Streamlined some tests to reduce testing time</li>
-</ul></div>
+<ul><li>Streamlined some tests to reduce testing time</li></ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-9-1">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-9-1"></a></h3>
 <ul><li>
@@ -163,16 +157,14 @@
 <div class="section level3">
 <h3 id="data-0-9-1">Data<a class="anchor" aria-label="anchor" href="#data-0-9-1"></a></h3>
 <ul><li>
-<code>ison_algebra</code> now unlabelled</li>
-</ul></div>
+<code>ison_algebra</code> now unlabelled</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.9.0" id="migraph-090">migraph 0.9.0<a class="anchor" aria-label="anchor" href="#migraph-090"></a></h2>
 <div class="section level3">
 <h3 id="package-0-9-0">Package<a class="anchor" aria-label="anchor" href="#package-0-9-0"></a></h3>
 <ul><li>Recognised contributors Henrique Sposito and Jael Tan</li>
-<li>Updated dependencies
-<ul><li>
+<li>Updated dependencies<ul><li>
 <a href="https://readxl.tidyverse.org" class="external-link">readxl</a> is now <em>suggested</em>, but required if importing from an Excel sheet</li>
 <li>
 <a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a> replaces <code>{gridExtra}</code> to make for more concise multiplot visualisations</li>
@@ -201,14 +193,12 @@
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-9-0">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-9-0"></a></h3>
-<ul><li>All <code>as_*()</code> functions now retain weights where present; if you want an unweighted result, use <code>is_unweighted()</code> afterwards
-<ul><li>
+<ul><li>All <code>as_*()</code> functions now retain weights where present; if you want an unweighted result, use <code>is_unweighted()</code> afterwards<ul><li>
 <code>as_edgelist.network()</code> now better handles edge weights</li>
 <li>
 <code>as_matrix.igraph()</code> now better handles edge signs</li>
 </ul></li>
-<li>Pivoted to S3 methods for most manipulation functions for better dispatching and performance
-<ul><li>Added matrix, data.frame, network, igraph, and tbl_graph methods for <code><a href="../reference/is.html">is_twomode()</a></code>, <code><a href="../reference/is.html">is_directed()</a></code>, <code><a href="../reference/is.html">is_weighted()</a></code>, <code><a href="../reference/is.html">is_labelled()</a></code>, <code><a href="../reference/is.html">is_signed()</a></code>, <code><a href="../reference/is.html">is_multiplex()</a></code>, <code><a href="../reference/is.html">is_complex()</a></code>, and <code><a href="../reference/is.html">is_graph()</a></code>
+<li>Pivoted to S3 methods for most manipulation functions for better dispatching and performance<ul><li>Added matrix, data.frame, network, igraph, and tbl_graph methods for <code><a href="../reference/is.html">is_twomode()</a></code>, <code><a href="../reference/is.html">is_directed()</a></code>, <code><a href="../reference/is.html">is_weighted()</a></code>, <code><a href="../reference/is.html">is_labelled()</a></code>, <code><a href="../reference/is.html">is_signed()</a></code>, <code><a href="../reference/is.html">is_multiplex()</a></code>, <code><a href="../reference/is.html">is_complex()</a></code>, and <code><a href="../reference/is.html">is_graph()</a></code>
 </li>
 <li>Added data.frame methods for <code><a href="../reference/coercion.html">as_edgelist()</a></code>, and <code><a href="../reference/to.html">to_unweighted()</a></code>, and improved the data.frame method for <code><a href="../reference/coercion.html">as_matrix()</a></code>
 </li>
@@ -232,18 +222,15 @@
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-9-0">Measures<a class="anchor" aria-label="anchor" href="#measures-0-9-0"></a></h3>
-<ul><li>Added new <code>measure</code> class and directed most <code>node_*()</code> functions to create objects of this class
-<ul><li>A print method for this class prints an abbreviated vector (the full vector is always still contained within the object) and prints elements from both modes in the event that the original object was two-mode (closed <a href="https://github.com/snlab-ch/migraph/issues/202" class="external-link">#202</a>)</li>
+<ul><li>Added new <code>measure</code> class and directed most <code>node_*()</code> functions to create objects of this class<ul><li>A print method for this class prints an abbreviated vector (the full vector is always still contained within the object) and prints elements from both modes in the event that the original object was two-mode (closed <a href="https://github.com/snlab-ch/migraph/issues/202" class="external-link">#202</a>)</li>
 <li>A plot method replaces <code><a href="../reference/defunct.html">ggdistrib()</a></code> and offers “hist” and “dens” methods for histograms and density plots respectively</li>
 </ul></li>
-<li>Added some edge-based centrality measures (closed <a href="https://github.com/snlab-ch/migraph/issues/165" class="external-link">#165</a>)
-<ul><li>
+<li>Added some edge-based centrality measures (closed <a href="https://github.com/snlab-ch/migraph/issues/165" class="external-link">#165</a>)<ul><li>
 <code><a href="../reference/centrality.html">edge_betweenness()</a></code> wraps <a href="https://igraph.org" class="external-link">igraph</a>’s function of the same name</li>
 <li>
 <code><a href="../reference/centrality.html">edge_closeness()</a></code> measures the closeness centrality of nodes in an edge adjacency</li>
 </ul></li>
-<li>Added several more measures of connectedness
-<ul><li>
+<li>Added several more measures of connectedness<ul><li>
 <code><a href="../reference/connectedness.html">node_cuts()</a></code> identifies articulation points (nodes) in a network</li>
 <li>
 <code><a href="../reference/connectedness.html">edge_bridges()</a></code> identifies edges that serve as bridges in a network</li>
@@ -261,12 +248,10 @@
 <div class="section level3">
 <h3 id="motifs-0-9-0">Motifs<a class="anchor" aria-label="anchor" href="#motifs-0-9-0"></a></h3>
 <ul><li>Added some guidance to the naming convention used in <code><a href="../reference/census.html">node_quad_census()</a></code>
-</li>
-</ul></div>
+</li></ul></div>
 <div class="section level3">
 <h3 id="models-0-9-0">Models<a class="anchor" aria-label="anchor" href="#models-0-9-0"></a></h3>
-<ul><li>Extended <code><a href="../reference/regression.html">network_reg()</a></code>’s formula-based system
-<ul><li>
+<ul><li>Extended <code><a href="../reference/regression.html">network_reg()</a></code>’s formula-based system<ul><li>
 <code><a href="../reference/regression.html">network_reg()</a></code> can now handle binary and multiple categorical variables (factors and characters, closed <a href="https://github.com/snlab-ch/migraph/issues/211" class="external-link">#211</a>);</li>
 <li>
 <code><a href="../reference/regression.html">network_reg()</a></code> can now manage interactions specified in the common syntax; <code>var1 * var2</code> expands to <code>var1 + var2 + var1:var2</code> (closed <a href="https://github.com/snlab-ch/migraph/issues/163" class="external-link">#163</a>)</li>
@@ -277,12 +262,10 @@
 <code><a href="../reference/regression.html">network_reg()</a></code> now employs logistic regression to estimate a binary outcome and linear regression to estimate a continuous outcome (closed <a href="https://github.com/snlab-ch/migraph/issues/184" class="external-link">#184</a>)</li>
 <li>
 <code><a href="../reference/regression.html">network_reg()</a></code> now uses Dekker et al’s semi-partialling procedure by default for multivariate specifications (closed <a href="https://github.com/snlab-ch/migraph/issues/206" class="external-link">#206</a>), defaulting to <em>y</em>-permutations in the case of a single predictor (closed <a href="https://github.com/snlab-ch/migraph/issues/208" class="external-link">#208</a>)</li>
-<li>Added parallelisation to Monte Carlo based tests
-<ul><li>Refactored <code><a href="../reference/regression.html">network_reg()</a></code>, relying on <a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a> for potential parallelisation and <a href="https://progressr.futureverse.org" class="external-link">progressr</a> for progress reports (closed <a href="https://github.com/snlab-ch/migraph/issues/185" class="external-link">#185</a>, <a href="https://github.com/snlab-ch/migraph/issues/186" class="external-link">#186</a>)</li>
+<li>Added parallelisation to Monte Carlo based tests<ul><li>Refactored <code><a href="../reference/regression.html">network_reg()</a></code>, relying on <a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a> for potential parallelisation and <a href="https://progressr.futureverse.org" class="external-link">progressr</a> for progress reports (closed <a href="https://github.com/snlab-ch/migraph/issues/185" class="external-link">#185</a>, <a href="https://github.com/snlab-ch/migraph/issues/186" class="external-link">#186</a>)</li>
 <li>Refactored <code><a href="../reference/tests.html">test_random()</a></code> and <code><a href="../reference/tests.html">test_permutation()</a></code>, relying on <a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a> for potential parallelisation and <a href="https://progressr.futureverse.org" class="external-link">progressr</a> for progress reports; note that <code>nSim</code> argument now <code>times</code> (closed <a href="https://github.com/snlab-ch/migraph/issues/199" class="external-link">#199</a>)</li>
 </ul></li>
-<li>Added <a href="https://broom.tidymodels.org/" class="external-link">broom</a> S3 methods for <code>netlm</code> and <code>netlogit</code> class objects (closed <a href="https://github.com/snlab-ch/migraph/issues/183" class="external-link">#183</a>)
-<ul><li>
+<li>Added <a href="https://broom.tidymodels.org/" class="external-link">broom</a> S3 methods for <code>netlm</code> and <code>netlogit</code> class objects (closed <a href="https://github.com/snlab-ch/migraph/issues/183" class="external-link">#183</a>)<ul><li>
 <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> extracts coefficients and related values</li>
 <li>
 <code><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance()</a></code>extracts model-level values such as <code>R^2</code>
@@ -290,8 +273,7 @@
 </ul></li>
 <li>Added plot method for <code>netlm</code> and <code>netlogit</code> class objects (closed <a href="https://github.com/snlab-ch/migraph/issues/216" class="external-link">#216</a>), which plots the empirical distribution for each test statistic, indicates percentiles relating to common critical values, and superimposes the observed coefficients</li>
 <li>Added plot method for <code>cug_test</code> and <code>qap_test</code> class objects, which plots the empirical distribution, highlighting tails beyond some critical value (closed <a href="https://github.com/snlab-ch/migraph/issues/213" class="external-link">#213</a>), and superimposing the observed coefficient and, possibly, 0</li>
-<li>Relabelled some classes to avoid loading conflicts with <a href="http://statnet.org" class="external-link">sna</a>
-<ul><li>
+<li>Relabelled some classes to avoid loading conflicts with <a href="http://statnet.org" class="external-link">sna</a><ul><li>
 <code><a href="../reference/blockmodel.html">print.block_model()</a></code> replaces <code>print.blockmodel()</code>
 </li>
 <li>
@@ -302,8 +284,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-9-0">Data<a class="anchor" aria-label="anchor" href="#data-0-9-0"></a></h3>
-<ul><li>Updated several names of datasets for consistency and conciseness
-<ul><li>
+<ul><li>Updated several names of datasets for consistency and conciseness<ul><li>
 <code>ison_southern_women</code> instead of <code>southern_women</code>
 </li>
 <li>
@@ -319,8 +300,7 @@
 <code>ison_adolescents</code> instead of <code>ison_coleman</code>
 </li>
 </ul></li>
-<li>Extended several datasets
-<ul><li>
+<li>Extended several datasets<ul><li>
 <code>mpn_elite_mex</code> is extended with data from Pajek and with help from Frank Heber</li>
 <li>
 <code>ison_networkers</code> becomes named with information from <a href="http://toreopsahl.com/tnet/" class="external-link">tnet</a>
@@ -333,10 +313,7 @@
 <h2 class="page-header" data-toc-text="0.8.13" id="migraph-0813">migraph 0.8.13<small>2021-12-19</small><a class="anchor" aria-label="anchor" href="#migraph-0813"></a></h2>
 <div class="section level3">
 <h3 id="modelling-0-8-13">Modelling<a class="anchor" aria-label="anchor" href="#modelling-0-8-13"></a></h3>
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/149" class="external-link">#149</a> by adding extra column to node_tie_census in <code><a href="../reference/cluster.html">cluster_structural_equivalence()</a></code> for isolates
-<ul><li>Note that this renders all isolates structurally equivalent</li>
-</ul></li>
-</ul></div>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/149" class="external-link">#149</a> by adding extra column to node_tie_census in <code><a href="../reference/cluster.html">cluster_structural_equivalence()</a></code> for isolates<ul><li>Note that this renders all isolates structurally equivalent</li></ul></li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.12" id="migraph-0812">migraph 0.8.12<a class="anchor" aria-label="anchor" href="#migraph-0812"></a></h2>
@@ -347,8 +324,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-12">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-12"></a></h3>
-<ul><li>Updated <code>add_</code> functions
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/178" class="external-link">#178</a> by adding name to existing edges when further edges added in <code><a href="../reference/defunct.html">mutate_edges()</a></code>
+<ul><li>Updated <code>add_</code> functions<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/178" class="external-link">#178</a> by adding name to existing edges when further edges added in <code><a href="../reference/defunct.html">mutate_edges()</a></code>
 </li>
 <li>Closed <a href="https://github.com/snlab-ch/migraph/issues/179" class="external-link">#179</a> by inferring an attribute vector is for one of the two modes where possible in <code><a href="../reference/add.html">add_node_attributes()</a></code>
 </li>
@@ -364,8 +340,7 @@
 <div class="section level3">
 <h3 id="import-and-export-0-8-11">Import and export<a class="anchor" aria-label="anchor" href="#import-and-export-0-8-11"></a></h3>
 <ul><li>Fixed <a href="https://github.com/snlab-ch/migraph/issues/172" class="external-link">#172</a> by removing redundant header argument in <code><a href="../reference/read.html">read_nodelist()</a></code> and <code><a href="../reference/read.html">read_edgelist()</a></code>
-</li>
-</ul></div>
+</li></ul></div>
 <div class="section level3">
 <h3 id="package-0-8-11">Package<a class="anchor" aria-label="anchor" href="#package-0-8-11"></a></h3>
 <ul><li>Fixed <a href="https://github.com/snlab-ch/migraph/issues/173" class="external-link">#173</a> by extending <code><a href="../reference/coercion.html">as_network()</a></code> method to convert correctly form an <a href="https://igraph.org" class="external-link">igraph</a> to a <a href="http://statnet.org/" class="external-link">network</a> object.</li>
@@ -377,37 +352,30 @@
 <div class="section level3">
 <h3 id="import-and-export-0-8-10">Import and export<a class="anchor" aria-label="anchor" href="#import-and-export-0-8-10"></a></h3>
 <ul><li>Replaced xlsx dependency in <code><a href="../reference/read.html">read_edgelist()</a></code> and <code><a href="../reference/read.html">read_nodelist()</a></code> to readxl to avoid Java dependency</li>
-<li>Replaced xlsx dependency in <code><a href="../reference/read.html">write_edgelist()</a></code> and <code><a href="../reference/read.html">write_nodelist()</a></code> to avoid Java dependency
-<ul><li>Note that these functions will now export to .csv rather than .xlsx</li>
-</ul></li>
+<li>Replaced xlsx dependency in <code><a href="../reference/read.html">write_edgelist()</a></code> and <code><a href="../reference/read.html">write_nodelist()</a></code> to avoid Java dependency<ul><li>Note that these functions will now export to .csv rather than .xlsx</li></ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-10">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-10"></a></h3>
 <ul><li>Fixed direction recognition bug in <code><a href="../reference/coercion.html">as_network()</a></code>, <code><a href="../reference/coercion.html">as_igraph()</a></code>, and <code><a href="../reference/is.html">is_directed()</a></code>
-</li>
-</ul></div>
+</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.9" id="migraph-089">migraph 0.8.9<a class="anchor" aria-label="anchor" href="#migraph-089"></a></h2>
 <div class="section level3">
 <h3 id="package-0-8-9">Package<a class="anchor" aria-label="anchor" href="#package-0-8-9"></a></h3>
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/139" class="external-link">#139</a> by adding vignette on importing and connecting data</li>
-</ul></div>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/139" class="external-link">#139</a> by adding vignette on importing and connecting data</li></ul></div>
 <div class="section level3">
 <h3 id="import-and-export-0-8-9">Import and export<a class="anchor" aria-label="anchor" href="#import-and-export-0-8-9"></a></h3>
-<ul><li>Added <code>read_</code> and <code>write_</code> functions and updated documentation
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/137" class="external-link">#137</a> by adding <code><a href="../reference/read.html">read_edgelist()</a></code> for importing edgelists from Excel and csv files</li>
+<ul><li>Added <code>read_</code> and <code>write_</code> functions and updated documentation<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/137" class="external-link">#137</a> by adding <code><a href="../reference/read.html">read_edgelist()</a></code> for importing edgelists from Excel and csv files</li>
 <li>Closed <a href="https://github.com/snlab-ch/migraph/issues/170" class="external-link">#170</a> by adding <code><a href="../reference/read.html">read_pajek()</a></code> for importing .net and .paj files</li>
 <li>Added <code><a href="../reference/read.html">write_edgelist()</a></code>, <code>write_nodelist</code>, <code><a href="../reference/read.html">write_pajek()</a></code>, and <code><a href="../reference/read.html">write_ucinet()</a></code> for exporting into various file formats (Excel, csv, Pajek, and UCINET)</li>
 <li>Closed <a href="https://github.com/snlab-ch/migraph/issues/140" class="external-link">#140</a> by adding links to further data resources</li>
-</ul></li>
-</ul></div>
+</ul></li></ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-9">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-9"></a></h3>
 <ul><li>Added <code><a href="../reference/is.html">is_graph()</a></code> to check if an object is a graph or not</li>
 <li>Extended <code><a href="../reference/coercion.html">as_network()</a></code> to retain attributes</li>
-<li>Fixed bugs in <code>as_</code> and <code>to_</code> functions
-<ul><li>Fixed bug in <code>as_</code> functions to convert from dataframes instead of tibbles</li>
+<li>Fixed bugs in <code>as_</code> and <code>to_</code> functions<ul><li>Fixed bug in <code>as_</code> functions to convert from dataframes instead of tibbles</li>
 <li>Fixed bug in conversion from network to igraph object in <code><a href="../reference/coercion.html">as_igraph()</a></code> function</li>
 <li>Fixed bug in <code><a href="../reference/to.html">to_undirected()</a></code> function to work with network objects</li>
 <li>Fixed bug in <code><a href="../reference/to.html">to_main_component()</a></code> function so that it retains vertex attributes in network objects</li>
@@ -418,17 +386,14 @@
 <div class="section level3">
 <h3 id="measures-0-8-9">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-9"></a></h3>
 <ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/143" class="external-link">#143</a> by adding nodal summary by cluster function <code><a href="../reference/blockmodel.html">summarise_statistics()</a></code>
-</li>
-</ul></div>
+</li></ul></div>
 <div class="section level3">
 <h3 id="modelling-0-8-9">Modelling<a class="anchor" aria-label="anchor" href="#modelling-0-8-9"></a></h3>
-<ul><li>Fixed <code><a href="../reference/regression.html">network_reg()</a></code> example</li>
-</ul></div>
+<ul><li>Fixed <code><a href="../reference/regression.html">network_reg()</a></code> example</li></ul></div>
 <div class="section level3">
 <h3 id="visualisation-0-8-9">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation-0-8-9"></a></h3>
 <ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/117" class="external-link">#117</a> by updating the node/edge/arrow size limits in <code><a href="../reference/autographr.html">autographr()</a></code>
-</li>
-</ul></div>
+</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.8" id="migraph-088">migraph 0.8.8<a class="anchor" aria-label="anchor" href="#migraph-088"></a></h2>
@@ -439,8 +404,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-8-8">Data<a class="anchor" aria-label="anchor" href="#data-0-8-8"></a></h3>
-<ul><li>Added <code>ison_eies</code> dataset for use in practical 7 vignette</li>
-</ul></div>
+<ul><li>Added <code>ison_eies</code> dataset for use in practical 7 vignette</li></ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-8">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-8"></a></h3>
 <ul><li>The <code><a href="../reference/coercion.html">as_matrix()</a></code> method for networks now works with two-mode and weighted networks</li>
@@ -458,14 +422,12 @@
 <div class="section level3">
 <h3 id="measures-0-8-8">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-8"></a></h3>
 <ul><li>Fixed bug where clusters were not being reported in the correct order in <code><a href="../reference/diversity.html">graph_blau_index()</a></code>
-</li>
-</ul></div>
+</li></ul></div>
 <div class="section level3">
 <h3 id="modelling-0-8-8">Modelling<a class="anchor" aria-label="anchor" href="#modelling-0-8-8"></a></h3>
 <ul><li>Fixed one-mode bug with <code><a href="../reference/generate.html">generate_permutation()</a></code> and thus <code><a href="../reference/tests.html">test_permutation()</a></code>
 </li>
-<li>Renamed <code>netlm()</code> to <code><a href="../reference/regression.html">network_reg()</a></code> to avoid frustrating conflicts
-<ul><li>
+<li>Renamed <code>netlm()</code> to <code><a href="../reference/regression.html">network_reg()</a></code> to avoid frustrating conflicts<ul><li>
 <code><a href="../reference/regression.html">network_reg()</a></code> now accepts migraph-consistent objects</li>
 <li>
 <code><a href="../reference/regression.html">network_reg()</a></code> now accepts formula terms such as <code><a href="https://rdrr.io/pkg/igraph/man/ego.html" class="external-link">ego()</a></code>, <code>alter()</code>, and <code>same()</code>
@@ -489,8 +451,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-7">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-7"></a></h3>
-<ul><li>Added <code><a href="../reference/defunct.html">mutate_edges()</a></code> for adding new edges as attributes to existing edges in an object</li>
-</ul></div>
+<ul><li>Added <code><a href="../reference/defunct.html">mutate_edges()</a></code> for adding new edges as attributes to existing edges in an object</li></ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-7">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-7"></a></h3>
 <ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/159" class="external-link">#159</a> by fixing bug in <code><a href="../reference/diversity.html">graph_blau_index()</a></code>
@@ -501,19 +462,16 @@
 </ul></div>
 <div class="section level3">
 <h3 id="visualisation-0-8-7">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation-0-8-7"></a></h3>
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/148" class="external-link">#148</a> and <a href="https://github.com/snlab-ch/migraph/issues/153" class="external-link">#153</a> by making all <code><a href="../reference/autographr.html">autographr()</a></code> arguments take variable names in quotation marks</li>
-</ul></div>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/148" class="external-link">#148</a> and <a href="https://github.com/snlab-ch/migraph/issues/153" class="external-link">#153</a> by making all <code><a href="../reference/autographr.html">autographr()</a></code> arguments take variable names in quotation marks</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.6" id="migraph-086">migraph 0.8.6<a class="anchor" aria-label="anchor" href="#migraph-086"></a></h2>
 <div class="section level3">
 <h3 id="package-0-8-6">Package<a class="anchor" aria-label="anchor" href="#package-0-8-6"></a></h3>
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/75" class="external-link">#75</a> by updating the README</li>
-</ul></div>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/75" class="external-link">#75</a> by updating the README</li></ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-6">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-6"></a></h3>
-<ul><li>Added some functions for grabbing key information from objects
-<ul><li>
+<ul><li>Added some functions for grabbing key information from objects<ul><li>
 <code><a href="../reference/grab.html">node_names()</a></code> for quickly accessing node labels</li>
 <li>
 <code><a href="../reference/grab.html">node_attribute()</a></code> for quickly accessing a certain nodal attribute</li>
@@ -527,8 +485,7 @@
 <code>graph_dimensions()</code> is currently a copy of <code><a href="../reference/grab.html">graph_nodes()</a></code>
 </li>
 </ul></li>
-<li>Added some functions for adding key information to objects
-<ul><li>
+<li>Added some functions for adding key information to objects<ul><li>
 <code><a href="../reference/add.html">add_node_attributes()</a></code> for adding particular nodal attributes</li>
 <li>
 <code><a href="../reference/add.html">add_edge_attributes()</a></code> for adding edges from another graph</li>
@@ -539,20 +496,17 @@
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-6">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-6"></a></h3>
-<ul><li>Added diversity functions
-<ul><li>
+<ul><li>Added diversity functions<ul><li>
 <code><a href="../reference/diversity.html">graph_blau_index()</a></code> for summarising diversity of an attribute in a network or group</li>
 <li>
 <code><a href="../reference/diversity.html">graph_ei_index()</a></code> for summarising diversity of an attribute over a network’s ties</li>
-</ul></li>
-</ul></div>
+</ul></li></ul></div>
 <div class="section level3">
 <h3 id="modelling-0-8-6">Modelling<a class="anchor" aria-label="anchor" href="#modelling-0-8-6"></a></h3>
 <ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/119" class="external-link">#119</a> by adding <code><a href="../reference/census.html">node_quad_census()</a></code>, especially useful for two-mode blockmodelling</li>
 <li>Closed <a href="https://github.com/snlab-ch/migraph/issues/95" class="external-link">#95</a> and <a href="https://github.com/snlab-ch/migraph/issues/120" class="external-link">#120</a> by adding <code><a href="../reference/graph_census.html">graph_mixed_census()</a></code>
 </li>
-<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/97" class="external-link">#97</a> by adding test functions
-<ul><li>
+<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/97" class="external-link">#97</a> by adding test functions<ul><li>
 <code><a href="../reference/tests.html">test_random()</a></code> carries out a conditional uniform graph (CUG) test</li>
 <li>
 <code><a href="../reference/tests.html">test_permutation()</a></code> carries out a quadratic assignment procedure (QAP) test</li>
@@ -578,9 +532,7 @@
 <h2 class="page-header" data-toc-text="0.8.4" id="migraph-084">migraph 0.8.4<a class="anchor" aria-label="anchor" href="#migraph-084"></a></h2>
 <div class="section level3">
 <h3 id="classes-0-8-4">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-4"></a></h3>
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/128" class="external-link">#128</a> by adding <code><a href="../reference/coercion.html">as_edgelist()</a></code> methods for converting other objects into edgelists
-<ul><li>Note that this currently returns a tibble</li>
-</ul></li>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/128" class="external-link">#128</a> by adding <code><a href="../reference/coercion.html">as_edgelist()</a></code> methods for converting other objects into edgelists<ul><li>Note that this currently returns a tibble</li></ul></li>
 <li>Using <code><a href="../reference/to.html">to_unnamed()</a></code> on ‘network’ objects now operates on them directly</li>
 <li>Elaborated <code>to_</code> documentation significantly</li>
 <li>Fixed bug in <code><a href="../reference/to.html">to_onemode()</a></code> that was tripping <code><a href="../reference/blockmodel.html">blockmodel()</a></code> on networks that are already one-mode</li>
@@ -603,12 +555,8 @@
 <ul><li>Added <code><a href="../reference/graph_census.html">graph_dyad_census()</a></code> for more graph profile options</li>
 <li>Fixed bug with <code><a href="../reference/blockmodel.html">blockmodel_concor()</a></code> when an object was of class ‘igraph’ but not ‘tbl_graph’</li>
 <li>Fixed bug in how <code><a href="../reference/blockmodel.html">blockmodel()</a></code> was treating two-mode networks</li>
-<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/116" class="external-link">#116</a> by offering both <code>"elbow"</code> and <code>"strict"</code> methods for <em>k</em>-identification
-<ul><li>Fixed bug in elbow method that biased heavily bipartitioned data</li>
-</ul></li>
-<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/131" class="external-link">#131</a> by refactoring <code><a href="../reference/blockmodel_vis.html">ggidentify_clusters()</a></code> for speed
-<ul><li>Takes now roughly half the time (see issue for details)</li>
-</ul></li>
+<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/116" class="external-link">#116</a> by offering both <code>"elbow"</code> and <code>"strict"</code> methods for <em>k</em>-identification<ul><li>Fixed bug in elbow method that biased heavily bipartitioned data</li></ul></li>
+<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/131" class="external-link">#131</a> by refactoring <code><a href="../reference/blockmodel_vis.html">ggidentify_clusters()</a></code> for speed<ul><li>Takes now roughly half the time (see issue for details)</li></ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="visualization-0-8-4">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-8-4"></a></h3>
@@ -620,12 +568,10 @@
 <h2 class="page-header" data-toc-text="0.8.3" id="migraph-083">migraph 0.8.3<a class="anchor" aria-label="anchor" href="#migraph-083"></a></h2>
 <div class="section level3">
 <h3 id="package-0-8-3">Package<a class="anchor" aria-label="anchor" href="#package-0-8-3"></a></h3>
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/108" class="external-link">#108</a> by adding cohesion and community vignette</li>
-</ul></div>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/108" class="external-link">#108</a> by adding cohesion and community vignette</li></ul></div>
 <div class="section level3">
 <h3 id="classes-0-8-3">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-3"></a></h3>
-<ul><li>Fixed <a href="https://github.com/snlab-ch/migraph/issues/122" class="external-link">#122</a> by retaining edge weights from igraph in <code><a href="../reference/coercion.html">as_matrix()</a></code> where available</li>
-</ul></div>
+<ul><li>Fixed <a href="https://github.com/snlab-ch/migraph/issues/122" class="external-link">#122</a> by retaining edge weights from igraph in <code><a href="../reference/coercion.html">as_matrix()</a></code> where available</li></ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-3">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-3"></a></h3>
 <ul><li>Split <code><a href="../reference/cohesion.html">graph_equivalency()</a></code> into the same for two-mode networks and <code><a href="../reference/cohesion.html">graph_congruency()</a></code>for three-mode (two two-mode) networks</li>
@@ -645,8 +591,7 @@
 <div class="section level3">
 <h3 id="visualization-0-8-3">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-8-3"></a></h3>
 <ul><li>Added option to <code><a href="../reference/autographr.html">autographr()</a></code> for plotting convex/concave hulls</li>
-<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/124" class="external-link">#124</a> by making <code>ggraphgrid()</code> a set of layout functions:
-<ul><li>
+<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/124" class="external-link">#124</a> by making <code>ggraphgrid()</code> a set of layout functions:<ul><li>
 <code><a href="../reference/layouts.html">layout_tbl_graph_frgrid()</a></code> or <code>autographr(object, "frgrid")</code> for snapping Fruchterman-Reingold to a grid</li>
 <li>
 <code><a href="../reference/layouts.html">layout_tbl_graph_kkgrid()</a></code> or <code>autographr(object, "kkgrid")</code> for snapping Kamada-Kawai to a grid</li>
@@ -658,15 +603,13 @@
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-8-3">Data<a class="anchor" aria-label="anchor" href="#data-0-8-3"></a></h3>
-<ul><li>Fixed some <code>ison_m182</code> documentation</li>
-</ul></div>
+<ul><li>Fixed some <code>ison_m182</code> documentation</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.2" id="migraph-082">migraph 0.8.2<small>2021-10-25</small><a class="anchor" aria-label="anchor" href="#migraph-082"></a></h2>
 <div class="section level3">
 <h3 id="package-0-8-2">Package<a class="anchor" aria-label="anchor" href="#package-0-8-2"></a></h3>
-<ul><li>Fixed CRAN package check dependencies bug where ‘knitr’ and ‘rmarkdown’ were listed as Imports without being used in the package</li>
-</ul></div>
+<ul><li>Fixed CRAN package check dependencies bug where ‘knitr’ and ‘rmarkdown’ were listed as Imports without being used in the package</li></ul></div>
 <div class="section level3">
 <h3 id="classes-0-8-2">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-2"></a></h3>
 <ul><li>Fixed bug where bipartite edge lists were not being recognised as a twomode network by <code><a href="../reference/coercion.html">as_igraph()</a></code>
@@ -675,16 +618,13 @@
 </ul></div>
 <div class="section level3">
 <h3 id="models-0-8-2">Models<a class="anchor" aria-label="anchor" href="#models-0-8-2"></a></h3>
-<ul><li>Fixed bug where <code><a href="../reference/blockmodel.html">blockmodel()</a></code> was not retaining node names in all parts of the object structure</li>
-</ul></div>
+<ul><li>Fixed bug where <code><a href="../reference/blockmodel.html">blockmodel()</a></code> was not retaining node names in all parts of the object structure</li></ul></div>
 <div class="section level3">
 <h3 id="visualization-0-8-2">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-8-2"></a></h3>
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/107" class="external-link">#107</a> by choosing better brewer pallette (though note this is not a very deep pallette with only 9 colors)</li>
-</ul></div>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/107" class="external-link">#107</a> by choosing better brewer pallette (though note this is not a very deep pallette with only 9 colors)</li></ul></div>
 <div class="section level3">
 <h3 id="vignettes-0-8-2">Vignettes<a class="anchor" aria-label="anchor" href="#vignettes-0-8-2"></a></h3>
-<ul><li>Expanded on the blockmodelling vignette with more intro, discussion, interpretation clues</li>
-</ul></div>
+<ul><li>Expanded on the blockmodelling vignette with more intro, discussion, interpretation clues</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.1" id="migraph-081">migraph 0.8.1<small>2021-10-22</small><a class="anchor" aria-label="anchor" href="#migraph-081"></a></h2>
@@ -711,13 +651,11 @@
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-1">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-1"></a></h3>
-<ul><li>Refactored <code><a href="../reference/graph_balance.html">graph_balance()</a></code> to be much faster, following David Schoch’s <a href="https://github.com/schochastics/signnet" class="external-link">signnet</a> package (see that package for further extensions)</li>
-</ul></div>
+<ul><li>Refactored <code><a href="../reference/graph_balance.html">graph_balance()</a></code> to be much faster, following David Schoch’s <a href="https://github.com/schochastics/signnet" class="external-link">signnet</a> package (see that package for further extensions)</li></ul></div>
 <div class="section level3">
 <h3 id="data-0-8-1">Data<a class="anchor" aria-label="anchor" href="#data-0-8-1"></a></h3>
 <ul><li>Updated the edge ‘sign’ attribute of <code>ison_marvel_relationships</code> to be a double (<code>-1</code>/<code>1</code>) to be compatible with the new <code><a href="../reference/graph_balance.html">graph_balance()</a></code> and <a href="https://github.com/schochastics/signnet" class="external-link">signnet</a>
-</li>
-</ul></div>
+</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.0" id="migraph-080">migraph 0.8.0<a class="anchor" aria-label="anchor" href="#migraph-080"></a></h2>
@@ -751,30 +689,24 @@
 </ul></div>
 <div class="section level3">
 <h3 id="models-0-8-0">Models<a class="anchor" aria-label="anchor" href="#models-0-8-0"></a></h3>
-<ul><li>Added <code><a href="../reference/blockmodel.html">blockmodel()</a></code> which masks its <a href="http://statnet.org" class="external-link">sna</a> namesake but has the advantages of working with two-mode networks and retaining node names where available
-<ul><li>Added <code><a href="../reference/cluster.html">cluster_structural_equivalence()</a></code> and <code><a href="../reference/cluster.html">cluster_regular_equivalence()</a></code> as bases for blockmodelling</li>
+<ul><li>Added <code><a href="../reference/blockmodel.html">blockmodel()</a></code> which masks its <a href="http://statnet.org" class="external-link">sna</a> namesake but has the advantages of working with two-mode networks and retaining node names where available<ul><li>Added <code><a href="../reference/cluster.html">cluster_structural_equivalence()</a></code> and <code><a href="../reference/cluster.html">cluster_regular_equivalence()</a></code> as bases for blockmodelling</li>
 <li>Added <code><a href="../reference/blockmodel.html">reduce_graph()</a></code> for creating a network from a blockmodel</li>
 </ul></li>
 <li>Added first vignette on structural holes, structural equivalence and regular equivalence blockmodelling</li>
 </ul></div>
 <div class="section level3">
 <h3 id="visualization-0-8-0">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-8-0"></a></h3>
-<ul><li>Added <code><a href="../reference/autographr.html">autographr()</a></code> for plotting graphs with sensible defaults
-<ul><li>Uses a more contrastive discrete palette when some nodal attribute is given</li>
+<ul><li>Added <code><a href="../reference/autographr.html">autographr()</a></code> for plotting graphs with sensible defaults<ul><li>Uses a more contrastive discrete palette when some nodal attribute is given</li>
 <li>Uses an alpha for edges, and edges will now be sized by edge weight, where available</li>
 <li>Uses node labels, sans borders, where available</li>
 <li>Uses different shaped nodes, and different fonts, for different node sets</li>
 <li>Removed <code>ggraphlabel()</code> since core functionality now provided by autographr</li>
 </ul></li>
 <li>Added ability for <code><a href="../reference/defunct.html">ggidentify()</a></code> to identify the node with the highest value of a specified node-level measure</li>
-<li>Added a couple of more specific visualization functions
-<ul><li>Added <code><a href="../reference/ggatyear.html">ggatyear()</a></code> for subsetting and plotting edgelists at year</li>
-<li>Updated <code><a href="../reference/gglineage.html">gglineage()</a></code> to return a graph colored according to lineage
-<ul><li>Added tick marks</li>
+<li>Added a couple of more specific visualization functions<ul><li>Added <code><a href="../reference/ggatyear.html">ggatyear()</a></code> for subsetting and plotting edgelists at year</li>
+<li>Updated <code><a href="../reference/gglineage.html">gglineage()</a></code> to return a graph colored according to lineage<ul><li>Added tick marks</li></ul></li>
 </ul></li>
-</ul></li>
-<li>Added several more specific functions for diagnosing and visualising blockmodels
-<ul><li>Added <code><a href="../reference/blockmodel_vis.html">ggtree()</a></code> for neatly visualising hierarchical clusters</li>
+<li>Added several more specific functions for diagnosing and visualising blockmodels<ul><li>Added <code><a href="../reference/blockmodel_vis.html">ggtree()</a></code> for neatly visualising hierarchical clusters</li>
 <li>Added <code><a href="../reference/blockmodel_vis.html">ggidentify_clusters()</a></code> for identifying which number of clusters is most appropriate following the elbow method</li>
 </ul></li>
 <li>Fixed bug related to <code><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html" class="external-link">ggraph::theme_graph()</a></code> present in a few different visualisation functions</li>
@@ -805,8 +737,7 @@
 <h2 class="page-header" data-toc-text="0.7.1" id="migraph-071">migraph 0.7.1<small>2021-09-25</small><a class="anchor" aria-label="anchor" href="#migraph-071"></a></h2>
 <div class="section level3">
 <h3 id="classes-0-7-1">Classes<a class="anchor" aria-label="anchor" href="#classes-0-7-1"></a></h3>
-<ul><li>Fixed Unicode char bug in coercion documentation</li>
-</ul></div>
+<ul><li>Fixed Unicode char bug in coercion documentation</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.7.0" id="migraph-070">migraph 0.7.0<a class="anchor" aria-label="anchor" href="#migraph-070"></a></h2>
@@ -818,8 +749,7 @@
 <li>Fixed bug with <code><a href="../reference/coercion.html">as_matrix()</a></code> weighting</li>
 <li>Fixed bug with <code><a href="../reference/coercion.html">as_tidygraph()</a></code>
 </li>
-</ul></li>
-</ul></div>
+</ul></li></ul></div>
 <div class="section level3">
 <h3 id="visualisation-0-7-0">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation-0-7-0"></a></h3>
 <ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/92" class="external-link">#92</a> by adding <code><a href="../reference/gglineage.html">gglineage()</a></code> for graphing a citation network through time</li>
@@ -829,8 +759,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="analysis-0-7-0">Analysis<a class="anchor" aria-label="anchor" href="#analysis-0-7-0"></a></h3>
-<ul><li>Added tidygraph lookups to <code>node_</code> functions</li>
-</ul></div>
+<ul><li>Added tidygraph lookups to <code>node_</code> functions</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.6" id="migraph-066">migraph 0.6.6<small>2021-05-13</small><a class="anchor" aria-label="anchor" href="#migraph-066"></a></h2>
@@ -840,16 +769,14 @@
 <p>Fixed bug in <code><a href="../reference/coercion.html">as_matrix()</a></code> with frame matrix by dropping (rarely necessary) functionality</p>
 <ul><li>Improved handling of weights column in three-column edgelists</li>
 <li>Improved documentation of <code>as_</code> functions</li>
-</ul></li>
-</ul></div>
+</ul></li></ul></div>
 <div class="section level3">
 <h3 id="visualisation-0-6-6">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation-0-6-6"></a></h3>
 <ul><li>
 <p>Fixed bugs in <code>plot_releases()</code> with more graceful handling of http errors</p>
 <ul><li>Added online condition to example in documentation</li>
 <li>Specified encoding for more silent operation</li>
-</ul></li>
-</ul></div>
+</ul></li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.5" id="migraph-065">migraph 0.6.5<small>2021-05-10</small><a class="anchor" aria-label="anchor" href="#migraph-065"></a></h2>
@@ -870,8 +797,7 @@
 <h2 class="page-header" data-toc-text="0.6.4" id="migraph-064">migraph 0.6.4<a class="anchor" aria-label="anchor" href="#migraph-064"></a></h2>
 <div class="section level3">
 <h3 id="package-0-6-4">Package<a class="anchor" aria-label="anchor" href="#package-0-6-4"></a></h3>
-<ul><li>Extended R version dependence back to 3.6.*</li>
-</ul></div>
+<ul><li>Extended R version dependence back to 3.6.*</li></ul></div>
 <div class="section level3">
 <h3 id="classes-0-6-4">Classes<a class="anchor" aria-label="anchor" href="#classes-0-6-4"></a></h3>
 <ul><li>Added <code>binarise()</code> for unweighting networks</li>
@@ -935,8 +861,7 @@
 <div class="section level3">
 <h3 id="models-0-6-3">Models<a class="anchor" aria-label="anchor" href="#models-0-6-3"></a></h3>
 <ul><li>Added test for <code>print.blockmodel()</code>
-</li>
-</ul></div>
+</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.2" id="migraph-062">migraph 0.6.2<small>2021-04-15</small><a class="anchor" aria-label="anchor" href="#migraph-062"></a></h2>
@@ -974,21 +899,17 @@
 <h3 id="data-0-6-0">Data<a class="anchor" aria-label="anchor" href="#data-0-6-0"></a></h3>
 <ul><li>
 <p>Elaborated documentation for the remainder of the datasets</p>
-<ul><li>Now all datasets in this package are titled with whether they are one-mode, two-mode, or three-mode</li>
-</ul></li>
-</ul></div>
+<ul><li>Now all datasets in this package are titled with whether they are one-mode, two-mode, or three-mode</li></ul></li></ul></div>
 <div class="section level3">
 <h3 id="measures-0-6-0">Measures<a class="anchor" aria-label="anchor" href="#measures-0-6-0"></a></h3>
-<ul><li>Fixed bug in <code><a href="../reference/centrality.html">graph_degree()</a></code> where data was hard-coded in</li>
-</ul></div>
+<ul><li>Fixed bug in <code><a href="../reference/centrality.html">graph_degree()</a></code> where data was hard-coded in</li></ul></div>
 <div class="section level3">
 <h3 id="models-0-6-0">Models<a class="anchor" aria-label="anchor" href="#models-0-6-0"></a></h3>
 <ul><li>
 <p>Closed <a href="https://github.com/snlab-ch/migraph/issues/18" class="external-link">#18</a> by adding <code><a href="../reference/blockmodel.html">blockmodel_concor()</a></code> for employing the CONCOR algorithm to blockmodel both one-mode and two-mode networks</p>
 <ul><li>Added a new print method for “blockmodel”-class objects based on the <code>print.blockmodel()</code> method in the <a href="http://statnet.org" class="external-link">sna</a> package that also prints blockmodel results for two-mode networks consistently</li>
 <li>Added a new plot method for “blockmodel”-class objects that leverages <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a> for pretty plotting and that better inherits names from the underlying object</li>
-</ul></li>
-</ul></div>
+</ul></li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.0" id="migraph-050">migraph 0.5.0<a class="anchor" aria-label="anchor" href="#migraph-050"></a></h2>
@@ -1076,12 +997,10 @@
 <p>Re-added <code>netlm()</code> for performing linear regression for multimodal network data</p>
 <ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/76" class="external-link">#76</a> by changing <code>netlm()</code> to accept a formula-based input</li>
 <li>Closed <a href="https://github.com/snlab-ch/migraph/issues/77" class="external-link">#77</a> by adding <code>print.summary.netlm()</code> for <code>netlm()</code> regressions</li>
-</ul></li>
-</ul></div>
+</ul></li></ul></div>
 <div class="section level3">
 <h3 id="visualization-0-5-0">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-5-0"></a></h3>
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/82" class="external-link">#82</a> by re-adding a version <code><a href="https://rdrr.io/pkg/igraph/man/plot.igraph.html" class="external-link">plot.igraph()</a></code> with sensible defaults for two-mode networks</li>
-</ul></div>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/82" class="external-link">#82</a> by re-adding a version <code><a href="https://rdrr.io/pkg/igraph/man/plot.igraph.html" class="external-link">plot.igraph()</a></code> with sensible defaults for two-mode networks</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.1" id="migraph-041">migraph 0.4.1<a class="anchor" aria-label="anchor" href="#migraph-041"></a></h2>
@@ -1094,8 +1013,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-4-1">Data<a class="anchor" aria-label="anchor" href="#data-0-4-1"></a></h3>
-<ul><li>Updated mpn_ data source references</li>
-</ul></div>
+<ul><li>Updated mpn_ data source references</li></ul></div>
 <div class="section level3">
 <h3 id="analysis-0-4-1">Analysis<a class="anchor" aria-label="anchor" href="#analysis-0-4-1"></a></h3>
 <ul><li>
@@ -1106,8 +1024,7 @@
 </li>
 <li>Added <code>centrality_betweenness()</code>
 </li>
-</ul></li>
-</ul></div>
+</ul></li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.0" id="migraph-040">migraph 0.4.0<a class="anchor" aria-label="anchor" href="#migraph-040"></a></h2>
@@ -1116,8 +1033,7 @@
 <h3 id="package-0-4-0">Package<a class="anchor" aria-label="anchor" href="#package-0-4-0"></a></h3>
 <ul><li>
 <p>Package name change from roctopus to <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a></p>
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/50" class="external-link">#50</a> with new logo</li>
-</ul></li>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/50" class="external-link">#50</a> with new logo</li></ul></li>
 <li><p>Now builds Linux binary too</p></li>
 </ul></div>
 <div class="section level3">
@@ -1128,8 +1044,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-4-0">Data<a class="anchor" aria-label="anchor" href="#data-0-4-0"></a></h3>
-<ul><li>Renamed data related to the book “Multimodal Political Networks” with “mpn_” prefix</li>
-</ul></div>
+<ul><li>Renamed data related to the book “Multimodal Political Networks” with “mpn_” prefix</li></ul></div>
 </div>
   </div>
 
@@ -1145,7 +1060,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>
