@@ -12,7 +12,7 @@ autographr(
   node_group = NULL,
   node_shape = NULL,
   node_size = NULL,
-  node_measure = NULL,
+  highlight_measure = NULL,
   identify_function = max,
   ...
 )
@@ -27,7 +27,7 @@ currently defaults to 'stress'.}
 as labels if present.}
 
 \item{node_color}{Node variable in quotation marks to be used for
-colouring the nodes. It is easiest if this is added as a node attribute to
+coloring the nodes. It is easiest if this is added as a node attribute to
 the graph before plotting.}
 
 \item{node_group}{Node variable in quotation marks to be used for
@@ -47,8 +47,9 @@ Since this function expects this to be an existing variable,
 it is recommended to calculate all node-related statistics prior
 to using this function.}
 
-\item{node_measure}{Name of the node level measure function e.g.
-\code{node_degree}. \code{NULL} by default.}
+\item{highlight_measure}{Name in quotation marks of the node or edge
+level measure function e.g. \code{node_degree} or \code{edge_betweenness}.
+\code{NULL} by default.}
 
 \item{identify_function}{Name of the function used to determine the
 highlighted node e.g. \code{max}, \code{min}, etc. \code{max} by default.}
@@ -68,5 +69,8 @@ ison_adolescents <- ison_adolescents \%>\%
  dplyr::mutate(color = rep(c("blue", "red"), times = 4))
 autographr(ison_adolescents, node_shape = "shape", node_color = "color")
 autographr(ison_karateka, node_size = rep(c(0.8), times = 34))
-autographr(ison_networkers, node_measure = node_betweenness, identify_function = max)
+# Node highlighting:
+autographr(ison_networkers, highlight_measure = "node_betweenness", identify_function = max)
+# Edge highlighting:
+autographr(ison_adolescents, highlight_measure = "edge_betweenness", identify_function = max)
 }

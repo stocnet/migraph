@@ -29,15 +29,15 @@
 \item{Health}{1 if individual associated}
 }
 
-An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 10.
+An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 554.
 
-An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 10.
+An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 1383.
 
-An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 10.
+An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 517.
 
-An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 10.
+An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 752.
 
-An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 10.
+An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 678.
 }
 \source{
 Knoke, Diani, Hollway, and Christopoulos. 2021.
