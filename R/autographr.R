@@ -27,11 +27,13 @@
 #' @param node_group Node variable in quotation marks to be used for
 #'   drawing convex but also concave hulls around clusters of nodes.
 #'   These groupings will be labelled with the categories of the variable passed.
-#' @param highlight_measure Name in quotation marks of the node or edge
-#' level measure function e.g. `node_degree` or `edge_betweenness`.
+#' @param highlight_measure String vector of name of the node and/or edge
+#' level measure function e.g. `node_degree`,  `edge_betweenness`,
+#' or `c("node_betweenness", "edge_betweenness")`.
 #' `NULL` by default.
 #' @param identify_function Name of the function used to determine the
-#' highlighted node e.g. `max`, `min`, etc. `max` by default.
+#' highlighted node e.g. `"max"`, `"min"`, or `c("max", "min")` if
+#' both edge and node highlighting is performed. `NULL` by default.
 #' @param ... Extra arguments.
 #' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text
 #' @importFrom ggraph geom_conn_bundle get_con geom_node_point
@@ -47,9 +49,11 @@
 #' autographr(ison_adolescents, node_shape = "shape", node_color = "color")
 #' autographr(ison_karateka, node_size = rep(c(0.8), times = 34))
 #' # Node highlighting:
-#' autographr(ison_networkers, highlight_measure = "node_betweenness", identify_function = max)
+#' autographr(ison_adolescents, highlight_measure = "node_betweenness", identify_function = "max")
 #' # Edge highlighting:
-#' autographr(ison_adolescents, highlight_measure = "edge_betweenness", identify_function = max)
+#' autographr(ison_adolescents, highlight_measure = "edge_betweenness", identify_function = "max")
+#' # Both Node and Edge highlighting:
+#' autographr(ison_adolescents, highlight_measure = c("node_betweenness", "edge_betweenness"), identify_function = c("max", "max"))
 #' @export
 autographr <- auto_graph <- function(object,
                                      layout = "stress",
@@ -59,17 +63,36 @@ autographr <- auto_graph <- function(object,
                                      node_shape = NULL,
                                      node_size = NULL,
                                      highlight_measure = NULL,
-                                     identify_function = max,
+                                     identify_function = NULL,
                                      ...) {
   
   name <- weight <- NULL # initialize variables to avoid CMD check notes
   g <- as_tidygraph(object)
   # Get the highlight measure ----
-  if (!is.null(highlight_measure)) {
-    highlight_measure_name <- highlight_measure
-    highlight_measure <- get(highlight_measure)
+  if (!is.null(highlight_measure) & !is.null(identify_function)) {
+    # There is something to be highlighted
+    if (length(identify_function) == length(highlight_measure)) {
+      if (any(grepl("node", highlight_measure))) {
+        # List of node measure functions
+        node_measure_name <- highlight_measure[grepl("node", highlight_measure)]
+        node_measure <- lapply(node_measure_name, get)
+        node_identify_name <- identify_function[grepl("node", highlight_measure)]
+        node_identify_measure <- lapply(node_identify_name, get)
+      }
+      if (any(grepl("edge", highlight_measure))) {
+        # List of edge measure functions
+        edge_measure_name <- highlight_measure[grepl("edge", highlight_measure)]
+        edge_measure <- lapply(edge_measure_name, get)
+        edge_identify_name <- identify_function[grepl("edge", highlight_measure)]
+        edge_identify_measure <- lapply(edge_identify_name, get)
+      }
+    } else {
+      stop("If a highlighting measure is specified, an identification function
+           must be specified as well with the same number of elments.")
+    }
   } else {
-    highlight_measure_name <- "NA"
+    # Nothing gets highlighted
+    highlight_measure <- "NA"
   }
   # Add layout ----
   lo <- ggraph::create_layout(g, layout)
@@ -82,13 +105,14 @@ autographr <- auto_graph <- function(object,
   }
   p <- ggraph::ggraph(lo) + ggplot2::theme_void()
   # Add Edge Highlight Attribute if relevant ----
-  if (!is.null(highlight_measure) & !is.null(identify_function) &
-      grepl("edge", highlight_measure_name)) {
+  if (any(grepl("edge", highlight_measure))) {
     # Measure; needs to be an edge level measure
-    measure <- highlight_measure(g)
+    em <- edge_measure[[1]]
+    em_if <- edge_identify_measure[[1]]
+    measure <- em(g)
     # Add as attribute
     g <- add_edge_attributes(g, "highlight_measure_edge",
-                             ifelse(measure == identify_function(measure),
+                             ifelse(measure == em_if(measure),
                                     gsub(pattern = '.*["]([^.]+)["].*', "\\1",
                                          deparse(identify_function)), "other"))
     # Let the rest of the function know that it needs to color things according
@@ -99,8 +123,7 @@ autographr <- auto_graph <- function(object,
   if (is_signed(g)) {
     edge_linetype <- ifelse(igraph::E(g)$sign >= 0, "solid", "dashed")
     edge_colour <- ifelse(igraph::E(g)$sign >= 0, "#0072B2", "#E20020")
-    } else if (!is.null(highlight_measure) & !is.null(identify_function) &
-               grepl("edge", highlight_measure_name)) {
+    } else if (any(grepl("edge", highlight_measure))) {
       edge_colour <- ifelse(igraph::E(g)$highlight_measure_edge != "other",
                             "#E20020", "#0072B2")
       edge_linetype <- "solid"
@@ -158,13 +181,14 @@ autographr <- auto_graph <- function(object,
     nsize <- ifelse(graph_nodes(g) <= 10, 5, (100 / graph_nodes(g)) / 2)
   }
   # Add node highlighting if relevant ----
-  if (!is.null(highlight_measure) & !is.null(identify_function) &
-      grepl("node", highlight_measure_name)) {
+  if (any(grepl("node", highlight_measure))) {
     # Measure; needs to be a node level measure
-    measure <- highlight_measure(g)
+    nm <- node_measure[[1]]
+    nm_if <- node_identify_measure[[1]]
+    measure <- nm(g)
     # Add as attribute
     g <- add_node_attributes(g, "highlight_measure_node",
-                             ifelse(measure == identify_function(measure),
+                             ifelse(measure == nm_if(measure),
                                     gsub(pattern = '.*["]([^.]+)["].*', "\\1",
                                          deparse(identify_function)), "other"))
     # Let the rest of the function know that it needs to color things according
@@ -243,3 +267,4 @@ autographr <- auto_graph <- function(object,
 # {
 #   .Deprecated("auto_graph")
 # }
+
