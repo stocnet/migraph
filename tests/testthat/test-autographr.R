@@ -8,7 +8,7 @@ test_that("autographr works for unweighted, unsigned, directed networks", {
   # Edge parameters
   expect_equal(test_brandes[["layers"]][[1]][["aes_params"]][["edge_alpha"]], 0.4)
   expect_equal(test_brandes[["layers"]][[1]][["aes_params"]][["edge_linetype"]], "solid")
-  expect_equal(test_brandes[["layers"]][[1]][["mapping"]][["edge_colour"]][[2]]
+  expect_equal(rlang::quo_get_expr(test_brandes[["layers"]][[1]][["mapping"]][["edge_colour"]])
 , as.symbol("edge_colour"))
   # expect_equal(as.character(test_brandes[["layers"]][[1]][["aes_params"]][["end_cap"]]), "circle")
   # Node parameters
@@ -26,7 +26,7 @@ test_that("autographr works for unweighted, signed, undirected networks", {
   # Edge parameters
   expect_equal(test_ison_coleman[["layers"]][[1]][["aes_params"]][["edge_alpha"]], 0.4)
   expect_equal(test_ison_coleman[["layers"]][[1]][["aes_params"]][["edge_linetype"]], "solid")
-  expect_equal(test_ison_coleman[["layers"]][[1]][["mapping"]][["edge_colour"]][[2]]
+  expect_equal(rlang::quo_get_expr(test_ison_coleman[["layers"]][[1]][["mapping"]][["edge_colour"]])
                , as.symbol("edge_colour"))
   # Node parameters
   expect_equal(round(test_ison_coleman[["layers"]][[2]][["aes_params"]][["size"]]), 5)
@@ -36,11 +36,15 @@ test_that("autographr works for unweighted, signed, undirected networks", {
 # Test node_measure function with ison_coleman
 test_node_measure_max <- autographr(ison_adolescents,
   highlight_measure = "node_betweenness",
-  identify_function = max
+  identify_function = "max"
 )
 test_node_measure_min <- autographr(ison_adolescents,
   highlight_measure = "node_betweenness",
-  identify_function = min
+  identify_function = "min"
+)
+test_node_measure_max_edge_measure_max <- autographr(ison_adolescents,
+                                    highlight_measure = c("node_betweenness", "edge_betweenness"),
+                                    identify_function = c("max", "max")
 )
 
 test_that("autographr works with node_measure functionality", {
@@ -61,11 +65,11 @@ test_that("autographr works with node_measure functionality", {
 # Test edge_measure function with ison_coleman
 test_edge_measure_max <- autographr(ison_adolescents,
                                     highlight_measure = "edge_betweenness",
-                                    identify_function = max
+                                    identify_function = "max"
 )
 test_edge_measure_min <- autographr(ison_adolescents,
                                     highlight_measure = "edge_betweenness",
-                                    identify_function = min
+                                    identify_function = "min"
 )
 
 test_that("autographr works with edge_measure functionality", {
