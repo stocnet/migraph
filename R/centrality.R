@@ -261,7 +261,6 @@ graph_closeness <- function(object, normalized = TRUE,
 }
 
 #' @describeIn centrality Calculate the betweenness centralities of nodes in a network
-#' @param nobigint Whether big integers should be avoided during calculations 
 #' @import tidygraph
 #' @examples
 #' node_betweenness(mpn_elite_mex)
@@ -269,7 +268,7 @@ graph_closeness <- function(object, normalized = TRUE,
 #' @return A numeric vector giving the betweenness centrality measure of each node.
 #' @export 
 node_betweenness <- function(object, normalized = TRUE, 
-                             cutoff = NULL, nobigint = TRUE){
+                             cutoff = NULL){
   
   if(missing(object)){
     expect_nodes()
@@ -282,7 +281,7 @@ node_betweenness <- function(object, normalized = TRUE,
   # Do the calculations
   if (is_twomode(graph) & normalized){
     betw_scores <- igraph::betweenness(graph = graph, v = igraph::V(graph), 
-                                       directed = is_directed(graph), nobigint = nobigint)
+                                       directed = is_directed(graph))
     other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
     set_size <- ifelse(igraph::V(graph)$type, sum(igraph::V(graph)$type), sum(!igraph::V(graph)$type))
     out <- ifelse(set_size > other_set_size, 
@@ -292,11 +291,11 @@ node_betweenness <- function(object, normalized = TRUE,
     if (is.null(cutoff)) {
       out <- igraph::betweenness(graph = graph, v = igraph::V(graph), 
                                  directed = is_directed(graph), weights = weights, 
-                                 nobigint = nobigint, normalized = normalized)
+                                 normalized = normalized)
     } else {
       out <- igraph::estimate_betweenness(graph = graph, vids = igraph::V(graph), 
                                           directed = is_directed(graph), cutoff = cutoff, 
-                                          weights = weights, nobigint = nobigint)
+                                          weights = weights)
     }
   }
   out <- make_node_measure(out, object)
