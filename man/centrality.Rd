@@ -28,7 +28,7 @@ edge_closeness(object, normalized = TRUE)
 
 graph_closeness(object, normalized = TRUE, direction = c("all", "out", "in"))
 
-node_betweenness(object, normalized = TRUE, cutoff = NULL, nobigint = TRUE)
+node_betweenness(object, normalized = TRUE, cutoff = NULL)
 
 edge_betweenness(object, normalized = TRUE)
 
@@ -64,8 +64,6 @@ between the maximum centrality score for the mode
 against only the centrality scores of the other nodes in that mode.}
 
 \item{cutoff}{Maximum path length to use during calculations.}
-
-\item{nobigint}{Whether big integers should be avoided during calculations}
 
 \item{scale}{Logical scalar, whether to rescale the vector so the maximum score is 1.}
 }

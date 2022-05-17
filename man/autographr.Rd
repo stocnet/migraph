@@ -13,7 +13,7 @@ autographr(
   node_shape = NULL,
   node_size = NULL,
   highlight_measure = NULL,
-  identify_function = max,
+  identify_function = NULL,
   ...
 )
 }
@@ -47,12 +47,14 @@ Since this function expects this to be an existing variable,
 it is recommended to calculate all node-related statistics prior
 to using this function.}
 
-\item{highlight_measure}{Name in quotation marks of the node or edge
-level measure function e.g. \code{node_degree} or \code{edge_betweenness}.
+\item{highlight_measure}{String vector of name of the node and/or edge
+level measure function e.g. \code{node_degree},  \code{edge_betweenness},
+or \code{c("node_betweenness", "edge_betweenness")}.
 \code{NULL} by default.}
 
 \item{identify_function}{Name of the function used to determine the
-highlighted node e.g. \code{max}, \code{min}, etc. \code{max} by default.}
+highlighted node e.g. \code{"max"}, \code{"min"}, or \code{c("max", "min")} if
+both edge and node highlighting is performed. \code{NULL} by default.}
 
 \item{...}{Extra arguments.}
 }
@@ -70,7 +72,10 @@ ison_adolescents <- ison_adolescents \%>\%
 autographr(ison_adolescents, node_shape = "shape", node_color = "color")
 autographr(ison_karateka, node_size = rep(c(0.8), times = 34))
 # Node highlighting:
-autographr(ison_networkers, highlight_measure = "node_betweenness", identify_function = max)
+autographr(ison_adolescents, highlight_measure = "node_betweenness", identify_function = "max")
 # Edge highlighting:
-autographr(ison_adolescents, highlight_measure = "edge_betweenness", identify_function = max)
+autographr(ison_adolescents, highlight_measure = "edge_betweenness", identify_function = "max")
+# Both Node and Edge highlighting:
+autographr(ison_adolescents, highlight_measure = c("node_betweenness", 
+"edge_betweenness"), identify_function = c("max", "max"))
 }
