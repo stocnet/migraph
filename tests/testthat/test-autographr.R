@@ -75,11 +75,11 @@ test_edge_measure_min <- autographr(ison_adolescents,
 test_that("autographr works with edge_measure functionality", {
   # Node color is determined by factor levels
   expect_equal(
-    rlang::as_label(test_edge_measure_max[["layers"]][[1]][["mapping"]][["edge_colour"]][[2]]),
+    rlang::as_label(rlang::quo_get_expr(test_edge_measure_max[["layers"]][[1]][["mapping"]][["edge_colour"]])),
     "edge_colour"
   )
   expect_equal(
-    rlang::as_label(test_edge_measure_min[["layers"]][[1]][["mapping"]][["edge_colour"]][[2]]),
+    rlang::as_label(rlang::quo_get_expr(test_edge_measure_min[["layers"]][[1]][["mapping"]][["edge_colour"]])),
     "edge_colour"
   )
   # Node size
@@ -107,7 +107,7 @@ test_that("autographr works for signed, unweighted and undirected bipartite netw
   expect_equal(test_usa_advice[["data"]][["name"]][[1]], "Albright")
   # Edges
   expect_equal(test_usa_advice[["layers"]][[1]][["aes_params"]][["edge_linetype"]], "solid")
-  expect_equal(test_usa_advice[["layers"]][[1]][["mapping"]][["edge_colour"]][[2]], as.symbol("edge_colour"))
+  expect_equal(rlang::quo_get_expr(test_usa_advice[["layers"]][[1]][["mapping"]][["edge_colour"]]), as.symbol("edge_colour"))
   expect_equal(test_usa_advice[["layers"]][[1]][["aes_params"]][["edge_alpha"]], 0.4)
   # Nodes
   expect_equal(test_usa_advice[["layers"]][[2]][["aes_params"]][["shape"]][1:3], rep("circle", 3))
