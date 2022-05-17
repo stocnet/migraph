@@ -53,7 +53,8 @@
 #' # Edge highlighting:
 #' autographr(ison_adolescents, highlight_measure = "edge_betweenness", identify_function = "max")
 #' # Both Node and Edge highlighting:
-#' autographr(ison_adolescents, highlight_measure = c("node_betweenness", "edge_betweenness"), identify_function = c("max", "max"))
+#' autographr(ison_adolescents, highlight_measure = c("node_betweenness", 
+#' "edge_betweenness"), identify_function = c("max", "max"))
 #' @export
 autographr <- auto_graph <- function(object,
                                      layout = "stress",
@@ -127,6 +128,10 @@ autographr <- auto_graph <- function(object,
       edge_colour <- ifelse(igraph::E(g)$highlight_measure_edge != "other",
                             "#E20020", "#0072B2")
       edge_linetype <- "solid"
+    } else if (igraph::gsize(g) == 0) {
+      # Edge case where there are no edges
+      edge_linetype <- NULL
+      edge_colour <- NULL
     } else {
       edge_linetype <- "solid"
       edge_colour <- "black"
