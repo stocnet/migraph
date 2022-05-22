@@ -75,7 +75,7 @@ autographr(ison_karateka, node_size = rep(c(0.8), times = 34))
 autographr(ison_adolescents, highlight_measure = "node_betweenness", identify_function = "max")
 # Edge highlighting:
 autographr(ison_adolescents, highlight_measure = "edge_betweenness", identify_function = "max")
-# Both Node and Edge highlighting:
+# Both node and edge highlighting:
 autographr(ison_adolescents, highlight_measure = c("node_betweenness", 
 "edge_betweenness"), identify_function = c("max", "max"))
 }
