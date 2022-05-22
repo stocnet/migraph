@@ -70,10 +70,13 @@ graph_diameter <- function(object){
 #'   or `strong` if edge direction is salient.
 #'   Ignored if network undirected. 
 #' @importFrom igraph components
+#' @examples 
+#' node_components(mpn_bristol)
 #' @export
 node_components <- function(object, method = c("weak", "strong")){
   object <- as_igraph(object)
-  igraph::components(object, mode = method)$membership
+  make_partition(igraph::components(object, mode = method)$membership,
+                 object)
 }
 
 #' @describeIn connectedness Returns logical of which nodes cut

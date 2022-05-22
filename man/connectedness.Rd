@@ -79,6 +79,7 @@ graph_length(ison_marvel_relationships)
 graph_length(to_main_component(ison_marvel_relationships))
 graph_diameter(ison_marvel_relationships)
 graph_diameter(to_main_component(ison_marvel_relationships))
+node_components(mpn_bristol)
 }
 \references{
 White, Douglas R and Frank Harary 2001.
