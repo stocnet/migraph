@@ -6,6 +6,7 @@
 #' @return
 #' @examples
 #' partition_kernighanlin(to_unsigned(ison_marvel_relationships, keep = "positive"))
+#' partition_kernighanlin(ison_adolescents)
 #' @export
 partition_kernighanlin <- function(object){
   # assign groups arbitrarily
@@ -46,7 +47,7 @@ partition_kernighanlin <- function(object){
     g1.newnames[i] <- g2.names[i]
     g2.newnames[i] <- g1.names[i]
   }
-
+  
   # extract names of vertices in each group after swaps
   out <- list("group 1" = paste0(g1.newnames), "group 2" = paste0(g2.newnames[g2.newnames!=""]))
   out
@@ -57,10 +58,11 @@ partition_kernighanlin <- function(object){
 #' @param object 
 #' @return a list of biconnected components in the original network
 #' @examples
-#' 
+#' get_biconnected(mpn_bristol)
 #' @export
 get_biconnected <- function(object){
   object <- as_igraph(object)
   out <- igraph::biconnected_components(object)
   out$components
 }
+
