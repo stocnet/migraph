@@ -75,7 +75,6 @@ Other one-mode measures:
 \code{\link{node_constraint}()}
 
 Other two-mode measures: 
-\code{\link{graph_smallworld}()},
 \code{\link{node_constraint}()}
 }
 \concept{one-mode measures}

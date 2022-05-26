@@ -39,8 +39,7 @@ Other one-mode measures:
 \code{\link{cohesion}()}
 
 Other two-mode measures: 
-\code{\link{cohesion}()},
-\code{\link{graph_smallworld}()}
+\code{\link{cohesion}()}
 }
 \concept{node-level measures}
 \concept{one-mode measures}
