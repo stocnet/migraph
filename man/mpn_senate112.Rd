@@ -21,8 +21,9 @@ weighted graph of 20 Senators (\code{type = FALSE}) and 32 PACS (\code{type = TR
 and 614 edges.
 }
 \source{
-Knoke, Diani, Hollway, and Christopoulos. 2021.
-\emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
+#' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
+\href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
+Cambridge University Press. Cambridge University Press.
 }
 \usage{
 data(mpn_DemSxP)

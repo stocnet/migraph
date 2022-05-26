@@ -40,7 +40,9 @@ An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 752.
 An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 678.
 }
 \source{
-Knoke, Diani, Hollway, and Christopoulos. 2021.
+Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
+\href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
+Cambridge University Press. Cambridge University Press.
 }
 \usage{
 data(mpn_IT_1990)

@@ -89,19 +89,20 @@
 #' @keywords datasets
 #' @name mpn_bristol
 #' @usage data(mpn_bristol)
-#' @format A `tbl_graph` object with 264 rows and columns. Node IDs are 
-#' prefaced with a type identifier:
+#' @format A `tbl_graph` object with 264 nodes and 1496 edges. 
+#'   While represented as a two-mode network, it contains three levels:
 #' \describe{
-#'   \item{1_}{150 Individuals, anonymised}
-#'   \item{2_}{97 Bristol Civic Organizations}
-#'   \item{3_}{17 Major Protest and Civic Events in Bristol, 1990-2002}
+#'   \item{1}{150 Individuals, anonymised}
+#'   \item{2}{97 Bristol civic organizations}
+#'   \item{3}{17 Major protest and civic events in Bristol, 1990-2002}
 #' }
-#' The network is weighted, named, and directed.
+#' The network is named.
 #' @references 
 #' Diani, Mario, and Ivano Bison. 2004. 
 #' “Organizations, Coalitions, and Movements.” 
-#' Theory and Society 33(3–4):281–309.
-#' @source Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
+#' _Theory and Society_ 33(3–4):281–309.
+#' @source 
+#' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
 #' Cambridge University Press. Cambridge University Press.
 "mpn_bristol"
@@ -132,8 +133,9 @@
 #' “Relational Attributes of Political Entrepreneurs: a Network Perspective.”
 #' \emph{Journal of European Public Policy} 13 (5): 757–78.
 #' 
-#' Knoke, Diani, Hollway, and Christopoulos. 2021. 
-#' \emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
+#' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
+#' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
+#' Cambridge University Press. Cambridge University Press.
 "mpn_ryanair"
 
 # Senate voting ####
@@ -168,8 +170,9 @@
 #' @format `tbl_graph` network object. It is a bimodal, directed, named,
 #' weighted graph of 51 Senators (`type = FALSE`) and 63 PACS (`type = TRUE`)
 #' and 2791 edges.
-#' @source Knoke, Diani, Hollway, and Christopoulos. 2021. 
-#' \emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
+#' @source #' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
+#' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
+#' Cambridge University Press. Cambridge University Press.
 "mpn_DemSxP"
 
 #' @rdname mpn_senate112
@@ -217,7 +220,9 @@
 #'   \item{Peace}{1 if individual associated}
 #'   \item{Health}{1 if individual associated}
 #' }
-#' @source Knoke, Diani, Hollway, and Christopoulos. 2021. 
+#' @source Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
+#'   \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
+#'   Cambridge University Press. Cambridge University Press.
 #' @references 
 #'   EVS (2020). European Values Study Longitudinal Data File 1981-2008 (EVS 1981-2008). 
 #'   GESIS Data Archive, Cologne. ZA4804 Data file Version 3.1.0, 
