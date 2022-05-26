@@ -58,7 +58,7 @@ is_graph.igraph <- function(object){
 
 #' @export
 is_graph.network <- function(object){
-  network::is.network(object)
+  FALSE
 }
 
 #' @describeIn is Tests whether data frame is an edgelist

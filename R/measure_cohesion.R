@@ -46,16 +46,6 @@ graph_density <- function(object) {
   }
 }
 
-#' @describeIn cohesion Identify edges that are mutual/reciprocated
-#' @importFrom igraph which_mutual
-#' @examples 
-#' edge_reciprocal(ison_algebra)
-#' @export
-edge_reciprocal <- function(object){
-  object <- as_igraph(object) # allow for custom edge selection
-  igraph::which_mutual(object)
-}
-
 #' @describeIn cohesion Calculate reciprocity in a network
 #' @importFrom igraph reciprocity
 #' @examples
@@ -115,25 +105,5 @@ graph_congruency <- function(object, object2){
              (matrix(degrees, c, c) - twopaths)))
   if (is.nan(output)) output <- 1
   output
-}
-
-#' @describeIn cohesion Identify edges that are multiples
-#' @importFrom igraph which_multiple
-#' @examples 
-#' edge_multiple(ison_algebra)
-#' @export
-edge_multiple <- function(object){
-  object <- as_igraph(object)
-  igraph::which_multiple(object)
-}
-
-#' @describeIn cohesion Identify edges that are loops
-#' @importFrom igraph which_loop
-#' @examples 
-#' edge_loop(ison_algebra)
-#' @export
-edge_loop <- function(object){
-  object <- as_igraph(object)
-  igraph::which_loop(object)
 }
 
