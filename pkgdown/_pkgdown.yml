@@ -79,16 +79,20 @@ reference:
     desc: "Functions for calculating subgraphs in multimodal networks:"
     contents:
       - ends_with("_census")
+      - identify
   - title: "Memberships"
-    desc: "Functions for identifying class/cluster/partition memberships in multimodal networks:"
+    desc: |
+      Functions for identifying class, cluster, or partition memberships 
+      in multimodal networks.
+    contents:
       - community
-      - node_components
+      - components
+      - starts_with("cluster")
   - title: "Models"
     desc: "Functions for modelling multimodal and multilevel networks:"
     contents:
       - regression
       - starts_with("test")
-      - starts_with("cluster")
       - starts_with("blockmodel")
   - title: "Data"
     desc: |

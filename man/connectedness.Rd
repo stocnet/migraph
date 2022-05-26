@@ -7,9 +7,6 @@
 \alias{graph_adhesion}
 \alias{graph_length}
 \alias{graph_diameter}
-\alias{node_components}
-\alias{node_cuts}
-\alias{edge_bridges}
 \title{Network connectedness}
 \usage{
 graph_components(object, method = c("weak", "strong"))
@@ -21,12 +18,6 @@ graph_adhesion(object)
 graph_length(object)
 
 graph_diameter(object)
-
-node_components(object, method = c("weak", "strong"))
-
-node_cuts(object)
-
-edge_bridges(object)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -38,10 +29,8 @@ edge_bridges(object)
 \item tbl_graph, from the tidygraph package
 }}
 
-\item{method}{For directed networks,
-either \code{weak} if edge direction is irrelevant,
-or \code{strong} if edge direction is salient.
-Ignored if network undirected.}
+\item{method}{Whether to identify components if only "weak"ly connected
+or also "strong"ly connected.}
 }
 \description{
 These functions return values or vectors relating to how connected a network is
@@ -60,14 +49,6 @@ to remove from the network to increase the number of components.
 \item \code{graph_length}: Returns the average path length in the network.
 
 \item \code{graph_diameter}: Returns the maximum path length in the network.
-
-\item \code{node_components}: Returns nodes' component membership.
-
-\item \code{node_cuts}: Returns logical of which nodes cut
-or act as articulation points in a network.
-
-\item \code{edge_bridges}: Returns logical of which nodes cut
-or act as articulation points in a network.
 }}
 
 \examples{
@@ -79,7 +60,6 @@ graph_length(ison_marvel_relationships)
 graph_length(to_main_component(ison_marvel_relationships))
 graph_diameter(ison_marvel_relationships)
 graph_diameter(to_main_component(ison_marvel_relationships))
-node_components(mpn_bristol)
 }
 \references{
 White, Douglas R and Frank Harary 2001.
