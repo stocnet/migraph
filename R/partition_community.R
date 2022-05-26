@@ -56,16 +56,3 @@ node_kernighanlin <- function(object){
   make_partition(out, object)
 }
 
-#' Get biconnected subgraphs
-#'
-#' @param object 
-#' @return a list of biconnected components in the original network
-#' @examples
-#' get_biconnected(mpn_bristol)
-#' @export
-get_biconnected <- function(object){
-  object <- as_igraph(object)
-  out <- igraph::biconnected_components(object)
-  out$components
-}
-
