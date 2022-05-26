@@ -1,16 +1,17 @@
-#' Kernighan-Lin algorithm for graph partitioning
-#'
-#' This function partitions a graph into two communities.
-#' @param object 
-#'
-#' @return
+#' Community graph partitioning algorithms
+#' @inheritParams is
+#' @name community
+NULL
+
+#' @describeIn community a greedy, iterative, deterministic graph
+#'   partitioning algorithm that results in a graph with two 
+#'   equally-sized communities
 #' @examples
-#' partition_kernighanlin(to_unsigned(ison_marvel_relationships, keep = "positive"))
-#' partition_kernighanlin(ison_adolescents)
+#' node_kernighanlin(ison_adolescents)
 #' @export
-partition_kernighanlin <- function(object){
+node_kernighanlin <- function(object){
   # assign groups arbitrarily
-  n <- igraph::vcount(object)
+  n <- graph_nodes(object)
   group_size <- ifelse(n %% 2 == 0, n/2, (n+1)/2)
   
   # count internal and external costs of each vertex
@@ -49,8 +50,10 @@ partition_kernighanlin <- function(object){
   }
   
   # extract names of vertices in each group after swaps
-  out <- list("group 1" = paste0(g1.newnames), "group 2" = paste0(g2.newnames[g2.newnames!=""]))
-  out
+  out <- ifelse(node_names(object) %in% g1.newnames, 1, 2)
+  if(is_labelled(object)) names(out) <- node_names(object)
+  # out <- list("group 1" = paste0(g1.newnames), "group 2" = paste0(g2.newnames[g2.newnames!=""]))
+  make_partition(out, object)
 }
 
 #' Get biconnected subgraphs

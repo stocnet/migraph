@@ -62,7 +62,7 @@ reference:
       - ggatyear
   - title: "Measures"
     desc: |
-      Functions for measuring multimodal and multilevel networks.
+      Functions for measuring multimodal networks.
       Note that all `node_` measures return a single vector so that
       they can be added directly to graph objects,
       though two-mode results will be printed in two sections
@@ -73,13 +73,16 @@ reference:
       - diversity
       - node_constraint
       - graph_smallworld
-      - node_components
       - graph_components
       - graph_balance
   - title: "Motifs"
-    desc: "Functions for calculating subgraphs in multimodal and multilevel networks:"
+    desc: "Functions for calculating subgraphs in multimodal networks:"
     contents:
       - ends_with("_census")
+  - title: "Memberships"
+    desc: "Functions for identifying class/cluster/partition memberships in multimodal networks:"
+      - community
+      - node_components
   - title: "Models"
     desc: "Functions for modelling multimodal and multilevel networks:"
     contents:
