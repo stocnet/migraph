@@ -2,16 +2,26 @@
 % Please edit documentation in R/partition_equivalence.R
 \name{cluster}
 \alias{cluster}
-\alias{cluster_structural_equivalence}
-\alias{cluster_regular_equivalence}
+\alias{node_structural_equivalence}
+\alias{node_regular_equivalence}
 \title{Clustering algorithms}
 \usage{
-cluster_structural_equivalence(object)
+node_structural_equivalence(object, method = c("strict", "elbow"))
 
-cluster_regular_equivalence(object)
+node_regular_equivalence(object, method = c("strict", "elbow"))
 }
 \arguments{
-\item{object}{A migraph-consistent object.}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
+
+\item{method}{Whether to identify components if only "weak"ly connected
+or also "strong"ly connected.}
 }
 \description{
 These functions combine an appropriate \verb{_census()} function
@@ -20,6 +30,8 @@ provided by a certain distance calculation.
 }
 \examples{
 ggtree(cluster_structural_equivalence(mpn_elite_mex))
+node_structural_equivalence(mpn_elite_mex)
 ggtree(cluster_regular_equivalence(mpn_elite_mex))
 ggtree(cluster_regular_equivalence(mpn_elite_usa_advice))
+node_regular_equivalence(mpn_elite_mex)
 }

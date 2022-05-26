@@ -1,5 +1,5 @@
 #' Blockmodelling
-#' @param object A migraph-consistent object (matrix, igraph, tidygraph). 
+#' @inheritParams is
 # #' Passing the function a list apply the algorithm to the joined matrices.
 #' @param p An integer representing the desired number of partitions.
 #' @param cutoff A value between 0 and 1 used to determine convergence.

@@ -28,7 +28,14 @@ reduce_graph(blockmodel, block_labels = NULL)
 summarise_statistics(node_measure, clusters = NULL, sumFUN = mean)
 }
 \arguments{
-\item{object}{A migraph-consistent object (matrix, igraph, tidygraph).}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 
 \item{clusters}{the vector of cluster membership for the blockmodel}
 

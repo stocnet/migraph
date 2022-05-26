@@ -273,22 +273,6 @@ elbow_finder <- function(x_values, y_values) {
   x_max_dist
 }
 
-clusterCorr <- function(observed_cor_matrix, cluster_vector) {
-  num_vertices = nrow(observed_cor_matrix)
-  cluster_cor_mat <- observed_cor_matrix
-
-  obycor <- function(i, j) mean(observed_cor_matrix[which(cluster_vector[row(observed_cor_matrix)] ==
-                                         cluster_vector[i] &
-                                         cluster_vector[col(observed_cor_matrix)] ==
-                                         cluster_vector[j])])
-  obycor_v <- Vectorize(obycor)
-  cluster_cor_mat <- outer(1:num_vertices,
-                           1:num_vertices,
-                           obycor_v)
-  dimnames(cluster_cor_mat) <- dimnames(observed_cor_matrix)
-  cluster_cor_mat
-}
-
 elementwise.all.equal <- Vectorize(function(x, y) {isTRUE(all.equal(x, y))})
 
 
