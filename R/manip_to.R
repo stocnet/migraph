@@ -15,6 +15,7 @@
 #' | ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|
 #' | unweighted  | X | X | X | X | X |
 #' | undirected  |  | X | X | X | X |
+#' | redirected  | X | X | X | X |  |
 #' | unsigned  | X | X | X | X |   |
 #' | uniplex  |  |   | X | X |   |
 #' | unnamed  | X | X | X | X | X |
@@ -131,6 +132,40 @@ to_undirected.matrix <- function(object) {
   if (is_twomode(object)) {
     object
   } else ((object + t(object)) > 0) * 1
+}
+
+#' @describeIn to Returns an object that has any edge direction transposed,
+#'   or flipper, so that senders become receivers and receivers become senders.
+#'   This has no effect on undirected networks.
+#' @export
+to_redirected <- function(object) UseMethod("to_redirected")
+
+#' @export
+to_redirected.tbl_graph <- function(object) {
+  out <- object %>% activate(edges)
+  out$from <- object$to
+  out$to <- object$from
+  out %>% activate(nodes)
+}
+
+#' @export
+to_redirected.igraph <- function(object) {
+    df <- igraph::as_data_frame(object, what = "both")
+    igraph::graph_from_data_frame(df$edges[,c(2:1, 3:ncol(df$edges))], 
+                                  directed = T, df$vertices)
+  }
+
+#' @export
+to_redirected.data.frame <- function(object) {
+  out <- object
+  out$from <- object$to
+  out$to <- object$from
+  out
+}
+
+#' @export
+to_redirected.matrix <- function(object) {
+  t(object)
 }
 
 #' @describeIn to Returns an object that has all edge weights removed
