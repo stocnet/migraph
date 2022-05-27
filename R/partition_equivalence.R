@@ -85,6 +85,30 @@ node_regular_equivalence <- function(object,
   attr(out, "k") <- k
   out
 }
+
+#' @describeIn equivalence Returns nodes' membership in 
+#'   automorphically equivalent classes
+#' @examples 
+#' (nae <- node_regular_equivalence(mpn_elite_mex, "elbow"))
+#' plot(nae)
+#' (nae2 <- node_regular_equivalence(mpn_elite_usa_advice, "elbow"))
+#' plot(nae2)
+#' @export
+node_automorphic_equivalence <- function(object,
+                                         method = c("strict", "elbow")){
+  paths <- node_path_census(object)
+  correlations <- cor(t(paths))
+  dissimilarity <- 1 - correlations
+  distances <- stats::as.dist(dissimilarity)
+  hc <- stats::hclust(distances)
+  
+  method <- match.arg(method)
+  if(method == "strict") k <- k_strict(hc, object)
+  if(method == "elbow") k <- k_elbow(hc, object, paths)
+  out <- make_partition(cutree(hc, k), object)
+  attr(out, "hc") <- hc
+  attr(out, "k") <- k
+  out
 }
 
 k_strict <- function(hc, object){

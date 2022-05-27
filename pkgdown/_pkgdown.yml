@@ -87,7 +87,7 @@ reference:
     contents:
       - community
       - components
-      - starts_with("cluster")
+      - equivalence
   - title: "Models"
     desc: "Functions for modelling multimodal and multilevel networks:"
     contents:
