@@ -186,3 +186,30 @@ elbow_finder <- function(x_values, y_values) {
   x_max_dist <- x_values[which.max(distances)]
   x_max_dist
 }
+
+k_silhouette <- function(hc, object, distances){
+  kcs <- 2:graph_nodes(object)
+  ns <- seq_len(graph_nodes(object))
+  ks <- vector()
+  for(kc in kcs){
+    cand <- cutree(hc, kc)
+    ai <- vector()
+    bi <- vector()
+    for(i in ns){
+      wig <- which(cand == cand[i])
+      wig <- wig[wig != i]
+      ai <- c(ai, 
+              ifelse(length(wig)==0,
+                     0, mean(as.matrix(distances)[i, wig])))
+      wog <- which(cand != cand[i])
+      bi <- c(bi, min(vapply(unique(cand[wog]), function(b){
+        mean(as.matrix(distances)[i, wog[cand[wog]==b]])
+      }, FUN.VALUE = numeric(1))))
+    }
+    si <- (bi - ai)/
+      apply(data.frame(ai, bi), 1, max)
+    ks <- c(ks, mean(si))
+  }
+  k <- which(ks == max(ks)) + 1
+  k
+}
