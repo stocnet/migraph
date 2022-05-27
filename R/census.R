@@ -136,6 +136,20 @@ node_quad_census <- function(object){
   out
 }
 
+#' @describeIn census Returns the shortest path lengths
+#'   of each node to every other node in the network.
+#' @importFrom tnet distance_tm distance_w
+#' @examples 
+#' node_length(ison_adolescents)
+#' @export
+node_path_census <- function(){
+  if(is_twomode(object)){
+    tnet::distance_tm(as_matrix(object))
+  } else if (is_weighted(object)){
+    tnet::distance_w(as_matrix(object))
+  } else igraph::distances(as_igraph(object))
+}
+
 #' Censuses for the whole graph
 #' @name graph_census
 #' @param object A migraph-consistent object.

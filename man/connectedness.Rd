@@ -5,8 +5,8 @@
 \alias{graph_components}
 \alias{graph_cohesion}
 \alias{graph_adhesion}
-\alias{graph_length}
 \alias{graph_diameter}
+\alias{graph_length}
 \title{Network connectedness}
 \usage{
 graph_components(object, method = c("weak", "strong"))
@@ -15,9 +15,9 @@ graph_cohesion(object)
 
 graph_adhesion(object)
 
-graph_length(object)
-
 graph_diameter(object)
+
+graph_length(object)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -46,9 +46,9 @@ to remove from the network to increase the number of components.
 \item \code{graph_adhesion}: Returns the minimum number of edges needed
 to remove from the network to increase the number of components.
 
-\item \code{graph_length}: Returns the average path length in the network.
-
 \item \code{graph_diameter}: Returns the maximum path length in the network.
+
+\item \code{graph_length}: Returns the average path length in the network.
 }}
 
 \examples{
@@ -56,10 +56,10 @@ graph_cohesion(ison_marvel_relationships)
 graph_cohesion(to_main_component(ison_marvel_relationships))
 graph_adhesion(ison_marvel_relationships)
 graph_adhesion(to_main_component(ison_marvel_relationships))
-graph_length(ison_marvel_relationships)
-graph_length(to_main_component(ison_marvel_relationships))
 graph_diameter(ison_marvel_relationships)
 graph_diameter(to_main_component(ison_marvel_relationships))
+graph_length(ison_marvel_relationships)
+graph_length(to_main_component(ison_marvel_relationships))
 }
 \references{
 White, Douglas R and Frank Harary 2001.

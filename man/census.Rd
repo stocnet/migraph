@@ -5,6 +5,7 @@
 \alias{node_tie_census}
 \alias{node_triad_census}
 \alias{node_quad_census}
+\alias{node_path_census}
 \alias{group_tie_census}
 \alias{group_triad_census}
 \title{Census by nodes or clusters}
@@ -14,6 +15,8 @@ node_tie_census(object)
 node_triad_census(object)
 
 node_quad_census(object)
+
+node_path_census()
 
 group_tie_census(object, clusters, decimals = 2)
 
@@ -68,6 +71,9 @@ For now, we offer a rough translation:\tabular{ll}{
 \itemize{
 \item \code{node_quad_census}: Returns a census of nodes' positions
 in motifs of four nodes.
+
+\item \code{node_path_census}: Returns the shortest path lengths
+of each node to every other node in the network.
 }}
 
 \examples{
@@ -75,6 +81,7 @@ task_eg <- to_named(to_uniplex(ison_algebra, "task_tie"))
 (tie_cen <- node_tie_census(task_eg))
 (triad_cen <- node_triad_census(task_eg))
 (quad_cen <- node_quad_census(ison_southern_women))
+node_length(ison_adolescents)
 group_tie_census(task_eg, cutree(cluster_structural_equivalence(task_eg), 4))
 group_triad_census(task_eg, cutree(cluster_regular_equivalence(task_eg), 4))
 }
