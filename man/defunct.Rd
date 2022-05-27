@@ -8,6 +8,8 @@
 \alias{project_cols}
 \alias{mutate_edges}
 \alias{edge_mutual}
+\alias{ggtree}
+\alias{ggidentify_clusters}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 ggidentify(object, node_measure, identify_function = max)
@@ -21,6 +23,10 @@ project_cols(object)
 mutate_edges(object, object2, attr_name)
 
 edge_mutual(object)
+
+ggtree(hc, k = NULL)
+
+ggidentify_clusters(hc, census, method = c("elbow", "strict"))
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -44,6 +50,10 @@ for more details about the new implementation.
 \item \code{mutate_edges}: Deprecated on 2022-03-29.
 
 \item \code{edge_mutual}: Deprecated on 2022-04-05.
+
+\item \code{ggtree}: Deprecated on 2022-05-27.
+
+\item \code{ggidentify_clusters}: Deprecated on 2022-05-27.
 }}
 
 \keyword{internal}

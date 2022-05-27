@@ -83,4 +83,73 @@ edge_mutual <- function(object){
   edge_reciprocal(object = object)
 }
 
+#' @describeIn defunct Deprecated on 2022-05-27.
+#' @export
+ggtree <- function(hc, k = NULL){
+  .Deprecated("plot.partition", package = "migraph",
+              old = "ggtree")
+  if (is.null(k)) {
+    ggdendro::ggdendrogram(hc, rotate = TRUE)
+  } else {
+    colors <- colorsafe_palette[seq_len(k)]
+    colors <- (colors[stats::cutree(hc, k = k)])[hc$order]
+    ggdendro::ggdendrogram(hc, rotate = TRUE) +
+      ggplot2::geom_hline(yintercept = hc$height[length(hc$order) - k],
+                          linetype = 2,
+                          color = "#E20020") +
+      ggplot2::theme(axis.text.x = ggplot2::element_text(colour = "#E20020"),
+                     axis.text.y = suppressWarnings(
+                       ggplot2::element_text(colour = colors)))
+  }
+  
+}
+
+#' @describeIn defunct Deprecated on 2022-05-27.
+#' @export
+ggidentify_clusters <- function(hc, census, method = c("elbow", "strict")){
+  
+  vertices <- nrow(census)
+  observedcorrelation <- cor(t(census))
+  method <- match.arg(method)
+  
+  resultlist <- list()
+  correlations <- vector()
+  for (i in 2:(vertices)) {
+    cluster_result <- list(label = NA, clusters = NA, correlation = NA)
+    cluster_result$label <- paste("number of clusters: ", 
+                                  i)
+    clusters <- stats::cutree(hc, k = i)
+    cluster_result$clusters <- clusters
+    cluster_cor_mat <- clusterCorr(observedcorrelation, clusters)
+    clustered_observed_cors <- sna::gcor(cluster_cor_mat, observedcorrelation)
+    cluster_result$correlation <- (clustered_observed_cors)
+    resultlist <- c(resultlist, cluster_result)
+    correlations <- c(correlations, clustered_observed_cors)
+  }
+  
+  resultlist$correlations <- c(correlations)
+  dafr <- data.frame(clusters = 2:vertices, correlations = c(correlations))
+  # resultlist
+  correct <- NULL # to satisfy the error god
+  
+  # k identification method
+  if(method == "elbow"){
+    dafr$correct <- ifelse(dafr$clusters == elbow_finder(dafr$clusters, dafr$correlations),
+                           "#E20020", "#6f7072")
+  } else if (method == "strict"){
+    dafr$correct <- "#6f7072"
+    dafr$correct[which(elementwise.all.equal(dafr$correlations, 1))[1]] <- "#E20020"
+  } else stop("This k selection method is not recognised")
+  
+  # plotting
+  ggplot2::ggplot(dafr, aes(x = clusters, y = correlations)) +
+    ggplot2::geom_line(color = "#6f7072") +
+    ggplot2::geom_point(aes(color = correct), size = 2) +
+    ggplot2::scale_color_manual(values = c("#6f7072", "#E20020")) +
+    # ggplot2::scale_y_continuous(limits = c(0, 1)) +
+    ggplot2::theme_minimal() +
+    ggplot2::guides(color = "none")
+}
+
+
 
