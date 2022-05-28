@@ -14,6 +14,12 @@ test_that("to_undirected works",{
   expect_false(is_directed(to_undirected(ison_algebra)))
 })
 
+test_that("to_redirected works",{
+  expect_true(is_directed(to_redirected(mpn_ryanair)))
+  expect_equal(colnames(as_matrix(mpn_ryanair)), 
+               rownames(to_redirected(as_matrix(mpn_ryanair))))
+})
+
 test_that("to_onemode works",{
   expect_equal(c(to_onemode(ison_marvel_teams))[3], c(igraph::delete_vertex_attr(ison_marvel_teams, "type"))[3])
   expect_equal(as_matrix(to_onemode(as_tidygraph(ison_marvel_teams))),

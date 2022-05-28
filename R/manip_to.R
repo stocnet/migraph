@@ -135,7 +135,7 @@ to_undirected.matrix <- function(object) {
 }
 
 #' @describeIn to Returns an object that has any edge direction transposed,
-#'   or flipper, so that senders become receivers and receivers become senders.
+#'   or flipped, so that senders become receivers and receivers become senders.
 #'   This has no effect on undirected networks.
 #' @export
 to_redirected <- function(object) UseMethod("to_redirected")
