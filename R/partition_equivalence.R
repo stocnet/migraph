@@ -10,8 +10,8 @@
 #'   assignment.
 #' @name equivalence
 #' @inheritParams is
-#' @param method Character string indicating which method
-#'   should be used to choose the number of clusters to cut
+#' @param select Character string indicating which method
+#'   should be used to select the number of clusters to cut
 #'   the tree at.
 #'   By default "strict" to return classes with members only
 #'   when strictly equivalent.
@@ -61,27 +61,25 @@ node_structural_equivalence <- function(object,
 #' @describeIn equivalence Returns nodes' membership in 
 #'   regularly equivalent classes
 #' @examples
-#' (nre <- node_regular_equivalence(mpn_elite_mex, "elbow"))
+#' (nre <- node_regular_equivalence(ison_algebra, "elbow"))
 #' plot(nre)
-#' (nre2 <- node_regular_equivalence(mpn_elite_usa_advice, "elbow"))
+#' (nre2 <- node_regular_equivalence(ison_algebra, "silhouette"))
 #' plot(nre2)
 #' @export
 node_regular_equivalence <- function(object, 
-                                     method = c("strict", "elbow")){
+                                     select = c("strict", "elbow", "silhouette")){
   if(is_twomode(object)){
     triads <- as.matrix(node_quad_census(object))
   } else {
     triads <- node_triad_census(object)
   }
   if(any(colSums(triads) == 0)) triads <- triads[,-which(colSums(triads) == 0)]
-  correlations <- cor(t(triads))
-  dissimilarity <- 1 - correlations
-  distances <- stats::as.dist(dissimilarity)
-  hc <- stats::hclust(distances)
-  
-  method <- match.arg(method)
-  if(method == "strict") k <- k_strict(hc, object)
-  if(method == "elbow") k <- k_elbow(hc, object, triads)
+  hc <- cluster_hierarchical(triads)
+
+  k <- switch(match.arg(select),
+              strict = k_strict(hc, object),
+              elbow = k_elbow(hc, object, mat),
+              silhouette = k_silhouette(hc, object, distances))
   out <- make_partition(cutree(hc, k), object)
   attr(out, "hc") <- hc
   attr(out, "k") <- k
@@ -91,22 +89,20 @@ node_regular_equivalence <- function(object,
 #' @describeIn equivalence Returns nodes' membership in 
 #'   automorphically equivalent classes
 #' @examples 
-#' (nae <- node_regular_equivalence(mpn_elite_mex, "elbow"))
+#' (nae <- node_automorphic_equivalence(mpn_elite_mex, select = "elbow"))
 #' plot(nae)
-#' (nae2 <- node_regular_equivalence(mpn_elite_usa_advice, "elbow"))
+#' (nae2 <- node_automorphic_equivalence(mpn_elite_usa_advice, select = "elbow"))
 #' plot(nae2)
 #' @export
 node_automorphic_equivalence <- function(object,
-                                         method = c("strict", "elbow")){
+                                         select = c("strict", "elbow", "silhouette")){
   paths <- node_path_census(object)
-  correlations <- cor(t(paths))
-  dissimilarity <- 1 - correlations
-  distances <- stats::as.dist(dissimilarity)
-  hc <- stats::hclust(distances)
-  
-  method <- match.arg(method)
-  if(method == "strict") k <- k_strict(hc, object)
-  if(method == "elbow") k <- k_elbow(hc, object, paths)
+  hc <- cluster_hierarchical(paths)
+
+  k <- switch(match.arg(select),
+              strict = k_strict(hc, object),
+              elbow = k_elbow(hc, object, mat),
+              silhouette = k_silhouette(hc, object, distances))
   out <- make_partition(cutree(hc, k), object)
   attr(out, "hc") <- hc
   attr(out, "k") <- k
@@ -115,7 +111,7 @@ node_automorphic_equivalence <- function(object,
 
 k_strict <- function(hc, object){
   zero_merged <- hc$merge[hc$height == 0,]
-  k <- graph_nodes(object) - sum(zero_merged < 0) + sum(zero_merged > 0)
+  k <- nrow(zero_merged) + graph_nodes(object) - sum(zero_merged < 0) + sum(zero_merged > 0)
 }
 
 k_elbow <- function(hc, object, census){
