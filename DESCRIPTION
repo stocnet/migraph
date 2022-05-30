@@ -68,5 +68,5 @@ Authors@R:
              role = "ctb",
              comment = c("IHEID", ORCID = "0000-0002-6234-9764"))
     )
-Roxygen: list(markdown = TRUE, roclets = c("namespace", "rd", "roxytest::testthat_roclet"))
+Roxygen: list(markdown = TRUE, roclets = c("namespace", "rd"))
 VignetteBuilder: knitr
