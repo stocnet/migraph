@@ -10,6 +10,7 @@
 \alias{edge_mutual}
 \alias{ggtree}
 \alias{ggidentify_clusters}
+\alias{blockmodel_concor}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 ggidentify(object, node_measure, identify_function = max)
@@ -27,6 +28,14 @@ edge_mutual(object)
 ggtree(hc, k = NULL)
 
 ggidentify_clusters(hc, census, method = c("elbow", "strict"))
+
+blockmodel_concor(
+  object,
+  p = 1,
+  cutoff = 0.999,
+  max.iter = 25,
+  block.content = "density"
+)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -54,6 +63,8 @@ for more details about the new implementation.
 \item \code{ggtree}: Deprecated on 2022-05-27.
 
 \item \code{ggidentify_clusters}: Deprecated on 2022-05-27.
+
+\item \code{blockmodel_concor}: Deprecated on 2022-05-30.
 }}
 
 \keyword{internal}

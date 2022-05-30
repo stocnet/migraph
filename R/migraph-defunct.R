@@ -151,5 +151,16 @@ ggidentify_clusters <- function(hc, census, method = c("elbow", "strict")){
     ggplot2::guides(color = "none")
 }
 
-
-
+#' @describeIn defunct Deprecated on 2022-05-30.
+#' @export
+blockmodel_concor <- function(object, p = 1, 
+                              cutoff = 0.999, max.iter = 25, 
+                              block.content = "density"){
+  .Deprecated("node_structural_equivalence", package = "migraph",
+              msg = paste("This function has been converted into a",
+                          "`cluster_concor()` clustering method for the", 
+                          "`node_structural_equivalence()` function.",
+                          "Please use that function to achieve the same result.",
+                          sep = " "),
+              old = "blockmodel_concor")
+}
