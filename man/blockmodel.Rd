@@ -2,7 +2,6 @@
 % Please edit documentation in R/blockmodel.R
 \name{blockmodel}
 \alias{blockmodel}
-\alias{blockmodel_concor}
 \alias{print.block_model}
 \alias{reduce_graph}
 \alias{summarise_statistics}
@@ -12,14 +11,6 @@
 }
 \usage{
 blockmodel(object, clusters)
-
-blockmodel_concor(
-  object,
-  p = 1,
-  cutoff = 0.999,
-  max.iter = 25,
-  block.content = "density"
-)
 
 \method{print}{block_model}(x, ...)
 
@@ -39,17 +30,6 @@ summarise_statistics(node_measure, clusters = NULL, sumFUN = mean)
 
 \item{clusters}{the vector of cluster membership for the blockmodel}
 
-\item{p}{An integer representing the desired number of partitions.}
-
-\item{cutoff}{A value between 0 and 1 used to determine convergence.}
-
-\item{max.iter}{An integer representing the maximum number of iterations.}
-
-\item{block.content}{A string indicating which method to use for
-calculating block content.
-Options are: "density", "sum", "meanrowsum", "meancolsum",
-"median", "min", "max".}
-
 \item{x}{An object of class "block_model"}
 
 \item{...}{Additional arguments passed to generic print method}
@@ -64,6 +44,17 @@ such as centrality measures or a census.}
 
 \item{sumFUN}{A function by which the values should be aggregated
 or summarised. By default \code{mean}.}
+
+\item{p}{An integer representing the desired number of partitions.}
+
+\item{cutoff}{A value between 0 and 1 used to determine convergence.}
+
+\item{max.iter}{An integer representing the maximum number of iterations.}
+
+\item{block.content}{A string indicating which method to use for
+calculating block content.
+Options are: "density", "sum", "meanrowsum", "meancolsum",
+"median", "min", "max".}
 }
 \description{
 Blockmodelling

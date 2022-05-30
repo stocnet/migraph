@@ -30,26 +30,28 @@ NULL
 #' @describeIn equivalence Returns nodes' membership in 
 #'   structurally equivalent classes
 #' @examples
-#' (nse <- node_structural_equivalence(mpn_elite_mex, "elbow"))
-#' plot(nse)
-#' (nse2 <- node_structural_equivalence(mpn_elite_usa_advice, "elbow"))
-#' plot(nse2)
+#' nse_hier <- node_structural_equivalence(ison_adolescents, 
+#'                   cluster = "hier", select = "strict")
+#' plot(nse_hier)
+#' nse_conc <- node_structural_equivalence(ison_adolescents, 
+#'                   cluster = "concor", select = "strict")
+#' plot(nse_conc)
 #' @export
-node_structural_equivalence <- function(object, 
-                                        method = c("strict", "elbow", "silhouette")){
+node_structural_equivalence <- function(object,
+                                        cluster = c("hier", "concor"),
+                                        select = c("strict", "elbow", "silhouette")){
   mat <- node_tie_census(object)
   if(any(colSums(t(mat))==0)){
     mat <- cbind(mat, (colSums(t(mat))==0))
   } 
-  correlations <- cor(t(mat))
-  dissimilarity <- 1 - correlations
-  distances <- stats::as.dist(dissimilarity)
-  hc <- stats::hclust(distances)
-  
-  method <- match.arg(method)
-  if(method == "strict") k <- k_strict(hc, object)
-  if(method == "elbow") k <- k_elbow(hc, object, mat)
-  if(method == "silhouette") k <- k_silhouette(hc, object, distances)
+  hc <- switch(match.arg(cluster),
+         hier = cluster_hierarchical(mat),
+         concor = cluster_concor(object))
+
+  k <- switch(match.arg(select),
+              strict = k_strict(hc, object),
+              elbow = k_elbow(hc, object, mat),
+              silhouette = k_silhouette(hc, object, distances))
   out <- make_partition(cutree(hc, k), object)
   attr(out, "hc") <- hc
   attr(out, "k") <- k
@@ -213,3 +215,61 @@ k_silhouette <- function(hc, object, distances){
   k <- which(ks == max(ks)) + 1
   k
 }
+
+cluster_hierarchical <- function(mat){
+  correlations <- cor(t(mat))
+  dissimilarity <- 1 - correlations
+  distances <- stats::as.dist(dissimilarity)
+  hc <- stats::hclust(distances)
+}
+
+#' cluster_concor(ison_adolescents)
+#' cluster_concor(ison_southern_women)
+cluster_concor <- function(object){
+  mat <- as_matrix(object)
+  split_cor <- function(m0, cutoff = 1) {
+    if (ncol(m0) < 2) return(m0)
+    mi <- stats::cor(m0)
+    while (any(abs(mi) <= cutoff)) {
+      mi <- cor(mi)
+      cutoff <- cutoff - 0.0001
+    }
+    group <- mi[, 1] > 0
+    list(m0[, group, drop = FALSE], 
+         m0[, !group, drop = FALSE])
+  }
+  p_list <- list(mat)
+  p_group <- list()
+  i <- 1
+  while(!all(vapply(p_list, function(x) ncol(x)==1, logical(1)))){
+    p_list <- unlist(lapply(p_list,
+                            function(x) split_cor(x)),
+                     recursive = FALSE)
+    p_group[[i]] <- lapply(p_list, function(x) colnames(x))
+    i <- i+1
+  }
+
+  out <- list()
+  
+  merges <- sapply(rev(1:(i-2)), 
+         function(p) lapply(p_group[[p]], 
+                            function(s){
+                              g <- match(s, node_names(object))
+                              # g <- s
+                              if(length(g)==2) c(g, p) else
+                                c(t(cbind(t(combn(g, 2)), p)))
+                            } ))
+  merges <- c(merges, 
+              list(c(t(cbind(t(combn(seq_len(graph_nodes(object)), 2)), 0)))))
+  merged <- matrix(unlist(merges), ncol = 3, byrow = TRUE)
+  merged <- merged[!duplicated(merged[,1:2]),]
+  merged[,3] <- abs(merged[,3] - max(merged[,3]))
+  
+  distance <- as_matrix(as_igraph(as.data.frame(merged)))
+  distance <- distance + t(distance)
+  rownames(distance) <- colnames(distance) <- node_names(object)[as.numeric(colnames(distance))]
+  hc <- hclust(d = as.dist(distance))
+  hc$method <- "concor"
+  hc  
+}
+

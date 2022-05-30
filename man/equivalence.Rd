@@ -9,12 +9,16 @@
 \usage{
 node_structural_equivalence(
   object,
-  method = c("strict", "elbow", "silhouette")
+  cluster = c("hier", "concor"),
+  select = c("strict", "elbow", "silhouette")
 )
 
-node_regular_equivalence(object, method = c("strict", "elbow"))
+node_regular_equivalence(object, select = c("strict", "elbow", "silhouette"))
 
-node_automorphic_equivalence(object, method = c("strict", "elbow"))
+node_automorphic_equivalence(
+  object,
+  select = c("strict", "elbow", "silhouette")
+)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -26,8 +30,8 @@ node_automorphic_equivalence(object, method = c("strict", "elbow"))
 \item tbl_graph, from the tidygraph package
 }}
 
-\item{method}{Character string indicating which method
-should be used to choose the number of clusters to cut
+\item{select}{Character string indicating which method
+should be used to select the number of clusters to cut
 the tree at.
 By default "strict" to return classes with members only
 when strictly equivalent.
@@ -56,17 +60,19 @@ automorphically equivalent classes
 }}
 
 \examples{
-(nse <- node_structural_equivalence(mpn_elite_mex, "elbow"))
-plot(nse)
-(nse2 <- node_structural_equivalence(mpn_elite_usa_advice, "elbow"))
-plot(nse2)
-(nre <- node_regular_equivalence(mpn_elite_mex, "elbow"))
+nse_hier <- node_structural_equivalence(ison_adolescents, 
+                  cluster = "hier", select = "strict")
+plot(nse_hier)
+nse_conc <- node_structural_equivalence(ison_adolescents, 
+                  cluster = "concor", select = "strict")
+plot(nse_conc)
+(nre <- node_regular_equivalence(ison_algebra, "elbow"))
 plot(nre)
-(nre2 <- node_regular_equivalence(mpn_elite_usa_advice, "elbow"))
+(nre2 <- node_regular_equivalence(ison_algebra, "silhouette"))
 plot(nre2)
-(nae <- node_regular_equivalence(mpn_elite_mex, "elbow"))
+(nae <- node_automorphic_equivalence(mpn_elite_mex, select = "elbow"))
 plot(nae)
-(nae2 <- node_regular_equivalence(mpn_elite_usa_advice, "elbow"))
+(nae2 <- node_automorphic_equivalence(mpn_elite_usa_advice, select = "elbow"))
 plot(nae2)
 }
 \references{
