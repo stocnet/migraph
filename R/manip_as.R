@@ -234,7 +234,8 @@ as_igraph.data.frame <- function(object,
   
   # Warn if no column named weight and weight set to true
   if (is_weighted(object) & !("weight" %in% names(object))) {
-    stop("Please rename the weight column of your dataframe to 'weight'")
+    names(object)[3] <- "weight"
+    # stop("Please rename the weight column of your dataframe to 'weight'")
   }
   graph <- igraph::graph_from_data_frame(object)
   if (length(intersect(c(object[,1]), c(object[,2]))) == 0) {

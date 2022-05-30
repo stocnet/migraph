@@ -142,7 +142,7 @@ node_quad_census <- function(object){
 #' @examples 
 #' node_length(ison_adolescents)
 #' @export
-node_path_census <- function(){
+node_path_census <- function(object){
   if(is_twomode(object)){
     tnet::distance_tm(as_matrix(object))
   } else if (is_weighted(object)){

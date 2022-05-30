@@ -109,8 +109,8 @@ We can use the membership vector in the resulting object to color nodes:
 
 ```{r comp-memb}
 m182_friend <- m182_friend %>% 
-  mutate(weak_comp = node_components(m182_friend),
-         strong_comp = node_components(m182_friend, method = "strong"))
+  mutate(weak_comp = node_weak_components(m182_friend),
+         strong_comp = node_strong_components(m182_friend))
 autographr(m182_friend, node_color = "weak_comp")
 autographr(m182_friend, node_color = "strong_comp")
 ```

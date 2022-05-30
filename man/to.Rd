@@ -115,7 +115,7 @@ connected by an undirected edge in the new network.
 This is equivalent to the "collapse" mode in \code{{igraph}}.
 
 \item \code{to_redirected}: Returns an object that has any edge direction transposed,
-or flipper, so that senders become receivers and receivers become senders.
+or flipped, so that senders become receivers and receivers become senders.
 This has no effect on undirected networks.
 
 \item \code{to_unweighted}: Returns an object that has all edge weights removed

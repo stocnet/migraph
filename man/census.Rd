@@ -16,7 +16,7 @@ node_triad_census(object)
 
 node_quad_census(object)
 
-node_path_census()
+node_path_census(object)
 
 group_tie_census(object, clusters, decimals = 2)
 
