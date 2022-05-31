@@ -81,3 +81,10 @@ test_that("graph mixed census works", {
   expect_error(graph_mixed_census(ison_marvel_teams, ison_southern_women))
   expect_error(graph_mixed_census(ison_karateka, ison_marvel_teams))
 })
+
+test_that("node path census works", {
+  expect_equal(graph_nodes(ison_adolescents),
+               nrow(node_path_census(ison_adolescents)))
+  expect_equal(class(node_path_census(ison_adolescents)), c("matrix", "array"))
+  expect_true(nrow(node_path_census(ison_southern_women)) == ncol(node_path_census(ison_southern_women)))
+})

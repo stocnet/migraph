@@ -140,7 +140,7 @@ node_quad_census <- function(object){
 #'   of each node to every other node in the network.
 #' @importFrom tnet distance_tm distance_w
 #' @examples 
-#' node_length(ison_adolescents)
+#' node_path_census(ison_adolescents)
 #' @export
 node_path_census <- function(object){
   if(is_twomode(object)){
