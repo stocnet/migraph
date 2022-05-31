@@ -1,6 +1,6 @@
 #' Blockmodelling
 #' @inheritParams is
-# #' Passing the function a list apply the algorithm to the joined matrices.
+#' Passing the function a list apply the algorithm to the joined matrices.
 #' @param p An integer representing the desired number of partitions.
 #' @param cutoff A value between 0 and 1 used to determine convergence.
 #' @param max.iter An integer representing the maximum number of iterations.

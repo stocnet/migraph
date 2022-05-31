@@ -1,5 +1,17 @@
 # Tests for the blockmodel family of functions
 
+clus <- node_structural_equivalence(mpn_elite_mex, "hier", "elbow")
+test_that("blockmodel works", {
+  expect_equal(class(blockmodel(mpn_elite_mex, clus)), "blockmodel")
+  expect_equal(length(blockmodel(mpn_elite_mex, clus)$block.membership),
+               length(clus))
+  expect_equal(blockmodel(mpn_elite_mex, clus)$plabels,
+               node_names(mpn_elite_mex))
+  expect_equal(blockmodel(mpn_elite_mex, clus),
+               blockmodel(mpn_elite_mex,
+                          node_structural_equivalence(mpn_elite_mex,
+                                                      "hier", "elbow")))
+})
 # 1. Testing blockmodel_concor()
 
 # test_that("concor works on one-mode networks", {
