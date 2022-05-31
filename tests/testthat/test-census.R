@@ -1,8 +1,8 @@
 # Census function family tests
 set.seed(123)
 task_eg <- to_named(to_uniplex(ison_algebra, "task_tie"))
-test <- node_tie_census(task_eg)
 
+test <- node_tie_census(task_eg)
 test_that("nodetie census works", {
   expect_equal(test[1:4], rep(0, 4))
   expect_equal(class(test)[[1]], "matrix")
@@ -17,11 +17,9 @@ test_that("node triad census works", {
   expect_equal(class(node_triad_census(ison_karateka)), c("matrix","array"))
 })
 
-test <- group_tie_census(task_eg,
-                         cutree(cluster_structural_equivalence(task_eg), 4))
+test <- group_tie_census(task_eg, node_structural_equivalence(task_eg), 4)
 test_that("group tie census works", {
-  expect_equal(test[1:4], c(0.08, 0.15, 0.00, 5.10))
-  expect_equal(class(test)[[1]], "matrix")
+  expect_equal(class(test), c("matrix", "array"))
   expect_equal(rownames(test)[1:4],
                c("Block 1",
                  "Block 2",
@@ -31,11 +29,9 @@ test_that("group tie census works", {
                rep("from", 4))
 })
 
-test <- group_triad_census(task_eg,
-                         cutree(cluster_structural_equivalence(task_eg), 4))
+test <- group_triad_census(task_eg, node_structural_equivalence(task_eg), 4)
 test_that("group triad census works", {
-  expect_equal(test[1:4], c(82, 55, 80, 0))
-  expect_equal(class(test)[[1]], "matrix")
+  expect_equal(class(test), c("matrix", "array"))
   expect_equal(rownames(test)[1:4],
                c("Block 1",
                  "Block 2",
