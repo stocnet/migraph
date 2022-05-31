@@ -10,13 +10,17 @@
 #'   assignment.
 #' @name equivalence
 #' @inheritParams is
+#' @param object a migraph-compatible graph object
+#' @param cluster Character string indicating whether clusters should be 
+#'   clustered hierarchically or through correlation. This option is available
+#'   only in node_structural_equivalence().
 #' @param select Character string indicating which method
 #'   should be used to select the number of clusters to cut
 #'   the tree at.
 #'   By default "strict" to return classes with members only
 #'   when strictly equivalent.
-#'   Other options to relax this strict assumption generally
-#'   provide more useful results and include "elbow".
+#'   Other options ("elbow" and "silhouette") relax this strict assumption,
+#'   generally providing more useful results.
 #' @importFrom stats as.dist hclust cutree coef
 #' @importFrom sna gcor
 #' @references 
@@ -101,7 +105,7 @@ node_automorphic_equivalence <- function(object,
 
   k <- switch(match.arg(select),
               strict = k_strict(hc, object),
-              elbow = k_elbow(hc, object, mat),
+              elbow = k_elbow(hc, object, paths),
               silhouette = k_silhouette(hc, object, distances))
   out <- make_partition(cutree(hc, k), object)
   attr(out, "hc") <- hc

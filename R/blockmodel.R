@@ -121,6 +121,7 @@ print.block_model <- function(x, ...) {
 }
 
 #' @rdname blockmodel
+#' creates an igraph object from the blockmodel output
 #' @export
 reduce_graph <- function(blockmodel, block_labels = NULL){
   reduced <- igraph::graph_from_adjacency_matrix(blockmodel$block.model,
