@@ -221,6 +221,7 @@ cluster_hierarchical <- function(mat){
   dissimilarity <- 1 - correlations
   distances <- stats::as.dist(dissimilarity)
   hc <- stats::hclust(distances)
+  hc
 }
 
 #' cluster_concor(ison_adolescents)

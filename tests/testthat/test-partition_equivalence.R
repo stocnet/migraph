@@ -1,15 +1,19 @@
 # Clustering tests
+
+x <- node_structural_equivalence(ison_adolescents, "hier", "strict")
 test_that("structural equivalence clustering works", {
-  expect_equal(node_structural_equivalence(mpn_elite_mex)$method, "complete")
-  expect_equal(node_structural_equivalence(mpn_elite_mex)$merge[1,], c(-23, -24))
-  expect_equal(round(node_structural_equivalence(mpn_elite_mex)$height[1:2], 2), c(0.25, 0.34))
-  expect_equal(node_structural_equivalence(mpn_elite_mex)$labels[1], "Trevino")
+  expect_equal(class(node_structural_equivalence(mpn_elite_mex)),
+               c("partition", "integer"))
+  expect_false(names(x[1]) %in% names(x[2:length(x)]))
 })
 
 test_that("regular equivalence clustering works", {
-  expect_equal(node_regular_equivalence(mpn_elite_mex)$method, "complete")
-  expect_equal(node_regular_equivalence(mpn_elite_mex)$merge[1,], c(-10, -13))
-  expect_equal(node_regular_equivalence(mpn_elite_mex)$order[1:2], c(3, 2))
-  expect_equal(round(node_regular_equivalence(mpn_elite_mex)$height[1:2], 2), c(0, 0))
-  expect_equal(node_regular_equivalence(mpn_elite_mex)$labels[1], "Trevino")
+  expect_equal(class(node_regular_equivalence(mpn_elite_mex)),
+               c("partition", "integer"))
+})
+
+y <- node_automorphic_equivalence(mpn_elite_mex, "elbow")
+test_that("automorphic equivalence clustering works", {
+  expect_equal(class(y), c("partition", "integer"))
+  expect_false(names(y[1]) %in% names(y[2:length(y)]))
 })
