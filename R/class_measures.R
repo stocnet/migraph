@@ -92,3 +92,33 @@ plot.node_measure <- function(x, type = c("h", "d"), ...){
   p + ggplot2::theme_classic() +
     ggplot2::theme(panel.grid.major = ggplot2::element_line(colour = "grey90"))
 }
+
+#' @param sumFUN A function by which the values should be aggregated
+#' or summarised. By default `mean`.
+#' @examples 
+#' summary(node_degree(mpn_elite_mex), 
+#'           node_structural_equivalence(mpn_elite_mex, select = "elbow"))
+#' @export
+summary.node_measure <- function(measure, ...,
+                                 membership,
+                                 sumFUN = mean){
+  out <- vapply(unique(membership), 
+                function(x) sumFUN(measure[membership == x]), FUN.VALUE = 1)
+  names(out) <- unique(membership)
+  out
+}
+
+#' @examples 
+#' summary(node_triad_census(mpn_elite_mex), 
+#'           node_regular_equivalence(mpn_elite_mex, select = "elbow"))
+#' @export
+summary.node_census <- function(census, ...,
+                                 membership,
+                                 sumFUN = mean){
+  out <- t(sapply(unique(membership), 
+                  function(x) apply(measure[membership == x, ], 2, sumFUN)))
+  rownames(out) <- unique(membership)
+  out
+}
+
+

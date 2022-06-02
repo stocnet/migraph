@@ -54,6 +54,3 @@ plot.partition <- function(x, ...){
                      ggplot2::element_text(colour = colors)))
 }
 
-
-
-

@@ -1,12 +1,15 @@
 #' Reading from/writing to external formats
 #'
+#' @description 
 #' Researchers regularly need to work with a variety of external data formats.
 #' The following functions offer ways to import from some common external
 #' file formats into objects that `{migraph}` and other graph/network packages
 #' in R can work with.
+#' 
 #' Note that these functions are not as actively maintained as others
 #' in the package, so please let us know if any are not currently working
-#' for you by raising an issue on Github.
+#' for you or if there are missing import routines 
+#' by [raising an issue on Github](https://github.com/snlab-ch/migraph/issues).
 #' @param file A character string with the system path to the file to import.
 #' If left unspecified, an OS-specific file picker is opened to help users select it.
 #' Note that in `read_ucinet()` the file path should be to the header file (.##h),

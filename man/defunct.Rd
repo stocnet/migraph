@@ -13,6 +13,7 @@
 \alias{cluster_structural_equivalence}
 \alias{cluster_regular_equivalence}
 \alias{blockmodel_concor}
+\alias{summarise_statistics}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 ggidentify(object, node_measure, identify_function = max)
@@ -42,6 +43,8 @@ blockmodel_concor(
   max.iter = 25,
   block.content = "density"
 )
+
+summarise_statistics(node_measure, clusters = NULL, sumFUN = mean)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -75,6 +78,8 @@ for more details about the new implementation.
 \item \code{cluster_regular_equivalence}: Deprecated on 2022-05-27.
 
 \item \code{blockmodel_concor}: Deprecated on 2022-05-30.
+
+\item \code{summarise_statistics}: Deprecated on 2022-06-03.
 }}
 
 \keyword{internal}

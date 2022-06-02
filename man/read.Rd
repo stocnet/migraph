@@ -82,7 +82,8 @@ file formats into objects that \code{{migraph}} and other graph/network packages
 in R can work with.
 Note that these functions are not as actively maintained as others
 in the package, so please let us know if any are not currently working
-for you by raising an issue on Github.
+for you or if there are missing import routines
+by \href{https://github.com/snlab-ch/migraph/issues}{raising an issue on Github}.
 }
 \details{
 There are a number of repositories for network data

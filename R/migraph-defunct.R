@@ -188,3 +188,23 @@ blockmodel_concor <- function(object, p = 1,
                           sep = " "),
               old = "blockmodel_concor")
 }
+
+#' @describeIn defunct Deprecated on 2022-06-03.
+#' @export
+summarise_statistics <- function(node_measure, 
+                                 clusters = NULL,
+                                 sumFUN = mean){
+  .Deprecated("summary", package = "migraph",
+              old = "summarise_statistics")
+  
+  if (is.matrix(node_measure)) {
+    out <- t(sapply(unique(clusters), 
+                    function(x) apply(node_measure[clusters == x, ], 2, sumFUN)))
+    rownames(out) <- unique(clusters)
+  } else {
+    out <- vapply(unique(clusters), 
+                  function(x) sumFUN(node_measure[clusters == x]), FUN.VALUE = 1)
+    names(out) <- unique(clusters)
+  }
+  out
+}
