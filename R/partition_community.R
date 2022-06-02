@@ -15,7 +15,14 @@ node_kernighanlin <- function(object){
   group_size <- ifelse(n %% 2 == 0, n/2, (n+1)/2)
   
   # count internal and external costs of each vertex
-  g <- as_matrix(object)
+  if (is_twomode(object)) {
+    g <- igraph::as_adjacency_matrix(object,
+                                     sparse = FALSE, attr = NULL)
+  }
+  else {
+    g <- as_matrix(object)
+  }
+  
   g1 <- g[1:group_size, 1:group_size]
   g2 <- g[(group_size+1):n, (group_size+1):n]
   intergroup <- g[1:group_size, (group_size+1):n]
