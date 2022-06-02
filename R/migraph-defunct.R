@@ -107,6 +107,8 @@ ggtree <- function(hc, k = NULL){
 #' @describeIn defunct Deprecated on 2022-05-27.
 #' @export
 ggidentify_clusters <- function(hc, census, method = c("elbow", "strict")){
+  .Deprecated("plot.partition", package = "migraph",
+              old = "ggidentify_clusters")
   
   vertices <- nrow(census)
   observedcorrelation <- cor(t(census))
@@ -149,6 +151,28 @@ ggidentify_clusters <- function(hc, census, method = c("elbow", "strict")){
     # ggplot2::scale_y_continuous(limits = c(0, 1)) +
     ggplot2::theme_minimal() +
     ggplot2::guides(color = "none")
+}
+
+#' @describeIn defunct Deprecated on 2022-05-27.
+#' @export
+cluster_structural_equivalence <- function(object){
+  .Deprecated("node_structural_equivalence", package = "migraph",
+              msg = paste("Please use", 
+                          "`node_structural_equivalence()`,",
+                          "which will return a vector of partition assignments.",
+                          sep = " "),
+              old = "cluster_structural_equivalence")
+}
+
+#' @describeIn defunct Deprecated on 2022-05-27.
+#' @export
+cluster_regular_equivalence <- function(object){
+  .Deprecated("node_regular_equivalence", package = "migraph",
+              msg = paste("Please use", 
+                          "`node_regular_equivalence()`,",
+                          "which will return a vector of partition assignments.",
+                          sep = " "),
+              old = "cluster_regular_equivalence")
 }
 
 #' @describeIn defunct Deprecated on 2022-05-30.

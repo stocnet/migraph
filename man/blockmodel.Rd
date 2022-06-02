@@ -4,19 +4,14 @@
 \alias{blockmodel}
 \alias{print.block_model}
 \alias{reduce_graph}
-\alias{summarise_statistics}
-\title{Blockmodelling}
-\source{
-\url{https://github.com/aslez/concoR}
-}
+\title{Blockmodelling
+Passing the function a list apply the algorithm to the joined matrices.}
 \usage{
 blockmodel(object, clusters)
 
 \method{print}{block_model}(x, ...)
 
 reduce_graph(blockmodel, block_labels = NULL)
-
-summarise_statistics(node_measure, clusters = NULL, sumFUN = mean)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -39,18 +34,6 @@ summarise_statistics(node_measure, clusters = NULL, sumFUN = mean)
 \item{block_labels}{A character vector manually providing labels
 for the blocks in the blockmodel}
 
-\item{node_measure}{A vector or matrix of node-level statistics,
-such as centrality measures or a census.}
-
-\item{sumFUN}{A function by which the values should be aggregated
-or summarised. By default \code{mean}.}
-
-\item{p}{An integer representing the desired number of partitions.}
-
-\item{cutoff}{A value between 0 and 1 used to determine convergence.}
-
-\item{max.iter}{An integer representing the maximum number of iterations.}
-
 \item{block.content}{A string indicating which method to use for
 calculating block content.
 Options are: "density", "sum", "meanrowsum", "meancolsum",
@@ -58,22 +41,13 @@ Options are: "density", "sum", "meanrowsum", "meancolsum",
 }
 \description{
 Blockmodelling
+Passing the function a list apply the algorithm to the joined matrices.
 }
+\section{Functions}{
+\itemize{
+\item \code{reduce_graph}: creates an igraph object from the blockmodel output
+}}
+
 \examples{
-mex_concor <- blockmodel_concor(mpn_elite_mex)
-mex_concor
-plot(mex_concor)
-usa_concor <- blockmodel_concor(mpn_elite_usa_advice)
-usa_concor
-plot(usa_concor)
-summarise_statistics(node_degree(mpn_elite_mex), 
-          cutree(cluster_structural_equivalence(mpn_elite_mex), 3))
-summarise_statistics(node_triad_census(mpn_elite_mex), 
-          cutree(cluster_structural_equivalence(mpn_elite_mex), 3))
-}
-\references{
-Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.
-An Algorithm for Clustering Relational Data with Applications to
-Social Network Analysis and Comparison with Multidimensional Scaling.
-\emph{Journal of Mathematical Psychology}, 12: 328--383.
+blockmodel(ison_southern_women, membership)
 }

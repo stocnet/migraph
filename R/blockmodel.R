@@ -1,9 +1,6 @@
 #' Blockmodelling
-#' @inheritParams is
 #' Passing the function a list apply the algorithm to the joined matrices.
-#' @param p An integer representing the desired number of partitions.
-#' @param cutoff A value between 0 and 1 used to determine convergence.
-#' @param max.iter An integer representing the maximum number of iterations.
+#' @inheritParams is
 #' @param block.content A string indicating which method to use for
 #' calculating block content.
 #' Options are: "density", "sum", "meanrowsum", "meancolsum",
@@ -13,23 +10,12 @@
 #' @param clusters the vector of cluster membership for the blockmodel
 #' @param blockmodel a blockmodel object
 #' @name blockmodel
-#' @source \url{https://github.com/aslez/concoR}
-#' @references Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.  
-#' An Algorithm for Clustering Relational Data with Applications to 
-#' Social Network Analysis and Comparison with Multidimensional Scaling. 
-#' \emph{Journal of Mathematical Psychology}, 12: 328--383.
-#' @importFrom stats cor median
-#' @examples 
-#' mex_concor <- blockmodel_concor(mpn_elite_mex)
-#' mex_concor
-#' plot(mex_concor)
-#' usa_concor <- blockmodel_concor(mpn_elite_usa_advice)
-#' usa_concor
-#' plot(usa_concor)
 NULL
 
 #' @rdname blockmodel
 #' @importFrom sna blockmodel
+#' @examples 
+#' blockmodel(ison_southern_women, membership)
 #' @export
 blockmodel <- function(object, clusters){
   # if(is_twomode(object)) object <- to_onemode(object)
@@ -120,8 +106,7 @@ print.block_model <- function(x, ...) {
   }
 }
 
-#' @rdname blockmodel
-#' creates an igraph object from the blockmodel output
+#' @describeIn  blockmodel creates an igraph object from the blockmodel output
 #' @export
 reduce_graph <- function(blockmodel, block_labels = NULL){
   reduced <- igraph::graph_from_adjacency_matrix(blockmodel$block.model,
@@ -132,28 +117,176 @@ reduce_graph <- function(blockmodel, block_labels = NULL){
   reduced
 }
 
-#' @rdname blockmodel
-#' @param node_measure A vector or matrix of node-level statistics,
-#' such as centrality measures or a census.
-#' @param sumFUN A function by which the values should be aggregated
-#' or summarised. By default `mean`.
-#' @examples 
-#' summarise_statistics(node_degree(mpn_elite_mex), 
-#'           cutree(cluster_structural_equivalence(mpn_elite_mex), 3))
-#' summarise_statistics(node_triad_census(mpn_elite_mex), 
-#'           cutree(cluster_structural_equivalence(mpn_elite_mex), 3))
+#' ggplot2-based plotting of blockmodel results
+#' @name blockmodel_vis
+#' @param x A blockmodel-class object.
+#' @param ... Additional arguments passed on to ggplot2.
+#' @importFrom tibble rownames_to_column
+#' @importFrom tidyr pivot_longer
+#' @importFrom ggplot2 ggplot geom_tile aes scale_fill_gradient theme_grey labs theme scale_x_discrete scale_y_discrete geom_vline geom_hline element_blank element_text
+#' @importFrom rlang .data
+#' @examples
+#' # Unsigned
+#' usa_concor <- blockmodel_concor(mpn_elite_usa_advice)
+#' plot(usa_concor)
+#' 
+#' # Signed network (Needs sign)
+#' # marvel_concor <- blockmodel_concor(ison_marvel_relationships)
+#' # plot(marvel)
 #' @export
-summarise_statistics <- function(node_measure, 
-                                 clusters = NULL,
-                                 sumFUN = mean){
-  if (is.matrix(node_measure)) {
-    out <- t(sapply(unique(clusters), 
-                  function(x) apply(node_measure[clusters == x, ], 2, sumFUN)))
-    rownames(out) <- unique(clusters)
+plot.block_model <- function(x, ...) {
+  plot_data <- x[["blocked.data"]]
+  plot_data <- as.data.frame(plot_data) %>%
+    tibble::rownames_to_column("Var1") %>%
+    tidyr::pivot_longer(!.data[["Var1"]], names_to = "Var2", values_to = "value")
+  g <- ggplot2::ggplot(plot_data, ggplot2::aes(.data[["Var2"]], .data[["Var1"]])) +
+    ggplot2::theme_grey(base_size = 9) +
+    ggplot2::labs(x = "", y = "") +
+    ggplot2::theme(
+      legend.position = "none",
+      axis.ticks = ggplot2::element_blank(),
+      axis.text.y = ggplot2::element_text(
+        size = 9 * 0.8,
+        colour = "grey50"
+      ),
+      axis.text.x = ggplot2::element_text(
+        size = 9 * 0.8,
+        angle = 30, hjust = 0,
+        colour = "grey50"
+      )
+    )
+  # Determine whether the network is signed e.g. only has -1, 0, 1
+  if (all(c(-1, 0, 1) %in% x[["blocked.data"]])) {
+    # Is the network unimodal?
+    if (x[["modes"]] == 1) {
+      g <- g +
+        ggplot2::geom_tile(ggplot2::aes(fill = as.factor(.data[["value"]])),
+                           colour = "white"
+        ) +
+        # Color for signed networks
+        ggplot2::scale_fill_manual(name = "Side", values = c(
+          "#003049",
+          "white",
+          "#d62828"
+        )) +
+        ggplot2::scale_x_discrete(
+          expand = c(0, 0),
+          position = "top",
+          limits = colnames(x[["blocked.data"]])[x[["order.vector"]]]
+        ) +
+        ggplot2::scale_y_discrete(
+          expand = c(0, 0),
+          limits = rev(rownames(x[["blocked.data"]])[x[["order.vector"]]])
+        ) +
+        ggplot2::geom_vline(
+          xintercept = c(1 + which(diff(x$block.membership) != 0))
+          - .5,
+          colour = "red"
+        ) +
+        ggplot2::geom_hline(
+          yintercept = nrow(x[["blocked.data"]]) -
+            c(1 + which(diff(x[["block.membership"]]) != 0)) +
+            1.5,
+          colour = "red"
+        )
+    } else {
+      g <- g +
+        ggplot2::geom_tile(ggplot2::aes(fill = as.factor(.data[["value"]])),
+                           colour = "white"
+        ) +
+        # Color palette for signed networks
+        ggplot2::scale_fill_manual(name = "Side", values = c(
+          "#003049",
+          "white",
+          "#d62828"
+        )) +
+        ggplot2::scale_y_discrete(
+          expand = c(0, 0),
+          limits = rev(rownames(x[["blocked.data"]])[x[["order.vector"]][["nodes1"]]])
+        ) +
+        ggplot2::scale_x_discrete(
+          expand = c(0, 0),
+          position = "top",
+          limits = colnames(x[["blocked.data"]])[x[["order.vector"]][["nodes2"]]]
+        ) +
+        ggplot2::geom_vline(
+          xintercept =
+            c(1 + which(diff(x[["block.membership"]][["nodes2"]]) != 0))
+          - .5,
+          colour = "blue"
+        ) +
+        ggplot2::geom_hline(
+          yintercept = nrow(x[["blocked.data"]])
+          - c(1 + which(diff(x[["block.membership"]][["nodes1"]]) != 0))
+          + 1.5,
+          colour = "red"
+        )
+    }
   } else {
-    out <- vapply(unique(clusters), 
-                  function(x) sumFUN(node_measure[clusters == x]), FUN.VALUE = 1)
-    names(out) <- unique(clusters)
+    if (x[["modes"]] == 1) {
+      g <- g +
+        ggplot2::geom_tile(ggplot2::aes(fill = .data[["value"]]),
+                           colour = "white"
+        ) +
+        ggplot2::scale_fill_gradient(
+          low = "white",
+          high = "black"
+        ) +
+        ggplot2::scale_x_discrete(
+          expand = c(0, 0),
+          position = "top",
+          limits = colnames(x[["blocked.data"]])[x[["order.vector"]]]
+        ) +
+        ggplot2::scale_y_discrete(
+          expand = c(0, 0),
+          limits = rev(rownames(x[["blocked.data"]])[x[["order.vector"]]])
+        ) +
+        ggplot2::geom_vline(
+          xintercept = c(1 + which(diff(x$block.membership) != 0))
+          - .5,
+          colour = "red"
+        ) +
+        ggplot2::geom_hline(
+          yintercept = nrow(x[["blocked.data"]]) -
+            c(1 + which(diff(x[["block.membership"]]) != 0)) +
+            1.5,
+          colour = "red"
+        )
+    } else {
+      g <- g +
+        ggplot2::geom_tile(ggplot2::aes(fill = .data[["value"]]),
+                           colour = "white"
+        ) +
+        ggplot2::scale_fill_gradient(
+          low = "white",
+          high = "black"
+        ) +
+        ggplot2::scale_y_discrete(
+          expand = c(0, 0),
+          limits = rev(rownames(x[["blocked.data"]])[x[["order.vector"]][["nodes1"]]])
+        ) +
+        ggplot2::scale_x_discrete(
+          expand = c(0, 0),
+          position = "top",
+          limits = colnames(x[["blocked.data"]])[x[["order.vector"]][["nodes2"]]]
+        ) +
+        ggplot2::geom_vline(
+          xintercept =
+            c(1 + which(diff(x[["block.membership"]][["nodes2"]]) != 0))
+          - .5,
+          colour = "blue"
+        ) +
+        ggplot2::geom_hline(
+          yintercept = nrow(x[["blocked.data"]])
+          - c(1 + which(diff(x[["block.membership"]][["nodes1"]]) != 0))
+          + 1.5,
+          colour = "red"
+        )
+    }
   }
-  out
+  g
 }
+
+elementwise.all.equal <- Vectorize(function(x, y) {isTRUE(all.equal(x, y))})
+
+

@@ -10,6 +10,8 @@
 \alias{edge_mutual}
 \alias{ggtree}
 \alias{ggidentify_clusters}
+\alias{cluster_structural_equivalence}
+\alias{cluster_regular_equivalence}
 \alias{blockmodel_concor}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
@@ -28,6 +30,10 @@ edge_mutual(object)
 ggtree(hc, k = NULL)
 
 ggidentify_clusters(hc, census, method = c("elbow", "strict"))
+
+cluster_structural_equivalence(object)
+
+cluster_regular_equivalence(object)
 
 blockmodel_concor(
   object,
@@ -63,6 +69,10 @@ for more details about the new implementation.
 \item \code{ggtree}: Deprecated on 2022-05-27.
 
 \item \code{ggidentify_clusters}: Deprecated on 2022-05-27.
+
+\item \code{cluster_structural_equivalence}: Deprecated on 2022-05-27.
+
+\item \code{cluster_regular_equivalence}: Deprecated on 2022-05-27.
 
 \item \code{blockmodel_concor}: Deprecated on 2022-05-30.
 }}
