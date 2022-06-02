@@ -6,18 +6,27 @@
 \alias{node_regular_equivalence}
 \alias{node_automorphic_equivalence}
 \title{Equivalence clustering algorithms}
+\source{
+\url{https://github.com/aslez/concoR}
+}
 \usage{
 node_structural_equivalence(
   object,
+  select = c("strict", "elbow", "silhouette"),
   cluster = c("hier", "concor"),
-  select = c("strict", "elbow", "silhouette")
+  distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski")
 )
 
-node_regular_equivalence(object, select = c("strict", "elbow", "silhouette"))
+node_regular_equivalence(
+  object,
+  select = c("strict", "elbow", "silhouette"),
+  distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski")
+)
 
 node_automorphic_equivalence(
   object,
-  select = c("strict", "elbow", "silhouette")
+  select = c("strict", "elbow", "silhouette"),
+  distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski")
 )
 }
 \arguments{
@@ -33,10 +42,23 @@ node_automorphic_equivalence(
 \item{select}{Character string indicating which method
 should be used to select the number of clusters to cut
 the tree at.
-By default "strict" to return classes with members only
+By default \code{"strict"} to return classes with members only
 when strictly equivalent.
-Other options to relax this strict assumption generally
-provide more useful results and include "elbow".}
+Other options (\code{"elbow"} and \code{"silhouette"}) relax this strict assumption,
+generally providing more useful results.
+Fewer, identifiable letters, e.g. \code{"s"} for silhouette, is sufficient.}
+
+\item{cluster}{Character string indicating whether clusters should be
+clustered hierarchically (\code{"hierarchical"}) or
+through convergence of correlations (\code{"concor"}).
+This option is available only in \code{node_structural_equivalence()}.
+Fewer, identifiable letters, e.g. \code{"c"} for CONCOR, is sufficient.}
+
+\item{distance}{Character string indicating which distance metric
+to pass on to \code{stats::dist}.
+By default \code{"euclidean"}, but other options include
+\code{"maximum"}, \code{"manhattan"}, \code{"canberra"}, \code{"binary"}, and \code{"minkowski"}.
+Fewer, identifiable letters, e.g. \code{"e"} for Euclidean, is sufficient.}
 }
 \description{
 These functions combine an appropriate \verb{_census()} function
@@ -61,10 +83,10 @@ automorphically equivalent classes
 
 \examples{
 nse_hier <- node_structural_equivalence(ison_adolescents, 
-                  cluster = "hier", select = "strict")
+                  cluster = "c")
 plot(nse_hier)
 nse_conc <- node_structural_equivalence(ison_adolescents, 
-                  cluster = "concor", select = "strict")
+                  cluster = "concor")
 plot(nse_conc)
 (nre <- node_regular_equivalence(ison_algebra, "elbow"))
 plot(nre)
@@ -81,4 +103,9 @@ Thorndike, Robert L. 1953.
 \emph{Psychometrika}.
 18 (4): 267–276.
 \doi{10.1007/BF02289263}
+
+Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.
+An Algorithm for Clustering Relational Data with Applications to
+Social Network Analysis and Comparison with Multidimensional Scaling.
+\emph{Journal of Mathematical Psychology}, 12: 328--383.
 }

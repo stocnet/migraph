@@ -10,52 +10,67 @@
 #'   assignment.
 #' @name equivalence
 #' @inheritParams is
-#' @param object a migraph-compatible graph object
-#' @param cluster Character string indicating whether clusters should be 
-#'   clustered hierarchically or through correlation. This option is available
-#'   only in node_structural_equivalence().
 #' @param select Character string indicating which method
 #'   should be used to select the number of clusters to cut
 #'   the tree at.
-#'   By default "strict" to return classes with members only
+#'   By default `"strict"` to return classes with members only
 #'   when strictly equivalent.
-#'   Other options ("elbow" and "silhouette") relax this strict assumption,
+#'   Other options (`"elbow"` and `"silhouette"`) relax this strict assumption,
 #'   generally providing more useful results.
-#' @importFrom stats as.dist hclust cutree coef
+#'   Fewer, identifiable letters, e.g. `"s"` for silhouette, is sufficient.
+#' @param cluster Character string indicating whether clusters should be 
+#'   clustered hierarchically (`"hierarchical"`) or 
+#'   through convergence of correlations (`"concor"`). 
+#'   This option is available only in `node_structural_equivalence()`.
+#'   Fewer, identifiable letters, e.g. `"c"` for CONCOR, is sufficient.
+#' @param distance Character string indicating which distance metric
+#'   to pass on to `stats::dist`.
+#'   By default `"euclidean"`, but other options include
+#'   `"maximum"`, `"manhattan"`, `"canberra"`, `"binary"`, and `"minkowski"`.
+#'   Fewer, identifiable letters, e.g. `"e"` for Euclidean, is sufficient.
+#' @importFrom stats as.dist hclust cutree coef cor median
 #' @importFrom sna gcor
+#' @source \url{https://github.com/aslez/concoR}
 #' @references 
 #'  Thorndike, Robert L. 1953. 
-#'  "Who Belongs in the Family?". 
-#'  _Psychometrika_.
-#'  18 (4): 267–276. 
-#'  \doi{10.1007/BF02289263}
+#'    "Who Belongs in the Family?". 
+#'    _Psychometrika_.
+#'    18 (4): 267–276. 
+#'    \doi{10.1007/BF02289263}
+#' 
+#' Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.  
+#'   An Algorithm for Clustering Relational Data with Applications to 
+#'   Social Network Analysis and Comparison with Multidimensional Scaling. 
+#'   \emph{Journal of Mathematical Psychology}, 12: 328--383.
 NULL
 
 #' @describeIn equivalence Returns nodes' membership in 
 #'   structurally equivalent classes
 #' @examples
 #' nse_hier <- node_structural_equivalence(ison_adolescents, 
-#'                   cluster = "hier", select = "strict")
+#'                   cluster = "c")
 #' plot(nse_hier)
 #' nse_conc <- node_structural_equivalence(ison_adolescents, 
-#'                   cluster = "concor", select = "strict")
+#'                   cluster = "concor")
 #' plot(nse_conc)
 #' @export
 node_structural_equivalence <- function(object,
+                                        select = c("strict", "elbow", "silhouette"),
                                         cluster = c("hier", "concor"),
-                                        select = c("strict", "elbow", "silhouette")){
+                                        distance = c("euclidean", "maximum", "manhattan", 
+                                                     "canberra", "binary", "minkowski")){
   mat <- node_tie_census(object)
   if(any(colSums(t(mat))==0)){
     mat <- cbind(mat, (colSums(t(mat))==0))
   } 
   hc <- switch(match.arg(cluster),
-         hier = cluster_hierarchical(mat),
+         hier = cluster_hierarchical(mat, match.arg(distance)),
          concor = cluster_concor(object))
 
   k <- switch(match.arg(select),
               strict = k_strict(hc, object),
               elbow = k_elbow(hc, object, mat),
-              silhouette = k_silhouette(hc, object, distances))
+              silhouette = k_silhouette(hc, object))
   out <- make_partition(cutree(hc, k), object)
   attr(out, "hc") <- hc
   attr(out, "k") <- k
@@ -71,19 +86,21 @@ node_structural_equivalence <- function(object,
 #' plot(nre2)
 #' @export
 node_regular_equivalence <- function(object, 
-                                     select = c("strict", "elbow", "silhouette")){
+                                     select = c("strict", "elbow", "silhouette"),
+                                     distance = c("euclidean", "maximum", "manhattan", 
+                                                  "canberra", "binary", "minkowski")){
   if(is_twomode(object)){
     triads <- as.matrix(node_quad_census(object))
   } else {
     triads <- node_triad_census(object)
   }
   if(any(colSums(triads) == 0)) triads <- triads[,-which(colSums(triads) == 0)]
-  hc <- cluster_hierarchical(triads)
+  hc <- cluster_hierarchical(triads, match.arg(distance))
 
   k <- switch(match.arg(select),
               strict = k_strict(hc, object),
-              elbow = k_elbow(hc, object, mat),
-              silhouette = k_silhouette(hc, object, distances))
+              elbow = k_elbow(hc, object, triads),
+              silhouette = k_silhouette(hc, object))
   out <- make_partition(cutree(hc, k), object)
   attr(out, "hc") <- hc
   attr(out, "k") <- k
@@ -99,14 +116,16 @@ node_regular_equivalence <- function(object,
 #' plot(nae2)
 #' @export
 node_automorphic_equivalence <- function(object,
-                                         select = c("strict", "elbow", "silhouette")){
+                                         select = c("strict", "elbow", "silhouette"),
+                                         distance = c("euclidean", "maximum", "manhattan", 
+                                                      "canberra", "binary", "minkowski")){
   paths <- node_path_census(object)
-  hc <- cluster_hierarchical(paths)
+  hc <- cluster_hierarchical(paths, match.arg(distance))
 
   k <- switch(match.arg(select),
               strict = k_strict(hc, object),
               elbow = k_elbow(hc, object, paths),
-              silhouette = k_silhouette(hc, object, distances))
+              silhouette = k_silhouette(hc, object))
   out <- make_partition(cutree(hc, k), object)
   attr(out, "hc") <- hc
   attr(out, "k") <- k
@@ -116,6 +135,7 @@ node_automorphic_equivalence <- function(object,
 k_strict <- function(hc, object){
   zero_merged <- hc$merge[hc$height == 0,]
   k <- nrow(zero_merged) + graph_nodes(object) - sum(zero_merged < 0) + sum(zero_merged > 0)
+  k
 }
 
 k_elbow <- function(hc, object, census){
@@ -144,9 +164,6 @@ k_elbow <- function(hc, object, census){
   correct <- NULL # to satisfy the error god
   
   # k identification method
-  # dafr$correct <- ifelse(dafr$clusters == elbow_finder(dafr$clusters, 
-  #                                                        dafr$correlations),
-  #                          "#E20020", "#6f7072")
   elbow_finder(dafr$clusters, dafr$correlations)
 }
 
@@ -189,9 +206,10 @@ elbow_finder <- function(x_values, y_values) {
   x_max_dist
 }
 
-k_silhouette <- function(hc, object, distances){
+k_silhouette <- function(hc, object){
   kcs <- 2:graph_nodes(object)
   ns <- seq_len(graph_nodes(object))
+  distances <- hc$distances
   ks <- vector()
   for(kc in kcs){
     cand <- cutree(hc, kc)
@@ -216,16 +234,18 @@ k_silhouette <- function(hc, object, distances){
   k
 }
 
-cluster_hierarchical <- function(mat){
+cluster_hierarchical <- function(mat, distance){
   correlations <- cor(t(mat))
   dissimilarity <- 1 - correlations
-  distances <- stats::as.dist(dissimilarity)
+  distances <- stats::dist(dissimilarity, method = distance)
   hc <- stats::hclust(distances)
+  hc$distances <- distances
   hc
 }
 
-#' cluster_concor(ison_adolescents)
-#' cluster_concor(ison_southern_women)
+# cluster_concor(ison_adolescents)
+# cluster_concor(ison_southern_women)
+# https://github.com/bwlewis/hclust_in_R/blob/master/hc.R
 cluster_concor <- function(object){
   mat <- as_matrix(object)
   split_cor <- function(m0, cutoff = 1) {
@@ -271,6 +291,124 @@ cluster_concor <- function(object){
   rownames(distance) <- colnames(distance) <- node_names(object)[as.numeric(colnames(distance))]
   hc <- hclust(d = as.dist(distance))
   hc$method <- "concor"
+  hc$distances <- distance
   hc  
 }
 
+blockmodel_concor <- function(object, p = 1, 
+                              cutoff = 0.999, max.iter = 25, 
+                              block.content = "density"){
+  
+  if (is.list(object) & !is.igraph(object)) {
+    mat <- lapply(object, function(x) as_matrix(x))
+    mat <- do.call(rbind, mat)
+  } else mat <- as_matrix(object)
+  
+  
+  
+  if (length(dim(mat)) > 2) {
+    d <- mat
+  } else {
+    d <- array(dim = c(1, nrow(mat), ncol(mat)))
+    d[1, , ] <- mat
+  }
+  
+  if (is_twomode(mat)) {
+    b1 <- memb$nodes1$block
+    rn <- max(b1)
+    b2 <- memb$nodes2$block
+    cn <- max(b2)
+  } else {
+    b1 <- b2 <- memb$block
+    rn <- cn <- max(b1)
+  }
+  rm <- dim(d)[1]
+  bm <- array(dim = c(rm, rn, cn))
+  for (i in 1:rm) for (j in 1:rn) for (k in 1:cn) {
+    if (block.content == "density") 
+      bm[i, j, k] <- mean(d[i, b1 == j, b2 == k, drop = FALSE], 
+                          na.rm = TRUE)
+    else if (block.content == "meanrowsum") {
+      bm[i, j, k] <- mean(apply(d[i, b1 == j, b2 == k, drop = FALSE], 
+                                2, sum, na.rm = TRUE))
+    }
+    else if (block.content == "meancolsum") {
+      bm[i, j, k] <- mean(apply(d[i, b1 == j, b2 == k, drop = FALSE], 
+                                3, sum, na.rm = TRUE))
+    }
+    else if (block.content == "sum") {
+      bm[i, j, k] <- sum(d[i, b1 == j, b2 == k, drop = FALSE], 
+                         na.rm = TRUE)
+    }
+    else if (block.content == "median") {
+      bm[i, j, k] <- stats::median(d[i, b1 == j, b2 == k, drop = FALSE], 
+                                   na.rm = TRUE)
+    }
+    else if (block.content == "min") {
+      bm[i, j, k] <- min(d[i, b1 == j, b2 == k, drop = FALSE], 
+                         na.rm = TRUE)
+    }
+    else if (block.content == "max") {
+      bm[i, j, k] <- max(d[i, b1 == j, b2 == k, drop = FALSE], 
+                         na.rm = TRUE)
+    }
+    else if (block.content == "types") {
+      temp <- mean(d[i, b1 == j, b2 == k, drop = FALSE], 
+                   na.rm = TRUE)
+      if (is.nan(temp)) 
+        bm[i, j, k] <- "NA"
+      else if (temp == 0) 
+        bm[i, j, k] <- "null"
+      else if (temp == 1) 
+        bm[i, j, k] <- "complete"
+      else if (all(apply(d[i, b1 == j, b2 == k, drop = FALSE], 
+                         2, sum, na.rm = TRUE) > 0, apply(d[i, b1 == j, 
+                                                            b2 == k,
+                                                            drop = FALSE],
+                                                          3,
+                                                          sum,
+                                                          na.rm = TRUE) > 0)) 
+        bm[i, j, k] <- "1 covered"
+      else if (all(apply(d[i, b1 == j, b2 == k, drop = FALSE], 
+                         2, sum, na.rm = TRUE) > 0)) 
+        bm[i, j, k] <- "1 row-covered"
+      else if (all(apply(d[i, b1 == j, b2 == k, drop = FALSE], 
+                         3, sum, na.rm = TRUE) > 0)) 
+        bm[i, j, k] <- "1 col-covered"
+      else bm[i, j, k] <- "other"
+    }
+  }
+  
+  out <- list()
+  out$blocked.data <- mat
+  out$plabels <- dimnames(mat)
+  if (is_twomode(mat)) {
+    out$membership <- list(nodes1 = memb$nodes1$block,
+                           nodes2 = memb$nodes2$block)
+    out$block.membership <- list(nodes1 = sort(memb$nodes1$block),
+                                 nodes2 = sort(memb$nodes2$block))
+    out$order.vector <- list(nodes1 = unlist(lapply(1:rn,
+                                                    function(x) which(memb$nodes1$block == x))),
+                             nodes2 = unlist(lapply(1:rn,
+                                                    function(x) which(memb$nodes2$block == x))))
+    out$modes <- 2
+  } else {
+    out$membership <- memb$block
+    out$block.membership <- sort(memb$block)
+    out$order.vector <- unlist(lapply(1:rn,
+                                      function(x) which(memb$block == x)))
+    out$modes <- 1
+  }
+  out$cluster.method <- "CONCOR"
+  out$block.content <- block.content
+  if (dim(bm)[1] == 1) {
+    out$block.model <- bm[1, , ]
+    # rownames(out$block.model) <- rlabels
+    # colnames(out$block.model) <- rlabels
+  } else {
+    out$block.model <- bm
+    # dimnames(out$block.model) <- list(glabels, rlabels, rlabels)
+  }
+  class(out) <- "block_model"
+  out
+}

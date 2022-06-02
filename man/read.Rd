@@ -80,6 +80,7 @@ Researchers regularly need to work with a variety of external data formats.
 The following functions offer ways to import from some common external
 file formats into objects that \code{{migraph}} and other graph/network packages
 in R can work with.
+
 Note that these functions are not as actively maintained as others
 in the package, so please let us know if any are not currently working
 for you or if there are missing import routines
