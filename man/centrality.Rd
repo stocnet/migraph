@@ -81,7 +81,7 @@ A numeric vector giving the eigenvector centrality measure of each node.
 \description{
 These functions calculate common centrality measures for one- and two-mode networks.
 All measures attempt to use as much information as they are offered,
-including whether the networks are directed or weighted.
+including whether the networks are directed, weighted, or multimodal.
 If this would produce unintended results,
 first transform the salient properties using e.g. \code{\link[=to_undirected]{to_undirected()}} functions.
 All centrality and centralization measures return normalized measures by default,

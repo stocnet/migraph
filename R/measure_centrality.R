@@ -3,7 +3,7 @@
 #' @description
 #'   These functions calculate common centrality measures for one- and two-mode networks.
 #'   All measures attempt to use as much information as they are offered,
-#'   including whether the networks are directed or weighted.
+#'   including whether the networks are directed, weighted, or multimodal.
 #'   If this would produce unintended results, 
 #'   first transform the salient properties using e.g. [to_undirected()] functions.
 #'   All centrality and centralization measures return normalized measures by default,
@@ -186,10 +186,6 @@ node_closeness <- function(object, normalized = TRUE,
 #' ison_adolescents %>% 
 #'   activate(edges) %>% mutate(weight = ec) %>% 
 #'   autographr()
-#' @testexamples
-#' expect_s3_class(ec, "node_measure")
-#' expect_length(ec, graph_edges(ison_adolescents))
-#' expect_equal(unname(ec[1:3]), c(0.562,0.692,0.600), tolerance = 0.001)
 #' @export
 edge_closeness <- function(object, normalized = TRUE){
   edge_adj <- to_edges(object)
