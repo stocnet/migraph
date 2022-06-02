@@ -3,11 +3,12 @@
 #' @name community
 NULL
 
-#' @describeIn community a greedy, iterative, deterministic graph
+#' @describeIn community A greedy, iterative, deterministic graph
 #'   partitioning algorithm that results in a graph with two 
 #'   equally-sized communities
 #' @examples
 #' node_kernighanlin(ison_adolescents)
+#' node_kernighanlin(ison_southern_women)
 #' @export
 node_kernighanlin <- function(object){
   # assign groups arbitrarily
@@ -15,14 +16,7 @@ node_kernighanlin <- function(object){
   group_size <- ifelse(n %% 2 == 0, n/2, (n+1)/2)
   
   # count internal and external costs of each vertex
-  if (is_twomode(object)) {
-    g <- igraph::as_adjacency_matrix(object,
-                                     sparse = FALSE, attr = NULL)
-  }
-  else {
-    g <- as_matrix(object)
-  }
-  
+  g <- as_matrix(to_multilevel(object))
   g1 <- g[1:group_size, 1:group_size]
   g2 <- g[(group_size+1):n, (group_size+1):n]
   intergroup <- g[1:group_size, (group_size+1):n]
@@ -59,7 +53,6 @@ node_kernighanlin <- function(object){
   # extract names of vertices in each group after swaps
   out <- ifelse(node_names(object) %in% g1.newnames, 1, 2)
   if(is_labelled(object)) names(out) <- node_names(object)
-  # out <- list("group 1" = paste0(g1.newnames), "group 2" = paste0(g2.newnames[g2.newnames!=""]))
   make_partition(out, object)
 }
 
