@@ -108,7 +108,10 @@ count_signed_triangles <- function(object){
 
 #' @describeIn features Returns modularity of one- or two-mode networks
 #' @examples 
-#' graph_modularity(ison_adolescents, node_kernighanlin(ison_adolescents))
+#' graph_modularity(ison_adolescents, 
+#'   node_kernighanlin(ison_adolescents))
+#' graph_modularity(ison_southern_women, 
+#'   node_kernighanlin(ison_southern_women))
 #' @references 
 #' Murata, Tsuyoshi. 2010. Modularity for Bipartite Networks. 
 #' In: Memon, N., Xu, J., Hicks, D., Chen, H. (eds) 
@@ -116,9 +119,15 @@ count_signed_triangles <- function(object){
 #' Springer, Boston, MA. 
 #' \doi{10.1007/978-1-4419-6287-4_7}
 #' @export
-graph_modularity <- function(object, partition = NULL){
+graph_modularity <- function(object, 
+                             membership = NULL, 
+                             resolution = 1){
   if(!is_graph(object)) object <- as_igraph(object)
   if(is_twomode(object)){
-    stop("Sorry, not yet implemented.")
-  } else igraph::modularity(object, membership = partition)
+    igraph::modularity(to_multilevel(object), 
+                       membership = membership,
+                       resolution = resolution)
+  } else igraph::modularity(object, 
+                            membership = membership,
+                            resolution = resolution)
 }

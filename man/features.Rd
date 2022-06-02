@@ -14,7 +14,7 @@ graph_smallworld(object, times = 100)
 
 graph_balance(object, method = "triangles")
 
-graph_modularity(object, partition = NULL)
+graph_modularity(object, membership = NULL, resolution = 1)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -48,7 +48,10 @@ ranging between \code{0} if all triangles are imbalanced and
 \examples{
 graph_smallworld(ison_southern_women)
 graph_smallworld(ison_brandes)
-graph_modularity(ison_adolescents, node_kernighanlin(ison_adolescents))
+graph_modularity(ison_adolescents, 
+  node_kernighanlin(ison_adolescents))
+graph_modularity(ison_southern_women, 
+  node_kernighanlin(ison_southern_women))
 }
 \references{
 Watts, Duncan J., and Steven H. Strogatz. 1998.
