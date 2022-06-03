@@ -208,3 +208,34 @@ summarise_statistics <- function(node_measure,
   }
   out
 }
+
+#' @describeIn defunct Deprecated on 2022-06-03.
+#' @export
+blockmodel <- function(object, clusters){
+  .Deprecated("to_blocks", package = "migraph",
+              old = "blockmodel")
+  
+  to_blocks(object, membership = clusters)
+}
+
+#' @describeIn defunct Deprecated on 2022-06-03.
+#' @export
+print.block_model <- function(x, ...){
+  .Deprecated("to_blocks", package = "migraph",
+              msg = paste("This function is no longer necessary",
+                          "with the new `to_blocks()`.",
+                          sep = " "),
+              old = "print.block_model")
+}
+
+#' @describeIn defunct Deprecated on 2022-06-03.
+#' @export
+reduce_graph <- function(blockmodel, block_labels = NULL){
+  .Deprecated("to_blocks", package = "migraph",
+              msg = paste("This function is no longer necessary",
+                          "with the new `to_blocks()`.",
+                          sep = " "),
+              old = "print.blockmodel")
+}  
+
+

@@ -14,6 +14,9 @@
 \alias{cluster_regular_equivalence}
 \alias{blockmodel_concor}
 \alias{summarise_statistics}
+\alias{blockmodel}
+\alias{print.block_model}
+\alias{reduce_graph}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 ggidentify(object, node_measure, identify_function = max)
@@ -45,6 +48,12 @@ blockmodel_concor(
 )
 
 summarise_statistics(node_measure, clusters = NULL, sumFUN = mean)
+
+blockmodel(object, clusters)
+
+\method{print}{block_model}(x, ...)
+
+reduce_graph(blockmodel, block_labels = NULL)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -80,6 +89,12 @@ for more details about the new implementation.
 \item \code{blockmodel_concor}: Deprecated on 2022-05-30.
 
 \item \code{summarise_statistics}: Deprecated on 2022-06-03.
+
+\item \code{blockmodel}: Deprecated on 2022-06-03.
+
+\item \code{print.block_model}: Deprecated on 2022-06-03.
+
+\item \code{reduce_graph}: Deprecated on 2022-06-03.
 }}
 
 \keyword{internal}

@@ -17,6 +17,7 @@
 \alias{to_multilevel}
 \alias{to_edges}
 \alias{to_subgraph}
+\alias{to_blocks}
 \title{Tools for reformatting networks, graphs, and matrices}
 \usage{
 to_uniplex(object, edge)
@@ -48,6 +49,8 @@ to_multilevel(object)
 to_edges(object)
 
 to_subgraph(object, ...)
+
+to_blocks(object, membership, FUN = mean)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -69,6 +72,13 @@ the "positive" or "negative" ties.}
 \item{names}{Character vector of the node names. NULL by default.}
 
 \item{...}{Arguments passed on to dplyr::filter}
+
+\item{membership}{A vector of partition memberships}
+
+\item{FUN}{A function for summarising block content.
+By default \code{mean}.
+Other recommended options include \code{median}, \code{sum},
+\code{min} or \code{max}.}
 }
 \value{
 All \code{to_} functions return an object of the same class as that provided.
@@ -152,6 +162,9 @@ where the edges are the nodes
 
 \item \code{to_subgraph}: Returns a network subgraph filtered
 on the basis of some node-related logical statement.
+
+\item \code{to_blocks}: Returns a reduced graph from a given
+partition membership vector
 }}
 
 \examples{
@@ -173,6 +186,14 @@ autographr(ison_southern_women) /
 autographr(to_mode2(ison_southern_women)))
 autographr(ison_adolescents) +  
 autographr(to_edges(ison_adolescents))
+autographr(to_blocks(ison_adolescents, 
+  node_regular_equivalence(ison_adolescents, "e")))
+to_blocks(ison_adolescents, 
+  node_regular_equivalence(ison_adolescents, "e"), sum)
+to_blocks(ison_southern_women, 
+  node_regular_equivalence(ison_southern_women, "e"))
+to_blocks(ison_southern_women, 
+  node_kernighanlin(ison_southern_women))
 }
 \seealso{
 Other manipulation: 

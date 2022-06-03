@@ -500,5 +500,52 @@ to_edges <- function(object){
 #' @importFrom dplyr filter
 #' @export
 to_subgraph <- function(object, ...){
-  dplyr::filter(.data = object, ..., .preserve = FALSE)
+  dplyr::filter(.data = as_tidygraph(object), ..., 
+                .preserve = FALSE)
+}
+
+#' @describeIn to Returns a reduced graph from a given
+#'   partition membership vector
+#' @param membership A vector of partition memberships
+#' @param FUN A function for summarising block content.
+#'   By default `mean`.
+#'   Other recommended options include `median`, `sum`,
+#'   `min` or `max`.
+#' @examples 
+#' autographr(to_blocks(ison_adolescents, 
+#'   node_regular_equivalence(ison_adolescents, "e")))
+#' to_blocks(ison_adolescents, 
+#'   node_regular_equivalence(ison_adolescents, "e"), sum)
+#' to_blocks(ison_southern_women, 
+#'   node_regular_equivalence(ison_southern_women, "e"))
+#' to_blocks(ison_southern_women, 
+#'   node_kernighanlin(ison_southern_women))
+#' @export
+to_blocks <- function(object, membership, FUN = mean){
+  mat <- as_matrix(to_onemode(object))
+  if(is_twomode(object)){
+    m1_membs <- membership[!node_mode(object)]
+    m2_membs <- membership[node_mode(object)]
+  } 
+  if(!is_twomode(object) | length(intersect(m1_membs, m2_membs))>0) {
+    parts <- max(membership)
+    out <- matrix(nrow = parts, 
+                  ncol = parts)
+    for(i in seq_len(parts)) for (j in seq_len(parts))
+      out[i, j] <- FUN(mat[membership == i, 
+                           membership == j, drop = FALSE], 
+                       na.rm = TRUE)
+    rownames(out) <- paste("Block", seq_len(parts))
+    colnames(out) <- paste("Block", seq_len(parts))
+  } else {
+    out <- matrix(nrow = length(unique(m1_membs)),
+                  ncol = length(unique(m2_membs)))
+    for(i in unique(m1_membs)) for (j in unique(m2_membs))
+      out[i, j] <- FUN(mat[membership == i, 
+                           membership == j, drop = FALSE], 
+                       na.rm = TRUE)
+    rownames(out) <- paste("Block", unique(m1_membs))
+    colnames(out) <- paste("Block", unique(m2_membs))
+  }
+  out
 }
