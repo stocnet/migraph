@@ -230,14 +230,17 @@ is_labelled.data.frame <- function(object) {
 #' @export
 is_signed <- function(object) UseMethod("is_signed")
 
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  
+  abs(x - round(x)) < tol
+
 #' @export
 is_signed.data.frame <- function(object) {
-  is.integer(object[,3]) && any(object[,3] < 0)
+  all(is.wholenumber(object[,3])) && any(object[,3] < 0)
 }
 
 #' @export
 is_signed.matrix <- function(object) {
-  is.integer(c(object)) && any(object < 0)
+  all(is.wholenumber(c(object))) && any(object < 0)
 }
 
 #' @export
