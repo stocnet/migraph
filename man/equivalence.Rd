@@ -87,6 +87,8 @@ nse_hier <- node_structural_equivalence(ison_adolescents,
 plot(nse_hier)
 nse_conc <- node_structural_equivalence(ison_adolescents, 
                   cluster = "concor")
+nse_conc <- node_structural_equivalence(ison_southern_women, 
+                  cluster = "concor")
 plot(nse_conc)
 (nre <- node_regular_equivalence(ison_algebra, "elbow"))
 plot(nre)

@@ -52,6 +52,8 @@ NULL
 #' plot(nse_hier)
 #' nse_conc <- node_structural_equivalence(ison_adolescents, 
 #'                   cluster = "concor")
+#' nse_conc <- node_structural_equivalence(ison_southern_women, 
+#'                   cluster = "concor")
 #' plot(nse_conc)
 #' @export
 node_structural_equivalence <- function(object,
@@ -247,37 +249,40 @@ cluster_hierarchical <- function(mat, distance){
 # cluster_concor(ison_southern_women)
 # https://github.com/bwlewis/hclust_in_R/blob/master/hc.R
 cluster_concor <- function(object){
-  mat <- as_matrix(object)
+  mat <- as_matrix(to_multilevel(object))
   split_cor <- function(m0, cutoff = 1) {
-    if (ncol(m0) < 2) return(m0)
-    mi <- stats::cor(m0)
-    while (any(abs(mi) <= cutoff)) {
-      mi <- cor(mi)
-      cutoff <- cutoff - 0.0001
+    if (ncol(m0) < 2 | all(stats::cor(m0)==1)) list(m0)
+    else {
+      mi <- stats::cor(m0)
+      while (any(abs(mi) <= cutoff)) {
+        mi <- cor(mi)
+        cutoff <- cutoff - 0.0001
+      }
+      group <- mi[, 1] > 0
+      list(m0[, group, drop = FALSE], 
+           m0[, !group, drop = FALSE])
     }
-    group <- mi[, 1] > 0
-    list(m0[, group, drop = FALSE], 
-         m0[, !group, drop = FALSE])
   }
   p_list <- list(mat)
   p_group <- list()
   i <- 1
   while(!all(vapply(p_list, function(x) ncol(x)==1, logical(1)))){
     p_list <- unlist(lapply(p_list,
-                            function(x) split_cor(x)),
+                            function(y) split_cor(y)),
                      recursive = FALSE)
-    p_group[[i]] <- lapply(p_list, function(x) colnames(x))
+    p_group[[i]] <- lapply(p_list, function(z) colnames(z))
+    if(i > 2 && length(p_group[[i]]) == length(p_group[[i-1]])) break
     i <- i+1
   }
 
   out <- list()
   
-  merges <- sapply(rev(1:(i-2)), 
+  merges <- sapply(rev(1:(i-1)), 
          function(p) lapply(p_group[[p]], 
                             function(s){
                               g <- match(s, node_names(object))
                               # g <- s
-                              if(length(g)==2) c(g, p) else
+                              if(length(g)<=2) c(g, p) else
                                 c(t(cbind(t(combn(g, 2)), p)))
                             } ))
   merges <- c(merges, 
@@ -293,122 +298,4 @@ cluster_concor <- function(object){
   hc$method <- "concor"
   hc$distances <- distance
   hc  
-}
-
-blockmodel_concor <- function(object, p = 1, 
-                              cutoff = 0.999, max.iter = 25, 
-                              block.content = "density"){
-  
-  if (is.list(object) & !is.igraph(object)) {
-    mat <- lapply(object, function(x) as_matrix(x))
-    mat <- do.call(rbind, mat)
-  } else mat <- as_matrix(object)
-  
-  
-  
-  if (length(dim(mat)) > 2) {
-    d <- mat
-  } else {
-    d <- array(dim = c(1, nrow(mat), ncol(mat)))
-    d[1, , ] <- mat
-  }
-  
-  if (is_twomode(mat)) {
-    b1 <- memb$nodes1$block
-    rn <- max(b1)
-    b2 <- memb$nodes2$block
-    cn <- max(b2)
-  } else {
-    b1 <- b2 <- memb$block
-    rn <- cn <- max(b1)
-  }
-  rm <- dim(d)[1]
-  bm <- array(dim = c(rm, rn, cn))
-  for (i in 1:rm) for (j in 1:rn) for (k in 1:cn) {
-    if (block.content == "density") 
-      bm[i, j, k] <- mean(d[i, b1 == j, b2 == k, drop = FALSE], 
-                          na.rm = TRUE)
-    else if (block.content == "meanrowsum") {
-      bm[i, j, k] <- mean(apply(d[i, b1 == j, b2 == k, drop = FALSE], 
-                                2, sum, na.rm = TRUE))
-    }
-    else if (block.content == "meancolsum") {
-      bm[i, j, k] <- mean(apply(d[i, b1 == j, b2 == k, drop = FALSE], 
-                                3, sum, na.rm = TRUE))
-    }
-    else if (block.content == "sum") {
-      bm[i, j, k] <- sum(d[i, b1 == j, b2 == k, drop = FALSE], 
-                         na.rm = TRUE)
-    }
-    else if (block.content == "median") {
-      bm[i, j, k] <- stats::median(d[i, b1 == j, b2 == k, drop = FALSE], 
-                                   na.rm = TRUE)
-    }
-    else if (block.content == "min") {
-      bm[i, j, k] <- min(d[i, b1 == j, b2 == k, drop = FALSE], 
-                         na.rm = TRUE)
-    }
-    else if (block.content == "max") {
-      bm[i, j, k] <- max(d[i, b1 == j, b2 == k, drop = FALSE], 
-                         na.rm = TRUE)
-    }
-    else if (block.content == "types") {
-      temp <- mean(d[i, b1 == j, b2 == k, drop = FALSE], 
-                   na.rm = TRUE)
-      if (is.nan(temp)) 
-        bm[i, j, k] <- "NA"
-      else if (temp == 0) 
-        bm[i, j, k] <- "null"
-      else if (temp == 1) 
-        bm[i, j, k] <- "complete"
-      else if (all(apply(d[i, b1 == j, b2 == k, drop = FALSE], 
-                         2, sum, na.rm = TRUE) > 0, apply(d[i, b1 == j, 
-                                                            b2 == k,
-                                                            drop = FALSE],
-                                                          3,
-                                                          sum,
-                                                          na.rm = TRUE) > 0)) 
-        bm[i, j, k] <- "1 covered"
-      else if (all(apply(d[i, b1 == j, b2 == k, drop = FALSE], 
-                         2, sum, na.rm = TRUE) > 0)) 
-        bm[i, j, k] <- "1 row-covered"
-      else if (all(apply(d[i, b1 == j, b2 == k, drop = FALSE], 
-                         3, sum, na.rm = TRUE) > 0)) 
-        bm[i, j, k] <- "1 col-covered"
-      else bm[i, j, k] <- "other"
-    }
-  }
-  
-  out <- list()
-  out$blocked.data <- mat
-  out$plabels <- dimnames(mat)
-  if (is_twomode(mat)) {
-    out$membership <- list(nodes1 = memb$nodes1$block,
-                           nodes2 = memb$nodes2$block)
-    out$block.membership <- list(nodes1 = sort(memb$nodes1$block),
-                                 nodes2 = sort(memb$nodes2$block))
-    out$order.vector <- list(nodes1 = unlist(lapply(1:rn,
-                                                    function(x) which(memb$nodes1$block == x))),
-                             nodes2 = unlist(lapply(1:rn,
-                                                    function(x) which(memb$nodes2$block == x))))
-    out$modes <- 2
-  } else {
-    out$membership <- memb$block
-    out$block.membership <- sort(memb$block)
-    out$order.vector <- unlist(lapply(1:rn,
-                                      function(x) which(memb$block == x)))
-    out$modes <- 1
-  }
-  out$cluster.method <- "CONCOR"
-  out$block.content <- block.content
-  if (dim(bm)[1] == 1) {
-    out$block.model <- bm[1, , ]
-    # rownames(out$block.model) <- rlabels
-    # colnames(out$block.model) <- rlabels
-  } else {
-    out$block.model <- bm
-    # dimnames(out$block.model) <- list(glabels, rlabels, rlabels)
-  }
-  class(out) <- "block_model"
-  out
 }
