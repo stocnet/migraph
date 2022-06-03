@@ -142,10 +142,10 @@ to_redirected <- function(object) UseMethod("to_redirected")
 
 #' @export
 to_redirected.tbl_graph <- function(object) {
-  out <- object %>% activate(edges)
+  out <- object %>% activate(.data$edges)
   out$from <- object$to
   out$to <- object$from
-  out %>% activate(nodes)
+  out %>% activate(.data$nodes)
 }
 
 #' @export

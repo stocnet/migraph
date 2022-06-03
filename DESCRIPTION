@@ -40,7 +40,8 @@ Imports:
     stringr,
     tibble,
     tidygraph,
-    tidyr
+    tidyr,
+    tnet
 Suggests: 
     covr,
     knitr,

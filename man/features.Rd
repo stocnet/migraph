@@ -29,6 +29,11 @@ graph_modularity(object, membership = NULL, resolution = 1)
 \item{times}{Integer of number of simulations.}
 
 \item{method}{One of "triangles" (the default), "walk", or "frustration".}
+
+\item{membership}{A vector of partition membership}
+
+\item{resolution}{A proportion indicating the resolution scale.
+By default 1.}
 }
 \description{
 Network/topological features

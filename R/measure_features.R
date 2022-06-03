@@ -107,6 +107,9 @@ count_signed_triangles <- function(object){
 }
 
 #' @describeIn features Returns modularity of one- or two-mode networks
+#' @param membership A vector of partition membership
+#' @param resolution A proportion indicating the resolution scale.
+#'   By default 1.
 #' @examples 
 #' graph_modularity(ison_adolescents, 
 #'   node_kernighanlin(ison_adolescents))

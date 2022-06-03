@@ -283,7 +283,7 @@ cluster_concor <- function(object){
                               g <- match(s, node_names(object))
                               # g <- s
                               if(length(g)<=2) c(g, p) else
-                                c(t(cbind(t(combn(g, 2)), p)))
+                                c(t(cbind(t(utils::combn(g, 2)), p)))
                             } ))
   merges <- c(merges, 
               list(c(t(cbind(t(combn(seq_len(graph_nodes(object)), 2)), 0)))))

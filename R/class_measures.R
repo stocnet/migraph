@@ -93,30 +93,28 @@ plot.node_measure <- function(x, type = c("h", "d"), ...){
     ggplot2::theme(panel.grid.major = ggplot2::element_line(colour = "grey90"))
 }
 
-#' @param sumFUN A function by which the values should be aggregated
-#' or summarised. By default `mean`.
-#' @examples 
-#' summary(node_degree(mpn_elite_mex), 
-#'           node_structural_equivalence(mpn_elite_mex, select = "elbow"))
+# @param FUN A function by which the values should be aggregated
+# or summarised. By default `mean`.
+# summary(node_degree(mpn_elite_mex), 
+#           node_structural_equivalence(mpn_elite_mex, select = "elbow"))
 #' @export
-summary.node_measure <- function(measure, ...,
+summary.node_measure <- function(object, ...,
                                  membership,
-                                 sumFUN = mean){
+                                 FUN = mean){
   out <- vapply(unique(membership), 
-                function(x) sumFUN(measure[membership == x]), FUN.VALUE = 1)
+                function(x) FUN(object[membership == x]), FUN.VALUE = 1)
   names(out) <- unique(membership)
   out
 }
 
-#' @examples 
-#' summary(node_triad_census(mpn_elite_mex), 
-#'           node_regular_equivalence(mpn_elite_mex, select = "elbow"))
+# summary(node_triad_census(mpn_elite_mex), 
+#           node_regular_equivalence(mpn_elite_mex, select = "elbow"))
 #' @export
-summary.node_census <- function(census, ...,
+summary.node_census <- function(object, ...,
                                  membership,
-                                 sumFUN = mean){
+                                 FUN = mean){
   out <- t(sapply(unique(membership), 
-                  function(x) apply(measure[membership == x, ], 2, sumFUN)))
+                  function(x) apply(object[membership == x, ], 2, FUN)))
   rownames(out) <- unique(membership)
   out
 }

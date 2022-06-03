@@ -54,17 +54,14 @@ plot.partition <- function(x, ...){
                        ggplot2::element_text(colour = colors)))
 }
 
-#' @param x A blockmodel-class object.
-#' @param ... Additional arguments passed on to ggplot2.
+# plot(as_matrix(ison_adolescents), 
+#   membership = node_regular_equivalence(ison_adolescents, "e"))
+# plot(as_matrix(ison_southern_women), 
+#   membership = node_regular_equivalence(ison_southern_women, "e"))
 #' @importFrom tibble rownames_to_column
 #' @importFrom tidyr pivot_longer
 #' @importFrom ggplot2 ggplot geom_tile aes scale_fill_gradient theme_grey labs theme scale_x_discrete scale_y_discrete geom_vline geom_hline element_blank element_text
 #' @importFrom rlang .data
-#' @examples
-#' plot(as_matrix(ison_adolescents), 
-#'   membership = node_regular_equivalence(ison_adolescents, "e"))
-#' plot(as_matrix(ison_southern_women), 
-#'   membership = node_regular_equivalence(ison_southern_women, "e"))
 #' @export
 plot.matrix <- function(x, ..., membership = NULL) {
   
