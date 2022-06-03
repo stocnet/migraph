@@ -24,6 +24,14 @@ there often comes a time when it is necessary to import and analyse data
 from other sources.
 Fortunately, `{migraph}` has a range of tools you can employ to import your data and manipulate it.
 
+# Finding data
+
+There are a great number of networks datasets and data resources.
+Here we keep just a necessarily partial list,
+but we are happy to update it whenever additional datasets are suggested.
+
+- [Congress in Data](https://www.congressindata.com/data-download/)
+
 # Import data
 
 `{migraph}` includes several functions that help 
