@@ -44,7 +44,6 @@ gfriend <- autographr(m182_friend) + ggtitle("Friendship")
 gsocial <- autographr(m182_social) + ggtitle("Social")
 (m182_task <- to_uniplex(ison_algebra, "task_tie"))
 gtask <- autographr(m182_task) + ggtitle("Task")
-library(patchwork)
 gfriend + gsocial + gtask
 ```
 
@@ -65,7 +64,8 @@ Let's size the nodes according to this score,
 and identify the node with the minimum constraint score.
 
 ```{r constraintplot}
-ggidentify(m182_task, node_constraint, min)
+autographr(m182_task, highlight_measure = "node_constraint",
+           identify_function = "min")
 ```
 
 Why minimum? And what can we learn from this plot
@@ -105,7 +105,7 @@ based on the distances in dissimilarity in their outgoing and incoming ties.
 Or you can just run the following line:
 
 ```{r cluster-str}
-(str_res <- cluster_structural_equivalence(ison_algebra))
+(str_res <- node_structural_equivalence(ison_algebra))
 ```
 
 This object doesn't tell us much,
@@ -116,10 +116,10 @@ more and more dissimilarity among those we cluster together.
 A fork or branching point indicates the level of dissimilarity
 at which those two or more nodes would be said to be equivalent.
 
-```{r}
-ggtree(str_res)
-ggtree(str_res, 2) # for example let's say there are just two main clusters
-ggtree(str_res, 4) # or four? what are we seeing here?
+```{r, eval=FALSE}
+plot(str_res)
+# ggtree(str_res, 2) # for example let's say there are just two main clusters
+# ggtree(str_res, 4) # or four? what are we seeing here?
 ```
 
 Ok, so we can draw a line and this establishes how many clusters
@@ -132,7 +132,7 @@ To establish that, we need to iterate through all of our options,
 calculating for each how correlated this pattern is with the observed network.
 We then plot this and, using the "elbow method", decide how many clusters.
 
-```{r idstrclust}
+```{r idstrclust, eval=FALSE}
 ggidentify_clusters(str_res, structural_combo)
 ```
 
@@ -150,7 +150,7 @@ More clusters than this only distinguishes nodes that are less dissimilar.
 We can use `cutree()` to cut the tree at our desired point
 and return the resulting vector of cluster assignments.
 
-```{r cutree}
+```{r cutree, eval=FALSE}
 (str_clu <- cutree(str_res, 4))
 ```
 
@@ -160,7 +160,7 @@ mapped onto our networks.
 All we need to do is add the variable to existing networks and
 plot them:
 
-```{r strclu-plots}
+```{r strclu-plots, eval=FALSE}
 m182_task <- m182_task %>% as_tidygraph() %>% mutate(clu = str_clu)
 autographr(m182_task, node_color = "clu") + ggtitle("Task")
 m182_social <- m182_social %>% as_tidygraph() %>% mutate(clu = str_clu)
@@ -174,7 +174,7 @@ autographr(m182_friend, node_color = "clu") + ggtitle("Friend")
 Now we can use the 4-cluster solution to generate blockmodels.
 We'll do this on the valued network, but binary is possible too.
 
-```{r structblock}
+```{r structblock, eval=FALSE}
 (task_blockmodel <- blockmodel(m182_task, str_clu))
 plot(task_blockmodel)
 (social_blockmodel <- blockmodel(m182_social, str_clu))
@@ -188,29 +188,31 @@ Plotting the blockmodel like this is particularly useful for characterising what
 the profile of ties (partners) is for each position/equivalence class.
 We might characterise them like so:
 
-- `r names(str_clu[which(str_clu==1)])` work together only in reciprocal pairs on tasks,
-preferring to approach `r names(str_clu[which(str_clu==4)])` but also those of the other two roles.
+```{html}
+- `r names(str_clu[which(str_clu==1)])` work together only in reciprocal pairs on tasks, -->
+<!-- preferring to approach `r names(str_clu[which(str_clu==4)])` but also those of the other two roles. -->
 While they hang out with each other socially quite a bit, friendship from groups 2 and 3 are preferred.
 We shall call them *freaks*.
-- `r names(str_clu[which(str_clu==2)])` also work together only in reciprocal pairs,
-preferring to work collaboratively with group 1 or also `r names(str_clu[which(str_clu==4)])`.
+<!-- - `r names(str_clu[which(str_clu==2)])` also work together only in reciprocal pairs, -->
+<!-- preferring to work collaboratively with group 1 or also `r names(str_clu[which(str_clu==4)])`. -->
 They also tend to count those from group 1 as friends,
 and hang out with everyone else but themselves.
 We shall call them *squares*.
-- `r names(str_clu[which(str_clu==3)])` will work with either some in group 1 and 3, or 2,
-but again prefer `r names(str_clu[which(str_clu==4)])` for task advice.
+<!-- - `r names(str_clu[which(str_clu==3)])` will work with either some in group 1 and 3, or 2, -->
+<!-- but again prefer `r names(str_clu[which(str_clu==4)])` for task advice. -->
 They are pretty good friends with each other though,
 and pretty happy to socialise with everyone.
 We shall call them *nerds*.
-- `r names(str_clu[which(str_clu==4)])` is a loner, no friends, 
+<!-- - `r names(str_clu[which(str_clu==4)])` is a loner, no friends,  -->
 but everyone hangs out with them for task advice, therefore the *geek*.
+```
 
 ## Reduced graph
 
 Finally, we can reduce the graph to just interactions between roles.
 Let's start off by graphing the valued/weighted blockmodel.
 
-```{r strredgraph}
+```{r strredgraph, eval=FALSE}
 group_labels <- c("Freaks","Squares","Nerds","Geek")
 (social_reduced <- reduce_graph(social_blockmodel, group_labels))
 autographr(social_reduced)
@@ -222,8 +224,8 @@ autographr(friend_reduced)
 
 What can help interpreting these profiles is getting the summaries of average weight ties by group.
 
-```{r str-group}
-group_tie_census(m182_task, str_clu)
+```{r str-group, eval=FALSE}
+summary(m182_task, str_clu)
 ```
 
 ```
@@ -259,7 +261,7 @@ We'll measure these profiles in terms of triad counts.
 
 Now, there is a function for calculating triad censuses:
 
-```{r graphtriads}
+```{r graphtriads, eval=FALSE}
 (graph_triad_census(m182_task))
 ```
 
@@ -267,7 +269,7 @@ But as you can see, it just gives a aggregated tally for the whole network
 and not one differentiated by actor (which is what we need).
 Fortunately, `{migraph}` offers a node-level triad census too.
 
-```{r nodetriads}
+```{r nodetriads, eval=FALSE}
 # (By putting parentheses around this command, it'll assign AND print!)
 (task_triads <- node_triad_census(m182_task))
 ```
@@ -282,7 +284,7 @@ and return an object that has hierarchically clustered our nodes,
 but this time it will be based on their (dis)similarity
 from each others patterns of ties.
 
-```{r regeq}
+```{r regeq, eval=FALSE}
 reg_res <- cluster_regular_equivalence(m182_task)
 ggtree(reg_res,4)
 ```
@@ -293,14 +295,14 @@ in terms of their patterns of ties than their actual ties.
 Like before, we'll loop through each possible cluster solution
 and see how well they match the observed matrix of triad type correlations.
 
-```{r regid}
+```{r regid, eval=FALSE}
 ggidentify_clusters(reg_res, task_triads)
 ```
 
 The cluster correlation plot seems a bit ambiguous here, at least visually.
 But the elbow method has highlighted 2 clusters as a pretty good solution.
 
-```{r cutreereg}
+```{r cutreereg, eval=FALSE}
 ggtree(reg_res, 2)
 (reg_clu <- cutree(reg_res, 2))
 m182_task <- m182_task %>% as_tidygraph() %>% mutate(regclu = reg_clu)
@@ -311,7 +313,7 @@ autographr(m182_task, node_color = "regclu") + ggtitle("Task")
 
 As before, we can use these clusters to blockmodel the task network.
 
-```{r regblock}
+```{r regblock, eval=FALSE}
 (task_blockmodel <- blockmodel(m182_task, reg_clu))
 plot(task_blockmodel)
 ```
@@ -321,7 +323,7 @@ plot(task_blockmodel)
 Finally, we can reduce the graph to just interactions between roles.
 Obviously this is not particularly informative with only two clusters though...
 
-```{r regredgraph}
+```{r regredgraph, eval=FALSE}
 (task_reduced <- reduce_graph(task_blockmodel, c("Regulars","Geek")))
 autographr(task_reduced)
 ```
@@ -332,12 +334,12 @@ where m is the number of clusters and n is the 16 possible triad types.
 Each cell is the average number of the given triad type for each individual 
 in the cluster:
 
-```{r clustercensus}
-group_triad_census(m182_task, reg_clu)
+```{r clustercensus, eval=FALSE}
+summary(m182_task, reg_clu)
 ```
 
 ```
-# ADVANCED: Note that we can also blockmodel our communities from last week.
+# ADVANCED: Note that we can also blockmodel our communities from last time.
 # walktrap_blockmodel <- blockmodel(get.adjacency(m182_main, sparse = F), 
 #                                   friend_wt$membership)
 # plot(walktrap_blockmodel)
