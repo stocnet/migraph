@@ -72,13 +72,13 @@ as_edgelist <- function(object) UseMethod("as_edgelist")
 #' @export
 as_edgelist.igraph <- function(object){
   out <- igraph::get.data.frame(object)
-  tibble::as_tibble(out)
+  dplyr::as_tibble(out)
 }
 
 #' @export
 as_edgelist.tbl_graph <- function(object){
   out <- igraph::get.data.frame(object)
-  tibble::as_tibble(out)
+  dplyr::as_tibble(out)
 }
 
 #' @export
@@ -101,7 +101,7 @@ as_edgelist.network <- function(object){
   }
   # Remove weight column if only unity weights.
   if (all(edges$weight == 1)) edges <- edges[, -3]
-  tibble::as_tibble(edges)
+  dplyr::as_tibble(edges)
 }
 
 #' @export

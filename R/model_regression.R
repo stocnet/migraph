@@ -61,7 +61,6 @@
 #'   By default FALSE.
 #'   See [`{progressr}`](https://progressr.futureverse.org) for more.
 #' @importFrom dplyr bind_cols left_join
-#' @importFrom tibble tibble
 #' @importFrom purrr flatten
 #' @importFrom future plan
 #' @importFrom furrr future_map_dfr furrr_options
@@ -415,7 +414,7 @@ generics::tidy
 #' @export
 tidy.netlm <- function(x, conf.int = FALSE, conf.level = 0.95, ...) {
   
-  result <- tibble::tibble(term = x$names,
+  result <- dplyr::tibble(term = x$names,
                            estimate = x$coefficients,
                            # std.error = NA_real_,
                            statistic = x$tstat,
@@ -437,7 +436,7 @@ tidy.netlm <- function(x, conf.int = FALSE, conf.level = 0.95, ...) {
 tidy.netlogit <- function(x, conf.int = FALSE, conf.level = 0.95, 
                           exponentiate = FALSE, ...) {
   
-  result <- tibble::tibble(term = x$names,
+  result <- dplyr::tibble(term = x$names,
                            estimate = `if`(exponentiate, 
                                              exp(x$coefficients), 
                                              x$coefficients),
@@ -476,7 +475,7 @@ glance.netlm <- function(x, ...) {
   adj.r.squared <- 1 - (1 - r.squared) * ((qn - df.int)/rdf)
   sigma <- sqrt(resvar)
   
-    tibble::tibble(
+    dplyr::tibble(
       r.squared = r.squared,
       adj.r.squared = adj.r.squared,
       sigma = sigma,
@@ -513,7 +512,7 @@ glance.netlogit <- function(x, ...) {
   # adj.r.squared <- 1 - (1 - r.squared) * ((qn - df.int)/rdf)
   # sigma <- sqrt(resvar)
   
-  tibble::tibble(
+  dplyr::tibble(
     # r.squared = r.squared,
     # adj.r.squared = adj.r.squared,
     # sigma = sigma,

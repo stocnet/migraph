@@ -8,9 +8,8 @@
 #' @importFrom ggraph create_layout ggraph geom_edge_diagonal
 #' @importFrom ggplot2 theme_void coord_flip scale_x_reverse
 #' @importFrom rlang .data
-#' @importFrom stringr str_detect str_extract
 #' @examples
-#' cites <- tibble::tibble(qID1 = c("BNLHPB_2016P:BNLHPB_1970A",
+#' cites <- dplyr::tibble(qID1 = c("BNLHPB_2016P:BNLHPB_1970A",
 #' "PARIS_2015A","INOOTO_2015A", "RUS-USA[UUF]_2015A",
 #' "RUS-USA[UUF]_2015A", "RUS-USA[UUF]_2015A", "RUS-USA[UUF]_2015A",
 #' "INECHA_2015O", "ST04DC_2014P", "ST04DC_2014P"),
@@ -22,11 +21,10 @@
 gglineage <- function(object, labels = TRUE){
   nodes <- NULL # Avoid R CMD check note
   object <- as_tidygraph(object)
-  if (all(stringr::str_detect(attr(object[1], "names"), "[:digit:]{4}"))) {
+  if (all(grepl("[:digit:]{4}", attr(object[1], "names")))) {
     object <- object %>%
       activate(nodes) %>%
-      mutate(year = stringr::str_extract(.data$name,
-                                         "[:digit:]{4}"))
+      mutate(year = sub("[:digit:]{4}", "\\1", .data$name))
   }
   lo <- ggraph::create_layout(object, layout = "igraph",
                               algorithm = "sugiyama",

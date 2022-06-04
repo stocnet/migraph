@@ -62,11 +62,11 @@ test_that("as_network converts correctly",{
 
 test_that("as_edgelist converts correctly", {
   expect_s3_class(as_edgelist(as_igraph(data2)), "tbl_df")
-  expect_equal(as_edgelist(as_igraph(data2)), tibble::as_tibble(data2))
-  expect_equal(as_edgelist(as_igraph(data1)), tibble::as_tibble(data1))
-  expect_equal(as_edgelist(as_tidygraph(data2)), tibble::as_tibble(data2))
-  expect_equal(as_edgelist(as_tidygraph(data1)), tibble::as_tibble(data1))
-  expect_equal(as_edgelist(as_network(data1)), tibble::as_tibble(data1))
-  expect_equal(as_edgelist(as_network(data2)), tibble::as_tibble(data2))
+  expect_equal(as_edgelist(as_igraph(data2)), dplyr::as_tibble(data2))
+  expect_equal(as_edgelist(as_igraph(data1)), dplyr::as_tibble(data1))
+  expect_equal(as_edgelist(as_tidygraph(data2)), dplyr::as_tibble(data2))
+  expect_equal(as_edgelist(as_tidygraph(data1)), dplyr::as_tibble(data1))
+  expect_equal(as_edgelist(as_network(data1)), dplyr::as_tibble(data1))
+  expect_equal(as_edgelist(as_network(data2)), dplyr::as_tibble(data2))
 
 })

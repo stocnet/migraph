@@ -35,10 +35,12 @@ print.partition <- function(x, ...,
   }
 }
 
-#' @importFrom ggdendro ggdendrogram
 #' @importFrom stats cutree
 #' @export
 plot.partition <- function(x, ...){
+  if (!("ggdendro" %in% rownames(installed.packages()))) {
+    message("Please install package `{ggdendro}`.")
+  } else {
     hc <- attr(x, "hc")
     k <- attr(x, "k")
     memb <- x[hc$order]
@@ -52,13 +54,13 @@ plot.partition <- function(x, ...){
       ggplot2::theme(axis.text.x = ggplot2::element_text(colour = "#E20020"),
                      axis.text.y = suppressWarnings(
                        ggplot2::element_text(colour = colors)))
+  }
 }
 
 # plot(as_matrix(ison_adolescents), 
 #   membership = node_regular_equivalence(ison_adolescents, "e"))
 # plot(as_matrix(ison_southern_women), 
 #   membership = node_regular_equivalence(ison_southern_women, "e"))
-#' @importFrom tibble rownames_to_column
 #' @importFrom tidyr pivot_longer
 #' @importFrom ggplot2 ggplot geom_tile aes scale_fill_gradient theme_grey labs theme scale_x_discrete scale_y_discrete geom_vline geom_hline element_blank element_text
 #' @importFrom rlang .data
@@ -79,7 +81,7 @@ plot.matrix <- function(x, ..., membership = NULL) {
   }
 
   plot_data <- as.data.frame(blocked_data) %>%
-    tibble::rownames_to_column("Var1") %>%
+    dplyr::mutate(Var1 = rownames(blocked_data)) %>% 
     tidyr::pivot_longer(!.data[["Var1"]], names_to = "Var2", values_to = "value")
   g <- ggplot2::ggplot(plot_data, ggplot2::aes(.data[["Var2"]], .data[["Var1"]])) +
     ggplot2::theme_grey(base_size = 9) +

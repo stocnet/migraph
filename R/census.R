@@ -106,7 +106,6 @@ node_triad_census <- function(object){
 #' | 04 | C4
 #' | Z42, Z43 | diamond
 #' | X4 | K4
-#' @importFrom oaqc oaqc
 #' @importFrom tidygraph %E>%
 #' @references 
 #'  Ortmann, Mark, and Ulrik Brandes. 2017. 
@@ -116,24 +115,28 @@ node_triad_census <- function(object){
 #' (quad_cen <- node_quad_census(ison_southern_women))
 #' @export
 node_quad_census <- function(object){
-  graph <- object %>% as_tidygraph() %E>% 
-    as.data.frame()
-  out <- oaqc::oaqc(graph)[[1]]
-  out <- out[-1,]
-  rownames(out) <- node_names(object)
-  colnames(out) <- c("E4", # co-K4
-                     "I41","I40", # co-diamond
-                     "H4", # co-C4
-                     "L42","L41","L40", # co-paw
-                     "D42","D40", # co-claw
-                     "U42","U41", # P4
-                     "Y43","Y41", # claw
-                     "P43","P42","P41", # paw
-                     "04", # C4
-                     "Z42","Z43", # diamond
-                     "X4") # K4
-  if(is_twomode(object)) out <- out[,-c(8,9,14,15,16,18,19,20)]
-  out
+  if (!("oaqc" %in% rownames(installed.packages()))) {
+    message("Please install package `{oaqc}`.")
+  } else {
+    graph <- object %>% as_tidygraph() %E>% 
+      as.data.frame()
+    out <- oaqc::oaqc(graph)[[1]]
+    out <- out[-1,]
+    rownames(out) <- node_names(object)
+    colnames(out) <- c("E4", # co-K4
+                       "I41","I40", # co-diamond
+                       "H4", # co-C4
+                       "L42","L41","L40", # co-paw
+                       "D42","D40", # co-claw
+                       "U42","U41", # P4
+                       "Y43","Y41", # claw
+                       "P43","P42","P41", # paw
+                       "04", # C4
+                       "Z42","Z43", # diamond
+                       "X4") # K4
+    if(is_twomode(object)) out <- out[,-c(8,9,14,15,16,18,19,20)]
+    out
+  }
 }
 
 #' @describeIn census Returns the shortest path lengths

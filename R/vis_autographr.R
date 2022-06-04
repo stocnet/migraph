@@ -41,7 +41,6 @@
 #' @importFrom igraph get.vertex.attribute
 #' @importFrom ggplot2 aes arrow unit scale_color_brewer scale_fill_brewer
 #' @importFrom ggforce geom_mark_hull
-#' @import concaveman
 #' @examples
 #' ison_adolescents <- ison_adolescents %>% 
 #'  dplyr::mutate(shape = rep(c("circle", "square"), times = 4)) %>%
@@ -259,17 +258,16 @@ autographr <- auto_graph <- function(object,
   p
   }
   if (!is.null(node_group)) {
-    p <- p + ggforce::geom_mark_hull(ggplot2::aes(x = lo$x, y = lo$y,
-                                         fill = as.factor(igraph::get.vertex.attribute(g, node_group)),
-                                         label = as.factor(igraph::get.vertex.attribute(g, node_group))),
-                                     concavity = 2) +
-      ggplot2::scale_fill_brewer(palette = "Set1", guide = "none")
+    if (!("concaveman" %in% rownames(installed.packages()))) {
+      message("Please install package `{concaveman}`.")
+    } else {
+      p <- p + ggforce::geom_mark_hull(ggplot2::aes(x = lo$x, y = lo$y,
+                                                    fill = as.factor(igraph::get.vertex.attribute(g, node_group)),
+                                                    label = as.factor(igraph::get.vertex.attribute(g, node_group))),
+                                       concavity = 2) +
+        ggplot2::scale_fill_brewer(palette = "Set1", guide = "none")
+    }
   }
   p
 }
-
-# autographr <- function()
-# {
-#   .Deprecated("auto_graph")
-# }
 

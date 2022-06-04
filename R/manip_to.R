@@ -306,7 +306,7 @@ to_unnamed.data.frame <- function(object) {
   names <- unique(unlist(c(out[,1],out[,2])))
   out[,1] <- match(unlist(object[,1]), names)
   out[,2] <- match(unlist(object[,2]), names)
-  tibble::as_tibble(out)
+  dplyr::as_tibble(out)
 }
 
 #' @describeIn to Returns an object that has random vertex names added

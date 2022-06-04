@@ -151,7 +151,6 @@ write_nodelist <- function(object,
 #' @describeIn read Reading pajek (.net/.paj) files
 #' @importFrom network read.paj
 #' @importFrom utils read.delim
-#' @importFrom stringr str_remove_all str_trim
 #' @export
 read_pajek <- function(file = file.choose(), ...) {
   out <- network::read.paj(file, ...)
@@ -165,8 +164,8 @@ read_pajek <- function(file = file.choose(), ...) {
     attr <- clus[c(FALSE, TRUE)]
     for (i in seq_len(namo)){
       vct <- strsplit(attr[i], ",")[[1]][-1]
-      vct <- stringr::str_remove_all(vct, "\"")
-      vct <- stringr::str_trim(vct)
+      vct <- gsub("\"", "", vct)
+      vct <- gsub(" ", "", vct, fixed = TRUE)
       vct <- vct[!grepl("^$", vct)]
       if(all(grepl("^-?[0-9.]+$", vct))) vct <- as.numeric(vct)
       out <- add_node_attributes(out, 

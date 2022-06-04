@@ -1,4 +1,4 @@
-cites <- tibble::tibble(qID1 = c("BNLHPB_2016P:BNLHPB_1970A",
+cites <- dplyr::tibble(qID1 = c("BNLHPB_2016P:BNLHPB_1970A",
                                  "PARIS_2015A","INOOTO_2015A",
                                  "RUS-USA[UUF]_2015A",
                                  "RUS-USA[UUF]_2015A",
