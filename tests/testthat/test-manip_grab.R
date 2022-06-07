@@ -24,6 +24,11 @@ test_that("node_attribute works", {
   expect_length(node_attribute(net2, "friends"), igraph::vcount(net2))
 })
 
+test_that("node_mode works", {
+  expect_equal(node_mode(ison_southern_women)[1],
+               !node_mode(ison_southern_women)[length(ison_southern_women)])
+})
+
 test_that("edge_attribute works", {
   expect_equal(edge_attribute(net2, "weight"), c(1, 2, 3, 4, 5))
 })
