@@ -258,7 +258,7 @@ autographr <- auto_graph <- function(object,
   p
   }
   if (!is.null(node_group)) {
-    if (!("concaveman" %in% rownames(installed.packages()))) {
+    if (!("concaveman" %in% rownames(utils::installed.packages()))) {
       message("Please install package `{concaveman}`.")
     } else {
       p <- p + ggforce::geom_mark_hull(ggplot2::aes(x = lo$x, y = lo$y,

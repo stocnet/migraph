@@ -11,7 +11,7 @@ NULL
 #' @export
 graph_components <- function(object, method = c("weak", "strong")){
   object <- as_igraph(object)
-  igraph::components(object, mode = method)$no
+  make_graph_measure(igraph::components(object, mode = method)$no)
 }
 
 #' @describeIn connectedness Returns the minimum number of nodes needed
@@ -26,7 +26,7 @@ graph_components <- function(object, method = c("weak", "strong")){
 #' graph_cohesion(to_main_component(ison_marvel_relationships))
 #' @export
 graph_cohesion <- function(object){
-  igraph::cohesion(as_igraph(object))
+  make_graph_measure(igraph::cohesion(as_igraph(object)))
 }
 
 #' @describeIn connectedness Returns the minimum number of edges needed
@@ -37,7 +37,7 @@ graph_cohesion <- function(object){
 #' graph_adhesion(to_main_component(ison_marvel_relationships))
 #' @export
 graph_adhesion <- function(object){
-  igraph::adhesion(as_igraph(object))
+  make_graph_measure(igraph::adhesion(as_igraph(object)))
 }
 
 #' @describeIn connectedness Returns the maximum path length in the network.
@@ -48,8 +48,8 @@ graph_adhesion <- function(object){
 #' @export
 graph_diameter <- function(object){
   object <- as_igraph(object)
-  igraph::diameter(object, 
-                   directed = is_directed(object))
+  make_graph_measure(igraph::diameter(object, 
+                   directed = is_directed(object)))
 }
 
 #' @describeIn connectedness Returns the average path length in the network.
@@ -60,6 +60,6 @@ graph_diameter <- function(object){
 #' @export
 graph_length <- function(object){
   object <- as_igraph(object)
-  igraph::mean_distance(object, 
-                        directed = is_directed(object))
+  make_graph_measure(igraph::mean_distance(object, 
+                        directed = is_directed(object)))
 }

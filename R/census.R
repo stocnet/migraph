@@ -115,7 +115,7 @@ node_triad_census <- function(object){
 #' (quad_cen <- node_quad_census(ison_southern_women))
 #' @export
 node_quad_census <- function(object){
-  if (!("oaqc" %in% rownames(installed.packages()))) {
+  if (!("oaqc" %in% rownames(utils::installed.packages()))) {
     message("Please install package `{oaqc}`.")
   } else {
     graph <- object %>% as_tidygraph() %E>% 

@@ -1,4 +1,13 @@
-#' Helpers to grab various attributes from nodes or edges in a graph
+#' Grab various node or edge attributes from a network
+#' 
+#' @description These functions operate to help extract certain attributes
+#'   from given network data.
+#'   They are also useful as helpers within other functions.
+#'   
+#'   `graph_*()` functions always relate to the overall graph or network,
+#'   usually returning a scalar.
+#'   `node_*()` and `edge_*()` always return vectors the same length
+#'   as the number of nodes or edges in the network, respectively.
 #' @inheritParams is
 #' @param attribute Character string naming an attribute in the object.
 #' @name grab

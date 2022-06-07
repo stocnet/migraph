@@ -13,7 +13,7 @@
 \alias{graph_dims}
 \alias{graph_node_attributes}
 \alias{graph_edge_attributes}
-\title{Helpers to grab various attributes from nodes or edges in a graph}
+\title{Grab various node or edge attributes from a network}
 \usage{
 node_names(object)
 
@@ -50,7 +50,14 @@ graph_edge_attributes(object)
 \item{attribute}{Character string naming an attribute in the object.}
 }
 \description{
-Helpers to grab various attributes from nodes or edges in a graph
+These functions operate to help extract certain attributes
+from given network data.
+They are also useful as helpers within other functions.
+
+\verb{graph_*()} functions always relate to the overall graph or network,
+usually returning a scalar.
+\verb{node_*()} and \verb{edge_*()} always return vectors the same length
+as the number of nodes or edges in the network, respectively.
 }
 \section{Functions}{
 \itemize{
