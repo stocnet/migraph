@@ -70,3 +70,12 @@ test_that("matrix projected correctly by columns",{
   expect_true(all(node_names(to_mode2(ison_southern_women)) %in% node_names(ison_southern_women)))
   expect_true(length(node_names(to_mode2(ison_southern_women))) != length(node_names(ison_southern_women)))
 })
+
+test_that("to_blocks works", {
+  expect_equal(class(to_blocks(ison_adolescents, node_structural_equivalence(ison_adolescents, "silhouette"), mean)),
+               c("matrix", "array"))
+  expect_equal(length(node_regular_equivalence(ison_algebra, "silhouette")),
+               ncol(to_blocks(ison_algebra, node_regular_equivalence(ison_algebra, "silhouette"), mean)))
+  expect_equal(ncol(to_blocks(ison_algebra, node_regular_equivalence(ison_algebra, "silhouette"), mean)),
+               nrow(to_blocks(ison_algebra, node_regular_equivalence(ison_algebra, "silhouette"), mean)))
+})
