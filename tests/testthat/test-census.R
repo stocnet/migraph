@@ -60,8 +60,8 @@ test_that("graph triad census works", {
   expect_error(graph_triad_census(ison_southern_women))
 })
 
+quad_cen <- node_quad_census(ison_southern_women)
 test_that("node quad census works", {
-  quad_cen <- node_quad_census(ison_southern_women)
   expect_equal(class(quad_cen), c("matrix", "array"))
   expect_equal(quad_cen[1,1], 1402)
 })
