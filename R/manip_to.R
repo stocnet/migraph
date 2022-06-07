@@ -531,7 +531,7 @@ to_blocks <- function(object, membership, FUN = mean){
     m1_membs <- membership[!node_mode(object)]
     m2_membs <- membership[node_mode(object)]
   } 
-  if(!is_twomode(object) | length(intersect(m1_membs, m2_membs))>0) {
+  if(!is_twomode(object)) {
     parts <- max(membership)
     out <- matrix(nrow = parts, 
                   ncol = parts)
