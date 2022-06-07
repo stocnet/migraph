@@ -120,14 +120,14 @@ with existing function names wherever possible.
 
 #### Models
 
-- Blockmodelling: `blockmodel_concor()`, `cluster_structural_equivalence()`, `cluster_regular_equivalence()`
+- Blockmodelling: `node_structural_equivalence()`, `node_regular_equivalence()`
 - Linear and logistic regression for networks (via MRQAP): `network_reg()`
 
 #### Visualization
 
 - `autographr()` for plotting graphs with sensible defaults based on their properties
 - New layouts: e.g. `layout_tbl_graph_frgrid()` for snapping Fruchterman-Reingold to a grid
-- Class-based plots: e.g. `plot.blockmodel()`
+- Class-based plots: e.g. `plot.matrix()`, `plot.members()`, `plot.node_measure()`
 
 Please explore [the list of functions](https://snlab-ch.github.io/migraph/reference/index.html) to find out more.
 
