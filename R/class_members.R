@@ -1,11 +1,11 @@
-make_partition <- function(out, object){
-  class(out) <- c("partition", class(out))
+make_member <- function(out, object){
+  class(out) <- c("member", class(out))
   attr(out, "mode") <- node_mode(object)
   out
 }
 
 #' @export
-print.partition <- function(x, ...,
+print.member <- function(x, ...,
                                max.length = 6,
                                digits = 3){
   if(any(attr(x, "mode"))){
@@ -37,8 +37,8 @@ print.partition <- function(x, ...,
 
 #' @importFrom stats cutree
 #' @export
-plot.partition <- function(x, ...){
-  if (!("ggdendro" %in% rownames(installed.packages()))) {
+plot.member <- function(x, ...){
+  if (!("ggdendro" %in% rownames(utils::installed.packages()))) {
     message("Please install package `{ggdendro}`.")
   } else {
     hc <- attr(x, "hc")

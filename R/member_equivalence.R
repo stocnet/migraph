@@ -73,7 +73,7 @@ node_structural_equivalence <- function(object,
               strict = k_strict(hc, object),
               elbow = k_elbow(hc, object, mat),
               silhouette = k_silhouette(hc, object))
-  out <- make_partition(cutree(hc, k), object)
+  out <- make_member(cutree(hc, k), object)
   attr(out, "hc") <- hc
   attr(out, "k") <- k
   out
@@ -103,7 +103,7 @@ node_regular_equivalence <- function(object,
               strict = k_strict(hc, object),
               elbow = k_elbow(hc, object, triads),
               silhouette = k_silhouette(hc, object))
-  out <- make_partition(cutree(hc, k), object)
+  out <- make_member(cutree(hc, k), object)
   attr(out, "hc") <- hc
   attr(out, "k") <- k
   out
@@ -128,7 +128,7 @@ node_automorphic_equivalence <- function(object,
               strict = k_strict(hc, object),
               elbow = k_elbow(hc, object, paths),
               silhouette = k_silhouette(hc, object))
-  out <- make_partition(cutree(hc, k), object)
+  out <- make_member(cutree(hc, k), object)
   attr(out, "hc") <- hc
   attr(out, "k") <- k
   out
@@ -286,7 +286,7 @@ cluster_concor <- function(object){
                                 c(t(cbind(t(utils::combn(g, 2)), p)))
                             } ))
   merges <- c(merges, 
-              list(c(t(cbind(t(combn(seq_len(graph_nodes(object)), 2)), 0)))))
+              list(c(t(cbind(t(utils::combn(seq_len(graph_nodes(object)), 2)), 0)))))
   merged <- matrix(unlist(merges), ncol = 3, byrow = TRUE)
   merged <- merged[!duplicated(merged[,1:2]),]
   merged[,3] <- abs(merged[,3] - max(merged[,3]))

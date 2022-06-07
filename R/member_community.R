@@ -53,6 +53,6 @@ node_kernighanlin <- function(object){
   # extract names of vertices in each group after swaps
   out <- ifelse(node_names(object) %in% g1.newnames, 1, 2)
   if(is_labelled(object)) names(out) <- node_names(object)
-  make_partition(out, object)
+  make_member(out, object)
 }
 

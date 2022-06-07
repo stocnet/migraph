@@ -11,7 +11,7 @@ NULL
 #' @export
 node_weak_components <- function(object){
   if(!is_graph(object)) object <- as_igraph(object)
-  make_partition(igraph::components(object, mode = "weak")$membership,
+  make_member(igraph::components(object, mode = "weak")$membership,
                  object)
 }
 
@@ -23,7 +23,7 @@ node_weak_components <- function(object){
 #' @export
 node_strong_components <- function(object){
   if(!is_graph(object)) object <- as_igraph(object)
-  make_partition(igraph::components(object, mode = "strong")$membership,
+  make_member(igraph::components(object, mode = "strong")$membership,
                  object)
 }
 
@@ -34,6 +34,6 @@ node_strong_components <- function(object){
 node_coreness <- function(object){
   if(!is_graph(object)) object <- as_igraph(object)
   out <- igraph::coreness(object)
-  make_partition(out, object)
+  make_member(out, object)
 }
 
