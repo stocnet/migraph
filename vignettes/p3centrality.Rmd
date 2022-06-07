@@ -15,30 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Packages for plotting
-
-There are a host of packages for plotting in R, and for plotting networks in R.
-Plotting in R is typically based around two main approaches:
-the 'base' approach in R by default,
-and the 'grid' approach made popular by the famous and very flexible `{ggplot2}` package.^['gg' stands for the Grammar of Graphics.]
-Approaches to plotting _graphs_ or _networks_ in R can be similarly divided.
-The two classic packages are `{igraph}` and `{sna}`, both building upon the base R graphics engine,
-but newer packages [`{ggnetwork}`](https://www.r-bloggers.com/2016/03/ggnetwork-network-geometries-for-ggplot2/) and 
-[`{ggraph}`](https://ggraph.data-imaginist.com/index.html) build upon a grid approach.^[
-Others include: 'Networkly' for creating 2-D and 3-D interactive networks
-that can be rendered with plotly and can be easily integrated into
-shiny apps or markdown documents;
-'visNetwork' interacts with javascript (vis.js) to make interactive networks
-(http://datastorm-open.github.io/visNetwork/); and
-'networkD3' interacts with javascript (D3) to make interactive networks
-(https://www.r-bloggers.com/2016/10/network-visualization-part-6-d3-and-r-networkd3/).
-]
-`{migraph}` builds upon the ggplot2/ggraph engine for plotting.
-
-```{r setup}
-library(migraph)
-autographr(ison_brandes)
-```
+# Calculating different centrality measures
 
 For this exercise, we'll use the `ison_brandes` dataset.
 This dataset is in a 'tidygraph' format, 
@@ -46,13 +23,10 @@ but migraph makes it easy to coerce this into other forms
 to be compatible with other packages.
 
 ```{r coercion}
-ison_brandes
-as_igraph(ison_brandes)
-as_network(ison_brandes)
-mat <- as_matrix(ison_brandes)
+library(migraph)
+(mat <- as_matrix(ison_brandes))
+autographr(ison_brandes)
 ```
-
-# Calculating different centrality measures
 
 Let's start with calculating degree, as it is easy to calculate yourself.
 Just sum the rows or columns of the matrix!
@@ -62,7 +36,7 @@ Just sum the rows or columns of the matrix!
 rowSums(mat) == colSums(mat)
 # Are they all equal? Why?
 # You can also just use a built in command in migraph though:
-node_degree(ison_brandes)
+node_degree(ison_brandes, normalized = FALSE)
 ```
 
 Often we are interested in the distribution of (degree) centrality in a network.
@@ -84,7 +58,11 @@ node_eigenvector(ison_brandes)
 # TASK: Can you create degree distributions for each of these?
 ```
 
-Note that there are an enormous number of centrality measures available
+Note that all centrality measures in `{migraph}` return normalized
+scores by default -- 
+for the raw scores, just add `normalized = FALSE` as an extra argument.
+
+There are an enormous number of centrality measures available
 in R across a range of packages.
 In addition to the main four used here, `{igraph}` includes:
 
@@ -116,16 +94,17 @@ There are also pretty exhaustive [discussions of this online](https://www.r-blog
 
 # Plotting different centrality measures
 
-There is also a function in `{migraph}` that
-plots our network and highlights the node with the maximum (e.g. degree) score.
-This is basically doing the same as what was in the original script,
-just gives you the function to do this:
+There is also a function in `{migraph}` that plots our network 
+and highlights the node with the maximum (e.g. degree) score.
+We can choose which measure to highlight,
+and even which node to identify in red as the maximum (by default),
+minimum, or some other function to single out a node.
 
 ```{r ggid}
-autographr(ison_brandes, node_measure = node_degree) +
-autographr(ison_brandes, node_measure = node_betweenness)
-autographr(ison_brandes, node_measure = node_closeness) +
-autographr(ison_brandes, node_measure = node_eigenvector)
+autographr(ison_brandes, highlight_measure = "node_degree") +
+autographr(ison_brandes, highlight_measure = "node_betweenness")
+autographr(ison_brandes, highlight_measure = "node_closeness") +
+autographr(ison_brandes, highlight_measure = "node_eigenvector")
 ```
 
 How neat!
@@ -150,6 +129,7 @@ graph_eigenvector(ison_southern_women)
 By default, scores are printed to 3 decimal places,
 but this can be modified and, in any case, 
 the unrounded values are retained internally and passed on.
+
 Note that for centralization in two-mode networks,
 two values are given (as a named vector),
 since normalization typically depends on the (asymmetric)
@@ -180,15 +160,14 @@ This can be a little tricky with gg-based plots,
 but fortunately the `{patchwork}` package is here to help.
 
 ```{r multiplot}
-gd <- autographr(ison_brandes, node_measure = node_degree) + 
+gd <- autographr(ison_brandes, highlight_measure = "node_degree") + 
   ggtitle("Degree", subtitle = round(graph_degree(ison_brandes), 2))
-gc <- autographr(ison_brandes, node_measure = node_closeness) + 
+gc <- autographr(ison_brandes, highlight_measure = "node_closeness") + 
   ggtitle("Closeness", subtitle = round(graph_closeness(ison_brandes), 2))
-gb <- autographr(ison_brandes, node_measure = node_betweenness) + 
+gb <- autographr(ison_brandes, highlight_measure = "node_betweenness") + 
   ggtitle("Betweenness", subtitle = round(graph_betweenness(ison_brandes), 2))
-ge <- autographr(ison_brandes, node_measure = node_eigenvector) + 
+ge <- autographr(ison_brandes, highlight_measure = "node_eigenvector") + 
   ggtitle("Eigenvector", subtitle = round(graph_eigenvector(ison_brandes), 2))
-library(patchwork)
 (gd | gb) / (gc | ge)
 # ggsave("brandes-centralities.pdf")
 ```

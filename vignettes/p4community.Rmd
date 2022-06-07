@@ -100,7 +100,7 @@ Now let's look at the friend network.
 
 ```{r comp-no}
 graph_components(m182_friend)
-graph_components(m182_friend, method = "strong")
+graph_components(to_undirected(m182_friend))
 ```
 
 How many components are there? Why?

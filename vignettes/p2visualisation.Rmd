@@ -16,15 +16,30 @@ knitr::opts_chunk$set(
 ```
 
 # Visualising Networks
-There are several packages in R for plotting and visualising network data,
-such as `{ggraph}` and `{igraph}`. In addition to these R packages, this vignette
-also introduces some functions in the `{migraph}` package for plotting and 
-visualising network data in general, as well as plots that include centrality 
-measures, plots of networks over time, and blockmodels and tree diagrams.
-Before covering `{migraph}` in more detail, we first provide a general overview 
-of using `{ggraph}` and `{igraph}` to plot network data as `{migraph}` is built 
-as an addition to both packages.
-  
+
+There are a host of packages for plotting in R, and for plotting networks in R.
+Plotting in R is typically based around two main approaches:
+the 'base' approach in R by default,
+and the 'grid' approach made popular by the famous and very flexible `{ggplot2}` package.^['gg' stands for the Grammar of Graphics.]
+Approaches to plotting _graphs_ or _networks_ in R can be similarly divided.
+
+The two classic packages are `{igraph}` and `{sna}`, both building upon the base R graphics engine.
+Newer packages [`{ggnetwork}`](https://www.r-bloggers.com/2016/03/ggnetwork-network-geometries-for-ggplot2/) and 
+[`{ggraph}`](https://ggraph.data-imaginist.com/index.html) build upon a grid approach.^[
+
+Others include: 'Networkly' for creating 2-D and 3-D interactive networks
+that can be rendered with plotly and can be easily integrated into
+shiny apps or markdown documents;
+'visNetwork' interacts with javascript (vis.js) to make interactive networks
+(http://datastorm-open.github.io/visNetwork/); and
+'networkD3' interacts with javascript (D3) to make interactive networks
+(https://www.r-bloggers.com/2016/10/network-visualization-part-6-d3-and-r-networkd3/).
+]
+
+This vignette introduces some functions in the `{migraph}` package for plotting and 
+visualising network data.
+`{migraph}` builds upon the ggplot2/ggraph engine for plotting.
+
 ## Using `{migraph}`
   
 To get a basic visualisation of the network before adding various specifications,

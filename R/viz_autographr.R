@@ -28,12 +28,13 @@
 #'   drawing convex but also concave hulls around clusters of nodes.
 #'   These groupings will be labelled with the categories of the variable passed.
 #' @param highlight_measure String vector of name of the node and/or edge
-#' level measure function e.g. `node_degree`,  `edge_betweenness`,
-#' or `c("node_betweenness", "edge_betweenness")`.
-#' `NULL` by default.
+#'   level measure function e.g. `node_degree`,  `edge_betweenness`,
+#'   or `c("node_betweenness", "edge_betweenness")`.
+#'   `NULL` by default.
 #' @param identify_function Name of the function used to determine the
-#' highlighted node e.g. `"max"`, `"min"`, or `c("max", "min")` if
-#' both edge and node highlighting is performed. `NULL` by default.
+#'   highlighted node e.g. `"max"`, `"min"`, or `c("max", "min")` if
+#'   both edge and node highlighting is performed. 
+#'   `max` by default.
 #' @param ... Extra arguments.
 #' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text
 #' @importFrom ggraph geom_conn_bundle get_con geom_node_point
@@ -63,7 +64,7 @@ autographr <- auto_graph <- function(object,
                                      node_shape = NULL,
                                      node_size = NULL,
                                      highlight_measure = NULL,
-                                     identify_function = NULL,
+                                     identify_function = "max",
                                      ...) {
   
   name <- weight <- NULL # initialize variables to avoid CMD check notes

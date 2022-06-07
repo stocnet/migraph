@@ -13,7 +13,7 @@ autographr(
   node_shape = NULL,
   node_size = NULL,
   highlight_measure = NULL,
-  identify_function = NULL,
+  identify_function = "max",
   ...
 )
 }
@@ -54,7 +54,8 @@ or \code{c("node_betweenness", "edge_betweenness")}.
 
 \item{identify_function}{Name of the function used to determine the
 highlighted node e.g. \code{"max"}, \code{"min"}, or \code{c("max", "min")} if
-both edge and node highlighting is performed. \code{NULL} by default.}
+both edge and node highlighting is performed.
+\code{max} by default.}
 
 \item{...}{Extra arguments.}
 }
