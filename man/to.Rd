@@ -126,7 +126,7 @@ This is equivalent to the "collapse" mode in \code{{igraph}}.
 
 \item \code{to_redirected}: Returns an object that has any edge direction transposed,
 or flipped, so that senders become receivers and receivers become senders.
-This has no effect on undirected networks.
+This essentially has no effect on undirected networks or reciprocated ties.
 
 \item \code{to_unweighted}: Returns an object that has all edge weights removed
 

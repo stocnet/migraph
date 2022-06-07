@@ -9,7 +9,7 @@
 \alias{graph_length}
 \title{Network connectedness}
 \usage{
-graph_components(object, method = c("weak", "strong"))
+graph_components(object)
 
 graph_cohesion(object)
 
@@ -28,9 +28,6 @@ graph_length(object)
 \item network, from the network package
 \item tbl_graph, from the tidygraph package
 }}
-
-\item{method}{Whether to identify components if only "weak"ly connected
-or also "strong"ly connected.}
 }
 \description{
 These functions return values or vectors relating to how connected a network is
@@ -38,10 +35,12 @@ and where the nodes or edges that would increase fragmentation are.
 }
 \section{Functions}{
 \itemize{
-\item \code{graph_components}: Returns number of components in the network.
+\item \code{graph_components}: Returns number of (strong) components in the network.
+To get the 'weak' components of a directed graph,
+please use \code{to_undirected()} first.
 
-\item \code{graph_cohesion}: Returns the minimum number of nodes needed
-to remove from the network to increase the number of components.
+\item \code{graph_cohesion}: Returns the minimum number of nodes to remove
+from the network needed to increase the number of components.
 
 \item \code{graph_adhesion}: Returns the minimum number of edges needed
 to remove from the network to increase the number of components.

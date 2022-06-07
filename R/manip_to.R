@@ -136,16 +136,18 @@ to_undirected.matrix <- function(object) {
 
 #' @describeIn to Returns an object that has any edge direction transposed,
 #'   or flipped, so that senders become receivers and receivers become senders.
-#'   This has no effect on undirected networks.
+#'   This essentially has no effect on undirected networks or reciprocated ties.
 #' @export
 to_redirected <- function(object) UseMethod("to_redirected")
 
 #' @export
 to_redirected.tbl_graph <- function(object) {
-  out <- object %>% activate(.data$edges)
+  nodes <- NULL
+  edges <- NULL
+  out <- object %>% activate(edges)
   out$from <- object$to
   out$to <- object$from
-  out %>% activate(.data$nodes)
+  out %>% activate(nodes)
 }
 
 #' @export
@@ -465,8 +467,10 @@ to_multilevel.tbl_graph <- function(object) {
 
 #' @export
 to_multilevel.igraph <- function(object) {
-  igraph::V(object)$lvl <- ifelse(igraph::V(object)$type, 2, 1)
-  object <- igraph::delete_vertex_attr(object, "type")
+  if(is_twomode(object)){
+    igraph::V(object)$lvl <- ifelse(igraph::V(object)$type, 2, 1)
+    object <- igraph::delete_vertex_attr(object, "type")
+  }
   object
 }
 

@@ -6,16 +6,19 @@
 #' @name connectedness
 NULL
 
-#' @describeIn connectedness Returns number of components in the network.
+#' @describeIn connectedness Returns number of (strong) components in the network.
+#'   To get the 'weak' components of a directed graph, 
+#'   please use `to_undirected()` first.
 #' @importFrom igraph components
 #' @export
-graph_components <- function(object, method = c("weak", "strong")){
+graph_components <- function(object){
   object <- as_igraph(object)
-  make_graph_measure(igraph::components(object, mode = method)$no)
+  make_graph_measure(igraph::components(object, mode = "strong")$no,
+                     object)
 }
 
-#' @describeIn connectedness Returns the minimum number of nodes needed
-#'   to remove from the network to increase the number of components.
+#' @describeIn connectedness Returns the minimum number of nodes to remove
+#'   from the network needed to increase the number of components.
 #' @importFrom igraph cohesion
 #' @references
 #' White, Douglas R and Frank Harary 2001. 
@@ -26,7 +29,8 @@ graph_components <- function(object, method = c("weak", "strong")){
 #' graph_cohesion(to_main_component(ison_marvel_relationships))
 #' @export
 graph_cohesion <- function(object){
-  make_graph_measure(igraph::cohesion(as_igraph(object)))
+  make_graph_measure(igraph::cohesion(as_igraph(object)),
+                     object)
 }
 
 #' @describeIn connectedness Returns the minimum number of edges needed
@@ -37,7 +41,8 @@ graph_cohesion <- function(object){
 #' graph_adhesion(to_main_component(ison_marvel_relationships))
 #' @export
 graph_adhesion <- function(object){
-  make_graph_measure(igraph::adhesion(as_igraph(object)))
+  make_graph_measure(igraph::adhesion(as_igraph(object)),
+                     object)
 }
 
 #' @describeIn connectedness Returns the maximum path length in the network.
@@ -49,7 +54,8 @@ graph_adhesion <- function(object){
 graph_diameter <- function(object){
   object <- as_igraph(object)
   make_graph_measure(igraph::diameter(object, 
-                   directed = is_directed(object)))
+                   directed = is_directed(object)),
+                   object)
 }
 
 #' @describeIn connectedness Returns the average path length in the network.
@@ -61,5 +67,6 @@ graph_diameter <- function(object){
 graph_length <- function(object){
   object <- as_igraph(object)
   make_graph_measure(igraph::mean_distance(object, 
-                        directed = is_directed(object)))
+                        directed = is_directed(object)),
+                     object)
 }
