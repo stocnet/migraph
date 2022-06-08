@@ -9,7 +9,7 @@
 \alias{create_star}
 \alias{create_tree}
 \alias{create_lattice}
-\alias{create_core_periphery}
+\alias{create_core}
 \title{Create networks with particular structures}
 \usage{
 create_empty(n)
@@ -26,7 +26,7 @@ create_tree(n, direction = c("undirected", "in", "out"), branches = 2)
 
 create_lattice(n, directed = FALSE)
 
-create_core_periphery(n, width = 0.5)
+create_core(n, width = 0.5)
 }
 \arguments{
 \item{n}{Given:
@@ -41,7 +41,9 @@ a network of the same dimensions will be created.
 
 \item{width}{The width or breadth of the ring. This is typically double the degree.}
 
-\item{directed}{Whether the graph should be directed. By default FALSE.}
+\item{directed}{Logical whether the graph should be directed.
+By default FALSE.
+If an opposite direction is desired, use \code{to_redirected()}.}
 
 \item{...}{Additional arguments passed on to igraph.}
 
@@ -84,7 +86,9 @@ into separate components.
 
 \item \code{create_lattice}: Creates a graph of the given dimensions with ties to all neighbouring nodes
 
-\item \code{create_core_periphery}: Creates a graph of the given dimensions with ties to all neighbouring nodes
+\item \code{create_core}: Creates a graph with a certain proportion of nodes
+being core nodes, densely tied to each other and peripheral nodes,
+and the rest peripheral, tied only to the core.
 }}
 
 \examples{
@@ -102,8 +106,8 @@ autographr(create_tree(15, direction = "out", branches = 3), "tree")
 autographr(create_lattice(5), layout = "kk") +
 autographr(create_lattice(c(5,5))) +
 autographr(create_lattice(c(5,5,5)))
-autographr(create_core_periphery(5)) +
-autographr(create_core_periphery(c(5,5)))
+autographr(create_core(6)) +
+autographr(create_core(c(6,6)))
 }
 \seealso{
 as_matrix as_tidygraph as_network

@@ -19,6 +19,9 @@
 #'   \item A migraph-compatible object,
 #'   a network of the same dimensions will be created.
 #'   }
+#' @param directed Logical whether the graph should be directed. 
+#'   By default FALSE. 
+#'   If an opposite direction is desired, use `to_redirected()`.
 #' @return By default an igraph object will be returned,
 #'   but this can be coerced into other types of objects
 #'   using `as_matrix()`, `as_tidygraph()`, or `as_network()`.
@@ -67,7 +70,6 @@ create_complete <- function(n) {
 #' @describeIn create Creates a ring or chord graph of the given dimensions
 #' that loops around is of a certain width or thickness.
 #' @param width The width or breadth of the ring. This is typically double the degree.
-#' @param directed Whether the graph should be directed. By default FALSE.
 #' @param ... Additional arguments passed on to igraph.
 #' @examples
 #' autographr(create_ring(8, width = 2)) + 
@@ -225,12 +227,14 @@ create_lattice <- function(n,
   igraph::make_lattice(n, directed = directed)
 }
 
-#' @describeIn create Creates a graph of the given dimensions with ties to all neighbouring nodes
+#' @describeIn create Creates a graph with a certain proportion of nodes
+#'   being core nodes, densely tied to each other and peripheral nodes,
+#'   and the rest peripheral, tied only to the core.
 #' @examples
-#' autographr(create_core_periphery(5)) +
-#' autographr(create_core_periphery(c(5,5)))
+#' autographr(create_core(6)) +
+#' autographr(create_core(c(6,6)))
 #' @export
-create_core_periphery <- function(n, width = 0.5) {
+create_core <- function(n, width = 0.5) {
   if(is_migraph(n)) n <- graph_dims(n)
   if(length(n)>1){
     mat <- matrix(0, n[1], n[2])
