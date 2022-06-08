@@ -169,5 +169,9 @@ Bonacich, Phillip. 1991.
 \seealso{
 \code{\link[=to_undirected]{to_undirected()}} for removing edge directions
 and \code{\link[=to_unweighted]{to_unweighted()}} for removing weights from a graph.
+
+Other measures: 
+\code{\link{cohesion}()},
+\code{\link{features}}
 }
 \concept{measures}

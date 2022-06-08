@@ -6,8 +6,9 @@
 #'   network properties.
 #' @name generate
 #' @family make
+#' @seealso [coercion]
 #' @inheritParams create
-#' @param object a migraph-consistent object
+#' @inheritParams is
 #' @param p Proportion of possible edges in the network that are realised or,
 #'   if integer greater than 1, the number of edges in the network.
 #' @param directed Whether to generate network as directed. By default FALSE.

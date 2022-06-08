@@ -99,3 +99,11 @@ graph_dims(to_mode1(ison_southern_women))
 graph_node_attributes(mpn_elite_mex)
 graph_edge_attributes(mpn_elite_mex)
 }
+\seealso{
+Other manipulation: 
+\code{\link{add}},
+\code{\link{coercion}},
+\code{\link{is}()},
+\code{\link{to}}
+}
+\concept{manipulation}

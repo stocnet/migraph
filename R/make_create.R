@@ -10,6 +10,7 @@
 #'   and a number of nodes in the second mode equal to the second integer.
 #' @name create
 #' @family make
+#' @seealso [coercion]
 #' @param n Given:
 #'   \itemize{
 #'   \item A single integer, e.g. `n = 10`,
@@ -27,7 +28,6 @@
 #'   using `as_matrix()`, `as_tidygraph()`, or `as_network()`.
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
-#' @seealso as_matrix as_tidygraph as_network
 NULL
 
 #' @describeIn create Creates an empty graph of the given dimensions.

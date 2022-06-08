@@ -94,6 +94,7 @@ as_network(test)
 \seealso{
 Other manipulation: 
 \code{\link{add}},
+\code{\link{grab}},
 \code{\link{is}()},
 \code{\link{to}}
 }

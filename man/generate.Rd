@@ -32,7 +32,14 @@ if integer greater than 1, the number of edges in the network.}
 
 \item{directed}{Whether to generate network as directed. By default FALSE.}
 
-\item{object}{a migraph-consistent object}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix, from base R
+\item edgelist, a data frame from base R or tibble from tibble
+\item igraph, from the igraph package
+\item network, from the network package
+\item tbl_graph, from the tidygraph package
+}}
 
 \item{with_attr}{Logical. Whether any attributes of the object
 should be retained. By default TRUE.}
@@ -69,6 +76,8 @@ autographr(mpn_elite_usa_advice) +
 autographr(generate_permutation(mpn_elite_usa_advice))
 }
 \seealso{
+\link{coercion}
+
 Other make: 
 \code{\link{create}},
 \code{\link{read}}

@@ -199,6 +199,7 @@ to_blocks(ison_southern_women,
 Other manipulation: 
 \code{\link{add}},
 \code{\link{coercion}},
+\code{\link{grab}},
 \code{\link{is}()}
 }
 \concept{manipulation}

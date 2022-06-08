@@ -110,7 +110,7 @@ autographr(create_core(6)) +
 autographr(create_core(c(6,6)))
 }
 \seealso{
-as_matrix as_tidygraph as_network
+\link{coercion}
 
 Other make: 
 \code{\link{generate}},

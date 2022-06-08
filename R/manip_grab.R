@@ -8,9 +8,10 @@
 #'   usually returning a scalar.
 #'   `node_*()` and `edge_*()` always return vectors the same length
 #'   as the number of nodes or edges in the network, respectively.
+#' @name grab
+#' @family manipulation
 #' @inheritParams is
 #' @param attribute Character string naming an attribute in the object.
-#' @name grab
 NULL
 
 #' @describeIn grab Extracts the names of the nodes in a network.
