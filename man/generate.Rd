@@ -69,7 +69,8 @@ autographr(mpn_elite_usa_advice) +
 autographr(generate_permutation(mpn_elite_usa_advice))
 }
 \seealso{
-Other creation: 
-\code{\link{create}}
+Other make: 
+\code{\link{create}},
+\code{\link{read}}
 }
-\concept{creation}
+\concept{make}

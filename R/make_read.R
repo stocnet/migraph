@@ -30,6 +30,7 @@
 #'
 #' The `write_`functions export to different file formats,
 #' depending on the function.
+#' @family make
 #' @details There are a number of repositories for network data
 #' that hold various datasets in different formats. See for example:
 #'

@@ -1,13 +1,15 @@
 #' Create networks with particular structures
 #' 
-#' These functions create networks with particular structural properties.
-#' They can create either one-mode and two-mode networks,
-#' depending on whether the common `n` argument
-#' is passed a single integer (the number of nodes in the one-mode network)
-#' or a vector of \emph{two} integers to return a two-mode network.
-#' 
+#' @description 
+#'   These functions create networks with particular structural properties.
+#'   They can create either one-mode and two-mode networks,
+#'   depending on whether the common `n` argument
+#'   is passed a single integer (the number of nodes in the one-mode network)
+#'   or a vector of \emph{two} integers to return a two-mode network
+#'   with a number of nodes in the first mode equal to the first integer,
+#'   and a number of nodes in the second mode equal to the second integer.
 #' @name create
-#' @family creation
+#' @family make
 #' @param n Given:
 #'   \itemize{
 #'   \item A single integer, e.g. `n = 10`,
@@ -216,13 +218,32 @@ create_tree <- function(n,
 #' autographr(create_lattice(c(5,5,5)))
 #' @export
 create_lattice <- function(n, 
-                           direction = c("undirected","in","out")) {
+                           directed = FALSE) {
   if(is_migraph(n)){
     n <- graph_dims(n)
   }
-  direction <- match.arg(direction)
-  igraph::make_lattice(n, 
-                       directed = direction!="undirected")
+  igraph::make_lattice(n, directed = directed)
+}
+
+#' @describeIn create Creates a graph of the given dimensions with ties to all neighbouring nodes
+#' @examples
+#' autographr(create_core_periphery(5)) +
+#' autographr(create_core_periphery(c(5,5)))
+#' @export
+create_core_periphery <- function(n, width = 0.5) {
+  if(is_migraph(n)) n <- graph_dims(n)
+  if(length(n)>1){
+    mat <- matrix(0, n[1], n[2])
+    mat[1:round(width*n[1]),] <- 1
+    mat[,1:round(width*n[2])] <- 1
+    as_igraph(mat, twomode = TRUE)
+  } else {
+    mat <- matrix(0, n, n)
+    mat[1:round(width*n),] <- 1
+    mat[,1:round(width*n)] <- 1
+    diag(mat) <- 0
+    as_igraph(mat)
+  }
 }
 
 # #' @rdname create

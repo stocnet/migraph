@@ -9,6 +9,7 @@
 \alias{create_star}
 \alias{create_tree}
 \alias{create_lattice}
+\alias{create_core_periphery}
 \title{Create networks with particular structures}
 \usage{
 create_empty(n)
@@ -23,7 +24,9 @@ create_star(n, direction = c("undirected", "in", "out"))
 
 create_tree(n, direction = c("undirected", "in", "out"), branches = 2)
 
-create_lattice(n, direction = c("undirected", "in", "out"))
+create_lattice(n, directed = FALSE)
+
+create_core_periphery(n, width = 0.5)
 }
 \arguments{
 \item{n}{Given:
@@ -58,7 +61,9 @@ These functions create networks with particular structural properties.
 They can create either one-mode and two-mode networks,
 depending on whether the common \code{n} argument
 is passed a single integer (the number of nodes in the one-mode network)
-or a vector of \emph{two} integers to return a two-mode network.
+or a vector of \emph{two} integers to return a two-mode network
+with a number of nodes in the first mode equal to the first integer,
+and a number of nodes in the second mode equal to the second integer.
 }
 \section{Functions}{
 \itemize{
@@ -78,6 +83,8 @@ into separate components.
 \item \code{create_tree}: Creates a graph of the given dimensions with successive branches.
 
 \item \code{create_lattice}: Creates a graph of the given dimensions with ties to all neighbouring nodes
+
+\item \code{create_core_periphery}: Creates a graph of the given dimensions with ties to all neighbouring nodes
 }}
 
 \examples{
@@ -95,11 +102,14 @@ autographr(create_tree(15, direction = "out", branches = 3), "tree")
 autographr(create_lattice(5), layout = "kk") +
 autographr(create_lattice(c(5,5))) +
 autographr(create_lattice(c(5,5,5)))
+autographr(create_core_periphery(5)) +
+autographr(create_core_periphery(c(5,5)))
 }
 \seealso{
 as_matrix as_tidygraph as_network
 
-Other creation: 
-\code{\link{generate}}
+Other make: 
+\code{\link{generate}},
+\code{\link{read}}
 }
-\concept{creation}
+\concept{make}

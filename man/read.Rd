@@ -143,4 +143,9 @@ write_ucinet(horseplay, "R&D-horseplay")
 }
 \seealso{
 \link{coercion}
+
+Other make: 
+\code{\link{create}},
+\code{\link{generate}}
 }
+\concept{make}

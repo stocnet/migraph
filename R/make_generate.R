@@ -5,7 +5,7 @@
 #'   creating a distribution of networks for exploring or testing
 #'   network properties.
 #' @name generate
-#' @family creation
+#' @family make
 #' @inheritParams create
 #' @param object a migraph-consistent object
 #' @param p Proportion of possible edges in the network that are realised or,
