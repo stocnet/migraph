@@ -96,8 +96,8 @@ plot.node_measure <- function(x, type = c("h", "d"), ...){
 
 # @param FUN A function by which the values should be aggregated
 # or summarised. By default `mean`.
-# summary(node_degree(mpn_elite_mex), 
-#           node_structural_equivalence(mpn_elite_mex, select = "elbow"))
+# summary(node_degree(mpn_elite_mex),
+#         membership = node_structural_equivalence(mpn_elite_mex, select = "elbow"))
 #' @export
 summary.node_measure <- function(object, ...,
                                  membership,
