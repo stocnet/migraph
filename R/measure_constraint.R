@@ -8,7 +8,7 @@
 #' @param object A matrix, igraph graph, or tidygraph object.
 #' @param nodes The vertices for which the constraint will be calculated. 
 #' Defaults to all vertices.
-#' @param weights The weights of the edges.
+#' @param weights A vector of the weights of the edges.
 #' If this is NULL and there is a weight edge attribute this is used.
 #' If there is no such edge attribute all edges will have the same weight.
 #' @return A named vector (one-mode) or a list of two named vectors (`$nodes1`, `$nodes2`).
