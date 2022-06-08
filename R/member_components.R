@@ -1,6 +1,7 @@
 #' Component partitioning algorithms
 #' @inheritParams is
 #' @name components
+#' @family membership
 NULL
 
 #' @describeIn components Returns nodes' component membership

@@ -80,3 +80,8 @@ autographr(ison_adolescents, highlight_measure = "edge_betweenness", identify_fu
 autographr(ison_adolescents, highlight_measure = c("node_betweenness", 
 "edge_betweenness"), identify_function = c("max", "max"))
 }
+\seealso{
+Other mapping: 
+\code{\link{layouts}}
+}
+\concept{mapping}

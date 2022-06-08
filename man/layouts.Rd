@@ -47,3 +47,8 @@ Inoue, Kentaro, Shinichi Shimozono, Hideaki Yoshida, and Hiroyuki Kurata. 2012.
 \emph{PLoS ONE} 7(6):e37739.
 \doi{https://doi.org/10.1371/journal.pone.0037739}.
 }
+\seealso{
+Other mapping: 
+\code{\link{autographr}()}
+}
+\concept{mapping}

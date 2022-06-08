@@ -42,3 +42,9 @@ node_weak_components(mpn_bristol)
 node_strong_components(mpn_bristol)
 node_coreness(ison_adolescents)
 }
+\seealso{
+Other membership: 
+\code{\link{community}},
+\code{\link{equivalence}}
+}
+\concept{membership}

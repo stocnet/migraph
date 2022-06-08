@@ -111,3 +111,9 @@ An Algorithm for Clustering Relational Data with Applications to
 Social Network Analysis and Comparison with Multidimensional Scaling.
 \emph{Journal of Mathematical Psychology}, 12: 328--383.
 }
+\seealso{
+Other membership: 
+\code{\link{community}},
+\code{\link{components}()}
+}
+\concept{membership}

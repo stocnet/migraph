@@ -31,3 +31,9 @@ equally-sized communities
 node_kernighanlin(ison_adolescents)
 node_kernighanlin(ison_southern_women)
 }
+\seealso{
+Other membership: 
+\code{\link{components}()},
+\code{\link{equivalence}}
+}
+\concept{membership}

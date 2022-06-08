@@ -16,6 +16,7 @@
 #' _PLoS ONE_ 7(6):e37739.
 #' \doi{https://doi.org/10.1371/journal.pone.0037739}.
 #' @name layouts
+#' @family mapping
 NULL
 
 #' @rdname layouts

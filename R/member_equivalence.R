@@ -9,6 +9,7 @@
 #'   of the hierarchical cluster and showing the returned cluster
 #'   assignment.
 #' @name equivalence
+#' @family membership
 #' @inheritParams is
 #' @param select Character string indicating which method
 #'   should be used to select the number of clusters to cut
