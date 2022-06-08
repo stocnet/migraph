@@ -258,17 +258,18 @@ is_signed.network <- function(object) {
   "sign" %in% network::list.edge.attributes(object)
 }
 
-#' @describeIn is Tests whether network is (weakly/strongly) connected
-#' @param method Whether to identify components if only "weak"ly connected
-#' or also "strong"ly connected.
+#' @describeIn is Tests whether network is weakly connected if
+#'   the network is undirected or strongly connected if directed.
+#'   To test weak connection on a directed network,
+#'   please see `to_undirected()`.
 #' @importFrom igraph is.connected
 #' @examples
 #' is_connected(ison_southern_women)
 #' @export
-is_connected <- function(object, method = c("weak", "strong")) {
-  method <- match.arg(method)
-  object <- as_igraph(object)
-  igraph::is.connected(object, mode = method)
+is_connected <- function(object) {
+  igraph::is.connected(as_igraph(object), 
+                       mode = ifelse(is_directed(object),
+                                     "strong", "weak"))
 }
 
 #' @describeIn is Tests whether network contains any loops

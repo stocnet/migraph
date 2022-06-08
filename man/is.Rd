@@ -33,7 +33,7 @@ is_labelled(object)
 
 is_signed(object)
 
-is_connected(object, method = c("weak", "strong"))
+is_connected(object)
 
 is_complex(object)
 
@@ -52,9 +52,6 @@ is_acyclic(object)
 \item network, from the network package
 \item tbl_graph, from the tidygraph package
 }}
-
-\item{method}{Whether to identify components if only "weak"ly connected
-or also "strong"ly connected.}
 }
 \value{
 TRUE if the condition is met, or FALSE otherwise.
@@ -81,7 +78,10 @@ properties.
 
 \item \code{is_signed}: Tests whether network is signed positive/negative
 
-\item \code{is_connected}: Tests whether network is (weakly/strongly) connected
+\item \code{is_connected}: Tests whether network is weakly connected if
+the network is undirected or strongly connected if directed.
+To test weak connection on a directed network,
+please see \code{to_undirected()}.
 
 \item \code{is_complex}: Tests whether network contains any loops
 
@@ -109,6 +109,7 @@ is_acyclic(ison_algebra)
 Other manipulation: 
 \code{\link{add}},
 \code{\link{coercion}},
+\code{\link{grab}},
 \code{\link{to}}
 }
 \concept{manipulation}
