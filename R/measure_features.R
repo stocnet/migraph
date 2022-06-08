@@ -43,8 +43,10 @@ graph_smallworld <- function(object, times = 100) {
 #'   the proportion of balanced triangles,
 #'   ranging between `0` if all triangles are imbalanced and 
 #'   `1` if all triangles are balanced.
-#' @param method One of "triangles" (the default), "walk", or "frustration".
+#' @param method Default is "triangles".
 #' @source `{signnet}` by David Schoch
+#' @examples
+#' graph_balance(ison_marvel_relationships)
 #' @export
 graph_balance <- function(object, method = "triangles") {
   

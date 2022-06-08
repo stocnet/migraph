@@ -18,7 +18,7 @@
 #'   when strictly equivalent.
 #'   Other options (`"elbow"` and `"silhouette"`) relax this strict assumption,
 #'   generally providing more useful results.
-#'   Fewer, identifiable letters, e.g. `"s"` for silhouette, is sufficient.
+#'   Fewer, identifiable letters, e.g. `"e"` for elbow, is sufficient.
 #' @param cluster Character string indicating whether clusters should be 
 #'   clustered hierarchically (`"hierarchical"`) or 
 #'   through convergence of correlations (`"concor"`). 
