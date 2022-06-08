@@ -12,7 +12,7 @@
 \usage{
 graph_smallworld(object, times = 100)
 
-graph_balance(object, method = "triangles")
+graph_balance(object)
 
 graph_modularity(object, membership = NULL, resolution = 1)
 }
@@ -28,8 +28,6 @@ graph_modularity(object, membership = NULL, resolution = 1)
 
 \item{times}{Integer of number of simulations.}
 
-\item{method}{One of "triangles" (the default), "walk", or "frustration".}
-
 \item{membership}{A vector of partition membership}
 
 \item{resolution}{A proportion indicating the resolution scale.
@@ -40,7 +38,10 @@ Network/topological features
 }
 \section{Functions}{
 \itemize{
-\item \code{graph_smallworld}: Returns small-world metrics for one- and two-mode networks.
+\item \code{graph_smallworld}: Returns small-world metrics for one- and
+two-mode networks.
+Small-world networks can be highly clustered and yet
+have short path lengths.
 
 \item \code{graph_balance}: Returns the structural balance index on
 the proportion of balanced triangles,
@@ -48,11 +49,13 @@ ranging between \code{0} if all triangles are imbalanced and
 \code{1} if all triangles are balanced.
 
 \item \code{graph_modularity}: Returns modularity of one- or two-mode networks
+based on nodes' membership in pre-defined clusters.
 }}
 
 \examples{
-graph_smallworld(ison_southern_women)
 graph_smallworld(ison_brandes)
+graph_smallworld(ison_southern_women)
+graph_balance(ison_marvel_relationships)
 graph_modularity(ison_adolescents, 
   node_kernighanlin(ison_adolescents))
 graph_modularity(ison_southern_women, 
@@ -70,7 +73,7 @@ Springer, Boston, MA.
 \doi{10.1007/978-1-4419-6287-4_7}
 }
 \seealso{
-\code{\link{graph_transitivity}} and \code{\link{graph_equivalency}}
+\code{\link[=graph_transitivity]{graph_transitivity()}} and \code{\link[=graph_equivalency]{graph_equivalency()}}
 for how clustering is calculated
 
 Other measures: 

@@ -46,7 +46,7 @@ By default \code{"strict"} to return classes with members only
 when strictly equivalent.
 Other options (\code{"elbow"} and \code{"silhouette"}) relax this strict assumption,
 generally providing more useful results.
-Fewer, identifiable letters, e.g. \code{"s"} for silhouette, is sufficient.}
+Fewer, identifiable letters, e.g. \code{"e"} for elbow, is sufficient.}
 
 \item{cluster}{Character string indicating whether clusters should be
 clustered hierarchically (\code{"hierarchical"}) or

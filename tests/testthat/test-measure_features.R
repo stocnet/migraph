@@ -7,7 +7,7 @@ test_that("small-world metrics for two mode networks are calculated and displaye
 
 test_that("graph balance works", {
   expect_s3_class(graph_balance(ison_marvel_relationships), "graph_measure")
-  expect_equal(as.numeric(graph_balance(ison_marvel_relationships, "triangles")), 0.668, tolerance = 0.01)
+  expect_equal(as.numeric(graph_balance(ison_marvel_relationships)), 0.668, tolerance = 0.01)
   expect_length(graph_balance(ison_marvel_relationships), 1)
   expect_error(graph_balance(ison_adolescents))
 })

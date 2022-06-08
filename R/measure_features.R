@@ -5,14 +5,15 @@
 NULL
 
 #' @describeIn features Returns small-world metrics for one- and 
-#'    two-mode networks. Small-world networks can be highly clustered and yet
+#'    two-mode networks. 
+#'    Small-world networks can be highly clustered and yet
 #'    have short path lengths.
 #' @param times Integer of number of simulations.
 #' @examples
-#' graph_smallworld(ison_southern_women)
 #' graph_smallworld(ison_brandes)
-#' @seealso \code{\link{graph_transitivity}} and \code{\link{graph_equivalency}}
-#' for how clustering is calculated
+#' graph_smallworld(ison_southern_women)
+#' @seealso [graph_transitivity()] and [graph_equivalency()]
+#'   for how clustering is calculated
 #' @references 
 #' Watts, Duncan J., and Steven H. Strogatz. 1998. 
 #' “Collective Dynamics of ‘Small-World’ Networks.” 
@@ -45,14 +46,12 @@ graph_smallworld <- function(object, times = 100) {
 #'   the proportion of balanced triangles,
 #'   ranging between `0` if all triangles are imbalanced and 
 #'   `1` if all triangles are balanced.
-#' @param method Default is "triangles".
 #' @source `{signnet}` by David Schoch
 #' @examples
 #' graph_balance(ison_marvel_relationships)
 #' @export
-graph_balance <- function(object, method = "triangles") {
+graph_balance <- function(object) {
   
-  method <- match.arg(method)
   if (!is_signed(object)) {
     stop("network does not have a sign edge attribute")
   }
@@ -64,11 +63,9 @@ graph_balance <- function(object, method = "triangles") {
   if (!all(eattrV %in% c(-1, 1))) {
     stop("sign may only contain -1 and 1")
   }
-  if (method == "triangles") {
-    tria_count <- count_signed_triangles(g)
-    make_graph_measure(unname((tria_count["+++"] + tria_count["+--"])/sum(tria_count)),
-                       object)
-  }
+  tria_count <- count_signed_triangles(g)
+  make_graph_measure(unname((tria_count["+++"] + tria_count["+--"])/sum(tria_count)),
+                     object)
 }
 
 count_signed_triangles <- function(object){

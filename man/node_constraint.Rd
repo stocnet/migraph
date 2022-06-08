@@ -12,7 +12,7 @@ node_constraint(object, nodes = V(object), weights = NULL)
 \item{nodes}{The vertices for which the constraint will be calculated.
 Defaults to all vertices.}
 
-\item{weights}{The weights of the edges.
+\item{weights}{A vector of the weights of the edges.
 If this is NULL and there is a weight edge attribute this is used.
 If there is no such edge attribute all edges will have the same weight.}
 }

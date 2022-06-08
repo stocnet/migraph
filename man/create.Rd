@@ -39,7 +39,7 @@ a two-mode network will be created.
 a network of the same dimensions will be created.
 }}
 
-\item{width}{The width or breadth of the ring. This is typically double the degree.}
+\item{width}{The proportion of nodes in the core}
 
 \item{directed}{Logical whether the graph should be directed.
 By default FALSE.
@@ -60,19 +60,20 @@ using \code{as_matrix()}, \code{as_tidygraph()}, or \code{as_network()}.
 }
 \description{
 These functions create networks with particular structural properties.
-They can create either one-mode and two-mode networks,
+They can create either one-mode or two-mode networks,
 depending on whether the common \code{n} argument
 is passed a single integer (the number of nodes in the one-mode network)
 or a vector of \emph{two} integers to return a two-mode network
-with a number of nodes in the first mode equal to the first integer,
-and a number of nodes in the second mode equal to the second integer.
+(the first integer indicates the number of nodes in the first mode,
+the second integer indicates the number of nodes in the second mode).
 }
 \section{Functions}{
 \itemize{
 \item \code{create_empty}: Creates an empty graph of the given dimensions.
 
 \item \code{create_complete}: Creates a filled graph of the given dimensions,
-with every possible tie realised.
+with every possible tie realised. One-mode network created is directed,
+to create an undirected one-mode graph use \code{to_undirected()}.
 
 \item \code{create_ring}: Creates a ring or chord graph of the given dimensions
 that loops around is of a certain width or thickness.
@@ -92,8 +93,8 @@ and the rest peripheral, tied only to the core.
 }}
 
 \examples{
-autographr(create_empty(c(8,6))) +
-autographr(create_complete(c(8,6)))
+autographr(create_empty(10)) + autographr(create_complete(10))
+autographr(create_empty(c(8,6))) + autographr(create_complete(c(8,6)))
 autographr(create_ring(8, width = 2)) + 
 autographr(create_ring(c(8,6), width = 2))
 autographr(create_components(c(10, 12), components = 3))
