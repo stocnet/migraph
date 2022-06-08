@@ -23,8 +23,11 @@ Practices](https://bestpractices.coreinfrastructure.org/projects/4559/badge)](ht
 ## About the package
 
 This package extends existing network analysis packages for analysing
-multimodal and multilevel networks. The package is intended as a
-software companion to the book:
+multimodal and multilevel networks.
+
+<img src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="150"/>
+
+The package is intended as a software companion to the book:
 
 > David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos
 > (2021) [*Multimodal Political
@@ -52,8 +55,8 @@ as well as with objects constructed from the following packages:
 `{migraph}`’s `as_*()` functions can be used to translate objects from
 one of the above classes into any other, and include:
 
--   as_edgelist(), as_igraph(), as_matrix(), as_network(),
-    as_tidygraph()
+-   `as_edgelist()`, `as_igraph()`, `as_matrix()`, `as_network()`,
+    `as_tidygraph()`
 
 These functions are designed to be as intuitive and lossless as
 possible, outperforming many other class-coercion packages.
@@ -66,18 +69,19 @@ can be used to work with and manipulate your data.
 `{migraph}`’s `is_*()` functions offer fast logical tests of network
 properties, e.g.:
 
--   is_acyclic(), is_bipartite(), is_complex(), is_connected(),
-    is_directed(), is_edgelist(), is_graph(), is_labelled(),
-    is_migraph(), is_multiplex(), is_signed(), is_twomode(),
-    is_uniplex(), is_weighted()
+-   `is_acyclic()`, `is_bipartite()`, `is_complex()`, `is_connected()`,
+    `is_directed()`, `is_edgelist()`, `is_graph()`, `is_labelled()`,
+    `is_migraph()`, `is_multiplex()`, `is_signed()`, `is_twomode()`,
+    `is_uniplex()`, `is_weighted()`
 
 `{migraph}`’s `to_*()` functions can be used on any class object to
 transform networks into networks with other properties, e.g.:
 
--   to_blocks(), to_edges(), to_main_component(), to_mode1(),
-    to_mode2(), to_multilevel(), to_named(), to_onemode(),
-    to_redirected(), to_simplex(), to_subgraph(), to_undirected(),
-    to_uniplex(), to_unnamed(), to_unsigned(), to_unweighted()
+-   `to_blocks()`, `to_edges()`, `to_main_component()`, `to_mode1()`,
+    `to_mode2()`, `to_multilevel()`, `to_named()`, `to_onemode()`,
+    `to_redirected()`, `to_simplex()`, `to_subgraph()`,
+    `to_undirected()`, `to_uniplex()`, `to_unnamed()`, `to_unsigned()`,
+    `to_unweighted()`
 
 #### Making
 
@@ -85,32 +89,37 @@ transform networks into networks with other properties, e.g.:
 networks with particular properties. The `create_*` group of functions
 create networks with a particular structure, e.g.:
 
--   create_complete(), create_components(), create_empty(),
-    create_lattice(), create_ring(), create_star(), create_tree()
+-   `create_complete()`, `create_components()`, `create_core()`,
+    `create_empty()`, `create_lattice()`, `create_ring()`,
+    `create_star()`, `create_tree()`
 
 The `generate_*` group of functions generate networks from particular
 generative mechanisms, e.g.:
 
--   generate_permutation(), generate_random(), generate_scalefree(),
-    generate_smallworld()
+-   `generate_permutation()`, `generate_random()`,
+    `generate_scalefree()`, `generate_smallworld()`
 
 `{migraph}` includes a number of prominent network datasets, especially
 multimodal and multiplex examples for demonstrating more advanced
 methods.
 
--   mpn_bristol, mpn_DE_1990, mpn_DE_2008, mpn_DemSxP, mpn_elite_mex,
-    mpn_elite_usa_advice, mpn_elite_usa_money, mpn_IT_1990, mpn_IT_2008,
-    mpn_OverSxP, mpn_RepSxP, mpn_ryanair, mpn_UK_1990, mpn_UK_2008
--   ison_adolescents, ison_algebra, ison_bb, ison_bm, ison_brandes,
-    ison_karateka, ison_marvel_relationships, ison_marvel_teams,
-    ison_mb, ison_mm, ison_networkers, ison_southern_women
+-   `mpn_bristol`, `mpn_DE_1990`, `mpn_DE_2008`, `mpn_DemSxP`,
+    `mpn_elite_mex`, `mpn_elite_usa_advice`, `mpn_elite_usa_money`,
+    `mpn_IT_1990`, `mpn_IT_2008`, `mpn_OverSxP`, `mpn_RepSxP`,
+    `mpn_ryanair`, `mpn_UK_1990`, `mpn_UK_2008`
+-   `ison_adolescents`, `ison_algebra`, `ison_bb`, `ison_bm`,
+    `ison_brandes`, `ison_karateka`, `ison_marvel_relationships`,
+    `ison_marvel_teams`, `ison_mb`, `ison_mm`, `ison_networkers`,
+    `ison_southern_women`
 
 `{migraph}` can also import and export to Excel edgelists and nodelists,
 [UCINET](http://www.analytictech.com/archive/ucinet.htm) and
 [Pajek](http://mrvar.fdv.uni-lj.si/pajek/) files, e.g.:
 
--   read_edgelist(), read_nodelist(), read_pajek(), read_ucinet()
--   write_edgelist(), write_nodelist(), write_pajek(), write_ucinet()
+-   `read_edgelist()`, `read_nodelist()`, `read_pajek()`,
+    `read_ucinet()`
+-   `write_edgelist()`, `write_nodelist()`, `write_pajek()`,
+    `write_ucinet()`
 
 ### Extends your current network analysis workflow
 
@@ -146,8 +155,9 @@ function names wherever possible.
 
 -   `autographr()` for plotting graphs with sensible defaults based on
     their properties
--   New layouts: e.g. `layout_tbl_graph_frgrid()` for snapping
-    Fruchterman-Reingold to a grid
+-   New layouts: `layout_tbl_graph_frgrid()`,
+    `layout_tbl_graph_gogrid()`, `layout_tbl_graph_kkgrid()` for
+    snapping a layout to a grid
 -   Class-based plots: e.g. `plot.matrix()`, `plot.members()`,
     `plot.node_measure()`
 

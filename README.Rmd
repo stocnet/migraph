@@ -11,6 +11,13 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+library(migraph)
+list_functions <- function(string){
+  paste0("`", paste(paste0(ls("package:migraph")[grepl(string, ls("package:migraph"))], "()"), collapse = "`, `"), "`")
+}
+list_data <- function(string){
+  paste0("`", paste(paste0(ls("package:migraph")[grepl(string, ls("package:migraph"))]), collapse = "`, `"), "`")
+}
 ```
 
 # migraph <img src="man/figures/logo.png" align="right" width="150"/>
@@ -29,6 +36,9 @@ knitr::opts_chunk$set(
 ## About the package
 
 This package extends existing network analysis packages for analysing multimodal and multilevel networks.
+
+<img src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="150"/>
+
 The package is intended as a software companion to the book:
 
 > David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos (2021) [*Multimodal Political Networks*](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128).
@@ -54,7 +64,7 @@ as well as with objects constructed from the following packages:
 `{migraph}`'s `as_*()` functions can be used to translate objects 
 from one of the above classes into any other, and include:
 
-- `r library(migraph); paste0(ls("package:migraph")[grepl("^as_", ls("package:migraph"))], "()")`
+- `r list_functions("^as_")`
 
 These functions are designed to be as intuitive and lossless as possible,
 outperforming many other class-coercion packages.
@@ -67,12 +77,12 @@ the same syntax can be used to work with and manipulate your data.
 `{migraph}`'s `is_*()` functions offer fast logical tests 
 of network properties, e.g.:
 
-- `r library(migraph); paste0(ls("package:migraph")[grepl("^is_", ls("package:migraph"))], "()")`
+- `r list_functions("^is_")`
 
 `{migraph}`'s `to_*()` functions can be used on any class object 
 to transform networks into networks with other properties, e.g.:
 
-- `r library(migraph); paste0(ls("package:migraph")[grepl("^to_", ls("package:migraph"))], "()")`
+- `r list_functions("^to_")`
 
 #### Making
 
@@ -81,26 +91,26 @@ both one-mode and two-mode networks with particular properties.
 The `create_*` group of functions create networks with a particular structure,
 e.g.:
 
-- `r library(migraph); paste0(ls("package:migraph")[grepl("^create_", ls("package:migraph"))], "()")`
+- `r list_functions("^create_")`
 
 The `generate_*` group of functions generate networks from particular
 generative mechanisms, e.g.:
 
-- `r library(migraph); paste0(ls("package:migraph")[grepl("^generate_", ls("package:migraph"))], "()")`
+- `r list_functions("^generate_")`
 
 `{migraph}` includes a number of prominent network datasets,
 especially multimodal and multiplex examples for demonstrating
 more advanced methods.
 
-- `r library(migraph); ls("package:migraph")[grepl("^mpn_", ls("package:migraph"))]`
-- `r library(migraph); ls("package:migraph")[grepl("^ison_", ls("package:migraph"))]`
+- `r list_data("^mpn_")`
+- `r list_data("^ison_")`
 
 `{migraph}` can also import and export to Excel edgelists and nodelists,
 [UCINET](http://www.analytictech.com/archive/ucinet.htm) and 
 [Pajek](http://mrvar.fdv.uni-lj.si/pajek/) files, e.g.:
 
-- `r library(migraph); paste0(ls("package:migraph")[grepl("^read_", ls("package:migraph"))], "()")`
-- `r library(migraph); paste0(ls("package:migraph")[grepl("^write_", ls("package:migraph"))], "()")`
+- `r list_functions("^read_")`
+- `r list_functions("^write_")`
 
 ### Extends your current network analysis workflow
 
@@ -126,7 +136,7 @@ with existing function names wherever possible.
 #### Visualization
 
 - `autographr()` for plotting graphs with sensible defaults based on their properties
-- New layouts: e.g. `layout_tbl_graph_frgrid()` for snapping Fruchterman-Reingold to a grid
+- New layouts: `r list_functions("^layout_")` for snapping a layout to a grid
 - Class-based plots: e.g. `plot.matrix()`, `plot.members()`, `plot.node_measure()`
 
 Please explore [the list of functions](https://snlab-ch.github.io/migraph/reference/index.html) to find out more.
