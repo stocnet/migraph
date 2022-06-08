@@ -25,7 +25,7 @@ Practices](https://bestpractices.coreinfrastructure.org/projects/4559/badge)](ht
 This package extends existing network analysis packages for analysing
 multimodal and multilevel networks.
 
-<img src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="150"/>
+<img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="125"/>
 
 The package is intended as a software companion to the book:
 
@@ -33,6 +33,11 @@ The package is intended as a software companion to the book:
 > (2021) [*Multimodal Political
 > Networks*](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128).
 > Cambridge University Press: Cambridge.
+
+Most datasets used in the book are included in this package, and the
+package implements most methods discussed in the book. Since many of
+theses datasets and routines are discussed and analysed more there, if
+you like the package please check out the book, and vice versa.
 
 ## How does migraph help?
 
