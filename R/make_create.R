@@ -2,12 +2,12 @@
 #' 
 #' @description 
 #'   These functions create networks with particular structural properties.
-#'   They can create either one-mode and two-mode networks,
+#'   They can create either one-mode or two-mode networks,
 #'   depending on whether the common `n` argument
 #'   is passed a single integer (the number of nodes in the one-mode network)
 #'   or a vector of \emph{two} integers to return a two-mode network
-#'   with a number of nodes in the first mode equal to the first integer,
-#'   and a number of nodes in the second mode equal to the second integer.
+#'   (the first integer indicates the number of nodes in the first mode,
+#'   the second integer indicates the number of nodes in the second mode).
 #' @name create
 #' @family make
 #' @seealso [coercion]
@@ -32,8 +32,8 @@ NULL
 
 #' @describeIn create Creates an empty graph of the given dimensions.
 #' @examples
-#' autographr(create_empty(c(8,6))) +
-#' autographr(create_complete(c(8,6)))
+#' autographr(create_empty(10)) + autographr(create_complete(10))
+#' autographr(create_empty(c(8,6))) + autographr(create_complete(c(8,6)))
 #' @export
 create_empty <- function(n) {
   if(is_migraph(n)){
@@ -50,7 +50,8 @@ create_empty <- function(n) {
 }
 
 #' @describeIn create Creates a filled graph of the given dimensions,
-#'   with every possible tie realised.
+#'   with every possible tie realised. One-mode network created is directed,
+#'   to create an undirected one-mode graph use `to_undirected()`.
 #' @export
 create_complete <- function(n) {
   if(is_migraph(n)){
@@ -64,7 +65,6 @@ create_complete <- function(n) {
     out <- matrix(1, n[1], n[2])
     out <- igraph::graph_from_incidence_matrix(out)
   } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
-  out
 }
 
 #' @describeIn create Creates a ring or chord graph of the given dimensions
@@ -230,6 +230,7 @@ create_lattice <- function(n,
 #' @describeIn create Creates a graph with a certain proportion of nodes
 #'   being core nodes, densely tied to each other and peripheral nodes,
 #'   and the rest peripheral, tied only to the core.
+#' @param width The proportion of nodes in the core
 #' @examples
 #' autographr(create_core(6)) +
 #' autographr(create_core(c(6,6)))

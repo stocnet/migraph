@@ -8,6 +8,8 @@ test_that("create complete graph works", {
   expect_true(is_twomode(create_complete(c(5,5))))
   expect_s3_class(create_complete(4), "igraph")
   expect_error(create_complete(c(5,5,5)), "single integer")
+  expect_true(is_directed(create_complete(6)))
+  expect_false(is_directed(create_complete(c(5,5))))
 })
 
 test_that("ring creation works", {
@@ -32,6 +34,12 @@ test_that("star creation works", {
   expect_equal(unname(as_matrix(create_star(c(2,2), "in"))), matrix(c(1,1,0,0),2,2))
   expect_equal(unname(as_matrix(create_star(c(2,2), direction = "out"))), matrix(c(1,0,1,0),2,2))
   expect_error(create_star(c(5,5,5)), "single integer")
+})
+
+test_that("core-periphery creation works", {
+  expect_false(is_twomode(create_core(6)))
+  expect_true(is_twomode(create_core(c(6,6))))
+  expect_equal(graph_nodes(create_core(c(10,4))), 14)
 })
 
 # test_that("nest creation works", {
