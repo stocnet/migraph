@@ -46,7 +46,7 @@ node_tie_census <- function(object){
   if(is_labelled(object) & is_directed(object)) rownames(mat) <- rep(c(paste0("from", igraph::V(object)$name),
                                                                    paste0("to", igraph::V(object)$name)),
                                                                   times = length(edge_names))
-  t(mat)
+  make_node_motif(t(mat), object)
 }
 
 #' @rdname census
@@ -78,7 +78,7 @@ node_triad_census <- function(object){
                      "120U", "120C", "210", "300")
   if (!is_directed(object)) out <- out[, c(1, 2, 3, 11, 15, 16)]
   rownames(out) <- igraph::V(x)$name
-  out # This line says the function returns the output
+  make_node_motif(out, object)
 }
 
 #' @describeIn census Returns a census of nodes' positions
@@ -135,7 +135,7 @@ node_quad_census <- function(object){
                        "Z42","Z43", # diamond
                        "X4") # K4
     if(is_twomode(object)) out <- out[,-c(8,9,14,15,16,18,19,20)]
-    out
+    make_node_motif(out, object)
   }
 }
 
@@ -147,10 +147,11 @@ node_quad_census <- function(object){
 #' @export
 node_path_census <- function(object){
   if(is_twomode(object)){
-    tnet::distance_tm(as_matrix(object))
+    out <- tnet::distance_tm(as_matrix(object))
   } else if (is_weighted(object)){
-    tnet::distance_w(as_matrix(object))
-  } else igraph::distances(as_igraph(object))
+    out <- tnet::distance_w(as_matrix(object))
+  } else out <- igraph::distances(as_igraph(object))
+  make_node_motif(out, object)
 }
 
 #' Censuses for the whole graph
@@ -205,7 +206,7 @@ graph_mixed_census <- function (object, object2) {
            "02" = sum(onemode.reciprocal * bipartite.null) / 2,
            "01" = sum(onemode.forward * bipartite.null) / 2 + sum(onemode.backward * bipartite.null) / 2,
            "00" = sum(onemode.null * bipartite.null) / 2)  
-  return(res)
+  make_graph_motif(res, object)
 }
 
 #' @rdname census
@@ -265,7 +266,7 @@ graph_dyad_census <- function(object) {
     out <- unlist(out)
     names(out) <- c("Mutual", "Asymmetric", "Null")
     if (!is_directed(object)) out <- out[c(1, 3)]
-    out
+    make_graph_motif(out, object)
   }
 }
 
@@ -283,6 +284,6 @@ graph_triad_census <- function(object) {
                     "030T", "030C", "201", "120D",
                     "120U", "120C", "210", "300")
     if (!is_directed(object)) out <- out[c(1, 2, 3, 11, 15, 16)]
-    out
+    make_graph_motif(out, object)
   }
 }

@@ -107,17 +107,3 @@ summary.node_measure <- function(object, ...,
   names(out) <- unique(membership)
   out
 }
-
-# summary(node_triad_census(mpn_elite_mex), 
-#           node_regular_equivalence(mpn_elite_mex, select = "elbow"))
-#' @export
-summary.node_census <- function(object, ...,
-                                 membership,
-                                 FUN = mean){
-  out <- t(sapply(unique(membership), 
-                  function(x) apply(object[membership == x, ], 2, FUN)))
-  rownames(out) <- unique(membership)
-  out
-}
-
-
