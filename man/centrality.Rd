@@ -172,6 +172,9 @@ and \code{\link[=to_unweighted]{to_unweighted()}} for removing weights from a gr
 
 Other measures: 
 \code{\link{cohesion}()},
-\code{\link{features}}
+\code{\link{connectedness}},
+\code{\link{diversity}},
+\code{\link{features}},
+\code{\link{node_constraint}()}
 }
 \concept{measures}

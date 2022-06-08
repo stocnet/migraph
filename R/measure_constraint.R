@@ -15,9 +15,7 @@
 #' @references Hollway, James, Jean-Frédéric Morin, and Joost Pauwelyn. 2020.
 #' \href{https://link.springer.com/article/10.1007/s10784-019-09464-5}{"Structural conditions for novelty: the introduction of new environmental clauses to the trade regime complex."}
 #' \emph{International Environmental Agreements: Politics, Law and Economics} 20 (1): 61–83.
-#' @family one-mode measures
-#' @family two-mode measures
-#' @family node-level measures
+#' @family measures
 #' @examples
 #' node_constraint(ison_southern_women)
 #' @export 

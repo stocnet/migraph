@@ -7,6 +7,7 @@
 #' @param attribute The name of a vertex attribute to measure the diversity of.
 #' @param clusters A nodal cluster membership vector or name of a vertex attribute.
 #' @name diversity
+#' @family measures
 NULL
 
 #' @rdname diversity
@@ -34,7 +35,7 @@ graph_blau_index <- function(object, attribute, clusters = NULL){
     names(blauout) <- paste0("Cluster ", unique(clu))
     blauout <- blauout[order(names(blauout))]
   } else stop("`clusters` must be the name of a nodal variable in the object.")
-  blauout
+  make_graph_measure(blauout, object)
 }
 
 #' @rdname diversity
@@ -54,7 +55,7 @@ graph_ei_index <- function(object, attribute){
   nInternal <- sum(m * same)
   nExternal <- sum(m) - nInternal
   ei <- (nExternal - nInternal) / sum(m)
-  ei
+  make_graph_measure(ei, object)
 }
 
 #' @describeIn diversity Calculates the degree assortativity in a graph
@@ -63,6 +64,7 @@ graph_ei_index <- function(object, attribute){
 #' graph_assortativity(mpn_elite_mex)
 #' @export
 graph_assortativity <- function(object){
-  igraph::assortativity_degree(as_igraph(object), 
-                               directed = is_directed(object))
+  make_graph_measure(igraph::assortativity_degree(as_igraph(object), 
+                               directed = is_directed(object)),
+                     object)
 }

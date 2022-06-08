@@ -74,6 +74,9 @@ Cambridge University Press. Cambridge University Press.
 \seealso{
 Other measures: 
 \code{\link{centrality}},
-\code{\link{features}}
+\code{\link{connectedness}},
+\code{\link{diversity}},
+\code{\link{features}},
+\code{\link{node_constraint}()}
 }
 \concept{measures}

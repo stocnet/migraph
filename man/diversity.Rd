@@ -46,3 +46,12 @@ graph_ei_index(marvel_friends, "Gender")
 graph_ei_index(marvel_friends, "Attractive")
 graph_assortativity(mpn_elite_mex)
 }
+\seealso{
+Other measures: 
+\code{\link{centrality}},
+\code{\link{cohesion}()},
+\code{\link{connectedness}},
+\code{\link{features}},
+\code{\link{node_constraint}()}
+}
+\concept{measures}

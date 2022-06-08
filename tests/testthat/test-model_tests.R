@@ -12,7 +12,7 @@ cugtest2 <- test_random(marvel_friends,
 test_that("test_random works", {
   # Set the cugtest up
   # Test stuff cug1
-  expect_equal(round(cugtest$obs.stat, 3), -0.857)
+  expect_equal(as.numeric(cugtest$obs.stat), -0.85714, tolerance = 0.001)
   expect_equal(length(cugtest$rep.stat), 200) # NB: Stochastic
   expect_false(cugtest$mode)
   expect_false(cugtest$diag)
@@ -42,7 +42,7 @@ qaptest <- test_permutation(marvel_friends,
                             attribute = "Attractive",
                             times = 200)
 test_that("test_permutation works", {
-  expect_equal(round(qaptest$testval, 3), -0.857)
+  expect_equal(as.numeric(qaptest$testval), -0.85714, tolerance = 0.001)
   expect_equal(length(qaptest$dist), 200) # NB: Stochastic
   expect_equal(class(qaptest$plteobs), "numeric") # NB: Stochastic
   expect_equal(class(qaptest$pgteobs), "numeric") # NB: Stochastic

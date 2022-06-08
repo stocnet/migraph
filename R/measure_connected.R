@@ -4,6 +4,7 @@
 #' and where the nodes or edges that would increase fragmentation are.
 #' @inheritParams is
 #' @name connectedness
+#' @family measures
 NULL
 
 #' @describeIn connectedness Returns number of (strong) components in the network.

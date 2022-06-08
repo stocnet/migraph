@@ -1,6 +1,8 @@
+set.seed(123)
+
 test_that("small-world metrics for two mode networks are calculated and displayed correctly", {
   expect_s3_class(graph_smallworld(ison_southern_women), "graph_measure")
-  expect_equal(as.numeric(graph_smallworld(ison_southern_women)), 1.32, tolerance = 0.01)
+  expect_equal(as.numeric(graph_smallworld(ison_southern_women)), 1.323, tolerance = 0.02)
 })
 
 test_that("graph balance works", {

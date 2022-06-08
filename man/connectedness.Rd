@@ -65,3 +65,12 @@ White, Douglas R and Frank Harary 2001.
 The Cohesiveness of Blocks In Social Networks: Node Connectivity and Conditional Density.
 \emph{Sociological Methodology} 31 (1) : 305-359.
 }
+\seealso{
+Other measures: 
+\code{\link{centrality}},
+\code{\link{cohesion}()},
+\code{\link{diversity}},
+\code{\link{features}},
+\code{\link{node_constraint}()}
+}
+\concept{measures}
