@@ -63,32 +63,3 @@ ggevolution <- function(..., layout = "kk",
                            repel = TRUE)
   g1 + g2
 }
-
-#' Plotting a network at a particular timepoint (year)
-#' 
-#' @param edgelist A manyverse edgelist, expecting `Beg` and `End` variables,
-#' among others
-#' @param year Numeric year, gets expanded to first of January that year
-#' @param ... Additional arguments passed on to `autographr()`.
-#' @return A plot of the network of agreements signed in the specified year.
-#' @importFrom ggraph geom_edge_link geom_node_point geom_node_text
-#' @importFrom ggplot2 aes theme_void
-#' @examples 
-#' \dontrun{
-#' ggatyear(membs, 1900)
-#' }
-#' @export
-ggatyear <- function(edgelist, year, ...) {
-  name <- type <- NULL # Initialize variables
-  # Some input checks and corrections
-  if (!(is.numeric(year))) year <- as.numeric(year)
-  if (!("Beg" %in% names(edgelist))) stop("Your edgelist does not contain a date column named Beg.")
-  if (!("End" %in% names(edgelist))) stop("Your edgelist does not contain a date column named End.")
-  # Create subsetted graph
-  graph <- as_tidygraph(to_subgraph(edgelist, .data$Beg >
-                                        paste0(year, "-01-01") &
-                                        .data$Beg < paste0(year + 1, "-01-01")))
-  # Plot graph with autographr
-  autographr(graph, ...) +
-    ggtitle(year)
-}

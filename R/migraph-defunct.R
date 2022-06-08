@@ -238,4 +238,24 @@ reduce_graph <- function(blockmodel, block_labels = NULL){
               old = "print.blockmodel")
 }  
 
-
+#' @describeIn defunct Deprecated on 2022-06-08.
+#' @export
+ggatyear <- function(edgelist, year, ...) {
+  .Deprecated("to_subgraph", package = "migraph",
+              msg = paste("This function is no longer necessary.",
+                          "Please use `autographr()` with `to_subgraph()`.",
+                          sep = " "),
+              old = "ggatyear")
+  name <- type <- NULL # Initialize variables
+  # Some input checks and corrections
+  if (!(is.numeric(year))) year <- as.numeric(year)
+  if (!("Beg" %in% names(edgelist))) stop("Your edgelist does not contain a date column named Beg.")
+  if (!("End" %in% names(edgelist))) stop("Your edgelist does not contain a date column named End.")
+  # Create subsetted graph
+  graph <- as_tidygraph(to_subgraph(edgelist, .data$Beg >
+                                      paste0(year, "-01-01") &
+                                      .data$Beg < paste0(year + 1, "-01-01")))
+  # Plot graph with autographr
+  autographr(graph, ...) +
+    ggtitle(year)
+}

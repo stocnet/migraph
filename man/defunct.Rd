@@ -17,6 +17,7 @@
 \alias{blockmodel}
 \alias{print.block_model}
 \alias{reduce_graph}
+\alias{ggatyear}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 ggidentify(object, node_measure, identify_function = max)
@@ -54,6 +55,8 @@ blockmodel(object, clusters)
 \method{print}{block_model}(x, ...)
 
 reduce_graph(blockmodel, block_labels = NULL)
+
+ggatyear(edgelist, year, ...)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -95,6 +98,8 @@ for more details about the new implementation.
 \item \code{print.block_model}: Deprecated on 2022-06-03.
 
 \item \code{reduce_graph}: Deprecated on 2022-06-03.
+
+\item \code{ggatyear}: Deprecated on 2022-06-08.
 }}
 
 \keyword{internal}
