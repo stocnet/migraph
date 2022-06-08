@@ -4,7 +4,9 @@
 #' @family measures
 NULL
 
-#' @describeIn features Returns small-world metrics for one- and two-mode networks.
+#' @describeIn features Returns small-world metrics for one- and 
+#'    two-mode networks. Small-world networks can be highly clustered and yet
+#'    have short path lengths.
 #' @param times Integer of number of simulations.
 #' @examples
 #' graph_smallworld(ison_southern_women)
@@ -111,6 +113,7 @@ count_signed_triangles <- function(object){
 }
 
 #' @describeIn features Returns modularity of one- or two-mode networks
+#'    based on nodes' membership in pre-defined clusters. 
 #' @param membership A vector of partition membership
 #' @param resolution A proportion indicating the resolution scale.
 #'   By default 1.
