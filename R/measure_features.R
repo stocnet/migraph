@@ -1,6 +1,7 @@
 #' Network/topological features
 #' @inheritParams is
 #' @name features
+#' @family measures
 NULL
 
 #' @describeIn features Returns small-world metrics for one- and two-mode networks.
@@ -20,8 +21,8 @@ graph_smallworld <- function(object, times = 100) {
   if(is_twomode(object)){
     obsclust <- graph_equivalency(object)
     expclust <- mean(vapply(1:times, 
-                       function(x) graph_equivalency(generate_random(object)),
-                       FUN.VALUE = numeric(1)))
+                            function(x) graph_equivalency(generate_random(object)),
+                            FUN.VALUE = numeric(1)))
   } else {
     obsclust <- graph_transitivity(object)
     expclust <- mean(vapply(1:times, 
@@ -29,13 +30,13 @@ graph_smallworld <- function(object, times = 100) {
                             FUN.VALUE = numeric(1)))
   }
   
-    obspath <- graph_length(object)
-    exppath <- mean(vapply(1:times, 
-                            function(x) graph_length(generate_random(object)),
-                            FUN.VALUE = numeric(1)))
-
+  obspath <- graph_length(object)
+  exppath <- mean(vapply(1:times, 
+                         function(x) graph_length(generate_random(object)),
+                         FUN.VALUE = numeric(1)))
   
-  (obsclust/expclust)/(obspath/exppath)
+  make_graph_measure((obsclust/expclust)/(obspath/exppath),
+                     object)
 }
 
 #' @describeIn features Returns the structural balance index on 
@@ -61,7 +62,8 @@ graph_balance <- function(object, method = "triangles") {
   }
   if (method == "triangles") {
     tria_count <- count_signed_triangles(g)
-    return(unname((tria_count["+++"] + tria_count["+--"])/sum(tria_count)))
+    make_graph_measure(unname((tria_count["+++"] + tria_count["+--"])/sum(tria_count)),
+                       object)
   }
 }
 
@@ -127,10 +129,11 @@ graph_modularity <- function(object,
                              resolution = 1){
   if(!is_graph(object)) object <- as_igraph(object)
   if(is_twomode(object)){
-    igraph::modularity(to_multilevel(object), 
+    make_graph_measure(igraph::modularity(to_multilevel(object), 
                        membership = membership,
-                       resolution = resolution)
-  } else igraph::modularity(object, 
+                       resolution = resolution), object)
+  } else make_graph_measure(igraph::modularity(object, 
                             membership = membership,
-                            resolution = resolution)
+                            resolution = resolution),
+                            object)
 }

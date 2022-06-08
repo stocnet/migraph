@@ -45,13 +45,14 @@ that are closed by a fourth tie to establish a "congruent four-cycle" structure.
 }
 \section{Functions}{
 \itemize{
-\item \code{graph_reciprocity}: Calculate reciprocity in a network
+\item \code{graph_reciprocity}: Calculate reciprocity in a (usually directed) network
 
 \item \code{graph_transitivity}: Calculate transitivity in a network
 
-\item \code{graph_equivalency}: Calculate equivalence or reinforcement in a network
+\item \code{graph_equivalency}: Calculate equivalence or reinforcement
+in a (usually two-mode) network
 
-\item \code{graph_congruency}: Calculate congruency in a network
+\item \code{graph_congruency}: Calculate congruency across two two-mode networks
 }}
 
 \examples{
@@ -71,12 +72,8 @@ Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
 Cambridge University Press. Cambridge University Press.
 }
 \seealso{
-Other one-mode measures: 
-\code{\link{node_constraint}()}
-
-Other two-mode measures: 
-\code{\link{node_constraint}()}
+Other measures: 
+\code{\link{centrality}},
+\code{\link{features}}
 }
-\concept{one-mode measures}
-\concept{three-mode measures}
-\concept{two-mode measures}
+\concept{measures}

@@ -72,4 +72,9 @@ Springer, Boston, MA.
 \seealso{
 \code{\link{graph_transitivity}} and \code{\link{graph_equivalency}}
 for how clustering is calculated
+
+Other measures: 
+\code{\link{centrality}},
+\code{\link{cohesion}()}
 }
+\concept{measures}

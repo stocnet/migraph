@@ -18,9 +18,7 @@
 #' @param method For reciprocity, either `default` or `ratio`.
 #' See `?igraph::reciprocity`
 #' @name cohesion
-#' @family one-mode measures
-#' @family two-mode measures
-#' @family three-mode measures
+#' @family measures
 #' @references 
 #' Robins, Garry L, and Malcolm Alexander. 2004. 
 #' Small worlds among interlocking directors: Network structure and distance in bipartite graphs. 
@@ -40,19 +38,21 @@ NULL
 graph_density <- function(object) {
   if (is_twomode(object)) {
     mat <- as_matrix(object)
-    sum(mat) / (nrow(mat) * ncol(mat))
+    out <- sum(mat) / (nrow(mat) * ncol(mat))
   } else {
-    igraph::edge_density(as_igraph(object))
+    out <- igraph::edge_density(as_igraph(object))
   }
+  make_graph_measure(out, object)
 }
 
-#' @describeIn cohesion Calculate reciprocity in a network
+#' @describeIn cohesion Calculate reciprocity in a (usually directed) network
 #' @importFrom igraph reciprocity
 #' @examples
 #' graph_reciprocity(ison_southern_women)
 #' @export
 graph_reciprocity <- function(object, method = "default") {
-  igraph::reciprocity(as_igraph(object), mode = method)
+  make_graph_measure(igraph::reciprocity(as_igraph(object), mode = method), 
+                     object)
 }
 
 #' @describeIn cohesion Calculate transitivity in a network
@@ -61,10 +61,12 @@ graph_reciprocity <- function(object, method = "default") {
 #' graph_transitivity(ison_southern_women)
 #' @export
 graph_transitivity <- function(object) {
-  igraph::transitivity(as_igraph(object))
+  make_graph_measure(igraph::transitivity(as_igraph(object)), 
+                     object)
 }
 
-#' @describeIn cohesion Calculate equivalence or reinforcement in a network
+#' @describeIn cohesion Calculate equivalence or reinforcement 
+#'   in a (usually two-mode) network
 #' @examples
 #' graph_equivalency(ison_southern_women)
 #' @export
@@ -81,10 +83,10 @@ graph_equivalency <- function(object) {
              (matrix(indegrees, c, c) - twopaths)))
     if (is.nan(output)) output <- 1
   } else stop("This function expects a two-mode network")
-  output
+  make_graph_measure(output, object)
 }
 
-#' @describeIn cohesion Calculate congruency in a network
+#' @describeIn cohesion Calculate congruency across two two-mode networks
 #' @export
 graph_congruency <- function(object, object2){
   if(missing(object) | missing(object2)) stop("This function expects two two-mode networks")
@@ -104,6 +106,6 @@ graph_congruency <- function(object, object2){
        sum(twopaths *
              (matrix(degrees, c, c) - twopaths)))
   if (is.nan(output)) output <- 1
-  output
+  make_graph_measure(output, object)
 }
 
