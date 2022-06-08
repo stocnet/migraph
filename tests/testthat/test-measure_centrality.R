@@ -80,6 +80,15 @@ test_that("two mode eigenvector centrality calculated correctly",{
   expect_equal(unname(round(node_eigenvector(test_igr, normalized = TRUE)[1:3], 2)), c(0.42, 0.40, 0.47))
 })
 
+test_that("node measure class works", {
+  expect_s3_class(node_degree(ison_algebra), "node_measure")
+  expect_s3_class(node_betweenness(ison_algebra), "node_measure")
+  expect_s3_class(node_closeness(ison_algebra), "node_measure")
+  testplot <- plot(node_degree(ison_algebra))
+  expect_equal(testplot$data$Score, node_degree(ison_algebra))
+  expect_equal(testplot$labels$y, "Frequency")
+})
+
 # Centralization ####
 
 test_that("one-mode centralisation is calculated correctly", {
