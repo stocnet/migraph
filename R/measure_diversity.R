@@ -10,7 +10,8 @@
 #' @family measures
 NULL
 
-#' @rdname diversity
+#' @describeIn diversity Calculates the heterogeneity of ties across a network or 
+#'    within clusters by node attributes
 #' @examples
 #' marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
 #' graph_blau_index(marvel_friends, "Gender")
@@ -38,7 +39,8 @@ graph_blau_index <- function(object, attribute, clusters = NULL){
   make_graph_measure(blauout, object)
 }
 
-#' @rdname diversity
+#' @describeIn diversity Calculates the embeddedness of a node within the group
+#'    of nodes of the same attribute
 #' @examples 
 #' graph_ei_index(marvel_friends, "Gender")
 #' graph_ei_index(marvel_friends, "Attractive")
