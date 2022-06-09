@@ -151,9 +151,7 @@ node_quad_census <- function(object){
 #' node_path_census(ison_adolescents)
 #' @export
 node_path_census <- function(object){
-  if(is_twomode(object)){
-    out <- tnet::distance_tm(as_matrix(object))
-  } else if (is_weighted(object)){
+  if(is_weighted(object)){
     out <- tnet::distance_w(as_matrix(object))
   } else out <- igraph::distances(as_igraph(object))
   diag(out) <- 0

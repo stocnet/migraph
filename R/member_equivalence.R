@@ -55,14 +55,14 @@ node_equivalence <- function(object, mat,
                                           "canberra", "binary", "minkowski")){
   hc <- switch(match.arg(cluster),
                hier = cluster_hierarchical(mat, match.arg(distance)),
-               concor = cluster_concor(mat))
+               concor = cluster_concor(object, mat))
   
   k <- switch(match.arg(k),
               strict = k_strict(hc, object),
               elbow = k_elbow(hc, object, mat),
               silhouette = k_silhouette(hc, object))
   
-  out <- make_member(cutree(hc, k), object)
+  out <- make_member(stats::cutree(hc, k), object)
   attr(out, "hc") <- hc
   attr(out, "k") <- k
   out
@@ -124,7 +124,8 @@ node_regular_equivalence <- function(object,
 #' plot(nae2)
 #' @export
 node_automorphic_equivalence <- function(object,
-                                         select = c("strict", "elbow", "silhouette"),
+                                         k = c("strict", "elbow", "silhouette"),
+                                         cluster = c("hier", "concor"),
                                          distance = c("euclidean", "maximum", "manhattan", 
                                                       "canberra", "binary", "minkowski")){
   mat <- node_path_census(object)
@@ -198,7 +199,7 @@ k_elbow <- function(hc, object, census){
   }
   
   resultlist$correlations <- c(correlations)
-  dafr <- data.frame(clusters = 2:vertices, correlations = c(correlations))
+  dafr <- data.frame(clusters = 2:(vertices), correlations = c(correlations))
   # resultlist
   correct <- NULL # to satisfy the error god
   
@@ -207,12 +208,12 @@ k_elbow <- function(hc, object, census){
 }
 
 k_silhouette <- function(hc, object){
-  kcs <- 2:graph_nodes(object)
+  kcs <- 2:(graph_nodes(object))
   ns <- seq_len(graph_nodes(object))
   distances <- hc$distances
   ks <- vector()
   for(kc in kcs){
-    cand <- cutree(hc, kc)
+    cand <- stats::cutree(hc, kc)
     ai <- vector()
     bi <- vector()
     for(i in ns){
@@ -246,7 +247,7 @@ cluster_hierarchical <- function(mat, distance){
 # cluster_concor(ison_adolescents)
 # cluster_concor(ison_southern_women)
 # https://github.com/bwlewis/hclust_in_R/blob/master/hc.R
-cluster_concor <- function(mat){
+cluster_concor <- function(object, mat){
   split_cor <- function(m0, cutoff = 1) {
     if (ncol(m0) < 2 | all(stats::cor(m0)==1)) list(m0)
     else {
