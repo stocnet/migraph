@@ -167,7 +167,7 @@ roll_over <- function(w) {
 #' @examples
 #' autographr(create_tree(15, directed = TRUE)) + 
 #' autographr(create_tree(15, directed = TRUE), "tree") + 
-#' autographr(create_tree(15, directed = TRUE, branches = 3), "tree")
+#' autographr(create_tree(15, directed = TRUE, width = 3), "tree")
 #' @export
 create_tree <- function(n, 
                         directed = FALSE, 

@@ -101,7 +101,7 @@ autographr(create_star(12, directed = TRUE)) +
 autographr(create_star(c(12,1)))
 autographr(create_tree(15, directed = TRUE)) + 
 autographr(create_tree(15, directed = TRUE), "tree") + 
-autographr(create_tree(15, directed = TRUE, branches = 3), "tree")
+autographr(create_tree(15, directed = TRUE, width = 3), "tree")
 autographr(create_lattice(5), layout = "kk") +
 autographr(create_lattice(c(5,5))) +
 autographr(create_lattice(c(5,5,5)))

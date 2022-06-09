@@ -142,7 +142,7 @@ write_ucinet(horseplay, "R&D-horseplay")
 }
 }
 \seealso{
-\link{coercion}
+\link{as}
 
 Other makes: 
 \code{\link{create}},

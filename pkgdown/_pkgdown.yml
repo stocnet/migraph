@@ -52,7 +52,7 @@ reference:
       - add
       - grab
   - title: "Mapping"
-    desc: "Functions for plotting and visually graphs of different types:"
+    desc: "Functions for plotting and visualising graphs of different types:"
     contents:
       - autographr
       - layouts

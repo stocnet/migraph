@@ -63,7 +63,7 @@
 #' constructed on 18 June 2015.
 #' @importFrom utils read.csv read.csv2 read.table write.csv write.csv2
 #' @name read
-#' @seealso [coercion]
+#' @seealso [as]
 NULL
 
 #' @describeIn read Reading edgelists from Excel/csv files

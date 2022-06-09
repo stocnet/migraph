@@ -1,18 +1,19 @@
-#' Census by nodes or clusters
+#' Censuses of nodes' motifs
 #' 
+#' @description
 #' These functions include ways to take a census of the positions of nodes
 #' in a network. These include a triad census based on the triad profile
 #' of nodes, but also a tie census based on the particular tie partners
 #' of nodes. Included also are group census functions for summarising
 #' the profiles of clusters of nodes in a network.
-#' @name census
+#' @name node_census
+#' @family motifs
 #' @inheritParams is
-#' @param clusters a vector of cluster assignment.
-#' @param decimals Number of decimal points to round to.
 #' @importFrom igraph vcount graph.neighborhood delete_vertices triad_census
 NULL
 
-#' @rdname census
+#' @describeIn node_census Returns a census of the ties in a network.
+#'   For directed networks, out-ties and in-ties are bound together.
 #' @examples
 #' task_eg <- to_named(to_uniplex(ison_algebra, "task_tie"))
 #' (tie_cen <- node_tie_census(task_eg))
@@ -49,7 +50,11 @@ node_tie_census <- function(object){
   make_node_motif(t(mat), object)
 }
 
-#' @rdname census
+#' @describeIn node_census Returns a census of the triad configurations
+#'   nodes are embedded in.
+#' @references 
+#' Davis, James A., and Samuel Leinhardt. 1967. 
+#' “\href{https://files.eric.ed.gov/fulltext/ED024086.pdf}{The Structure of Positive Interpersonal Relations in Small Groups}.” 55.
 #' @examples 
 #' (triad_cen <- node_triad_census(task_eg))
 #' @export
@@ -81,7 +86,7 @@ node_triad_census <- function(object){
   make_node_motif(out, object)
 }
 
-#' @describeIn census Returns a census of nodes' positions
+#' @describeIn node_census Returns a census of nodes' positions
 #'   in motifs of four nodes.
 #' @details The quad census uses the `{oaqc}` package to do
 #'   the heavy lifting of counting the number of each orbits.
@@ -139,7 +144,7 @@ node_quad_census <- function(object){
   }
 }
 
-#' @describeIn census Returns the shortest path lengths
+#' @describeIn node_census Returns the shortest path lengths
 #'   of each node to every other node in the network.
 #' @importFrom tnet distance_tm distance_w
 #' @examples 
@@ -154,13 +159,53 @@ node_path_census <- function(object){
   make_node_motif(out, object)
 }
 
-#' Censuses for the whole graph
+#' Censuses of graphs' motifs
+#' 
 #' @name graph_census
+#' @family motifs
 #' @param object A migraph-consistent object.
 #' @param object2 A second, two-mode migraph-consistent object.
 NULL
 
-#' @rdname graph_census
+#' @describeIn graph_census Returns a census of dyad motifs in a network
+#' @examples 
+#' graph_dyad_census(ison_adolescents)
+#' @export
+graph_dyad_census <- function(object) {
+  if (is_twomode(object)) {
+    stop("A twomode or multilevel option for a dyad census is not yet implemented.")
+  } else {
+    out <- suppressWarnings(igraph::dyad_census(as_igraph(object)))
+    out <- unlist(out)
+    names(out) <- c("Mutual", "Asymmetric", "Null")
+    if (!is_directed(object)) out <- out[c(1, 3)]
+    make_graph_motif(out, object)
+  }
+}
+
+#' @describeIn graph_census Returns a census of triad motifs in a network
+#' @references 
+#' Davis, James A., and Samuel Leinhardt. 1967. 
+#' “\href{https://files.eric.ed.gov/fulltext/ED024086.pdf}{The Structure of Positive Interpersonal Relations in Small Groups}.” 55.
+#' @examples 
+#' graph_triad_census(ison_adolescents)
+#' @export
+graph_triad_census <- function(object) {
+  if (is_twomode(object)) {
+    stop("A twomode or multilevel option for a triad census is not yet implemented.")
+  } else {
+    out <- suppressWarnings(igraph::triad_census(as_igraph(object)))
+    names(out) <- c("003", "012", "102", "021D",
+                    "021U", "021C", "111D", "111U",
+                    "030T", "030C", "201", "120D",
+                    "120U", "120C", "210", "300")
+    if (!is_directed(object)) out <- out[c(1, 2, 3, 11, 15, 16)]
+    make_graph_motif(out, object)
+  }
+}
+
+#' @describeIn graph_census Returns a census of triad motifs that span
+#'   a one-mode and a two-mode network
 #' @references 
 #' Hollway, James, Alessandro Lomi, Francesca Pallotti, and Christoph Stadtfeld. 
 #' “\doi{10.1017/nws.2017.8}{Multilevel Social Spaces: The Network Dynamics of Organizational Fields}.” 
@@ -207,38 +252,4 @@ graph_mixed_census <- function (object, object2) {
            "01" = sum(onemode.forward * bipartite.null) / 2 + sum(onemode.backward * bipartite.null) / 2,
            "00" = sum(onemode.null * bipartite.null) / 2)  
   make_graph_motif(res, object)
-}
-
-#' @rdname graph_census
-#' @examples 
-#' graph_dyad_census(ison_adolescents)
-#' @export
-graph_dyad_census <- function(object) {
-  if (is_twomode(object)) {
-    stop("A twomode or multilevel option for a dyad census is not yet implemented.")
-  } else {
-    out <- suppressWarnings(igraph::dyad_census(as_igraph(object)))
-    out <- unlist(out)
-    names(out) <- c("Mutual", "Asymmetric", "Null")
-    if (!is_directed(object)) out <- out[c(1, 3)]
-    make_graph_motif(out, object)
-  }
-}
-
-#' @rdname graph_census
-#' @examples 
-#' graph_triad_census(ison_adolescents)
-#' @export
-graph_triad_census <- function(object) {
-  if (is_twomode(object)) {
-    stop("A twomode or multilevel option for a triad census is not yet implemented.")
-  } else {
-    out <- suppressWarnings(igraph::triad_census(as_igraph(object)))
-    names(out) <- c("003", "012", "102", "021D",
-                    "021U", "021C", "111D", "111U",
-                    "030T", "030C", "201", "120D",
-                    "120U", "120C", "210", "300")
-    if (!is_directed(object)) out <- out[c(1, 2, 3, 11, 15, 16)]
-    make_graph_motif(out, object)
-  }
 }
