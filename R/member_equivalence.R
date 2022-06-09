@@ -11,7 +11,7 @@
 #' @name equivalence
 #' @family membership
 #' @inheritParams is
-#' @param select Character string indicating which method
+#' @param k Character string indicating which method
 #'   should be used to select the number of clusters to cut
 #'   the tree at.
 #'   By default `"strict"` to return classes with members only
@@ -40,16 +40,38 @@
 #'    \doi{10.1007/BF02289263}
 #' 
 #' Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.  
-#'   An Algorithm for Clustering Relational Data with Applications to 
-#'   Social Network Analysis and Comparison with Multidimensional Scaling. 
+#'   "\href{https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.398.2703&rep=rep1&type=pdf}{An Algorithm for Clustering Relational Data with Applications to 
+#'   Social Network Analysis and Comparison with Multidimensional Scaling}". 
 #'   \emph{Journal of Mathematical Psychology}, 12: 328--383.
 NULL
 
 #' @describeIn equivalence Returns nodes' membership in 
+#'   according to their equivalence with respective to some census/class
+#' @export
+node_equivalence <- function(object, mat,
+                             k = c("strict", "elbow", "silhouette"),
+                             cluster = c("hier", "concor"),
+                             distance = c("euclidean", "maximum", "manhattan", 
+                                          "canberra", "binary", "minkowski")){
+  hc <- switch(match.arg(cluster),
+               hier = cluster_hierarchical(mat, match.arg(distance)),
+               concor = cluster_concor(mat))
+  
+  k <- switch(match.arg(k),
+              strict = k_strict(hc, object),
+              elbow = k_elbow(hc, object, mat),
+              silhouette = k_silhouette(hc, object))
+  
+  out <- make_member(cutree(hc, k), object)
+  attr(out, "hc") <- hc
+  attr(out, "k") <- k
+  out
+}
+
+#' @describeIn equivalence Returns nodes' membership in 
 #'   structurally equivalent classes
 #' @examples
-#' nse_hier <- node_structural_equivalence(ison_adolescents, 
-#'                   cluster = "c")
+#' nse_hier <- node_structural_equivalence(ison_adolescents)
 #' plot(nse_hier)
 #' nse_conc <- node_structural_equivalence(ison_adolescents, 
 #'                   cluster = "concor")
@@ -58,7 +80,7 @@ NULL
 #' plot(nse_conc)
 #' @export
 node_structural_equivalence <- function(object,
-                                        select = c("strict", "elbow", "silhouette"),
+                                        k = c("strict", "elbow", "silhouette"),
                                         cluster = c("hier", "concor"),
                                         distance = c("euclidean", "maximum", "manhattan", 
                                                      "canberra", "binary", "minkowski")){
@@ -66,18 +88,8 @@ node_structural_equivalence <- function(object,
   if(any(colSums(t(mat))==0)){
     mat <- cbind(mat, (colSums(t(mat))==0))
   } 
-  hc <- switch(match.arg(cluster),
-         hier = cluster_hierarchical(mat, match.arg(distance)),
-         concor = cluster_concor(object))
-
-  k <- switch(match.arg(select),
-              strict = k_strict(hc, object),
-              elbow = k_elbow(hc, object, mat),
-              silhouette = k_silhouette(hc, object))
-  out <- make_member(cutree(hc, k), object)
-  attr(out, "hc") <- hc
-  attr(out, "k") <- k
-  out
+  node_equivalence(object, mat, 
+                   k = k, cluster = cluster, distance = distance)
 }
 
 #' @describeIn equivalence Returns nodes' membership in 
@@ -89,25 +101,18 @@ node_structural_equivalence <- function(object,
 #' plot(nre2)
 #' @export
 node_regular_equivalence <- function(object, 
-                                     select = c("strict", "elbow", "silhouette"),
+                                     k = c("strict", "elbow", "silhouette"),
+                                     cluster = c("hier", "concor"),
                                      distance = c("euclidean", "maximum", "manhattan", 
                                                   "canberra", "binary", "minkowski")){
   if(is_twomode(object)){
-    triads <- as.matrix(node_quad_census(object))
+    mat <- as.matrix(node_quad_census(object))
   } else {
-    triads <- node_triad_census(object)
+    mat <- node_triad_census(object)
   }
-  if(any(colSums(triads) == 0)) triads <- triads[,-which(colSums(triads) == 0)]
-  hc <- cluster_hierarchical(triads, match.arg(distance))
-
-  k <- switch(match.arg(select),
-              strict = k_strict(hc, object),
-              elbow = k_elbow(hc, object, triads),
-              silhouette = k_silhouette(hc, object))
-  out <- make_member(cutree(hc, k), object)
-  attr(out, "hc") <- hc
-  attr(out, "k") <- k
-  out
+  if(any(colSums(mat) == 0)) mat <- mat[,-which(colSums(mat) == 0)]
+  node_equivalence(object, mat, 
+                   k = k, cluster = cluster, distance = distance)
 }
 
 #' @describeIn equivalence Returns nodes' membership in 
@@ -122,17 +127,9 @@ node_automorphic_equivalence <- function(object,
                                          select = c("strict", "elbow", "silhouette"),
                                          distance = c("euclidean", "maximum", "manhattan", 
                                                       "canberra", "binary", "minkowski")){
-  paths <- node_path_census(object)
-  hc <- cluster_hierarchical(paths, match.arg(distance))
-
-  k <- switch(match.arg(select),
-              strict = k_strict(hc, object),
-              elbow = k_elbow(hc, object, paths),
-              silhouette = k_silhouette(hc, object))
-  out <- make_member(cutree(hc, k), object)
-  attr(out, "hc") <- hc
-  attr(out, "k") <- k
-  out
+  mat <- node_path_census(object)
+  node_equivalence(object, mat, 
+                   k = k, cluster = cluster, distance = distance)
 }
 
 k_strict <- function(hc, object){
@@ -142,6 +139,45 @@ k_strict <- function(hc, object){
 }
 
 k_elbow <- function(hc, object, census){
+  
+  clusterCorr <- function(observed_cor_matrix, cluster_vector) {
+    num_vertices = nrow(observed_cor_matrix)
+    cluster_cor_mat <- observed_cor_matrix
+    
+    obycor <- function(i, j) 
+      mean(observed_cor_matrix[which(cluster_vector[row(observed_cor_matrix)] ==
+                                       cluster_vector[i] &
+                                       cluster_vector[col(observed_cor_matrix)] ==
+                                       cluster_vector[j])])
+    obycor_v <- Vectorize(obycor)
+    cluster_cor_mat <- outer(1:num_vertices,
+                             1:num_vertices,
+                             obycor_v)
+    dimnames(cluster_cor_mat) <- dimnames(observed_cor_matrix)
+    cluster_cor_mat
+  }
+  
+  elbow_finder <- function(x_values, y_values) {
+    # Max values to create line
+    if(min(x_values)==1) x_values <- x_values[2:length(x_values)]
+    if(min(y_values)==0) y_values <- y_values[2:length(y_values)]
+    max_df <- data.frame(x = c(min(x_values), max(x_values)), 
+                         y = c(min(y_values), max(y_values)))
+    # Creating straight line between the max values
+    fit <- stats::lm(max_df$y ~ max_df$x)
+    # Distance from point to line
+    distances <- vector()
+    for (i in seq_len(length(x_values))) {
+      distances <- c(distances,
+                     abs(stats::coef(fit)[2]*x_values[i] -
+                           y_values[i] +
+                           coef(fit)[1]) /
+                       sqrt(stats::coef(fit)[2]^2 + 1^2))
+    }
+    # Max distance point
+    x_max_dist <- x_values[which.max(distances)]
+    x_max_dist
+  }
   
   vertices <- graph_nodes(object)
   observedcorrelation <- cor(t(census))
@@ -168,45 +204,6 @@ k_elbow <- function(hc, object, census){
   
   # k identification method
   elbow_finder(dafr$clusters, dafr$correlations)
-}
-
-clusterCorr <- function(observed_cor_matrix, cluster_vector) {
-  num_vertices = nrow(observed_cor_matrix)
-  cluster_cor_mat <- observed_cor_matrix
-  
-  obycor <- function(i, j) 
-    mean(observed_cor_matrix[which(cluster_vector[row(observed_cor_matrix)] ==
-                                     cluster_vector[i] &
-                                     cluster_vector[col(observed_cor_matrix)] ==
-                                     cluster_vector[j])])
-  obycor_v <- Vectorize(obycor)
-  cluster_cor_mat <- outer(1:num_vertices,
-                           1:num_vertices,
-                           obycor_v)
-  dimnames(cluster_cor_mat) <- dimnames(observed_cor_matrix)
-  cluster_cor_mat
-}
-
-elbow_finder <- function(x_values, y_values) {
-  # Max values to create line
-  if(min(x_values)==1) x_values <- x_values[2:length(x_values)]
-  if(min(y_values)==0) y_values <- y_values[2:length(y_values)]
-  max_df <- data.frame(x = c(min(x_values), max(x_values)), 
-                       y = c(min(y_values), max(y_values)))
-  # Creating straight line between the max values
-  fit <- stats::lm(max_df$y ~ max_df$x)
-  # Distance from point to line
-  distances <- vector()
-  for (i in seq_len(length(x_values))) {
-    distances <- c(distances,
-                   abs(stats::coef(fit)[2]*x_values[i] -
-                         y_values[i] +
-                         coef(fit)[1]) /
-                     sqrt(stats::coef(fit)[2]^2 + 1^2))
-  }
-  # Max distance point
-  x_max_dist <- x_values[which.max(distances)]
-  x_max_dist
 }
 
 k_silhouette <- function(hc, object){
@@ -249,8 +246,8 @@ cluster_hierarchical <- function(mat, distance){
 # cluster_concor(ison_adolescents)
 # cluster_concor(ison_southern_women)
 # https://github.com/bwlewis/hclust_in_R/blob/master/hc.R
-cluster_concor <- function(object){
-  mat <- as_matrix(to_multilevel(object))
+cluster_concor <- function(mat){
+  # mat <- as_matrix(to_multilevel(object))
   split_cor <- function(m0, cutoff = 1) {
     if (ncol(m0) < 2 | all(stats::cor(m0)==1)) list(m0)
     else {
@@ -276,14 +273,12 @@ cluster_concor <- function(object){
     i <- i+1
   }
 
-  out <- list()
-  
   merges <- sapply(rev(1:(i-1)), 
          function(p) lapply(p_group[[p]], 
                             function(s){
                               g <- match(s, node_names(object))
-                              # g <- s
-                              if(length(g)<=2) c(g, p) else
+                              if(length(g)==1) c(g, 0, p) else 
+                                if(length(g)==2) c(g, p) else
                                 c(t(cbind(t(utils::combn(g, 2)), p)))
                             } ))
   merges <- c(merges, 
@@ -292,11 +287,12 @@ cluster_concor <- function(object){
   merged <- merged[!duplicated(merged[,1:2]),]
   merged[,3] <- abs(merged[,3] - max(merged[,3]))
   
-  distance <- as_matrix(as_igraph(as.data.frame(merged)))
-  distance <- distance + t(distance)
-  rownames(distance) <- colnames(distance) <- node_names(object)[as.numeric(colnames(distance))]
-  hc <- hclust(d = as.dist(distance))
+  distances <- as_matrix(as_igraph(as.data.frame(merged)))
+  distances <- distances + t(distances)
+  distances <- distances[-which(rownames(distances)==0),-which(colnames(distances)==0)]
+  rownames(distances) <- colnames(distances) <- node_names(object)[as.numeric(colnames(distances))]
+  hc <- hclust(d = as.dist(distances))
   hc$method <- "concor"
-  hc$distances <- distance
+  hc$distances <- distances
   hc  
 }

@@ -2,6 +2,7 @@
 % Please edit documentation in R/member_equivalence.R
 \name{equivalence}
 \alias{equivalence}
+\alias{node_equivalence}
 \alias{node_structural_equivalence}
 \alias{node_regular_equivalence}
 \alias{node_automorphic_equivalence}
@@ -10,16 +11,25 @@
 \url{https://github.com/aslez/concoR}
 }
 \usage{
+node_equivalence(
+  object,
+  mat,
+  k = c("strict", "elbow", "silhouette"),
+  cluster = c("hier", "concor"),
+  distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski")
+)
+
 node_structural_equivalence(
   object,
-  select = c("strict", "elbow", "silhouette"),
+  k = c("strict", "elbow", "silhouette"),
   cluster = c("hier", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski")
 )
 
 node_regular_equivalence(
   object,
-  select = c("strict", "elbow", "silhouette"),
+  k = c("strict", "elbow", "silhouette"),
+  cluster = c("hier", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski")
 )
 
@@ -39,7 +49,7 @@ node_automorphic_equivalence(
 \item tbl_graph, from the tidygraph package
 }}
 
-\item{select}{Character string indicating which method
+\item{k}{Character string indicating which method
 should be used to select the number of clusters to cut
 the tree at.
 By default \code{"strict"} to return classes with members only
@@ -71,6 +81,9 @@ assignment.
 }
 \section{Functions}{
 \itemize{
+\item \code{node_equivalence}: Returns nodes' membership in
+according to their equivalence with respective to some census/class
+
 \item \code{node_structural_equivalence}: Returns nodes' membership in
 structurally equivalent classes
 
@@ -82,8 +95,7 @@ automorphically equivalent classes
 }}
 
 \examples{
-nse_hier <- node_structural_equivalence(ison_adolescents, 
-                  cluster = "c")
+nse_hier <- node_structural_equivalence(ison_adolescents)
 plot(nse_hier)
 nse_conc <- node_structural_equivalence(ison_adolescents, 
                   cluster = "concor")
@@ -107,8 +119,8 @@ Thorndike, Robert L. 1953.
 \doi{10.1007/BF02289263}
 
 Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.
-An Algorithm for Clustering Relational Data with Applications to
-Social Network Analysis and Comparison with Multidimensional Scaling.
+"\href{https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.398.2703&rep=rep1&type=pdf}{An Algorithm for Clustering Relational Data with Applications to
+Social Network Analysis and Comparison with Multidimensional Scaling}".
 \emph{Journal of Mathematical Psychology}, 12: 328--383.
 }
 \seealso{
