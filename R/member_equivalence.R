@@ -247,7 +247,6 @@ cluster_hierarchical <- function(mat, distance){
 # cluster_concor(ison_southern_women)
 # https://github.com/bwlewis/hclust_in_R/blob/master/hc.R
 cluster_concor <- function(mat){
-  # mat <- as_matrix(to_multilevel(object))
   split_cor <- function(m0, cutoff = 1) {
     if (ncol(m0) < 2 | all(stats::cor(m0)==1)) list(m0)
     else {
@@ -261,7 +260,7 @@ cluster_concor <- function(mat){
            m0[, !group, drop = FALSE])
     }
   }
-  p_list <- list(mat)
+  p_list <- list(t(mat))
   p_group <- list()
   i <- 1
   while(!all(vapply(p_list, function(x) ncol(x)==1, logical(1)))){
