@@ -6,30 +6,30 @@
 #' Such functions are often useful for identifying particular
 #' nodes or edges that are particularly well- or poorly-connected.
 #' @inheritParams is
-#' @name identify
+#' @name mark
 NULL
 
-#' @describeIn identify Returns logical of which edges are multiples
+#' @describeIn mark Returns logical of which edges are multiples
 #' @importFrom igraph which_multiple
 #' @examples 
-#' edge_multiple(ison_marvel_relationships)[1:20]
+#' edge_multiple(ison_marvel_relationships)
 #' @export
 edge_multiple <- function(object){
   object <- as_igraph(object)
-  igraph::which_multiple(object)
+  make_node_measure(igraph::which_multiple(object), object)
 }
 
-#' @describeIn identify Returns logical of which edges are loops
+#' @describeIn mark Returns logical of which edges are loops
 #' @importFrom igraph which_loop
 #' @examples 
-#' edge_loop(ison_marvel_relationships)[1:20]
+#' edge_loop(ison_marvel_relationships)
 #' @export
 edge_loop <- function(object){
   object <- as_igraph(object)
-  igraph::which_loop(object)
+  make_node_measure(igraph::which_loop(object), object)
 }
 
-#' @describeIn identify Returns logical of which edges 
+#' @describeIn mark Returns logical of which edges 
 #'   are mutual/reciprocated
 #' @importFrom igraph which_mutual
 #' @examples 
@@ -37,10 +37,10 @@ edge_loop <- function(object){
 #' @export
 edge_reciprocal <- function(object){
   object <- as_igraph(object) # allow for custom edge selection
-  igraph::which_mutual(object)
+  make_node_measure(igraph::which_mutual(object), object)
 }
 
-#' @describeIn identify Returns logical of which nodes cut
+#' @describeIn mark Returns logical of which nodes cut
 #'   or act as articulation points in a network.
 #' @importFrom igraph decompose delete.edges
 #' @examples 
@@ -53,10 +53,10 @@ edge_bridges <- function(object){
   }, FUN.VALUE = logical(1))
   if(is_labelled(object)) 
     names(out) <- attr(igraph::E(object), "vnames")
-  out
+  make_node_measure(out, object)
 }
 
-#' @describeIn identify Returns logical of which nodes cut
+#' @describeIn mark Returns logical of which nodes cut
 #'   or act as articulation points in a network.
 #' @importFrom igraph articulation_points
 #' @examples 
@@ -71,5 +71,5 @@ node_cuts <- function(object){
     out <- 1:graph_nodes(object) %in% 
       igraph::articulation_points(as_igraph(object))
   }
-  out
+  make_node_measure(out, object)
 }

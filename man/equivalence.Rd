@@ -35,7 +35,8 @@ node_regular_equivalence(
 
 node_automorphic_equivalence(
   object,
-  select = c("strict", "elbow", "silhouette"),
+  k = c("strict", "elbow", "silhouette"),
+  cluster = c("hier", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski")
 )
 }
