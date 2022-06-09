@@ -156,6 +156,7 @@ node_path_census <- function(object){
   } else if (is_weighted(object)){
     out <- tnet::distance_w(as_matrix(object))
   } else out <- igraph::distances(as_igraph(object))
+  diag(out) <- 0
   make_node_motif(out, object)
 }
 
