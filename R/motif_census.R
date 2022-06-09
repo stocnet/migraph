@@ -209,51 +209,6 @@ graph_mixed_census <- function (object, object2) {
   make_graph_motif(res, object)
 }
 
-#' @rdname census
-#' @examples 
-#' group_tie_census(task_eg, cutree(cluster_structural_equivalence(task_eg), 4))
-#' @export
-group_tie_census <- function(object, clusters, decimals = 2) {
-  ties <- node_tie_census(object)
-  cluster_tie_mat <- matrix(nrow = max(clusters), ncol = ncol(ties))
-  for (i in seq_len(max(clusters))) {
-    for (j in seq_len(ncol(ties))) {
-      cluster_tie_mat[i, j] <- round(mean(ties[which(clusters == i), j]), decimals)
-    }
-  }
-  colnames(cluster_tie_mat) <- colnames(ties)
-  if(is.numeric(clusters)){
-    rownames(cluster_tie_mat) <- paste("Block", 1:max(clusters))
-  } else {
-    rownames(cluster_tie_mat) <- clusters
-  }
-  cluster_tie_mat
-}
-
-#' @rdname census
-#' @examples 
-#' group_triad_census(task_eg, cutree(cluster_regular_equivalence(task_eg), 4))
-#' @export
-group_triad_census <- function(object, clusters, decimals = 2) {
-  triads <- node_triad_census(object)
-  cluster_triad_mat <- matrix(nrow = max(clusters), ncol = ncol(triads))
-  for (i in seq_len(max(clusters))) {
-    for (j in seq_len(ncol(triads))) {
-      cluster_triad_mat[i, j] <- round(mean(triads[which(clusters == i), j]), decimals)
-    }
-  }
-  colnames(cluster_triad_mat) <- c("003", "012", "102", "021D",
-                                   "021U", "021C", "111D", "111U",
-                                   "030T", "030C", "201", "120D",
-                                   "120U", "120C", "210", "300")
-  if(is.numeric(clusters)){
-    rownames(cluster_triad_mat) <- paste("Block", 1:max(clusters))
-  } else {
-    rownames(cluster_triad_mat) <- clusters
-  }
-  cluster_triad_mat 
-}
-
 #' @rdname graph_census
 #' @examples 
 #' graph_dyad_census(ison_adolescents)

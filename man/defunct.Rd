@@ -18,6 +18,8 @@
 \alias{print.block_model}
 \alias{reduce_graph}
 \alias{ggatyear}
+\alias{group_tie_census}
+\alias{group_triad_census}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 ggidentify(object, node_measure, identify_function = max)
@@ -57,9 +59,19 @@ blockmodel(object, clusters)
 reduce_graph(blockmodel, block_labels = NULL)
 
 ggatyear(edgelist, year, ...)
+
+group_tie_census(object, clusters, decimals = 2)
+
+group_triad_census(object, clusters, decimals = 2)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+Generally these functions have been superseded or renamed.
+Upon using them, a message is provided directing the user to the new function.
+However, at this stage of package development,
+we generally clear older defunct functions at each minor release,
+and so you are strongly encouraged to use the new functions/names/syntax
+wherever possible and update your scripts accordingly.
 }
 \section{Functions}{
 \itemize{
@@ -100,6 +112,10 @@ for more details about the new implementation.
 \item \code{reduce_graph}: Deprecated on 2022-06-03.
 
 \item \code{ggatyear}: Deprecated on 2022-06-08.
+
+\item \code{group_tie_census}: Deprecated on 2022-06-09.
+
+\item \code{group_triad_census}: Deprecated on 2022-06-09.
 }}
 
 \keyword{internal}

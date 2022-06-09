@@ -1,6 +1,12 @@
 #' Functions that have been renamed, superseded, or are no longer working
 #' 
 #' `r lifecycle::badge("deprecated")`
+#' Generally these functions have been superseded or renamed.
+#' Upon using them, a message is provided directing the user to the new function.
+#' However, at this stage of package development,
+#' we generally clear older defunct functions at each minor release,
+#' and so you are strongly encouraged to use the new functions/names/syntax
+#' wherever possible and update your scripts accordingly.
 #' @name defunct
 #' @keywords internal
 NULL
@@ -258,4 +264,52 @@ ggatyear <- function(edgelist, year, ...) {
   # Plot graph with autographr
   autographr(graph, ...) +
     ggtitle(year)
+}
+
+#' @describeIn defunct Deprecated on 2022-06-09.
+#' @export
+group_tie_census <- function(object, clusters, decimals = 2) {
+  .Deprecated("summary.node_motif", package = "migraph",
+              old = "group_tie_census")
+  
+  ties <- node_tie_census(object)
+  cluster_tie_mat <- matrix(nrow = max(clusters), ncol = ncol(ties))
+  for (i in seq_len(max(clusters))) {
+    for (j in seq_len(ncol(ties))) {
+      cluster_tie_mat[i, j] <- round(mean(ties[which(clusters == i), j]), decimals)
+    }
+  }
+  colnames(cluster_tie_mat) <- colnames(ties)
+  if(is.numeric(clusters)){
+    rownames(cluster_tie_mat) <- paste("Block", 1:max(clusters))
+  } else {
+    rownames(cluster_tie_mat) <- clusters
+  }
+  cluster_tie_mat
+}
+
+#' @describeIn defunct Deprecated on 2022-06-09.
+#' @export
+group_triad_census <- function(object, clusters, decimals = 2) {
+
+  .Deprecated("summary.node_motif", package = "migraph",
+              old = "group_triad_census")
+  
+  triads <- node_triad_census(object)
+  cluster_triad_mat <- matrix(nrow = max(clusters), ncol = ncol(triads))
+  for (i in seq_len(max(clusters))) {
+    for (j in seq_len(ncol(triads))) {
+      cluster_triad_mat[i, j] <- round(mean(triads[which(clusters == i), j]), decimals)
+    }
+  }
+  colnames(cluster_triad_mat) <- c("003", "012", "102", "021D",
+                                   "021U", "021C", "111D", "111U",
+                                   "030T", "030C", "201", "120D",
+                                   "120U", "120C", "210", "300")
+  if(is.numeric(clusters)){
+    rownames(cluster_triad_mat) <- paste("Block", 1:max(clusters))
+  } else {
+    rownames(cluster_triad_mat) <- clusters
+  }
+  cluster_triad_mat 
 }
