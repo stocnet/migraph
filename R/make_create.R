@@ -9,7 +9,7 @@
 #'   (the first integer indicates the number of nodes in the first mode,
 #'   the second integer indicates the number of nodes in the second mode).
 #' @name create
-#' @family make
+#' @family makes
 #' @seealso [as]
 #' @param n Given:
 #'   \itemize{

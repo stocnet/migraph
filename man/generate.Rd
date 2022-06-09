@@ -46,9 +46,9 @@ should be retained. By default TRUE.}
 }
 \description{
 These functions are similar to the \verb{create_*} functions,
-but include some random element. They are particularly useful for
-creating a distribution of networks for exploring or testing
-network properties.
+but include some element of randomisation.
+They are particularly useful for creating a distribution of networks
+for exploring or testing network properties.
 }
 \section{Functions}{
 \itemize{
@@ -75,11 +75,19 @@ autographr(generate_scalefree(12, 1.25))
 autographr(mpn_elite_usa_advice) +
 autographr(generate_permutation(mpn_elite_usa_advice))
 }
-\seealso{
-\link{coercion}
+\references{
+Erdős, Paul, and Alfréd Rényi. (1959). "\href{https://www.renyi.hu/~p_erdos/1959-11.pdf}{On Random Graphs I}"
+\emph{Publicationes Mathematicae}. 6: 290–297.
 
-Other make: 
+Watts, Duncan J., and Steven H. Strogatz. 1998.
+“Collective Dynamics of ‘Small-World’ Networks.”
+\emph{Nature} 393(6684):440–42.
+}
+\seealso{
+\link{as}
+
+Other makes: 
 \code{\link{create}},
 \code{\link{read}}
 }
-\concept{make}
+\concept{makes}

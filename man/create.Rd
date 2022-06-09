@@ -5,10 +5,10 @@
 \alias{create_empty}
 \alias{create_complete}
 \alias{create_ring}
-\alias{create_components}
 \alias{create_star}
 \alias{create_tree}
 \alias{create_lattice}
+\alias{create_components}
 \alias{create_core}
 \title{Create networks with particular structures}
 \usage{
@@ -18,13 +18,13 @@ create_complete(n, directed = FALSE)
 
 create_ring(n, width = 1, directed = FALSE, ...)
 
-create_components(n, components = 2)
-
 create_star(n, directed = FALSE)
 
 create_tree(n, directed = FALSE, width = 2)
 
 create_lattice(n, directed = FALSE)
+
+create_components(n, components = 2)
 
 create_core(n, width = 0.5)
 }
@@ -76,15 +76,15 @@ with every possible tie realised.
 \item \code{create_ring}: Creates a ring or chord graph of the given dimensions
 that loops around is of a certain width or thickness.
 
-\item \code{create_components}: Creates a graph in which the nodes are clustered
-into separate components.
-
 \item \code{create_star}: Creates a graph of the given dimensions
 that has a maximally central node
 
 \item \code{create_tree}: Creates a graph of the given dimensions with successive branches.
 
 \item \code{create_lattice}: Creates a graph of the given dimensions with ties to all neighbouring nodes
+
+\item \code{create_components}: Creates a graph in which the nodes are clustered
+into separate components.
 
 \item \code{create_core}: Creates a graph with a certain proportion of nodes
 being core nodes, densely tied to each other and peripheral nodes,
@@ -96,7 +96,6 @@ autographr(create_empty(10)) + autographr(create_complete(10))
 autographr(create_empty(c(8,6))) + autographr(create_complete(c(8,6)))
 autographr(create_ring(8, width = 2)) + 
 autographr(create_ring(c(8,6), width = 2))
-autographr(create_components(c(10, 12), components = 3))
 autographr(create_star(12)) +
 autographr(create_star(12, directed = TRUE)) +
 autographr(create_star(c(12,1)))
@@ -106,14 +105,15 @@ autographr(create_tree(15, directed = TRUE, branches = 3), "tree")
 autographr(create_lattice(5), layout = "kk") +
 autographr(create_lattice(c(5,5))) +
 autographr(create_lattice(c(5,5,5)))
+autographr(create_components(c(10, 12), components = 3))
 autographr(create_core(6)) +
 autographr(create_core(c(6,6)))
 }
 \seealso{
 \link{as}
 
-Other make: 
+Other makes: 
 \code{\link{generate}},
 \code{\link{read}}
 }
-\concept{make}
+\concept{makes}

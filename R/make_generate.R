@@ -1,12 +1,12 @@
 #' Create networks from particular probabilities
 #' 
 #' @description These functions are similar to the `create_*` functions,
-#'   but include some random element. They are particularly useful for
-#'   creating a distribution of networks for exploring or testing
-#'   network properties.
+#'   but include some element of randomisation. 
+#'   They are particularly useful for creating a distribution of networks 
+#'   for exploring or testing network properties.
 #' @name generate
-#' @family make
-#' @seealso [coercion]
+#' @family makes
+#' @seealso [as]
 #' @inheritParams create
 #' @inheritParams is
 #' @param p Proportion of possible edges in the network that are realised or,
@@ -15,6 +15,9 @@
 NULL
 
 #' @describeIn generate Generates a random network with a particular probability.
+#' @references 
+#' Erdős, Paul, and Alfréd Rényi. (1959). "\href{https://www.renyi.hu/~p_erdos/1959-11.pdf}{On Random Graphs I}" 
+#' _Publicationes Mathematicae_. 6: 290–297.
 #' @importFrom igraph sample_bipartite sample_gnp sample_gnm
 #' @examples
 #' autographr(generate_random(12, 0.4)) +
@@ -66,6 +69,10 @@ generate_random <- function(n, p = 0.5, directed = FALSE) {
 
 #' @describeIn generate Generates a small-world structure
 #'   following the lattice rewiring model.
+#' @references 
+#' Watts, Duncan J., and Steven H. Strogatz. 1998. 
+#' “Collective Dynamics of ‘Small-World’ Networks.” 
+#' _Nature_ 393(6684):440–42.
 #' @importFrom igraph sample_smallworld
 #' @examples
 #' autographr(generate_smallworld(12, 0.025)) +

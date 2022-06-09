@@ -15,29 +15,6 @@ test_that("node triad census works", {
   expect_equal(colnames(test)[1:3], c("003", "012", "102"))
 })
 
-test <- group_tie_census(task_eg, node_structural_equivalence(task_eg), 4)
-test_that("group tie census works", {
-  expect_equal(class(test), c("matrix", "array"))
-  expect_equal(rownames(test)[1:4],
-               c("Block 1",
-                 "Block 2",
-                 "Block 3",
-                 "Block 4"))
-  expect_equal(substr(colnames(test)[1:4], 1, 4),
-               rep("from", 4))
-})
-
-test <- group_triad_census(task_eg, node_structural_equivalence(task_eg), 4)
-test_that("group triad census works", {
-  expect_equal(class(test), c("matrix", "array"))
-  expect_equal(rownames(test)[1:4],
-               c("Block 1",
-                 "Block 2",
-                 "Block 3",
-                 "Block 4"))
-  expect_equal(colnames(test)[1:3], c("003", "012", "102"))
-})
-
 test <- graph_dyad_census(ison_adolescents)
 test_that("graph dyad census works", {
   expect_equal(test[[1]], 10)
