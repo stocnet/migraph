@@ -102,7 +102,7 @@ graph_edge_attributes(mpn_elite_mex)
 \seealso{
 Other manipulation: 
 \code{\link{add}},
-\code{\link{coercion}},
+\code{\link{as}()},
 \code{\link{is}()},
 \code{\link{to}}
 }

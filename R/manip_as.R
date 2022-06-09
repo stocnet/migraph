@@ -5,7 +5,7 @@
 #' between several common classes of social network objects.
 #' These include:
 #' - edgelists, as data frames or tibbles
-#' - adjacency and incidence matrices
+#' - adjacency (one-mode/unipartite) and incidence (two-mode/bipartite) matrices
 #' - `{igraph}` `graph` objects
 #' - `{tidygraph}` `tbl_graph` objects
 #' - `{network}` `network` objects
@@ -15,11 +15,13 @@
 #' kinds of information than others.
 #' Note also that there are some reserved column names in one or more
 #' object classes, which could otherwise lead to some unexpected results.
-#' @name coercion
+#' @name as
 #' @family manipulation
 #' @inheritParams is
-#' @param twomode Logical option used to override the heuristics for 
-#'   distinguishing incidence from adjacency matrices. By default FALSE.
+#' @param twomode Logical option used to override heuristics for 
+#'   distinguishing incidence (two-mode/bipartite) from 
+#'   adjacency (one-mode/unipartite) networks. 
+#'   By default FALSE.
 #' @details 
 #' Edgelists are expected to be held in data.frame or tibble class objects.
 #' The first two columns of such an object are expected to be the
@@ -64,7 +66,7 @@
 #' | network                  | X | X | X | X | X |
 NULL
 
-#' @rdname coercion
+#' @rdname as
 #' @importFrom igraph as_edgelist
 #' @export
 as_edgelist <- function(object) UseMethod("as_edgelist")
@@ -122,7 +124,7 @@ as_edgelist.data.frame <- function(object){
   } else object
 }
 
-#' @rdname coercion
+#' @rdname as
 #' @export
 as_matrix <- function(object) UseMethod("as_matrix")
 
@@ -220,7 +222,7 @@ as_matrix.network <- function(object) {
   }
 }
 
-#' @rdname coercion
+#' @rdname as
 #' @importFrom igraph graph_from_data_frame graph_from_incidence_matrix
 #' @importFrom igraph graph_from_adjacency_matrix
 #' @export
@@ -334,7 +336,7 @@ as_igraph.network <- function(object,
   graph
 }
 
-#' @rdname coercion
+#' @rdname as
 #' @export
 as_tidygraph <- function(object, twomode = FALSE) UseMethod("as_tidygraph")
 
@@ -363,7 +365,7 @@ as_tidygraph.network <- function(object, twomode = FALSE) {
   tidygraph::as_tbl_graph(as_igraph(object))
 }
 
-#' @rdname coercion
+#' @rdname as
 #' @export
 as_network <- function(object) UseMethod("as_network")
 

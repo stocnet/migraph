@@ -108,7 +108,7 @@ is_acyclic(ison_algebra)
 \seealso{
 Other manipulation: 
 \code{\link{add}},
-\code{\link{coercion}},
+\code{\link{as}()},
 \code{\link{grab}},
 \code{\link{to}}
 }

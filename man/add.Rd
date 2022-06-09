@@ -63,7 +63,7 @@ autographr(to_uniplex(both, "orig"))
 }
 \seealso{
 Other manipulation: 
-\code{\link{coercion}},
+\code{\link{as}()},
 \code{\link{grab}},
 \code{\link{is}()},
 \code{\link{to}}
