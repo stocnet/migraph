@@ -14,15 +14,15 @@
 \usage{
 create_empty(n)
 
-create_complete(n)
+create_complete(n, directed = FALSE)
 
 create_ring(n, width = 1, directed = FALSE, ...)
 
 create_components(n, components = 2)
 
-create_star(n, direction = c("undirected", "in", "out"))
+create_star(n, directed = FALSE)
 
-create_tree(n, direction = c("undirected", "in", "out"), branches = 2)
+create_tree(n, directed = FALSE, width = 2)
 
 create_lattice(n, directed = FALSE)
 
@@ -39,19 +39,18 @@ a two-mode network will be created.
 a network of the same dimensions will be created.
 }}
 
-\item{width}{The proportion of nodes in the core}
-
 \item{directed}{Logical whether the graph should be directed.
 By default FALSE.
-If an opposite direction is desired, use \code{to_redirected()}.}
+If the opposite direction is desired, use \code{to_redirected()}.}
+
+\item{width}{Either an integer specifying the width or breadth
+of the ring or branches,
+or a proportion indicating how many nodes in a mode should
+be part of the core.}
 
 \item{...}{Additional arguments passed on to igraph.}
 
 \item{components}{Number of components to divide the nodes into.}
-
-\item{direction}{One of the following options: "in", "out", or "undirected" (DEFAULT).}
-
-\item{branches}{How many branches at each level.}
 }
 \value{
 By default an igraph object will be returned,
@@ -72,8 +71,7 @@ the second integer indicates the number of nodes in the second mode).
 \item \code{create_empty}: Creates an empty graph of the given dimensions.
 
 \item \code{create_complete}: Creates a filled graph of the given dimensions,
-with every possible tie realised. One-mode network created is directed,
-to create an undirected one-mode graph use \code{to_undirected()}.
+with every possible tie realised.
 
 \item \code{create_ring}: Creates a ring or chord graph of the given dimensions
 that loops around is of a certain width or thickness.
@@ -81,7 +79,8 @@ that loops around is of a certain width or thickness.
 \item \code{create_components}: Creates a graph in which the nodes are clustered
 into separate components.
 
-\item \code{create_star}: Creates a graph of the given dimensions that has a maximally central node
+\item \code{create_star}: Creates a graph of the given dimensions
+that has a maximally central node
 
 \item \code{create_tree}: Creates a graph of the given dimensions with successive branches.
 
@@ -98,12 +97,12 @@ autographr(create_empty(c(8,6))) + autographr(create_complete(c(8,6)))
 autographr(create_ring(8, width = 2)) + 
 autographr(create_ring(c(8,6), width = 2))
 autographr(create_components(c(10, 12), components = 3))
-autographr(create_star(12, "in")) +
-autographr(create_star(12, "out")) +
-autographr(create_star(c(12,1), "in"))
-autographr(create_tree(15, direction = "out")) + 
-autographr(create_tree(15, direction = "out"), "tree") + 
-autographr(create_tree(15, direction = "out", branches = 3), "tree")
+autographr(create_star(12)) +
+autographr(create_star(12, directed = TRUE)) +
+autographr(create_star(c(12,1)))
+autographr(create_tree(15, directed = TRUE)) + 
+autographr(create_tree(15, directed = TRUE), "tree") + 
+autographr(create_tree(15, directed = TRUE, branches = 3), "tree")
 autographr(create_lattice(5), layout = "kk") +
 autographr(create_lattice(c(5,5))) +
 autographr(create_lattice(c(5,5,5)))
@@ -111,7 +110,7 @@ autographr(create_core(6)) +
 autographr(create_core(c(6,6)))
 }
 \seealso{
-\link{coercion}
+\link{as}
 
 Other make: 
 \code{\link{generate}},

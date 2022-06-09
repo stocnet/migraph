@@ -8,7 +8,7 @@ test_that("create complete graph works", {
   expect_true(is_twomode(create_complete(c(5,5))))
   expect_s3_class(create_complete(4), "igraph")
   expect_error(create_complete(c(5,5,5)), "single integer")
-  expect_true(is_directed(create_complete(6)))
+  expect_false(is_directed(create_complete(6)))
   expect_false(is_directed(create_complete(c(5,5))))
 })
 
@@ -31,8 +31,8 @@ test_that("component creation works", {
 test_that("star creation works", {
   expect_true(!is_twomode(create_star(5)))
   expect_true(is_twomode(create_star(c(5,5))))
-  expect_equal(unname(as_matrix(create_star(c(2,2), "in"))), matrix(c(1,1,0,0),2,2))
-  expect_equal(unname(as_matrix(create_star(c(2,2), direction = "out"))), matrix(c(1,0,1,0),2,2))
+  expect_equal(unname(as_matrix(create_star(c(2,2), FALSE))), matrix(c(1,1,0,0),2,2))
+  expect_equal(unname(as_matrix(create_star(c(2,2), directed = TRUE))), matrix(c(1,0,1,0),2,2))
   expect_error(create_star(c(5,5,5)), "single integer")
 })
 
