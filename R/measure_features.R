@@ -5,6 +5,23 @@
 #' @family measures
 NULL
 
+#' @describeIn features Returns correlation between a given network
+#'   and a core-periphery model with the same dimensions.
+#' @examples 
+#' graph_core(ison_adolescents)
+#' graph_core(ison_southern_women)
+#' @references 
+#' Borgatti, Stephen P., and Martin G. Everett. 1999. 
+#' “Models of Core/Periphery Structures.” 
+#' _Social Networks_ 21:375–95.
+#' @export
+graph_core <- function(object,
+                       membership = NULL){
+  out <- stats::cor(c(as_matrix(object)), 
+                    c(as_matrix(create_core(object,
+                                            membership = membership))))
+  make_graph_measure(out, object)
+}
 
 #' @describeIn features Returns correlation between a given network
 #'   and a component model with the same dimensions.

@@ -2,6 +2,7 @@
 % Please edit documentation in R/measure_features.R
 \name{features}
 \alias{features}
+\alias{graph_core}
 \alias{graph_factions}
 \alias{graph_modularity}
 \alias{graph_smallworld}
@@ -11,6 +12,7 @@
 \code{{signnet}} by David Schoch
 }
 \usage{
+graph_core(object, membership = NULL)
 
 graph_factions(object, membership = NULL)
 
@@ -42,6 +44,8 @@ Network/topological features
 }
 \section{Functions}{
 \itemize{
+\item \code{graph_core}: Returns correlation between a given network
+and a core-periphery model with the same dimensions.
 
 \item \code{graph_factions}: Returns correlation between a given network
 and a component model with the same dimensions.
@@ -61,6 +65,8 @@ ranging between \code{0} if all triangles are imbalanced and
 }}
 
 \examples{
+graph_core(ison_adolescents)
+graph_core(ison_southern_women)
 graph_factions(ison_adolescents)
 graph_factions(ison_southern_women)
 graph_modularity(ison_adolescents, 
@@ -72,6 +78,9 @@ graph_smallworld(ison_southern_women)
 graph_balance(ison_marvel_relationships)
 }
 \references{
+Borgatti, Stephen P., and Martin G. Everett. 1999.
+“Models of Core/Periphery Structures.”
+\emph{Social Networks} 21:375–95.
 
 Murata, Tsuyoshi. 2010. Modularity for Bipartite Networks.
 In: Memon, N., Xu, J., Hicks, D., Chen, H. (eds)
