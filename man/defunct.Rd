@@ -95,7 +95,7 @@ for more details about the new implementation.
 
 \item \code{ggtree}: Deprecated on 2022-05-27.
 
-\item \code{ggidentify_clusters}: Deprecated on 2022-05-27.
+\item \code{ggidentify_clusters}: Defunct on 2022-05-27.
 
 \item \code{cluster_structural_equivalence}: Deprecated on 2022-05-27.
 

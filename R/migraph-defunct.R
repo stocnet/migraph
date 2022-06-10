@@ -92,7 +92,7 @@ edge_mutual <- function(object){
 #' @describeIn defunct Deprecated on 2022-05-27.
 #' @export
 ggtree <- function(hc, k = NULL){
-  .Deprecated("plot.partition", package = "migraph",
+  .Deprecated("plot.member", package = "migraph",
               old = "ggtree")
   if (is.null(k)) {
     ggdendro::ggdendrogram(hc, rotate = TRUE)
@@ -110,53 +110,14 @@ ggtree <- function(hc, k = NULL){
   
 }
 
-#' @describeIn defunct Deprecated on 2022-05-27.
+#' @describeIn defunct Defunct on 2022-05-27.
 #' @export
 ggidentify_clusters <- function(hc, census, method = c("elbow", "strict")){
-  .Deprecated("plot.partition", package = "migraph",
-              old = "ggidentify_clusters")
-  
-  vertices <- nrow(census)
-  observedcorrelation <- cor(t(census))
-  method <- match.arg(method)
-  
-  resultlist <- list()
-  correlations <- vector()
-  for (i in 2:(vertices)) {
-    cluster_result <- list(label = NA, clusters = NA, correlation = NA)
-    cluster_result$label <- paste("number of clusters: ", 
-                                  i)
-    clusters <- stats::cutree(hc, k = i)
-    cluster_result$clusters <- clusters
-    cluster_cor_mat <- clusterCorr(observedcorrelation, clusters)
-    clustered_observed_cors <- sna::gcor(cluster_cor_mat, observedcorrelation)
-    cluster_result$correlation <- (clustered_observed_cors)
-    resultlist <- c(resultlist, cluster_result)
-    correlations <- c(correlations, clustered_observed_cors)
-  }
-  
-  resultlist$correlations <- c(correlations)
-  dafr <- data.frame(clusters = 2:vertices, correlations = c(correlations))
-  # resultlist
-  correct <- NULL # to satisfy the error god
-  
-  # k identification method
-  if(method == "elbow"){
-    dafr$correct <- ifelse(dafr$clusters == elbow_finder(dafr$clusters, dafr$correlations),
-                           "#E20020", "#6f7072")
-  } else if (method == "strict"){
-    dafr$correct <- "#6f7072"
-    dafr$correct[which(elementwise.all.equal(dafr$correlations, 1))[1]] <- "#E20020"
-  } else stop("This k selection method is not recognised")
-  
-  # plotting
-  ggplot2::ggplot(dafr, aes(x = clusters, y = correlations)) +
-    ggplot2::geom_line(color = "#6f7072") +
-    ggplot2::geom_point(aes(color = correct), size = 2) +
-    ggplot2::scale_color_manual(values = c("#6f7072", "#E20020")) +
-    # ggplot2::scale_y_continuous(limits = c(0, 1)) +
-    ggplot2::theme_minimal() +
-    ggplot2::guides(color = "none")
+  .Defunct("plot.member", package = "migraph",
+              msg = paste("This function has been superseded by",
+                          "a different structure for blockmodelling.",
+                          "The optimal `k` is now returned by the elbow method",
+                          "internally, avoiding the need to do this visually."))
 }
 
 #' @describeIn defunct Deprecated on 2022-05-27.
