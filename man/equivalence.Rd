@@ -13,11 +13,11 @@
 \usage{
 node_equivalence(
   object,
-  mat,
+  census,
   k = c("strict", "elbow", "silhouette"),
   cluster = c("hier", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
-  range = 8
+  range = 8L
 )
 
 node_structural_equivalence(
@@ -25,7 +25,7 @@ node_structural_equivalence(
   k = c("strict", "elbow", "silhouette"),
   cluster = c("hier", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
-  range = 8
+  range = 8L
 )
 
 node_regular_equivalence(
@@ -33,7 +33,7 @@ node_regular_equivalence(
   k = c("strict", "elbow", "silhouette"),
   cluster = c("hier", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
-  range = 8
+  range = 8L
 )
 
 node_automorphic_equivalence(
@@ -41,7 +41,7 @@ node_automorphic_equivalence(
   k = c("strict", "elbow", "silhouette"),
   cluster = c("hier", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
-  range = 8
+  range = 8L
 )
 }
 \arguments{
@@ -53,6 +53,8 @@ node_automorphic_equivalence(
 \item network, from the network package
 \item tbl_graph, from the tidygraph package
 }}
+
+\item{census}{A matrix returned by a \verb{node_*_census()} function.}
 
 \item{k}{Typically a character string indicating which method
 should be used to select the number of clusters to return.
@@ -67,7 +69,6 @@ then all selection routines are skipped in favour of this number of clusters.}
 \item{cluster}{Character string indicating whether clusters should be
 clustered hierarchically (\code{"hierarchical"}) or
 through convergence of correlations (\code{"concor"}).
-This option is available only in \code{node_structural_equivalence()}.
 Fewer, identifiable letters, e.g. \code{"c"} for CONCOR, is sufficient.}
 
 \item{distance}{Character string indicating which distance metric
@@ -75,6 +76,10 @@ to pass on to \code{stats::dist}.
 By default \code{"euclidean"}, but other options include
 \code{"maximum"}, \code{"manhattan"}, \code{"canberra"}, \code{"binary"}, and \code{"minkowski"}.
 Fewer, identifiable letters, e.g. \code{"e"} for Euclidean, is sufficient.}
+
+\item{range}{Integer indicating the maximum number of (k) clusters
+to evaluate.
+Ignored when \code{k = "strict"} or a discrete number is given for \code{k}.}
 }
 \description{
 These functions combine an appropriate \verb{_census()} function
@@ -112,9 +117,9 @@ plot(nse_conc)
 plot(nre)
 (nre2 <- node_regular_equivalence(ison_algebra, "silhouette"))
 plot(nre2)
-(nae <- node_automorphic_equivalence(mpn_elite_mex, select = "elbow"))
+(nae <- node_automorphic_equivalence(mpn_elite_mex, k = "elbow"))
 plot(nae)
-(nae2 <- node_automorphic_equivalence(mpn_elite_usa_advice, select = "elbow"))
+(nae2 <- node_automorphic_equivalence(mpn_elite_usa_advice, k = "elbow"))
 plot(nae2)
 }
 \references{
@@ -124,9 +129,10 @@ Thorndike, Robert L. 1953.
 18 (4): 267–276.
 \doi{10.1007/BF02289263}
 
-Rousseeuw, P.J. (1987)
-Silhouettes: A graphical aid to the interpretation and validation of cluster analysis.
-J. Comput. Appl. Math., 20, 53–65.
+Rousseeuw, Peter J. 1987.
+“Silhouettes: A Graphical Aid to the Interpretation and Validation of Cluster Analysis.”
+Journal of Computational and Applied Mathematics 20:53–65.
+\doi{10.1016/0377-0427(87)90125-7}.
 
 Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.
 "\href{https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.398.2703&rep=rep1&type=pdf}{An Algorithm for Clustering Relational Data with Applications to

@@ -11,6 +11,7 @@
 #' @name equivalence
 #' @family membership
 #' @inheritParams is
+#' @param census A matrix returned by a `node_*_census()` function.
 #' @param k Typically a character string indicating which method
 #'   should be used to select the number of clusters to return.
 #'   By default `"strict"` to return classes with members only
@@ -23,13 +24,15 @@
 #' @param cluster Character string indicating whether clusters should be 
 #'   clustered hierarchically (`"hierarchical"`) or 
 #'   through convergence of correlations (`"concor"`). 
-#'   This option is available only in `node_structural_equivalence()`.
 #'   Fewer, identifiable letters, e.g. `"c"` for CONCOR, is sufficient.
 #' @param distance Character string indicating which distance metric
 #'   to pass on to `stats::dist`.
 #'   By default `"euclidean"`, but other options include
 #'   `"maximum"`, `"manhattan"`, `"canberra"`, `"binary"`, and `"minkowski"`.
 #'   Fewer, identifiable letters, e.g. `"e"` for Euclidean, is sufficient.
+#' @param range Integer indicating the maximum number of (k) clusters
+#'   to evaluate.
+#'   Ignored when `k = "strict"` or a discrete number is given for `k`.
 #' @importFrom stats as.dist hclust cutree coef cor median
 #' @importFrom sna gcor
 #' @source \url{https://github.com/aslez/concoR}
@@ -40,9 +43,10 @@
 #'    18 (4): 267–276. 
 #'    \doi{10.1007/BF02289263}
 #'
-#' Rousseeuw, P.J. (1987) 
-#'    Silhouettes: A graphical aid to the interpretation and validation of cluster analysis. 
-#'    J. Comput. Appl. Math., 20, 53–65.
+#' Rousseeuw, Peter J. 1987. 
+#'   “Silhouettes: A Graphical Aid to the Interpretation and Validation of Cluster Analysis.” 
+#'   Journal of Computational and Applied Mathematics 20:53–65. 
+#'   \doi{10.1016/0377-0427(87)90125-7}.
 #'
 #' Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.  
 #'   "\href{https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.398.2703&rep=rep1&type=pdf}{An Algorithm for Clustering Relational Data with Applications to 
@@ -53,20 +57,20 @@ NULL
 #' @describeIn equivalence Returns nodes' membership in 
 #'   according to their equivalence with respective to some census/class
 #' @export
-node_equivalence <- function(object, mat,
+node_equivalence <- function(object, census,
                              k = c("strict", "elbow", "silhouette"),
                              cluster = c("hier", "concor"),
                              distance = c("euclidean", "maximum", "manhattan", 
                                           "canberra", "binary", "minkowski"),
-                             range = 8){
+                             range = 8L){
   hc <- switch(match.arg(cluster),
-               hier = cluster_hierarchical(mat, match.arg(distance)),
-               concor = cluster_concor(object, mat))
+               hier = cluster_hierarchical(census, match.arg(distance)),
+               concor = cluster_concor(object, census))
   
   if(!is.numeric(k))
     k <- switch(match.arg(k),
                 strict = k_strict(hc, object),
-                elbow = k_elbow(hc, object, mat, range),
+                elbow = k_elbow(hc, object, census, range),
                 silhouette = k_silhouette(hc, object, range))
   
   out <- make_member(stats::cutree(hc, k), object)
@@ -91,7 +95,7 @@ node_structural_equivalence <- function(object,
                                         cluster = c("hier", "concor"),
                                         distance = c("euclidean", "maximum", "manhattan", 
                                                      "canberra", "binary", "minkowski"),
-                                        range = 8){
+                                        range = 8L){
   mat <- node_tie_census(object)
   if(any(colSums(t(mat))==0)){
     mat <- cbind(mat, (colSums(t(mat))==0))
@@ -113,7 +117,7 @@ node_regular_equivalence <- function(object,
                                      cluster = c("hier", "concor"),
                                      distance = c("euclidean", "maximum", "manhattan", 
                                                   "canberra", "binary", "minkowski"),
-                                     range = 8){
+                                     range = 8L){
   if(is_twomode(object)){
     mat <- as.matrix(node_quad_census(object))
   } else {
@@ -127,9 +131,9 @@ node_regular_equivalence <- function(object,
 #' @describeIn equivalence Returns nodes' membership in 
 #'   automorphically equivalent classes
 #' @examples 
-#' (nae <- node_automorphic_equivalence(mpn_elite_mex, select = "elbow"))
+#' (nae <- node_automorphic_equivalence(mpn_elite_mex, k = "elbow"))
 #' plot(nae)
-#' (nae2 <- node_automorphic_equivalence(mpn_elite_usa_advice, select = "elbow"))
+#' (nae2 <- node_automorphic_equivalence(mpn_elite_usa_advice, k = "elbow"))
 #' plot(nae2)
 #' @export
 node_automorphic_equivalence <- function(object,
@@ -137,7 +141,7 @@ node_automorphic_equivalence <- function(object,
                                          cluster = c("hier", "concor"),
                                          distance = c("euclidean", "maximum", "manhattan", 
                                                       "canberra", "binary", "minkowski"),
-                                         range = 8){
+                                         range = 8L){
   mat <- node_path_census(object)
   node_equivalence(object, mat, 
                    k = k, cluster = cluster, distance = distance)
