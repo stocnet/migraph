@@ -48,12 +48,12 @@ Note that "qap" uses Dekker et al's (2007) double semi-partialling technique,
 whereas "qapy" permutes only the $y$ variable.
 "qap" is the default.}
 
-\item{times}{Integer indicating the number of draws to use for quantile
-estimation. (Relevant to the null hypothesis test only - the analysis
-itself is unaffected by this parameter.)
+\item{times}{Integer indicating number of simulations used for quantile estimation.
+(Relevant to the null hypothesis test only -
+the analysis itself is unaffected by this parameter.)
 Note that, as for all Monte Carlo procedures, convergence is slower for more
 extreme quantiles.
-By default, times=1000.
+By default, \code{times=1000}.
 1,000 - 10,000 repetitions recommended for publication-ready results.}
 
 \item{strategy}{If \code{{furrr}} is installed,

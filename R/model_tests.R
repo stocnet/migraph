@@ -9,7 +9,8 @@
 #'   e.g. the name of the attribute.
 NULL
 
-#' @rdname tests
+#' @describeIn tests Returns test results for some measure on an object
+#'   against a distribution of measures on random networks of the same dimensions
 #' @examples 
 #' marvel_friends <- to_unsigned(ison_marvel_relationships)
 #' marvel_friends <- to_main_component(marvel_friends) %>% 
@@ -58,8 +59,8 @@ test_random <- function(object, FUN, ...,
   class(out) <- "cug_test"
   out
 }
-#' @rdname tests
-#' @importFrom sna rmperm
+#' @describeIn tests Returns test results for some measure on an object
+#'   against a distribution of measures on permutations of the original network
 #' @examples 
 #' (qaptest <- test_permutation(marvel_friends, 
 #'                 graph_ei_index, attribute = "Attractive",

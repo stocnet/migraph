@@ -39,12 +39,12 @@ test_permutation(
 \item{...}{Additional arguments to be passed on to FUN,
 e.g. the name of the attribute.}
 
-\item{times}{Integer indicating the number of draws to use for quantile
-estimation. (Relevant to the null hypothesis test only - the analysis
-itself is unaffected by this parameter.)
+\item{times}{Integer indicating number of simulations used for quantile estimation.
+(Relevant to the null hypothesis test only -
+the analysis itself is unaffected by this parameter.)
 Note that, as for all Monte Carlo procedures, convergence is slower for more
 extreme quantiles.
-By default, times=1000.
+By default, \code{times=1000}.
 1,000 - 10,000 repetitions recommended for publication-ready results.}
 
 \item{strategy}{If \code{{furrr}} is installed,
@@ -63,6 +63,15 @@ See \href{https://progressr.futureverse.org}{\code{{progressr}}} for more.}
 These functions conduct conditional uniform graph (CUG)
 or permutation (QAP) tests of any graph-level statistic.
 }
+\section{Functions}{
+\itemize{
+\item \code{test_random}: Returns test results for some measure on an object
+against a distribution of measures on random networks of the same dimensions
+
+\item \code{test_permutation}: Returns test results for some measure on an object
+against a distribution of measures on permutations of the original network
+}}
+
 \examples{
 marvel_friends <- to_unsigned(ison_marvel_relationships)
 marvel_friends <- to_main_component(marvel_friends) \%>\% 
