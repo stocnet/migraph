@@ -38,7 +38,11 @@
 #'    _Psychometrika_.
 #'    18 (4): 267–276. 
 #'    \doi{10.1007/BF02289263}
-#' 
+#'
+#' Rousseeuw, P.J. (1987) 
+#'    Silhouettes: A graphical aid to the interpretation and validation of cluster analysis. 
+#'    J. Comput. Appl. Math., 20, 53–65.
+#'
 #' Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.  
 #'   "\href{https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.398.2703&rep=rep1&type=pdf}{An Algorithm for Clustering Relational Data with Applications to 
 #'   Social Network Analysis and Comparison with Multidimensional Scaling}". 
@@ -52,15 +56,16 @@ node_equivalence <- function(object, mat,
                              k = c("strict", "elbow", "silhouette"),
                              cluster = c("hier", "concor"),
                              distance = c("euclidean", "maximum", "manhattan", 
-                                          "canberra", "binary", "minkowski")){
+                                          "canberra", "binary", "minkowski"),
+                             range = 8){
   hc <- switch(match.arg(cluster),
                hier = cluster_hierarchical(mat, match.arg(distance)),
                concor = cluster_concor(object, mat))
   
   k <- switch(match.arg(k),
               strict = k_strict(hc, object),
-              elbow = k_elbow(hc, object, mat),
-              silhouette = k_silhouette(hc, object))
+              elbow = k_elbow(hc, object, mat, range),
+              silhouette = k_silhouette(hc, object, range))
   
   out <- make_member(stats::cutree(hc, k), object)
   attr(out, "hc") <- hc
@@ -83,7 +88,8 @@ node_structural_equivalence <- function(object,
                                         k = c("strict", "elbow", "silhouette"),
                                         cluster = c("hier", "concor"),
                                         distance = c("euclidean", "maximum", "manhattan", 
-                                                     "canberra", "binary", "minkowski")){
+                                                     "canberra", "binary", "minkowski"),
+                                        range = 8){
   mat <- node_tie_census(object)
   if(any(colSums(t(mat))==0)){
     mat <- cbind(mat, (colSums(t(mat))==0))
@@ -104,7 +110,8 @@ node_regular_equivalence <- function(object,
                                      k = c("strict", "elbow", "silhouette"),
                                      cluster = c("hier", "concor"),
                                      distance = c("euclidean", "maximum", "manhattan", 
-                                                  "canberra", "binary", "minkowski")){
+                                                  "canberra", "binary", "minkowski"),
+                                     range = 8){
   if(is_twomode(object)){
     mat <- as.matrix(node_quad_census(object))
   } else {
@@ -127,7 +134,8 @@ node_automorphic_equivalence <- function(object,
                                          k = c("strict", "elbow", "silhouette"),
                                          cluster = c("hier", "concor"),
                                          distance = c("euclidean", "maximum", "manhattan", 
-                                                      "canberra", "binary", "minkowski")){
+                                                      "canberra", "binary", "minkowski"),
+                                         range = 8){
   mat <- node_path_census(object)
   node_equivalence(object, mat, 
                    k = k, cluster = cluster, distance = distance)
@@ -139,7 +147,7 @@ k_strict <- function(hc, object){
   k
 }
 
-k_elbow <- function(hc, object, census){
+k_elbow <- function(hc, object, census, range){
   
   clusterCorr <- function(observed_cor_matrix, cluster_vector) {
     num_vertices = nrow(observed_cor_matrix)
@@ -185,7 +193,7 @@ k_elbow <- function(hc, object, census){
 
   resultlist <- list()
   correlations <- vector()
-  for (i in 2:(vertices)) {
+  for (i in 2:min(range, vertices)) {
     cluster_result <- list(label = NA, clusters = NA, correlation = NA)
     cluster_result$label <- paste("number of clusters: ", 
                                   i)
@@ -199,16 +207,16 @@ k_elbow <- function(hc, object, census){
   }
   
   resultlist$correlations <- c(correlations)
-  dafr <- data.frame(clusters = 2:(vertices), correlations = c(correlations))
-  # resultlist
+  dafr <- data.frame(clusters = 2:min(range, vertices), 
+                     correlations = c(correlations))
   correct <- NULL # to satisfy the error god
   
   # k identification method
   elbow_finder(dafr$clusters, dafr$correlations)
 }
 
-k_silhouette <- function(hc, object){
-  kcs <- 2:(graph_nodes(object))
+k_silhouette <- function(hc, object, range){
+  kcs <- 2:min(range, graph_nodes(object))
   ns <- seq_len(graph_nodes(object))
   distances <- hc$distances
   ks <- vector()

@@ -16,28 +16,32 @@ node_equivalence(
   mat,
   k = c("strict", "elbow", "silhouette"),
   cluster = c("hier", "concor"),
-  distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski")
+  distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
+  range = 8
 )
 
 node_structural_equivalence(
   object,
   k = c("strict", "elbow", "silhouette"),
   cluster = c("hier", "concor"),
-  distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski")
+  distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
+  range = 8
 )
 
 node_regular_equivalence(
   object,
   k = c("strict", "elbow", "silhouette"),
   cluster = c("hier", "concor"),
-  distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski")
+  distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
+  range = 8
 )
 
 node_automorphic_equivalence(
   object,
   k = c("strict", "elbow", "silhouette"),
   cluster = c("hier", "concor"),
-  distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski")
+  distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
+  range = 8
 )
 }
 \arguments{
@@ -118,6 +122,10 @@ Thorndike, Robert L. 1953.
 \emph{Psychometrika}.
 18 (4): 267–276.
 \doi{10.1007/BF02289263}
+
+Rousseeuw, P.J. (1987)
+Silhouettes: A graphical aid to the interpretation and validation of cluster analysis.
+J. Comput. Appl. Math., 20, 53–65.
 
 Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.
 "\href{https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.398.2703&rep=rep1&type=pdf}{An Algorithm for Clustering Relational Data with Applications to
