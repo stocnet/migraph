@@ -24,9 +24,9 @@ create_tree(n, directed = FALSE, width = 2)
 
 create_lattice(n, directed = FALSE)
 
-create_components(n, components = 2)
+create_components(n, membership = NULL)
 
-create_core(n, width = 0.5)
+create_core(n, membership = NULL)
 }
 \arguments{
 \item{n}{Given:
@@ -49,8 +49,6 @@ or a proportion indicating how many nodes in a mode should
 be part of the core.}
 
 \item{...}{Additional arguments passed on to igraph.}
-
-\item{components}{Number of components to divide the nodes into.}
 }
 \value{
 By default an igraph object will be returned,
@@ -105,8 +103,10 @@ autographr(create_tree(15, directed = TRUE, width = 3), "tree")
 autographr(create_lattice(5), layout = "kk") +
 autographr(create_lattice(c(5,5))) +
 autographr(create_lattice(c(5,5,5)))
-autographr(create_components(c(10, 12), components = 3))
+autographr(create_components(10, membership = c(1,1,1,2,2,2,3,3,3,3)))
+autographr(create_components(c(10, 12)))
 autographr(create_core(6)) +
+autographr(create_core(6, membership = c(1,1,1,1,2,2))) +
 autographr(create_core(c(6,6)))
 }
 \seealso{

@@ -35,22 +35,37 @@
 #' @importFrom igraph graph_from_incidence_matrix
 NULL
 
+infer_n <- function(n){
+  if(is_migraph(n)) n <- graph_dims(n)
+  if(length(n)>2) stop(paste("`n` should be a single integer for a one-mode network or", 
+                             "a vector of two integers for a two-mode network."))
+  n
+}
+
+infer_membership <- function(n, membership){
+  if(is.null(membership)){
+    if(length(n)>1){
+      membership <- c(sort(abs(seq_len(n[1]) %% 2 -2)), 
+                      sort(abs(seq_len(n[2]) %% 2 -2)))
+    } else membership <- sort(abs(seq_len(n) %% 2 -2))
+  }
+  membership
+}
+
 #' @describeIn create Creates an empty graph of the given dimensions.
 #' @examples
 #' autographr(create_empty(10)) + autographr(create_complete(10))
 #' autographr(create_empty(c(8,6))) + autographr(create_complete(c(8,6)))
 #' @export
 create_empty <- function(n) {
-  if(is_migraph(n)){
-    n <- graph_dims(n)
-  }
+  n <- infer_n(n)
   if (length(n) == 1) {
     out <- matrix(0, n, n)
     out <- igraph::graph_from_adjacency_matrix(out)
   } else if (length(n) == 2) {
     out <- matrix(0, n[1], n[2])
     out <- igraph::graph_from_incidence_matrix(out)
-  } else stop("`n` should be a single integer, a vector of two integers for a two-mode network.")
+  } 
   out
 }
 
@@ -58,9 +73,7 @@ create_empty <- function(n) {
 #'   with every possible tie realised. 
 #' @export
 create_complete <- function(n, directed = FALSE) {
-  if(is_migraph(n)){
-    n <- graph_dims(n)
-  }
+  n <- infer_n(n)
   if (length(n) == 1) {
     out <- matrix(1, n, n)
     diag(out) <- 0
@@ -70,7 +83,7 @@ create_complete <- function(n, directed = FALSE) {
   } else if (length(n) == 2) {
     out <- matrix(1, n[1], n[2])
     out <- igraph::graph_from_incidence_matrix(out)
-  } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
+  }
 }
 
 #' @describeIn create Creates a ring or chord graph of the given dimensions
@@ -80,9 +93,13 @@ create_complete <- function(n, directed = FALSE) {
 #' autographr(create_ring(c(8,6), width = 2))
 #' @export
 create_ring <- function(n, width = 1, directed = FALSE, ...) {
-  if(is_migraph(n)){
-    n <- graph_dims(n)
+  n <- infer_n(n)
+  
+  # Helper function
+  roll_over <- function(w) {
+    cbind(w[, ncol(w)], w[, 1:(ncol(w) - 1)])
   }
+  
   if (length(n) == 1) {
     if (width == 1) {
      out <- igraph::make_ring(n, directed, ...)
@@ -123,7 +140,7 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
       }
     }
     out <- igraph::graph_from_incidence_matrix(mat)
-  } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
+  }
 
   out
 }
@@ -139,9 +156,7 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
 create_star <- function(n, 
                         directed = FALSE) {
   
-  if(is_migraph(n)){
-    n <- graph_dims(n)
-  }
+  n <- infer_n(n)
   if (length(n) == 1) {
     out <- igraph::make_star(n, 
                              mode = ifelse(directed, "out", "undirected"))
@@ -153,13 +168,8 @@ create_star <- function(n,
       out[, 1] <- 1
     }
     out <- igraph::graph_from_incidence_matrix(out)
-  } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
+  }
   out
-}
-
-# Helper function
-roll_over <- function(w) {
-  cbind(w[, ncol(w)], w[, 1:(ncol(w) - 1)])
 }
 
 #' @describeIn create Creates a graph of the given dimensions with successive branches.
@@ -172,9 +182,7 @@ roll_over <- function(w) {
 create_tree <- function(n, 
                         directed = FALSE, 
                         width = 2) {
-  if(is_migraph(n)){
-    n <- graph_dims(n)
-  }
+  n <- infer_n(n)
   if(length(n)>1) stop("`create_tree()` not yet implemented for two-mode networks")
   igraph::make_tree(sum(n), children = width, 
                     mode = ifelse(directed, "out", "undirected"))
@@ -189,42 +197,30 @@ create_tree <- function(n,
 #' @export
 create_lattice <- function(n, 
                            directed = FALSE) {
-  if(is_migraph(n)){
-    n <- graph_dims(n)
-  }
+  n <- infer_n(n)
   igraph::make_lattice(n, directed = directed)
 }
 
 #' @describeIn create Creates a graph in which the nodes are clustered
-#' into separate components.
-#' @param components Number of components to divide the nodes into.
+#'   into separate components.
 #' @examples
-#' autographr(create_components(c(10, 12), components = 3))
+#' autographr(create_components(10, membership = c(1,1,1,2,2,2,3,3,3,3)))
+#' autographr(create_components(c(10, 12)))
 #' @export
-create_components <- function(n, components = 2) {
-  if(is_migraph(n)){
-    n <- graph_dims(n)
-  }
+create_components <- function(n, membership = NULL) {
+  n <- infer_n(n)
+  membership <- infer_membership(n, membership)
   if (length(n) == 1) {
-    if (components > n) stop("Cannot have more components than nodes in the graph.")
     out <- matrix(0, n, n)
-    for (x in split(1:n, sort(1:n %% components))) {
-      out[x, x] <- 1
-    }
+    for(x in unique(membership)) out[membership == x, membership == x] <- 1
     diag(out) <- 0
-    out <- igraph::graph_from_adjacency_matrix(out)
+    out <- as_igraph(out)
   } else if (length(n) == 2) {
-    if (components > n[1] | components > n[2]) {
-      stop("Cannot have more components than nodes in any nodeset.")
-    }
     out <- matrix(0, n[1], n[2])
-    for (x in 1:components) {
-      rows <- split(1:n[1], sort(1:n[1] %% components))[[x]]
-      cols <- split(1:n[2], sort(1:n[2] %% components))[[x]]
-      out[rows, cols] <- 1
-    }
-    out <- igraph::graph_from_incidence_matrix(out)
-  } else stop("`n` should be a single integer for a one-mode network or a vector of two integers for a two-mode network.")
+    for(x in unique(membership)) out[membership[1:n[1]] == x, 
+                                     membership[(n[1]+1):length(membership)] == x] <- 1
+    out <- as_igraph(out, twomode = TRUE)
+  }
   out
 }
 
@@ -233,19 +229,21 @@ create_components <- function(n, components = 2) {
 #'   and the rest peripheral, tied only to the core.
 #' @examples
 #' autographr(create_core(6)) +
+#' autographr(create_core(6, membership = c(1,1,1,1,2,2))) +
 #' autographr(create_core(c(6,6)))
 #' @export
-create_core <- function(n, width = 0.5) {
-  if(is_migraph(n)) n <- graph_dims(n)
+create_core <- function(n, membership = NULL){
+  n <- infer_n(n)
+  membership <- infer_membership(membership)
   if(length(n)>1){
     mat <- matrix(0, n[1], n[2])
-    mat[1:round(width*n[1]),] <- 1
-    mat[,1:round(width*n[2])] <- 1
+    mat[membership[1:n[1]]==1,] <- 1
+    mat[,membership[(n[1]+1):n[2]]==1] <- 1
     as_igraph(mat, twomode = TRUE)
   } else {
     mat <- matrix(0, n, n)
-    mat[1:round(width*n),] <- 1
-    mat[,1:round(width*n)] <- 1
+    mat[membership==1,] <- 1
+    mat[,membership==1] <- 1
     diag(mat) <- 0
     as_igraph(mat)
   }
