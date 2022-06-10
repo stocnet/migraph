@@ -25,7 +25,6 @@ test_that("component creation works", {
   expect_equal(unname(as_matrix(create_components(4))), matrix(c(0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0),4,4))
   expect_equal(unname(as_matrix(create_components(c(2,4)))), matrix(c(1,0,1,0,0,1,0,1),2,4))
   expect_error(create_components(c(5,5,5)), "single integer")
-  expect_error(create_components(5, components = 6), "more components than nodes")
 })
 
 test_that("star creation works", {

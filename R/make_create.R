@@ -234,11 +234,11 @@ create_components <- function(n, membership = NULL) {
 #' @export
 create_core <- function(n, membership = NULL){
   n <- infer_n(n)
-  membership <- infer_membership(membership)
+  membership <- infer_membership(n, membership)
   if(length(n)>1){
     mat <- matrix(0, n[1], n[2])
     mat[membership[1:n[1]]==1,] <- 1
-    mat[,membership[(n[1]+1):n[2]]==1] <- 1
+    mat[,membership[(n[1]+1):length(membership)]==1] <- 1
     as_igraph(mat, twomode = TRUE)
   } else {
     mat <- matrix(0, n, n)
