@@ -54,14 +54,15 @@ node_automorphic_equivalence(
 \item tbl_graph, from the tidygraph package
 }}
 
-\item{k}{Character string indicating which method
-should be used to select the number of clusters to cut
-the tree at.
+\item{k}{Typically a character string indicating which method
+should be used to select the number of clusters to return.
 By default \code{"strict"} to return classes with members only
 when strictly equivalent.
 Other options (\code{"elbow"} and \code{"silhouette"}) relax this strict assumption,
 generally providing more useful results.
-Fewer, identifiable letters, e.g. \code{"e"} for elbow, is sufficient.}
+Fewer, identifiable letters, e.g. \code{"e"} for elbow, is sufficient.
+Alternatively, if \code{k} is passed an integer, e.g. \code{k = 3},
+then all selection routines are skipped in favour of this number of clusters.}
 
 \item{cluster}{Character string indicating whether clusters should be
 clustered hierarchically (\code{"hierarchical"}) or

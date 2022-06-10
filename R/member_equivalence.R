@@ -11,14 +11,15 @@
 #' @name equivalence
 #' @family membership
 #' @inheritParams is
-#' @param k Character string indicating which method
-#'   should be used to select the number of clusters to cut
-#'   the tree at.
+#' @param k Typically a character string indicating which method
+#'   should be used to select the number of clusters to return.
 #'   By default `"strict"` to return classes with members only
 #'   when strictly equivalent.
 #'   Other options (`"elbow"` and `"silhouette"`) relax this strict assumption,
 #'   generally providing more useful results.
 #'   Fewer, identifiable letters, e.g. `"e"` for elbow, is sufficient.
+#'   Alternatively, if `k` is passed an integer, e.g. `k = 3`,
+#'   then all selection routines are skipped in favour of this number of clusters.
 #' @param cluster Character string indicating whether clusters should be 
 #'   clustered hierarchically (`"hierarchical"`) or 
 #'   through convergence of correlations (`"concor"`). 
@@ -62,10 +63,11 @@ node_equivalence <- function(object, mat,
                hier = cluster_hierarchical(mat, match.arg(distance)),
                concor = cluster_concor(object, mat))
   
-  k <- switch(match.arg(k),
-              strict = k_strict(hc, object),
-              elbow = k_elbow(hc, object, mat, range),
-              silhouette = k_silhouette(hc, object, range))
+  if(!is.numeric(k))
+    k <- switch(match.arg(k),
+                strict = k_strict(hc, object),
+                elbow = k_elbow(hc, object, mat, range),
+                silhouette = k_silhouette(hc, object, range))
   
   out <- make_member(stats::cutree(hc, k), object)
   attr(out, "hc") <- hc
