@@ -1,8 +1,54 @@
 #' Network/topological features
 #' @inheritParams is
+#' @param membership A vector of partition membership.
 #' @name features
 #' @family measures
 NULL
+
+
+#' @describeIn features Returns correlation between a given network
+#'   and a component model with the same dimensions.
+#' @examples 
+#' graph_factions(ison_adolescents)
+#' graph_factions(ison_southern_women)
+#' @export
+graph_factions <- function(object,
+                       membership = NULL){
+  out <- stats::cor(c(as_matrix(object)), 
+                    c(as_matrix(create_components(object,
+                                                  membership = membership))))
+  make_graph_measure(out, object)
+}
+
+#' @describeIn features Returns modularity of one- or two-mode networks
+#'    based on nodes' membership in pre-defined clusters. 
+#' @param resolution A proportion indicating the resolution scale.
+#'   By default 1.
+#' @examples 
+#' graph_modularity(ison_adolescents, 
+#'   node_kernighanlin(ison_adolescents))
+#' graph_modularity(ison_southern_women, 
+#'   node_kernighanlin(ison_southern_women))
+#' @references 
+#' Murata, Tsuyoshi. 2010. Modularity for Bipartite Networks. 
+#' In: Memon, N., Xu, J., Hicks, D., Chen, H. (eds) 
+#' _Data Mining for Social Network Data. Annals of Information Systems_, vol 12. 
+#' Springer, Boston, MA. 
+#' \doi{10.1007/978-1-4419-6287-4_7}
+#' @export
+graph_modularity <- function(object, 
+                             membership = NULL, 
+                             resolution = 1){
+  if(!is_graph(object)) object <- as_igraph(object)
+  if(is_twomode(object)){
+    make_graph_measure(igraph::modularity(to_multilevel(object), 
+                                          membership = membership,
+                                          resolution = resolution), object)
+  } else make_graph_measure(igraph::modularity(object, 
+                                               membership = membership,
+                                               resolution = resolution),
+                            object)
+}
 
 #' @describeIn features Returns small-world metrics for one- and 
 #'    two-mode networks. 
@@ -52,6 +98,47 @@ graph_smallworld <- function(object, times = 100) {
 #' @export
 graph_balance <- function(object) {
   
+  count_signed_triangles <- function(object){
+    g <- as_igraph(object)
+    if (!"sign" %in% igraph::edge_attr_names(g)) {
+      stop("network does not have a sign edge attribute")
+    }
+    if (igraph::is.directed(g)) {
+      stop("g must be undirected")
+    }
+    eattrV <- igraph::get.edge.attribute(g, "sign")
+    if (!all(eattrV %in% c(-1, 1))) {
+      stop("sign may only contain -1 and 1")
+    }
+    tmat <- t(matrix(igraph::triangles(g), nrow = 3))
+    if (nrow(tmat) == 0) {
+      warning("g does not contain any triangles")
+      return(c(`+++` = 0, `++-` = 0, `+--` = 0, `---` = 0))
+    }
+    emat <- t(apply(tmat, 1, function(x) c(igraph::get.edge.ids(g, 
+                                                                x[1:2]), igraph::get.edge.ids(g, x[2:3]), igraph::get.edge.ids(g, 
+                                                                                                                               x[c(3, 1)]))))
+    emat[, 1] <- eattrV[emat[, 1]]
+    emat[, 2] <- eattrV[emat[, 2]]
+    emat[, 3] <- eattrV[emat[, 3]]
+    emat <- t(apply(emat, 1, sort))
+    emat_df <- as.data.frame(emat)
+    res <- stats::aggregate(list(count = rep(1, nrow(emat_df))), 
+                            emat_df, length)
+    tri_counts <- c(`+++` = 0, `++-` = 0, `+--` = 0, `---` = 0)
+    tmp_counts <- res[, 4]
+    if (nrow(res) == 1) {
+      names(tmp_counts) <- paste0(c("+", "-")[(rev(res[1:3]) == 
+                                                 -1) + 1], collapse = "")
+    }
+    else {
+      names(tmp_counts) <- apply(res[, 1:3], 1, function(x) paste0(c("+", 
+                                                                     "-")[(rev(x) == -1) + 1], collapse = ""))
+    }
+    tri_counts[match(names(tmp_counts), names(tri_counts))] <- tmp_counts
+    tri_counts
+  }
+  
   if (!is_signed(object)) {
     stop("network does not have a sign edge attribute")
   }
@@ -66,76 +153,4 @@ graph_balance <- function(object) {
   tria_count <- count_signed_triangles(g)
   make_graph_measure(unname((tria_count["+++"] + tria_count["+--"])/sum(tria_count)),
                      object)
-}
-
-count_signed_triangles <- function(object){
-  g <- as_igraph(object)
-  if (!"sign" %in% igraph::edge_attr_names(g)) {
-    stop("network does not have a sign edge attribute")
-  }
-  if (igraph::is.directed(g)) {
-    stop("g must be undirected")
-  }
-  eattrV <- igraph::get.edge.attribute(g, "sign")
-  if (!all(eattrV %in% c(-1, 1))) {
-    stop("sign may only contain -1 and 1")
-  }
-  tmat <- t(matrix(igraph::triangles(g), nrow = 3))
-  if (nrow(tmat) == 0) {
-    warning("g does not contain any triangles")
-    return(c(`+++` = 0, `++-` = 0, `+--` = 0, `---` = 0))
-  }
-  emat <- t(apply(tmat, 1, function(x) c(igraph::get.edge.ids(g, 
-                                                              x[1:2]), igraph::get.edge.ids(g, x[2:3]), igraph::get.edge.ids(g, 
-                                                                                                                             x[c(3, 1)]))))
-  emat[, 1] <- eattrV[emat[, 1]]
-  emat[, 2] <- eattrV[emat[, 2]]
-  emat[, 3] <- eattrV[emat[, 3]]
-  emat <- t(apply(emat, 1, sort))
-  emat_df <- as.data.frame(emat)
-  res <- stats::aggregate(list(count = rep(1, nrow(emat_df))), 
-                          emat_df, length)
-  tri_counts <- c(`+++` = 0, `++-` = 0, `+--` = 0, `---` = 0)
-  tmp_counts <- res[, 4]
-  if (nrow(res) == 1) {
-    names(tmp_counts) <- paste0(c("+", "-")[(rev(res[1:3]) == 
-                                               -1) + 1], collapse = "")
-  }
-  else {
-    names(tmp_counts) <- apply(res[, 1:3], 1, function(x) paste0(c("+", 
-                                                                   "-")[(rev(x) == -1) + 1], collapse = ""))
-  }
-  tri_counts[match(names(tmp_counts), names(tri_counts))] <- tmp_counts
-  tri_counts
-}
-
-#' @describeIn features Returns modularity of one- or two-mode networks
-#'    based on nodes' membership in pre-defined clusters. 
-#' @param membership A vector of partition membership
-#' @param resolution A proportion indicating the resolution scale.
-#'   By default 1.
-#' @examples 
-#' graph_modularity(ison_adolescents, 
-#'   node_kernighanlin(ison_adolescents))
-#' graph_modularity(ison_southern_women, 
-#'   node_kernighanlin(ison_southern_women))
-#' @references 
-#' Murata, Tsuyoshi. 2010. Modularity for Bipartite Networks. 
-#' In: Memon, N., Xu, J., Hicks, D., Chen, H. (eds) 
-#' _Data Mining for Social Network Data. Annals of Information Systems_, vol 12. 
-#' Springer, Boston, MA. 
-#' \doi{10.1007/978-1-4419-6287-4_7}
-#' @export
-graph_modularity <- function(object, 
-                             membership = NULL, 
-                             resolution = 1){
-  if(!is_graph(object)) object <- as_igraph(object)
-  if(is_twomode(object)){
-    make_graph_measure(igraph::modularity(to_multilevel(object), 
-                       membership = membership,
-                       resolution = resolution), object)
-  } else make_graph_measure(igraph::modularity(object, 
-                            membership = membership,
-                            resolution = resolution),
-                            object)
 }

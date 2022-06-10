@@ -2,19 +2,23 @@
 % Please edit documentation in R/measure_features.R
 \name{features}
 \alias{features}
+\alias{graph_factions}
+\alias{graph_modularity}
 \alias{graph_smallworld}
 \alias{graph_balance}
-\alias{graph_modularity}
 \title{Network/topological features}
 \source{
 \code{{signnet}} by David Schoch
 }
 \usage{
+
+graph_factions(object, membership = NULL)
+
+graph_modularity(object, membership = NULL, resolution = 1)
+
 graph_smallworld(object, times = 100)
 
 graph_balance(object)
-
-graph_modularity(object, membership = NULL, resolution = 1)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -26,18 +30,25 @@ graph_modularity(object, membership = NULL, resolution = 1)
 \item tbl_graph, from the tidygraph package
 }}
 
-\item{times}{Integer of number of simulations.}
-
-\item{membership}{A vector of partition membership}
+\item{membership}{A vector of partition membership.}
 
 \item{resolution}{A proportion indicating the resolution scale.
 By default 1.}
+
+\item{times}{Integer of number of simulations.}
 }
 \description{
 Network/topological features
 }
 \section{Functions}{
 \itemize{
+
+\item \code{graph_factions}: Returns correlation between a given network
+and a component model with the same dimensions.
+
+\item \code{graph_modularity}: Returns modularity of one- or two-mode networks
+based on nodes' membership in pre-defined clusters.
+
 \item \code{graph_smallworld}: Returns small-world metrics for one- and
 two-mode networks.
 Small-world networks can be highly clustered and yet
@@ -47,30 +58,30 @@ have short path lengths.
 the proportion of balanced triangles,
 ranging between \code{0} if all triangles are imbalanced and
 \code{1} if all triangles are balanced.
-
-\item \code{graph_modularity}: Returns modularity of one- or two-mode networks
-based on nodes' membership in pre-defined clusters.
 }}
 
 \examples{
-graph_smallworld(ison_brandes)
-graph_smallworld(ison_southern_women)
-graph_balance(ison_marvel_relationships)
+graph_factions(ison_adolescents)
+graph_factions(ison_southern_women)
 graph_modularity(ison_adolescents, 
   node_kernighanlin(ison_adolescents))
 graph_modularity(ison_southern_women, 
   node_kernighanlin(ison_southern_women))
+graph_smallworld(ison_brandes)
+graph_smallworld(ison_southern_women)
+graph_balance(ison_marvel_relationships)
 }
 \references{
-Watts, Duncan J., and Steven H. Strogatz. 1998.
-“Collective Dynamics of ‘Small-World’ Networks.”
-\emph{Nature} 393(6684):440–42.
 
 Murata, Tsuyoshi. 2010. Modularity for Bipartite Networks.
 In: Memon, N., Xu, J., Hicks, D., Chen, H. (eds)
 \emph{Data Mining for Social Network Data. Annals of Information Systems}, vol 12.
 Springer, Boston, MA.
 \doi{10.1007/978-1-4419-6287-4_7}
+
+Watts, Duncan J., and Steven H. Strogatz. 1998.
+“Collective Dynamics of ‘Small-World’ Networks.”
+\emph{Nature} 393(6684):440–42.
 }
 \seealso{
 \code{\link[=graph_transitivity]{graph_transitivity()}} and \code{\link[=graph_equivalency]{graph_equivalency()}}
