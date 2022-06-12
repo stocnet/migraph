@@ -44,6 +44,11 @@ if integer greater than 1, the number of edges in the network.}
 \item{with_attr}{Logical. Whether any attributes of the object
 should be retained. By default TRUE.}
 }
+\value{
+By default an \code{igraph} object is returned,
+but this can be coerced into other types of objects
+using \code{as_matrix()}, \code{as_tidygraph()}, or \code{as_network()}.
+}
 \description{
 These functions are similar to the \verb{create_*} functions,
 but include some element of randomisation.
@@ -82,6 +87,11 @@ Erdős, Paul, and Alfréd Rényi. (1959). "\href{https://www.renyi.hu/~p_erdos/1
 Watts, Duncan J., and Steven H. Strogatz. 1998.
 “Collective Dynamics of ‘Small-World’ Networks.”
 \emph{Nature} 393(6684):440–42.
+
+Barabási, Albert-László, and Réka Albert. 1999.
+“Emergence of Scaling in Random Networks.”
+\emph{Science} 286(5439):509–12.
+\doi{10.1126/science.286.5439.509}.
 }
 \seealso{
 \link{as}

@@ -2,12 +2,21 @@
 #' 
 #' @description 
 #'   These functions create networks with particular structural properties.
-#'   They can create either one-mode or two-mode networks,
-#'   depending on whether the common `n` argument
-#'   is passed a single integer (the number of nodes in the one-mode network)
-#'   or a vector of \emph{two} integers to return a two-mode network
-#'   (the first integer indicates the number of nodes in the first mode,
-#'   the second integer indicates the number of nodes in the second mode).
+#'   They can create either one-mode or two-mode networks.
+#'   To create a one-mode network, pass the main argument `n` a single integer,
+#'   indicating the number of nodes in the network.
+#'   To create a two-mode network, pass `n` a vector of \emph{two} integers, 
+#'   where the first integer indicates the number of nodes in the first mode,
+#'   and the second integer indicates the number of nodes in the second mode.
+#'   As an alternative, an existing network can be provided to `n`
+#'   and the number of modes and nodes will be inferred.
+#'   
+#'   By default, all networks are created as undirected.
+#'   This can be overruled with the argument `directed = TRUE`.
+#'   This will return a directed network in which the arcs are 
+#'   out-facing or equivalent.
+#'   This direction can be swapped using `to_redirected()`.
+#'   In two-mode networks, this is ignored.
 #' @name create
 #' @family makes
 #' @seealso [as]
@@ -24,33 +33,17 @@
 #'   By default FALSE. 
 #'   If the opposite direction is desired, use `to_redirected()`.
 #' @param width Either an integer specifying the width or breadth
-#'   of the ring or branches,
-#'   or a proportion indicating how many nodes in a mode should
-#'   be part of the core.
+#'   of the ring or branches.
+#' @param membership A vector of partition membership as integers.
+#'   If left as `NULL` (the default), nodes in each mode will be
+#'   assigned to two, equally sized partitions. 
 #' @param ... Additional arguments passed on to igraph.
-#' @return By default an igraph object will be returned,
+#' @return By default an `igraph` object is returned,
 #'   but this can be coerced into other types of objects
 #'   using `as_matrix()`, `as_tidygraph()`, or `as_network()`.
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
 NULL
-
-infer_n <- function(n){
-  if(is_migraph(n)) n <- graph_dims(n)
-  if(length(n)>2) stop(paste("`n` should be a single integer for a one-mode network or", 
-                             "a vector of two integers for a two-mode network."))
-  n
-}
-
-infer_membership <- function(n, membership){
-  if(is.null(membership)){
-    if(length(n)>1){
-      membership <- c(sort(abs(seq_len(n[1]) %% 2 -2)), 
-                      sort(abs(seq_len(n[2]) %% 2 -2)))
-    } else membership <- sort(abs(seq_len(n) %% 2 -2))
-  }
-  membership
-}
 
 #' @describeIn create Creates an empty graph of the given dimensions.
 #' @examples
@@ -64,7 +57,7 @@ create_empty <- function(n) {
     out <- igraph::graph_from_adjacency_matrix(out)
   } else if (length(n) == 2) {
     out <- matrix(0, n[1], n[2])
-    out <- igraph::graph_from_incidence_matrix(out)
+    out <- as_igraph(out, twomode = TRUE)
   } 
   out
 }
@@ -82,7 +75,7 @@ create_complete <- function(n, directed = FALSE) {
                                                       "directed", "undirected"))
   } else if (length(n) == 2) {
     out <- matrix(1, n[1], n[2])
-    out <- igraph::graph_from_incidence_matrix(out)
+    out <- as_igraph(out, twomode = TRUE)
   }
 }
 
@@ -139,7 +132,7 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
         mat <- mat + w
       }
     }
-    out <- igraph::graph_from_incidence_matrix(mat)
+    out <- as_igraph(mat, twomode = TRUE)
   }
 
   out
@@ -167,7 +160,7 @@ create_star <- function(n,
     } else {
       out[, 1] <- 1
     }
-    out <- igraph::graph_from_incidence_matrix(out)
+    out <- as_igraph(out, twomode = TRUE)
   }
   out
 }
@@ -175,7 +168,7 @@ create_star <- function(n,
 #' @describeIn create Creates a graph of the given dimensions with successive branches.
 #' @importFrom igraph make_tree
 #' @examples
-#' autographr(create_tree(15, directed = TRUE)) + 
+#' autographr(create_tree(c(7,8), directed = TRUE)) + 
 #' autographr(create_tree(15, directed = TRUE), "tree") + 
 #' autographr(create_tree(15, directed = TRUE, width = 3), "tree")
 #' @export
@@ -183,8 +176,30 @@ create_tree <- function(n,
                         directed = FALSE, 
                         width = 2) {
   n <- infer_n(n)
-  if(length(n)>1) stop("`create_tree()` not yet implemented for two-mode networks")
-  igraph::make_tree(sum(n), children = width, 
+  if(length(n)>1){
+    out <- matrix(0, n[1], n[2])
+    avail1 <- 1:n[1]
+    avail2 <- 1:n[2]
+    on1 <- 1
+    avail1 <- avail1[avail1 != on1]
+    while(length(avail1)>0 & length(avail2)>0){
+      on2 <- vector()
+      for(i in on1){
+        matches <- avail2[1:width]
+        out[i, matches] <- 1
+        on2 <- c(on2, matches)
+        suppressWarnings(avail2 <- avail2[avail2 != matches])
+      }
+      on1 <- vector()
+      for(j in on2){
+        matches <- avail1[1:width]
+        out[matches, j] <- 1
+        on1 <- c(on1, matches)
+        suppressWarnings(avail1 <- avail1[avail1 != matches])
+      }
+    }
+    as_igraph(out, twomode = TRUE)
+  } else igraph::make_tree(sum(n), children = width, 
                     mode = ifelse(directed, "out", "undirected"))
 }
 
@@ -250,59 +265,54 @@ create_core <- function(n, membership = NULL){
 }
 
 # #' @rdname create
-#' #' @details Creates a nested two-mode network.
-#' #' Will construct an affiliation matrix,
-#' #' with decreasing fill across n2.
-#' #' @importFrom tidygraph as_tbl_graph
-#' #' @importFrom igraph graph_from_incidence_matrix
-#' #' @examples
-#' #' create_nest(10, 12)
-#' #' @export
-#' create_nest <- function(n1, n2,
-#'                         as = c("tidygraph", "igraph", "matrix")) {
-#' 
-#'   as <- match.arg(as)
-#' 
-#'   out <- matrix(0, n1, n2)
-#'   out[(row(out) - col(out)) >= 0] <- 1
-#' 
-#'   if(as == "tidygraph") out <- tidygraph::as_tbl_graph(out)
-#'   if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
-#'   out
-#' }
-#' 
-#' # mat.dist <- matrix(0,5,3)
-#' # mat.dist[1:2,1] <- 1
-#' # mat.dist[,2] <- 1
-#' # mat.dist[4:5,3] <- 1
-#' #
-#' # # mat.part <- matrix(0,5,5)
-#' # # mat.part[1:3,1] <- 1
-#' # # mat.part[1:2,2] <- 1
-#' # # mat.part[4:5,3] <- 1
-#' # # mat.part[4:5,4] <- 1
-#' # # mat.part[3,5] <- 1
-#' # #
-#' # mat.part <- mat.dist
-#' # mat.part[2,1] <- 0
-#' # mat.part[1,2] <- 0
-#' # mat.part[4,3] <- 0
-#' #
-#' # mat.side <- matrix(0,4,4)
-#' # mat.side[1:4,1] <- 1
-#' # mat.side[1,2] <- 1
-#' # mat.side[2,3] <- 1
-#' # mat.side[3,4] <- 1
-#' #
-#' # mat.core <- matrix(0,4,4)
-#' # mat.core[1:4,1] <- 1
-#' # mat.core[1:2,2] <- 1
-#' # mat.core[3:4,3] <- 1
-#' # mat.core[1:2,4] <- 1
-#' #
-#' # mat.hier <- matrix(0,4,4)
-#' # mat.hier[1:4,1] <- 1
-#' # mat.hier[1:2,2] <- 1
-#' # mat.hier[1:2,3] <- 1
-#' # mat.hier[3:4,4] <- 1
+# #' @details Creates a nested two-mode network.
+# #' Will construct an affiliation matrix,
+# #' with decreasing fill across n2.
+# #' @importFrom tidygraph as_tbl_graph
+# #' @importFrom igraph graph_from_incidence_matrix
+# #' @examples
+# #' create_nest(10, 12)
+# #' @export
+# create_nest <- function(n1, n2,
+#                         as = c("tidygraph", "igraph", "matrix")) {
+# 
+#   as <- match.arg(as)
+# 
+#   out <- matrix(0, n1, n2)
+#   out[(row(out) - col(out)) >= 0] <- 1
+# 
+#   if(as == "tidygraph") out <- tidygraph::as_tbl_graph(out)
+#   if(as == "igraph") out <- igraph::graph_from_incidence_matrix(out)
+#   out
+# }
+# 
+# # mat.dist <- matrix(0,5,3)
+# # mat.dist[1:2,1] <- 1
+# # mat.dist[,2] <- 1
+# # mat.dist[4:5,3] <- 1
+# #
+# # mat.hier <- matrix(0,4,4)
+# # mat.hier[1:4,1] <- 1
+# # mat.hier[1:2,2] <- 1
+# # mat.hier[1:2,3] <- 1
+# # mat.hier[3:4,4] <- 1
+
+# Helper functions ------------------
+
+infer_n <- function(n){
+  if(is_migraph(n)) n <- graph_dims(n)
+  if(length(n)>2) stop(paste("`n` should be a single integer for a one-mode network or", 
+                             "a vector of two integers for a two-mode network."))
+  n
+}
+
+infer_membership <- function(n, membership){
+  if(is.null(membership)){
+    if(length(n)>1){
+      membership <- c(sort(abs(seq_len(n[1]) %% 2 -2)), 
+                      sort(abs(seq_len(n[2]) %% 2 -2)))
+    } else membership <- sort(abs(seq_len(n) %% 2 -2))
+  }
+  membership
+}
 

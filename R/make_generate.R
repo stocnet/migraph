@@ -12,6 +12,9 @@
 #' @param p Proportion of possible edges in the network that are realised or,
 #'   if integer greater than 1, the number of edges in the network.
 #' @param directed Whether to generate network as directed. By default FALSE.
+#' @return By default an `igraph` object is returned,
+#'   but this can be coerced into other types of objects
+#'   using `as_matrix()`, `as_tidygraph()`, or `as_network()`.
 NULL
 
 #' @describeIn generate Generates a random network with a particular probability.
@@ -86,6 +89,11 @@ generate_smallworld <- function(n, p = 0.05) {
 #' @describeIn generate Generates a scale-free structure
 #'   following the preferential attachment model.
 #' @importFrom igraph sample_pa
+#' @references 
+#' Barabási, Albert-László, and Réka Albert. 1999. 
+#' “Emergence of Scaling in Random Networks.” 
+#' _Science_ 286(5439):509–12. 
+#' \doi{10.1126/science.286.5439.509}.
 #' @examples
 #' autographr(generate_scalefree(12, 0.25)) +
 #' autographr(generate_scalefree(12, 1.25))
@@ -113,6 +121,8 @@ generate_permutation <- function(object, with_attr = TRUE) {
   if(with_attr) out <- copy_node_attributes(out, object)
   out
 }
+
+# Helper functions ------------------
 
 r1perm <- function(m) {
   n <- sample(1:dim(m)[1])

@@ -44,25 +44,36 @@ By default FALSE.
 If the opposite direction is desired, use \code{to_redirected()}.}
 
 \item{width}{Either an integer specifying the width or breadth
-of the ring or branches,
-or a proportion indicating how many nodes in a mode should
-be part of the core.}
+of the ring or branches.}
 
 \item{...}{Additional arguments passed on to igraph.}
+
+\item{membership}{A vector of partition membership as integers.
+If left as \code{NULL} (the default), nodes in each mode will be
+assigned to two, equally sized partitions.}
 }
 \value{
-By default an igraph object will be returned,
+By default an \code{igraph} object is returned,
 but this can be coerced into other types of objects
 using \code{as_matrix()}, \code{as_tidygraph()}, or \code{as_network()}.
 }
 \description{
 These functions create networks with particular structural properties.
-They can create either one-mode or two-mode networks,
-depending on whether the common \code{n} argument
-is passed a single integer (the number of nodes in the one-mode network)
-or a vector of \emph{two} integers to return a two-mode network
-(the first integer indicates the number of nodes in the first mode,
-the second integer indicates the number of nodes in the second mode).
+They can create either one-mode or two-mode networks.
+To create a one-mode network, pass the main argument \code{n} a single integer,
+indicating the number of nodes in the network.
+To create a two-mode network, pass \code{n} a vector of \emph{two} integers,
+where the first integer indicates the number of nodes in the first mode,
+and the second integer indicates the number of nodes in the second mode.
+As an alternative, an existing network can be provided to \code{n}
+and the number of modes and nodes will be inferred.
+
+By default, all networks are created as undirected.
+This can be overruled with the argument \code{directed = TRUE}.
+This will return a directed network in which the arcs are
+out-facing or equivalent.
+This direction can be swapped using \code{to_redirected()}.
+In two-mode networks, this is ignored.
 }
 \section{Functions}{
 \itemize{
@@ -97,7 +108,7 @@ autographr(create_ring(c(8,6), width = 2))
 autographr(create_star(12)) +
 autographr(create_star(12, directed = TRUE)) +
 autographr(create_star(c(12,1)))
-autographr(create_tree(15, directed = TRUE)) + 
+autographr(create_tree(c(7,8), directed = TRUE)) + 
 autographr(create_tree(15, directed = TRUE), "tree") + 
 autographr(create_tree(15, directed = TRUE, width = 3), "tree")
 autographr(create_lattice(5), layout = "kk") +
