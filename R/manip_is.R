@@ -187,7 +187,20 @@ is_directed.network <- function(object) {
 
 #' @export
 is_directed.matrix <- function(object) {
-  isSymmetric(object)
+  if(is_twomode(object)){
+    x <- nrow(object)
+    y <- ncol(object)
+    matc <- matrix(data = 0, nrow = x, ncol = x)
+    matr <- matrix(data = 0, nrow = y, ncol = y)
+    rownames(matc) <- rownames(object)
+    colnames(matc) <- rownames(object)
+    rownames(matr) <- colnames(object)
+    colnames(matr) <- colnames(object)
+    adjmat1 <- rbind(object, matr)
+    adjmat2 <- rbind(matc, t(object)) 
+    adjmat <- cbind(adjmat1, adjmat2)
+  }
+  !isSymmetric(object)
 }
 
 #' @describeIn is Tests whether network includes names for the nodes
