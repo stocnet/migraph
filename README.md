@@ -22,8 +22,9 @@ Practices](https://bestpractices.coreinfrastructure.org/projects/4559/badge)](ht
 
 ## About the package
 
-This package extends existing network analysis packages for analysing
-multimodal and multilevel networks.
+This package works with and extends existing network analysis packages
+for analysing multimodal and multilevel networks. It provides a common,
+standard syntax for working with both one-mode and two-mode networks.
 
 <img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="125"/>
 
