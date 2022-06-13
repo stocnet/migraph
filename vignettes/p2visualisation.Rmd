@@ -1,9 +1,9 @@
 ---
-title: "Practical 2"
+title: "2. Visualisation"
 author: "James Hollway"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Practical 2}
+  %\VignetteIndexEntry{2. Visualisation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Visualising Networks
+# Packages for visualising networks in R
 
 There are a host of packages for plotting in R, and for plotting networks in R.
 Plotting in R is typically based around two main approaches:
@@ -40,7 +40,7 @@ This vignette introduces some functions in the `{migraph}` package for plotting 
 visualising network data.
 `{migraph}` builds upon the ggplot2/ggraph engine for plotting.
 
-## Using `{migraph}`
+# Using `{migraph}` to quickly plot network graphs
   
 To get a basic visualisation of the network before adding various specifications,
 the `autographr()` function in `{migraph}` is a quick and easy way to obtain a 
@@ -66,31 +66,27 @@ Append `ggtitle()` from the `{ggplot2}` package to add a title.
 appended to create more tailored visualisations of the network.
   
 ```{r migraphexample2, echo=TRUE, message=FALSE, warning=FALSE}
-library(migraph)
 autographr(ison_adolescents,
            labels = TRUE,
            node_size = 1.5) + 
   ggplot2::ggtitle("Visualisation")
 ```
   
-### Visualising networks over time
-The `gglineage()`, `ggevolution()`, and `ggatyear()` functions can be used to 
-visualise the changes in the network over time. `gglineage()` shows how
-observations are connected to preceding or succeeding observations. 
+## Visualising networks over time
+
+The `gglineage()` and `ggevolution()` functions can be used to 
+visualise changes in a network over time. 
+`gglineage()` shows how observations are connected to 
+preceding or succeeding observations. 
 `ggevolution()` plots two networks for comparison of the changes in their 
 structure from one to the next.
-`ggatyear()` selects and plots a network at the specified point in time.
-  
+
 ```{r migrapheg3, echo=TRUE, message=FALSE, warning=FALSE}
-library(migraph)
-mpn_elite_mex2 <- mpn_elite_mex  %>%
-  tidygraph::activate(edges) %>%
-  tidygraph::reroute(from = sample.int(11, 44, replace = TRUE),
-                     to = sample.int(11, 44, replace = TRUE))
+mpn_elite_mex2 <- generate_random(mpn_elite_mex)
 ggevolution(mpn_elite_mex, mpn_elite_mex2)
 ```
   
-## Using `{ggraph}`
+# Using `{ggraph}` to extend these plots
 
 For more flexibility with visualizations, 
 `{migraph}` users are encouraged to use the excellent `{ggraph}` package.
@@ -160,6 +156,28 @@ To change the position of the legend, add the `theme()` function from `{ggplot2}
 The legend can be positioned at the top, bottom, left, or right, 
 or removed using "none".
   
+# Exporting plots to PDF
+
+We can print the plots we have made to PDF by point-and-click
+by selecting 'Save as PDF...' from under the 'Export' dropdown menu
+in the plots panel tab of RStudio.
+
+If you want to do this programmatically,
+say because you want to record how you have saved it so that you can
+e.g. make some changes to the parameters at some point,
+this is also not too difficult.
+
+After running the (gg-based) plot you want to save,
+use the command `ggsave("my_filename.pdf")` to save your plot
+as a PDF to your working directory.
+If you want to save it somewhere else, you will need to specify the file path
+(or change the working directory, but that might be more cumbersome).
+If you want to save it as a different filetype,
+replace `.pdf` with e.g. `.png` or `.jpeg`.
+See `?ggsave` for more.
+
 # References
-* [Network Visualizations in R](http://mr.schochastics.net/netVizR.html)
-* [**ggplot2**: Elegant Graphics for Data Analysis](https://ggplot2-book.org/networks.html#visualizing-networks)
+
+- [**ggplot2**: Elegant Graphics for Data Analysis](https://ggplot2-book.org/networks.html#visualizing-networks)
+- [Static and dynamic network visualization with R](https://kateto.net/network-visualization)
+- [Network Visualizations in R](http://mr.schochastics.net/netVizR.html)

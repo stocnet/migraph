@@ -1,9 +1,9 @@
 ---
-title: "Practical 1"
+title: "1. Data"
 author: "James Hollway"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Practical 1}
+  %\VignetteIndexEntry{1. Data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Working with network data
+# Obtaining data
 
 While `{migraph}` includes a number of datasets (see [here](https://snlab-ch.github.io/migraph/reference/index.html#section-data)),
 and there are several packages in R that already include
@@ -24,15 +24,29 @@ there often comes a time when it is necessary to import and analyse data
 from other sources.
 Fortunately, `{migraph}` has a range of tools you can employ to import your data and manipulate it.
 
-# Finding data
+## Finding data
 
 There are a great number of networks datasets and data resources.
 Here we keep just a necessarily partial list,
 but we are happy to update it whenever additional datasets are suggested.
+See for example:
 
+- [UCINET data](https://sites.google.com/site/ucinetsoftware/datasets?authuser=0)
+- [Pajek data](http://vlado.fmf.uni-lj.si/pub/networks/data/)
+
+See also:
+
+- [networkdata](http://networkdata.schochastics.net/)
+- [GML datasets](http://www-personal.umich.edu/~mejn/netdata/)
+- [UCIrvine Network Data Repository](http://networkdata.ics.uci.edu/)
+- [KONECT project](http://konect.cc/)
+- [SNAP Stanford Large Network Dataset Collection](http://snap.stanford.edu/data/)
 - [Congress in Data](https://www.congressindata.com/data-download/)
 
-# Import data
+Please let us know if you identify any further repositories
+of social or political networks and we would be happy to add them here.
+
+## Import data
 
 `{migraph}` includes several functions that help 
 read from (import) and write to (export) network data 
@@ -86,7 +100,7 @@ read_ucinet()
 write_ucinet()
 ```
 
-# Converting between formats
+## Converting between formats
 
 By default, `read_` and `write_` `edgelist` and `nodelist` will import objects
 into a data frame or tibble format or 'class' object,
@@ -124,7 +138,9 @@ as_edgelist(ison_southern_women) # an edgelist data frame/tibble
 <!-- For converting into igraph and tidygraph objects, there is the option of retaining the network as a two-mode network (keeping different types of nodes) or simplifying it into a one-mode network.  -->
 <!-- Just specify it using the argument `twomode = TRUE` or `twomode = FALSE` respectively. -->
 
-# Transforming network data
+# Working with network data
+
+## Transforming network data
   
 Generally, `{migraph}` attempts to retain as much information as possible when converting objects between different classes.
 The presumption is that users should explicitly decide to reduce or simplify
@@ -161,7 +177,7 @@ to_mode1(ison_southern_women)
 to_mode2(ison_southern_women)
 ```
 
-# Adding data
+## Adding data
 
 If you import one or more edgelists and nodelists, 
 it can be useful to bind these together in an igraph, tidygraph, or network class object.
@@ -195,7 +211,7 @@ generate_random(10, .3) %>%
   join_edges(generate_random(10, .3), "next")
 ```
 
-# Retrieving data
+## Retrieving data
 
 Lastly, sometimes we want to extract certain information from a network or graph object.
 Here too `{migraph}` has you covered.

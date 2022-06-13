@@ -1,9 +1,9 @@
 ---
-title: "Practical 3"
+title: "3. Centrality"
 author: "James Hollway"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Practical 3}
+  %\VignetteIndexEntry{3. Centrality}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -135,27 +135,7 @@ two values are given (as a named vector),
 since normalization typically depends on the (asymmetric)
 number of nodes in each mode.
 
-# Exporting plots to PDF
-
-We can print the plots we have made to PDF by point-and-click
-by selecting 'Save as PDF...' from under the 'Export' dropdown menu
-in the plots panel tab of RStudio.
-
-If you want to do this programmatically,
-say because you want to record how you have saved it so that you can
-e.g. make some changes to the parameters at some point,
-this is also not too difficult.
-
-After running the (gg-based) plot you want to save,
-use the command `ggsave("my_filename.pdf")` to save your plot
-as a PDF to your working directory.
-If you want to save it somewhere else, you will need to specify the file path
-(or change the working directory, but that might be more cumbersome).
-If you want to save it as a different filetype,
-replace `.pdf` with e.g. `.png` or `.jpeg`.
-See `?ggsave` for more.
-
-But what if we want to have a single image/figure with multiple plots?
+What if we want to have a single image/figure with multiple plots?
 This can be a little tricky with gg-based plots,
 but fortunately the `{patchwork}` package is here to help.
 
