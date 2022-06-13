@@ -35,7 +35,7 @@ list_data <- function(string){
 
 ## About the package
 
-This package works with and extends existing network analysis packages for analysing multimodal and multilevel networks.
+`{migraph}` works with and extends existing network analysis packages for analysing multimodal and multilevel networks.
 It provides a common, standard syntax for working with 
 both one-mode and two-mode networks.
 
@@ -132,12 +132,13 @@ with existing function names wherever possible.
 - Centrality: `node_degree()`, `node_closeness()`, `node_betweenness()`, and `node_eigenvector()`
 - Centralization: `graph_degree()`, `graph_closeness()`, `graph_betweenness()`, and `graph_eigenvector()`
 - Cohesion: `graph_density()`, `graph_reciprocity()`, `graph_transitivity()`, `graph_equivalency()`, and `graph_congruency()`
-- Censuses: `node_tie_census()`, `node_dyad_census()`, `node_triad_census()`, `node_mixed_census()`, `node_quad_census()`, and `graph_triad_census()`
+- Censuses: `r list_functions("_census")`
 - Other measures: e.g. `node_constraint()`, `graph_smallworld()`
 
 #### Models
 
-- Blockmodelling: `node_structural_equivalence()`, `node_regular_equivalence()`
+- Blockmodelling: `r list_functions("_equivalence")`
+- Testing (via MRQAP): `r list_functions("^test_")`
 - Linear and logistic regression for networks (via MRQAP): `network_reg()`
 
 #### Visualization

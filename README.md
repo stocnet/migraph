@@ -22,7 +22,7 @@ Practices](https://bestpractices.coreinfrastructure.org/projects/4559/badge)](ht
 
 ## About the package
 
-This package works with and extends existing network analysis packages
+`{migraph}` works with and extends existing network analysis packages
 for analysing multimodal and multilevel networks. It provides a common,
 standard syntax for working with both one-mode and two-mode networks.
 
@@ -145,15 +145,19 @@ function names wherever possible.
 -   Cohesion: `graph_density()`, `graph_reciprocity()`,
     `graph_transitivity()`, `graph_equivalency()`, and
     `graph_congruency()`
--   Censuses: `node_tie_census()`, `node_dyad_census()`,
-    `node_triad_census()`, `node_mixed_census()`, `node_quad_census()`,
-    and `graph_triad_census()`
+-   Censuses: `graph_dyad_census()`, `graph_mixed_census()`,
+    `graph_triad_census()`, `group_tie_census()`,
+    `group_triad_census()`, `node_path_census()`, `node_quad_census()`,
+    `node_tie_census()`, `node_triad_census()`
 -   Other measures: e.g. `node_constraint()`, `graph_smallworld()`
 
 #### Models
 
--   Blockmodelling: `node_structural_equivalence()`,
-    `node_regular_equivalence()`
+-   Blockmodelling: `cluster_regular_equivalence()`,
+    `cluster_structural_equivalence()`,
+    `node_automorphic_equivalence()`, `node_equivalence()`,
+    `node_regular_equivalence()`, `node_structural_equivalence()`
+-   Testing (via MRQAP): `test_permutation()`, `test_random()`
 -   Linear and logistic regression for networks (via MRQAP):
     `network_reg()`
 
