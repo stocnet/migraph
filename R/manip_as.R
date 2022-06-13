@@ -380,17 +380,16 @@ as_network.matrix <- function(object) {
   if (nrow(object) != ncol(object)) {
     out <- to_multilevel(object)
   } else out <- object
-  out <- network::as.network(out, 
-                             directed = is_directed(object),
-                             bipartite = ifelse(is_twomode(object),
-                                                nrow(object),
-                                                FALSE),
-                             loops = ifelse(sum(diag(out)) > 0, TRUE, FALSE),
-                             ignore.eval = ifelse(is_weighted(object),
-                                                  FALSE, TRUE),
-                             names.eval  = ifelse(is_weighted(object),
-                                                  "weight", NULL))
-  out
+  network::as.network(out, 
+                      directed = is_directed(object),
+                      bipartite   = ifelse(is_twomode(object),
+                                           nrow(object),
+                                           FALSE),
+                      loops = ifelse(sum(diag(out)) > 0, TRUE, FALSE),
+                      ignore.eval = ifelse(is_weighted(object),
+                                           FALSE, TRUE),
+                      names.eval  = ifelse(is_weighted(object),
+                                           "weight", NULL))
 }
 
 #' @export
