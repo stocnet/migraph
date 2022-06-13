@@ -100,7 +100,9 @@ node_degree <- function (object, normalized = TRUE,
 #' @export
 edge_degree <- function(object, normalized = TRUE){
   edge_adj <- to_edges(object)
-  node_degree(edge_adj, normalized = normalized)
+  out <- node_degree(edge_adj, normalized = normalized)
+  out <- make_edge_measure(out, object)
+  out
 }
 
 #' @describeIn centrality Calculate the degree centralization for a graph
@@ -189,7 +191,9 @@ node_closeness <- function(object, normalized = TRUE,
 #' @export
 edge_closeness <- function(object, normalized = TRUE){
   edge_adj <- to_edges(object)
-  node_closeness(edge_adj, normalized = normalized)
+  out <- node_closeness(edge_adj, normalized = normalized)
+  out <- make_edge_measure(out, object)
+  out
 }
 
 #' @describeIn centrality Calculate the closeness centralization for a graph
@@ -313,7 +317,7 @@ edge_betweenness <- function(object, normalized = TRUE){
   edges <- paste(edges$from, edges$to, sep = "-")
   out <- igraph::edge_betweenness(object)
   names(out) <- edges
-  class(out) <- c("node_measure", class(out))
+  class(out) <- c("edge_measure", class(out))
   out
 }
 
@@ -423,7 +427,9 @@ node_eigenvector <- function(object, normalized = TRUE, scale = FALSE){
 #' @export
 edge_eigenvector <- function(object, normalized = TRUE){
   edge_adj <- to_edges(object)
-  node_eigenvector(edge_adj, normalized = normalized)
+  out <- node_eigenvector(edge_adj, normalized = normalized)
+  out <- make_edge_measure(out, object)
+  out
 }
 
 #' @describeIn centrality Calculate the eigenvector centralization for a graph

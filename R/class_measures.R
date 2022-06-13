@@ -4,6 +4,11 @@ make_node_measure <- function(out, object){
   out
 }
 
+make_edge_measure <- function(out, object){
+  class(out) <- c("edge_measure", class(out))
+  out
+}
+
 make_graph_measure <- function(out, object){
   class(out) <- c("graph_measure", class(out))
   attr(out, "mode") <- graph_dims(object)

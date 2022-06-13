@@ -89,7 +89,7 @@ test_that("node measure class works", {
   expect_equal(testplot$labels$y, "Frequency")
 })
 
-# Centralization ####
+####### Centralization
 
 test_that("one-mode centralisation is calculated correctly", {
   expect_equal(as.numeric(graph_degree(mpn_elite_mex)), 0.303, tolerance = 0.001)
@@ -115,9 +115,17 @@ test_that("two mode betweenness centralisation calculated correctly", {
   expect_equal(as.numeric(graph_betweenness(ison_southern_women, normalized = TRUE)), c(0.0586, 0.207), tolerance = 0.001)
 })
 
+####### Edge centrality
+test_that("edge_degree works", {
+  expect_s3_class(edge_degree(ison_adolescents), 
+                  "edge_measure")
+  expect_length(edge_degree(ison_adolescents), 
+                graph_edges(ison_adolescents))
+})
+
 test_that("edge_betweenness works", {
   expect_s3_class(edge_betweenness(ison_adolescents), 
-                  "node_measure")
+                  "edge_measure")
   expect_length(edge_betweenness(ison_adolescents), 
                 graph_edges(ison_adolescents))
   expect_equal(unname(edge_betweenness(ison_adolescents)[1:3]), 
@@ -126,7 +134,7 @@ test_that("edge_betweenness works", {
 
 test_that("edge_closeness works", {
   expect_s3_class(edge_closeness(ison_adolescents), 
-                  "node_measure")
+                  "edge_measure")
   expect_length(edge_closeness(ison_adolescents), 
                 graph_edges(ison_adolescents))
   expect_equal(unname(edge_closeness(ison_adolescents)[1:3]), 
