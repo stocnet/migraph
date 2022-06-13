@@ -71,3 +71,23 @@ graph_length <- function(object){
                         directed = is_directed(object)),
                      object)
 }
+
+#' @describeIn mark Returns logical of which nodes cut
+#'   or act as articulation points in a network,
+#'   increasing the number of connected components in a graph when removed.
+#' @importFrom igraph articulation_points
+#' @examples 
+#' node_cuts(ison_brandes)
+#' @export
+node_cuts <- function(object){
+  if(is_labelled(object)){
+    out <- node_names(object) %in% 
+      attr(igraph::articulation_points(as_igraph(object)), "names")
+    names(out) <- node_names(object)
+  } else {
+    out <- 1:graph_nodes(object) %in% 
+      igraph::articulation_points(as_igraph(object))
+  }
+  make_node_measure(out, object)
+}
+

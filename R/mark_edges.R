@@ -16,7 +16,7 @@ NULL
 #' @export
 edge_multiple <- function(object){
   object <- as_igraph(object)
-  make_node_measure(igraph::which_multiple(object), object)
+  make_edge_measure(igraph::which_multiple(object), object)
 }
 
 #' @describeIn mark Returns logical of which edges are loops
@@ -26,7 +26,7 @@ edge_multiple <- function(object){
 #' @export
 edge_loop <- function(object){
   object <- as_igraph(object)
-  make_node_measure(igraph::which_loop(object), object)
+  make_edge_measure(igraph::which_loop(object), object)
 }
 
 #' @describeIn mark Returns logical of which edges 
@@ -37,7 +37,7 @@ edge_loop <- function(object){
 #' @export
 edge_reciprocal <- function(object){
   object <- as_igraph(object) # allow for custom edge selection
-  make_node_measure(igraph::which_mutual(object), object)
+  make_edge_measure(igraph::which_mutual(object), object)
 }
 
 #' @describeIn mark Returns logical of which nodes cut
@@ -53,23 +53,5 @@ edge_bridges <- function(object){
   }, FUN.VALUE = logical(1))
   if(is_labelled(object)) 
     names(out) <- attr(igraph::E(object), "vnames")
-  make_node_measure(out, object)
-}
-
-#' @describeIn mark Returns logical of which nodes cut
-#'   or act as articulation points in a network.
-#' @importFrom igraph articulation_points
-#' @examples 
-#' node_cuts(ison_brandes)
-#' @export
-node_cuts <- function(object){
-  if(is_labelled(object)){
-    out <- node_names(object) %in% 
-      attr(igraph::articulation_points(as_igraph(object)), "names")
-    names(out) <- node_names(object)
-  } else {
-    out <- 1:graph_nodes(object) %in% 
-      igraph::articulation_points(as_igraph(object))
-  }
-  make_node_measure(out, object)
+  make_edge_measure(out, object)
 }
