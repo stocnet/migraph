@@ -10,6 +10,29 @@ make_graph_motif <- function(out, object){
   out
 }
 
+#' @export
+print.node_motif <- function(x, ...,
+                         max.length = 6,
+                         digits = 3){
+  if(any(attr(x, "mode"))){
+    for(i in names(table(x))){
+      if(i == names(table(x))[1]) cat(i, "\n")
+      else cat("\n", i, "\n")
+      if(!is.null(names(x))){
+        y <- paste(names(x[x==i & attr(x, "mode")]), collapse = ", ")
+        z <- paste(names(x[x==i & !attr(x, "mode")]), collapse = ", ")
+      } else{
+        y <- paste(which(x==i & attr(x, "mode")), collapse = ", ")
+        z <- paste(which(x==i & !attr(x, "mode")), collapse = ", ")
+      } 
+      cat("  ", y, "\n")
+      cat("  ", z)
+    }
+  } else {
+    print(dplyr::tibble(as.data.frame(x)))
+  }
+}
+
 # summary(node_triad_census(mpn_elite_mex), 
 #           node_regular_equivalence(mpn_elite_mex, select = "elbow"))
 #' @export
@@ -17,9 +40,10 @@ summary.node_motif <- function(object, ...,
                                 membership,
                                 FUN = mean){
   out <- t(sapply(unique(membership), 
-                  function(x) apply(object[membership == x, ], 2, FUN)))
-  rownames(out) <- unique(membership)
-  out
+                  function(x) if(sum(membership==x)==1) object[membership==x,] else
+                    apply(object[membership == x, ], 2, FUN)))
+  rownames(out) <- paste("Block", unique(membership))
+  dplyr::tibble(as.data.frame(out))
 }
 
 # print.node_motif <- function(x, ...,
