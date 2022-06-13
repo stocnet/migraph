@@ -22,10 +22,10 @@ Multiplex graph object of friends, social, and task ties (McFarland 2001)
 Multiplex graph object of friends, social, and task ties between 16 #' anonymous students.
 M182 was an honors algebra class where researchers
 collected friendship, social, and task ties between 16 students.
-The edge attribute \code{friend_ties} contains friendship ties,
+The edge attribute \code{friends} contains friendship ties,
 where \code{2} = best friends, \code{1} = friend, and \code{0} is not a friend.
-\code{social_ties} consists of social interactions per hour,
-and \code{task_ties} consists of task interactions per hour.
+\code{social} consists of social interactions per hour,
+and \code{tasks} consists of task interactions per hour.
 }
 \references{
 McFarland, Daniel A. (2001) ``Student Resistance.''
