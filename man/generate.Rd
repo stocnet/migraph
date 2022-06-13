@@ -8,7 +8,7 @@
 \alias{generate_permutation}
 \title{Create networks from particular probabilities}
 \usage{
-generate_random(n, p = 0.5, directed = FALSE)
+generate_random(n, p = 0.5, directed = FALSE, with_attr = TRUE)
 
 generate_smallworld(n, p = 0.05)
 
@@ -32,6 +32,9 @@ if integer greater than 1, the number of edges in the network.}
 
 \item{directed}{Whether to generate network as directed. By default FALSE.}
 
+\item{with_attr}{Logical. Whether any attributes of the object
+should be retained. By default TRUE.}
+
 \item{object}{An object of a migraph-consistent class:
 \itemize{
 \item matrix, from base R
@@ -40,9 +43,6 @@ if integer greater than 1, the number of edges in the network.}
 \item network, from the network package
 \item tbl_graph, from the tidygraph package
 }}
-
-\item{with_attr}{Logical. Whether any attributes of the object
-should be retained. By default TRUE.}
 }
 \value{
 By default an \code{igraph} object is returned,

@@ -26,7 +26,7 @@ NULL
 #' autographr(generate_random(12, 0.4)) +
 #' autographr(generate_random(c(6, 6), 0.4))
 #' @export
-generate_random <- function(n, p = 0.5, directed = FALSE) {
+generate_random <- function(n, p = 0.5, directed = FALSE, with_attr = TRUE) {
   if(is_migraph(n)){
     m <- graph_edges(n)
     directed <- is_directed(n)
@@ -41,6 +41,7 @@ generate_random <- function(n, p = 0.5, directed = FALSE) {
                                     m = m,
                                     directed = directed)
     }
+    if(with_attr) g <- copy_node_attributes(g, n)
   } else if (length(n) == 1) {
     if(p > 1){
       if(!is.integer(p)) stop("`p` must be an integer if above 1.")
