@@ -115,6 +115,13 @@ test_that("two mode betweenness centralisation calculated correctly", {
   expect_equal(as.numeric(graph_betweenness(ison_southern_women, normalized = TRUE)), c(0.0586, 0.207), tolerance = 0.001)
 })
 
+test_that("graph_measure class works", {
+  expect_s3_class(graph_degree(ison_algebra), "graph_measure")
+  expect_s3_class(graph_betweenness(mpn_elite_usa_advice), "graph_measure")
+  expect_s3_class(graph_closeness(mpn_elite_usa_advice), "graph_measure")
+  expect_output(print(graph_degree(ison_algebra)))
+})
+
 ####### Edge centrality
 test_that("edge_degree works", {
   expect_s3_class(edge_degree(ison_adolescents), 
@@ -139,4 +146,11 @@ test_that("edge_closeness works", {
                 graph_edges(ison_adolescents))
   expect_equal(unname(edge_closeness(ison_adolescents)[1:3]), 
                c(0.562,0.692,0.600), tolerance = 0.001)
+})
+
+test_that("edge_eigenvector works", {
+  expect_s3_class(edge_closeness(ison_southern_women), 
+                  "edge_measure")
+  expect_length(edge_closeness(ison_southern_women), 
+                graph_edges(ison_southern_women))
 })
