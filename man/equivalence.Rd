@@ -14,7 +14,7 @@
 node_equivalence(
   object,
   census,
-  k = c("strict", "elbow", "silhouette"),
+  k = c("silhouette", "elbow", "strict"),
   cluster = c("hier", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
   range = 8L
@@ -22,7 +22,7 @@ node_equivalence(
 
 node_structural_equivalence(
   object,
-  k = c("strict", "elbow", "silhouette"),
+  k = c("silhouette", "elbow", "strict"),
   cluster = c("hier", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
   range = 8L
@@ -30,7 +30,7 @@ node_structural_equivalence(
 
 node_regular_equivalence(
   object,
-  k = c("strict", "elbow", "silhouette"),
+  k = c("silhouette", "elbow", "strict"),
   cluster = c("hier", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
   range = 8L
@@ -38,7 +38,7 @@ node_regular_equivalence(
 
 node_automorphic_equivalence(
   object,
-  k = c("strict", "elbow", "silhouette"),
+  k = c("silhouette", "elbow", "strict"),
   cluster = c("hier", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
   range = 8L
@@ -125,13 +125,12 @@ plot(nae2)
 \references{
 Thorndike, Robert L. 1953.
 "Who Belongs in the Family?".
-\emph{Psychometrika}.
-18 (4): 267–276.
+\emph{Psychometrika}, 18(4): 267–276.
 \doi{10.1007/BF02289263}
 
 Rousseeuw, Peter J. 1987.
 “Silhouettes: A Graphical Aid to the Interpretation and Validation of Cluster Analysis.”
-Journal of Computational and Applied Mathematics 20:53–65.
+\emph{Journal of Computational and Applied Mathematics}, 20: 53–65.
 \doi{10.1016/0377-0427(87)90125-7}.
 
 Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.

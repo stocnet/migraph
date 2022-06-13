@@ -39,26 +39,25 @@
 #' @references 
 #'  Thorndike, Robert L. 1953. 
 #'    "Who Belongs in the Family?". 
-#'    _Psychometrika_.
-#'    18 (4): 267–276. 
+#'    _Psychometrika_, 18(4): 267–276. 
 #'    \doi{10.1007/BF02289263}
 #'
 #' Rousseeuw, Peter J. 1987. 
 #'   “Silhouettes: A Graphical Aid to the Interpretation and Validation of Cluster Analysis.” 
-#'   Journal of Computational and Applied Mathematics 20:53–65. 
+#'   _Journal of Computational and Applied Mathematics_, 20: 53–65. 
 #'   \doi{10.1016/0377-0427(87)90125-7}.
 #'
 #' Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.  
 #'   "\href{https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.398.2703&rep=rep1&type=pdf}{An Algorithm for Clustering Relational Data with Applications to 
 #'   Social Network Analysis and Comparison with Multidimensional Scaling}". 
-#'   \emph{Journal of Mathematical Psychology}, 12: 328--383.
+#'   _Journal of Mathematical Psychology_, 12: 328--383.
 NULL
 
 #' @describeIn equivalence Returns nodes' membership in 
 #'   according to their equivalence with respective to some census/class
 #' @export
 node_equivalence <- function(object, census,
-                             k = c("strict", "elbow", "silhouette"),
+                             k = c("silhouette", "elbow", "strict"),
                              cluster = c("hier", "concor"),
                              distance = c("euclidean", "maximum", "manhattan", 
                                           "canberra", "binary", "minkowski"),
@@ -91,7 +90,7 @@ node_equivalence <- function(object, census,
 #' plot(nse_conc)
 #' @export
 node_structural_equivalence <- function(object,
-                                        k = c("strict", "elbow", "silhouette"),
+                                        k = c("silhouette", "elbow", "strict"),
                                         cluster = c("hier", "concor"),
                                         distance = c("euclidean", "maximum", "manhattan", 
                                                      "canberra", "binary", "minkowski"),
@@ -101,7 +100,7 @@ node_structural_equivalence <- function(object,
     mat <- cbind(mat, (colSums(t(mat))==0))
   } 
   node_equivalence(object, mat, 
-                   k = k, cluster = cluster, distance = distance)
+                   k = k, cluster = cluster, distance = distance, range = range)
 }
 
 #' @describeIn equivalence Returns nodes' membership in 
@@ -113,7 +112,7 @@ node_structural_equivalence <- function(object,
 #' plot(nre2)
 #' @export
 node_regular_equivalence <- function(object, 
-                                     k = c("strict", "elbow", "silhouette"),
+                                     k = c("silhouette", "elbow", "strict"),
                                      cluster = c("hier", "concor"),
                                      distance = c("euclidean", "maximum", "manhattan", 
                                                   "canberra", "binary", "minkowski"),
@@ -125,7 +124,7 @@ node_regular_equivalence <- function(object,
   }
   if(any(colSums(mat) == 0)) mat <- mat[,-which(colSums(mat) == 0)]
   node_equivalence(object, mat, 
-                   k = k, cluster = cluster, distance = distance)
+                   k = k, cluster = cluster, distance = distance, range = range)
 }
 
 #' @describeIn equivalence Returns nodes' membership in 
@@ -137,14 +136,14 @@ node_regular_equivalence <- function(object,
 #' plot(nae2)
 #' @export
 node_automorphic_equivalence <- function(object,
-                                         k = c("strict", "elbow", "silhouette"),
+                                         k = c("silhouette", "elbow", "strict"),
                                          cluster = c("hier", "concor"),
                                          distance = c("euclidean", "maximum", "manhattan", 
                                                       "canberra", "binary", "minkowski"),
                                          range = 8L){
   mat <- node_path_census(object)
   node_equivalence(object, mat, 
-                   k = k, cluster = cluster, distance = distance)
+                   k = k, cluster = cluster, distance = distance, range = range)
 }
 
 k_strict <- function(hc, object){
