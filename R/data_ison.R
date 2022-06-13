@@ -75,10 +75,10 @@
 #' @details Multiplex graph object of friends, social, and task ties between 16 #' anonymous students. 
 #' M182 was an honors algebra class where researchers
 #' collected friendship, social, and task ties between 16 students.
-#' The edge attribute `friend_ties` contains friendship ties,
+#' The edge attribute `friends` contains friendship ties,
 #' where `2` = best friends, `1` = friend, and `0` is not a friend.
-#' `social_ties` consists of social interactions per hour,
-#' and `task_ties` consists of task interactions per hour.
+#' `social` consists of social interactions per hour,
+#' and `tasks` consists of task interactions per hour.
 #' @docType data
 #' @keywords datasets
 #' @name ison_algebra

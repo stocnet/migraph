@@ -44,9 +44,16 @@ node_tie_census <- function(object){
         mat <- rbind(mat, rc)
       }
   }
-  if(is_labelled(object) & is_directed(object)) rownames(mat) <- rep(c(paste0("from", igraph::V(object)$name),
-                                                                   paste0("to", igraph::V(object)$name)),
-                                                                  times = length(edge_names))
+  if(is_labelled(object) & is_directed(object))
+    if(length(edge_names) > 0){
+      rownames(mat) <- apply(expand.grid(c(paste0("from", igraph::V(object)$name),
+                                           paste0("to", igraph::V(object)$name)),
+                                         edge_names), 
+                             1, paste, collapse = "_")
+    } else {
+      rownames(mat) <- rep(c(paste0("from", igraph::V(object)$name),
+                             paste0("to", igraph::V(object)$name)))
+    }
   make_node_motif(t(mat), object)
 }
 

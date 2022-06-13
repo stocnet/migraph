@@ -51,7 +51,7 @@ plot.member <- function(x, ...){
       ggplot2::geom_hline(yintercept = hc$height[length(hc$order) - k],
                           linetype = 2,
                           color = "#E20020") +
-      ggplot2::theme(axis.text.x = ggplot2::element_text(colour = "#E20020"),
+      ggplot2::theme(axis.text.x = ggplot2::element_text(colour = "#5c666f"),
                      axis.text.y = suppressWarnings(
                        ggplot2::element_text(colour = colors)))
   }
