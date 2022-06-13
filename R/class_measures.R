@@ -42,6 +42,18 @@ print.node_measure <- function(x, ...,
 }
 
 #' @export
+print.edge_measure <- function(x, ..., 
+                               max.length = 6,
+                               digits = 3){
+    z <- x[1:min(length(x), max.length)]
+    class(z) <- "numeric"
+    z <- format(z, digits = digits)
+    print(noquote(format(c(z, 
+                           paste("+", length(x) - length(z), 
+                                 "others")))))
+}
+
+#' @export
 print.graph_measure <- function(x, ..., 
                                digits = 3){
     if(length(attr(x, "mode")) == 1){
@@ -94,6 +106,27 @@ plot.node_measure <- function(x, type = c("h", "d"), ...){
         ggplot2::geom_density(ggplot2::aes(x = .data$Score)) +
         ggplot2::ylab("Density")
     }
+  }
+  p + ggplot2::theme_classic() +
+    ggplot2::theme(panel.grid.major = ggplot2::element_line(colour = "grey90"))
+}
+
+#' @export
+plot.edge_measure <- function(x, type = c("h", "d"), ...){
+  type <- match.arg(type)
+  data <- data.frame(Score = x)
+  if(type == "h"){
+    p <- ggplot2::ggplot(data = data) +
+      ggplot2::geom_histogram(ggplot2::aes(x = .data$Score),
+                              binwidth = ifelse(max(data$Score) > 1, 1,
+                                                ifelse(max(data$Score) > .1,
+                                                       .1,
+                                                       .01))) +
+      ggplot2::ylab("Frequency")
+  } else {
+    p <- ggplot2::ggplot(data = data) +
+      ggplot2::geom_density(ggplot2::aes(x = .data$Score)) +
+      ggplot2::ylab("Density")
   }
   p + ggplot2::theme_classic() +
     ggplot2::theme(panel.grid.major = ggplot2::element_line(colour = "grey90"))
