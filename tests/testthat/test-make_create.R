@@ -14,9 +14,12 @@ test_that("create complete graph works", {
 
 test_that("ring creation works", {
   expect_true(is_twomode(create_ring(c(5,5))))
-  expect_equal(unname(as_matrix(create_ring(3))), matrix(c(0,1,1,1,0,1,1,1,0),3,3))
-  expect_equal(unname(as_matrix(create_ring(c(5,5)))), matrix(c(1,0,0,0,1,1,1,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1),5,5))
-  expect_equal(unname(as_matrix(create_ring(c(5,5), width = 2))), matrix(c(1,0,0,1,1,1,1,0,0,1,1,1,1,0,0,0,1,1,1,0,0,0,1,1,1),5,5))
+  expect_equal(unname(as_matrix(create_ring(3))), 
+               matrix(c(0,1,1,1,0,1,1,1,0),3,3))
+  expect_equal(unname(as_matrix(create_ring(c(5,5), width = 1))), 
+               matrix(c(1,0,0,0,1,1,1,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1),5,5))
+  expect_equal(unname(as_matrix(create_ring(c(5,5), width = 2))), 
+               matrix(c(1,0,0,1,1,1,1,0,0,1,1,1,1,0,0,0,1,1,1,0,0,0,1,1,1),5,5))
   expect_error(create_ring(c(5,5,5)), "single integer")
 })
 

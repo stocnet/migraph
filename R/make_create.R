@@ -109,9 +109,7 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
       } else out <- igraph::graph_from_adjacency_matrix(out, mode = "undirected")
     }
   } else if (length(n) == 2) {
-    n1 <- n[1]
-    n2 <- n[2]
-    mat <- matrix(0, n1, n2)
+    mat <- matrix(0, n[1], n[2])
     diag(mat) <- 1
     while (any(rowSums(mat) == 0)) {
       top <- mat[rowSums(mat) == 1, ]
@@ -125,16 +123,13 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
       diag(right) <- 1
       mat <- cbind(left, right)
     }
-    if (width != 0) mat <- mat + roll_over(mat)
-    if (width > 1) {
-      for (i in 1:(width - 1)) {
-        w <- roll_over(mat)
-        mat <- mat + w
-      }
+    for (i in 1:(width)) {
+      w <- roll_over(mat)
+      mat <- mat + w
     }
+    mat[mat>1] <- 1
     out <- as_igraph(mat, twomode = TRUE)
   }
-
   out
 }
 
