@@ -2,11 +2,14 @@
 % Please edit documentation in R/member_components.R
 \name{components}
 \alias{components}
+\alias{node_components}
 \alias{node_weak_components}
 \alias{node_strong_components}
 \alias{node_coreness}
 \title{Component partitioning algorithms}
 \usage{
+node_components(object)
+
 node_weak_components(object)
 
 node_strong_components(object)
@@ -28,6 +31,9 @@ Component partitioning algorithms
 }
 \section{Functions}{
 \itemize{
+\item \code{node_components}: Returns nodes' component membership
+using edge direction where available.
+
 \item \code{node_weak_components}: Returns nodes' component membership
 ignoring edge direction.
 
@@ -38,6 +44,7 @@ based on edge direction.
 }}
 
 \examples{
+node_components(mpn_bristol)
 node_weak_components(mpn_bristol)
 node_strong_components(mpn_bristol)
 node_coreness(ison_adolescents)

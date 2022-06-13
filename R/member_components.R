@@ -5,6 +5,18 @@
 NULL
 
 #' @describeIn components Returns nodes' component membership
+#'   using edge direction where available.
+#' @importFrom igraph components
+#' @examples 
+#' node_components(mpn_bristol)
+#' @export
+node_components <- function(object){
+  if(!is_graph(object)) object <- as_igraph(object)
+  make_member(igraph::components(object, mode = "strong")$membership,
+              object)
+}
+
+#' @describeIn components Returns nodes' component membership
 #'   ignoring edge direction.
 #' @importFrom igraph components
 #' @examples 
