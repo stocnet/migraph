@@ -58,6 +58,6 @@ Other measures:
 \code{\link{cohesion}()},
 \code{\link{connectedness}},
 \code{\link{features}},
-\code{\link{node_constraint}()}
+\code{\link{holes}}
 }
 \concept{measures}

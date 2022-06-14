@@ -1,25 +1,28 @@
-#' Constraint for one- and two-mode networks
+#' Structural holes for one- and two-mode networks
 #' 
-#' This function measures constraint for both one-mode and two-mode networks.
-#' For one-mode networks, the function wraps the implementation of Ron Burt's
-#' measure in `{igraph}`.
-#' For two-mode networks, the function employs the extension outlined
-#' in Hollway et al. (2020).
-#' @param object A matrix, igraph graph, or tidygraph object.
-#' @param nodes The vertices for which the constraint will be calculated. 
-#' Defaults to all vertices.
-#' @param weights A vector of the weights of the edges.
-#' If this is NULL and there is a weight edge attribute this is used.
-#' If there is no such edge attribute all edges will have the same weight.
-#' @return A named vector (one-mode) or a list of two named vectors (`$nodes1`, `$nodes2`).
-#' @references Hollway, James, Jean-Frédéric Morin, and Joost Pauwelyn. 2020.
-#' \href{https://link.springer.com/article/10.1007/s10784-019-09464-5}{"Structural conditions for novelty: the introduction of new environmental clauses to the trade regime complex."}
-#' \emph{International Environmental Agreements: Politics, Law and Economics} 20 (1): 61–83.
+#' @description
+#' These function provide different measures of the degree to which nodes
+#' fill structural holes, as outlined in Burt (1992).
+#' @name holes
 #' @family measures
+#' @inheritParams is
+NULL
+
+#' @describeIn holes Returns nodes' constraint scores for one-mode networks
+#'   according to Burt (1992) and for two-mode networks according to Hollway et al (2020). 
+#' @references
+#' Burt, Ronald S. 1992. 
+#' _Structural Holes: The Social Structure of Competition_. 
+#' Cambridge, MA: Harvard University Press.
+#' 
+#' Hollway, James, Jean-Frédéric Morin, and Joost Pauwelyn. 2020.
+#' "Structural conditions for novelty: the introduction of new environmental clauses to the trade regime complex."
+#' _International Environmental Agreements: Politics, Law and Economics_ 20 (1): 61–83.
+#' \doi{10.1007/s10784-019-09464-5}.
 #' @examples
 #' node_constraint(ison_southern_women)
 #' @export 
-node_constraint <- function(object, nodes = V(object), weights = NULL) {
+node_constraint <- function(object) {
   if (is_twomode(object)) {
     get_constraint_scores <- function(mat) {
       inst <- colnames(mat)
@@ -52,14 +55,62 @@ node_constraint <- function(object, nodes = V(object), weights = NULL) {
     }
     inst.res <- get_constraint_scores(as_matrix(object))
     actr.res <- get_constraint_scores(t(as_matrix(object)))
-    # res <- list(nodes1 = actr.res, nodes2 = inst.res)
     res <- c(actr.res, inst.res)
-
   } else {
-    object <- as_igraph(object)
-    res <- igraph::constraint(object, nodes = nodes, weights = weights)
+    res <- igraph::constraint(as_igraph(object), 
+                              nodes = igraph::V(object), 
+                              weights = NULL)
   }
   res <- make_node_measure(res, object)
   res
 }
 
+#' @describeIn holes Returns nodes' redundancy
+#' @references 
+#' Borgatti, Steven. 1997. 
+#' “\href{http://www.analytictech.com/connections/v20(1)/holes.htm}{Structural Holes: Unpacking Burt’s Redundancy Measures}” 
+#' _Connections_ 20(1):35-38.
+#' @examples 
+#' node_redundancy(ison_adolescents)
+#' node_redundancy(ison_southern_women)
+#' @export
+node_redundancy <- function(object){
+  g <- as_igraph(object)
+  out <- sapply(igraph::V(g), function(ego){
+    n = igraph::neighbors(g, ego)
+    t = length(igraph::E(g)[to(n) & !to(ego)])
+    n = length(n)
+    2 * t / n
+  })
+  make_node_measure(out, object)
+}
+
+#' @describeIn holes Returns nodes' effective size
+#' @references 
+#' Borgatti, Steven. 1997. 
+#' “\href{http://www.analytictech.com/connections/v20(1)/holes.htm}{Structural Holes: Unpacking Burt’s Redundancy Measures}” 
+#' _Connections_ 20(1):35-38.
+#' @examples 
+#' node_effsize(ison_adolescents)
+#' node_effsize(ison_southern_women)
+#' @export
+node_effsize <- function(object){
+  g <- as_igraph(object)
+  out <- sapply(igraph::V(g), function(ego){
+    n = igraph::neighbors(g, ego)
+    t = length(igraph::E(g)[to(n) & !to(ego)])
+    n = length(n)
+    n - 2 * t / n
+  })
+  make_node_measure(out, object)
+}
+
+#' @describeIn holes Returns nodes' efficiency
+#' @examples 
+#' node_efficiency(ison_adolescents)
+#' node_efficiency(ison_southern_women)
+#' @export
+node_efficiency <- function(object){
+  out <- node_effsize(object) / node_degree(object, normalized = FALSE)
+  make_node_measure(as.numeric(out), object)
+}

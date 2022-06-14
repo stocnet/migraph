@@ -71,6 +71,6 @@ Other measures:
 \code{\link{cohesion}()},
 \code{\link{diversity}},
 \code{\link{features}},
-\code{\link{node_constraint}()}
+\code{\link{holes}}
 }
 \concept{measures}

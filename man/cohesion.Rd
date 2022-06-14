@@ -77,6 +77,6 @@ Other measures:
 \code{\link{connectedness}},
 \code{\link{diversity}},
 \code{\link{features}},
-\code{\link{node_constraint}()}
+\code{\link{holes}}
 }
 \concept{measures}
