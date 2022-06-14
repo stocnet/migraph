@@ -84,3 +84,8 @@ plot(cugtest)
                 times = 200))
 plot(qaptest)
 }
+\seealso{
+Other models: 
+\code{\link{regression}}
+}
+\concept{models}

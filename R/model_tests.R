@@ -4,6 +4,7 @@
 #' or permutation (QAP) tests of any graph-level statistic.
 #' @name tests
 #' @inheritParams regression
+#' @family models
 #' @param FUN A graph-level statistic function to test.
 #' @param ... Additional arguments to be passed on to FUN,
 #'   e.g. the name of the attribute.
@@ -48,15 +49,16 @@ test_random <- function(object, FUN, ...,
     simd <- furrr::future_map_dbl(rands,
                    FUN)
   }
-  out <- list(obs.stat = obsd,
-              rep.stat = simd,
+  out <- list(test = "CUG",
+              testval = obsd,
+              testdist = simd,
               mode = is_directed(object),
               diag = is_complex(object),
               cmode = "csize",
               plteobs = mean(simd <= obsd),
               pgteobs = mean(simd >= obsd),
               reps = times)
-  class(out) <- "cug_test"
+  class(out) <- "graph_test"
   out
 }
 #' @describeIn tests Returns test results for some measure on an object
@@ -95,60 +97,33 @@ test_permutation <- function(object, FUN, ...,
                    .progress = verbose, 
                    .options = furrr::furrr_options(seed = T))
   }
-  out <- list(testval = obsd,
-              dist = simd,
+  out <- list(test = "QAP",
+              testval = obsd,
+              testdist = simd,
+              mode = is_directed(object),
+              diag = is_complex(object),
               plteobs = mean(simd <= obsd),
               pgteobs = mean(simd >= obsd),
               reps = times)
-  class(out) <- "qap_test"
+  class(out) <- "graph_test"
   out
 }
 
 #' @export
-plot.cug_test <- function(x, ...,
-                          threshold = .95, 
-                          tails = c("two", "one")){
-  data <- data.frame(Statistic = x$rep.stat)
-  p <- ggplot2::ggplot(data, 
-                  ggplot2::aes(x = .data$Statistic)) + 
-    ggplot2::geom_density()
-  if(all(data$Statistic >= -1 & data$Statistic <= 1)){
-    p <- p + ggplot2::expand_limits(x=0) + 
-      ggplot2::geom_vline(ggplot2::aes(xintercept = 0),
-                          linetype="dashed")
-    if(any(data$Statistic < 0)) p <- p + ggplot2::expand_limits(x=-1)
-    if(any(data$Statistic > 0)) p <- p + ggplot2::expand_limits(x=1)
-  }
-  d <- ggplot2::ggplot_build(p)$data[[1]]
-  tails = match.arg(tails)
-  if(tails == "one"){
-    if(x$obs.stat < quantile(data$Statistic, .5)){
-      thresh <- quantile(data$Statistic, 1 - threshold)
-      p <- p + ggplot2::geom_area(data = subset(d, x < thresh), 
-                             aes(x = x, y = .data$y), fill = "lightgrey")
-    } else {
-      thresh <- quantile(data$Statistic, threshold)
-      p <- p + ggplot2::geom_area(data = subset(d, x > thresh), 
-                             aes(x = x, y = .data$y), fill = "lightgrey")
-    }
-  } else if (tails == "two"){
-    thresh <- quantile(data$Statistic, 
-                       c((1-threshold)/2, ((1-threshold)/2)+threshold))
-    p <- p + ggplot2::geom_area(data = subset(d, x < thresh[1]), 
-                           aes(x = x, y = .data$y), fill = "lightgrey") + 
-      ggplot2::geom_area(data = subset(d, x > thresh[2]), 
-                         aes(x = x, y = .data$y), fill = "lightgrey")
-  }
-  p + ggplot2::theme_classic() + ggplot2::geom_density() +
-    ggplot2::geom_vline(ggplot2::aes(xintercept = x$obs.stat),
-                        color="red", size=1.2) + ggplot2::ylab("Density")
+print.graph_test <- function(x, ...,
+                             max.length = 6,
+                             digits = 3){
+  cat(paste("\n", x$test, "Test Results\n\n"))
+  cat("Observed Value:", x$testval, "\n")
+  cat("Pr(X>=Obs):", x$pgteobs, "\n")
+  cat("Pr(X<=Obs):", x$plteobs, "\n\n")
 }
 
 #' @export
-plot.qap_test <- function(x, ...,
-                          threshold = .95, 
-                          tails = c("two", "one")){
-  data <- data.frame(Statistic = x$dist)
+plot.graph_test <- function(x, ...,
+                            threshold = .95, 
+                            tails = c("two", "one")){
+  data <- data.frame(Statistic = x$testdist)
   p <- ggplot2::ggplot(data, 
                        ggplot2::aes(x = .data$Statistic)) + 
     ggplot2::geom_density()

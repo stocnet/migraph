@@ -113,4 +113,8 @@ Dekker, David, Krackhard, David, Snijders, Tom A.B (2007).
 }
 \seealso{
 \code{vignette("p7linearmodel")}
+
+Other models: 
+\code{\link{tests}}
 }
+\concept{models}

@@ -22,6 +22,7 @@
 #' -- modes, directedness, loops, etc --
 #' will always be respected in permutations and analysis.
 #' @name regression
+#' @family models
 #' @param formula A formula describing the relationship being tested.
 #'   Several additional terms are available to assist users investigate
 #'   the effects they are interested in. These include:
