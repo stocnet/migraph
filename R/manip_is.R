@@ -172,12 +172,12 @@ is_directed.data.frame <- function(object) {
 
 #' @export
 is_directed.igraph <- function(object) {
-    igraph::is.directed(object)
+  if(is_twomode(object)) FALSE else igraph::is.directed(object)
 }
 
 #' @export
 is_directed.tbl_graph <- function(object) {
-  igraph::is.directed(object)
+  if(is_twomode(object)) FALSE else igraph::is.directed(object)
 }
 
 #' @export
@@ -187,7 +187,7 @@ is_directed.network <- function(object) {
 
 #' @export
 is_directed.matrix <- function(object) {
-  !isSymmetric(object)
+  if(is_twomode(object)) FALSE else !isSymmetric(object)
 }
 
 #' @describeIn is Tests whether network includes names for the nodes
