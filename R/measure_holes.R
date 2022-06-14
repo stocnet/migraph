@@ -5,16 +5,62 @@
 #' fill structural holes, as outlined in Burt (1992).
 #' @name holes
 #' @family measures
+#' @references 
+#' #' Burt, Ronald S. 1992. 
+#' _Structural Holes: The Social Structure of Competition_. 
+#' Cambridge, MA: Harvard University Press.
 #' @inheritParams is
 NULL
+
+#' @describeIn holes Returns nodes' redundancy
+#' @references 
+#' Borgatti, Steven. 1997. 
+#' “\href{http://www.analytictech.com/connections/v20(1)/holes.htm}{Structural Holes: Unpacking Burt’s Redundancy Measures}” 
+#' _Connections_ 20(1):35-38.
+#' @examples 
+#' node_redundancy(ison_adolescents)
+#' node_redundancy(ison_southern_women)
+#' @export
+node_redundancy <- function(object){
+  g <- as_igraph(object)
+  out <- sapply(igraph::V(g), function(ego){
+    n = igraph::neighbors(g, ego)
+    t = length(igraph::E(g)[to(n) & !to(ego)])
+    n = length(n)
+    2 * t / n
+  })
+  make_node_measure(out, object)
+}
+
+#' @describeIn holes Returns nodes' effective size
+#' @examples 
+#' node_effsize(ison_adolescents)
+#' node_effsize(ison_southern_women)
+#' @export
+node_effsize <- function(object){
+  g <- as_igraph(object)
+  out <- sapply(igraph::V(g), function(ego){
+    n = igraph::neighbors(g, ego)
+    t = length(igraph::E(g)[to(n) & !to(ego)])
+    n = length(n)
+    n - 2 * t / n
+  })
+  make_node_measure(out, object)
+}
+
+#' @describeIn holes Returns nodes' efficiency
+#' @examples 
+#' node_efficiency(ison_adolescents)
+#' node_efficiency(ison_southern_women)
+#' @export
+node_efficiency <- function(object){
+  out <- node_effsize(object) / node_degree(object, normalized = FALSE)
+  make_node_measure(as.numeric(out), object)
+}
 
 #' @describeIn holes Returns nodes' constraint scores for one-mode networks
 #'   according to Burt (1992) and for two-mode networks according to Hollway et al (2020). 
 #' @references
-#' Burt, Ronald S. 1992. 
-#' _Structural Holes: The Social Structure of Competition_. 
-#' Cambridge, MA: Harvard University Press.
-#' 
 #' Hollway, James, Jean-Frédéric Morin, and Joost Pauwelyn. 2020.
 #' "Structural conditions for novelty: the introduction of new environmental clauses to the trade regime complex."
 #' _International Environmental Agreements: Politics, Law and Economics_ 20 (1): 61–83.
@@ -65,52 +111,23 @@ node_constraint <- function(object) {
   res
 }
 
-#' @describeIn holes Returns nodes' redundancy
-#' @references 
-#' Borgatti, Steven. 1997. 
-#' “\href{http://www.analytictech.com/connections/v20(1)/holes.htm}{Structural Holes: Unpacking Burt’s Redundancy Measures}” 
-#' _Connections_ 20(1):35-38.
+#' @describeIn holes Returns nodes' exposure to hierarchy,
+#'   where only one or two contacts are the source of closure
 #' @examples 
-#' node_redundancy(ison_adolescents)
-#' node_redundancy(ison_southern_women)
+#' node_hierarchy(ison_adolescents)
+#' node_hierarchy(ison_southern_women)
 #' @export
-node_redundancy <- function(object){
+node_hierarchy <- function(object){
+  cs <- node_constraint(object)
   g <- as_igraph(object)
-  out <- sapply(igraph::V(g), function(ego){
+  out <- sapply(igraph::V(object), function(ego){
     n = igraph::neighbors(g, ego)
-    t = length(igraph::E(g)[to(n) & !to(ego)])
-    n = length(n)
-    2 * t / n
+    N <- length(n)
+    css <- cs[n]
+    CN <- mean(css)
+    rj <- css/CN
+    sum(rj*log(rj)) / (N * log(N))
   })
+  out[is.nan(out)] <- 0
   make_node_measure(out, object)
-}
-
-#' @describeIn holes Returns nodes' effective size
-#' @references 
-#' Borgatti, Steven. 1997. 
-#' “\href{http://www.analytictech.com/connections/v20(1)/holes.htm}{Structural Holes: Unpacking Burt’s Redundancy Measures}” 
-#' _Connections_ 20(1):35-38.
-#' @examples 
-#' node_effsize(ison_adolescents)
-#' node_effsize(ison_southern_women)
-#' @export
-node_effsize <- function(object){
-  g <- as_igraph(object)
-  out <- sapply(igraph::V(g), function(ego){
-    n = igraph::neighbors(g, ego)
-    t = length(igraph::E(g)[to(n) & !to(ego)])
-    n = length(n)
-    n - 2 * t / n
-  })
-  make_node_measure(out, object)
-}
-
-#' @describeIn holes Returns nodes' efficiency
-#' @examples 
-#' node_efficiency(ison_adolescents)
-#' node_efficiency(ison_southern_women)
-#' @export
-node_efficiency <- function(object){
-  out <- node_effsize(object) / node_degree(object, normalized = FALSE)
-  make_node_measure(as.numeric(out), object)
 }
