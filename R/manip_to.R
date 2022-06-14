@@ -441,7 +441,8 @@ to_mode2.tbl_graph <- function(object) {
 #'   Note that this is not the same as `to_mode1()` or `to_mode2()`,
 #'   which return only some of the nodes and new ties established by coincidence.
 #' @importFrom igraph delete_vertex_attr
-#' @example to_onemode(ison_southern_women)
+#' @examples 
+#' to_onemode(ison_southern_women)
 #' @export
 to_onemode <- function(object) UseMethod("to_onemode")
 
