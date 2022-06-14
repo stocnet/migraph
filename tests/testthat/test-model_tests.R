@@ -12,25 +12,25 @@ cugtest2 <- test_random(marvel_friends,
 test_that("test_random works", {
   # Set the cugtest up
   # Test stuff cug1
-  expect_equal(as.numeric(cugtest$obs.stat), -0.85714, tolerance = 0.001)
-  expect_equal(length(cugtest$rep.stat), 200) # NB: Stochastic
+  expect_equal(as.numeric(cugtest$testval), -0.85714, tolerance = 0.001)
+  expect_equal(length(cugtest$testdist), 200) # NB: Stochastic
   expect_false(cugtest$mode)
   expect_false(cugtest$diag)
   expect_equal(cugtest$cmode, "csize")
   expect_equal(class(cugtest$plteobs), "numeric")
   expect_equal(class(cugtest$pgteobs), "numeric")
   expect_equal(cugtest$reps, 200)
-  expect_equal(attributes(cugtest)$class, "cug_test")
+  expect_s3_class(cugtest, "graph_test")
   # Test stuff cug2
-  expect_equal(as.numeric(cugtest2$obs.stat), 0.238, tolerance = 0.001)
-  expect_equal(length(cugtest2$rep.stat), 200) # NB: Stochastic
+  expect_equal(as.numeric(cugtest2$testval), 0.238, tolerance = 0.001)
+  expect_equal(length(cugtest2$testdist), 200) # NB: Stochastic
   expect_false(cugtest2$mode)
   expect_false(cugtest2$diag)
   expect_equal(cugtest2$cmode, "csize")
   expect_equal(round(cugtest2$plteobs), 1)
   expect_equal(round(cugtest2$pgteobs), 0)
   expect_equal(cugtest2$reps, 200)
-  expect_equal(attributes(cugtest2)$class, "cug_test")
+  expect_s3_class(cugtest2, "graph_test")
 })
 
 # Set the qaptest up
@@ -43,11 +43,11 @@ qaptest <- test_permutation(marvel_friends,
                             times = 200)
 test_that("test_permutation works", {
   expect_equal(as.numeric(qaptest$testval), -0.85714, tolerance = 0.001)
-  expect_equal(length(qaptest$dist), 200) # NB: Stochastic
+  expect_equal(length(qaptest$testdist), 200) # NB: Stochastic
   expect_equal(class(qaptest$plteobs), "numeric") # NB: Stochastic
   expect_equal(class(qaptest$pgteobs), "numeric") # NB: Stochastic
   expect_equal(qaptest$reps, 200)
-  expect_equal(attributes(qaptest)$class, "qap_test")
+  expect_s3_class(qaptest, "graph_test")
 })
 
 cugplot <- plot(cugtest)
