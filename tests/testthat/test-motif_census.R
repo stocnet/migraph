@@ -10,7 +10,7 @@ test_that("node tie census works", {
 
 test <- node_triad_census(task_eg)
 test_that("node triad census works", {
-  expect_equal(test[1:4], c(36, 45, 55, 102))
+  expect_equal(test[1:4], c(6, 15, 20, 102))
   expect_s3_class(test, "node_motif")
   expect_equal(colnames(test)[1:3], c("003", "012", "102"))
 })

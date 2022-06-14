@@ -6,6 +6,12 @@ test_that("structural equivalence clustering works", {
   expect_false(names(x[1]) %in% names(x[2:length(x)]))
 })
 
+clus <- node_structural_equivalence(mpn_elite_mex, "elbow", "hier")
+test_that("blockmodel works", {
+  expect_s3_class(clus, "member")
+  expect_equal(graph_nodes(mpn_elite_mex), length(clus))
+})
+
 test_that("regular equivalence clustering works", {
   expect_s3_class(node_regular_equivalence(mpn_elite_mex), "member")
 })
