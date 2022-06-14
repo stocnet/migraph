@@ -4,7 +4,7 @@
 #' properties.
 #' @param object An object of a migraph-consistent class:
 #'   \itemize{
-#'   \item matrix, from base R
+#'   \item adjacency matrix, from base R
 #'   \item edgelist, a data frame from base R or tibble from tibble
 #'   \item igraph, from the igraph package
 #'   \item network, from the network package
@@ -160,7 +160,7 @@ is_weighted.data.frame <- function(object) {
 #' @describeIn is Tests whether network is directed
 #' @importFrom igraph is.directed
 #' @examples
-#' is_directed(ison_southern_women)
+#' is_directed(ison_algebra)
 #' @export
 is_directed <- function(object) UseMethod("is_directed")
 
@@ -187,7 +187,7 @@ is_directed.network <- function(object) {
 
 #' @export
 is_directed.matrix <- function(object) {
-  isSymmetric(object)
+  !isSymmetric(object)
 }
 
 #' @describeIn is Tests whether network includes names for the nodes
