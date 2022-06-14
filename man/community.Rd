@@ -10,7 +10,7 @@ node_kernighanlin(object)
 \arguments{
 \item{object}{An object of a migraph-consistent class:
 \itemize{
-\item matrix, from base R
+\item adjacency matrix, from base R
 \item edgelist, a data frame from base R or tibble from tibble
 \item igraph, from the igraph package
 \item network, from the network package

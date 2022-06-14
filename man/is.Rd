@@ -46,7 +46,7 @@ is_acyclic(object)
 \arguments{
 \item{object}{An object of a migraph-consistent class:
 \itemize{
-\item matrix, from base R
+\item adjacency matrix, from base R
 \item edgelist, a data frame from base R or tibble from tibble
 \item igraph, from the igraph package
 \item network, from the network package
@@ -97,7 +97,7 @@ or multiple columns to the edgelist.
 \examples{
 is_twomode(ison_southern_women)
 is_weighted(ison_southern_women)
-is_directed(ison_southern_women)
+is_directed(ison_algebra)
 is_labelled(ison_southern_women)
 is_signed(ison_southern_women)
 is_connected(ison_southern_women)

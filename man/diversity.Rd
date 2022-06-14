@@ -16,7 +16,7 @@ graph_assortativity(object)
 \arguments{
 \item{object}{An object of a migraph-consistent class:
 \itemize{
-\item matrix, from base R
+\item adjacency matrix, from base R
 \item edgelist, a data frame from base R or tibble from tibble
 \item igraph, from the igraph package
 \item network, from the network package
@@ -56,7 +56,7 @@ graph_assortativity(mpn_elite_mex)
 Other measures: 
 \code{\link{centrality}},
 \code{\link{cohesion}()},
-\code{\link{connectedness}},
+\code{\link{connectedness}()},
 \code{\link{features}},
 \code{\link{holes}}
 }
