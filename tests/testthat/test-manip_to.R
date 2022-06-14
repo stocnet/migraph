@@ -49,9 +49,9 @@ test_that("to_unsigned works", {
 })
 
 test_that("to_named works", {
-  expect_false(is_labelled(ison_algebra))
-  expect_true(is_labelled(to_named(ison_algebra)))
-  expect_true(is_labelled(to_named(ison_algebra, seq_len(graph_nodes(ison_algebra)))))
+  expect_false(is_labelled(ison_brandes))
+  expect_true(is_labelled(to_named(ison_brandes)))
+  expect_true(is_labelled(to_named(ison_brandes, seq_len(graph_nodes(ison_brandes)))))
 })
 
 test_that("multilevel works", {

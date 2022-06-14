@@ -85,7 +85,7 @@ test_that("node measure class works", {
   expect_s3_class(node_betweenness(ison_algebra), "node_measure")
   expect_s3_class(node_closeness(ison_algebra), "node_measure")
   testplot <- plot(node_degree(ison_algebra))
-  expect_equal(testplot$data$Score, node_degree(ison_algebra))
+  expect_equal(testplot$data$Score, unname(node_degree(ison_algebra)))
   expect_equal(testplot$labels$y, "Frequency")
 })
 
