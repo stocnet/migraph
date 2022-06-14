@@ -27,7 +27,7 @@ test_that("as_matrix converts correctly",{
   expect_vector(as_matrix(ison_southern_women))
   expect_vector(mpn_elite_mex %>% as_matrix())
   expect_vector(mpn_elite_usa_advice %>% as_matrix())
-  expect_equal(as_matrix(as_network(ison_southern_women)), as_matrix(ison_southern_women))
+  expect_equal(as_matrix(as_network(ison_algebra)), as_matrix(ison_algebra))
 })
 
 test_that("as_igraph converts correctly",{
