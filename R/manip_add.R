@@ -29,8 +29,6 @@ add_node_attributes <- function(object, attr_name, vector){
     } else 
       stop("Attribute vector must be same length as nodes in object.")
   }
-    
-    
   object <- as_igraph(object)
   igraph::vertex_attr(object, name = attr_name) <- vector
   object

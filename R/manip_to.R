@@ -3,7 +3,7 @@
 #' @description
 #' These functions offer tools for transforming certain properties 
 #' of migraph-consistent objects
-#' (that is, matrices, igraph, tidygraph, or network objects).
+#' (matrices, igraph, tidygraph, or network objects).
 #' Unlike the `as_*()` group of functions,
 #' these functions always return the same object type as they are given,
 #' only transforming these objects' properties.
@@ -441,6 +441,7 @@ to_mode2.tbl_graph <- function(object) {
 #'   Note that this is not the same as `to_mode1()` or `to_mode2()`,
 #'   which return only some of the nodes and new ties established by coincidence.
 #' @importFrom igraph delete_vertex_attr
+#' @example to_onemode(ison_southern_women)
 #' @export
 to_onemode <- function(object) UseMethod("to_onemode")
 

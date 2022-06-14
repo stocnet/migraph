@@ -70,7 +70,7 @@ edge_signs <- function(object){
   out
 }
 
-#' @describeIn grab Returns the number of nodes (of any mode) in a network.
+#' @describeIn grab Returns the total number of nodes (of any mode) in a network.
 #' @examples
 #' graph_nodes(ison_southern_women)
 #' @export
