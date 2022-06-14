@@ -398,7 +398,9 @@ as_network.igraph <- function(object) {
   attr <- as.data.frame(igraph::get.vertex.attribute(object))
   if ("name" %in% colnames(attr)) attr <- subset(attr, select = c(-name))
   if ("type" %in% colnames(attr)) attr <- subset(attr, select = c(-type))
-  out <- as_network(as_matrix(object))
+  if (is_twomode(object)) {
+    out <- as_network(igraph::as_adjacency_matrix(object, sparse = FALSE, attr = NULL))
+  } else out <- as_network(as_matrix(object))
   if (length(attr) > 0) {
     out <- network::set.vertex.attribute(out, names(attr), attr)
   }
