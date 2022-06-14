@@ -347,27 +347,6 @@ bm <- bm %>% as_tidygraph %>% mutate(name = c("Freaks", "Squares", "Nerds", "Gee
 autographr(bm)
 ```
 
-```
-# ADVANCED: Note on deductive clustering:
-
-# It's pretty straightforward to alter the code above to test hypotheses.
-# Simply supply your own cluster vector, where the elements in the vector are in 
-# the same order as the vertices in the matrix, and the values represent the
-# cluster to which each vertex belongs. 
-
-  task_social_cors <- cor(task_social)
-  
-# For example, if you believed that actors 2, 7, and 8 formed one group, 
-# actor 16 former another group, and everyone else formed a third group, 
-# you could represent this as follows:
-dedclust = c(1, 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 3)
-
-# Then examine the fitness of this cluster configuration as follows:
-dedclust_mat <- NetCluster::generate_cluster_cor_mat(task_social_cors, dedclust)
-dedclust_mat
-gcor(dedclust_mat, task_social_cors)
-```
-
 # Unit Test
 
 1. Visualise the m182 FRIENDSHIP network, 

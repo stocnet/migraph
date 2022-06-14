@@ -3,7 +3,7 @@
 #' @description 
 #' These functions allow users to add attributes to a graph from another graph
 #' or from a specified vector supplied by the user.
-#' @family manipulation
+#' @family manipulations
 #' @inheritParams is
 #' @param object2 A second object to copy nodes or edges from.
 #' @param attr_name Name of the new attribute in the resulting object.

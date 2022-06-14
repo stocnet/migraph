@@ -27,7 +27,7 @@
 #' | mode1 | | X | X | X | |
 #' | mode2 | | X | X | X | |
 #' @name to
-#' @family manipulation
+#' @family manipulations
 #' @inheritParams is
 #' @param edge Character string naming an edge attribute to retain from a graph.
 #' @param keep In the case of a signed network, whether to retain

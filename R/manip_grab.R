@@ -9,7 +9,7 @@
 #'   `node_*()` and `edge_*()` always return vectors the same length
 #'   as the number of nodes or edges in the network, respectively.
 #' @name grab
-#' @family manipulation
+#' @family manipulations
 #' @inheritParams is
 #' @param attribute Character string naming an attribute in the object.
 NULL

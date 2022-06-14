@@ -4,14 +4,14 @@
 #' properties.
 #' @param object An object of a migraph-consistent class:
 #'   \itemize{
-#'   \item adjacency matrix, from base R
-#'   \item edgelist, a data frame from base R or tibble from tibble
-#'   \item igraph, from the igraph package
-#'   \item network, from the network package
-#'   \item tbl_graph, from the tidygraph package
+#'   \item matrix (adjacency or incidence) from `{base}` R
+#'   \item edgelist, a data frame from `{base}` R or tibble from `{tibble}`
+#'   \item igraph, from the `{igraph}` package
+#'   \item network, from the `{network}` package
+#'   \item tbl_graph, from the `{tidygraph}` package
 #'   }
 #' @return TRUE if the condition is met, or FALSE otherwise.
-#' @family manipulation
+#' @family manipulations
 #' @name is
 NULL
 

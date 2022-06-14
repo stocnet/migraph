@@ -16,7 +16,7 @@
 #' Note also that there are some reserved column names in one or more
 #' object classes, which could otherwise lead to some unexpected results.
 #' @name as
-#' @family manipulation
+#' @family manipulations
 #' @inheritParams is
 #' @param twomode Logical option used to override heuristics for 
 #'   distinguishing incidence (two-mode/bipartite) from 

@@ -25,11 +25,11 @@ graph_balance(object)
 \arguments{
 \item{object}{An object of a migraph-consistent class:
 \itemize{
-\item adjacency matrix, from base R
-\item edgelist, a data frame from base R or tibble from tibble
-\item igraph, from the igraph package
-\item network, from the network package
-\item tbl_graph, from the tidygraph package
+\item matrix (adjacency or incidence) from \code{{base}} R
+\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
+\item igraph, from the \code{{igraph}} package
+\item network, from the \code{{network}} package
+\item tbl_graph, from the \code{{tidygraph}} package
 }}
 
 \item{membership}{A vector of partition membership.}
@@ -99,8 +99,8 @@ for how clustering is calculated
 Other measures: 
 \code{\link{centrality}},
 \code{\link{cohesion}()},
-\code{\link{connectedness}()},
-\code{\link{diversity}()},
+\code{\link{connectedness}},
+\code{\link{diversity}},
 \code{\link{holes}}
 }
 \concept{measures}

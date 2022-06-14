@@ -55,11 +55,11 @@ to_blocks(object, membership, FUN = mean)
 \arguments{
 \item{object}{An object of a migraph-consistent class:
 \itemize{
-\item adjacency matrix, from base R
-\item edgelist, a data frame from base R or tibble from tibble
-\item igraph, from the igraph package
-\item network, from the network package
-\item tbl_graph, from the tidygraph package
+\item matrix (adjacency or incidence) from \code{{base}} R
+\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
+\item igraph, from the \code{{igraph}} package
+\item network, from the \code{{network}} package
+\item tbl_graph, from the \code{{tidygraph}} package
 }}
 
 \item{edge}{Character string naming an edge attribute to retain from a graph.}
@@ -89,7 +89,7 @@ with certain modifications as outlined for each function.
 \description{
 These functions offer tools for transforming certain properties
 of migraph-consistent objects
-(that is, matrices, igraph, tidygraph, or network objects).
+(matrices, igraph, tidygraph, or network objects).
 Unlike the \verb{as_*()} group of functions,
 these functions always return the same object type as they are given,
 only transforming these objects' properties.
@@ -196,10 +196,10 @@ to_blocks(ison_southern_women,
   node_kernighanlin(ison_southern_women))
 }
 \seealso{
-Other manipulation: 
+Other manipulations: 
 \code{\link{add}},
 \code{\link{as}()},
 \code{\link{grab}},
 \code{\link{is}()}
 }
-\concept{manipulation}
+\concept{manipulations}

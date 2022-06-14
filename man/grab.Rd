@@ -40,11 +40,11 @@ graph_edge_attributes(object)
 \arguments{
 \item{object}{An object of a migraph-consistent class:
 \itemize{
-\item adjacency matrix, from base R
-\item edgelist, a data frame from base R or tibble from tibble
-\item igraph, from the igraph package
-\item network, from the network package
-\item tbl_graph, from the tidygraph package
+\item matrix (adjacency or incidence) from \code{{base}} R
+\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
+\item igraph, from the \code{{igraph}} package
+\item network, from the \code{{network}} package
+\item tbl_graph, from the \code{{tidygraph}} package
 }}
 
 \item{attribute}{Character string naming an attribute in the object.}
@@ -73,7 +73,7 @@ as the number of nodes or edges in the network, respectively.
 
 \item \code{edge_signs}: Extracts the signs of the edges in a network.
 
-\item \code{graph_nodes}: Returns the number of nodes (of any mode) in a network.
+\item \code{graph_nodes}: Returns the total number of nodes (of any mode) in a network.
 
 \item \code{graph_edges}: Returns the number of edges in a network.
 
@@ -100,10 +100,10 @@ graph_node_attributes(mpn_elite_mex)
 graph_edge_attributes(mpn_elite_mex)
 }
 \seealso{
-Other manipulation: 
+Other manipulations: 
 \code{\link{add}},
 \code{\link{as}()},
 \code{\link{is}()},
 \code{\link{to}}
 }
-\concept{manipulation}
+\concept{manipulations}
