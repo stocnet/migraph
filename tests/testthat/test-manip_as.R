@@ -56,6 +56,10 @@ test_that("as_network converts correctly",{
   expect_equal(as_network(as_network(data2)), as_network(data2))
   expect_equal(as_network(as_igraph(ison_marvel_relationships)), as_network(ison_marvel_relationships))
   expect_equal(graph_nodes(as_network(dplyr::as_tibble(data2))), graph_nodes(as_network(data2)))
+  expect_equal(is_directed(ison_southern_women), is_directed(as_network(ison_southern_women)))
+  expect_equal(is_directed(mpn_DemSxP), is_directed(as_network(mpn_DemSxP)))
+  expect_equal(is_directed(ison_adolescents), is_directed(as_network(ison_adolescents)))
+  expect_equal(is_directed(ison_algebra), is_directed(as_network(ison_algebra)))
   # NB: ordering of edges is a little different when converting from network
   # to igraph. Should not matter though.
 })
