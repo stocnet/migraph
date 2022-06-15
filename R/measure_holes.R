@@ -24,12 +24,12 @@ NULL
 node_redundancy <- function(object){
   g <- as_igraph(object)
   .inc <- NULL
-  out <- sapply(igraph::V(g), function(ego){
+  out <- vapply(igraph::V(g), function(ego){
     n = igraph::neighbors(g, ego)
     t = length(igraph::E(g)[.inc(n) & !.inc(ego)])
     n = length(n)
     2 * t / n
-  })
+  }, FUN.VALUE = numeric(1))
   make_node_measure(out, object)
 }
 
@@ -41,12 +41,12 @@ node_redundancy <- function(object){
 node_effsize <- function(object){
   g <- as_igraph(object)
   .inc <- NULL
-  out <- sapply(igraph::V(g), function(ego){
+  out <- vapply(igraph::V(g), function(ego){
     n = igraph::neighbors(g, ego)
     t = length(igraph::E(g)[.inc(n) & !.inc(ego)])
     n = length(n)
     n - 2 * t / n
-  })
+  }, FUN.VALUE = numeric(1))
   make_node_measure(out, object)
 }
 
@@ -122,14 +122,14 @@ node_constraint <- function(object) {
 node_hierarchy <- function(object){
   cs <- node_constraint(object)
   g <- as_igraph(object)
-  out <- sapply(igraph::V(object), function(ego){
+  out <- vapply(igraph::V(object), function(ego){
     n = igraph::neighbors(g, ego)
     N <- length(n)
     css <- cs[n]
     CN <- mean(css)
     rj <- css/CN
     sum(rj*log(rj)) / (N * log(N))
-  })
+  }, FUN.VALUE = numeric(1))
   out[is.nan(out)] <- 0
   make_node_measure(out, object)
 }

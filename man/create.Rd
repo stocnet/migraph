@@ -104,13 +104,13 @@ and the rest peripheral, tied only to the core.
 \examples{
 autographr(create_empty(10)) + autographr(create_complete(10))
 autographr(create_empty(c(8,6))) + autographr(create_complete(c(8,6)))
-autographr(create_ring(8, width = 2)) + 
+autographr(create_ring(8, width = 2)) +
 autographr(create_ring(c(8,6), width = 2))
 autographr(create_star(12)) +
 autographr(create_star(12, directed = TRUE)) +
 autographr(create_star(c(12,1)))
-autographr(create_tree(c(7,8), directed = TRUE)) + 
-autographr(create_tree(15, directed = TRUE), "tree") + 
+autographr(create_tree(c(7,8), directed = TRUE)) +
+autographr(create_tree(15, directed = TRUE), "tree") +
 autographr(create_tree(15, directed = TRUE, width = 3), "tree")
 autographr(create_lattice(5), layout = "kk") +
 autographr(create_lattice(c(5,5))) +

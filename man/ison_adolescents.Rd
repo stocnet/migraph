@@ -5,8 +5,7 @@
 \alias{ison_adolescents}
 \title{One-mode subset of the adolescent society (Coleman 1961)}
 \format{
-A undirected one-mode tbl_graph object of 8 named nodes and 10
-edges.
+A undirected one-mode tbl_graph object of 8 named nodes and 10 edges.
 }
 \usage{
 data(ison_adolescents)

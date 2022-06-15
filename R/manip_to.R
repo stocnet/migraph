@@ -356,7 +356,7 @@ to_named.matrix <- function(object, names = NULL) {
   if(is.null(names)) names <- sample(baby_names, 
                                      graph_nodes(object))
   if(is_twomode(object)){
-    rownames(object)  <- names[1:nrow(object)]
+    rownames(object)  <- names[seq_len(nrow(object))]
     colnames(object)  <- names[(nrow(object)+1):length(names)]
   } else {
     rownames(object)  <- names

@@ -58,16 +58,16 @@ node_automorphic_equivalence(
 
 \item{k}{Typically a character string indicating which method
 should be used to select the number of clusters to return.
-By default \code{"strict"} to return classes with members only
-when strictly equivalent.
-Other options (\code{"elbow"} and \code{"silhouette"}) relax this strict assumption,
-generally providing more useful results.
+By default \code{"silhouette"}, other options include \code{"elbow"} and \code{"strict"}.
+\code{"strict"} returns classes with members only when strictly equivalent.
+\code{"silhouette"} and \code{"elbow"} select classes based on the distance between
+clusters or between nodes within a cluster.
 Fewer, identifiable letters, e.g. \code{"e"} for elbow, is sufficient.
 Alternatively, if \code{k} is passed an integer, e.g. \code{k = 3},
 then all selection routines are skipped in favour of this number of clusters.}
 
 \item{cluster}{Character string indicating whether clusters should be
-clustered hierarchically (\code{"hierarchical"}) or
+clustered hierarchically (\code{"hier"}) or
 through convergence of correlations (\code{"concor"}).
 Fewer, identifiable letters, e.g. \code{"c"} for CONCOR, is sufficient.}
 
