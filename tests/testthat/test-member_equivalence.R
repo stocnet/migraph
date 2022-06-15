@@ -1,23 +1,49 @@
-# Equivalence tests
+# Equivalence clustering tests
 
-x <- node_structural_equivalence(ison_adolescents, "strict", "hier")
-test_that("structural equivalence clustering works", {
+a <- node_structural_equivalence(ison_adolescents, "strict", "hier")
+b <- node_structural_equivalence(ison_adolescents, "elbow", "hier")
+c <- node_structural_equivalence(ison_adolescents, "silhouette", "hier")
+d <- node_structural_equivalence(ison_adolescents, k = 3, "hier")
+e <- node_structural_equivalence(ison_adolescents, "elbow", "concor")
+f <- node_structural_equivalence(ison_adolescents, "silhouette", "concor")
+g <- node_structural_equivalence(ison_adolescents, "strict", "concor")
+h <- node_structural_equivalence(ison_adolescents, k = 3, "concor")
+
+r <- node_regular_equivalence(mpn_elite_mex)
+s <- node_regular_equivalence(mpn_elite_mex, "elbow")
+t <- node_regular_equivalence(mpn_elite_mex, "strict")
+u <- node_regular_equivalence(mpn_elite_mex, 2)
+v <- node_regular_equivalence(mpn_elite_mex, cluster = "concor")
+
+x <- node_automorphic_equivalence(mpn_elite_usa_advice, "elbow", "concor")
+y <- node_automorphic_equivalence(mpn_elite_usa_advice)
+z <- node_automorphic_equivalence(mpn_elite_usa_advice, distance = "maximum")
+w <- node_automorphic_equivalence(mpn_elite_usa_advice, "strict", distance = "binary")
+l <- node_automorphic_equivalence(mpn_elite_usa_advice, 4)
+
+test_that("equivalence clustering works", {
+  expect_s3_class(a, "member")
+  expect_s3_class(b, "member")
+  expect_s3_class(e, "member")
+  expect_s3_class(r, "member")
   expect_s3_class(x, "member")
+  expect_equal(c, node_structural_equivalence(ison_adolescents))
+  expect_equal(r, node_regular_equivalence(mpn_elite_mex, "silhouette", "hier"))
+  expect_equal(y, node_automorphic_equivalence(mpn_elite_usa_advice, "silhouette", "hier"))
+  expect_equal(graph_nodes(ison_adolescents), length(f))
+  expect_equal(graph_nodes(ison_adolescents), length(d))
+  expect_equal(graph_nodes(ison_adolescents), length(g))
+  expect_equal(graph_nodes(mpn_elite_mex), length(v))
+  expect_equal(graph_nodes(mpn_elite_mex), length(s))
+  expect_equal(graph_nodes(mpn_elite_mex), length(t))
+  expect_equal(graph_nodes(mpn_elite_usa_advice), length(w))
+  expect_equal(graph_nodes(mpn_elite_usa_advice), length(z))
   expect_false(names(x[1]) %in% names(x[2:length(x)]))
-})
-
-clus <- node_structural_equivalence(mpn_elite_mex, "elbow", "hier")
-test_that("blockmodel works", {
-  expect_s3_class(clus, "member")
-  expect_equal(graph_nodes(mpn_elite_mex), length(clus))
-})
-
-test_that("regular equivalence clustering works", {
-  expect_s3_class(node_regular_equivalence(mpn_elite_mex), "member")
-})
-
-y <- node_automorphic_equivalence(mpn_elite_mex, "elbow")
-test_that("automorphic equivalence clustering works", {
-  expect_s3_class(y, "member")
   expect_false(names(y[1]) %in% names(y[2:length(y)]))
+  expect_true(3 %in% h)
+  expect_false(4 %in% h)
+  expect_true(2 %in% u)
+  expect_false(3 %in% u)
+  expect_true(3 %in% l)
+  expect_false(5 %in% l)
 })
