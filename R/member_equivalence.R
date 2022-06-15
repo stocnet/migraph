@@ -14,10 +14,10 @@
 #' @param census A matrix returned by a `node_*_census()` function.
 #' @param k Typically a character string indicating which method
 #'   should be used to select the number of clusters to return.
-#'   By default `"strict"` to return classes with members only
-#'   when strictly equivalent.
-#'   Other options (`"elbow"` and `"silhouette"`) relax this strict assumption,
-#'   generally providing more useful results.
+#'   By default `"silhouette"`, other options include `"elbow"` and `"strict"`.
+#'   `"strict"` returns classes with members only when strictly equivalent.
+#'   `"silhouette"` and `"elbow"` select classes based on the distance between
+#'   clusters or between nodes within a cluster.
 #'   Fewer, identifiable letters, e.g. `"e"` for elbow, is sufficient.
 #'   Alternatively, if `k` is passed an integer, e.g. `k = 3`,
 #'   then all selection routines are skipped in favour of this number of clusters.
