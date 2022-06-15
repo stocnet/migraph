@@ -153,13 +153,23 @@ node_quad_census <- function(object){
 
 #' @describeIn node_census Returns the shortest path lengths
 #'   of each node to every other node in the network.
-#' @importFrom tnet distance_tm distance_w
+#' @importFrom igraph distances
+#' @references 
+#' Dijkstra, E. W., 1959. 
+#' "A note on two problems in connexion with graphs". 
+#' _Numerische Mathematik_ 1, 269-271.
+#' 
+#' Opsahl, Tore, Agneessens, F., Skvoretz, John, 2010. 
+#' "Node centrality in weighted networks: Generalizing degree and shortest paths". 
+#' _Social Networks_ 32(3), 245-251.
 #' @examples 
 #' node_path_census(ison_adolescents)
+#' node_path_census(ison_southern_women)
 #' @export
 node_path_census <- function(object){
   if(is_weighted(object)){
-    out <- tnet::distance_w(as_matrix(object))
+    tore <- as_matrix(object)/mean(as_matrix(object))
+    out <- 1/tore
   } else out <- igraph::distances(as_igraph(object))
   diag(out) <- 0
   make_node_motif(out, object)

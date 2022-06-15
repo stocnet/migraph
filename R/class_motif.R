@@ -15,19 +15,8 @@ print.node_motif <- function(x, ...,
                          max.length = 6,
                          digits = 3){
   if(any(attr(x, "mode"))){
-    for(i in names(table(x))){
-      if(i == names(table(x))[1]) cat(i, "\n")
-      else cat("\n", i, "\n")
-      if(!is.null(names(x))){
-        y <- paste(names(x[x==i & attr(x, "mode")]), collapse = ", ")
-        z <- paste(names(x[x==i & !attr(x, "mode")]), collapse = ", ")
-      } else{
-        y <- paste(which(x==i & attr(x, "mode")), collapse = ", ")
-        z <- paste(which(x==i & !attr(x, "mode")), collapse = ", ")
-      } 
-      cat("  ", y, "\n")
-      cat("  ", z)
-    }
+    print(dplyr::tibble(as.data.frame(x)[!attr(x, "mode")]))
+    print(dplyr::tibble(as.data.frame(x)[attr(x, "mode")]))
   } else {
     print(dplyr::tibble(as.data.frame(x)))
   }

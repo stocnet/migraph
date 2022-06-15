@@ -78,6 +78,7 @@ task_eg <- to_named(to_uniplex(ison_algebra, "task_tie"))
 (triad_cen <- node_triad_census(task_eg))
 (quad_cen <- node_quad_census(ison_southern_women))
 node_path_census(ison_adolescents)
+node_path_census(ison_southern_women)
 }
 \references{
 Davis, James A., and Samuel Leinhardt. 1967.
@@ -86,6 +87,14 @@ Davis, James A., and Samuel Leinhardt. 1967.
 Ortmann, Mark, and Ulrik Brandes. 2017.
 “Efficient Orbit-Aware Triad and Quad Census in Directed and Undirected Graphs.”
 \emph{Applied Network Science} 2(1):13. \doi{https://doi.org/10.1007/s41109-017-0027-2}
+
+Dijkstra, E. W., 1959.
+"A note on two problems in connexion with graphs".
+\emph{Numerische Mathematik} 1, 269-271.
+
+Opsahl, Tore, Agneessens, F., Skvoretz, John, 2010.
+"Node centrality in weighted networks: Generalizing degree and shortest paths".
+\emph{Social Networks} 32(3), 245-251.
 }
 \seealso{
 Other motifs: 
