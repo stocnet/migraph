@@ -40,13 +40,13 @@ a network of the same dimensions will be created.
 }}
 
 \item{directed}{Logical whether the graph should be directed.
-By default FALSE.
+By default \code{directed = FALSE}.
 If the opposite direction is desired, use \code{to_redirected()}.}
 
-\item{width}{Either an integer specifying the width or breadth
+\item{width}{Integer specifying the width or breadth
 of the ring or branches.}
 
-\item{...}{Additional arguments passed on to igraph.}
+\item{...}{Additional arguments passed on to \code{{igraph}}.}
 
 \item{membership}{A vector of partition membership as integers.
 If left as \code{NULL} (the default), nodes in each mode will be
@@ -55,7 +55,8 @@ assigned to two, equally sized partitions.}
 \value{
 By default an \code{igraph} object is returned,
 but this can be coerced into other types of objects
-using \code{as_matrix()}, \code{as_tidygraph()}, or \code{as_network()}.
+using \code{as_edgelist()}, \code{as_matrix()},
+\code{as_tidygraph()}, or \code{as_network()}.
 }
 \description{
 These functions create networks with particular structural properties.

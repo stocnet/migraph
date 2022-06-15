@@ -30,17 +30,18 @@
 #'   a network of the same dimensions will be created.
 #'   }
 #' @param directed Logical whether the graph should be directed. 
-#'   By default FALSE. 
+#'   By default `directed = FALSE`. 
 #'   If the opposite direction is desired, use `to_redirected()`.
-#' @param width Either an integer specifying the width or breadth
+#' @param width Integer specifying the width or breadth
 #'   of the ring or branches.
 #' @param membership A vector of partition membership as integers.
 #'   If left as `NULL` (the default), nodes in each mode will be
 #'   assigned to two, equally sized partitions. 
-#' @param ... Additional arguments passed on to igraph.
+#' @param ... Additional arguments passed on to `{igraph}`.
 #' @return By default an `igraph` object is returned,
 #'   but this can be coerced into other types of objects
-#'   using `as_matrix()`, `as_tidygraph()`, or `as_network()`.
+#'   using `as_edgelist()`, `as_matrix()`, 
+#'   `as_tidygraph()`, or `as_network()`.
 #' @importFrom tidygraph as_tbl_graph
 #' @importFrom igraph graph_from_incidence_matrix
 NULL
@@ -207,7 +208,7 @@ create_tree <- function(n,
 #' @export
 create_lattice <- function(n, 
                            directed = FALSE) {
-  n <- infer_n(n)
+  if(is_migraph(n)) n <- graph_dims(n)
   igraph::make_lattice(n, directed = directed)
 }
 
