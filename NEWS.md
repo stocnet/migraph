@@ -67,8 +67,8 @@
 
 ## Memberships
 
-- Added new `"member"` S3 class for vectors of nodes' cluster memberships
-  - The class hides a hierarchical clustering object as an attribute, so `plot.member()` replaces `ggtree()`
+- Added new `"node_member"` S3 class for vectors of nodes' cluster memberships
+  - The class hides a hierarchical clustering object as an attribute, so `plot.node_member()` replaces `ggtree()`
 - Moved to an equivalence identification scheme that hides many of the technical aspects from users when unnecessary
   - Added `node_equivalence()` for identifying nodes' membership in classes equivalent with respect to some arbitrary motif census
     - `"hierarchical"` and `"concor"` now options for `cluster` within `node_equivalence()`; `blockmodel_concor()` is now deprecated (closed #123)

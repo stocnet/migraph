@@ -22,11 +22,11 @@ w <- node_automorphic_equivalence(mpn_elite_usa_advice, "strict", distance = "bi
 l <- node_automorphic_equivalence(mpn_elite_usa_advice, 4)
 
 test_that("equivalence clustering works", {
-  expect_s3_class(a, "member")
-  expect_s3_class(b, "member")
-  expect_s3_class(e, "member")
-  expect_s3_class(r, "member")
-  expect_s3_class(x, "member")
+  expect_s3_class(a, "node_member")
+  expect_s3_class(b, "node_member")
+  expect_s3_class(e, "node_member")
+  expect_s3_class(r, "node_member")
+  expect_s3_class(x, "node_member")
   expect_equal(c, node_structural_equivalence(ison_adolescents))
   expect_equal(r, node_regular_equivalence(mpn_elite_mex, "silhouette", "hier"))
   expect_equal(y, node_automorphic_equivalence(mpn_elite_usa_advice, "silhouette", "hier"))

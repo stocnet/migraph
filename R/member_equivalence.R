@@ -72,7 +72,7 @@ node_equivalence <- function(object, census,
                 elbow = k_elbow(hc, object, census, range),
                 silhouette = k_silhouette(hc, object, range))
   
-  out <- make_member(stats::cutree(hc, k), object)
+  out <- make_node_member(stats::cutree(hc, k), object)
   attr(out, "hc") <- hc
   attr(out, "k") <- k
   out

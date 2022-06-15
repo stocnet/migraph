@@ -1,11 +1,11 @@
-make_member <- function(out, object) {
-  class(out) <- c("member", class(out))
+make_node_member <- function(out, object) {
+  class(out) <- c("node_member", class(out))
   attr(out, "mode") <- node_mode(object)
   out
 }
 
 #' @export
-print.member <- function(x, ...,
+print.node_member <- function(x, ...,
                                max.length = 6,
                                digits = 3) {
   if (any(attr(x, "mode"))) {
@@ -37,7 +37,7 @@ print.member <- function(x, ...,
 
 #' @importFrom stats cutree
 #' @export
-plot.member <- function(x, ...) {
+plot.node_member <- function(x, ...) {
   if (!("ggdendro" %in% rownames(utils::installed.packages()))) {
     message("Please install package `{ggdendro}`.")
   } else {
