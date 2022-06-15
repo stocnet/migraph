@@ -1,4 +1,4 @@
-make_member <- function(out, object){
+make_member <- function(out, object) {
   class(out) <- c("member", class(out))
   attr(out, "mode") <- node_mode(object)
   out
@@ -7,29 +7,29 @@ make_member <- function(out, object){
 #' @export
 print.member <- function(x, ...,
                                max.length = 6,
-                               digits = 3){
-  if(any(attr(x, "mode"))){
-    for(i in names(table(x))){
-      if(i == names(table(x))[1]) cat(i, "\n")
+                               digits = 3) {
+  if (any(attr(x, "mode"))) {
+    for (i in names(table(x))) {
+      if (i == names(table(x))[1]) cat(i, "\n")
       else cat("\n", i, "\n")
-      if(!is.null(names(x))){
-        y <- paste(names(x[x==i & attr(x, "mode")]), collapse = ", ")
-        z <- paste(names(x[x==i & !attr(x, "mode")]), collapse = ", ")
-      } else{
-        y <- paste(which(x==i & attr(x, "mode")), collapse = ", ")
-        z <- paste(which(x==i & !attr(x, "mode")), collapse = ", ")
-      } 
+      if (!is.null(names(x))) {
+        y <- paste(names(x[x == i & attr(x, "mode")]), collapse = ", ")
+        z <- paste(names(x[x == i & !attr(x, "mode")]), collapse = ", ")
+      } else {
+        y <- paste(which(x == i & attr(x, "mode")), collapse = ", ")
+        z <- paste(which(x == i & !attr(x, "mode")), collapse = ", ")
+      }
       cat("  ", y, "\n")
       cat("  ", z)
     }
   } else {
-    for(i in names(table(x))){
-      if(i == names(table(x))[1]) cat(i, "\n")
+    for (i in names(table(x))) {
+      if (i == names(table(x))[1]) cat(i, "\n")
       else cat("\n", i, "\n")
-      if(!is.null(names(x))) 
-        y <- paste(names(x[x==i]), collapse = ", ")
-      else 
-        y <- paste(which(x==i), collapse = ", ")
+      if (!is.null(names(x)))
+        y <- paste(names(x[x == i]), collapse = ", ")
+      else
+        y <- paste(which(x == i), collapse = ", ")
       cat("  ", y)
     }
   }
@@ -37,7 +37,7 @@ print.member <- function(x, ...,
 
 #' @importFrom stats cutree
 #' @export
-plot.member <- function(x, ...){
+plot.member <- function(x, ...) {
   if (!("ggdendro" %in% rownames(utils::installed.packages()))) {
     message("Please install package `{ggdendro}`.")
   } else {
@@ -45,7 +45,7 @@ plot.member <- function(x, ...){
     k <- attr(x, "k")
     memb <- x[hc$order]
     clust <- memb[!duplicated(memb)]
-    colors <- ifelse(match(memb, clust) %% 2, 
+    colors <- ifelse(match(memb, clust) %% 2,
                      "#000000", "#E20020")
     ggdendro::ggdendrogram(hc, rotate = TRUE) +
       ggplot2::geom_hline(yintercept = hc$height[length(hc$order) - k],
@@ -57,31 +57,31 @@ plot.member <- function(x, ...){
   }
 }
 
-# plot(as_matrix(ison_adolescents), 
+# plot(as_matrix(ison_adolescents),
 #   membership = node_regular_equivalence(ison_adolescents, "e"))
-# plot(as_matrix(ison_southern_women), 
+# plot(as_matrix(ison_southern_women),
 #   membership = node_regular_equivalence(ison_southern_women, "e"))
 #' @importFrom tidyr pivot_longer
 #' @importFrom ggplot2 ggplot geom_tile aes scale_fill_gradient theme_grey labs theme scale_x_discrete scale_y_discrete geom_vline geom_hline element_blank element_text
 #' @importFrom rlang .data
 #' @export
 plot.matrix <- function(x, ..., membership = NULL) {
-  
-  if(!is_twomode(x)){
+
+  if (!is_twomode(x)) {
     blocked_data <- as_matrix(x)
-    if(!is.null(membership)) blocked_data <- blocked_data[order(membership), 
+    if (!is.null(membership)) blocked_data <- blocked_data[order(membership),
                                                           order(membership)]
-  } else if(is_twomode(x) && 
-     length(intersect(membership[!node_mode(x)], membership[!node_mode(x)]))>0){
+  } else if (is_twomode(x) &&
+     length(intersect(membership[!node_mode(x)], membership[!node_mode(x)])) > 0) {
     blocked_data <- as_matrix(to_multilevel(x))
-    if(!is.null(membership)) blocked_data <- blocked_data[order(membership), 
+    if (!is.null(membership)) blocked_data <- blocked_data[order(membership),
                                                           order(membership)]
   } else {
     blocked_data <- as_matrix(x)
   }
 
   plot_data <- as.data.frame(blocked_data) %>%
-    dplyr::mutate(Var1 = rownames(blocked_data)) %>% 
+    dplyr::mutate(Var1 = rownames(blocked_data)) %>%
     tidyr::pivot_longer(!.data[["Var1"]], names_to = "Var2", values_to = "value")
   g <- ggplot2::ggplot(plot_data, ggplot2::aes(.data[["Var2"]], .data[["Var1"]])) +
     ggplot2::theme_grey(base_size = 9) +
@@ -102,7 +102,7 @@ plot.matrix <- function(x, ..., membership = NULL) {
     ggplot2::geom_tile(ggplot2::aes(fill = .data[["value"]]),
                        colour = "white"
     )
-  
+
   # Color for signed networks
   if (is_signed(x)) {
     g <- g +
@@ -116,7 +116,7 @@ plot.matrix <- function(x, ..., membership = NULL) {
         high = "black"
       )
   }
-  
+
   # Structure for multimodal networks
   if (!is_twomode(x)) {
     g <- g +
@@ -126,7 +126,7 @@ plot.matrix <- function(x, ..., membership = NULL) {
       ggplot2::scale_y_discrete(expand = c(0, 0),
                                 limits = rev(rownames(blocked_data))
       )
-    if(!is.null(membership))
+    if (!is.null(membership))
       g <- g + ggplot2::geom_vline(
         xintercept = c(1 + which(diff(membership[order(membership)]) != 0))
         - .5,
@@ -163,5 +163,3 @@ plot.matrix <- function(x, ..., membership = NULL) {
 }
 
 elementwise.all.equal <- Vectorize(function(x, y) {isTRUE(all.equal(x, y))})
-
-

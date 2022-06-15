@@ -81,7 +81,7 @@ reference:
       - identify
   - title: "Memberships"
     desc: |
-      Functions for identifying class, cluster, or partition memberships 
+      Functions for identifying class, cluster, or partition memberships
       in multimodal networks.
     contents:
       - community
