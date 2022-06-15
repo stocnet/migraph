@@ -2,60 +2,106 @@
 
 ## Package
 
-- Reduced package dependencies considerably
-  - `{concaveman}`, `{ggdendro}`, `{oaqc}` are now Suggests
-  - `{stringr}` and `{tibble}` no longer necessary
-- Relabelled nearly all scripts to follow website function structure
-- Switched to S3 classes as outputs for many functions, and several methods for them have been added (see appropriate sections below)
+- Reduced package dependencies by 5
+  - `{concaveman}`, `{ggdendro}`, `{oaqc}` are now Suggests; the user is prompted to install them when required in `autographr()`, `plot.member()`, and `node_quad_census()` respectively
+  - `{stringr}` and `{tibble}` replaced with base or other code and therefore no longer necessary
+- Relabelled scripts to follow website function structure
+  - Added `@family` tags for improved cross-referencing
+  - Added a lot more references/sources
+- README elaborated, including listing functions and data in the package 
+- Switched to S3 classes as outputs for most functions
+  - Several methods, e.g. `print()`, `plot()`, `summary()`, have been added for them (see appropriate sections below)
 
 ## Making
 
-- Added `create_core()` for creating core-periphery graphs
+- All `create_` and `generate_` functions now: 
+  - work when `n` passed an existing network
+  - work with two-mode networks, including `create_tree()`, `generate_smallworld()`, `generate_scalefree()`
+  - return undirected network by default
+- Some `create_` functions can now take a membership vector or split into equal partitions by default
+  - `create_components()` no longer accepts a number of components, instead relying on the membership vector
+  - Added `create_core()` for creating core-periphery graphs
+- `generate_random()` now inherits attributes from any network
 
 ## Manipulation
 
-- Added `to_redirected()` for adding or swapping direction to networks
-- Added `to_blocks()` for reducing a network down by a membership vector
+- Added a couple of `to_` functions useful for working with networks of different types
+  - Added `to_redirected()` for adding or swapping direction to networks (closed #219)
+  - Added `to_blocks()` for reducing a network down by a membership vector; `blockmodel()` and `reduce_graph()` are now deprecated
+  - `to_multilevel.igraph()` now only works on two-mode networks; returns the original network if passed a one-mode network
+- Fixed some bugs in a number of `is_` functions
+  - `is_signed.data.frame()` and `is_signed.matrix()` now rely on new helper `is.wholenumber()` rather than misleading `is.integer()`
+  - `is_directed.igraph()` and `is_directed.matrix()` now return FALSE for two-mode networks
+  - `is_connected()` now returns result for strong components if directed and weak components if undirected
+- `as_igraph.data.frame()` now infers third column as weight
+
+## Marks
+
+- Added new set of functions that return logical vectors for nodes and edges:
+  - `edge_multiple()`, `edge_loop()`, `edge_reciprocal()` moved from measures
+  - Added `edge_bridges()`
 
 ## Measures
 
-- Added `summary.node_measure()` method for printing a summary by a membership vector
-- `"edge_measure"` has been added, along with `print()` and `plot()` methods
-- Added `graph_core()` for calculating correlation of an observed network to a core-periphery network of the same dimensions
-- Added `graph_factions()` for calculating correlation of an observed network to a component network of the same dimensions
-- Added `graph_modularity()` for calculating modularity of an observed network, including modularity for two-mode networks
-- Added several additional measures of structural holes: `node_redundancy()`, `node_effsize()`, `node_efficiency()`, `node_hierarchy()`
+- A new `"edge_measure"` S3 class has been added, along with `print()` and `plot()` methods
+- Added `summary.node_measure()` method for printing a summary by a membership vector; `summarise_statistics()` is now deprecated
+- All cohesion, connection, and diversity measures now return `"graph_measure"` class results
+  - `graph_components()` now calculates strong components for directed networks else weak components
+  - `print.graph_measure()` now correctly labels two-mode results where a vector is given
+- Added new script for measuring features, including `graph_smallworld()`
+  - Added `graph_core()` for calculating correlation of an observed network to a core-periphery network of the same dimensions (closed #39)
+  - Added `graph_factions()` for calculating correlation of an observed network to a component network of the same dimensions (closed #40)
+  - Added `graph_modularity()` for calculating modularity of an observed network, including modularity for two-mode networks (closed #144)
+- Added new script for measuring structural holes, including `node_constraint()`
+  - Added several additional measures of structural holes: `node_redundancy()`, `node_effsize()`, `node_efficiency()`, `node_hierarchy()`
+- `node_betweenness()` no longer needs `nobigint` argument; just uses default from `{igraph}`
 
 ## Motifs
 
-- Added `"node_motif"` class for the output of `node_*_census()` functions
+- Added `"node_motif"` S3 class for the output of `node_*_census()` functions
   - Added `print.node_motif()` for tibble-printing of census results
-  - Added `summary.node_motif()` to summarise censuses by a membership vector
-- Added `node_path_census()` for returning the shortest distances from each node to every other node
+  - Added `summary.node_motif()` to summarise censuses by a membership vector, replacing `group_tie_census()` and `group_triad_census()`, which are now deprecated
+- Added `"graph_motif"` S3 class for the output of `graph_*_census()` functions
+- Added `node_path_census()` for returning the shortest distances from each node to every other node (closed #222)
+- `node_tie_census()` now creates unique column names
 
 ## Memberships
 
-- Added new `"member"` class for vectors of nodes' cluster memberships
+- Added new `"member"` S3 class for vectors of nodes' cluster memberships
+  - The class hides a hierarchical clustering object as an attribute, so `plot.member()` replaces `ggtree()`
 - Moved to an equivalence identification scheme that hides many of the technical aspects from users when unnecessary
   - Added `node_equivalence()` for identifying nodes' membership in classes equivalent with respect to some arbitrary motif census
-  - Added `node_automorphic_equivalence()` for identifying nodes' membership in automorphically-equivalent classes
-- Started adding community identification scheme that mirrors equivalence identification in many respects
-  - Added `node_kernaghinlin()` for identifying nodes' membership in communities based on the Kernaghin-Lin algorithm
-- Started connected identification scheme that mirrors equivalence identification in many respects
-  - Added `node_coreness()` for nodes' _k_-core score
-  - Added `node_strong_components()` and `node_weak_components()` for more direct calls; `node_components()` now returns the equivalent to strong components whenever the network is directed
+    - `"hierarchical"` and `"concor"` now options for `cluster` within `node_equivalence()`; `blockmodel_concor()` is now deprecated (closed #123)
+    - `"elbow"` now an option for `k` selection within `node_equivalence()`; `ggidentify_clusters()` is now deprecated
+    - Added `"silhouette"` and `"strict"` options for `k` selection (closed #197)
+    - Added option for `k` to be defined
+    - There is now an argument `distance` passed to `stats::dist` that defines the distance metric (closed #36)
+    - The argument `range` constrains the number of `k` evaluated by `"elbow"` and `"silhouette"` to improve parsimony and avoid long elapsed times
+  - Added `node_automorphic_equivalence()` for identifying nodes' membership in automorphically-equivalent classes (closed #187)
+  - `node_structural_equivalence()` replaces `cluster_structural_equivalence()`
+  - `node_regular_equivalence()` replaces `cluster_regular_equivalence()`
+- Added community identification scheme that mirrors equivalence identification in many respects
+  - Added `node_kernaghinlin()` for identifying nodes' membership in communities based on the Kernaghin-Lin algorithm (thank you, @jaeltan, closed #198)
+- Added connected identification scheme that mirrors equivalence identification in many respects
+  - Added `node_coreness()` for nodes' _k_-core score (closed #200)
+  - Added `node_strong_components()` and `node_weak_components()` for more direct calls; `node_components()` now calculates strong components for directed networks else weak components
 
 ## Models
 
-- A single `"graph_test"` class replaces `"cug_test"` and `"qap_test"`
-  - Consolidated `plot()` methods and added `print.graph_test()` method
-- `plot.matrix()` now plots adjacency/incidence matrices with sorting and horizontal/vertical lines if a membership vector is provided.
-This effectively replaces `plot.block_model()`.
+- A single `"graph_test"` S3 class replaces `"cug_test"` and `"qap_test"`
+  - `plot.graph_test()` replaces `plot.cug_test()` and `plot.qap_test()`
+  - Added `print.graph_test()` method
+- `plot.matrix()` now plots adjacency/incidence matrices with sorting and horizontal/vertical lines if a membership vector is provided, 
+effectively replacing `plot.block_model()`
+
+## Mapping
+
+- `autographr()` can highlight nodes that max (by default) some measure (thank you, @BBieri, closed #224)
+- `ggatyear()` is deprecated
 
 ## Data
 
 - `ison_algebra`'s edge attributes now named "friends", "social", and "tasks"
-- Standardised some references
 
 # migraph 0.9.3
 
