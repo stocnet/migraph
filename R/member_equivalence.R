@@ -22,7 +22,7 @@
 #'   Alternatively, if `k` is passed an integer, e.g. `k = 3`,
 #'   then all selection routines are skipped in favour of this number of clusters.
 #' @param cluster Character string indicating whether clusters should be 
-#'   clustered hierarchically (`"hierarchical"`) or 
+#'   clustered hierarchically (`"hier"`) or 
 #'   through convergence of correlations (`"concor"`). 
 #'   Fewer, identifiable letters, e.g. `"c"` for CONCOR, is sufficient.
 #' @param distance Character string indicating which distance metric
