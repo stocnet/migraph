@@ -1,3 +1,29 @@
+test_that("redundancy is reported correctly", {
+  expect_s3_class(node_redundancy(ison_brandes), "node_measure")
+  expect_s3_class(node_redundancy(mpn_elite_usa_advice), "node_measure")
+  expect_equal(length(node_redundancy(ison_brandes)), graph_nodes(ison_brandes))
+  expect_equal(length(node_redundancy(mpn_elite_usa_advice)),
+               graph_nodes(mpn_elite_usa_advice))
+  expect_named(node_redundancy(mpn_elite_usa_advice))
+})
+
+test_that("effective size is reported correctly", {
+  expect_s3_class(node_effsize(ison_brandes), "node_measure")
+  expect_s3_class(node_effsize(mpn_elite_usa_advice), "node_measure")
+  expect_equal(length(node_effsize(ison_brandes)), graph_nodes(ison_brandes))
+  expect_equal(length(node_effsize(mpn_elite_usa_advice)),
+               graph_nodes(mpn_elite_usa_advice))
+  expect_named(node_effsize(mpn_elite_usa_advice))
+})
+
+test_that("efficiency is reported correctly", {
+  expect_s3_class(node_efficiency(ison_brandes), "node_measure")
+  expect_s3_class(node_efficiency(mpn_elite_usa_advice), "node_measure")
+  expect_equal(length(node_efficiency(ison_brandes)), graph_nodes(ison_brandes))
+  expect_equal(length(node_efficiency(mpn_elite_usa_advice)),
+               graph_nodes(mpn_elite_usa_advice))
+})
+
 test_that("constraint scores are reported correctly for two-mode notworks",{
   expect_equal(round(unname(node_constraint(ison_southern_women)[1:3]),2), c(0.28, 0.31, 0.29))
   expect_named(node_constraint(ison_southern_women)[1:3], c("EVELYN", "LAURA", "THERESA"))
@@ -9,16 +35,11 @@ test_that("constraint scores are reported correctly for one-mode notworks",{
   expect_equal(round(unname(node_constraint(mpn_elite_mex)[1:3]),2), c(0.45, 0.35, 0.28))
 })
 
-
-testDegree     <- plot(node_degree(ison_brandes))
-testBetweeness <- plot(node_betweenness(ison_brandes))
-testCloseness  <- plot(node_closeness(ison_brandes))
-testEigen      <- plot(node_eigenvector(ison_brandes))
-
-test_that("Plot identify function works", {
-  expect_true(is.list(testEigen))
-  expect_length(testDegree, 9)
-  expect_named(testDegree[1], "data")
-  expect_equal(testEigen[["labels"]][["y"]], "Frequency")
-  expect_equal(testBetweeness[["labels"]][["x"]], "Score")
+test_that("hierarchy is reported correctly", {
+  expect_s3_class(node_hierarchy(ison_brandes), "node_measure")
+  expect_s3_class(node_hierarchy(mpn_elite_usa_advice), "node_measure")
+  expect_equal(length(node_hierarchy(ison_brandes)), graph_nodes(ison_brandes))
+  expect_equal(length(node_hierarchy(mpn_elite_usa_advice)),
+               graph_nodes(mpn_elite_usa_advice))
+  expect_named(node_hierarchy(mpn_elite_usa_advice))
 })
