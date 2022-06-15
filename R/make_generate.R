@@ -77,14 +77,24 @@ generate_random <- function(n, p = 0.5, directed = FALSE, with_attr = TRUE) {
 #' Watts, Duncan J., and Steven H. Strogatz. 1998. 
 #' “Collective Dynamics of ‘Small-World’ Networks.” 
 #' _Nature_ 393(6684):440–42.
+#' \doi{10.1038/30918}.
 #' @importFrom igraph sample_smallworld
 #' @examples
 #' autographr(generate_smallworld(12, 0.025)) +
-#' autographr(generate_smallworld(12, 0.25))
+#' autographr(generate_smallworld(12, 0.25)) +
+#' autographr(generate_smallworld(c(6,6), 0.025))
 #' @export
-generate_smallworld <- function(n, p = 0.05) {
-  igraph::sample_smallworld(dim = 1, size = n, 
-                            nei = 2, p = p)
+generate_smallworld <- function(n, p = 0.05, width = 2, directed = FALSE) {
+  n <- infer_n(n)
+  if(length(n) > 1){
+    g <- create_ring(n, width = width, directed = directed)
+    g <- igraph::rewire(g, igraph::each_edge(p = p))
+  } else {
+    g <- igraph::sample_smallworld(dim = 1, size = n, 
+                            nei = width, p = p)
+    if(directed) g <- to_redirected(g)
+  }
+  g
 }
 
 #' @describeIn generate Generates a scale-free structure
@@ -98,16 +108,31 @@ generate_smallworld <- function(n, p = 0.05) {
 #' @examples
 #' autographr(generate_scalefree(12, 0.25)) +
 #' autographr(generate_scalefree(12, 1.25))
+#' autographr(generate_scalefree(c(12,6), 0.25)) /
+#' autographr(generate_scalefree(c(12,6), 1.25))
 #' @export
-generate_scalefree <- function(n, p = 1) {
-  igraph::sample_pa(n, power = p)
+generate_scalefree <- function(n, p = 1, directed = FALSE) {
+  n <- infer_n(n)
+  if(length(n) > 1){
+    g <- matrix(0, n[1], n[2])
+    for(i in seq_len(nrow(g))){
+      if(i==1) g[i,1] <- 1
+      else g[i, sample.int(ncol(g), size = 1,
+                           prob = (colSums(g)^p + 1))] <- 1
+    }
+    g <- as_igraph(g, twomode = TRUE)
+  } else {
+    g <- igraph::sample_pa(n, power = p, directed = directed)
+  }
+  g
 }
 
 #' @describeIn generate Generates a permutation of the original network
 #'   using a Fisher-Yates shuffle on both the rows and columns (for a one-mode network)
 #'   or on each of the rows and columns (for a two-mode network).
-#' @param with_attr Logical. Whether any attributes of the object
-#'   should be retained. By default TRUE. 
+#' @param with_attr Logical whether any attributes of the object
+#'   should be retained. 
+#'   By default TRUE. 
 #' @examples
 #' autographr(mpn_elite_usa_advice) +
 #' autographr(generate_permutation(mpn_elite_usa_advice))

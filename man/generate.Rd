@@ -10,9 +10,9 @@
 \usage{
 generate_random(n, p = 0.5, directed = FALSE, with_attr = TRUE)
 
-generate_smallworld(n, p = 0.05)
+generate_smallworld(n, p = 0.05, width = 2, directed = FALSE)
 
-generate_scalefree(n, p = 1)
+generate_scalefree(n, p = 1, directed = FALSE)
 
 generate_permutation(object, with_attr = TRUE)
 }
@@ -32,8 +32,12 @@ if integer greater than 1, the number of edges in the network.}
 
 \item{directed}{Whether to generate network as directed. By default FALSE.}
 
-\item{with_attr}{Logical. Whether any attributes of the object
-should be retained. By default TRUE.}
+\item{with_attr}{Logical whether any attributes of the object
+should be retained.
+By default TRUE.}
+
+\item{width}{Integer specifying the width or breadth
+of the ring or branches.}
 
 \item{object}{An object of a migraph-consistent class:
 \itemize{
@@ -74,9 +78,12 @@ or on each of the rows and columns (for a two-mode network).
 autographr(generate_random(12, 0.4)) +
 autographr(generate_random(c(6, 6), 0.4))
 autographr(generate_smallworld(12, 0.025)) +
-autographr(generate_smallworld(12, 0.25))
+autographr(generate_smallworld(12, 0.25)) +
+autographr(generate_smallworld(c(6,6), 0.025))
 autographr(generate_scalefree(12, 0.25)) +
 autographr(generate_scalefree(12, 1.25))
+autographr(generate_scalefree(c(12,6), 0.25)) /
+autographr(generate_scalefree(c(12,6), 1.25))
 autographr(mpn_elite_usa_advice) +
 autographr(generate_permutation(mpn_elite_usa_advice))
 }
@@ -87,6 +94,7 @@ Erdős, Paul, and Alfréd Rényi. (1959). "\href{https://www.renyi.hu/~p_erdos/1
 Watts, Duncan J., and Steven H. Strogatz. 1998.
 “Collective Dynamics of ‘Small-World’ Networks.”
 \emph{Nature} 393(6684):440–42.
+\doi{10.1038/30918}.
 
 Barabási, Albert-László, and Réka Albert. 1999.
 “Emergence of Scaling in Random Networks.”
