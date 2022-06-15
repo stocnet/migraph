@@ -145,11 +145,20 @@ function names wherever possible.
 -   Cohesion: `graph_density()`, `graph_reciprocity()`,
     `graph_transitivity()`, `graph_equivalency()`, and
     `graph_congruency()`
--   Censuses: `graph_dyad_census()`, `graph_mixed_census()`,
-    `graph_triad_census()`, `group_tie_census()`,
-    `group_triad_census()`, `node_path_census()`, `node_quad_census()`,
-    `node_tie_census()`, `node_triad_census()`
--   Other measures: e.g. `node_constraint()`, `graph_smallworld()`
+-   Connectedness: `graph_components()`, `graph_cohesion()`,
+    `graph_adhesion()`, `graph_diameter()`, `graph_length()`
+-   Diversity: `graph_blau_index()`, `graph_ei_index()`,
+    `graph_assortativity()`
+-   Structural holes: e.g. `node_redundancy()`, `node_effsize()`,
+    `node_efficiency()`, `node_constraint()`, `node_hierarchy()`
+-   Topological features: e.g. `graph_core()`, `graph_factions()`,
+    `graph_modularity()`, `graph_smallworld()`, `graph_balance()`
+
+#### Motifs
+
+-   Censuses: `node_path_census()`, `node_quad_census()`,
+    `node_tie_census()`, `node_triad_census()`, `graph_dyad_census()`,
+    `graph_mixed_census()`, `graph_triad_census()`
 
 #### Models
 

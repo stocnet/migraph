@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 # Obtaining data
 
-While `{migraph}` includes a number of datasets (see [here](https://snlab-ch.github.io/migraph/reference/index.html#section-data)),
+While `{migraph}` includes a number of datasets (see [here](https://snlab-ch.github.io/migraph/reference/index.html#data)),
 and there are several packages in R that already include
 a range of social network data,
 there often comes a time when it is necessary to import and analyse data

@@ -132,8 +132,14 @@ with existing function names wherever possible.
 - Centrality: `node_degree()`, `node_closeness()`, `node_betweenness()`, and `node_eigenvector()`
 - Centralization: `graph_degree()`, `graph_closeness()`, `graph_betweenness()`, and `graph_eigenvector()`
 - Cohesion: `graph_density()`, `graph_reciprocity()`, `graph_transitivity()`, `graph_equivalency()`, and `graph_congruency()`
-- Censuses: `r list_functions("_census")`
-- Other measures: e.g. `node_constraint()`, `graph_smallworld()`
+- Connectedness: `graph_components()`, `graph_cohesion()`, `graph_adhesion()`, `graph_diameter()`, `graph_length()`
+- Diversity: `graph_blau_index()`, `graph_ei_index()`, `graph_assortativity()`
+- Structural holes: e.g. `node_redundancy()`, `node_effsize()`, `node_efficiency()`, `node_constraint()`, `node_hierarchy()`
+- Topological features: e.g. `graph_core()`, `graph_factions()`, `graph_modularity()`, `graph_smallworld()`, `graph_balance()`
+
+#### Motifs
+
+- Censuses: `r list_functions("node_.*_census")`,  `r list_functions("graph_.*_census")`
 
 #### Models
 

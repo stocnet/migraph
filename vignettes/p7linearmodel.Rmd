@@ -1,9 +1,9 @@
 ---
-title: "Practical 7"
+title: "7. Testing"
 author: "James Hollway"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Practical 7}
+  %\VignetteIndexEntry{7. Testing}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
