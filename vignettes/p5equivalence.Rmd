@@ -309,14 +309,25 @@ but this can be tweaked by assigning some other summary statistic as `FUN = `.
 
 ```{r summ}
 summary(node_tie_census(ison_algebra), 
-        membership = node_structural_equivalence(ison_algebra))
+        membership = str_clu)
 ```
 
 Since this node census produces 96 columns, 
 $16 \text{nodes} * 2 \text{directions} * 3 \text{edge types}$,
 it takes a bit to look through what varies between the different classes
 as 'blocked'.
-However, we might characterise them like so:
+
+Another way to do this is to plot the blockmodel as a whole.
+Passing the `plot()` function an adjacency/incidence matrix
+along with a membership vector allows the matrix to be sorted and framed
+(without the membership vector, just the adjacency/incidence matrix is plotted):
+
+```{r block}
+plot(as_matrix(ison_algebra),
+     membership = str_clu)
+```
+
+So, with this information, we might characterise them like so:
 
 - `r names(str_clu[which(str_clu==1)])` work together only in reciprocal pairs on tasks,
 preferring to approach `r names(str_clu[which(str_clu==4)])` but also those of the other two roles.
