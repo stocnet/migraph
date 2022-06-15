@@ -153,11 +153,10 @@ function names wherever possible.
 
 #### Models
 
--   Blockmodelling: `cluster_regular_equivalence()`,
-    `cluster_structural_equivalence()`,
-    `node_automorphic_equivalence()`, `node_equivalence()`,
-    `node_regular_equivalence()`, `node_structural_equivalence()`
--   Testing (via MRQAP): `test_permutation()`, `test_random()`
+-   Blockmodelling: `node_automorphic_equivalence()`,
+    `node_equivalence()`, `node_regular_equivalence()`,
+    `node_structural_equivalence()`
+-   Testing (via CUG/QAP): `test_permutation()`, `test_random()`
 -   Linear and logistic regression for networks (via MRQAP):
     `network_reg()`
 

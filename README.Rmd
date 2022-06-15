@@ -137,8 +137,8 @@ with existing function names wherever possible.
 
 #### Models
 
-- Blockmodelling: `r list_functions("_equivalence")`
-- Testing (via MRQAP): `r list_functions("^test_")`
+- Blockmodelling: `r list_functions("node.*equivalence")`
+- Testing (via CUG/QAP): `r list_functions("^test_")`
 - Linear and logistic regression for networks (via MRQAP): `network_reg()`
 
 #### Visualization

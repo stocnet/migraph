@@ -23,9 +23,10 @@ NULL
 #' @export
 node_redundancy <- function(object){
   g <- as_igraph(object)
+  .inc <- NULL
   out <- sapply(igraph::V(g), function(ego){
     n = igraph::neighbors(g, ego)
-    t = length(igraph::E(g)[to(n) & !to(ego)])
+    t = length(igraph::E(g)[.inc(n) & !.inc(ego)])
     n = length(n)
     2 * t / n
   })
@@ -39,9 +40,10 @@ node_redundancy <- function(object){
 #' @export
 node_effsize <- function(object){
   g <- as_igraph(object)
+  .inc <- NULL
   out <- sapply(igraph::V(g), function(ego){
     n = igraph::neighbors(g, ego)
-    t = length(igraph::E(g)[to(n) & !to(ego)])
+    t = length(igraph::E(g)[.inc(n) & !.inc(ego)])
     n = length(n)
     n - 2 * t / n
   })
