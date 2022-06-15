@@ -1,3 +1,62 @@
+# migraph 0.10.0
+
+## Package
+
+- Reduced package dependencies considerably
+  - `{concaveman}`, `{ggdendro}`, `{oaqc}` are now Suggests
+  - `{stringr}` and `{tibble}` no longer necessary
+- Relabelled nearly all scripts to follow website function structure
+- Switched to S3 classes as outputs for many functions, and several methods for them have been added (see appropriate sections below)
+
+## Making
+
+- Added `create_core()` for creating core-periphery graphs
+
+## Manipulation
+
+- Added `to_redirected()` for adding or swapping direction to networks
+- Added `to_blocks()` for reducing a network down by a membership vector
+
+## Measures
+
+- Added `summary.node_measure()` method for printing a summary by a membership vector
+- `"edge_measure"` has been added, along with `print()` and `plot()` methods
+- Added `graph_core()` for calculating correlation of an observed network to a core-periphery network of the same dimensions
+- Added `graph_factions()` for calculating correlation of an observed network to a component network of the same dimensions
+- Added `graph_modularity()` for calculating modularity of an observed network, including modularity for two-mode networks
+- Added several additional measures of structural holes: `node_redundancy()`, `node_effsize()`, `node_efficiency()`, `node_hierarchy()`
+
+## Motifs
+
+- Added `"node_motif"` class for the output of `node_*_census()` functions
+  - Added `print.node_motif()` for tibble-printing of census results
+  - Added `summary.node_motif()` to summarise censuses by a membership vector
+- Added `node_path_census()` for returning the shortest distances from each node to every other node
+
+## Memberships
+
+- Added new `"member"` class for vectors of nodes' cluster memberships
+- Moved to an equivalence identification scheme that hides many of the technical aspects from users when unnecessary
+  - Added `node_equivalence()` for identifying nodes' membership in classes equivalent with respect to some arbitrary motif census
+  - Added `node_automorphic_equivalence()` for identifying nodes' membership in automorphically-equivalent classes
+- Started adding community identification scheme that mirrors equivalence identification in many respects
+  - Added `node_kernaghinlin()` for identifying nodes' membership in communities based on the Kernaghin-Lin algorithm
+- Started connected identification scheme that mirrors equivalence identification in many respects
+  - Added `node_coreness()` for nodes' _k_-core score
+  - Added `node_strong_components()` and `node_weak_components()` for more direct calls; `node_components()` now returns the equivalent to strong components whenever the network is directed
+
+## Models
+
+- A single `"graph_test"` class replaces `"cug_test"` and `"qap_test"`
+  - Consolidated `plot()` methods and added `print.graph_test()` method
+- `plot.matrix()` now plots adjacency/incidence matrices with sorting and horizontal/vertical lines if a membership vector is provided.
+This effectively replaces `plot.block_model()`.
+
+## Data
+
+- `ison_algebra`'s edge attributes now named "friends", "social", and "tasks"
+- Standardised some references
+
 # migraph 0.9.3
 
 ## Package
