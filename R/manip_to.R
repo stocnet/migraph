@@ -46,15 +46,13 @@ NULL
 #' @importFrom igraph E get.edge.attribute edge_attr_names
 #' @examples
 #' autographr(ison_algebra)
-#' a <- to_uniplex(ison_algebra, "friend_tie")
+#' a <- to_uniplex(ison_algebra, "friends")
 #' autographr(a)
 #' a <- to_main_component(a)
 #' autographr(a)
 #' a <- to_undirected(a)
 #' autographr(a)
 #' a <- to_unweighted(a)
-#' autographr(a)
-#' a <- to_named(a)
 #' autographr(a)
 #' @export
 to_uniplex <- function(object, edge) UseMethod("to_uniplex")
@@ -209,9 +207,6 @@ to_unweighted.data.frame <- function(object, threshold = 1) {
 
 #' @describeIn to Returns a network with either just the "positive" ties
 #'   or just the "negative" ties
-#' @examples
-#' autographr(to_unsigned(ison_marvel_relationships, "positive")) /
-#' autographr(to_unsigned(ison_marvel_relationships, "negative"))
 #' @export
 to_unsigned <- function(object, 
                         keep = c("positive", "negative")) UseMethod("to_unsigned")
@@ -441,8 +436,6 @@ to_mode2.tbl_graph <- function(object) {
 #'   Note that this is not the same as `to_mode1()` or `to_mode2()`,
 #'   which return only some of the nodes and new ties established by coincidence.
 #' @importFrom igraph delete_vertex_attr
-#' @examples 
-#' to_onemode(ison_southern_women)
 #' @export
 to_onemode <- function(object) UseMethod("to_onemode")
 
@@ -519,7 +512,7 @@ to_subgraph <- function(object, ...){
 #'   `min` or `max`.
 #' @examples 
 #' (adolblock <- to_blocks(ison_adolescents, 
-#'   node_regular_equivalence(ison_adolescents)))
+#'   node_regular_equivalence(ison_adolescents, k = 3)))
 #' autographr(adolblock)
 #' @export
 to_blocks <- function(object, membership, FUN = mean){

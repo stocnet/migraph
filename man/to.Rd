@@ -169,7 +169,7 @@ partition membership vector
 
 \examples{
 autographr(ison_algebra)
-a <- to_uniplex(ison_algebra, "friend_tie")
+a <- to_uniplex(ison_algebra, "friends")
 autographr(a)
 a <- to_main_component(a)
 autographr(a)
@@ -177,18 +177,13 @@ a <- to_undirected(a)
 autographr(a)
 a <- to_unweighted(a)
 autographr(a)
-a <- to_named(a)
-autographr(a)
-autographr(to_unsigned(ison_marvel_relationships, "positive")) /
-autographr(to_unsigned(ison_marvel_relationships, "negative"))
 autographr(ison_southern_women) /
 (autographr(to_mode1(ison_southern_women)) |
 autographr(to_mode2(ison_southern_women)))
-to_onemode(ison_southern_women)
 autographr(ison_adolescents) +  
 autographr(to_edges(ison_adolescents))
 (adolblock <- to_blocks(ison_adolescents, 
-  node_regular_equivalence(ison_adolescents)))
+  node_regular_equivalence(ison_adolescents, k = 3)))
 autographr(adolblock)
 }
 \seealso{
