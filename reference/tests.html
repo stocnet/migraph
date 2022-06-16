@@ -18,7 +18,7 @@ or permutation (QAP) tests of any graph-level statistic."><meta property="og:ima
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
       </span>
     </div>
 
@@ -39,22 +39,19 @@ or permutation (QAP) tests of any graph-level statistic."><meta property="og:ima
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/p1data.html">Practical 1</a>
+      <a href="../articles/p1data.html">1. Data</a>
     </li>
     <li>
-      <a href="../articles/p2visualisation.html">Practical 2</a>
+      <a href="../articles/p2visualisation.html">2. Visualisation</a>
     </li>
     <li>
-      <a href="../articles/p3centrality.html">Practical 3</a>
+      <a href="../articles/p3centrality.html">3. Centrality</a>
     </li>
     <li>
-      <a href="../articles/p4community.html">Practical 4</a>
+      <a href="../articles/p5equivalence.html">5. Equivalence</a>
     </li>
     <li>
-      <a href="../articles/p5blockmodel.html">Practical 5</a>
-    </li>
-    <li>
-      <a href="../articles/p7linearmodel.html">Practical 7</a>
+      <a href="../articles/p7linearmodel.html">7. Testing</a>
     </li>
   </ul></li>
 <li>
@@ -76,7 +73,7 @@ or permutation (QAP) tests of any graph-level statistic."><meta property="og:ima
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Conditional uniform graph and permutation tests</h1>
-    <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/R/tests.R" class="external-link"><code>R/tests.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/R/model_tests.R" class="external-link"><code>R/model_tests.R</code></a></small>
     <div class="hidden name"><code>tests.Rd</code></div>
     </div>
 
@@ -108,25 +105,33 @@ or permutation (QAP) tests of any graph-level statistic.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
-<dd><p>An object of a migraph-consistent class:</p><ul><li><p>matrix, from base R</p></li>
-<li><p>edgelist, a data frame from base R or tibble from tibble</p></li>
-<li><p>igraph, from the igraph package</p></li>
-<li><p>network, from the network package</p></li>
-<li><p>tbl_graph, from the tidygraph package</p></li>
+<dd><p>An object of a migraph-consistent class:</p><ul><li><p>matrix (adjacency or incidence) from <code>{base}</code> R</p></li>
+<li><p>edgelist, a data frame from <code>{base}</code> R or tibble from <code>{tibble}</code></p></li>
+<li><p>igraph, from the <code>{igraph}</code> package</p></li>
+<li><p>network, from the <code>{network}</code> package</p></li>
+<li><p>tbl_graph, from the <code>{tidygraph}</code> package</p></li>
 </ul></dd>
+
+
 <dt>FUN</dt>
 <dd><p>A graph-level statistic function to test.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments to be passed on to FUN,
 e.g. the name of the attribute.</p></dd>
+
+
 <dt>times</dt>
-<dd><p>Integer indicating the number of draws to use for quantile
-estimation. (Relevant to the null hypothesis test only - the analysis
-itself is unaffected by this parameter.)
+<dd><p>Integer indicating number of simulations used for quantile estimation.
+(Relevant to the null hypothesis test only -
+the analysis itself is unaffected by this parameter.)
 Note that, as for all Monte Carlo procedures, convergence is slower for more
 extreme quantiles.
-By default, times=1000.
+By default, <code>times=1000</code>.
 1,000 - 10,000 repetitions recommended for publication-ready results.</p></dd>
+
+
 <dt>strategy</dt>
 <dd><p>If <code>{furrr}</code> is installed,
 then multiple cores can be used to accelerate the function.
@@ -135,11 +140,27 @@ but if multiple cores available,
 then <code>"multisession"</code> or <code>"multicore"</code> may be useful.
 Generally this is useful only when <code>times</code> &gt; 1000.
 See <a href="https://furrr.futureverse.org" class="external-link"><code>{furrr}</code></a> for more.</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>Whether the function should report on its progress.
 By default FALSE.
 See <a href="https://progressr.futureverse.org" class="external-link"><code>{progressr}</code></a> for more.</p></dd>
+
 </dl></div>
+    <div id="functions">
+    <h2>Functions</h2>
+    
+<ul><li><p><code>test_random</code>: Returns test results for some measure on an object
+against a distribution of measures on random networks of the same dimensions</p></li>
+<li><p><code>test_permutation</code>: Returns test results for some measure on an object
+against a distribution of measures on permutations of the original network</p></li>
+</ul></div>
+    <div id="see-also">
+    <h2>See also</h2>
+    <div class="dont-index"><p>Other models: 
+<code><a href="regression.html">regression</a></code></p></div>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
@@ -148,120 +169,25 @@ See <a href="https://progressr.futureverse.org" class="external-link"><code>{pro
 <span class="r-in">  <span class="fu"><a href="to.html">to_subgraph</a></span><span class="op">(</span><span class="va">PowerOrigin</span> <span class="op">==</span> <span class="st">"Human"</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">(</span><span class="va">cugtest</span> <span class="op">&lt;-</span> <span class="fu">test_random</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="va">graph_ei_index</span>, attribute <span class="op">=</span> <span class="st">"Attractive"</span>,</span>
 <span class="r-in">  times <span class="op">=</span> <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $obs.stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.8571429</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $rep.stat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] -0.6410256 -0.5779817 -0.6545455 -0.5284553 -0.6363636 -0.6530612</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [7] -0.6991150 -0.5339806 -0.5929204 -0.6581197 -0.5535714 -0.7280000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [13] -0.6581197 -0.6216216 -0.6315789 -0.5495495 -0.5535714 -0.5752212</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [19] -0.5604396 -0.7251908 -0.5925926 -0.7064220 -0.5714286 -0.6635514</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [25] -0.5284553 -0.6435644 -0.6377953 -0.6250000 -0.6036036 -0.7627119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [31] -0.6296296 -0.6065574 -0.5675676 -0.6761905 -0.5463918 -0.6640000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [37] -0.5357143 -0.6800000 -0.5806452 -0.5400000 -0.6302521 -0.7540984</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [43] -0.6390977 -0.5887850 -0.6068376 -0.6106195 -0.6274510 -0.6865672</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [49] -0.6699029 -0.5675676 -0.5619048 -0.6761905 -0.5925926 -0.5533981</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [55] -0.6545455 -0.6333333 -0.5454545 -0.5740741 -0.7099237 -0.5327103</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [61] -0.6551724 -0.6166667 -0.5283019 -0.6859504 -0.7477477 -0.6585366</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [67] -0.7222222 -0.5966387 -0.5371901 -0.6756757 -0.6000000 -0.5514019</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [73] -0.6513761 -0.6530612 -0.5961538 -0.6101695 -0.6528926 -0.5192308</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [79] -0.6727273 -0.7575758 -0.6068376 -0.6923077 -0.6825397 -0.6571429</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [85] -0.6500000 -0.5221239 -0.6718750 -0.6666667 -0.5800000 -0.6166667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [91] -0.6842105 -0.6461538 -0.6034483 -0.6000000 -0.6097561 -0.6805556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [97] -0.7431193 -0.6326531 -0.6557377 -0.6538462 -0.6822430 -0.6000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [103] -0.5000000 -0.6546763 -0.7407407 -0.6460177 -0.6538462 -0.6190476</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [109] -0.7413793 -0.6036036 -0.6198347 -0.7297297 -0.5098039 -0.5000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [115] -0.5963303 -0.5833333 -0.5079365 -0.6134454 -0.4782609 -0.4774775</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [121] -0.6111111 -0.6260163 -0.5789474 -0.6949153 -0.6173913 -0.6106195</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [127] -0.5966387 -0.7117117 -0.6923077 -0.5304348 -0.5918367 -0.5229358</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [133] -0.5862069 -0.7647059 -0.6862745 -0.5806452 -0.6229508 -0.5614035</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [139] -0.7120000 -0.6033058 -0.5700935 -0.6695652 -0.6146789 -0.6545455</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [145] -0.6330275 -0.6216216 -0.5514019 -0.6153846 -0.6296296 -0.6637168</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [151] -0.5963303 -0.6727273 -0.6638655 -0.4956522 -0.7815126 -0.6200000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [157] -0.5714286 -0.7475728 -0.5781250 -0.6862745 -0.7017544 -0.5728155</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [163] -0.5619048 -0.5833333 -0.5412844 -0.7222222 -0.6239316 -0.5849057</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [169] -0.6513761 -0.4727273 -0.5000000 -0.7297297 -0.6288660 -0.5689655</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [175] -0.6363636 -0.6500000 -0.6730769 -0.6400000 -0.5576923 -0.6346154</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [181] -0.6451613 -0.5434783 -0.5934959 -0.6666667 -0.6271186 -0.4095238</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [187] -0.6068376 -0.7142857 -0.6640000 -0.5192308 -0.6106195 -0.6206897</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [193] -0.5535714 -0.6190476 -0.4608696 -0.6415094 -0.5670103 -0.5042735</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [199] -0.6071429 -0.5892857</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  CUG Test Results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $mode</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Observed Value: -0.8571429 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&gt;=Obs): 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&lt;=Obs): 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $diag</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $cmode</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "csize"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $plteobs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pgteobs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $reps</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "cug_test"</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">cugtest</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="tests-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="op">(</span><span class="va">qaptest</span> <span class="op">&lt;-</span> <span class="fu">test_permutation</span><span class="op">(</span><span class="va">marvel_friends</span>, </span>
 <span class="r-in">                <span class="va">graph_ei_index</span>, attribute <span class="op">=</span> <span class="st">"Attractive"</span>,</span>
 <span class="r-in">                times <span class="op">=</span> <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $testval</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.8571429</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $dist</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] -0.6071429 -0.5357143 -0.4642857 -0.5357143 -0.4642857 -0.3928571</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [7] -0.7142857 -0.5714286 -0.8571429 -0.6428571 -0.4642857 -0.4642857</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [13] -0.8214286 -0.8928571 -0.8214286 -0.5357143 -0.5714286 -0.7857143</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [19] -0.7857143 -0.8214286 -0.6071429 -0.6428571 -0.4642857 -0.3214286</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [25] -0.5714286 -0.6071429 -0.5714286 -0.6428571 -0.6428571 -0.7142857</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [31] -0.5357143 -0.7857143 -0.7500000 -0.5000000 -0.6785714 -0.6071429</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [37] -0.6071429 -0.5357143 -0.8571429 -0.6428571 -0.4642857 -0.4642857</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [43] -0.5357143 -0.3571429 -0.6785714 -0.6785714 -0.5357143 -0.5714286</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [49] -0.3571429 -0.5714286 -0.7857143 -0.5357143 -0.3928571 -0.5714286</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [55] -0.7500000 -0.6428571 -0.7500000 -0.7500000 -0.5357143 -0.3928571</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [61] -0.7142857 -0.5357143 -0.8214286 -0.6428571 -0.6785714 -0.3928571</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [67] -0.6428571 -0.6428571 -0.7500000 -0.6785714 -0.5357143 -0.3928571</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [73] -0.5714286 -0.8214286 -0.8214286 -0.4642857 -0.7500000 -0.8214286</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [79] -0.8214286 -0.7500000 -0.5714286 -0.4642857 -0.3928571 -0.6071429</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [85] -0.8214286 -0.5357143 -0.6785714 -0.8571429 -0.5714286 -0.3928571</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [91] -0.7142857 -0.3928571 -0.6785714 -0.5714286 -0.8571429 -0.6071429</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [97] -0.8214286 -0.6071429 -0.4642857 -0.8928571 -0.5000000 -0.5000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [103] -0.7857143 -0.5000000 -0.5357143 -0.8928571 -0.5357143 -0.5357143</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [109] -0.5357143 -0.6071429 -0.6428571 -0.5357143 -0.6785714 -0.5000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [115] -0.6071429 -0.6428571 -0.6428571 -0.5714286 -0.7500000 -0.6785714</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [121] -0.5357143 -0.5714286 -0.6071429 -0.3571429 -0.8571429 -0.7142857</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [127] -0.5000000 -0.6071429 -0.8928571 -0.5714286 -0.7500000 -0.5000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [133] -0.5714286 -0.6071429 -0.5357143 -0.6071429 -0.8928571 -0.5000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [139] -0.8571429 -0.5000000 -0.6428571 -0.6071429 -0.5000000 -0.7857143</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [145] -0.6428571 -0.6428571 -0.8571429 -0.5000000 -0.6428571 -0.6428571</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [151] -0.5000000 -0.6785714 -0.7142857 -0.4642857 -0.7857143 -0.8571429</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [157] -0.3928571 -0.7857143 -0.8214286 -0.4285714 -0.3928571 -0.8214286</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [163] -0.3928571 -0.6071429 -0.8571429 -0.5000000 -0.7142857 -0.6071429</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [169] -0.7857143 -0.5357143 -0.5000000 -0.6785714 -0.7142857 -0.6071429</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [175] -0.4285714 -0.7857143 -0.5357143 -0.8571429 -0.6071429 -0.6428571</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [181] -0.6071429 -0.7857143 -0.4642857 -0.7500000 -0.4285714 -0.3571429</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [187] -0.6071429 -0.7142857 -0.7857143 -0.6785714 -0.5714286 -0.6071429</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [193] -0.6071429 -0.7500000 -0.6428571 -0.5714286 -0.7142857 -0.5714286</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [199] -0.4642857 -0.6071429</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  QAP Test Results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $plteobs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.075</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Observed Value: -0.8571429 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&gt;=Obs): 0.955 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&lt;=Obs): 0.145 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pgteobs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.975</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $reps</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "qap_test"</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">qaptest</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="tests-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
@@ -278,7 +204,7 @@ See <a href="https://progressr.futureverse.org" class="external-link"><code>{pro
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

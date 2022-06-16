@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Practical 3 • migraph</title>
+<title>3. Centrality • migraph</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Practical 3">
+<script src="../pkgdown.js"></script><meta property="og:title" content="3. Centrality">
 <meta property="og:description" content="migraph">
 <meta property="og:image" content="https://snlab-ch.github.io/migraph/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
       </span>
     </div>
 
@@ -63,22 +63,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/p1data.html">Practical 1</a>
+      <a href="../articles/p1data.html">1. Data</a>
     </li>
     <li>
-      <a href="../articles/p2visualisation.html">Practical 2</a>
+      <a href="../articles/p2visualisation.html">2. Visualisation</a>
     </li>
     <li>
-      <a href="../articles/p3centrality.html">Practical 3</a>
+      <a href="../articles/p3centrality.html">3. Centrality</a>
     </li>
     <li>
-      <a href="../articles/p4community.html">Practical 4</a>
+      <a href="../articles/p5equivalence.html">5. Equivalence</a>
     </li>
     <li>
-      <a href="../articles/p5blockmodel.html">Practical 5</a>
-    </li>
-    <li>
-      <a href="../articles/p7linearmodel.html">Practical 7</a>
+      <a href="../articles/p7linearmodel.html">7. Testing</a>
     </li>
   </ul>
 </li>
@@ -106,7 +103,7 @@
       </header><script src="p3centrality_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Practical 3</h1>
+      <h1 data-toc-skip>3. Centrality</h1>
                         <h4 data-toc-skip class="author">James Hollway</h4>
             
       
@@ -118,83 +115,52 @@
     
     
 <div class="section level2">
-<h2 id="packages-for-plotting">Packages for plotting<a class="anchor" aria-label="anchor" href="#packages-for-plotting"></a>
-</h2>
-<p>There are a host of packages for plotting in R, and for plotting networks in R. Plotting in R is typically based around two main approaches: the ‘base’ approach in R by default, and the ‘grid’ approach made popular by the famous and very flexible <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a> package.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Approaches to plotting <em>graphs</em> or <em>networks</em> in R can be similarly divided. The two classic packages are <a href="https://igraph.org" class="external-link">igraph</a> and <a href="http://statnet.org" class="external-link">sna</a>, both building upon the base R graphics engine, but newer packages <a href="https://www.r-bloggers.com/2016/03/ggnetwork-network-geometries-for-ggplot2/" class="external-link"><code>{ggnetwork}</code></a> and <a href="https://ggraph.data-imaginist.com/index.html" class="external-link"><code>{ggraph}</code></a> build upon a grid approach.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> builds upon the ggplot2/ggraph engine for plotting.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a></span><span class="op">)</span>
-<span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></code></pre></div>
-<p><img src="p3centrality_files/figure-html/setup-1.png" width="700"></p>
-<p>For this exercise, we’ll use the <code>ison_brandes</code> dataset. This dataset is in a ‘tidygraph’ format, but migraph makes it easy to coerce this into other forms to be compatible with other packages.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ison_brandes</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 11 nodes and 12 edges</span></span>
-<span class="co"><span style="color: #949494;">#&gt; #</span></span>
-<span class="co"><span style="color: #949494;">#&gt; # An undirected simple graph with 1 component</span></span>
-<span class="co"><span style="color: #949494;">#&gt; #</span></span>
-<span class="co"><span style="color: #949494;">#&gt; # Node Data: 11 × 0 (active)</span></span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 5 more rows</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#</span></span>
-<span class="co"><span style="color: #949494;">#&gt; # Edge Data: 12 × 2</span></span>
-<span class="co">#&gt;    from    to</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2     3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3     4</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 9 more rows</span></span>
-<span class="fu"><a href="../reference/coercion.html">as_igraph</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>
-<span class="co">#&gt; IGRAPH cb33d0d U--- 11 12 -- </span>
-<span class="co">#&gt; + edges from cb33d0d:</span>
-<span class="co">#&gt;  [1] 1-- 3 2-- 3 3-- 4 4-- 5 4-- 6 5-- 7 6-- 7 6-- 8 7-- 9 8-- 9 9--10 9--11</span>
-<span class="fu"><a href="../reference/coercion.html">as_network</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>
-<span class="co">#&gt;  Network attributes:</span>
-<span class="co">#&gt;   vertices = 11 </span>
-<span class="co">#&gt;   directed = TRUE </span>
-<span class="co">#&gt;   hyper = FALSE </span>
-<span class="co">#&gt;   loops = FALSE </span>
-<span class="co">#&gt;   multiple = FALSE </span>
-<span class="co">#&gt;   bipartite = FALSE </span>
-<span class="co">#&gt;   total edges= 24 </span>
-<span class="co">#&gt;     missing edges= 0 </span>
-<span class="co">#&gt;     non-missing edges= 24 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;  Vertex attribute names: </span>
-<span class="co">#&gt;     vertex.names </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; No edge attributes</span>
-<span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/coercion.html">as_matrix</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></code></pre></div>
-</div>
-<div class="section level2">
 <h2 id="calculating-different-centrality-measures">Calculating different centrality measures<a class="anchor" aria-label="anchor" href="#calculating-different-centrality-measures"></a>
 </h2>
+<p>For this exercise, we’ll use the <code>ison_brandes</code> dataset. This dataset is in a ‘tidygraph’ format, but migraph makes it easy to coerce this into other forms to be compatible with other packages.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a></span><span class="op">)</span>
+<span class="op">(</span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as.html">as_matrix</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11]</span>
+<span class="co">#&gt;  [1,]    0    0    1    0    0    0    0    0    0     0     0</span>
+<span class="co">#&gt;  [2,]    0    0    1    0    0    0    0    0    0     0     0</span>
+<span class="co">#&gt;  [3,]    1    1    0    1    0    0    0    0    0     0     0</span>
+<span class="co">#&gt;  [4,]    0    0    1    0    1    1    0    0    0     0     0</span>
+<span class="co">#&gt;  [5,]    0    0    0    1    0    0    1    0    0     0     0</span>
+<span class="co">#&gt;  [6,]    0    0    0    1    0    0    1    1    0     0     0</span>
+<span class="co">#&gt;  [7,]    0    0    0    0    1    1    0    0    1     0     0</span>
+<span class="co">#&gt;  [8,]    0    0    0    0    0    1    0    0    1     0     0</span>
+<span class="co">#&gt;  [9,]    0    0    0    0    0    0    1    1    0     1     1</span>
+<span class="co">#&gt; [10,]    0    0    0    0    0    0    0    0    1     0     0</span>
+<span class="co">#&gt; [11,]    0    0    0    0    0    0    0    0    1     0     0</span>
+<span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></code></pre></div>
+<p><img src="p3centrality_files/figure-html/coercion-1.png" width="700"></p>
 <p>Let’s start with calculating degree, as it is easy to calculate yourself. Just sum the rows or columns of the matrix!</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">degrees</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;  [1] 1 1 3 3 2 3 3 2 4 1 1</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span>
 <span class="co">#&gt;  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</span>
 <span class="co"># Are they all equal? Why?</span>
 <span class="co"># You can also just use a built in command in migraph though:</span>
-<span class="fu"><a href="../reference/centrality.html">node_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.1        0.1        0.3        0.3        0.2        0.3        + 5 others</span></code></pre></div>
+<span class="fu"><a href="../reference/centrality.html">node_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span>, normalized <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1          1          3          3          2          3          + 5 others</span></code></pre></div>
 <p>Often we are interested in the distribution of (degree) centrality in a network. <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> offers a way to get a pretty good first look at this distribution, though there are more elaborate ways to do this in base and grid graphics.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">node_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="st">"h"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">node_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="st">"d"</span><span class="op">)</span></code></pre></div>
 <p><img src="p3centrality_files/figure-html/distrib-1.png" width="700"></p>
 <p>Other measures of centrality can be a little trickier to calculate by hand. Fortunately, we can use functions from migraph to help:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/centrality.html">node_betweenness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>
-<span class="co">#&gt; Warning in igraph::betweenness(graph = graph, v = igraph::V(graph), directed</span>
-<span class="co">#&gt; = is_directed(graph), : 'nobigint' is deprecated since igraph 1.3 and will be</span>
-<span class="co">#&gt; removed in igraph 1.4</span>
 <span class="co">#&gt; [1] 0.000      0.000      0.378      0.485      0.133      0.337      + 5 others</span>
 <span class="fu"><a href="../reference/centrality.html">node_closeness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.278      0.278      0.370      0.455      0.435      0.476      + 5 others</span>
 <span class="fu"><a href="../reference/centrality.html">node_eigenvector</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.106      0.106      0.277      0.510      0.437      0.615      + 5 others</span>
 <span class="co"># TASK: Can you create degree distributions for each of these?</span></code></pre></div>
-<p>Note that there are an enormous number of centrality measures available in R across a range of packages. In addition to the main four used here, <a href="https://igraph.org" class="external-link">igraph</a> includes:</p>
+<p>Note that all centrality measures in <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> return normalized scores by default – for the raw scores, just add <code>normalized = FALSE</code> as an extra argument.</p>
+<p>There are an enormous number of centrality measures available in R across a range of packages. In addition to the main four used here, <a href="https://igraph.org" class="external-link">igraph</a> includes:</p>
 <pre><code><span class="fu">graph.strength</span><span class="op">(</span><span class="op">)</span>
 <span class="fu">alpha_centrality</span><span class="op">(</span><span class="op">)</span>
 <span class="fu">power_centrality</span><span class="op">(</span><span class="op">)</span>
@@ -214,17 +180,14 @@
 <div class="section level2">
 <h2 id="plotting-different-centrality-measures">Plotting different centrality measures<a class="anchor" aria-label="anchor" href="#plotting-different-centrality-measures"></a>
 </h2>
-<p>There is also a function in <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> that plots our network and highlights the node with the maximum (e.g. degree) score. This is basically doing the same as what was in the original script, just gives you the function to do this:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, node_measure <span class="op">=</span> <span class="va">node_degree</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, node_measure <span class="op">=</span> <span class="va">node_betweenness</span><span class="op">)</span>
-<span class="co">#&gt; Warning in igraph::betweenness(graph = graph, v = igraph::V(graph), directed</span>
-<span class="co">#&gt; = is_directed(graph), : 'nobigint' is deprecated since igraph 1.3 and will be</span>
-<span class="co">#&gt; removed in igraph 1.4</span></code></pre></div>
+<p>There is also a function in <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> that plots our network and highlights the node with the maximum (e.g. degree) score. We can choose which measure to highlight, and even which node to identify in red as the maximum (by default), minimum, or some other function to single out a node.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, highlight_measure <span class="op">=</span> <span class="st">"node_degree"</span><span class="op">)</span> <span class="op">+</span>
+<span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, highlight_measure <span class="op">=</span> <span class="st">"node_betweenness"</span><span class="op">)</span></code></pre></div>
 <p><img src="p3centrality_files/figure-html/ggid-1.png" width="700"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, node_measure <span class="op">=</span> <span class="va">node_closeness</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, node_measure <span class="op">=</span> <span class="va">node_eigenvector</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, highlight_measure <span class="op">=</span> <span class="st">"node_closeness"</span><span class="op">)</span> <span class="op">+</span>
+<span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, highlight_measure <span class="op">=</span> <span class="st">"node_eigenvector"</span><span class="op">)</span></code></pre></div>
 <p><img src="p3centrality_files/figure-html/ggid-2.png" width="700"></p>
 <p>How neat!</p>
 </div>
@@ -232,7 +195,7 @@
 <h2 id="calculating-centralization">Calculating centralization<a class="anchor" aria-label="anchor" href="#calculating-centralization"></a>
 </h2>
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> also implements centralization functions. Here we are no longer interested in the level of the node, but in the level of the whole graph, so the syntax is:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/centrality.html">graph_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.182</span>
 <span class="fu"><a href="../reference/centrality.html">graph_betweenness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>
@@ -245,12 +208,6 @@
 <span class="co">#&gt; Mode 1 Mode 2 </span>
 <span class="co">#&gt;  0.227  0.474</span>
 <span class="fu"><a href="../reference/centrality.html">graph_betweenness</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>
-<span class="co">#&gt; Warning in igraph::betweenness(graph = graph, v = igraph::V(graph), directed</span>
-<span class="co">#&gt; = is_directed(graph), : 'nobigint' is deprecated since igraph 1.3 and will be</span>
-<span class="co">#&gt; removed in igraph 1.4</span>
-<span class="co">#&gt; Warning in igraph::betweenness(graph = graph, v = igraph::V(graph), directed</span>
-<span class="co">#&gt; = is_directed(graph), : 'nobigint' is deprecated since igraph 1.3 and will be</span>
-<span class="co">#&gt; removed in igraph 1.4</span>
 <span class="co">#&gt; Mode 1 Mode 2 </span>
 <span class="co">#&gt; 0.0586 0.2073</span>
 <span class="fu"><a href="../reference/centrality.html">graph_closeness</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>
@@ -259,31 +216,21 @@
 <span class="fu"><a href="../reference/centrality.html">graph_eigenvector</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>
 <span class="co">#&gt; Mode 1 Mode 2 </span>
 <span class="co">#&gt; 0.0849 0.2630</span></code></pre></div>
-<p>By default, scores are printed to 3 decimal places, but this can be modified and, in any case, the unrounded values are retained internally and passed on. Note that for centralization in two-mode networks, two values are given (as a named vector), since normalization typically depends on the (asymmetric) number of nodes in each mode.</p>
-</div>
-<div class="section level2">
-<h2 id="exporting-plots-to-pdf">Exporting plots to PDF<a class="anchor" aria-label="anchor" href="#exporting-plots-to-pdf"></a>
-</h2>
-<p>We can print the plots we have made to PDF by point-and-click by selecting ‘Save as PDF…’ from under the ‘Export’ dropdown menu in the plots panel tab of RStudio.</p>
-<p>If you want to do this programmatically, say because you want to record how you have saved it so that you can e.g. make some changes to the parameters at some point, this is also not too difficult.</p>
-<p>After running the (gg-based) plot you want to save, use the command <code>ggsave("my_filename.pdf")</code> to save your plot as a PDF to your working directory. If you want to save it somewhere else, you will need to specify the file path (or change the working directory, but that might be more cumbersome). If you want to save it as a different filetype, replace <code>.pdf</code> with e.g. <code>.png</code> or <code>.jpeg</code>. See <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">?ggsave</a></code> for more.</p>
-<p>But what if we want to have a single image/figure with multiple plots? This can be a little tricky with gg-based plots, but fortunately the <a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a> package is here to help.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, node_measure <span class="op">=</span> <span class="va">node_degree</span><span class="op">)</span> <span class="op">+</span> 
+<p>By default, scores are printed to 3 decimal places, but this can be modified and, in any case, the unrounded values are retained internally and passed on.</p>
+<p>Note that for centralization in two-mode networks, two values are given (as a named vector), since normalization typically depends on the (asymmetric) number of nodes in each mode.</p>
+<p>What if we want to have a single image/figure with multiple plots? This can be a little tricky with gg-based plots, but fortunately the <a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a> package is here to help.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, highlight_measure <span class="op">=</span> <span class="st">"node_degree"</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Degree"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">graph_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="va">gc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, node_measure <span class="op">=</span> <span class="va">node_closeness</span><span class="op">)</span> <span class="op">+</span> 
+<span class="va">gc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, highlight_measure <span class="op">=</span> <span class="st">"node_closeness"</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Closeness"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">graph_closeness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="va">gb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, node_measure <span class="op">=</span> <span class="va">node_betweenness</span><span class="op">)</span> <span class="op">+</span> 
+<span class="va">gb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, highlight_measure <span class="op">=</span> <span class="st">"node_betweenness"</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Betweenness"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">graph_betweenness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Warning in igraph::betweenness(graph = graph, v = igraph::V(graph), directed</span>
-<span class="co">#&gt; = is_directed(graph), : 'nobigint' is deprecated since igraph 1.3 and will be</span>
-<span class="co">#&gt; removed in igraph 1.4</span>
-<span class="va">ge</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, node_measure <span class="op">=</span> <span class="va">node_eigenvector</span><span class="op">)</span> <span class="op">+</span> 
+<span class="va">ge</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, highlight_measure <span class="op">=</span> <span class="st">"node_eigenvector"</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Eigenvector"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">graph_eigenvector</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span>
 <span class="op">(</span><span class="va">gd</span> <span class="op">|</span> <span class="va">gb</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">gc</span> <span class="op">|</span> <span class="va">ge</span><span class="op">)</span></code></pre></div>
 <p><img src="p3centrality_files/figure-html/multiplot-1.png" width="700"></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># ggsave("brandes-centralities.pdf")</span></code></pre></div>
 </div>
 <div class="section level2">
@@ -293,13 +240,6 @@
 <li><p>Import the drugnet data from Moodle (Since it is an RData file, you can just load it). <code>load("drugnet.RData")</code></p></li>
 <li><p>Name a plausible research question you could ask of this data for each of the four main centrality measures (degree, betweenness, closeness, eigenvector) You may want to add these as titles or subtitles to each plot.</p></li>
 <li><p>How centralized is the network?</p></li>
-</ol>
-</div>
-<div class="footnotes">
-<hr>
-<ol>
-<li id="fn1"><p>‘gg’ stands for the Grammar of Graphics.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p> Others include: ‘Networkly’ for creating 2-D and 3-D interactive networks that can be rendered with plotly and can be easily integrated into shiny apps or markdown documents; ‘visNetwork’ interacts with javascript (vis.js) to make interactive networks (<a href="http://datastorm-open.github.io/visNetwork/" class="external-link uri">http://datastorm-open.github.io/visNetwork/</a>); and ‘networkD3’ interacts with javascript (D3) to make interactive networks (<a href="https://www.r-bloggers.com/2016/10/network-visualization-part-6-d3-and-r-networkd3/" class="external-link uri">https://www.r-bloggers.com/2016/10/network-visualization-part-6-d3-and-r-networkd3/</a>).<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
@@ -321,7 +261,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer>

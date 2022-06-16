@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
       </span>
     </div>
 
@@ -38,22 +38,19 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/p1data.html">Practical 1</a>
+      <a href="../articles/p1data.html">1. Data</a>
     </li>
     <li>
-      <a href="../articles/p2visualisation.html">Practical 2</a>
+      <a href="../articles/p2visualisation.html">2. Visualisation</a>
     </li>
     <li>
-      <a href="../articles/p3centrality.html">Practical 3</a>
+      <a href="../articles/p3centrality.html">3. Centrality</a>
     </li>
     <li>
-      <a href="../articles/p4community.html">Practical 4</a>
+      <a href="../articles/p5equivalence.html">5. Equivalence</a>
     </li>
     <li>
-      <a href="../articles/p5blockmodel.html">Practical 5</a>
-    </li>
-    <li>
-      <a href="../articles/p7linearmodel.html">Practical 7</a>
+      <a href="../articles/p7linearmodel.html">7. Testing</a>
     </li>
   </ul></li>
 <li>
@@ -75,7 +72,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Cohesion for one-, two-, and three- mode networks</h1>
-    <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/R/cohesion.R" class="external-link"><code>R/cohesion.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/R/measure_cohesion.R" class="external-link"><code>R/measure_cohesion.R</code></a></small>
     <div class="hidden name"><code>cohesion.Rd</code></div>
     </div>
 
@@ -86,30 +83,29 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">graph_density</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
 
-<span class="fu">edge_reciprocal</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
 <span class="fu">graph_reciprocity</span><span class="op">(</span><span class="va">object</span>, method <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
 
 <span class="fu">graph_transitivity</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
 
 <span class="fu">graph_equivalency</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
 
-<span class="fu">graph_congruency</span><span class="op">(</span><span class="va">object</span>, <span class="va">object2</span><span class="op">)</span>
-
-<span class="fu">edge_multiple</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">edge_loop</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></code></pre></div>
+<span class="fu">graph_congruency</span><span class="op">(</span><span class="va">object</span>, <span class="va">object2</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
 <dd><p>A one-mode or two-mode matrix, igraph, or tidygraph</p></dd>
+
+
 <dt>method</dt>
 <dd><p>For reciprocity, either <code>default</code> or <code>ratio</code>.
 See <code><a href="https://rdrr.io/pkg/igraph/man/reciprocity.html" class="external-link">?igraph::reciprocity</a></code></p></dd>
+
+
 <dt>object2</dt>
 <dd><p>Optionally, a second (two-mode) matrix, igraph, or tidygraph</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -125,13 +121,11 @@ that are closed by a fourth tie to establish a "congruent four-cycle" structure.
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>edge_reciprocal</code>: Identify edges that are mutual/reciprocated</p></li>
-<li><p><code>graph_reciprocity</code>: Calculate reciprocity in a network</p></li>
+<ul><li><p><code>graph_reciprocity</code>: Calculate reciprocity in a (usually directed) network</p></li>
 <li><p><code>graph_transitivity</code>: Calculate transitivity in a network</p></li>
-<li><p><code>graph_equivalency</code>: Calculate equivalence or reinforcement in a network</p></li>
-<li><p><code>graph_congruency</code>: Calculate congruency in a network</p></li>
-<li><p><code>edge_multiple</code>: Identify edges that are multiples</p></li>
-<li><p><code>edge_loop</code>: Identify edges that are loops</p></li>
+<li><p><code>graph_equivalency</code>: Calculate equivalence or reinforcement
+in a (usually two-mode) network</p></li>
+<li><p><code>graph_congruency</code>: Calculate congruency across two two-mode networks</p></li>
 </ul></div>
     <div id="references">
     <h2>References</h2>
@@ -144,64 +138,26 @@ Cambridge University Press. Cambridge University Press.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p>Other one-mode measures: 
-<code><a href="node_constraint.html">node_constraint</a>()</code></p>
-<p>Other two-mode measures: 
-<code><a href="graph_smallworld.html">graph_smallworld</a>()</code>,
-<code><a href="node_constraint.html">node_constraint</a>()</code></p></div>
+    <div class="dont-index"><p>Other measures: 
+<code><a href="centrality.html">centrality</a></code>,
+<code><a href="connectedness.html">connectedness</a></code>,
+<code><a href="diversity.html">diversity</a></code>,
+<code><a href="features.html">features</a></code>,
+<code><a href="holes.html">holes</a></code></p></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">graph_density</span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1966387</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.197</span>
 <span class="r-in"><span class="fu">graph_density</span><span class="op">(</span><span class="va">mpn_elite_usa_advice</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1642857</span>
-<span class="r-in"><span class="fu">edge_reciprocal</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [13]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [25]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [37]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [49]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [61]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [73]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [85]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [97]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [109]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [121]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [133]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.164</span>
 <span class="r-in"><span class="fu">graph_reciprocity</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-in"><span class="fu">graph_transitivity</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-in"><span class="fu">graph_equivalency</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4871634</span>
-<span class="r-in"><span class="fu">edge_multiple</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-in"><span class="fu">edge_loop</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.487</span>
 </code></pre></div>
     </div>
   </div>
@@ -216,7 +172,7 @@ Cambridge University Press. Cambridge University Press.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

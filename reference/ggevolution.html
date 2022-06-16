@@ -21,7 +21,7 @@ but further extensions expected."><meta property="og:image" content="https://snl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
       </span>
     </div>
 
@@ -42,22 +42,19 @@ but further extensions expected."><meta property="og:image" content="https://snl
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/p1data.html">Practical 1</a>
+      <a href="../articles/p1data.html">1. Data</a>
     </li>
     <li>
-      <a href="../articles/p2visualisation.html">Practical 2</a>
+      <a href="../articles/p2visualisation.html">2. Visualisation</a>
     </li>
     <li>
-      <a href="../articles/p3centrality.html">Practical 3</a>
+      <a href="../articles/p3centrality.html">3. Centrality</a>
     </li>
     <li>
-      <a href="../articles/p4community.html">Practical 4</a>
+      <a href="../articles/p5equivalence.html">5. Equivalence</a>
     </li>
     <li>
-      <a href="../articles/p5blockmodel.html">Practical 5</a>
-    </li>
-    <li>
-      <a href="../articles/p7linearmodel.html">Practical 7</a>
+      <a href="../articles/p7linearmodel.html">7. Testing</a>
     </li>
   </ul></li>
 <li>
@@ -79,7 +76,7 @@ but further extensions expected."><meta property="og:image" content="https://snl
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot the evolution of a network</h1>
-    <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/R/ggevolution.R" class="external-link"><code>R/ggevolution.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/R/viz_ggevolution.R" class="external-link"><code>R/viz_ggevolution.R</code></a></small>
     <div class="hidden name"><code>ggevolution.Rd</code></div>
     </div>
 
@@ -99,20 +96,22 @@ but further extensions expected.</p>
     <h2>Arguments</h2>
     <dl><dt>...</dt>
 <dd><p>two or more networks</p></dd>
+
+
 <dt>layout</dt>
 <dd><p>an igraph layout. Default is Kamada-Kawai ("kk")</p></dd>
+
+
 <dt>based_on</dt>
 <dd><p>whether the layout of the joint plots should
 be based on the "first" or the "last" network.</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">mpn_elite_mex</span> <span class="op">&lt;-</span> <span class="va">mpn_elite_mex</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="to.html">to_subgraph</a></span><span class="op">(</span><span class="va">in_mpn</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mpn_elite_mex2</span> <span class="op">&lt;-</span> <span class="va">mpn_elite_mex</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">                  <span class="fu">tidygraph</span><span class="fu">::</span><span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu">tidygraph</span><span class="fu">::</span><span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/reroute.html" class="external-link">reroute</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample.int</a></span><span class="op">(</span><span class="fl">11</span>, <span class="fl">44</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span class="r-in">to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample.int</a></span><span class="op">(</span><span class="fl">11</span>, <span class="fl">44</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">mpn_elite_mex2</span> <span class="op">&lt;-</span> <span class="fu"><a href="generate.html">generate_permutation</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">ggevolution</span><span class="op">(</span><span class="va">mpn_elite_mex</span>, <span class="va">mpn_elite_mex2</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="ggevolution-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="fu">ggevolution</span><span class="op">(</span><span class="va">mpn_elite_mex</span>, <span class="va">mpn_elite_mex2</span>, based_on <span class="op">=</span> <span class="st">"last"</span><span class="op">)</span></span>
@@ -133,7 +132,7 @@ be based on the "first" or the "last" network.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

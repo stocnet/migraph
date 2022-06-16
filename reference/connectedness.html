@@ -18,7 +18,7 @@ and where the nodes or edges that would increase fragmentation are."><meta prope
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
       </span>
     </div>
 
@@ -39,22 +39,19 @@ and where the nodes or edges that would increase fragmentation are."><meta prope
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/p1data.html">Practical 1</a>
+      <a href="../articles/p1data.html">1. Data</a>
     </li>
     <li>
-      <a href="../articles/p2visualisation.html">Practical 2</a>
+      <a href="../articles/p2visualisation.html">2. Visualisation</a>
     </li>
     <li>
-      <a href="../articles/p3centrality.html">Practical 3</a>
+      <a href="../articles/p3centrality.html">3. Centrality</a>
     </li>
     <li>
-      <a href="../articles/p4community.html">Practical 4</a>
+      <a href="../articles/p5equivalence.html">5. Equivalence</a>
     </li>
     <li>
-      <a href="../articles/p5blockmodel.html">Practical 5</a>
-    </li>
-    <li>
-      <a href="../articles/p7linearmodel.html">Practical 7</a>
+      <a href="../articles/p7linearmodel.html">7. Testing</a>
     </li>
   </ul></li>
 <li>
@@ -76,7 +73,7 @@ and where the nodes or edges that would increase fragmentation are."><meta prope
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Network connectedness</h1>
-    <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/R/connected.R" class="external-link"><code>R/connected.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/R/measure_connected.R" class="external-link"><code>R/measure_connected.R</code></a></small>
     <div class="hidden name"><code>connectedness.Rd</code></div>
     </div>
 
@@ -86,59 +83,55 @@ and where the nodes or edges that would increase fragmentation are.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">graph_components</span><span class="op">(</span><span class="va">object</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"weak"</span>, <span class="st">"strong"</span><span class="op">)</span><span class="op">)</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">graph_components</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
 
 <span class="fu">graph_cohesion</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
 
 <span class="fu">graph_adhesion</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
 
-<span class="fu">graph_length</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
 <span class="fu">graph_diameter</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
 
-<span class="fu">node_components</span><span class="op">(</span><span class="va">object</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"weak"</span>, <span class="st">"strong"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">node_cuts</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">edge_bridges</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></code></pre></div>
+<span class="fu">graph_length</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
-<dd><p>An object of a migraph-consistent class:</p><ul><li><p>matrix, from base R</p></li>
-<li><p>edgelist, a data frame from base R or tibble from tibble</p></li>
-<li><p>igraph, from the igraph package</p></li>
-<li><p>network, from the network package</p></li>
-<li><p>tbl_graph, from the tidygraph package</p></li>
+<dd><p>An object of a migraph-consistent class:</p><ul><li><p>matrix (adjacency or incidence) from <code>{base}</code> R</p></li>
+<li><p>edgelist, a data frame from <code>{base}</code> R or tibble from <code>{tibble}</code></p></li>
+<li><p>igraph, from the <code>{igraph}</code> package</p></li>
+<li><p>network, from the <code>{network}</code> package</p></li>
+<li><p>tbl_graph, from the <code>{tidygraph}</code> package</p></li>
 </ul></dd>
-<dt>method</dt>
-<dd><p>For directed networks,
-either <code>weak</code> if edge direction is irrelevant,
-or <code>strong</code> if edge direction is salient.
-Ignored if network undirected.</p></dd>
+
 </dl></div>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>graph_components</code>: Returns number of components in the network.</p></li>
-<li><p><code>graph_cohesion</code>: Returns the minimum number of nodes needed
-to remove from the network to increase the number of components.</p></li>
+<ul><li><p><code>graph_components</code>: Returns number of (strong) components in the network.
+To get the 'weak' components of a directed graph,
+please use <code><a href="to.html">to_undirected()</a></code> first.</p></li>
+<li><p><code>graph_cohesion</code>: Returns the minimum number of nodes to remove
+from the network needed to increase the number of components.</p></li>
 <li><p><code>graph_adhesion</code>: Returns the minimum number of edges needed
 to remove from the network to increase the number of components.</p></li>
-<li><p><code>graph_length</code>: Returns the average path length in the network.</p></li>
 <li><p><code>graph_diameter</code>: Returns the maximum path length in the network.</p></li>
-<li><p><code>node_components</code>: Returns nodes' component membership.</p></li>
-<li><p><code>node_cuts</code>: Returns logical of which nodes cut
-or act as articulation points in a network.</p></li>
-<li><p><code>edge_bridges</code>: Returns logical of which nodes cut
-or act as articulation points in a network.</p></li>
+<li><p><code>graph_length</code>: Returns the average path length in the network.</p></li>
 </ul></div>
     <div id="references">
     <h2>References</h2>
     <p>White, Douglas R and Frank Harary 2001.
 The Cohesiveness of Blocks In Social Networks: Node Connectivity and Conditional Density.
 <em>Sociological Methodology</em> 31 (1) : 305-359.</p>
+    </div>
+    <div id="see-also">
+    <h2>See also</h2>
+    <div class="dont-index"><p>Other measures: 
+<code><a href="centrality.html">centrality</a></code>,
+<code><a href="cohesion.html">cohesion</a>()</code>,
+<code><a href="diversity.html">diversity</a></code>,
+<code><a href="features.html">features</a></code>,
+<code><a href="holes.html">holes</a></code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -151,14 +144,14 @@ The Cohesiveness of Blocks In Social Networks: Node Connectivity and Conditional
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-in"><span class="fu">graph_adhesion</span><span class="op">(</span><span class="fu"><a href="to.html">to_main_component</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
-<span class="r-in"><span class="fu">graph_length</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.619592</span>
-<span class="r-in"><span class="fu">graph_length</span><span class="op">(</span><span class="fu"><a href="to.html">to_main_component</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.619592</span>
 <span class="r-in"><span class="fu">graph_diameter</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
 <span class="r-in"><span class="fu">graph_diameter</span><span class="op">(</span><span class="fu"><a href="to.html">to_main_component</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-in"><span class="fu">graph_length</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.62</span>
+<span class="r-in"><span class="fu">graph_length</span><span class="op">(</span><span class="fu"><a href="to.html">to_main_component</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.62</span>
 </code></pre></div>
     </div>
   </div>
@@ -173,7 +166,7 @@ The Cohesiveness of Blocks In Social Networks: Node Connectivity and Conditional
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

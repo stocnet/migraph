@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Practical 7 • migraph</title>
+<title>7. Testing • migraph</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Practical 7">
+<script src="../pkgdown.js"></script><meta property="og:title" content="7. Testing">
 <meta property="og:description" content="migraph">
 <meta property="og:image" content="https://snlab-ch.github.io/migraph/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
       </span>
     </div>
 
@@ -63,22 +63,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/p1data.html">Practical 1</a>
+      <a href="../articles/p1data.html">1. Data</a>
     </li>
     <li>
-      <a href="../articles/p2visualisation.html">Practical 2</a>
+      <a href="../articles/p2visualisation.html">2. Visualisation</a>
     </li>
     <li>
-      <a href="../articles/p3centrality.html">Practical 3</a>
+      <a href="../articles/p3centrality.html">3. Centrality</a>
     </li>
     <li>
-      <a href="../articles/p4community.html">Practical 4</a>
+      <a href="../articles/p5equivalence.html">5. Equivalence</a>
     </li>
     <li>
-      <a href="../articles/p5blockmodel.html">Practical 5</a>
-    </li>
-    <li>
-      <a href="../articles/p7linearmodel.html">Practical 7</a>
+      <a href="../articles/p7linearmodel.html">7. Testing</a>
     </li>
   </ul>
 </li>
@@ -106,7 +103,7 @@
       </header><script src="p7linearmodel_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Practical 7</h1>
+      <h1 data-toc-skip>7. Testing</h1>
                         <h4 data-toc-skip class="author">James Hollway</h4>
             
       
@@ -169,24 +166,22 @@
 <p>where <span class="math inline">\(p\)</span> represents the proportion belonging to any given category, and <span class="math inline">\(i\)</span> indexes each of the given categories. As such a perfectly homogeneous group would receive a score of 0, while a perfectly heterogeneous group (with members spread evenly over the maximum categories) would receive a score of 1.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/diversity.html">graph_blau_index</a></span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Gender"</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.3878116</span>
+<span class="co">#&gt; [1] 0.388</span>
 <span class="fu"><a href="../reference/diversity.html">graph_blau_index</a></span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"PowerOrigin"</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.5927978</span>
+<span class="co">#&gt; [1] 0.593</span>
 <span class="fu"><a href="../reference/diversity.html">graph_blau_index</a></span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Attractive"</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.1883657</span>
+<span class="co">#&gt; [1] 0.188</span>
 <span class="fu"><a href="../reference/diversity.html">graph_blau_index</a></span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Rich"</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.1883657</span>
+<span class="co">#&gt; [1] 0.188</span>
 <span class="fu"><a href="../reference/diversity.html">graph_blau_index</a></span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Intellect"</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.465374</span></code></pre></div>
+<span class="co">#&gt; [1] 0.465</span></code></pre></div>
 <p>Looks like there is more diversity in terms of where these characters got their powers, whether they have significant intellectual powers, and their gender, than their attractiveness or their wealth.</p>
 <p>We can also cross-reference this diversity. For example, we might be interested in whether our comic book heroes are equally gender diverse across their (power) origin stories, or equally intellectually diverse across gender.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/diversity.html">graph_blau_index</a></span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Gender"</span>, <span class="st">"PowerOrigin"</span><span class="op">)</span>
-<span class="co">#&gt; Cluster God/Eternal       Cluster Human      Cluster Mutant   Cluster Radiation </span>
-<span class="co">#&gt;           0.0000000           0.0000000           0.4628099           0.3750000</span>
+<span class="co">#&gt; [1] 0.000 0.000 0.463 0.375</span>
 <span class="fu"><a href="../reference/diversity.html">graph_blau_index</a></span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Intellect"</span>, <span class="st">"Gender"</span><span class="op">)</span>
-<span class="co">#&gt; Cluster Female   Cluster Male </span>
-<span class="co">#&gt;      0.4800000      0.4591837</span></code></pre></div>
+<span class="co">#&gt; [1] 0.480 0.459</span></code></pre></div>
 <p>Looks like some origin stories are much more diverse than others. Gods (just Thor here) and humans are all men, whereas those with mutant or radiation origin stories are more gender diverse. There doesn’t seem to be any significant difference in intellect across gender categories however. We can visualise this quite effectively using the <code>node_groups</code> argument:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">marvel_friends</span>, 
@@ -207,11 +202,11 @@
 <p>where <span class="math inline">\(E\)</span> is the number of ties present between a variable’s categories (i.e. external), and <span class="math inline">\(I\)</span> is the number of ties present within a variable’s categories (i.e. internal). As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1 suggests perfect heterophily.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">obs.gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/diversity.html">graph_ei_index</a></span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Gender"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] -0.1962617</span>
+<span class="co">#&gt; [1] -0.196</span>
 <span class="op">(</span><span class="va">obs.powers</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/diversity.html">graph_ei_index</a></span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"PowerOrigin"</span><span class="op">)</span><span class="op">)</span> 
-<span class="co">#&gt; [1] -0.009345794</span>
+<span class="co">#&gt; [1] -0.00935</span>
 <span class="op">(</span><span class="va">obs.attract</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/diversity.html">graph_ei_index</a></span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Attractive"</span><span class="op">)</span><span class="op">)</span> 
-<span class="co">#&gt; [1] -0.6448598</span></code></pre></div>
+<span class="co">#&gt; [1] -0.645</span></code></pre></div>
 <p>Looks like there might be some gender homophily present, but the score for power origin homophily is so close to 0 that it does not seem to signal much. There seems to be a fairly large effect for homophily on the basis of looks though…</p>
 <p>But ultimately these are just scores, and this doesn’t tell us whether this is any more or less than what we might expect the score to be by chance for a network of this size and density and distribution of that attribute.</p>
 </div>
@@ -319,14 +314,14 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 4</span></span>
 <span class="co">#&gt;   term            estimate statistic p.value</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> (intercept)       15.4        5.61   0.03 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> alter Citations   -<span style="color: #BB0000;">0.105</span>     -<span style="color: #BB0000;">2.10</span>   0.305</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> same Discipline    6.99       1.70   0.28</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> (intercept)       16.3        8.38   0.005</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> alter Citations   -<span style="color: #BB0000;">0.132</span>     -<span style="color: #BB0000;">3.02</span>   0.09 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> same Discipline    5.40       1.85   0.435</span>
 <span class="fu"><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance</a></span><span class="op">(</span><span class="va">model1</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 8</span></span>
 <span class="co">#&gt;   r.squared adj.r.squared sigma statistic p.value    df df.residual  nobs</span>
 <span class="co">#&gt;       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    0.014<span style="text-decoration: underline;">2</span>        0.010<span style="text-decoration: underline;">2</span>  43.4      3.55  0.029<span style="text-decoration: underline;">4</span>     2         493   496</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    0.012<span style="text-decoration: underline;">0</span>        0.010<span style="text-decoration: underline;">0</span>  43.5      6.03 0.002<span style="text-decoration: underline;">50</span>     2         989   992</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">model1</span><span class="op">)</span></code></pre></div>
 <p><img src="p7linearmodel_files/figure-html/qap-interp-1.png" width="700"></p>
 <p>Hmm, looks like we can’t say much from this fit. You can try and increase the number of <code>times</code> we permute, but it’s unlike to make much difference.</p>
@@ -356,7 +351,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer>

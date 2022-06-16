@@ -21,7 +21,7 @@ visualisation of network measures such as centrality."><meta property="og:image"
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
       </span>
     </div>
 
@@ -42,22 +42,19 @@ visualisation of network measures such as centrality."><meta property="og:image"
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/p1data.html">Practical 1</a>
+      <a href="../articles/p1data.html">1. Data</a>
     </li>
     <li>
-      <a href="../articles/p2visualisation.html">Practical 2</a>
+      <a href="../articles/p2visualisation.html">2. Visualisation</a>
     </li>
     <li>
-      <a href="../articles/p3centrality.html">Practical 3</a>
+      <a href="../articles/p3centrality.html">3. Centrality</a>
     </li>
     <li>
-      <a href="../articles/p4community.html">Practical 4</a>
+      <a href="../articles/p5equivalence.html">5. Equivalence</a>
     </li>
     <li>
-      <a href="../articles/p5blockmodel.html">Practical 5</a>
-    </li>
-    <li>
-      <a href="../articles/p7linearmodel.html">Practical 7</a>
+      <a href="../articles/p7linearmodel.html">7. Testing</a>
     </li>
   </ul></li>
 <li>
@@ -79,7 +76,7 @@ visualisation of network measures such as centrality."><meta property="og:image"
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Quickly graph networks with sensible defaults</h1>
-    <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/R/autographr.R" class="external-link"><code>R/autographr.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/R/viz_autographr.R" class="external-link"><code>R/viz_autographr.R</code></a></small>
     <div class="hidden name"><code>autographr.Rd</code></div>
     </div>
 
@@ -100,8 +97,8 @@ visualisation of network measures such as centrality.</p>
   node_group <span class="op">=</span> <span class="cn">NULL</span>,
   node_shape <span class="op">=</span> <span class="cn">NULL</span>,
   node_size <span class="op">=</span> <span class="cn">NULL</span>,
-  node_measure <span class="op">=</span> <span class="cn">NULL</span>,
-  identify_function <span class="op">=</span> <span class="va">max</span>,
+  highlight_measure <span class="op">=</span> <span class="cn">NULL</span>,
+  identify_function <span class="op">=</span> <span class="st">"max"</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
     </div>
@@ -110,26 +107,38 @@ visualisation of network measures such as centrality.</p>
     <h2>Arguments</h2>
     <dl><dt>object</dt>
 <dd><p>A migraph-consistent object.</p></dd>
+
+
 <dt>layout</dt>
 <dd><p>An igraph layout algorithm,
 currently defaults to 'stress'.</p></dd>
+
+
 <dt>labels</dt>
 <dd><p>Logical, whether to print node names
 as labels if present.</p></dd>
+
+
 <dt>node_color</dt>
 <dd><p>Node variable in quotation marks to be used for
-colouring the nodes. It is easiest if this is added as a node attribute to
+coloring the nodes. It is easiest if this is added as a node attribute to
 the graph before plotting.</p></dd>
+
+
 <dt>node_group</dt>
 <dd><p>Node variable in quotation marks to be used for
 drawing convex but also concave hulls around clusters of nodes.
 These groupings will be labelled with the categories of the variable passed.</p></dd>
+
+
 <dt>node_shape</dt>
 <dd><p>Character string in quotation marks referring to the name
 of a node attribute already present in the graph to be used for the shapes
 of the nodes.
 Shapes follow the ordering "circle", "square", "triangle",
 so this aesthetic should be used for a variable with only a few categories.</p></dd>
+
+
 <dt>node_size</dt>
 <dd><p>Node variable in quotation marks to be used for
 the size of the nodes.
@@ -137,15 +146,31 @@ This can be any continuous variable on the nodes of the network.
 Since this function expects this to be an existing variable,
 it is recommended to calculate all node-related statistics prior
 to using this function.</p></dd>
-<dt>node_measure</dt>
-<dd><p>Name of the node level measure function e.g.
-<code>node_degree</code>. <code>NULL</code> by default.</p></dd>
+
+
+<dt>highlight_measure</dt>
+<dd><p>String vector of name of the node and/or edge
+level measure function e.g. <code>node_degree</code>,  <code>edge_betweenness</code>,
+or <code>c("node_betweenness", "edge_betweenness")</code>.
+<code>NULL</code> by default.</p></dd>
+
+
 <dt>identify_function</dt>
 <dd><p>Name of the function used to determine the
-highlighted node e.g. <code>max</code>, <code>min</code>, etc. <code>max</code> by default.</p></dd>
+highlighted node e.g. <code>"max"</code>, <code>"min"</code>, or <code>c("max", "min")</code> if
+both edge and node highlighting is performed.
+<code>max</code> by default.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Extra arguments.</p></dd>
+
 </dl></div>
+    <div id="see-also">
+    <h2>See also</h2>
+    <div class="dont-index"><p>Other mapping: 
+<code><a href="layouts.html">layouts</a></code></p></div>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
@@ -156,9 +181,16 @@ highlighted node e.g. <code>max</code>, <code>min</code>, etc. <code>max</code> 
 <span class="r-plt img"><img src="autographr-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="fu">autographr</span><span class="op">(</span><span class="va">ison_karateka</span>, node_size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.8</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">34</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="autographr-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">autographr</span><span class="op">(</span><span class="va">ison_networkers</span>, node_measure <span class="op">=</span> <span class="va">node_betweenness</span>, identify_function <span class="op">=</span> <span class="va">max</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'nobigint' is deprecated since igraph 1.3 and will be removed in igraph 1.4</span>
+<span class="r-in"><span class="co"># Node highlighting:</span></span>
+<span class="r-in"><span class="fu">autographr</span><span class="op">(</span><span class="va">ison_adolescents</span>, highlight_measure <span class="op">=</span> <span class="st">"node_betweenness"</span>, identify_function <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="autographr-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span class="co"># Edge highlighting:</span></span>
+<span class="r-in"><span class="fu">autographr</span><span class="op">(</span><span class="va">ison_adolescents</span>, highlight_measure <span class="op">=</span> <span class="st">"edge_betweenness"</span>, identify_function <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="autographr-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span class="co"># Both node and edge highlighting:</span></span>
+<span class="r-in"><span class="fu">autographr</span><span class="op">(</span><span class="va">ison_adolescents</span>, highlight_measure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"node_betweenness"</span>, </span>
+<span class="r-in"><span class="st">"edge_betweenness"</span><span class="op">)</span>, identify_function <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"max"</span>, <span class="st">"max"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="autographr-5.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
@@ -173,7 +205,7 @@ highlighted node e.g. <code>max</code>, <code>min</code>, etc. <code>max</code> 
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

@@ -28,10 +28,7 @@
     <loc>https://snlab-ch.github.io/migraph/articles/p3centrality.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/articles/p4community.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/articles/p5blockmodel.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/articles/p5equivalence.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/articles/p7linearmodel.html</loc>
@@ -52,28 +49,22 @@
     <loc>https://snlab-ch.github.io/migraph/reference/add.html</loc>
   </url>
   <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/as.html</loc>
+  </url>
+  <url>
     <loc>https://snlab-ch.github.io/migraph/reference/autographr.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/blockmodel.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/blockmodel_vis.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/census.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/centrality.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/cluster.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/coercion.html</loc>
-  </url>
-  <url>
     <loc>https://snlab-ch.github.io/migraph/reference/cohesion.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/community.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/components.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/connectedness.html</loc>
@@ -88,10 +79,13 @@
     <loc>https://snlab-ch.github.io/migraph/reference/diversity.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/generate.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/equivalence.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/ggatyear.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/features.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/generate.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/ggevolution.html</loc>
@@ -103,13 +97,10 @@
     <loc>https://snlab-ch.github.io/migraph/reference/grab.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/graph_balance.html</loc>
-  </url>
-  <url>
     <loc>https://snlab-ch.github.io/migraph/reference/graph_census.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/graph_smallworld.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/holes.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/index.html</loc>
@@ -145,6 +136,9 @@
     <loc>https://snlab-ch.github.io/migraph/reference/layouts.html</loc>
   </url>
   <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/mark.html</loc>
+  </url>
+  <url>
     <loc>https://snlab-ch.github.io/migraph/reference/mpn_bristol.html</loc>
   </url>
   <url>
@@ -163,7 +157,7 @@
     <loc>https://snlab-ch.github.io/migraph/reference/mpn_senate112.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/node_constraint.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/node_census.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/read.html</loc>

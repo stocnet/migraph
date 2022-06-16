@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
       </span>
     </div>
 
@@ -72,22 +72,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/p1data.html">Practical 1</a>
+      <a href="articles/p1data.html">1. Data</a>
     </li>
     <li>
-      <a href="articles/p2visualisation.html">Practical 2</a>
+      <a href="articles/p2visualisation.html">2. Visualisation</a>
     </li>
     <li>
-      <a href="articles/p3centrality.html">Practical 3</a>
+      <a href="articles/p3centrality.html">3. Centrality</a>
     </li>
     <li>
-      <a href="articles/p4community.html">Practical 4</a>
+      <a href="articles/p5equivalence.html">5. Equivalence</a>
     </li>
     <li>
-      <a href="articles/p5blockmodel.html">Practical 5</a>
-    </li>
-    <li>
-      <a href="articles/p7linearmodel.html">Practical 7</a>
+      <a href="articles/p7linearmodel.html">7. Testing</a>
     </li>
   </ul>
 </li>
@@ -121,8 +118,11 @@
 <div class="section level2">
 <h2 id="about-the-package">About the package<a class="anchor" aria-label="anchor" href="#about-the-package"></a>
 </h2>
-<p>This package extends existing network analysis packages for analysing multimodal and multilevel networks. The package is intended as a software companion to the book:</p>
+<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> works with and extends existing network analysis packages for analysing multimodal and multilevel networks. It provides a common, standard syntax for working with both one-mode and two-mode networks.</p>
+<p><img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="125"></p>
+<p>The package is intended as a software companion to the book:</p>
 <blockquote><p>David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos (2021) <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128" class="external-link"><em>Multimodal Political Networks</em></a>. Cambridge University Press: Cambridge.</p></blockquote>
+<p>Most datasets used in the book are included in this package, and the package implements most methods discussed in the book. Since many of theses datasets and routines are discussed and analysed more there, if you like the package please check out the book, and vice versa.</p>
 </div>
 <div class="section level2">
 <h2 id="how-does-migraph-help">How does migraph help?<a class="anchor" aria-label="anchor" href="#how-does-migraph-help"></a>
@@ -143,33 +143,51 @@
 <li><a href="https://tidygraph.data-imaginist.com/index.html" class="external-link"><code>{tidygraph}</code></a></li>
 </ul>
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code>as_*()</code> functions can be used to translate objects from one of the above classes into any other, and include:</p>
-<ul><li>as_edgelist(), as_igraph(), as_matrix(), as_network(), as_tidygraph()</li></ul>
+<ul><li>
+<code><a href="reference/as.html">as_edgelist()</a></code>, <code><a href="reference/as.html">as_igraph()</a></code>, <code><a href="reference/as.html">as_matrix()</a></code>, <code><a href="reference/as.html">as_network()</a></code>, <code><a href="reference/as.html">as_tidygraph()</a></code>
+</li></ul>
 <p>These functions are designed to be as intuitive and lossless as possible, outperforming many other class-coercion packages.</p>
 <div class="section level4">
 <h4 id="manipulation">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation"></a>
 </h4>
 <p>Regardless of which class object you are working with, the same syntax can be used to work with and manipulate your data.</p>
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code>is_*()</code> functions offer fast logical tests of network properties, e.g.:</p>
-<ul><li>is_acyclic(), is_bipartite(), is_complex(), is_connected(), is_directed(), is_edgelist(), is_graph(), is_labelled(), is_migraph(), is_multiplex(), is_signed(), is_twomode(), is_uniplex(), is_weighted()</li></ul>
+<ul><li>
+<code><a href="reference/is.html">is_acyclic()</a></code>, <code><a href="https://rdrr.io/pkg/igraph/man/make_bipartite_graph.html" class="external-link">is_bipartite()</a></code>, <code><a href="reference/is.html">is_complex()</a></code>, <code><a href="reference/is.html">is_connected()</a></code>, <code><a href="reference/is.html">is_directed()</a></code>, <code><a href="reference/is.html">is_edgelist()</a></code>, <code><a href="reference/is.html">is_graph()</a></code>, <code><a href="reference/is.html">is_labelled()</a></code>, <code><a href="reference/is.html">is_migraph()</a></code>, <code><a href="reference/is.html">is_multiplex()</a></code>, <code><a href="reference/is.html">is_signed()</a></code>, <code><a href="reference/is.html">is_twomode()</a></code>, <code><a href="reference/is.html">is_uniplex()</a></code>, <code><a href="reference/is.html">is_weighted()</a></code>
+</li></ul>
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code>to_*()</code> functions can be used on any class object to transform networks into networks with other properties, e.g.:</p>
-<ul><li>to_main_component(), to_mode1(), to_mode2(), to_multilevel(), to_named(), to_onemode(), to_simplex(), to_undirected(), to_uniplex(), to_unnamed(), to_unsigned(), to_unweighted()</li></ul>
+<ul><li>
+<code><a href="reference/to.html">to_blocks()</a></code>, <code><a href="reference/to.html">to_edges()</a></code>, <code><a href="reference/to.html">to_main_component()</a></code>, <code><a href="reference/to.html">to_mode1()</a></code>, <code><a href="reference/to.html">to_mode2()</a></code>, <code><a href="reference/to.html">to_multilevel()</a></code>, <code><a href="reference/to.html">to_named()</a></code>, <code><a href="reference/to.html">to_onemode()</a></code>, <code><a href="reference/to.html">to_redirected()</a></code>, <code><a href="reference/to.html">to_simplex()</a></code>, <code><a href="reference/to.html">to_subgraph()</a></code>, <code><a href="reference/to.html">to_undirected()</a></code>, <code><a href="reference/to.html">to_uniplex()</a></code>, <code><a href="reference/to.html">to_unnamed()</a></code>, <code><a href="reference/to.html">to_unsigned()</a></code>, <code><a href="reference/to.html">to_unweighted()</a></code>
+</li></ul>
 </div>
 <div class="section level4">
 <h4 id="making">Making<a class="anchor" aria-label="anchor" href="#making"></a>
 </h4>
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> includes algorithms for making both one-mode and two-mode networks with particular properties. The <code>create_*</code> group of functions create networks with a particular structure, e.g.:</p>
-<ul><li>create_complete(), create_components(), create_empty(), create_lattice(), create_ring(), create_star(), create_tree()</li></ul>
+<ul><li>
+<code><a href="reference/create.html">create_complete()</a></code>, <code><a href="reference/create.html">create_components()</a></code>, <code><a href="reference/create.html">create_core()</a></code>, <code><a href="reference/create.html">create_empty()</a></code>, <code><a href="reference/create.html">create_lattice()</a></code>, <code><a href="reference/create.html">create_ring()</a></code>, <code><a href="reference/create.html">create_star()</a></code>, <code><a href="reference/create.html">create_tree()</a></code>
+</li></ul>
 <p>The <code>generate_*</code> group of functions generate networks from particular generative mechanisms, e.g.:</p>
-<ul><li>generate_permutation(), generate_random(), generate_scalefree(), generate_smallworld()</li></ul>
+<ul><li>
+<code><a href="reference/generate.html">generate_permutation()</a></code>, <code><a href="reference/generate.html">generate_random()</a></code>, <code><a href="reference/generate.html">generate_scalefree()</a></code>, <code><a href="reference/generate.html">generate_smallworld()</a></code>
+</li></ul>
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> includes a number of prominent network datasets, especially multimodal and multiplex examples for demonstrating more advanced methods.</p>
 <ul>
-<li>mpn_bristol, mpn_DE_1990, mpn_DE_2008, mpn_DemSxP, mpn_elite_mex, mpn_elite_usa_advice, mpn_elite_usa_money, mpn_IT_1990, mpn_IT_2008, mpn_OverSxP, mpn_RepSxP, mpn_ryanair, mpn_UK_1990, mpn_UK_2008</li>
-<li>ison_adolescent_friends, ison_algebra_class, ison_bb, ison_bm, ison_brandes, ison_eies, ison_karateka, ison_marvel_relationships, ison_marvel_teams, ison_mb, ison_mm, ison_southern_women</li>
+<li>
+<code>mpn_bristol</code>, <code>mpn_DE_1990</code>, <code>mpn_DE_2008</code>, <code>mpn_DemSxP</code>, <code>mpn_elite_mex</code>, <code>mpn_elite_usa_advice</code>, <code>mpn_elite_usa_money</code>, <code>mpn_IT_1990</code>, <code>mpn_IT_2008</code>, <code>mpn_OverSxP</code>, <code>mpn_RepSxP</code>, <code>mpn_ryanair</code>, <code>mpn_UK_1990</code>, <code>mpn_UK_2008</code>
+</li>
+<li>
+<code>ison_adolescents</code>, <code>ison_algebra</code>, <code>ison_bb</code>, <code>ison_bm</code>, <code>ison_brandes</code>, <code>ison_karateka</code>, <code>ison_marvel_relationships</code>, <code>ison_marvel_teams</code>, <code>ison_mb</code>, <code>ison_mm</code>, <code>ison_networkers</code>, <code>ison_southern_women</code>
+</li>
 </ul>
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> can also import and export to Excel edgelists and nodelists, <a href="http://www.analytictech.com/archive/ucinet.htm" class="external-link">UCINET</a> and <a href="http://mrvar.fdv.uni-lj.si/pajek/" class="external-link">Pajek</a> files, e.g.:</p>
 <ul>
-<li>read_edgelist(), read_nodelist(), read_pajek(), read_ucinet()</li>
-<li>write_edgelist(), write_nodelist(), write_pajek(), write_ucinet()</li>
+<li>
+<code><a href="reference/read.html">read_edgelist()</a></code>, <code><a href="reference/read.html">read_nodelist()</a></code>, <code><a href="reference/read.html">read_pajek()</a></code>, <code><a href="reference/read.html">read_ucinet()</a></code>
+</li>
+<li>
+<code><a href="reference/read.html">write_edgelist()</a></code>, <code><a href="reference/read.html">write_nodelist()</a></code>, <code><a href="reference/read.html">write_pajek()</a></code>, <code><a href="reference/read.html">write_ucinet()</a></code>
+</li>
 </ul>
 </div>
 </div>
@@ -187,17 +205,29 @@
 </li>
 <li>Cohesion: <code><a href="reference/cohesion.html">graph_density()</a></code>, <code><a href="reference/cohesion.html">graph_reciprocity()</a></code>, <code><a href="reference/cohesion.html">graph_transitivity()</a></code>, <code><a href="reference/cohesion.html">graph_equivalency()</a></code>, and <code><a href="reference/cohesion.html">graph_congruency()</a></code>
 </li>
-<li>Censuses: <code><a href="reference/census.html">node_tie_census()</a></code>, <code>node_dyad_census()</code>, <code><a href="reference/census.html">node_triad_census()</a></code>, <code>node_mixed_census()</code>, <code><a href="reference/census.html">node_quad_census()</a></code>, and <code><a href="reference/graph_census.html">graph_triad_census()</a></code>
+<li>Connectedness: <code><a href="reference/connectedness.html">graph_components()</a></code>, <code><a href="reference/connectedness.html">graph_cohesion()</a></code>, <code><a href="reference/connectedness.html">graph_adhesion()</a></code>, <code><a href="reference/connectedness.html">graph_diameter()</a></code>, <code><a href="reference/connectedness.html">graph_length()</a></code>
 </li>
-<li>Other measures: e.g. <code><a href="reference/node_constraint.html">node_constraint()</a></code>, <code><a href="reference/graph_smallworld.html">graph_smallworld()</a></code>
+<li>Diversity: <code><a href="reference/diversity.html">graph_blau_index()</a></code>, <code><a href="reference/diversity.html">graph_ei_index()</a></code>, <code><a href="reference/diversity.html">graph_assortativity()</a></code>
+</li>
+<li>Structural holes: e.g. <code><a href="reference/holes.html">node_redundancy()</a></code>, <code><a href="reference/holes.html">node_effsize()</a></code>, <code><a href="reference/holes.html">node_efficiency()</a></code>, <code><a href="reference/holes.html">node_constraint()</a></code>, <code><a href="reference/holes.html">node_hierarchy()</a></code>
+</li>
+<li>Topological features: e.g. <code><a href="reference/features.html">graph_core()</a></code>, <code><a href="reference/features.html">graph_factions()</a></code>, <code><a href="reference/features.html">graph_modularity()</a></code>, <code><a href="reference/features.html">graph_smallworld()</a></code>, <code><a href="reference/features.html">graph_balance()</a></code>
 </li>
 </ul>
+</div>
+<div class="section level4">
+<h4 id="motifs">Motifs<a class="anchor" aria-label="anchor" href="#motifs"></a>
+</h4>
+<ul><li>Censuses: <code><a href="reference/node_census.html">node_path_census()</a></code>, <code><a href="reference/node_census.html">node_quad_census()</a></code>, <code><a href="reference/node_census.html">node_tie_census()</a></code>, <code><a href="reference/node_census.html">node_triad_census()</a></code>, <code><a href="reference/graph_census.html">graph_dyad_census()</a></code>, <code><a href="reference/graph_census.html">graph_mixed_census()</a></code>, <code><a href="reference/graph_census.html">graph_triad_census()</a></code>
+</li></ul>
 </div>
 <div class="section level4">
 <h4 id="models">Models<a class="anchor" aria-label="anchor" href="#models"></a>
 </h4>
 <ul>
-<li>Blockmodelling: <code><a href="reference/blockmodel.html">blockmodel_concor()</a></code>, <code><a href="reference/cluster.html">cluster_structural_equivalence()</a></code>, <code><a href="reference/cluster.html">cluster_regular_equivalence()</a></code>
+<li>Blockmodelling: <code><a href="reference/equivalence.html">node_automorphic_equivalence()</a></code>, <code><a href="reference/equivalence.html">node_equivalence()</a></code>, <code><a href="reference/equivalence.html">node_regular_equivalence()</a></code>, <code><a href="reference/equivalence.html">node_structural_equivalence()</a></code>
+</li>
+<li>Testing (via CUG/QAP): <code><a href="reference/tests.html">test_permutation()</a></code>, <code><a href="reference/tests.html">test_random()</a></code>
 </li>
 <li>Linear and logistic regression for networks (via MRQAP): <code><a href="reference/regression.html">network_reg()</a></code>
 </li>
@@ -209,8 +239,8 @@
 <ul>
 <li>
 <code><a href="reference/autographr.html">autographr()</a></code> for plotting graphs with sensible defaults based on their properties</li>
-<li>New layouts: e.g. <code><a href="reference/layouts.html">layout_tbl_graph_frgrid()</a></code> for snapping Fruchterman-Reingold to a grid</li>
-<li>Class-based plots: e.g. <code>plot.blockmodel()</code>
+<li>New layouts: <code><a href="reference/layouts.html">layout_tbl_graph_frgrid()</a></code>, <code><a href="reference/layouts.html">layout_tbl_graph_gogrid()</a></code>, <code><a href="reference/layouts.html">layout_tbl_graph_kkgrid()</a></code> for snapping a layout to a grid</li>
+<li>Class-based plots: e.g. <code>plot.matrix()</code>, <code>plot.members()</code>, <code>plot.node_measure()</code>
 </li>
 </ul>
 <p>Please explore <a href="https://snlab-ch.github.io/migraph/reference/index.html">the list of functions</a> to find out more.</p>
@@ -302,15 +332,7 @@
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#maturing" class="external-link"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
-<li><a href="https://app.codecov.io/gh/snlab-ch/migraph?branch=main" class="external-link"><img src="https://codecov.io/gh/snlab-ch/migraph/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://www.codefactor.io/repository/github/snlab-ch/migraph" class="external-link"><img src="https://www.codefactor.io/repository/github/snlab-ch/migraph/badge" alt="CodeFactor"></a></li>
-<li><a href="https://bestpractices.coreinfrastructure.org/projects/4559" class="external-link"><img src="https://bestpractices.coreinfrastructure.org/projects/4559/badge" alt="CII Best Practices"></a></li>
-</ul>
-</div>
+
 
   </div>
 </div>
@@ -323,7 +345,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer>
