@@ -11,6 +11,13 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+library(migraph)
+list_functions <- function(string){
+  paste0("`", paste(paste0(ls("package:migraph")[grepl(string, ls("package:migraph"))], "()"), collapse = "`, `"), "`")
+}
+list_data <- function(string){
+  paste0("`", paste(paste0(ls("package:migraph")[grepl(string, ls("package:migraph"))]), collapse = "`, `"), "`")
+}
 ```
 
 # migraph <img src="man/figures/logo.png" align="right" width="150"/>
@@ -28,11 +35,21 @@ knitr::opts_chunk$set(
 
 ## About the package
 
-This package extends existing network analysis packages for analysing multimodal and multilevel networks.
+`{migraph}` works with and extends existing network analysis packages for analysing multimodal and multilevel networks.
+It provides a common, standard syntax for working with 
+both one-mode and two-mode networks.
+
+<img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="125"/>
+
 The package is intended as a software companion to the book:
 
 > David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos (2021) [*Multimodal Political Networks*](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128).
 Cambridge University Press: Cambridge.
+
+Most datasets used in the book are included in this package,
+and the package implements most methods discussed in the book.
+Since many of theses datasets and routines are discussed and analysed more there,
+if you like the package please check out the book, and vice versa.
 
 ## How does migraph help?
 
@@ -54,7 +71,7 @@ as well as with objects constructed from the following packages:
 `{migraph}`'s `as_*()` functions can be used to translate objects 
 from one of the above classes into any other, and include:
 
-- `r library(migraph); paste0(ls("package:migraph")[grepl("^as_", ls("package:migraph"))], "()")`
+- `r list_functions("^as_")`
 
 These functions are designed to be as intuitive and lossless as possible,
 outperforming many other class-coercion packages.
@@ -67,12 +84,12 @@ the same syntax can be used to work with and manipulate your data.
 `{migraph}`'s `is_*()` functions offer fast logical tests 
 of network properties, e.g.:
 
-- `r library(migraph); paste0(ls("package:migraph")[grepl("^is_", ls("package:migraph"))], "()")`
+- `r list_functions("^is_")`
 
 `{migraph}`'s `to_*()` functions can be used on any class object 
 to transform networks into networks with other properties, e.g.:
 
-- `r library(migraph); paste0(ls("package:migraph")[grepl("^to_", ls("package:migraph"))], "()")`
+- `r list_functions("^to_")`
 
 #### Making
 
@@ -81,26 +98,26 @@ both one-mode and two-mode networks with particular properties.
 The `create_*` group of functions create networks with a particular structure,
 e.g.:
 
-- `r library(migraph); paste0(ls("package:migraph")[grepl("^create_", ls("package:migraph"))], "()")`
+- `r list_functions("^create_")`
 
 The `generate_*` group of functions generate networks from particular
 generative mechanisms, e.g.:
 
-- `r library(migraph); paste0(ls("package:migraph")[grepl("^generate_", ls("package:migraph"))], "()")`
+- `r list_functions("^generate_")`
 
 `{migraph}` includes a number of prominent network datasets,
 especially multimodal and multiplex examples for demonstrating
 more advanced methods.
 
-- `r library(migraph); ls("package:migraph")[grepl("^mpn_", ls("package:migraph"))]`
-- `r library(migraph); ls("package:migraph")[grepl("^ison_", ls("package:migraph"))]`
+- `r list_data("^mpn_")`
+- `r list_data("^ison_")`
 
 `{migraph}` can also import and export to Excel edgelists and nodelists,
 [UCINET](http://www.analytictech.com/archive/ucinet.htm) and 
 [Pajek](http://mrvar.fdv.uni-lj.si/pajek/) files, e.g.:
 
-- `r library(migraph); paste0(ls("package:migraph")[grepl("^read_", ls("package:migraph"))], "()")`
-- `r library(migraph); paste0(ls("package:migraph")[grepl("^write_", ls("package:migraph"))], "()")`
+- `r list_functions("^read_")`
+- `r list_functions("^write_")`
 
 ### Extends your current network analysis workflow
 
@@ -115,19 +132,26 @@ with existing function names wherever possible.
 - Centrality: `node_degree()`, `node_closeness()`, `node_betweenness()`, and `node_eigenvector()`
 - Centralization: `graph_degree()`, `graph_closeness()`, `graph_betweenness()`, and `graph_eigenvector()`
 - Cohesion: `graph_density()`, `graph_reciprocity()`, `graph_transitivity()`, `graph_equivalency()`, and `graph_congruency()`
-- Censuses: `node_tie_census()`, `node_dyad_census()`, `node_triad_census()`, `node_mixed_census()`, `node_quad_census()`, and `graph_triad_census()`
-- Other measures: e.g. `node_constraint()`, `graph_smallworld()`
+- Connectedness: `graph_components()`, `graph_cohesion()`, `graph_adhesion()`, `graph_diameter()`, `graph_length()`
+- Diversity: `graph_blau_index()`, `graph_ei_index()`, `graph_assortativity()`
+- Structural holes: e.g. `node_redundancy()`, `node_effsize()`, `node_efficiency()`, `node_constraint()`, `node_hierarchy()`
+- Topological features: e.g. `graph_core()`, `graph_factions()`, `graph_modularity()`, `graph_smallworld()`, `graph_balance()`
+
+#### Motifs
+
+- Censuses: `r list_functions("node_.*_census")`,  `r list_functions("graph_.*_census")`
 
 #### Models
 
-- Blockmodelling: `blockmodel_concor()`, `cluster_structural_equivalence()`, `cluster_regular_equivalence()`
+- Blockmodelling: `r list_functions("node.*equivalence")`
+- Testing (via CUG/QAP): `r list_functions("^test_")`
 - Linear and logistic regression for networks (via MRQAP): `network_reg()`
 
 #### Visualization
 
 - `autographr()` for plotting graphs with sensible defaults based on their properties
-- New layouts: e.g. `layout_tbl_graph_frgrid()` for snapping Fruchterman-Reingold to a grid
-- Class-based plots: e.g. `plot.blockmodel()`
+- New layouts: `r list_functions("^layout_")` for snapping a layout to a grid
+- Class-based plots: e.g. `plot.matrix()`, `plot.members()`, `plot.node_measure()`
 
 Please explore [the list of functions](https://snlab-ch.github.io/migraph/reference/index.html) to find out more.
 

@@ -5,11 +5,14 @@
 \alias{ison_marvel}
 \alias{ison_marvel_teams}
 \alias{ison_marvel_relationships}
-\title{Multilevel two-mode affiliation, signed one-mode networks of Marvel comic book characters (Yüksel 2017)}
+\title{Multilevel two-mode affiliation, signed one-mode networks of Marvel comic
+book characters (Yüksel 2017)}
 \format{
-Two-mode igraph of 53 Marvel comic book characters and 141 team-ups, with 683 team affiliations between them
+Two-mode igraph of 53 Marvel comic book characters and 141 team-ups,
+with 683 team affiliations between them
 
-One-mode igraph of 53 Marvel comic book characters and 558 signed (\code{1} = friends, \code{-1} = enemies) undirected ties
+One-mode igraph of 53 Marvel comic book characters and
+558 signed (\code{1} = friends, \code{-1} = enemies) undirected ties
 }
 \source{
 Umut Yüksel, 31 March 2017
@@ -20,12 +23,13 @@ data(ison_marvel_teams)
 data(ison_marvel_relationships)
 }
 \description{
-Multilevel two-mode affiliation, signed one-mode networks of Marvel comic book characters (Yüksel 2017)
+Multilevel two-mode affiliation, signed one-mode networks of Marvel comic
+book characters (Yüksel 2017)
 }
 \details{
 This package includes two datasets related to the Marvel \emph{comic book} universe.
-The first, \code{ison_marvel_teams},  is a two-mode affiliation network of 53 Marvel comic book characters and their
-affiliations to 141 different teams.
+The first, \code{ison_marvel_teams},  is a two-mode affiliation network of 53
+Marvel comic book characters and their affiliations to 141 different teams.
 This network includes only information about nodes' names and nodeset,
 but additional nodal data can be taken from the other Marvel dataset here.
 

@@ -1,0 +1,165 @@
+make_node_member <- function(out, object) {
+  class(out) <- c("node_member", class(out))
+  attr(out, "mode") <- node_mode(object)
+  out
+}
+
+#' @export
+print.node_member <- function(x, ...,
+                               max.length = 6,
+                               digits = 3) {
+  if (any(attr(x, "mode"))) {
+    for (i in names(table(x))) {
+      if (i == names(table(x))[1]) cat(i, "\n")
+      else cat("\n", i, "\n")
+      if (!is.null(names(x))) {
+        y <- paste(names(x[x == i & attr(x, "mode")]), collapse = ", ")
+        z <- paste(names(x[x == i & !attr(x, "mode")]), collapse = ", ")
+      } else {
+        y <- paste(which(x == i & attr(x, "mode")), collapse = ", ")
+        z <- paste(which(x == i & !attr(x, "mode")), collapse = ", ")
+      }
+      cat("  ", y, "\n")
+      cat("  ", z)
+    }
+  } else {
+    for (i in names(table(x))) {
+      if (i == names(table(x))[1]) cat(i, "\n")
+      else cat("\n", i, "\n")
+      if (!is.null(names(x)))
+        y <- paste(names(x[x == i]), collapse = ", ")
+      else
+        y <- paste(which(x == i), collapse = ", ")
+      cat("  ", y)
+    }
+  }
+}
+
+#' @importFrom stats cutree
+#' @export
+plot.node_member <- function(x, ...) {
+  if (!("ggdendro" %in% rownames(utils::installed.packages()))) {
+    message("Please install package `{ggdendro}`.")
+  } else {
+    hc <- attr(x, "hc")
+    k <- attr(x, "k")
+    memb <- x[hc$order]
+    clust <- memb[!duplicated(memb)]
+    colors <- ifelse(match(memb, clust) %% 2,
+                     "#000000", "#E20020")
+    ggdendro::ggdendrogram(hc, rotate = TRUE) +
+      ggplot2::geom_hline(yintercept = hc$height[length(hc$order) - k],
+                          linetype = 2,
+                          color = "#E20020") +
+      ggplot2::theme(axis.text.x = ggplot2::element_text(colour = "#5c666f"),
+                     axis.text.y = suppressWarnings(
+                       ggplot2::element_text(colour = colors)))
+  }
+}
+
+# plot(as_matrix(ison_adolescents),
+#   membership = node_regular_equivalence(ison_adolescents, "e"))
+# plot(as_matrix(ison_southern_women),
+#   membership = node_regular_equivalence(ison_southern_women, "e"))
+#' @importFrom tidyr pivot_longer
+#' @importFrom ggplot2 ggplot geom_tile aes scale_fill_gradient theme_grey labs theme scale_x_discrete scale_y_discrete geom_vline geom_hline element_blank element_text
+#' @importFrom rlang .data
+#' @export
+plot.matrix <- function(x, ..., membership = NULL) {
+
+  if (!is_twomode(x)) {
+    blocked_data <- as_matrix(x)
+    if (!is.null(membership)) blocked_data <- blocked_data[order(membership),
+                                                          order(membership)]
+  } else if (is_twomode(x) &&
+     length(intersect(membership[!node_mode(x)], membership[!node_mode(x)])) > 0) {
+    blocked_data <- as_matrix(to_multilevel(x))
+    if (!is.null(membership)) blocked_data <- blocked_data[order(membership),
+                                                          order(membership)]
+  } else {
+    blocked_data <- as_matrix(x)
+  }
+
+  plot_data <- as.data.frame(blocked_data) %>%
+    dplyr::mutate(Var1 = rownames(blocked_data)) %>%
+    tidyr::pivot_longer(!.data[["Var1"]], names_to = "Var2", values_to = "value")
+  g <- ggplot2::ggplot(plot_data, ggplot2::aes(.data[["Var2"]], .data[["Var1"]])) +
+    ggplot2::theme_grey(base_size = 9) +
+    ggplot2::labs(x = "", y = "") +
+    ggplot2::theme(
+      legend.position = "none",
+      axis.ticks = ggplot2::element_blank(),
+      axis.text.y = ggplot2::element_text(
+        size = 9 * 0.8,
+        colour = "grey50"
+      ),
+      axis.text.x = ggplot2::element_text(
+        size = 9 * 0.8,
+        angle = 30, hjust = 0,
+        colour = "grey50"
+      )
+    ) +
+    ggplot2::geom_tile(ggplot2::aes(fill = .data[["value"]]),
+                       colour = "white"
+    )
+
+  # Color for signed networks
+  if (is_signed(x)) {
+    g <- g +
+      ggplot2::scale_fill_gradient2(high = "#003049",
+        mid = "white",
+        low = "#d62828")
+  } else {
+    g <- g +
+      ggplot2::scale_fill_gradient(
+        low = "white",
+        high = "black"
+      )
+  }
+
+  # Structure for multimodal networks
+  if (!is_twomode(x)) {
+    g <- g +
+      ggplot2::scale_x_discrete(expand = c(0, 0), position = "top",
+                                limits = colnames(blocked_data)
+      ) +
+      ggplot2::scale_y_discrete(expand = c(0, 0),
+                                limits = rev(rownames(blocked_data))
+      )
+    if (!is.null(membership))
+      g <- g + ggplot2::geom_vline(
+        xintercept = c(1 + which(diff(membership[order(membership)]) != 0))
+        - .5,
+        colour = "red"
+      ) +
+      ggplot2::geom_hline(
+        yintercept = nrow(blocked_data) -
+          c(1 + which(diff(membership[order(membership)]) != 0)) +
+          1.5,
+        colour = "red"
+      )
+  } else {
+    g <- g +
+      ggplot2::scale_y_discrete(expand = c(0, 0),
+                                limits = rev(rownames(x[["blocked.data"]])[x[["order.vector"]][["nodes1"]]])
+      ) +
+      ggplot2::scale_x_discrete(expand = c(0, 0), position = "top",
+                                limits = colnames(x[["blocked.data"]])[x[["order.vector"]][["nodes2"]]]
+      ) +
+      ggplot2::geom_vline(
+        xintercept =
+          c(1 + which(diff(x[["block.membership"]][["nodes2"]]) != 0))
+        - .5,
+        colour = "blue"
+      ) +
+      ggplot2::geom_hline(
+        yintercept = nrow(x[["blocked.data"]])
+        - c(1 + which(diff(x[["block.membership"]][["nodes1"]]) != 0))
+        + 1.5,
+        colour = "red"
+      )
+  }
+  g
+}
+
+elementwise.all.equal <- Vectorize(function(x, y) {isTRUE(all.equal(x, y))})

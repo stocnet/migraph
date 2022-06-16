@@ -5,14 +5,14 @@
 \alias{mpn_bristol}
 \title{Multimodal (3) Bristol protest events, 1990-2002 (Diani and Bison 2004)}
 \format{
-A \code{tbl_graph} object with 264 rows and columns. Node IDs are
-prefaced with a type identifier:
+A \code{tbl_graph} object with 264 nodes and 1496 edges.
+While represented as a two-mode network, it contains three levels:
 \describe{
-\item{1_}{150 Individuals, anonymised}
-\item{2_}{97 Bristol Civic Organizations}
-\item{3_}{17 Major Protest and Civic Events in Bristol, 1990-2002}
+\item{1}{150 Individuals, anonymised}
+\item{2}{97 Bristol civic organizations}
+\item{3}{17 Major protest and civic events in Bristol, 1990-2002}
 }
-The network is weighted, named, and directed.
+The network is named.
 }
 \source{
 Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
@@ -30,6 +30,6 @@ and the involvement of the organizations in these events.
 \references{
 Diani, Mario, and Ivano Bison. 2004.
 “Organizations, Coalitions, and Movements.”
-Theory and Society 33(3–4):281–309.
+\emph{Theory and Society} 33(3–4):281–309.
 }
 \keyword{datasets}

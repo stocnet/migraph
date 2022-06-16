@@ -8,6 +8,18 @@
 \alias{project_cols}
 \alias{mutate_edges}
 \alias{edge_mutual}
+\alias{ggtree}
+\alias{ggidentify_clusters}
+\alias{cluster_structural_equivalence}
+\alias{cluster_regular_equivalence}
+\alias{blockmodel_concor}
+\alias{summarise_statistics}
+\alias{blockmodel}
+\alias{print.block_model}
+\alias{reduce_graph}
+\alias{ggatyear}
+\alias{group_tie_census}
+\alias{group_triad_census}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 ggidentify(object, node_measure, identify_function = max)
@@ -21,9 +33,45 @@ project_cols(object)
 mutate_edges(object, object2, attr_name)
 
 edge_mutual(object)
+
+ggtree(hc, k = NULL)
+
+ggidentify_clusters(hc, census, method = c("elbow", "strict"))
+
+cluster_structural_equivalence(object)
+
+cluster_regular_equivalence(object)
+
+blockmodel_concor(
+  object,
+  p = 1,
+  cutoff = 0.999,
+  max.iter = 25,
+  block.content = "density"
+)
+
+summarise_statistics(node_measure, clusters = NULL, sumFUN = mean)
+
+blockmodel(object, clusters)
+
+\method{print}{block_model}(x, ...)
+
+reduce_graph(blockmodel, block_labels = NULL)
+
+ggatyear(edgelist, year, ...)
+
+group_tie_census(object, clusters, decimals = 2)
+
+group_triad_census(object, clusters, decimals = 2)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+Generally these functions have been superseded or renamed.
+Upon using them, a message is provided directing the user to the new function.
+However, at this stage of package development,
+we generally clear older defunct functions at each minor release,
+and so you are strongly encouraged to use the new functions/names/syntax
+wherever possible and update your scripts accordingly.
 }
 \section{Functions}{
 \itemize{
@@ -44,6 +92,30 @@ for more details about the new implementation.
 \item \code{mutate_edges}: Deprecated on 2022-03-29.
 
 \item \code{edge_mutual}: Deprecated on 2022-04-05.
+
+\item \code{ggtree}: Deprecated on 2022-05-27.
+
+\item \code{ggidentify_clusters}: Defunct on 2022-05-27.
+
+\item \code{cluster_structural_equivalence}: Deprecated on 2022-05-27.
+
+\item \code{cluster_regular_equivalence}: Deprecated on 2022-05-27.
+
+\item \code{blockmodel_concor}: Deprecated on 2022-05-30.
+
+\item \code{summarise_statistics}: Deprecated on 2022-06-03.
+
+\item \code{blockmodel}: Deprecated on 2022-06-03.
+
+\item \code{print.block_model}: Deprecated on 2022-06-03.
+
+\item \code{reduce_graph}: Deprecated on 2022-06-03.
+
+\item \code{ggatyear}: Deprecated on 2022-06-08.
+
+\item \code{group_tie_census}: Deprecated on 2022-06-09.
+
+\item \code{group_triad_census}: Deprecated on 2022-06-09.
 }}
 
 \keyword{internal}
