@@ -56,9 +56,12 @@ reference:
     contents:
       - autographr
       - layouts
-      - starts_with("plot")
       - gglineage
       - ggevolution
+  - title: "Marks"
+    desc: "Functions for logically identifying particular types of nodes or edges:"
+    contents:
+      - mark
   - title: "Measures"
     desc: |
       Functions for measuring multimodal networks.
@@ -70,15 +73,13 @@ reference:
       - centrality
       - cohesion
       - diversity
-      - node_constraint
-      - graph_smallworld
-      - graph_components
-      - graph_balance
+      - holes
+      - features
+      - connectedness
   - title: "Motifs"
     desc: "Functions for calculating subgraphs in multimodal networks:"
     contents:
       - ends_with("_census")
-      - identify
   - title: "Memberships"
     desc: |
       Functions for identifying class, cluster, or partition memberships
@@ -92,7 +93,6 @@ reference:
     contents:
       - regression
       - starts_with("test")
-      - starts_with("blockmodel")
   - title: "Data"
     desc: |
       The package contains two collections of multimodal, multilevel, and multiplex network data,
