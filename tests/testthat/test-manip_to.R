@@ -72,7 +72,7 @@ test_that("matrix projected correctly by columns",{
 })
 
 test_that("to_blocks works", {
-  block <- node_regular_equivalence(ison_algebra, "silhouette")
+  block <- node_regular_equivalence(ison_algebra)
   expect_equal(max(block), ncol(to_blocks(ison_algebra, block)))
   expect_equal(ncol(to_blocks(ison_algebra, block)), nrow(to_blocks(ison_algebra, block)))
 })

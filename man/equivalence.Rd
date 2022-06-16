@@ -15,7 +15,7 @@ node_equivalence(
   object,
   census,
   k = c("silhouette", "elbow", "strict"),
-  cluster = c("hier", "concor"),
+  cluster = c("hierarchical", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
   range = 8L
 )
@@ -23,7 +23,7 @@ node_equivalence(
 node_structural_equivalence(
   object,
   k = c("silhouette", "elbow", "strict"),
-  cluster = c("hier", "concor"),
+  cluster = c("hierarchical", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
   range = 8L
 )
@@ -31,7 +31,7 @@ node_structural_equivalence(
 node_regular_equivalence(
   object,
   k = c("silhouette", "elbow", "strict"),
-  cluster = c("hier", "concor"),
+  cluster = c("hierarchical", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
   range = 8L
 )
@@ -39,7 +39,7 @@ node_regular_equivalence(
 node_automorphic_equivalence(
   object,
   k = c("silhouette", "elbow", "strict"),
-  cluster = c("hier", "concor"),
+  cluster = c("hierarchical", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
   range = 8L
 )
@@ -67,7 +67,7 @@ Alternatively, if \code{k} is passed an integer, e.g. \code{k = 3},
 then all selection routines are skipped in favour of this number of clusters.}
 
 \item{cluster}{Character string indicating whether clusters should be
-clustered hierarchically (\code{"hier"}) or
+clustered hierarchically (\code{"hierarchical"}) or
 through convergence of correlations (\code{"concor"}).
 Fewer, identifiable letters, e.g. \code{"c"} for CONCOR, is sufficient.}
 
