@@ -12,6 +12,19 @@
 #' @inheritParams is
 NULL
 
+#' @describeIn holes Returns nodes' bridge counts
+#' @examples 
+#' node_bridges(ison_adolescents)
+#' node_bridges(ison_southern_women)
+#' @export
+node_bridges <- function(object){
+  g <- as_igraph(object)
+  out <- vapply(igraph::V(g), function(ego){
+    length(igraph::E(g)[.inc(ego) & edge_bridges(g)==1])
+  }, FUN.VALUE = numeric(1))
+  make_node_measure(out, object)
+}
+
 #' @describeIn holes Returns nodes' redundancy
 #' @references 
 #' Borgatti, Steven. 1997. 

@@ -2,6 +2,7 @@
 % Please edit documentation in R/measure_holes.R
 \name{holes}
 \alias{holes}
+\alias{node_bridges}
 \alias{node_redundancy}
 \alias{node_effsize}
 \alias{node_efficiency}
@@ -9,6 +10,8 @@
 \alias{node_hierarchy}
 \title{Structural holes for one- and two-mode networks}
 \usage{
+node_bridges(object)
+
 node_redundancy(object)
 
 node_effsize(object)
@@ -35,6 +38,8 @@ fill structural holes, as outlined in Burt (1992).
 }
 \section{Functions}{
 \itemize{
+\item \code{node_bridges}: Returns nodes' bridge counts
+
 \item \code{node_redundancy}: Returns nodes' redundancy
 
 \item \code{node_effsize}: Returns nodes' effective size
@@ -49,6 +54,8 @@ where only one or two contacts are the source of closure
 }}
 
 \examples{
+node_bridges(ison_adolescents)
+node_bridges(ison_southern_women)
 node_redundancy(ison_adolescents)
 node_redundancy(ison_southern_women)
 node_effsize(ison_adolescents)

@@ -53,7 +53,7 @@
   - Added `graph_factions()` for calculating correlation of an observed network to a component network of the same dimensions (closed #40)
   - Added `graph_modularity()` for calculating modularity of an observed network, including modularity for two-mode networks (closed #144)
 - Added new script for measuring structural holes, including `node_constraint()`
-  - Added several additional measures of structural holes: `node_redundancy()`, `node_effsize()`, `node_efficiency()`, `node_hierarchy()`
+  - Added several additional measures of structural holes: `node_bridges()`, `node_redundancy()`, `node_effsize()`, `node_efficiency()`, `node_hierarchy()`
 - `node_betweenness()` no longer needs `nobigint` argument; just uses default from `{igraph}`
 
 ## Motifs
