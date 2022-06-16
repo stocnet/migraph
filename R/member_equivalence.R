@@ -125,10 +125,8 @@ node_regular_equivalence <- function(object,
 #' @describeIn equivalence Returns nodes' membership in 
 #'   automorphically equivalent classes
 #' @examples 
-#' tic()
 #' (nae <- node_automorphic_equivalence(mpn_elite_usa_advice))
 #' plot(nae)
-#' toc()
 #' @export
 node_automorphic_equivalence <- function(object,
                                          k = c("silhouette", "elbow", "strict"),

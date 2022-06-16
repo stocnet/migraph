@@ -106,8 +106,8 @@ automorphically equivalent classes
 }}
 
 \examples{
-nse_conc <- node_structural_equivalence(ison_southern_women, 
-                  cluster = "concor")
+(nse_conc <- node_structural_equivalence(ison_southern_women, 
+                  cluster = "concor"))
 plot(nse_conc)
 (nre <- node_regular_equivalence(ison_algebra, "elbow"))
 plot(nre)
