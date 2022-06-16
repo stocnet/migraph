@@ -82,12 +82,8 @@ node_equivalence <- function(object, census,
 #' @describeIn equivalence Returns nodes' membership in 
 #'   structurally equivalent classes
 #' @examples
-#' nse_hier <- node_structural_equivalence(ison_adolescents)
-#' plot(nse_hier)
-#' nse_conc <- node_structural_equivalence(ison_adolescents, 
-#'                   cluster = "concor")
-#' nse_conc <- node_structural_equivalence(ison_southern_women, 
-#'                   cluster = "concor")
+#' (nse_conc <- node_structural_equivalence(ison_southern_women, 
+#'                   cluster = "concor"))
 #' plot(nse_conc)
 #' @export
 node_structural_equivalence <- function(object,
@@ -109,8 +105,6 @@ node_structural_equivalence <- function(object,
 #' @examples
 #' (nre <- node_regular_equivalence(ison_algebra, "elbow"))
 #' plot(nre)
-#' (nre2 <- node_regular_equivalence(ison_algebra, "silhouette"))
-#' plot(nre2)
 #' @export
 node_regular_equivalence <- function(object, 
                                      k = c("silhouette", "elbow", "strict"),
@@ -131,10 +125,10 @@ node_regular_equivalence <- function(object,
 #' @describeIn equivalence Returns nodes' membership in 
 #'   automorphically equivalent classes
 #' @examples 
-#' (nae <- node_automorphic_equivalence(mpn_elite_mex, k = "elbow"))
+#' tic()
+#' (nae <- node_automorphic_equivalence(mpn_elite_usa_advice))
 #' plot(nae)
-#' (nae2 <- node_automorphic_equivalence(mpn_elite_usa_advice, k = "elbow"))
-#' plot(nae2)
+#' toc()
 #' @export
 node_automorphic_equivalence <- function(object,
                                          k = c("silhouette", "elbow", "strict"),

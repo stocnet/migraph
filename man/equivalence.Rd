@@ -106,21 +106,13 @@ automorphically equivalent classes
 }}
 
 \examples{
-nse_hier <- node_structural_equivalence(ison_adolescents)
-plot(nse_hier)
-nse_conc <- node_structural_equivalence(ison_adolescents, 
-                  cluster = "concor")
 nse_conc <- node_structural_equivalence(ison_southern_women, 
                   cluster = "concor")
 plot(nse_conc)
 (nre <- node_regular_equivalence(ison_algebra, "elbow"))
 plot(nre)
-(nre2 <- node_regular_equivalence(ison_algebra, "silhouette"))
-plot(nre2)
-(nae <- node_automorphic_equivalence(mpn_elite_mex, k = "elbow"))
+(nae <- node_automorphic_equivalence(mpn_elite_usa_advice))
 plot(nae)
-(nae2 <- node_automorphic_equivalence(mpn_elite_usa_advice, k = "elbow"))
-plot(nae2)
 }
 \references{
 Thorndike, Robert L. 1953.
