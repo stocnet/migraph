@@ -134,9 +134,10 @@ Rousseeuw, Peter J. 1987.
 \doi{10.1016/0377-0427(87)90125-7}.
 
 Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.
-"\href{https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.398.2703&rep=rep1&type=pdf}{An Algorithm for Clustering Relational Data with Applications to
-Social Network Analysis and Comparison with Multidimensional Scaling}".
+"An Algorithm for Clustering Relational Data with Applications to
+Social Network Analysis and Comparison with Multidimensional Scaling".
 \emph{Journal of Mathematical Psychology}, 12: 328--383.
+\doi{10.1016/0022-2496(75)90028-0}.
 }
 \seealso{
 Other membership: 

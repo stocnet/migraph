@@ -122,9 +122,8 @@ node_triad_census <- function(object){
 #' @references 
 #'  Ortmann, Mark, and Ulrik Brandes. 2017. 
 #'  “Efficient Orbit-Aware Triad and Quad Census in Directed and Undirected Graphs.” 
-#'  \emph{Applied Network Science} 2(1):13. \doi{https://doi.org/10.1007/s41109-017-0027-2}
-#' @examples 
-#' (quad_cen <- node_quad_census(ison_southern_women))
+#'  \emph{Applied Network Science} 2(1):13. 
+#'  \doi{https://doi.org/10.1007/s41109-017-0027-2}
 #' @export
 node_quad_census <- function(object){
   if (!("oaqc" %in% rownames(utils::installed.packages()))) {
