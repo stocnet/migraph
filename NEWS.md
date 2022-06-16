@@ -97,6 +97,7 @@ effectively replacing `plot.block_model()`
 ## Mapping
 
 - `autographr()` can highlight nodes that max (by default) some measure (thank you, @BBieri, closed #224)
+- Added `layout_tbl_graph_stressgrid()` as an extra option
 - `ggatyear()` is deprecated
 
 ## Data

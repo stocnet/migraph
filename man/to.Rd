@@ -187,14 +187,9 @@ autographr(to_mode2(ison_southern_women)))
 to_onemode(ison_southern_women)
 autographr(ison_adolescents) +  
 autographr(to_edges(ison_adolescents))
-autographr(to_blocks(ison_adolescents, 
-  node_regular_equivalence(ison_adolescents, "e")))
-to_blocks(ison_adolescents, 
-  node_regular_equivalence(ison_adolescents, "e"), sum)
-to_blocks(ison_southern_women, 
-  node_regular_equivalence(ison_southern_women, "e"))
-to_blocks(ison_southern_women, 
-  node_kernighanlin(ison_southern_women))
+(adolblock <- to_blocks(ison_adolescents, 
+  node_regular_equivalence(ison_adolescents)))
+autographr(adolblock)
 }
 \seealso{
 Other manipulations: 

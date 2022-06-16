@@ -518,14 +518,9 @@ to_subgraph <- function(object, ...){
 #'   Other recommended options include `median`, `sum`,
 #'   `min` or `max`.
 #' @examples 
-#' autographr(to_blocks(ison_adolescents, 
-#'   node_regular_equivalence(ison_adolescents, "e")))
-#' to_blocks(ison_adolescents, 
-#'   node_regular_equivalence(ison_adolescents, "e"), sum)
-#' to_blocks(ison_southern_women, 
-#'   node_regular_equivalence(ison_southern_women, "e"))
-#' to_blocks(ison_southern_women, 
-#'   node_kernighanlin(ison_southern_women))
+#' (adolblock <- to_blocks(ison_adolescents, 
+#'   node_regular_equivalence(ison_adolescents)))
+#' autographr(adolblock)
 #' @export
 to_blocks <- function(object, membership, FUN = mean){
   mat <- as_matrix(to_onemode(object))

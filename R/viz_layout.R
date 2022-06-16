@@ -20,9 +20,6 @@
 NULL
 
 #' @rdname layouts
-#' @examples
-#' autographr(mpn_elite_mex, "frgrid")
-#' autographr(mpn_ryanair, "frgrid")
 #' @export
 layout_tbl_graph_frgrid <- function(object, circular = FALSE, times = 1000){
   xy <- as.data.frame(igraph::layout_with_fr(object, maxiter = times))
@@ -33,9 +30,6 @@ layout_tbl_graph_frgrid <- function(object, circular = FALSE, times = 1000){
 }
 
 #' @rdname layouts
-#' @examples
-#' autographr(mpn_elite_mex, "kkgrid")
-#' autographr(mpn_ryanair, "kkgrid")
 #' @export
 layout_tbl_graph_kkgrid <- function(object, circular = FALSE, times = 1000){
   xy <- as.data.frame(igraph::layout_with_kk(object, maxiter = times))
@@ -46,12 +40,19 @@ layout_tbl_graph_kkgrid <- function(object, circular = FALSE, times = 1000){
 }
 
 #' @rdname layouts
-#' @examples
-#' autographr(mpn_elite_mex, "gogrid")
-#' autographr(mpn_ryanair, "gogrid")
 #' @export
 layout_tbl_graph_gogrid <- function(object, circular = FALSE, times = 1000){
   xy <- as.data.frame(igraph::layout_with_graphopt(object, niter = times))
+  colnames(xy) <- c("x","y")
+  xy <- depth_first_recursive_search(xy)
+  attr(xy, 'graph') <- as_tidygraph(object)
+  xy
+}
+
+#' @rdname layouts
+#' @export
+layout_tbl_graph_stressgrid <- function(object, circular = FALSE, times = 1000){
+  xy <- as.data.frame(ggraph::create_layout(object, "stress")[,1:2])
   colnames(xy) <- c("x","y")
   xy <- depth_first_recursive_search(xy)
   attr(xy, 'graph') <- as_tidygraph(object)

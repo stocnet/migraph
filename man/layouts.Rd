@@ -5,6 +5,7 @@
 \alias{layout_tbl_graph_frgrid}
 \alias{layout_tbl_graph_kkgrid}
 \alias{layout_tbl_graph_gogrid}
+\alias{layout_tbl_graph_stressgrid}
 \title{Layouts for snapping layouts to a grid}
 \usage{
 layout_tbl_graph_frgrid(object, circular = FALSE, times = 1000)
@@ -12,6 +13,8 @@ layout_tbl_graph_frgrid(object, circular = FALSE, times = 1000)
 layout_tbl_graph_kkgrid(object, circular = FALSE, times = 1000)
 
 layout_tbl_graph_gogrid(object, circular = FALSE, times = 1000)
+
+layout_tbl_graph_stressgrid(object, circular = FALSE, times = 1000)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -32,14 +35,6 @@ Only possible for some layouts. Defaults to FALSE}
 The function uses approximate pattern matching
 to redistribute coarse layouts on square grid points, while
 preserving the topological relationships among the nodes (see Inoue et al. 2012).
-}
-\examples{
-autographr(mpn_elite_mex, "frgrid")
-autographr(mpn_ryanair, "frgrid")
-autographr(mpn_elite_mex, "kkgrid")
-autographr(mpn_ryanair, "kkgrid")
-autographr(mpn_elite_mex, "gogrid")
-autographr(mpn_ryanair, "gogrid")
 }
 \references{
 Inoue, Kentaro, Shinichi Shimozono, Hideaki Yoshida, and Hiroyuki Kurata. 2012.
