@@ -2,7 +2,7 @@
 
 ## Measures
 
-- Added `node_reach()` for calculating reach centrality
+- Added `node_reach()` for calculating reach centrality (closed #196)
 - Separated (again) centrality and centralisation documentation
 
 ## Memberships
