@@ -21,7 +21,7 @@ the profiles of clusters of nodes in a network."><meta property="og:image" conte
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
       </span>
     </div>
 
@@ -158,31 +158,31 @@ of each node to every other node in the network.</p></li>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">task_eg</span> <span class="op">&lt;-</span> <span class="fu"><a href="to.html">to_named</a></span><span class="op">(</span><span class="fu"><a href="to.html">to_uniplex</a></span><span class="op">(</span><span class="va">ison_algebra</span>, <span class="st">"task_tie"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">(</span><span class="va">tie_cen</span> <span class="op">&lt;-</span> <span class="fu">node_tie_census</span><span class="op">(</span><span class="va">task_eg</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 16 × 32</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    fromRebecca fromMargaret fromSawyer fromChris fromJill fromRoy fromAva</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>           0            1          0         0        1       1       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>           0            0          1         0        0       0       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>           0            1          0         0        1       1       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>           0            0          0         0        0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>           1            0          1         0        0       1       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>           0            0          1         0        1       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>           0            1          1         0        0       1       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>           1            1          1         0        1       1       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>           1            0          0         0        0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>           1            0          1         1        1       1       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>           1            0          1         0        1       1       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>           1            1          0         0        0       1       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span>           1            1          0         0        1       0       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span>           0            1          1         0        0       1       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span>           1            1          1         0        1       0       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span>           1            1          1         1        1       1       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 25 more variables: fromSydney &lt;dbl&gt;, fromMarquita &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fromJase &lt;dbl&gt;, fromAdriana &lt;dbl&gt;, fromJane &lt;dbl&gt;, fromLydia &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fromDelia &lt;dbl&gt;, fromTrinity &lt;dbl&gt;, fromDon &lt;dbl&gt;, toRebecca &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toMargaret &lt;dbl&gt;, toSawyer &lt;dbl&gt;, toChris &lt;dbl&gt;, toJill &lt;dbl&gt;, toRoy &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toAva &lt;dbl&gt;, toSydney &lt;dbl&gt;, toMarquita &lt;dbl&gt;, toJase &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toAdriana &lt;dbl&gt;, toJane &lt;dbl&gt;, toLydia &lt;dbl&gt;, toDelia &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toTrinity &lt;dbl&gt;, toDon &lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    fromSidney fromThelma fromChristian fromKingston fromTanner fromMarguerite</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>          0          1             0            0          1              1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>          0          0             1            0          0              0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>          0          1             0            0          1              1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>          0          0             0            0          0              0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>          1          0             1            0          0              1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>          0          0             1            0          1              0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>          0          1             1            0          0              1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>          1          1             1            0          1              1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>          1          0             0            0          0              0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>          1          0             1            1          1              1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>          1          0             1            0          1              1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>          1          1             0            0          0              1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span>          1          1             0            0          1              0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span>          0          1             1            0          0              1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span>          1          1             1            0          1              0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span>          1          1             1            1          1              1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 26 more variables: fromChad &lt;dbl&gt;, fromRandall &lt;dbl&gt;, fromPeggy &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fromLillie &lt;dbl&gt;, fromLindsey &lt;dbl&gt;, fromKristi &lt;dbl&gt;, fromChristine &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fromQuinn &lt;dbl&gt;, fromBonnie &lt;dbl&gt;, fromDarla &lt;dbl&gt;, toSidney &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toThelma &lt;dbl&gt;, toChristian &lt;dbl&gt;, toKingston &lt;dbl&gt;, toTanner &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toMarguerite &lt;dbl&gt;, toChad &lt;dbl&gt;, toRandall &lt;dbl&gt;, toPeggy &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toLillie &lt;dbl&gt;, toLindsey &lt;dbl&gt;, toKristi &lt;dbl&gt;, toChristine &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toQuinn &lt;dbl&gt;, toBonnie &lt;dbl&gt;, toDarla &lt;dbl&gt;</span></span>
 <span class="r-in"><span class="op">(</span><span class="va">triad_cen</span> <span class="op">&lt;-</span> <span class="fu">node_triad_census</span><span class="op">(</span><span class="va">task_eg</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 16 × 16</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    `003` `012` `102` `021D` `021U` `021C` `111D` `111U` `030T` `030C` `201`</span>

@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
       </span>
     </div>
 
@@ -196,24 +196,24 @@
 </h2>
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> also implements centralization functions. Here we are no longer interested in the level of the node, but in the level of the whole graph, so the syntax is:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/centrality.html">graph_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/centralisation.html">graph_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.182</span>
-<span class="fu"><a href="../reference/centrality.html">graph_betweenness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>
+<span class="fu"><a href="../reference/centralisation.html">graph_betweenness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.318</span>
-<span class="fu"><a href="../reference/centrality.html">graph_closeness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>
+<span class="fu"><a href="../reference/centralisation.html">graph_closeness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.23</span>
-<span class="fu"><a href="../reference/centrality.html">graph_eigenvector</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>
+<span class="fu"><a href="../reference/centralisation.html">graph_eigenvector</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.484</span>
-<span class="fu"><a href="../reference/centrality.html">graph_degree</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>
+<span class="fu"><a href="../reference/centralisation.html">graph_degree</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>
 <span class="co">#&gt; Mode 1 Mode 2 </span>
 <span class="co">#&gt;  0.227  0.474</span>
-<span class="fu"><a href="../reference/centrality.html">graph_betweenness</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>
+<span class="fu"><a href="../reference/centralisation.html">graph_betweenness</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>
 <span class="co">#&gt; Mode 1 Mode 2 </span>
 <span class="co">#&gt; 0.0586 0.2073</span>
-<span class="fu"><a href="../reference/centrality.html">graph_closeness</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>
+<span class="fu"><a href="../reference/centralisation.html">graph_closeness</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>
 <span class="co">#&gt; Mode 1 Mode 2 </span>
 <span class="co">#&gt;  0.284  0.442</span>
-<span class="fu"><a href="../reference/centrality.html">graph_eigenvector</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>
+<span class="fu"><a href="../reference/centralisation.html">graph_eigenvector</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>
 <span class="co">#&gt; Mode 1 Mode 2 </span>
 <span class="co">#&gt; 0.0849 0.2630</span></code></pre></div>
 <p>By default, scores are printed to 3 decimal places, but this can be modified and, in any case, the unrounded values are retained internally and passed on.</p>
@@ -221,13 +221,13 @@
 <p>What if we want to have a single image/figure with multiple plots? This can be a little tricky with gg-based plots, but fortunately the <a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a> package is here to help.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, highlight_measure <span class="op">=</span> <span class="st">"node_degree"</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Degree"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">graph_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Degree"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centralisation.html">graph_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 <span class="va">gc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, highlight_measure <span class="op">=</span> <span class="st">"node_closeness"</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Closeness"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">graph_closeness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Closeness"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centralisation.html">graph_closeness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 <span class="va">gb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, highlight_measure <span class="op">=</span> <span class="st">"node_betweenness"</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Betweenness"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">graph_betweenness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Betweenness"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centralisation.html">graph_betweenness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 <span class="va">ge</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, highlight_measure <span class="op">=</span> <span class="st">"node_eigenvector"</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Eigenvector"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">graph_eigenvector</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Eigenvector"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centralisation.html">graph_eigenvector</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 <span class="op">(</span><span class="va">gd</span> <span class="op">|</span> <span class="va">gb</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">gc</span> <span class="op">|</span> <span class="va">ge</span><span class="op">)</span></code></pre></div>
 <p><img src="p3centrality_files/figure-html/multiplot-1.png" width="700"></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">

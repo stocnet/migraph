@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
       </span>
     </div>
 
@@ -328,12 +328,12 @@
 <span class="co"><span style="color: #949494;">#&gt; # Node Data: 16 × 1 (active)</span></span>
 <span class="co">#&gt;   name   </span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Gloria </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Nicole </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Skylar </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Nicolas</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Elva   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Brian  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Toni   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Brandon</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Claude </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Hailey </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Avery  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Mollie </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 10 more rows</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#</span></span>
 <span class="co"><span style="color: #949494;">#&gt; # Edge Data: 144 × 5</span></span>
@@ -393,9 +393,9 @@
 <p>Note that for two-mode networks, there are also functions for converting or ‘projecting’ two-mode networks into one-mode networks.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/to.html">to_mode1</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>
-<span class="co">#&gt; IGRAPH a323fc2 UNW- 18 139 -- </span>
+<span class="co">#&gt; IGRAPH 53fb8b6 UNW- 18 139 -- </span>
 <span class="co">#&gt; + attr: name (v/c), weight (e/n)</span>
-<span class="co">#&gt; + edges from a323fc2 (vertex names):</span>
+<span class="co">#&gt; + edges from 53fb8b6 (vertex names):</span>
 <span class="co">#&gt;  [1] EVELYN --LAURA     EVELYN --BRENDA    EVELYN --THERESA   EVELYN --CHARLOTTE</span>
 <span class="co">#&gt;  [5] EVELYN --FRANCES   EVELYN --ELEANOR   EVELYN --RUTH      EVELYN --PEARL    </span>
 <span class="co">#&gt;  [9] EVELYN --NORA      EVELYN --VERNE     EVELYN --MYRA      EVELYN --KATHERINE</span>
@@ -406,9 +406,9 @@
 <span class="co">#&gt; [29] LAURA  --MYRA      LAURA  --KATHERINE LAURA  --DOROTHY   THERESA--BRENDA   </span>
 <span class="co">#&gt; + ... omitted several edges</span>
 <span class="fu"><a href="../reference/to.html">to_mode2</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>
-<span class="co">#&gt; IGRAPH 82107e0 UNW- 14 66 -- </span>
+<span class="co">#&gt; IGRAPH e20515b UNW- 14 66 -- </span>
 <span class="co">#&gt; + attr: name (v/c), weight (e/n)</span>
-<span class="co">#&gt; + edges from 82107e0 (vertex names):</span>
+<span class="co">#&gt; + edges from e20515b (vertex names):</span>
 <span class="co">#&gt;  [1] E1 --E2  E1 --E3  E1 --E4  E1 --E5  E1 --E6  E1 --E8  E1 --E9  E1 --E7 </span>
 <span class="co">#&gt;  [9] E2 --E3  E2 --E4  E2 --E5  E2 --E6  E2 --E8  E2 --E9  E2 --E7  E3 --E4 </span>
 <span class="co">#&gt; [17] E3 --E5  E3 --E6  E3 --E8  E3 --E9  E3 --E7  E4 --E5  E4 --E6  E4 --E8 </span>
@@ -465,9 +465,9 @@
 <span class="co"><span style="color: #949494;">#&gt; # Edge Data: 24 × 4</span></span>
 <span class="co">#&gt;    from    to  orig `next`</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     3     1      1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     7     0      1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1     8     1      0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     2     1      1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     3     0      1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1     4     0      1</span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 21 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">

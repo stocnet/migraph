@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
       </span>
     </div>
 
@@ -75,6 +75,17 @@
       <small>Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.10.1" id="migraph-0101">migraph 0.10.1<a class="anchor" aria-label="anchor" href="#migraph-0101"></a></h2>
+<div class="section level3">
+<h3 id="measures-0-10-1">Measures<a class="anchor" aria-label="anchor" href="#measures-0-10-1"></a></h3>
+<ul><li>Added <code><a href="../reference/centrality.html">node_reach()</a></code> for calculating reach centrality (closed <a href="https://github.com/snlab-ch/migraph/issues/196" class="external-link">#196</a>)</li>
+<li>Separated (again) centrality and centralisation documentation</li>
+</ul></div>
+<div class="section level3">
+<h3 id="memberships-0-10-1">Memberships<a class="anchor" aria-label="anchor" href="#memberships-0-10-1"></a></h3>
+<ul><li>Trimmed equivalence examples</li></ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.10.0" id="migraph-0100">migraph 0.10.0<a class="anchor" aria-label="anchor" href="#migraph-0100"></a></h2>
 <div class="section level3">
@@ -244,7 +255,7 @@
 <li>
 <code><a href="../reference/centrality.html">node_degree()</a></code> now calculates strength centrality if network is weighted</li>
 <li>
-<code><a href="../reference/centrality.html">node_eigenvector()</a></code> and <code><a href="../reference/centrality.html">graph_eigenvector()</a></code> both work with two-mode networks</li>
+<code><a href="../reference/centrality.html">node_eigenvector()</a></code> and <code><a href="../reference/centralisation.html">graph_eigenvector()</a></code> both work with two-mode networks</li>
 <li>Added <code><a href="../reference/centrality.html">edge_degree()</a></code> and <code><a href="../reference/centrality.html">edge_eigenvector()</a></code>, which both just apply the corresponding nodal measure to the edge graph</li>
 </ul></li>
 <li>
@@ -809,7 +820,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-0">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-0"></a></h3>
-<ul><li>Added <code><a href="../reference/centrality.html">graph_eigenvector()</a></code> for one mode networks</li>
+<ul><li>Added <code><a href="../reference/centralisation.html">graph_eigenvector()</a></code> for one mode networks</li>
 <li>Added <code><a href="../reference/features.html">graph_balance()</a></code> for measuring structural balance</li>
 <li>Added <code><a href="../reference/node_census.html">node_tie_census()</a></code>, <code><a href="../reference/node_census.html">node_triad_census()</a></code>, <code>cluster_triad_census()</code>, and <code><a href="../reference/graph_census.html">graph_triad_census()</a></code>
 </li>
@@ -1032,7 +1043,7 @@
 <ul><li>Now all datasets in this package are titled with whether they are one-mode, two-mode, or three-mode</li></ul></li></ul></div>
 <div class="section level3">
 <h3 id="measures-0-6-0">Measures<a class="anchor" aria-label="anchor" href="#measures-0-6-0"></a></h3>
-<ul><li>Fixed bug in <code><a href="../reference/centrality.html">graph_degree()</a></code> where data was hard-coded in</li></ul></div>
+<ul><li>Fixed bug in <code><a href="../reference/centralisation.html">graph_degree()</a></code> where data was hard-coded in</li></ul></div>
 <div class="section level3">
 <h3 id="models-0-6-0">Models<a class="anchor" aria-label="anchor" href="#models-0-6-0"></a></h3>
 <ul><li>
@@ -1108,11 +1119,11 @@
 <li>
 <p>Closed <a href="https://github.com/snlab-ch/migraph/issues/32" class="external-link">#32</a> by re-adding centralization functions for one- and two-mode networks</p>
 <ul><li>
-<code><a href="../reference/centrality.html">graph_degree()</a></code> for degree centralization</li>
+<code><a href="../reference/centralisation.html">graph_degree()</a></code> for degree centralization</li>
 <li>
-<code><a href="../reference/centrality.html">graph_closeness()</a></code> for closeness centralization</li>
+<code><a href="../reference/centralisation.html">graph_closeness()</a></code> for closeness centralization</li>
 <li>
-<code><a href="../reference/centrality.html">graph_betweenness()</a></code> for betweenness centralization</li>
+<code><a href="../reference/centralisation.html">graph_betweenness()</a></code> for betweenness centralization</li>
 </ul></li>
 <li>
 <p>Re-added <code>graph_clustering()</code> for calculating (see Knoke et al 2021):</p>
