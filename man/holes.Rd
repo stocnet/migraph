@@ -82,6 +82,7 @@ Hollway, James, Jean-Frédéric Morin, and Joost Pauwelyn. 2020.
 }
 \seealso{
 Other measures: 
+\code{\link{centralisation}},
 \code{\link{centrality}},
 \code{\link{cohesion}()},
 \code{\link{connectedness}},

@@ -1,3 +1,14 @@
+# migraph 0.10.1
+
+## Measures
+
+- Added `node_reach()` for calculating reach centrality (closed #196)
+- Separated (again) centrality and centralisation documentation
+
+## Memberships
+
+- Trimmed equivalence examples
+
 # migraph 0.10.0
 
 ## Package

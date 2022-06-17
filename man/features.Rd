@@ -97,6 +97,7 @@ Watts, Duncan J., and Steven H. Strogatz. 1998.
 for how clustering is calculated
 
 Other measures: 
+\code{\link{centralisation}},
 \code{\link{centrality}},
 \code{\link{cohesion}()},
 \code{\link{connectedness}},

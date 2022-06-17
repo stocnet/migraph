@@ -71,6 +71,7 @@ reference:
       All `graph_` measures return a single value.
     contents:
       - centrality
+      - centralisation
       - cohesion
       - diversity
       - holes
