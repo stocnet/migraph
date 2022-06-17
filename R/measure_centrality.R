@@ -1,4 +1,4 @@
-#' Centrality and centralization for one- and two-mode networks
+#' Centrality for one- and two-mode networks
 #'
 #' @description
 #'   These functions calculate common centrality measures for one- and two-mode networks.
@@ -105,43 +105,6 @@ edge_degree <- function(object, normalized = TRUE){
   out
 }
 
-#' @describeIn centrality Calculate the degree centralization for a graph
-#' @examples
-#' graph_degree(ison_southern_women, direction = "in")
-#' @export
-graph_degree <- function(object, normalized = TRUE,
-                         direction = c("all", "out", "in")){
-  
-  direction <- match.arg(direction)
-  
-  if (is_twomode(object)) {
-    mat <- as_matrix(object)
-    mode <- c(rep(FALSE, nrow(mat)), rep(TRUE, ncol(mat)))
-    
-    out <- list()
-    if (direction == "all") {
-      if (!normalized) {
-        allcent <- c(rowSums(mat), colSums(mat))
-        out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat) + ncol(mat))*ncol(mat) - 2*(ncol(mat) + nrow(mat) - 1))
-        out$nodes2 <- sum(max(allcent[mode]) - allcent)/((nrow(mat) + ncol(mat))*nrow(mat) - 2*(ncol(mat) + nrow(mat) - 1))
-      } else if (normalized) {
-        allcent <- node_degree(mat, normalized = TRUE)
-        out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat) + ncol(mat) - 1) - (ncol(mat) - 1) / nrow(mat) - (ncol(mat) + nrow(mat) - 1)/nrow(mat))
-        out$nodes2 <- sum(max(allcent[mode]) - allcent)/((ncol(mat) + nrow(mat) - 1) - (nrow(mat) - 1) / ncol(mat) - (nrow(mat)  + ncol(mat) - 1)/ncol(mat))
-      }
-    } else if (direction == "in") {
-      out$nodes1 <- sum(max(rowSums(mat)) - rowSums(mat))/((ncol(mat) - 1)*(nrow(mat) - 1))
-      out$nodes2 <- sum(max(colSums(mat)) - colSums(mat))/((ncol(mat) - 1)*(nrow(mat) - 1))
-    }
-    out <- c("Mode 1" = out$nodes1, "Mode 2" = out$nodes2)
-  } else {
-    out <- igraph::centr_degree(graph = object, mode = direction, 
-                                normalized = normalized)$centralization
-  }
-  out <- make_graph_measure(out, object)
-  out
-}
-
 #' @describeIn centrality Calculate the closeness centrality of nodes in a network
 #' @param cutoff Maximum path length to use during calculations.
 #' @import tidygraph
@@ -193,70 +156,6 @@ edge_closeness <- function(object, normalized = TRUE){
   edge_adj <- to_edges(object)
   out <- node_closeness(edge_adj, normalized = normalized)
   out <- make_edge_measure(out, object)
-  out
-}
-
-#' @describeIn centrality Calculate the closeness centralization for a graph
-#' @examples
-#' graph_closeness(ison_southern_women, direction = "in")
-#' @export
-graph_closeness <- function(object, normalized = TRUE,
-                            direction = c("all", "out", "in")){
-  
-  direction <- match.arg(direction)
-  graph <- as_igraph(object)
-  
-  if (is_twomode(object)) {
-    clcent <- node_closeness(graph, normalized = TRUE)
-    mode <- igraph::V(graph)$type
-    mode1 <- length(mode) - sum(mode)
-    mode2 <- sum(mode)
-    out <- list()
-    if (direction == "in") {
-      out$nodes1 <- sum(max(clcent[!mode]) - clcent[!mode])/(((mode1 - 2)*(mode1 - 1))/(2 * mode1 - 3))
-      out$nodes2 <- sum(max(clcent[mode]) - clcent[mode])/(((mode2 - 2)*(mode2 - 1))/(2 * mode2 - 3))
-      if (mode1 > mode2) { #28.43
-        lhs <- ((mode2 - 1)*(mode1 - 2) / (2 * mode1 - 3))
-        rhs <- ((mode2 - 1)*(mode1 - mode2) / (mode1 + mode2 - 2))
-        out$nodes1 <- sum(max(clcent[!mode]) - clcent[!mode])/( lhs +  rhs) # 0.2135
-      }
-      if (mode2 > mode1) {
-        lhs <- ((mode1 - 1)*(mode2 - 2) / (2 * mode2 - 3))
-        rhs <- ((mode1 - 1)*(mode2 - mode1) / (mode2 + mode1 - 2))
-        out$nodes2 <- sum(max(clcent[mode]) - clcent[mode])/( lhs +  rhs)
-      }
-    } else {
-      term1 <- 2*(mode1 - 1) * (mode2 + mode1 - 4)/(3*mode2 + 4*mode1 - 8)
-      term2 <- 2*(mode1 - 1) * (mode1 - 2)/(2*mode2 + 3*mode1 - 6)
-      term3 <- 2*(mode1 - 1) * (mode2 - mode1 + 1)/(2*mode2 + 3*mode1 - 4)
-      out$nodes1 <- sum(max(clcent[!mode]) - clcent) / sum(term1, term2, term3)
-      term1 <- 2*(mode2 - 1) * (mode1 + mode2 - 4)/(3*mode1 + 4*mode2 - 8)
-      term2 <- 2*(mode2 - 1) * (mode2 - 2)/(2*mode1 + 3*mode2 - 6)
-      term3 <- 2*(mode2 - 1) * (mode1 - mode2 + 1)/(2*mode1 + 3*mode2 - 4)
-      out$nodes2 <- sum(max(clcent[mode]) - clcent) / sum(term1, term2, term3)
-      
-      if (mode1 > mode2) {
-        term1 <- 2*(mode2 - 1) * (mode2 + mode1 - 2) / (3 * mode2 + 4 * mode1 - 8)
-        term2 <- 2*(mode1 - mode2) * (2 * mode2 - 1) / (5 * mode2 + 2 * mode1 - 6)
-        term3 <- 2*(mode2 - 1) * (mode1 - 2) / (2 * mode2 + 3 * mode1 - 6)
-        term4 <- 2 * (mode2 - 1) / (mode1 + 4 * mode2 - 4)
-        out$nodes1 <- sum(max(clcent[!mode]) - clcent) / sum(term1, term2, term3, term4)
-      }
-      if (mode2 > mode1) {
-        term1 <- 2*(mode1 - 1) * (mode1 + mode2 - 2) / (3 * mode1 + 4 * mode2 - 8)
-        term2 <- 2*(mode2 - mode1) * (2 * mode1 - 1) / (5 * mode1 + 2 * mode2 - 6)
-        term3 <- 2*(mode1 - 1) * (mode2 - 2) / (2 * mode1 + 3 * mode2 - 6)
-        term4 <- 2 * (mode1 - 1) / (mode2 + 4 * mode1 - 4)
-        out$nodes2 <- sum(max(clcent[mode]) - clcent) / sum(term1, term2, term3, term4)
-      }
-    }
-    out <- c("Mode 1" = out$nodes1, "Mode 2" = out$nodes2)
-  } else {
-    out <- igraph::centr_clo(graph = graph,
-                             mode = direction,
-                             normalized = normalized)$centralization
-  }
-  out <- make_graph_measure(out, object)
   out
 }
 
@@ -321,62 +220,6 @@ edge_betweenness <- function(object, normalized = TRUE){
   out
 }
 
-#' @describeIn centrality Calculate the betweenness centralization for a graph
-#' @examples
-#' graph_betweenness(ison_southern_women, direction = "in")
-#' @export
-graph_betweenness <- function(object, normalized = TRUE,
-                              direction = c("all", "out", "in")) {
-  
-  direction <- match.arg(direction)
-  graph <- as_igraph(object)
-  
-  if (is_twomode(object)) {
-    becent <- node_betweenness(graph, normalized = FALSE)
-    mode <- igraph::V(graph)$type
-    mode1 <- length(mode) - sum(mode)
-    mode2 <- sum(mode)
-    out <- list()
-    if (direction == "all") {
-      if (!normalized) {
-        out$nodes1 <- sum(max(becent[!mode]) - becent) / ((1/2 * mode2 * (mode2 - 1) + 1/2 * (mode1 - 1)*(mode1 - 2) + (mode1 - 1) * (mode2 - 2))*(mode1 + mode2 - 1) + (mode1 - 1))
-        out$nodes2 <- sum(max(becent[mode]) - becent) / ((1/2 * mode1 * (mode1 - 1) + 1/2 * (mode2 - 1)*(mode2 - 2) + (mode2 - 1) * (mode1 - 2))*(mode2 + mode1 - 1) + (mode2 - 1))
-        if (mode1 > mode2) {
-          out$nodes1 <- sum(max(becent[!mode]) - becent) / (2 * (mode1 - 1) * (mode2 - 1) * (mode1 + mode2 - 1) - (mode2 - 1) * (mode1 + mode2 - 2) - 1/2 * (mode1 - mode2) * (mode1 + 3*mode2 - 3))
-        }
-        if (mode2 > mode1) {
-          out$nodes2 <- sum(max(becent[mode]) - becent) / (2 * (mode2 - 1) * (mode1 - 1) * (mode2 + mode1 - 1) - (mode1 - 1) * (mode2 + mode1 - 2) - 1/2 * (mode2 - mode1) * (mode2 + 3*mode1 - 3))
-        }
-      } else if (normalized) {
-        out$nodes1 <- sum(max(becent[!mode]) - becent) / ((1/2 * mode2 * (mode2 - 1) + 1/2 * (mode1 - 1)*(mode1 - 2) + (mode1 - 1) * (mode2 - 2))*(mode1 + mode2 - 1) + (mode1 - 1))
-        out$nodes2 <- sum(max(becent[mode]) - becent) / ((1/2 * mode1 * (mode1 - 1) + 1/2 * (mode2 - 1)*(mode2 - 2) + (mode2 - 1) * (mode1 - 2))*(mode2 + mode1 - 1) + (mode2 - 1))
-        if (mode1 > mode2) {
-          becent <- node_betweenness(graph, normalized = TRUE)
-          out$nodes1 <- sum(max(becent[!mode]) - becent) / ((mode1 + mode2 - 1) - (((mode2 - 1)*(mode1 + mode2 - 2) + 1/2*(mode1 - mode2)*(mode1 + (3*mode2) - 3)) / (1/2*(mode1*(mode1 - 1)) + 1/2*(mode2 - 1) * (mode2 - 2) + (mode1 - 1) * (mode2 - 1))))
-        }
-        if (mode2 > mode1) {
-          becent <- node_betweenness(graph, normalized = TRUE)
-          out$nodes2 <- sum(max(becent[mode]) - becent) / ((mode1 + mode2 - 1)*((mode1 - 1)*(mode1 + mode2 - 2) / 2*(mode1 - 1)*(mode2 - 1)))
-        }
-      }
-    } else if (direction == "in") {
-      out$nodes1 <- sum(max(becent[!mode]) - becent[!mode])/((mode1 - 1)*(1/2*mode2*(mode2 - 1) + 1/2*(mode1 - 1)*(mode1 - 2) + (mode1 - 1)*(mode2 - 1)))
-      out$nodes2 <- sum(max(becent[mode]) - becent[mode])/((mode2 - 1)*(1/2*mode1*(mode1 - 1) + 1/2 * (mode2 - 1) * (mode2 - 2) + (mode2 - 1) * (mode1 - 1)))
-      if (mode1 > mode2) {
-        out$nodes1 <- sum(max(becent[!mode]) - becent[!mode]) / (2 * (mode1 - 1)^2 * (mode2 - 1))
-      }
-      if (mode2 > mode1) {
-        out$nodes2 <- sum(max(becent[mode]) - becent[mode]) / (2 * (mode2 - 1)^2 * (mode1 - 1))
-      }
-    }
-    out <- c("Mode 1" = out$nodes1, "Mode 2" = out$nodes2)
-  } else {
-    out <- igraph::centr_betw(graph = graph)$centralization
-  }
-  out <- make_graph_measure(out, object)
-  out
-}
-
 #' @describeIn centrality Calculate the eigenvector centrality of nodes in a network
 #' @param scale Logical scalar, whether to rescale the vector so the maximum score is 1. 
 #' @references 
@@ -432,7 +275,182 @@ edge_eigenvector <- function(object, normalized = TRUE){
   out
 }
 
-#' @describeIn centrality Calculate the eigenvector centralization for a graph
+#' @describeIn centrality Calculate nodes' reach centrality
+#' @param k Integer of steps out to calculate reach
+#' @examples
+#' node_reach(ison_adolescents)
+#' @export
+node_reach <- function(object, normalized = TRUE, k = 2){
+  out <- rowSums(node_path_census(object)==k)
+  if(normalized) out <- out/(graph_nodes(object)-1)
+  out <- make_node_measure(out, object)
+  out
+}
+
+#' Centralisation for one- and two-mode networks
+#' @name centralisation
+#' @family measures
+#' @inheritParams centrality
+NULL
+
+#' @describeIn centralisation Calculate the degree centralization for a graph
+#' @examples
+#' graph_degree(ison_southern_women, direction = "in")
+#' @export
+graph_degree <- function(object, normalized = TRUE,
+                         direction = c("all", "out", "in")){
+  
+  direction <- match.arg(direction)
+  
+  if (is_twomode(object)) {
+    mat <- as_matrix(object)
+    mode <- c(rep(FALSE, nrow(mat)), rep(TRUE, ncol(mat)))
+    
+    out <- list()
+    if (direction == "all") {
+      if (!normalized) {
+        allcent <- c(rowSums(mat), colSums(mat))
+        out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat) + ncol(mat))*ncol(mat) - 2*(ncol(mat) + nrow(mat) - 1))
+        out$nodes2 <- sum(max(allcent[mode]) - allcent)/((nrow(mat) + ncol(mat))*nrow(mat) - 2*(ncol(mat) + nrow(mat) - 1))
+      } else if (normalized) {
+        allcent <- node_degree(mat, normalized = TRUE)
+        out$nodes1 <- sum(max(allcent[!mode]) - allcent)/((nrow(mat) + ncol(mat) - 1) - (ncol(mat) - 1) / nrow(mat) - (ncol(mat) + nrow(mat) - 1)/nrow(mat))
+        out$nodes2 <- sum(max(allcent[mode]) - allcent)/((ncol(mat) + nrow(mat) - 1) - (nrow(mat) - 1) / ncol(mat) - (nrow(mat)  + ncol(mat) - 1)/ncol(mat))
+      }
+    } else if (direction == "in") {
+      out$nodes1 <- sum(max(rowSums(mat)) - rowSums(mat))/((ncol(mat) - 1)*(nrow(mat) - 1))
+      out$nodes2 <- sum(max(colSums(mat)) - colSums(mat))/((ncol(mat) - 1)*(nrow(mat) - 1))
+    }
+    out <- c("Mode 1" = out$nodes1, "Mode 2" = out$nodes2)
+  } else {
+    out <- igraph::centr_degree(graph = object, mode = direction, 
+                                normalized = normalized)$centralization
+  }
+  out <- make_graph_measure(out, object)
+  out
+}
+
+#' @describeIn centralisation Calculate the closeness centralization for a graph
+#' @examples
+#' graph_closeness(ison_southern_women, direction = "in")
+#' @export
+graph_closeness <- function(object, normalized = TRUE,
+                            direction = c("all", "out", "in")){
+  
+  direction <- match.arg(direction)
+  graph <- as_igraph(object)
+  
+  if (is_twomode(object)) {
+    clcent <- node_closeness(graph, normalized = TRUE)
+    mode <- igraph::V(graph)$type
+    mode1 <- length(mode) - sum(mode)
+    mode2 <- sum(mode)
+    out <- list()
+    if (direction == "in") {
+      out$nodes1 <- sum(max(clcent[!mode]) - clcent[!mode])/(((mode1 - 2)*(mode1 - 1))/(2 * mode1 - 3))
+      out$nodes2 <- sum(max(clcent[mode]) - clcent[mode])/(((mode2 - 2)*(mode2 - 1))/(2 * mode2 - 3))
+      if (mode1 > mode2) { #28.43
+        lhs <- ((mode2 - 1)*(mode1 - 2) / (2 * mode1 - 3))
+        rhs <- ((mode2 - 1)*(mode1 - mode2) / (mode1 + mode2 - 2))
+        out$nodes1 <- sum(max(clcent[!mode]) - clcent[!mode])/( lhs +  rhs) # 0.2135
+      }
+      if (mode2 > mode1) {
+        lhs <- ((mode1 - 1)*(mode2 - 2) / (2 * mode2 - 3))
+        rhs <- ((mode1 - 1)*(mode2 - mode1) / (mode2 + mode1 - 2))
+        out$nodes2 <- sum(max(clcent[mode]) - clcent[mode])/( lhs +  rhs)
+      }
+    } else {
+      term1 <- 2*(mode1 - 1) * (mode2 + mode1 - 4)/(3*mode2 + 4*mode1 - 8)
+      term2 <- 2*(mode1 - 1) * (mode1 - 2)/(2*mode2 + 3*mode1 - 6)
+      term3 <- 2*(mode1 - 1) * (mode2 - mode1 + 1)/(2*mode2 + 3*mode1 - 4)
+      out$nodes1 <- sum(max(clcent[!mode]) - clcent) / sum(term1, term2, term3)
+      term1 <- 2*(mode2 - 1) * (mode1 + mode2 - 4)/(3*mode1 + 4*mode2 - 8)
+      term2 <- 2*(mode2 - 1) * (mode2 - 2)/(2*mode1 + 3*mode2 - 6)
+      term3 <- 2*(mode2 - 1) * (mode1 - mode2 + 1)/(2*mode1 + 3*mode2 - 4)
+      out$nodes2 <- sum(max(clcent[mode]) - clcent) / sum(term1, term2, term3)
+      
+      if (mode1 > mode2) {
+        term1 <- 2*(mode2 - 1) * (mode2 + mode1 - 2) / (3 * mode2 + 4 * mode1 - 8)
+        term2 <- 2*(mode1 - mode2) * (2 * mode2 - 1) / (5 * mode2 + 2 * mode1 - 6)
+        term3 <- 2*(mode2 - 1) * (mode1 - 2) / (2 * mode2 + 3 * mode1 - 6)
+        term4 <- 2 * (mode2 - 1) / (mode1 + 4 * mode2 - 4)
+        out$nodes1 <- sum(max(clcent[!mode]) - clcent) / sum(term1, term2, term3, term4)
+      }
+      if (mode2 > mode1) {
+        term1 <- 2*(mode1 - 1) * (mode1 + mode2 - 2) / (3 * mode1 + 4 * mode2 - 8)
+        term2 <- 2*(mode2 - mode1) * (2 * mode1 - 1) / (5 * mode1 + 2 * mode2 - 6)
+        term3 <- 2*(mode1 - 1) * (mode2 - 2) / (2 * mode1 + 3 * mode2 - 6)
+        term4 <- 2 * (mode1 - 1) / (mode2 + 4 * mode1 - 4)
+        out$nodes2 <- sum(max(clcent[mode]) - clcent) / sum(term1, term2, term3, term4)
+      }
+    }
+    out <- c("Mode 1" = out$nodes1, "Mode 2" = out$nodes2)
+  } else {
+    out <- igraph::centr_clo(graph = graph,
+                             mode = direction,
+                             normalized = normalized)$centralization
+  }
+  out <- make_graph_measure(out, object)
+  out
+}
+
+#' @describeIn centralisation Calculate the betweenness centralization for a graph
+#' @examples
+#' graph_betweenness(ison_southern_women, direction = "in")
+#' @export
+graph_betweenness <- function(object, normalized = TRUE,
+                              direction = c("all", "out", "in")) {
+  
+  direction <- match.arg(direction)
+  graph <- as_igraph(object)
+  
+  if (is_twomode(object)) {
+    becent <- node_betweenness(graph, normalized = FALSE)
+    mode <- igraph::V(graph)$type
+    mode1 <- length(mode) - sum(mode)
+    mode2 <- sum(mode)
+    out <- list()
+    if (direction == "all") {
+      if (!normalized) {
+        out$nodes1 <- sum(max(becent[!mode]) - becent) / ((1/2 * mode2 * (mode2 - 1) + 1/2 * (mode1 - 1)*(mode1 - 2) + (mode1 - 1) * (mode2 - 2))*(mode1 + mode2 - 1) + (mode1 - 1))
+        out$nodes2 <- sum(max(becent[mode]) - becent) / ((1/2 * mode1 * (mode1 - 1) + 1/2 * (mode2 - 1)*(mode2 - 2) + (mode2 - 1) * (mode1 - 2))*(mode2 + mode1 - 1) + (mode2 - 1))
+        if (mode1 > mode2) {
+          out$nodes1 <- sum(max(becent[!mode]) - becent) / (2 * (mode1 - 1) * (mode2 - 1) * (mode1 + mode2 - 1) - (mode2 - 1) * (mode1 + mode2 - 2) - 1/2 * (mode1 - mode2) * (mode1 + 3*mode2 - 3))
+        }
+        if (mode2 > mode1) {
+          out$nodes2 <- sum(max(becent[mode]) - becent) / (2 * (mode2 - 1) * (mode1 - 1) * (mode2 + mode1 - 1) - (mode1 - 1) * (mode2 + mode1 - 2) - 1/2 * (mode2 - mode1) * (mode2 + 3*mode1 - 3))
+        }
+      } else if (normalized) {
+        out$nodes1 <- sum(max(becent[!mode]) - becent) / ((1/2 * mode2 * (mode2 - 1) + 1/2 * (mode1 - 1)*(mode1 - 2) + (mode1 - 1) * (mode2 - 2))*(mode1 + mode2 - 1) + (mode1 - 1))
+        out$nodes2 <- sum(max(becent[mode]) - becent) / ((1/2 * mode1 * (mode1 - 1) + 1/2 * (mode2 - 1)*(mode2 - 2) + (mode2 - 1) * (mode1 - 2))*(mode2 + mode1 - 1) + (mode2 - 1))
+        if (mode1 > mode2) {
+          becent <- node_betweenness(graph, normalized = TRUE)
+          out$nodes1 <- sum(max(becent[!mode]) - becent) / ((mode1 + mode2 - 1) - (((mode2 - 1)*(mode1 + mode2 - 2) + 1/2*(mode1 - mode2)*(mode1 + (3*mode2) - 3)) / (1/2*(mode1*(mode1 - 1)) + 1/2*(mode2 - 1) * (mode2 - 2) + (mode1 - 1) * (mode2 - 1))))
+        }
+        if (mode2 > mode1) {
+          becent <- node_betweenness(graph, normalized = TRUE)
+          out$nodes2 <- sum(max(becent[mode]) - becent) / ((mode1 + mode2 - 1)*((mode1 - 1)*(mode1 + mode2 - 2) / 2*(mode1 - 1)*(mode2 - 1)))
+        }
+      }
+    } else if (direction == "in") {
+      out$nodes1 <- sum(max(becent[!mode]) - becent[!mode])/((mode1 - 1)*(1/2*mode2*(mode2 - 1) + 1/2*(mode1 - 1)*(mode1 - 2) + (mode1 - 1)*(mode2 - 1)))
+      out$nodes2 <- sum(max(becent[mode]) - becent[mode])/((mode2 - 1)*(1/2*mode1*(mode1 - 1) + 1/2 * (mode2 - 1) * (mode2 - 2) + (mode2 - 1) * (mode1 - 1)))
+      if (mode1 > mode2) {
+        out$nodes1 <- sum(max(becent[!mode]) - becent[!mode]) / (2 * (mode1 - 1)^2 * (mode2 - 1))
+      }
+      if (mode2 > mode1) {
+        out$nodes2 <- sum(max(becent[mode]) - becent[mode]) / (2 * (mode2 - 1)^2 * (mode1 - 1))
+      }
+    }
+    out <- c("Mode 1" = out$nodes1, "Mode 2" = out$nodes2)
+  } else {
+    out <- igraph::centr_betw(graph = graph)$centralization
+  }
+  out <- make_graph_measure(out, object)
+  out
+}
+
+#' @describeIn centralisation Calculate the eigenvector centralization for a graph
 #' @examples
 #' graph_eigenvector(mpn_elite_mex)
 #' graph_eigenvector(ison_southern_women)
@@ -450,3 +468,4 @@ graph_eigenvector <- function(object, normalized = TRUE){
   out <- make_graph_measure(out, object)
   out
 }
+

@@ -73,6 +73,7 @@ Cambridge University Press. Cambridge University Press.
 }
 \seealso{
 Other measures: 
+\code{\link{centralisation}},
 \code{\link{centrality}},
 \code{\link{connectedness}},
 \code{\link{diversity}},

@@ -54,6 +54,7 @@ graph_assortativity(mpn_elite_mex)
 }
 \seealso{
 Other measures: 
+\code{\link{centralisation}},
 \code{\link{centrality}},
 \code{\link{cohesion}()},
 \code{\link{connectedness}},

@@ -67,6 +67,7 @@ The Cohesiveness of Blocks In Social Networks: Node Connectivity and Conditional
 }
 \seealso{
 Other measures: 
+\code{\link{centralisation}},
 \code{\link{centrality}},
 \code{\link{cohesion}()},
 \code{\link{diversity}},
