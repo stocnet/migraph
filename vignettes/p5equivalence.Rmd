@@ -142,8 +142,6 @@ though some common ones are already used in the other equivalence convenience fu
 
 The next part is all done internally,
 though there are several important parameters that can be set to obtain different results.
-Using the census as material, the distances in (dis)similarity between the nodes
-is used to create a dendrogram of 
 
 There are two main parameters that can be set here.
 First, users can set the type of distance measure used.
@@ -167,6 +165,8 @@ plot(node_structural_equivalence(ison_algebra, cluster = "concor"))
 
 So plotting a `membership` vector from `{migraph}` returns a dendrogram
 with the names of the nodes on the _y_-axis and the distance between them on the _x_-axis.
+Using the census as material, the distances between the nodes
+is used to create a dendrogram of (dis)similarity among the nodes.
 Basically, as we move to the right, we're allowing for
 more and more dissimilarity among those we cluster together.
 A fork or branching point indicates the level of dissimilarity

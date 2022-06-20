@@ -49,7 +49,7 @@ plot(node_degree(ison_brandes), "h") +
 ```
 
 Other measures of centrality can be a little trickier to calculate by hand.
-Fortunately, we can use functions from migraph to help:
+Fortunately, we can use functions from `{migraph}` to help:
 
 ```{r micent}
 node_betweenness(ison_brandes)

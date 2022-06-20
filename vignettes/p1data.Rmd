@@ -60,7 +60,7 @@ and we can import them from an Excel file or a `.csv` file.^[Note that if you im
 ```{r importedges, include = TRUE, eval = FALSE}
 library(migraph)
 g1 <- read_edgelist("~Downloads/mynetworkdata.xlsx")
-g1 <- read_edgelist("~Downloads/mynetworkdata.csv")
+g1 <- read_edgelist("~Downloads/mynetworkdata.csv", sv = "semi-colon")
 g1 <- read_edgelist()
 n1 <- read_nodelist()
 ```
@@ -158,8 +158,8 @@ For example:
 
 Then there are a few more special functions included here too:
 
-- `to_multilevel()` extends objects to more than two modes and sets of interlocking ties
-- `to_onemode()` converts multimodal networks into networks with only one type of node 
+- `to_multilevel()` converts objects with two or more modes into a multimodal network structure with attribute 'lvl' (1, 2, etc) instead of 'type' (FALSE or TRUE)
+- `to_onemode()` converts multimodal networks into networks with only one type of node, retaining the same nodes and ties
 - `to_main_component()` identifies and returns only the main component of a network
 - `to_named()` adds random names to an anonymous network, which can be useful for pedagogical purposes
 
@@ -202,7 +202,7 @@ in part because you will need to decide which it is that you want to do.
 If you would like to just add a new edge attribute to an existing set of edges,
 without adding any new edges, then `add_edge_attributes()` operates similarly
 to `add_node_attributes()` above.
-But if the result should be a multiplex network in the ties in the different
+But if the result should be a multiplex network and the ties in the different
 component networks only partially overlap,
 then you will need to use `join_edges()`:
 
@@ -223,7 +223,7 @@ edge_attribute(ison_marvel_relationships, "sign") # gets any named edge attribut
 edge_weights(mpn_elite_mex)
 ```
 
-We can describe the data using similar functions.
+We can describe the network using similar functions.
 How many nodes in the network, or how many edges?
 
 ```{r dims}
