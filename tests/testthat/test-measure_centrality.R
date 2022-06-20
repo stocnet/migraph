@@ -84,6 +84,8 @@ test_that("node measure class works", {
   expect_s3_class(node_degree(ison_algebra), "node_measure")
   expect_s3_class(node_betweenness(ison_algebra), "node_measure")
   expect_s3_class(node_closeness(ison_algebra), "node_measure")
+  expect_s3_class(node_eigenvector(ison_algebra), "node_measure")
+  expect_s3_class(node_reach(ison_algebra), "node_measure")
   testplot <- plot(node_degree(ison_algebra))
   expect_equal(testplot$data$Score, unname(node_degree(ison_algebra)))
   expect_equal(testplot$labels$y, "Frequency")
@@ -149,8 +151,8 @@ test_that("edge_closeness works", {
 })
 
 test_that("edge_eigenvector works", {
-  expect_s3_class(edge_closeness(ison_southern_women), 
+  expect_s3_class(edge_eigenvector(ison_southern_women), 
                   "edge_measure")
-  expect_length(edge_closeness(ison_southern_women), 
+  expect_length(edge_eigenvector(ison_southern_women), 
                 graph_edges(ison_southern_women))
 })

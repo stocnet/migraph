@@ -101,6 +101,7 @@ node_degree <- function (object, normalized = TRUE,
 edge_degree <- function(object, normalized = TRUE){
   edge_adj <- to_edges(object)
   out <- node_degree(edge_adj, normalized = normalized)
+  class(out) <- "numeric"
   out <- make_edge_measure(out, object)
   out
 }
@@ -155,6 +156,7 @@ node_closeness <- function(object, normalized = TRUE,
 edge_closeness <- function(object, normalized = TRUE){
   edge_adj <- to_edges(object)
   out <- node_closeness(edge_adj, normalized = normalized)
+  class(out) <- "numeric"
   out <- make_edge_measure(out, object)
   out
 }
@@ -271,6 +273,7 @@ node_eigenvector <- function(object, normalized = TRUE, scale = FALSE){
 edge_eigenvector <- function(object, normalized = TRUE){
   edge_adj <- to_edges(object)
   out <- node_eigenvector(edge_adj, normalized = normalized)
+  class(out) <- "numeric"
   out <- make_edge_measure(out, object)
   out
 }
