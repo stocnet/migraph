@@ -1,3 +1,9 @@
+# migraph 0.10.2
+
+## Memberships
+
+- Further shortened equivalence examples
+
 # migraph 0.10.1
 
 ## Measures
@@ -7,7 +13,7 @@
 
 ## Memberships
 
-- Trimmed equivalence examples
+- Shortened equivalence examples
 
 # migraph 0.10.0
 

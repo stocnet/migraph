@@ -34,3 +34,9 @@ test_that("glance works correctly for network_reg",{
   expect_s3_class(glances, "tbl_df")
   expect_equal(round(glances$r.squared, 4), 0.0575)
 })
+
+plots <- plot(test)
+test_that("plot works correctly for network_reg",{
+  expect_s3_class(plots, "gg")
+  expect_equal(plots$labels$x, "Statistic")
+})
