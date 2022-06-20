@@ -82,9 +82,8 @@ node_equivalence <- function(object, census,
 #' @describeIn equivalence Returns nodes' membership in 
 #'   structurally equivalent classes
 #' @examples
-#' (nse_conc <- node_structural_equivalence(ison_southern_women, 
-#'                   cluster = "concor"))
-#' plot(nse_conc)
+#' (nse <- node_structural_equivalence(mpn_elite_usa_advice))
+#' plot(nse)
 #' @export
 node_structural_equivalence <- function(object,
                                         k = c("silhouette", "elbow", "strict"),
@@ -102,9 +101,6 @@ node_structural_equivalence <- function(object,
 
 #' @describeIn equivalence Returns nodes' membership in 
 #'   regularly equivalent classes
-#' @examples
-#' (nre <- node_regular_equivalence(ison_algebra, "elbow"))
-#' plot(nre)
 #' @export
 node_regular_equivalence <- function(object, 
                                      k = c("silhouette", "elbow", "strict"),
@@ -124,9 +120,6 @@ node_regular_equivalence <- function(object,
 
 #' @describeIn equivalence Returns nodes' membership in 
 #'   automorphically equivalent classes
-#' @examples 
-#' (nae <- node_automorphic_equivalence(mpn_elite_usa_advice))
-#' plot(nae)
 #' @export
 node_automorphic_equivalence <- function(object,
                                          k = c("silhouette", "elbow", "strict"),
