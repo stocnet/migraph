@@ -22,7 +22,7 @@ assignment."><meta property="og:image" content="https://snlab-ch.github.io/migra
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.2</span>
       </span>
     </div>
 
@@ -216,52 +216,30 @@ Social Network Analysis and Comparison with Multidimensional Scaling".
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="op">(</span><span class="va">nse_conc</span> <span class="op">&lt;-</span> <span class="fu">node_structural_equivalence</span><span class="op">(</span><span class="va">ison_southern_women</span>, </span>
-<span class="r-in">                  cluster <span class="op">=</span> <span class="st">"concor"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="op">(</span><span class="va">nse</span> <span class="op">&lt;-</span> <span class="fu">node_structural_equivalence</span><span class="op">(</span><span class="va">mpn_elite_usa_advice</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    EVELYN, THERESA, LAURA, FRANCES, BRENDA, CHARLOTTE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Albright, Curry, Fukuyama, Gray, Wald</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ELEANOR, RUTH, PEARL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Argyros, Armitage, Greenberg, Hills, Kissinger, Peterson, Scowcroft, West, Zakheim</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    DOROTHY </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    VERNE, MYRA, KATHERINE, SYLVIA, NORA, HELEN</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ACUS, CNI, CSIS, FPRI, GMFUS, HOOVER </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    FLORA </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    OLIVIA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    AEI, EWI, MI </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    E6, E3, E5, E4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    E1, E2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ASPEN, CFR, CNAS, IIE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    E7, E8 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    CATO, CGD, RF, RFF </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  7 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    E9, E11 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    IAD, NAF, RAND </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    E10, E12, E13, E14 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nse_conc</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nse</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="equivalence-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="op">(</span><span class="va">nre</span> <span class="op">&lt;-</span> <span class="fu">node_regular_equivalence</span><span class="op">(</span><span class="va">ison_algebra</span>, <span class="st">"elbow"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Melinda, Abby, Darryl, Rylan, Lindsey, Lula, Elva, George</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Veronica, Miriam, Luella, Dustin, Colleen, Ezra, Marsha</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Diane</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nre</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="equivalence-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="op">(</span><span class="va">nae</span> <span class="op">&lt;-</span> <span class="fu">node_automorphic_equivalence</span><span class="op">(</span><span class="va">mpn_elite_usa_advice</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    AEI, ASPEN, CFR, CNI, CSIS, HOOVER, IAD, IIE, NAF, RAND </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Albright, Argyros, Curry, Fukuyama, Greenberg, Hills, Peterson</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ACUS, CATO, CGD, CNAS, EWI, FPRI, GMFUS, MI, RF, RFF </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Armitage, Gray, Kissinger, Scowcroft, Wald, West, Zakheim</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nae</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="equivalence-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
