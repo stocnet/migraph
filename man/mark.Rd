@@ -2,20 +2,20 @@
 % Please edit documentation in R/mark_edges.R, R/measure_connected.R
 \name{mark}
 \alias{mark}
-\alias{edge_multiple}
-\alias{edge_loop}
-\alias{edge_reciprocal}
-\alias{edge_bridges}
+\alias{tie_is_multiple}
+\alias{tie_is_loop}
+\alias{tie_is_reciprocal}
+\alias{tie_is_bridge}
 \alias{node_cuts}
-\title{Identify nodes and edges based on some criteria}
+\title{Logical whether nodes or ties meet some criteria}
 \usage{
-edge_multiple(object)
+tie_is_multiple(object)
 
-edge_loop(object)
+tie_is_loop(object)
 
-edge_reciprocal(object)
+tie_is_reciprocal(object)
 
-edge_bridges(object)
+tie_is_bridge(object)
 
 node_cuts(object)
 }
@@ -31,21 +31,20 @@ node_cuts(object)
 }
 \description{
 These functions return logical vectors of the length of the
-nodes or edges in a network that identify nodes or edges that
-meet some criteria.
-Such functions are often useful for identifying particular
-nodes or edges that are particularly well- or poorly-connected.
+nodes or ties in a network identifying which meet some criteria.
+Such functions are often useful for identifying nodes or ties
+that are particularly well- or poorly-connected.
 }
 \section{Functions}{
 \itemize{
-\item \code{edge_multiple}: Returns logical of which edges are multiples
+\item \code{tie_is_multiple}: Returns logical of which ties are multiples
 
-\item \code{edge_loop}: Returns logical of which edges are loops
+\item \code{tie_is_loop}: Returns logical of which ties are loops
 
-\item \code{edge_reciprocal}: Returns logical of which edges
+\item \code{tie_is_reciprocal}: Returns logical of which ties
 are mutual/reciprocated
 
-\item \code{edge_bridges}: Returns logical of which nodes cut
+\item \code{tie_is_bridge}: Returns logical of which ties cut
 or act as articulation points in a network.
 
 \item \code{node_cuts}: Returns logical of which nodes cut
@@ -54,9 +53,14 @@ increasing the number of connected components in a graph when removed.
 }}
 
 \examples{
-edge_multiple(ison_marvel_relationships)
-edge_loop(ison_marvel_relationships)
-edge_reciprocal(ison_algebra)
-edge_bridges(ison_brandes)
+tie_is_multiple(ison_marvel_relationships)
+tie_is_loop(ison_marvel_relationships)
+tie_is_reciprocal(ison_algebra)
+tie_is_bridge(ison_brandes)
 node_cuts(ison_brandes)
 }
+\seealso{
+Other marks: 
+\code{\link{is}()}
+}
+\concept{marks}
