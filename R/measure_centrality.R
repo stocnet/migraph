@@ -64,7 +64,7 @@ node_degree <- function (object, normalized = TRUE,
   }
   graph <- as_igraph(object)
   weights <- `if`(is_weighted(object), 
-                    edge_weights(object), NA)
+                    tie_weights(object), NA)
   direction <- match.arg(direction)
   
   # Do the calculations
@@ -96,13 +96,13 @@ node_degree <- function (object, normalized = TRUE,
 
 #' @describeIn centrality Calculate the degree centrality of edges in a network
 #' @examples 
-#' edge_degree(ison_adolescents)
+#' tie_degree(ison_adolescents)
 #' @export
-edge_degree <- function(object, normalized = TRUE){
-  edge_adj <- to_edges(object)
+tie_degree <- function(object, normalized = TRUE){
+  edge_adj <- to_ties(object)
   out <- node_degree(edge_adj, normalized = normalized)
   class(out) <- "numeric"
-  out <- make_edge_measure(out, object)
+  out <- make_tie_measure(out, object)
   out
 }
 
@@ -121,7 +121,7 @@ node_closeness <- function(object, normalized = TRUE,
     object <- .G()
   }
   weights <- `if`(is_weighted(object), 
-                  edge_weights(object), NA)
+                  tie_weights(object), NA)
   graph <- as_igraph(object)
   
   # Do the calculations
@@ -147,17 +147,17 @@ node_closeness <- function(object, normalized = TRUE,
 #' @describeIn centrality Calculate the closeness of each edge to each other edge
 #' in the network.
 #' @examples
-#' (ec <- edge_closeness(ison_adolescents))
+#' (ec <- tie_closeness(ison_adolescents))
 #' plot(ec)
 #' ison_adolescents %>% 
 #'   activate(edges) %>% mutate(weight = ec) %>% 
 #'   autographr()
 #' @export
-edge_closeness <- function(object, normalized = TRUE){
-  edge_adj <- to_edges(object)
+tie_closeness <- function(object, normalized = TRUE){
+  edge_adj <- to_ties(object)
   out <- node_closeness(edge_adj, normalized = normalized)
   class(out) <- "numeric"
-  out <- make_edge_measure(out, object)
+  out <- make_tie_measure(out, object)
   out
 }
 
@@ -176,7 +176,7 @@ node_betweenness <- function(object, normalized = TRUE,
     object <- .G()
   }
   weights <- `if`(is_weighted(object), 
-                  edge_weights(object), NA)
+                  tie_weights(object), NA)
   graph <- as_igraph(object)
   
   # Do the calculations
@@ -206,19 +206,19 @@ node_betweenness <- function(object, normalized = TRUE,
 #' @describeIn centrality Calculate number of shortest paths going through an edge
 #' @importFrom igraph edge_betweenness
 #' @examples
-#' (eb <- edge_betweenness(ison_adolescents))
-#' plot(eb)
+#' (tb <- tie_betweenness(ison_adolescents))
+#' plot(tb)
 #' ison_adolescents %>% 
-#'   activate(edges) %>% mutate(weight = eb) %>% 
+#'   activate(edges) %>% mutate(weight = tb) %>% 
 #'   autographr()
 #' @export
-edge_betweenness <- function(object, normalized = TRUE){
+tie_betweenness <- function(object, normalized = TRUE){
   object <- as_igraph(object)
   edges <- as_edgelist(object)
   edges <- paste(edges$from, edges$to, sep = "-")
   out <- igraph::edge_betweenness(object)
   names(out) <- edges
-  class(out) <- c("edge_measure", class(out))
+  out <- make_tie_measure(out, object)
   out
 }
 
@@ -241,7 +241,7 @@ node_eigenvector <- function(object, normalized = TRUE, scale = FALSE){
     object <- .G()
   }
   weights <- `if`(is_weighted(object), 
-                  edge_weights(object), NA)
+                  tie_weights(object), NA)
   graph <- as_igraph(object)
   
   # Do the calculations
@@ -268,13 +268,13 @@ node_eigenvector <- function(object, normalized = TRUE, scale = FALSE){
 
 #' @describeIn centrality Calculate the eigenvector centrality of edges in a network
 #' @examples 
-#' edge_eigenvector(ison_adolescents)
+#' tie_eigenvector(ison_adolescents)
 #' @export
-edge_eigenvector <- function(object, normalized = TRUE){
-  edge_adj <- to_edges(object)
+tie_eigenvector <- function(object, normalized = TRUE){
+  edge_adj <- to_ties(object)
   out <- node_eigenvector(edge_adj, normalized = normalized)
   class(out) <- "numeric"
-  out <- make_edge_measure(out, object)
+  out <- make_tie_measure(out, object)
   out
 }
 

@@ -48,8 +48,8 @@ it is recommended to calculate all node-related statistics prior
 to using this function.}
 
 \item{highlight_measure}{String vector of name of the node and/or edge
-level measure function e.g. \code{node_degree},  \code{edge_betweenness},
-or \code{c("node_betweenness", "edge_betweenness")}.
+level measure function e.g. \code{node_degree},  \code{tie_betweenness},
+or \code{c("node_betweenness", "tie_betweenness")}.
 \code{NULL} by default.}
 
 \item{identify_function}{Name of the function used to determine the
@@ -75,10 +75,10 @@ autographr(ison_karateka, node_size = rep(c(0.8), times = 34))
 # Node highlighting:
 autographr(ison_adolescents, highlight_measure = "node_betweenness", identify_function = "max")
 # Edge highlighting:
-autographr(ison_adolescents, highlight_measure = "edge_betweenness", identify_function = "max")
+autographr(ison_adolescents, highlight_measure = "tie_betweenness", identify_function = "max")
 # Both node and edge highlighting:
 autographr(ison_adolescents, highlight_measure = c("node_betweenness", 
-"edge_betweenness"), identify_function = c("max", "max"))
+"tie_betweenness"), identify_function = c("max", "max"))
 }
 \seealso{
 Other mapping: 

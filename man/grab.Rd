@@ -5,14 +5,14 @@
 \alias{node_names}
 \alias{node_mode}
 \alias{node_attribute}
-\alias{edge_attribute}
-\alias{edge_weights}
-\alias{edge_signs}
+\alias{tie_attribute}
+\alias{tie_weights}
+\alias{tie_signs}
 \alias{graph_nodes}
-\alias{graph_edges}
+\alias{graph_ties}
 \alias{graph_dims}
 \alias{graph_node_attributes}
-\alias{graph_edge_attributes}
+\alias{graph_tie_attributes}
 \title{Grab various node or edge attributes from a network}
 \usage{
 node_names(object)
@@ -21,21 +21,21 @@ node_mode(object)
 
 node_attribute(object, attribute)
 
-edge_attribute(object, attribute)
+tie_attribute(object, attribute)
 
-edge_weights(object)
+tie_weights(object)
 
-edge_signs(object)
+tie_signs(object)
 
 graph_nodes(object)
 
-graph_edges(object)
+graph_ties(object)
 
 graph_dims(object)
 
 graph_node_attributes(object)
 
-graph_edge_attributes(object)
+graph_tie_attributes(object)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -56,7 +56,7 @@ They are also useful as helpers within other functions.
 
 \verb{graph_*()} functions always relate to the overall graph or network,
 usually returning a scalar.
-\verb{node_*()} and \verb{edge_*()} always return vectors the same length
+\verb{node_*()} and \verb{tie_*()} always return vectors the same length
 as the number of nodes or edges in the network, respectively.
 }
 \section{Functions}{
@@ -67,43 +67,42 @@ as the number of nodes or edges in the network, respectively.
 
 \item \code{node_attribute}: Extracts an attribute's values for the nodes in a network.
 
-\item \code{edge_attribute}: Extracts an attribute's values for the edges in a network.
+\item \code{tie_attribute}: Extracts an attribute's values for the edges in a network.
 
-\item \code{edge_weights}: Extracts the weights of the edges in a network.
+\item \code{tie_weights}: Extracts the weights of the edges in a network.
 
-\item \code{edge_signs}: Extracts the signs of the edges in a network.
+\item \code{tie_signs}: Extracts the signs of the edges in a network.
 
 \item \code{graph_nodes}: Returns the total number of nodes (of any mode) in a network.
 
-\item \code{graph_edges}: Returns the number of edges in a network.
+\item \code{graph_ties}: Returns the number of edges in a network.
 
 \item \code{graph_dims}: Returns the dimensions of a network in a vector
 as long as the number of modes in the network.
 
 \item \code{graph_node_attributes}: Returns a vector of nodal attributes in a network
 
-\item \code{graph_edge_attributes}: Returns a vector of edge attributes in a network
+\item \code{graph_tie_attributes}: Returns a vector of edge attributes in a network
 }}
 
 \examples{
 node_names(mpn_elite_usa_advice)
 node_mode(mpn_elite_usa_advice)
 node_attribute(mpn_elite_mex, "full_name")
-edge_attribute(ison_algebra, "task_tie")
-edge_weights(to_mode1(ison_southern_women))
-edge_signs(ison_marvel_relationships)
+tie_attribute(ison_algebra, "task_tie")
+tie_weights(to_mode1(ison_southern_women))
+tie_signs(ison_marvel_relationships)
 graph_nodes(ison_southern_women)
-graph_edges(ison_southern_women)
+graph_ties(ison_southern_women)
 graph_dims(ison_southern_women)
 graph_dims(to_mode1(ison_southern_women))
 graph_node_attributes(mpn_elite_mex)
-graph_edge_attributes(mpn_elite_mex)
+graph_tie_attributes(mpn_elite_mex)
 }
 \seealso{
 Other manipulations: 
 \code{\link{add}},
 \code{\link{as}()},
-\code{\link{is}()},
 \code{\link{to}}
 }
 \concept{manipulations}

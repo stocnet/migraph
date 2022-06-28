@@ -27,8 +27,8 @@ a two-mode network will be created.
 a network of the same dimensions will be created.
 }}
 
-\item{p}{Proportion of possible edges in the network that are realised or,
-if integer greater than 1, the number of edges in the network.}
+\item{p}{Proportion of possible ties in the network that are realised or,
+if integer greater than 1, the number of ties in the network.}
 
 \item{directed}{Whether to generate network as directed. By default FALSE.}
 

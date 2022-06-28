@@ -30,8 +30,8 @@
 #'   drawing convex but also concave hulls around clusters of nodes.
 #'   These groupings will be labelled with the categories of the variable passed.
 #' @param highlight_measure String vector of name of the node and/or edge
-#'   level measure function e.g. `node_degree`,  `edge_betweenness`,
-#'   or `c("node_betweenness", "edge_betweenness")`.
+#'   level measure function e.g. `node_degree`,  `tie_betweenness`,
+#'   or `c("node_betweenness", "tie_betweenness")`.
 #'   `NULL` by default.
 #' @param identify_function Name of the function used to determine the
 #'   highlighted node e.g. `"max"`, `"min"`, or `c("max", "min")` if
@@ -53,10 +53,10 @@
 #' # Node highlighting:
 #' autographr(ison_adolescents, highlight_measure = "node_betweenness", identify_function = "max")
 #' # Edge highlighting:
-#' autographr(ison_adolescents, highlight_measure = "edge_betweenness", identify_function = "max")
+#' autographr(ison_adolescents, highlight_measure = "tie_betweenness", identify_function = "max")
 #' # Both node and edge highlighting:
 #' autographr(ison_adolescents, highlight_measure = c("node_betweenness", 
-#' "edge_betweenness"), identify_function = c("max", "max"))
+#' "tie_betweenness"), identify_function = c("max", "max"))
 #' @export
 autographr <- auto_graph <- function(object,
                                      layout = "stress",

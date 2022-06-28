@@ -43,7 +43,7 @@ test_node_measure_min <- autographr(ison_adolescents,
   identify_function = "min"
 )
 test_node_measure_max_edge_measure_max <- autographr(ison_adolescents,
-                                    highlight_measure = c("node_betweenness", "edge_betweenness"),
+                                    highlight_measure = c("node_betweenness", "tie_betweenness"),
                                     identify_function = c("max", "max")
 )
 
@@ -64,15 +64,15 @@ test_that("autographr works with node_measure functionality", {
 
 # Test edge_measure function with ison_coleman
 test_edge_measure_max <- autographr(ison_adolescents,
-                                    highlight_measure = "edge_betweenness",
+                                    highlight_measure = "tie_betweenness",
                                     identify_function = "max"
 )
 test_edge_measure_min <- autographr(ison_adolescents,
-                                    highlight_measure = "edge_betweenness",
+                                    highlight_measure = "tie_betweenness",
                                     identify_function = "min"
 )
 
-test_that("autographr works with edge_measure functionality", {
+test_that("autographr works with tie_measure functionality", {
   # Node color is determined by factor levels
   expect_equal(
     rlang::as_label(rlang::quo_get_expr(test_edge_measure_max[["layers"]][[1]][["mapping"]][["edge_colour"]])),

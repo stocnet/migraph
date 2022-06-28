@@ -9,8 +9,8 @@
 #' @seealso [as]
 #' @inheritParams create
 #' @inheritParams is
-#' @param p Proportion of possible edges in the network that are realised or,
-#'   if integer greater than 1, the number of edges in the network.
+#' @param p Proportion of possible ties in the network that are realised or,
+#'   if integer greater than 1, the number of ties in the network.
 #' @param directed Whether to generate network as directed. By default FALSE.
 #' @return By default an `igraph` object is returned,
 #'   but this can be coerced into other types of objects
@@ -28,7 +28,7 @@ NULL
 #' @export
 generate_random <- function(n, p = 0.5, directed = FALSE, with_attr = TRUE) {
   if(is_migraph(n)){
-    m <- graph_edges(n)
+    m <- graph_ties(n)
     directed <- is_directed(n)
     if(is_twomode(n)){
       g <- igraph::sample_bipartite(graph_dims(n)[1], 

@@ -15,7 +15,7 @@
 \alias{to_mode2}
 \alias{to_onemode}
 \alias{to_multilevel}
-\alias{to_edges}
+\alias{to_ties}
 \alias{to_subgraph}
 \alias{to_blocks}
 \title{Tools for reformatting networks, graphs, and matrices}
@@ -46,7 +46,7 @@ to_onemode(object)
 
 to_multilevel(object)
 
-to_edges(object)
+to_ties(object)
 
 to_subgraph(object, ...)
 
@@ -157,7 +157,7 @@ which return only some of the nodes and new ties established by coincidence.
 \item \code{to_multilevel}: Returns a network that is not divided into two mode types
 but embeds two or more modes into a multimodal network structure.
 
-\item \code{to_edges}: Returns a matrix (named if possible)
+\item \code{to_ties}: Returns a matrix (named if possible)
 where the edges are the nodes
 
 \item \code{to_subgraph}: Returns a network subgraph filtered
@@ -181,7 +181,7 @@ autographr(ison_southern_women) /
 (autographr(to_mode1(ison_southern_women)) |
 autographr(to_mode2(ison_southern_women)))
 autographr(ison_adolescents) +  
-autographr(to_edges(ison_adolescents))
+autographr(to_ties(ison_adolescents))
 (adolblock <- to_blocks(ison_adolescents, 
   node_regular_equivalence(ison_adolescents, k = 3)))
 autographr(adolblock)
@@ -190,7 +190,6 @@ autographr(adolblock)
 Other manipulations: 
 \code{\link{add}},
 \code{\link{as}()},
-\code{\link{grab}},
-\code{\link{is}()}
+\code{\link{grab}}
 }
 \concept{manipulations}

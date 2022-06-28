@@ -3,14 +3,14 @@
 \name{add}
 \alias{add}
 \alias{add_node_attributes}
-\alias{add_edge_attributes}
+\alias{add_tie_attributes}
 \alias{copy_node_attributes}
 \alias{join_edges}
 \title{Adding and copying attributes from one graph to another}
 \usage{
 add_node_attributes(object, attr_name, vector)
 
-add_edge_attributes(object, attr_name, vector)
+add_tie_attributes(object, attr_name, vector)
 
 copy_node_attributes(object, object2)
 
@@ -41,8 +41,8 @@ or from a specified vector supplied by the user.
 \item \code{add_node_attributes}: Insert specified values from a vector into the graph
 as node attributes
 
-\item \code{add_edge_attributes}: Insert specified values from a vector into the graph
-as edge attributes
+\item \code{add_tie_attributes}: Insert specified values from a vector into the graph
+as tie attributes
 
 \item \code{copy_node_attributes}: Copies node attributes from a given graph into specified graph
 
@@ -53,7 +53,7 @@ adds an edge attribute identifying the edges that were newly added
 \examples{
 add_node_attributes(mpn_elite_mex, "wealth", 1:35)
 add_node_attributes(mpn_elite_usa_advice, "wealth", 1:14)
-add_edge_attributes(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
+add_tie_attributes(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
 autographr(mpn_elite_mex)
 both <- join_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
 autographr(both)
@@ -65,7 +65,6 @@ autographr(to_uniplex(both, "orig"))
 Other manipulations: 
 \code{\link{as}()},
 \code{\link{grab}},
-\code{\link{is}()},
 \code{\link{to}}
 }
 \concept{manipulations}

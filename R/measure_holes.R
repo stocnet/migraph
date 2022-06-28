@@ -21,7 +21,7 @@ node_bridges <- function(object){
   g <- as_igraph(object)
   .inc <- NULL
   out <- vapply(igraph::V(g), function(ego){
-    length(igraph::E(g)[.inc(ego) & edge_bridges(g)==1])
+    length(igraph::E(g)[.inc(ego) & tie_is_bridge(g)==1])
   }, FUN.VALUE = numeric(1))
   make_node_measure(out, object)
 }

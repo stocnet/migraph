@@ -4,8 +4,8 @@ make_node_measure <- function(out, object) {
   out
 }
 
-make_edge_measure <- function(out, object) {
-  class(out) <- c("edge_measure", class(out))
+make_tie_measure <- function(out, object) {
+  class(out) <- c("tie_measure", class(out))
   out
 }
 
@@ -42,7 +42,7 @@ print.node_measure <- function(x, ...,
 }
 
 #' @export
-print.edge_measure <- function(x, ...,
+print.tie_measure <- function(x, ...,
                                max.length = 6,
                                digits = 3) {
     z <- x[1:min(length(x), max.length)]
@@ -112,7 +112,7 @@ plot.node_measure <- function(x, type = c("h", "d"), ...) {
 }
 
 #' @export
-plot.edge_measure <- function(x, type = c("h", "d"), ...) {
+plot.tie_measure <- function(x, type = c("h", "d"), ...) {
   type <- match.arg(type)
   data <- data.frame(Score = x)
   if (type == "h") {

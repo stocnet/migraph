@@ -38,12 +38,12 @@ test_that("copy_node_attributes works", {
   expect_error(copy_node_attributes(net_node1, net_node3))
 })
 
-test_that("add_edge_attributes works", {
-  expect_equal(edge_attribute(add_edge_attributes(net_edge1, "weight", 
+test_that("add_tie_attributes works", {
+  expect_equal(tie_attribute(add_tie_attributes(net_edge1, "weight", 
                                                   c(1,2,1,2,1)), 
                               "weight"), 
                c(1,2,1,2,1))
-  expect_equal(class(add_edge_attributes(net_edge1, "weight", c(1,2,1,2,1))), 
+  expect_equal(class(add_tie_attributes(net_edge1, "weight", c(1,2,1,2,1))), 
                "igraph")
 })
 
