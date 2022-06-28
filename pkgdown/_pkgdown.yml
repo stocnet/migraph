@@ -47,20 +47,13 @@ reference:
       and transforming the type of network:
     contents:
       - starts_with("as_")
-      - starts_with("is_")
       - starts_with("to_")
       - add
       - grab
-  - title: "Mapping"
-    desc: "Functions for plotting and visualising graphs of different types:"
-    contents:
-      - autographr
-      - layouts
-      - gglineage
-      - ggevolution
   - title: "Marks"
     desc: "Functions for logically identifying particular types of nodes or edges:"
     contents:
+      - starts_with("is_")
       - mark
   - title: "Measures"
     desc: |
@@ -94,6 +87,13 @@ reference:
     contents:
       - regression
       - starts_with("test")
+  - title: "Mapping"
+    desc: "Functions for plotting and visualising graphs of different types:"
+    contents:
+      - autographr
+      - layouts
+      - gglineage
+      - ggevolution
   - title: "Data"
     desc: |
       The package contains two collections of multimodal, multilevel, and multiplex network data,

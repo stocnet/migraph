@@ -106,10 +106,7 @@ is_uniplex(ison_algebra)
 is_acyclic(ison_algebra)
 }
 \seealso{
-Other manipulations: 
-\code{\link{add}},
-\code{\link{as}()},
-\code{\link{grab}},
-\code{\link{to}}
+Other marks: 
+\code{\link{mark}}
 }
-\concept{manipulations}
+\concept{marks}

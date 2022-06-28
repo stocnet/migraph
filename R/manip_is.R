@@ -11,7 +11,7 @@
 #'   \item tbl_graph, from the `{tidygraph}` package
 #'   }
 #' @return TRUE if the condition is met, or FALSE otherwise.
-#' @family manipulations
+#' @family marks
 #' @name is
 NULL
 
@@ -319,13 +319,13 @@ is_multiplex.matrix <- function(object){
 #' @export
 is_multiplex.tbl_graph <- function(object){
   igraph::any_multiple(object) |
-    length(graph_edge_attributes(object)) > 1
+    length(graph_tie_attributes(object)) > 1
 }
 
 #' @export
 is_multiplex.igraph <- function(object){
   igraph::any_multiple(object) |
-    length(graph_edge_attributes(object)) > 1
+    length(graph_tie_attributes(object)) > 1
 }
 
 #' @export

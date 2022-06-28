@@ -199,8 +199,8 @@ as_tidygraph(mpn_elite_mex) %>%
 
 Adding edge attributes or new edges is not quite so straightforward,
 in part because you will need to decide which it is that you want to do.
-If you would like to just add a new edge attribute to an existing set of edges,
-without adding any new edges, then `add_edge_attributes()` operates similarly
+If you would like to just add a new tie attribute to an existing set of ties,
+without adding any new edges, then `add_tie_attributes()` operates similarly
 to `add_node_attributes()` above.
 But if the result should be a multiplex network and the ties in the different
 component networks only partially overlap,
@@ -219,8 +219,8 @@ Here too `{migraph}` has you covered.
 ```{r grab}
 node_names(mpn_elite_mex) # gets the names of the nodes
 node_attribute(ison_marvel_relationships, "Gender") # gets any named nodal attribute
-edge_attribute(ison_marvel_relationships, "sign") # gets any named edge attribute
-edge_weights(mpn_elite_mex)
+tie_attribute(ison_marvel_relationships, "sign") # gets any named edge attribute
+tie_weights(mpn_elite_mex)
 ```
 
 We can describe the network using similar functions.
@@ -228,6 +228,6 @@ How many nodes in the network, or how many edges?
 
 ```{r dims}
 graph_nodes(mpn_elite_mex)
-graph_edges(mpn_elite_mex)
+graph_ties(mpn_elite_mex)
 graph_dims(mpn_elite_mex)
 ```
