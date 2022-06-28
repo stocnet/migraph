@@ -1,3 +1,9 @@
+# migraph 0.10.3
+
+## Memberships
+
+- Equivalence examples now `\donotrun`
+
 # migraph 0.10.2
 
 ## Memberships

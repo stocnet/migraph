@@ -106,8 +106,20 @@ automorphically equivalent classes
 }}
 
 \examples{
+\donttest{
 (nse <- node_structural_equivalence(mpn_elite_usa_advice))
 plot(nse)
+}
+\donttest{
+(nre <- node_regular_equivalence(mpn_elite_usa_advice,
+  cluster = "concor"))
+plot(nre)
+}
+\donttest{
+(nae <- node_automorphic_equivalence(mpn_elite_usa_advice,
+  k = "elbow"))
+plot(nae)
+}
 }
 \references{
 Thorndike, Robert L. 1953.
