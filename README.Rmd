@@ -35,8 +35,8 @@ list_data <- function(string){
 
 ## About the package
 
-`{migraph}` works with and extends existing network analysis packages for analysing multimodal and multilevel networks.
-It provides a common, standard syntax for working with 
+`{migraph}` works with and extends existing network analysis packages for analysing multimodal networks.
+It provides a common, standard syntax for working with and analysing 
 both one-mode and two-mode networks.
 
 <img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="125"/>
