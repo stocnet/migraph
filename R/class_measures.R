@@ -24,9 +24,16 @@ print.node_measure <- function(x, ...,
       names <- list(names(x)[attr(x, "mode")==m])
       mat <- matrix(as.numeric(x)[attr(x, "mode")==m], 
                     dimnames = names)
+      mat <- mat[order(mat[,1], decreasing = TRUE),] #rank scores
       mat <- t(mat)
       out <- as.data.frame(mat)
       print(dplyr::tibble(out, .name_repair = "unique"))
+      # o <- capture.output(print(dplyr::tibble(out, .name_repair = "unique")))
+      # o <- o[!grepl('^ +<...>', o)]
+      # o[1] <- "Centrality scores by node"
+      # m <- gregexpr('^ *\\d+', o)
+      # regmatches(o, m) <- ' '
+      # cli::cat_line(o)
     }
     # y <- x[attr(x, "mode")]
     # y <- y[max(1, ((length(y) - max.length) + 1)):length(y)]
@@ -43,9 +50,16 @@ print.node_measure <- function(x, ...,
     names <- list(names(x))
     x <- as.numeric(x)
     mat <- matrix(x, dimnames = names)
+    mat <- mat[order(mat[,1], decreasing = TRUE),] #rank scores
     mat <- t(mat)
     out <- as.data.frame(mat)
     print(dplyr::tibble(out, .name_repair = "unique"))
+    # o <- capture.output(print(dplyr::tibble(out, .name_repair = "unique")))
+    # o <- o[!grepl('^ +<...>', o)]
+    # o[1] <- "Centrality scores by node"
+    # m <- gregexpr('^ *\\d+', o)
+    # regmatches(o, m) <- ' '
+    # cli::cat_line(o)
     
     # z <- x[1:min(length(x), max.length)]
     # class(z) <- "numeric"
