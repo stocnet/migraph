@@ -101,6 +101,7 @@
 #' Diani, Mario, and Ivano Bison. 2004.
 #' “Organizations, Coalitions, and Movements.”
 #' _Theory and Society_ 33(3–4):281–309.
+#' \doi{10.1023/B:RYSO.0000038610.00045.07}.
 #' @source
 #' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
@@ -131,7 +132,8 @@
 #' and weighted. It contains 20 nodes and 177 edges.
 #' @source Christopoulos, Dimitrios C. 2006.
 #' “Relational Attributes of Political Entrepreneurs: a Network Perspective.”
-#' \emph{Journal of European Public Policy} 13 (5): 757–78.
+#' \emph{Journal of European Public Policy} 13(5): 757–78.
+#' \doi{10.1080/13501760600808964}.
 #' 
 #' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
@@ -227,8 +229,10 @@
 #' @references 
 #'   EVS (2020). European Values Study Longitudinal Data File 1981-2008 (EVS 1981-2008).
 #'   GESIS Data Archive, Cologne. ZA4804 Data file Version 3.1.0,
-#'   https://doi.org/10.4232/1.13486.
-#' \emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
+#'   \doi{10.4232/1.13486}.
+
+#' @rdname mpn_evs
+#' @usage data(mpn_IT_1990)
 "mpn_IT_1990"
 
 #' @rdname mpn_evs

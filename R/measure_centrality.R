@@ -29,22 +29,22 @@
 #' @importFrom rlang enquo eval_tidy
 #' @importFrom igraph graph_from_incidence_matrix is_bipartite degree V
 #' @references 
-#' Faust, Katherine (1997). 
+#' Faust, Katherine. 1997. 
 #' "Centrality in affiliation networks." 
 #' _Social Networks_ 19(2): 157-191.
-#' \doi{https://doi.org/10.1016/S0378-8733(96)00300-0}
+#' \doi{10.1016/S0378-8733(96)00300-0}.
 #' 
-#' Borgatti, Stephen P., and Martin G. Everett (1997). 
+#' Borgatti, Stephen P., and Martin G. Everett. 1997. 
 #' "Network analysis of 2-mode data." 
 #' _Social Networks_ 19(3): 243-270.
-#' \doi{https://doi.org/10.1016/S0378-8733(96)00301-2}
+#' \doi{10.1016/S0378-8733(96)00301-2}.
 #' 
-#' Borgatti, Stephen P, and Daniel S Halgin. (2011). 
+#' Borgatti, Stephen P., and Daniel S. Halgin. 2011. 
 #' "Analyzing affiliation networks." 
 #' In _The SAGE Handbook of Social Network Analysis_, 
-#' edited by John Scott and Peter J Carrington, 417–33. 
+#' edited by John Scott and Peter J. Carrington, 417–33. 
 #' London, UK: Sage.
-#' \doi{https://dx.doi.org/10.4135/9781446294413.n28}
+#' \doi{10.4135/9781446294413.n28}.
 #' @examples
 #' node_degree(mpn_elite_mex)
 #' node_degree(ison_southern_women)

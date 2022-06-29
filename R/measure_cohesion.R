@@ -22,7 +22,8 @@
 #' @references 
 #' Robins, Garry L, and Malcolm Alexander. 2004. 
 #' Small worlds among interlocking directors: Network structure and distance in bipartite graphs. 
-#' \emph{Computational & Mathematical Organization Theory} 10 (1): 69–94.
+#' \emph{Computational & Mathematical Organization Theory} 10(1): 69–94.
+#' \doi{10.1023/B:CMOT.0000032580.12184.c0}.
 #' 
 #' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021. 
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}. 

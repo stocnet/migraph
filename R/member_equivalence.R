@@ -39,18 +39,18 @@
 #' @references 
 #'  Thorndike, Robert L. 1953. 
 #'    "Who Belongs in the Family?". 
-#'    _Psychometrika_, 18(4): 267–276. 
-#'    \doi{10.1007/BF02289263}
+#'    _Psychometrika_, 18(4): 267–76. 
+#'    \doi{10.1007/BF02289263}.
 #'
 #' Rousseeuw, Peter J. 1987. 
 #'   “Silhouettes: A Graphical Aid to the Interpretation and Validation of Cluster Analysis.” 
 #'   _Journal of Computational and Applied Mathematics_, 20: 53–65. 
 #'   \doi{10.1016/0377-0427(87)90125-7}.
 #'
-#' Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.  
+#' Breiger, Ronald L., Scott A. Boorman, and Phipps Arabie. 1975.  
 #'   "An Algorithm for Clustering Relational Data with Applications to 
 #'   Social Network Analysis and Comparison with Multidimensional Scaling". 
-#'   _Journal of Mathematical Psychology_, 12: 328--383.
+#'   _Journal of Mathematical Psychology_, 12: 328-83.
 #'   \doi{10.1016/0022-2496(75)90028-0}.
 NULL
 

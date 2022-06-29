@@ -87,8 +87,9 @@
 #' @name ison_algebra
 #' @usage data(ison_algebra)
 #' @references 
-#' McFarland, Daniel A. (2001) ``Student Resistance.''
-#' American Journal of Sociology, 107(3), p 612-678.
+#' McFarland, Daniel A. (2001) “Student Resistance.”
+#' _American Journal of Sociology_ 107(3): 612-78.
+#' \doi{10.1086/338779}.
 #' @source See also `data(studentnets.M182, package = "NetData")`
 #' Larger comprehensive data set publicly available, contact Daniel A. McFarland for details.
 #' @format Multiplex `tbl_graph` object of friends, social, and task ties
@@ -109,7 +110,8 @@
 #' New York:Free Press.
 #' 
 #' Feld, Scott. 1991. “Why your friends have more friends than you do”
-#' American Journal of Sociology 96(6): 1464-1477.
+#' _American Journal of Sociology_ 96(6): 1464-1477.
+#' \doi{10.1086/229693}.
 "ison_adolescents"
 
 # Karateka ####
@@ -130,7 +132,8 @@
 #' @usage data(ison_karateka)
 #' @references
 #' Zachary, Wayne W. 1977. “An Information Flow Model for Conflict and Fission in Small Groups.”
-#' Journal of Anthropological Research 33(4):452–73.
+#' _Journal of Anthropological Research_ 33(4):452–73. 
+#' \doi{10.1086/jar.33.4.3629752}.
 #' @format Undirected one-mode igraph with 34 named nodes and 78 edges.
 "ison_karateka"
 
@@ -153,11 +156,11 @@
 #' attributes: `Citations`; `Discipline`.
 #' @source networkdata package
 #' @references
-#' Freeman, S. C. and L. C. Freeman (1979).
+#' Freeman, Sue C. and Linton C. Freeman. 1979.
 #' \emph{The networkers network: A study of the impact of a new communications medium on sociometric structure}.
 #' Social Science Research Reports No 46. Irvine CA, University of California.
 #' 
-#' Wasserman S. and K. Faust (1994).
+#' Wasserman Stanley and Katherine Faust. 1994.
 #' \emph{Social Network Analysis: Methods and Applications}.
 #' Cambridge University Press, Cambridge.
 "ison_networkers"
@@ -190,6 +193,7 @@
 #' @usage data(ison_southern_women)
 #' @format `{igraph}` two-mode graph object with 18 women and 14 informal social
 #' events.
-#' @references Davis, A., Gardner, B., and Gardner, R. 1941. \emph{Deep South}.
+#' @references Davis, Allison, Burleigh B. Gardner, and Mary R. Gardner. 1941.
+#' \emph{Deep South}.
 #' Chicago: University of Chicago Press.
 "ison_southern_women"

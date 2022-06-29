@@ -11,9 +11,10 @@ NULL
 #' graph_core(ison_adolescents)
 #' graph_core(ison_southern_women)
 #' @references 
-#' Borgatti, Stephen P., and Martin G. Everett. 1999. 
+#' Borgatti, Stephen P., and Martin G. Everett. 2000. 
 #' “Models of Core/Periphery Structures.” 
-#' _Social Networks_ 21:375–95.
+#' _Social Networks_ 21(4):375–95.
+#' https://doi.org/10.1016/S0378-8733(99)00019-2
 #' @export
 graph_core <- function(object,
                        membership = NULL){
@@ -49,7 +50,7 @@ graph_factions <- function(object,
 #' @references 
 #' Murata, Tsuyoshi. 2010. Modularity for Bipartite Networks. 
 #' In: Memon, N., Xu, J., Hicks, D., Chen, H. (eds) 
-#' _Data Mining for Social Network Data. Annals of Information Systems_, vol 12. 
+#' _Data Mining for Social Network Data. Annals of Information Systems_, V1ol 12. 
 #' Springer, Boston, MA. 
 #' \doi{10.1007/978-1-4419-6287-4_7}
 #' @export
@@ -81,6 +82,7 @@ graph_modularity <- function(object,
 #' Watts, Duncan J., and Steven H. Strogatz. 1998. 
 #' “Collective Dynamics of ‘Small-World’ Networks.” 
 #' _Nature_ 393(6684):440–42.
+#' \doi{10.1038/30918}.
 #' @export
 graph_smallworld <- function(object, times = 100) {
   
