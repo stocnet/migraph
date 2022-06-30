@@ -17,7 +17,8 @@ about the attendance pattern of women at informal social events
 during a 9 month period. Events and women are named.
 }
 \references{
-Davis, A., Gardner, B., and Gardner, R. 1941. \emph{Deep South}.
+Davis, Allison, Burleigh B. Gardner, and Mary R. Gardner. 1941.
+\emph{Deep South}.
 Chicago: University of Chicago Press.
 }
 \keyword{datasets}

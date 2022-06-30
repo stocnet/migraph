@@ -67,7 +67,7 @@ node_hierarchy(ison_adolescents)
 node_hierarchy(ison_southern_women)
 }
 \references{
-#' Burt, Ronald S. 1992.
+Burt, Ronald S. 1992.
 \emph{Structural Holes: The Social Structure of Competition}.
 Cambridge, MA: Harvard University Press.
 

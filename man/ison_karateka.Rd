@@ -24,6 +24,7 @@ sided with Mr. Hi after the fight and 2 if the individual sided with John A.
 }
 \references{
 Zachary, Wayne W. 1977. “An Information Flow Model for Conflict and Fission in Small Groups.”
-Journal of Anthropological Research 33(4):452–73.
+\emph{Journal of Anthropological Research} 33(4):452–73.
+\doi{10.1086/jar.33.4.3629752}.
 }
 \keyword{datasets}

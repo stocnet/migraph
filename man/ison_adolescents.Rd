@@ -18,6 +18,7 @@ Coleman, James S. 1961. The Adolescent Society.
 New York:Free Press.
 
 Feld, Scott. 1991. “Why your friends have more friends than you do”
-American Journal of Sociology 96(6): 1464-1477.
+\emph{American Journal of Sociology} 96(6): 1464-1477.
+\doi{10.1086/229693}.
 }
 \keyword{datasets}

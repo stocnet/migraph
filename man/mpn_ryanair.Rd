@@ -11,7 +11,8 @@ and weighted. It contains 20 nodes and 177 edges.
 \source{
 Christopoulos, Dimitrios C. 2006.
 “Relational Attributes of Political Entrepreneurs: a Network Perspective.”
-\emph{Journal of European Public Policy} 13 (5): 757–78.
+\emph{Journal of European Public Policy} 13(5): 757–78.
+\doi{10.1080/13501760600808964}.
 
 Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
 \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.

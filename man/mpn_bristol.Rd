@@ -5,14 +5,19 @@
 \alias{mpn_bristol}
 \title{Multimodal (3) Bristol protest events, 1990-2002 (Diani and Bison 2004)}
 \format{
-A \code{tbl_graph} object with 264 nodes and 1496 edges.
+The data is presented as a \code{tbl_graph} object with 264 nodes and 1496 edges.
 While represented as a two-mode network, it contains three levels:
 \describe{
-\item{1}{150 Individuals, anonymised}
-\item{2}{97 Bristol civic organizations}
-\item{3}{17 Major protest and civic events in Bristol, 1990-2002}
+\item{1. 150 Individuals, anonymised with numeric ID}
+\item{2. 97 Bristol civic organizations}
+\item{3. 17 Major protest and civic events in Bristol, 1990-2002}
 }
-The network is named.
+The network represents ties between level 1 (individuals) and level 2 (organisations),
+level 1 (individuals) and level 3 (events), as well as level 2 (organisations)
+and level 3 (events). These ties are undirected. For a full list of named
+civic organisations and protest/civic events included in the data, please see Appendix 6.1
+in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
+(Knoke et al., 2021).
 }
 \source{
 Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
@@ -23,13 +28,14 @@ Cambridge University Press. Cambridge University Press.
 data(mpn_bristol)
 }
 \description{
-A multimodal (3) network containing individuals affiliations to civic organizations
-in Bristol and their participation in major protest and civic events between 1990-2002,
-and the involvement of the organizations in these events.
+A multimodal network with three levels containing individuals affiliations to civic organizations
+in Bristol, the participation of individuals in major protest and civic events between 1990-2002,
+and the involvement of the civic organizations in these events. The network is named.
 }
 \references{
 Diani, Mario, and Ivano Bison. 2004.
 “Organizations, Coalitions, and Movements.”
 \emph{Theory and Society} 33(3–4):281–309.
+\doi{10.1023/B:RYSO.0000038610.00045.07}.
 }
 \keyword{datasets}

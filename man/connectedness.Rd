@@ -61,9 +61,10 @@ graph_length(ison_marvel_relationships)
 graph_length(to_main_component(ison_marvel_relationships))
 }
 \references{
-White, Douglas R and Frank Harary 2001.
-The Cohesiveness of Blocks In Social Networks: Node Connectivity and Conditional Density.
-\emph{Sociological Methodology} 31 (1) : 305-359.
+White, Douglas R and Frank Harary. 2001.
+"The Cohesiveness of Blocks In Social Networks: Node Connectivity and Conditional Density."
+\emph{Sociological Methodology} 31(1): 305-59.
+\doi{10.1111/0081-1750.00098}.
 }
 \seealso{
 Other measures: 

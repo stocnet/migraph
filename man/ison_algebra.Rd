@@ -28,7 +28,8 @@ where \code{2} = best friends, \code{1} = friend, and \code{0} is not a friend.
 and \code{tasks} consists of task interactions per hour.
 }
 \references{
-McFarland, Daniel A. (2001) ``Student Resistance.''
-American Journal of Sociology, 107(3), p 612-678.
+McFarland, Daniel A. (2001) “Student Resistance.”
+\emph{American Journal of Sociology} 107(3): 612-78.
+\doi{10.1086/338779}.
 }
 \keyword{datasets}

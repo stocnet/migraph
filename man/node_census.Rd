@@ -86,15 +86,17 @@ Davis, James A., and Samuel Leinhardt. 1967.
 Ortmann, Mark, and Ulrik Brandes. 2017.
 “Efficient Orbit-Aware Triad and Quad Census in Directed and Undirected Graphs.”
 \emph{Applied Network Science} 2(1):13.
-\doi{https://doi.org/10.1007/s41109-017-0027-2}
+\doi{10.1007/s41109-017-0027-2}.
 
-Dijkstra, E. W., 1959.
+Dijkstra, Edsger W. 1959.
 "A note on two problems in connexion with graphs".
-\emph{Numerische Mathematik} 1, 269-271.
+\emph{Numerische Mathematik} 1, 269-71.
+\doi{10.1007/BF01386390}.
 
-Opsahl, Tore, Agneessens, F., Skvoretz, John, 2010.
+Opsahl, Tore, Filip Agneessens, and John Skvoretz. 2010.
 "Node centrality in weighted networks: Generalizing degree and shortest paths".
-\emph{Social Networks} 32(3), 245-251.
+\emph{Social Networks} 32(3): 245-51.
+\doi{10.1016/j.socnet.2010.03.006}.
 }
 \seealso{
 Other motifs: 

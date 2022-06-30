@@ -24,11 +24,11 @@ researchers (\code{Discipline}). Edge weights illustrate the number of emails
 sent from one academic to another over the studied time period.
 }
 \references{
-Freeman, S. C. and L. C. Freeman (1979).
+Freeman, Sue C. and Linton C. Freeman. 1979.
 \emph{The networkers network: A study of the impact of a new communications medium on sociometric structure}.
 Social Science Research Reports No 46. Irvine CA, University of California.
 
-Wasserman S. and K. Faust (1994).
+Wasserman Stanley and Katherine Faust. 1994.
 \emph{Social Network Analysis: Methods and Applications}.
 Cambridge University Press, Cambridge.
 }
