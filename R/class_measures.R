@@ -22,15 +22,13 @@ print.node_measure <- function(x, ...,
                           digits = 3) {
   if (any(attr(x, "mode"))) {
     for(m in c(FALSE, TRUE)){
-      names <- list(names(x)[attr(x, "mode")==m])
-      y <- as.numeric(x)[attr(x, "mode")==m]
-      print_tblvec(y, names)
+      print_tblvec(y = as.numeric(x)[attr(x, "mode")==m], 
+                   names = list(names(x)[attr(x, "mode")==m]))
       if(!m) cat("\n")
     }
   } else {
-    names <- list(names(x))
-    y <- as.numeric(x)
-    print_tblvec(y, names)
+    print_tblvec(y = as.numeric(x), 
+                 names = list(names(x)))
   }
 }
 
@@ -38,12 +36,8 @@ print.node_measure <- function(x, ...,
 print.tie_measure <- function(x, ...,
                                max.length = 6,
                                digits = 3) {
-    z <- x[1:min(length(x), max.length)]
-    class(z) <- "numeric"
-    z <- format(z, digits = digits)
-    print(noquote(format(c(z,
-                           paste("+", length(x) - length(z), 
-                                 "others")))))
+  print_tblvec(y = as.numeric(x), 
+               names = list(names(x)))
 }
 
 #' @export

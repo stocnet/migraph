@@ -107,6 +107,6 @@ is_acyclic(ison_algebra)
 }
 \seealso{
 Other marks: 
-\code{\link{mark}}
+\code{\link{node_is_cutpoint}()}
 }
 \concept{marks}
