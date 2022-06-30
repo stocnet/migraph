@@ -35,13 +35,13 @@ adjacency (one-mode/unipartite) networks.
 By default FALSE.}
 }
 \value{
-The currently implemented coercions or translations are:\tabular{lccccc}{
-   to/from \tab edgelists \tab matrices \tab igraph \tab tidygraph \tab network \cr
-   edgelists (data frames) \tab X \tab X \tab X \tab X \tab X \cr
-   matrices \tab X \tab X \tab X \tab X \tab X \cr
-   igraph \tab X \tab X \tab X \tab X \tab X \cr
-   tidygraph \tab X \tab X \tab X \tab X \tab X \cr
-   network \tab X \tab X \tab X \tab X \tab X \cr
+The currently implemented coercions or translations are:\tabular{lcccccc}{
+   to/from \tab edgelists \tab matrices \tab igraph \tab tidygraph \tab network \tab goldfish \cr
+   edgelists (data frames) \tab X \tab X \tab X \tab X \tab X \tab X \cr
+   matrices \tab X \tab X \tab X \tab X \tab X \tab X \cr
+   igraph \tab X \tab X \tab X \tab X \tab X \tab X \cr
+   tidygraph \tab X \tab X \tab X \tab X \tab X \tab X \cr
+   network \tab X \tab X \tab X \tab X \tab X \tab X \cr
 }
 }
 \description{
