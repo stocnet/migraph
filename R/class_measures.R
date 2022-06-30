@@ -38,12 +38,15 @@ print.node_measure <- function(x, ...,
 print.tie_measure <- function(x, ...,
                                max.length = 6,
                                digits = 3) {
-    z <- x[1:min(length(x), max.length)]
-    class(z) <- "numeric"
-    z <- format(z, digits = digits)
-    print(noquote(format(c(z,
-                           paste("+", length(x) - length(z), 
-                                 "others")))))
+  names <- list(names(x))
+  y <- as.numeric(x)
+  print_tblvec(y, names)
+    # z <- x[1:min(length(x), max.length)]
+    # class(z) <- "numeric"
+    # z <- format(z, digits = digits)
+    # print(noquote(format(c(z,
+    #                        paste("+", length(x) - length(z), 
+    #                              "others")))))
 }
 
 #' @export
