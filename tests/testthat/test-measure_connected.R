@@ -23,9 +23,3 @@ test_that("graph length works", {
   expect_equal(as.numeric(graph_length(mpn_bristol)), 2.451265, 
                tolerance = 0.000001)
 })
-
-test_that("node cuts works", {
-  expect_s3_class(node_cuts(ison_algebra), "node_measure")
-  expect_length(node_cuts(ison_southern_women),
-                graph_nodes(ison_southern_women))
-})

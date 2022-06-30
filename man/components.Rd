@@ -27,7 +27,25 @@ node_coreness(object)
 }}
 }
 \description{
-Component partitioning algorithms
+These functions create a vector of nodes' memberships in
+components or degrees of coreness.
+
+In graph theory, components, sometimes called connected components,
+are induced subgraphs from partitioning the nodes into disjoint sets.
+All nodes that are members of the same partition as \emph{i} are reachable
+from \emph{i}.
+
+For directed networks,
+strongly connected components consist of subgraphs where there are paths
+in each direction between member nodes.
+Weakly connected components consist of subgraphs where there is a path
+in either direction between member nodes.
+
+Coreness captures the maximal subgraphs in which each vertex has at least
+degree \emph{k}, where \emph{k} is also the order of the subgraph.
+As described in \code{igraph::coreness},
+a node's coreness is \emph{k} if it belongs to the \emph{k}-core
+but not to the (\emph{k}+1)-core.
 }
 \section{Functions}{
 \itemize{
@@ -45,8 +63,6 @@ based on edge direction.
 
 \examples{
 node_components(mpn_bristol)
-node_weak_components(mpn_bristol)
-node_strong_components(mpn_bristol)
 node_coreness(ison_adolescents)
 }
 \seealso{
