@@ -8,13 +8,13 @@
 The data is presented as a \code{tbl_graph} object with 264 nodes and 1496 edges.
 While represented as a two-mode network, it contains three levels:
 \describe{
-\item{1. 150 Individuals, anonymised with numeric ID}
-\item{2. 97 Bristol civic organizations}
-\item{3. 17 Major protest and civic events in Bristol, 1990-2002}
+\item{1.}{150 Individuals, anonymised with numeric ID}
+\item{2.}{97 Bristol civic organizations}
+\item{3.}{17 Major protest and civic events in Bristol, 1990-2002}
 }
 The network represents ties between level 1 (individuals) and level 2 (organisations),
 level 1 (individuals) and level 3 (events), as well as level 2 (organisations)
-and level 3 (events). These ties are undirected. For a full list of named
+and level 3 (events). The network is simple, undirected, and named. For a complete list of
 civic organisations and protest/civic events included in the data, please see Appendix 6.1
 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
 (Knoke et al., 2021).
@@ -28,9 +28,11 @@ Cambridge University Press. Cambridge University Press.
 data(mpn_bristol)
 }
 \description{
-A multimodal network with three levels containing individuals affiliations to civic organizations
-in Bristol, the participation of individuals in major protest and civic events between 1990-2002,
-and the involvement of the civic organizations in these events. The network is named.
+A multimodal network with three levels representing ties between individuals,
+civic organisations in Bristol, and major protest and civic events that occurred
+between 1990 and 2000. The data contains individuals' affiliations to civic organizations
+in Bristol, the participation of these individuals in major protest and civic events between 1990-2002,
+and the involvement of the civic organizations in these events.
 }
 \references{
 Diani, Mario, and Ivano Bison. 2004.

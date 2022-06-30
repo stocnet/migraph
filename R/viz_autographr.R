@@ -114,7 +114,7 @@ autographr <- auto_graph <- function(object,
     em_if <- edge_identify_measure[[1]]
     measure <- em(g)
     # Add as attribute
-    g <- add_edge_attributes(g, "highlight_measure_edge",
+    g <- add_tie_attributes(g, "highlight_measure_edge",
                              ifelse(measure == em_if(measure),
                                     gsub(pattern = '.*["]([^.]+)["].*', "\\1",
                                          deparse(identify_function)), "other"))

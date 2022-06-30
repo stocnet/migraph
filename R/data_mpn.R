@@ -94,9 +94,9 @@
 #' @format The data is presented as a `tbl_graph` object with 264 nodes and 1496 edges.
 #'   While represented as a two-mode network, it contains three levels:
 #' \describe{
-#'   \item{1. 150 Individuals, anonymised with numeric ID}
-#'   \item{2. 97 Bristol civic organizations}
-#'   \item{3. 17 Major protest and civic events in Bristol, 1990-2002}
+#'   \item{1.}{150 Individuals, anonymised with numeric ID}
+#'   \item{2.}{97 Bristol civic organizations}
+#'   \item{3.}{17 Major protest and civic events in Bristol, 1990-2002}
 #' }
 #' The network represents ties between level 1 (individuals) and level 2 (organisations), 
 #' level 1 (individuals) and level 3 (events), as well as level 2 (organisations)
