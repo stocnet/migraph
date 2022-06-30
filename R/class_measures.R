@@ -48,25 +48,29 @@ print.node_measure <- function(x, ...,
     #                              "others"), y))))
   } else {
     names <- list(names(x))
-    x <- as.numeric(x)
-    mat <- matrix(x, dimnames = names)
+    y <- as.numeric(x)
+    mat <- matrix(y, dimnames = names)
     mat <- mat[order(mat[,1], decreasing = TRUE),] #rank scores
     mat <- t(mat)
     out <- as.data.frame(mat)
-    print(dplyr::tibble(out, .name_repair = "unique"))
-    # o <- capture.output(print(dplyr::tibble(out, .name_repair = "unique")))
-    # o <- o[!grepl('^ +<...>', o)]
-    # o[1] <- "Centrality scores by node"
-    # m <- gregexpr('^ *\\d+', o)
-    # regmatches(o, m) <- ' '
-    # cli::cat_line(o)
-    
-    # z <- x[1:min(length(x), max.length)]
-    # class(z) <- "numeric"
-    # z <- format(z, digits = digits)
-    # print(noquote(format(c(z,
-    #                        paste("+", length(x) - length(z),
-    #                              "others")))))
+    tibs <- dplyr::tibble(out, .name_repair = "unique")
+    class(tibs) <- c("tblvec", class(tibs))
+    tbl_sum.tblvec <- function(x, ...){
+      NULL
+    }
+    ctl_new_pillar.tblvec <- function(controller, x, width, ..., title = NULL){
+      out <- NextMethod()
+      pillar::new_pillar(list(
+        title = out$title,
+        data = out$data
+      ))
+    }
+    tbl_format_footer.tblvec <- function(x, setup, ...) {
+      if(setup$extra_cols_total > 0){
+        pillar::style_subtle(paste("# ... with", setup$extra_cols_total, "more in the vector."))  
+      }
+    }
+    print(tibs)
   }
 }
 
