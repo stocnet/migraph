@@ -35,7 +35,8 @@ Imports:
     rlang,
     sna,
     tidygraph,
-    tidyr
+    tidyr,
+    pillar
 Suggests: 
     concaveman,
     covr,
