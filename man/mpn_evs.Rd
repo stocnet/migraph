@@ -29,6 +29,8 @@
 \item{Health}{1 if individual associated}
 }
 
+An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 672.
+
 An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 554.
 
 An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 1383.

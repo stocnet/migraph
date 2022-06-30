@@ -22,15 +22,15 @@
 #' @keywords datasets
 #' @name mpn_elite_mex
 #' @usage data(mpn_elite_mex)
-#' @format `tbl_graph` network object.
-#'   The network is simple, undirected, and named.
-#'   The full network contains 35 nodes and 117 edges,
-#'   and the subsetted network contains 11 nodes and 44 edges.
 #' @source Knoke, David. 1990. \emph{Political Networks}.
 #' 
 #' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
 #' Cambridge University Press. Cambridge University Press.
+#' @format 
+#'   ```{r, echo = FALSE}
+#'   mpn_elite_mex
+#'   ```
 "mpn_elite_mex"
 
 # US elite ####
@@ -56,8 +56,10 @@
 #' @keywords datasets
 #' @name mpn_elite_usa
 #' @usage data(mpn_elite_usa_advice)
-#' @format `mpn_elite_usa_advice` is a two-mode, named, and unweighted `tbl_graph`
-#'   with 32 nodes and 46 edges.
+#' @format 
+#'   ```{r, echo = FALSE}
+#'   mpn_elite_usa_advice
+#'   ```
 #' @references
 #' Domhoff, G William. 2016. \href{https://whorulesamerica.ucsc.edu/power_elite/}{“Who Rules America? Power Elite Database.”}
 #' 
@@ -72,8 +74,10 @@
 #' @keywords datasets
 #' @rdname mpn_elite_usa
 #' @usage data(mpn_elite_usa_money)
-#' @format `mpn_elite_usa_advice` is a two-mode, named, and unweighted `tbl_graph`
-#'   with 38 nodes and 103 edges.
+#' @format 
+#'   ```{r, echo = FALSE}
+#'   mpn_elite_usa_money
+#'   ```
 "mpn_elite_usa_money"
 
 
@@ -91,7 +95,7 @@
 #' @keywords datasets
 #' @name mpn_bristol
 #' @usage data(mpn_bristol)
-#' @format The data is presented as a `tbl_graph` object with 264 nodes and 1496 edges.
+#' @details The data is presented as a `tbl_graph` object with 264 nodes and 1496 edges.
 #'   While represented as a two-mode network, it contains three levels:
 #' \describe{
 #'   \item{1.}{150 Individuals, anonymised with numeric ID}
@@ -113,6 +117,10 @@
 #' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
 #' Cambridge University Press. Cambridge University Press.
+#' @format 
+#'   ```{r, echo = FALSE}
+#'   mpn_bristol
+#'   ```
 "mpn_bristol"
 
 # Ryanair ####
@@ -135,8 +143,6 @@
 #' @keywords datasets
 #' @name mpn_ryanair
 #' @usage data(mpn_ryanair)
-#' @format `tbl_graph` network object. The network is simple, directed, named
-#' and weighted. It contains 20 nodes and 177 edges.
 #' @source Christopoulos, Dimitrios C. 2006.
 #' “Relational Attributes of Political Entrepreneurs: a Network Perspective.”
 #' \emph{Journal of European Public Policy} 13(5): 757–78.
@@ -145,6 +151,10 @@
 #' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
 #' Cambridge University Press. Cambridge University Press.
+#' @format 
+#'   ```{r, echo = FALSE}
+#'   mpn_ryanair
+#'   ```
 "mpn_ryanair"
 
 # Senate voting ####
@@ -176,27 +186,30 @@
 #' @keywords datasets
 #' @name mpn_senate112
 #' @usage data(mpn_DemSxP)
-#' @format `tbl_graph` network object. It is a bimodal, directed, named,
-#' weighted graph of 51 Senators (`type = FALSE`) and 63 PACS (`type = TRUE`)
-#' and 2791 edges.
 #' @references  
 #' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
 #' Cambridge University Press. Cambridge University Press.
+#' @format 
+#'   ```{r, echo = FALSE}
+#'   mpn_DemSxP
+#'   ```
 "mpn_DemSxP"
 
 #' @rdname mpn_senate112
 #' @usage data(mpn_RepSxP)
-#' @format `tbl_graph` network object. It is a bimodal, directed, named,
-#' weighted graph of 62 Senators (`type = FALSE`) and 72 PACS (`type = TRUE`)
-#' and 3675 edges.
+#' @format 
+#'   ```{r, echo = FALSE}
+#'   mpn_RepSxP
+#'   ```
 "mpn_RepSxP"
 
 #' @rdname mpn_senate112
 #' @usage data(mpn_OverSxP)
-#' @format `tbl_graph` network object. It is a bimodal, directed, named,
-#' weighted graph of 20 Senators (`type = FALSE`) and 32 PACS (`type = TRUE`)
-#' and 614 edges.
+#' @format 
+#'   ```{r, echo = FALSE}
+#'   mpn_OverSxP
+#'   ```
 "mpn_OverSxP"
 
 # EVS ####
@@ -237,6 +250,7 @@
 #'   EVS (2020). European Values Study Longitudinal Data File 1981-2008 (EVS 1981-2008).
 #'   GESIS Data Archive, Cologne. ZA4804 Data file Version 3.1.0,
 #'   \doi{10.4232/1.13486}.
+NULL
 
 #' @rdname mpn_evs
 #' @usage data(mpn_IT_1990)
