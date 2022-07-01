@@ -532,14 +532,14 @@ to_blocks <- function(object, membership, FUN = mean){
     rownames(out) <- paste("Block", seq_len(parts))
     colnames(out) <- paste("Block", seq_len(parts))
   } else {
-    out <- matrix(nrow = length(unique(m1_membs)),
-                  ncol = length(unique(m2_membs)))
+    out <- matrix(nrow = length(unique(m1_membs)) + length(unique(m2_membs)),
+                  ncol = length(unique(m1_membs)) + length(unique(m2_membs)))
     for(i in unique(m1_membs)) for (j in unique(m2_membs))
       out[i, j] <- FUN(mat[membership == i, 
                            membership == j, drop = FALSE], 
                        na.rm = TRUE)
-    rownames(out) <- paste("Block", unique(m1_membs))
-    colnames(out) <- paste("Block", unique(m2_membs))
+    rownames(out) <- paste("Block", c(unique(m1_membs),unique(m2_membs)))
+    colnames(out) <- paste("Block", c(unique(m1_membs),unique(m2_membs)))
   }
   out
 }
