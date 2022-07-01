@@ -6,7 +6,7 @@
 \alias{mark}
 \alias{tie_is_multiple}
 \alias{tie_is_loop}
-\alias{tie_is_reciprocal}
+\alias{tie_is_reciprocated}
 \alias{tie_is_bridge}
 \title{Logical whether nodes or ties meet some criteria}
 \usage{
@@ -18,7 +18,7 @@ tie_is_multiple(object)
 
 tie_is_loop(object)
 
-tie_is_reciprocal(object)
+tie_is_reciprocated(object)
 
 tie_is_bridge(object)
 }
@@ -51,7 +51,7 @@ with neither incoming nor outgoing ties.
 
 \item \code{tie_is_loop}: Returns logical of which ties are loops
 
-\item \code{tie_is_reciprocal}: Returns logical of which ties
+\item \code{tie_is_reciprocated}: Returns logical of which ties
 are mutual/reciprocated
 
 \item \code{tie_is_bridge}: Returns logical of which ties cut
@@ -63,7 +63,7 @@ node_is_cutpoint(ison_brandes)
 node_is_isolate(ison_brandes)
 tie_is_multiple(ison_marvel_relationships)
 tie_is_loop(ison_marvel_relationships)
-tie_is_reciprocal(ison_algebra)
+tie_is_reciprocated(ison_algebra)
 tie_is_bridge(ison_brandes)
 }
 \seealso{
