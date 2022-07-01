@@ -276,26 +276,25 @@ NULL
 #' @usage data(mpn_UK_2008)
 "mpn_UK_2008"
 
-# Trade relations ####
+# COW ####
 
-#' One-mode matrix representing the trade relations between 116 states. The data
-#' is derived from the Correlates of War Project (COW) Trade Dataset (v3.0),
+#' One-mode trade relations between states and two-mode state membership in IGOs (COW)
+#'
+#' @details 
+#' `mpn_cow_trade` is a one-mode matrix representing the trade relations between 116 states. 
+#' The data is derived from the Correlates of War Project (COW) Trade Dataset (v3.0),
 #' which contains the annual dyadic and national trade figures for states (listed in COW)
 #' between 1870 to 2009. This network is based only on the dyadic trade figures in 2009 for the
-#' 116 states listed in Appendix 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
+#' 116 states listed in Appendix 7.1 in 
+#' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
 #' (Knoke et al., 2021). The value in each cell of the matrix represents the value of
 #' exports from the 116 row states to the 116 column states.
 #' 
+#' @name mpn_cow
 #' @docType data
 #' @keywords datasets
-#' @name mpn_cow_trade
 #' @usage data(mpn_cow_trade)
-#' @source The Correlates of War Project. 2012.
-#' \href{https://correlatesofwar.org/data-sets/bilateral-trade}{\emph{Trade}}.
-#' 
-#' Barbieri, Katherine and Omar Keshk. 2012. 
-#' \href{http://correlatesofwar.org.}{\emph{Correlates of War Project Trade Data Set Codebook, Version 3.0.}}.
-#' 
+#' @references 
 #' Barbieri, Katherine, Omar M. G. Keshk, and Brian Pollins. 2009.
 #' “TRADING DATA: Evaluating our Assumptions and Coding Rules.” 
 #' _Conflict Management and Peace Science_ 26(5): 471-491.
@@ -304,36 +303,35 @@ NULL
 #' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
 #' Cambridge University Press. Cambridge University Press.
+#' @source 
+#' The Correlates of War Project. 2012.
+#' \href{https://correlatesofwar.org/data-sets/bilateral-trade}{\emph{Trade}}.
+#' 
+#' Barbieri, Katherine and Omar Keshk. 2012. 
+#' \href{http://correlatesofwar.org.}{\emph{Correlates of War Project Trade Data Set Codebook, Version 3.0.}}.
 #' @format 
 #'   ```{r, echo = FALSE}
 #'   mpn_cow_trade
 #'   ```
 "mpn_cow_trade"
 
-# IGO membership ####
-
+#' @rdname mpn_cow
+#' @details 
 #' Two-mode matrix representing the membership of 116 states to 40 intergovernmental organizations (IGOs).
 #' The data is derived from the Correlates of War Project (COW) Intergovernmental Organizations Dataset (v3.0),
 #' which contains information about intergovernmental organizations from 1815-2014, such as founding year and membership.
 #' This network contains only a subset of the states and IGOs listed in COW, with 116 states listed in Appendix 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
 #' and 40 IGOs from Table 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
 #' that also overlap with the COW dataset (Knoke et al., 2021).
-#' 
-#' @docType data
-#' @keywords datasets
-#' @name mpn_cow_igo
 #' @usage data(mpn_cow_igo)
-#' @source The Correlates of War Project. 2019.
+#' @source 
+#' The Correlates of War Project. 2019.
 #' \href{https://correlatesofwar.org/data-sets/IGOs}{\emph{Intergovernmental Organization v3}}.
-#' 
+#' @references 
 #' Pevehouse, Jon C.W., Timothy Nordstron, Roseanne W McManus, Anne Spencer Jamison. 2020.
 #' “Tracking Organizations in the World: The Correlates of War IGO Version 3.0 datasets”.
 #' _Journal of Peace Research_ 57(3): 492-503.
 #' \doi{10.1177/0022343319881175}.
-#' 
-#' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
-#' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
-#' Cambridge University Press. Cambridge University Press.
 #' @format 
 #'   ```{r, echo = FALSE}
 #'   mpn_cow_igo
