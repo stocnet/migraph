@@ -33,9 +33,9 @@ tie_is_loop <- function(object){
 #'   are mutual/reciprocated
 #' @importFrom igraph which_mutual
 #' @examples 
-#' tie_is_reciprocal(ison_algebra)
+#' tie_is_reciprocated(ison_algebra)
 #' @export
-tie_is_reciprocal <- function(object){
+tie_is_reciprocated <- function(object){
   object <- as_igraph(object) # allow for custom edge selection
   make_tie_mark(igraph::which_mutual(object), object)
 }

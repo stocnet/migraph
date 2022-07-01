@@ -84,9 +84,9 @@ mutate_edges <- function(object, object2, attr_name){
 #' @describeIn defunct Deprecated on 2022-04-05.
 #' @export
 edge_mutual <- function(object){
-  .Deprecated("edge_reciprocal", package = "migraph",
+  .Deprecated("tie_is_reciprocated", package = "migraph",
               old = "edge_mutual")
-  edge_reciprocal(object = object)
+  tie_is_reciprocated(object = object)
 }
 
 #' @describeIn defunct Deprecated on 2022-05-27.
