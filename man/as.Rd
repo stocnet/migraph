@@ -9,15 +9,15 @@
 \alias{as_network}
 \title{Coercion between migraph-compatible object classes}
 \usage{
-as_edgelist(object)
+as_edgelist(object, twomode = FALSE)
 
-as_matrix(object)
+as_matrix(object, twomode = FALSE)
 
 as_igraph(object, twomode = FALSE)
 
 as_tidygraph(object, twomode = FALSE)
 
-as_network(object)
+as_network(object, twomode = FALSE)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
