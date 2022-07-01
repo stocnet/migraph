@@ -1,0 +1,177 @@
+---
+title: "Workshop: Centrality"
+author: "James Hollway"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Workshop: Centrality}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Setting up
+The data we're going to use in this exercise is included in the `{migraph}` package.
+To access data stored in the package, simply run the `data()` function
+specifying the name of the dataset and the package in which it is stored.
+```{r setup}
+library(migraph)
+# load data
+data("mpn_cow_igo", package = "migraph")
+force(mpn_cow_igo) # some systems require this step to load the data as an object in the environment
+
+igonet <- mpn_cow_igo # we can also store the object with a new name in the environment by assigning it to a new object using '<-'
+```
+Note that you do not need to load the package using `library()` to get the data.
+If you would like to import external data, `{migraph}` also includes several functions that help 
+read from (import) and write to (export) network data, such as `read_edgelist()` and
+`read_ucinet()`. To learn more about these functions, you can access the help file by
+entering `?read_edgelist` in the console.
+
+The network we are using for this exercise is a two-mode, undirected, and named network of 116 states' memberships in 40 intergovernmental organisations (IGOs) with information derived from the Correlates of War Project (COW) Intergovernmental Organization v3.0 dataset,
+and is a partial replication of the IGO data used in Chapter 7 of the book
+[*Multimodal Political Networks*](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128) (Knoke et al., 2021).
+
+# Calculating different centrality measures
+
+This dataset is in a matrix format,
+but `{migraph}` makes it easy to coerce this into other forms
+to be compatible with other packages.
+
+```{r coercion}
+(graph <- as_igraph(mpn_cow_igo))
+autographr(graph)
+```
+
+Let's start with calculating degree, as it is easy to calculate yourself.
+Just sum the rows or columns of the matrix!
+
+```{r degreesum}
+rowSums(mpn_cow_igo) == colSums(mpn_cow_igo)
+print(node_degree(mpn_cow_igo)) # prints results to console
+sort(node_degree(mpn_cow_igo), decreasing = TRUE)
+```
+
+As this is an incidence matrix for a two-mode network, the row sums and column sums are not equal.
+Instead, we can use `node_degree()`, which automatically calculates and normalizes
+the degree centrality of each node. In this example, the UN has the highest degree centrality,
+given the (nearly) universal nature of its membership compared to other IGOs.
+
+Often we are interested in the distribution of (degree) centrality in a network.
+`{migraph}` offers a way to get a pretty good first look at this distribution,
+though there are more elaborate ways to do this in base and grid graphics.
+
+```{r distrib}
+plot(node_degree(mpn_cow_igo), "h") +
+  plot(node_degree(mpn_cow_igo), "d")
+```
+
+Other measures of centrality can be a little trickier to calculate by hand.
+Fortunately, we can use functions from `{migraph}` to help:
+
+```{r micent}
+node_betweenness(mpn_cow_igo)
+node_closeness(mpn_cow_igo)
+node_eigenvector(mpn_cow_igo)
+```
+
+Note that all centrality measures in `{migraph}` return normalized
+scores by default -- 
+for the raw scores, just add `normalized = FALSE` as an extra argument.
+
+There are an enormous number of centrality measures available
+in R across a range of packages.
+In addition to the main four used here, `{igraph}` includes:
+
+```
+graph.strength()
+alpha_centrality()
+power_centrality()
+page_rank()
+eccentricity()
+hub_score()
+authority_score()
+subgraph_centrality()
+```
+
+`{sna}` implements most of these too, plus a few extra:
+
+```
+flowbet()
+loadcent()
+gilschmidt()
+infocent()
+stresscent()
+```
+
+There are also some dedicated centrality packages,
+such as [centiserve](https://www.centiserver.org/),
+`{CINNA}`, `{influenceR}`, and `{keyplayer}`.
+There are also pretty exhaustive [discussions of this online](https://www.r-bloggers.com/2018/12/network-centrality-in-r-an-introduction/).
+
+# Plotting different centrality measures
+
+The `autographr()` function in `{migraph}` can also plot our network 
+and highlight the node with the maximum centrality (e.g. degree) score.
+We can choose which measure to highlight,
+and even which node to identify in red as the maximum (by default),
+minimum, or some other function to single out a node.
+
+```{r ggid}
+autographr(mpn_cow_igo, highlight_measure = "node_degree") +
+autographr(mpn_cow_igo, highlight_measure = "node_betweenness")
+autographr(mpn_elite_mex, highlight_measure = "node_degree") +
+autographr(mpn_elite_mex, highlight_measure = "node_betweenness")
+autographr(mpn_cow_igo, highlight_measure = "node_closeness") +
+autographr(mpn_cow_igo, highlight_measure = "node_eigenvector")
+```
+
+How neat!
+
+# Calculating centralization
+
+`{migraph}` also implements centralization functions.
+Here we are no longer interested in the level of the node,
+but in the level of the whole graph, so the syntax is:
+
+```{r centzn}
+graph_degree(mpn_cow_igo)
+graph_betweenness(mpn_cow_igo)
+graph_closeness(mpn_cow_igo)
+graph_eigenvector(mpn_cow_igo)
+```
+
+By default, scores are printed to 3 decimal places,
+but this can be modified and, in any case, 
+the unrounded values are retained internally and passed on.
+
+Note that for centralization in two-mode networks,
+two values are given (as a named vector), one for each mode,
+since normalization typically depends on the (asymmetric)
+number of nodes in each mode.
+
+What if we want to have a single image/figure with multiple plots?
+This can be a little tricky with gg-based plots,
+but fortunately the `{patchwork}` package is here to help.
+To illustrate how this is done, we use a smaller network,
+the `mpn_elite_mex` data in the package.
+This data is a network of 35 members of the Mexican power elite,
+connecting actors based on formal, informal, or organizational relation.
+
+```{r multiplot}
+gd <- autographr(mpn_elite_mex, highlight_measure = "node_degree") + 
+  ggtitle("Degree", subtitle = round(graph_degree(mpn_elite_mex), 2))
+gc <- autographr(mpn_elite_mex, highlight_measure = "node_closeness") + 
+  ggtitle("Closeness", subtitle = round(graph_closeness(mpn_elite_mex), 2))
+gb <- autographr(mpn_elite_mex, highlight_measure = "node_betweenness") + 
+  ggtitle("Betweenness", subtitle = round(graph_betweenness(mpn_elite_mex), 2))
+ge <- autographr(mpn_elite_mex, highlight_measure = "node_eigenvector") + 
+  ggtitle("Eigenvector", subtitle = round(graph_eigenvector(mpn_elite_mex), 2))
+(gd | gb) / (gc | ge)
+# ggsave("centralities.pdf")
+```
