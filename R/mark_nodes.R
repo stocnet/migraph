@@ -44,10 +44,11 @@ node_is_max <- function(node_measure){
   if(!inherits(node_measure, "node_measure"))
     stop("This function expects an object of class `node_measure`")
   if(any(attr(node_measure, "mode"))){
-    out <- c(as.numeric(node_measure[!attr(node_measure, "mode")]) == 
-               max(as.numeric(node_measure[!attr(node_measure, "mode")])),
-             as.numeric(node_measure[attr(node_measure, "mode")]) == 
-               max(as.numeric(node_measure[attr(node_measure, "mode")])))
+    out <- data.frame(meas = as.numeric(node_measure),
+               mode = attr(node_measure, "mode"),
+               max1 = max(as.numeric(node_measure)[!attr(node_measure, "mode")]),
+               max2 = max(as.numeric(node_measure)[attr(node_measure, "mode")]))
+    out <- out$meas == ifelse(out$mode, out$max2, out$max1)
   } else {
     out <- as.numeric(node_measure) == max(as.numeric(node_measure))
   }
@@ -65,10 +66,11 @@ node_is_min <- function(node_measure){
   if(!inherits(node_measure, "node_measure"))
     stop("This function expects an object of class `node_measure`")
   if(any(attr(node_measure, "mode"))){
-    out <- c(as.numeric(node_measure[!attr(node_measure, "mode")]) == 
-               min(as.numeric(node_measure[!attr(node_measure, "mode")])),
-             as.numeric(node_measure[attr(node_measure, "mode")]) == 
-               min(as.numeric(node_measure[attr(node_measure, "mode")])))
+    out <- data.frame(meas = as.numeric(node_measure),
+                      mode = attr(node_measure, "mode"),
+                      min1 = min(as.numeric(node_measure)[!attr(node_measure, "mode")]),
+                      min2 = min(as.numeric(node_measure)[attr(node_measure, "mode")]))
+    out <- out$meas == ifelse(out$mode, out$min2, out$min1)
   } else {
     out <- as.numeric(node_measure) == min(as.numeric(node_measure))
   }
