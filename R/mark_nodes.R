@@ -1,15 +1,3 @@
-#' Logical whether nodes meet some criteria
-#' 
-#' These functions identify which nodes in a network meet some criteria,
-#' returning a logical vector the length of the nodes in a network.
-#' Such functions are often useful for identifying nodes 
-#' that are particularly well- or poorly-connected.
-#' @return TRUE if the condition is met, or FALSE otherwise.
-#' @inheritParams is
-#' @family marks
-#' @name mark
-NULL
-
 #' @describeIn mark Returns logical of which nodes cut
 #'   or act as articulation points in a network,
 #'   increasing the number of connected components in a graph when removed.

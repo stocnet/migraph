@@ -1,10 +1,9 @@
-#' Logical whether ties meet some criteria
+#' Logical whether nodes or ties meet some criteria
 #' 
-#' These functions identify which ties in a network meet some criteria,
-#' returning a logical vector the length of the ties in a network.
-#' Such functions are often useful for identifying ties 
+#' These functions return logical vectors of the length of the 
+#' nodes or ties in a network identifying which meet some criteria.
+#' Such functions are often useful for identifying nodes or ties 
 #' that are particularly well- or poorly-connected.
-#' @return TRUE if the condition is met, or FALSE otherwise.
 #' @inheritParams is
 #' @family marks
 #' @name mark
