@@ -188,20 +188,20 @@ autographr <- auto_graph <- function(object,
     nsize <- ifelse(graph_nodes(g) <= 10, 5, (100 / graph_nodes(g)) / 2)
   }
   # Add node highlighting if relevant ----
-  if (any(grepl("node", highlight_measure))) {
-    # Measure; needs to be a node level measure
-    nm <- node_measure[[1]]
-    nm_if <- node_identify_measure[[1]]
-    measure <- nm(g)
-    # Add as attribute
-    g <- add_node_attributes(g, "highlight_measure_node",
-                             ifelse(measure == nm_if(measure),
-                                    gsub(pattern = '.*["]([^.]+)["].*', "\\1",
-                                         deparse(identify_function)), "other"))
-    # Let the rest of the function know that it needs to color things according
-    # to the highlight_measure attribute.
-    node_color <- "highlight_measure_node"
-  }
+  # if (any(grepl("node", highlight_measure))) {
+  #   # Measure; needs to be a node level measure
+  #   nm <- node_measure[[1]]
+  #   nm_if <- node_identify_measure[[1]]
+  #   measure <- nm(g)
+  #   # Add as attribute
+  #   g <- add_node_attributes(g, "highlight_measure_node",
+  #                            ifelse(measure == nm_if(measure),
+  #                                   gsub(pattern = '.*["]([^.]+)["].*', "\\1",
+  #                                        deparse(identify_function)), "other"))
+  #   # Let the rest of the function know that it needs to color things according
+  #   # to the highlight_measure attribute.
+  #   node_color <- "highlight_measure_node"
+  # }
   # Add nodes ----
   if (!is.null(node_shape)) {
     node_shape <- as.factor(igraph::get.vertex.attribute(g, node_shape))
@@ -220,7 +220,8 @@ autographr <- auto_graph <- function(object,
                                size = nsize,
                                shape = node_shape) +
         ggplot2::scale_colour_brewer(palette = "Set1",
-                            guide = "none")
+                                     direction = -1,
+                                     guide = "none")
     } else {
       p <- p + ggraph::geom_node_point(size = nsize,
                                shape = node_shape)
@@ -231,7 +232,9 @@ autographr <- auto_graph <- function(object,
       p <- p + ggraph::geom_node_point(aes(color = color_factor_node),
                                size = nsize,
                                shape = node_shape) +
-        ggplot2::scale_colour_brewer(palette = "Set1", guide = "none")
+        ggplot2::scale_colour_brewer(palette = "Set1",
+                                     direction = -1,
+                                     guide = "none")
     } else {
       p <- p + ggraph::geom_node_point(size = nsize,
                                        shape = node_shape)
