@@ -65,38 +65,39 @@ autographr <- auto_graph <- function(object,
                                      node_group = NULL,
                                      node_shape = NULL,
                                      node_size = NULL,
-                                     highlight_measure = NULL,
-                                     identify_function = "max",
+                                     edge_color = NULL,
+                                     # highlight_measure = NULL,
+                                     # identify_function = "max",
                                      ...) {
   
   name <- weight <- NULL # initialize variables to avoid CMD check notes
   g <- as_tidygraph(object)
   # Get the highlight measure ----
-  if (!is.null(highlight_measure) & !is.null(identify_function)) {
-    # There is something to be highlighted
-    if (length(identify_function) == length(highlight_measure)) {
-      if (any(grepl("node", highlight_measure))) {
-        # List of node measure functions
-        node_measure_name <- highlight_measure[grepl("node", highlight_measure)]
-        node_measure <- lapply(node_measure_name, get)
-        node_identify_name <- identify_function[grepl("node", highlight_measure)]
-        node_identify_measure <- lapply(node_identify_name, get)
-      }
-      if (any(grepl("edge", highlight_measure))) {
-        # List of edge measure functions
-        edge_measure_name <- highlight_measure[grepl("edge", highlight_measure)]
-        edge_measure <- lapply(edge_measure_name, get)
-        edge_identify_name <- identify_function[grepl("edge", highlight_measure)]
-        edge_identify_measure <- lapply(edge_identify_name, get)
-      }
-    } else {
-      stop("If a highlighting measure is specified, an identification function
-           must be specified as well with the same number of elments.")
-    }
-  } else {
-    # Nothing gets highlighted
-    highlight_measure <- "NA"
-  }
+  # if (!is.null(highlight_measure) & !is.null(identify_function)) {
+  #   # There is something to be highlighted
+  #   if (length(identify_function) == length(highlight_measure)) {
+  #     if (any(grepl("node", highlight_measure))) {
+  #       # List of node measure functions
+  #       node_measure_name <- highlight_measure[grepl("node", highlight_measure)]
+  #       node_measure <- lapply(node_measure_name, get)
+  #       node_identify_name <- identify_function[grepl("node", highlight_measure)]
+  #       node_identify_measure <- lapply(node_identify_name, get)
+  #     }
+  #     if (any(grepl("edge", highlight_measure))) {
+  #       # List of edge measure functions
+  #       edge_measure_name <- highlight_measure[grepl("edge", highlight_measure)]
+  #       edge_measure <- lapply(edge_measure_name, get)
+  #       edge_identify_name <- identify_function[grepl("edge", highlight_measure)]
+  #       edge_identify_measure <- lapply(edge_identify_name, get)
+  #     }
+  #   } else {
+  #     stop("If a highlighting measure is specified, an identification function
+  #          must be specified as well with the same number of elments.")
+  #   }
+  # } else {
+  #   # Nothing gets highlighted
+  #   highlight_measure <- "NA"
+  # }
   # Add layout ----
   lo <- ggraph::create_layout(g, layout)
   if ("graph" %in% names(attributes(lo))) {
@@ -108,41 +109,41 @@ autographr <- auto_graph <- function(object,
   }
   p <- ggraph::ggraph(lo) + ggplot2::theme_void()
   # Add Edge Highlight Attribute if relevant ----
-  if (any(grepl("edge", highlight_measure))) {
-    # Measure; needs to be an edge level measure
-    em <- edge_measure[[1]]
-    em_if <- edge_identify_measure[[1]]
-    measure <- em(g)
-    # Add as attribute
-    g <- add_tie_attributes(g, "highlight_measure_edge",
-                             ifelse(measure == em_if(measure),
-                                    gsub(pattern = '.*["]([^.]+)["].*', "\\1",
-                                         deparse(identify_function)), "other"))
-    # Let the rest of the function know that it needs to color things according
-    # to the highlight_measure attribute.
-    edge_color <- "highlight_measure_edge"
-  }  
+  # if (any(grepl("edge", highlight_measure))) {
+  #   # Measure; needs to be an edge level measure
+  #   em <- edge_measure[[1]]
+  #   em_if <- edge_identify_measure[[1]]
+  #   measure <- em(g)
+  #   # Add as attribute
+  #   g <- add_tie_attributes(g, "highlight_measure_edge",
+  #                            ifelse(measure == em_if(measure),
+  #                                   gsub(pattern = '.*["]([^.]+)["].*', "\\1",
+  #                                        deparse(identify_function)), "other"))
+  #   # Let the rest of the function know that it needs to color things according
+  #   # to the highlight_measure attribute.
+  #   edge_color <- "highlight_measure_edge"
+  # }
   # Add edges ----
   if (is_signed(g)) {
     edge_linetype <- ifelse(igraph::E(g)$sign >= 0, "solid", "dashed")
-    edge_colour <- ifelse(igraph::E(g)$sign >= 0, "#0072B2", "#E20020")
-    } else if (any(grepl("edge", highlight_measure))) {
-      edge_colour <- ifelse(igraph::E(g)$highlight_measure_edge != "other",
-                            "#E20020", "#0072B2")
+    edge_color <- ifelse(igraph::E(g)$sign >= 0, "#0072B2", "#E20020")
+    } else if (!is.null(edge_color)) {
+      edge_color <- as.factor(igraph::get.edge.attribute(g, edge_color))
+      edge_color <- ifelse(edge_color != levels(edge_color)[1], "#e41a1c", "#377eb8")
       edge_linetype <- "solid"
     } else if (igraph::gsize(g) == 0) {
       # Edge case where there are no edges
       edge_linetype <- NULL
-      edge_colour <- NULL
+      edge_color <- NULL
     } else {
       edge_linetype <- "solid"
-      edge_colour <- "black"
+      edge_color <- "black"
   }
   # Begin plotting edges in various cases ----
   if (is_directed(g)) {
     if (is_weighted(g)) {
       p <- p + ggraph::geom_edge_link(ggplot2::aes(width = weight,
-                                                   colour = edge_colour),
+                                                   colour = edge_color),
                                       edge_alpha = 0.4,
                                       edge_linetype = edge_linetype,
                                       arrow = ggplot2::arrow(angle = 15,
@@ -152,7 +153,7 @@ autographr <- auto_graph <- function(object,
         ggraph::scale_edge_width_continuous(range = c(0.2, 2.5), 
                                             guide = "none")
     } else {
-      p <- p + ggraph::geom_edge_link(ggplot2::aes(colour = edge_colour),
+      p <- p + ggraph::geom_edge_link(ggplot2::aes(colour = edge_color),
                                       edge_alpha = 0.4,
                                       edge_linetype = edge_linetype,
                                       arrow = ggplot2::arrow(angle = 15,
@@ -163,13 +164,13 @@ autographr <- auto_graph <- function(object,
   } else {
     if (is_weighted(g)) {
       p <- p + ggraph::geom_edge_link0(ggplot2::aes(width = weight,
-                                                    colour = edge_colour),
+                                                    colour = edge_color),
                                        edge_linetype = edge_linetype,
                                        edge_alpha = 0.4) + 
         ggraph::scale_edge_width_continuous(range = c(.2, 1),
                                     guide = "none")
     } else {
-      p <- p + ggraph::geom_edge_link0(ggplot2::aes(colour = edge_colour),
+      p <- p + ggraph::geom_edge_link0(ggplot2::aes(colour = edge_color),
                                        edge_linetype = edge_linetype,
                                        edge_alpha = 0.4)
     }
