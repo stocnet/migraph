@@ -1,4 +1,4 @@
-#' Reading from/writing to external formats
+#' Make networks from/to external formats
 #'
 #' @description 
 #' Researchers regularly need to work with a variety of external data formats.

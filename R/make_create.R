@@ -1,4 +1,4 @@
-#' Create networks with particular structures
+#' Make networks with defined structures
 #' 
 #' @description 
 #'   These functions create networks with particular structural properties.

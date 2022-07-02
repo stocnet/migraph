@@ -10,7 +10,7 @@
 \alias{create_lattice}
 \alias{create_components}
 \alias{create_core}
-\title{Create networks with particular structures}
+\title{Make networks with defined structures}
 \usage{
 create_empty(n)
 

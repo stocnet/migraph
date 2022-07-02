@@ -101,8 +101,8 @@ for how clustering is calculated
 Other measures: 
 \code{\link{centralisation}},
 \code{\link{centrality}},
+\code{\link{closure}},
 \code{\link{cohesion}()},
-\code{\link{connectedness}},
 \code{\link{diversity}},
 \code{\link{holes}}
 }

@@ -63,8 +63,8 @@ graph_eigenvector(ison_southern_women)
 \seealso{
 Other measures: 
 \code{\link{centrality}},
+\code{\link{closure}},
 \code{\link{cohesion}()},
-\code{\link{connectedness}},
 \code{\link{diversity}},
 \code{\link{features}},
 \code{\link{holes}}

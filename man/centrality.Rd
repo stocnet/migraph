@@ -155,8 +155,8 @@ and \code{\link[=to_unweighted]{to_unweighted()}} for removing weights from a gr
 
 Other measures: 
 \code{\link{centralisation}},
+\code{\link{closure}},
 \code{\link{cohesion}()},
-\code{\link{connectedness}},
 \code{\link{diversity}},
 \code{\link{features}},
 \code{\link{holes}}

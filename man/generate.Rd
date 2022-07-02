@@ -6,7 +6,7 @@
 \alias{generate_smallworld}
 \alias{generate_scalefree}
 \alias{generate_permutation}
-\title{Create networks from particular probabilities}
+\title{Make networks with a stochastic element}
 \usage{
 generate_random(n, p = 0.5, directed = FALSE, with_attr = TRUE)
 

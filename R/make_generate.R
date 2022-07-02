@@ -1,4 +1,4 @@
-#' Create networks from particular probabilities
+#' Make networks with a stochastic element
 #' 
 #' @description These functions are similar to the `create_*` functions,
 #'   but include some element of randomisation. 
