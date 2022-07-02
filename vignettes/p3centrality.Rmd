@@ -17,7 +17,8 @@ knitr::opts_chunk$set(
 
 # Calculating different centrality measures
 
-For this exercise, we'll use the `ison_brandes` dataset.
+For this exercise, we'll use the `ison_brandes` and `ison_brandes2` datasets.
+The `ison_brandes2` is a two-mode version of the `ison_brandes` dataset.
 This dataset is in a 'tidygraph' format, 
 but migraph makes it easy to coerce this into other forms
 to be compatible with other packages.
@@ -26,6 +27,7 @@ to be compatible with other packages.
 library(migraph)
 (mat <- as_matrix(ison_brandes))
 autographr(ison_brandes)
+ison_brandes <- to_named(ison_brandes) # name the network
 ```
 
 Let's start with calculating degree, as it is easy to calculate yourself.
@@ -62,49 +64,27 @@ Note that all centrality measures in `{migraph}` return normalized
 scores by default -- 
 for the raw scores, just add `normalized = FALSE` as an extra argument.
 
-There are an enormous number of centrality measures available
-in R across a range of packages.
-In addition to the main four used here, `{igraph}` includes:
-
-```
-graph.strength()
-alpha_centrality()
-power_centrality()
-page_rank()
-eccentricity()
-hub_score()
-authority_score()
-subgraph_centrality()
-```
-
-`{sna}` implements most of these too, plus a few extra:
-
-```
-flowbet()
-loadcent()
-gilschmidt()
-infocent()
-stresscent()
-```
-
-There are also some dedicated centrality packages,
-such as [centiserve](https://www.centiserver.org/),
-`{CINNA}`, `{influenceR}`, and `{keyplayer}`.
-There are also pretty exhaustive [discussions of this online](https://www.r-bloggers.com/2018/12/network-centrality-in-r-an-introduction/).
-
 # Plotting different centrality measures
 
 There is also a function in `{migraph}` that plots our network 
-and highlights the node with the maximum (e.g. degree) score.
+and highlights the node with the maximum xentrality (e.g. degree) score.
 We can choose which measure to highlight,
-and even which node to identify in red as the maximum (by default),
-minimum, or some other function to single out a node.
+and even which node to identify in red -- either the maximum (use `node_is_max()`)
+or the minimum (use `node_is_min()`), or some other function to single out a node.
 
 ```{r ggid}
-autographr(ison_brandes, highlight_measure = "node_degree") +
-autographr(ison_brandes, highlight_measure = "node_betweenness")
-autographr(ison_brandes, highlight_measure = "node_closeness") +
-autographr(ison_brandes, highlight_measure = "node_eigenvector")
+ison_brandes %>%
+  add_node_attributes("color", node_is_max(node_degree(ison_brandes))) %>%
+  autographr(node_color = "color")
+ison_brandes %>%
+  add_node_attributes("color", node_is_max(node_betweenness(ison_brandes))) %>%
+  autographr(node_color = "color")
+ison_brandes %>%
+  add_node_attributes("color", node_is_min(node_closeness(ison_brandes))) %>%
+  autographr(node_color = "color")
+ison_brandes %>%
+  add_node_attributes("color", node_is_min(node_eigenvector(ison_brandes))) %>%
+  autographr(node_color = "color")
 ```
 
 How neat!
@@ -120,10 +100,6 @@ graph_degree(ison_brandes)
 graph_betweenness(ison_brandes)
 graph_closeness(ison_brandes)
 graph_eigenvector(ison_brandes)
-graph_degree(ison_southern_women)
-graph_betweenness(ison_southern_women)
-graph_closeness(ison_southern_women)
-graph_eigenvector(ison_southern_women)
 ```
 
 By default, scores are printed to 3 decimal places,
@@ -140,23 +116,25 @@ This can be a little tricky with gg-based plots,
 but fortunately the `{patchwork}` package is here to help.
 
 ```{r multiplot}
-gd <- autographr(ison_brandes, highlight_measure = "node_degree") + 
+ison_brandes <- ison_brandes %>%
+  add_node_attributes("degree", node_is_max(node_degree(ison_brandes))) %>%
+  add_node_attributes("betweenness", node_is_max(node_betweenness(ison_brandes))) %>%
+  add_node_attributes("closeness", node_is_max(node_closeness(ison_brandes))) %>%
+  add_node_attributes("eigenvector", node_is_max(node_eigenvector(ison_brandes)))
+gd <- autographr(ison_brandes, node_color = "degree") + 
   ggtitle("Degree", subtitle = round(graph_degree(ison_brandes), 2))
-gc <- autographr(ison_brandes, highlight_measure = "node_closeness") + 
+gc <- autographr(ison_brandes, node_color = "closeness") + 
   ggtitle("Closeness", subtitle = round(graph_closeness(ison_brandes), 2))
-gb <- autographr(ison_brandes, highlight_measure = "node_betweenness") + 
+gb <- autographr(ison_brandes, node_color = "betweenness") + 
   ggtitle("Betweenness", subtitle = round(graph_betweenness(ison_brandes), 2))
-ge <- autographr(ison_brandes, highlight_measure = "node_eigenvector") + 
+ge <- autographr(ison_brandes, node_color = "eigenvector") + 
   ggtitle("Eigenvector", subtitle = round(graph_eigenvector(ison_brandes), 2))
 (gd | gb) / (gc | ge)
 # ggsave("brandes-centralities.pdf")
 ```
 
 # Tasks
-
-1. Import the drugnet data from Moodle
-(Since it is an RData file, you can just load it).
-`load("drugnet.RData")`
+1. Try this with the `ison_brandes2` dataset in the package.
 
 2. Name a plausible research question you could ask of this data
 for each of the four main centrality measures
