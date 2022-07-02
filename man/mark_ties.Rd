@@ -6,6 +6,8 @@
 \alias{tie_is_loop}
 \alias{tie_is_reciprocated}
 \alias{tie_is_bridge}
+\alias{tie_is_max}
+\alias{tie_is_min}
 \title{Logical tests of tie properties}
 \usage{
 tie_is_multiple(object)
@@ -15,6 +17,10 @@ tie_is_loop(object)
 tie_is_reciprocated(object)
 
 tie_is_bridge(object)
+
+tie_is_max(tie_measure)
+
+tie_is_min(tie_measure)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -25,6 +31,8 @@ tie_is_bridge(object)
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
+
+\item{tie_measure}{An object created by a \code{tie_} measure.}
 }
 \description{
 These functions return logical vectors the length of the ties
@@ -43,6 +51,12 @@ are mutual/reciprocated
 
 \item \code{tie_is_bridge}: Returns logical of which ties cut
 or act as articulation points in a network.
+
+\item \code{tie_is_max}: Returns logical of which ties
+hold the maximum of some measure
+
+\item \code{tie_is_min}: Returns logical of which ties
+hold the minimum of some measure
 }}
 
 \examples{
@@ -50,6 +64,8 @@ tie_is_multiple(ison_marvel_relationships)
 tie_is_loop(ison_marvel_relationships)
 tie_is_reciprocated(ison_algebra)
 tie_is_bridge(ison_brandes)
+tie_is_max(tie_betweenness(ison_brandes))
+tie_is_min(tie_betweenness(ison_brandes))
 }
 \seealso{
 Other marks: 

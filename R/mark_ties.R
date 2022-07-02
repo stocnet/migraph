@@ -56,3 +56,26 @@ tie_is_bridge <- function(object){
     names(out) <- attr(igraph::E(object), "vnames")
   make_tie_mark(out, object)
 }
+
+#' @describeIn mark_ties Returns logical of which ties 
+#'   hold the maximum of some measure
+#' @param tie_measure An object created by a `tie_` measure.
+#' @examples 
+#' tie_is_max(tie_betweenness(ison_brandes))
+#' @export
+tie_is_max <- function(tie_measure){
+  out <- as.numeric(tie_measure) == max(as.numeric(tie_measure))
+  class(out) <- c("tie_mark", class(out))
+  out
+}
+
+#' @describeIn mark_ties Returns logical of which ties 
+#'   hold the minimum of some measure
+#' @examples 
+#' tie_is_min(tie_betweenness(ison_brandes))
+#' @export
+tie_is_min <- function(tie_measure){
+  out <- as.numeric(tie_measure) == min(as.numeric(tie_measure))
+  class(out) <- c("tie_mark", class(out))
+  out
+}
