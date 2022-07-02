@@ -31,21 +31,6 @@ Note that you do not need to load the package using `library()` to get the data.
 Now you know how to create new matrices in R, load .csv files, 
 saved .RData files, and data from packages!
 
-## Naming anonymous networks
-
-The network is anonymous, but I think it would be nice to add some names,
-even if it's just pretend. 
-Luckily, `{migraph}` has a function for this.
-This makes plotting the network just a wee bit more accessible and interpretable:
-
-```{r addingnames}
-ison_algebra <- to_named(ison_algebra)
-autographr(ison_algebra)
-```
-
-Note that you will likely get a different set of names,
-as they are assigned randomly from a pool of (American) first names.
-
 ## Separating multiplex networks
 
 As a multiplex network, 
@@ -53,11 +38,11 @@ there are actually three different types of tie in this network.
 We can extract them and investigate them separately using `to_uniplex()`:
 
 ```{r separatingnets}
-(friends <- to_uniplex(ison_algebra, "friend_tie"))
+(friends <- to_uniplex(ison_algebra, "friends"))
 gfriend <- autographr(friends) + ggtitle("Friendship")
-(social <- to_uniplex(ison_algebra, "social_tie"))
+(social <- to_uniplex(ison_algebra, "social"))
 gsocial <- autographr(social) + ggtitle("Social")
-(tasks <- to_uniplex(ison_algebra, "task_tie"))
+(tasks <- to_uniplex(ison_algebra, "tasks"))
 gtask <- autographr(tasks) + ggtitle("Task")
 gfriend + gsocial + gtask
 ```
@@ -94,8 +79,7 @@ about where innovation might occur within this network?
 Now we are going to identify and interpret the roles
 or relations between a set of structurally equivalent positions.
 We're going to identify structurally equivalent positions
-across all the data that we have, including 'task', 'social', and 'friend' ties,
-but the unit test this week will ask you to run this on a uniplex version of this network.
+across all the data that we have, including 'task', 'social', and 'friend' ties.
 
 ## Finding structurally equivalent classes
 
@@ -308,7 +292,7 @@ By default it takes the average of ties (values),
 but this can be tweaked by assigning some other summary statistic as `FUN = `.
 
 ```{r summ}
-summary(node_tie_census(ison_algebra), 
+summary(node_tie_census(ison_algebra),
         membership = str_clu)
 ```
 
@@ -360,12 +344,12 @@ autographr(bm)
 
 # Unit Test
 
-1. Visualise the m182 FRIENDSHIP network, 
+1. Visualise the `ison_algebra` Friends network, 
 sizing the vertices by constraint and identifying the structural hole
 What would being in a structural hole mean here?
+
 2. Plot labelled, reduced graph of REGULARLY equivalent classes 
-on friendship network only 
-and interpret
+on the `mpn_elite_usa_advice` network and interpret
+
 3. Plot labelled, reduced graph of AUTOMORPHICALLY equivalent classes 
-on task network only
-and interpret
+on the `mpn_elite_usa_advice` network only and interpret
