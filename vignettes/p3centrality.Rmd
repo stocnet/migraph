@@ -27,8 +27,20 @@ to be compatible with other packages.
 library(migraph)
 (mat <- as_matrix(ison_brandes))
 autographr(ison_brandes)
-ison_brandes <- to_named(ison_brandes) # name the network
 ```
+
+The network is anonymous, but I think it would be nice to add some names,
+even if it's just pretend. 
+Luckily, `{migraph}` has a function for this.
+This makes plotting the network just a wee bit more accessible and interpretable:
+
+```{r addingnames}
+ison_brandes <- to_named(ison_brandes)
+autographr(ison_brandes)
+```
+
+Note that you will likely get a different set of names,
+as they are assigned randomly from a pool of (American) first names.
 
 Let's start with calculating degree, as it is easy to calculate yourself.
 Just sum the rows or columns of the matrix!
