@@ -3,6 +3,8 @@
 \name{node_is_cutpoint}
 \alias{node_is_cutpoint}
 \alias{node_is_isolate}
+\alias{node_is_max}
+\alias{node_is_min}
 \alias{mark}
 \alias{tie_is_multiple}
 \alias{tie_is_loop}
@@ -13,6 +15,10 @@
 node_is_cutpoint(object)
 
 node_is_isolate(object)
+
+node_is_max(node_measure)
+
+node_is_min(node_measure)
 
 tie_is_multiple(object)
 
@@ -31,6 +37,8 @@ tie_is_bridge(object)
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
+
+\item{node_measure}{An object created by a \code{node_} measure.}
 }
 \description{
 These functions return logical vectors of the length of the
@@ -47,6 +55,12 @@ increasing the number of connected components in a graph when removed.
 \item \code{node_is_isolate}: Returns logical of which nodes are isolates,
 with neither incoming nor outgoing ties.
 
+\item \code{node_is_max}: Returns logical of which nodes
+hold the maximum of some measure
+
+\item \code{node_is_min}: Returns logical of which nodes
+hold the minimum of some measure
+
 \item \code{tie_is_multiple}: Returns logical of which ties are multiples
 
 \item \code{tie_is_loop}: Returns logical of which ties are loops
@@ -61,6 +75,8 @@ or act as articulation points in a network.
 \examples{
 node_is_cutpoint(ison_brandes)
 node_is_isolate(ison_brandes)
+node_is_max(node_degree(ison_brandes))
+node_is_min(node_degree(ison_brandes))
 tie_is_multiple(ison_marvel_relationships)
 tie_is_loop(ison_marvel_relationships)
 tie_is_reciprocated(ison_algebra)

@@ -7,7 +7,7 @@
 \alias{graph_modularity}
 \alias{graph_smallworld}
 \alias{graph_balance}
-\title{Network/topological features}
+\title{Measures of network topological features}
 \source{
 \code{{signnet}} by David Schoch
 }
@@ -40,7 +40,7 @@ By default 1.}
 \item{times}{Integer of number of simulations.}
 }
 \description{
-Network/topological features
+Measures of network topological features
 }
 \section{Functions}{
 \itemize{

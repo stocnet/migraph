@@ -11,7 +11,7 @@
 \alias{node_eigenvector}
 \alias{tie_eigenvector}
 \alias{node_reach}
-\title{Centrality for one- and two-mode networks}
+\title{Measures of node and tie centrality}
 \usage{
 node_degree(object, normalized = TRUE, direction = c("all", "out", "in"))
 

@@ -1,4 +1,4 @@
-#' Centrality for one- and two-mode networks
+#' Measures of node and tie centrality
 #'
 #' @description
 #'   These functions calculate common centrality measures for one- and two-mode networks.
@@ -290,7 +290,7 @@ node_reach <- function(object, normalized = TRUE, k = 2){
   out
 }
 
-#' Centralisation for one- and two-mode networks
+#' Measures of network centralisation
 #' @name centralisation
 #' @family measures
 #' @inheritParams centrality

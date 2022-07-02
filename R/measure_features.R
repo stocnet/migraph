@@ -1,4 +1,4 @@
-#' Network/topological features
+#' Measures of network topological features
 #' @inheritParams is
 #' @param membership A vector of partition membership.
 #' @name features

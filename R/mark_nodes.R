@@ -33,3 +33,46 @@ node_is_isolate <- function(object){
   names(out) <- node_names(object)
   make_node_mark(out, object)
 }
+
+#' @describeIn mark Returns logical of which nodes 
+#'   hold the maximum of some measure
+#' @param node_measure An object created by a `node_` measure.
+#' @examples 
+#' node_is_max(node_degree(ison_brandes))
+#' @export
+node_is_max <- function(node_measure){
+  if(!inherits(node_measure, "node_measure"))
+    stop("This function expects an object of class `node_measure`")
+  if(any(attr(node_measure, "mode"))){
+    out <- c(as.numeric(node_measure[!attr(node_measure, "mode")]) == 
+               max(as.numeric(node_measure[!attr(node_measure, "mode")])),
+             as.numeric(node_measure[attr(node_measure, "mode")]) == 
+               max(as.numeric(node_measure[attr(node_measure, "mode")])))
+  } else {
+    out <- as.numeric(node_measure) == max(as.numeric(node_measure))
+  }
+  names(out) <- attr(node_measure, "names")
+  class(out) <- c("node_mark", class(out))
+  out
+}
+
+#' @describeIn mark Returns logical of which nodes 
+#'   hold the minimum of some measure
+#' @examples 
+#' node_is_min(node_degree(ison_brandes))
+#' @export
+node_is_min <- function(node_measure){
+  if(!inherits(node_measure, "node_measure"))
+    stop("This function expects an object of class `node_measure`")
+  if(any(attr(node_measure, "mode"))){
+    out <- c(as.numeric(node_measure[!attr(node_measure, "mode")]) == 
+               min(as.numeric(node_measure[!attr(node_measure, "mode")])),
+             as.numeric(node_measure[attr(node_measure, "mode")]) == 
+               min(as.numeric(node_measure[attr(node_measure, "mode")])))
+  } else {
+    out <- as.numeric(node_measure) == min(as.numeric(node_measure))
+  }
+  names(out) <- attr(node_measure, "names")
+  class(out) <- c("node_mark", class(out))
+  out
+}

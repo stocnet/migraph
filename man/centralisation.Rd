@@ -6,7 +6,7 @@
 \alias{graph_closeness}
 \alias{graph_betweenness}
 \alias{graph_eigenvector}
-\title{Centralisation for one- and two-mode networks}
+\title{Measures of network centralisation}
 \usage{
 graph_degree(object, normalized = TRUE, direction = c("all", "out", "in"))
 
@@ -40,7 +40,7 @@ between the maximum centrality score for the mode
 against only the centrality scores of the other nodes in that mode.}
 }
 \description{
-Centralisation for one- and two-mode networks
+Measures of network centralisation
 }
 \section{Functions}{
 \itemize{
