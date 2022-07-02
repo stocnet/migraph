@@ -26,17 +26,12 @@
 #' @param node_color Node variable in quotation marks to be used for 
 #'   coloring the nodes. It is easiest if this is added as a node attribute to
 #'   the graph before plotting.
+#' @param edge_color Tie variable in quotation marks to be used for 
+#'   coloring the nodes. It is easiest if this is added as an edge or tie attribute 
+#'   to the graph before plotting.
 #' @param node_group Node variable in quotation marks to be used for
 #'   drawing convex but also concave hulls around clusters of nodes.
 #'   These groupings will be labelled with the categories of the variable passed.
-#' @param highlight_measure String vector of name of the node and/or edge
-#'   level measure function e.g. `node_degree`,  `tie_betweenness`,
-#'   or `c("node_betweenness", "tie_betweenness")`.
-#'   `NULL` by default.
-#' @param identify_function Name of the function used to determine the
-#'   highlighted node e.g. `"max"`, `"min"`, or `c("max", "min")` if
-#'   both edge and node highlighting is performed. 
-#'   `max` by default.
 #' @param ... Extra arguments.
 #' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text
 #' @importFrom ggraph geom_conn_bundle get_con geom_node_point
@@ -45,18 +40,16 @@
 #' @importFrom ggplot2 aes arrow unit scale_color_brewer scale_fill_brewer
 #' @importFrom ggforce geom_mark_hull
 #' @examples
-#' ison_adolescents <- ison_adolescents %>% 
-#'  dplyr::mutate(shape = rep(c("circle", "square"), times = 4)) %>%
-#'  dplyr::mutate(color = rep(c("blue", "red"), times = 4))
-#' autographr(ison_adolescents, node_shape = "shape", node_color = "color")
-#' autographr(ison_karateka, node_size = rep(c(0.8), times = 34))
-#' # Node highlighting:
-#' autographr(ison_adolescents, highlight_measure = "node_betweenness", identify_function = "max")
-#' # Edge highlighting:
-#' autographr(ison_adolescents, highlight_measure = "tie_betweenness", identify_function = "max")
-#' # Both node and edge highlighting:
-#' autographr(ison_adolescents, highlight_measure = c("node_betweenness", 
-#' "tie_betweenness"), identify_function = c("max", "max"))
+#' ison_adolescents %>% 
+#'   mutate(shape = rep(c("circle", "square"), times = 4)) %>%
+#'   mutate(color = rep(c("blue", "red"), times = 4)) %>% 
+#'   autographr(node_shape = "shape", node_color = "color")
+#' autographr(ison_karateka, node_size = 8)
+#' ison_adolescents %>% 
+#'   mutate(high_degree = node_is_max(node_degree())) %>% 
+#'   activate(edges) %>% 
+#'   mutate(high_betweenness = tie_is_max(tie_betweenness(ison_adolescents))) %>% 
+#'   autographr(node_color = "high_degree", edge_color = "high_betweenness")
 #' @export
 autographr <- auto_graph <- function(object,
                                      layout = "stress",
@@ -66,38 +59,11 @@ autographr <- auto_graph <- function(object,
                                      node_shape = NULL,
                                      node_size = NULL,
                                      edge_color = NULL,
-                                     # highlight_measure = NULL,
-                                     # identify_function = "max",
                                      ...) {
   
   name <- weight <- NULL # initialize variables to avoid CMD check notes
   g <- as_tidygraph(object)
-  # Get the highlight measure ----
-  # if (!is.null(highlight_measure) & !is.null(identify_function)) {
-  #   # There is something to be highlighted
-  #   if (length(identify_function) == length(highlight_measure)) {
-  #     if (any(grepl("node", highlight_measure))) {
-  #       # List of node measure functions
-  #       node_measure_name <- highlight_measure[grepl("node", highlight_measure)]
-  #       node_measure <- lapply(node_measure_name, get)
-  #       node_identify_name <- identify_function[grepl("node", highlight_measure)]
-  #       node_identify_measure <- lapply(node_identify_name, get)
-  #     }
-  #     if (any(grepl("edge", highlight_measure))) {
-  #       # List of edge measure functions
-  #       edge_measure_name <- highlight_measure[grepl("edge", highlight_measure)]
-  #       edge_measure <- lapply(edge_measure_name, get)
-  #       edge_identify_name <- identify_function[grepl("edge", highlight_measure)]
-  #       edge_identify_measure <- lapply(edge_identify_name, get)
-  #     }
-  #   } else {
-  #     stop("If a highlighting measure is specified, an identification function
-  #          must be specified as well with the same number of elments.")
-  #   }
-  # } else {
-  #   # Nothing gets highlighted
-  #   highlight_measure <- "NA"
-  # }
+
   # Add layout ----
   lo <- ggraph::create_layout(g, layout)
   if ("graph" %in% names(attributes(lo))) {
@@ -108,21 +74,6 @@ autographr <- auto_graph <- function(object,
     } 
   }
   p <- ggraph::ggraph(lo) + ggplot2::theme_void()
-  # Add Edge Highlight Attribute if relevant ----
-  # if (any(grepl("edge", highlight_measure))) {
-  #   # Measure; needs to be an edge level measure
-  #   em <- edge_measure[[1]]
-  #   em_if <- edge_identify_measure[[1]]
-  #   measure <- em(g)
-  #   # Add as attribute
-  #   g <- add_tie_attributes(g, "highlight_measure_edge",
-  #                            ifelse(measure == em_if(measure),
-  #                                   gsub(pattern = '.*["]([^.]+)["].*', "\\1",
-  #                                        deparse(identify_function)), "other"))
-  #   # Let the rest of the function know that it needs to color things according
-  #   # to the highlight_measure attribute.
-  #   edge_color <- "highlight_measure_edge"
-  # }
   # Add edges ----
   # if (is_signed(g)) {
   #   edge_linetype <- ifelse(igraph::E(g)$sign >= 0, "solid", "dashed")
@@ -280,21 +231,6 @@ autographr <- auto_graph <- function(object,
   } else {
     nsize <- ifelse(graph_nodes(g) <= 10, 5, (100 / graph_nodes(g)) / 2)
   }
-  # Add node highlighting if relevant ----
-  # if (any(grepl("node", highlight_measure))) {
-  #   # Measure; needs to be a node level measure
-  #   nm <- node_measure[[1]]
-  #   nm_if <- node_identify_measure[[1]]
-  #   measure <- nm(g)
-  #   # Add as attribute
-  #   g <- add_node_attributes(g, "highlight_measure_node",
-  #                            ifelse(measure == nm_if(measure),
-  #                                   gsub(pattern = '.*["]([^.]+)["].*', "\\1",
-  #                                        deparse(identify_function)), "other"))
-  #   # Let the rest of the function know that it needs to color things according
-  #   # to the highlight_measure attribute.
-  #   node_color <- "highlight_measure_node"
-  # }
   # Add nodes ----
   if (!is.null(node_shape)) {
     node_shape <- as.factor(igraph::get.vertex.attribute(g, node_shape))

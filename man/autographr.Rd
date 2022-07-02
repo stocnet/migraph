@@ -12,8 +12,7 @@ autographr(
   node_group = NULL,
   node_shape = NULL,
   node_size = NULL,
-  highlight_measure = NULL,
-  identify_function = "max",
+  edge_color = NULL,
   ...
 )
 }
@@ -47,15 +46,9 @@ Since this function expects this to be an existing variable,
 it is recommended to calculate all node-related statistics prior
 to using this function.}
 
-\item{highlight_measure}{String vector of name of the node and/or edge
-level measure function e.g. \code{node_degree},  \code{tie_betweenness},
-or \code{c("node_betweenness", "tie_betweenness")}.
-\code{NULL} by default.}
-
-\item{identify_function}{Name of the function used to determine the
-highlighted node e.g. \code{"max"}, \code{"min"}, or \code{c("max", "min")} if
-both edge and node highlighting is performed.
-\code{max} by default.}
+\item{edge_color}{Tie variable in quotation marks to be used for
+coloring the nodes. It is easiest if this is added as an edge or tie attribute
+to the graph before plotting.}
 
 \item{...}{Extra arguments.}
 }
@@ -67,18 +60,16 @@ preferences regarding node size, colour, and shape. The function also supports
 visualisation of network measures such as centrality.
 }
 \examples{
-ison_adolescents <- ison_adolescents \%>\% 
- dplyr::mutate(shape = rep(c("circle", "square"), times = 4)) \%>\%
- dplyr::mutate(color = rep(c("blue", "red"), times = 4))
-autographr(ison_adolescents, node_shape = "shape", node_color = "color")
-autographr(ison_karateka, node_size = rep(c(0.8), times = 34))
-# Node highlighting:
-autographr(ison_adolescents, highlight_measure = "node_betweenness", identify_function = "max")
-# Edge highlighting:
-autographr(ison_adolescents, highlight_measure = "tie_betweenness", identify_function = "max")
-# Both node and edge highlighting:
-autographr(ison_adolescents, highlight_measure = c("node_betweenness", 
-"tie_betweenness"), identify_function = c("max", "max"))
+ison_adolescents \%>\% 
+  mutate(shape = rep(c("circle", "square"), times = 4)) \%>\%
+  mutate(color = rep(c("blue", "red"), times = 4)) \%>\% 
+  autographr(node_shape = "shape", node_color = "color")
+autographr(ison_karateka, node_size = 8)
+ison_adolescents \%>\% 
+  mutate(high_degree = node_is_max(node_degree())) \%>\% 
+  activate(edges) \%>\% 
+  mutate(high_betweenness = tie_is_max(tie_betweenness(ison_adolescents))) \%>\% 
+  autographr(node_color = "high_degree", edge_color = "high_betweenness")
 }
 \seealso{
 Other mapping: 
