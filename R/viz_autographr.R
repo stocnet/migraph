@@ -124,55 +124,147 @@ autographr <- auto_graph <- function(object,
   #   edge_color <- "highlight_measure_edge"
   # }
   # Add edges ----
-  if (is_signed(g)) {
-    edge_linetype <- ifelse(igraph::E(g)$sign >= 0, "solid", "dashed")
-    edge_color <- ifelse(igraph::E(g)$sign >= 0, "#0072B2", "#E20020")
-    } else if (!is.null(edge_color)) {
-      edge_color <- as.factor(igraph::get.edge.attribute(g, edge_color))
-      edge_color <- ifelse(edge_color != levels(edge_color)[1], "#e41a1c", "#377eb8")
-      edge_linetype <- "solid"
-    } else if (igraph::gsize(g) == 0) {
-      # Edge case where there are no edges
-      edge_linetype <- NULL
-      edge_color <- NULL
-    } else {
-      edge_linetype <- "solid"
-      edge_color <- "black"
-  }
+  # if (is_signed(g)) {
+  #   edge_linetype <- ifelse(igraph::E(g)$sign >= 0, "solid", "dashed")
+  #   edge_color <- ifelse(igraph::E(g)$sign >= 0, "#0072B2", "#E20020")
+  #   } else if (!is.null(edge_color)) {
+  #     edge_color <- as.factor(igraph::get.edge.attribute(g, edge_color))
+  #     edge_color <- ifelse(edge_color != levels(edge_color)[1], "#e41a1c", "#377eb8")
+  #     edge_linetype <- "solid"
+  #   } else if (igraph::gsize(g) == 0) {
+  #     # Edge case where there are no edges
+  #     edge_linetype <- NULL
+  #     edge_color <- NULL
+  #   } else {
+  #     edge_linetype <- "solid"
+  #     edge_color <- "black"
+  # }
   # Begin plotting edges in various cases ----
   if (is_directed(g)) {
     if (is_weighted(g)) {
-      p <- p + ggraph::geom_edge_link(ggplot2::aes(width = weight,
-                                                   colour = edge_color),
-                                      edge_alpha = 0.4,
-                                      edge_linetype = edge_linetype,
-                                      arrow = ggplot2::arrow(angle = 15,
-                                                             length = ggplot2::unit(2, 'mm'),
-                                                             type = "closed"), 
-                                      end_cap = ggraph::circle(1.5, 'mm')) +
-        ggraph::scale_edge_width_continuous(range = c(0.2, 2.5), 
-                                            guide = "none")
+      if (!is.null(edge_color)) {
+        edge_color <- as.factor(igraph::get.edge.attribute(g, edge_color))
+        p <- p + ggraph::geom_edge_link(ggplot2::aes(width = weight,
+                                                     colour = edge_color),
+                                        edge_alpha = 0.4,
+                                        edge_linetype = "solid",
+                                        arrow = ggplot2::arrow(angle = 15,
+                                                               length = ggplot2::unit(2, 'mm'),
+                                                               type = "closed"), 
+                                        end_cap = ggraph::circle(1.5, 'mm')) +
+          ggraph::scale_edge_width_continuous(range = c(0.2, 2.5), 
+                                              guide = "none") +
+          ggraph::scale_edge_colour_brewer(palette = "Set1",
+                                           direction = -1,
+                                           guide = "none")
+      } else if (is_signed(g)) {
+        edge_color <- ifelse(igraph::E(g)$sign >= 0, "#0072B2", "#E20020")
+        edge_linetype <- ifelse(igraph::E(g)$sign >= 0, "solid", "dashed")
+        p <- p + ggraph::geom_edge_link(ggplot2::aes(width = weight,
+                                                     colour = edge_color,
+                                                     linetype = edge_linetype),
+                                        edge_alpha = 0.4,
+                                        arrow = ggplot2::arrow(angle = 15,
+                                                               length = ggplot2::unit(2, 'mm'),
+                                                               type = "closed"), 
+                                        end_cap = ggraph::circle(1.5, 'mm')) +
+          ggraph::scale_edge_width_continuous(range = c(0.2, 2.5), 
+                                              guide = "none")
+      } else {
+        p <- p + ggraph::geom_edge_link(ggplot2::aes(width = weight),
+                                        edge_colour = "black",
+                                        edge_alpha = 0.4,
+                                        edge_linetype = "solid",
+                                        arrow = ggplot2::arrow(angle = 15,
+                                                               length = ggplot2::unit(2, 'mm'),
+                                                               type = "closed"), 
+                                        end_cap = ggraph::circle(1.5, 'mm')) +
+          ggraph::scale_edge_width_continuous(range = c(0.2, 2.5), 
+                                              guide = "none")
+      }
     } else {
-      p <- p + ggraph::geom_edge_link(ggplot2::aes(colour = edge_color),
-                                      edge_alpha = 0.4,
-                                      edge_linetype = edge_linetype,
-                                      arrow = ggplot2::arrow(angle = 15,
-                                                    length = ggplot2::unit(3, "mm"),
-                                                    type = "closed"),
-                                      end_cap = ggraph::circle(3, "mm"))
+      if (!is.null(edge_color)) {
+        edge_color <- as.factor(igraph::get.edge.attribute(g, edge_color))
+        p <- p + ggraph::geom_edge_link(ggplot2::aes(colour = edge_color),
+                                        edge_alpha = 0.4,
+                                        edge_linetype = "solid",
+                                        arrow = ggplot2::arrow(angle = 15,
+                                                               length = ggplot2::unit(3, "mm"),
+                                                               type = "closed"),
+                                        end_cap = ggraph::circle(3, "mm")) +
+          ggraph::scale_edge_colour_brewer(palette = "Set1",
+                                           direction = -1,
+                                           guide = "none")
+      } else if (is_signed(g)) {
+        edge_color <- ifelse(igraph::E(g)$sign >= 0, "#0072B2", "#E20020")
+        edge_linetype <- ifelse(igraph::E(g)$sign >= 0, "solid", "dashed")
+        p <- p + ggraph::geom_edge_link(ggplot2::aes(colour = edge_color,
+                                                     linetype = edge_linetype),
+                                        edge_alpha = 0.4,
+                                        arrow = ggplot2::arrow(angle = 15,
+                                                               length = ggplot2::unit(3, "mm"),
+                                                               type = "closed"),
+                                        end_cap = ggraph::circle(3, "mm"))
+      } else {
+        p <- p + ggraph::geom_edge_link(edge_colour = "black",
+                                        edge_alpha = 0.4,
+                                        edge_linetype = "solid",
+                                        arrow = ggplot2::arrow(angle = 15,
+                                                               length = ggplot2::unit(3, "mm"),
+                                                               type = "closed"),
+                                        end_cap = ggraph::circle(3, "mm"))
+      }
     }
   } else {
-    if (is_weighted(g)) {
-      p <- p + ggraph::geom_edge_link0(ggplot2::aes(width = weight,
-                                                    colour = edge_color),
-                                       edge_linetype = edge_linetype,
-                                       edge_alpha = 0.4) + 
-        ggraph::scale_edge_width_continuous(range = c(.2, 1),
-                                    guide = "none")
-    } else {
-      p <- p + ggraph::geom_edge_link0(ggplot2::aes(colour = edge_color),
-                                       edge_linetype = edge_linetype,
-                                       edge_alpha = 0.4)
+    if (is_weighted(g)) { # weighted and undirected
+      if (!is.null(edge_color)) {
+        edge_color <- as.factor(igraph::get.edge.attribute(g, edge_color))
+        p <- p + ggraph::geom_edge_link(ggplot2::aes(width = weight,
+                                                     colour = edge_color),
+                                        edge_alpha = 0.4,
+                                        edge_linetype = "solid") +
+          ggraph::scale_edge_width_continuous(range = c(0.2, 1), 
+                                              guide = "none") +
+          ggraph::scale_edge_colour_brewer(palette = "Set1",
+                                           direction = -1,
+                                           guide = "none")
+      } else if (is_signed(g)) {
+        edge_color <- ifelse(igraph::E(g)$sign >= 0, "#0072B2", "#E20020")
+        edge_linetype <- ifelse(igraph::E(g)$sign >= 0, "solid", "dashed")
+        p <- p + ggraph::geom_edge_link(ggplot2::aes(width = weight,
+                                                     colour = edge_color,
+                                                     linetype = edge_linetype),
+                                        edge_alpha = 0.4) +
+          ggraph::scale_edge_width_continuous(range = c(0.2, 1), 
+                                              guide = "none")
+      } else {
+        p <- p + ggraph::geom_edge_link0(ggplot2::aes(width = weight),
+                                         edge_colour = "black",
+                                         edge_linetype = "solid",
+                                         edge_alpha = 0.4) + 
+          ggraph::scale_edge_width_continuous(range = c(.2, 1),
+                                              guide = "none")
+      }
+    } else { # unweighted and undirected
+      if (!is.null(edge_color)) {
+        edge_color <- as.factor(igraph::get.edge.attribute(g, edge_color))
+        p <- p + ggraph::geom_edge_link0(ggplot2::aes(colour = edge_color),
+                                         edge_linetype = "solid",
+                                         edge_alpha = 0.4) +
+          ggraph::scale_edge_colour_brewer(palette = "Set1",
+                                           direction = -1,
+                                           guide = "none")
+      } else if (is_signed(g)) {
+        edge_color <- ifelse(igraph::E(g)$sign >= 0, "#0072B2", "#E20020")
+        edge_linetype <- ifelse(igraph::E(g)$sign >= 0, "solid", "dashed")
+        p <- p + ggraph::geom_edge_link(ggplot2::aes(colour = edge_color,
+                                                     linetype = edge_linetype),
+                                        edge_alpha = 0.4)
+      } else {
+        p <- p + ggraph::geom_edge_link0(ggplot2::aes(colour = edge_color),
+                                         edge_linetype = "solid",
+                                         edge_alpha = 0.4) 
+      }
     }
   }
   
