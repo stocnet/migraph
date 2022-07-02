@@ -2,8 +2,8 @@ citHeader("To cite migraph in publications use:")
 
 citEntry(
   entry    = "manual",
-  title    = "migraph: Tools for multimodal and multilevel network analysis",
+  title    = "migraph: Tools for multimodal network analysis",
   author   = "James Hollway",
   year     = 2021,
-  textVersion = "J. Hollway. migraph: Extensions for multimodal and multilevel network analysis. 2021."
+  textVersion = "J. Hollway. migraph: Tools for multimodal network analysis. 2021."
 )
