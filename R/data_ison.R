@@ -177,7 +177,7 @@
 
 # Brandes ####
 
-#' One-mode centrality demonstration network
+#' One-mode and two-mode centrality demonstration networks
 #' 
 #' This network should solely be used
 #' for demonstration purposes as it does not describe a real network.
@@ -191,6 +191,15 @@
 #'   ison_brandes
 #'   ```
 "ison_brandes"
+
+#' @rdname ison_brandes
+#' @usage data(ison_brandes2)
+#' @format 
+#'   ```{r, echo = FALSE}
+#'   ison_brandes2
+#'   ```
+"ison_brandes2"
+
 
 # Southern Women ####
 
