@@ -1,4 +1,23 @@
-#' @describeIn mark Returns logical of which nodes cut
+#' Logical tests of nodal properties
+#' 
+#' @description 
+#'   These functions return logical vectors the length of the 
+#'   nodes in a network identifying which hold certain properties.
+#'   
+#'   `node_is_cutpoint()` and `node_is_isolate()` are useful for identifying
+#'   nodes that are in particular positions in the network.
+#'   More can be added here.
+#'   
+#'   `node_is_max()` and `node_is_min()` are more generally useful
+#'   for converting the results from some node measure into a mark-class object.
+#'   They can be particularly useful for highlighting which node or nodes
+#'   are key because they minimise or, more often, maximise some measure.
+#' @inheritParams is
+#' @family marks
+#' @name mark_nodes
+NULL
+
+#' @describeIn mark_nodes Returns logical of which nodes cut
 #'   or act as articulation points in a network,
 #'   increasing the number of connected components in a graph when removed.
 #' @importFrom igraph articulation_points
@@ -18,7 +37,7 @@ node_is_cutpoint <- function(object){
   make_node_mark(out, object)
 }
 
-#' @describeIn mark Returns logical of which nodes are isolates,
+#' @describeIn mark_nodes Returns logical of which nodes are isolates,
 #'   with neither incoming nor outgoing ties.
 #' @examples 
 #' node_is_isolate(ison_brandes)
@@ -34,7 +53,7 @@ node_is_isolate <- function(object){
   make_node_mark(out, object)
 }
 
-#' @describeIn mark Returns logical of which nodes 
+#' @describeIn mark_nodes Returns logical of which nodes 
 #'   hold the maximum of some measure
 #' @param node_measure An object created by a `node_` measure.
 #' @examples 
@@ -57,7 +76,7 @@ node_is_max <- function(node_measure){
   out
 }
 
-#' @describeIn mark Returns logical of which nodes 
+#' @describeIn mark_nodes Returns logical of which nodes 
 #'   hold the minimum of some measure
 #' @examples 
 #' node_is_min(node_degree(ison_brandes))

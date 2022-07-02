@@ -1,15 +1,16 @@
-#' Logical whether nodes or ties meet some criteria
+#' Logical tests of tie properties
 #' 
-#' These functions return logical vectors of the length of the 
-#' nodes or ties in a network identifying which meet some criteria.
-#' Such functions are often useful for identifying nodes or ties 
-#' that are particularly well- or poorly-connected.
+#' @description 
+#'   These functions return logical vectors the length of the ties
+#'   in a network, identifying which hold some property.
+#'   They are most useful in highlighting parts of the network that
+#'   are particularly well- or poorly-connected.
 #' @inheritParams is
 #' @family marks
-#' @name mark
+#' @name mark_ties
 NULL
 
-#' @describeIn mark Returns logical of which ties are multiples
+#' @describeIn mark_ties Returns logical of which ties are multiples
 #' @importFrom igraph which_multiple
 #' @examples 
 #' tie_is_multiple(ison_marvel_relationships)
@@ -19,7 +20,7 @@ tie_is_multiple <- function(object){
   make_tie_mark(igraph::which_multiple(object), object)
 }
 
-#' @describeIn mark Returns logical of which ties are loops
+#' @describeIn mark_ties Returns logical of which ties are loops
 #' @importFrom igraph which_loop
 #' @examples 
 #' tie_is_loop(ison_marvel_relationships)
@@ -29,7 +30,7 @@ tie_is_loop <- function(object){
   make_tie_mark(igraph::which_loop(object), object)
 }
 
-#' @describeIn mark Returns logical of which ties 
+#' @describeIn mark_ties Returns logical of which ties 
 #'   are mutual/reciprocated
 #' @importFrom igraph which_mutual
 #' @examples 
@@ -40,7 +41,7 @@ tie_is_reciprocated <- function(object){
   make_tie_mark(igraph::which_mutual(object), object)
 }
 
-#' @describeIn mark Returns logical of which ties cut
+#' @describeIn mark_ties Returns logical of which ties cut
 #'   or act as articulation points in a network.
 #' @importFrom igraph decompose delete.edges
 #' @examples 
