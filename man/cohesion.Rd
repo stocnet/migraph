@@ -3,80 +3,82 @@
 \name{cohesion}
 \alias{cohesion}
 \alias{graph_density}
-\alias{graph_reciprocity}
-\alias{graph_transitivity}
-\alias{graph_equivalency}
-\alias{graph_congruency}
-\title{Cohesion for one-, two-, and three- mode networks}
+\alias{graph_components}
+\alias{graph_cohesion}
+\alias{graph_adhesion}
+\alias{graph_diameter}
+\alias{graph_length}
+\title{Measures of network cohesion or connectedness}
 \usage{
 graph_density(object)
 
-graph_reciprocity(object, method = "default")
+graph_components(object)
 
-graph_transitivity(object)
+graph_cohesion(object)
 
-graph_equivalency(object)
+graph_adhesion(object)
 
-graph_congruency(object, object2)
+graph_diameter(object)
+
+graph_length(object)
 }
 \arguments{
-\item{object}{A one-mode or two-mode matrix, igraph, or tidygraph}
-
-\item{method}{For reciprocity, either \code{default} or \code{ratio}.
-See \code{?igraph::reciprocity}}
-
-\item{object2}{Optionally, a second (two-mode) matrix, igraph, or tidygraph}
+\item{object}{An object of a migraph-consistent class:
+\itemize{
+\item matrix (adjacency or incidence) from \code{{base}} R
+\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
+\item igraph, from the \code{{igraph}} package
+\item network, from the \code{{network}} package
+\item tbl_graph, from the \code{{tidygraph}} package
+}}
 }
 \description{
-These functions offer methods for summarising the cohesion in one-, two-, and three-mode networks.
-}
-\details{
-For one- and two-mode networks, \code{graph_density} summarises the ratio of ties
-to the number of possible ties.
-
-For one-mode networks, shallow wrappers of igraph versions exist via
-\code{graph_reciprocity} and \code{graph_transitivity}.
-
-For two-mode networks, \code{graph_equivalency} calculates the proportion of three-paths in the network
-that are closed by fourth tie to establish a "shared four-cycle" structure.
-
-For three-mode networks, \code{graph_congruency} calculates the proportion of three-paths spanning the two two-mode networks
-that are closed by a fourth tie to establish a "congruent four-cycle" structure.
+These functions return values or vectors relating to how connected a network is
+and where the nodes or edges that would increase fragmentation are.
 }
 \section{Functions}{
 \itemize{
-\item \code{graph_reciprocity}: Calculate reciprocity in a (usually directed) network
+\item \code{graph_density}: summarises the ratio of ties
+to the number of possible ties.
 
-\item \code{graph_transitivity}: Calculate transitivity in a network
+\item \code{graph_components}: Returns number of (strong) components in the network.
+To get the 'weak' components of a directed graph,
+please use \code{to_undirected()} first.
 
-\item \code{graph_equivalency}: Calculate equivalence or reinforcement
-in a (usually two-mode) network
+\item \code{graph_cohesion}: Returns the minimum number of nodes to remove
+from the network needed to increase the number of components.
 
-\item \code{graph_congruency}: Calculate congruency across two two-mode networks
+\item \code{graph_adhesion}: Returns the minimum number of edges needed
+to remove from the network to increase the number of components.
+
+\item \code{graph_diameter}: Returns the maximum path length in the network.
+
+\item \code{graph_length}: Returns the average path length in the network.
 }}
 
 \examples{
 graph_density(mpn_elite_mex)
 graph_density(mpn_elite_usa_advice)
-graph_reciprocity(ison_southern_women)
-graph_transitivity(ison_southern_women)
-graph_equivalency(ison_southern_women)
+graph_cohesion(ison_marvel_relationships)
+graph_cohesion(to_main_component(ison_marvel_relationships))
+graph_adhesion(ison_marvel_relationships)
+graph_adhesion(to_main_component(ison_marvel_relationships))
+graph_diameter(ison_marvel_relationships)
+graph_diameter(to_main_component(ison_marvel_relationships))
+graph_length(ison_marvel_relationships)
+graph_length(to_main_component(ison_marvel_relationships))
 }
 \references{
-Robins, Garry L, and Malcolm Alexander. 2004.
-Small worlds among interlocking directors: Network structure and distance in bipartite graphs.
-\emph{Computational & Mathematical Organization Theory} 10(1): 69–94.
-\doi{10.1023/B:CMOT.0000032580.12184.c0}.
-
-Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
-\href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
-Cambridge University Press. Cambridge University Press.
+White, Douglas R and Frank Harary. 2001.
+"The Cohesiveness of Blocks In Social Networks: Node Connectivity and Conditional Density."
+\emph{Sociological Methodology} 31(1): 305-59.
+\doi{10.1111/0081-1750.00098}.
 }
 \seealso{
 Other measures: 
 \code{\link{centralisation}},
 \code{\link{centrality}},
-\code{\link{connectedness}},
+\code{\link{closure}},
 \code{\link{diversity}},
 \code{\link{features}},
 \code{\link{holes}}

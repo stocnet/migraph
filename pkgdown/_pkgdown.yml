@@ -51,39 +51,45 @@ reference:
       - add
       - grab
   - title: "Marks"
-    desc: "Functions for logically identifying particular types of nodes or edges:"
+    desc: |
+      Functions for logically identifying properties of graphs, nodes or edges,
+      all returning logical scalars or vectors.
+      Note that all `node_` and `tie_` measures return a single vector 
+      so that they can be added directly to graph objects.
+      `graph_` measures return one or, in some cases of two-mode measures,
+      two values.
     contents:
-      - starts_with("is_")
-      - mark
+      - contains("is_")
   - title: "Measures"
     desc: |
-      Functions for measuring multimodal networks.
-      Note that all `node_` measures return a single vector so that
-      they can be added directly to graph objects,
-      though two-mode results will be printed in two sections
-      All `graph_` measures return a single value.
+      Functions for measuring multimodal networks,
+      all returning numeric scalars or vectors.
+      Note that all `node_` and `tie_` measures return a single vector 
+      so that they can be added directly to graph objects.
+      `graph_` measures return one or, in some cases of two-mode measures,
+      two values.
     contents:
+      - cohesion
       - centrality
       - centralisation
-      - cohesion
-      - diversity
+      - closure
       - holes
+      - diversity
       - features
-      - connectedness
   - title: "Motifs"
     desc: "Functions for calculating subgraphs in multimodal networks:"
     contents:
       - ends_with("_census")
   - title: "Memberships"
     desc: |
-      Functions for identifying class, cluster, or partition memberships
-      in multimodal networks.
+      Functions for identifying community, cluster, or class memberships
+      in partitions within multimodal networks.
     contents:
       - community
       - components
       - equivalence
   - title: "Models"
-    desc: "Functions for modelling multimodal and multilevel networks:"
+    desc: "Functions for modelling multimodal networks:"
     contents:
       - regression
       - starts_with("test")
