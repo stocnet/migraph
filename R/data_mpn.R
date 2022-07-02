@@ -278,7 +278,7 @@ NULL
 
 # COW ####
 
-#' One-mode trade relations between states and two-mode state membership in IGOs (COW)
+#' One-mode interstate trade relations and two-mode state membership in IGOs (COW)
 #'
 #' @details 
 #' `mpn_cow_trade` is a one-mode matrix representing the trade relations between 116 states. 

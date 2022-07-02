@@ -5,7 +5,7 @@
 \alias{mpn_cow}
 \alias{mpn_cow_trade}
 \alias{mpn_cow_igo}
-\title{One-mode trade relations between states and two-mode state membership in IGOs (COW)}
+\title{One-mode interstate trade relations and two-mode state membership in IGOs (COW)}
 \format{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 116 nodes and 11489 edges
 ## #
@@ -71,7 +71,7 @@ data(mpn_cow_trade)
 data(mpn_cow_igo)
 }
 \description{
-One-mode trade relations between states and two-mode state membership in IGOs (COW)
+One-mode interstate trade relations and two-mode state membership in IGOs (COW)
 }
 \details{
 \code{mpn_cow_trade} is a one-mode matrix representing the trade relations between 116 states.

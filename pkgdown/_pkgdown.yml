@@ -43,8 +43,8 @@ reference:
   - title: "Manipulation"
     desc: |
       Functions for coercing objects between different classes, 
-      testing the properties of migraph-consistent objects,
-      and transforming the type of network:
+      reformatting or transforming the type of network,
+      or adding information to or retrieving information from the network.
     contents:
       - starts_with("as_")
       - starts_with("to_")
@@ -52,7 +52,7 @@ reference:
       - grab
   - title: "Marks"
     desc: |
-      Functions for logically identifying properties of graphs, nodes or edges,
+      Functions for identifying properties of graphs, nodes or ties,
       all returning logical scalars or vectors.
       Note that all `node_` and `tie_` measures return a single vector 
       so that they can be added directly to graph objects.
@@ -77,13 +77,17 @@ reference:
       - diversity
       - features
   - title: "Motifs"
-    desc: "Functions for calculating subgraphs in multimodal networks:"
+    desc: |
+      Functions for calculating subgraphs in multimodal networks.
+      These functions have an additional dimension than `node_` and `graph_`
+      measures and marks that capture the different motifs surveyed.
     contents:
       - ends_with("_census")
   - title: "Memberships"
     desc: |
       Functions for identifying community, cluster, or class memberships
       in partitions within multimodal networks.
+      They return integer vectors the length of the nodes in the network.
     contents:
       - community
       - components
@@ -91,8 +95,9 @@ reference:
   - title: "Models"
     desc: "Functions for modelling multimodal networks:"
     contents:
-      - regression
       - starts_with("test")
+      - regression
+      - cluster
   - title: "Mapping"
     desc: "Functions for plotting and visualising graphs of different types:"
     contents:
