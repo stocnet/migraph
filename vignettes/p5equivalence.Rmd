@@ -344,9 +344,8 @@ autographr(bm)
 
 # Unit Test
 
-1. Visualise the `ison_algebra` Friends network, 
-sizing the vertices by constraint and identifying the structural hole
-What would being in a structural hole mean here?
+1. Plot labelled, reduced graph of STURCTURALLY equivalent classes 
+on the `mpn_elite_usa_advice` network and interpret
 
 2. Plot labelled, reduced graph of REGULARLY equivalent classes 
 on the `mpn_elite_usa_advice` network and interpret
