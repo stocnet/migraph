@@ -78,11 +78,14 @@ for the raw scores, just add `normalized = FALSE` as an extra argument.
 
 # Plotting different centrality measures
 
-There is also a function in `{migraph}` that plots our network 
-and highlights the node with the maximum xentrality (e.g. degree) score.
-We can choose which measure to highlight,
-and even which node to identify in red -- either the maximum (use `node_is_max()`)
-or the minimum (use `node_is_min()`), or some other function to single out a node.
+It is straightforward in `{migraph}` to highlight nodes and ties 
+with maximum or minimum (e.g. degree) scores.
+If the vector is numeric (i.e. a "measure"),
+then this can be easily converted into a logical vector that
+identifies the node/tie with the maximum/minimum score using
+e.g. `node_is_max()` or `tie_is_min()`.
+By passing this attribute to the `autographr()` argument "node_color"
+we can highlight which node or nodes hold the maximum score in red.
 
 ```{r ggid}
 ison_brandes %>%
@@ -99,7 +102,8 @@ ison_brandes %>%
   autographr(node_color = "color")
 ```
 
-How neat!
+How neat! Try it with the two-mode version.
+What can you see?
 
 # Calculating centralization
 
