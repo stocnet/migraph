@@ -136,14 +136,13 @@ more homophily or heterophily than expected by chance.
 ```{r rando}
 rand.gender <- test_random(marvel_friends, 
                             graph_ei_index, attribute = "Gender", 
-                           times = 200)
+                           times = 20)
 rand.power <- test_random(marvel_friends, 
                            graph_ei_index, attribute = "PowerOrigin", 
-                           times = 200)
+                           times = 20)
 rand.attract <- test_random(marvel_friends, 
                              graph_ei_index, attribute = "Attractive", 
-                           times = 200)
-library(patchwork)
+                           times = 20)
 plot(rand.gender) / 
 plot(rand.power) /
 plot(rand.attract)
@@ -175,7 +174,6 @@ new <- autographr(generate_permutation(marvel_friends, with_attr = TRUE),
                    labels = FALSE, node_size = 6,
                   node_color = "PowerOrigin",
                   node_shape = "Gender")
-library(patchwork)
 old + new
 ```
 
@@ -187,17 +185,16 @@ just as we did with random graphs.
 ```{r test_permute}
 perm.gender <- test_permutation(marvel_friends, 
                                 graph_ei_index, attribute = "Gender",
-                                times = 200)
+                                times = 20)
 perm.power <- test_permutation(marvel_friends, 
                                graph_ei_index, attribute = "PowerOrigin",
-                                times = 200)
+                                times = 20)
 ```
 
 Again, we see that there is perhaps nothing so surprising that we got the homophily score
 for gender that we did, but the lack of power origin heterophily is surprising.
 
 ```{r cugqap}
-library(patchwork)
 (plot(rand.gender) | plot(rand.power)) /
 (plot(perm.gender) | plot(perm.power))
 ```
@@ -229,7 +226,7 @@ Let's start with a pretty maximally specified model (note that it doesn't make s
 
 ```{r qap-max}
 model1 <- network_reg(weight ~ alter(Citations) + same(Discipline), 
-                      ison_networkers, times = 200)
+                      ison_networkers, times = 20)
 ```
 
 We can use tidy methods to get the salient information from this model,
