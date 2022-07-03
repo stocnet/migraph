@@ -5,7 +5,7 @@
 \alias{add_node_attribute}
 \alias{add_tie_attribute}
 \alias{copy_node_attributes}
-\alias{join_edges}
+\alias{join_ties}
 \title{Adding and copying attributes from one graph to another}
 \usage{
 add_node_attribute(object, attr_name, vector)
@@ -14,7 +14,7 @@ add_tie_attribute(object, attr_name, vector)
 
 copy_node_attributes(object, object2)
 
-join_edges(object, object2, attr_name)
+join_ties(object, object2, attr_name)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -46,8 +46,8 @@ as tie attributes
 
 \item \code{copy_node_attributes}: Copies node attributes from a given graph into specified graph
 
-\item \code{join_edges}: Copies edges from another graph to specified graph and
-adds an edge attribute identifying the edges that were newly added
+\item \code{join_ties}: Copies ties from another graph to specified graph and
+adds a tie attribute identifying the ties that were newly added
 }}
 
 \examples{
@@ -55,7 +55,7 @@ add_node_attribute(mpn_elite_mex, "wealth", 1:35)
 add_node_attribute(mpn_elite_usa_advice, "wealth", 1:14)
 add_tie_attribute(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
 autographr(mpn_elite_mex)
-both <- join_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
+both <- join_ties(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
 autographr(both)
 random <- to_uniplex(both, "random")
 autographr(random)

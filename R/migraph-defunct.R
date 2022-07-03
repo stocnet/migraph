@@ -325,3 +325,11 @@ to_edges <- function(object){
   to_ties(object)
 }
 
+#' @describeIn defunct Deprecated on 2022-07-03.
+#' @export
+join_edges <- function(object, object2, attr_name){
+  .Deprecated("join_ties", package = "migraph",
+              old = "join_edges")
+  join_ties(object, object2, attr_name)
+}
+

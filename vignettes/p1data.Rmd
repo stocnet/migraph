@@ -204,11 +204,11 @@ without adding any new edges, then `add_tie_attributes()` operates similarly
 to `add_node_attribute()` above.
 But if the result should be a multiplex network and the ties in the different
 component networks only partially overlap,
-then you will need to use `join_edges()`:
+then you will need to use `join_ties()`:
 
 ```{r mutateedges}
 generate_random(10, .3) %>% 
-  join_edges(generate_random(10, .3), "next")
+  join_ties(generate_random(10, .3), "next")
 ```
 
 ## Retrieving data

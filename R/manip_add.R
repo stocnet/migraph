@@ -60,20 +60,20 @@ copy_node_attributes <- function(object, object2){
   object
 }
 
-#' @describeIn add Copies edges from another graph to specified graph and 
-#' adds an edge attribute identifying the edges that were newly added
+#' @describeIn add Copies ties from another graph to specified graph and 
+#' adds a tie attribute identifying the ties that were newly added
 #' @importFrom igraph add_edges
 #' @importFrom rlang :=
 #' @importFrom dplyr mutate summarise across group_by everything
 #' @examples 
 #' autographr(mpn_elite_mex)
-#' both <- join_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
+#' both <- join_ties(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
 #' autographr(both)
 #' random <- to_uniplex(both, "random")
 #' autographr(random)
 #' autographr(to_uniplex(both, "orig"))
 #' @export
-join_edges <- function(object, object2, attr_name){
+join_ties <- function(object, object2, attr_name){
   edges <- NULL
   from <- NULL
   to <- NULL
