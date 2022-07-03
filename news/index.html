@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.4</span>
       </span>
     </div>
 
@@ -72,6 +72,15 @@
       <small>Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.10.4" id="migraph-0104">migraph 0.10.4<a class="anchor" aria-label="anchor" href="#migraph-0104"></a></h2>
+<div class="section level3">
+<h3 id="package-0-10-4">Package<a class="anchor" aria-label="anchor" href="#package-0-10-4"></a></h3>
+<ul><li>Fixed some URL issues</li></ul></div>
+<div class="section level3">
+<h3 id="manipulation-0-10-4">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-10-4"></a></h3>
+<ul><li>Split <code>to_*()</code> functions into reformatting (changing properties) and transforming (changing dimensions) documentation</li></ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.10.3" id="migraph-0103">migraph 0.10.3<a class="anchor" aria-label="anchor" href="#migraph-0103"></a></h2>
 <div class="section level3">
@@ -170,8 +179,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-10-0">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-10-0"></a></h3>
-<ul><li>Added a couple of <code>to_</code> functions useful for working with networks of different types<ul><li>Added <code><a href="../reference/to.html">to_redirected()</a></code> for adding or swapping direction to networks (closed <a href="https://github.com/snlab-ch/migraph/issues/219" class="external-link">#219</a>)</li>
-<li>Added <code><a href="../reference/to.html">to_blocks()</a></code> for reducing a network down by a membership vector; <code><a href="../reference/defunct.html">blockmodel()</a></code> and <code><a href="../reference/defunct.html">reduce_graph()</a></code> are now deprecated</li>
+<ul><li>Added a couple of <code>to_</code> functions useful for working with networks of different types<ul><li>Added <code><a href="../reference/reformat.html">to_redirected()</a></code> for adding or swapping direction to networks (closed <a href="https://github.com/snlab-ch/migraph/issues/219" class="external-link">#219</a>)</li>
+<li>Added <code><a href="../reference/transform.html">to_blocks()</a></code> for reducing a network down by a membership vector; <code><a href="../reference/defunct.html">blockmodel()</a></code> and <code><a href="../reference/defunct.html">reduce_graph()</a></code> are now deprecated</li>
 <li>
 <code>to_multilevel.igraph()</code> now only works on two-mode networks; returns the original network if passed a one-mode network</li>
 </ul></li>
@@ -292,7 +301,7 @@
 <ul><li>Refactored <code><a href="../reference/defunct.html">to_edges()</a></code> to be ~26 times faster on average</li>
 <li>Corrected edge labelling in <code><a href="../reference/defunct.html">to_edges()</a></code>
 </li>
-<li>Using <code><a href="../reference/to.html">to_subgraph()</a></code> now instead of <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">dplyr::filter()</a></code> or <code>strain()</code>
+<li>Using <code><a href="../reference/transform.html">to_subgraph()</a></code> now instead of <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">dplyr::filter()</a></code> or <code>strain()</code>
 </li>
 </ul></div>
 <div class="section level3">
@@ -394,13 +403,13 @@
 </ul></li>
 <li>Pivoted to S3 methods for most manipulation functions for better dispatching and performance<ul><li>Added matrix, data.frame, network, igraph, and tbl_graph methods for <code><a href="../reference/is.html">is_twomode()</a></code>, <code><a href="../reference/is.html">is_directed()</a></code>, <code><a href="../reference/is.html">is_weighted()</a></code>, <code><a href="../reference/is.html">is_labelled()</a></code>, <code><a href="../reference/is.html">is_signed()</a></code>, <code><a href="../reference/is.html">is_multiplex()</a></code>, <code><a href="../reference/is.html">is_complex()</a></code>, and <code><a href="../reference/is.html">is_graph()</a></code>
 </li>
-<li>Added data.frame methods for <code><a href="../reference/as.html">as_edgelist()</a></code>, and <code><a href="../reference/to.html">to_unweighted()</a></code>, and improved the data.frame method for <code><a href="../reference/as.html">as_matrix()</a></code>
+<li>Added data.frame methods for <code><a href="../reference/as.html">as_edgelist()</a></code>, and <code><a href="../reference/reformat.html">to_unweighted()</a></code>, and improved the data.frame method for <code><a href="../reference/as.html">as_matrix()</a></code>
 </li>
-<li>Added data.frame and matrix methods for <code><a href="../reference/to.html">to_named()</a></code> and <code><a href="../reference/to.html">to_unsigned()</a></code>
+<li>Added data.frame and matrix methods for <code><a href="../reference/reformat.html">to_named()</a></code> and <code><a href="../reference/reformat.html">to_unsigned()</a></code>
 </li>
 </ul></li>
 <li>Added <code><a href="../reference/defunct.html">to_edges()</a></code> for creating adjacency matrices using a network’s edges as nodes</li>
-<li>Renamed <code>project_rows()</code> and <code>project_cols()</code> functions to <code><a href="../reference/to.html">to_mode1()</a></code> and <code><a href="../reference/to.html">to_mode2()</a></code>, which is both more consistent with other functions naming conventions and more generic by avoiding the matrix-based row/column distinction</li>
+<li>Renamed <code>project_rows()</code> and <code>project_cols()</code> functions to <code><a href="../reference/transform.html">to_mode1()</a></code> and <code><a href="../reference/transform.html">to_mode2()</a></code>, which is both more consistent with other functions naming conventions and more generic by avoiding the matrix-based row/column distinction</li>
 <li>Added <code><a href="../reference/grab.html">node_mode()</a></code>, which returns a vector of the mode assignments of the nodes in a network</li>
 <li>Added <code><a href="../reference/defunct.html">edge_signs()</a></code>, which returns a vector of the sign assignments of the edges in a network</li>
 </ul></div>
@@ -571,11 +580,11 @@
 <li>Extended <code><a href="../reference/as.html">as_network()</a></code> to retain attributes</li>
 <li>Fixed bugs in <code>as_</code> and <code>to_</code> functions<ul><li>Fixed bug in <code>as_</code> functions to convert from dataframes instead of tibbles</li>
 <li>Fixed bug in conversion from network to igraph object in <code><a href="../reference/as.html">as_igraph()</a></code> function</li>
-<li>Fixed bug in <code><a href="../reference/to.html">to_undirected()</a></code> function to work with network objects</li>
-<li>Fixed bug in <code><a href="../reference/to.html">to_main_component()</a></code> function so that it retains vertex attributes in network objects</li>
+<li>Fixed bug in <code><a href="../reference/reformat.html">to_undirected()</a></code> function to work with network objects</li>
+<li>Fixed bug in <code><a href="../reference/transform.html">to_main_component()</a></code> function so that it retains vertex attributes in network objects</li>
 </ul></li>
 <li>Added <code><a href="../reference/defunct.html">edge_attribute()</a></code> to grab a named edge attribute from a graph/network</li>
-<li>Updated <code><a href="../reference/to.html">to_unweighted()</a></code> to prevent conversion of network object into igraph object when deleting weights</li>
+<li>Updated <code><a href="../reference/reformat.html">to_unweighted()</a></code> to prevent conversion of network object into igraph object when deleting weights</li>
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-9">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-9"></a></h3>
@@ -606,10 +615,10 @@
 <li>The <code><a href="../reference/as.html">as_igraph()</a></code> method for networks now works with two-mode and weighted networks</li>
 <li>The <code><a href="../reference/as.html">as_network()</a></code> method for matrices now works with two-mode and weighted networks</li>
 <li>The <code><a href="../reference/as.html">as_network()</a></code> method for edgelists, igraph, and tidygraphs now works with weighted networks</li>
-<li>Added <code><a href="../reference/to.html">to_unnamed()</a></code> method for edge lists</li>
-<li>Added <code><a href="../reference/to.html">to_simplex()</a></code> method for matrices</li>
-<li>Added <code><a href="../reference/to.html">to_main_component()</a></code> method for networks</li>
-<li>Added <code><a href="../reference/to.html">to_multilevel()</a></code> method for matrices</li>
+<li>Added <code><a href="../reference/reformat.html">to_unnamed()</a></code> method for edge lists</li>
+<li>Added <code><a href="../reference/reformat.html">to_simplex()</a></code> method for matrices</li>
+<li>Added <code><a href="../reference/transform.html">to_main_component()</a></code> method for networks</li>
+<li>Added <code><a href="../reference/reformat.html">to_multilevel()</a></code> method for matrices</li>
 <li>
 <code>mutate_edges()</code> now coalesces rows of edges</li>
 </ul></div>
@@ -727,9 +736,9 @@
 <div class="section level3">
 <h3 id="classes-0-8-4">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-4"></a></h3>
 <ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/128" class="external-link">#128</a> by adding <code><a href="../reference/as.html">as_edgelist()</a></code> methods for converting other objects into edgelists<ul><li>Note that this currently returns a tibble</li></ul></li>
-<li>Using <code><a href="../reference/to.html">to_unnamed()</a></code> on ‘network’ objects now operates on them directly</li>
+<li>Using <code><a href="../reference/reformat.html">to_unnamed()</a></code> on ‘network’ objects now operates on them directly</li>
 <li>Elaborated <code>to_</code> documentation significantly</li>
-<li>Fixed bug in <code><a href="../reference/to.html">to_onemode()</a></code> that was tripping <code><a href="../reference/defunct.html">blockmodel()</a></code> on networks that are already one-mode</li>
+<li>Fixed bug in <code><a href="../reference/reformat.html">to_onemode()</a></code> that was tripping <code><a href="../reference/defunct.html">blockmodel()</a></code> on networks that are already one-mode</li>
 <li>Added <code><a href="../reference/is.html">is_connected()</a></code> to test whether network is connected, <code>method =</code> argument can be specified as <code>weak</code> or <code>strong</code>
 </li>
 </ul></div>
@@ -808,7 +817,7 @@
 <h3 id="classes-0-8-2">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-2"></a></h3>
 <ul><li>Fixed bug where bipartite edge lists were not being recognised as a twomode network by <code><a href="../reference/as.html">as_igraph()</a></code>
 </li>
-<li>Fixed bug where <code><a href="../reference/to.html">to_uniplex()</a></code> was not returning a weighted graph</li>
+<li>Fixed bug where <code><a href="../reference/reformat.html">to_uniplex()</a></code> was not returning a weighted graph</li>
 </ul></div>
 <div class="section level3">
 <h3 id="models-0-8-2">Models<a class="anchor" aria-label="anchor" href="#models-0-8-2"></a></h3>
@@ -832,7 +841,7 @@
 <div class="section level3">
 <h3 id="classes-0-8-1">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-1"></a></h3>
 <ul><li>Added <code><a href="../reference/is.html">is_signed()</a></code> to logically test whether the network is a signed network</li>
-<li>Added <code><a href="../reference/to.html">to_unsigned()</a></code> for extracting networks of either “positive” or “negative” ties from a signed network</li>
+<li>Added <code><a href="../reference/reformat.html">to_unsigned()</a></code> for extracting networks of either “positive” or “negative” ties from a signed network</li>
 <li>Added <code>tbl_graph</code> methods for all other <code>to_</code> functions</li>
 <li>Reexported <code><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate()</a></code> from <a href="https://tidygraph.data-imaginist.com" class="external-link">tidygraph</a>
 </li>
@@ -856,11 +865,11 @@
 <div class="section level3">
 <h3 id="classes-0-8-0">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-0"></a></h3>
 <ul><li>Fixed coercion to <a href="https://igraph.org" class="external-link">igraph</a> from data frames and updated read script</li>
-<li>Added <code><a href="../reference/to.html">to_main_component()</a></code> to extract the main component of a network</li>
-<li>Added <code><a href="../reference/to.html">to_onemode()</a></code> for moving to multimodal igraph objects</li>
-<li>Added <code><a href="../reference/to.html">to_uniplex()</a></code> method to delete edge types and their edges from multiplex networks</li>
-<li>Added <code><a href="../reference/to.html">to_simplex()</a></code> method to delete loops from a network</li>
-<li>Added <code><a href="../reference/to.html">to_named()</a></code> method for randomly naming unlabeled networks</li>
+<li>Added <code><a href="../reference/transform.html">to_main_component()</a></code> to extract the main component of a network</li>
+<li>Added <code><a href="../reference/reformat.html">to_onemode()</a></code> for moving to multimodal igraph objects</li>
+<li>Added <code><a href="../reference/reformat.html">to_uniplex()</a></code> method to delete edge types and their edges from multiplex networks</li>
+<li>Added <code><a href="../reference/reformat.html">to_simplex()</a></code> method to delete loops from a network</li>
+<li>Added <code><a href="../reference/reformat.html">to_named()</a></code> method for randomly naming unlabeled networks</li>
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-8-0">Data<a class="anchor" aria-label="anchor" href="#data-0-8-0"></a></h3>
@@ -923,7 +932,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-7-2">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-7-2"></a></h3>
-<ul><li>Added <code><a href="../reference/to.html">to_undirected()</a></code> for symmetrising networks of all types</li>
+<ul><li>Added <code><a href="../reference/reformat.html">to_undirected()</a></code> for symmetrising networks of all types</li>
 <li>Made existing <code>to_</code> functions S3 methods</li>
 </ul></div>
 </div>
@@ -982,9 +991,9 @@
 </ul></div>
 <div class="section level3">
 <h3 id="classes-0-6-5">Classes<a class="anchor" aria-label="anchor" href="#classes-0-6-5"></a></h3>
-<ul><li>Renamed <code>binarise()</code> to <code><a href="../reference/to.html">to_unweighted()</a></code>
+<ul><li>Renamed <code>binarise()</code> to <code><a href="../reference/reformat.html">to_unweighted()</a></code>
 </li>
-<li>Added <code><a href="../reference/to.html">to_unnamed()</a></code> for unlabelling networks</li>
+<li>Added <code><a href="../reference/reformat.html">to_unnamed()</a></code> for unlabelling networks</li>
 </ul></div>
 </div>
     <div class="section level2">

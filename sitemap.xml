@@ -175,12 +175,15 @@
     <loc>https://snlab-ch.github.io/migraph/reference/reexports.html</loc>
   </url>
   <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/reformat.html</loc>
+  </url>
+  <url>
     <loc>https://snlab-ch.github.io/migraph/reference/regression.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/tests.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/to.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/transform.html</loc>
   </url>
 </urlset>

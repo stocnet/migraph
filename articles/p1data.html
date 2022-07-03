@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.4</span>
       </span>
     </div>
 
@@ -269,31 +269,31 @@
 <p>Generally, <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> attempts to retain as much information as possible when converting objects between different classes. The presumption is that users should explicitly decide to reduce or simplify their data. <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> includes <a href="https://snlab-ch.github.io/migraph/reference/to.html">a number of functions</a> for transforming (or removing) certain properties of network objects. For example:</p>
 <ul>
 <li>
-<code><a href="../reference/to.html">to_unnamed()</a></code> removes/anonymises all vertex/node labels</li>
+<code><a href="../reference/reformat.html">to_unnamed()</a></code> removes/anonymises all vertex/node labels</li>
 <li>
-<code><a href="../reference/to.html">to_undirected()</a></code> replaces directed ties with an undirected tie (if an arc in either direction is present)</li>
+<code><a href="../reference/reformat.html">to_undirected()</a></code> replaces directed ties with an undirected tie (if an arc in either direction is present)</li>
 <li>
-<code><a href="../reference/to.html">to_unweighted()</a></code> binarises or dichotomises a network around a particular threshold (by default <code>1</code>)</li>
+<code><a href="../reference/reformat.html">to_unweighted()</a></code> binarises or dichotomises a network around a particular threshold (by default <code>1</code>)</li>
 <li>
-<code><a href="../reference/to.html">to_unsigned()</a></code> returns just the “positive” or “negative” ties from a signed network, respectively</li>
+<code><a href="../reference/reformat.html">to_unsigned()</a></code> returns just the “positive” or “negative” ties from a signed network, respectively</li>
 <li>
-<code><a href="../reference/to.html">to_uniplex()</a></code> reduces a multigraph or multiplex network to one with a single set of edges or ties</li>
+<code><a href="../reference/reformat.html">to_uniplex()</a></code> reduces a multigraph or multiplex network to one with a single set of edges or ties</li>
 <li>
-<code><a href="../reference/to.html">to_simplex()</a></code> removes all loops or self-ties from a complex network</li>
+<code><a href="../reference/reformat.html">to_simplex()</a></code> removes all loops or self-ties from a complex network</li>
 </ul>
 <p>Then there are a few more special functions included here too:</p>
 <ul>
 <li>
-<code><a href="../reference/to.html">to_multilevel()</a></code> converts objects with two or more modes into a multimodal network structure with attribute ‘lvl’ (1, 2, etc) instead of ‘type’ (FALSE or TRUE)</li>
+<code><a href="../reference/reformat.html">to_multilevel()</a></code> converts objects with two or more modes into a multimodal network structure with attribute ‘lvl’ (1, 2, etc) instead of ‘type’ (FALSE or TRUE)</li>
 <li>
-<code><a href="../reference/to.html">to_onemode()</a></code> converts multimodal networks into networks with only one type of node, retaining the same nodes and ties</li>
+<code><a href="../reference/reformat.html">to_onemode()</a></code> converts multimodal networks into networks with only one type of node, retaining the same nodes and ties</li>
 <li>
-<code><a href="../reference/to.html">to_main_component()</a></code> identifies and returns only the main component of a network</li>
+<code><a href="../reference/transform.html">to_main_component()</a></code> identifies and returns only the main component of a network</li>
 <li>
-<code><a href="../reference/to.html">to_named()</a></code> adds random names to an anonymous network, which can be useful for pedagogical purposes</li>
+<code><a href="../reference/reformat.html">to_named()</a></code> adds random names to an anonymous network, which can be useful for pedagogical purposes</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/to.html">to_unnamed</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/reformat.html">to_unnamed</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 53 nodes and 558 edges</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; # An undirected multigraph with 4 components</span></span></span>
@@ -317,20 +317,20 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1    11    -<span style="color: #BB0000;">1</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1    12    -<span style="color: #BB0000;">1</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 555 more rows</span></span></span>
-<span><span class="fu"><a href="../reference/to.html">to_named</a></span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/reformat.html">to_named</a></span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 16 nodes and 144 edges</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; # A directed simple graph with 1 component</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; # Node Data: 16 × 1 (active)</span></span></span>
-<span><span class="co">#&gt;   name    </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Jerome  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Mindy   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Caleb   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Harper  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Marjorie</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ramona  </span></span>
+<span><span class="co">#&gt;   name     </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Lou      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Allen    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Priscilla</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Stacey   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Autumn   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Dylan    </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 10 more rows</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; # Edge Data: 144 × 5</span></span></span>
@@ -340,7 +340,7 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     8       0   0.15   0  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1     9       0   2.85   0.3</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 141 more rows</span></span></span>
-<span><span class="fu"><a href="../reference/to.html">to_undirected</a></span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/reformat.html">to_undirected</a></span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 16 nodes and 76 edges</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; # An undirected simple graph with 1 component</span></span></span>
@@ -363,7 +363,7 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2     3       0   0.15   0  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1     5       0   1.2    0.3</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 73 more rows</span></span></span>
-<span><span class="fu"><a href="../reference/to.html">to_unsigned</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span>, keep <span class="op">=</span> <span class="st">"positive"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/reformat.html">to_unsigned</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span>, keep <span class="op">=</span> <span class="st">"positive"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 53 nodes and 277 edges</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; # An undirected simple graph with 6 components</span></span></span>
@@ -389,10 +389,10 @@
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 274 more rows</span></span></span></code></pre></div>
 <p>Note that for two-mode networks, there are also functions for converting or ‘projecting’ two-mode networks into one-mode networks.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/to.html">to_mode1</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span>
-<span><span class="co">#&gt; IGRAPH fa69b95 UNW- 18 139 -- </span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform.html">to_mode1</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span>
+<span><span class="co">#&gt; IGRAPH 9fdae09 UNW- 18 139 -- </span></span>
 <span><span class="co">#&gt; + attr: name (v/c), weight (e/n)</span></span>
-<span><span class="co">#&gt; + edges from fa69b95 (vertex names):</span></span>
+<span><span class="co">#&gt; + edges from 9fdae09 (vertex names):</span></span>
 <span><span class="co">#&gt;  [1] EVELYN --LAURA     EVELYN --BRENDA    EVELYN --THERESA   EVELYN --CHARLOTTE</span></span>
 <span><span class="co">#&gt;  [5] EVELYN --FRANCES   EVELYN --ELEANOR   EVELYN --RUTH      EVELYN --PEARL    </span></span>
 <span><span class="co">#&gt;  [9] EVELYN --NORA      EVELYN --VERNE     EVELYN --MYRA      EVELYN --KATHERINE</span></span>
@@ -402,10 +402,10 @@
 <span><span class="co">#&gt; [25] LAURA  --NORA      LAURA  --VERNE     LAURA  --SYLVIA    LAURA  --HELEN    </span></span>
 <span><span class="co">#&gt; [29] LAURA  --MYRA      LAURA  --KATHERINE LAURA  --DOROTHY   THERESA--BRENDA   </span></span>
 <span><span class="co">#&gt; + ... omitted several edges</span></span>
-<span><span class="fu"><a href="../reference/to.html">to_mode2</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span>
-<span><span class="co">#&gt; IGRAPH 27e0594 UNW- 14 66 -- </span></span>
+<span><span class="fu"><a href="../reference/transform.html">to_mode2</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span>
+<span><span class="co">#&gt; IGRAPH 8a5a3d0 UNW- 14 66 -- </span></span>
 <span><span class="co">#&gt; + attr: name (v/c), weight (e/n)</span></span>
-<span><span class="co">#&gt; + edges from 27e0594 (vertex names):</span></span>
+<span><span class="co">#&gt; + edges from 8a5a3d0 (vertex names):</span></span>
 <span><span class="co">#&gt;  [1] E1 --E2  E1 --E3  E1 --E4  E1 --E5  E1 --E6  E1 --E8  E1 --E9  E1 --E7 </span></span>
 <span><span class="co">#&gt;  [9] E2 --E3  E2 --E4  E2 --E5  E2 --E6  E2 --E8  E2 --E9  E2 --E7  E3 --E4 </span></span>
 <span><span class="co">#&gt; [17] E3 --E5  E3 --E6  E3 --E8  E3 --E9  E3 --E7  E4 --E5  E4 --E6  E4 --E8 </span></span>
@@ -452,20 +452,20 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/generate.html">generate_random</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">.3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/add.html">join_ties</a></span><span class="op">(</span><span class="fu"><a href="../reference/generate.html">generate_random</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">.3</span><span class="op">)</span>, <span class="st">"next"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 10 nodes and 14 edges</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 10 nodes and 25 edges</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # An undirected simple graph with 2 components</span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; # An undirected simple graph with 1 component</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; # Node Data: 10 × 0 (active)</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 4 more rows</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # Edge Data: 14 × 4</span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; # Edge Data: 25 × 4</span></span></span>
 <span><span class="co">#&gt;    from    to  orig `next`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     6     1      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1    10     0      1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     3     0      1</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 11 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     2     1      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     3     1      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1     4     1      0</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 22 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="retrieving-data">Retrieving data<a class="anchor" aria-label="anchor" href="#retrieving-data"></a>

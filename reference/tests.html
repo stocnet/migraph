@@ -18,7 +18,7 @@ or permutation (QAP) tests of any graph-level statistic."><meta property="og:ima
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.4</span>
       </span>
     </div>
 
@@ -161,9 +161,9 @@ against a distribution of measures on permutations of the original network</p></
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="to.html">to_unsigned</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="to.html">to_main_component</a></span><span class="op">(</span><span class="va">marvel_friends</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
-<span class="r-in"><span>  <span class="fu"><a href="to.html">to_subgraph</a></span><span class="op">(</span><span class="va">PowerOrigin</span> <span class="op">==</span> <span class="st">"Human"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="reformat.html">to_unsigned</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="transform.html">to_main_component</a></span><span class="op">(</span><span class="va">marvel_friends</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
+<span class="r-in"><span>  <span class="fu"><a href="transform.html">to_subgraph</a></span><span class="op">(</span><span class="va">PowerOrigin</span> <span class="op">==</span> <span class="st">"Human"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">cugtest</span> <span class="op">&lt;-</span> <span class="fu">test_random</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="va">graph_ei_index</span>, attribute <span class="op">=</span> <span class="st">"Attractive"</span>,</span></span>
 <span class="r-in"><span>  times <span class="op">=</span> <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -183,7 +183,7 @@ against a distribution of measures on permutations of the original network</p></
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Observed Value: -0.8571429 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&gt;=Obs): 0.975 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&lt;=Obs): 0.095 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&lt;=Obs): 0.11 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">qaptest</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tests-2.png" alt="" width="700" height="433"></span>

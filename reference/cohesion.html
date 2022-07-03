@@ -18,7 +18,7 @@ and where the nodes or edges that would increase fragmentation are."><meta prope
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.4</span>
       </span>
     </div>
 
@@ -111,7 +111,7 @@ and where the nodes or edges that would increase fragmentation are.</p>
 to the number of possible ties.</p></li>
 <li><p><code>graph_components</code>: Returns number of (strong) components in the network.
 To get the 'weak' components of a directed graph,
-please use <code><a href="to.html">to_undirected()</a></code> first.</p></li>
+please use <code><a href="reformat.html">to_undirected()</a></code> first.</p></li>
 <li><p><code>graph_cohesion</code>: Returns the minimum number of nodes to remove
 from the network needed to increase the number of components.</p></li>
 <li><p><code>graph_adhesion</code>: Returns the minimum number of edges needed
@@ -144,19 +144,19 @@ to remove from the network to increase the number of components.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.164</span>
 <span class="r-in"><span><span class="fu">graph_cohesion</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
-<span class="r-in"><span><span class="fu">graph_cohesion</span><span class="op">(</span><span class="fu"><a href="to.html">to_main_component</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graph_cohesion</span><span class="op">(</span><span class="fu"><a href="transform.html">to_main_component</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
 <span class="r-in"><span><span class="fu">graph_adhesion</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
-<span class="r-in"><span><span class="fu">graph_adhesion</span><span class="op">(</span><span class="fu"><a href="to.html">to_main_component</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graph_adhesion</span><span class="op">(</span><span class="fu"><a href="transform.html">to_main_component</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
 <span class="r-in"><span><span class="fu">graph_diameter</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
-<span class="r-in"><span><span class="fu">graph_diameter</span><span class="op">(</span><span class="fu"><a href="to.html">to_main_component</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graph_diameter</span><span class="op">(</span><span class="fu"><a href="transform.html">to_main_component</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
 <span class="r-in"><span><span class="fu">graph_length</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.62</span>
-<span class="r-in"><span><span class="fu">graph_length</span><span class="op">(</span><span class="fu"><a href="to.html">to_main_component</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graph_length</span><span class="op">(</span><span class="fu"><a href="transform.html">to_main_component</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.62</span>
 </code></pre></div>
     </div>

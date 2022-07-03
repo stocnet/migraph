@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.4</span>
       </span>
     </div>
 
@@ -136,7 +136,7 @@
 <p>as well as with objects constructed from the following packages:</p>
 <ul>
 <li><a href="https://igraph.org/r/" class="external-link"><code>{igraph}</code></a></li>
-<li><a href="http://statnet.org" class="external-link"><code>{network}</code></a></li>
+<li><a href="https://statnet.org" class="external-link"><code>{network}</code></a></li>
 <li><a href="https://tidygraph.data-imaginist.com/index.html" class="external-link"><code>{tidygraph}</code></a></li>
 </ul>
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code>as_*()</code> functions can be used to translate objects from one of the above classes into any other, and include:</p>
@@ -154,7 +154,7 @@
 </li></ul>
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code>to_*()</code> functions can be used on any class object to transform networks into networks with other properties, e.g.:</p>
 <ul><li>
-<code><a href="reference/to.html">to_blocks()</a></code>, <code><a href="reference/to.html">to_main_component()</a></code>, <code><a href="reference/to.html">to_mode1()</a></code>, <code><a href="reference/to.html">to_mode2()</a></code>, <code><a href="reference/to.html">to_multilevel()</a></code>, <code><a href="reference/to.html">to_named()</a></code>, <code><a href="reference/to.html">to_onemode()</a></code>, <code><a href="reference/to.html">to_redirected()</a></code>, <code><a href="reference/to.html">to_simplex()</a></code>, <code><a href="reference/to.html">to_subgraph()</a></code>, <code><a href="reference/to.html">to_ties()</a></code>, <code><a href="reference/to.html">to_undirected()</a></code>, <code><a href="reference/to.html">to_uniplex()</a></code>, <code><a href="reference/to.html">to_unnamed()</a></code>, <code><a href="reference/to.html">to_unsigned()</a></code>, <code><a href="reference/to.html">to_unweighted()</a></code>
+<code><a href="reference/transform.html">to_blocks()</a></code>, <code><a href="reference/defunct.html">to_edges()</a></code>, <code><a href="reference/transform.html">to_main_component()</a></code>, <code><a href="reference/transform.html">to_mode1()</a></code>, <code><a href="reference/transform.html">to_mode2()</a></code>, <code><a href="reference/reformat.html">to_multilevel()</a></code>, <code><a href="reference/reformat.html">to_named()</a></code>, <code><a href="reference/reformat.html">to_onemode()</a></code>, <code><a href="reference/reformat.html">to_redirected()</a></code>, <code><a href="reference/reformat.html">to_simplex()</a></code>, <code><a href="reference/transform.html">to_subgraph()</a></code>, <code><a href="reference/transform.html">to_ties()</a></code>, <code><a href="reference/reformat.html">to_undirected()</a></code>, <code><a href="reference/reformat.html">to_uniplex()</a></code>, <code><a href="reference/reformat.html">to_unnamed()</a></code>, <code><a href="reference/reformat.html">to_unsigned()</a></code>, <code><a href="reference/reformat.html">to_unweighted()</a></code>
 </li></ul>
 </div>
 <div class="section level4">
@@ -171,10 +171,10 @@
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> includes a number of prominent network datasets, especially multimodal and multiplex examples for demonstrating more advanced methods.</p>
 <ul>
 <li>
-<code>mpn_bristol</code>, <code>mpn_DE_1990</code>, <code>mpn_DE_2008</code>, <code>mpn_DemSxP</code>, <code>mpn_elite_mex</code>, <code>mpn_elite_usa_advice</code>, <code>mpn_elite_usa_money</code>, <code>mpn_IT_1990</code>, <code>mpn_IT_2008</code>, <code>mpn_OverSxP</code>, <code>mpn_RepSxP</code>, <code>mpn_ryanair</code>, <code>mpn_UK_1990</code>, <code>mpn_UK_2008</code>
+<code>mpn_bristol</code>, <code>mpn_cow_igo</code>, <code>mpn_cow_trade</code>, <code>mpn_DE_1990</code>, <code>mpn_DE_2008</code>, <code>mpn_DemSxP</code>, <code>mpn_elite_mex</code>, <code>mpn_elite_usa_advice</code>, <code>mpn_elite_usa_money</code>, <code>mpn_IT_1990</code>, <code>mpn_IT_2008</code>, <code>mpn_OverSxP</code>, <code>mpn_RepSxP</code>, <code>mpn_ryanair</code>, <code>mpn_UK_1990</code>, <code>mpn_UK_2008</code>
 </li>
 <li>
-<code>ison_adolescents</code>, <code>ison_algebra</code>, <code>ison_bb</code>, <code>ison_bm</code>, <code>ison_brandes</code>, <code>ison_karateka</code>, <code>ison_marvel_relationships</code>, <code>ison_marvel_teams</code>, <code>ison_mb</code>, <code>ison_mm</code>, <code>ison_networkers</code>, <code>ison_southern_women</code>
+<code>ison_adolescents</code>, <code>ison_algebra</code>, <code>ison_bb</code>, <code>ison_bm</code>, <code>ison_brandes</code>, <code>ison_brandes2</code>, <code>ison_karateka</code>, <code>ison_marvel_relationships</code>, <code>ison_marvel_teams</code>, <code>ison_mb</code>, <code>ison_mm</code>, <code>ison_networkers</code>, <code>ison_southern_women</code>
 </li>
 </ul>
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> can also import and export to Excel edgelists and nodelists, <a href="http://www.analytictech.com/archive/ucinet.htm" class="external-link">UCINET</a> and <a href="http://mrvar.fdv.uni-lj.si/pajek/" class="external-link">Pajek</a> files, e.g.:</p>

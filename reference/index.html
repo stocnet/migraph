@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.4</span>
       </span>
     </div>
 
@@ -96,9 +96,13 @@
         </td>
         <td><p>Coercion between migraph-compatible object classes</p></td>
       </tr><tr><td>
-          <p><code><a href="to.html">to_uniplex()</a></code> <code><a href="to.html">to_main_component()</a></code> <code><a href="to.html">to_undirected()</a></code> <code><a href="to.html">to_redirected()</a></code> <code><a href="to.html">to_unweighted()</a></code> <code><a href="to.html">to_unsigned()</a></code> <code><a href="to.html">to_unnamed()</a></code> <code><a href="to.html">to_named()</a></code> <code><a href="to.html">to_simplex()</a></code> <code><a href="to.html">to_mode1()</a></code> <code><a href="to.html">to_mode2()</a></code> <code><a href="to.html">to_onemode()</a></code> <code><a href="to.html">to_multilevel()</a></code> <code><a href="to.html">to_ties()</a></code> <code><a href="to.html">to_subgraph()</a></code> <code><a href="to.html">to_blocks()</a></code> </p>
+          <p><code><a href="reformat.html">to_uniplex()</a></code> <code><a href="reformat.html">to_undirected()</a></code> <code><a href="reformat.html">to_redirected()</a></code> <code><a href="reformat.html">to_unweighted()</a></code> <code><a href="reformat.html">to_unsigned()</a></code> <code><a href="reformat.html">to_unnamed()</a></code> <code><a href="reformat.html">to_named()</a></code> <code><a href="reformat.html">to_simplex()</a></code> <code><a href="reformat.html">to_onemode()</a></code> <code><a href="reformat.html">to_multilevel()</a></code> </p>
         </td>
         <td><p>Tools for reformatting networks, graphs, and matrices</p></td>
+      </tr><tr><td>
+          <p><code><a href="transform.html">to_mode1()</a></code> <code><a href="transform.html">to_mode2()</a></code> <code><a href="transform.html">to_main_component()</a></code> <code><a href="transform.html">to_subgraph()</a></code> <code><a href="transform.html">to_ties()</a></code> <code><a href="transform.html">to_blocks()</a></code> </p>
+        </td>
+        <td><p>Tools for transforming networks, graphs, and matrices</p></td>
       </tr><tr><td>
           <p><code><a href="add.html">add_node_attribute()</a></code> <code><a href="add.html">add_tie_attribute()</a></code> <code><a href="add.html">copy_node_attributes()</a></code> <code><a href="add.html">join_ties()</a></code> </p>
         </td>
@@ -114,15 +118,15 @@
       </tr></tbody><tbody><tr><td>
           <p><code><a href="is.html">is_migraph()</a></code> <code><a href="is.html">is_graph()</a></code> <code><a href="is.html">is_edgelist()</a></code> <code><a href="is.html">is_twomode()</a></code> <code><a href="is.html">is_weighted()</a></code> <code><a href="is.html">is_directed()</a></code> <code><a href="is.html">is_labelled()</a></code> <code><a href="is.html">is_signed()</a></code> <code><a href="is.html">is_connected()</a></code> <code><a href="is.html">is_complex()</a></code> <code><a href="is.html">is_multiplex()</a></code> <code><a href="is.html">is_uniplex()</a></code> <code><a href="is.html">is_acyclic()</a></code> </p>
         </td>
-        <td><p>Logical tests of network properties</p></td>
+        <td><p>Marking networks based on their properties</p></td>
       </tr><tr><td>
           <p><code><a href="mark_nodes.html">node_is_cutpoint()</a></code> <code><a href="mark_nodes.html">node_is_isolate()</a></code> <code><a href="mark_nodes.html">node_is_max()</a></code> <code><a href="mark_nodes.html">node_is_min()</a></code> </p>
         </td>
-        <td><p>Logical tests of nodal properties</p></td>
+        <td><p>Marking nodes based on their properties</p></td>
       </tr><tr><td>
           <p><code><a href="mark_ties.html">tie_is_multiple()</a></code> <code><a href="mark_ties.html">tie_is_loop()</a></code> <code><a href="mark_ties.html">tie_is_reciprocated()</a></code> <code><a href="mark_ties.html">tie_is_bridge()</a></code> <code><a href="mark_ties.html">tie_is_max()</a></code> <code><a href="mark_ties.html">tie_is_min()</a></code> </p>
         </td>
-        <td><p>Logical tests of tie properties</p></td>
+        <td><p>Marking ties based on their properties</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="measures">Measures <a href="#measures" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Functions for measuring multimodal networks, all returning numeric scalars or vectors. Note that all <code>node_</code> and <code>tie_</code> measures return a single vector so that they can be added directly to graph objects. <code>graph_</code> measures return one or, in some cases of two-mode measures, two values.</p>

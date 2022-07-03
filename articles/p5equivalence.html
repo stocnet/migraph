@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.4</span>
       </span>
     </div>
 
@@ -123,9 +123,9 @@
 <div class="section level3">
 <h3 id="separating-multiplex-networks">Separating multiplex networks<a class="anchor" aria-label="anchor" href="#separating-multiplex-networks"></a>
 </h3>
-<p>As a multiplex network, there are actually three different types of tie in this network. We can extract them and investigate them separately using <code><a href="../reference/to.html">to_uniplex()</a></code>:</p>
+<p>As a multiplex network, there are actually three different types of tie in this network. We can extract them and investigate them separately using <code><a href="../reference/reformat.html">to_uniplex()</a></code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="va">friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to.html">to_uniplex</a></span><span class="op">(</span><span class="va">ison_algebra</span>, <span class="st">"friends"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reformat.html">to_uniplex</a></span><span class="op">(</span><span class="va">ison_algebra</span>, <span class="st">"friends"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 16 nodes and 62 edges</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; # A directed simple graph with 3 components</span></span></span>
@@ -149,7 +149,7 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     8      1</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 59 more rows</span></span></span>
 <span><span class="va">gfriend</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">friends</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Friendship"</span><span class="op">)</span></span>
-<span><span class="op">(</span><span class="va">social</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to.html">to_uniplex</a></span><span class="op">(</span><span class="va">ison_algebra</span>, <span class="st">"social"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="va">social</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reformat.html">to_uniplex</a></span><span class="op">(</span><span class="va">ison_algebra</span>, <span class="st">"social"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 16 nodes and 129 edges</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; # A directed simple graph with 1 component</span></span></span>
@@ -173,7 +173,7 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1     9   2.85</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 126 more rows</span></span></span>
 <span><span class="va">gsocial</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">social</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Social"</span><span class="op">)</span></span>
-<span><span class="op">(</span><span class="va">tasks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to.html">to_uniplex</a></span><span class="op">(</span><span class="va">ison_algebra</span>, <span class="st">"tasks"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="va">tasks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reformat.html">to_uniplex</a></span><span class="op">(</span><span class="va">ison_algebra</span>, <span class="st">"tasks"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 16 nodes and 88 edges</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; # A directed simple graph with 1 component</span></span></span>
@@ -379,7 +379,7 @@
 <p>Lastly, we can consider how <em>classes</em> of nodes relate to one another in a blockmodel. Let’s use the 4-cluster solution on the valued network (though binary is possible too).</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">str_clu</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/equivalence.html">node_structural_equivalence</a></span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span>
-<span><span class="op">(</span><span class="va">bm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/to.html">to_blocks</a></span><span class="op">(</span><span class="va">ison_algebra</span>, <span class="va">str_clu</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="va">bm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/transform.html">to_blocks</a></span><span class="op">(</span><span class="va">ison_algebra</span>, <span class="va">str_clu</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;           Block 1   Block 2   Block 3 Block 4</span></span>
 <span><span class="co">#&gt; Block 1 0.6111111 0.2666667 0.4166667       1</span></span>
 <span><span class="co">#&gt; Block 2 0.3000000 0.8000000 0.5500000       1</span></span>
