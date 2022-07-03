@@ -54,7 +54,7 @@ reference:
     desc: |
       Functions for identifying properties of graphs, nodes or ties,
       all returning logical scalars or vectors.
-      Note that all `node_` and `tie_` measures return a single vector 
+      Note that all `node_` and `tie_` measures return a single vector
       so that they can be added directly to graph objects.
       `graph_` measures return one or, in some cases of two-mode measures,
       two values.
@@ -64,7 +64,7 @@ reference:
     desc: |
       Functions for measuring multimodal networks,
       all returning numeric scalars or vectors.
-      Note that all `node_` and `tie_` measures return a single vector 
+      Note that all `node_` and `tie_` measures return a single vector
       so that they can be added directly to graph objects.
       `graph_` measures return one or, in some cases of two-mode measures,
       two values.

@@ -4,30 +4,30 @@
 
 - Updated the DESCRIPTION and CITATION
 - Renamed `edge_*()` to `tie_*()` to offer more (SNA) consistent vocabulary
-- Added DOIs to as much data and documentation as possible (thanks @JaelTan)
+- Added DOIs to as much data and documentation as possible (closed #236, thanks @JaelTan)
 - Some further rationalisation of the documentation
 - Dropped visualization vignette for now
 
 ## Manipulation
 
-- Added methods for converting `network.goldfish` objects (and linked events and nodelists) to migraph-compatible objects
+- Added methods for converting `network.goldfish` objects (and linked events and nodelists) to migraph-compatible objects (closed #96)
 - Renamed `add_node_attributes()` to `add_node_attribute()` and `add_edge_attributes()` to `add_tie_attribute()`
 
 ## Marks
 
 - All `is_*()` are now considered graph-level 'marks'
-- Added 'node_mark' and 'tie_mark' classes with printing methods
+- Added 'node_mark' and 'tie_mark' classes with printing methods (closed #233)
 - Added `node_is_isolate()` for marking isolates
 - Added `node_is_max()`, `node_is_min()`, `tie_is_max()`, `tie_is_min()` for converting 'measures' into 'marks'
 
 ## Measures
 
 - Printing 'node_measure' class objects now is prettier, extending the width of the console,
-  indicating how many additional observations, and separates out each mode
+  indicating how many additional observations, and separates out each mode (closed #232)
 
 ## Motifs
 
-- Added print method for `graph_motif`
+- Added print method for `graph_motif` (fixed #234)
 
 ## Memberships
 
