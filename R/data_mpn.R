@@ -308,7 +308,7 @@ NULL
 #' \href{https://correlatesofwar.org/data-sets/bilateral-trade}{\emph{Trade}}.
 #' 
 #' Barbieri, Katherine and Omar Keshk. 2012. 
-#' \href{https://correlatesofwar.org.}{\emph{Correlates of War Project Trade Data Set Codebook, Version 3.0.}}.
+#' Correlates of War Project Trade Data Set Codebook, Version 3.0.
 #' @format 
 #'   ```{r, echo = FALSE}
 #'   mpn_cow_trade
