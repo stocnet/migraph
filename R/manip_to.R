@@ -487,7 +487,7 @@ to_multilevel.matrix <- function(object) {
 #' @export
 to_ties <- function(object){
   out <- igraph::make_line_graph(as_igraph(object))
-  out <- add_node_attributes(out, "name", attr(igraph::E(object), "vnames"))
+  out <- add_node_attribute(out, "name", attr(igraph::E(object), "vnames"))
   igraph::V(out)$name <- gsub("\\|", "-", igraph::V(out)$name)
   out
 }

@@ -169,7 +169,7 @@ read_pajek <- function(file = file.choose(), ...) {
       vct <- gsub(" ", "", vct, fixed = TRUE)
       vct <- vct[!grepl("^$", vct)]
       if(all(grepl("^-?[0-9.]+$", vct))) vct <- as.numeric(vct)
-      out <- add_node_attributes(out, 
+      out <- add_node_attribute(out, 
                                  attr_name = strsplit(namo[i], " |\\.")[[1]][2],
                                  vector = vct)
     }

@@ -201,7 +201,7 @@ Adding edge attributes or new edges is not quite so straightforward,
 in part because you will need to decide which it is that you want to do.
 If you would like to just add a new tie attribute to an existing set of ties,
 without adding any new edges, then `add_tie_attributes()` operates similarly
-to `add_node_attributes()` above.
+to `add_node_attribute()` above.
 But if the result should be a multiplex network and the ties in the different
 component networks only partially overlap,
 then you will need to use `join_edges()`:

@@ -132,7 +132,7 @@ test_that("autographr works for fancy node mods", {
 
 test_that("autographr works with edge colours", {
   ison_brandes2 <- migraph::ison_brandes2 %>%
-    migraph::add_tie_attributes("tiecolour",
+    migraph::add_tie_attribute("tiecolour",
                                 c("A", "B", "A", "B", "B", "B", "B", "B", "B", "B", "B", "B"))
   test_brandes2 <- autographr(ison_brandes2, edge_color = "tiecolour")
   expect_equal(length(test_brandes2[["plot_env"]][["edge_color"]]),

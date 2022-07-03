@@ -341,7 +341,7 @@ as_igraph.network <- function(object,
   # Add remaining node level attributes
   if (length(attr) > 2) {
     for (a in attr[2:length(attr)]) {
-      graph <- add_node_attributes(graph, 
+      graph <- add_node_attribute(graph, 
                                    attr_name = a, 
                                    vector = sapply(object[[3]], "[[", a))
     }

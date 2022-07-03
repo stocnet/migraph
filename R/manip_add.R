@@ -15,10 +15,10 @@ NULL
 #' as node attributes
 #' @importFrom igraph vertex_attr<-
 #' @examples 
-#' add_node_attributes(mpn_elite_mex, "wealth", 1:35)
-#' add_node_attributes(mpn_elite_usa_advice, "wealth", 1:14)
+#' add_node_attribute(mpn_elite_mex, "wealth", 1:35)
+#' add_node_attribute(mpn_elite_usa_advice, "wealth", 1:14)
 #' @export
-add_node_attributes <- function(object, attr_name, vector){
+add_node_attribute <- function(object, attr_name, vector){
   if(length(vector)!=graph_nodes(object)){
     if(is_twomode(object) && any(length(vector) == graph_dims(object))){
       if(length(vector) == graph_dims(object)[1]){
@@ -38,9 +38,9 @@ add_node_attributes <- function(object, attr_name, vector){
 #' as tie attributes
 #' @importFrom igraph edge_attr
 #' @examples
-#' add_tie_attributes(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
+#' add_tie_attribute(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
 #' @export
-add_tie_attributes <- function(object, attr_name, vector){
+add_tie_attribute <- function(object, attr_name, vector){
   object <- as_igraph(object)
   igraph::edge_attr(object, name = attr_name) <- vector
   object

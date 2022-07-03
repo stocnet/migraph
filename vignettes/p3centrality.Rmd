@@ -86,16 +86,16 @@ or the minimum (use `node_is_min()`), or some other function to single out a nod
 
 ```{r ggid}
 ison_brandes %>%
-  add_node_attributes("color", node_is_max(node_degree(ison_brandes))) %>%
+  add_node_attribute("color", node_is_max(node_degree(ison_brandes))) %>%
   autographr(node_color = "color")
 ison_brandes %>%
-  add_node_attributes("color", node_is_max(node_betweenness(ison_brandes))) %>%
+  add_node_attribute("color", node_is_max(node_betweenness(ison_brandes))) %>%
   autographr(node_color = "color")
 ison_brandes %>%
-  add_node_attributes("color", node_is_min(node_closeness(ison_brandes))) %>%
+  add_node_attribute("color", node_is_min(node_closeness(ison_brandes))) %>%
   autographr(node_color = "color")
 ison_brandes %>%
-  add_node_attributes("color", node_is_min(node_eigenvector(ison_brandes))) %>%
+  add_node_attribute("color", node_is_min(node_eigenvector(ison_brandes))) %>%
   autographr(node_color = "color")
 ```
 
@@ -129,10 +129,10 @@ but fortunately the `{patchwork}` package is here to help.
 
 ```{r multiplot}
 ison_brandes <- ison_brandes %>%
-  add_node_attributes("degree", node_is_max(node_degree(ison_brandes))) %>%
-  add_node_attributes("betweenness", node_is_max(node_betweenness(ison_brandes))) %>%
-  add_node_attributes("closeness", node_is_max(node_closeness(ison_brandes))) %>%
-  add_node_attributes("eigenvector", node_is_max(node_eigenvector(ison_brandes)))
+  add_node_attribute("degree", node_is_max(node_degree(ison_brandes))) %>%
+  add_node_attribute("betweenness", node_is_max(node_betweenness(ison_brandes))) %>%
+  add_node_attribute("closeness", node_is_max(node_closeness(ison_brandes))) %>%
+  add_node_attribute("eigenvector", node_is_max(node_eigenvector(ison_brandes)))
 gd <- autographr(ison_brandes, node_color = "degree") + 
   ggtitle("Degree", subtitle = round(graph_degree(ison_brandes), 2))
 gc <- autographr(ison_brandes, node_color = "closeness") + 

@@ -12,20 +12,20 @@ net_edge1 <- data.frame(
   from = c("A", "B", "C", "D","E"),
   to = c("C", "D", "A", "A", "B"))
 
-test_that("add_node_attributes works", {
+test_that("add_node_attribute works", {
   # Test on one mode network
-  expect_equal(as_tidygraph(add_node_attributes(net_node1, "attribute", 
+  expect_equal(as_tidygraph(add_node_attribute(net_node1, "attribute", 
                                                 c("friend", "family", "friend", "friend", "family"))), 
                net_node2)
   # On two mode network
   # First nodeset
-  south1 <- add_node_attributes(ison_southern_women, "Age", rep(25, 18))
+  south1 <- add_node_attribute(ison_southern_women, "Age", rep(25, 18))
   expect_equal(node_attribute(south1, "Age"), c(rep(25, 18), rep(NA, 14)))
   # Second nodeset
-  south2 <- add_node_attributes(ison_southern_women, "Budget", rep(100, 14))
+  south2 <- add_node_attribute(ison_southern_women, "Budget", rep(100, 14))
   expect_equal(node_attribute(south2, "Budget"), c(rep(NA, 18), rep(100, 14)))
   # Test error when wrong number of attributes
-  expect_error(add_node_attributes(ison_southern_women, "Budget", rep(100, 15)))
+  expect_error(add_node_attribute(ison_southern_women, "Budget", rep(100, 15)))
 })
 
 test_that("copy_node_attributes works", {
@@ -38,12 +38,12 @@ test_that("copy_node_attributes works", {
   expect_error(copy_node_attributes(net_node1, net_node3))
 })
 
-test_that("add_tie_attributes works", {
-  expect_equal(tie_attribute(add_tie_attributes(net_edge1, "weight", 
+test_that("add_tie_attribute works", {
+  expect_equal(tie_attribute(add_tie_attribute(net_edge1, "weight", 
                                                   c(1,2,1,2,1)), 
                               "weight"), 
                c(1,2,1,2,1))
-  expect_equal(class(add_tie_attributes(net_edge1, "weight", c(1,2,1,2,1))), 
+  expect_equal(class(add_tie_attribute(net_edge1, "weight", c(1,2,1,2,1))), 
                "igraph")
 })
 

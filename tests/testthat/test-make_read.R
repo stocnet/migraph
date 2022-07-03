@@ -63,7 +63,7 @@ test_that("write_nodelist works", {
   file2 <- tempfile() # Create file
   nodelisttest <- data.frame(data.frame(from = c("A", "B", "C"),
                                         to = c("B", "A", "A")))
-  nodelisttest <- add_node_attributes(nodelisttest, "type", c(FALSE, FALSE, TRUE))
+  nodelisttest <- add_node_attribute(nodelisttest, "type", c(FALSE, FALSE, TRUE))
   write_nodelist(nodelisttest,
                  filename = file)
   expect_equal(read.csv(file),
