@@ -4,9 +4,7 @@ pkgdown_sha: ~
 articles:
   p1data: p1data.html
   p3centrality: p3centrality.html
-  p5equivalence: p5equivalence.html
-  p7linearmodel: p7linearmodel.html
-last_built: 2022-07-03T12:13Z
+last_built: 2022-07-03T13:38Z
 urls:
   reference: https://snlab-ch.github.io/migraph/reference
   article: https://snlab-ch.github.io/migraph/articles
