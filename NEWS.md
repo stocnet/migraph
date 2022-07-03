@@ -1,8 +1,53 @@
-# migraph 0.10.3
+# migraph 0.11.0
+
+## Package
+
+- Updated the DESCRIPTION and CITATION
+- Renamed `edge_*()` to `tie_*()` to offer more (SNA) consistent vocabulary
+- Added DOIs to as much data and documentation as possible (thanks @JaelTan)
+- Some further rationalisation of the documentation
+- Dropped visualization vignette for now
+
+## Manipulation
+
+- Added methods for converting `network.goldfish` objects (and linked events and nodelists) to migraph-compatible objects
+- Renamed `add_node_attributes()` to `add_node_attribute()` and `add_edge_attributes()` to `add_tie_attribute()`
+
+## Marks
+
+- All `is_*()` are now considered graph-level 'marks'
+- Added 'node_mark' and 'tie_mark' classes with printing methods
+- Added `node_is_isolate()` for marking isolates
+- Added `node_is_max()`, `node_is_min()`, `tie_is_max()`, `tie_is_min()` for converting 'measures' into 'marks'
+
+## Measures
+
+- Printing 'node_measure' class objects now is prettier, extending the width of the console,
+  indicating how many additional observations, and separates out each mode
+
+## Motifs
+
+- Added print method for `graph_motif`
 
 ## Memberships
 
-- Equivalence examples now `\donotrun`
+- Equivalence examples now `\dontrun`
+
+## Models
+
+- `cluster_concor()` and `cluster_hierarchical()` are now exported
+
+## Mapping
+
+- `autographr()` no longer requires "highlight_measure" and "identify_function" arguments
+  as users can now convert 'measures' to 'marks' and use these for "node_color" or "edge_color"
+
+## Data
+
+- Added prints of each data object to `@format` for more consistent documentation
+- Added `ison_brandes2` dataset, a two-mode version of the original one-mode dataset
+- Added `mpn_cow_trade` and `mpn_cow_igo` datasets (thanks @JaelTan)
+- Fixed non-unique names in `mpn_elite_mex`
 
 # migraph 0.10.2
 

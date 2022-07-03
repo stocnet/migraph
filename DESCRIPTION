@@ -1,17 +1,17 @@
 Package: migraph
 Title: Tools for Multimodal Network Analysis
-Version: 0.10.3
-Date: 2022-06-28
-Description: A set of tools that extend common social network analysis packages
-   for analysing multimodal networks.
-   It includes functions for one- and two-mode (and sometimes three-mode) 
-   centrality, centralization, clustering, and constraint,
-   as well as for one- and two-mode network block-modelling and regression.
+Version: 0.11.0
+Date: 2022-07-03
+Description: A set of tools for analysing multimodal networks.
    All functions operate with matrices, edge lists, 
-   and 'igraph', 'network', and 'tidygraph' objects.
+   and 'igraph', 'network', and 'tidygraph' objects,
+   and on one-mode, two-mode (bipartite), and sometimes three-mode networks.
+   It includes functions for measuring 
+   centrality, centralization, cohesion, closure, and constraint,
+   as well as for network block-modelling and regression.
    The package is released as a complement to 
    'Multimodal Political Networks' (2021, ISBN:9781108985000),
-   and includes various datasets used in the book.
+   and includes various datasets used in the book in addition to other network data.
 URL: https://github.com/snlab-ch/migraph
 BugReports: https://github.com/snlab-ch/migraph/issues
 Depends: R (>= 3.6.0)
@@ -31,12 +31,12 @@ Imports:
     future,
     furrr,
     patchwork,
+    pillar,
     purrr,
     rlang,
     sna,
     tidygraph,
-    tidyr,
-    pillar
+    tidyr
 Suggests: 
     concaveman,
     covr,
