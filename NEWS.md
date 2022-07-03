@@ -1,8 +1,14 @@
+# migraph 0.10.5
+
+## Package
+
+- Dropped vignettes for now to ensure package makes it on to CRAN
+
 # migraph 0.10.4
 
 ## Package
 
-- Fixed some URL issues
+- Fixed some URL issues for CRAN
 
 ## Manipulation
 
