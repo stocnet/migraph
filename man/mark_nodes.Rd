@@ -6,7 +6,7 @@
 \alias{node_is_isolate}
 \alias{node_is_max}
 \alias{node_is_min}
-\title{Logical tests of nodal properties}
+\title{Marking nodes based on their properties}
 \usage{
 node_is_cutpoint(object)
 
