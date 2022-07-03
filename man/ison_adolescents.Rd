@@ -5,7 +5,29 @@
 \alias{ison_adolescents}
 \title{One-mode subset of the adolescent society (Coleman 1961)}
 \format{
-A undirected one-mode tbl_graph object of 8 named nodes and 10 edges.
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 8 nodes and 10 edges
+## #
+## # An undirected simple graph with 1 component
+## #
+## # Node Data: 8 × 1 (active)
+##   name 
+##   <chr>
+## 1 Betty
+## 2 Sue  
+## 3 Alice
+## 4 Jane 
+## 5 Dale 
+## 6 Pam  
+## # … with 2 more rows
+## #
+## # Edge Data: 10 × 2
+##    from    to
+##   <int> <int>
+## 1     1     2
+## 2     2     3
+## 3     3     4
+## # … with 7 more rows
+}\if{html}{\out{</div>}}
 }
 \usage{
 data(ison_adolescents)
@@ -15,9 +37,10 @@ One-mode subset of the adolescent society (Coleman 1961)
 }
 \references{
 Coleman, James S. 1961. The Adolescent Society.
-New York:Free Press.
+New York: Free Press.
 
 Feld, Scott. 1991. “Why your friends have more friends than you do”
-American Journal of Sociology 96(6): 1464-1477.
+\emph{American Journal of Sociology} 96(6): 1464-1477.
+\doi{10.1086/229693}.
 }
 \keyword{datasets}

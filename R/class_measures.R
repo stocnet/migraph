@@ -4,8 +4,8 @@ make_node_measure <- function(out, object) {
   out
 }
 
-make_edge_measure <- function(out, object) {
-  class(out) <- c("edge_measure", class(out))
+make_tie_measure <- function(out, object) {
+  class(out) <- c("tie_measure", class(out))
   out
 }
 
@@ -15,42 +15,29 @@ make_graph_measure <- function(out, object) {
   out
 }
 
+# Printing ####
 #' @export
 print.node_measure <- function(x, ...,
                           max.length = 6,
                           digits = 3) {
   if (any(attr(x, "mode"))) {
-    y <- x[attr(x, "mode")]
-    y <- y[max(1, ((length(y) - max.length) + 1)):length(y)]
-    z <- x[!attr(x, "mode")]
-    z <- z[1:min(length(z), max.length)]
-    class(z) <- "numeric"
-    z <- format(z, digits = digits)
-    class(y) <- "numeric"
-    y <- format(y, digits = digits)
-    print(noquote(format(c(z,
-                           paste("+", length(x) - (length(z) + length(y)),
-                                 "others"), y))))
+    for(m in c(FALSE, TRUE)){
+      print_tblvec(y = as.numeric(x)[attr(x, "mode")==m], 
+                   names = list(names(x)[attr(x, "mode")==m]))
+      if(!m) cat("\n")
+    }
   } else {
-    z <- x[1:min(length(x), max.length)]
-    class(z) <- "numeric"
-    z <- format(z, digits = digits)
-    print(noquote(format(c(z,
-                           paste("+", length(x) - length(z),
-                                 "others")))))
+    print_tblvec(y = as.numeric(x), 
+                 names = list(names(x)))
   }
 }
 
 #' @export
-print.edge_measure <- function(x, ...,
+print.tie_measure <- function(x, ...,
                                max.length = 6,
                                digits = 3) {
-    z <- x[1:min(length(x), max.length)]
-    class(z) <- "numeric"
-    z <- format(z, digits = digits)
-    print(noquote(format(c(z,
-                           paste("+", length(x) - length(z), 
-                                 "others")))))
+  print_tblvec(y = as.numeric(x), 
+               names = list(names(x)))
 }
 
 #' @export
@@ -66,6 +53,21 @@ print.graph_measure <- function(x, ...,
     }
 }
 
+# @param FUN A function by which the values should be aggregated
+# or summarised. By default `mean`.
+# summary(node_degree(mpn_elite_mex),
+#         membership = node_structural_equivalence(mpn_elite_mex, select = "elbow"))
+#' @export
+summary.node_measure <- function(object, ...,
+                                 membership,
+                                 FUN = mean) {
+  out <- vapply(unique(membership),
+                function(x) FUN(object[membership == x]), FUN.VALUE = 1)
+  names(out) <- unique(membership)
+  out
+}
+
+# Plotting ####
 #' @export
 plot.node_measure <- function(x, type = c("h", "d"), ...) {
   type <- match.arg(type)
@@ -112,7 +114,7 @@ plot.node_measure <- function(x, type = c("h", "d"), ...) {
 }
 
 #' @export
-plot.edge_measure <- function(x, type = c("h", "d"), ...) {
+plot.tie_measure <- function(x, type = c("h", "d"), ...) {
   type <- match.arg(type)
   data <- data.frame(Score = x)
   if (type == "h") {
@@ -132,16 +134,18 @@ plot.edge_measure <- function(x, type = c("h", "d"), ...) {
     ggplot2::theme(panel.grid.major = ggplot2::element_line(colour = "grey90"))
 }
 
-# @param FUN A function by which the values should be aggregated
-# or summarised. By default `mean`.
-# summary(node_degree(mpn_elite_mex),
-#         membership = node_structural_equivalence(mpn_elite_mex, select = "elbow"))
-#' @export
-summary.node_measure <- function(object, ...,
-                                 membership,
-                                 FUN = mean) {
-  out <- vapply(unique(membership),
-                function(x) FUN(object[membership == x]), FUN.VALUE = 1)
-  names(out) <- unique(membership)
-  out
+# make tblvec ####
+print_tblvec <- function(y, names){
+  mat <- matrix(y, dimnames = names)
+  mat <- t(mat)
+  out <- as.data.frame(mat)
+  tibs <- dplyr::tibble(out, .name_repair = "unique")
+  setup <- pillar::tbl_format_setup(tibs)
+  body <- pillar::tbl_format_body(tibs, setup)[c(1,3)]
+  if(setup$extra_cols_total > 0){
+        print(body)
+    cat(pillar::style_subtle(paste("# ... with",
+                                   setup$extra_cols_total,
+                                   "more in the vector.")))
+      } else print(body)
 }

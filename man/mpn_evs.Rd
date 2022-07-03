@@ -29,6 +29,8 @@
 \item{Health}{1 if individual associated}
 }
 
+An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 672.
+
 An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 554.
 
 An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 1383.
@@ -45,6 +47,8 @@ Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
 Cambridge University Press. Cambridge University Press.
 }
 \usage{
+data(mpn_IT_1990)
+
 data(mpn_IT_1990)
 
 data(mpn_IT_2008)
@@ -67,7 +71,6 @@ The UK data has 738 respondents in 1990 and 664 in 2008.
 \references{
 EVS (2020). European Values Study Longitudinal Data File 1981-2008 (EVS 1981-2008).
 GESIS Data Archive, Cologne. ZA4804 Data file Version 3.1.0,
-https://doi.org/10.4232/1.13486.
-\emph{Multimodal Political Networks}. Cambridge University Press: Cambridge.
+\doi{10.4232/1.13486}.
 }
 \keyword{datasets}

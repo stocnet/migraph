@@ -57,34 +57,38 @@
 #' @return
 #' The currently implemented coercions or translations are:
 #' 
-#' |  to/from  | edgelists  | matrices  |igraph  |tidygraph  |network  |
-#' | ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|
-#' | edgelists (data frames)  | X | X | X | X | X |
-#' | matrices                 | X | X | X | X | X |
-#' | igraph                   | X | X | X | X | X |
-#' | tidygraph                | X | X | X | X | X |
-#' | network                  | X | X | X | X | X |
+#' |  to/from  | edgelists  | matrices  |igraph  |tidygraph  |network  | goldfish
+#' | ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+#' | edgelists (data frames)  | X | X | X | X | X | X |
+#' | matrices                 | X | X | X | X | X | X |
+#' | igraph                   | X | X | X | X | X | X |
+#' | tidygraph                | X | X | X | X | X | X |
+#' | network                  | X | X | X | X | X | X |
 NULL
 
 #' @rdname as
 #' @importFrom igraph as_edgelist
 #' @export
-as_edgelist <- function(object) UseMethod("as_edgelist")
+as_edgelist <- function(object,
+                        twomode = FALSE) UseMethod("as_edgelist")
 
 #' @export
-as_edgelist.igraph <- function(object){
+as_edgelist.igraph <- function(object,
+                               twomode = FALSE){
   out <- igraph::get.data.frame(object)
   dplyr::as_tibble(out)
 }
 
 #' @export
-as_edgelist.tbl_graph <- function(object){
+as_edgelist.tbl_graph <- function(object,
+                                  twomode = FALSE){
   out <- igraph::get.data.frame(object)
   dplyr::as_tibble(out)
 }
 
 #' @export
-as_edgelist.network <- function(object){
+as_edgelist.network <- function(object,
+                                twomode = FALSE){
   out <- sna::as.edgelist.sna(object)
   edges <- as.data.frame(out)
   if (is_twomode(object)) {
@@ -107,12 +111,15 @@ as_edgelist.network <- function(object){
 }
 
 #' @export
-as_edgelist.matrix <- function(object){
-  as_edgelist.igraph(as_igraph(object))
+as_edgelist.matrix <- function(object,
+                               twomode = FALSE){
+  as_edgelist.igraph(as_igraph(object,
+                               twomode = FALSE))
 }
 
 #' @export
-as_edgelist.data.frame <- function(object){
+as_edgelist.data.frame <- function(object,
+                                   twomode = FALSE){
   if(ncol(object) == 2 && any(names(object) != c("from", "to"))){
     names(object) <- c("from", "to")
     object
@@ -126,10 +133,12 @@ as_edgelist.data.frame <- function(object){
 
 #' @rdname as
 #' @export
-as_matrix <- function(object) UseMethod("as_matrix")
+as_matrix <- function(object,
+                      twomode = FALSE) UseMethod("as_matrix")
 
 #' @export
-as_matrix.data.frame <- function(object){
+as_matrix.data.frame <- function(object,
+                                 twomode = FALSE){
   if ("tbl_df" %in% class(object)) object <- as.data.frame(object)
   
   if (ncol(object) == 2 | !is_weighted(object)) {
@@ -168,12 +177,14 @@ as_matrix.data.frame <- function(object){
 }
 
 #' @export
-as_matrix.matrix <- function(object) {
+as_matrix.matrix <- function(object,
+                             twomode = FALSE) {
   object
 }
 
 #' @export
-as_matrix.igraph <- function(object) {
+as_matrix.igraph <- function(object,
+                             twomode = FALSE) {
   if (is_twomode(object)) {
     if (is_weighted(object) | is_signed(object)) {
       mat <- igraph::as_incidence_matrix(object, sparse = FALSE,
@@ -195,12 +206,14 @@ as_matrix.igraph <- function(object) {
 }
 
 #' @export
-as_matrix.tbl_graph <- function(object) {
+as_matrix.tbl_graph <- function(object,
+                                twomode = FALSE) {
   as_matrix(as_igraph(object))
 }
 
 #' @export
-as_matrix.network <- function(object) {
+as_matrix.network <- function(object,
+                              twomode = FALSE) {
   if (network::is.bipartite(object)) {
     if ("weight" %in% network::list.edge.attributes(object)) {
       network::as.matrix.network(object,
@@ -328,7 +341,7 @@ as_igraph.network <- function(object,
   # Add remaining node level attributes
   if (length(attr) > 2) {
     for (a in attr[2:length(attr)]) {
-      graph <- add_node_attributes(graph, 
+      graph <- add_node_attribute(graph, 
                                    attr_name = a, 
                                    vector = sapply(object[[3]], "[[", a))
     }
@@ -367,15 +380,18 @@ as_tidygraph.network <- function(object, twomode = FALSE) {
 
 #' @rdname as
 #' @export
-as_network <- function(object) UseMethod("as_network")
+as_network <- function(object,
+                       twomode = FALSE) UseMethod("as_network")
 
 #' @export
-as_network.network <- function(object) {
+as_network.network <- function(object,
+                               twomode = FALSE) {
   object
 }
 
 #' @export
-as_network.matrix <- function(object) {
+as_network.matrix <- function(object,
+                              twomode = FALSE) {
   # Convert to adjacency matrix if not square already
   if (nrow(object) != ncol(object)) {
     out <- to_multilevel(object)
@@ -393,7 +409,8 @@ as_network.matrix <- function(object) {
 }
 
 #' @export
-as_network.igraph <- function(object) {
+as_network.igraph <- function(object,
+                              twomode = FALSE) {
   name <- type <- NULL
   attr <- as.data.frame(igraph::get.vertex.attribute(object))
   if ("name" %in% colnames(attr)) attr <- subset(attr, select = c(-name))
@@ -406,7 +423,8 @@ as_network.igraph <- function(object) {
 }
 
 #' @export
-as_network.tbl_graph <- function(object) {
+as_network.tbl_graph <- function(object,
+                                 twomode = FALSE) {
   nodes <- NULL
   attr <- as.data.frame(activate(object, nodes))[-1]
   out <- as_network(as_matrix(object))
@@ -417,7 +435,90 @@ as_network.tbl_graph <- function(object) {
 }
 
 #' @export
-as_network.data.frame <- function(object) {
+as_network.data.frame <- function(object,
+                                  twomode = FALSE) {
   if ("tbl_df" %in% class(object)) object <- as.data.frame(object)
   as.network(object)
+}
+
+#' @export
+as_tidygraph.network.goldfish <- function(object,
+                                          twomode = FALSE) {
+  
+  # orig <- deparse(substitute(object))
+  # y <- ls(envir = .GlobalEnv)
+  # envir  <- .GlobalEnv
+  # 
+  # classesToKeep <- c("nodes.goldfish", "network.goldfish")
+  # checkClasses <- function(object, classes) vapply(classes, 
+  #                               function(x) methods::is(object, x), logical(1))
+  # ClassFilter <- function(x) any(checkClasses(get(x), classes = classesToKeep))
+  # gfobjs <- Filter(ClassFilter, y)
+  # classes <- vapply(gfobjs, FUN = function(x) checkClasses(get(x), 
+  #                                classes = classesToKeep), 
+  #                   FUN.VALUE = logical(length(classesToKeep)))
+  
+  if(sum(object)==0){
+    out <- igraph::graph_from_data_frame(d = get(attr(object, "events"))[,2:4],
+                                  directed = attr(object, "directed"),
+                                  vertices = get(attr(object, "nodes")))
+    out <- as_tidygraph(out)
+  } else stop("Non-empty starts are not yet supported by this function.")
+  
+  # if(rowSums(classes)['network.goldfish']>1){
+  #   nets <- colnames(classes)[classes['network.goldfish', ]==TRUE]
+  #   nets <- nets[nets != orig]
+  #   for(edges in nets){
+  #     eventlist <- get(attr(get(edges), "events"))
+  #     eventlist <- eventlist[,2:4]
+  #     eventlist <- eventlist[!duplicated(eventlist),] # currently not carrying multiple ties across
+  #     other <- as_tidygraph(eventlist)
+  #     out <- join_edges(out, other, edges)
+  #   }
+  # }
+
+  out
+}
+
+#' @export
+as_igraph.network.goldfish <- function(object,
+                                       twomode = FALSE) {
+  
+  # orig <- deparse(substitute(object))
+  # y <- ls(envir = .GlobalEnv)
+  # envir  <- .GlobalEnv
+  # 
+  # classesToKeep <- c("nodes.goldfish", "network.goldfish")
+  # checkClasses <- function(object, classes) vapply(classes, 
+  #                                                  function(x) methods::is(object, x), logical(1))
+  # ClassFilter <- function(x) any(checkClasses(get(x), classes = classesToKeep))
+  # gfobjs <- Filter(ClassFilter, y)
+  # classes <- vapply(gfobjs, FUN = function(x) checkClasses(get(x), 
+  #                                                          classes = classesToKeep), 
+  #                   FUN.VALUE = logical(length(classesToKeep)))
+  
+  if(sum(object)==0){
+    out <- igraph::graph_from_data_frame(d = get(attr(object, "events"))[,2:4],
+                                         directed = attr(object, "directed"),
+                                         vertices = get(attr(object, "nodes")))
+  } else stop("Non-empty starts are not yet supported by this function.")
+  out
+}
+
+#' @export
+as_network.network.goldfish <- function(object,
+                                        twomode = FALSE) {
+  as_network(as_igraph(object, twomode = twomode))
+}
+
+#' @export
+as_matrix.network.goldfish <- function(object,
+                                       twomode = FALSE) {
+  as_matrix(as_igraph(object, twomode = twomode))
+}
+
+#' @export
+as_edgelist.network.goldfish <- function(object,
+                                         twomode = FALSE) {
+  as_matrix(as_igraph(object, twomode = twomode))
 }

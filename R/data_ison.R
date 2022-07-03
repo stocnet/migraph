@@ -87,12 +87,15 @@
 #' @name ison_algebra
 #' @usage data(ison_algebra)
 #' @references 
-#' McFarland, Daniel A. (2001) ``Student Resistance.''
-#' American Journal of Sociology, 107(3), p 612-678.
+#' McFarland, Daniel A. (2001) “Student Resistance.”
+#' _American Journal of Sociology_ 107(3): 612-78.
+#' \doi{10.1086/338779}.
 #' @source See also `data(studentnets.M182, package = "NetData")`
 #' Larger comprehensive data set publicly available, contact Daniel A. McFarland for details.
-#' @format Multiplex `tbl_graph` object of friends, social, and task ties
-#' between 16 anonymous students.
+#' @format 
+#'   ```{r, echo = FALSE}
+#'   ison_algebra
+#'   ```
 "ison_algebra"
 
 # Adolescents ####
@@ -103,35 +106,44 @@
 #' @keywords datasets
 #' @name ison_adolescents
 #' @usage data(ison_adolescents)
-#' @format A undirected one-mode tbl_graph object of 8 named nodes and 10 edges.
 #' @references
-#' Coleman, James S. 1961. The Adolescent Society.
-#' New York:Free Press.
+#'   Coleman, James S. 1961. The Adolescent Society.
+#'   New York: Free Press.
 #' 
-#' Feld, Scott. 1991. “Why your friends have more friends than you do”
-#' American Journal of Sociology 96(6): 1464-1477.
+#'   Feld, Scott. 1991. “Why your friends have more friends than you do”
+#'   _American Journal of Sociology_ 96(6): 1464-1477.
+#'   \doi{10.1086/229693}.
+#' @format 
+#'   ```{r, echo = FALSE}
+#'   ison_adolescents
+#'   ```
 "ison_adolescents"
 
 # Karateka ####
 
 #' One-mode karateka network (Zachary 1977)
 #' 
-#' @details Zachary's karateka network. The network was observed in a
-#' university Karate club in 1977. The network describes association patterns
-#' among 34 members and maps out allegiance patterns between members and either
-#' Mr. Hi, the instructor, or the John A. the club president after an argument
-#' about hiking the price for lessons. The allegiance of each node is
-#' listed in the `obc` argument which takes the value 1 if the individual
-#' sided with Mr. Hi after the fight and 2 if the individual sided with John A.
-#'
+#' @description 
+#'   The network was observed in a university Karate club in 1977. 
+#'   The network describes association patterns among 34 members 
+#'   and maps out allegiance patterns between members and either Mr. Hi, 
+#'   the instructor, or the John A. the club president 
+#'   after an argument about hiking the price for lessons. 
+#'   The allegiance of each node is listed in the `obc` argument 
+#'   which takes the value 1 if the individual sided with Mr. Hi after the fight 
+#'   and 2 if the individual sided with John A.
 #' @docType data
 #' @keywords datasets
 #' @name ison_karateka
 #' @usage data(ison_karateka)
 #' @references
-#' Zachary, Wayne W. 1977. “An Information Flow Model for Conflict and Fission in Small Groups.”
-#' Journal of Anthropological Research 33(4):452–73.
-#' @format Undirected one-mode igraph with 34 named nodes and 78 edges.
+#'   Zachary, Wayne W. 1977. “An Information Flow Model for Conflict and Fission in Small Groups.”
+#'   _Journal of Anthropological Research_ 33(4):452–73. 
+#'   \doi{10.1086/jar.33.4.3629752}.
+#' @format 
+#'   ```{r, echo = FALSE}
+#'   ison_karateka
+#'   ```
 "ison_karateka"
 
 # Networkers ####
@@ -148,23 +160,24 @@
 #' @keywords datasets
 #' @name ison_networkers
 #' @usage data(ison_networkers)
-#' @format `tbl_graph` network object. The network is directed, simple, named
-#' , and weighted. It contains 32 nodes and 440 edges as well as two node level
-#' attributes: `Citations`; `Discipline`.
 #' @source networkdata package
 #' @references
-#' Freeman, S. C. and L. C. Freeman (1979).
+#' Freeman, Sue C. and Linton C. Freeman. 1979.
 #' \emph{The networkers network: A study of the impact of a new communications medium on sociometric structure}.
 #' Social Science Research Reports No 46. Irvine CA, University of California.
 #' 
-#' Wasserman S. and K. Faust (1994).
+#' Wasserman Stanley and Katherine Faust. 1994.
 #' \emph{Social Network Analysis: Methods and Applications}.
 #' Cambridge University Press, Cambridge.
+#' @format 
+#'   ```{r, echo = FALSE}
+#'   ison_networkers
+#'   ```
 "ison_networkers"
 
 # Brandes ####
 
-#' One-mode centrality demonstration network
+#' One-mode and two-mode centrality demonstration networks
 #' 
 #' This network should solely be used
 #' for demonstration purposes as it does not describe a real network.
@@ -173,8 +186,20 @@
 #' @keywords datasets
 #' @name ison_brandes
 #' @usage data(ison_brandes)
-#' @format A tidygraph `tbl_graph` with 11 nodes and 24 edges.
+#' @format 
+#'   ```{r, echo = FALSE}
+#'   ison_brandes
+#'   ```
 "ison_brandes"
+
+#' @rdname ison_brandes
+#' @usage data(ison_brandes2)
+#' @format 
+#'   ```{r, echo = FALSE}
+#'   ison_brandes2
+#'   ```
+"ison_brandes2"
+
 
 # Southern Women ####
 
@@ -188,8 +213,12 @@
 #' @keywords datasets
 #' @name ison_southern_women
 #' @usage data(ison_southern_women)
-#' @format `{igraph}` two-mode graph object with 18 women and 14 informal social
-#' events.
-#' @references Davis, A., Gardner, B., and Gardner, R. 1941. \emph{Deep South}.
-#' Chicago: University of Chicago Press.
+#' @references 
+#'   Davis, Allison, Burleigh B. Gardner, and Mary R. Gardner. 1941.
+#'   \emph{Deep South}.
+#'   Chicago: University of Chicago Press.
+#' @format 
+#'   ```{r, echo = FALSE}
+#'   ison_southern_women
+#'   ```
 "ison_southern_women"

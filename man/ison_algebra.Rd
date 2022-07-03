@@ -5,8 +5,29 @@
 \alias{ison_algebra}
 \title{Multiplex graph object of friends, social, and task ties (McFarland 2001)}
 \format{
-Multiplex \code{tbl_graph} object of friends, social, and task ties
-between 16 anonymous students.
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 16 nodes and 144 edges
+## #
+## # A directed simple graph with 1 component
+## #
+## # Node Data: 16 × 1 (active)
+##   name    
+##   <chr>   
+## 1 Melinda 
+## 2 Abby    
+## 3 Darryl  
+## 4 Veronica
+## 5 Rylan   
+## 6 Lindsey 
+## # … with 10 more rows
+## #
+## # Edge Data: 144 × 5
+##    from    to friends social tasks
+##   <int> <int>   <dbl>  <dbl> <dbl>
+## 1     1     5       0   1.2    0.3
+## 2     1     8       0   0.15   0  
+## 3     1     9       0   2.85   0.3
+## # … with 141 more rows
+}\if{html}{\out{</div>}}
 }
 \source{
 See also \code{data(studentnets.M182, package = "NetData")}
@@ -28,7 +49,8 @@ where \code{2} = best friends, \code{1} = friend, and \code{0} is not a friend.
 and \code{tasks} consists of task interactions per hour.
 }
 \references{
-McFarland, Daniel A. (2001) ``Student Resistance.''
-American Journal of Sociology, 107(3), p 612-678.
+McFarland, Daniel A. (2001) “Student Resistance.”
+\emph{American Journal of Sociology} 107(3): 612-78.
+\doi{10.1086/338779}.
 }
 \keyword{datasets}

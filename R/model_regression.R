@@ -68,13 +68,16 @@
 #' @importFrom stats glm.fit as.formula df.residual pchisq
 #' @seealso `vignette("p7linearmodel")`
 #' @references 
-#'   Krackhardt, David (1988).
+#'   Krackhardt, David. 1988.
 #'   “Predicting with Networks: Nonparametric Multiple Regression Analysis of Dyadic Data.” 
 #'   _Social Networks_ 10(4):359–81.
+#'   \doi{10.1016/0378-8733(88)90004-4}.
 #'   
-#'   Dekker, David, Krackhard, David, Snijders, Tom A.B (2007).
+#'   Dekker, David, David Krackhard, and Tom A. B. Snijders. 2007.
 #'   “Sensitivity of MRQAP tests to collinearity and autocorrelation conditions.”
 #'   _Psychometrika_ 72(4): 563-581.
+#'   \doi{10.1007/s11336-007-9016-1}.
+#'   
 #' @examples
 #' networkers <- ison_networkers %>% to_subgraph(Discipline == "Sociology")
 #' model1 <- network_reg(weight ~ alter(Citations) + sim(Citations), 
@@ -361,7 +364,7 @@ convertToMatrixList <- function(formula, data){
         names(out) <- paste(IV[[elem]], collapse = " ")
         out <- out
       } else {
-        if (IV[[elem]][1] %in% graph_edge_attributes(data)){
+        if (IV[[elem]][1] %in% graph_tie_attributes(data)){
           out <- as_matrix(to_uniplex(data, 
                                       edge = IV[[elem]][1]))
           out <- list(out)

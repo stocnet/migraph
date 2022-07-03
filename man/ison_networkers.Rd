@@ -5,9 +5,29 @@
 \alias{ison_networkers}
 \title{One-mode EIES dataset (Freeman and Freeman 1979)}
 \format{
-\code{tbl_graph} network object. The network is directed, simple, named
-, and weighted. It contains 32 nodes and 440 edges as well as two node level
-attributes: \code{Citations}; \code{Discipline}.
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 32 nodes and 440 edges
+## #
+## # A directed simple graph with 1 component
+## #
+## # Node Data: 32 × 3 (active)
+##   name               Discipline   Citations
+##   <chr>              <chr>            <dbl>
+## 1 LIN FREEMAN        Sociology           19
+## 2 DOUG WHITE         Anthropology         3
+## 3 EV ROGERS          Other              170
+## 4 RICHARD ALBA       Sociology           23
+## 5 PHIPPS ARABIE      Other               16
+## 6 CAROL BARNER-BARRY Other                6
+## # … with 26 more rows
+## #
+## # Edge Data: 440 × 3
+##    from    to weight
+##   <int> <int>  <dbl>
+## 1     1     2    488
+## 2     1     3     28
+## 3     1     4     65
+## # … with 437 more rows
+}\if{html}{\out{</div>}}
 }
 \source{
 networkdata package
@@ -24,11 +44,11 @@ researchers (\code{Discipline}). Edge weights illustrate the number of emails
 sent from one academic to another over the studied time period.
 }
 \references{
-Freeman, S. C. and L. C. Freeman (1979).
+Freeman, Sue C. and Linton C. Freeman. 1979.
 \emph{The networkers network: A study of the impact of a new communications medium on sociometric structure}.
 Social Science Research Reports No 46. Irvine CA, University of California.
 
-Wasserman S. and K. Faust (1994).
+Wasserman Stanley and Katherine Faust. 1994.
 \emph{Social Network Analysis: Methods and Applications}.
 Cambridge University Press, Cambridge.
 }

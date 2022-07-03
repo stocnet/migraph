@@ -7,11 +7,53 @@
 \alias{mpn_elite_usa_money}
 \title{Two-mode and three-mode American power elite database (Domhoff 2016)}
 \format{
-\code{mpn_elite_usa_advice} is a two-mode, named, and unweighted \code{tbl_graph}
-with 32 nodes and 46 edges.
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 34 nodes and 46 edges
+## #
+## # A bipartite simple graph with 1 component
+## #
+## # Node Data: 34 × 2 (active)
+##   type  name    
+##   <lgl> <chr>   
+## 1 FALSE Albright
+## 2 FALSE Argyros 
+## 3 FALSE Armitage
+## 4 FALSE Curry   
+## 5 FALSE Fukuyama
+## 6 FALSE Gray    
+## # … with 28 more rows
+## #
+## # Edge Data: 46 × 2
+##    from    to
+##   <int> <int>
+## 1     1    17
+## 2     1    19
+## 3     1    21
+## # … with 43 more rows
+}\if{html}{\out{</div>}}
 
-\code{mpn_elite_usa_advice} is a two-mode, named, and unweighted \code{tbl_graph}
-with 38 nodes and 103 edges.
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 38 nodes and 103 edges
+## #
+## # A bipartite simple graph with 1 component
+## #
+## # Node Data: 38 × 2 (active)
+##   type  name    
+##   <lgl> <chr>   
+## 1 FALSE Adkerson
+## 2 FALSE Akins   
+## 3 FALSE Banga   
+## 4 FALSE Boyce   
+## 5 FALSE Britt   
+## 6 FALSE Cannon  
+## # … with 32 more rows
+## #
+## # Edge Data: 103 × 2
+##    from    to
+##   <int> <int>
+## 1     1    27
+## 2     1    28
+## 3     1    34
+## # … with 100 more rows
+}\if{html}{\out{</div>}}
 }
 \usage{
 data(mpn_elite_usa_advice)

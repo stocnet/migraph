@@ -6,7 +6,7 @@
 \alias{generate_smallworld}
 \alias{generate_scalefree}
 \alias{generate_permutation}
-\title{Create networks from particular probabilities}
+\title{Make networks with a stochastic element}
 \usage{
 generate_random(n, p = 0.5, directed = FALSE, with_attr = TRUE)
 
@@ -27,8 +27,8 @@ a two-mode network will be created.
 a network of the same dimensions will be created.
 }}
 
-\item{p}{Proportion of possible edges in the network that are realised or,
-if integer greater than 1, the number of edges in the network.}
+\item{p}{Proportion of possible ties in the network that are realised or,
+if integer greater than 1, the number of ties in the network.}
 
 \item{directed}{Whether to generate network as directed. By default FALSE.}
 
@@ -88,7 +88,8 @@ autographr(mpn_elite_usa_advice) +
 autographr(generate_permutation(mpn_elite_usa_advice))
 }
 \references{
-Erdős, Paul, and Alfréd Rényi. (1959). "\href{https://www.renyi.hu/~p_erdos/1959-11.pdf}{On Random Graphs I}"
+Erdős, Paul, and Alfréd Rényi. (1959).
+"\href{https://www.renyi.hu/~p_erdos/1959-11.pdf}{On Random Graphs I}"
 \emph{Publicationes Mathematicae}. 6: 290–297.
 
 Watts, Duncan J., and Steven H. Strogatz. 1998.

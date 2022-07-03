@@ -7,6 +7,11 @@ NULL
 #' @describeIn community A greedy, iterative, deterministic graph
 #'   partitioning algorithm that results in a graph with two 
 #'   equally-sized communities
+#' @references
+#' Kernighan, Brian W., and Shen Lin. 1970.
+#' "An efficient heuristic procedure for partitioning graphs."
+#' _The Bell System Technical Journal_ 49(2): 291-307.
+#' \doi{10.1002/j.1538-7305.1970.tb01770.x}
 #' @examples
 #' node_kernighanlin(ison_adolescents)
 #' node_kernighanlin(ison_southern_women)

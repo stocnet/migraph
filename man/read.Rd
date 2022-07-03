@@ -10,7 +10,7 @@
 \alias{write_pajek}
 \alias{read_ucinet}
 \alias{write_ucinet}
-\title{Reading from/writing to external formats}
+\title{Make networks from/to external formats}
 \source{
 \code{read_ucinet()} and \code{write_ucinet()} kindly supplied by Christian Steglich,
 constructed on 18 June 2015.

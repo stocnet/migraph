@@ -1,4 +1,4 @@
-#' Create networks from particular probabilities
+#' Make networks with a stochastic element
 #' 
 #' @description These functions are similar to the `create_*` functions,
 #'   but include some element of randomisation. 
@@ -9,8 +9,8 @@
 #' @seealso [as]
 #' @inheritParams create
 #' @inheritParams is
-#' @param p Proportion of possible edges in the network that are realised or,
-#'   if integer greater than 1, the number of edges in the network.
+#' @param p Proportion of possible ties in the network that are realised or,
+#'   if integer greater than 1, the number of ties in the network.
 #' @param directed Whether to generate network as directed. By default FALSE.
 #' @return By default an `igraph` object is returned,
 #'   but this can be coerced into other types of objects
@@ -19,7 +19,8 @@ NULL
 
 #' @describeIn generate Generates a random network with a particular probability.
 #' @references 
-#' Erdős, Paul, and Alfréd Rényi. (1959). "\href{https://www.renyi.hu/~p_erdos/1959-11.pdf}{On Random Graphs I}" 
+#' Erdős, Paul, and Alfréd Rényi. (1959). 
+#' "\href{https://www.renyi.hu/~p_erdos/1959-11.pdf}{On Random Graphs I}" 
 #' _Publicationes Mathematicae_. 6: 290–297.
 #' @importFrom igraph sample_bipartite sample_gnp sample_gnm
 #' @examples
@@ -28,7 +29,7 @@ NULL
 #' @export
 generate_random <- function(n, p = 0.5, directed = FALSE, with_attr = TRUE) {
   if(is_migraph(n)){
-    m <- graph_edges(n)
+    m <- graph_ties(n)
     directed <- is_directed(n)
     if(is_twomode(n)){
       g <- igraph::sample_bipartite(graph_dims(n)[1], 

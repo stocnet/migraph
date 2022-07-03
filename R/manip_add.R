@@ -15,10 +15,10 @@ NULL
 #' as node attributes
 #' @importFrom igraph vertex_attr<-
 #' @examples 
-#' add_node_attributes(mpn_elite_mex, "wealth", 1:35)
-#' add_node_attributes(mpn_elite_usa_advice, "wealth", 1:14)
+#' add_node_attribute(mpn_elite_mex, "wealth", 1:35)
+#' add_node_attribute(mpn_elite_usa_advice, "wealth", 1:14)
 #' @export
-add_node_attributes <- function(object, attr_name, vector){
+add_node_attribute <- function(object, attr_name, vector){
   if(length(vector)!=graph_nodes(object)){
     if(is_twomode(object) && any(length(vector) == graph_dims(object))){
       if(length(vector) == graph_dims(object)[1]){
@@ -35,12 +35,12 @@ add_node_attributes <- function(object, attr_name, vector){
 }
 
 #' @describeIn add Insert specified values from a vector into the graph 
-#' as edge attributes
+#' as tie attributes
 #' @importFrom igraph edge_attr
 #' @examples
-#' add_edge_attributes(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
+#' add_tie_attribute(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
 #' @export
-add_edge_attributes <- function(object, attr_name, vector){
+add_tie_attribute <- function(object, attr_name, vector){
   object <- as_igraph(object)
   igraph::edge_attr(object, name = attr_name) <- vector
   object
@@ -60,20 +60,20 @@ copy_node_attributes <- function(object, object2){
   object
 }
 
-#' @describeIn add Copies edges from another graph to specified graph and 
-#' adds an edge attribute identifying the edges that were newly added
+#' @describeIn add Copies ties from another graph to specified graph and 
+#' adds a tie attribute identifying the ties that were newly added
 #' @importFrom igraph add_edges
 #' @importFrom rlang :=
 #' @importFrom dplyr mutate summarise across group_by everything
 #' @examples 
 #' autographr(mpn_elite_mex)
-#' both <- join_edges(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
+#' both <- join_ties(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
 #' autographr(both)
 #' random <- to_uniplex(both, "random")
 #' autographr(random)
 #' autographr(to_uniplex(both, "orig"))
 #' @export
-join_edges <- function(object, object2, attr_name){
+join_ties <- function(object, object2, attr_name){
   edges <- NULL
   from <- NULL
   to <- NULL

@@ -29,20 +29,20 @@ test_that("node_mode works", {
                !node_mode(ison_southern_women)[length(ison_southern_women)])
 })
 
-test_that("edge_attribute works", {
-  expect_equal(edge_attribute(net2, "weight"), c(1, 2, 3, 4, 5))
+test_that("tie_attribute works", {
+  expect_equal(tie_attribute(net2, "weight"), c(1, 2, 3, 4, 5))
 })
 
-test_that("edge_weights works", {
-  expect_equal(edge_weights(net2), edge_attribute(net2, "weight"))
+test_that("tie_weights works", {
+  expect_equal(tie_weights(net2), tie_attribute(net2, "weight"))
 })
 
 test_that("graph_nodes works", {
   expect_equal(graph_nodes(net), 5)
 })
 
-test_that("graph_edges works", {
-  expect_equal(graph_edges(net), 5)
+test_that("graph_ties works", {
+  expect_equal(graph_ties(net), 5)
 })
 
 test_that("graph_dims works", {
@@ -55,7 +55,7 @@ test_that("graph_node_attributes works", {
   expect_length(graph_node_attributes(net), 2)
 })
 
-test_that("graph_edge_attributes works", {
-  expect_equal(graph_edge_attributes(net2), "weight")
-  expect_length(graph_edge_attributes(net2), 1)
+test_that("graph_tie_attributes works", {
+  expect_equal(graph_tie_attributes(net2), "weight")
+  expect_length(graph_tie_attributes(net2), 1)
 })

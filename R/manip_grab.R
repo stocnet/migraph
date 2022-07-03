@@ -6,7 +6,7 @@
 #'   
 #'   `graph_*()` functions always relate to the overall graph or network,
 #'   usually returning a scalar.
-#'   `node_*()` and `edge_*()` always return vectors the same length
+#'   `node_*()` and `tie_*()` always return vectors the same length
 #'   as the number of nodes or edges in the network, respectively.
 #' @name grab
 #' @family manipulations
@@ -42,31 +42,31 @@ node_attribute <- function(object, attribute){
 
 #' @describeIn grab Extracts an attribute's values for the edges in a network.
 #' @examples
-#' edge_attribute(ison_algebra, "task_tie")
+#' tie_attribute(ison_algebra, "task_tie")
 #' @export
-edge_attribute <- function(object, attribute){
+tie_attribute <- function(object, attribute){
   igraph::get.edge.attribute(as_igraph(object), attribute)
 }
 
 #' @describeIn grab Extracts the weights of the edges in a network.
 #' @examples
-#' edge_weights(to_mode1(ison_southern_women))
+#' tie_weights(to_mode1(ison_southern_women))
 #' @export
-edge_weights <- function(object){
+tie_weights <- function(object){
   object <- as_igraph(object)
   out <- igraph::get.edge.attribute(object, "weight")
-  if(is.null(out)) out <- rep(1, graph_edges(object))
+  if(is.null(out)) out <- rep(1, graph_ties(object))
   out
 }
 
 #' @describeIn grab Extracts the signs of the edges in a network.
 #' @examples 
-#' edge_signs(ison_marvel_relationships)
+#' tie_signs(ison_marvel_relationships)
 #' @export
-edge_signs <- function(object){
+tie_signs <- function(object){
   object <- as_igraph(object)
   out <- igraph::get.edge.attribute(object, "sign")
-  if(is.null(out)) out <- rep(1, graph_edges(object))
+  if(is.null(out)) out <- rep(1, graph_ties(object))
   out
 }
 
@@ -80,9 +80,9 @@ graph_nodes <- function(object){
 
 #' @describeIn grab Returns the number of edges in a network.
 #' @examples
-#' graph_edges(ison_southern_women)
+#' graph_ties(ison_southern_women)
 #' @export
-graph_edges <- function(object){
+graph_ties <- function(object){
   igraph::ecount(as_igraph(object))
 }
 
@@ -113,8 +113,8 @@ graph_node_attributes <- function(object){
 #' @describeIn grab Returns a vector of edge attributes in a network
 #' @importFrom igraph list.edge.attributes
 #' @examples
-#' graph_edge_attributes(mpn_elite_mex)
+#' graph_tie_attributes(mpn_elite_mex)
 #' @export
-graph_edge_attributes <- function(object){
+graph_tie_attributes <- function(object){
   igraph::list.edge.attributes(as_igraph(object))
 }

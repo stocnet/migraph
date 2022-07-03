@@ -84,6 +84,8 @@ test_that("node measure class works", {
   expect_s3_class(node_degree(ison_algebra), "node_measure")
   expect_s3_class(node_betweenness(ison_algebra), "node_measure")
   expect_s3_class(node_closeness(ison_algebra), "node_measure")
+  expect_s3_class(node_eigenvector(ison_algebra), "node_measure")
+  expect_s3_class(node_reach(ison_algebra), "node_measure")
   testplot <- plot(node_degree(ison_algebra))
   expect_equal(testplot$data$Score, unname(node_degree(ison_algebra)))
   expect_equal(testplot$labels$y, "Frequency")
@@ -123,34 +125,34 @@ test_that("graph_measure class works", {
 })
 
 ####### Edge centrality
-test_that("edge_degree works", {
-  expect_s3_class(edge_degree(ison_adolescents), 
-                  "edge_measure")
-  expect_length(edge_degree(ison_adolescents), 
-                graph_edges(ison_adolescents))
+test_that("tie_degree works", {
+  expect_s3_class(tie_degree(ison_adolescents), 
+                  "tie_measure")
+  expect_length(tie_degree(ison_adolescents), 
+                graph_ties(ison_adolescents))
 })
 
-test_that("edge_betweenness works", {
-  expect_s3_class(edge_betweenness(ison_adolescents), 
-                  "edge_measure")
-  expect_length(edge_betweenness(ison_adolescents), 
-                graph_edges(ison_adolescents))
-  expect_equal(unname(edge_betweenness(ison_adolescents)[1:3]), 
+test_that("tie_betweenness works", {
+  expect_s3_class(tie_betweenness(ison_adolescents), 
+                  "tie_measure")
+  expect_length(tie_betweenness(ison_adolescents), 
+                graph_ties(ison_adolescents))
+  expect_equal(unname(tie_betweenness(ison_adolescents)[1:3]), 
                c(7,3,5), tolerance = 0.001)
 })
 
-test_that("edge_closeness works", {
-  expect_s3_class(edge_closeness(ison_adolescents), 
-                  "edge_measure")
-  expect_length(edge_closeness(ison_adolescents), 
-                graph_edges(ison_adolescents))
-  expect_equal(unname(edge_closeness(ison_adolescents)[1:3]), 
+test_that("tie_closeness works", {
+  expect_s3_class(tie_closeness(ison_adolescents), 
+                  "tie_measure")
+  expect_length(tie_closeness(ison_adolescents), 
+                graph_ties(ison_adolescents))
+  expect_equal(unname(tie_closeness(ison_adolescents)[1:3]), 
                c(0.562,0.692,0.600), tolerance = 0.001)
 })
 
-test_that("edge_eigenvector works", {
-  expect_s3_class(edge_closeness(ison_southern_women), 
-                  "edge_measure")
-  expect_length(edge_closeness(ison_southern_women), 
-                graph_edges(ison_southern_women))
+test_that("tie_eigenvector works", {
+  expect_s3_class(tie_eigenvector(ison_southern_women), 
+                  "tie_measure")
+  expect_length(tie_eigenvector(ison_southern_women), 
+                graph_ties(ison_southern_women))
 })

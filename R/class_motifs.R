@@ -35,3 +35,13 @@ summary.node_motif <- function(object, ...,
   rownames(out) <- paste("Block", unique(membership))
   dplyr::tibble(as.data.frame(out))
 }
+
+#' @export
+print.graph_motif <- function(x, ...) {
+  names <- list(names(x))
+  x <- as.numeric(x)
+  mat <- matrix(x, dimnames = names)
+  mat <- t(mat)
+  out <- as.data.frame(mat)
+  print(dplyr::tibble(out))
+}

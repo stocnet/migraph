@@ -3,31 +3,31 @@
 \name{centrality}
 \alias{centrality}
 \alias{node_degree}
-\alias{edge_degree}
+\alias{tie_degree}
 \alias{node_closeness}
-\alias{edge_closeness}
+\alias{tie_closeness}
 \alias{node_betweenness}
-\alias{edge_betweenness}
+\alias{tie_betweenness}
 \alias{node_eigenvector}
-\alias{edge_eigenvector}
+\alias{tie_eigenvector}
 \alias{node_reach}
-\title{Centrality for one- and two-mode networks}
+\title{Measures of node and tie centrality}
 \usage{
 node_degree(object, normalized = TRUE, direction = c("all", "out", "in"))
 
-edge_degree(object, normalized = TRUE)
+tie_degree(object, normalized = TRUE)
 
 node_closeness(object, normalized = TRUE, direction = "out", cutoff = NULL)
 
-edge_closeness(object, normalized = TRUE)
+tie_closeness(object, normalized = TRUE)
 
 node_betweenness(object, normalized = TRUE, cutoff = NULL)
 
-edge_betweenness(object, normalized = TRUE)
+tie_betweenness(object, normalized = TRUE)
 
 node_eigenvector(object, normalized = TRUE, scale = FALSE)
 
-edge_eigenvector(object, normalized = TRUE)
+tie_eigenvector(object, normalized = TRUE)
 
 node_reach(object, normalized = TRUE, k = 2)
 }
@@ -85,20 +85,20 @@ including for two-mode networks.
 \item \code{node_degree}: Calculates the degree centrality of nodes in an unweighted network,
 or weighted degree/strength of nodes in a weighted network.
 
-\item \code{edge_degree}: Calculate the degree centrality of edges in a network
+\item \code{tie_degree}: Calculate the degree centrality of edges in a network
 
 \item \code{node_closeness}: Calculate the closeness centrality of nodes in a network
 
-\item \code{edge_closeness}: Calculate the closeness of each edge to each other edge
+\item \code{tie_closeness}: Calculate the closeness of each edge to each other edge
 in the network.
 
 \item \code{node_betweenness}: Calculate the betweenness centralities of nodes in a network
 
-\item \code{edge_betweenness}: Calculate number of shortest paths going through an edge
+\item \code{tie_betweenness}: Calculate number of shortest paths going through an edge
 
 \item \code{node_eigenvector}: Calculate the eigenvector centrality of nodes in a network
 
-\item \code{edge_eigenvector}: Calculate the eigenvector centrality of edges in a network
+\item \code{tie_eigenvector}: Calculate the eigenvector centrality of edges in a network
 
 \item \code{node_reach}: Calculate nodes' reach centrality
 }}
@@ -106,43 +106,43 @@ in the network.
 \examples{
 node_degree(mpn_elite_mex)
 node_degree(ison_southern_women)
-edge_degree(ison_adolescents)
+tie_degree(ison_adolescents)
 node_closeness(mpn_elite_mex)
 node_closeness(ison_southern_women)
-(ec <- edge_closeness(ison_adolescents))
+(ec <- tie_closeness(ison_adolescents))
 plot(ec)
 ison_adolescents \%>\% 
   activate(edges) \%>\% mutate(weight = ec) \%>\% 
   autographr()
 node_betweenness(mpn_elite_mex)
 node_betweenness(ison_southern_women)
-(eb <- edge_betweenness(ison_adolescents))
-plot(eb)
+(tb <- tie_betweenness(ison_adolescents))
+plot(tb)
 ison_adolescents \%>\% 
-  activate(edges) \%>\% mutate(weight = eb) \%>\% 
+  activate(edges) \%>\% mutate(weight = tb) \%>\% 
   autographr()
 node_eigenvector(mpn_elite_mex)
 node_eigenvector(ison_southern_women)
-edge_eigenvector(ison_adolescents)
+tie_eigenvector(ison_adolescents)
 node_reach(ison_adolescents)
 }
 \references{
-Faust, Katherine (1997).
+Faust, Katherine. 1997.
 "Centrality in affiliation networks."
 \emph{Social Networks} 19(2): 157-191.
-\doi{https://doi.org/10.1016/S0378-8733(96)00300-0}
+\doi{10.1016/S0378-8733(96)00300-0}.
 
-Borgatti, Stephen P., and Martin G. Everett (1997).
+Borgatti, Stephen P., and Martin G. Everett. 1997.
 "Network analysis of 2-mode data."
 \emph{Social Networks} 19(3): 243-270.
-\doi{https://doi.org/10.1016/S0378-8733(96)00301-2}
+\doi{10.1016/S0378-8733(96)00301-2}.
 
-Borgatti, Stephen P, and Daniel S Halgin. (2011).
+Borgatti, Stephen P., and Daniel S. Halgin. 2011.
 "Analyzing affiliation networks."
 In \emph{The SAGE Handbook of Social Network Analysis},
-edited by John Scott and Peter J Carrington, 417–33.
+edited by John Scott and Peter J. Carrington, 417–33.
 London, UK: Sage.
-\doi{https://dx.doi.org/10.4135/9781446294413.n28}
+\doi{10.4135/9781446294413.n28}.
 
 Bonacich, Phillip. 1991.
 “Simultaneous Group and Individual Centralities.”
@@ -155,8 +155,8 @@ and \code{\link[=to_unweighted]{to_unweighted()}} for removing weights from a gr
 
 Other measures: 
 \code{\link{centralisation}},
+\code{\link{closure}},
 \code{\link{cohesion}()},
-\code{\link{connectedness}},
 \code{\link{diversity}},
 \code{\link{features}},
 \code{\link{holes}}

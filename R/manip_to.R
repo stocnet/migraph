@@ -483,11 +483,11 @@ to_multilevel.matrix <- function(object) {
 #' @importFrom igraph make_line_graph E
 #' @examples
 #' autographr(ison_adolescents) +  
-#' autographr(to_edges(ison_adolescents))
+#' autographr(to_ties(ison_adolescents))
 #' @export
-to_edges <- function(object){
+to_ties <- function(object){
   out <- igraph::make_line_graph(as_igraph(object))
-  out <- add_node_attributes(out, "name", attr(igraph::E(object), "vnames"))
+  out <- add_node_attribute(out, "name", attr(igraph::E(object), "vnames"))
   igraph::V(out)$name <- gsub("\\|", "-", igraph::V(out)$name)
   out
 }

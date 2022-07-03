@@ -44,9 +44,10 @@ marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
 Davis, James A., and Samuel Leinhardt. 1967.
 “\href{https://files.eric.ed.gov/fulltext/ED024086.pdf}{The Structure of Positive Interpersonal Relations in Small Groups}.” 55.
 
-Hollway, James, Alessandro Lomi, Francesca Pallotti, and Christoph Stadtfeld.
-“\doi{10.1017/nws.2017.8}{Multilevel Social Spaces: The Network Dynamics of Organizational Fields}.”
-\emph{Network Science} 5, no. 2 (June 2017): 187–212.
+Hollway, James, Alessandro Lomi, Francesca Pallotti, and Christoph Stadtfeld. 2017.
+“Multilevel Social Spaces: The Network Dynamics of Organizational Fields.”
+\emph{Network Science} 5(2): 187–212.
+\doi{10.1017/nws.2017.8}
 }
 \seealso{
 Other motifs: 

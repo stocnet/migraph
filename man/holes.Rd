@@ -8,7 +8,7 @@
 \alias{node_efficiency}
 \alias{node_constraint}
 \alias{node_hierarchy}
-\title{Structural holes for one- and two-mode networks}
+\title{Measures of structural holes}
 \usage{
 node_bridges(object)
 
@@ -35,12 +35,26 @@ node_hierarchy(object)
 \description{
 These function provide different measures of the degree to which nodes
 fill structural holes, as outlined in Burt (1992).
+Burt's theory holds that while those nodes embedded in dense clusters
+of close connections are likely exposed to the same or similar ideas and information,
+those who fill structural holes between two otherwise disconnected groups
+can gain some comparative advantage from that position.
+}
+\details{
+A number of different ways of measuring these structural holes are available.
+Note that we use Borgatti's reformulation for unweighted networks in
+\code{node_redundancy()} and \code{node_effsize()}.
+Redundancy is thus \eqn{\frac{2t}{n}},
+where \eqn{t} is the sum of ties and \eqn{n} the sum of nodes in each node's neighbourhood,
+and effective size is calculated as \eqn{n - \frac{2t}{n}}.
 }
 \section{Functions}{
 \itemize{
-\item \code{node_bridges}: Returns nodes' bridge counts
+\item \code{node_bridges}: Returns the sum of bridges to which each node
+is adjacent.
 
-\item \code{node_redundancy}: Returns nodes' redundancy
+\item \code{node_redundancy}: Returns a measure of the redundancy of each nodes'
+contacts.
 
 \item \code{node_effsize}: Returns nodes' effective size
 
@@ -67,7 +81,7 @@ node_hierarchy(ison_adolescents)
 node_hierarchy(ison_southern_women)
 }
 \references{
-#' Burt, Ronald S. 1992.
+Burt, Ronald S. 1992.
 \emph{Structural Holes: The Social Structure of Competition}.
 Cambridge, MA: Harvard University Press.
 
@@ -84,8 +98,8 @@ Hollway, James, Jean-Frédéric Morin, and Joost Pauwelyn. 2020.
 Other measures: 
 \code{\link{centralisation}},
 \code{\link{centrality}},
+\code{\link{closure}},
 \code{\link{cohesion}()},
-\code{\link{connectedness}},
 \code{\link{diversity}},
 \code{\link{features}}
 }

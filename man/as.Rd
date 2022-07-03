@@ -9,15 +9,15 @@
 \alias{as_network}
 \title{Coercion between migraph-compatible object classes}
 \usage{
-as_edgelist(object)
+as_edgelist(object, twomode = FALSE)
 
-as_matrix(object)
+as_matrix(object, twomode = FALSE)
 
 as_igraph(object, twomode = FALSE)
 
 as_tidygraph(object, twomode = FALSE)
 
-as_network(object)
+as_network(object, twomode = FALSE)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -35,13 +35,13 @@ adjacency (one-mode/unipartite) networks.
 By default FALSE.}
 }
 \value{
-The currently implemented coercions or translations are:\tabular{lccccc}{
-   to/from \tab edgelists \tab matrices \tab igraph \tab tidygraph \tab network \cr
-   edgelists (data frames) \tab X \tab X \tab X \tab X \tab X \cr
-   matrices \tab X \tab X \tab X \tab X \tab X \cr
-   igraph \tab X \tab X \tab X \tab X \tab X \cr
-   tidygraph \tab X \tab X \tab X \tab X \tab X \cr
-   network \tab X \tab X \tab X \tab X \tab X \cr
+The currently implemented coercions or translations are:\tabular{lcccccc}{
+   to/from \tab edgelists \tab matrices \tab igraph \tab tidygraph \tab network \tab goldfish \cr
+   edgelists (data frames) \tab X \tab X \tab X \tab X \tab X \tab X \cr
+   matrices \tab X \tab X \tab X \tab X \tab X \tab X \cr
+   igraph \tab X \tab X \tab X \tab X \tab X \tab X \cr
+   tidygraph \tab X \tab X \tab X \tab X \tab X \tab X \cr
+   network \tab X \tab X \tab X \tab X \tab X \tab X \cr
 }
 }
 \description{
@@ -97,7 +97,6 @@ as_network(test)
 Other manipulations: 
 \code{\link{add}},
 \code{\link{grab}},
-\code{\link{is}()},
 \code{\link{to}}
 }
 \concept{manipulations}

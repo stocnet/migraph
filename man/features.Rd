@@ -7,7 +7,7 @@
 \alias{graph_modularity}
 \alias{graph_smallworld}
 \alias{graph_balance}
-\title{Network/topological features}
+\title{Measures of network topological features}
 \source{
 \code{{signnet}} by David Schoch
 }
@@ -40,7 +40,7 @@ By default 1.}
 \item{times}{Integer of number of simulations.}
 }
 \description{
-Network/topological features
+Measures of network topological features
 }
 \section{Functions}{
 \itemize{
@@ -78,19 +78,21 @@ graph_smallworld(ison_southern_women)
 graph_balance(ison_marvel_relationships)
 }
 \references{
-Borgatti, Stephen P., and Martin G. Everett. 1999.
+Borgatti, Stephen P., and Martin G. Everett. 2000.
 “Models of Core/Periphery Structures.”
-\emph{Social Networks} 21:375–95.
+\emph{Social Networks} 21(4):375–95.
+https://doi.org/10.1016/S0378-8733(99)00019-2
 
 Murata, Tsuyoshi. 2010. Modularity for Bipartite Networks.
 In: Memon, N., Xu, J., Hicks, D., Chen, H. (eds)
-\emph{Data Mining for Social Network Data. Annals of Information Systems}, vol 12.
+\emph{Data Mining for Social Network Data. Annals of Information Systems}, V1ol 12.
 Springer, Boston, MA.
 \doi{10.1007/978-1-4419-6287-4_7}
 
 Watts, Duncan J., and Steven H. Strogatz. 1998.
 “Collective Dynamics of ‘Small-World’ Networks.”
 \emph{Nature} 393(6684):440–42.
+\doi{10.1038/30918}.
 }
 \seealso{
 \code{\link[=graph_transitivity]{graph_transitivity()}} and \code{\link[=graph_equivalency]{graph_equivalency()}}
@@ -99,8 +101,8 @@ for how clustering is calculated
 Other measures: 
 \code{\link{centralisation}},
 \code{\link{centrality}},
+\code{\link{closure}},
 \code{\link{cohesion}()},
-\code{\link{connectedness}},
 \code{\link{diversity}},
 \code{\link{holes}}
 }

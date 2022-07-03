@@ -39,19 +39,13 @@
 #' @references 
 #'  Thorndike, Robert L. 1953. 
 #'    "Who Belongs in the Family?". 
-#'    _Psychometrika_, 18(4): 267–276. 
-#'    \doi{10.1007/BF02289263}
+#'    _Psychometrika_, 18(4): 267–76. 
+#'    \doi{10.1007/BF02289263}.
 #'
 #' Rousseeuw, Peter J. 1987. 
 #'   “Silhouettes: A Graphical Aid to the Interpretation and Validation of Cluster Analysis.” 
 #'   _Journal of Computational and Applied Mathematics_, 20: 53–65. 
 #'   \doi{10.1016/0377-0427(87)90125-7}.
-#'
-#' Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.  
-#'   "An Algorithm for Clustering Relational Data with Applications to 
-#'   Social Network Analysis and Comparison with Multidimensional Scaling". 
-#'   _Journal of Mathematical Psychology_, 12: 328--383.
-#'   \doi{10.1016/0022-2496(75)90028-0}.
 NULL
 
 #' @describeIn equivalence Returns nodes' membership in 
@@ -82,8 +76,10 @@ node_equivalence <- function(object, census,
 #' @describeIn equivalence Returns nodes' membership in 
 #'   structurally equivalent classes
 #' @examples
+#' \donttest{
 #' (nse <- node_structural_equivalence(mpn_elite_usa_advice))
 #' plot(nse)
+#' }
 #' @export
 node_structural_equivalence <- function(object,
                                         k = c("silhouette", "elbow", "strict"),
@@ -101,6 +97,12 @@ node_structural_equivalence <- function(object,
 
 #' @describeIn equivalence Returns nodes' membership in 
 #'   regularly equivalent classes
+#' @examples
+#' \donttest{
+#' (nre <- node_regular_equivalence(mpn_elite_usa_advice,
+#'   cluster = "concor"))
+#' plot(nre)
+#' }
 #' @export
 node_regular_equivalence <- function(object, 
                                      k = c("silhouette", "elbow", "strict"),
@@ -120,6 +122,12 @@ node_regular_equivalence <- function(object,
 
 #' @describeIn equivalence Returns nodes' membership in 
 #'   automorphically equivalent classes
+#' @examples
+#' \donttest{
+#' (nae <- node_automorphic_equivalence(mpn_elite_usa_advice,
+#'   k = "elbow"))
+#' plot(nae)
+#' }
 #' @export
 node_automorphic_equivalence <- function(object,
                                          k = c("silhouette", "elbow", "strict"),
@@ -232,66 +240,4 @@ k_silhouette <- function(hc, object, range){
   }
   k <- which(ks == max(ks)) + 1
   k
-}
-
-cluster_hierarchical <- function(mat, distance){
-  correlations <- cor(t(mat))
-  dissimilarity <- 1 - correlations
-  distances <- stats::dist(dissimilarity, method = distance)
-  hc <- stats::hclust(distances)
-  hc$distances <- distances
-  hc
-}
-
-# cluster_concor(ison_adolescents)
-# cluster_concor(ison_southern_women)
-# https://github.com/bwlewis/hclust_in_R/blob/master/hc.R
-cluster_concor <- function(object, mat){
-  split_cor <- function(m0, cutoff = 1) {
-    if (ncol(m0) < 2 | all(stats::cor(m0)==1)) list(m0)
-    else {
-      mi <- stats::cor(m0)
-      while (any(abs(mi) <= cutoff)) {
-        mi <- cor(mi)
-        cutoff <- cutoff - 0.0001
-      }
-      group <- mi[, 1] > 0
-      list(m0[, group, drop = FALSE], 
-           m0[, !group, drop = FALSE])
-    }
-  }
-  p_list <- list(t(mat))
-  p_group <- list()
-  i <- 1
-  while(!all(vapply(p_list, function(x) ncol(x)==1, logical(1)))){
-    p_list <- unlist(lapply(p_list,
-                            function(y) split_cor(y)),
-                     recursive = FALSE)
-    p_group[[i]] <- lapply(p_list, function(z) colnames(z))
-    if(i > 2 && length(p_group[[i]]) == length(p_group[[i-1]])) break
-    i <- i+1
-  }
-
-  merges <- sapply(rev(1:(i-1)), 
-         function(p) lapply(p_group[[p]], 
-                            function(s){
-                              g <- match(s, node_names(object))
-                              if(length(g)==1) c(g, 0, p) else 
-                                if(length(g)==2) c(g, p) else
-                                c(t(cbind(t(utils::combn(g, 2)), p)))
-                            } ))
-  merges <- c(merges, 
-              list(c(t(cbind(t(utils::combn(seq_len(graph_nodes(object)), 2)), 0)))))
-  merged <- matrix(unlist(merges), ncol = 3, byrow = TRUE)
-  merged <- merged[!duplicated(merged[,1:2]),]
-  merged[,3] <- abs(merged[,3] - max(merged[,3]))
-  
-  distances <- as_matrix(as_igraph(as.data.frame(merged)))
-  distances <- distances + t(distances)
-  distances <- distances[-which(rownames(distances)==0),-which(colnames(distances)==0)]
-  rownames(distances) <- colnames(distances) <- node_names(object)[as.numeric(colnames(distances))]
-  hc <- hclust(d = as.dist(distances))
-  hc$method <- "concor"
-  hc$distances <- distances
-  hc  
 }

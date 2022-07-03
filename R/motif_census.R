@@ -123,7 +123,7 @@ node_triad_census <- function(object){
 #'  Ortmann, Mark, and Ulrik Brandes. 2017. 
 #'  “Efficient Orbit-Aware Triad and Quad Census in Directed and Undirected Graphs.” 
 #'  \emph{Applied Network Science} 2(1):13. 
-#'  \doi{https://doi.org/10.1007/s41109-017-0027-2}
+#'  \doi{10.1007/s41109-017-0027-2}.
 #' @export
 node_quad_census <- function(object){
   if (!("oaqc" %in% rownames(utils::installed.packages()))) {
@@ -154,13 +154,15 @@ node_quad_census <- function(object){
 #'   of each node to every other node in the network.
 #' @importFrom igraph distances
 #' @references 
-#' Dijkstra, E. W., 1959. 
+#' Dijkstra, Edsger W. 1959. 
 #' "A note on two problems in connexion with graphs". 
-#' _Numerische Mathematik_ 1, 269-271.
+#' _Numerische Mathematik_ 1, 269-71.
+#' \doi{10.1007/BF01386390}.
 #' 
-#' Opsahl, Tore, Agneessens, F., Skvoretz, John, 2010. 
+#' Opsahl, Tore, Filip Agneessens, and John Skvoretz. 2010.
 #' "Node centrality in weighted networks: Generalizing degree and shortest paths". 
-#' _Social Networks_ 32(3), 245-251.
+#' _Social Networks_ 32(3): 245-51.
+#' \doi{10.1016/j.socnet.2010.03.006}.
 #' @examples 
 #' node_path_census(ison_adolescents)
 #' node_path_census(ison_southern_women)
@@ -221,11 +223,12 @@ graph_triad_census <- function(object) {
 
 #' @describeIn graph_census Returns a census of triad motifs that span
 #'   a one-mode and a two-mode network
-#' @references 
-#' Hollway, James, Alessandro Lomi, Francesca Pallotti, and Christoph Stadtfeld. 
-#' “\doi{10.1017/nws.2017.8}{Multilevel Social Spaces: The Network Dynamics of Organizational Fields}.” 
-#' _Network Science_ 5, no. 2 (June 2017): 187–212.
 #' @source Alejandro Espinosa 'netmem'
+#' @references 
+#' Hollway, James, Alessandro Lomi, Francesca Pallotti, and Christoph Stadtfeld. 2017.
+#' “Multilevel Social Spaces: The Network Dynamics of Organizational Fields.” 
+#' _Network Science_ 5(2): 187–212.
+#' \doi{10.1017/nws.2017.8}
 #' @examples 
 #' marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
 #' (mixed_cen <- graph_mixed_census(marvel_friends, ison_marvel_teams))

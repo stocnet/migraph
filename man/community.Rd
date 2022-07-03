@@ -31,6 +31,12 @@ equally-sized communities
 node_kernighanlin(ison_adolescents)
 node_kernighanlin(ison_southern_women)
 }
+\references{
+Kernighan, Brian W., and Shen Lin. 1970.
+"An efficient heuristic procedure for partitioning graphs."
+\emph{The Bell System Technical Journal} 49(2): 291-307.
+\doi{10.1002/j.1538-7305.1970.tb01770.x}
+}
 \seealso{
 Other membership: 
 \code{\link{components}()},

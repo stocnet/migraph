@@ -5,10 +5,29 @@
 \alias{mpn_elite_mex}
 \title{One-mode Mexican power elite database (Knoke 1990)}
 \format{
-\code{tbl_graph} network object.
-The network is simple, undirected, and named.
-The full network contains 35 nodes and 117 edges,
-and the subsetted network contains 11 nodes and 44 edges.
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 35 nodes and 117 edges
+## #
+## # An undirected simple graph with 1 component
+## #
+## # Node Data: 35 × 8 (active)
+##   name     full_name     entry_year military in_mpn PlaceOfBirth   state  region
+##   <chr>    <chr>              <dbl>    <dbl>  <dbl> <chr>          <chr>   <dbl>
+## 1 Trevino  Trevino, Jac…       1910        1      0 Guerrero       Coahu…      1
+## 2 Madero   Madero, Fran…       1911        0      0 Parras de la … Coahu…      1
+## 3 Carranza Carranza, Ve…       1913        1      0 Cuatro Cieneg… Coahu…      1
+## 4 Aguilar  Aguilar, Can…       1918        1      0 Cordoba        Verac…      3
+## 5 Obregon  Obregon, Alv…       1920        1      0 Siquisiva, Na… Sonora      1
+## 6 Calles   Calles, Plut…       1924        1      0 Guaymas        Sonora      1
+## # … with 29 more rows
+## #
+## # Edge Data: 117 × 2
+##    from    to
+##   <int> <int>
+## 1     2     3
+## 2     2     5
+## 3     2     6
+## # … with 114 more rows
+}\if{html}{\out{</div>}}
 }
 \source{
 Knoke, David. 1990. \emph{Political Networks}.

@@ -5,13 +5,35 @@
 \alias{mpn_ryanair}
 \title{One-mode EU policy influence network, June 2004 (Christopoulos 2006)}
 \format{
-\code{tbl_graph} network object. The network is simple, directed, named
-and weighted. It contains 20 nodes and 177 edges.
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 20 nodes and 177 edges
+## #
+## # A directed simple graph with 1 component
+## #
+## # Node Data: 20 × 1 (active)
+##   name          
+##   <chr>         
+## 1 1 AER         
+## 2 2 AER         
+## 3 5 AER/COR     
+## 4 7 RYANAIR     
+## 5 8 DG TRANSPORT
+## 6 9 COR         
+## # … with 14 more rows
+## #
+## # Edge Data: 177 × 3
+##    from    to weight
+##   <int> <int>  <dbl>
+## 1     1     2      1
+## 2     1     3      1
+## 3     1     4      1
+## # … with 174 more rows
+}\if{html}{\out{</div>}}
 }
 \source{
 Christopoulos, Dimitrios C. 2006.
 “Relational Attributes of Political Entrepreneurs: a Network Perspective.”
-\emph{Journal of European Public Policy} 13 (5): 757–78.
+\emph{Journal of European Public Policy} 13(5): 757–78.
+\doi{10.1080/13501760600808964}.
 
 Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
 \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.

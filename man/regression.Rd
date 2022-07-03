@@ -103,13 +103,15 @@ glance(model1)
 plot(model1)
 }
 \references{
-Krackhardt, David (1988).
+Krackhardt, David. 1988.
 “Predicting with Networks: Nonparametric Multiple Regression Analysis of Dyadic Data.”
 \emph{Social Networks} 10(4):359–81.
+\doi{10.1016/0378-8733(88)90004-4}.
 
-Dekker, David, Krackhard, David, Snijders, Tom A.B (2007).
+Dekker, David, David Krackhard, and Tom A. B. Snijders. 2007.
 “Sensitivity of MRQAP tests to collinearity and autocorrelation conditions.”
 \emph{Psychometrika} 72(4): 563-581.
+\doi{10.1007/s11336-007-9016-1}.
 }
 \seealso{
 \code{vignette("p7linearmodel")}

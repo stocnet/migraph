@@ -23,8 +23,8 @@ Practices](https://bestpractices.coreinfrastructure.org/projects/4559/badge)](ht
 ## About the package
 
 `{migraph}` works with and extends existing network analysis packages
-for analysing multimodal and multilevel networks. It provides a common,
-standard syntax for working with both one-mode and two-mode networks.
+for analysing multimodal networks. It provides a common, standard syntax
+for working with and analysing both one-mode and two-mode networks.
 
 <img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="125"/>
 
@@ -83,11 +83,10 @@ properties, e.g.:
 `{migraph}`’s `to_*()` functions can be used on any class object to
 transform networks into networks with other properties, e.g.:
 
--   `to_blocks()`, `to_edges()`, `to_main_component()`, `to_mode1()`,
-    `to_mode2()`, `to_multilevel()`, `to_named()`, `to_onemode()`,
-    `to_redirected()`, `to_simplex()`, `to_subgraph()`,
-    `to_undirected()`, `to_uniplex()`, `to_unnamed()`, `to_unsigned()`,
-    `to_unweighted()`
+-   `to_blocks()`, `to_main_component()`, `to_mode1()`, `to_mode2()`,
+    `to_multilevel()`, `to_named()`, `to_onemode()`, `to_redirected()`,
+    `to_simplex()`, `to_subgraph()`, `to_ties()`, `to_undirected()`,
+    `to_uniplex()`, `to_unnamed()`, `to_unsigned()`, `to_unweighted()`
 
 #### Making
 
@@ -174,8 +173,8 @@ function names wherever possible.
 -   `autographr()` for plotting graphs with sensible defaults based on
     their properties
 -   New layouts: `layout_tbl_graph_frgrid()`,
-    `layout_tbl_graph_gogrid()`, `layout_tbl_graph_kkgrid()` for
-    snapping a layout to a grid
+    `layout_tbl_graph_gogrid()`, `layout_tbl_graph_kkgrid()`,
+    `layout_tbl_graph_stressgrid()` for snapping a layout to a grid
 -   Class-based plots: e.g. `plot.matrix()`, `plot.members()`,
     `plot.node_measure()`
 

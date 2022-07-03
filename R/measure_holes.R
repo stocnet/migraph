@@ -1,18 +1,30 @@
-#' Structural holes for one- and two-mode networks
+#' Measures of structural holes
 #' 
 #' @description
-#' These function provide different measures of the degree to which nodes
-#' fill structural holes, as outlined in Burt (1992).
+#'   These function provide different measures of the degree to which nodes
+#'   fill structural holes, as outlined in Burt (1992).
+#'   Burt's theory holds that while those nodes embedded in dense clusters
+#'   of close connections are likely exposed to the same or similar ideas and information,
+#'   those who fill structural holes between two otherwise disconnected groups
+#'   can gain some comparative advantage from that position.
+#' @details
+#'   A number of different ways of measuring these structural holes are available.
+#'   Note that we use Borgatti's reformulation for unweighted networks in
+#'   `node_redundancy()` and `node_effsize()`.
+#'   Redundancy is thus \eqn{\frac{2t}{n}}, 
+#'   where \eqn{t} is the sum of ties and \eqn{n} the sum of nodes in each node's neighbourhood,
+#'   and effective size is calculated as \eqn{n - \frac{2t}{n}}.
 #' @name holes
 #' @family measures
 #' @references 
-#' #' Burt, Ronald S. 1992. 
+#' Burt, Ronald S. 1992. 
 #' _Structural Holes: The Social Structure of Competition_. 
 #' Cambridge, MA: Harvard University Press.
 #' @inheritParams is
 NULL
 
-#' @describeIn holes Returns nodes' bridge counts
+#' @describeIn holes Returns the sum of bridges to which each node
+#'   is adjacent.
 #' @examples 
 #' node_bridges(ison_adolescents)
 #' node_bridges(ison_southern_women)
@@ -21,12 +33,13 @@ node_bridges <- function(object){
   g <- as_igraph(object)
   .inc <- NULL
   out <- vapply(igraph::V(g), function(ego){
-    length(igraph::E(g)[.inc(ego) & edge_bridges(g)==1])
+    length(igraph::E(g)[.inc(ego) & tie_is_bridge(g)==1])
   }, FUN.VALUE = numeric(1))
   make_node_measure(out, object)
 }
 
-#' @describeIn holes Returns nodes' redundancy
+#' @describeIn holes Returns a measure of the redundancy of each nodes'
+#'   contacts.
 #' @references 
 #' Borgatti, Steven. 1997. 
 #' “\href{http://www.analytictech.com/connections/v20(1)/holes.htm}{Structural Holes: Unpacking Burt’s Redundancy Measures}” 
