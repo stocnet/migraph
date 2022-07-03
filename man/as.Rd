@@ -97,6 +97,7 @@ as_network(test)
 Other manipulations: 
 \code{\link{add}},
 \code{\link{grab}},
-\code{\link{to}}
+\code{\link{reformat}},
+\code{\link{transform}()}
 }
 \concept{manipulations}

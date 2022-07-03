@@ -65,7 +65,7 @@ All `{migraph}` measures and models work with data in base formats:
 as well as with objects constructed from the following packages:
 
 - [`{igraph}`](https://igraph.org/r/)
-- [`{network}`](http://statnet.org)
+- [`{network}`](https://statnet.org)
 - [`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html)
 
 `{migraph}`'s `as_*()` functions can be used to translate objects 

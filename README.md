@@ -55,7 +55,7 @@ and models work with data in base formats:
 as well as with objects constructed from the following packages:
 
 -   [`{igraph}`](https://igraph.org/r/)
--   [`{network}`](http://statnet.org)
+-   [`{network}`](https://statnet.org)
 -   [`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html)
 
 `{migraph}`’s `as_*()` functions can be used to translate objects from
@@ -83,10 +83,11 @@ properties, e.g.:
 `{migraph}`’s `to_*()` functions can be used on any class object to
 transform networks into networks with other properties, e.g.:
 
--   `to_blocks()`, `to_main_component()`, `to_mode1()`, `to_mode2()`,
-    `to_multilevel()`, `to_named()`, `to_onemode()`, `to_redirected()`,
-    `to_simplex()`, `to_subgraph()`, `to_ties()`, `to_undirected()`,
-    `to_uniplex()`, `to_unnamed()`, `to_unsigned()`, `to_unweighted()`
+-   `to_blocks()`, `to_edges()`, `to_main_component()`, `to_mode1()`,
+    `to_mode2()`, `to_multilevel()`, `to_named()`, `to_onemode()`,
+    `to_redirected()`, `to_simplex()`, `to_subgraph()`, `to_ties()`,
+    `to_undirected()`, `to_uniplex()`, `to_unnamed()`, `to_unsigned()`,
+    `to_unweighted()`
 
 #### Making
 
@@ -108,14 +109,15 @@ generative mechanisms, e.g.:
 multimodal and multiplex examples for demonstrating more advanced
 methods.
 
--   `mpn_bristol`, `mpn_DE_1990`, `mpn_DE_2008`, `mpn_DemSxP`,
-    `mpn_elite_mex`, `mpn_elite_usa_advice`, `mpn_elite_usa_money`,
-    `mpn_IT_1990`, `mpn_IT_2008`, `mpn_OverSxP`, `mpn_RepSxP`,
-    `mpn_ryanair`, `mpn_UK_1990`, `mpn_UK_2008`
+-   `mpn_bristol`, `mpn_cow_igo`, `mpn_cow_trade`, `mpn_DE_1990`,
+    `mpn_DE_2008`, `mpn_DemSxP`, `mpn_elite_mex`,
+    `mpn_elite_usa_advice`, `mpn_elite_usa_money`, `mpn_IT_1990`,
+    `mpn_IT_2008`, `mpn_OverSxP`, `mpn_RepSxP`, `mpn_ryanair`,
+    `mpn_UK_1990`, `mpn_UK_2008`
 -   `ison_adolescents`, `ison_algebra`, `ison_bb`, `ison_bm`,
-    `ison_brandes`, `ison_karateka`, `ison_marvel_relationships`,
-    `ison_marvel_teams`, `ison_mb`, `ison_mm`, `ison_networkers`,
-    `ison_southern_women`
+    `ison_brandes`, `ison_brandes2`, `ison_karateka`,
+    `ison_marvel_relationships`, `ison_marvel_teams`, `ison_mb`,
+    `ison_mm`, `ison_networkers`, `ison_southern_women`
 
 `{migraph}` can also import and export to Excel edgelists and nodelists,
 [UCINET](http://www.analytictech.com/archive/ucinet.htm) and

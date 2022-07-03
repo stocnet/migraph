@@ -15,7 +15,7 @@
 \alias{is_multiplex}
 \alias{is_uniplex}
 \alias{is_acyclic}
-\title{Logical tests of network properties}
+\title{Marking networks based on their properties}
 \usage{
 is_migraph(object)
 

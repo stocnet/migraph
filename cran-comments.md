@@ -11,3 +11,4 @@
 0 errors | 0 warnings | 0 notes
 
 - Using "\donttest" to deal with examples in versions 0.10.x that took too long
+- Fixed a URL redirect and a SSL certificate issue

@@ -1,4 +1,4 @@
-#' Logical tests of nodal properties
+#' Marking nodes based on their properties
 #' 
 #' @description 
 #'   These functions return logical vectors the length of the 

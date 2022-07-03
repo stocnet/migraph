@@ -1,4 +1,4 @@
-#' Logical tests of network properties
+#' Marking networks based on their properties
 #' 
 #' These functions implement logical tests for various network
 #' properties.

@@ -1,4 +1,4 @@
-#' Logical tests of tie properties
+#' Marking ties based on their properties
 #' 
 #' @description 
 #'   These functions return logical vectors the length of the ties

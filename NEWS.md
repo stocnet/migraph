@@ -1,3 +1,13 @@
+# migraph 0.10.4
+
+## Package
+
+- Fixed some URL issues
+
+## Manipulation
+
+- Split `to_*()` functions into reformatting (changing properties) and transforming (changing dimensions) documentation
+
 # migraph 0.10.3
 
 ## Package

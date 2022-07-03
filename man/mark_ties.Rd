@@ -8,7 +8,7 @@
 \alias{tie_is_bridge}
 \alias{tie_is_max}
 \alias{tie_is_min}
-\title{Logical tests of tie properties}
+\title{Marking ties based on their properties}
 \usage{
 tie_is_multiple(object)
 
