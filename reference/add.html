@@ -18,7 +18,7 @@ or from a specified vector supplied by the user."><meta property="og:image" cont
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.3</span>
       </span>
     </div>
 
@@ -40,9 +40,6 @@ or from a specified vector supplied by the user."><meta property="og:image" cont
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p2visualisation.html">2. Visualisation</a>
     </li>
     <li>
       <a href="../articles/p3centrality.html">3. Centrality</a>
@@ -83,13 +80,13 @@ or from a specified vector supplied by the user.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">add_node_attributes</span><span class="op">(</span><span class="va">object</span>, <span class="va">attr_name</span>, <span class="va">vector</span><span class="op">)</span>
-
-<span class="fu">add_edge_attributes</span><span class="op">(</span><span class="va">object</span>, <span class="va">attr_name</span>, <span class="va">vector</span><span class="op">)</span>
-
-<span class="fu">copy_node_attributes</span><span class="op">(</span><span class="va">object</span>, <span class="va">object2</span><span class="op">)</span>
-
-<span class="fu">join_edges</span><span class="op">(</span><span class="va">object</span>, <span class="va">object2</span>, <span class="va">attr_name</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_node_attribute</span><span class="op">(</span><span class="va">object</span>, <span class="va">attr_name</span>, <span class="va">vector</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">add_tie_attribute</span><span class="op">(</span><span class="va">object</span>, <span class="va">attr_name</span>, <span class="va">vector</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">copy_node_attributes</span><span class="op">(</span><span class="va">object</span>, <span class="va">object2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">join_ties</span><span class="op">(</span><span class="va">object</span>, <span class="va">object2</span>, <span class="va">attr_name</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -118,26 +115,25 @@ or from a specified vector supplied by the user.</p>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>add_node_attributes</code>: Insert specified values from a vector into the graph
+<ul><li><p><code>add_node_attribute</code>: Insert specified values from a vector into the graph
 as node attributes</p></li>
-<li><p><code>add_edge_attributes</code>: Insert specified values from a vector into the graph
-as edge attributes</p></li>
+<li><p><code>add_tie_attribute</code>: Insert specified values from a vector into the graph
+as tie attributes</p></li>
 <li><p><code>copy_node_attributes</code>: Copies node attributes from a given graph into specified graph</p></li>
-<li><p><code>join_edges</code>: Copies edges from another graph to specified graph and
-adds an edge attribute identifying the edges that were newly added</p></li>
+<li><p><code>join_ties</code>: Copies ties from another graph to specified graph and
+adds a tie attribute identifying the ties that were newly added</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other manipulations: 
 <code><a href="as.html">as</a>()</code>,
 <code><a href="grab.html">grab</a></code>,
-<code><a href="is.html">is</a>()</code>,
 <code><a href="to.html">to</a></code></p></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">add_node_attributes</span><span class="op">(</span><span class="va">mpn_elite_mex</span>, <span class="st">"wealth"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">35</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">add_node_attribute</span><span class="op">(</span><span class="va">mpn_elite_mex</span>, <span class="st">"wealth"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">35</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH f2996ac UN-- 35 117 -- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + attr: name (v/c), full_name (v/c), entry_year (v/n), military (v/n),</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> | in_mpn (v/n), PlaceOfBirth (v/c), state (v/c), region (v/n), wealth</span>
@@ -150,7 +146,7 @@ adds an edge attribute identifying the edges that were newly added</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [9] Carranza--Aguilar         Trevino --Carranza       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [11] Carranza--Portes Gil      Carranza--Aleman Gonzalez</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + ... omitted several edges</span>
-<span class="r-in"><span class="fu">add_node_attributes</span><span class="op">(</span><span class="va">mpn_elite_usa_advice</span>, <span class="st">"wealth"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">14</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">add_node_attribute</span><span class="op">(</span><span class="va">mpn_elite_usa_advice</span>, <span class="st">"wealth"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">14</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH 0a60326 UN-B 34 46 -- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + attr: type (v/l), name (v/c), wealth (v/n)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + edges from 0a60326 (vertex names):</span>
@@ -163,21 +159,21 @@ adds an edge attribute identifying the edges that were newly added</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [25] Hills    --CFR    Hills    --CSIS   Hills    --IAD    Hills    --IIE   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [29] Kissinger--ACUS   Kissinger--CNI    Kissinger--CSIS   Peterson --CFR   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + ... omitted several edges</span>
-<span class="r-in"><span class="fu">add_edge_attributes</span><span class="op">(</span><span class="va">ison_adolescents</span>, <span class="st">"weight"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">add_tie_attribute</span><span class="op">(</span><span class="va">ison_adolescents</span>, <span class="st">"weight"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH 799a6c5 UNW- 8 10 -- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + attr: name (v/c), weight (e/n)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + edges from 799a6c5 (vertex names):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] Betty--Sue   Sue  --Alice Alice--Jane  Sue  --Dale  Alice--Dale </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [6] Jane --Dale  Sue  --Pam   Alice--Pam   Pam  --Carol Carol--Tina </span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="va">both</span> <span class="op">&lt;-</span> <span class="fu">join_edges</span><span class="op">(</span><span class="va">mpn_elite_mex</span>, <span class="fu"><a href="generate.html">generate_random</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span>, <span class="st">"random"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">both</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">both</span> <span class="op">&lt;-</span> <span class="fu">join_ties</span><span class="op">(</span><span class="va">mpn_elite_mex</span>, <span class="fu"><a href="generate.html">generate_random</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span>, <span class="st">"random"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">both</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="va">random</span> <span class="op">&lt;-</span> <span class="fu"><a href="to.html">to_uniplex</a></span><span class="op">(</span><span class="va">both</span>, <span class="st">"random"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">random</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">random</span> <span class="op">&lt;-</span> <span class="fu"><a href="to.html">to_uniplex</a></span><span class="op">(</span><span class="va">both</span>, <span class="st">"random"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">random</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu"><a href="to.html">to_uniplex</a></span><span class="op">(</span><span class="va">both</span>, <span class="st">"orig"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu"><a href="to.html">to_uniplex</a></span><span class="op">(</span><span class="va">both</span>, <span class="st">"orig"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -193,7 +189,7 @@ adds an edge attribute identifying the edges that were newly added</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

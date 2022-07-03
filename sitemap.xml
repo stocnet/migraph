@@ -22,9 +22,6 @@
     <loc>https://snlab-ch.github.io/migraph/articles/p1data.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/articles/p2visualisation.html</loc>
-  </url>
-  <url>
     <loc>https://snlab-ch.github.io/migraph/articles/p3centrality.html</loc>
   </url>
   <url>
@@ -61,6 +58,12 @@
     <loc>https://snlab-ch.github.io/migraph/reference/centrality.html</loc>
   </url>
   <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/closure.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/cluster.html</loc>
+  </url>
+  <url>
     <loc>https://snlab-ch.github.io/migraph/reference/cohesion.html</loc>
   </url>
   <url>
@@ -68,9 +71,6 @@
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/components.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/connectedness.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/create.html</loc>
@@ -139,10 +139,16 @@
     <loc>https://snlab-ch.github.io/migraph/reference/layouts.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/mark.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/mark_nodes.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/mark_ties.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/mpn_bristol.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/mpn_cow.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/mpn_elite_mex.html</loc>

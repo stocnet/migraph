@@ -18,7 +18,7 @@ properties."><meta property="og:image" content="https://snlab-ch.github.io/migra
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.3</span>
       </span>
     </div>
 
@@ -40,9 +40,6 @@ properties."><meta property="og:image" content="https://snlab-ch.github.io/migra
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p2visualisation.html">2. Visualisation</a>
     </li>
     <li>
       <a href="../articles/p3centrality.html">3. Centrality</a>
@@ -73,7 +70,7 @@ properties."><meta property="og:image" content="https://snlab-ch.github.io/migra
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Logical tests of network properties</h1>
-    <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/R/manip_is.R" class="external-link"><code>R/manip_is.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/R/mark_is.R" class="external-link"><code>R/mark_is.R</code></a></small>
     <div class="hidden name"><code>is.Rd</code></div>
     </div>
 
@@ -83,31 +80,31 @@ properties.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">is_migraph</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">is_graph</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">is_edgelist</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">is_twomode</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">is_weighted</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">is_directed</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">is_labelled</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">is_signed</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">is_connected</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">is_complex</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">is_multiplex</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">is_uniplex</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">is_acyclic</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">is_migraph</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_graph</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_edgelist</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_twomode</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_weighted</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_directed</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_labelled</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_signed</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_connected</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_complex</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_multiplex</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_uniplex</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_acyclic</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -151,32 +148,30 @@ or multiple columns to the edgelist.</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p>Other manipulations: 
-<code><a href="add.html">add</a></code>,
-<code><a href="as.html">as</a>()</code>,
-<code><a href="grab.html">grab</a></code>,
-<code><a href="to.html">to</a></code></p></div>
+    <div class="dont-index"><p>Other marks: 
+<code><a href="mark_nodes.html">mark_nodes</a></code>,
+<code><a href="mark_ties.html">mark_ties</a></code></p></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">is_twomode</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">is_twomode</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="fu">is_weighted</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">is_weighted</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"><span class="fu">is_directed</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">is_directed</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="fu">is_labelled</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">is_labelled</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="fu">is_signed</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">is_signed</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"><span class="fu">is_connected</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">is_connected</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="fu">is_complex</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">is_complex</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"><span class="fu">is_uniplex</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">is_uniplex</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="fu">is_acyclic</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">is_acyclic</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 </code></pre></div>
     </div>
@@ -192,7 +187,7 @@ or multiple columns to the edgelist.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

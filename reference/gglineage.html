@@ -19,7 +19,7 @@ The function plots a lineage graph of citations, amendments, and more, for examp
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.3</span>
       </span>
     </div>
 
@@ -41,9 +41,6 @@ The function plots a lineage graph of citations, amendments, and more, for examp
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p2visualisation.html">2. Visualisation</a>
     </li>
     <li>
       <a href="../articles/p3centrality.html">3. Centrality</a>
@@ -85,7 +82,7 @@ The function plots a lineage graph of citations, amendments, and more, for examp
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">gglineage</span><span class="op">(</span><span class="va">object</span>, labels <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gglineage</span><span class="op">(</span><span class="va">object</span>, labels <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -101,14 +98,14 @@ The function plots a lineage graph of citations, amendments, and more, for examp
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">cites</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>qID1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BNLHPB_2016P:BNLHPB_1970A"</span>,</span>
-<span class="r-in"><span class="st">"PARIS_2015A"</span>,<span class="st">"INOOTO_2015A"</span>, <span class="st">"RUS-USA[UUF]_2015A"</span>,</span>
-<span class="r-in"><span class="st">"RUS-USA[UUF]_2015A"</span>, <span class="st">"RUS-USA[UUF]_2015A"</span>, <span class="st">"RUS-USA[UUF]_2015A"</span>,</span>
-<span class="r-in"><span class="st">"INECHA_2015O"</span>, <span class="st">"ST04DC_2014P"</span>, <span class="st">"ST04DC_2014P"</span><span class="op">)</span>,</span>
-<span class="r-in">qID2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BNLHPB_1977P:BNLHPB_1970A"</span>, <span class="st">"UNFCCC_1992A"</span>, <span class="st">"INOOTO_2005A"</span>,</span>
-<span class="r-in"><span class="st">"RUS-USA[MFR]_1988A"</span>, <span class="st">"PS07UF_2009A"</span>, <span class="st">"UNCLOS_1982A"</span>, <span class="st">"UNCLOS_1982A"</span>,</span>
-<span class="r-in"><span class="st">"ERECHA_1991O"</span>, <span class="st">"AI07EM_1998A"</span>, <span class="st">"CNEWNH_1979A"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">gglineage</span><span class="op">(</span><span class="va">cites</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">cites</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>qID1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BNLHPB_2016P:BNLHPB_1970A"</span>,</span></span>
+<span class="r-in"><span><span class="st">"PARIS_2015A"</span>,<span class="st">"INOOTO_2015A"</span>, <span class="st">"RUS-USA[UUF]_2015A"</span>,</span></span>
+<span class="r-in"><span><span class="st">"RUS-USA[UUF]_2015A"</span>, <span class="st">"RUS-USA[UUF]_2015A"</span>, <span class="st">"RUS-USA[UUF]_2015A"</span>,</span></span>
+<span class="r-in"><span><span class="st">"INECHA_2015O"</span>, <span class="st">"ST04DC_2014P"</span>, <span class="st">"ST04DC_2014P"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>qID2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BNLHPB_1977P:BNLHPB_1970A"</span>, <span class="st">"UNFCCC_1992A"</span>, <span class="st">"INOOTO_2005A"</span>,</span></span>
+<span class="r-in"><span><span class="st">"RUS-USA[MFR]_1988A"</span>, <span class="st">"PS07UF_2009A"</span>, <span class="st">"UNCLOS_1982A"</span>, <span class="st">"UNCLOS_1982A"</span>,</span></span>
+<span class="r-in"><span><span class="st">"ERECHA_1991O"</span>, <span class="st">"AI07EM_1998A"</span>, <span class="st">"CNEWNH_1979A"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">gglineage</span><span class="op">(</span><span class="va">cites</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="gglineage-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -124,7 +121,7 @@ The function plots a lineage graph of citations, amendments, and more, for examp
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

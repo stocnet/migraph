@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.3</span>
       </span>
     </div>
 
@@ -39,9 +39,6 @@
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p2visualisation.html">2. Visualisation</a>
     </li>
     <li>
       <a href="../articles/p3centrality.html">3. Centrality</a>
@@ -81,11 +78,11 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">graph_dyad_census</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">graph_triad_census</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">graph_mixed_census</span><span class="op">(</span><span class="va">object</span>, <span class="va">object2</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">graph_dyad_census</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">graph_triad_census</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">graph_mixed_census</span><span class="op">(</span><span class="va">object</span>, <span class="va">object2</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="source">
@@ -114,10 +111,10 @@ a one-mode and a two-mode network</p></li>
     <h2>References</h2>
     <p>Davis, James A., and Samuel Leinhardt. 1967.
 “<a href="https://files.eric.ed.gov/fulltext/ED024086.pdf" class="external-link">The Structure of Positive Interpersonal Relations in Small Groups</a>.” 55.</p>
-<p>Hollway, James, Alessandro Lomi, Francesca Pallotti, and Christoph Stadtfeld.
-“<a href="https://doi.org/10.1017/nws.2017.8" class="external-link">doi:10.1017/nws.2017.8</a>
-Multilevel Social Spaces: The Network Dynamics of Organizational Fields.”
-<em>Network Science</em> 5, no. 2 (June 2017): 187–212.</p>
+<p>Hollway, James, Alessandro Lomi, Francesca Pallotti, and Christoph Stadtfeld. 2017.
+“Multilevel Social Spaces: The Network Dynamics of Organizational Fields.”
+<em>Network Science</em> 5(2): 187–212.
+<a href="https://doi.org/10.1017/nws.2017.8" class="external-link">doi:10.1017/nws.2017.8</a></p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -127,28 +124,22 @@ Multilevel Social Spaces: The Network Dynamics of Organizational Fields.”
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">graph_dyad_census</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mutual   Null </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     10     18 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "graph_motif" "integer"    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"mode")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
-<span class="r-in"><span class="fu">graph_triad_census</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 003 012 102 201 210 300 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  13   0  29  11   0   3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "graph_motif" "numeric"    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"mode")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
-<span class="r-in"><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="to.html">to_unsigned</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span>, <span class="st">"positive"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">mixed_cen</span> <span class="op">&lt;-</span> <span class="fu">graph_mixed_census</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="va">ison_marvel_teams</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     22     21     20     12    11D    11U     10     02     01     00 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1137      0   1702   7064      0      0  22774  30856      0 130765 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "graph_motif" "numeric"    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"mode")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 53</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">graph_dyad_census</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Mutual  Null</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     10    18</span>
+<span class="r-in"><span><span class="fu">graph_triad_census</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   `003` `012` `102` `201` `210` `300`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    13     0    29    11     0     3</span>
+<span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="to.html">to_unsigned</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span>, <span class="st">"positive"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">mixed_cen</span> <span class="op">&lt;-</span> <span class="fu">graph_mixed_census</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="va">ison_marvel_teams</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 10</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    `22`  `21`  `20`  `12` `11D` `11U`  `10`  `02`  `01`   `00`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">1</span>137     0  <span style="text-decoration: underline;">1</span>702  <span style="text-decoration: underline;">7</span>064     0     0 <span style="text-decoration: underline;">22</span>774 <span style="text-decoration: underline;">30</span>856     0 <span style="text-decoration: underline;">130</span>765</span>
 </code></pre></div>
     </div>
   </div>
@@ -163,7 +154,7 @@ Multilevel Social Spaces: The Network Dynamics of Organizational Fields.”
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

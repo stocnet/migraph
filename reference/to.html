@@ -41,7 +41,7 @@ mode2XXX
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.3</span>
       </span>
     </div>
 
@@ -63,9 +63,6 @@ mode2XXX
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p2visualisation.html">2. Visualisation</a>
     </li>
     <li>
       <a href="../articles/p3centrality.html">3. Centrality</a>
@@ -111,37 +108,37 @@ only transforming these objects' properties.</p>
 here are the currently implemented modifications:</p><table class="table table"><tr><td>to_</td><td>edgelists</td><td>matrices</td><td>igraph</td><td>tidygraph</td><td>network</td></tr><tr><td>unweighted</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>undirected</td><td></td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>redirected</td><td>X</td><td>X</td><td>X</td><td>X</td><td></td></tr><tr><td>unsigned</td><td>X</td><td>X</td><td>X</td><td>X</td><td></td></tr><tr><td>uniplex</td><td></td><td></td><td>X</td><td>X</td><td></td></tr><tr><td>unnamed</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>named</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>simplex</td><td></td><td>X</td><td>X</td><td>X</td><td></td></tr><tr><td>main_component</td><td></td><td></td><td>X</td><td>X</td><td>X</td></tr><tr><td>onemode</td><td></td><td></td><td>X</td><td>X</td><td></td></tr><tr><td>multilevel</td><td></td><td>X</td><td>X</td><td>X</td><td></td></tr><tr><td>mode1</td><td></td><td>X</td><td>X</td><td>X</td><td></td></tr><tr><td>mode2</td><td></td><td>X</td><td>X</td><td>X</td><td></td></tr></table></div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">to_uniplex</span><span class="op">(</span><span class="va">object</span>, <span class="va">edge</span><span class="op">)</span>
-
-<span class="fu">to_main_component</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">to_undirected</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">to_redirected</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">to_unweighted</span><span class="op">(</span><span class="va">object</span>, threshold <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-
-<span class="fu">to_unsigned</span><span class="op">(</span><span class="va">object</span>, keep <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"positive"</span>, <span class="st">"negative"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">to_unnamed</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">to_named</span><span class="op">(</span><span class="va">object</span>, names <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="fu">to_simplex</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">to_mode1</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">to_mode2</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">to_onemode</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">to_multilevel</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">to_edges</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="fu">to_subgraph</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">to_blocks</span><span class="op">(</span><span class="va">object</span>, <span class="va">membership</span>, FUN <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">to_uniplex</span><span class="op">(</span><span class="va">object</span>, <span class="va">edge</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_main_component</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_undirected</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_redirected</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_unweighted</span><span class="op">(</span><span class="va">object</span>, threshold <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_unsigned</span><span class="op">(</span><span class="va">object</span>, keep <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"positive"</span>, <span class="st">"negative"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_unnamed</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_named</span><span class="op">(</span><span class="va">object</span>, names <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_simplex</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_mode1</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_mode2</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_onemode</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_multilevel</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_ties</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_subgraph</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_blocks</span><span class="op">(</span><span class="va">object</span>, <span class="va">membership</span>, FUN <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -229,7 +226,7 @@ Note that this is not the same as <code>to_mode1()</code> or <code>to_mode2()</c
 which return only some of the nodes and new ties established by coincidence.</p></li>
 <li><p><code>to_multilevel</code>: Returns a network that is not divided into two mode types
 but embeds two or more modes into a multimodal network structure.</p></li>
-<li><p><code>to_edges</code>: Returns a matrix (named if possible)
+<li><p><code>to_ties</code>: Returns a matrix (named if possible)
 where the edges are the nodes</p></li>
 <li><p><code>to_subgraph</code>: Returns a network subgraph filtered
 on the basis of some node-related logical statement.</p></li>
@@ -241,40 +238,39 @@ partition membership vector</p></li>
     <div class="dont-index"><p>Other manipulations: 
 <code><a href="add.html">add</a></code>,
 <code><a href="as.html">as</a>()</code>,
-<code><a href="grab.html">grab</a></code>,
-<code><a href="is.html">is</a>()</code></p></div>
+<code><a href="grab.html">grab</a></code></p></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="to-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">to_uniplex</span><span class="op">(</span><span class="va">ison_algebra</span>, <span class="st">"friends"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">to_uniplex</span><span class="op">(</span><span class="va">ison_algebra</span>, <span class="st">"friends"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="to-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">to_main_component</span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">to_main_component</span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="to-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">to_undirected</span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">to_undirected</span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="to-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">to_unweighted</span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">to_unweighted</span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="to-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span> <span class="op">/</span></span>
-<span class="r-in"><span class="op">(</span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_mode1</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span><span class="op">)</span> <span class="op">|</span></span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_mode2</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span> <span class="op">/</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_mode1</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span><span class="op">)</span> <span class="op">|</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_mode2</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="to-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span> <span class="op">+</span>  </span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_edges</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span> <span class="op">+</span>  </span></span>
+<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_ties</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="to-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="op">(</span><span class="va">adolblock</span> <span class="op">&lt;-</span> <span class="fu">to_blocks</span><span class="op">(</span><span class="va">ison_adolescents</span>, </span>
-<span class="r-in">  <span class="fu"><a href="equivalence.html">node_regular_equivalence</a></span><span class="op">(</span><span class="va">ison_adolescents</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">adolblock</span> <span class="op">&lt;-</span> <span class="fu">to_blocks</span><span class="op">(</span><span class="va">ison_adolescents</span>, </span></span>
+<span class="r-in"><span>  <span class="fu"><a href="equivalence.html">node_regular_equivalence</a></span><span class="op">(</span><span class="va">ison_adolescents</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Block 1 Block 2 Block 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Block 1 0.1666667     0.5     0.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Block 2 0.5000000     0.0     1.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Block 3 0.5000000     1.0     0.0</span>
-<span class="r-in"><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">adolblock</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">adolblock</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="to-8.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -290,7 +286,7 @@ partition membership vector</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

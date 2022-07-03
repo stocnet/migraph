@@ -1,13 +1,12 @@
 pandoc: 2.7.3
-pkgdown: 2.0.4
+pkgdown: 2.0.5
 pkgdown_sha: ~
 articles:
   p1data: p1data.html
-  p2visualisation: p2visualisation.html
   p3centrality: p3centrality.html
   p5equivalence: p5equivalence.html
   p7linearmodel: p7linearmodel.html
-last_built: 2022-06-20T05:16Z
+last_built: 2022-07-03T09:44Z
 urls:
   reference: https://snlab-ch.github.io/migraph/reference
   article: https://snlab-ch.github.io/migraph/articles

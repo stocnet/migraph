@@ -21,7 +21,7 @@ visualisation of network measures such as centrality."><meta property="og:image"
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.3</span>
       </span>
     </div>
 
@@ -43,9 +43,6 @@ visualisation of network measures such as centrality."><meta property="og:image"
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p2visualisation.html">2. Visualisation</a>
     </li>
     <li>
       <a href="../articles/p3centrality.html">3. Centrality</a>
@@ -89,18 +86,17 @@ visualisation of network measures such as centrality.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">autographr</span><span class="op">(</span>
-  <span class="va">object</span>,
-  layout <span class="op">=</span> <span class="st">"stress"</span>,
-  labels <span class="op">=</span> <span class="cn">TRUE</span>,
-  node_color <span class="op">=</span> <span class="cn">NULL</span>,
-  node_group <span class="op">=</span> <span class="cn">NULL</span>,
-  node_shape <span class="op">=</span> <span class="cn">NULL</span>,
-  node_size <span class="op">=</span> <span class="cn">NULL</span>,
-  highlight_measure <span class="op">=</span> <span class="cn">NULL</span>,
-  identify_function <span class="op">=</span> <span class="st">"max"</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">autographr</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  layout <span class="op">=</span> <span class="st">"stress"</span>,</span>
+<span>  labels <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  node_color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  node_group <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  node_shape <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  node_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  edge_color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -148,18 +144,10 @@ it is recommended to calculate all node-related statistics prior
 to using this function.</p></dd>
 
 
-<dt>highlight_measure</dt>
-<dd><p>String vector of name of the node and/or edge
-level measure function e.g. <code>node_degree</code>,  <code>edge_betweenness</code>,
-or <code>c("node_betweenness", "edge_betweenness")</code>.
-<code>NULL</code> by default.</p></dd>
-
-
-<dt>identify_function</dt>
-<dd><p>Name of the function used to determine the
-highlighted node e.g. <code>"max"</code>, <code>"min"</code>, or <code>c("max", "min")</code> if
-both edge and node highlighting is performed.
-<code>max</code> by default.</p></dd>
+<dt>edge_color</dt>
+<dd><p>Tie variable in quotation marks to be used for
+coloring the nodes. It is easiest if this is added as an edge or tie attribute
+to the graph before plotting.</p></dd>
 
 
 <dt>...</dt>
@@ -174,23 +162,19 @@ both edge and node highlighting is performed.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">ison_adolescents</span> <span class="op">&lt;-</span> <span class="va">ison_adolescents</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span class="r-in"> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"circle"</span>, <span class="st">"square"</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in"> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"red"</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">autographr</span><span class="op">(</span><span class="va">ison_adolescents</span>, node_shape <span class="op">=</span> <span class="st">"shape"</span>, node_color <span class="op">=</span> <span class="st">"color"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ison_adolescents</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"circle"</span>, <span class="st">"square"</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"red"</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
+<span class="r-in"><span>  <span class="fu">autographr</span><span class="op">(</span>node_shape <span class="op">=</span> <span class="st">"shape"</span>, node_color <span class="op">=</span> <span class="st">"color"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="autographr-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">autographr</span><span class="op">(</span><span class="va">ison_karateka</span>, node_size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.8</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">34</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">autographr</span><span class="op">(</span><span class="va">ison_karateka</span>, node_size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="autographr-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Node highlighting:</span></span>
-<span class="r-in"><span class="fu">autographr</span><span class="op">(</span><span class="va">ison_adolescents</span>, highlight_measure <span class="op">=</span> <span class="st">"node_betweenness"</span>, identify_function <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">ison_adolescents</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>high_degree <span class="op">=</span> <span class="fu"><a href="mark_nodes.html">node_is_max</a></span><span class="op">(</span><span class="fu"><a href="centrality.html">node_degree</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>high_betweenness <span class="op">=</span> <span class="fu"><a href="mark_ties.html">tie_is_max</a></span><span class="op">(</span><span class="fu"><a href="centrality.html">tie_betweenness</a></span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
+<span class="r-in"><span>  <span class="fu">autographr</span><span class="op">(</span>node_color <span class="op">=</span> <span class="st">"high_degree"</span>, edge_color <span class="op">=</span> <span class="st">"high_betweenness"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="autographr-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Edge highlighting:</span></span>
-<span class="r-in"><span class="fu">autographr</span><span class="op">(</span><span class="va">ison_adolescents</span>, highlight_measure <span class="op">=</span> <span class="st">"edge_betweenness"</span>, identify_function <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="autographr-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Both node and edge highlighting:</span></span>
-<span class="r-in"><span class="fu">autographr</span><span class="op">(</span><span class="va">ison_adolescents</span>, highlight_measure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"node_betweenness"</span>, </span>
-<span class="r-in"><span class="st">"edge_betweenness"</span><span class="op">)</span>, identify_function <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"max"</span>, <span class="st">"max"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="autographr-5.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
@@ -205,7 +189,7 @@ both edge and node highlighting is performed.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

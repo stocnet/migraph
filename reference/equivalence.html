@@ -22,7 +22,7 @@ assignment."><meta property="og:image" content="https://snlab-ch.github.io/migra
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.3</span>
       </span>
     </div>
 
@@ -44,9 +44,6 @@ assignment."><meta property="og:image" content="https://snlab-ch.github.io/migra
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p2visualisation.html">2. Visualisation</a>
     </li>
     <li>
       <a href="../articles/p3centrality.html">3. Centrality</a>
@@ -91,38 +88,38 @@ assignment.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">node_equivalence</span><span class="op">(</span>
-  <span class="va">object</span>,
-  <span class="va">census</span>,
-  k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"silhouette"</span>, <span class="st">"elbow"</span>, <span class="st">"strict"</span><span class="op">)</span>,
-  cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hierarchical"</span>, <span class="st">"concor"</span><span class="op">)</span>,
-  distance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"euclidean"</span>, <span class="st">"maximum"</span>, <span class="st">"manhattan"</span>, <span class="st">"canberra"</span>, <span class="st">"binary"</span>, <span class="st">"minkowski"</span><span class="op">)</span>,
-  range <span class="op">=</span> <span class="fl">8L</span>
-<span class="op">)</span>
-
-<span class="fu">node_structural_equivalence</span><span class="op">(</span>
-  <span class="va">object</span>,
-  k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"silhouette"</span>, <span class="st">"elbow"</span>, <span class="st">"strict"</span><span class="op">)</span>,
-  cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hierarchical"</span>, <span class="st">"concor"</span><span class="op">)</span>,
-  distance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"euclidean"</span>, <span class="st">"maximum"</span>, <span class="st">"manhattan"</span>, <span class="st">"canberra"</span>, <span class="st">"binary"</span>, <span class="st">"minkowski"</span><span class="op">)</span>,
-  range <span class="op">=</span> <span class="fl">8L</span>
-<span class="op">)</span>
-
-<span class="fu">node_regular_equivalence</span><span class="op">(</span>
-  <span class="va">object</span>,
-  k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"silhouette"</span>, <span class="st">"elbow"</span>, <span class="st">"strict"</span><span class="op">)</span>,
-  cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hierarchical"</span>, <span class="st">"concor"</span><span class="op">)</span>,
-  distance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"euclidean"</span>, <span class="st">"maximum"</span>, <span class="st">"manhattan"</span>, <span class="st">"canberra"</span>, <span class="st">"binary"</span>, <span class="st">"minkowski"</span><span class="op">)</span>,
-  range <span class="op">=</span> <span class="fl">8L</span>
-<span class="op">)</span>
-
-<span class="fu">node_automorphic_equivalence</span><span class="op">(</span>
-  <span class="va">object</span>,
-  k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"silhouette"</span>, <span class="st">"elbow"</span>, <span class="st">"strict"</span><span class="op">)</span>,
-  cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hierarchical"</span>, <span class="st">"concor"</span><span class="op">)</span>,
-  distance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"euclidean"</span>, <span class="st">"maximum"</span>, <span class="st">"manhattan"</span>, <span class="st">"canberra"</span>, <span class="st">"binary"</span>, <span class="st">"minkowski"</span><span class="op">)</span>,
-  range <span class="op">=</span> <span class="fl">8L</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">node_equivalence</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">census</span>,</span>
+<span>  k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"silhouette"</span>, <span class="st">"elbow"</span>, <span class="st">"strict"</span><span class="op">)</span>,</span>
+<span>  cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hierarchical"</span>, <span class="st">"concor"</span><span class="op">)</span>,</span>
+<span>  distance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"euclidean"</span>, <span class="st">"maximum"</span>, <span class="st">"manhattan"</span>, <span class="st">"canberra"</span>, <span class="st">"binary"</span>, <span class="st">"minkowski"</span><span class="op">)</span>,</span>
+<span>  range <span class="op">=</span> <span class="fl">8L</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">node_structural_equivalence</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"silhouette"</span>, <span class="st">"elbow"</span>, <span class="st">"strict"</span><span class="op">)</span>,</span>
+<span>  cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hierarchical"</span>, <span class="st">"concor"</span><span class="op">)</span>,</span>
+<span>  distance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"euclidean"</span>, <span class="st">"maximum"</span>, <span class="st">"manhattan"</span>, <span class="st">"canberra"</span>, <span class="st">"binary"</span>, <span class="st">"minkowski"</span><span class="op">)</span>,</span>
+<span>  range <span class="op">=</span> <span class="fl">8L</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">node_regular_equivalence</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"silhouette"</span>, <span class="st">"elbow"</span>, <span class="st">"strict"</span><span class="op">)</span>,</span>
+<span>  cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hierarchical"</span>, <span class="st">"concor"</span><span class="op">)</span>,</span>
+<span>  distance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"euclidean"</span>, <span class="st">"maximum"</span>, <span class="st">"manhattan"</span>, <span class="st">"canberra"</span>, <span class="st">"binary"</span>, <span class="st">"minkowski"</span><span class="op">)</span>,</span>
+<span>  range <span class="op">=</span> <span class="fl">8L</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">node_automorphic_equivalence</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"silhouette"</span>, <span class="st">"elbow"</span>, <span class="st">"strict"</span><span class="op">)</span>,</span>
+<span>  cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hierarchical"</span>, <span class="st">"concor"</span><span class="op">)</span>,</span>
+<span>  distance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"euclidean"</span>, <span class="st">"maximum"</span>, <span class="st">"manhattan"</span>, <span class="st">"canberra"</span>, <span class="st">"binary"</span>, <span class="st">"minkowski"</span><span class="op">)</span>,</span>
+<span>  range <span class="op">=</span> <span class="fl">8L</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="source">
@@ -193,18 +190,13 @@ automorphically equivalent classes</p></li>
     <h2>References</h2>
     <p>Thorndike, Robert L. 1953.
 "Who Belongs in the Family?".
-<em>Psychometrika</em>, 18(4): 267–276.
-<a href="https://doi.org/10.1007/BF02289263" class="external-link">doi:10.1007/BF02289263</a></p>
+<em>Psychometrika</em>, 18(4): 267–76.
+<a href="https://doi.org/10.1007/BF02289263" class="external-link">doi:10.1007/BF02289263</a>
+.</p>
 <p>Rousseeuw, Peter J. 1987.
 “Silhouettes: A Graphical Aid to the Interpretation and Validation of Cluster Analysis.”
 <em>Journal of Computational and Applied Mathematics</em>, 20: 53–65.
 <a href="https://doi.org/10.1016/0377-0427%2887%2990125-7" class="external-link">doi:10.1016/0377-0427(87)90125-7</a>
-.</p>
-<p>Breiger, R.L., Boorman, S.A., and Arabie, P.  1975.
-"An Algorithm for Clustering Relational Data with Applications to
-Social Network Analysis and Comparison with Multidimensional Scaling".
-<em>Journal of Mathematical Psychology</em>, 12: 328--383.
-<a href="https://doi.org/10.1016/0022-2496%2875%2990028-0" class="external-link">doi:10.1016/0022-2496(75)90028-0</a>
 .</p>
     </div>
     <div id="see-also">
@@ -216,7 +208,8 @@ Social Network Analysis and Comparison with Multidimensional Scaling".
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="op">(</span><span class="va">nse</span> <span class="op">&lt;-</span> <span class="fu">node_structural_equivalence</span><span class="op">(</span><span class="va">mpn_elite_usa_advice</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">nse</span> <span class="op">&lt;-</span> <span class="fu">node_structural_equivalence</span><span class="op">(</span><span class="va">mpn_elite_usa_advice</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Albright, Curry, Fukuyama, Gray, Wald</span>
@@ -238,8 +231,57 @@ Social Network Analysis and Comparison with Multidimensional Scaling".
 <span class="r-out co"><span class="r-pr">#&gt;</span>  7 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    IAD, NAF, RAND </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nse</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nse</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="equivalence-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">nre</span> <span class="op">&lt;-</span> <span class="fu">node_regular_equivalence</span><span class="op">(</span><span class="va">mpn_elite_usa_advice</span>,</span></span>
+<span class="r-in"><span>  cluster <span class="op">=</span> <span class="st">"concor"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Albright, Curry, Fukuyama, Wald, CFR, NAF, IIE, Greenberg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Scowcroft </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Argyros, Peterson, Armitage, West, Zakheim, Kissinger</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    AEI, ASPEN, EWI, FPRI, GMFUS, HOOVER, CATO, CGD, RF, RAND, RFF </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    CNAS, MI, IAD </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Gray </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Hills </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ACUS, CNI </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    CSIS </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nre</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="equivalence-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">nae</span> <span class="op">&lt;-</span> <span class="fu">node_automorphic_equivalence</span><span class="op">(</span><span class="va">mpn_elite_usa_advice</span>,</span></span>
+<span class="r-in"><span>  k <span class="op">=</span> <span class="st">"elbow"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ASPEN, CFR, CNI, CSIS, HOOVER </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Albright, Argyros, Hills, Peterson</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    CNAS, FPRI, GMFUS </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Armitage, Kissinger, Scowcroft, West, Zakheim</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    AEI, IAD, IIE, NAF, RAND </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Curry, Fukuyama, Greenberg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ACUS, CATO, CGD, EWI, MI, RF, RFF </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Gray, Wald</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nae</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="equivalence-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -254,7 +296,7 @@ Social Network Analysis and Comparison with Multidimensional Scaling".
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

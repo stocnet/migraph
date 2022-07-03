@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.3</span>
       </span>
     </div>
 
@@ -39,9 +39,6 @@
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p2visualisation.html">2. Visualisation</a>
     </li>
     <li>
       <a href="../articles/p3centrality.html">3. Centrality</a>
@@ -76,6 +73,56 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="0.10.3" id="migraph-0103">migraph 0.10.3<a class="anchor" aria-label="anchor" href="#migraph-0103"></a></h2>
+<div class="section level3">
+<h3 id="package-0-10-3">Package<a class="anchor" aria-label="anchor" href="#package-0-10-3"></a></h3>
+<ul><li>Updated the DESCRIPTION and CITATION</li>
+<li>Renamed <code>edge_*()</code> to <code>tie_*()</code> to offer more (SNA) consistent vocabulary</li>
+<li>Added DOIs to as much data and documentation as possible (closed <a href="https://github.com/snlab-ch/migraph/issues/236" class="external-link">#236</a>, thanks <a href="https://github.com/JaelTan" class="external-link">@JaelTan</a>)</li>
+<li>Some further rationalisation of the documentation</li>
+<li>Dropped visualization vignette for now</li>
+</ul></div>
+<div class="section level3">
+<h3 id="manipulation-0-10-3">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-10-3"></a></h3>
+<ul><li>Added methods for converting <code>network.goldfish</code> objects (and linked events and nodelists) to migraph-compatible objects (closed <a href="https://github.com/snlab-ch/migraph/issues/96" class="external-link">#96</a>)</li>
+<li>Renamed <code>add_node_attributes()</code> to <code><a href="../reference/add.html">add_node_attribute()</a></code> and <code>add_edge_attributes()</code> to <code><a href="../reference/add.html">add_tie_attribute()</a></code>
+</li>
+</ul></div>
+<div class="section level3">
+<h3 id="marks-0-10-3">Marks<a class="anchor" aria-label="anchor" href="#marks-0-10-3"></a></h3>
+<ul><li>All <code>is_*()</code> are now considered graph-level ‘marks’</li>
+<li>Added ‘node_mark’ and ‘tie_mark’ classes with printing methods (closed <a href="https://github.com/snlab-ch/migraph/issues/233" class="external-link">#233</a>)</li>
+<li>Added <code><a href="../reference/mark_nodes.html">node_is_isolate()</a></code> for marking isolates</li>
+<li>Added <code><a href="../reference/mark_nodes.html">node_is_max()</a></code>, <code><a href="../reference/mark_nodes.html">node_is_min()</a></code>, <code><a href="../reference/mark_ties.html">tie_is_max()</a></code>, <code><a href="../reference/mark_ties.html">tie_is_min()</a></code> for converting ‘measures’ into ‘marks’</li>
+</ul></div>
+<div class="section level3">
+<h3 id="measures-0-10-3">Measures<a class="anchor" aria-label="anchor" href="#measures-0-10-3"></a></h3>
+<ul><li>Printing ‘node_measure’ class objects now is prettier, extending the width of the console, indicating how many additional observations, and separates out each mode (closed <a href="https://github.com/snlab-ch/migraph/issues/232" class="external-link">#232</a>)</li></ul></div>
+<div class="section level3">
+<h3 id="motifs-0-10-3">Motifs<a class="anchor" aria-label="anchor" href="#motifs-0-10-3"></a></h3>
+<ul><li>Added print method for <code>graph_motif</code> (fixed <a href="https://github.com/snlab-ch/migraph/issues/234" class="external-link">#234</a>)</li></ul></div>
+<div class="section level3">
+<h3 id="memberships-0-10-3">Memberships<a class="anchor" aria-label="anchor" href="#memberships-0-10-3"></a></h3>
+<ul><li>Equivalence examples now <code>\dontrun</code>
+</li></ul></div>
+<div class="section level3">
+<h3 id="models-0-10-3">Models<a class="anchor" aria-label="anchor" href="#models-0-10-3"></a></h3>
+<ul><li>
+<code><a href="../reference/cluster.html">cluster_concor()</a></code> and <code><a href="../reference/cluster.html">cluster_hierarchical()</a></code> are now exported</li></ul></div>
+<div class="section level3">
+<h3 id="mapping-0-10-3">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-10-3"></a></h3>
+<ul><li>
+<code><a href="../reference/autographr.html">autographr()</a></code> no longer requires “highlight_measure” and “identify_function” arguments as users can now convert ‘measures’ to ‘marks’ and use these for “node_color” or “edge_color”</li></ul></div>
+<div class="section level3">
+<h3 id="data-0-10-3">Data<a class="anchor" aria-label="anchor" href="#data-0-10-3"></a></h3>
+<ul><li>Added prints of each data object to <code>@format</code> for more consistent documentation</li>
+<li>Added <code>ison_brandes2</code> dataset, a two-mode version of the original one-mode dataset</li>
+<li>Added <code>mpn_cow_trade</code> and <code>mpn_cow_igo</code> datasets (thanks <a href="https://github.com/JaelTan" class="external-link">@JaelTan</a>)</li>
+<li>Fixed non-unique names in <code>mpn_elite_mex</code>
+</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="0.10.2" id="migraph-0102">migraph 0.10.2<a class="anchor" aria-label="anchor" href="#migraph-0102"></a></h2>
 <div class="section level3">
 <h3 id="memberships-0-10-2">Memberships<a class="anchor" aria-label="anchor" href="#memberships-0-10-2"></a></h3>
@@ -101,7 +148,7 @@
 <li>
 <a href="http://stringr.tidyverse.org" class="external-link">stringr</a> and <a href="https://tibble.tidyverse.org/" class="external-link">tibble</a> replaced with base or other code and therefore no longer necessary</li>
 </ul></li>
-<li>Relabelled scripts to follow website function structure<ul><li>Added <code><a href="https://github.com/family" class="external-link">@family</a></code> tags for improved cross-referencing</li>
+<li>Relabelled scripts to follow website function structure<ul><li>Added <code>@family</code> tags for improved cross-referencing</li>
 <li>Added a lot more references/sources</li>
 </ul></li>
 <li>README elaborated, including listing functions and data in the package</li>
@@ -142,8 +189,8 @@
 <div class="section level3">
 <h3 id="marks-0-10-0">Marks<a class="anchor" aria-label="anchor" href="#marks-0-10-0"></a></h3>
 <ul><li>Added new set of functions that return logical vectors for nodes and edges:<ul><li>
-<code><a href="../reference/mark.html">edge_multiple()</a></code>, <code><a href="../reference/mark.html">edge_loop()</a></code>, <code><a href="../reference/mark.html">edge_reciprocal()</a></code> moved from measures</li>
-<li>Added <code><a href="../reference/mark.html">edge_bridges()</a></code>
+<code><a href="../reference/defunct.html">edge_multiple()</a></code>, <code><a href="../reference/defunct.html">edge_loop()</a></code>, <code><a href="../reference/defunct.html">edge_reciprocal()</a></code> moved from measures</li>
+<li>Added <code><a href="../reference/defunct.html">edge_bridges()</a></code>
 </li>
 </ul></li></ul></div>
 <div class="section level3">
@@ -151,7 +198,7 @@
 <ul><li>A new <code>"edge_measure"</code> S3 class has been added, along with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods</li>
 <li>Added <code>summary.node_measure()</code> method for printing a summary by a membership vector; <code><a href="../reference/defunct.html">summarise_statistics()</a></code> is now deprecated</li>
 <li>All cohesion, connection, and diversity measures now return <code>"graph_measure"</code> class results<ul><li>
-<code><a href="../reference/connectedness.html">graph_components()</a></code> now calculates strong components for directed networks else weak components</li>
+<code><a href="../reference/cohesion.html">graph_components()</a></code> now calculates strong components for directed networks else weak components</li>
 <li>
 <code>print.graph_measure()</code> now correctly labels two-mode results where a vector is given</li>
 </ul></li>
@@ -242,8 +289,8 @@
 <ul><li>Folded <code>m</code> argument into <code>p</code> for <code><a href="../reference/generate.html">generate_random()</a></code>, <code>p</code> can now be passed an integer to indicate the number of ties the network should have</li></ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-9-3">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-9-3"></a></h3>
-<ul><li>Refactored <code><a href="../reference/to.html">to_edges()</a></code> to be ~26 times faster on average</li>
-<li>Corrected edge labelling in <code><a href="../reference/to.html">to_edges()</a></code>
+<ul><li>Refactored <code><a href="../reference/defunct.html">to_edges()</a></code> to be ~26 times faster on average</li>
+<li>Corrected edge labelling in <code><a href="../reference/defunct.html">to_edges()</a></code>
 </li>
 <li>Using <code><a href="../reference/to.html">to_subgraph()</a></code> now instead of <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">dplyr::filter()</a></code> or <code>strain()</code>
 </li>
@@ -262,10 +309,10 @@
 <code><a href="../reference/centrality.html">node_degree()</a></code> now calculates strength centrality if network is weighted</li>
 <li>
 <code><a href="../reference/centrality.html">node_eigenvector()</a></code> and <code><a href="../reference/centralisation.html">graph_eigenvector()</a></code> both work with two-mode networks</li>
-<li>Added <code><a href="../reference/centrality.html">edge_degree()</a></code> and <code><a href="../reference/centrality.html">edge_eigenvector()</a></code>, which both just apply the corresponding nodal measure to the edge graph</li>
+<li>Added <code><a href="../reference/defunct.html">edge_degree()</a></code> and <code><a href="../reference/defunct.html">edge_eigenvector()</a></code>, which both just apply the corresponding nodal measure to the edge graph</li>
 </ul></li>
 <li>
-<code><a href="../reference/defunct.html">edge_mutual()</a></code> renamed to <code><a href="../reference/mark.html">edge_reciprocal()</a></code>
+<code>edge_mutual()</code> renamed to <code><a href="../reference/defunct.html">edge_reciprocal()</a></code>
 </li>
 <li>Closed <a href="https://github.com/snlab-ch/migraph/issues/225" class="external-link">#225</a> by adding <code><a href="../reference/diversity.html">graph_assortativity()</a></code>
 </li>
@@ -352,16 +399,16 @@
 <li>Added data.frame and matrix methods for <code><a href="../reference/to.html">to_named()</a></code> and <code><a href="../reference/to.html">to_unsigned()</a></code>
 </li>
 </ul></li>
-<li>Added <code><a href="../reference/to.html">to_edges()</a></code> for creating adjacency matrices using a network’s edges as nodes</li>
-<li>Renamed <code><a href="../reference/defunct.html">project_rows()</a></code> and <code><a href="../reference/defunct.html">project_cols()</a></code> functions to <code><a href="../reference/to.html">to_mode1()</a></code> and <code><a href="../reference/to.html">to_mode2()</a></code>, which is both more consistent with other functions naming conventions and more generic by avoiding the matrix-based row/column distinction</li>
+<li>Added <code><a href="../reference/defunct.html">to_edges()</a></code> for creating adjacency matrices using a network’s edges as nodes</li>
+<li>Renamed <code>project_rows()</code> and <code>project_cols()</code> functions to <code><a href="../reference/to.html">to_mode1()</a></code> and <code><a href="../reference/to.html">to_mode2()</a></code>, which is both more consistent with other functions naming conventions and more generic by avoiding the matrix-based row/column distinction</li>
 <li>Added <code><a href="../reference/grab.html">node_mode()</a></code>, which returns a vector of the mode assignments of the nodes in a network</li>
-<li>Added <code><a href="../reference/grab.html">edge_signs()</a></code>, which returns a vector of the sign assignments of the edges in a network</li>
+<li>Added <code><a href="../reference/defunct.html">edge_signs()</a></code>, which returns a vector of the sign assignments of the edges in a network</li>
 </ul></div>
 <div class="section level3">
 <h3 id="mapping-0-9-0">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-9-0"></a></h3>
 <ul><li>Added ‘visualization’ vignette that starts to introduce how <code><a href="../reference/autographr.html">autographr()</a></code> works and how <a href="https://ggraph.data-imaginist.com" class="external-link">ggraph</a> extends this</li>
 <li>
-<code><a href="../reference/autographr.html">autographr()</a></code> now incorporates <code><a href="../reference/defunct.html">ggidentify()</a></code> functionality (closed <a href="https://github.com/snlab-ch/migraph/issues/150" class="external-link">#150</a>)</li>
+<code><a href="../reference/autographr.html">autographr()</a></code> now incorporates <code>ggidentify()</code> functionality (closed <a href="https://github.com/snlab-ch/migraph/issues/150" class="external-link">#150</a>)</li>
 <li>
 <a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a> is now used to assemble multiple plots together</li>
 <li>Fixed <a href="https://github.com/snlab-ch/migraph/issues/204" class="external-link">#204</a> layout issues with <code><a href="../reference/defunct.html">ggatyear()</a></code>
@@ -370,25 +417,25 @@
 <div class="section level3">
 <h3 id="measures-0-9-0">Measures<a class="anchor" aria-label="anchor" href="#measures-0-9-0"></a></h3>
 <ul><li>Added new <code>measure</code> class and directed most <code>node_*()</code> functions to create objects of this class<ul><li>A print method for this class prints an abbreviated vector (the full vector is always still contained within the object) and prints elements from both modes in the event that the original object was two-mode (closed <a href="https://github.com/snlab-ch/migraph/issues/202" class="external-link">#202</a>)</li>
-<li>A plot method replaces <code><a href="../reference/defunct.html">ggdistrib()</a></code> and offers “hist” and “dens” methods for histograms and density plots respectively</li>
+<li>A plot method replaces <code>ggdistrib()</code> and offers “hist” and “dens” methods for histograms and density plots respectively</li>
 </ul></li>
 <li>Added some edge-based centrality measures (closed <a href="https://github.com/snlab-ch/migraph/issues/165" class="external-link">#165</a>)<ul><li>
-<code><a href="../reference/centrality.html">edge_betweenness()</a></code> wraps <a href="https://igraph.org" class="external-link">igraph</a>’s function of the same name</li>
+<code><a href="../reference/defunct.html">edge_betweenness()</a></code> wraps <a href="https://igraph.org" class="external-link">igraph</a>’s function of the same name</li>
 <li>
-<code><a href="../reference/centrality.html">edge_closeness()</a></code> measures the closeness centrality of nodes in an edge adjacency</li>
+<code><a href="../reference/defunct.html">edge_closeness()</a></code> measures the closeness centrality of nodes in an edge adjacency</li>
 </ul></li>
 <li>Added several more measures of connectedness<ul><li>
-<code><a href="../reference/mark.html">node_cuts()</a></code> identifies articulation points (nodes) in a network</li>
+<code><a href="../reference/defunct.html">node_cuts()</a></code> identifies articulation points (nodes) in a network</li>
 <li>
-<code><a href="../reference/mark.html">edge_bridges()</a></code> identifies edges that serve as bridges in a network</li>
+<code><a href="../reference/defunct.html">edge_bridges()</a></code> identifies edges that serve as bridges in a network</li>
 <li>
-<code><a href="../reference/connectedness.html">graph_cohesion()</a></code> measures how many nodes would need to be removed to increase the number of components (closed <a href="https://github.com/snlab-ch/migraph/issues/192" class="external-link">#192</a>)</li>
+<code><a href="../reference/cohesion.html">graph_cohesion()</a></code> measures how many nodes would need to be removed to increase the number of components (closed <a href="https://github.com/snlab-ch/migraph/issues/192" class="external-link">#192</a>)</li>
 <li>
-<code><a href="../reference/connectedness.html">graph_adhesion()</a></code> measures how many edges would need to be removed to increase the number of components</li>
+<code><a href="../reference/cohesion.html">graph_adhesion()</a></code> measures how many edges would need to be removed to increase the number of components</li>
 <li>
-<code><a href="../reference/connectedness.html">graph_length()</a></code> measures the average path length</li>
+<code><a href="../reference/cohesion.html">graph_length()</a></code> measures the average path length</li>
 <li>
-<code><a href="../reference/connectedness.html">graph_diameter()</a></code> measures the longest path length</li>
+<code><a href="../reference/cohesion.html">graph_diameter()</a></code> measures the longest path length</li>
 </ul></li>
 <li>Removed <code>node_smallworld()</code> and added <code><a href="../reference/features.html">graph_smallworld()</a></code>, which works with both one- and two-mode networks (fixed <a href="https://github.com/snlab-ch/migraph/issues/214" class="external-link">#214</a>)</li>
 </ul></div>
@@ -471,14 +518,14 @@
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-12">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-12"></a></h3>
-<ul><li>Updated <code>add_</code> functions<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/178" class="external-link">#178</a> by adding name to existing edges when further edges added in <code><a href="../reference/defunct.html">mutate_edges()</a></code>
+<ul><li>Updated <code>add_</code> functions<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/178" class="external-link">#178</a> by adding name to existing edges when further edges added in <code>mutate_edges()</code>
 </li>
-<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/179" class="external-link">#179</a> by inferring an attribute vector is for one of the two modes where possible in <code><a href="../reference/add.html">add_node_attributes()</a></code>
+<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/179" class="external-link">#179</a> by inferring an attribute vector is for one of the two modes where possible in <code>add_node_attributes()</code>
 </li>
 </ul></li>
 <li>Added <code>is_</code> methods: <code><a href="../reference/is.html">is_multiplex()</a></code>, <code><a href="../reference/is.html">is_uniplex()</a></code>, <code><a href="../reference/is.html">is_acyclic()</a></code>
 </li>
-<li>Added <code>edge_</code> functions to identify edges by properties: <code><a href="../reference/defunct.html">edge_mutual()</a></code>, <code><a href="../reference/mark.html">edge_multiple()</a></code>, <code><a href="../reference/mark.html">edge_loop()</a></code>
+<li>Added <code>edge_</code> functions to identify edges by properties: <code>edge_mutual()</code>, <code><a href="../reference/defunct.html">edge_multiple()</a></code>, <code><a href="../reference/defunct.html">edge_loop()</a></code>
 </li>
 </ul></div>
 </div>
@@ -527,7 +574,7 @@
 <li>Fixed bug in <code><a href="../reference/to.html">to_undirected()</a></code> function to work with network objects</li>
 <li>Fixed bug in <code><a href="../reference/to.html">to_main_component()</a></code> function so that it retains vertex attributes in network objects</li>
 </ul></li>
-<li>Added <code><a href="../reference/grab.html">edge_attribute()</a></code> to grab a named edge attribute from a graph/network</li>
+<li>Added <code><a href="../reference/defunct.html">edge_attribute()</a></code> to grab a named edge attribute from a graph/network</li>
 <li>Updated <code><a href="../reference/to.html">to_unweighted()</a></code> to prevent conversion of network object into igraph object when deleting weights</li>
 </ul></div>
 <div class="section level3">
@@ -564,7 +611,7 @@
 <li>Added <code><a href="../reference/to.html">to_main_component()</a></code> method for networks</li>
 <li>Added <code><a href="../reference/to.html">to_multilevel()</a></code> method for matrices</li>
 <li>
-<code><a href="../reference/defunct.html">mutate_edges()</a></code> now coalesces rows of edges</li>
+<code>mutate_edges()</code> now coalesces rows of edges</li>
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-8">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-8"></a></h3>
@@ -598,7 +645,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-7">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-7"></a></h3>
-<ul><li>Added <code><a href="../reference/defunct.html">mutate_edges()</a></code> for adding new edges as attributes to existing edges in an object</li></ul></div>
+<ul><li>Added <code>mutate_edges()</code> for adding new edges as attributes to existing edges in an object</li></ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-7">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-7"></a></h3>
 <ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/159" class="external-link">#159</a> by fixing bug in <code><a href="../reference/diversity.html">graph_blau_index()</a></code>
@@ -623,19 +670,19 @@
 <li>
 <code><a href="../reference/grab.html">node_attribute()</a></code> for quickly accessing a certain nodal attribute</li>
 <li>
-<code><a href="../reference/grab.html">edge_weights()</a></code> for quickly accessing edge weights</li>
+<code><a href="../reference/defunct.html">edge_weights()</a></code> for quickly accessing edge weights</li>
 <li>
 <code><a href="../reference/grab.html">graph_nodes()</a></code> for quickly accessing a count of nodes in the graph, note that for two-mode networks this will be a vector of length 2</li>
 <li>
-<code><a href="../reference/grab.html">graph_edges()</a></code> for quickly accessing a count of edges in the graph</li>
+<code><a href="../reference/defunct.html">graph_edges()</a></code> for quickly accessing a count of edges in the graph</li>
 <li>
 <code>graph_dimensions()</code> is currently a copy of <code><a href="../reference/grab.html">graph_nodes()</a></code>
 </li>
 </ul></li>
 <li>Added some functions for adding key information to objects<ul><li>
-<code><a href="../reference/add.html">add_node_attributes()</a></code> for adding particular nodal attributes</li>
+<code>add_node_attributes()</code> for adding particular nodal attributes</li>
 <li>
-<code><a href="../reference/add.html">add_edge_attributes()</a></code> for adding edges from another graph</li>
+<code>add_edge_attributes()</code> for adding edges from another graph</li>
 <li>
 <code>copy_edge_attributes()</code> for copying all nodal attributes from another graph</li>
 </ul></li>
@@ -707,7 +754,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="visualization-0-8-4">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-8-4"></a></h3>
-<ul><li>Added <code><a href="../reference/defunct.html">ggdistrib()</a></code> for easy plotting of degree and other node score distributions</li>
+<ul><li>Added <code>ggdistrib()</code> for easy plotting of degree and other node score distributions</li>
 <li>Reexported <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab()</a></code> from <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a> for easier plot annotation</li>
 </ul></div>
 </div>
@@ -721,9 +768,9 @@
 <ul><li>Fixed <a href="https://github.com/snlab-ch/migraph/issues/122" class="external-link">#122</a> by retaining edge weights from igraph in <code><a href="../reference/as.html">as_matrix()</a></code> where available</li></ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-3">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-3"></a></h3>
-<ul><li>Split <code><a href="../reference/cohesion.html">graph_equivalency()</a></code> into the same for two-mode networks and <code><a href="../reference/cohesion.html">graph_congruency()</a></code>for three-mode (two two-mode) networks</li>
-<li>Added option for <code><a href="../reference/cohesion.html">graph_reciprocity()</a></code> method</li>
-<li>Added <code><a href="../reference/connectedness.html">graph_components()</a></code> and <code><a href="../reference/components.html">node_components()</a></code>
+<ul><li>Split <code><a href="../reference/closure.html">graph_equivalency()</a></code> into the same for two-mode networks and <code><a href="../reference/closure.html">graph_congruency()</a></code>for three-mode (two two-mode) networks</li>
+<li>Added option for <code><a href="../reference/closure.html">graph_reciprocity()</a></code> method</li>
+<li>Added <code><a href="../reference/cohesion.html">graph_components()</a></code> and <code><a href="../reference/components.html">node_components()</a></code>
 </li>
 </ul></div>
 <div class="section level3">
@@ -830,7 +877,7 @@
 <li>Added <code><a href="../reference/features.html">graph_balance()</a></code> for measuring structural balance</li>
 <li>Added <code><a href="../reference/node_census.html">node_tie_census()</a></code>, <code><a href="../reference/node_census.html">node_triad_census()</a></code>, <code>cluster_triad_census()</code>, and <code><a href="../reference/graph_census.html">graph_triad_census()</a></code>
 </li>
-<li>Separated out <code>graph_clustering()</code> into the cohesion measures <code><a href="../reference/cohesion.html">graph_density()</a></code>, <code><a href="../reference/cohesion.html">graph_reciprocity()</a></code>, <code><a href="../reference/cohesion.html">graph_transitivity()</a></code>, and <code>graph_equivalence()</code>
+<li>Separated out <code>graph_clustering()</code> into the cohesion measures <code><a href="../reference/cohesion.html">graph_density()</a></code>, <code><a href="../reference/closure.html">graph_reciprocity()</a></code>, <code><a href="../reference/closure.html">graph_transitivity()</a></code>, and <code>graph_equivalence()</code>
 </li>
 <li>Fixed <code>node_smallworld()</code> to use separated cohesion measures</li>
 </ul></div>
@@ -849,7 +896,7 @@
 <li>Uses different shaped nodes, and different fonts, for different node sets</li>
 <li>Removed <code>ggraphlabel()</code> since core functionality now provided by autographr</li>
 </ul></li>
-<li>Added ability for <code><a href="../reference/defunct.html">ggidentify()</a></code> to identify the node with the highest value of a specified node-level measure</li>
+<li>Added ability for <code>ggidentify()</code> to identify the node with the highest value of a specified node-level measure</li>
 <li>Added a couple of more specific visualization functions<ul><li>Added <code><a href="../reference/defunct.html">ggatyear()</a></code> for subsetting and plotting edgelists at year</li>
 <li>Updated <code><a href="../reference/gglineage.html">gglineage()</a></code> to return a graph colored according to lineage<ul><li>Added tick marks</li></ul></li>
 </ul></li>
@@ -872,7 +919,7 @@
 <ul><li>Added <code>ggraphlabel()</code> for one-function (1F) plotting label-based network graphs</li>
 <li>Added <code><a href="../reference/ggevolution.html">ggevolution()</a></code> for 1F-plotting begin/end graph comparisons</li>
 <li>Added <code>ggraphgrid()</code> for 1F snap-to-grid graph layouts based on Fruchterman-Reingold or Kamada-Kawai</li>
-<li>Added <code><a href="../reference/defunct.html">ggidentify()</a></code> for 1F identifying nodes with maximum scores based on some arbitrary function</li>
+<li>Added <code>ggidentify()</code> for 1F identifying nodes with maximum scores based on some arbitrary function</li>
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-7-2">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-7-2"></a></h3>
@@ -1185,7 +1232,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-4-0">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-4-0"></a></h3>
-<ul><li>Added <code><a href="../reference/defunct.html">project_rows()</a></code> and <code><a href="../reference/defunct.html">project_cols()</a></code> to make it easier to project two-mode networks in different formats (matrix, igraph, tidygraph) into projected versions in the same format</li>
+<ul><li>Added <code>project_rows()</code> and <code>project_cols()</code> to make it easier to project two-mode networks in different formats (matrix, igraph, tidygraph) into projected versions in the same format</li>
 <li>Closed <a href="https://github.com/snlab-ch/migraph/issues/30" class="external-link">#30</a> with conversion from different data frame formats, e.g. weighted and unweighted edgelists, into an incidence matrix with <code>as_incidence_matrix()</code>
 </li>
 </ul></div>
@@ -1207,7 +1254,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
