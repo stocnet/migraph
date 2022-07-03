@@ -103,6 +103,7 @@ graph_tie_attributes(mpn_elite_mex)
 Other manipulations: 
 \code{\link{add}},
 \code{\link{as}()},
-\code{\link{to}}
+\code{\link{reformat}},
+\code{\link{transform}()}
 }
 \concept{manipulations}
