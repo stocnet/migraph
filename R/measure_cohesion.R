@@ -42,7 +42,6 @@ graph_components <- function(object){
 #' White, Douglas R and Frank Harary. 2001. 
 #' "The Cohesiveness of Blocks In Social Networks: Node Connectivity and Conditional Density." 
 #' _Sociological Methodology_ 31(1): 305-59.
-#' \doi{10.1111/0081-1750.00098}.
 #' @examples 
 #' graph_cohesion(ison_marvel_relationships)
 #' graph_cohesion(to_main_component(ison_marvel_relationships))

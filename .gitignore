@@ -12,4 +12,3 @@ working/*
 tests/testthat/Rplots.pdf
 .DS_Store
 CRAN-SUBMISSION
-workshop/*

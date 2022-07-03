@@ -19,7 +19,8 @@ NULL
 
 #' @describeIn generate Generates a random network with a particular probability.
 #' @references 
-#' Erdős, Paul, and Alfréd Rényi. (1959). "\href{https://www.renyi.hu/~p_erdos/1959-11.pdf}{On Random Graphs I}" 
+#' Erdős, Paul, and Alfréd Rényi. (1959). 
+#' "\href{https://www.renyi.hu/~p_erdos/1959-11.pdf}{On Random Graphs I}" 
 #' _Publicationes Mathematicae_. 6: 290–297.
 #' @importFrom igraph sample_bipartite sample_gnp sample_gnm
 #' @examples

@@ -60,7 +60,7 @@ The Correlates of War Project. 2012.
 \href{https://correlatesofwar.org/data-sets/bilateral-trade}{\emph{Trade}}.
 
 Barbieri, Katherine and Omar Keshk. 2012.
-\href{http://correlatesofwar.org.}{\emph{Correlates of War Project Trade Data Set Codebook, Version 3.0.}}.
+\href{https://correlatesofwar.org.}{\emph{Correlates of War Project Trade Data Set Codebook, Version 3.0.}}.
 
 The Correlates of War Project. 2019.
 \href{https://correlatesofwar.org/data-sets/IGOs}{\emph{Intergovernmental Organization v3}}.
