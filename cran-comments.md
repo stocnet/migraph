@@ -9,4 +9,4 @@
 
 0 errors | 0 warnings | 0 notes
 
-- Reduced vignette running time
+- Dropped vignettes for now to make sure makes it on to CRAN

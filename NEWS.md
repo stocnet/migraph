@@ -2,7 +2,7 @@
 
 ## Package
 
-- Reduced simulation times throughout modelling vignette
+- Dropped vignettes for now to ensure package makes it on to CRAN
 
 # migraph 0.10.4
 
