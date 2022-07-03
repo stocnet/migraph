@@ -10,3 +10,4 @@
 0 errors | 0 warnings | 0 notes
 
 - Dropped vignettes for now to make sure makes it on to CRAN
+- Fixed URL error in a vignette

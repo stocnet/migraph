@@ -145,7 +145,7 @@ as_edgelist(ison_southern_women) # an edgelist data frame/tibble
 Generally, `{migraph}` attempts to retain as much information as possible when converting objects between different classes.
 The presumption is that users should explicitly decide to reduce or simplify
 their data.
-`{migraph}` includes [a number of functions](https://snlab-ch.github.io/migraph/reference/to.html) 
+`{migraph}` includes [a number of functions](https://snlab-ch.github.io/migraph/reference/reformat.html) 
 for transforming (or removing) certain properties of network objects.
 For example: 
 

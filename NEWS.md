@@ -1,3 +1,9 @@
+# migraph 0.10.6
+
+## Package
+
+- Fixed URL error in a vignette
+
 # migraph 0.10.5
 
 ## Package
