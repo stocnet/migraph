@@ -249,7 +249,7 @@ autographr <- auto_graph <- function(object,
                                size = nsize,
                                shape = node_shape) +
         ggplot2::scale_colour_brewer(palette = "Set1",
-                                     direction = -1,
+                                     # direction = -1,
                                      guide = "none")
     } else {
       p <- p + ggraph::geom_node_point(size = nsize,
@@ -262,7 +262,7 @@ autographr <- auto_graph <- function(object,
                                size = nsize,
                                shape = node_shape) +
         ggplot2::scale_colour_brewer(palette = "Set1",
-                                     direction = -1,
+                                     # direction = -1,
                                      guide = "none")
     } else {
       p <- p + ggraph::geom_node_point(size = nsize,
