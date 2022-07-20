@@ -7,13 +7,13 @@
 #' protein-protein interaction networks". 
 #' _Nucleic Acids Research_, 42 (1) e6.
 #' @examples 
-#' autographr(mpn_elite_usa_advice, layout = "concentric")
+#' autographr(mpn_elite_mex, layout = "concentric")
 #' @export
 layout_tbl_graph_concentric <- function(object, members = NULL, radius = NULL, 
                                         order.by = NULL, 
                                         circular = FALSE, times = 1000){
   if (is.null(members)){
-    if(!is_twomode(object)) members <- list(node_names(object))
+    if(!is_twomode(object)) members <- to_list(node_core(object))
     else members <- to_list(node_mode(object))
   }
   all_c  <- unlist(members, use.names = FALSE)
@@ -64,7 +64,7 @@ layout_tbl_graph_concentric <- function(object, members = NULL, radius = NULL,
 }
 
 to_list <- function(members){
-  out <- lapply(unique(members), function(x){
+  out <- lapply(sort(unique(members)), function(x){
     y <- which(members==x)
     if(!is.null(names(y))) names(y) else y
   })

@@ -53,7 +53,7 @@ to redistribute coarse layouts on square grid points, while
 preserving the topological relationships among the nodes (see Inoue et al. 2012).
 }
 \examples{
-autographr(mpn_elite_usa_advice, layout = "concentric")
+autographr(mpn_elite_mex, layout = "concentric")
 }
 \references{
 Inoue, Kentaro, Shinichi Shimozono, Hideaki Yoshida, and Hiroyuki Kurata. 2012.
