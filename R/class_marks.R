@@ -1,5 +1,7 @@
 make_node_mark <- function(out, object) {
   class(out) <- c("node_mark", class(out))
+  if(is.null(names(out)) & is_labelled(object))
+    names(out) <- node_names(object)
   attr(out, "mode") <- node_mode(object)
   out
 }
