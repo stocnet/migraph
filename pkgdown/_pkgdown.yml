@@ -92,6 +92,7 @@ reference:
       - community
       - components
       - equivalence
+      - core-periphery
   - title: "Models"
     desc: "Functions for modelling multimodal networks:"
     contents:
