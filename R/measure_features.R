@@ -14,10 +14,11 @@ NULL
 #' Borgatti, Stephen P., and Martin G. Everett. 2000. 
 #' “Models of Core/Periphery Structures.” 
 #' _Social Networks_ 21(4):375–95.
-#' https://doi.org/10.1016/S0378-8733(99)00019-2
+#' \doi{10.1016/S0378-8733(99)00019-2}
 #' @export
 graph_core <- function(object,
                        membership = NULL){
+  if(is.null(membership)) membership <- node_core(object)
   out <- stats::cor(c(as_matrix(object)), 
                     c(as_matrix(create_core(object,
                                             membership = membership))))

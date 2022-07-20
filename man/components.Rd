@@ -66,8 +66,9 @@ node_components(mpn_bristol)
 node_coreness(ison_adolescents)
 }
 \seealso{
-Other membership: 
+Other memberships: 
 \code{\link{community}},
+\code{\link{core-periphery}},
 \code{\link{equivalence}}
 }
-\concept{membership}
+\concept{memberships}

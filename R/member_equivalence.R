@@ -9,7 +9,7 @@
 #'   of the hierarchical cluster and showing the returned cluster
 #'   assignment.
 #' @name equivalence
-#' @family membership
+#' @family memberships
 #' @inheritParams is
 #' @param census A matrix returned by a `node_*_census()` function.
 #' @param k Typically a character string indicating which method

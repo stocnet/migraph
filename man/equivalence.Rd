@@ -133,8 +133,9 @@ Rousseeuw, Peter J. 1987.
 \doi{10.1016/0377-0427(87)90125-7}.
 }
 \seealso{
-Other membership: 
+Other memberships: 
 \code{\link{community}},
-\code{\link{components}()}
+\code{\link{components}()},
+\code{\link{core-periphery}}
 }
-\concept{membership}
+\concept{memberships}

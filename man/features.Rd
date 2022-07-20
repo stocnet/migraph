@@ -81,7 +81,7 @@ graph_balance(ison_marvel_relationships)
 Borgatti, Stephen P., and Martin G. Everett. 2000.
 “Models of Core/Periphery Structures.”
 \emph{Social Networks} 21(4):375–95.
-https://doi.org/10.1016/S0378-8733(99)00019-2
+\doi{10.1016/S0378-8733(99)00019-2}
 
 Murata, Tsuyoshi. 2010. Modularity for Bipartite Networks.
 In: Memon, N., Xu, J., Hicks, D., Chen, H. (eds)

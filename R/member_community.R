@@ -1,7 +1,7 @@
 #' Community graph partitioning algorithms
 #' @inheritParams is
 #' @name community
-#' @family membership
+#' @family memberships
 NULL
 
 #' @describeIn community A greedy, iterative, deterministic graph
