@@ -26,24 +26,21 @@ layout_tbl_graph_concentric <- function(object, members = NULL, radius = NULL,
   if (is.null(radius)) {
     radius <- seq(0, 1, 1/(length(members)))
     if (length(members[[1]]) == 1) 
-      radius <- radius[-length(radius)]
-    else radius <- radius[-1]
+      radius <- radius[-length(radius)] else 
+        radius <- radius[-1]
   }
-  if (!is.null(order.by)) 
+  if (!is.null(order.by)){
     order.values <- lapply(order.by, 
-                           function(b) get.vertex.attribute(g, b))
+                           function(b) node_attribute(object, b))
+  } else {
+    order.values <- getNNvec(object, members)
+  }
   res <- matrix(NA, nrow = length(all_n), ncol = 2)
   for (k in 1:length(members)) {
     r <- radius[k]
-    l <- members[[k]]
-    i <- which(node_names(object) %in% l) - 1
-    i_o <- i
-    if (!is.null(order.by)) {
-      ob <- lapply(order.values, function(v) v[i + 1])
-      ord <- do.call(order, ob)
-      i_o <- i_o[ord]
-    }
-    res[i_o + 1, ] <- .getCoordinates(i_o, r)
+    l <- order.values[[k]]
+     i_o <- match(l, node_names(object))
+    res[i_o, ] <- .getCoordinates(i_o, r)
   }
   res <- as.data.frame(res)
   names(res) <- c("x","y")
@@ -70,5 +67,36 @@ to_list <- function(members){
   })
   names(out) <- unique(members)
   out
+}
+
+getNNvec <- function(object, members){
+  lapply(members, function(circle){
+    diss <- 1 - cor(as_matrix(object)[, circle])
+    diag(diss) <- NA
+    starts <- names(sort(node_degree(object)[circle], decreasing = TRUE)[1])
+    if(length(circle)>1)
+      starts <- c(starts, names(which.min(diss[starts,])))
+    out <- starts
+    if(length(circle)>2){
+      for(i in 1:(length(circle)-2)){
+        diss <- diss[,!colnames(diss) %in% starts]
+        if(is.matrix(diss)){
+          side <- names(which.min(apply(diss[starts,], 1, min, na.rm = TRUE)))
+          new <- names(which.min(diss[side,]))
+        } else {
+          side <- names(which.min(diss[starts]))
+          new <- setdiff(circle,out)
+        }
+        if(side == out[1]){
+          out <- c(new, out)
+          starts <- c(new, starts[2])
+        } else {
+          out <- c(out, new)
+          starts <- c(starts[1], new)
+        }
+      }
+    }
+    out
+  })
 }
 
