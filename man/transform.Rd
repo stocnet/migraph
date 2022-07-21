@@ -10,9 +10,9 @@
 \alias{to_blocks}
 \title{Tools for transforming networks, graphs, and matrices}
 \usage{
-to_mode1(object)
+to_mode1(object, method = c("count", "jaccard"))
 
-to_mode2(object)
+to_mode2(object, method = c("count", "jaccard"))
 
 to_main_component(object)
 

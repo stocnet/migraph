@@ -443,21 +443,30 @@ NULL
 #' (autographr(to_mode1(ison_southern_women)) |
 #' autographr(to_mode2(ison_southern_women)))
 #' @export
-to_mode1 <- function(object) UseMethod("to_mode1")
+to_mode1 <- function(object, method = c("count","jaccard")) UseMethod("to_mode1")
 
 #' @export
-to_mode1.matrix <- function(object) {
-  object %*% t(object)
+to_mode1.matrix <- function(object, method = c("count","jaccard")) {
+  method <- match.arg(method)
+  switch(method,
+         "count" = object %*% t(object),
+         "jaccard" = object %*% t(object)/
+           (object %*% t(object) + 
+              object %*% (1 - t(object)) + 
+              (1 - object) %*% t(object)))
 }
 
 #' @export
-to_mode1.igraph <- function(object) {
-  igraph::bipartite.projection(object)$proj1
+to_mode1.igraph <- function(object, method = c("count","jaccard")) {
+  method <- match.arg(method)
+  switch(method,
+         "count" = igraph::bipartite.projection(object)$proj1,
+         "jaccard" = as_igraph(to_mode1(as_matrix(object))))
 }
 
 #' @export
-to_mode1.tbl_graph <- function(object) {
-  as_tidygraph(igraph::bipartite.projection(object)$proj1)
+to_mode1.tbl_graph <- function(object, method = c("count","jaccard")) {
+  as_tidygraph(to_mode1(as_igraph(object), method = method))
 }
 
 #' @describeIn transform Results in a weighted one-mode object
@@ -465,21 +474,30 @@ to_mode1.tbl_graph <- function(object) {
 #' and weights the ties between them on the basis of
 #' their joint ties to nodes in the first mode (rows).
 #' @export
-to_mode2 <- function(object) UseMethod("to_mode2")
+to_mode2 <- function(object, method = c("count","jaccard")) UseMethod("to_mode2")
 
 #' @export
-to_mode2.matrix <- function(object) {
-  t(object) %*% object
+to_mode2.matrix <- function(object, method = c("count","jaccard")) {
+  method <- match.arg(method)
+  switch(method,
+         "count" = t(object) %*% object,
+         "jaccard" = t(object) %*% object/
+           (t(object) %*% object + 
+              t(object) %*% (1 - object) +
+              (1 - t(object)) %*% object))
 }
 
 #' @export
-to_mode2.igraph <- function(object) {
-  igraph::bipartite.projection(object)$proj2
+to_mode2.igraph <- function(object, method = c("count","jaccard")) {
+  method <- match.arg(method)
+  switch(method,
+         "count" = igraph::bipartite.projection(object)$proj2,
+         "jaccard" = as_igraph(to_mode2(as_matrix(object))))
 }
 
 #' @export
-to_mode2.tbl_graph <- function(object) {
-  as_tidygraph(igraph::bipartite.projection(object)$proj2)
+to_mode2.tbl_graph <- function(object, method = c("count","jaccard")) {
+  as_tidygraph(to_mode2(as_igraph(object), method = method))
 }
 
 #' @describeIn transform Returns an object that includes only the main component
