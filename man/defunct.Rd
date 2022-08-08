@@ -108,63 +108,63 @@ wherever possible and update your scripts accordingly.
 }
 \section{Functions}{
 \itemize{
-\item \code{ggtree}: Deprecated on 2022-05-27.
+\item \code{ggtree()}: Deprecated on 2022-05-27.
 
-\item \code{ggidentify_clusters}: Defunct on 2022-05-27.
+\item \code{ggidentify_clusters()}: Defunct on 2022-05-27.
 
-\item \code{cluster_structural_equivalence}: Deprecated on 2022-05-27.
+\item \code{cluster_structural_equivalence()}: Deprecated on 2022-05-27.
 
-\item \code{cluster_regular_equivalence}: Deprecated on 2022-05-27.
+\item \code{cluster_regular_equivalence()}: Deprecated on 2022-05-27.
 
-\item \code{blockmodel_concor}: Deprecated on 2022-05-30.
+\item \code{blockmodel_concor()}: Deprecated on 2022-05-30.
 
-\item \code{summarise_statistics}: Deprecated on 2022-06-03.
+\item \code{summarise_statistics()}: Deprecated on 2022-06-03.
 
-\item \code{blockmodel}: Deprecated on 2022-06-03.
+\item \code{blockmodel()}: Deprecated on 2022-06-03.
 
-\item \code{print.block_model}: Deprecated on 2022-06-03.
+\item \code{print(block_model)}: Deprecated on 2022-06-03.
 
-\item \code{reduce_graph}: Deprecated on 2022-06-03.
+\item \code{reduce_graph()}: Deprecated on 2022-06-03.
 
-\item \code{ggatyear}: Deprecated on 2022-06-08.
+\item \code{ggatyear()}: Deprecated on 2022-06-08.
 
-\item \code{group_tie_census}: Deprecated on 2022-06-09.
+\item \code{group_tie_census()}: Deprecated on 2022-06-09.
 
-\item \code{group_triad_census}: Deprecated on 2022-06-09.
+\item \code{group_triad_census()}: Deprecated on 2022-06-09.
 
-\item \code{add_edge_attribute}: Deprecated on 2022-06-28.
+\item \code{add_edge_attribute()}: Deprecated on 2022-06-28.
 
-\item \code{edge_attribute}: Deprecated on 2022-06-28.
+\item \code{edge_attribute()}: Deprecated on 2022-06-28.
 
-\item \code{edge_signs}: Deprecated on 2022-06-28.
+\item \code{edge_signs()}: Deprecated on 2022-06-28.
 
-\item \code{edge_weights}: Deprecated on 2022-06-28.
+\item \code{edge_weights()}: Deprecated on 2022-06-28.
 
-\item \code{edge_betweenness}: Deprecated on 2022-06-28.
+\item \code{edge_betweenness()}: Deprecated on 2022-06-28.
 
-\item \code{edge_closeness}: Deprecated on 2022-06-28.
+\item \code{edge_closeness()}: Deprecated on 2022-06-28.
 
-\item \code{edge_degree}: Deprecated on 2022-06-28.
+\item \code{edge_degree()}: Deprecated on 2022-06-28.
 
-\item \code{edge_eigenvector}: Deprecated on 2022-06-28.
+\item \code{edge_eigenvector()}: Deprecated on 2022-06-28.
 
-\item \code{edge_loop}: Deprecated on 2022-06-28.
+\item \code{edge_loop()}: Deprecated on 2022-06-28.
 
-\item \code{edge_multiple}: Deprecated on 2022-06-28.
+\item \code{edge_multiple()}: Deprecated on 2022-06-28.
 
-\item \code{edge_bridges}: Deprecated on 2022-06-28.
+\item \code{edge_bridges()}: Deprecated on 2022-06-28.
 
-\item \code{edge_reciprocal}: Deprecated on 2022-06-28.
+\item \code{edge_reciprocal()}: Deprecated on 2022-06-28.
 
-\item \code{graph_edge_attributes}: Deprecated on 2022-06-28.
+\item \code{graph_edge_attributes()}: Deprecated on 2022-06-28.
 
-\item \code{graph_edges}: Deprecated on 2022-06-28.
+\item \code{graph_edges()}: Deprecated on 2022-06-28.
 
-\item \code{node_cuts}: Deprecated on 2022-06-30.
+\item \code{node_cuts()}: Deprecated on 2022-06-30.
 
-\item \code{to_edges}: Deprecated on 2022-06-28.
+\item \code{to_edges()}: Deprecated on 2022-06-28.
 
-\item \code{join_edges}: Deprecated on 2022-07-03.
+\item \code{join_edges()}: Deprecated on 2022-07-03.
+
 }}
-
 \keyword{internal}

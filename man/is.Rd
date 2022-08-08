@@ -62,38 +62,38 @@ properties.
 }
 \section{Functions}{
 \itemize{
-\item \code{is_migraph}: Tests whether network is migraph-compatible
+\item \code{is_migraph()}: Tests whether network is migraph-compatible
 
-\item \code{is_graph}: Tests whether network contains graph-level information
+\item \code{is_graph()}: Tests whether network contains graph-level information
 
-\item \code{is_edgelist}: Tests whether data frame is an edgelist
+\item \code{is_edgelist()}: Tests whether data frame is an edgelist
 
-\item \code{is_twomode}: Tests whether network is a two-mode network
+\item \code{is_twomode()}: Tests whether network is a two-mode network
 
-\item \code{is_weighted}: Tests whether network is weighted
+\item \code{is_weighted()}: Tests whether network is weighted
 
-\item \code{is_directed}: Tests whether network is directed
+\item \code{is_directed()}: Tests whether network is directed
 
-\item \code{is_labelled}: Tests whether network includes names for the nodes
+\item \code{is_labelled()}: Tests whether network includes names for the nodes
 
-\item \code{is_signed}: Tests whether network is signed positive/negative
+\item \code{is_signed()}: Tests whether network is signed positive/negative
 
-\item \code{is_connected}: Tests whether network is weakly connected if
+\item \code{is_connected()}: Tests whether network is weakly connected if
 the network is undirected or strongly connected if directed.
 To test weak connection on a directed network,
 please see \code{to_undirected()}.
 
-\item \code{is_complex}: Tests whether network contains any loops
+\item \code{is_complex()}: Tests whether network contains any loops
 
-\item \code{is_multiplex}: Tests whether network is multiplex,
+\item \code{is_multiplex()}: Tests whether network is multiplex,
 either from multiple rows with the same sender and receiver,
 or multiple columns to the edgelist.
 
-\item \code{is_uniplex}: Tests whether network is simple (both uniplex and simplex)
+\item \code{is_uniplex()}: Tests whether network is simple (both uniplex and simplex)
 
-\item \code{is_acyclic}: Tests whether network is a directed acyclic graph
+\item \code{is_acyclic()}: Tests whether network is a directed acyclic graph
+
 }}
-
 \examples{
 is_twomode(ison_southern_women)
 is_weighted(ison_southern_women)

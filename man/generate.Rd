@@ -61,19 +61,19 @@ for exploring or testing network properties.
 }
 \section{Functions}{
 \itemize{
-\item \code{generate_random}: Generates a random network with a particular probability.
+\item \code{generate_random()}: Generates a random network with a particular probability.
 
-\item \code{generate_smallworld}: Generates a small-world structure
+\item \code{generate_smallworld()}: Generates a small-world structure
 following the lattice rewiring model.
 
-\item \code{generate_scalefree}: Generates a scale-free structure
+\item \code{generate_scalefree()}: Generates a scale-free structure
 following the preferential attachment model.
 
-\item \code{generate_permutation}: Generates a permutation of the original network
+\item \code{generate_permutation()}: Generates a permutation of the original network
 using a Fisher-Yates shuffle on both the rows and columns (for a one-mode network)
 or on each of the rows and columns (for a two-mode network).
-}}
 
+}}
 \examples{
 autographr(generate_random(12, 0.4)) +
 autographr(generate_random(c(6, 6), 0.4))

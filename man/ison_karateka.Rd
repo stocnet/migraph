@@ -5,15 +5,15 @@
 \alias{ison_karateka}
 \title{One-mode karateka network (Zachary 1977)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## IGRAPH a87bb9f UN-- 34 78 -- 
-## + attr: name (v/c), obc (v/n)
-## + edges from a87bb9f (vertex names):
-##  [1] Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi--
-## [10] Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi--      --      --
-## [19]      --      --      --      --      --      --      --      --      --
-## [28]      --      --      --      --      --      --      --      --      --
-## [37]      --      --      --      --      --      --      --
-## + ... omitted several edges
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> IGRAPH a87bb9f UN-- 34 78 -- 
+#> + attr: name (v/c), obc (v/n)
+#> + edges from a87bb9f (vertex names):
+#>  [1] Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi--
+#> [10] Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi-- Mr Hi--      --      --
+#> [19]      --      --      --      --      --      --      --      --      --
+#> [28]      --      --      --      --      --      --      --      --      --
+#> [37]      --      --      --      --      --      --      --
+#> + ... omitted several edges
 }\if{html}{\out{</div>}}
 }
 \usage{

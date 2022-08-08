@@ -26,14 +26,14 @@ Censuses of graphs' motifs
 }
 \section{Functions}{
 \itemize{
-\item \code{graph_dyad_census}: Returns a census of dyad motifs in a network
+\item \code{graph_dyad_census()}: Returns a census of dyad motifs in a network
 
-\item \code{graph_triad_census}: Returns a census of triad motifs in a network
+\item \code{graph_triad_census()}: Returns a census of triad motifs in a network
 
-\item \code{graph_mixed_census}: Returns a census of triad motifs that span
+\item \code{graph_mixed_census()}: Returns a census of triad motifs that span
 a one-mode and a two-mode network
-}}
 
+}}
 \examples{
 graph_dyad_census(ison_adolescents)
 graph_triad_census(ison_adolescents)

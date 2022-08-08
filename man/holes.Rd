@@ -50,23 +50,23 @@ and effective size is calculated as \eqn{n - \frac{2t}{n}}.
 }
 \section{Functions}{
 \itemize{
-\item \code{node_bridges}: Returns the sum of bridges to which each node
+\item \code{node_bridges()}: Returns the sum of bridges to which each node
 is adjacent.
 
-\item \code{node_redundancy}: Returns a measure of the redundancy of each nodes'
+\item \code{node_redundancy()}: Returns a measure of the redundancy of each nodes'
 contacts.
 
-\item \code{node_effsize}: Returns nodes' effective size
+\item \code{node_effsize()}: Returns nodes' effective size
 
-\item \code{node_efficiency}: Returns nodes' efficiency
+\item \code{node_efficiency()}: Returns nodes' efficiency
 
-\item \code{node_constraint}: Returns nodes' constraint scores for one-mode networks
+\item \code{node_constraint()}: Returns nodes' constraint scores for one-mode networks
 according to Burt (1992) and for two-mode networks according to Hollway et al (2020).
 
-\item \code{node_hierarchy}: Returns nodes' exposure to hierarchy,
+\item \code{node_hierarchy()}: Returns nodes' exposure to hierarchy,
 where only one or two contacts are the source of closure
-}}
 
+}}
 \examples{
 node_bridges(ison_adolescents)
 node_bridges(ison_southern_women)

@@ -8,76 +8,76 @@
 \alias{mpn_OverSxP}
 \title{Two-mode 112th Congress Senate Voting (Knoke et al. 2021)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 114 nodes and 2791 edges
-## #
-## # A directed acyclic simple graph with 1 component
-## #
-## # Node Data: 114 × 2 (active)
-##   type  name      
-##   <lgl> <chr>     
-## 1 FALSE Baucus    
-## 2 FALSE Begich    
-## 3 FALSE Bennet    
-## 4 FALSE Blumenthal
-## 5 FALSE Boxer     
-## 6 FALSE BrownSh   
-## # … with 108 more rows
-## #
-## # Edge Data: 2,791 × 3
-##    from    to weight
-##   <int> <int>  <dbl>
-## 1     1    52      1
-## 2     1    53      1
-## 3     1    54      1
-## # … with 2,788 more rows
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 114 nodes and 2791 edges
+#> #
+#> # A directed acyclic simple graph with 1 component
+#> #
+#> # Node Data: 114 x 2 (active)
+#>   type  name      
+#>   <lgl> <chr>     
+#> 1 FALSE Baucus    
+#> 2 FALSE Begich    
+#> 3 FALSE Bennet    
+#> 4 FALSE Blumenthal
+#> 5 FALSE Boxer     
+#> 6 FALSE BrownSh   
+#> # ... with 108 more rows
+#> #
+#> # Edge Data: 2,791 x 3
+#>    from    to weight
+#>   <int> <int>  <dbl>
+#> 1     1    52      1
+#> 2     1    53      1
+#> 3     1    54      1
+#> # ... with 2,788 more rows
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 134 nodes and 3675 edges
-## #
-## # A directed acyclic simple graph with 1 component
-## #
-## # Node Data: 134 × 2 (active)
-##   type  name     
-##   <lgl> <chr>    
-## 1 FALSE Alexander
-## 2 FALSE Ayotte   
-## 3 FALSE Barrasso 
-## 4 FALSE Baucus   
-## 5 FALSE Blunt    
-## 6 FALSE Boozman  
-## # … with 128 more rows
-## #
-## # Edge Data: 3,675 × 3
-##    from    to weight
-##   <int> <int>  <dbl>
-## 1     1    64      1
-## 2     1    66      1
-## 3     1    67      1
-## # … with 3,672 more rows
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 134 nodes and 3675 edges
+#> #
+#> # A directed acyclic simple graph with 1 component
+#> #
+#> # Node Data: 134 x 2 (active)
+#>   type  name     
+#>   <lgl> <chr>    
+#> 1 FALSE Alexander
+#> 2 FALSE Ayotte   
+#> 3 FALSE Barrasso 
+#> 4 FALSE Baucus   
+#> 5 FALSE Blunt    
+#> 6 FALSE Boozman  
+#> # ... with 128 more rows
+#> #
+#> # Edge Data: 3,675 x 3
+#>    from    to weight
+#>   <int> <int>  <dbl>
+#> 1     1    64      1
+#> 2     1    66      1
+#> 3     1    67      1
+#> # ... with 3,672 more rows
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 52 nodes and 614 edges
-## #
-## # A directed acyclic simple graph with 1 component
-## #
-## # Node Data: 52 × 2 (active)
-##   type  name     
-##   <lgl> <chr>    
-## 1 FALSE Baucus   
-## 2 FALSE Cardin   
-## 3 FALSE Carper   
-## 4 FALSE Casey    
-## 5 FALSE Collins  
-## 6 FALSE Feinstein
-## # … with 46 more rows
-## #
-## # Edge Data: 614 × 3
-##    from    to weight
-##   <int> <int>  <dbl>
-## 1     1    21      1
-## 2     1    22      1
-## 3     1    23      1
-## # … with 611 more rows
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 52 nodes and 614 edges
+#> #
+#> # A directed acyclic simple graph with 1 component
+#> #
+#> # Node Data: 52 x 2 (active)
+#>   type  name     
+#>   <lgl> <chr>    
+#> 1 FALSE Baucus   
+#> 2 FALSE Cardin   
+#> 3 FALSE Carper   
+#> 4 FALSE Casey    
+#> 5 FALSE Collins  
+#> 6 FALSE Feinstein
+#> # ... with 46 more rows
+#> #
+#> # Edge Data: 614 x 3
+#>    from    to weight
+#>   <int> <int>  <dbl>
+#> 1     1    21      1
+#> 2     1    22      1
+#> 3     1    23      1
+#> # ... with 611 more rows
 }\if{html}{\out{</div>}}
 }
 \usage{

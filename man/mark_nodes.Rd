@@ -43,20 +43,20 @@ are key because they minimise or, more often, maximise some measure.
 }
 \section{Functions}{
 \itemize{
-\item \code{node_is_cutpoint}: Returns logical of which nodes cut
+\item \code{node_is_cutpoint()}: Returns logical of which nodes cut
 or act as articulation points in a network,
 increasing the number of connected components in a graph when removed.
 
-\item \code{node_is_isolate}: Returns logical of which nodes are isolates,
+\item \code{node_is_isolate()}: Returns logical of which nodes are isolates,
 with neither incoming nor outgoing ties.
 
-\item \code{node_is_max}: Returns logical of which nodes
+\item \code{node_is_max()}: Returns logical of which nodes
 hold the maximum of some measure
 
-\item \code{node_is_min}: Returns logical of which nodes
+\item \code{node_is_min()}: Returns logical of which nodes
 hold the minimum of some measure
-}}
 
+}}
 \examples{
 node_is_cutpoint(ison_brandes)
 node_is_isolate(ison_brandes)

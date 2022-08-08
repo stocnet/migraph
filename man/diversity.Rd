@@ -34,15 +34,15 @@ across this attribute.
 }
 \section{Functions}{
 \itemize{
-\item \code{graph_blau_index}: Calculates the heterogeneity of ties across a network or
+\item \code{graph_blau_index()}: Calculates the heterogeneity of ties across a network or
 within clusters by node attributes
 
-\item \code{graph_ei_index}: Calculates the embeddedness of a node within the group
+\item \code{graph_ei_index()}: Calculates the embeddedness of a node within the group
 of nodes of the same attribute
 
-\item \code{graph_assortativity}: Calculates the degree assortativity in a graph
-}}
+\item \code{graph_assortativity()}: Calculates the degree assortativity in a graph
 
+}}
 \examples{
 marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
 graph_blau_index(marvel_friends, "Gender")

@@ -44,26 +44,26 @@ Measures of network topological features
 }
 \section{Functions}{
 \itemize{
-\item \code{graph_core}: Returns correlation between a given network
+\item \code{graph_core()}: Returns correlation between a given network
 and a core-periphery model with the same dimensions.
 
-\item \code{graph_factions}: Returns correlation between a given network
+\item \code{graph_factions()}: Returns correlation between a given network
 and a component model with the same dimensions.
 
-\item \code{graph_modularity}: Returns modularity of one- or two-mode networks
+\item \code{graph_modularity()}: Returns modularity of one- or two-mode networks
 based on nodes' membership in pre-defined clusters.
 
-\item \code{graph_smallworld}: Returns small-world metrics for one- and
+\item \code{graph_smallworld()}: Returns small-world metrics for one- and
 two-mode networks.
 Small-world networks can be highly clustered and yet
 have short path lengths.
 
-\item \code{graph_balance}: Returns the structural balance index on
+\item \code{graph_balance()}: Returns the structural balance index on
 the proportion of balanced triangles,
 ranging between \code{0} if all triangles are imbalanced and
 \code{1} if all triangles are balanced.
-}}
 
+}}
 \examples{
 graph_core(ison_adolescents)
 graph_core(ison_southern_women)
