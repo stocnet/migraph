@@ -13,14 +13,17 @@ layout_tbl_graph_concentric <- function(object, members = NULL, radius = NULL,
                                         order.by = NULL, 
                                         circular = FALSE, times = 1000){
   if (is.null(members)){
-    if(!is_twomode(object)) members <- to_list(node_core(object))
+    if(!is_twomode(object)) 
+      members <- to_list(node_core(object))
     else members <- to_list(node_mode(object))
   }
   all_c  <- unlist(members, use.names = FALSE)
   if (any(table(all_c) > 1)) 
     stop("Duplicated nodes in layers!")
-  all_n = node_names(object)
-  sel_other = all_n[!all_n %in% all_c]
+  if(is_labelled(object))
+    all_n <- node_names(object) else
+      all_n <- 1:graph_nodes(object)
+  sel_other  <- all_n[!all_n %in% all_c]
   if (length(sel_other) > 0) 
     members[[length(members) + 1]] <- sel_other
   if (is.null(radius)) {
@@ -33,31 +36,30 @@ layout_tbl_graph_concentric <- function(object, members = NULL, radius = NULL,
     order.values <- lapply(order.by, 
                            function(b) node_attribute(object, b))
   } else {
-    order.values <- getNNvec(object, members)
+    for(k in 2:length(members)){
+      xnet <- as_matrix(to_multilevel(object))[members[[k-1]], members[[k]]]
+      lo <- igraph::layout.bipartite(as_igraph(xnet, twomode = TRUE))
+      lo <- as.data.frame(lo)
+      lo$names <- node_names(object)
+      if(ncol(lo)==2) lo[,1] <- 1:nrow(lo)
+      order.values <- lapply(1:0, function(x)
+        if(ncol(lo)>=3) sort(lo[lo[,2]==x,])[,3] 
+        else sort(lo[lo[,2]==x,1]) ) 
+    }
+    # order.values <- getNNvec(object, members)
   }
   res <- matrix(NA, nrow = length(all_n), ncol = 2)
   for (k in 1:length(members)) {
     r <- radius[k]
     l <- order.values[[k]]
-     i_o <- match(l, node_names(object))
-    res[i_o, ] <- .getCoordinates(i_o, r)
+    if(is_labelled(object))
+      l <- match(l, node_names(object))
+    coords <- getCoordinates(l, r)
+    res[l, ] <- coords
   }
   res <- as.data.frame(res)
   names(res) <- c("x","y")
   res
-}
-
-.getCoordinates <- function(x, r){
-  l = length(x)
-  d = 360/l
-  c1 = seq(0, 360, d)
-  c1 = c1[1:(length(c1) - 1)]
-  tmp = t(sapply(c1, 
-                 function(cc) c(cos(cc * pi/180) * 
-                                  r, sin(cc *
-                                           pi/180) * r)))
-  rownames(tmp) = x
-  tmp
 }
 
 to_list <- function(members){
@@ -71,9 +73,11 @@ to_list <- function(members){
 
 getNNvec <- function(object, members){
   lapply(members, function(circle){
-    diss <- 1 - cor(as_matrix(object)[, circle])
+    diss <- 1 - cor(to_multilevel(as_matrix(object))[, circle])
     diag(diss) <- NA
-    starts <- names(sort(node_degree(object)[circle], decreasing = TRUE)[1])
+    if(is_labelled(object))
+      starts <- names(sort(node_degree(object)[circle], decreasing = TRUE)[1])
+    else starts <- paste0("V",1:graph_nodes(object))[sort(node_degree(object)[circle], decreasing = TRUE)[1]]
     if(length(circle)>1)
       starts <- c(starts, names(which.min(diss[starts,])))
     out <- starts
@@ -100,3 +104,17 @@ getNNvec <- function(object, members){
   })
 }
 
+getCoordinates <- function(x, r){
+  l = length(x)
+  d = 360/l
+  c1 = seq(0, 360, d)
+  c1 = c1[1:(length(c1) - 1)]
+  tmp = t(sapply(c1, 
+                 function(cc) c(cos(cc * pi/180) * 
+                                  r, sin(cc *
+                                           pi/180) * r)))
+  rownames(tmp) = x
+  tmp
+}
+
+# layout_tbl_graph_railway
