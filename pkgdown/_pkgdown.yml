@@ -22,8 +22,11 @@ navbar:
       icon: fa-home fa-lg
       href: index.html
     reference:
-      text: Reference
+      text: Function Overview
       href: reference/index.html
+    articles:
+      text: Practical Lessons
+      href: articles/index.html
     news:
       text: News
       href: news/index.html
