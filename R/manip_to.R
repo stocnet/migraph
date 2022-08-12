@@ -403,6 +403,23 @@ to_multilevel.matrix <- function(object) {
   out
 }
 
+#' @describeIn reformat Returns a network that divides the nodes into two mode types.
+#' @export
+to_twomode <- function(object, mark) UseMethod("to_twomode")
+
+#' @export
+to_twomode.igraph <- function(object, mark){
+  igraph::V(object)$type <- mark
+  object
+}
+
+#' @export
+to_twomode.tbl_graph <- function(object, mark){
+  out <- to_twomode.igraph(object, mark)
+  as_tidygraph(out)
+}
+
+
 # Transforming ####
 
 #' Tools for transforming networks, graphs, and matrices
