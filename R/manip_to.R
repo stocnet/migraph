@@ -606,5 +606,25 @@ to_blocks <- function(object, membership, FUN = mean){
   out
 }
 
-
+#' @describeIn transform Returns a network with only
+#'   matching ties
+#' @param mark A logical vector marking two types or modes.
+#'   By default "type".
+#' @importFrom igraph max_bipartite_match
+#' @examples 
+#' autographr(to_matching(mpn_elite_usa_advice), "bipartite")
+#' autographr(to_matching(ison_southern_women), "bipartite")
+#' @export
+to_matching <- function(object, mark = "type"){
+  object <- as_igraph(object)
+  if(length(unique(node_attribute(object, mark)))>2)
+    stop("This function currently only works with binary attributes.")
+  el <- igraph::max_bipartite_match(object, 
+                 types = node_attribute(object, mark))$matching
+  el <- data.frame(from = names(el), to = el)
+  out <- suppressWarnings(as_igraph(el, twomode = TRUE))
+  out <- igraph::delete_vertices(out, "NA")
+  out <- to_twomode(out, node_attribute(object, mark))
+  out
+}
 

@@ -12,6 +12,7 @@
 \alias{to_simplex}
 \alias{to_onemode}
 \alias{to_multilevel}
+\alias{to_twomode}
 \title{Tools for reformatting networks, graphs, and matrices}
 \usage{
 to_uniplex(object, edge)
@@ -33,6 +34,8 @@ to_simplex(object)
 to_onemode(object)
 
 to_multilevel(object)
+
+to_twomode(object, mark)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -113,6 +116,8 @@ which return only some of the nodes and new ties established by coincidence.
 
 \item \code{to_multilevel()}: Returns a network that is not divided into two mode types
 but embeds two or more modes into a multimodal network structure.
+
+\item \code{to_twomode()}: Returns a network that divides the nodes into two mode types.
 
 }}
 \examples{
