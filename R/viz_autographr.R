@@ -49,6 +49,7 @@
 #'   activate(edges) %>% 
 #'   mutate(high_betweenness = tie_is_max(tie_betweenness(ison_adolescents))) %>% 
 #'   autographr(node_color = "high_degree", edge_color = "high_betweenness")
+#' autographr(mpn_elite_usa_advice, "concentric")
 #' @export
 autographr <- auto_graph <- function(object,
                                      layout = "stress",
@@ -64,14 +65,13 @@ autographr <- auto_graph <- function(object,
   g <- as_tidygraph(object)
 
   # Add layout ----
-  p <- .graph_layout(g, layout)
+  p <- .graph_layout(g, layout, labels)
 
   # Add edges ----
   p <- .graph_edges(p, g, edge_color)
   
   # Add nodes ----
   p <- .graph_nodes(p, g, node_color, node_shape, node_size)
-  if(labels) p <- .graph_labels(p, g)
 
   # Add groups ----
   # if (!is.null(node_group)) p <- .graph_groups(p, g, node_group)
@@ -82,7 +82,7 @@ autographr <- auto_graph <- function(object,
 #' @importFrom ggraph create_layout ggraph
 #' @importFrom igraph get.vertex.attribute
 #' @importFrom ggplot2 theme_void
-.graph_layout <- function(g, layout){
+.graph_layout <- function(g, layout, labels){
   lo <- ggraph::create_layout(g, layout)
   if ("graph" %in% names(attributes(lo))) {
     if (!setequal(names(as.data.frame(attr(lo, "graph"))), names(lo))) {
@@ -92,6 +92,42 @@ autographr <- auto_graph <- function(object,
     } 
   }
   p <- ggraph::ggraph(lo) + ggplot2::theme_void()
+  
+  if (labels & is_labelled(g)){
+    if(layout %in% c("concentric", "circle")){
+      angles <- as.data.frame(cart2pol(as.matrix(lo[,1:2])))
+      angles$degree <- angles$phi * 180/pi
+      angles <- dplyr::case_when(lo[,2] >= 0 & lo[,1] > 0 ~ angles$degree, 
+                                 lo[,2] < 0 & lo[,1] > 0 ~ angles$degree,
+                                 lo[,1] == 1 ~angles$degree,
+                                 TRUE ~ angles$degree - 180)
+      hj <- ifelse(lo[,1] > 0, -0.2, 1.2)
+      p <- p + ggraph::geom_node_text(ggplot2::aes(label = name),
+                                      size = 2,
+                                       hjust = hj,
+                                       angle = angles) +
+        ggplot2::coord_cartesian(xlim=c(-1.2,1.2), ylim=c(-1.2,1.2))
+    } else if(!is_twomode(g)) { # Plot one mode
+      p <- p + ggraph::geom_node_label(ggplot2::aes(label = name),
+                                       label.padding = 0.15,
+                                       label.size = 0,
+                                       repel = TRUE)
+    } else { # Plot two modes
+      p <- p + ggraph::geom_node_label(ggplot2::aes(label = name),
+                                       label.padding = 0.15,
+                                       label.size = 0,
+                                       # fontface = ifelse(igraph::V(g)$type,
+                                       #                   "bold",
+                                       #                   "plain"),
+                                       # size = ifelse(igraph::V(g)$type,
+                                       #               4,
+                                       #               3),
+                                       hjust = hj,
+                                       angle = angles,
+                                       repel = TRUE)
+    }
+  }
+  p
 }
 
 .graph_edges <- function(p, g, edge_color){
@@ -293,31 +329,6 @@ autographr <- auto_graph <- function(object,
   p
 }
 
-.graph_labels <- function(p, g){
-  # Plot one mode
-  if (is_labelled(g) & !is_twomode(g)) {
-    p <- p + ggraph::geom_node_label(ggplot2::aes(label = name),
-                                     label.padding = 0.15,
-                                     label.size = 0,
-                                     repel = TRUE)
-  }
-  # Plot two modes
-  if (is_labelled(g) & is_twomode(g)) {
-    p <- p + ggraph::geom_node_label(ggplot2::aes(label = name),
-                                     label.padding = 0.15,
-                                     label.size = 0,
-                                     # fontface = ifelse(igraph::V(g)$type,
-                                     #                   "bold",
-                                     #                   "plain"),
-                                     # size = ifelse(igraph::V(g)$type,
-                                     #               4,
-                                     #               3),
-                                     hjust = "inward",
-                                     repel = TRUE)
-  }
-  p
-}
-
 .graph_groups <- function(p, g, node_group){
   if (!("concaveman" %in% rownames(utils::installed.packages()))) {
     message("Please install package `{concaveman}`.")
@@ -330,3 +341,65 @@ autographr <- auto_graph <- function(object,
   }
 }
   
+cart2pol <- function(xyz){
+  stopifnot(is.numeric(xyz))
+  if (is.vector(xyz) && (length(xyz) == 2 || length(xyz) == 
+                         3)) {
+    x <- xyz[1]
+    y <- xyz[2]
+    m <- 1
+    n <- length(xyz)
+  }
+  else if (is.matrix(xyz) && (ncol(xyz) == 2 || ncol(xyz) == 
+                              3)) {
+    x <- xyz[, 1]
+    y <- xyz[, 2]
+    m <- nrow(xyz)
+    n <- ncol(xyz)
+  }
+  else stop("Input must be a vector of length 3 or a matrix with 3 columns.")
+  phi <- atan2(y, x)
+  r <- hypot(x, y)
+  if (n == 2) {
+    if (m == 1) 
+      prz <- c(phi, r)
+    else prz <- cbind(phi, r)
+  }
+  else {
+    if (m == 1) {
+      z <- xyz[3]
+      prz <- c(phi, r, z)
+    }
+    else {
+      z <- xyz[, 3]
+      prz <- cbind(phi, r, z)
+    }
+  }
+  return(prz)
+}
+
+hypot <- function (x, y) {
+  if ((length(x) == 0 && is.numeric(y) && length(y) <= 1) || 
+      (length(y) == 0 && is.numeric(x) && length(x) <= 1)) 
+    return(c())
+  if (!is.numeric(x) && !is.complex(x) || !is.numeric(y) && 
+      !is.complex(y)) 
+    stop("Arguments 'x' and 'y' must be numeric or complex.")
+  if (length(x) == 1 && length(y) > 1) {
+    x <- rep(x, length(y))
+    dim(x) <- dim(y)
+  }
+  else if (length(x) > 1 && length(y) == 1) {
+    y <- rep(y, length(x))
+    dim(y) <- dim(x)
+  }
+  if ((is.vector(x) && is.vector(y) && length(x) != length(y)) || 
+      (is.matrix(x) && is.matrix(y) && dim(x) != dim(y)) || 
+      (is.vector(x) && is.matrix(y)) || is.matrix(x) && is.vector(y)) 
+    stop("Arguments 'x' and 'y' must be of the same size.")
+  x <- abs(x)
+  y <- abs(y)
+  m <- pmin(x, y)
+  M <- pmax(x, y)
+  ifelse(M == 0, 0, M * sqrt(1 + (m/M)^2))
+}
