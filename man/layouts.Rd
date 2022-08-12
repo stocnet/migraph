@@ -25,7 +25,7 @@ layout_tbl_graph_stressgrid(object, circular = FALSE, times = 1000)
 
 layout_tbl_graph_concentric(
   object,
-  members = NULL,
+  membership = NULL,
   radius = NULL,
   order.by = NULL,
   circular = FALSE,
@@ -46,6 +46,19 @@ layout_tbl_graph_concentric(
 Only possible for some layouts. Defaults to FALSE}
 
 \item{times}{Maximum number of iterations, where appropriate}
+
+\item{membership}{A vector of partition memberships.}
+
+\item{radius}{A vector of radii at which the concentric circles
+should be located.
+By default this is equal placement around an empty centre,
+unless one (the core) is a single node,
+in which case this node occupies the centre of the graph.}
+
+\item{order.by}{An attribute label indicating the (decreasing) order
+for the nodes around the circles.
+By default ordering is given by a bipartite placement that reduces
+the number of edge crossings.}
 }
 \description{
 The function uses approximate pattern matching
@@ -54,6 +67,7 @@ preserving the topological relationships among the nodes (see Inoue et al. 2012)
 }
 \examples{
 autographr(mpn_elite_mex, layout = "concentric")
+autographr(mpn_elite_usa_advice, layout = "concentric")
 }
 \references{
 Inoue, Kentaro, Shinichi Shimozono, Hideaki Yoshida, and Hiroyuki Kurata. 2012.

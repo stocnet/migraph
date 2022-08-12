@@ -1,5 +1,15 @@
 #' Layout algorithms based on membership functions
 #' @name layouts
+#' @inheritParams transform
+#' @param radius A vector of radii at which the concentric circles
+#'   should be located.
+#'   By default this is equal placement around an empty centre, 
+#'   unless one (the core) is a single node,
+#'   in which case this node occupies the centre of the graph.
+#' @param order.by An attribute label indicating the (decreasing) order
+#'   for the nodes around the circles. 
+#'   By default ordering is given by a bipartite placement that reduces
+#'   the number of edge crossings.
 #' @family mapping
 #' @source
 #' Diego Diez, Andrew P. Hutchins and Diego Miranda-Saavedra. 2014.
@@ -8,16 +18,17 @@
 #' _Nucleic Acids Research_, 42 (1) e6.
 #' @examples 
 #' autographr(mpn_elite_mex, layout = "concentric")
+#' autographr(mpn_elite_usa_advice, layout = "concentric")
 #' @export
-layout_tbl_graph_concentric <- function(object, members = NULL, radius = NULL, 
+layout_tbl_graph_concentric <- function(object, membership = NULL, radius = NULL, 
                                         order.by = NULL, 
                                         circular = FALSE, times = 1000){
-  if (is.null(members)){
+  if (is.null(membership)){
     if(!is_twomode(object)) 
-      members <- to_list(node_core(object))
-    else members <- to_list(node_mode(object))
+      membership <- to_list(node_core(object))
+    else membership <- to_list(node_mode(object))
   }
-  all_c  <- unlist(members, use.names = FALSE)
+  all_c  <- unlist(membership, use.names = FALSE)
   if (any(table(all_c) > 1)) 
     stop("Duplicated nodes in layers!")
   if(is_labelled(object))
@@ -25,10 +36,10 @@ layout_tbl_graph_concentric <- function(object, members = NULL, radius = NULL,
       all_n <- 1:graph_nodes(object)
   sel_other  <- all_n[!all_n %in% all_c]
   if (length(sel_other) > 0) 
-    members[[length(members) + 1]] <- sel_other
+    membership[[length(membership) + 1]] <- sel_other
   if (is.null(radius)) {
-    radius <- seq(0, 1, 1/(length(members)))
-    if (length(members[[1]]) == 1) 
+    radius <- seq(0, 1, 1/(length(membership)))
+    if (length(membership[[1]]) == 1) 
       radius <- radius[-length(radius)] else 
         radius <- radius[-1]
   }
@@ -36,8 +47,9 @@ layout_tbl_graph_concentric <- function(object, members = NULL, radius = NULL,
     order.values <- lapply(order.by, 
                            function(b) node_attribute(object, b))
   } else {
-    for(k in 2:length(members)){
-      xnet <- as_matrix(to_multilevel(object))[members[[k-1]], members[[k]]]
+    for(k in 2:length(membership)){
+      xnet <- as_matrix(to_multilevel(object))[membership[[k-1]], 
+                                               membership[[k]]]
       lo <- igraph::layout.bipartite(as_igraph(xnet, twomode = TRUE))
       lo <- as.data.frame(lo)
       lo$names <- node_names(object)
@@ -49,7 +61,7 @@ layout_tbl_graph_concentric <- function(object, members = NULL, radius = NULL,
     # order.values <- getNNvec(object, members)
   }
   res <- matrix(NA, nrow = length(all_n), ncol = 2)
-  for (k in 1:length(members)) {
+  for (k in 1:length(membership)) {
     r <- radius[k]
     l <- order.values[[k]]
     if(is_labelled(object))

@@ -35,9 +35,12 @@ to_matching(object, mark = "type")
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
 
+\item{method}{Method for aggregating ties,
+currently either "count" (default) or "jaccard".}
+
 \item{...}{Arguments passed on to dplyr::filter}
 
-\item{membership}{A vector of partition memberships}
+\item{membership}{A vector of partition memberships.}
 
 \item{FUN}{A function for summarising block content.
 By default \code{mean}.

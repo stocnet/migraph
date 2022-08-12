@@ -404,6 +404,8 @@ to_multilevel.matrix <- function(object) {
 }
 
 #' @describeIn reformat Returns a network that divides the nodes into two mode types.
+#' @param mark A logical vector marking two types or modes.
+#'   By default "type".
 #' @export
 to_twomode <- function(object, mark) UseMethod("to_twomode")
 
@@ -451,9 +453,11 @@ to_twomode.tbl_graph <- function(object, mark){
 NULL
 
 #' @describeIn transform Results in a weighted one-mode object
-#' that retains the row nodes from a two-mode object,
-#' and weights the ties between them on the basis of
-#' their joint ties to nodes in the second mode (columns)
+#'   that retains the row nodes from a two-mode object,
+#'   and weights the ties between them on the basis of
+#'   their joint ties to nodes in the second mode (columns)
+#' @param method Method for aggregating ties,
+#'   currently either "count" (default) or "jaccard". 
 #' @importFrom igraph bipartite.projection
 #' @examples
 #' autographr(ison_southern_women) /
@@ -567,7 +571,7 @@ to_ties <- function(object){
 
 #' @describeIn transform Returns a reduced graph from a given
 #'   partition membership vector
-#' @param membership A vector of partition memberships
+#' @param membership A vector of partition memberships.
 #' @param FUN A function for summarising block content.
 #'   By default `mean`.
 #'   Other recommended options include `median`, `sum`,

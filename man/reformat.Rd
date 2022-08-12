@@ -55,6 +55,9 @@ to_twomode(object, mark)
 the "positive" or "negative" ties.}
 
 \item{names}{Character vector of the node names. NULL by default.}
+
+\item{mark}{A logical vector marking two types or modes.
+By default "type".}
 }
 \value{
 All \code{to_} functions return an object of the same class as that provided.
