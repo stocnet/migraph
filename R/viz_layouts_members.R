@@ -1,5 +1,5 @@
-#' Layout algorithms based on membership functions
-#' @name layouts
+#' Layout algorithms based on bi- or other partitions
+#' @name partition_layouts
 #' @inheritParams transform
 #' @param radius A vector of radii at which the concentric circles
 #'   should be located.
@@ -19,6 +19,8 @@
 #' @examples 
 #' autographr(mpn_elite_mex, layout = "concentric")
 #' autographr(mpn_elite_usa_advice, layout = "concentric")
+#' autographr(mpn_elite_usa_advice, layout = "bipartite")
+#' autographr(mpn_elite_usa_advice, layout = "railway")
 #' @export
 layout_tbl_graph_concentric <- function(object, membership = NULL, radius = NULL, 
                                         order.by = NULL, 
@@ -50,7 +52,7 @@ layout_tbl_graph_concentric <- function(object, membership = NULL, radius = NULL
     for(k in 2:length(membership)){
       xnet <- as_matrix(to_multilevel(object))[membership[[k-1]], 
                                                membership[[k]]]
-      lo <- igraph::layout.bipartite(as_igraph(xnet, twomode = TRUE))
+      lo <- igraph::layout.bipartite(as_igraph(xnet, twomode = TRUE), maxiter = times)
       lo <- as.data.frame(lo)
       lo$names <- node_names(object)
       if(ncol(lo)==2) lo[,1] <- 1:nrow(lo)
@@ -70,6 +72,20 @@ layout_tbl_graph_concentric <- function(object, membership = NULL, radius = NULL
     res[l, ] <- coords
   }
   res <- as.data.frame(res)
+  names(res) <- c("x","y")
+  res
+}
+
+#' @rdname partition_layouts
+#' @importFrom igraph layout.bipartite
+#' @export
+layout_tbl_graph_railway <- function(object,
+                                     circular = FALSE, times = 1000){
+  if(!is_twomode(object)) stop("Railway layouts currently only work with two-mode networks.")
+  lo <- igraph::layout.bipartite(as_igraph(object), maxiter = times)
+  lo[,1] <- c(order(lo[lo[,2]==1,1]),
+          order(lo[lo[,2]==0,1]))
+  res <- as.data.frame(lo)
   names(res) <- c("x","y")
   res
 }
