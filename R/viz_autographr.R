@@ -95,6 +95,7 @@ autographr <- auto_graph <- function(object,
   
   if (labels & is_labelled(g)){
     if(layout %in% c("concentric", "circle")){
+      # https://stackoverflow.com/questions/57000414/ggraph-node-labels-truncated?rq=1
       angles <- as.data.frame(cart2pol(as.matrix(lo[,1:2])))
       angles$degree <- angles$phi * 180/pi
       angles <- dplyr::case_when(lo[,2] >= 0 & lo[,1] > 0 ~ angles$degree, 
@@ -122,8 +123,7 @@ autographr <- auto_graph <- function(object,
                                        # size = ifelse(igraph::V(g)$type,
                                        #               4,
                                        #               3),
-                                       hjust = hj,
-                                       angle = angles,
+                                       hjust = "inward",
                                        repel = TRUE)
     }
   }
