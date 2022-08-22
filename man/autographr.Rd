@@ -74,7 +74,7 @@ autographr(mpn_elite_usa_advice, "concentric")
 }
 \seealso{
 Other mapping: 
-\code{\link{layouts}},
+\code{\link{grid_layouts}},
 \code{\link{partition_layouts}}
 }
 \concept{mapping}

@@ -108,6 +108,14 @@ autographr <- auto_graph <- function(object,
                                        hjust = hj,
                                        angle = angles) +
         ggplot2::coord_cartesian(xlim=c(-1.2,1.2), ylim=c(-1.2,1.2))
+    } else if(layout %in% c("bipartite", "railway")){
+      p <- p + ggraph::geom_node_text(ggplot2::aes(label = name),
+                                      size = 2,
+                                      hjust = "outward",
+                                      nudge_y = ifelse(lo[,2] == 1, 0.05, -0.05),
+                                      # vjust = ifelse(node_mode(object), -1, 1),
+                                      angle = 90) +
+        ggplot2::coord_cartesian(ylim=c(-0.2,1.2))
     } else if(!is_twomode(g)) { # Plot one mode
       p <- p + ggraph::geom_node_label(ggplot2::aes(label = name),
                                        label.padding = 0.15,
