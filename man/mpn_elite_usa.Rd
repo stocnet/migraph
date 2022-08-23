@@ -75,6 +75,10 @@ running in the primary election contests for the 2008 Presidential nominations
 of the Republican Party (Rudy Giuliani, John McCain, Mitt Romney)
 or the Democratic Party (Hillary Clinton, Christopher Dodd, Barack Obama).
 }
+\details{
+\if{html}{\figure{mpn_elite_usa_advice.png}{options: width="75\%" alt="Figure: mpn_elite_usa_advice"}}
+\if{latex}{\figure{mpn_elite_usa_advice.pdf}{options: width=7cm}}
+}
 \references{
 Domhoff, G William. 2016. \href{https://whorulesamerica.ucsc.edu/power_elite/}{“Who Rules America? Power Elite Database.”}
 

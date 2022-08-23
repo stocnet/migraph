@@ -56,4 +56,8 @@ three of which were successively elected presidents of Mexico:
 José López Portillo (1976-82), Miguel de la Madrid (1982-88), and Carlos Salinas de Gortari (1988-94,
 who was also the son of another core member, Raúl Salinas Lozano).
 }
+\details{
+\if{html}{\figure{mpn_elite_mex.png}{options: width="75\%" alt="Figure: mpn_elite_mex"}}
+\if{latex}{\figure{mpn_elite_mex.pdf}{options: width=7cm}}
+}
 \keyword{datasets}
