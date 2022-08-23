@@ -22,11 +22,11 @@ Community graph partitioning algorithms
 }
 \section{Functions}{
 \itemize{
-\item \code{node_kernighanlin()}: A greedy, iterative, deterministic graph
+\item \code{node_kernighanlin}: A greedy, iterative, deterministic graph
 partitioning algorithm that results in a graph with two
 equally-sized communities
-
 }}
+
 \examples{
 node_kernighanlin(ison_adolescents)
 node_kernighanlin(ison_southern_women)

@@ -75,32 +75,32 @@ and \code{to_blocks()} returns a 'matrix' object.
 }
 \section{Functions}{
 \itemize{
-\item \code{to_mode1()}: Results in a weighted one-mode object
+\item \code{to_mode1}: Results in a weighted one-mode object
 that retains the row nodes from a two-mode object,
 and weights the ties between them on the basis of
 their joint ties to nodes in the second mode (columns)
 
-\item \code{to_mode2()}: Results in a weighted one-mode object
+\item \code{to_mode2}: Results in a weighted one-mode object
 that retains the column nodes from a two-mode object,
 and weights the ties between them on the basis of
 their joint ties to nodes in the first mode (rows).
 
-\item \code{to_main_component()}: Returns an object that includes only the main component
+\item \code{to_main_component}: Returns an object that includes only the main component
 without any smaller components or isolates
 
-\item \code{to_subgraph()}: Returns a network subgraph filtered
+\item \code{to_subgraph}: Returns a network subgraph filtered
 on the basis of some node-related logical statement.
 
-\item \code{to_ties()}: Returns a matrix (named if possible)
+\item \code{to_ties}: Returns a matrix (named if possible)
 where the edges are the nodes
 
-\item \code{to_blocks()}: Returns a reduced graph from a given
+\item \code{to_blocks}: Returns a reduced graph from a given
 partition membership vector
 
-\item \code{to_matching()}: Returns a network with only
+\item \code{to_matching}: Returns a network with only
 matching ties
-
 }}
+
 \examples{
 autographr(ison_southern_women) /
 (autographr(to_mode1(ison_southern_women)) |

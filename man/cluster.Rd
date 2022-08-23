@@ -38,13 +38,13 @@ more detailed documentation.
 }
 \section{Functions}{
 \itemize{
-\item \code{cluster_hierarchical()}: Returns a hierarchical clustering object
+\item \code{cluster_hierarchical}: Returns a hierarchical clustering object
 created by \code{stats::hclust()}
 
-\item \code{cluster_concor()}: Returns a hierarchical clustering object
+\item \code{cluster_concor}: Returns a hierarchical clustering object
 created from a convergence of correlations procedure (CONCOR)
-
 }}
+
 \section{CONCOR}{
 
 
