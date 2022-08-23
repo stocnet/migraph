@@ -5,28 +5,28 @@
 \alias{ison_networkers}
 \title{One-mode EIES dataset (Freeman and Freeman 1979)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 32 nodes and 440 edges
-#> #
-#> # A directed simple graph with 1 component
-#> #
-#> # Node Data: 32 x 3 (active)
-#>   name               Discipline   Citations
-#>   <chr>              <chr>            <dbl>
-#> 1 LIN FREEMAN        Sociology           19
-#> 2 DOUG WHITE         Anthropology         3
-#> 3 EV ROGERS          Other              170
-#> 4 RICHARD ALBA       Sociology           23
-#> 5 PHIPPS ARABIE      Other               16
-#> 6 CAROL BARNER-BARRY Other                6
-#> # ... with 26 more rows
-#> #
-#> # Edge Data: 440 x 3
-#>    from    to weight
-#>   <int> <int>  <dbl>
-#> 1     1     2    488
-#> 2     1     3     28
-#> 3     1     4     65
-#> # ... with 437 more rows
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 32 nodes and 440 edges
+## #
+## # A directed simple graph with 1 component
+## #
+## # Node Data: 32 × 3 (active)
+##   name               Discipline   Citations
+##   <chr>              <chr>            <dbl>
+## 1 LIN FREEMAN        Sociology           19
+## 2 DOUG WHITE         Anthropology         3
+## 3 EV ROGERS          Other              170
+## 4 RICHARD ALBA       Sociology           23
+## 5 PHIPPS ARABIE      Other               16
+## 6 CAROL BARNER-BARRY Other                6
+## # … with 26 more rows
+## #
+## # Edge Data: 440 × 3
+##    from    to weight
+##   <int> <int>  <dbl>
+## 1     1     2    488
+## 2     1     3     28
+## 3     1     4     65
+## # … with 437 more rows
 }\if{html}{\out{</div>}}
 }
 \source{
@@ -42,6 +42,9 @@ on an Electronic Information Exchange System among them. Node attributes
 include the number of citations (\code{Citations}) and the discipline of the
 researchers (\code{Discipline}). Edge weights illustrate the number of emails
 sent from one academic to another over the studied time period.
+
+\if{html}{\figure{ison_networkers.png}{options: width="75\%" alt="Figure: ison_networkers"}}
+\if{latex}{\figure{ison_networkers.pdf}{options: width=7cm}}
 }
 \references{
 Freeman, Sue C. and Linton C. Freeman. 1979.

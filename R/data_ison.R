@@ -26,6 +26,14 @@
 #' - **Omnilingual**: binary integer, 8 1 (yes) and 45 0 (no)
 #' - **UnarmedCombat**: binary integer, 51 1 (yes) and 2 0 (no)
 #' - **ArmedCombat**: binary integer, 25 1 (yes) and 28 0 (no)
+#' 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(ison_marvel_teams)
+#'   ggsave("man/figures/ison_marvel_teams.png")
+#'   ggsave("man/figures/ison_marvel_teams.pdf")
+#'   ```
+#' \if{html}{\figure{ison_marvel_teams.png}{options: width="75\%" alt="Figure: ison_marvel_teams"}}
+#' \if{latex}{\figure{ison_marvel_teams.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_marvel
@@ -35,6 +43,13 @@
 #' with 683 team affiliations between them
 "ison_marvel_teams"
 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(ison_marvel_relationships)
+#'   ggsave("man/figures/ison_marvel_relationships.png")
+#'   ggsave("man/figures/ison_marvel_relationships.pdf")
+#'   ```
+#' \if{html}{\figure{ison_marvel_relationships.png}{options: width="75\%" alt="Figure: ison_marvel_relationships"}}
+#' \if{latex}{\figure{ison_marvel_relationships.pdf}{options: width=7cm}}
 #' @rdname ison_marvel
 #' @usage data(ison_marvel_relationships)
 #' @format One-mode igraph of 53 Marvel comic book characters and
@@ -49,6 +64,13 @@
 #' for demonstration purposes as they do not describe a real world network.
 #' All examples contain named nodes.
 #'
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(ison_mm)
+#'   ggsave("man/figures/ison_mm.png")
+#'   ggsave("man/figures/ison_mm.pdf")
+#'   ```
+#' \if{html}{\figure{ison_mm.png}{options: width="75\%" alt="Figure: ison_mm"}}
+#' \if{latex}{\figure{ison_mm.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_projection
@@ -56,16 +78,37 @@
 #' @format Directed two-mode `{igraph}` object with 6 nodes and 6 edges
 "ison_mm"
 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(ison_bm)
+#'   ggsave("man/figures/ison_bm.png")
+#'   ggsave("man/figures/ison_bm.pdf")
+#'   ```
+#' \if{html}{\figure{ison_bm.png}{options: width="75\%" alt="Figure: ison_bm"}}
+#' \if{latex}{\figure{ison_bm.pdf}{options: width=7cm}}
 #' @rdname ison_projection
 #' @usage data(ison_bm)
 #' @format Directed two-mode `{igraph}` object with 8 nodes and 9 edges
 "ison_bm"
 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(ison_mb)
+#'   ggsave("man/figures/ison_mb.png")
+#'   ggsave("man/figures/ison_mb.pdf")
+#'   ```
+#' \if{html}{\figure{ison_mb.png}{options: width="75\%" alt="Figure: ison_mb"}}
+#' \if{latex}{\figure{ison_mb.pdf}{options: width=7cm}}
 #' @rdname ison_projection
 #' @usage data(ison_mb)
 #' @format Directed two-mode `{igraph}` object with 8 nodes and 9 edges
 "ison_mb"
 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(ison_bb)
+#'   ggsave("man/figures/ison_bb.png")
+#'   ggsave("man/figures/ison_bb.pdf")
+#'   ```
+#' \if{html}{\figure{ison_bb.png}{options: width="75\%" alt="Figure: ison_bb"}}
+#' \if{latex}{\figure{ison_bb.pdf}{options: width=7cm}}
 #' @rdname ison_projection
 #' @usage data(ison_bb)
 #' @format Directed two-mode `{igraph}` object with 10 nodes and 12 edges
@@ -82,6 +125,14 @@
 #' where `2` = best friends, `1` = friend, and `0` is not a friend.
 #' `social` consists of social interactions per hour,
 #' and `tasks` consists of task interactions per hour.
+#' 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(ison_algebra)
+#'   ggsave("man/figures/ison_algebra.png")
+#'   ggsave("man/figures/ison_algebra.pdf")
+#'   ```
+#' \if{html}{\figure{ison_algebra.png}{options: width="75\%" alt="Figure: ison_algebra"}}
+#' \if{latex}{\figure{ison_algebra.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_algebra
@@ -102,6 +153,13 @@
 
 #' One-mode subset of the adolescent society (Coleman 1961)
 #'
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(ison_adolescents)
+#'   ggsave("man/figures/ison_adolescents.png")
+#'   ggsave("man/figures/ison_adolescents.pdf")
+#'   ```
+#' \if{html}{\figure{ison_adolescents.png}{options: width="75\%" alt="Figure: ison_adolescents"}}
+#' \if{latex}{\figure{ison_adolescents.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_adolescents
@@ -132,6 +190,14 @@
 #'   The allegiance of each node is listed in the `obc` argument 
 #'   which takes the value 1 if the individual sided with Mr. Hi after the fight 
 #'   and 2 if the individual sided with John A.
+#' 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(ison_karateka)
+#'   ggsave("man/figures/ison_karateka.png")
+#'   ggsave("man/figures/ison_karateka.pdf")
+#'   ```
+#' \if{html}{\figure{ison_karateka.png}{options: width="75\%" alt="Figure: ison_karateka"}}
+#' \if{latex}{\figure{ison_karateka.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_karateka
@@ -156,6 +222,14 @@
 #' include the number of citations (`Citations`) and the discipline of the
 #' researchers (`Discipline`). Edge weights illustrate the number of emails
 #' sent from one academic to another over the studied time period.
+#' 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(ison_networkers)
+#'   ggsave("man/figures/ison_networkers.png")
+#'   ggsave("man/figures/ison_networkers.pdf")
+#'   ```
+#' \if{html}{\figure{ison_networkers.png}{options: width="75\%" alt="Figure: ison_networkers"}}
+#' \if{latex}{\figure{ison_networkers.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_networkers
@@ -182,6 +256,13 @@
 #' This network should solely be used
 #' for demonstration purposes as it does not describe a real network.
 #'
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(ison_brandes)
+#'   ggsave("man/figures/ison_brandes.png")
+#'   ggsave("man/figures/ison_brandes.pdf")
+#'   ```
+#' \if{html}{\figure{ison_brandes.png}{options: width="75\%" alt="Figure: ison_brandes"}}
+#' \if{latex}{\figure{ison_brandes.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_brandes
@@ -192,6 +273,13 @@
 #'   ```
 "ison_brandes"
 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(ison_brandes2)
+#'   ggsave("man/figures/ison_brandes2.png")
+#'   ggsave("man/figures/ison_brandes2.pdf")
+#'   ```
+#' \if{html}{\figure{ison_brandes2.png}{options: width="75\%" alt="Figure: ison_brandes2"}}
+#' \if{latex}{\figure{ison_brandes2.pdf}{options: width=7cm}}
 #' @rdname ison_brandes
 #' @usage data(ison_brandes2)
 #' @format 
@@ -209,6 +297,13 @@
 #' about the attendance pattern of women at informal social events
 #' during a 9 month period. Events and women are named.
 #'
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(ison_southern_women)
+#'   ggsave("man/figures/ison_southern_women.png")
+#'   ggsave("man/figures/ison_southern_women.pdf")
+#'   ```
+#' \if{html}{\figure{ison_southern_women.png}{options: width="75\%" alt="Figure: ison_southern_women"}}
+#' \if{latex}{\figure{ison_southern_women.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_southern_women

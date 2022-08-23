@@ -85,6 +85,13 @@
 #' Cambridge University Press. Cambridge University Press.
 "mpn_elite_usa_advice"
 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(mpn_elite_usa_money)
+#'   ggsave("man/figures/mpn_elite_usa_money.png")
+#'   ggsave("man/figures/mpn_elite_usa_money.pdf")
+#'   ```
+#' \if{html}{\figure{mpn_elite_usa_money.png}{options: width="75\%" alt="Figure: mpn_elite_usa_money"}}
+#' \if{latex}{\figure{mpn_elite_usa_money.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @rdname mpn_elite_usa
@@ -106,6 +113,13 @@
 #' in Bristol, the participation of these individuals in major protest and civic events between 1990-2002,
 #' and the involvement of the civic organizations in these events.
 #'
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(mpn_bristol)
+#'   ggsave("man/figures/mpn_bristol.png")
+#'   ggsave("man/figures/mpn_bristol.pdf")
+#'   ```
+#' \if{html}{\figure{mpn_bristol.png}{options: width="75\%" alt="Figure: mpn_bristol"}}
+#' \if{latex}{\figure{mpn_bristol.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name mpn_bristol
@@ -154,6 +168,13 @@
 #' a comparatively obscure body representing the interests of a number of
 #' European regional bodies at the EU institutions.
 #'
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(mpn_ryanair)
+#'   ggsave("man/figures/mpn_ryanair.png")
+#'   ggsave("man/figures/mpn_ryanair.pdf")
+#'   ```
+#' \if{html}{\figure{mpn_ryanair.png}{options: width="75\%" alt="Figure: mpn_ryanair"}}
+#' \if{latex}{\figure{mpn_ryanair.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name mpn_ryanair
@@ -197,6 +218,13 @@
 #' all three electoral cycles, then dichotomized the sums into no contribution
 #' (0) and any contribution (1).
 #'
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(mpn_DemSxP)
+#'   ggsave("man/figures/mpn_DemSxP.png")
+#'   ggsave("man/figures/mpn_DemSxP.pdf")
+#'   ```
+#' \if{html}{\figure{mpn_DemSxP.png}{options: width="75\%" alt="Figure: mpn_DemSxP"}}
+#' \if{latex}{\figure{mpn_DemSxP.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name mpn_senate112
@@ -211,6 +239,13 @@
 #'   ```
 "mpn_DemSxP"
 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(mpn_RepSxP)
+#'   ggsave("man/figures/mpn_RepSxP.png")
+#'   ggsave("man/figures/mpn_RepSxP.pdf")
+#'   ```
+#' \if{html}{\figure{mpn_RepSxP.png}{options: width="75\%" alt="Figure: mpn_RepSxP"}}
+#' \if{latex}{\figure{mpn_RepSxP.pdf}{options: width=7cm}}
 #' @rdname mpn_senate112
 #' @usage data(mpn_RepSxP)
 #' @format 
@@ -219,6 +254,13 @@
 #'   ```
 "mpn_RepSxP"
 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(mpn_OverSxP)
+#'   ggsave("man/figures/mpn_OverSxP.png")
+#'   ggsave("man/figures/mpn_OverSxP.pdf")
+#'   ```
+#' \if{html}{\figure{mpn_OverSxP.png}{options: width="75\%" alt="Figure: mpn_OverSxP"}}
+#' \if{latex}{\figure{mpn_OverSxP.pdf}{options: width=7cm}}
 #' @rdname mpn_senate112
 #' @usage data(mpn_OverSxP)
 #' @format 
@@ -237,6 +279,13 @@
 #' The Germany data has 1369 respondents in 1990 and 503 in 2008.
 #' The UK data has 738 respondents in 1990 and 664 in 2008.
 #'
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(mpn_IT_1990)
+#'   ggsave("man/figures/mpn_IT_1990.png")
+#'   ggsave("man/figures/mpn_IT_1990.pdf")
+#'   ```
+#' \if{html}{\figure{mpn_IT_1990.png}{options: width="75\%" alt="Figure: mpn_IT_1990"}}
+#' \if{latex}{\figure{mpn_IT_1990.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name mpn_evs
@@ -271,22 +320,57 @@ NULL
 #' @usage data(mpn_IT_1990)
 "mpn_IT_1990"
 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(mpn_IT_2008)
+#'   ggsave("man/figures/mpn_IT_2008.png")
+#'   ggsave("man/figures/mpn_IT_2008.pdf")
+#'   ```
+#' \if{html}{\figure{mpn_IT_2008.png}{options: width="75\%" alt="Figure: mpn_IT_2008"}}
+#' \if{latex}{\figure{mpn_IT_2008.pdf}{options: width=7cm}}
 #' @rdname mpn_evs
 #' @usage data(mpn_IT_2008)
 "mpn_IT_2008"
 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(mpn_DE_1990)
+#'   ggsave("man/figures/mpn_DE_1990.png")
+#'   ggsave("man/figures/mpn_DE_1990.pdf")
+#'   ```
+#' \if{html}{\figure{mpn_DE_1990.png}{options: width="75\%" alt="Figure: mpn_DE_1990"}}
+#' \if{latex}{\figure{mpn_DE_1990.pdf}{options: width=7cm}}
 #' @rdname mpn_evs
 #' @usage data(mpn_DE_1990)
 "mpn_DE_1990"
 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(mpn_DE_2008)
+#'   ggsave("man/figures/mpn_DE_2008.png")
+#'   ggsave("man/figures/mpn_DE_2008.pdf")
+#'   ```
+#' \if{html}{\figure{mpn_DE_2008.png}{options: width="75\%" alt="Figure: mpn_DE_2008"}}
+#' \if{latex}{\figure{mpn_DE_2008.pdf}{options: width=7cm}}
 #' @rdname mpn_evs
 #' @usage data(mpn_DE_2008)
 "mpn_DE_2008"
 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(mpn_UK_1990)
+#'   ggsave("man/figures/mpn_UK_1990.png")
+#'   ggsave("man/figures/mpn_UK_1990.pdf")
+#'   ```
+#' \if{html}{\figure{mpn_UK_1990.png}{options: width="75\%" alt="Figure: mpn_UK_1990"}}
+#' \if{latex}{\figure{mpn_UK_1990.pdf}{options: width=7cm}}
 #' @rdname mpn_evs
 #' @usage data(mpn_UK_1990)
 "mpn_UK_1990"
 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(mpn_UK_2008)
+#'   ggsave("man/figures/mpn_UK_2008.png")
+#'   ggsave("man/figures/mpn_UK_2008.pdf")
+#'   ```
+#' \if{html}{\figure{mpn_UK_2008.png}{options: width="75\%" alt="Figure: mpn_UK_2008"}}
+#' \if{latex}{\figure{mpn_UK_2008.pdf}{options: width=7cm}}
 #' @rdname mpn_evs
 #' @usage data(mpn_UK_2008)
 "mpn_UK_2008"
@@ -305,11 +389,18 @@ NULL
 #' (Knoke et al., 2021). The value in each cell of the matrix represents the value of
 #' exports from the 116 row states to the 116 column states.
 #' 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(mpn_cow_trade)
+#'   ggsave("man/figures/mpn_cow_trade.png")
+#'   ggsave("man/figures/mpn_cow_trade.pdf")
+#'   ```
+#' \if{html}{\figure{mpn_cow_trade.png}{options: width="75\%" alt="Figure: mpn_cow_trade"}}
+#' \if{latex}{\figure{mpn_cow_trade.pdf}{options: width=7cm}}
 #' @name mpn_cow
 #' @docType data
 #' @keywords datasets
 #' @usage data(mpn_cow_trade)
-#' @references 
+#' @references
 #' Barbieri, Katherine, Omar M. G. Keshk, and Brian Pollins. 2009.
 #' “TRADING DATA: Evaluating our Assumptions and Coding Rules.” 
 #' _Conflict Management and Peace Science_ 26(5): 471-491.
@@ -330,6 +421,13 @@ NULL
 #'   ```
 "mpn_cow_trade"
 
+#'   ```{r, echo = FALSE, include = FALSE}
+#'   autographr(mpn_cow_igo)
+#'   ggsave("man/figures/mpn_cow_igo.png")
+#'   ggsave("man/figures/mpn_cow_igo.pdf")
+#'   ```
+#' \if{html}{\figure{mpn_cow_igo.png}{options: width="75\%" alt="Figure: mpn_cow_igo"}}
+#' \if{latex}{\figure{mpn_cow_igo.pdf}{options: width=7cm}}
 #' @rdname mpn_cow
 #' @details 
 #' Two-mode matrix representing the membership of 116 states to 40 intergovernmental organizations (IGOs).

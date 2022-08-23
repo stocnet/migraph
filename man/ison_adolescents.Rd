@@ -5,35 +5,36 @@
 \alias{ison_adolescents}
 \title{One-mode subset of the adolescent society (Coleman 1961)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 8 nodes and 10 edges
-#> #
-#> # An undirected simple graph with 1 component
-#> #
-#> # Node Data: 8 x 1 (active)
-#>   name 
-#>   <chr>
-#> 1 Betty
-#> 2 Sue  
-#> 3 Alice
-#> 4 Jane 
-#> 5 Dale 
-#> 6 Pam  
-#> # ... with 2 more rows
-#> #
-#> # Edge Data: 10 x 2
-#>    from    to
-#>   <int> <int>
-#> 1     1     2
-#> 2     2     3
-#> 3     3     4
-#> # ... with 7 more rows
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 8 nodes and 10 edges
+## #
+## # An undirected simple graph with 1 component
+## #
+## # Node Data: 8 × 1 (active)
+##   name 
+##   <chr>
+## 1 Betty
+## 2 Sue  
+## 3 Alice
+## 4 Jane 
+## 5 Dale 
+## 6 Pam  
+## # … with 2 more rows
+## #
+## # Edge Data: 10 × 2
+##    from    to
+##   <int> <int>
+## 1     1     2
+## 2     2     3
+## 3     3     4
+## # … with 7 more rows
 }\if{html}{\out{</div>}}
 }
 \usage{
 data(ison_adolescents)
 }
 \description{
-One-mode subset of the adolescent society (Coleman 1961)
+\if{html}{\figure{ison_adolescents.png}{options: width="75\%" alt="Figure: ison_adolescents"}}
+\if{latex}{\figure{ison_adolescents.pdf}{options: width=7cm}}
 }
 \references{
 Coleman, James S. 1961. The Adolescent Society.

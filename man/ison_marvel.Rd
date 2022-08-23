@@ -25,6 +25,9 @@ data(ison_marvel_relationships)
 \description{
 Multilevel two-mode affiliation, signed one-mode networks of Marvel comic
 book characters (Yüksel 2017)
+
+\if{html}{\figure{ison_marvel_relationships.png}{options: width="75\%" alt="Figure: ison_marvel_relationships"}}
+\if{latex}{\figure{ison_marvel_relationships.pdf}{options: width=7cm}}
 }
 \details{
 This package includes two datasets related to the Marvel \emph{comic book} universe.
@@ -50,5 +53,8 @@ Additional nodal variables have been coded and included by Dr Umut Yüksel:
 \item \strong{UnarmedCombat}: binary integer, 51 1 (yes) and 2 0 (no)
 \item \strong{ArmedCombat}: binary integer, 25 1 (yes) and 28 0 (no)
 }
+
+\if{html}{\figure{ison_marvel_teams.png}{options: width="75\%" alt="Figure: ison_marvel_teams"}}
+\if{latex}{\figure{ison_marvel_teams.pdf}{options: width=7cm}}
 }
 \keyword{datasets}
