@@ -18,12 +18,12 @@
 #' José López Portillo (1976-82), Miguel de la Madrid (1982-88), and Carlos Salinas de Gortari (1988-94,
 #' who was also the son of another core member, Raúl Salinas Lozano).
 #'
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(mpn_elite_mex)
 #'   ggsave("man/figures/mpn_elite_mex.png")
 #'   ggsave("man/figures/mpn_elite_mex.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_elite_mex.png}{options: width="75\%" alt="Figure: mpn_elite_mex"}}
+#' \if{html}{\figure{mpn_elite_mex.png}{options: width="100\%" alt="Figure: mpn_elite_mex"}}
 #' \if{latex}{\figure{mpn_elite_mex.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
@@ -60,13 +60,13 @@
 #' or the Democratic Party (Hillary Clinton, Christopher Dodd, Barack Obama).
 #'
 #' @details 
-#'   ```{r, echo = FALSE, include = FALSE}
-#'   autographr(mpn_elite_usa_advice)
-#'   ggsave("man/figures/mpn_elite_usa_advice.png")
-#'   ggsave("man/figures/mpn_elite_usa_advice.pdf")
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
+#'   autographr(mpn_elite_usa_advice) + autographr(mpn_elite_usa_money)
+#'   ggsave("man/figures/mpn_elite_usa.png")
+#'   ggsave("man/figures/mpn_elite_usa.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_elite_usa_advice.png}{options: width="75\%" alt="Figure: mpn_elite_usa_advice"}}
-#' \if{latex}{\figure{mpn_elite_usa_advice.pdf}{options: width=7cm}}
+#' \if{html}{\figure{mpn_elite_usa.png}{options: width="100\%" alt="Figure: mpn_elite_usa"}}
+#' \if{latex}{\figure{mpn_elite_usa.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name mpn_elite_usa
@@ -85,13 +85,6 @@
 #' Cambridge University Press. Cambridge University Press.
 "mpn_elite_usa_advice"
 
-#'   ```{r, echo = FALSE, include = FALSE}
-#'   autographr(mpn_elite_usa_money)
-#'   ggsave("man/figures/mpn_elite_usa_money.png")
-#'   ggsave("man/figures/mpn_elite_usa_money.pdf")
-#'   ```
-#' \if{html}{\figure{mpn_elite_usa_money.png}{options: width="75\%" alt="Figure: mpn_elite_usa_money"}}
-#' \if{latex}{\figure{mpn_elite_usa_money.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @rdname mpn_elite_usa
