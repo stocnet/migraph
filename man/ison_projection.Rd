@@ -28,22 +28,13 @@ data(ison_bb)
 }
 \description{
 Two-mode projection examples (Hollway 2021)
-
-\if{html}{\figure{ison_bm.png}{options: width="75\%" alt="Figure: ison_bm"}}
-\if{latex}{\figure{ison_bm.pdf}{options: width=7cm}}
-
-\if{html}{\figure{ison_mb.png}{options: width="75\%" alt="Figure: ison_mb"}}
-\if{latex}{\figure{ison_mb.pdf}{options: width=7cm}}
-
-\if{html}{\figure{ison_bb.png}{options: width="75\%" alt="Figure: ison_bb"}}
-\if{latex}{\figure{ison_bb.pdf}{options: width=7cm}}
 }
 \details{
 These datasets should only be used
 for demonstration purposes as they do not describe a real world network.
 All examples contain named nodes.
 
-\if{html}{\figure{ison_mm.png}{options: width="75\%" alt="Figure: ison_mm"}}
-\if{latex}{\figure{ison_mm.pdf}{options: width=7cm}}
+\if{html}{\figure{ison_proj.png}{options: width="100\%" alt="Figure: ison_proj"}}
+\if{latex}{\figure{ison_proj.pdf}{options: width=7cm}}
 }
 \keyword{datasets}

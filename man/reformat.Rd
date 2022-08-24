@@ -90,39 +90,39 @@ here are the currently implemented modifications:\tabular{lccccc}{
 }
 \section{Functions}{
 \itemize{
-\item \code{to_uniplex}: Returns an object that includes only a single type of tie
+\item \code{to_uniplex()}: Returns an object that includes only a single type of tie
 
-\item \code{to_undirected}: Returns an object that has any edge direction removed,
+\item \code{to_undirected()}: Returns an object that has any edge direction removed,
 so that any pair of nodes with at least one directed edge will be
 connected by an undirected edge in the new network.
 This is equivalent to the "collapse" mode in \code{{igraph}}.
 
-\item \code{to_redirected}: Returns an object that has any edge direction transposed,
+\item \code{to_redirected()}: Returns an object that has any edge direction transposed,
 or flipped, so that senders become receivers and receivers become senders.
 This essentially has no effect on undirected networks or reciprocated ties.
 
-\item \code{to_unweighted}: Returns an object that has all edge weights removed
+\item \code{to_unweighted()}: Returns an object that has all edge weights removed
 
-\item \code{to_unsigned}: Returns a network with either just the "positive" ties
+\item \code{to_unsigned()}: Returns a network with either just the "positive" ties
 or just the "negative" ties
 
-\item \code{to_unnamed}: Returns an object with all vertex names removed
+\item \code{to_unnamed()}: Returns an object with all vertex names removed
 
-\item \code{to_named}: Returns an object that has random vertex names added
+\item \code{to_named()}: Returns an object that has random vertex names added
 
-\item \code{to_simplex}: Returns an object that has all loops or self-ties removed
+\item \code{to_simplex()}: Returns an object that has all loops or self-ties removed
 
-\item \code{to_onemode}: Returns an object that has any type/mode attributes removed,
+\item \code{to_onemode()}: Returns an object that has any type/mode attributes removed,
 but otherwise includes all the same nodes and ties.
 Note that this is not the same as \code{to_mode1()} or \code{to_mode2()},
 which return only some of the nodes and new ties established by coincidence.
 
-\item \code{to_multilevel}: Returns a network that is not divided into two mode types
+\item \code{to_multilevel()}: Returns a network that is not divided into two mode types
 but embeds two or more modes into a multimodal network structure.
 
-\item \code{to_twomode}: Returns a network that divides the nodes into two mode types.
-}}
+\item \code{to_twomode()}: Returns a network that divides the nodes into two mode types.
 
+}}
 \examples{
 autographr(ison_algebra)
 a <- to_uniplex(ison_algebra, "friends")

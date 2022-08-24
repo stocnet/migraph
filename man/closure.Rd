@@ -41,16 +41,16 @@ spanning two two-mode networks that are closed by a fourth tie to establish a
 }
 \section{Functions}{
 \itemize{
-\item \code{graph_reciprocity}: Calculate reciprocity in a (usually directed) network
+\item \code{graph_reciprocity()}: Calculate reciprocity in a (usually directed) network
 
-\item \code{graph_transitivity}: Calculate transitivity in a network
+\item \code{graph_transitivity()}: Calculate transitivity in a network
 
-\item \code{graph_equivalency}: Calculate equivalence or reinforcement
+\item \code{graph_equivalency()}: Calculate equivalence or reinforcement
 in a (usually two-mode) network
 
-\item \code{graph_congruency}: Calculate congruency across two two-mode networks
-}}
+\item \code{graph_congruency()}: Calculate congruency across two two-mode networks
 
+}}
 \examples{
 graph_reciprocity(ison_southern_women)
 graph_transitivity(ison_southern_women)

@@ -61,30 +61,30 @@ as the number of nodes or edges in the network, respectively.
 }
 \section{Functions}{
 \itemize{
-\item \code{node_names}: Extracts the names of the nodes in a network.
+\item \code{node_names()}: Extracts the names of the nodes in a network.
 
-\item \code{node_mode}: Extracts the mode of the nodes in a network.
+\item \code{node_mode()}: Extracts the mode of the nodes in a network.
 
-\item \code{node_attribute}: Extracts an attribute's values for the nodes in a network.
+\item \code{node_attribute()}: Extracts an attribute's values for the nodes in a network.
 
-\item \code{tie_attribute}: Extracts an attribute's values for the edges in a network.
+\item \code{tie_attribute()}: Extracts an attribute's values for the edges in a network.
 
-\item \code{tie_weights}: Extracts the weights of the edges in a network.
+\item \code{tie_weights()}: Extracts the weights of the edges in a network.
 
-\item \code{tie_signs}: Extracts the signs of the edges in a network.
+\item \code{tie_signs()}: Extracts the signs of the edges in a network.
 
-\item \code{graph_nodes}: Returns the total number of nodes (of any mode) in a network.
+\item \code{graph_nodes()}: Returns the total number of nodes (of any mode) in a network.
 
-\item \code{graph_ties}: Returns the number of edges in a network.
+\item \code{graph_ties()}: Returns the number of edges in a network.
 
-\item \code{graph_dims}: Returns the dimensions of a network in a vector
+\item \code{graph_dims()}: Returns the dimensions of a network in a vector
 as long as the number of modes in the network.
 
-\item \code{graph_node_attributes}: Returns a vector of nodal attributes in a network
+\item \code{graph_node_attributes()}: Returns a vector of nodal attributes in a network
 
-\item \code{graph_tie_attributes}: Returns a vector of edge attributes in a network
+\item \code{graph_tie_attributes()}: Returns a vector of edge attributes in a network
+
 }}
-
 \examples{
 node_names(mpn_elite_usa_advice)
 node_mode(mpn_elite_usa_advice)

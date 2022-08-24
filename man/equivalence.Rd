@@ -92,19 +92,19 @@ assignment.
 }
 \section{Functions}{
 \itemize{
-\item \code{node_equivalence}: Returns nodes' membership in
+\item \code{node_equivalence()}: Returns nodes' membership in
 according to their equivalence with respective to some census/class
 
-\item \code{node_structural_equivalence}: Returns nodes' membership in
+\item \code{node_structural_equivalence()}: Returns nodes' membership in
 structurally equivalent classes
 
-\item \code{node_regular_equivalence}: Returns nodes' membership in
+\item \code{node_regular_equivalence()}: Returns nodes' membership in
 regularly equivalent classes
 
-\item \code{node_automorphic_equivalence}: Returns nodes' membership in
+\item \code{node_automorphic_equivalence()}: Returns nodes' membership in
 automorphically equivalent classes
-}}
 
+}}
 \examples{
 \donttest{
 (nse <- node_structural_equivalence(mpn_elite_usa_advice))

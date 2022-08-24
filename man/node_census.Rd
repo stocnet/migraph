@@ -59,19 +59,19 @@ For now, we offer a rough translation:\tabular{ll}{
 }
 \section{Functions}{
 \itemize{
-\item \code{node_tie_census}: Returns a census of the ties in a network.
+\item \code{node_tie_census()}: Returns a census of the ties in a network.
 For directed networks, out-ties and in-ties are bound together.
 
-\item \code{node_triad_census}: Returns a census of the triad configurations
+\item \code{node_triad_census()}: Returns a census of the triad configurations
 nodes are embedded in.
 
-\item \code{node_quad_census}: Returns a census of nodes' positions
+\item \code{node_quad_census()}: Returns a census of nodes' positions
 in motifs of four nodes.
 
-\item \code{node_path_census}: Returns the shortest path lengths
+\item \code{node_path_census()}: Returns the shortest path lengths
 of each node to every other node in the network.
-}}
 
+}}
 \examples{
 task_eg <- to_named(to_uniplex(ison_algebra, "task_tie"))
 (tie_cen <- node_tie_census(task_eg))

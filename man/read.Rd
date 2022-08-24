@@ -114,23 +114,23 @@ you will need to unpack them and convert them one by one.
 }
 \section{Functions}{
 \itemize{
-\item \code{read_edgelist}: Reading edgelists from Excel/csv files
+\item \code{read_edgelist()}: Reading edgelists from Excel/csv files
 
-\item \code{write_edgelist}: Writing edgelists to csv files
+\item \code{write_edgelist()}: Writing edgelists to csv files
 
-\item \code{read_nodelist}: Reading nodelists from Excel/csv files
+\item \code{read_nodelist()}: Reading nodelists from Excel/csv files
 
-\item \code{write_nodelist}: Writing nodelists to csv files
+\item \code{write_nodelist()}: Writing nodelists to csv files
 
-\item \code{read_pajek}: Reading pajek (.net/.paj) files
+\item \code{read_pajek()}: Reading pajek (.net/.paj) files
 
-\item \code{write_pajek}: Writing pajek .net files
+\item \code{write_pajek()}: Writing pajek .net files
 
-\item \code{read_ucinet}: Reading UCINET files
+\item \code{read_ucinet()}: Reading UCINET files
 
-\item \code{write_ucinet}: Writing UCINET files
+\item \code{write_ucinet()}: Writing UCINET files
+
 }}
-
 \examples{
 \dontrun{
 # import Roethlisberger & Dickson's horseplay game data set:
