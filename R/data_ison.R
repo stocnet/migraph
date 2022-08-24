@@ -65,12 +65,14 @@
 #' All examples contain named nodes.
 #'
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(ison_mm)
-#'   ggsave("man/figures/ison_mm.png")
-#'   ggsave("man/figures/ison_mm.pdf")
+#'   (autographr(ison_bb) | autographr(ison_bm) | autographr(ison_mm) | autographr(ison_mb))/
+#'   (autographr(to_mode1(ison_mm)) | autographr(to_mode1(ison_mm)) | 
+#'     autographr(to_mode1(ison_mm)) | autographr(to_mode1(ison_mm)))
+#'   ggsave("man/figures/ison_proj.png")
+#'   ggsave("man/figures/ison_proj.pdf")
 #'   ```
-#' \if{html}{\figure{ison_mm.png}{options: width="75\%" alt="Figure: ison_mm"}}
-#' \if{latex}{\figure{ison_mm.pdf}{options: width=7cm}}
+#' \if{html}{\figure{ison_proj.png}{options: width="100\%" alt="Figure: ison_proj"}}
+#' \if{latex}{\figure{ison_proj.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_projection
@@ -78,37 +80,16 @@
 #' @format Directed two-mode `{igraph}` object with 6 nodes and 6 edges
 "ison_mm"
 
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(ison_bm)
-#'   ggsave("man/figures/ison_bm.png")
-#'   ggsave("man/figures/ison_bm.pdf")
-#'   ```
-#' \if{html}{\figure{ison_bm.png}{options: width="75\%" alt="Figure: ison_bm"}}
-#' \if{latex}{\figure{ison_bm.pdf}{options: width=7cm}}
 #' @rdname ison_projection
 #' @usage data(ison_bm)
 #' @format Directed two-mode `{igraph}` object with 8 nodes and 9 edges
 "ison_bm"
 
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(ison_mb)
-#'   ggsave("man/figures/ison_mb.png")
-#'   ggsave("man/figures/ison_mb.pdf")
-#'   ```
-#' \if{html}{\figure{ison_mb.png}{options: width="75\%" alt="Figure: ison_mb"}}
-#' \if{latex}{\figure{ison_mb.pdf}{options: width=7cm}}
 #' @rdname ison_projection
 #' @usage data(ison_mb)
 #' @format Directed two-mode `{igraph}` object with 8 nodes and 9 edges
 "ison_mb"
 
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(ison_bb)
-#'   ggsave("man/figures/ison_bb.png")
-#'   ggsave("man/figures/ison_bb.pdf")
-#'   ```
-#' \if{html}{\figure{ison_bb.png}{options: width="75\%" alt="Figure: ison_bb"}}
-#' \if{latex}{\figure{ison_bb.pdf}{options: width=7cm}}
 #' @rdname ison_projection
 #' @usage data(ison_bb)
 #' @format Directed two-mode `{igraph}` object with 10 nodes and 12 edges
