@@ -238,7 +238,7 @@
 #' for demonstration purposes as it does not describe a real network.
 #'
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(ison_brandes)
+#'   autographr(ison_brandes) + autographr(ison_brandes2)
 #'   ggsave("man/figures/ison_brandes.png")
 #'   ggsave("man/figures/ison_brandes.pdf")
 #'   ```
@@ -254,13 +254,6 @@
 #'   ```
 "ison_brandes"
 
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(ison_brandes2)
-#'   ggsave("man/figures/ison_brandes2.png")
-#'   ggsave("man/figures/ison_brandes2.pdf")
-#'   ```
-#' \if{html}{\figure{ison_brandes2.png}{options: width="75\%" alt="Figure: ison_brandes2"}}
-#' \if{latex}{\figure{ison_brandes2.pdf}{options: width=7cm}}
 #' @rdname ison_brandes
 #' @usage data(ison_brandes2)
 #' @format 
