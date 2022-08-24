@@ -57,14 +57,16 @@
 #' @return
 #' The currently implemented coercions or translations are:
 #' 
-#' |  to/from  | edgelists  | matrices  |igraph  |tidygraph  |network  | goldfish
+#' |  to/from  | edgelists  | matrices  |igraph  |tidygraph  |network  | siena | goldfish
 #' | ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
-#' | edgelists (data frames)  | X | X | X | X | X | X |
-#' | matrices                 | X | X | X | X | X | X |
-#' | igraph                   | X | X | X | X | X | X |
-#' | tidygraph                | X | X | X | X | X | X |
-#' | network                  | X | X | X | X | X | X |
+#' | edgelists (data frames)  | X | X | X | X | X |   | X |
+#' | matrices                 | X | X | X | X | X |   | X |
+#' | igraph                   | X | X | X | X | X | X | X |
+#' | tidygraph                | X | X | X | X | X | X | X |
+#' | network                  | X | X | X | X | X |   | X |
 NULL
+
+# Edgelists ####
 
 #' @rdname as
 #' @importFrom igraph as_edgelist
@@ -130,6 +132,14 @@ as_edgelist.data.frame <- function(object,
     object
   } else object
 }
+
+#' @export
+as_edgelist.network.goldfish <- function(object,
+                                         twomode = FALSE) {
+  as_matrix(as_igraph(object, twomode = twomode))
+}
+
+# Matrices ####
 
 #' @rdname as
 #' @export
@@ -234,6 +244,14 @@ as_matrix.network <- function(object,
     }
   }
 }
+
+#' @export
+as_matrix.network.goldfish <- function(object,
+                                       twomode = FALSE) {
+  as_matrix(as_igraph(object, twomode = twomode))
+}
+
+# igraph ####
 
 #' @rdname as
 #' @importFrom igraph graph_from_data_frame graph_from_incidence_matrix
@@ -349,6 +367,39 @@ as_igraph.network <- function(object,
   graph
 }
 
+#' @export
+as_igraph.network.goldfish <- function(object,
+                                       twomode = FALSE) {
+  
+  # orig <- deparse(substitute(object))
+  # y <- ls(envir = .GlobalEnv)
+  # envir  <- .GlobalEnv
+  # 
+  # classesToKeep <- c("nodes.goldfish", "network.goldfish")
+  # checkClasses <- function(object, classes) vapply(classes, 
+  #                                                  function(x) methods::is(object, x), logical(1))
+  # ClassFilter <- function(x) any(checkClasses(get(x), classes = classesToKeep))
+  # gfobjs <- Filter(ClassFilter, y)
+  # classes <- vapply(gfobjs, FUN = function(x) checkClasses(get(x), 
+  #                                                          classes = classesToKeep), 
+  #                   FUN.VALUE = logical(length(classesToKeep)))
+  
+  if(sum(object)==0){
+    out <- igraph::graph_from_data_frame(d = get(attr(object, "events"))[,2:4],
+                                         directed = attr(object, "directed"),
+                                         vertices = get(attr(object, "nodes")))
+  } else stop("Non-empty starts are not yet supported by this function.")
+  out
+}
+
+#' @export
+as_igraph.siena <- function(object,
+                            twomode = FALSE) {
+  as_igraph(as_tidygraph.siena(object))
+}
+
+# tidygraph ####
+
 #' @rdname as
 #' @export
 as_tidygraph <- function(object, twomode = FALSE) UseMethod("as_tidygraph")
@@ -377,6 +428,58 @@ as_tidygraph.tbl_graph <- function(object, twomode = FALSE) {
 as_tidygraph.network <- function(object, twomode = FALSE) {
   tidygraph::as_tbl_graph(as_igraph(object))
 }
+
+#' @export
+as_tidygraph.network.goldfish <- function(object,
+                                          twomode = FALSE) {
+  
+  # orig <- deparse(substitute(object))
+  # y <- ls(envir = .GlobalEnv)
+  # envir  <- .GlobalEnv
+  # 
+  # classesToKeep <- c("nodes.goldfish", "network.goldfish")
+  # checkClasses <- function(object, classes) vapply(classes, 
+  #                               function(x) methods::is(object, x), logical(1))
+  # ClassFilter <- function(x) any(checkClasses(get(x), classes = classesToKeep))
+  # gfobjs <- Filter(ClassFilter, y)
+  # classes <- vapply(gfobjs, FUN = function(x) checkClasses(get(x), 
+  #                                classes = classesToKeep), 
+  #                   FUN.VALUE = logical(length(classesToKeep)))
+  
+  if(sum(object)==0){
+    out <- igraph::graph_from_data_frame(d = get(attr(object, "events"))[,2:4],
+                                         directed = attr(object, "directed"),
+                                         vertices = get(attr(object, "nodes")))
+    out <- as_tidygraph(out)
+  } else stop("Non-empty starts are not yet supported by this function.")
+  
+  # if(rowSums(classes)['network.goldfish']>1){
+  #   nets <- colnames(classes)[classes['network.goldfish', ]==TRUE]
+  #   nets <- nets[nets != orig]
+  #   for(edges in nets){
+  #     eventlist <- get(attr(get(edges), "events"))
+  #     eventlist <- eventlist[,2:4]
+  #     eventlist <- eventlist[!duplicated(eventlist),] # currently not carrying multiple ties across
+  #     other <- as_tidygraph(eventlist)
+  #     out <- join_edges(out, other, edges)
+  #   }
+  # }
+  
+  out
+}
+
+#' @export
+as_tidygraph.siena <- function(object,
+                            twomode = FALSE) {
+  out <- as_igraph(object$depvars$mynet[,,1])
+  for(d in 2:dim(object$depvars$mynet)[3]){
+    out <- join_ties(out, as_igraph(object$depvars$mynet[,,d]), 
+                     attr_name = paste0("t",d))
+  }
+  out <- out %>% activate(edges) %>% rename(t1 = orig)
+}
+
+# Network ####
 
 #' @rdname as
 #' @export
@@ -439,70 +542,6 @@ as_network.data.frame <- function(object,
                                   twomode = FALSE) {
   if ("tbl_df" %in% class(object)) object <- as.data.frame(object)
   as.network(object)
-}
-
-#' @export
-as_tidygraph.network.goldfish <- function(object,
-                                          twomode = FALSE) {
-  
-  # orig <- deparse(substitute(object))
-  # y <- ls(envir = .GlobalEnv)
-  # envir  <- .GlobalEnv
-  # 
-  # classesToKeep <- c("nodes.goldfish", "network.goldfish")
-  # checkClasses <- function(object, classes) vapply(classes, 
-  #                               function(x) methods::is(object, x), logical(1))
-  # ClassFilter <- function(x) any(checkClasses(get(x), classes = classesToKeep))
-  # gfobjs <- Filter(ClassFilter, y)
-  # classes <- vapply(gfobjs, FUN = function(x) checkClasses(get(x), 
-  #                                classes = classesToKeep), 
-  #                   FUN.VALUE = logical(length(classesToKeep)))
-  
-  if(sum(object)==0){
-    out <- igraph::graph_from_data_frame(d = get(attr(object, "events"))[,2:4],
-                                  directed = attr(object, "directed"),
-                                  vertices = get(attr(object, "nodes")))
-    out <- as_tidygraph(out)
-  } else stop("Non-empty starts are not yet supported by this function.")
-  
-  # if(rowSums(classes)['network.goldfish']>1){
-  #   nets <- colnames(classes)[classes['network.goldfish', ]==TRUE]
-  #   nets <- nets[nets != orig]
-  #   for(edges in nets){
-  #     eventlist <- get(attr(get(edges), "events"))
-  #     eventlist <- eventlist[,2:4]
-  #     eventlist <- eventlist[!duplicated(eventlist),] # currently not carrying multiple ties across
-  #     other <- as_tidygraph(eventlist)
-  #     out <- join_edges(out, other, edges)
-  #   }
-  # }
-
-  out
-}
-
-#' @export
-as_igraph.network.goldfish <- function(object,
-                                       twomode = FALSE) {
-  
-  # orig <- deparse(substitute(object))
-  # y <- ls(envir = .GlobalEnv)
-  # envir  <- .GlobalEnv
-  # 
-  # classesToKeep <- c("nodes.goldfish", "network.goldfish")
-  # checkClasses <- function(object, classes) vapply(classes, 
-  #                                                  function(x) methods::is(object, x), logical(1))
-  # ClassFilter <- function(x) any(checkClasses(get(x), classes = classesToKeep))
-  # gfobjs <- Filter(ClassFilter, y)
-  # classes <- vapply(gfobjs, FUN = function(x) checkClasses(get(x), 
-  #                                                          classes = classesToKeep), 
-  #                   FUN.VALUE = logical(length(classesToKeep)))
-  
-  if(sum(object)==0){
-    out <- igraph::graph_from_data_frame(d = get(attr(object, "events"))[,2:4],
-                                         directed = attr(object, "directed"),
-                                         vertices = get(attr(object, "nodes")))
-  } else stop("Non-empty starts are not yet supported by this function.")
-  out
 }
 
 #' @export

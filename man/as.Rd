@@ -7,6 +7,7 @@
 \alias{as_igraph}
 \alias{as_tidygraph}
 \alias{as_network}
+\alias{as_siena}
 \title{Coercion between migraph-compatible object classes}
 \usage{
 as_edgelist(object, twomode = FALSE)
@@ -18,6 +19,8 @@ as_igraph(object, twomode = FALSE)
 as_tidygraph(object, twomode = FALSE)
 
 as_network(object, twomode = FALSE)
+
+as_siena(object, twomode = FALSE)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -35,14 +38,15 @@ adjacency (one-mode/unipartite) networks.
 By default FALSE.}
 }
 \value{
-The currently implemented coercions or translations are:\tabular{lcccccc}{
-   to/from \tab edgelists \tab matrices \tab igraph \tab tidygraph \tab network \tab goldfish \cr
-   edgelists (data frames) \tab X \tab X \tab X \tab X \tab X \tab X \cr
-   matrices \tab X \tab X \tab X \tab X \tab X \tab X \cr
-   igraph \tab X \tab X \tab X \tab X \tab X \tab X \cr
-   tidygraph \tab X \tab X \tab X \tab X \tab X \tab X \cr
-   network \tab X \tab X \tab X \tab X \tab X \tab X \cr
-}
+The currently implemented coercions or translations are:
+
+|  to/from  | edgelists  | matrices  |igraph  |tidygraph  |network  | siena | goldfish
+| ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+| edgelists (data frames)  | X | X | X | X | X |   | X |
+| matrices                 | X | X | X | X | X |   | X |
+| igraph                   | X | X | X | X | X | X | X |
+| tidygraph                | X | X | X | X | X | X | X |
+| network                  | X | X | X | X | X |   | X |
 }
 \description{
 The \code{as_} functions in \code{{migraph}} coerce objects
