@@ -6,17 +6,44 @@
 \alias{ison_brandes2}
 \title{One-mode and two-mode centrality demonstration networks}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## IGRAPH cb33d0d U--- 11 12 -- 
-## + attr: degree (v/l), betweenness (v/l), closeness (v/l), eigenvector
-## | (v/l)
-## + edges from cb33d0d:
-##  [1] 1-- 3 2-- 3 3-- 4 4-- 5 4-- 6 5-- 7 6-- 7 6-- 8 7-- 9 8-- 9 9--10 9--11
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 11 nodes and 12 edges
+#> #
+#> # An undirected simple graph with 1 component
+#> #
+#> # Node Data: 11 x 0 (active)
+#> # ... with 5 more rows
+#> #
+#> # Edge Data: 12 x 2
+#>    from    to
+#>   <int> <int>
+#> 1     1     3
+#> 2     2     3
+#> 3     3     4
+#> # ... with 9 more rows
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## IGRAPH cb33d0d U--B 11 12 -- 
-## + attr: type (v/l), tiecolour (e/l)
-## + edges from cb33d0d:
-##  [1] 1-- 3 2-- 3 3-- 4 4-- 5 4-- 6 5-- 7 6-- 7 6-- 8 7-- 9 8-- 9 9--10 9--11
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 11 nodes and 12 edges
+#> #
+#> # A bipartite simple graph with 1 component
+#> #
+#> # Node Data: 11 x 1 (active)
+#>   type 
+#>   <lgl>
+#> 1 FALSE
+#> 2 FALSE
+#> 3 TRUE 
+#> 4 FALSE
+#> 5 TRUE 
+#> 6 TRUE 
+#> # ... with 5 more rows
+#> #
+#> # Edge Data: 12 x 2
+#>    from    to
+#>   <int> <int>
+#> 1     1     3
+#> 2     2     3
+#> 3     3     4
+#> # ... with 9 more rows
 }\if{html}{\out{</div>}}
 }
 \usage{

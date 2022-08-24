@@ -7,52 +7,52 @@
 \alias{mpn_cow_igo}
 \title{One-mode interstate trade relations and two-mode state membership in IGOs (COW)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 116 nodes and 11489 edges
-## #
-## # A directed simple graph with 1 component
-## #
-## # Node Data: 116 × 1 (active)
-##   name                    
-##   <chr>                   
-## 1 United States of America
-## 2 Canada                  
-## 3 Cuba                    
-## 4 Dominican Republic      
-## 5 Jamaica                 
-## 6 Trinidad and Tobago     
-## # … with 110 more rows
-## #
-## # Edge Data: 11,489 × 3
-##    from    to  weight
-##   <int> <int>   <dbl>
-## 1     1     2 180387 
-## 2     1     3    587.
-## 3     1     4   5511.
-## # … with 11,486 more rows
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 116 nodes and 11489 edges
+#> #
+#> # A directed simple graph with 1 component
+#> #
+#> # Node Data: 116 x 1 (active)
+#>   name                    
+#>   <chr>                   
+#> 1 United States of America
+#> 2 Canada                  
+#> 3 Cuba                    
+#> 4 Dominican Republic      
+#> 5 Jamaica                 
+#> 6 Trinidad and Tobago     
+#> # ... with 110 more rows
+#> #
+#> # Edge Data: 11,489 x 3
+#>    from    to  weight
+#>   <int> <int>   <dbl>
+#> 1     1     2 180387 
+#> 2     1     3    587.
+#> 3     1     4   5511.
+#> # ... with 11,486 more rows
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 156 nodes and 862 edges
-## #
-## # A bipartite simple graph with 1 component
-## #
-## # Node Data: 156 × 2 (active)
-##   type  name       
-##   <lgl> <chr>      
-## 1 FALSE Afghanistan
-## 2 FALSE Albania    
-## 3 FALSE Algeria    
-## 4 FALSE Angola     
-## 5 FALSE Argentina  
-## 6 FALSE Australia  
-## # … with 150 more rows
-## #
-## # Edge Data: 862 × 2
-##    from    to
-##   <int> <int>
-## 1     1   121
-## 2     1   132
-## 3     1   139
-## # … with 859 more rows
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 156 nodes and 862 edges
+#> #
+#> # A bipartite simple graph with 1 component
+#> #
+#> # Node Data: 156 x 2 (active)
+#>   type  name       
+#>   <lgl> <chr>      
+#> 1 FALSE Afghanistan
+#> 2 FALSE Albania    
+#> 3 FALSE Algeria    
+#> 4 FALSE Angola     
+#> 5 FALSE Argentina  
+#> 6 FALSE Australia  
+#> # ... with 150 more rows
+#> #
+#> # Edge Data: 862 x 2
+#>    from    to
+#>   <int> <int>
+#> 1     1   121
+#> 2     1   132
+#> 3     1   139
+#> # ... with 859 more rows
 }\if{html}{\out{</div>}}
 }
 \source{
@@ -73,7 +73,7 @@ data(mpn_cow_igo)
 \description{
 One-mode interstate trade relations and two-mode state membership in IGOs (COW)
 
-\if{html}{\figure{mpn_cow_igo.png}{options: width="75\%" alt="Figure: mpn_cow_igo"}}
+\if{html}{\figure{mpn_cow_igo.png}{options: width="100\%" alt="Figure: mpn_cow_igo"}}
 \if{latex}{\figure{mpn_cow_igo.pdf}{options: width=7cm}}
 }
 \details{
@@ -86,7 +86,7 @@ between 1870 to 2009. This network is based only on the dyadic trade figures in 
 (Knoke et al., 2021). The value in each cell of the matrix represents the value of
 exports from the 116 row states to the 116 column states.
 
-\if{html}{\figure{mpn_cow_trade.png}{options: width="75\%" alt="Figure: mpn_cow_trade"}}
+\if{html}{\figure{mpn_cow_trade.png}{options: width="100\%" alt="Figure: mpn_cow_trade"}}
 \if{latex}{\figure{mpn_cow_trade.pdf}{options: width=7cm}}
 
 Two-mode matrix representing the membership of 116 states to 40 intergovernmental organizations (IGOs).

@@ -42,23 +42,23 @@ are particularly well- or poorly-connected.
 }
 \section{Functions}{
 \itemize{
-\item \code{tie_is_multiple}: Returns logical of which ties are multiples
+\item \code{tie_is_multiple()}: Returns logical of which ties are multiples
 
-\item \code{tie_is_loop}: Returns logical of which ties are loops
+\item \code{tie_is_loop()}: Returns logical of which ties are loops
 
-\item \code{tie_is_reciprocated}: Returns logical of which ties
+\item \code{tie_is_reciprocated()}: Returns logical of which ties
 are mutual/reciprocated
 
-\item \code{tie_is_bridge}: Returns logical of which ties cut
+\item \code{tie_is_bridge()}: Returns logical of which ties cut
 or act as articulation points in a network.
 
-\item \code{tie_is_max}: Returns logical of which ties
+\item \code{tie_is_max()}: Returns logical of which ties
 hold the maximum of some measure
 
-\item \code{tie_is_min}: Returns logical of which ties
+\item \code{tie_is_min()}: Returns logical of which ties
 hold the minimum of some measure
-}}
 
+}}
 \examples{
 tie_is_multiple(ison_marvel_relationships)
 tie_is_loop(ison_marvel_relationships)

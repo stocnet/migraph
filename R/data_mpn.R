@@ -106,19 +106,18 @@
 #' in Bristol, the participation of these individuals in major protest and civic events between 1990-2002,
 #' and the involvement of the civic organizations in these events.
 #'
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(mpn_bristol)
 #'   ggsave("man/figures/mpn_bristol.png")
 #'   ggsave("man/figures/mpn_bristol.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_bristol.png}{options: width="75\%" alt="Figure: mpn_bristol"}}
+#' \if{html}{\figure{mpn_bristol.png}{options: width="100\%" alt="Figure: mpn_bristol"}}
 #' \if{latex}{\figure{mpn_bristol.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name mpn_bristol
 #' @usage data(mpn_bristol)
-#' @details The data is presented as a `tbl_graph` object with 264 nodes and 1496 edges.
-#'   While represented as a two-mode network, it contains three levels:
+#' @details Although represented as a two-mode network, it contains three levels:
 #' \describe{
 #'   \item{1.}{150 Individuals, anonymised with numeric ID}
 #'   \item{2.}{97 Bristol civic organizations}
@@ -161,12 +160,12 @@
 #' a comparatively obscure body representing the interests of a number of
 #' European regional bodies at the EU institutions.
 #'
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(mpn_ryanair)
 #'   ggsave("man/figures/mpn_ryanair.png")
 #'   ggsave("man/figures/mpn_ryanair.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_ryanair.png}{options: width="75\%" alt="Figure: mpn_ryanair"}}
+#' \if{html}{\figure{mpn_ryanair.png}{options: width="100\%" alt="Figure: mpn_ryanair"}}
 #' \if{latex}{\figure{mpn_ryanair.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
@@ -211,12 +210,12 @@
 #' all three electoral cycles, then dichotomized the sums into no contribution
 #' (0) and any contribution (1).
 #'
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(mpn_DemSxP)
 #'   ggsave("man/figures/mpn_DemSxP.png")
 #'   ggsave("man/figures/mpn_DemSxP.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_DemSxP.png}{options: width="75\%" alt="Figure: mpn_DemSxP"}}
+#' \if{html}{\figure{mpn_DemSxP.png}{options: width="100\%" alt="Figure: mpn_DemSxP"}}
 #' \if{latex}{\figure{mpn_DemSxP.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
@@ -232,12 +231,12 @@
 #'   ```
 "mpn_DemSxP"
 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(mpn_RepSxP)
 #'   ggsave("man/figures/mpn_RepSxP.png")
 #'   ggsave("man/figures/mpn_RepSxP.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_RepSxP.png}{options: width="75\%" alt="Figure: mpn_RepSxP"}}
+#' \if{html}{\figure{mpn_RepSxP.png}{options: width="100\%" alt="Figure: mpn_RepSxP"}}
 #' \if{latex}{\figure{mpn_RepSxP.pdf}{options: width=7cm}}
 #' @rdname mpn_senate112
 #' @usage data(mpn_RepSxP)
@@ -247,12 +246,12 @@
 #'   ```
 "mpn_RepSxP"
 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(mpn_OverSxP)
 #'   ggsave("man/figures/mpn_OverSxP.png")
 #'   ggsave("man/figures/mpn_OverSxP.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_OverSxP.png}{options: width="75\%" alt="Figure: mpn_OverSxP"}}
+#' \if{html}{\figure{mpn_OverSxP.png}{options: width="100\%" alt="Figure: mpn_OverSxP"}}
 #' \if{latex}{\figure{mpn_OverSxP.pdf}{options: width=7cm}}
 #' @rdname mpn_senate112
 #' @usage data(mpn_OverSxP)
@@ -272,12 +271,12 @@
 #' The Germany data has 1369 respondents in 1990 and 503 in 2008.
 #' The UK data has 738 respondents in 1990 and 664 in 2008.
 #'
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(mpn_IT_1990)
 #'   ggsave("man/figures/mpn_IT_1990.png")
 #'   ggsave("man/figures/mpn_IT_1990.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_IT_1990.png}{options: width="75\%" alt="Figure: mpn_IT_1990"}}
+#' \if{html}{\figure{mpn_IT_1990.png}{options: width="100\%" alt="Figure: mpn_IT_1990"}}
 #' \if{latex}{\figure{mpn_IT_1990.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
@@ -313,56 +312,56 @@ NULL
 #' @usage data(mpn_IT_1990)
 "mpn_IT_1990"
 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(mpn_IT_2008)
 #'   ggsave("man/figures/mpn_IT_2008.png")
 #'   ggsave("man/figures/mpn_IT_2008.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_IT_2008.png}{options: width="75\%" alt="Figure: mpn_IT_2008"}}
+#' \if{html}{\figure{mpn_IT_2008.png}{options: width="100\%" alt="Figure: mpn_IT_2008"}}
 #' \if{latex}{\figure{mpn_IT_2008.pdf}{options: width=7cm}}
 #' @rdname mpn_evs
 #' @usage data(mpn_IT_2008)
 "mpn_IT_2008"
 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(mpn_DE_1990)
 #'   ggsave("man/figures/mpn_DE_1990.png")
 #'   ggsave("man/figures/mpn_DE_1990.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_DE_1990.png}{options: width="75\%" alt="Figure: mpn_DE_1990"}}
+#' \if{html}{\figure{mpn_DE_1990.png}{options: width="100\%" alt="Figure: mpn_DE_1990"}}
 #' \if{latex}{\figure{mpn_DE_1990.pdf}{options: width=7cm}}
 #' @rdname mpn_evs
 #' @usage data(mpn_DE_1990)
 "mpn_DE_1990"
 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(mpn_DE_2008)
 #'   ggsave("man/figures/mpn_DE_2008.png")
 #'   ggsave("man/figures/mpn_DE_2008.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_DE_2008.png}{options: width="75\%" alt="Figure: mpn_DE_2008"}}
+#' \if{html}{\figure{mpn_DE_2008.png}{options: width="100\%" alt="Figure: mpn_DE_2008"}}
 #' \if{latex}{\figure{mpn_DE_2008.pdf}{options: width=7cm}}
 #' @rdname mpn_evs
 #' @usage data(mpn_DE_2008)
 "mpn_DE_2008"
 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(mpn_UK_1990)
 #'   ggsave("man/figures/mpn_UK_1990.png")
 #'   ggsave("man/figures/mpn_UK_1990.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_UK_1990.png}{options: width="75\%" alt="Figure: mpn_UK_1990"}}
+#' \if{html}{\figure{mpn_UK_1990.png}{options: width="100\%" alt="Figure: mpn_UK_1990"}}
 #' \if{latex}{\figure{mpn_UK_1990.pdf}{options: width=7cm}}
 #' @rdname mpn_evs
 #' @usage data(mpn_UK_1990)
 "mpn_UK_1990"
 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(mpn_UK_2008)
 #'   ggsave("man/figures/mpn_UK_2008.png")
 #'   ggsave("man/figures/mpn_UK_2008.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_UK_2008.png}{options: width="75\%" alt="Figure: mpn_UK_2008"}}
+#' \if{html}{\figure{mpn_UK_2008.png}{options: width="100\%" alt="Figure: mpn_UK_2008"}}
 #' \if{latex}{\figure{mpn_UK_2008.pdf}{options: width=7cm}}
 #' @rdname mpn_evs
 #' @usage data(mpn_UK_2008)
@@ -382,12 +381,12 @@ NULL
 #' (Knoke et al., 2021). The value in each cell of the matrix represents the value of
 #' exports from the 116 row states to the 116 column states.
 #' 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(mpn_cow_trade)
 #'   ggsave("man/figures/mpn_cow_trade.png")
 #'   ggsave("man/figures/mpn_cow_trade.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_cow_trade.png}{options: width="75\%" alt="Figure: mpn_cow_trade"}}
+#' \if{html}{\figure{mpn_cow_trade.png}{options: width="100\%" alt="Figure: mpn_cow_trade"}}
 #' \if{latex}{\figure{mpn_cow_trade.pdf}{options: width=7cm}}
 #' @name mpn_cow
 #' @docType data
@@ -414,12 +413,12 @@ NULL
 #'   ```
 "mpn_cow_trade"
 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(mpn_cow_igo)
 #'   ggsave("man/figures/mpn_cow_igo.png")
 #'   ggsave("man/figures/mpn_cow_igo.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_cow_igo.png}{options: width="75\%" alt="Figure: mpn_cow_igo"}}
+#' \if{html}{\figure{mpn_cow_igo.png}{options: width="100\%" alt="Figure: mpn_cow_igo"}}
 #' \if{latex}{\figure{mpn_cow_igo.pdf}{options: width=7cm}}
 #' @rdname mpn_cow
 #' @details 

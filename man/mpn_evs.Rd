@@ -69,7 +69,7 @@ The Germany data has 1369 respondents in 1990 and 503 in 2008.
 The UK data has 738 respondents in 1990 and 664 in 2008.
 }
 \details{
-\if{html}{\figure{mpn_IT_1990.png}{options: width="75\%" alt="Figure: mpn_IT_1990"}}
+\if{html}{\figure{mpn_IT_1990.png}{options: width="100\%" alt="Figure: mpn_IT_1990"}}
 \if{latex}{\figure{mpn_IT_1990.pdf}{options: width=7cm}}
 }
 \references{

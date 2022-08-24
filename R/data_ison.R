@@ -27,7 +27,7 @@
 #' - **UnarmedCombat**: binary integer, 51 1 (yes) and 2 0 (no)
 #' - **ArmedCombat**: binary integer, 25 1 (yes) and 28 0 (no)
 #' 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_marvel_teams)
 #'   ggsave("man/figures/ison_marvel_teams.png")
 #'   ggsave("man/figures/ison_marvel_teams.pdf")
@@ -43,7 +43,7 @@
 #' with 683 team affiliations between them
 "ison_marvel_teams"
 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_marvel_relationships)
 #'   ggsave("man/figures/ison_marvel_relationships.png")
 #'   ggsave("man/figures/ison_marvel_relationships.pdf")
@@ -64,7 +64,7 @@
 #' for demonstration purposes as they do not describe a real world network.
 #' All examples contain named nodes.
 #'
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_mm)
 #'   ggsave("man/figures/ison_mm.png")
 #'   ggsave("man/figures/ison_mm.pdf")
@@ -78,7 +78,7 @@
 #' @format Directed two-mode `{igraph}` object with 6 nodes and 6 edges
 "ison_mm"
 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_bm)
 #'   ggsave("man/figures/ison_bm.png")
 #'   ggsave("man/figures/ison_bm.pdf")
@@ -90,7 +90,7 @@
 #' @format Directed two-mode `{igraph}` object with 8 nodes and 9 edges
 "ison_bm"
 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_mb)
 #'   ggsave("man/figures/ison_mb.png")
 #'   ggsave("man/figures/ison_mb.pdf")
@@ -102,7 +102,7 @@
 #' @format Directed two-mode `{igraph}` object with 8 nodes and 9 edges
 "ison_mb"
 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_bb)
 #'   ggsave("man/figures/ison_bb.png")
 #'   ggsave("man/figures/ison_bb.pdf")
@@ -126,7 +126,7 @@
 #' `social` consists of social interactions per hour,
 #' and `tasks` consists of task interactions per hour.
 #' 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_algebra)
 #'   ggsave("man/figures/ison_algebra.png")
 #'   ggsave("man/figures/ison_algebra.pdf")
@@ -153,7 +153,7 @@
 
 #' One-mode subset of the adolescent society (Coleman 1961)
 #'
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_adolescents)
 #'   ggsave("man/figures/ison_adolescents.png")
 #'   ggsave("man/figures/ison_adolescents.pdf")
@@ -191,7 +191,7 @@
 #'   which takes the value 1 if the individual sided with Mr. Hi after the fight 
 #'   and 2 if the individual sided with John A.
 #' 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_karateka)
 #'   ggsave("man/figures/ison_karateka.png")
 #'   ggsave("man/figures/ison_karateka.pdf")
@@ -223,7 +223,7 @@
 #' researchers (`Discipline`). Edge weights illustrate the number of emails
 #' sent from one academic to another over the studied time period.
 #' 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_networkers)
 #'   ggsave("man/figures/ison_networkers.png")
 #'   ggsave("man/figures/ison_networkers.pdf")
@@ -256,7 +256,7 @@
 #' This network should solely be used
 #' for demonstration purposes as it does not describe a real network.
 #'
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_brandes)
 #'   ggsave("man/figures/ison_brandes.png")
 #'   ggsave("man/figures/ison_brandes.pdf")
@@ -273,7 +273,7 @@
 #'   ```
 "ison_brandes"
 
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_brandes2)
 #'   ggsave("man/figures/ison_brandes2.png")
 #'   ggsave("man/figures/ison_brandes2.pdf")
@@ -297,7 +297,7 @@
 #' about the attendance pattern of women at informal social events
 #' during a 9 month period. Events and women are named.
 #'
-#'   ```{r, echo = FALSE, include = FALSE}
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_southern_women)
 #'   ggsave("man/figures/ison_southern_women.png")
 #'   ggsave("man/figures/ison_southern_women.pdf")

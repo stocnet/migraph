@@ -5,28 +5,28 @@
 \alias{mpn_elite_mex}
 \title{One-mode Mexican power elite database (Knoke 1990)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 35 nodes and 117 edges
-## #
-## # An undirected simple graph with 1 component
-## #
-## # Node Data: 35 × 8 (active)
-##   name     full_name     entry_year military in_mpn PlaceOfBirth   state  region
-##   <chr>    <chr>              <dbl>    <dbl>  <dbl> <chr>          <chr>   <dbl>
-## 1 Trevino  Trevino, Jac…       1910        1      0 Guerrero       Coahu…      1
-## 2 Madero   Madero, Fran…       1911        0      0 Parras de la … Coahu…      1
-## 3 Carranza Carranza, Ve…       1913        1      0 Cuatro Cieneg… Coahu…      1
-## 4 Aguilar  Aguilar, Can…       1918        1      0 Cordoba        Verac…      3
-## 5 Obregon  Obregon, Alv…       1920        1      0 Siquisiva, Na… Sonora      1
-## 6 Calles   Calles, Plut…       1924        1      0 Guaymas        Sonora      1
-## # … with 29 more rows
-## #
-## # Edge Data: 117 × 2
-##    from    to
-##   <int> <int>
-## 1     2     3
-## 2     2     5
-## 3     2     6
-## # … with 114 more rows
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 35 nodes and 117 edges
+#> #
+#> # An undirected simple graph with 1 component
+#> #
+#> # Node Data: 35 x 8 (active)
+#>   name     full_name            entry_year military in_mpn PlaceOf~ state region
+#>   <chr>    <chr>                     <dbl>    <dbl>  <dbl> <chr>    <chr>  <dbl>
+#> 1 Trevino  Trevino, Jacinto B.        1910        1      0 Guerrero Coah~      1
+#> 2 Madero   Madero, Francisco          1911        0      0 Parras ~ Coah~      1
+#> 3 Carranza Carranza, Venustiano       1913        1      0 Cuatro ~ Coah~      1
+#> 4 Aguilar  Aguilar, Candido           1918        1      0 Cordoba  Vera~      3
+#> 5 Obregon  Obregon, Alvaro            1920        1      0 Siquisi~ Sono~      1
+#> 6 Calles   Calles, Plutarco E.        1924        1      0 Guaymas  Sono~      1
+#> # ... with 29 more rows
+#> #
+#> # Edge Data: 117 x 2
+#>    from    to
+#>   <int> <int>
+#> 1     2     3
+#> 2     2     5
+#> 3     2     6
+#> # ... with 114 more rows
 }\if{html}{\out{</div>}}
 }
 \source{
@@ -57,7 +57,7 @@ José López Portillo (1976-82), Miguel de la Madrid (1982-88), and Carlos Salin
 who was also the son of another core member, Raúl Salinas Lozano).
 }
 \details{
-\if{html}{\figure{mpn_elite_mex.png}{options: width="75\%" alt="Figure: mpn_elite_mex"}}
+\if{html}{\figure{mpn_elite_mex.png}{options: width="100\%" alt="Figure: mpn_elite_mex"}}
 \if{latex}{\figure{mpn_elite_mex.pdf}{options: width=7cm}}
 }
 \keyword{datasets}
