@@ -106,6 +106,11 @@
 #' in Bristol, the participation of these individuals in major protest and civic events between 1990-2002,
 #' and the involvement of the civic organizations in these events.
 #'
+#' @docType data
+#' @keywords datasets
+#' @name mpn_bristol
+#' @usage data(mpn_bristol)
+#' @details 
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(mpn_bristol)
 #'   ggsave("man/figures/mpn_bristol.png")
@@ -113,11 +118,7 @@
 #'   ```
 #' \if{html}{\figure{mpn_bristol.png}{options: width="100\%" alt="Figure: mpn_bristol"}}
 #' \if{latex}{\figure{mpn_bristol.pdf}{options: width=7cm}}
-#' @docType data
-#' @keywords datasets
-#' @name mpn_bristol
-#' @usage data(mpn_bristol)
-#' @details Although represented as a two-mode network, it contains three levels:
+#' Although represented as a two-mode network, it contains three levels:
 #' \describe{
 #'   \item{1.}{150 Individuals, anonymised with numeric ID}
 #'   \item{2.}{97 Bristol civic organizations}
@@ -211,12 +212,12 @@
 #' (0) and any contribution (1).
 #'
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(mpn_DemSxP)
-#'   ggsave("man/figures/mpn_DemSxP.png")
-#'   ggsave("man/figures/mpn_DemSxP.pdf")
+#'   autographr(mpn_DemSxP) + autographr(mpn_RepSxP) + autographr(mpn_OverSxP)
+#'   ggsave("man/figures/mpn_senate.png")
+#'   ggsave("man/figures/mpn_senate.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_DemSxP.png}{options: width="100\%" alt="Figure: mpn_DemSxP"}}
-#' \if{latex}{\figure{mpn_DemSxP.pdf}{options: width=7cm}}
+#' \if{html}{\figure{mpn_senate.png}{options: width="100\%" alt="Figure: mpn_senate"}}
+#' \if{latex}{\figure{mpn_senate.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name mpn_senate112
@@ -231,13 +232,6 @@
 #'   ```
 "mpn_DemSxP"
 
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(mpn_RepSxP)
-#'   ggsave("man/figures/mpn_RepSxP.png")
-#'   ggsave("man/figures/mpn_RepSxP.pdf")
-#'   ```
-#' \if{html}{\figure{mpn_RepSxP.png}{options: width="100\%" alt="Figure: mpn_RepSxP"}}
-#' \if{latex}{\figure{mpn_RepSxP.pdf}{options: width=7cm}}
 #' @rdname mpn_senate112
 #' @usage data(mpn_RepSxP)
 #' @format 
@@ -246,13 +240,6 @@
 #'   ```
 "mpn_RepSxP"
 
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(mpn_OverSxP)
-#'   ggsave("man/figures/mpn_OverSxP.png")
-#'   ggsave("man/figures/mpn_OverSxP.pdf")
-#'   ```
-#' \if{html}{\figure{mpn_OverSxP.png}{options: width="100\%" alt="Figure: mpn_OverSxP"}}
-#' \if{latex}{\figure{mpn_OverSxP.pdf}{options: width=7cm}}
 #' @rdname mpn_senate112
 #' @usage data(mpn_OverSxP)
 #' @format 
@@ -272,12 +259,14 @@
 #' The UK data has 738 respondents in 1990 and 664 in 2008.
 #'
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(mpn_IT_1990)
-#'   ggsave("man/figures/mpn_IT_1990.png")
-#'   ggsave("man/figures/mpn_IT_1990.pdf")
+#'   y1 <- autographr(mpn_IT_1990) + autographr(mpn_DE_1990) + autographr(mpn_UK_1990)
+#'   y2 <- autographr(mpn_IT_2008) + autographr(mpn_DE_2008) + autographr(mpn_UK_2008)
+#'   y1 / y2
+#'   ggsave("man/figures/mpn_evs.png")
+#'   ggsave("man/figures/mpn_evs.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_IT_1990.png}{options: width="100\%" alt="Figure: mpn_IT_1990"}}
-#' \if{latex}{\figure{mpn_IT_1990.pdf}{options: width=7cm}}
+#' \if{html}{\figure{mpn_evs.png}{options: width="100\%" alt="Figure: mpn_evs"}}
+#' \if{latex}{\figure{mpn_evs.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name mpn_evs
@@ -312,57 +301,22 @@ NULL
 #' @usage data(mpn_IT_1990)
 "mpn_IT_1990"
 
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(mpn_IT_2008)
-#'   ggsave("man/figures/mpn_IT_2008.png")
-#'   ggsave("man/figures/mpn_IT_2008.pdf")
-#'   ```
-#' \if{html}{\figure{mpn_IT_2008.png}{options: width="100\%" alt="Figure: mpn_IT_2008"}}
-#' \if{latex}{\figure{mpn_IT_2008.pdf}{options: width=7cm}}
 #' @rdname mpn_evs
 #' @usage data(mpn_IT_2008)
 "mpn_IT_2008"
 
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(mpn_DE_1990)
-#'   ggsave("man/figures/mpn_DE_1990.png")
-#'   ggsave("man/figures/mpn_DE_1990.pdf")
-#'   ```
-#' \if{html}{\figure{mpn_DE_1990.png}{options: width="100\%" alt="Figure: mpn_DE_1990"}}
-#' \if{latex}{\figure{mpn_DE_1990.pdf}{options: width=7cm}}
 #' @rdname mpn_evs
 #' @usage data(mpn_DE_1990)
 "mpn_DE_1990"
 
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(mpn_DE_2008)
-#'   ggsave("man/figures/mpn_DE_2008.png")
-#'   ggsave("man/figures/mpn_DE_2008.pdf")
-#'   ```
-#' \if{html}{\figure{mpn_DE_2008.png}{options: width="100\%" alt="Figure: mpn_DE_2008"}}
-#' \if{latex}{\figure{mpn_DE_2008.pdf}{options: width=7cm}}
 #' @rdname mpn_evs
 #' @usage data(mpn_DE_2008)
 "mpn_DE_2008"
 
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(mpn_UK_1990)
-#'   ggsave("man/figures/mpn_UK_1990.png")
-#'   ggsave("man/figures/mpn_UK_1990.pdf")
-#'   ```
-#' \if{html}{\figure{mpn_UK_1990.png}{options: width="100\%" alt="Figure: mpn_UK_1990"}}
-#' \if{latex}{\figure{mpn_UK_1990.pdf}{options: width=7cm}}
 #' @rdname mpn_evs
 #' @usage data(mpn_UK_1990)
 "mpn_UK_1990"
 
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(mpn_UK_2008)
-#'   ggsave("man/figures/mpn_UK_2008.png")
-#'   ggsave("man/figures/mpn_UK_2008.pdf")
-#'   ```
-#' \if{html}{\figure{mpn_UK_2008.png}{options: width="100\%" alt="Figure: mpn_UK_2008"}}
-#' \if{latex}{\figure{mpn_UK_2008.pdf}{options: width=7cm}}
 #' @rdname mpn_evs
 #' @usage data(mpn_UK_2008)
 "mpn_UK_2008"
@@ -375,19 +329,32 @@ NULL
 #' `mpn_cow_trade` is a one-mode matrix representing the trade relations between 116 states. 
 #' The data is derived from the Correlates of War Project (COW) Trade Dataset (v3.0),
 #' which contains the annual dyadic and national trade figures for states (listed in COW)
-#' between 1870 to 2009. This network is based only on the dyadic trade figures in 2009 for the
-#' 116 states listed in Appendix 7.1 in 
+#' between 1870 to 2009.
+#' This network is based only on the dyadic trade figures in 2009 for the 116 states
+#' listed in Appendix 7.1 in 
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
-#' (Knoke et al., 2021). The value in each cell of the matrix represents the value of
-#' exports from the 116 row states to the 116 column states.
+#' (Knoke et al., 2021).
+#' The value in each cell of the matrix represents the value of exports
+#' from the 116 row states to the 116 column states.
+#' 
+#' `mpn_cow_igo` is a two-mode graph representing the membership of 116 states
+#' in 40 intergovernmental organizations (IGOs).
+#' The data is derived from the Correlates of War Project (COW)
+#' Intergovernmental Organizations Dataset (v3.0),
+#' which contains information about intergovernmental organizations from 1815-2014,
+#' such as founding year and membership.
+#' This network contains only a subset of the states and IGOs listed in COW,
+#' with 116 states listed in Appendix 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
+#' and 40 IGOs from Table 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
+#' that also overlap with the COW dataset (Knoke et al., 2021).
 #' 
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(mpn_cow_trade)
-#'   ggsave("man/figures/mpn_cow_trade.png")
-#'   ggsave("man/figures/mpn_cow_trade.pdf")
+#'   autographr(mpn_cow_trade) + autographr(mpn_cow_igo)
+#'   ggsave("man/figures/mpn_cow.png")
+#'   ggsave("man/figures/mpn_cow.pdf")
 #'   ```
-#' \if{html}{\figure{mpn_cow_trade.png}{options: width="100\%" alt="Figure: mpn_cow_trade"}}
-#' \if{latex}{\figure{mpn_cow_trade.pdf}{options: width=7cm}}
+#' \if{html}{\figure{mpn_cow.png}{options: width="100\%" alt="Figure: mpn_cow"}}
+#' \if{latex}{\figure{mpn_cow.pdf}{options: width=7cm}}
 #' @name mpn_cow
 #' @docType data
 #' @keywords datasets
@@ -413,23 +380,9 @@ NULL
 #'   ```
 "mpn_cow_trade"
 
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(mpn_cow_igo)
-#'   ggsave("man/figures/mpn_cow_igo.png")
-#'   ggsave("man/figures/mpn_cow_igo.pdf")
-#'   ```
-#' \if{html}{\figure{mpn_cow_igo.png}{options: width="100\%" alt="Figure: mpn_cow_igo"}}
-#' \if{latex}{\figure{mpn_cow_igo.pdf}{options: width=7cm}}
 #' @rdname mpn_cow
-#' @details 
-#' Two-mode matrix representing the membership of 116 states to 40 intergovernmental organizations (IGOs).
-#' The data is derived from the Correlates of War Project (COW) Intergovernmental Organizations Dataset (v3.0),
-#' which contains information about intergovernmental organizations from 1815-2014, such as founding year and membership.
-#' This network contains only a subset of the states and IGOs listed in COW, with 116 states listed in Appendix 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
-#' and 40 IGOs from Table 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
-#' that also overlap with the COW dataset (Knoke et al., 2021).
 #' @usage data(mpn_cow_igo)
-#' @source 
+#' @source
 #' The Correlates of War Project. 2019.
 #' \href{https://correlatesofwar.org/data-sets/IGOs}{\emph{Intergovernmental Organization v3}}.
 #' @references 
