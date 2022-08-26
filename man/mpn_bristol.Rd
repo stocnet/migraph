@@ -47,7 +47,6 @@ and the involvement of the civic organizations in these events.
 \details{
 \if{html}{\figure{mpn_bristol.png}{options: width="100\%" alt="Figure: mpn_bristol"}}
 \if{latex}{\figure{mpn_bristol.pdf}{options: width=7cm}}
-
 Although represented as a two-mode network, it contains three levels:
 \describe{
 \item{1.}{150 Individuals, anonymised with numeric ID}

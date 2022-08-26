@@ -92,7 +92,7 @@ autographr <- auto_graph <- function(object,
     } 
   }
   p <- ggraph::ggraph(lo) + ggplot2::theme_void()
-  
+
   if (labels & is_labelled(g)){
     if(layout %in% c("concentric", "circle")){
       # https://stackoverflow.com/questions/57000414/ggraph-node-labels-truncated?rq=1
@@ -108,7 +108,8 @@ autographr <- auto_graph <- function(object,
                                        hjust = hj,
                                        angle = angles) +
         ggplot2::coord_cartesian(xlim=c(-1.2,1.2), ylim=c(-1.2,1.2))
-    } else if(layout %in% c("bipartite", "railway")){
+    } else if(layout %in% c("bipartite", "railway") | 
+              (layout == "hierarchy" & length(unique(lo[,2])) <= 2)){
       p <- p + ggraph::geom_node_text(ggplot2::aes(label = name),
                                       size = 2,
                                       hjust = "outward",
