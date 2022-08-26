@@ -17,10 +17,43 @@
 #' protein-protein interaction networks". 
 #' _Nucleic Acids Research_, 42 (1) e6.
 #' @examples 
-#' autographr(mpn_elite_mex, layout = "concentric")
-#' autographr(mpn_elite_usa_advice, layout = "concentric")
-#' autographr(mpn_elite_usa_advice, layout = "bipartite")
-#' autographr(mpn_elite_usa_advice, layout = "railway")
+#' autographr(ison_southern_women, "bipartite") / 
+#' autographr(ison_southern_women, "hierarchy") /
+#' autographr(ison_southern_women, "railway") /
+#' autographr(ison_southern_women, "concentric")
+#' autographr(ison_karateka, "sugiyama") + 
+#' autographr(ison_karateka, "hierarchy") 
+#' @export
+layout_tbl_graph_hierarchy <- function(object,
+                                 circular = FALSE, times = 1000){
+  prep <- as_matrix(object, twomode = FALSE)
+  if(anyDuplicated(rownames(prep))){
+    rownames(prep) <- seq_len(nrow(prep))
+    colnames(prep) <- seq_len(ncol(prep))
+  }
+  if(any(prep<0)) prep[prep<0] <- 0
+  out <- graph::graphAM(prep,
+                        edgemode = ifelse(is_directed(object), 
+                                          'directed', 'undirected')) %>%
+    Rgraphviz::layoutGraph(layoutType = 'dot')
+  nodeX <- .rescale(out@renderInfo@nodes$nodeX)
+  nodeY <- .rescale(out@renderInfo@nodes$nodeY)
+  # nodeY <- abs(nodeY - max(nodeY))
+  .to_lo(cbind(nodeX, nodeY))
+}
+
+#' @rdname partition_layouts
+#' @importFrom igraph layout.bipartite
+#' @export
+layout_tbl_graph_railway <- function(object,
+                                     circular = FALSE, times = 1000){
+  res <- layout_tbl_graph_hierarchy(as_igraph(object))
+  res$x <- c(match(res[res[,2]==1,1], sort(res[res[,2]==1,1])),
+             match(res[res[,2]==0,1], sort(res[res[,2]==0,1])))
+  res
+}
+
+#' @rdname partition_layouts
 #' @export
 layout_tbl_graph_concentric <- function(object, membership = NULL, radius = NULL, 
                                         order.by = NULL, 
@@ -52,8 +85,7 @@ layout_tbl_graph_concentric <- function(object, membership = NULL, radius = NULL
     for(k in 2:length(membership)){
       xnet <- as_matrix(to_multilevel(object))[membership[[k-1]], 
                                                membership[[k]]]
-      lo <- igraph::layout.bipartite(as_igraph(xnet, twomode = TRUE), maxiter = times)
-      lo <- as.data.frame(lo)
+      lo <- layout_tbl_graph_hierarchy(as_igraph(xnet, twomode = TRUE))
       lo$names <- node_names(object)
       if(ncol(lo)==2) lo[,1] <- 1:nrow(lo)
       order.values <- lapply(1:0, function(x)
@@ -71,21 +103,15 @@ layout_tbl_graph_concentric <- function(object, membership = NULL, radius = NULL
     coords <- getCoordinates(l, r)
     res[l, ] <- coords
   }
-  res <- as.data.frame(res)
-  names(res) <- c("x","y")
-  res
+  .to_lo(res)
 }
 
-#' @rdname partition_layouts
-#' @importFrom igraph layout.bipartite
-#' @export
-layout_tbl_graph_railway <- function(object,
-                                     circular = FALSE, times = 1000){
-  if(!is_twomode(object)) stop("Railway layouts currently only work with two-mode networks.")
-  lo <- igraph::layout.bipartite(as_igraph(object), maxiter = times)
-  lo[,1] <- c(order(lo[lo[,2]==1,1]),
-          order(lo[lo[,2]==0,1]))
-  res <- as.data.frame(lo)
+.rescale <- function(vector){
+  (vector - min(vector)) / (max(vector) - min(vector))
+}
+
+.to_lo <- function(mat){
+  res <- as.data.frame(mat)
   names(res) <- c("x","y")
   res
 }

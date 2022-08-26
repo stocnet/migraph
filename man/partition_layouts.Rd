@@ -2,8 +2,9 @@
 % Please edit documentation in R/viz_layout_partition.R
 \name{partition_layouts}
 \alias{partition_layouts}
-\alias{layout_tbl_graph_concentric}
+\alias{layout_tbl_graph_hierarchy}
 \alias{layout_tbl_graph_railway}
+\alias{layout_tbl_graph_concentric}
 \title{Layout algorithms based on bi- or other partitions}
 \source{
 Diego Diez, Andrew P. Hutchins and Diego Miranda-Saavedra. 2014.
@@ -12,6 +13,10 @@ protein-protein interaction networks".
 \emph{Nucleic Acids Research}, 42 (1) e6.
 }
 \usage{
+layout_tbl_graph_hierarchy(object, circular = FALSE, times = 1000)
+
+layout_tbl_graph_railway(object, circular = FALSE, times = 1000)
+
 layout_tbl_graph_concentric(
   object,
   membership = NULL,
@@ -20,8 +25,6 @@ layout_tbl_graph_concentric(
   circular = FALSE,
   times = 1000
 )
-
-layout_tbl_graph_railway(object, circular = FALSE, times = 1000)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -50,10 +53,12 @@ the number of edge crossings.}
 Layout algorithms based on bi- or other partitions
 }
 \examples{
-autographr(mpn_elite_mex, layout = "concentric")
-autographr(mpn_elite_usa_advice, layout = "concentric")
-autographr(mpn_elite_usa_advice, layout = "bipartite")
-autographr(mpn_elite_usa_advice, layout = "railway")
+autographr(ison_southern_women, "bipartite") / 
+autographr(ison_southern_women, "hierarchy") /
+autographr(ison_southern_women, "railway") /
+autographr(ison_southern_women, "concentric")
+autographr(ison_karateka, "sugiyama") + 
+autographr(ison_karateka, "hierarchy") 
 }
 \seealso{
 Other mapping: 
