@@ -365,13 +365,22 @@ to_simplex.matrix <- function(object) {
 to_onemode <- function(object) UseMethod("to_onemode")
 
 #' @export
+to_onemode.matrix <- function(object) {
+  if (nrow(object) != ncol(object)) 
+    object <- rbind(cbind(object, matrix(0, nrow(object), nrow(object))),
+                    cbind(matrix(0, ncol(object), ncol(object)), object))
+  object
+}
+
+#' @export
 to_onemode.tbl_graph <- function(object) {
   as_tidygraph(to_onemode(as_igraph(object)))
 }
 
 #' @export
 to_onemode.igraph <- function(object) {
-  if ("type" %in% igraph::vertex_attr_names(object)) object <- igraph::delete_vertex_attr(object, "type")
+  if ("type" %in% igraph::vertex_attr_names(object)) 
+    object <- igraph::delete_vertex_attr(object, "type")
   object
 }
 
