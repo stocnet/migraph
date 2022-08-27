@@ -1,6 +1,7 @@
 #' Layout algorithms based on bi- or other partitions
 #' @name partition_layouts
 #' @inheritParams transform
+#' @inheritParams grid_layouts
 #' @param radius A vector of radii at which the concentric circles
 #'   should be located.
 #'   By default this is equal placement around an empty centre, 
@@ -26,14 +27,22 @@
 #' @export
 layout_tbl_graph_hierarchy <- function(object,
                                  circular = FALSE, times = 1000){
+  
+  if (!requireNamespace("BiocManager", quietly = TRUE)){
+    install.packages("BiocManager")
+  }
+  if (!requireNamespace("Rgraphviz", quietly = TRUE)){
+    BiocManager::install("Rgraphviz")
+  }
+  
   prep <- as_matrix(object, twomode = FALSE)
   if(anyDuplicated(rownames(prep))){
     rownames(prep) <- seq_len(nrow(prep))
     colnames(prep) <- seq_len(ncol(prep))
   }
   if(any(prep<0)) prep[prep<0] <- 0
-  out <- graph::graphAM(prep,
-                        edgemode = ifelse(is_directed(object), 
+  out <- new("graphAM", prep,
+             edgemode = ifelse(is_directed(object), 
                                           'directed', 'undirected')) %>%
     Rgraphviz::layoutGraph(layoutType = 'dot')
   nodeX <- .rescale(out@renderInfo@nodes$nodeX)

@@ -44,6 +44,7 @@ Suggests:
     knitr,
     oaqc,
     readxl,
+    Rgraphviz,
     rmarkdown,
     roxygen2,
     testthat

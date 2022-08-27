@@ -36,6 +36,11 @@ layout_tbl_graph_concentric(
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
 
+\item{circular}{Should the layout be transformed into a radial representation.
+Only possible for some layouts. Defaults to FALSE}
+
+\item{times}{Maximum number of iterations, where appropriate}
+
 \item{membership}{A vector of partition memberships.}
 
 \item{radius}{A vector of radii at which the concentric circles
