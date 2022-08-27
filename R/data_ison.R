@@ -26,14 +26,6 @@
 #' - **Omnilingual**: binary integer, 8 1 (yes) and 45 0 (no)
 #' - **UnarmedCombat**: binary integer, 51 1 (yes) and 2 0 (no)
 #' - **ArmedCombat**: binary integer, 25 1 (yes) and 28 0 (no)
-#' 
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(ison_marvel_teams)
-#'   ggsave("man/figures/ison_marvel_teams.png")
-#'   ggsave("man/figures/ison_marvel_teams.pdf")
-#'   ```
-#' \if{html}{\figure{ison_marvel_teams.png}{options: width="75\%" alt="Figure: ison_marvel_teams"}}
-#' \if{latex}{\figure{ison_marvel_teams.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_marvel

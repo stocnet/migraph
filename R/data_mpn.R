@@ -210,14 +210,6 @@
 #' primary and the general election). We aggregated the contributions across
 #' all three electoral cycles, then dichotomized the sums into no contribution
 #' (0) and any contribution (1).
-#'
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(mpn_DemSxP) + autographr(mpn_RepSxP) + autographr(mpn_OverSxP)
-#'   ggsave("man/figures/mpn_senate.png")
-#'   ggsave("man/figures/mpn_senate.pdf")
-#'   ```
-#' \if{html}{\figure{mpn_senate.png}{options: width="100\%" alt="Figure: mpn_senate"}}
-#' \if{latex}{\figure{mpn_senate.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name mpn_senate112
@@ -257,16 +249,6 @@
 #' and 2008. The Italy data has 658 respondents in 1990 and 540 in 2008.
 #' The Germany data has 1369 respondents in 1990 and 503 in 2008.
 #' The UK data has 738 respondents in 1990 and 664 in 2008.
-#'
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   y1 <- autographr(mpn_IT_1990) + autographr(mpn_DE_1990) + autographr(mpn_UK_1990)
-#'   y2 <- autographr(mpn_IT_2008) + autographr(mpn_DE_2008) + autographr(mpn_UK_2008)
-#'   y1 / y2
-#'   ggsave("man/figures/mpn_evs.png")
-#'   ggsave("man/figures/mpn_evs.pdf")
-#'   ```
-#' \if{html}{\figure{mpn_evs.png}{options: width="100\%" alt="Figure: mpn_evs"}}
-#' \if{latex}{\figure{mpn_evs.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name mpn_evs
@@ -347,14 +329,6 @@ NULL
 #' with 116 states listed in Appendix 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
 #' and 40 IGOs from Table 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
 #' that also overlap with the COW dataset (Knoke et al., 2021).
-#' 
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(mpn_cow_trade) + autographr(mpn_cow_igo)
-#'   ggsave("man/figures/mpn_cow.png")
-#'   ggsave("man/figures/mpn_cow.pdf")
-#'   ```
-#' \if{html}{\figure{mpn_cow.png}{options: width="100\%" alt="Figure: mpn_cow"}}
-#' \if{latex}{\figure{mpn_cow.pdf}{options: width=7cm}}
 #' @name mpn_cow
 #' @docType data
 #' @keywords datasets
