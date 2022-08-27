@@ -95,9 +95,6 @@ This network contains only a subset of the states and IGOs listed in COW,
 with 116 states listed in Appendix 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
 and 40 IGOs from Table 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
 that also overlap with the COW dataset (Knoke et al., 2021).
-
-\if{html}{\figure{mpn_cow.png}{options: width="100\%" alt="Figure: mpn_cow"}}
-\if{latex}{\figure{mpn_cow.pdf}{options: width=7cm}}
 }
 \references{
 Barbieri, Katherine, Omar M. G. Keshk, and Brian Pollins. 2009.

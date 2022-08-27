@@ -53,8 +53,5 @@ Additional nodal variables have been coded and included by Dr Umut Yüksel:
 \item \strong{UnarmedCombat}: binary integer, 51 1 (yes) and 2 0 (no)
 \item \strong{ArmedCombat}: binary integer, 25 1 (yes) and 28 0 (no)
 }
-
-\if{html}{\figure{ison_marvel_teams.png}{options: width="75\%" alt="Figure: ison_marvel_teams"}}
-\if{latex}{\figure{ison_marvel_teams.pdf}{options: width=7cm}}
 }
 \keyword{datasets}

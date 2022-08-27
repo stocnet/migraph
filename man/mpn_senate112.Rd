@@ -107,9 +107,6 @@ during a campaign was for $10,000 (the legal maximum is $5,000 each for a
 primary and the general election). We aggregated the contributions across
 all three electoral cycles, then dichotomized the sums into no contribution
 (0) and any contribution (1).
-
-\if{html}{\figure{mpn_senate.png}{options: width="100\%" alt="Figure: mpn_senate"}}
-\if{latex}{\figure{mpn_senate.pdf}{options: width=7cm}}
 }
 \references{
 Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.

@@ -68,10 +68,6 @@ and 2008. The Italy data has 658 respondents in 1990 and 540 in 2008.
 The Germany data has 1369 respondents in 1990 and 503 in 2008.
 The UK data has 738 respondents in 1990 and 664 in 2008.
 }
-\details{
-\if{html}{\figure{mpn_evs.png}{options: width="100\%" alt="Figure: mpn_evs"}}
-\if{latex}{\figure{mpn_evs.pdf}{options: width=7cm}}
-}
 \references{
 EVS (2020). European Values Study Longitudinal Data File 1981-2008 (EVS 1981-2008).
 GESIS Data Archive, Cologne. ZA4804 Data file Version 3.1.0,
