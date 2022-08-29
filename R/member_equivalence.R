@@ -141,7 +141,7 @@ node_automorphic_equivalence <- function(object,
 }
 
 k_strict <- function(hc, object){
-  zero_merged <- hc$merge[hc$height == 0,]
+  zero_merged <- hc$merge[round(hc$height,4) == 0,]
   k <- nrow(zero_merged) + graph_nodes(object) - sum(zero_merged < 0) + sum(zero_merged > 0)
   k
 }
