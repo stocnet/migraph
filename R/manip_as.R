@@ -144,11 +144,11 @@ as_edgelist.network.goldfish <- function(object,
 #' @rdname as
 #' @export
 as_matrix <- function(object,
-                      twomode = FALSE) UseMethod("as_matrix")
+                      twomode = NULL) UseMethod("as_matrix")
 
 #' @export
 as_matrix.data.frame <- function(object,
-                                 twomode = FALSE){
+                                 twomode = NULL){
   if ("tbl_df" %in% class(object)) object <- as.data.frame(object)
   
   if (ncol(object) == 2 | !is_weighted(object)) {
@@ -188,14 +188,14 @@ as_matrix.data.frame <- function(object,
 
 #' @export
 as_matrix.matrix <- function(object,
-                             twomode = FALSE) {
+                             twomode = NULL) {
   object
 }
 
 #' @export
 as_matrix.igraph <- function(object,
-                             twomode = FALSE) {
-  if (is_twomode(object)) {
+                             twomode = NULL) {
+  if ((!is.null(twomode) && twomode) | (is.null(twomode) & is_twomode(object))) {
     if (is_weighted(object) | is_signed(object)) {
       mat <- igraph::as_incidence_matrix(object, sparse = FALSE,
                                          attr = igraph::edge_attr_names(object)[[1]])
@@ -217,13 +217,13 @@ as_matrix.igraph <- function(object,
 
 #' @export
 as_matrix.tbl_graph <- function(object,
-                                twomode = FALSE) {
-  as_matrix(as_igraph(object))
+                                twomode = NULL) {
+  as_matrix(as_igraph(object), twomode = twomode)
 }
 
 #' @export
 as_matrix.network <- function(object,
-                              twomode = FALSE) {
+                              twomode = NULL) {
   if (network::is.bipartite(object)) {
     if ("weight" %in% network::list.edge.attributes(object)) {
       network::as.matrix.network(object,
@@ -471,6 +471,8 @@ as_tidygraph.network.goldfish <- function(object,
 #' @export
 as_tidygraph.siena <- function(object,
                             twomode = FALSE) {
+  edges <- NULL
+  orig <- NULL
   out <- as_igraph(object$depvars$mynet[,,1])
   for(d in 2:dim(object$depvars$mynet)[3]){
     out <- join_ties(out, as_igraph(object$depvars$mynet[,,d]), 

@@ -12,7 +12,7 @@
 \usage{
 as_edgelist(object, twomode = FALSE)
 
-as_matrix(object, twomode = FALSE)
+as_matrix(object, twomode = NULL)
 
 as_igraph(object, twomode = FALSE)
 
