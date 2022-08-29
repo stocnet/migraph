@@ -111,13 +111,6 @@
 #' @name mpn_bristol
 #' @usage data(mpn_bristol)
 #' @details 
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(mpn_bristol)
-#'   ggsave("man/figures/mpn_bristol.png")
-#'   ggsave("man/figures/mpn_bristol.pdf")
-#'   ```
-#' \if{html}{\figure{mpn_bristol.png}{options: width="100\%" alt="Figure: mpn_bristol"}}
-#' \if{latex}{\figure{mpn_bristol.pdf}{options: width=7cm}}
 #' Although represented as a two-mode network, it contains three levels:
 #' \describe{
 #'   \item{1.}{150 Individuals, anonymised with numeric ID}

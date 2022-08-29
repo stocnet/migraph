@@ -198,10 +198,8 @@
 #' 
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_networkers)
-#'   ggsave("man/figures/ison_networkers.png")
 #'   ggsave("man/figures/ison_networkers.pdf")
 #'   ```
-#' \if{html}{\figure{ison_networkers.png}{options: width="75\%" alt="Figure: ison_networkers"}}
 #' \if{latex}{\figure{ison_networkers.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets

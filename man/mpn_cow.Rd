@@ -31,28 +31,28 @@
 #> # ... with 11,486 more rows
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 156 nodes and 862 edges
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 152 nodes and 839 edges
 #> #
-#> # A bipartite simple graph with 1 component
+#> # A directed acyclic simple graph with 1 component
 #> #
-#> # Node Data: 156 x 2 (active)
-#>   type  name       
-#>   <lgl> <chr>      
-#> 1 FALSE Afghanistan
-#> 2 FALSE Albania    
-#> 3 FALSE Algeria    
-#> 4 FALSE Angola     
-#> 5 FALSE Argentina  
-#> 6 FALSE Australia  
-#> # ... with 150 more rows
+#> # Node Data: 152 x 3 (active)
+#>   name        type  polity2
+#>   <chr>       <lgl>   <dbl>
+#> 1 Afghanistan FALSE      -7
+#> 2 Albania     FALSE       5
+#> 3 Algeria     FALSE      -3
+#> 4 Angola      FALSE      -6
+#> 5 Argentina   FALSE       8
+#> 6 Australia   FALSE      10
+#> # ... with 146 more rows
 #> #
-#> # Edge Data: 862 x 2
-#>    from    to
-#>   <int> <int>
-#> 1     1   121
-#> 2     1   132
-#> 3     1   139
-#> # ... with 859 more rows
+#> # Edge Data: 839 x 3
+#>    from    to weight
+#>   <int> <int>  <dbl>
+#> 1     1   113      1
+#> 2     1   114      1
+#> 3     1   115      0
+#> # ... with 836 more rows
 }\if{html}{\out{</div>}}
 }
 \source{

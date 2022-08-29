@@ -43,7 +43,6 @@ include the number of citations (\code{Citations}) and the discipline of the
 researchers (\code{Discipline}). Edge weights illustrate the number of emails
 sent from one academic to another over the studied time period.
 
-\if{html}{\figure{ison_networkers.png}{options: width="75\%" alt="Figure: ison_networkers"}}
 \if{latex}{\figure{ison_networkers.pdf}{options: width=7cm}}
 }
 \references{
