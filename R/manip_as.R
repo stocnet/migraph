@@ -470,15 +470,73 @@ as_tidygraph.network.goldfish <- function(object,
 
 #' @export
 as_tidygraph.siena <- function(object,
-                            twomode = FALSE) {
+                               twomode = FALSE) {
   edges <- NULL
   orig <- NULL
-  out <- as_igraph(object$depvars$mynet[,,1])
-  for(d in 2:dim(object$depvars$mynet)[3]){
-    out <- join_ties(out, as_igraph(object$depvars$mynet[,,d]), 
+
+  # identify dyadic and non-dyadic depvars
+  net <- lapply(object$depvars, function(x) {
+    is.matrix(x[,,1])
+  })
+  dyadic <- names(which(net == TRUE))
+  # add in first network as base
+  out <- as_igraph(object$depvars[[dyadic[1]]][,,1]) # first time period
+  out <- add_node_attribute(out, "name", igraph::V(out))
+  # add ties from rest of time periods
+  for(d in 2:dim(object$depvars[[dyadic[1]]])[3]){
+    out <- join_ties(out, as_igraph(object$depvars[[dyadic[1]]][,,d]), 
                      attr_name = paste0("t",d))
+    out <- out %>% tidygraph::activate(edges) %>% dplyr::rename(t1 = orig)
   }
-  out <- out %>% activate(edges) %>% rename(t1 = orig)
+  # add the rest of the dyadic depvars
+  if (length(dyadic) > 1) {
+    for (l in 2:length(dyadic)) {
+      for (d in 2:dim(object$depvars[[dyadic[l]]])[3]) {
+        out <- join_ties(out, as_igraph(object$depvars[[dyadic[l]]][,,d]), 
+                         attr_name = paste0(names(object$depvars)[[dyadic[l]]],
+                                            "_", "t",d))
+      }
+    }
+  } else {
+    # add non-dyadic depvars as attributes
+    nondyad <- names(which(net == FALSE))
+    if (length(nondyad) > 1) {
+      for (l in 2:length(nondyad)) {
+        for (d in 1:dim(object$depvars[[nondyad[l]]])[3]) {
+          out <- add_node_attribute(out,
+                                    attr_name = paste0(names(object$depvars)[[nondyad[l]]],
+                                                       "_", "t",d),
+                                    object$depvars[[nondyad[l]]][,,d])
+        }
+      }
+    } else {
+      for(d in 1:dim(object$depvars[[nondyad[1]]])[3]){
+        out <- add_node_attribute(out, paste0(names(object$depvars)[[nondyad[1]]], "_", "t", d),
+                                  object$depvars[[nondyad[1]]][,,d])
+      }
+    }
+  }
+  # add cCovar
+  for (k in seq_len(length(object$cCovars))) {
+    out <- add_node_attribute(out, paste0(names(object$cCovars)[k]),
+                              object$cCovars[k])
+  }
+  # add vCovar
+  for(d in 1:dim(object$vCovars)[3]) {
+    out <- add_node_attribute(out, paste0(names(object$vCovars), d),
+                              object$vCovars[,,d])
+  }
+  # add dycCovar
+  for (k in seq_len(length(object$dycCovars))) {
+    out <- join_ties(out, as_igraph(object$dycCovars[k]), 
+                     attr_name = paste0(names(object$dycCovars)[k]))
+  }
+  # add dyvCovars
+  for(d in 1:dim(data$dyvCovars[[1]])[3]){
+    out <- join_ties(out, as_igraph(object$dyvCovars[[1]][,,d]), 
+                     attr_name = paste0(paste0(names(object$dycCovars)),
+                                        "_", "t",d))
+  }
 }
 
 # Network ####
