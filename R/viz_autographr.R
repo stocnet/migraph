@@ -83,6 +83,7 @@ autographr <- auto_graph <- function(object,
 #' @importFrom igraph get.vertex.attribute
 #' @importFrom ggplot2 theme_void
 .graph_layout <- function(g, layout, labels){
+  name <- NULL
   lo <- ggraph::create_layout(g, layout)
   if ("graph" %in% names(attributes(lo))) {
     if (!setequal(names(as.data.frame(attr(lo, "graph"))), names(lo))) {
@@ -155,6 +156,7 @@ autographr <- auto_graph <- function(object,
   #     edge_linetype <- "solid"
   #     edge_color <- "black"
   # }
+  weight <- NULL
   # Begin plotting edges in various cases
   if (is_directed(g)) {
     if (is_weighted(g)) {
