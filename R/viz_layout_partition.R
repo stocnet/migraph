@@ -17,6 +17,7 @@
 #' "Systematic identification of transcriptional regulatory modules from
 #' protein-protein interaction networks". 
 #' _Nucleic Acids Research_, 42 (1) e6.
+#' @import BiocManager
 #' @examples 
 #' autographr(ison_southern_women, "bipartite") / 
 #' autographr(ison_southern_women, "hierarchy") /
@@ -28,9 +29,6 @@
 layout_tbl_graph_hierarchy <- function(object,
                                  circular = FALSE, times = 1000){
   
-  if (!requireNamespace("BiocManager", quietly = TRUE)){
-    install.packages("BiocManager")
-  }
   if (!requireNamespace("Rgraphviz", quietly = TRUE)){
     BiocManager::install("Rgraphviz")
   }
@@ -41,10 +39,11 @@ layout_tbl_graph_hierarchy <- function(object,
     colnames(prep) <- seq_len(ncol(prep))
   }
   if(any(prep<0)) prep[prep<0] <- 0
-  out <- new("graphAM", prep,
-             edgemode = ifelse(is_directed(object), 
-                                          'directed', 'undirected')) %>%
-    Rgraphviz::layoutGraph(layoutType = 'dot')
+  out <- prep
+  class(out) <- "graphAM"
+  attr(out, "edgemode") <- ifelse(is_directed(object), 
+                                          'directed', 'undirected')
+  out <- Rgraphviz::layoutGraph(out, layoutType = 'dot')
   nodeX <- .rescale(out@renderInfo@nodes$nodeX)
   nodeY <- .rescale(out@renderInfo@nodes$nodeY)
   # nodeY <- abs(nodeY - max(nodeY))
