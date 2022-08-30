@@ -39,10 +39,7 @@ layout_tbl_graph_hierarchy <- function(object,
     colnames(prep) <- seq_len(ncol(prep))
   }
   if(any(prep<0)) prep[prep<0] <- 0
-  out <- prep
-  class(out) <- "graphAM"
-  attr(out, "edgemode") <- ifelse(is_directed(object), 
-                                          'directed', 'undirected')
+  out <- as_graphAM(prep)
   out <- Rgraphviz::layoutGraph(out, layoutType = 'dot')
   nodeX <- .rescale(out@renderInfo@nodes$nodeX)
   nodeY <- .rescale(out@renderInfo@nodes$nodeY)

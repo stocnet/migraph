@@ -633,3 +633,4 @@ as_edgelist.network.goldfish <- function(object,
                                          twomode = FALSE) {
   as_matrix(as_igraph(object, twomode = twomode))
 }
+# graphAM #####' @rdname as#' @importFrom methods new#' @exportas_graphAM <- function(object,                     twomode = FALSE) UseMethod("as_graphAM")#' @exportas_graphAM.matrix <- function(object, twomode = FALSE){  methods::new("graphAM", adjMat = object,                edgemode = ifelse(is_directed(object),                                  "directed", "undirected"))}

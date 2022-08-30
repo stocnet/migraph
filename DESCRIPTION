@@ -28,6 +28,7 @@ Imports:
     ggplot2,
     ggraph,
     igraph,
+    methods,
     network,
     future,
     furrr,
