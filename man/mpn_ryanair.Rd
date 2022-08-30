@@ -55,8 +55,4 @@ interest intermediation played by actors in the AER,
 a comparatively obscure body representing the interests of a number of
 European regional bodies at the EU institutions.
 }
-\details{
-\if{html}{\figure{mpn_ryanair.png}{options: width="100\%" alt="Figure: mpn_ryanair"}}
-\if{latex}{\figure{mpn_ryanair.pdf}{options: width=7cm}}
-}
 \keyword{datasets}

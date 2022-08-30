@@ -19,9 +19,9 @@
 #' who was also the son of another core member, Raúl Salinas Lozano).
 #'
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(mpn_elite_mex)
-#'   ggsave("man/figures/mpn_elite_mex.png")
-#'   ggsave("man/figures/mpn_elite_mex.pdf")
+#'   autographr(mpn_elite_mex, labels = FALSE) + ggtitle("mpn_elite_mex")
+#'   ggsave("man/figures/mpn_elite_mex.png", width = 5, height = 5, dpi = "screen")
+#'   ggsave("man/figures/mpn_elite_mex.pdf", width = 5, height = 5)
 #'   ```
 #' \if{html}{\figure{mpn_elite_mex.png}{options: width="100\%" alt="Figure: mpn_elite_mex"}}
 #' \if{latex}{\figure{mpn_elite_mex.pdf}{options: width=7cm}}
@@ -61,9 +61,10 @@
 #'
 #' @details 
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(mpn_elite_usa_advice) + autographr(mpn_elite_usa_money)
-#'   ggsave("man/figures/mpn_elite_usa.png")
-#'   ggsave("man/figures/mpn_elite_usa.pdf")
+#'   autographr(mpn_elite_usa_advice, labels = FALSE) + ggtitle("mpn_elite_usa_advice") +
+#'     autographr(mpn_elite_usa_money, labels = FALSE) + ggtitle("mpn_elite_usa_money")
+#'   ggsave("man/figures/mpn_elite_usa.png", width = 7, height = 3.5, dpi = "screen")
+#'   ggsave("man/figures/mpn_elite_usa.pdf", width = 7, height = 3.5)
 #'   ```
 #' \if{html}{\figure{mpn_elite_usa.png}{options: width="100\%" alt="Figure: mpn_elite_usa"}}
 #' \if{latex}{\figure{mpn_elite_usa.pdf}{options: width=7cm}}
@@ -153,14 +154,11 @@
 #' interest intermediation played by actors in the AER,
 #' a comparatively obscure body representing the interests of a number of
 #' European regional bodies at the EU institutions.
-#'
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(mpn_ryanair)
-#'   ggsave("man/figures/mpn_ryanair.png")
-#'   ggsave("man/figures/mpn_ryanair.pdf")
+#'   autographr(mpn_ryanair, "sphere", labels = FALSE) + ggtitle("mpn_ryanair")
+#'   ggsave("man/figures/mpn_ryanair.png", width = 5, height = 5, dpi = "screen")
+#'   ggsave("man/figures/mpn_ryanair.pdf", width = 7, height = 3.5)
 #'   ```
-#' \if{html}{\figure{mpn_ryanair.png}{options: width="100\%" alt="Figure: mpn_ryanair"}}
-#' \if{latex}{\figure{mpn_ryanair.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name mpn_ryanair

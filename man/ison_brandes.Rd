@@ -56,7 +56,7 @@ This network should solely be used
 for demonstration purposes as it does not describe a real network.
 }
 \details{
-\if{html}{\figure{ison_brandes.png}{options: width="75\%" alt="Figure: ison_brandes"}}
+\if{html}{\figure{ison_brandes.png}{options: width="100\%" alt="Figure: ison_brandes"}}
 \if{latex}{\figure{ison_brandes.pdf}{options: width=7cm}}
 }
 \keyword{datasets}

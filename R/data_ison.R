@@ -36,12 +36,10 @@
 "ison_marvel_teams"
 
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(ison_marvel_relationships)
-#'   ggsave("man/figures/ison_marvel_relationships.png")
-#'   ggsave("man/figures/ison_marvel_relationships.pdf")
+#'   autographr(ison_marvel_relationships) + ggtitle("ison_marvel_relationships")
+#'   ggsave("man/figures/ison_marvel_relationships.png", width = 7, height = 3.5, dpi = "screen")
+#'   ggsave("man/figures/ison_marvel_relationships.pdf", width = 7, height = 3.5)
 #'   ```
-#' \if{html}{\figure{ison_marvel_relationships.png}{options: width="75\%" alt="Figure: ison_marvel_relationships"}}
-#' \if{latex}{\figure{ison_marvel_relationships.pdf}{options: width=7cm}}
 #' @rdname ison_marvel
 #' @usage data(ison_marvel_relationships)
 #' @format One-mode igraph of 53 Marvel comic book characters and
@@ -60,8 +58,8 @@
 #'   (autographr(ison_bb) | autographr(ison_bm) | autographr(ison_mm) | autographr(ison_mb))/
 #'   (autographr(to_mode1(ison_mm)) | autographr(to_mode1(ison_mm)) | 
 #'     autographr(to_mode1(ison_mm)) | autographr(to_mode1(ison_mm)))
-#'   ggsave("man/figures/ison_proj.png")
-#'   ggsave("man/figures/ison_proj.pdf")
+#'   ggsave("man/figures/ison_proj.png", width = 7, height = 3.5, dpi = "screen")
+#'   ggsave("man/figures/ison_proj.pdf", width = 7, height = 3.5)
 #'   ```
 #' \if{html}{\figure{ison_proj.png}{options: width="100\%" alt="Figure: ison_proj"}}
 #' \if{latex}{\figure{ison_proj.pdf}{options: width=7cm}}
@@ -100,9 +98,9 @@
 #' and `tasks` consists of task interactions per hour.
 #' 
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(ison_algebra)
-#'   ggsave("man/figures/ison_algebra.png")
-#'   ggsave("man/figures/ison_algebra.pdf")
+#'   autographr(ison_algebra, labels = FALSE) + ggtitle("ison_algebra")
+#'   ggsave("man/figures/ison_algebra.png", width = 5, height = 5, dpi = "screen")
+#'   ggsave("man/figures/ison_algebra.pdf", width = 5, height = 5)
 #'   ```
 #' \if{html}{\figure{ison_algebra.png}{options: width="75\%" alt="Figure: ison_algebra"}}
 #' \if{latex}{\figure{ison_algebra.pdf}{options: width=7cm}}
@@ -127,9 +125,9 @@
 #' One-mode subset of the adolescent society (Coleman 1961)
 #'
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(ison_adolescents)
-#'   ggsave("man/figures/ison_adolescents.png")
-#'   ggsave("man/figures/ison_adolescents.pdf")
+#'   autographr(ison_adolescents, labels = FALSE) + ggtitle("ison_adolescents")
+#'   ggsave("man/figures/ison_adolescents.png", width = 5, height = 5, dpi = "screen")
+#'   ggsave("man/figures/ison_adolescents.pdf", width = 5, height = 5)
 #'   ```
 #' \if{html}{\figure{ison_adolescents.png}{options: width="75\%" alt="Figure: ison_adolescents"}}
 #' \if{latex}{\figure{ison_adolescents.pdf}{options: width=7cm}}
@@ -165,9 +163,9 @@
 #'   and 2 if the individual sided with John A.
 #' 
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(ison_karateka)
-#'   ggsave("man/figures/ison_karateka.png")
-#'   ggsave("man/figures/ison_karateka.pdf")
+#'   autographr(ison_karateka) + ggtitle("ison_karateka")
+#'   ggsave("man/figures/ison_karateka.png", width = 7, height = 3.5, dpi = "screen")
+#'   ggsave("man/figures/ison_karateka.pdf", width = 7, height = 3.5)
 #'   ```
 #' \if{html}{\figure{ison_karateka.png}{options: width="75\%" alt="Figure: ison_karateka"}}
 #' \if{latex}{\figure{ison_karateka.pdf}{options: width=7cm}}
@@ -197,8 +195,9 @@
 #' sent from one academic to another over the studied time period.
 #' 
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(ison_networkers)
-#'   ggsave("man/figures/ison_networkers.pdf")
+#'   autographr(ison_networkers, labels = FALSE) + ggtitle("ison_networkers")
+#'   ggsave("man/figures/ison_networkers.png", width = 5, height = 5, dpi = "screen")
+#'   ggsave("man/figures/ison_networkers.pdf", width = 5, height = 5)
 #'   ```
 #' \if{latex}{\figure{ison_networkers.pdf}{options: width=7cm}}
 #' @docType data
@@ -228,11 +227,11 @@
 #' for demonstration purposes as it does not describe a real network.
 #'
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(ison_brandes) + autographr(ison_brandes2)
-#'   ggsave("man/figures/ison_brandes.png")
-#'   ggsave("man/figures/ison_brandes.pdf")
+#'   autographr(ison_brandes) + ggtitle("ison_brandes") + autographr(ison_brandes2)
+#'   ggsave("man/figures/ison_brandes.png", width = 7, height = 3.5, dpi = "screen")
+#'   ggsave("man/figures/ison_brandes.pdf", width = 7, height = 3.5)
 #'   ```
-#' \if{html}{\figure{ison_brandes.png}{options: width="75\%" alt="Figure: ison_brandes"}}
+#' \if{html}{\figure{ison_brandes.png}{options: width="100\%" alt="Figure: ison_brandes"}}
 #' \if{latex}{\figure{ison_brandes.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
@@ -262,9 +261,9 @@
 #' during a 9 month period. Events and women are named.
 #'
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(ison_southern_women)
-#'   ggsave("man/figures/ison_southern_women.png")
-#'   ggsave("man/figures/ison_southern_women.pdf")
+#'   autographr(ison_southern_women, "hierarchy", labels = FALSE) + ggtitle("ison_southern_women")
+#'   ggsave("man/figures/ison_southern_women.png", width = 7, height = 3.5, dpi = "screen")
+#'   ggsave("man/figures/ison_southern_women.pdf", width = 7, height = 3.5)
 #'   ```
 #' \if{html}{\figure{ison_southern_women.png}{options: width="75\%" alt="Figure: ison_southern_women"}}
 #' \if{latex}{\figure{ison_southern_women.pdf}{options: width=7cm}}
