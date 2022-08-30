@@ -57,13 +57,13 @@
 #' @return
 #' The currently implemented coercions or translations are:
 #' 
-#' |  to/from  | edgelists  | matrices  |igraph  |tidygraph  |network  | siena | goldfish
-#' | ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
-#' | edgelists (data frames)  | X | X | X | X | X |   | X |
-#' | matrices                 | X | X | X | X | X |   | X |
-#' | igraph                   | X | X | X | X | X | X | X |
-#' | tidygraph                | X | X | X | X | X | X | X |
-#' | network                  | X | X | X | X | X |   | X |
+#' |  to/from  | edgelists  | matrices  |igraph  |tidygraph  |network  | siena | goldfish | graphAM
+#' | ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+#' | edgelists (data frames)  | X | X | X | X | X |   | X |   |
+#' | matrices                 | X | X | X | X | X |   | X | X |
+#' | igraph                   | X | X | X | X | X | X | X |   |
+#' | tidygraph                | X | X | X | X | X | X | X |   |
+#' | network                  | X | X | X | X | X | X | X |   |
 NULL
 
 # Edgelists ####
@@ -634,9 +634,33 @@ as_network.siena <- function(object, twomode = FALSE) {
   as_network(as_igraph.siena(object, twomode = FALSE))
 }
 
+# RSiena ####
+
+#' @rdname as
 #' @export
-as_edgelist.network.goldfish <- function(object,
-                                         twomode = FALSE) {
-  as_matrix(as_igraph(object, twomode = twomode))
+as_siena <- function(object,
+                       twomode = FALSE) UseMethod("as_siena")
+
+#' @export
+# as_siena.tbl_graph <- function(object, twomode = FALSE){
+#   RSiena::sienaDependent()
+#   RSiena::coCovar()
+#   RSiena::varCovar()
+#   RSiena::sienaDependent()
+#   RSiena::sienaDataCreate()
+# }
+
+# graphAM ####
+
+#' @rdname as
+#' @importFrom methods new
+#' @export
+as_graphAM <- function(object,
+                     twomode = FALSE) UseMethod("as_graphAM")
+
+#' @export
+as_graphAM.matrix <- function(object, twomode = FALSE){
+  methods::new("graphAM", adjMat = object, 
+               edgemode = ifelse(is_directed(object), 
+                                 "directed", "undirected"))
 }
-# graphAM #####' @rdname as#' @importFrom methods new#' @exportas_graphAM <- function(object,                     twomode = FALSE) UseMethod("as_graphAM")#' @exportas_graphAM.matrix <- function(object, twomode = FALSE){  methods::new("graphAM", adjMat = object,                edgemode = ifelse(is_directed(object),                                  "directed", "undirected"))}

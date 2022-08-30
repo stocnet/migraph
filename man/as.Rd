@@ -43,13 +43,13 @@ By default FALSE.}
 \value{
 The currently implemented coercions or translations are:
 
-|  to/from  | edgelists  | matrices  |igraph  |tidygraph  |network  | siena | goldfish
-| ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
-| edgelists (data frames)  | X | X | X | X | X |   | X |
-| matrices                 | X | X | X | X | X |   | X |
-| igraph                   | X | X | X | X | X | X | X |
-| tidygraph                | X | X | X | X | X | X | X |
-| network                  | X | X | X | X | X |   | X |
+|  to/from  | edgelists  | matrices  |igraph  |tidygraph  |network  | siena | goldfish | graphAM
+| ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+| edgelists (data frames)  | X | X | X | X | X |   | X |   |
+| matrices                 | X | X | X | X | X |   | X | X |
+| igraph                   | X | X | X | X | X | X | X |   |
+| tidygraph                | X | X | X | X | X | X | X |   |
+| network                  | X | X | X | X | X | X | X |   |
 }
 \description{
 The \code{as_} functions in \code{{migraph}} coerce objects
