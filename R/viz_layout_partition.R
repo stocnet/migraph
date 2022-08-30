@@ -47,6 +47,17 @@ layout_tbl_graph_hierarchy <- function(object,
 
 #' @rdname partition_layouts
 #' @export
+layout_tbl_graph_alluvial <- function(object,
+                                     circular = FALSE, times = 1000){
+  res <- layout_tbl_graph_hierarchy(as_igraph(object))
+  res <- data.frame(x = res$y,
+                    y = res$x)
+  res
+  
+}
+
+#' @rdname partition_layouts
+#' @export
 layout_tbl_graph_railway <- function(object,
                                      circular = FALSE, times = 1000){
   res <- layout_tbl_graph_hierarchy(as_igraph(object))

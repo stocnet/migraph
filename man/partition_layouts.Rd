@@ -3,6 +3,7 @@
 \name{partition_layouts}
 \alias{partition_layouts}
 \alias{layout_tbl_graph_hierarchy}
+\alias{layout_tbl_graph_alluvial}
 \alias{layout_tbl_graph_railway}
 \alias{layout_tbl_graph_ladder}
 \alias{layout_tbl_graph_concentric}
@@ -15,6 +16,8 @@ protein-protein interaction networks".
 }
 \usage{
 layout_tbl_graph_hierarchy(object, circular = FALSE, times = 1000)
+
+layout_tbl_graph_alluvial(object, circular = FALSE, times = 1000)
 
 layout_tbl_graph_railway(object, circular = FALSE, times = 1000)
 
