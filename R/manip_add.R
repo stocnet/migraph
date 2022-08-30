@@ -19,8 +19,8 @@ NULL
 #' add_node_attribute(mpn_elite_usa_advice, "wealth", 1:14)
 #' @export
 add_node_attribute <- function(object, attr_name, vector){
-  if(length(vector)!=graph_nodes(object)){
-    if(is_twomode(object) && any(length(vector) == graph_dims(object))){
+  if(length(vector)!= graph_nodes(object)){
+    if(is_twomode(object) && length(vector) == any(graph_dims(object))){
       if(length(vector) == graph_dims(object)[1]){
         vector <- c(vector, rep(NA, graph_dims(object)[2]))
       } else if (length(vector) == graph_dims(object)[2]){
