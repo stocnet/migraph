@@ -74,7 +74,7 @@ autographr <- auto_graph <- function(object,
   p <- .graph_nodes(p, g, node_color, node_shape, node_size)
 
   # Add groups ----
-  # if (!is.null(node_group)) p <- .graph_groups(p, g, node_group)
+  # if (!is.null(node_group)) p <- .graph_groups(p, g, node_group, lo)
 
   p
 }
@@ -340,7 +340,7 @@ autographr <- auto_graph <- function(object,
   p
 }
 
-.graph_groups <- function(p, g, node_group){
+.graph_groups <- function(p, g, node_group, lo){
   if (!("concaveman" %in% rownames(utils::installed.packages()))) {
     message("Please install package `{concaveman}`.")
   } else {
