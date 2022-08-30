@@ -471,9 +471,9 @@ as_tidygraph.network.goldfish <- function(object,
 #' @export
 as_tidygraph.siena <- function(object,
                                twomode = FALSE) {
-  edges <- NULL
-  orig <- NULL
-
+  # edges <- NULL
+  # orig <- NULL
+  
   # identify dyadic and non-dyadic depvars
   net <- lapply(object$depvars, function(x) {
     is.matrix(x[,,1])
@@ -481,38 +481,25 @@ as_tidygraph.siena <- function(object,
   dyadic <- names(which(net == TRUE))
   # add in first network as base
   out <- as_igraph(object$depvars[[dyadic[1]]][,,1]) # first time period
-  out <- add_node_attribute(out, "name", igraph::V(out))
   # add ties from rest of time periods
-  for(d in 2:dim(object$depvars[[dyadic[1]]])[3]){
-    out <- join_ties(out, as_igraph(object$depvars[[dyadic[1]]][,,d]), 
-                     attr_name = paste0("t",d))
-    out <- out %>% tidygraph::activate(edges) %>% dplyr::rename(t1 = orig)
-  }
+  out <- get_rem_time_periods(object$depvars[[dyadic[1]]], out,
+                              name = dyadic[1])
+  out <- out %>% 
+    tidygraph::activate(edges) %>% 
+    dplyr::rename(t1 = orig)
   # add the rest of the dyadic depvars
   if (length(dyadic) > 1) {
     for (l in 2:length(dyadic)) {
-      for (d in 2:dim(object$depvars[[dyadic[l]]])[3]) {
-        out <- join_ties(out, as_igraph(object$depvars[[dyadic[l]]][,,d]), 
-                         attr_name = paste0(names(object$depvars)[[dyadic[l]]],
-                                            "_", "t",d))
-      }
+      out <- get_all_time_periods(object$depvars[[dyadic[l]]], out,
+                                  name = dyadic[l])
     }
   } else {
     # add non-dyadic depvars as attributes
     nondyad <- names(which(net == FALSE))
-    if (length(nondyad) > 1) {
-      for (l in 2:length(nondyad)) {
-        for (d in 1:dim(object$depvars[[nondyad[l]]])[3]) {
-          out <- add_node_attribute(out,
-                                    attr_name = paste0(names(object$depvars)[[nondyad[l]]],
-                                                       "_", "t",d),
-                                    object$depvars[[nondyad[l]]][,,d])
-        }
-      }
-    } else {
-      for(d in 1:dim(object$depvars[[nondyad[1]]])[3]){
-        out <- add_node_attribute(out, paste0(names(object$depvars)[[nondyad[1]]], "_", "t", d),
-                                  object$depvars[[nondyad[1]]][,,d])
+    if (length(nondyad) != 0) {
+      for (l in seq_len(length(nondyad))) {
+        out <- get_attributes(object$depvars[[nondyad[l]]], out,
+                              name = nondyad[l])
       }
     }
   }
@@ -522,9 +509,9 @@ as_tidygraph.siena <- function(object,
                               object$cCovars[k])
   }
   # add vCovar
-  for(d in 1:dim(object$vCovars)[3]) {
-    out <- add_node_attribute(out, paste0(names(object$vCovars), d),
-                              object$vCovars[,,d])
+  for (k in seq_len(length(object$vCovars))) {
+    out <- get_attributes(object$vCovars[[k]], out,
+                          name = paste0(names(object$vCovars)[k]))
   }
   # add dycCovar
   for (k in seq_len(length(object$dycCovars))) {
@@ -532,12 +519,38 @@ as_tidygraph.siena <- function(object,
                      attr_name = paste0(names(object$dycCovars)[k]))
   }
   # add dyvCovars
-  for(d in 1:dim(data$dyvCovars[[1]])[3]){
-    out <- join_ties(out, as_igraph(object$dyvCovars[[1]][,,d]), 
-                     attr_name = paste0(paste0(names(object$dycCovars)),
-                                        "_", "t",d))
+  for (k in seq_len(length(object$dyvCovars))) {
+    out <- get_all_time_periods(object$dyvCovars[[k]], out,
+                                name = paste0(names(object$dyvCovars)[k]))
   }
 }
+
+## Helper functions
+get_attributes <- function(ndy, out, name = NULL) {
+  for(d in 1:dim(ndy)[3]) {
+    x <- add_node_attribute(out,
+                            attr_name = paste0(name, "_", "t", d),
+                            ndy[,,d])
+  }
+  x
+}
+
+get_rem_time_periods <- function(g, out, name = NULL) {
+  for(d in 2:dim(g)[3]){
+    x <- join_ties(out, as_igraph(g[,,d]), 
+                   attr_name = paste0(name, "_", "t", d))
+  }
+  x
+}
+
+get_all_time_periods <- function(g, out, name = NULL) {
+  for(d in 1:dim(g)[3]){
+    x <- join_ties(out, as_igraph(g[,,d]), 
+                   attr_name = paste0(name, "_", "t", d))
+  }
+  x
+}
+
 
 # Network ####
 
