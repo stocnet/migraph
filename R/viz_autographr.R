@@ -124,17 +124,11 @@ autographr <- auto_graph <- function(object,
                                        label.size = 0,
                                        repel = TRUE)
     } else { # Plot two modes
-      p <- p + ggraph::geom_node_label(ggplot2::aes(label = name),
-                                       label.padding = 0.15,
-                                       label.size = 0,
-                                       # fontface = ifelse(igraph::V(g)$type,
-                                       #                   "bold",
-                                       #                   "plain"),
-                                       # size = ifelse(igraph::V(g)$type,
-                                       #               4,
-                                       #               3),
-                                       hjust = "inward",
-                                       repel = TRUE)
+      p <- p + ggraph::geom_node_text(ggplot2::aes(label = name),
+                                       size = 2,
+                                       hjust = "outward",
+                                      nudge_x = ifelse(lo[,1] == 1, 0.05, -0.05)) +
+        ggplot2::coord_cartesian(xlim=c(-0.2,1.2))
     }
   }
   p

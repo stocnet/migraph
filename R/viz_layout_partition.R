@@ -19,11 +19,9 @@
 #' _Nucleic Acids Research_, 42 (1) e6.
 #' @import BiocManager
 #' @examples 
-#' autographr(ison_southern_women, "bipartite") / 
-#' autographr(ison_southern_women, "hierarchy") /
-#' autographr(ison_southern_women, "railway") /
+#' (autographr(ison_southern_women, "hierarchy") /
+#' autographr(ison_southern_women, "railway")) |
 #' autographr(ison_southern_women, "concentric")
-#' autographr(ison_karateka, "sugiyama") + 
 #' autographr(ison_karateka, "hierarchy") 
 #' @export
 layout_tbl_graph_hierarchy <- function(object,
@@ -48,13 +46,23 @@ layout_tbl_graph_hierarchy <- function(object,
 }
 
 #' @rdname partition_layouts
-#' @importFrom igraph layout.bipartite
 #' @export
 layout_tbl_graph_railway <- function(object,
                                      circular = FALSE, times = 1000){
   res <- layout_tbl_graph_hierarchy(as_igraph(object))
   res$x <- c(match(res[res[,2]==1,1], sort(res[res[,2]==1,1])),
              match(res[res[,2]==0,1], sort(res[res[,2]==0,1])))
+  res
+}
+
+#' @rdname partition_layouts
+#' @export
+layout_tbl_graph_ladder <- function(object,
+                                     circular = FALSE, times = 1000){
+  res <- layout_tbl_graph_hierarchy(as_igraph(object))
+  res <- data.frame(x = res$y,
+                    y = c(match(res[res[,2]==1,1], sort(res[res[,2]==1,1])),
+                          match(res[res[,2]==0,1], sort(res[res[,2]==0,1]))))
   res
 }
 

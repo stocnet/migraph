@@ -4,6 +4,7 @@
 \alias{partition_layouts}
 \alias{layout_tbl_graph_hierarchy}
 \alias{layout_tbl_graph_railway}
+\alias{layout_tbl_graph_ladder}
 \alias{layout_tbl_graph_concentric}
 \title{Layout algorithms based on bi- or other partitions}
 \source{
@@ -16,6 +17,8 @@ protein-protein interaction networks".
 layout_tbl_graph_hierarchy(object, circular = FALSE, times = 1000)
 
 layout_tbl_graph_railway(object, circular = FALSE, times = 1000)
+
+layout_tbl_graph_ladder(object, circular = FALSE, times = 1000)
 
 layout_tbl_graph_concentric(
   object,
@@ -58,11 +61,9 @@ the number of edge crossings.}
 Layout algorithms based on bi- or other partitions
 }
 \examples{
-autographr(ison_southern_women, "bipartite") / 
-autographr(ison_southern_women, "hierarchy") /
-autographr(ison_southern_women, "railway") /
+(autographr(ison_southern_women, "hierarchy") /
+autographr(ison_southern_women, "railway")) |
 autographr(ison_southern_women, "concentric")
-autographr(ison_karateka, "sugiyama") + 
 autographr(ison_karateka, "hierarchy") 
 }
 \seealso{
