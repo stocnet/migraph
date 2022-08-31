@@ -11,9 +11,9 @@
 \alias{to_matching}
 \title{Tools for transforming networks, graphs, and matrices}
 \usage{
-to_mode1(object, method = c("count", "jaccard"))
+to_mode1(object, similarity = c("count", "jaccard", "rand", "pearson", "yule"))
 
-to_mode2(object, method = c("count", "jaccard"))
+to_mode2(object, similarity = c("count", "jaccard", "rand", "pearson", "yule"))
 
 to_main_component(object)
 
@@ -35,8 +35,23 @@ to_matching(object, mark = "type")
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
 
-\item{method}{Method for aggregating ties,
-currently either "count" (default) or "jaccard".}
+\item{similarity}{Method for establishing ties,
+currently "count" (default), "jaccard", or "rand".
+"count" calculates the number of coinciding ties,
+and can be interpreted as indicating the degree of opportunities
+between nodes.
+"jaccard" uses this count as the numerator in a proportion,
+where the denominator consists of any cell where either node has a tie.
+It can be interpreted as opportunity weighted by participation.
+"rand", or the Simple Matching Coefficient,
+is a proportion where the numerator consists of the count of cells where
+both nodes are present or both are absent,
+over all possible cells.
+It can be interpreted as the (weighted) degree of behavioral mirroring
+between two nodes.
+"pearson" (Pearson's coefficient) and "yule" (Yule's Q)
+produce correlations for valued and binary data, respectively.
+Note that Yule's Q has a straightforward interpretation related to the odds ratio.}
 
 \item{...}{Arguments passed on to dplyr::filter}
 

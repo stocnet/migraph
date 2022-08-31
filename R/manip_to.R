@@ -148,29 +148,24 @@ to_unweighted <- function(object, threshold = 1) UseMethod("to_unweighted")
 
 #' @export
 to_unweighted.tbl_graph <- function(object, threshold = 1) {
-  if ("weight" %in% igraph::edge_attr_names(object)) 
-    object <- igraph::delete_edge_attr(object, "weight")
-  tidygraph::as_tbl_graph(object)
+  object %>% activate(edges) %>% 
+    filter(weight >= threshold) %>% 
+    select(-c(weight))
 }
 
 #' @export
 to_unweighted.igraph <- function(object, threshold = 1) {
-    if ("weight" %in% igraph::edge_attr_names(object)) {
-      igraph::delete_edge_attr(object, "weight")
-    } else object
+    as_igraph(to_unweighted(as_tidygraph(object), threshold))
 }
 
 #' @export
 to_unweighted.network <- function(object, threshold = 1) {
-    out <- network::delete.edge.attribute(object,
-                                          attrname = "weight")
-    out
+  as_network(to_unweighted(as_tidygraph(object), threshold))
 }
 
 #' @export
 to_unweighted.matrix <- function(object, threshold = 1) {
-  object <- (object >= threshold)*1
-  object
+  (object >= threshold)*1
 }
 
 #' @export
@@ -465,38 +460,63 @@ NULL
 #'   that retains the row nodes from a two-mode object,
 #'   and weights the ties between them on the basis of
 #'   their joint ties to nodes in the second mode (columns)
-#' @param method Method for aggregating ties,
-#'   currently either "count" (default) or "jaccard". 
+#' @param similarity Method for establishing ties,
+#'   currently "count" (default), "jaccard", or "rand".
+#'   "count" calculates the number of coinciding ties,
+#'   and can be interpreted as indicating the degree of opportunities
+#'   between nodes.
+#'   "jaccard" uses this count as the numerator in a proportion,
+#'   where the denominator consists of any cell where either node has a tie.
+#'   It can be interpreted as opportunity weighted by participation.
+#'   "rand", or the Simple Matching Coefficient,
+#'   is a proportion where the numerator consists of the count of cells where
+#'   both nodes are present or both are absent,
+#'   over all possible cells.
+#'   It can be interpreted as the (weighted) degree of behavioral mirroring
+#'   between two nodes.
+#'   "pearson" (Pearson's coefficient) and "yule" (Yule's Q)
+#'   produce correlations for valued and binary data, respectively.
+#'   Note that Yule's Q has a straightforward interpretation related to the odds ratio.
 #' @importFrom igraph bipartite.projection
 #' @examples
 #' autographr(ison_southern_women) /
 #' (autographr(to_mode1(ison_southern_women)) |
 #' autographr(to_mode2(ison_southern_women)))
 #' @export
-to_mode1 <- function(object, method = c("count","jaccard")) UseMethod("to_mode1")
+to_mode1 <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) UseMethod("to_mode1")
 
 #' @export
-to_mode1.matrix <- function(object, method = c("count","jaccard")) {
-  method <- match.arg(method)
-  switch(method,
-         "count" = object %*% t(object),
-         "jaccard" = object %*% t(object)/
-           (object %*% t(object) + 
-              object %*% (1 - t(object)) + 
-              (1 - object) %*% t(object)))
+to_mode1.matrix <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  similarity <- match.arg(similarity)
+  a <- object %*% t(object)
+  b <- object %*% (1 - t(object))
+  c <- (1 - object) %*% t(object)
+  d <- ncol(object) - a - b - c
+  out <- switch(similarity,
+         "count" = a,
+         "jaccard" = a/(a + b + c),
+         "rand" = (a + d)/(a + b + c + d),
+         "pearson" = cor(t(object)),
+         "yule" = (a*d - b*c)/(a*d + b*c))
+  diag(out) <- 0
+  out
 }
 
 #' @export
-to_mode1.igraph <- function(object, method = c("count","jaccard")) {
-  method <- match.arg(method)
-  switch(method,
-         "count" = igraph::bipartite.projection(object)$proj1,
-         "jaccard" = as_igraph(to_mode1(as_matrix(object))))
+to_mode1.igraph <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  similarity <- match.arg(similarity)
+  if(similarity == "count") igraph::bipartite.projection(object)$proj1
+  else as_igraph(to_mode1(as_matrix(object), similarity))
 }
 
 #' @export
-to_mode1.tbl_graph <- function(object, method = c("count","jaccard")) {
-  as_tidygraph(to_mode1(as_igraph(object), method = method))
+to_mode1.tbl_graph <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  as_tidygraph(to_mode1(as_igraph(object), similarity = similarity))
+}
+
+#' @export
+to_mode1.network <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  as_network(to_mode1(as_matrix(object), similarity = similarity))
 }
 
 #' @describeIn transform Results in a weighted one-mode object
@@ -504,30 +524,40 @@ to_mode1.tbl_graph <- function(object, method = c("count","jaccard")) {
 #' and weights the ties between them on the basis of
 #' their joint ties to nodes in the first mode (rows).
 #' @export
-to_mode2 <- function(object, method = c("count","jaccard")) UseMethod("to_mode2")
+to_mode2 <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) UseMethod("to_mode2")
 
 #' @export
-to_mode2.matrix <- function(object, method = c("count","jaccard")) {
-  method <- match.arg(method)
-  switch(method,
-         "count" = t(object) %*% object,
-         "jaccard" = t(object) %*% object/
-           (t(object) %*% object + 
-              t(object) %*% (1 - object) +
-              (1 - t(object)) %*% object))
+to_mode2.matrix <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  similarity <- match.arg(similarity)
+  a <- t(object) %*% object
+  b <- t(object) %*% (1 - object)
+  c <- (1 - t(object)) %*% object
+  d <- nrow(object) - a - b - c
+  out <- switch(similarity,
+                "count" = a,
+                "jaccard" = a/(a + b + c),
+                "rand" = (a + d)/(a + b + c + d),
+                "pearson" = cor(object),
+                "yule" = (a*d - b*c)/(a*d + b*c))
+  diag(out) <- 0
+  out
 }
 
 #' @export
-to_mode2.igraph <- function(object, method = c("count","jaccard")) {
-  method <- match.arg(method)
-  switch(method,
-         "count" = igraph::bipartite.projection(object)$proj2,
-         "jaccard" = as_igraph(to_mode2(as_matrix(object))))
+to_mode2.igraph <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  similarity <- match.arg(similarity)
+  if(similarity == "count") igraph::bipartite.projection(object)$proj2
+  else as_igraph(to_mode2(as_matrix(object), similarity))
 }
 
 #' @export
-to_mode2.tbl_graph <- function(object, method = c("count","jaccard")) {
-  as_tidygraph(to_mode2(as_igraph(object), method = method))
+to_mode2.tbl_graph <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  as_tidygraph(to_mode2(as_igraph(object), similarity))
+}
+
+#' @export
+to_mode2.network <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  as_network(to_mode2(as_matrix(object), similarity))
 }
 
 #' @describeIn transform Returns an object that includes only the main component
