@@ -18,3 +18,15 @@ test_that("graph modularity works for two mode networks", {
   expect_length(graph_modularity(ison_southern_women,
                                  node_kernighanlin(ison_southern_women)), 1)
 })
+
+test_that("graph_core works", {
+  expect_s3_class(graph_core(ison_adolescents), "graph_measure")
+  expect_equal(length(graph_core(ison_adolescents)),
+               length(graph_core(ison_southern_women)))
+})
+
+test_that("graph_factions works", {
+  expect_s3_class(graph_factions(ison_adolescents), "graph_measure")
+  expect_equal(length(graph_factions(ison_adolescents)),
+               length(graph_factions(ison_southern_women)))
+})
