@@ -84,3 +84,9 @@ test_that("to_blocks works", {
   expect_equal(max(block), ncol(to_blocks(ison_algebra, block)))
   expect_equal(ncol(to_blocks(ison_algebra, block)), nrow(to_blocks(ison_algebra, block)))
 })
+
+test_that("to matching works", {
+  sw <- as_edgelist(to_matching(ison_southern_women))
+  expect_equal(graph_nodes(to_matching(ison_southern_women)), graph_nodes(ison_southern_women))
+  expect_true(nrow(sw) == nrow(dplyr::distinct(sw)))
+})
