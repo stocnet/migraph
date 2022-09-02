@@ -139,6 +139,12 @@ as_edgelist.network.goldfish <- function(object,
   as_matrix(as_igraph(object, twomode = twomode))
 }
 
+#' @export
+as_edgelist.siena <- function(object,
+                              twomode = NULL) {
+  as_edgelist(as_igraph(object, twomode = twomode))
+}
+
 # Matrices ####
 
 #' @rdname as
@@ -248,6 +254,12 @@ as_matrix.network <- function(object,
 #' @export
 as_matrix.network.goldfish <- function(object,
                                        twomode = FALSE) {
+  as_matrix(as_igraph(object, twomode = twomode))
+}
+
+#' @export
+as_matrix.siena <- function(object,
+                            twomode = NULL) {
   as_matrix(as_igraph(object, twomode = twomode))
 }
 
@@ -393,19 +405,9 @@ as_igraph.network.goldfish <- function(object,
 }
 
 #' @export
-as_igraph.siena <- function(object, twomode = FALSE) {
+as_igraph.siena <- function(object, twomode = NULL) {
   edges <- NULL
   orig <- NULL
-  
-  # We always get the dependent network(s) first
-  out <- as_igraph(object$depvars$mynet[,,1])
-  for(d in 2:dim(object$depvars$mynet)[3]){
-    out <- join_ties(out, as_igraph(object$depvars$mynet[,,d]), 
-                     attr_name = paste0("t",d))
-  }
-  out <- out %>% activate(edges) %>% rename(t1 = orig)
-  
-  # Check if there are any dependent behaviors, and add them
   
   ## Helper functions for as_igraph.siena
   .get_rem_time_periods <- function(g, x, name = NULL) {
@@ -417,9 +419,40 @@ as_igraph.siena <- function(object, twomode = FALSE) {
   }
   
   .get_all_time_periods <- function(g, x, name = NULL) {
+    # g is a matrix but x is igraph obj
     for(d in 1:dim(g)[3]){
-      x <- join_ties(x, as_igraph(g[,,d]), 
-                     attr_name = paste0(name, "_", "t", d))
+      if (isTRUE(is_twomode(g[,,d]))) {
+        # add names for new network
+        rownames(g[,,d]) <- as.character(1:nrow(g[,,d]))
+        colnames(g[,,d]) <- as.character(paste0("N", 1:ncol(g[,,d])))
+        # join ties
+        if (is_twomode(x) == TRUE) { # x and y are twomode
+          x <- join_ties(x, as_igraph(g[,,d]), 
+                         attr_name = paste0(name, "_", "t", d))
+        } else { # x is onemode but y is twomode
+          y <- as_edgelist(g[,,d])
+          y <- y %>%
+            dplyr::mutate( !!paste0(name, "_", "t", d) := 1)
+          x <- dplyr::full_join(y, as_edgelist(x),
+                                by = c("from", "to")) %>%
+            as_tidygraph()
+        }
+      } else {
+        # add names for new network
+        y <- add_node_attribute(g[,,d], "name", as.character(1:graph_nodes(g[,,d])))
+        # join ties
+        if (is_twomode(x) == TRUE) { # x is twomode but y is onemode
+          y <- as_edgelist(y)
+          y <- y %>%
+            dplyr::mutate( !!paste0(name, "_", "t", d) := 1)
+          x <- dplyr::full_join(y, as_edgelist(x),
+                                by = c("from", "to")) %>%
+            as_tidygraph()
+        } else { # x and y are onemode
+          x <- join_ties(x, as_igraph(y), 
+                         attr_name = paste0(name, "_", "t", d))
+        }
+      }
     }
     x
   }
@@ -433,24 +466,42 @@ as_igraph.siena <- function(object, twomode = FALSE) {
     x
   }
   
+  # We always get the dependent network(s) first
   # Identify all dyadic and non-dyadic depvars
   dvs <- lapply(object$depvars, function(x) is.matrix(x[,,1]) )
   ddvs <- names(which(dvs == TRUE))
-  # Add in first network as base
-  out <- as_igraph(object$depvars[[dyadic[1]]][,,1]) # first time period
+  # Add in first network as base and add names
+  out <- object$depvars[[ddvs[1]]][,,1] # first wave
+  if (is_twomode(out) == FALSE) {
+    out <- add_node_attribute(out, "name", as.character(1:graph_nodes(out)))
+  } else {
+    rownames(out) <- as.character(1:nrow(out))
+    colnames(out) <- as.character(paste0("N", 1:ncol(out)))
+  }
   # add ties from rest of time periods
-  out <- .get_rem_time_periods(object$depvars[[dyadic[1]]], out,
-                              name = dyadic[1])
-  out <- out %>% 
-    tidygraph::activate(edges) %>% 
-    dplyr::rename(t1 = orig)
-  
+  out <- .get_rem_time_periods(object$depvars[[ddvs[1]]], out,
+                               name = ddvs[1])
+  out <- igraph::set.edge.attribute(out, paste0(ddvs[1], "_", "t1"),
+                                    value = igraph::edge_attr(out, "orig")) %>%
+    igraph::delete_edge_attr("orig")
+
   # Add rest of the dyadic depvars
-  if (length(dyadic) > 1) {
-    for (l in 2:length(dyadic)) {
-      out <- .get_all_time_periods(object$depvars[[dyadic[l]]], out,
-                                  name = dyadic[l])
+  if (length(ddvs) > 1) {
+    for (l in 2:length(ddvs)) {
+      out <- .get_all_time_periods(object$depvars[[ddvs[l]]], out,
+                                   name = ddvs[l])
     }
+  }
+  
+  # add dycCovar
+  for (k in seq_len(length(object$dycCovars))) {
+    out <- join_ties(out, as_igraph(object$dycCovars[k]), 
+                     attr_name = paste0(names(object$dycCovars)[k]))
+  }
+  # add dyvCovars
+  for (k in seq_len(length(object$dyvCovars))) {
+    out <- .get_all_time_periods(object$dyvCovars[[k]], out,
+                                 name = paste0(names(object$dyvCovars)[k]))
   }
   # Add any behavioral depvars
   if(length(which(dvs == FALSE)) > 0){
@@ -459,6 +510,11 @@ as_igraph.siena <- function(object, twomode = FALSE) {
       out <- .get_attributes(object$depvars[[bdvs[b]]], out,
                              name = bdvs[b])
     }
+  }
+  # add composition change
+  for (k in seq_len(length(object$compositionChange))) {
+    out <- add_node_attribute(out, paste0(names(object$compositionChange)[k]),
+                              as.vector(object$compositionChange[[k]]))
   }
   # add cCovar
   for (k in seq_len(length(object$cCovars))) {
@@ -469,16 +525,6 @@ as_igraph.siena <- function(object, twomode = FALSE) {
   for (k in seq_len(length(object$vCovars))) {
     out <- .get_attributes(object$vCovars[[k]], out,
                           name = paste0(names(object$vCovars)[k]))
-  }
-  # add dycCovar
-  for (k in seq_len(length(object$dycCovars))) {
-    out <- join_ties(out, as_igraph(object$dycCovars[k]), 
-                     attr_name = paste0(names(object$dycCovars)[k]))
-  }
-  # add dyvCovars
-  for (k in seq_len(length(object$dyvCovars))) {
-    out <- .get_all_time_periods(object$dyvCovars[[k]], out,
-                                name = paste0(names(object$dyvCovars)[k]))
   }
   out
 }
