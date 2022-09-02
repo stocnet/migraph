@@ -1,3 +1,53 @@
+# migraph 0.10.7
+
+## Package
+
+- Reference and articles tabs on package website now called "Function Overview" and "Practical Lessons" respectively
+
+## Manipulation
+
+- Added `as_graphAM()` method for matrices
+- Added `as_igraph()`, `as_tidygraph()`, and `as_network()` methods for `{RSiena}` sienaData objects (thanks @JaelTan)
+- Added `as_edgelist()` and `as_matrix()` methods for `network.goldfish` class objects
+- `to_mode1()` and `to_mode2()` now take an extra argument to produce weighted projections by different "similarity" measures
+  - "count" (the default) returns a raw count of the coincidence of nodes in the specified mode with nodes of the other mode
+  - "jaccard" (Jaccard index) offers a measure of opportunity weighted by participation
+  - "rand" (Simple Matching Coefficient) offers a measure of behavioral mirroring
+  - "pearson" (Pearson's correlation) and "yule" (Yule's Q) offer correlation coefficients for valued and binary data, respectively
+  - These options work for matrices, igraph and tidygraph, and network objects
+- Added `to_onemode()` method for matrices
+- Added `to_twomode()` methods for igraph and tidygraph
+- Added `to_matching()` to transform a two-mode network or network with some other (binary) "mark" attribute into a network of matching ties
+- The `"twomode"` argument in `as_matrix()` is now `NULL` by default, allowing both one-mode and two-mode coercion
+- Fixed bug where `to_unweighted()` didn't respect the "threshold" specified
+
+## Marks
+
+- Fixed eternal loop bug where `node_mode()` couldn't produce a "mark" class object
+- Fixed bug where node names/labels were not being added to mark objects
+
+## Measures
+
+- `graph_core()` now runs `node_core()` (see below) if no "membership" vector is provided
+
+## Membership
+
+- Added `node_core()` for partitioning nodes into core and periphery memberships
+- Fixed floating point bug in `k_strict()`
+
+## Mapping
+
+- Added "hierarchy" and "alluvial" layout methods
+- Added "railway" and "ladder" layout methods
+- Added "concentric" layout method
+- Restructured `autographr()` to improve future debugging and development
+- `autographr()` now rotates labels for partitioning layouts, including "concentric", so that they are readable and overlap less
+
+## Data
+
+- `mpn_cow_igo` now includes polity2 scores
+- Added visualisations to some `ison_` and `mpn_` data documentation
+
 # migraph 0.10.6
 
 ## Package
