@@ -710,12 +710,12 @@ as_network.siena <- function(object, twomode = FALSE) {
 
 # RSiena ####
 
-#' @rdname as
-#' @export
-as_siena <- function(object,
-                       twomode = FALSE) UseMethod("as_siena")
+# #' @rdname as
+# #' @export
+# as_siena <- function(object,
+#                       twomode = FALSE) UseMethod("as_siena")
 
-#' @export
+# #' @export
 # as_siena.tbl_graph <- function(object, twomode = FALSE){
 #   RSiena::sienaDependent()
 #   RSiena::coCovar()

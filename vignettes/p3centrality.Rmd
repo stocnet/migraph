@@ -25,8 +25,9 @@ to be compatible with other packages.
 
 ```{r coercion}
 library(migraph)
-(mat <- as_matrix(ison_brandes))
 autographr(ison_brandes)
+autographr(ison_brandes2)
+(mat <- as_matrix(ison_brandes))
 ```
 
 The network is anonymous, but I think it would be nice to add some names,
@@ -36,6 +37,7 @@ This makes plotting the network just a wee bit more accessible and interpretable
 
 ```{r addingnames}
 ison_brandes <- to_named(ison_brandes)
+ison_brandes2 <- to_named(ison_brandes2)
 autographr(ison_brandes)
 ```
 

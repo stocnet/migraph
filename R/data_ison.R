@@ -35,11 +35,6 @@
 #' with 683 team affiliations between them
 "ison_marvel_teams"
 
-#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
-#'   autographr(ison_marvel_relationships) + ggtitle("ison_marvel_relationships")
-#'   ggsave("man/figures/ison_marvel_relationships.png", width = 7, height = 3.5, dpi = "screen")
-#'   ggsave("man/figures/ison_marvel_relationships.pdf", width = 7, height = 3.5)
-#'   ```
 #' @rdname ison_marvel
 #' @usage data(ison_marvel_relationships)
 #' @format One-mode igraph of 53 Marvel comic book characters and
