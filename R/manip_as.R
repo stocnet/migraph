@@ -260,7 +260,35 @@ as_matrix.network.goldfish <- function(object,
 #' @export
 as_matrix.siena <- function(object,
                             twomode = NULL) {
-  as_matrix(as_igraph(object, twomode = twomode))
+  # Get the dependent network(s) first
+  # Identify all dyadic depvars
+  dvs <- lapply(object$depvars, function(x) is.matrix(x[,,1]) )
+  ddvs <- names(which(dvs == TRUE))
+  # Add in first wave of first DV network
+  out <- object$depvars[[ddvs[1]]][,,1]
+  # Add remaining waves
+  for(d in 2:dim(object$depvars[[ddvs[1]]])[3]) {
+    out <- object$depvars[[ddvs[1]]][,,d] + out
+  }
+  # Add other dyadic depvars
+  if (length(ddvs) > 1) {
+    for (l in 2:length(ddvs)) {
+      for (d in 1:dim(object$depvars[[ddvs[l]]])[3]){
+        out <- object$depvars[[ddvs[l]]][,,d] + out
+      }
+    }
+  }
+  # Add dycCovars
+  for (k in seq_len(length(object$dycCovars))) {
+    out <- object$dycCovars[[ddvs[k]]] + out
+  }
+  # Add dyvCovars
+  for (k in seq_len(length(object$dyvCovars))) {
+    for (d in 1:dim(object$dyvCovars[[k]])[3]){
+      out <- object$dyvCovars[[k]][,,d] + out
+    }
+  }
+  out
 }
 
 # igraph ####
