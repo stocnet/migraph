@@ -17,7 +17,7 @@
 #' "Systematic identification of transcriptional regulatory modules from
 #' protein-protein interaction networks". 
 #' _Nucleic Acids Research_, 42 (1) e6.
-#' @import BiocManager
+#' @importFrom BiocManager install
 #' @examples 
 #' (autographr(ison_southern_women, "hierarchy") /
 #' autographr(ison_southern_women, "railway")) |
@@ -38,7 +38,8 @@ layout_tbl_graph_hierarchy <- function(object,
   }
   if(any(prep<0)) prep[prep<0] <- 0
   out <- as_graphAM(prep)
-  out <- Rgraphviz::layoutGraph(out, layoutType = 'dot')
+  out <- Rgraphviz::layoutGraph(out, layoutType = 'dot', 
+                                attrs = list(graph = list(rankdir = "BT")))
   nodeX <- .rescale(out@renderInfo@nodes$nodeX)
   nodeY <- .rescale(out@renderInfo@nodes$nodeY)
   # nodeY <- abs(nodeY - max(nodeY))
@@ -49,11 +50,23 @@ layout_tbl_graph_hierarchy <- function(object,
 #' @export
 layout_tbl_graph_alluvial <- function(object,
                                      circular = FALSE, times = 1000){
-  res <- layout_tbl_graph_hierarchy(as_igraph(object))
-  res <- data.frame(x = res$y,
-                    y = res$x)
-  res
+  if (!requireNamespace("Rgraphviz", quietly = TRUE)){
+    BiocManager::install("Rgraphviz")
+  }
   
+  prep <- as_matrix(object, twomode = FALSE)
+  if(anyDuplicated(rownames(prep))){
+    rownames(prep) <- seq_len(nrow(prep))
+    colnames(prep) <- seq_len(ncol(prep))
+  }
+  if(any(prep<0)) prep[prep<0] <- 0
+  out <- as_graphAM(prep)
+  out <- Rgraphviz::layoutGraph(out, layoutType = 'dot', 
+                                attrs = list(graph = list(rankdir = "LR")))
+  nodeX <- .rescale(out@renderInfo@nodes$nodeX)
+  nodeY <- .rescale(out@renderInfo@nodes$nodeY)
+  # nodeY <- abs(nodeY - max(nodeY))
+  .to_lo(cbind(nodeX, nodeY))  
 }
 
 #' @rdname partition_layouts
@@ -61,8 +74,8 @@ layout_tbl_graph_alluvial <- function(object,
 layout_tbl_graph_railway <- function(object,
                                      circular = FALSE, times = 1000){
   res <- layout_tbl_graph_hierarchy(as_igraph(object))
-  res$x <- c(match(res[res[,2]==1,1], sort(res[res[,2]==1,1])),
-             match(res[res[,2]==0,1], sort(res[res[,2]==0,1])))
+  res$x <- c(match(res[res[,2]==0,1], sort(res[res[,2]==0,1])),
+             match(res[res[,2]==1,1], sort(res[res[,2]==1,1])))
   res
 }
 
@@ -70,10 +83,9 @@ layout_tbl_graph_railway <- function(object,
 #' @export
 layout_tbl_graph_ladder <- function(object,
                                      circular = FALSE, times = 1000){
-  res <- layout_tbl_graph_hierarchy(as_igraph(object))
-  res <- data.frame(x = res$y,
-                    y = c(match(res[res[,2]==1,1], sort(res[res[,2]==1,1])),
-                          match(res[res[,2]==0,1], sort(res[res[,2]==0,1]))))
+  res <- layout_tbl_graph_alluvial(as_igraph(object))
+  res$y <- c(match(res[res[,2]==1,1], sort(res[res[,2]==1,1])),
+                          match(res[res[,2]==0,1], sort(res[res[,2]==0,1])))
   res
 }
 
