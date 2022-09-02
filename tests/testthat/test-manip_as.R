@@ -72,5 +72,10 @@ test_that("as_edgelist converts correctly", {
   expect_equal(as_edgelist(as_tidygraph(data1)), dplyr::as_tibble(data1))
   expect_equal(as_edgelist(as_network(data1)), dplyr::as_tibble(data1))
   expect_equal(as_edgelist(as_network(data2)), dplyr::as_tibble(data2))
+})
 
+# test conversion of siena objects
+test_that("as_tidygraph.siena converts correctly", {
+  expect_equal(graph_nodes(as_igraph(sienadata)), graph_nodes(as_matrix(sienadata)))
+  expect_equal(graph_nodes(as_igraph(sienadata)), length(sienadata[["nodeSets"]][["Actors"]]))
 })
