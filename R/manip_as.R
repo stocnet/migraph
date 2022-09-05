@@ -273,7 +273,7 @@ as_matrix.siena <- function(object,
   # Add other dyadic depvars
   if (length(ddvs) > 1) {
     for (l in 2:length(ddvs)) {
-      for (d in 1:dim(object$depvars[[ddvs[l]]])[3]){
+      for (d in seq_len(dim(object$depvars[[ddvs[l]]])[3])) {
         out <- object$depvars[[ddvs[l]]][,,d] + out
       }
     }
@@ -284,7 +284,7 @@ as_matrix.siena <- function(object,
   }
   # Add dyvCovars
   for (k in seq_len(length(object$dyvCovars))) {
-    for (d in 1:dim(object$dyvCovars[[k]])[3]){
+    for (d in seq_len(dim(object$dyvCovars[[k]])[3])) {
       out <- object$dyvCovars[[k]][,,d] + out
     }
   }
@@ -448,7 +448,7 @@ as_igraph.siena <- function(object, twomode = NULL) {
   
   .get_all_time_periods <- function(g, x, name = NULL) {
     # g is a matrix but x is igraph obj
-    for(d in 1:dim(g)[3]){
+    for(d in seq_len(dim(g)[3])){
       if (isTRUE(is_twomode(g[,,d]))) {
         # add names for new network
         rownames(g[,,d]) <- as.character(1:nrow(g[,,d]))
