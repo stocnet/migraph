@@ -6,9 +6,10 @@
 
 ## Manipulation
 
-- Added `as_graphAM()` method for matrices
-- Added `as_igraph()`, `as_tidygraph()`, and `as_network()` methods for `{RSiena}` sienaData objects (thanks @JaelTan)
+- Added `as_igraph()`, `as_tidygraph()`, and `as_network()` methods for `{RSiena}` sienaData objects (thanks @JaelTan, closed #94)
 - Added `as_edgelist()` and `as_matrix()` methods for `network.goldfish` class objects
+- Added `as_graphAM()` method for matrices
+- The `"twomode"` argument in `as_matrix()` is now `NULL` by default, allowing both one-mode and two-mode coercion
 - `to_mode1()` and `to_mode2()` now take an extra argument to produce weighted projections by different "similarity" measures
   - "count" (the default) returns a raw count of the coincidence of nodes in the specified mode with nodes of the other mode
   - "jaccard" (Jaccard index) offers a measure of opportunity weighted by participation
@@ -18,7 +19,6 @@
 - Added `to_onemode()` method for matrices
 - Added `to_twomode()` methods for igraph and tidygraph
 - Added `to_matching()` to transform a two-mode network or network with some other (binary) "mark" attribute into a network of matching ties
-- The `"twomode"` argument in `as_matrix()` is now `NULL` by default, allowing both one-mode and two-mode coercion
 - Fixed bug where `to_unweighted()` didn't respect the "threshold" specified
 
 ## Marks
@@ -38,7 +38,7 @@
 ## Mapping
 
 - Added "hierarchy" and "alluvial" layout methods
-- Added "railway" and "ladder" layout methods
+- Added "railway" and "ladder" layout methods (closed #125)
 - Added "concentric" layout method
 - Restructured `autographr()` to improve future debugging and development
 - `autographr()` now rotates labels for partitioning layouts, including "concentric", so that they are readable and overlap less

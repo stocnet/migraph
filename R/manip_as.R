@@ -486,7 +486,7 @@ as_igraph.siena <- function(object, twomode = NULL) {
   }
   
   .get_attributes <- function(ndy, x, name = NULL) {
-    for(d in 1:dim(ndy)[3]) {
+    for(d in seq_len(dim(ndy)[3])) {
       x <- add_node_attribute(x,
                               attr_name = paste0(name, "_", "t", d),
                               as.vector(ndy[,,d]))

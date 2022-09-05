@@ -123,7 +123,7 @@ layout_tbl_graph_concentric <- function(object, membership = NULL, radius = NULL
                                                membership[[k]]]
       lo <- layout_tbl_graph_hierarchy(as_igraph(xnet, twomode = TRUE))
       lo$names <- node_names(object)
-      if(ncol(lo)==2) lo[,1] <- 1:nrow(lo)
+      if(ncol(lo)==2) lo[,1] <- seq_len(lo)
       order.values <- lapply(1:0, function(x)
         if(ncol(lo)>=3) sort(lo[lo[,2]==x,])[,3] 
         else sort(lo[lo[,2]==x,1]) ) 
@@ -131,7 +131,7 @@ layout_tbl_graph_concentric <- function(object, membership = NULL, radius = NULL
     # order.values <- getNNvec(object, members)
   }
   res <- matrix(NA, nrow = length(all_n), ncol = 2)
-  for (k in 1:length(membership)) {
+  for (k in seq_along(membership)) {
     r <- radius[k]
     l <- order.values[[k]]
     if(is_labelled(object))

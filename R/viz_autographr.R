@@ -386,7 +386,7 @@ cart2pol <- function(xyz){
 hypot <- function (x, y) {
   if ((length(x) == 0 && is.numeric(y) && length(y) <= 1) || 
       (length(y) == 0 && is.numeric(x) && length(x) <= 1)) 
-    return(c())
+    return(vector())
   if (!is.numeric(x) && !is.complex(x) || !is.numeric(y) && 
       !is.complex(y)) 
     stop("Arguments 'x' and 'y' must be numeric or complex.")
