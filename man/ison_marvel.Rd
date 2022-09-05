@@ -25,8 +25,6 @@ data(ison_marvel_relationships)
 \description{
 Multilevel two-mode affiliation, signed one-mode networks of Marvel comic
 book characters (Yüksel 2017)
-
-
 }
 \details{
 This package includes two datasets related to the Marvel \emph{comic book} universe.
