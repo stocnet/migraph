@@ -62,67 +62,28 @@ test_that("weighted, unsigned, directed networks graph correctly", {
   expect_equal(test_networkers[["layers"]][[2]][["aes_params"]][["edge_colour"]], "black")
   expect_equal(as.character(test_networkers[["layers"]][[2]][["aes_params"]][["end_cap"]]), "circle")
   expect_s3_class(test_networkers[["layers"]][[2]][["aes_params"]][["end_cap"]], "geometry")
-  # expect_equal(rlang::quo_get_expr(test_networkers[["layers"]][[2]][["computed_mapping"]][["edge_width"]]),
-  #              as.name("weight"))
+  expect_equal(rlang::quo_get_expr(test_networkers[["layers"]][[2]][["mapping"]][["edge_width"]]),
+               as.name("weight"))
   # # Node parameters
   expect_equal(round(test_networkers[["layers"]][[3]][["aes_params"]][["size"]]), 2)
   expect_equal(test_networkers[["layers"]][[3]][["aes_params"]][["shape"]], "circle")
 })
 
-# Test node_measure function with ison_coleman
-# test_node_measure_max <- autographr(ison_adolescents,
-#   highlight_measure = "node_betweenness",
-#   identify_function = "max"
-# )
-# test_node_measure_min <- autographr(ison_adolescents,
-#   highlight_measure = "node_betweenness",
-#   identify_function = "min"
-# )
-# test_node_measure_max_edge_measure_max <- autographr(ison_adolescents,
-#                                     highlight_measure = c("node_betweenness", "tie_betweenness"),
-#                                     identify_function = c("max", "max")
-# )
-# 
-# test_that("autographr works with node_measure functionality", {
-#   # Node color is determined by factor levels
-#   expect_equal(
-#     rlang::as_label(test_node_measure_max[["layers"]][[2]][["mapping"]][["colour"]]),
-#     "color_factor_node"
-#   )
-#   expect_equal(
-#     rlang::as_label(test_node_measure_min[["layers"]][[2]][["mapping"]][["colour"]]),
-#     "color_factor_node"
-#   )
-#   # Node size
-#   expect_equal(test_node_measure_max[["layers"]][[2]][["geom"]][["default_aes"]][["size"]], 1.5)
-#   expect_equal(test_node_measure_min[["layers"]][[2]][["geom"]][["default_aes"]][["size"]], 1.5)
-# })
+# Test node/tie_is_min() and node/tie_is_max() work well with autographr
+test_that("autographr works with _min and _max", {
+  testplot <- ison_brandes %>% 
+    mutate(high_degree = node_is_max(node_degree())) %>% 
+    activate(edges) %>% 
+    mutate(high_betweenness = tie_is_max(tie_betweenness(ison_brandes))) %>% 
+    autographr(node_color = "high_degree", edge_color = "high_betweenness")
+  expect_equal(testplot[["plot_env"]][["lo"]][["high_degree"]], node_is_max(node_degree(ison_brandes)))
+  expect_equal(rlang::quo_get_expr(testplot[["layers"]][[2]][["mapping"]][["colour"]]),
+               as.name("color_factor_node"))
+  expect_equal(rlang::quo_get_expr(testplot[["layers"]][[1]][["mapping"]][["edge_colour"]]),
+               as.name("edge_color"))
+})
 
-# Test edge_measure function with ison_coleman
-# test_edge_measure_max <- autographr(ison_adolescents,
-#                                     highlight_measure = "tie_betweenness",
-#                                     identify_function = "max"
-# )
-# test_edge_measure_min <- autographr(ison_adolescents,
-#                                     highlight_measure = "tie_betweenness",
-#                                     identify_function = "min"
-# )
-# 
-# test_that("autographr works with tie_measure functionality", {
-#   # Node color is determined by factor levels
-#   expect_equal(
-#     rlang::as_label(rlang::quo_get_expr(test_edge_measure_max[["layers"]][[1]][["mapping"]][["edge_color"]])),
-#     "edge_color"
-#   )
-#   expect_equal(
-#     rlang::as_label(rlang::quo_get_expr(test_edge_measure_min[["layers"]][[1]][["mapping"]][["edge_color"]])),
-#     "edge_color"
-#   )
-#   # Node size
-#   expect_equal(test_edge_measure_max[["layers"]][[2]][["geom"]][["default_aes"]][["size"]], 1.5)
-#   expect_equal(test_edge_measure_min[["layers"]][[2]][["geom"]][["default_aes"]][["size"]], 1.5)
-# })
-# 
+
 # Bipartite network: mpn_usa_advice
 
 test_usa_advice <- autographr(mpn_elite_usa_advice)
