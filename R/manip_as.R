@@ -452,8 +452,8 @@ as_igraph.siena <- function(object, twomode = NULL) {
       y <- g[,,d]
       if (isTRUE(is_twomode(y))) {
         # add names for new network
-        rownames(y) <- as.character(1:nrow(y))
-        colnames(y) <- as.character(paste0("N", 1:ncol(y)))
+        rownames(y) <- as.character(seq_len(nrow(y)))
+        colnames(y) <- as.character(paste0("N", seq_len(ncol(y))))
         # join ties
         if (isTRUE(is_twomode(x))) { # x and y are twomode
           x <- join_ties(x, as_igraph(y), 
