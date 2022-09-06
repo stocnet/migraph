@@ -470,7 +470,7 @@ as_igraph.siena <- function(object, twomode = NULL) {
         }
       } else {
         # add names for one-mode y
-        y <- add_node_attribute(y, "name", as.character(1:graph_nodes(y)))
+        y <- add_node_attribute(y, "name", as.character(seq_len(graph_nodes(y))))
         # join ties
         if (isTRUE(is_twomode(x))) { # x is twomode but y is onemode
           y <- as_edgelist(y)
@@ -506,10 +506,10 @@ as_igraph.siena <- function(object, twomode = NULL) {
   # Add in first network as base and add names
   out <- object$depvars[[ddvs[1]]][,,1] # first wave
   if (is_twomode(out) == FALSE) {
-    out <- add_node_attribute(out, "name", as.character(1:graph_nodes(out)))
+    out <- add_node_attribute(out, "name", as.character(seq_len(graph_nodes(out))))
   } else {
-    rownames(out) <- as.character(1:nrow(out))
-    colnames(out) <- as.character(paste0("N", 1:ncol(out)))
+    rownames(out) <- as.character(seq_len(nrow(out)))
+    colnames(out) <- as.character(paste0("N", seq_len(ncol(out))))
   }
   # add ties from rest of time periods
   out <- .get_rem_time_periods(object$depvars[[ddvs[1]]], out,
