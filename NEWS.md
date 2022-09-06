@@ -20,6 +20,7 @@
 - Added `to_twomode()` methods for igraph and tidygraph
 - Added `to_matching()` to transform a two-mode network or network with some other (binary) "mark" attribute into a network of matching ties
 - Fixed bug where `to_unweighted()` didn't respect the "threshold" specified
+Added two-mode application for `to_blocks()` (closed #242)
 
 ## Marks
 
