@@ -449,33 +449,38 @@ as_igraph.siena <- function(object, twomode = NULL) {
   .get_all_time_periods <- function(g, x, name = NULL) {
     # g is a matrix but x is igraph obj
     for(d in seq_len(dim(g)[3])){
-      if (isTRUE(is_twomode(g[,,d]))) {
+      y <- g[,,d]
+      if (isTRUE(is_twomode(y))) {
         # add names for new network
-        rownames(g[,,d]) <- as.character(1:nrow(g[,,d]))
-        colnames(g[,,d]) <- as.character(paste0("N", 1:ncol(g[,,d])))
+        rownames(y) <- as.character(1:nrow(y))
+        colnames(y) <- as.character(paste0("N", 1:ncol(y)))
         # join ties
-        if (is_twomode(x) == TRUE) { # x and y are twomode
-          x <- join_ties(x, as_igraph(g[,,d]), 
+        if (isTRUE(is_twomode(x))) { # x and y are twomode
+          x <- join_ties(x, as_igraph(y), 
                          attr_name = paste0(name, "_", "t", d))
         } else { # x is onemode but y is twomode
-          y <- as_edgelist(g[,,d])
-          y <- y %>%
-            dplyr::mutate( !!paste0(name, "_", "t", d) := 1)
-          x <- dplyr::full_join(y, as_edgelist(x),
-                                by = c("from", "to")) %>%
-            as_tidygraph()
-        }
-      } else {
-        # add names for new network
-        y <- add_node_attribute(g[,,d], "name", as.character(1:graph_nodes(g[,,d])))
-        # join ties
-        if (is_twomode(x) == TRUE) { # x is twomode but y is onemode
           y <- as_edgelist(y)
           y <- y %>%
-            dplyr::mutate( !!paste0(name, "_", "t", d) := 1)
-          x <- dplyr::full_join(y, as_edgelist(x),
-                                by = c("from", "to")) %>%
-            as_tidygraph()
+            dplyr::mutate(weight = 1)
+          x <- dplyr::bind_rows(y, as_edgelist(x)) %>%
+            as_igraph()
+          x <- add_tie_attribute(x, paste0(name, "_", "t", d),
+                                 tie_attribute(x, "weight")) %>%
+            igraph::delete_edge_attr("weight")
+        }
+      } else {
+        # add names for one-mode y
+        y <- add_node_attribute(y, "name", as.character(1:graph_nodes(y)))
+        # join ties
+        if (isTRUE(is_twomode(x))) { # x is twomode but y is onemode
+          y <- as_edgelist(y)
+          y <- y %>%
+            dplyr::mutate(weight = 1)
+          x <- dplyr::bind_rows(y, as_edgelist(x)) %>%
+            as_igraph()
+          x <- add_tie_attribute(x, paste0(name, "_", "t", d),
+                                 tie_attribute(x, "weight")) %>%
+            igraph::delete_edge_attr("weight")
         } else { # x and y are onemode
           x <- join_ties(x, as_igraph(y), 
                          attr_name = paste0(name, "_", "t", d))
@@ -509,8 +514,8 @@ as_igraph.siena <- function(object, twomode = NULL) {
   # add ties from rest of time periods
   out <- .get_rem_time_periods(object$depvars[[ddvs[1]]], out,
                                name = ddvs[1])
-  out <- igraph::set.edge.attribute(out, paste0(ddvs[1], "_", "t1"),
-                                    value = igraph::edge_attr(out, "orig")) %>%
+  out <- add_tie_attribute(out, paste0(ddvs[1], "_", "t1"),
+                           tie_attribute(out, "orig")) %>%
     igraph::delete_edge_attr("orig")
 
   # Add rest of the dyadic depvars
