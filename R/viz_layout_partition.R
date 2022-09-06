@@ -136,8 +136,7 @@ layout_tbl_graph_concentric <- function(object, membership = NULL, radius = NULL
     l <- order.values[[k]]
     if(is_labelled(object))
       l <- match(l, node_names(object))
-    coords <- getCoordinates(l, r)
-    res[l, ] <- coords
+    res[l, ] <- getCoordinates(l, r)
   }
   .to_lo(res)
 }
@@ -195,16 +194,15 @@ getNNvec <- function(object, members){
 }
 
 getCoordinates <- function(x, r){
-  l = length(x)
-  d = 360/l
-  c1 = seq(0, 360, d)
-  c1 = c1[1:(length(c1) - 1)]
-  tmp = t(sapply(c1, 
+  l <- length(x)
+  d <- 360/l
+  c1 <- seq(0, 360, d)
+  c1 <- c1[1:(length(c1) - 1)]
+  tmp <- t(vapply(c1, 
                  function(cc) c(cos(cc * pi/180) * 
                                   r, sin(cc *
-                                           pi/180) * r)))
-  rownames(tmp) = x
+                                           pi/180) * r),
+                FUN.VALUE = numeric(2)))
+  rownames(tmp) <- x
   tmp
 }
-
-# layout_tbl_graph_railway
