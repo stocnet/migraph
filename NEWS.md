@@ -46,7 +46,7 @@ Added two-mode application for `to_blocks()` (closed #242)
 
 ## Data
 
-- `mpn_cow_igo` now includes polity2 scores
+- `mpn_cow_igo` now includes "polity2" scores
 - Added visualisations to some `ison_` and `mpn_` data documentation
 
 # migraph 0.10.6
