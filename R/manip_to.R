@@ -621,12 +621,22 @@ to_ties <- function(object){
 #' autographr(adolblock)
 #' @export
 to_blocks <- function(object, membership, FUN = mean){
-  mat <- as_matrix(to_onemode(object))
   if(is_twomode(object)){
+    mat <- as_matrix(to_onemode(object))
     m1_membs <- membership[!node_mode(object)]
     m2_membs <- membership[node_mode(object)]
-  } 
-  if(!is_twomode(object)) {
+    x <- length(unique(m1_membs))
+    y <- length(unique(m2_membs))
+    out <- matrix(nrow = unique(m1_membs)[x],
+                  ncol = unique(m2_membs)[y])
+    for(i in unique(m1_membs)) for (j in unique(m2_membs))
+      out[i, j] <- FUN(mat[membership == i, 
+                           membership == j, drop = FALSE], 
+                       na.rm = TRUE)
+    rownames(out) <- paste("Block", seq_len(unique(m1_membs)[x]))
+    colnames(out) <- paste("Block", seq_len(unique(m2_membs)[y]))
+  } else {
+    mat <- as_matrix(object)
     parts <- max(membership)
     out <- matrix(nrow = parts, 
                   ncol = parts)
@@ -636,15 +646,6 @@ to_blocks <- function(object, membership, FUN = mean){
                        na.rm = TRUE)
     rownames(out) <- paste("Block", seq_len(parts))
     colnames(out) <- paste("Block", seq_len(parts))
-  } else {
-    out <- matrix(nrow = length(unique(m1_membs)),
-                  ncol = length(unique(m2_membs)))
-    for(i in unique(m1_membs)) for (j in unique(m2_membs))
-      out[i, j] <- FUN(mat[membership == i, 
-                           membership == j, drop = FALSE], 
-                       na.rm = TRUE)
-    rownames(out) <- paste("Block", unique(m1_membs))
-    colnames(out) <- paste("Block", unique(m2_membs))
   }
   out
 }
