@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -29,21 +29,11 @@
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Function Overview</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p3centrality.html">3. Centrality</a>
-    </li>
-  </ul></li>
+<li>
+  <a href="../articles/index.html">Practical Lessons</a>
+</li>
 <li>
   <a href="../news/index.html">News</a>
 </li>
@@ -77,28 +67,28 @@
 
     <div id="format">
     <h2>Format</h2>
-    <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="co">## # A tbl_graph: 16 nodes and 144 edges</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="co">## #</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co">## # A directed simple graph with 1 component</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co">## #</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co">## # Node Data: 16 × 1 (active)</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co">##   name    </span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co">##   &lt;chr&gt;   </span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co">## 1 Melinda </span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="co">## 2 Abby    </span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="co">## 3 Darryl  </span></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="co">## 4 Veronica</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="co">## 5 Rylan   </span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="co">## 6 Lindsey </span></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="co">## # … with 10 more rows</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="co">## #</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="co">## # Edge Data: 144 × 5</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="co">##    from    to friends social tasks</span></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="co">##   &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="co">## 1     1     5       0   1.2    0.3</span></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="co">## 2     1     8       0   0.15   0  </span></span>
-<span id="cb1-21"><a href="#cb1-21"></a><span class="co">## 3     1     9       0   2.85   0.3</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a><span class="co">## # … with 141 more rows</span></span></code></pre><p></p></div>
+    <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#&gt; # A tbl_graph: 16 nodes and 144 edges</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#&gt; #</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&gt; # A directed simple graph with 1 component</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&gt; #</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#&gt; # Node Data: 16 x 1 (active)</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt;   name    </span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt;   &lt;chr&gt;   </span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">#&gt; 1 Melinda </span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">#&gt; 2 Abby    </span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co">#&gt; 3 Darryl  </span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co">#&gt; 4 Veronica</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co">#&gt; 5 Rylan   </span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co">#&gt; 6 Lindsey </span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co">#&gt; # ... with 10 more rows</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co">#&gt; #</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co">#&gt; # Edge Data: 144 x 5</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co">#&gt;    from    to friends social tasks</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co">#&gt; 1     1     5       0   1.2    0.3</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="co">#&gt; 2     1     8       0   0.15   0  </span></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="co">#&gt; 3     1     9       0   2.85   0.3</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a><span class="co">#&gt; # ... with 141 more rows</span></span></code></pre><p></p></div>
     </div>
     <div id="source">
     <h2>Source</h2>
@@ -114,6 +104,7 @@ The edge attribute <code>friends</code> contains friendship ties,
 where <code>2</code> = best friends, <code>1</code> = friend, and <code>0</code> is not a friend.
 <code>social</code> consists of social interactions per hour,
 and <code>tasks</code> consists of task interactions per hour.</p>
+<p><img src="figures/ison_algebra.png" width="75%" alt="Figure: ison_algebra"></p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -135,7 +126,7 @@ and <code>tasks</code> consists of task interactions per hour.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

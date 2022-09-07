@@ -21,7 +21,7 @@ visualisation of network measures such as centrality."><meta property="og:image"
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -33,21 +33,11 @@ visualisation of network measures such as centrality."><meta property="og:image"
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Function Overview</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p3centrality.html">3. Centrality</a>
-    </li>
-  </ul></li>
+<li>
+  <a href="../articles/index.html">Practical Lessons</a>
+</li>
 <li>
   <a href="../news/index.html">News</a>
 </li>
@@ -151,7 +141,8 @@ to the graph before plotting.</p></dd>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other mapping: 
-<code><a href="layouts.html">layouts</a></code></p></div>
+<code><a href="grid_layouts.html">grid_layouts</a></code>,
+<code><a href="partition_layouts.html">partition_layouts</a></code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -169,6 +160,12 @@ to the graph before plotting.</p></dd>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>high_betweenness <span class="op">=</span> <span class="fu"><a href="mark_ties.html">tie_is_max</a></span><span class="op">(</span><span class="fu"><a href="centrality.html">tie_betweenness</a></span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu">autographr</span><span class="op">(</span>node_color <span class="op">=</span> <span class="st">"high_degree"</span>, edge_color <span class="op">=</span> <span class="st">"high_betweenness"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="autographr-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu">autographr</span><span class="op">(</span><span class="va">mpn_elite_usa_advice</span>, <span class="st">"concentric"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Found more than one class "graph" in cache; using the first, from namespace 'migraph'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Also defined by ‘graph’</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Found more than one class "graph" in cache; using the first, from namespace 'migraph'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Also defined by ‘graph’</span>
+<span class="r-plt img"><img src="autographr-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
@@ -183,7 +180,7 @@ to the graph before plotting.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

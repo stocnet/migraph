@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -29,21 +29,11 @@
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Function Overview</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p3centrality.html">3. Centrality</a>
-    </li>
-  </ul></li>
+<li>
+  <a href="../articles/index.html">Practical Lessons</a>
+</li>
 <li>
   <a href="../news/index.html">News</a>
 </li>
@@ -86,15 +76,15 @@
           <p class="section-desc"></p><p>Functions for coercing objects between different classes, reformatting or transforming the type of network, or adding information to or retrieving information from the network.</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="as.html">as_edgelist()</a></code> <code><a href="as.html">as_matrix()</a></code> <code><a href="as.html">as_igraph()</a></code> <code><a href="as.html">as_tidygraph()</a></code> <code><a href="as.html">as_network()</a></code> </p>
+          <p><code><a href="as.html">as_edgelist()</a></code> <code><a href="as.html">as_matrix()</a></code> <code><a href="as.html">as_igraph()</a></code> <code><a href="as.html">as_tidygraph()</a></code> <code><a href="as.html">as_network()</a></code> <code><a href="as.html">as_graphAM()</a></code> </p>
         </td>
         <td><p>Coercion between migraph-compatible object classes</p></td>
       </tr><tr><td>
-          <p><code><a href="reformat.html">to_uniplex()</a></code> <code><a href="reformat.html">to_undirected()</a></code> <code><a href="reformat.html">to_redirected()</a></code> <code><a href="reformat.html">to_unweighted()</a></code> <code><a href="reformat.html">to_unsigned()</a></code> <code><a href="reformat.html">to_unnamed()</a></code> <code><a href="reformat.html">to_named()</a></code> <code><a href="reformat.html">to_simplex()</a></code> <code><a href="reformat.html">to_onemode()</a></code> <code><a href="reformat.html">to_multilevel()</a></code> </p>
+          <p><code><a href="reformat.html">to_uniplex()</a></code> <code><a href="reformat.html">to_undirected()</a></code> <code><a href="reformat.html">to_redirected()</a></code> <code><a href="reformat.html">to_unweighted()</a></code> <code><a href="reformat.html">to_unsigned()</a></code> <code><a href="reformat.html">to_unnamed()</a></code> <code><a href="reformat.html">to_named()</a></code> <code><a href="reformat.html">to_simplex()</a></code> <code><a href="reformat.html">to_onemode()</a></code> <code><a href="reformat.html">to_multilevel()</a></code> <code><a href="reformat.html">to_twomode()</a></code> </p>
         </td>
         <td><p>Tools for reformatting networks, graphs, and matrices</p></td>
       </tr><tr><td>
-          <p><code><a href="transform.html">to_mode1()</a></code> <code><a href="transform.html">to_mode2()</a></code> <code><a href="transform.html">to_main_component()</a></code> <code><a href="transform.html">to_subgraph()</a></code> <code><a href="transform.html">to_ties()</a></code> <code><a href="transform.html">to_blocks()</a></code> </p>
+          <p><code><a href="transform.html">to_mode1()</a></code> <code><a href="transform.html">to_mode2()</a></code> <code><a href="transform.html">to_giant()</a></code> <code><a href="transform.html">to_subgraph()</a></code> <code><a href="transform.html">to_ties()</a></code> <code><a href="transform.html">to_blocks()</a></code> <code><a href="transform.html">to_matching()</a></code> </p>
         </td>
         <td><p>Tools for transforming networks, graphs, and matrices</p></td>
       </tr><tr><td>
@@ -181,6 +171,10 @@
           <p><code><a href="equivalence.html">node_equivalence()</a></code> <code><a href="equivalence.html">node_structural_equivalence()</a></code> <code><a href="equivalence.html">node_regular_equivalence()</a></code> <code><a href="equivalence.html">node_automorphic_equivalence()</a></code> </p>
         </td>
         <td><p>Equivalence clustering algorithms</p></td>
+      </tr><tr><td>
+          <p><code><a href="core-periphery.html">node_core()</a></code> </p>
+        </td>
+        <td><p>Core-periphery clustering algorithms</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="models">Models <a href="#models" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Functions for modelling multimodal networks:</p>
@@ -206,9 +200,13 @@
         </td>
         <td><p>Quickly graph networks with sensible defaults</p></td>
       </tr><tr><td>
-          <p><code><a href="layouts.html">layout_tbl_graph_frgrid()</a></code> <code><a href="layouts.html">layout_tbl_graph_kkgrid()</a></code> <code><a href="layouts.html">layout_tbl_graph_gogrid()</a></code> <code><a href="layouts.html">layout_tbl_graph_stressgrid()</a></code> </p>
+          <p><code><a href="grid_layouts.html">layout_tbl_graph_frgrid()</a></code> <code><a href="grid_layouts.html">layout_tbl_graph_kkgrid()</a></code> <code><a href="grid_layouts.html">layout_tbl_graph_gogrid()</a></code> <code><a href="grid_layouts.html">layout_tbl_graph_stressgrid()</a></code> </p>
         </td>
         <td><p>Layouts for snapping layouts to a grid</p></td>
+      </tr><tr><td>
+          <p><code><a href="partition_layouts.html">layout_tbl_graph_hierarchy()</a></code> <code><a href="partition_layouts.html">layout_tbl_graph_alluvial()</a></code> <code><a href="partition_layouts.html">layout_tbl_graph_railway()</a></code> <code><a href="partition_layouts.html">layout_tbl_graph_ladder()</a></code> <code><a href="partition_layouts.html">layout_tbl_graph_concentric()</a></code> </p>
+        </td>
+        <td><p>Layout algorithms based on bi- or other partitions</p></td>
       </tr><tr><td>
           <p><code><a href="gglineage.html">gglineage()</a></code> </p>
         </td>
@@ -295,7 +293,7 @@ book characters (Yüksel 2017)</p></td>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

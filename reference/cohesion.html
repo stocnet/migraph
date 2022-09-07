@@ -18,7 +18,7 @@ and where the nodes or edges that would increase fragmentation are."><meta prope
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -30,21 +30,11 @@ and where the nodes or edges that would increase fragmentation are."><meta prope
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Function Overview</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p3centrality.html">3. Centrality</a>
-    </li>
-  </ul></li>
+<li>
+  <a href="../articles/index.html">Practical Lessons</a>
+</li>
 <li>
   <a href="../news/index.html">News</a>
 </li>
@@ -101,17 +91,17 @@ and where the nodes or edges that would increase fragmentation are.</p>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>graph_density</code>: summarises the ratio of ties
+<ul><li><p><code>graph_density()</code>: summarises the ratio of ties
 to the number of possible ties.</p></li>
-<li><p><code>graph_components</code>: Returns number of (strong) components in the network.
+<li><p><code>graph_components()</code>: Returns number of (strong) components in the network.
 To get the 'weak' components of a directed graph,
 please use <code><a href="reformat.html">to_undirected()</a></code> first.</p></li>
-<li><p><code>graph_cohesion</code>: Returns the minimum number of nodes to remove
+<li><p><code>graph_cohesion()</code>: Returns the minimum number of nodes to remove
 from the network needed to increase the number of components.</p></li>
-<li><p><code>graph_adhesion</code>: Returns the minimum number of edges needed
+<li><p><code>graph_adhesion()</code>: Returns the minimum number of edges needed
 to remove from the network to increase the number of components.</p></li>
-<li><p><code>graph_diameter</code>: Returns the maximum path length in the network.</p></li>
-<li><p><code>graph_length</code>: Returns the average path length in the network.</p></li>
+<li><p><code>graph_diameter()</code>: Returns the maximum path length in the network.</p></li>
+<li><p><code>graph_length()</code>: Returns the average path length in the network.</p></li>
 </ul></div>
     <div id="references">
     <h2>References</h2>
@@ -138,19 +128,19 @@ to remove from the network to increase the number of components.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.164</span>
 <span class="r-in"><span><span class="fu">graph_cohesion</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
-<span class="r-in"><span><span class="fu">graph_cohesion</span><span class="op">(</span><span class="fu"><a href="transform.html">to_main_component</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graph_cohesion</span><span class="op">(</span><span class="fu"><a href="transform.html">to_giant</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
 <span class="r-in"><span><span class="fu">graph_adhesion</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
-<span class="r-in"><span><span class="fu">graph_adhesion</span><span class="op">(</span><span class="fu"><a href="transform.html">to_main_component</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graph_adhesion</span><span class="op">(</span><span class="fu"><a href="transform.html">to_giant</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
 <span class="r-in"><span><span class="fu">graph_diameter</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
-<span class="r-in"><span><span class="fu">graph_diameter</span><span class="op">(</span><span class="fu"><a href="transform.html">to_main_component</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graph_diameter</span><span class="op">(</span><span class="fu"><a href="transform.html">to_giant</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
 <span class="r-in"><span><span class="fu">graph_length</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.62</span>
-<span class="r-in"><span><span class="fu">graph_length</span><span class="op">(</span><span class="fu"><a href="transform.html">to_main_component</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graph_length</span><span class="op">(</span><span class="fu"><a href="transform.html">to_giant</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.62</span>
 </code></pre></div>
     </div>
@@ -166,7 +156,7 @@ to remove from the network to increase the number of components.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -29,21 +29,11 @@
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Function Overview</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p3centrality.html">3. Centrality</a>
-    </li>
-  </ul></li>
+<li>
+  <a href="../articles/index.html">Practical Lessons</a>
+</li>
 <li>
   <a href="../news/index.html">News</a>
 </li>
@@ -114,17 +104,17 @@ By default 1.</p></dd>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>graph_core</code>: Returns correlation between a given network
+<ul><li><p><code>graph_core()</code>: Returns correlation between a given network
 and a core-periphery model with the same dimensions.</p></li>
-<li><p><code>graph_factions</code>: Returns correlation between a given network
+<li><p><code>graph_factions()</code>: Returns correlation between a given network
 and a component model with the same dimensions.</p></li>
-<li><p><code>graph_modularity</code>: Returns modularity of one- or two-mode networks
+<li><p><code>graph_modularity()</code>: Returns modularity of one- or two-mode networks
 based on nodes' membership in pre-defined clusters.</p></li>
-<li><p><code>graph_smallworld</code>: Returns small-world metrics for one- and
+<li><p><code>graph_smallworld()</code>: Returns small-world metrics for one- and
 two-mode networks.
 Small-world networks can be highly clustered and yet
 have short path lengths.</p></li>
-<li><p><code>graph_balance</code>: Returns the structural balance index on
+<li><p><code>graph_balance()</code>: Returns the structural balance index on
 the proportion of balanced triangles,
 ranging between <code>0</code> if all triangles are imbalanced and
 <code>1</code> if all triangles are balanced.</p></li>
@@ -134,7 +124,7 @@ ranging between <code>0</code> if all triangles are imbalanced and
     <p>Borgatti, Stephen P., and Martin G. Everett. 2000.
 “Models of Core/Periphery Structures.”
 <em>Social Networks</em> 21(4):375–95.
-https://doi.org/10.1016/S0378-8733(99)00019-2</p>
+<a href="https://doi.org/10.1016/S0378-8733%2899%2900019-2" class="external-link">doi:10.1016/S0378-8733(99)00019-2</a></p>
 <p>Murata, Tsuyoshi. 2010. Modularity for Bipartite Networks.
 In: Memon, N., Xu, J., Hicks, D., Chen, H. (eds)
 <em>Data Mining for Social Network Data. Annals of Information Systems</em>, V1ol 12.
@@ -162,9 +152,9 @@ for how clustering is calculated</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">graph_core</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.164</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.323</span>
 <span class="r-in"><span><span class="fu">graph_core</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.299</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.343</span>
 <span class="r-in"><span><span class="fu">graph_factions</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.174</span>
 <span class="r-in"><span><span class="fu">graph_factions</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
@@ -195,7 +185,7 @@ for how clustering is calculated</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

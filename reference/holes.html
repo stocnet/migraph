@@ -22,7 +22,7 @@ can gain some comparative advantage from that position."><meta property="og:imag
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -34,21 +34,11 @@ can gain some comparative advantage from that position."><meta property="og:imag
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Function Overview</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p3centrality.html">3. Centrality</a>
-    </li>
-  </ul></li>
+<li>
+  <a href="../articles/index.html">Practical Lessons</a>
+</li>
 <li>
   <a href="../news/index.html">News</a>
 </li>
@@ -118,15 +108,15 @@ and effective size is calculated as \(n - \frac{2t}{n}\).</p>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>node_bridges</code>: Returns the sum of bridges to which each node
+<ul><li><p><code>node_bridges()</code>: Returns the sum of bridges to which each node
 is adjacent.</p></li>
-<li><p><code>node_redundancy</code>: Returns a measure of the redundancy of each nodes'
+<li><p><code>node_redundancy()</code>: Returns a measure of the redundancy of each nodes'
 contacts.</p></li>
-<li><p><code>node_effsize</code>: Returns nodes' effective size</p></li>
-<li><p><code>node_efficiency</code>: Returns nodes' efficiency</p></li>
-<li><p><code>node_constraint</code>: Returns nodes' constraint scores for one-mode networks
+<li><p><code>node_effsize()</code>: Returns nodes' effective size</p></li>
+<li><p><code>node_efficiency()</code>: Returns nodes' efficiency</p></li>
+<li><p><code>node_constraint()</code>: Returns nodes' constraint scores for one-mode networks
 according to Burt (1992) and for two-mode networks according to Hollway et al (2020).</p></li>
-<li><p><code>node_hierarchy</code>: Returns nodes' exposure to hierarchy,
+<li><p><code>node_hierarchy()</code>: Returns nodes' exposure to hierarchy,
 where only one or two contacts are the source of closure</p></li>
 </ul></div>
     <div id="references">
@@ -162,57 +152,57 @@ Cambridge, MA: Harvard University Press.</p>
 <span class="r-in"><span><span class="fu">node_bridges</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      0     0       0      0         0       0       0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more from this nodeset in the vector.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0     0     0     0     0     0     0     0     0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more from this nodeset in the vector.</span></span>
 <span class="r-in"><span><span class="fu">node_redundancy</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Betty   Sue Alice  Jane  Dale   Pam Carol  Tina</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     6   2.5   2.5     4  3.33     4     2     2</span>
 <span class="r-in"><span><span class="fu">node_redundancy</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>   12.5  12.9    14.2   13.1        12      16      18  20.7    20  19.5  17.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more from this nodeset in the vector.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  12.7  13.3  10.7  11.5   9.5  10.2    10     9     8    10   7.5  9.43    12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more from this nodeset in the vector.</span></span>
 <span class="r-in"><span><span class="fu">node_effsize</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Betty   Sue Alice  Jane   Dale   Pam Carol  Tina</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    -<span style="color: #BB0000;">5</span>   1.5   1.5    -<span style="color: #BB0000;">2</span> -<span style="color: #BB0000;">0.333</span>    -<span style="color: #BB0000;">1</span>     0    -<span style="color: #BB0000;">1</span></span>
 <span class="r-in"><span><span class="fu">node_effsize</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>   -<span style="color: #BB0000;">4.5</span> -<span style="color: #BB0000;">5.86</span>   -<span style="color: #BB0000;">6.25</span>  -<span style="color: #BB0000;">6.14</span>        -<span style="color: #BB0000;">8</span>     -<span style="color: #BB0000;">12</span>     -<span style="color: #BB0000;">14</span> -<span style="color: #BB0000;">17.7</span>   -<span style="color: #BB0000;">16</span> -<span style="color: #BB0000;">15.5</span> -<span style="color: #BB0000;">13.5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more from this nodeset in the vector.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> -<span style="color: #BB0000;">9.67</span> -<span style="color: #BB0000;">10.3</span> -<span style="color: #BB0000;">4.67</span>  -<span style="color: #BB0000;">7.5</span>  -<span style="color: #BB0000;">1.5</span> -<span style="color: #BB0000;">2.25</span>     0     5     4    -<span style="color: #BB0000;">4</span>  -<span style="color: #BB0000;">3.5</span> -<span style="color: #BB0000;">2.43</span>    -<span style="color: #BB0000;">8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more from this nodeset in the vector.</span></span>
 <span class="r-in"><span><span class="fu">node_efficiency</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      V1    V2    V3    V4     V5     V6    V7    V8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    -<span style="color: #BB0000;">5</span> 0.375 0.375    -<span style="color: #BB0000;">1</span> -<span style="color: #BB0000;">0.111</span> -<span style="color: #BB0000;">0.333</span>     0    -<span style="color: #BB0000;">1</span></span>
 <span class="r-in"><span><span class="fu">node_efficiency</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       V1     V2     V3     V4    V5    V6    V7    V8    V9   V10   V11   V12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> -<span style="color: #BB0000;">0.562</span> -<span style="color: #BB0000;">0.837</span> -<span style="color: #BB0000;">0.781</span> -<span style="color: #BB0000;">0.878</span>    -<span style="color: #BB0000;">2</span>    -<span style="color: #BB0000;">3</span>  -<span style="color: #BB0000;">3.5</span> -<span style="color: #BB0000;">5.89</span>    -<span style="color: #BB0000;">4</span> -<span style="color: #BB0000;">3.88</span> -<span style="color: #BB0000;">3.38</span> -<span style="color: #BB0000;">1.28</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 6 more in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 6 more from this nodeset in the vector.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      V1    V2     V3    V4     V5     V6    V7    V8    V9    V10    V11    V12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> -<span style="color: #BB0000;">3.22</span> -<span style="color: #BB0000;">3.44</span> -<span style="color: #BB0000;">0.778</span> -<span style="color: #BB0000;">1.88</span> -<span style="color: #BB0000;">0.188</span> -<span style="color: #BB0000;">0.281</span>     0 0.357 0.333 -<span style="color: #BB0000;">0.667</span> -<span style="color: #BB0000;">0.875</span> -<span style="color: #BB0000;">0.347</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 2 more in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 2 more from this nodeset in the vector.</span></span>
 <span class="r-in"><span><span class="fu">node_constraint</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  0.276 0.306   0.294  0.317     0.384   0.412   0.415 0.461 0.398 0.407 0.434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more from this nodeset in the vector.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.476 0.476 0.338 0.394 0.275 0.241 0.192 0.170 0.161 0.327 0.308 0.292 0.432</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more from this nodeset in the vector.</span></span>
 <span class="r-in"><span><span class="fu">node_hierarchy</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Betty    Sue  Alice    Jane   Dale     Pam Carol  Tina</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0 0.030<span style="text-decoration: underline;">6</span> 0.027<span style="text-decoration: underline;">4</span> 0.005<span style="text-decoration: underline;">87</span> 0.033<span style="text-decoration: underline;">3</span> 0.006<span style="text-decoration: underline;">12</span> 0.102     0</span>
 <span class="r-in"><span><span class="fu">node_hierarchy</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN  LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR  PEARL   RUTH  VERNE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.034<span style="text-decoration: underline;">1</span> 0.035<span style="text-decoration: underline;">9</span>  0.033<span style="text-decoration: underline;">4</span> 0.030<span style="text-decoration: underline;">1</span>    0.023<span style="text-decoration: underline;">4</span>  0.020<span style="text-decoration: underline;">7</span>  0.012<span style="text-decoration: underline;">4</span> 0.015<span style="text-decoration: underline;">4</span> 0.017<span style="text-decoration: underline;">2</span> 0.022<span style="text-decoration: underline;">1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 8 more in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 8 more from this nodeset in the vector.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        E1       E2      E3      E4      E5     E6      E7      E8     E9    E10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.001<span style="text-decoration: underline;">50</span> 0.000<span style="text-decoration: underline;">819</span> 0.006<span style="text-decoration: underline;">02</span> 0.005<span style="text-decoration: underline;">76</span> 0.005<span style="text-decoration: underline;">72</span> 0.010<span style="text-decoration: underline;">1</span> 0.005<span style="text-decoration: underline;">73</span> 0.005<span style="text-decoration: underline;">65</span> 0.015<span style="text-decoration: underline;">0</span> 0.011<span style="text-decoration: underline;">1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 4 more in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 4 more from this nodeset in the vector.</span></span>
 </code></pre></div>
     </div>
   </div>
@@ -227,7 +217,7 @@ Cambridge, MA: Harvard University Press.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

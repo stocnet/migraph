@@ -31,7 +31,7 @@ In two-mode networks, this is ignored."><meta property="og:image" content="https
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -43,21 +43,11 @@ In two-mode networks, this is ignored."><meta property="og:image" content="https
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Function Overview</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p3centrality.html">3. Centrality</a>
-    </li>
-  </ul></li>
+<li>
+  <a href="../articles/index.html">Practical Lessons</a>
+</li>
 <li>
   <a href="../news/index.html">News</a>
 </li>
@@ -162,18 +152,18 @@ using <code><a href="as.html">as_edgelist()</a></code>, <code><a href="as.html">
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>create_empty</code>: Creates an empty graph of the given dimensions.</p></li>
-<li><p><code>create_complete</code>: Creates a filled graph of the given dimensions,
+<ul><li><p><code>create_empty()</code>: Creates an empty graph of the given dimensions.</p></li>
+<li><p><code>create_complete()</code>: Creates a filled graph of the given dimensions,
 with every possible tie realised.</p></li>
-<li><p><code>create_ring</code>: Creates a ring or chord graph of the given dimensions
+<li><p><code>create_ring()</code>: Creates a ring or chord graph of the given dimensions
 that loops around is of a certain width or thickness.</p></li>
-<li><p><code>create_star</code>: Creates a graph of the given dimensions
+<li><p><code>create_star()</code>: Creates a graph of the given dimensions
 that has a maximally central node</p></li>
-<li><p><code>create_tree</code>: Creates a graph of the given dimensions with successive branches.</p></li>
-<li><p><code>create_lattice</code>: Creates a graph of the given dimensions with ties to all neighbouring nodes</p></li>
-<li><p><code>create_components</code>: Creates a graph in which the nodes are clustered
+<li><p><code>create_tree()</code>: Creates a graph of the given dimensions with successive branches.</p></li>
+<li><p><code>create_lattice()</code>: Creates a graph of the given dimensions with ties to all neighbouring nodes</p></li>
+<li><p><code>create_components()</code>: Creates a graph in which the nodes are clustered
 into separate components.</p></li>
-<li><p><code>create_core</code>: Creates a graph with a certain proportion of nodes
+<li><p><code>create_core()</code>: Creates a graph with a certain proportion of nodes
 being core nodes, densely tied to each other and peripheral nodes,
 and the rest peripheral, tied only to the core.</p></li>
 </ul></div>
@@ -228,7 +218,7 @@ and the rest peripheral, tied only to the core.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

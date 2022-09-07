@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -53,22 +53,10 @@
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Function Overview</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p3centrality.html">3. Centrality</a>
-    </li>
-  </ul>
+  <a href="../articles/index.html">Practical Lessons</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -164,38 +152,38 @@
 <span><span class="co">#&gt; IGRAPH f8d9f5f UN-B 32 93 -- </span></span>
 <span><span class="co">#&gt; + attr: type (v/l), name (v/c)</span></span>
 <span><span class="co">#&gt; + edges from f8d9f5f (vertex names):</span></span>
-<span><span class="co">#&gt;  [1] EVELYN   --E1 EVELYN   --E2 EVELYN   --E3 EVELYN   --E4 EVELYN   --E5</span></span>
-<span><span class="co">#&gt;  [6] EVELYN   --E6 EVELYN   --E8 EVELYN   --E9 LAURA    --E1 LAURA    --E2</span></span>
-<span><span class="co">#&gt; [11] LAURA    --E3 LAURA    --E5 LAURA    --E6 LAURA    --E7 LAURA    --E8</span></span>
-<span><span class="co">#&gt; [16] THERESA  --E2 THERESA  --E3 THERESA  --E4 THERESA  --E5 THERESA  --E6</span></span>
-<span><span class="co">#&gt; [21] THERESA  --E7 THERESA  --E8 THERESA  --E9 BRENDA   --E1 BRENDA   --E3</span></span>
-<span><span class="co">#&gt; [26] BRENDA   --E4 BRENDA   --E5 BRENDA   --E6 BRENDA   --E7 BRENDA   --E8</span></span>
-<span><span class="co">#&gt; [31] CHARLOTTE--E3 CHARLOTTE--E4 CHARLOTTE--E5 CHARLOTTE--E7 FRANCES  --E3</span></span>
-<span><span class="co">#&gt; [36] FRANCES  --E5 FRANCES  --E6 FRANCES  --E8 ELEANOR  --E5 ELEANOR  --E6</span></span>
+<span><span class="co">#&gt;  [1] EVELYN --E1 EVELYN --E2 EVELYN --E3 EVELYN --E4</span></span>
+<span><span class="co">#&gt;  [5] EVELYN --E5 EVELYN --E6 EVELYN --E8 EVELYN --E9</span></span>
+<span><span class="co">#&gt;  [9] LAURA  --E1 LAURA  --E2 LAURA  --E3 LAURA  --E5</span></span>
+<span><span class="co">#&gt; [13] LAURA  --E6 LAURA  --E7 LAURA  --E8 THERESA--E2</span></span>
+<span><span class="co">#&gt; [17] THERESA--E3 THERESA--E4 THERESA--E5 THERESA--E6</span></span>
+<span><span class="co">#&gt; [21] THERESA--E7 THERESA--E8 THERESA--E9 BRENDA --E1</span></span>
+<span><span class="co">#&gt; [25] BRENDA --E3 BRENDA --E4 BRENDA --E5 BRENDA --E6</span></span>
+<span><span class="co">#&gt; [29] BRENDA --E7 BRENDA --E8</span></span>
 <span><span class="co">#&gt; + ... omitted several edges</span></span>
 <span><span class="fu"><a href="../reference/as.html">as_tidygraph</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span> <span class="co"># now let's make it a tidygraph tbl_graph object</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 32 nodes and 93 edges</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # A bipartite simple graph with 1 component</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # Node Data: 32 × 2 (active)</span></span></span>
+<span><span class="co">#&gt; # A tbl_graph: 32 nodes and 93 edges</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # A bipartite simple graph with 1 component</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # Node Data: 32 × 2 (active)</span></span>
 <span><span class="co">#&gt;   type  name     </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> FALSE EVELYN   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> FALSE LAURA    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> FALSE THERESA  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> FALSE BRENDA   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> FALSE CHARLOTTE</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> FALSE FRANCES  </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 26 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # Edge Data: 93 × 2</span></span></span>
+<span><span class="co">#&gt;   &lt;lgl&gt; &lt;chr&gt;    </span></span>
+<span><span class="co">#&gt; 1 FALSE EVELYN   </span></span>
+<span><span class="co">#&gt; 2 FALSE LAURA    </span></span>
+<span><span class="co">#&gt; 3 FALSE THERESA  </span></span>
+<span><span class="co">#&gt; 4 FALSE BRENDA   </span></span>
+<span><span class="co">#&gt; 5 FALSE CHARLOTTE</span></span>
+<span><span class="co">#&gt; 6 FALSE FRANCES  </span></span>
+<span><span class="co">#&gt; # … with 26 more rows</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # Edge Data: 93 × 2</span></span>
 <span><span class="co">#&gt;    from    to</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1    19</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1    20</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1    21</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 90 more rows</span></span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1     1    19</span></span>
+<span><span class="co">#&gt; 2     1    20</span></span>
+<span><span class="co">#&gt; 3     1    21</span></span>
+<span><span class="co">#&gt; # … with 90 more rows</span></span>
 <span><span class="fu"><a href="../reference/as.html">as_network</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span> <span class="co"># a network object</span></span>
 <span><span class="co">#&gt;  Network attributes:</span></span>
 <span><span class="co">#&gt;   vertices = 32 </span></span>
@@ -213,42 +201,61 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; No edge attributes</span></span>
 <span><span class="fu"><a href="../reference/as.html">as_matrix</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span> <span class="co"># a matrix object</span></span>
-<span><span class="co">#&gt;           E1 E2 E3 E4 E5 E6 E7 E8 E9 E10 E11 E12 E13 E14</span></span>
-<span><span class="co">#&gt; EVELYN     1  1  1  1  1  1  0  1  1   0   0   0   0   0</span></span>
-<span><span class="co">#&gt; LAURA      1  1  1  0  1  1  1  1  0   0   0   0   0   0</span></span>
-<span><span class="co">#&gt; THERESA    0  1  1  1  1  1  1  1  1   0   0   0   0   0</span></span>
-<span><span class="co">#&gt; BRENDA     1  0  1  1  1  1  1  1  0   0   0   0   0   0</span></span>
-<span><span class="co">#&gt; CHARLOTTE  0  0  1  1  1  0  1  0  0   0   0   0   0   0</span></span>
-<span><span class="co">#&gt; FRANCES    0  0  1  0  1  1  0  1  0   0   0   0   0   0</span></span>
-<span><span class="co">#&gt; ELEANOR    0  0  0  0  1  1  1  1  0   0   0   0   0   0</span></span>
-<span><span class="co">#&gt; PEARL      0  0  0  0  0  1  0  1  1   0   0   0   0   0</span></span>
-<span><span class="co">#&gt; RUTH       0  0  0  0  1  0  1  1  1   0   0   0   0   0</span></span>
-<span><span class="co">#&gt; VERNE      0  0  0  0  0  0  1  1  1   0   0   1   0   0</span></span>
-<span><span class="co">#&gt; MYRA       0  0  0  0  0  0  0  1  1   1   0   1   0   0</span></span>
-<span><span class="co">#&gt; KATHERINE  0  0  0  0  0  0  0  1  1   1   0   1   1   1</span></span>
-<span><span class="co">#&gt; SYLVIA     0  0  0  0  0  0  1  1  1   1   0   1   1   1</span></span>
-<span><span class="co">#&gt; NORA       0  0  0  0  0  1  1  0  1   1   1   1   1   1</span></span>
-<span><span class="co">#&gt; HELEN      0  0  0  0  0  0  1  1  0   1   1   1   1   1</span></span>
-<span><span class="co">#&gt; DOROTHY    0  0  0  0  0  0  0  1  1   1   0   1   0   0</span></span>
-<span><span class="co">#&gt; OLIVIA     0  0  0  0  0  0  0  0  1   0   1   0   0   0</span></span>
-<span><span class="co">#&gt; FLORA      0  0  0  0  0  0  0  0  1   0   1   0   0   0</span></span>
+<span><span class="co">#&gt;           E1 E2 E3 E4 E5 E6 E7 E8 E9 E10 E11 E12 E13</span></span>
+<span><span class="co">#&gt; EVELYN     1  1  1  1  1  1  0  1  1   0   0   0   0</span></span>
+<span><span class="co">#&gt; LAURA      1  1  1  0  1  1  1  1  0   0   0   0   0</span></span>
+<span><span class="co">#&gt; THERESA    0  1  1  1  1  1  1  1  1   0   0   0   0</span></span>
+<span><span class="co">#&gt; BRENDA     1  0  1  1  1  1  1  1  0   0   0   0   0</span></span>
+<span><span class="co">#&gt; CHARLOTTE  0  0  1  1  1  0  1  0  0   0   0   0   0</span></span>
+<span><span class="co">#&gt; FRANCES    0  0  1  0  1  1  0  1  0   0   0   0   0</span></span>
+<span><span class="co">#&gt; ELEANOR    0  0  0  0  1  1  1  1  0   0   0   0   0</span></span>
+<span><span class="co">#&gt; PEARL      0  0  0  0  0  1  0  1  1   0   0   0   0</span></span>
+<span><span class="co">#&gt; RUTH       0  0  0  0  1  0  1  1  1   0   0   0   0</span></span>
+<span><span class="co">#&gt; VERNE      0  0  0  0  0  0  1  1  1   0   0   1   0</span></span>
+<span><span class="co">#&gt; MYRA       0  0  0  0  0  0  0  1  1   1   0   1   0</span></span>
+<span><span class="co">#&gt; KATHERINE  0  0  0  0  0  0  0  1  1   1   0   1   1</span></span>
+<span><span class="co">#&gt; SYLVIA     0  0  0  0  0  0  1  1  1   1   0   1   1</span></span>
+<span><span class="co">#&gt; NORA       0  0  0  0  0  1  1  0  1   1   1   1   1</span></span>
+<span><span class="co">#&gt; HELEN      0  0  0  0  0  0  1  1  0   1   1   1   1</span></span>
+<span><span class="co">#&gt; DOROTHY    0  0  0  0  0  0  0  1  1   1   0   1   0</span></span>
+<span><span class="co">#&gt; OLIVIA     0  0  0  0  0  0  0  0  1   0   1   0   0</span></span>
+<span><span class="co">#&gt; FLORA      0  0  0  0  0  0  0  0  1   0   1   0   0</span></span>
+<span><span class="co">#&gt;           E14</span></span>
+<span><span class="co">#&gt; EVELYN      0</span></span>
+<span><span class="co">#&gt; LAURA       0</span></span>
+<span><span class="co">#&gt; THERESA     0</span></span>
+<span><span class="co">#&gt; BRENDA      0</span></span>
+<span><span class="co">#&gt; CHARLOTTE   0</span></span>
+<span><span class="co">#&gt; FRANCES     0</span></span>
+<span><span class="co">#&gt; ELEANOR     0</span></span>
+<span><span class="co">#&gt; PEARL       0</span></span>
+<span><span class="co">#&gt; RUTH        0</span></span>
+<span><span class="co">#&gt; VERNE       0</span></span>
+<span><span class="co">#&gt; MYRA        0</span></span>
+<span><span class="co">#&gt; KATHERINE   1</span></span>
+<span><span class="co">#&gt; SYLVIA      1</span></span>
+<span><span class="co">#&gt; NORA        1</span></span>
+<span><span class="co">#&gt; HELEN       1</span></span>
+<span><span class="co">#&gt; DOROTHY     0</span></span>
+<span><span class="co">#&gt; OLIVIA      0</span></span>
+<span><span class="co">#&gt; FLORA       0</span></span>
 <span><span class="co"># this is an incidence matrix since it is a two-mode network</span></span>
 <span><span class="co"># if it were a one-mode network, the function would return an adjacency matrix</span></span>
 <span><span class="fu"><a href="../reference/as.html">as_edgelist</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span> <span class="co"># an edgelist data frame/tibble</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 93 × 2</span></span></span>
+<span><span class="co">#&gt; # A tibble: 93 × 2</span></span>
 <span><span class="co">#&gt;    from   to   </span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> EVELYN E1   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> EVELYN E2   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> EVELYN E3   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> EVELYN E4   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> EVELYN E5   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> EVELYN E6   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> EVELYN E8   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> EVELYN E9   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> LAURA  E1   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> LAURA  E2   </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 83 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;</span></span>
+<span><span class="co">#&gt;  1 EVELYN E1   </span></span>
+<span><span class="co">#&gt;  2 EVELYN E2   </span></span>
+<span><span class="co">#&gt;  3 EVELYN E3   </span></span>
+<span><span class="co">#&gt;  4 EVELYN E4   </span></span>
+<span><span class="co">#&gt;  5 EVELYN E5   </span></span>
+<span><span class="co">#&gt;  6 EVELYN E6   </span></span>
+<span><span class="co">#&gt;  7 EVELYN E8   </span></span>
+<span><span class="co">#&gt;  8 EVELYN E9   </span></span>
+<span><span class="co">#&gt;  9 LAURA  E1   </span></span>
+<span><span class="co">#&gt; 10 LAURA  E2   </span></span>
+<span><span class="co">#&gt; # … with 83 more rows</span></span></code></pre></div>
 <!-- Note that for converting into edgelist, matrix, or igraph objects, you can specify if you want to keep it as a weighted network (if your original data included this property) using the argument `weight = TRUE` or `weight = FALSE`. -->
 <!-- For converting into igraph and tidygraph objects, there is the option of retaining the network as a two-mode network (keeping different types of nodes) or simplifying it into a one-mode network.  -->
 <!-- Just specify it using the argument `twomode = TRUE` or `twomode = FALSE` respectively. -->
@@ -282,132 +289,133 @@
 <li>
 <code><a href="../reference/reformat.html">to_onemode()</a></code> converts multimodal networks into networks with only one type of node, retaining the same nodes and ties</li>
 <li>
-<code><a href="../reference/transform.html">to_main_component()</a></code> identifies and returns only the main component of a network</li>
+<code><a href="../reference/transform.html">to_giant()</a></code> identifies and returns only the main component of a network</li>
 <li>
 <code><a href="../reference/reformat.html">to_named()</a></code> adds random names to an anonymous network, which can be useful for pedagogical purposes</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/reformat.html">to_unnamed</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 53 nodes and 558 edges</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # An undirected multigraph with 4 components</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # Node Data: 53 × 9 (active)</span></span></span>
-<span><span class="co">#&gt;   Gender Appearances Attractive  Rich Intellect Omnilingual PowerOrigin</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Male           427          0     0         1           1 Radiation  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Male           589          1     0         1           0 Human      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Male          <span style="text-decoration: underline;">1</span>207          0     0         1           1 Mutant     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Male          <span style="text-decoration: underline;">7</span>609          1     0         1           0 Mutant     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Male          <span style="text-decoration: underline;">2</span>189          1     1         1           0 Human      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Female        <span style="text-decoration: underline;">2</span>907          1     0         1           0 Human      </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 47 more rows, and 2 more variables: UnarmedCombat &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ArmedCombat &lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # Edge Data: 558 × 3</span></span></span>
+<span><span class="co">#&gt; # A tbl_graph: 53 nodes and 558 edges</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # An undirected multigraph with 4 components</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # Node Data: 53 × 9 (active)</span></span>
+<span><span class="co">#&gt;   Gender Appear… Attrac…  Rich Intell… Omnili… PowerO…</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt; &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt; 1 Male       427       0     0       1       1 Radiat…</span></span>
+<span><span class="co">#&gt; 2 Male       589       1     0       1       0 Human  </span></span>
+<span><span class="co">#&gt; 3 Male      1207       0     0       1       1 Mutant </span></span>
+<span><span class="co">#&gt; 4 Male      7609       1     0       1       0 Mutant </span></span>
+<span><span class="co">#&gt; 5 Male      2189       1     1       1       0 Human  </span></span>
+<span><span class="co">#&gt; 6 Female    2907       1     0       1       0 Human  </span></span>
+<span><span class="co">#&gt; # … with 47 more rows, and 2 more variables:</span></span>
+<span><span class="co">#&gt; #   UnarmedCombat &lt;int&gt;, ArmedCombat &lt;int&gt;</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # Edge Data: 558 × 3</span></span>
 <span><span class="co">#&gt;    from    to  sign</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     4    -<span style="color: #BB0000;">1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1    11    -<span style="color: #BB0000;">1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1    12    -<span style="color: #BB0000;">1</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 555 more rows</span></span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1     4    -1</span></span>
+<span><span class="co">#&gt; 2     1    11    -1</span></span>
+<span><span class="co">#&gt; 3     1    12    -1</span></span>
+<span><span class="co">#&gt; # … with 555 more rows</span></span>
 <span><span class="fu"><a href="../reference/reformat.html">to_named</a></span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 16 nodes and 144 edges</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # A directed simple graph with 1 component</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # Node Data: 16 × 1 (active)</span></span></span>
-<span><span class="co">#&gt;   name     </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Jeff     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Brandy   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Spencer  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Vicki    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Gordon   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Alejandro</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 10 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # Edge Data: 144 × 5</span></span></span>
+<span><span class="co">#&gt; # A tbl_graph: 16 nodes and 144 edges</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # A directed simple graph with 1 component</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # Node Data: 16 × 1 (active)</span></span>
+<span><span class="co">#&gt;   name   </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt; 1 Conner </span></span>
+<span><span class="co">#&gt; 2 Julia  </span></span>
+<span><span class="co">#&gt; 3 Tiffany</span></span>
+<span><span class="co">#&gt; 4 Bernard</span></span>
+<span><span class="co">#&gt; 5 Rowan  </span></span>
+<span><span class="co">#&gt; 6 Carl   </span></span>
+<span><span class="co">#&gt; # … with 10 more rows</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # Edge Data: 144 × 5</span></span>
 <span><span class="co">#&gt;    from    to friends social tasks</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     5       0   1.2    0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     8       0   0.15   0  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1     9       0   2.85   0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 141 more rows</span></span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1     5       0   1.2    0.3</span></span>
+<span><span class="co">#&gt; 2     1     8       0   0.15   0  </span></span>
+<span><span class="co">#&gt; 3     1     9       0   2.85   0.3</span></span>
+<span><span class="co">#&gt; # … with 141 more rows</span></span>
 <span><span class="fu"><a href="../reference/reformat.html">to_undirected</a></span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 16 nodes and 76 edges</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # An undirected simple graph with 1 component</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # Node Data: 16 × 1 (active)</span></span></span>
+<span><span class="co">#&gt; # A tbl_graph: 16 nodes and 76 edges</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # An undirected simple graph with 1 component</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # Node Data: 16 × 1 (active)</span></span>
 <span><span class="co">#&gt;   name    </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Melinda </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Abby    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Darryl  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Veronica</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Rylan   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Lindsey </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 10 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # Edge Data: 76 × 5</span></span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;   </span></span>
+<span><span class="co">#&gt; 1 Melinda </span></span>
+<span><span class="co">#&gt; 2 Abby    </span></span>
+<span><span class="co">#&gt; 3 Darryl  </span></span>
+<span><span class="co">#&gt; 4 Veronica</span></span>
+<span><span class="co">#&gt; 5 Rylan   </span></span>
+<span><span class="co">#&gt; 6 Lindsey </span></span>
+<span><span class="co">#&gt; # … with 10 more rows</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # Edge Data: 76 × 5</span></span>
 <span><span class="co">#&gt;    from    to friends social tasks</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     2       1   0      0  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2     3       0   0.15   0  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1     5       0   1.2    0.3</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 73 more rows</span></span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1     2       1   0      0  </span></span>
+<span><span class="co">#&gt; 2     2     3       0   0.15   0  </span></span>
+<span><span class="co">#&gt; 3     1     5       0   1.2    0.3</span></span>
+<span><span class="co">#&gt; # … with 73 more rows</span></span>
 <span><span class="fu"><a href="../reference/reformat.html">to_unsigned</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span>, keep <span class="op">=</span> <span class="st">"positive"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 53 nodes and 277 edges</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # An undirected simple graph with 6 components</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # Node Data: 53 × 10 (active)</span></span></span>
-<span><span class="co">#&gt;   name  Gender Appearances Attractive  Rich Intellect Omnilingual PowerOrigin</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Abom… Male           427          0     0         1           1 Radiation  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ant-… Male           589          1     0         1           0 Human      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Apoc… Male          <span style="text-decoration: underline;">1</span>207          0     0         1           1 Mutant     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Beast Male          <span style="text-decoration: underline;">7</span>609          1     0         1           0 Mutant     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Blac… Male          <span style="text-decoration: underline;">2</span>189          1     1         1           0 Human      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Blac… Female        <span style="text-decoration: underline;">2</span>907          1     0         1           0 Human      </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 47 more rows, and 2 more variables: UnarmedCombat &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ArmedCombat &lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # Edge Data: 277 × 2</span></span></span>
+<span><span class="co">#&gt; # A tbl_graph: 53 nodes and 277 edges</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # An undirected simple graph with 6 components</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # Node Data: 53 × 10 (active)</span></span>
+<span><span class="co">#&gt;   name  Gender Appear… Attrac…  Rich Intell… Omnili…</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 Abom… Male       427       0     0       1       1</span></span>
+<span><span class="co">#&gt; 2 Ant-… Male       589       1     0       1       0</span></span>
+<span><span class="co">#&gt; 3 Apoc… Male      1207       0     0       1       1</span></span>
+<span><span class="co">#&gt; 4 Beast Male      7609       1     0       1       0</span></span>
+<span><span class="co">#&gt; 5 Blac… Male      2189       1     1       1       0</span></span>
+<span><span class="co">#&gt; 6 Blac… Female    2907       1     0       1       0</span></span>
+<span><span class="co">#&gt; # … with 47 more rows, and 3 more variables:</span></span>
+<span><span class="co">#&gt; #   PowerOrigin &lt;chr&gt;, UnarmedCombat &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   ArmedCombat &lt;int&gt;</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # Edge Data: 277 × 2</span></span>
 <span><span class="co">#&gt;    from    to</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     2    25</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2    29</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2    44</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 274 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1     2    25</span></span>
+<span><span class="co">#&gt; 2     2    29</span></span>
+<span><span class="co">#&gt; 3     2    44</span></span>
+<span><span class="co">#&gt; # … with 274 more rows</span></span></code></pre></div>
 <p>Note that for two-mode networks, there are also functions for converting or ‘projecting’ two-mode networks into one-mode networks.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/transform.html">to_mode1</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span>
-<span><span class="co">#&gt; IGRAPH 8fc49e1 UNW- 18 139 -- </span></span>
+<span><span class="co">#&gt; IGRAPH dbe6eea UNW- 18 139 -- </span></span>
 <span><span class="co">#&gt; + attr: name (v/c), weight (e/n)</span></span>
-<span><span class="co">#&gt; + edges from 8fc49e1 (vertex names):</span></span>
-<span><span class="co">#&gt;  [1] EVELYN --LAURA     EVELYN --BRENDA    EVELYN --THERESA   EVELYN --CHARLOTTE</span></span>
-<span><span class="co">#&gt;  [5] EVELYN --FRANCES   EVELYN --ELEANOR   EVELYN --RUTH      EVELYN --PEARL    </span></span>
-<span><span class="co">#&gt;  [9] EVELYN --NORA      EVELYN --VERNE     EVELYN --MYRA      EVELYN --KATHERINE</span></span>
-<span><span class="co">#&gt; [13] EVELYN --SYLVIA    EVELYN --HELEN     EVELYN --DOROTHY   EVELYN --OLIVIA   </span></span>
-<span><span class="co">#&gt; [17] EVELYN --FLORA     LAURA  --BRENDA    LAURA  --THERESA   LAURA  --CHARLOTTE</span></span>
-<span><span class="co">#&gt; [21] LAURA  --FRANCES   LAURA  --ELEANOR   LAURA  --RUTH      LAURA  --PEARL    </span></span>
-<span><span class="co">#&gt; [25] LAURA  --NORA      LAURA  --VERNE     LAURA  --SYLVIA    LAURA  --HELEN    </span></span>
-<span><span class="co">#&gt; [29] LAURA  --MYRA      LAURA  --KATHERINE LAURA  --DOROTHY   THERESA--BRENDA   </span></span>
+<span><span class="co">#&gt; + edges from dbe6eea (vertex names):</span></span>
+<span><span class="co">#&gt;  [1] EVELYN--LAURA     EVELYN--BRENDA   </span></span>
+<span><span class="co">#&gt;  [3] EVELYN--THERESA   EVELYN--CHARLOTTE</span></span>
+<span><span class="co">#&gt;  [5] EVELYN--FRANCES   EVELYN--ELEANOR  </span></span>
+<span><span class="co">#&gt;  [7] EVELYN--RUTH      EVELYN--PEARL    </span></span>
+<span><span class="co">#&gt;  [9] EVELYN--NORA      EVELYN--VERNE    </span></span>
+<span><span class="co">#&gt; [11] EVELYN--MYRA      EVELYN--KATHERINE</span></span>
+<span><span class="co">#&gt; [13] EVELYN--SYLVIA    EVELYN--HELEN    </span></span>
+<span><span class="co">#&gt; [15] EVELYN--DOROTHY   EVELYN--OLIVIA   </span></span>
 <span><span class="co">#&gt; + ... omitted several edges</span></span>
 <span><span class="fu"><a href="../reference/transform.html">to_mode2</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span>
-<span><span class="co">#&gt; IGRAPH 6196ce6 UNW- 14 66 -- </span></span>
+<span><span class="co">#&gt; IGRAPH ae4a2ee UNW- 14 66 -- </span></span>
 <span><span class="co">#&gt; + attr: name (v/c), weight (e/n)</span></span>
-<span><span class="co">#&gt; + edges from 6196ce6 (vertex names):</span></span>
-<span><span class="co">#&gt;  [1] E1 --E2  E1 --E3  E1 --E4  E1 --E5  E1 --E6  E1 --E8  E1 --E9  E1 --E7 </span></span>
-<span><span class="co">#&gt;  [9] E2 --E3  E2 --E4  E2 --E5  E2 --E6  E2 --E8  E2 --E9  E2 --E7  E3 --E4 </span></span>
-<span><span class="co">#&gt; [17] E3 --E5  E3 --E6  E3 --E8  E3 --E9  E3 --E7  E4 --E5  E4 --E6  E4 --E8 </span></span>
-<span><span class="co">#&gt; [25] E4 --E9  E4 --E7  E5 --E6  E5 --E8  E5 --E9  E5 --E7  E6 --E8  E6 --E9 </span></span>
-<span><span class="co">#&gt; [33] E6 --E7  E6 --E10 E6 --E11 E6 --E12 E6 --E13 E6 --E14 E7 --E8  E7 --E9 </span></span>
-<span><span class="co">#&gt; [41] E7 --E12 E7 --E10 E7 --E13 E7 --E14 E7 --E11 E8 --E9  E8 --E12 E8 --E10</span></span>
-<span><span class="co">#&gt; [49] E8 --E13 E8 --E14 E8 --E11 E9 --E12 E9 --E10 E9 --E13 E9 --E14 E9 --E11</span></span>
-<span><span class="co">#&gt; [57] E10--E12 E10--E13 E10--E14 E10--E11 E11--E12 E11--E13 E11--E14 E12--E13</span></span>
+<span><span class="co">#&gt; + edges from ae4a2ee (vertex names):</span></span>
+<span><span class="co">#&gt;  [1] E1--E2  E1--E3  E1--E4  E1--E5  E1--E6  E1--E8 </span></span>
+<span><span class="co">#&gt;  [7] E1--E9  E1--E7  E2--E3  E2--E4  E2--E5  E2--E6 </span></span>
+<span><span class="co">#&gt; [13] E2--E8  E2--E9  E2--E7  E3--E4  E3--E5  E3--E6 </span></span>
+<span><span class="co">#&gt; [19] E3--E8  E3--E9  E3--E7  E4--E5  E4--E6  E4--E8 </span></span>
+<span><span class="co">#&gt; [25] E4--E9  E4--E7  E5--E6  E5--E8  E5--E9  E5--E7 </span></span>
+<span><span class="co">#&gt; [31] E6--E8  E6--E9  E6--E7  E6--E10 E6--E11 E6--E12</span></span>
+<span><span class="co">#&gt; [37] E6--E13 E6--E14 E7--E8  E7--E9  E7--E12 E7--E10</span></span>
+<span><span class="co">#&gt; [43] E7--E13 E7--E14 E7--E11 E8--E9  E8--E12 E8--E10</span></span>
 <span><span class="co">#&gt; + ... omitted several edges</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -420,46 +428,48 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">35</span>,</span>
 <span>         color <span class="op">=</span> <span class="st">"red"</span>,</span>
 <span>         degree <span class="op">=</span> <span class="fu"><a href="../reference/centrality.html">node_degree</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 35 nodes and 117 edges</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # An undirected simple graph with 1 component</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # Node Data: 35 × 11 (active)</span></span></span>
-<span><span class="co">#&gt;   name  full_name entry_year military in_mpn PlaceOfBirth state region order</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Trev… Trevino,…       <span style="text-decoration: underline;">1</span>910        1      0 Guerrero     Coah…      1     1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Made… Madero, …       <span style="text-decoration: underline;">1</span>911        0      0 Parras de l… Coah…      1     2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Carr… Carranza…       <span style="text-decoration: underline;">1</span>913        1      0 Cuatro Cien… Coah…      1     3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Agui… Aguilar,…       <span style="text-decoration: underline;">1</span>918        1      0 Cordoba      Vera…      3     4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Obre… Obregon,…       <span style="text-decoration: underline;">1</span>920        1      0 Siquisiva, … Sono…      1     5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Call… Calles, …       <span style="text-decoration: underline;">1</span>924        1      0 Guaymas      Sono…      1     6</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 29 more rows, and 2 more variables: color &lt;chr&gt;, degree &lt;node_msr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # Edge Data: 117 × 2</span></span></span>
+<span><span class="co">#&gt; # A tbl_graph: 35 nodes and 117 edges</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # An undirected simple graph with 1 component</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # Node Data: 35 × 11 (active)</span></span>
+<span><span class="co">#&gt;   name  full_n… entry_… milita… in_mpn PlaceO… state</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 Trev… Trevin…    1910       1      0 Guerre… Coah…</span></span>
+<span><span class="co">#&gt; 2 Made… Madero…    1911       0      0 Parras… Coah…</span></span>
+<span><span class="co">#&gt; 3 Carr… Carran…    1913       1      0 Cuatro… Coah…</span></span>
+<span><span class="co">#&gt; 4 Agui… Aguila…    1918       1      0 Cordoba Vera…</span></span>
+<span><span class="co">#&gt; 5 Obre… Obrego…    1920       1      0 Siquis… Sono…</span></span>
+<span><span class="co">#&gt; 6 Call… Calles…    1924       1      0 Guaymas Sono…</span></span>
+<span><span class="co">#&gt; # … with 29 more rows, and 4 more variables:</span></span>
+<span><span class="co">#&gt; #   region &lt;dbl&gt;, order &lt;int&gt;, color &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   degree &lt;node_msr&gt;</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # Edge Data: 117 × 2</span></span>
 <span><span class="co">#&gt;    from    to</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     2     3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2     5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2     6</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 114 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1     2     3</span></span>
+<span><span class="co">#&gt; 2     2     5</span></span>
+<span><span class="co">#&gt; 3     2     6</span></span>
+<span><span class="co">#&gt; # … with 114 more rows</span></span></code></pre></div>
 <p>Adding edge attributes or new edges is not quite so straightforward, in part because you will need to decide which it is that you want to do. If you would like to just add a new tie attribute to an existing set of ties, without adding any new edges, then <code>add_tie_attributes()</code> operates similarly to <code><a href="../reference/add.html">add_node_attribute()</a></code> above. But if the result should be a multiplex network and the ties in the different component networks only partially overlap, then you will need to use <code><a href="../reference/add.html">join_ties()</a></code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/generate.html">generate_random</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">.3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/add.html">join_ties</a></span><span class="op">(</span><span class="fu"><a href="../reference/generate.html">generate_random</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">.3</span><span class="op">)</span>, <span class="st">"next"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tbl_graph: 10 nodes and 21 edges</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # An undirected simple graph with 1 component</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; #</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # Node Data: 10 × 0 (active)</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 4 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; # Edge Data: 21 × 4</span></span></span>
+<span><span class="co">#&gt; # A tbl_graph: 10 nodes and 24 edges</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # An undirected simple graph with 1 component</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # Node Data: 10 × 0 (active)</span></span>
+<span><span class="co">#&gt; # … with 4 more rows</span></span>
+<span><span class="co">#&gt; #</span></span>
+<span><span class="co">#&gt; # Edge Data: 24 × 4</span></span>
 <span><span class="co">#&gt;    from    to  orig `next`</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1     2     1      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1     4     1      1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1     5     1      0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 18 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1     2     1      1</span></span>
+<span><span class="co">#&gt; 2     1     3     0      1</span></span>
+<span><span class="co">#&gt; 3     1     4     1      0</span></span>
+<span><span class="co">#&gt; # … with 21 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="retrieving-data">Retrieving data<a class="anchor" aria-label="anchor" href="#retrieving-data"></a>
@@ -467,55 +477,76 @@
 <p>Lastly, sometimes we want to extract certain information from a network or graph object. Here too <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> has you covered.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/grab.html">node_names</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span> <span class="co"># gets the names of the nodes</span></span>
-<span><span class="co">#&gt;  [1] "Trevino"            "Madero"             "Carranza"          </span></span>
-<span><span class="co">#&gt;  [4] "Aguilar"            "Obregon"            "Calles"            </span></span>
-<span><span class="co">#&gt;  [7] "Aleman Gonzalez"    "Portes Gil"         "L. Cardenas"       </span></span>
-<span><span class="co">#&gt; [10] "Avila Camacho"      "I. Beteta"          "Jara"              </span></span>
-<span><span class="co">#&gt; [13] "R. Beteta"          "Aleman Valdes"      "Sanchez Taboada"   </span></span>
-<span><span class="co">#&gt; [16] "Serra Rojas"        "Ruiz Galindo"       "Bustamante"        </span></span>
-<span><span class="co">#&gt; [19] "Loyo"               "Carvajal"           "Ruiz Cortines"     </span></span>
-<span><span class="co">#&gt; [22] "Carrillo Flores"    "Ortiz Mena"         "Gonzalez Blanco"   </span></span>
-<span><span class="co">#&gt; [25] "Salinas Lozano"     "Lopez Mateos"       "Margain"           </span></span>
-<span><span class="co">#&gt; [28] "Diaz Ordaz"         "M.R. Beteta"        "Echeverria Alvarez"</span></span>
-<span><span class="co">#&gt; [31] "Lopez Portillo"     "C. Cardenas"        "De la Madrid"      </span></span>
-<span><span class="co">#&gt; [34] "Salinas de Gortari" "Aleman Velasco"</span></span>
+<span><span class="co">#&gt;  [1] "Trevino"            "Madero"            </span></span>
+<span><span class="co">#&gt;  [3] "Carranza"           "Aguilar"           </span></span>
+<span><span class="co">#&gt;  [5] "Obregon"            "Calles"            </span></span>
+<span><span class="co">#&gt;  [7] "Aleman Gonzalez"    "Portes Gil"        </span></span>
+<span><span class="co">#&gt;  [9] "L. Cardenas"        "Avila Camacho"     </span></span>
+<span><span class="co">#&gt; [11] "I. Beteta"          "Jara"              </span></span>
+<span><span class="co">#&gt; [13] "R. Beteta"          "Aleman Valdes"     </span></span>
+<span><span class="co">#&gt; [15] "Sanchez Taboada"    "Serra Rojas"       </span></span>
+<span><span class="co">#&gt; [17] "Ruiz Galindo"       "Bustamante"        </span></span>
+<span><span class="co">#&gt; [19] "Loyo"               "Carvajal"          </span></span>
+<span><span class="co">#&gt; [21] "Ruiz Cortines"      "Carrillo Flores"   </span></span>
+<span><span class="co">#&gt; [23] "Ortiz Mena"         "Gonzalez Blanco"   </span></span>
+<span><span class="co">#&gt; [25] "Salinas Lozano"     "Lopez Mateos"      </span></span>
+<span><span class="co">#&gt; [27] "Margain"            "Diaz Ordaz"        </span></span>
+<span><span class="co">#&gt; [29] "M.R. Beteta"        "Echeverria Alvarez"</span></span>
+<span><span class="co">#&gt; [31] "Lopez Portillo"     "C. Cardenas"       </span></span>
+<span><span class="co">#&gt; [33] "De la Madrid"       "Salinas de Gortari"</span></span>
+<span><span class="co">#&gt; [35] "Aleman Velasco"</span></span>
 <span><span class="fu"><a href="../reference/grab.html">node_attribute</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span>, <span class="st">"Gender"</span><span class="op">)</span> <span class="co"># gets any named nodal attribute</span></span>
-<span><span class="co">#&gt;  [1] "Male"   "Male"   "Male"   "Male"   "Male"   "Female" "Male"   "Male"  </span></span>
-<span><span class="co">#&gt;  [9] "Male"   "Male"   "Male"   "Male"   "Male"   "Male"   "Male"   "Male"  </span></span>
-<span><span class="co">#&gt; [17] "Male"   "Female" "Male"   "Male"   "Male"   "Male"   "Male"   "Male"  </span></span>
-<span><span class="co">#&gt; [25] "Female" "Male"   "Male"   "Female" "Female" "Male"   "Male"   "Female"</span></span>
-<span><span class="co">#&gt; [33] "Female" "Male"   "Male"   "Male"   "Female" "Male"   "Male"   "Male"  </span></span>
-<span><span class="co">#&gt; [41] "Male"   "Male"   "Male"   "Female" "Male"   "Male"   "Female" "Male"  </span></span>
-<span><span class="co">#&gt; [49] "Male"   "Male"   "Male"   "Male"   "Male"</span></span>
+<span><span class="co">#&gt;  [1] "Male"   "Male"   "Male"   "Male"   "Male"  </span></span>
+<span><span class="co">#&gt;  [6] "Female" "Male"   "Male"   "Male"   "Male"  </span></span>
+<span><span class="co">#&gt; [11] "Male"   "Male"   "Male"   "Male"   "Male"  </span></span>
+<span><span class="co">#&gt; [16] "Male"   "Male"   "Female" "Male"   "Male"  </span></span>
+<span><span class="co">#&gt; [21] "Male"   "Male"   "Male"   "Male"   "Female"</span></span>
+<span><span class="co">#&gt; [26] "Male"   "Male"   "Female" "Female" "Male"  </span></span>
+<span><span class="co">#&gt; [31] "Male"   "Female" "Female" "Male"   "Male"  </span></span>
+<span><span class="co">#&gt; [36] "Male"   "Female" "Male"   "Male"   "Male"  </span></span>
+<span><span class="co">#&gt; [41] "Male"   "Male"   "Male"   "Female" "Male"  </span></span>
+<span><span class="co">#&gt; [46] "Male"   "Female" "Male"   "Male"   "Male"  </span></span>
+<span><span class="co">#&gt; [51] "Male"   "Male"   "Male"</span></span>
 <span><span class="fu"><a href="../reference/grab.html">tie_attribute</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span>, <span class="st">"sign"</span><span class="op">)</span> <span class="co"># gets any named edge attribute</span></span>
-<span><span class="co">#&gt;   [1] -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1 -1 -1 -1  1 -1 -1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt;  [26] -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1</span></span>
-<span><span class="co">#&gt;  [51]  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1  1  1  1  1  1</span></span>
-<span><span class="co">#&gt;  [76]  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1</span></span>
-<span><span class="co">#&gt; [101]  1  1  1  1  1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1 -1 -1 -1 -1  1  1</span></span>
-<span><span class="co">#&gt; [126]  1  1  1  1  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1</span></span>
-<span><span class="co">#&gt; [151]  1  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1  1</span></span>
-<span><span class="co">#&gt; [176]  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1</span></span>
-<span><span class="co">#&gt; [201]  1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1  1</span></span>
-<span><span class="co">#&gt; [226]  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [251] -1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1  1  1  1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [276] -1  1  1 -1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1 -1 -1</span></span>
-<span><span class="co">#&gt; [301]  1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1 -1  1  1  1  1  1  1  1  1  1 -1</span></span>
-<span><span class="co">#&gt; [326] -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [351] -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [376] -1 -1 -1  1  1  1  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1</span></span>
-<span><span class="co">#&gt; [401]  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1  1  1 -1  1  1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [426] -1 -1 -1 -1 -1 -1 -1 -1  1  1 -1 -1  1  1  1  1  1  1 -1 -1 -1  1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [451] -1 -1 -1  1  1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [476] -1 -1 -1  1  1  1  1  1 -1 -1 -1 -1 -1  1  1  1  1  1 -1 -1  1  1  1  1  1</span></span>
-<span><span class="co">#&gt; [501]  1  1 -1  1  1  1  1 -1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1</span></span>
-<span><span class="co">#&gt; [526] -1 -1 -1 -1  1  1  1  1 -1 -1  1  1  1  1  1 -1 -1 -1  1  1  1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [551]  1  1 -1 -1  1 -1  1 -1</span></span>
+<span><span class="co">#&gt;   [1] -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1 -1 -1</span></span>
+<span><span class="co">#&gt;  [18] -1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1</span></span>
+<span><span class="co">#&gt;  [35]  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt;  [52]  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt;  [69]  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1 -1 -1</span></span>
+<span><span class="co">#&gt;  [86] -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [103]  1  1  1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [120] -1 -1 -1 -1  1  1  1  1  1  1  1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [137]  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [154]  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [171]  1  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [188] -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1  1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [205] -1 -1 -1  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [222] -1 -1 -1  1  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [239] -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [256] -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [273] -1 -1 -1 -1  1  1 -1  1  1  1 -1 -1 -1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [290] -1 -1 -1 -1 -1 -1 -1  1  1 -1 -1  1 -1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [307] -1 -1  1  1  1  1  1  1 -1  1  1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [324]  1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [341]  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [358]  1  1  1  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [375] -1 -1 -1 -1  1  1  1  1  1  1  1  1  1  1  1  1 -1</span></span>
+<span><span class="co">#&gt; [392] -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [409]  1 -1 -1 -1 -1 -1 -1 -1  1  1 -1  1  1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [426] -1 -1 -1 -1 -1 -1 -1 -1  1  1 -1 -1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [443]  1 -1 -1 -1  1 -1 -1 -1 -1 -1 -1  1  1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [460] -1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [477] -1 -1  1  1  1  1  1 -1 -1 -1 -1 -1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [494] -1 -1  1  1  1  1  1  1  1 -1  1  1  1  1 -1  1  1</span></span>
+<span><span class="co">#&gt; [511]  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1 -1 -1</span></span>
+<span><span class="co">#&gt; [528] -1 -1  1  1  1  1 -1 -1  1  1  1  1  1 -1 -1 -1  1</span></span>
+<span><span class="co">#&gt; [545]  1  1 -1 -1 -1 -1  1  1 -1 -1  1 -1  1 -1</span></span>
 <span><span class="fu"><a href="../reference/grab.html">tie_weights</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span>
-<span><span class="co">#&gt;  [38] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span>
-<span><span class="co">#&gt;  [75] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span>
-<span><span class="co">#&gt; [112] 1 1 1 1 1 1</span></span></code></pre></div>
+<span><span class="co">#&gt;   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span>
+<span><span class="co">#&gt;  [26] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span>
+<span><span class="co">#&gt;  [51] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span>
+<span><span class="co">#&gt;  [76] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span>
+<span><span class="co">#&gt; [101] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span></code></pre></div>
 <p>We can describe the network using similar functions. How many nodes in the network, or how many edges?</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/grab.html">graph_nodes</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span>
@@ -551,7 +582,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

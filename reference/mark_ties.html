@@ -20,7 +20,7 @@ are particularly well- or poorly-connected."><meta property="og:image" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -32,21 +32,11 @@ are particularly well- or poorly-connected."><meta property="og:image" content="
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Function Overview</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p3centrality.html">3. Centrality</a>
-    </li>
-  </ul></li>
+<li>
+  <a href="../articles/index.html">Practical Lessons</a>
+</li>
 <li>
   <a href="../news/index.html">News</a>
 </li>
@@ -109,15 +99,15 @@ are particularly well- or poorly-connected.</p>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>tie_is_multiple</code>: Returns logical of which ties are multiples</p></li>
-<li><p><code>tie_is_loop</code>: Returns logical of which ties are loops</p></li>
-<li><p><code>tie_is_reciprocated</code>: Returns logical of which ties
+<ul><li><p><code>tie_is_multiple()</code>: Returns logical of which ties are multiples</p></li>
+<li><p><code>tie_is_loop()</code>: Returns logical of which ties are loops</p></li>
+<li><p><code>tie_is_reciprocated()</code>: Returns logical of which ties
 are mutual/reciprocated</p></li>
-<li><p><code>tie_is_bridge</code>: Returns logical of which ties cut
+<li><p><code>tie_is_bridge()</code>: Returns logical of which ties cut
 or act as articulation points in a network.</p></li>
-<li><p><code>tie_is_max</code>: Returns logical of which ties
+<li><p><code>tie_is_max()</code>: Returns logical of which ties
 hold the maximum of some measure</p></li>
-<li><p><code>tie_is_min</code>: Returns logical of which ties
+<li><p><code>tie_is_min()</code>: Returns logical of which ties
 hold the minimum of some measure</p></li>
 </ul></div>
     <div id="see-also">
@@ -132,15 +122,15 @@ hold the minimum of some measure</p></li>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">tie_is_multiple</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   V1    V2    V3    V4    V5    V6    V7    V8    V9    V10   V11   V12   V13  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 545 more in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 545 more from this nodeset in the vector.</span></span>
 <span class="r-in"><span><span class="fu">tie_is_loop</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   V1    V2    V3    V4    V5    V6    V7    V8    V9    V10   V11   V12   V13  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FALSE FALSE FALSE FALSE FALSE FALSE FALSE TRUE  FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 545 more in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 545 more from this nodeset in the vector.</span></span>
 <span class="r-in"><span><span class="fu">tie_is_reciprocated</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   V1    V2    V3    V4    V5    V6    V7    V8    V9    V10   V11   V12   V13  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> TRUE  FALSE TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  FALSE TRUE  TRUE  TRUE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 131 more in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 131 more from this nodeset in the vector.</span></span>
 <span class="r-in"><span><span class="fu">tie_is_bridge</span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   V1    V2    V3    V4    V5    V6    V7    V8    V9    V10   V11   V12  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> TRUE  TRUE  TRUE  FALSE FALSE FALSE FALSE FALSE FALSE FALSE TRUE  TRUE </span>
@@ -164,7 +154,7 @@ hold the minimum of some measure</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

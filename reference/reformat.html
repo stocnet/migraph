@@ -21,7 +21,7 @@ only transforming these objects' properties."><meta property="og:image" content=
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -33,21 +33,11 @@ only transforming these objects' properties."><meta property="og:image" content=
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Function Overview</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p3centrality.html">3. Centrality</a>
-    </li>
-  </ul></li>
+<li>
+  <a href="../articles/index.html">Practical Lessons</a>
+</li>
 <li>
   <a href="../news/index.html">News</a>
 </li>
@@ -98,7 +88,9 @@ only transforming these objects' properties.</p>
 <span></span>
 <span><span class="fu">to_onemode</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">to_multilevel</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">to_multilevel</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_twomode</span><span class="op">(</span><span class="va">object</span>, <span class="va">mark</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -128,6 +120,11 @@ the "positive" or "negative" ties.</p></dd>
 <dt>names</dt>
 <dd><p>Character vector of the node names. NULL by default.</p></dd>
 
+
+<dt>mark</dt>
+<dd><p>A logical vector marking two types or modes.
+By default "type".</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -145,26 +142,27 @@ here are the currently implemented modifications:</p><table class="table table">
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>to_uniplex</code>: Returns an object that includes only a single type of tie</p></li>
-<li><p><code>to_undirected</code>: Returns an object that has any edge direction removed,
+<ul><li><p><code>to_uniplex()</code>: Returns an object that includes only a single type of tie</p></li>
+<li><p><code>to_undirected()</code>: Returns an object that has any edge direction removed,
 so that any pair of nodes with at least one directed edge will be
 connected by an undirected edge in the new network.
 This is equivalent to the "collapse" mode in <code>{igraph}</code>.</p></li>
-<li><p><code>to_redirected</code>: Returns an object that has any edge direction transposed,
+<li><p><code>to_redirected()</code>: Returns an object that has any edge direction transposed,
 or flipped, so that senders become receivers and receivers become senders.
 This essentially has no effect on undirected networks or reciprocated ties.</p></li>
-<li><p><code>to_unweighted</code>: Returns an object that has all edge weights removed</p></li>
-<li><p><code>to_unsigned</code>: Returns a network with either just the "positive" ties
+<li><p><code>to_unweighted()</code>: Returns an object that has all edge weights removed</p></li>
+<li><p><code>to_unsigned()</code>: Returns a network with either just the "positive" ties
 or just the "negative" ties</p></li>
-<li><p><code>to_unnamed</code>: Returns an object with all vertex names removed</p></li>
-<li><p><code>to_named</code>: Returns an object that has random vertex names added</p></li>
-<li><p><code>to_simplex</code>: Returns an object that has all loops or self-ties removed</p></li>
-<li><p><code>to_onemode</code>: Returns an object that has any type/mode attributes removed,
+<li><p><code>to_unnamed()</code>: Returns an object with all vertex names removed</p></li>
+<li><p><code>to_named()</code>: Returns an object that has random vertex names added</p></li>
+<li><p><code>to_simplex()</code>: Returns an object that has all loops or self-ties removed</p></li>
+<li><p><code>to_onemode()</code>: Returns an object that has any type/mode attributes removed,
 but otherwise includes all the same nodes and ties.
 Note that this is not the same as <code><a href="transform.html">to_mode1()</a></code> or <code><a href="transform.html">to_mode2()</a></code>,
 which return only some of the nodes and new ties established by coincidence.</p></li>
-<li><p><code>to_multilevel</code>: Returns a network that is not divided into two mode types
+<li><p><code>to_multilevel()</code>: Returns a network that is not divided into two mode types
 but embeds two or more modes into a multimodal network structure.</p></li>
+<li><p><code>to_twomode()</code>: Returns a network that divides the nodes into two mode types.</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -182,7 +180,7 @@ but embeds two or more modes into a multimodal network structure.</p></li>
 <span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">to_uniplex</span><span class="op">(</span><span class="va">ison_algebra</span>, <span class="st">"friends"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="reformat-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="transform.html">to_main_component</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="transform.html">to_giant</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="reformat-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">to_undirected</span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
@@ -205,7 +203,7 @@ but embeds two or more modes into a multimodal network structure.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

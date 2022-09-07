@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -29,21 +29,11 @@
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Function Overview</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p3centrality.html">3. Centrality</a>
-    </li>
-  </ul></li>
+<li>
+  <a href="../articles/index.html">Practical Lessons</a>
+</li>
 <li>
   <a href="../news/index.html">News</a>
 </li>
@@ -67,7 +57,84 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.10.6" id="migraph-0106">migraph 0.10.6<a class="anchor" aria-label="anchor" href="#migraph-0106"></a></h2>
+<h2 class="page-header" data-toc-text="0.11.0" id="migraph-0110">migraph 0.11.0<a class="anchor" aria-label="anchor" href="#migraph-0110"></a></h2>
+<div class="section level3">
+<h3 id="package-0-11-0">Package<a class="anchor" aria-label="anchor" href="#package-0-11-0"></a></h3>
+<ul><li>Reference and articles tabs on package website now called “Function Overview” and “Practical Lessons” respectively</li>
+<li>Reinstated equivalence and blockmodelling vignettes</li>
+<li>All vignettes now precompiled to avoid CRAN issues</li>
+</ul></div>
+<div class="section level3">
+<h3 id="manipulation-0-11-0">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-11-0"></a></h3>
+<ul><li>Added <code><a href="../reference/as.html">as_graphAM()</a></code> methods for all migraph-consistent object classes so <code>{Rgraphviz}</code> can be used effectively</li>
+<li>Added <code><a href="../reference/as.html">as_igraph()</a></code>, <code><a href="../reference/as.html">as_tidygraph()</a></code>, and <code><a href="../reference/as.html">as_network()</a></code> methods for <a href="http://www.stats.ox.ac.uk/~snijders/siena/" class="external-link">RSiena</a> sienaData objects (thanks <a href="https://github.com/JaelTan" class="external-link">@JaelTan</a>, closed <a href="https://github.com/snlab-ch/migraph/issues/94" class="external-link">#94</a>)</li>
+<li>Added <code><a href="../reference/as.html">as_edgelist()</a></code> and <code><a href="../reference/as.html">as_matrix()</a></code> methods for <code>network.goldfish</code> class objects</li>
+<li>The <code>"twomode"</code> argument in <code><a href="../reference/as.html">as_matrix()</a></code> is now <code>NULL</code> by default, allowing both one-mode and two-mode coercion</li>
+<li>
+<code><a href="../reference/transform.html">to_mode1()</a></code> and <code><a href="../reference/transform.html">to_mode2()</a></code> now take an extra argument to produce weighted projections by different “similarity” measures<ul><li>“count” (the default) returns a raw count of the coincidence of nodes in the specified mode with nodes of the other mode</li>
+<li>“jaccard” (Jaccard index) offers a measure of opportunity weighted by participation</li>
+<li>“rand” (Simple Matching Coefficient) offers a measure of behavioral mirroring</li>
+<li>“pearson” (Pearson’s correlation) and “yule” (Yule’s Q) offer correlation coefficients for valued and binary data, respectively</li>
+<li>These options work for edgelists, matrices, igraph and tidygraph, and network objects</li>
+</ul></li>
+<li>Added <code><a href="../reference/transform.html">to_matching()</a></code> methods to transform a two-mode network or network with some other (binary) “mark” attribute into a network of matching ties</li>
+<li>Renamed <code>to_main_component()</code> to <code><a href="../reference/transform.html">to_giant()</a></code> to be more space efficient<ul><li>Added methods for edgelists and matrices</li></ul></li>
+<li>Added two-mode application for <code><a href="../reference/transform.html">to_blocks()</a></code> (closed <a href="https://github.com/snlab-ch/migraph/issues/242" class="external-link">#242</a>)<ul><li>Fixed bug in <code><a href="../reference/transform.html">to_blocks()</a></code> where NA blocks couldn’t be subsequently coerced</li></ul></li>
+<li>Filled in a number of S3 methods<ul><li>
+<code><a href="../reference/transform.html">to_blocks()</a></code>, <code><a href="../reference/transform.html">to_subgraph()</a></code>, and <code><a href="../reference/transform.html">to_ties()</a></code> are now S3 methods, returning objects of the same class as given</li>
+<li>Added <code><a href="../reference/reformat.html">to_onemode()</a></code> method for matrices</li>
+<li>Added <code><a href="../reference/reformat.html">to_twomode()</a></code> methods for igraph, tidygraph, and network</li>
+<li>Added network methods for <code><a href="../reference/reformat.html">to_named()</a></code>, <code><a href="../reference/reformat.html">to_redirected()</a></code>, <code><a href="../reference/reformat.html">to_uniplex()</a></code>, and <code><a href="../reference/reformat.html">to_unsigned()</a></code>
+</li>
+<li>Added edgelist methods for <code><a href="../reference/reformat.html">to_undirected()</a></code> and <code><a href="../reference/reformat.html">to_uniplex()</a></code>
+</li>
+<li>Added matrix method for <code><a href="../reference/reformat.html">to_uniplex()</a></code>
+</li>
+</ul></li>
+<li>Fixed bug where <code><a href="../reference/reformat.html">to_unweighted()</a></code> didn’t respect the “threshold” specified</li>
+</ul></div>
+<div class="section level3">
+<h3 id="marks-0-11-0">Marks<a class="anchor" aria-label="anchor" href="#marks-0-11-0"></a></h3>
+<ul><li>Fixed eternal loop bug where <code><a href="../reference/grab.html">node_mode()</a></code> couldn’t produce a “mark” class object</li>
+<li>Fixed bug where node names/labels were not being added to mark objects</li>
+<li>Fixed bug in <code><a href="../reference/is.html">is_twomode()</a></code> where labelling information was being ignored</li>
+</ul></div>
+<div class="section level3">
+<h3 id="measures-0-11-0">Measures<a class="anchor" aria-label="anchor" href="#measures-0-11-0"></a></h3>
+<ul><li>
+<code><a href="../reference/features.html">graph_core()</a></code> now runs <code><a href="../reference/core-periphery.html">node_core()</a></code> (see below) if no “membership” vector is provided</li></ul></div>
+<div class="section level3">
+<h3 id="membership-0-11-0">Membership<a class="anchor" aria-label="anchor" href="#membership-0-11-0"></a></h3>
+<ul><li>Added <code><a href="../reference/core-periphery.html">node_core()</a></code> for partitioning nodes into core and periphery memberships</li>
+<li>Fixed floating point bug in <code>k_strict()</code>
+</li>
+</ul></div>
+<div class="section level3">
+<h3 id="models-0-11-0">Models<a class="anchor" aria-label="anchor" href="#models-0-11-0"></a></h3>
+<ul><li>Added “tertius” effect for <code><a href="../reference/regression.html">network_reg()</a></code>
+</li>
+<li>“ego” and “alter” effects now work better for two-mode networks in <code><a href="../reference/regression.html">network_reg()</a></code>
+</li>
+</ul></div>
+<div class="section level3">
+<h3 id="mapping-0-11-0">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-11-0"></a></h3>
+<ul><li>Added “hierarchy” and “alluvial” layout methods</li>
+<li>Added “railway” and “ladder” layout methods (closed <a href="https://github.com/snlab-ch/migraph/issues/125" class="external-link">#125</a>)</li>
+<li>Added “concentric” layout method</li>
+<li>Restructured <code><a href="../reference/autographr.html">autographr()</a></code> to improve future debugging and development</li>
+<li>
+<code><a href="../reference/autographr.html">autographr()</a></code> now rotates labels for partitioning layouts, including “concentric”, so that they are readable and overlap less</li>
+<li>Fixed <code><a href="../reference/gglineage.html">gglineage()</a></code> to use “alluvial” layout and better position nodes on the <em>x</em>-axis</li>
+</ul></div>
+<div class="section level3">
+<h3 id="data-0-11-0">Data<a class="anchor" aria-label="anchor" href="#data-0-11-0"></a></h3>
+<ul><li>
+<code>mpn_cow_igo</code> now includes “polity2” scores</li>
+<li>Added visualisations to some <code>ison_</code> and <code>mpn_</code> data documentation (closed <a href="https://github.com/snlab-ch/migraph/issues/237" class="external-link">#237</a>)</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.10.6" id="migraph-0106">migraph 0.10.6<small>2022-07-03</small><a class="anchor" aria-label="anchor" href="#migraph-0106"></a></h2>
 <div class="section level3">
 <h3 id="package-0-10-6">Package<a class="anchor" aria-label="anchor" href="#package-0-10-6"></a></h3>
 <ul><li>Fixed URL error in a vignette</li></ul></div>
@@ -161,7 +228,7 @@
 <ul><li>Reduced package dependencies by 5<ul><li>
 <a href="https://joelgombin.github.io/concaveman/" class="external-link">concaveman</a>, <a href="https://github.com/andrie/ggdendro" class="external-link">ggdendro</a>, <code>{oaqc}</code> are now Suggests; the user is prompted to install them when required in <code><a href="../reference/autographr.html">autographr()</a></code>, <code>plot.member()</code>, and <code><a href="../reference/node_census.html">node_quad_census()</a></code> respectively</li>
 <li>
-<a href="http://stringr.tidyverse.org" class="external-link">stringr</a> and <a href="https://tibble.tidyverse.org/" class="external-link">tibble</a> replaced with base or other code and therefore no longer necessary</li>
+<a href="https://stringr.tidyverse.org" class="external-link">stringr</a> and <a href="https://tibble.tidyverse.org/" class="external-link">tibble</a> replaced with base or other code and therefore no longer necessary</li>
 </ul></li>
 <li>Relabelled scripts to follow website function structure<ul><li>Added <code>@family</code> tags for improved cross-referencing</li>
 <li>Added a lot more references/sources</li>
@@ -278,7 +345,7 @@
 <h3 id="mapping-0-10-0">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-10-0"></a></h3>
 <ul><li>
 <code><a href="../reference/autographr.html">autographr()</a></code> can highlight nodes that max (by default) some measure (thank you, <a href="https://github.com/BBieri" class="external-link">@BBieri</a>, closed <a href="https://github.com/snlab-ch/migraph/issues/224" class="external-link">#224</a>)</li>
-<li>Added <code><a href="../reference/layouts.html">layout_tbl_graph_stressgrid()</a></code> as an extra option</li>
+<li>Added <code><a href="../reference/grid_layouts.html">layout_tbl_graph_stressgrid()</a></code> as an extra option</li>
 <li>
 <code><a href="../reference/defunct.html">ggatyear()</a></code> is deprecated</li>
 </ul></div>
@@ -587,7 +654,7 @@
 <li>Fixed bugs in <code>as_</code> and <code>to_</code> functions<ul><li>Fixed bug in <code>as_</code> functions to convert from dataframes instead of tibbles</li>
 <li>Fixed bug in conversion from network to igraph object in <code><a href="../reference/as.html">as_igraph()</a></code> function</li>
 <li>Fixed bug in <code><a href="../reference/reformat.html">to_undirected()</a></code> function to work with network objects</li>
-<li>Fixed bug in <code><a href="../reference/transform.html">to_main_component()</a></code> function so that it retains vertex attributes in network objects</li>
+<li>Fixed bug in <code>to_main_component()</code> function so that it retains vertex attributes in network objects</li>
 </ul></li>
 <li>Added <code><a href="../reference/defunct.html">edge_attribute()</a></code> to grab a named edge attribute from a graph/network</li>
 <li>Updated <code><a href="../reference/reformat.html">to_unweighted()</a></code> to prevent conversion of network object into igraph object when deleting weights</li>
@@ -623,7 +690,7 @@
 <li>The <code><a href="../reference/as.html">as_network()</a></code> method for edgelists, igraph, and tidygraphs now works with weighted networks</li>
 <li>Added <code><a href="../reference/reformat.html">to_unnamed()</a></code> method for edge lists</li>
 <li>Added <code><a href="../reference/reformat.html">to_simplex()</a></code> method for matrices</li>
-<li>Added <code><a href="../reference/transform.html">to_main_component()</a></code> method for networks</li>
+<li>Added <code>to_main_component()</code> method for networks</li>
 <li>Added <code><a href="../reference/reformat.html">to_multilevel()</a></code> method for matrices</li>
 <li>
 <code>mutate_edges()</code> now coalesces rows of edges</li>
@@ -801,11 +868,11 @@
 <h3 id="visualization-0-8-3">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-8-3"></a></h3>
 <ul><li>Added option to <code><a href="../reference/autographr.html">autographr()</a></code> for plotting convex/concave hulls</li>
 <li>Closed <a href="https://github.com/snlab-ch/migraph/issues/124" class="external-link">#124</a> by making <code>ggraphgrid()</code> a set of layout functions:<ul><li>
-<code><a href="../reference/layouts.html">layout_tbl_graph_frgrid()</a></code> or <code>autographr(object, "frgrid")</code> for snapping Fruchterman-Reingold to a grid</li>
+<code><a href="../reference/grid_layouts.html">layout_tbl_graph_frgrid()</a></code> or <code>autographr(object, "frgrid")</code> for snapping Fruchterman-Reingold to a grid</li>
 <li>
-<code><a href="../reference/layouts.html">layout_tbl_graph_kkgrid()</a></code> or <code>autographr(object, "kkgrid")</code> for snapping Kamada-Kawai to a grid</li>
+<code><a href="../reference/grid_layouts.html">layout_tbl_graph_kkgrid()</a></code> or <code>autographr(object, "kkgrid")</code> for snapping Kamada-Kawai to a grid</li>
 <li>
-<code><a href="../reference/layouts.html">layout_tbl_graph_gogrid()</a></code> or <code>autographr(object, "gogrid")</code> for snapping graph optimisation to a grid</li>
+<code><a href="../reference/grid_layouts.html">layout_tbl_graph_gogrid()</a></code> or <code>autographr(object, "gogrid")</code> for snapping graph optimisation to a grid</li>
 <li>
 <code>ggraphgrid()</code> has been deprecated</li>
 </ul></li>
@@ -871,7 +938,7 @@
 <div class="section level3">
 <h3 id="classes-0-8-0">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-0"></a></h3>
 <ul><li>Fixed coercion to <a href="https://igraph.org" class="external-link">igraph</a> from data frames and updated read script</li>
-<li>Added <code><a href="../reference/transform.html">to_main_component()</a></code> to extract the main component of a network</li>
+<li>Added <code>to_main_component()</code> to extract the main component of a network</li>
 <li>Added <code><a href="../reference/reformat.html">to_onemode()</a></code> for moving to multimodal igraph objects</li>
 <li>Added <code><a href="../reference/reformat.html">to_uniplex()</a></code> method to delete edge types and their edges from multiplex networks</li>
 <li>Added <code><a href="../reference/reformat.html">to_simplex()</a></code> method to delete loops from a network</li>
@@ -1269,7 +1336,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

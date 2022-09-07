@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -62,22 +62,10 @@
   </a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="reference/index.html">Function Overview</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="articles/p3centrality.html">3. Centrality</a>
-    </li>
-  </ul>
+  <a href="articles/index.html">Practical Lessons</a>
 </li>
 <li>
   <a href="news/index.html">News</a>
@@ -135,7 +123,7 @@
 </ul>
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code>as_*()</code> functions can be used to translate objects from one of the above classes into any other, and include:</p>
 <ul><li>
-<code><a href="reference/as.html">as_edgelist()</a></code>, <code><a href="reference/as.html">as_igraph()</a></code>, <code><a href="reference/as.html">as_matrix()</a></code>, <code><a href="reference/as.html">as_network()</a></code>, <code><a href="reference/as.html">as_tidygraph()</a></code>
+<code><a href="reference/as.html">as_edgelist()</a></code>, <code><a href="reference/as.html">as_graphAM()</a></code>, <code><a href="reference/as.html">as_igraph()</a></code>, <code><a href="reference/as.html">as_matrix()</a></code>, <code><a href="reference/as.html">as_network()</a></code>, <code><a href="reference/as.html">as_tidygraph()</a></code>
 </li></ul>
 <p>These functions are designed to be as intuitive and lossless as possible, outperforming many other class-coercion packages.</p>
 <div class="section level4">
@@ -146,9 +134,9 @@
 <ul><li>
 <code><a href="reference/is.html">is_acyclic()</a></code>, <code><a href="https://rdrr.io/pkg/igraph/man/make_bipartite_graph.html" class="external-link">is_bipartite()</a></code>, <code><a href="reference/is.html">is_complex()</a></code>, <code><a href="reference/is.html">is_connected()</a></code>, <code><a href="reference/is.html">is_directed()</a></code>, <code><a href="reference/is.html">is_edgelist()</a></code>, <code><a href="reference/is.html">is_graph()</a></code>, <code><a href="reference/is.html">is_labelled()</a></code>, <code><a href="reference/is.html">is_migraph()</a></code>, <code><a href="reference/is.html">is_multiplex()</a></code>, <code><a href="reference/is.html">is_signed()</a></code>, <code><a href="reference/is.html">is_twomode()</a></code>, <code><a href="reference/is.html">is_uniplex()</a></code>, <code><a href="reference/is.html">is_weighted()</a></code>
 </li></ul>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code>to_*()</code> functions can be used on any class object to transform networks into networks with other properties, e.g.:</p>
+<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code>to_*()</code> functions can be used on any class object to reformat or transform networks into networks with other properties, e.g.:</p>
 <ul><li>
-<code><a href="reference/transform.html">to_blocks()</a></code>, <code><a href="reference/defunct.html">to_edges()</a></code>, <code><a href="reference/transform.html">to_main_component()</a></code>, <code><a href="reference/transform.html">to_mode1()</a></code>, <code><a href="reference/transform.html">to_mode2()</a></code>, <code><a href="reference/reformat.html">to_multilevel()</a></code>, <code><a href="reference/reformat.html">to_named()</a></code>, <code><a href="reference/reformat.html">to_onemode()</a></code>, <code><a href="reference/reformat.html">to_redirected()</a></code>, <code><a href="reference/reformat.html">to_simplex()</a></code>, <code><a href="reference/transform.html">to_subgraph()</a></code>, <code><a href="reference/transform.html">to_ties()</a></code>, <code><a href="reference/reformat.html">to_undirected()</a></code>, <code><a href="reference/reformat.html">to_uniplex()</a></code>, <code><a href="reference/reformat.html">to_unnamed()</a></code>, <code><a href="reference/reformat.html">to_unsigned()</a></code>, <code><a href="reference/reformat.html">to_unweighted()</a></code>
+<code><a href="reference/transform.html">to_blocks()</a></code>, <code><a href="reference/defunct.html">to_edges()</a></code>, <code><a href="reference/transform.html">to_giant()</a></code>, <code><a href="reference/transform.html">to_matching()</a></code>, <code><a href="reference/transform.html">to_mode1()</a></code>, <code><a href="reference/transform.html">to_mode2()</a></code>, <code><a href="reference/reformat.html">to_multilevel()</a></code>, <code><a href="reference/reformat.html">to_named()</a></code>, <code><a href="reference/reformat.html">to_onemode()</a></code>, <code><a href="reference/reformat.html">to_redirected()</a></code>, <code><a href="reference/reformat.html">to_simplex()</a></code>, <code><a href="reference/transform.html">to_subgraph()</a></code>, <code><a href="reference/transform.html">to_ties()</a></code>, <code><a href="reference/reformat.html">to_twomode()</a></code>, <code><a href="reference/reformat.html">to_undirected()</a></code>, <code><a href="reference/reformat.html">to_uniplex()</a></code>, <code><a href="reference/reformat.html">to_unnamed()</a></code>, <code><a href="reference/reformat.html">to_unsigned()</a></code>, <code><a href="reference/reformat.html">to_unweighted()</a></code>
 </li></ul>
 </div>
 <div class="section level4">
@@ -230,7 +218,7 @@
 <ul>
 <li>
 <code><a href="reference/autographr.html">autographr()</a></code> for plotting graphs with sensible defaults based on their properties</li>
-<li>New layouts: <code><a href="reference/layouts.html">layout_tbl_graph_frgrid()</a></code>, <code><a href="reference/layouts.html">layout_tbl_graph_gogrid()</a></code>, <code><a href="reference/layouts.html">layout_tbl_graph_kkgrid()</a></code>, <code><a href="reference/layouts.html">layout_tbl_graph_stressgrid()</a></code> for snapping a layout to a grid</li>
+<li>New layouts: <code><a href="reference/partition_layouts.html">layout_tbl_graph_alluvial()</a></code>, <code><a href="reference/partition_layouts.html">layout_tbl_graph_concentric()</a></code>, <code><a href="reference/grid_layouts.html">layout_tbl_graph_frgrid()</a></code>, <code><a href="reference/grid_layouts.html">layout_tbl_graph_gogrid()</a></code>, <code><a href="reference/partition_layouts.html">layout_tbl_graph_hierarchy()</a></code>, <code><a href="reference/grid_layouts.html">layout_tbl_graph_kkgrid()</a></code>, <code><a href="reference/partition_layouts.html">layout_tbl_graph_ladder()</a></code>, <code><a href="reference/partition_layouts.html">layout_tbl_graph_railway()</a></code>, <code><a href="reference/grid_layouts.html">layout_tbl_graph_stressgrid()</a></code> for snapping a layout to a grid</li>
 <li>Class-based plots: e.g. <code>plot.matrix()</code>, <code>plot.members()</code>, <code>plot.node_measure()</code>
 </li>
 </ul>
@@ -336,7 +324,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

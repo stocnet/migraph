@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -29,21 +29,11 @@
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Function Overview</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p3centrality.html">3. Centrality</a>
-    </li>
-  </ul></li>
+<li>
+  <a href="../articles/index.html">Practical Lessons</a>
+</li>
 <li>
   <a href="../news/index.html">News</a>
 </li>
@@ -79,50 +69,50 @@
 
     <div id="format">
     <h2>Format</h2>
-    <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="co">## # A tbl_graph: 116 nodes and 11489 edges</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="co">## #</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co">## # A directed simple graph with 1 component</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co">## #</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co">## # Node Data: 116 × 1 (active)</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co">##   name                    </span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co">##   &lt;chr&gt;                   </span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co">## 1 United States of America</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="co">## 2 Canada                  </span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="co">## 3 Cuba                    </span></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="co">## 4 Dominican Republic      </span></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="co">## 5 Jamaica                 </span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="co">## 6 Trinidad and Tobago     </span></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="co">## # … with 110 more rows</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="co">## #</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="co">## # Edge Data: 11,489 × 3</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="co">##    from    to  weight</span></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="co">##   &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="co">## 1     1     2 180387 </span></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="co">## 2     1     3    587.</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a><span class="co">## 3     1     4   5511.</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a><span class="co">## # … with 11,486 more rows</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="co">## # A tbl_graph: 156 nodes and 862 edges</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="co">## #</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co">## # A bipartite simple graph with 1 component</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co">## #</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co">## # Node Data: 156 × 2 (active)</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co">##   type  name       </span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co">##   &lt;lgl&gt; &lt;chr&gt;      </span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co">## 1 FALSE Afghanistan</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="co">## 2 FALSE Albania    </span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="co">## 3 FALSE Algeria    </span></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="co">## 4 FALSE Angola     </span></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="co">## 5 FALSE Argentina  </span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="co">## 6 FALSE Australia  </span></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="co">## # … with 150 more rows</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="co">## #</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="co">## # Edge Data: 862 × 2</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="co">##    from    to</span></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="co">##   &lt;int&gt; &lt;int&gt;</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="co">## 1     1   121</span></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="co">## 2     1   132</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a><span class="co">## 3     1   139</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a><span class="co">## # … with 859 more rows</span></span></code></pre><p></p></div>
+    <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#&gt; # A tbl_graph: 116 nodes and 11489 edges</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#&gt; #</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&gt; # A directed simple graph with 1 component</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&gt; #</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#&gt; # Node Data: 116 x 1 (active)</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt;   name                    </span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt;   &lt;chr&gt;                   </span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">#&gt; 1 United States of America</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">#&gt; 2 Canada                  </span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co">#&gt; 3 Cuba                    </span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co">#&gt; 4 Dominican Republic      </span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co">#&gt; 5 Jamaica                 </span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co">#&gt; 6 Trinidad and Tobago     </span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co">#&gt; # ... with 110 more rows</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co">#&gt; #</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co">#&gt; # Edge Data: 11,489 x 3</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co">#&gt;    from    to  weight</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co">#&gt; 1     1     2 180387 </span></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="co">#&gt; 2     1     3    587.</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="co">#&gt; 3     1     4   5511.</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a><span class="co">#&gt; # ... with 11,486 more rows</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#&gt; # A tbl_graph: 152 nodes and 839 edges</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#&gt; #</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&gt; # A directed acyclic simple graph with 1 component</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&gt; #</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#&gt; # Node Data: 152 x 3 (active)</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt;   name        type  polity2</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;lgl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">#&gt; 1 Afghanistan FALSE      -7</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">#&gt; 2 Albania     FALSE       5</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co">#&gt; 3 Algeria     FALSE      -3</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co">#&gt; 4 Angola      FALSE      -6</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co">#&gt; 5 Argentina   FALSE       8</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co">#&gt; 6 Australia   FALSE      10</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co">#&gt; # ... with 146 more rows</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co">#&gt; #</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co">#&gt; # Edge Data: 839 x 3</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co">#&gt;    from    to weight</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co">#&gt; 1     1   113      1</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="co">#&gt; 2     1   114      1</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="co">#&gt; 3     1   115      0</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a><span class="co">#&gt; # ... with 836 more rows</span></span></code></pre><p></p></div>
     </div>
     <div id="source">
     <h2>Source</h2>
@@ -138,15 +128,21 @@ Correlates of War Project Trade Data Set Codebook, Version 3.0.</p>
     <p><code>mpn_cow_trade</code> is a one-mode matrix representing the trade relations between 116 states.
 The data is derived from the Correlates of War Project (COW) Trade Dataset (v3.0),
 which contains the annual dyadic and national trade figures for states (listed in COW)
-between 1870 to 2009. This network is based only on the dyadic trade figures in 2009 for the
-116 states listed in Appendix 7.1 in
+between 1870 to 2009.
+This network is based only on the dyadic trade figures in 2009 for the 116 states
+listed in Appendix 7.1 in
 <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128" class="external-link"><em>Multimodal Political Networks</em></a>
-(Knoke et al., 2021). The value in each cell of the matrix represents the value of
-exports from the 116 row states to the 116 column states.</p>
-<p>Two-mode matrix representing the membership of 116 states to 40 intergovernmental organizations (IGOs).
-The data is derived from the Correlates of War Project (COW) Intergovernmental Organizations Dataset (v3.0),
-which contains information about intergovernmental organizations from 1815-2014, such as founding year and membership.
-This network contains only a subset of the states and IGOs listed in COW, with 116 states listed in Appendix 7.1 in <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128" class="external-link"><em>Multimodal Political Networks</em></a>
+(Knoke et al., 2021).
+The value in each cell of the matrix represents the value of exports
+from the 116 row states to the 116 column states.</p>
+<p><code>mpn_cow_igo</code> is a two-mode graph representing the membership of 116 states
+in 40 intergovernmental organizations (IGOs).
+The data is derived from the Correlates of War Project (COW)
+Intergovernmental Organizations Dataset (v3.0),
+which contains information about intergovernmental organizations from 1815-2014,
+such as founding year and membership.
+This network contains only a subset of the states and IGOs listed in COW,
+with 116 states listed in Appendix 7.1 in <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128" class="external-link"><em>Multimodal Political Networks</em></a>
 and 40 IGOs from Table 7.1 in <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128" class="external-link"><em>Multimodal Political Networks</em></a>
 that also overlap with the COW dataset (Knoke et al., 2021).</p>
     </div>
@@ -179,7 +175,7 @@ Cambridge University Press. Cambridge University Press.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

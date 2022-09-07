@@ -20,7 +20,7 @@ than the original object."><meta property="og:image" content="https://snlab-ch.g
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -32,21 +32,11 @@ than the original object."><meta property="og:image" content="https://snlab-ch.g
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Function Overview</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/p1data.html">1. Data</a>
-    </li>
-    <li>
-      <a href="../articles/p3centrality.html">3. Centrality</a>
-    </li>
-  </ul></li>
+<li>
+  <a href="../articles/index.html">Practical Lessons</a>
+</li>
 <li>
   <a href="../news/index.html">News</a>
 </li>
@@ -78,17 +68,19 @@ than the original object.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">to_mode1</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">to_mode1</span><span class="op">(</span><span class="va">object</span>, similarity <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"count"</span>, <span class="st">"jaccard"</span>, <span class="st">"rand"</span>, <span class="st">"pearson"</span>, <span class="st">"yule"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">to_mode2</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span><span class="fu">to_mode2</span><span class="op">(</span><span class="va">object</span>, similarity <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"count"</span>, <span class="st">"jaccard"</span>, <span class="st">"rand"</span>, <span class="st">"pearson"</span>, <span class="st">"yule"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">to_main_component</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span><span class="fu">to_giant</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">to_subgraph</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">to_ties</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">to_blocks</span><span class="op">(</span><span class="va">object</span>, <span class="va">membership</span>, FUN <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">to_blocks</span><span class="op">(</span><span class="va">object</span>, <span class="va">membership</span>, FUN <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_matching</span><span class="op">(</span><span class="va">object</span>, mark <span class="op">=</span> <span class="st">"type"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -102,12 +94,32 @@ than the original object.</p>
 </ul></dd>
 
 
+<dt>similarity</dt>
+<dd><p>Method for establishing ties,
+currently "count" (default), "jaccard", or "rand".
+"count" calculates the number of coinciding ties,
+and can be interpreted as indicating the degree of opportunities
+between nodes.
+"jaccard" uses this count as the numerator in a proportion,
+where the denominator consists of any cell where either node has a tie.
+It can be interpreted as opportunity weighted by participation.
+"rand", or the Simple Matching Coefficient,
+is a proportion where the numerator consists of the count of cells where
+both nodes are present or both are absent,
+over all possible cells.
+It can be interpreted as the (weighted) degree of behavioral mirroring
+between two nodes.
+"pearson" (Pearson's coefficient) and "yule" (Yule's Q)
+produce correlations for valued and binary data, respectively.
+Note that Yule's Q has a straightforward interpretation related to the odds ratio.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Arguments passed on to dplyr::filter</p></dd>
 
 
 <dt>membership</dt>
-<dd><p>A vector of partition memberships</p></dd>
+<dd><p>A vector of partition memberships.</p></dd>
 
 
 <dt>FUN</dt>
@@ -115,6 +127,11 @@ than the original object.</p>
 By default <code>mean</code>.
 Other recommended options include <code>median</code>, <code>sum</code>,
 <code>min</code> or <code>max</code>.</p></dd>
+
+
+<dt>mark</dt>
+<dd><p>A logical vector marking two types or modes.
+By default "type".</p></dd>
 
 </dl></div>
     <div id="details">
@@ -127,22 +144,24 @@ and <code>to_blocks()</code> returns a 'matrix' object.</p>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>to_mode1</code>: Results in a weighted one-mode object
+<ul><li><p><code>to_mode1()</code>: Results in a weighted one-mode object
 that retains the row nodes from a two-mode object,
 and weights the ties between them on the basis of
 their joint ties to nodes in the second mode (columns)</p></li>
-<li><p><code>to_mode2</code>: Results in a weighted one-mode object
+<li><p><code>to_mode2()</code>: Results in a weighted one-mode object
 that retains the column nodes from a two-mode object,
 and weights the ties between them on the basis of
 their joint ties to nodes in the first mode (rows).</p></li>
-<li><p><code>to_main_component</code>: Returns an object that includes only the main component
+<li><p><code>to_giant()</code>: Returns an object that includes only the main component
 without any smaller components or isolates</p></li>
-<li><p><code>to_subgraph</code>: Returns a network subgraph filtered
+<li><p><code>to_subgraph()</code>: Returns a network subgraph filtered
 on the basis of some node-related logical statement.</p></li>
-<li><p><code>to_ties</code>: Returns a matrix (named if possible)
+<li><p><code>to_ties()</code>: Returns a matrix (named if possible)
 where the edges are the nodes</p></li>
-<li><p><code>to_blocks</code>: Returns a reduced graph from a given
+<li><p><code>to_blocks()</code>: Returns a reduced graph from a given
 partition membership vector</p></li>
+<li><p><code>to_matching()</code>: Returns a network with only
+matching ties</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -164,12 +183,30 @@ partition membership vector</p></li>
 <span class="r-plt img"><img src="transform-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">adolblock</span> <span class="op">&lt;-</span> <span class="fu">to_blocks</span><span class="op">(</span><span class="va">ison_adolescents</span>, </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="equivalence.html">node_regular_equivalence</a></span><span class="op">(</span><span class="va">ison_adolescents</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Block 1 Block 2 Block 3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Block 1 0.1666667     0.5     0.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Block 2 0.5000000     0.0     1.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Block 3 0.5000000     1.0     0.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tbl_graph: 3 nodes and 4 edges</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># An undirected multigraph with 1 component</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Node Data: 3 × 1 (active)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   name   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Block 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Block 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Block 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Edge Data: 4 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    from    to weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     1  0.167</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     1     2  0.5  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     1     3  0.5  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1 more row</span></span>
 <span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">adolblock</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="transform-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_matching</span><span class="op">(</span><span class="va">mpn_elite_usa_advice</span><span class="op">)</span>, <span class="st">"bipartite"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="transform-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu">to_matching</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span>, <span class="st">"bipartite"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="transform-5.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
@@ -184,7 +221,7 @@ partition membership vector</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
