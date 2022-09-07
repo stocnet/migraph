@@ -47,8 +47,8 @@
 #' @importFrom network is.network as.network
 #' @importFrom network as.matrix.network.incidence as.matrix.network.adjacency
 #' @examples
-#' test <- data.frame(id1 = c("A","B","B","C","C"),
-#'                    id2 = c("I","G","I","G","H"))
+#' test <- data.frame(from = c("A","B","B","C","C"),
+#'                    to = c("I","G","I","G","H"))
 #' as_edgelist(test)
 #' as_matrix(test)
 #' as_igraph(test)
@@ -72,6 +72,7 @@ NULL
 
 #' @rdname as
 #' @importFrom igraph as_edgelist
+#' @importFrom dplyr arrange
 #' @export
 as_edgelist <- function(object,
                         twomode = FALSE) UseMethod("as_edgelist")
@@ -98,6 +99,7 @@ as_edgelist.network <- function(object,
   if (is_twomode(object)) {
     edges <- edges[((nrow(edges)/2) + 1):nrow(edges),]
   }
+  from <- to <- NULL
   names(edges) <- c("from", "to", "weight")
   # Handle node names
   if (is_labelled(object)) {
@@ -111,13 +113,13 @@ as_edgelist.network <- function(object,
   }
   # Remove weight column if only unity weights.
   if (all(edges$weight == 1)) edges <- edges[, -3]
-  dplyr::as_tibble(edges)
+  dplyr::arrange(dplyr::as_tibble(edges), from, to)
 }
 
 #' @export
 as_edgelist.matrix <- function(object,
                                twomode = FALSE){
-  as_edgelist.igraph(as_igraph(object,
+  as_edgelist(as_igraph(object,
                                twomode = FALSE))
 }
 
@@ -656,7 +658,7 @@ as_network.network <- function(object,
 as_network.matrix <- function(object,
                               twomode = FALSE) {
   # Convert to adjacency matrix if not square already
-  if (nrow(object) != ncol(object)) {
+  if (is_twomode(object)) {
     out <- to_multilevel(object)
   } else out <- object
   network::as.network(out, 
@@ -699,9 +701,9 @@ as_network.tbl_graph <- function(object,
 
 #' @export
 as_network.data.frame <- function(object,
-                                  twomode = FALSE) {
+                                  twomode = NULL) {
   if ("tbl_df" %in% class(object)) object <- as.data.frame(object)
-  as.network(object)
+  as_network(as_matrix(object, twomode))
 }
 
 #' @export
@@ -736,8 +738,33 @@ as_network.siena <- function(object, twomode = FALSE) {
 #' @rdname as
 #' @importFrom methods new
 #' @export
-as_graphAM <- function(object,
-                     twomode = NULL) UseMethod("as_graphAM")
+as_graphAM <- function(object, twomode = NULL) UseMethod("as_graphAM")
+
+setClass("attrData", representation(data="list",
+                                    defaults="list"))
+
+setClass("renderInfo", 
+         representation(nodes="list", # information on nodes
+                        edges="list", # information on edges
+                        graph="list",
+                        pars="list")) # list passed on to graph.par before rendering
+
+setClass("graphBase")
+
+setClass("graph", representation(## edgemode="character",
+  edgeData="attrData",
+  nodeData="attrData",
+  
+  renderInfo="renderInfo",
+  ## nodeInfo="list",
+  ## edgeInfo="list",
+  
+  graphData="list",
+  "VIRTUAL"),
+  contains = "graphBase")
+
+setClass("graphAM", contains="graph",
+         slots = c(adjMat="matrix", edgemode="character"))
 
 #' @export
 as_graphAM.matrix <- function(object, twomode = NULL){

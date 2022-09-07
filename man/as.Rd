@@ -89,8 +89,8 @@ This information is usually already embedded in \code{{igraph}},
 \code{{tidygraph}}, and \code{{network}} objects.
 }
 \examples{
-test <- data.frame(id1 = c("A","B","B","C","C"),
-                   id2 = c("I","G","I","G","H"))
+test <- data.frame(from = c("A","B","B","C","C"),
+                   to = c("I","G","I","G","H"))
 as_edgelist(test)
 as_matrix(test)
 as_igraph(test)

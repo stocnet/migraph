@@ -3,12 +3,13 @@
 mat1 <- matrix(c(0,1,0,0,1,0,1,0,0,1,0,1,0,0,0,0),4,4, byrow = TRUE)
 rownames(mat1) <- LETTERS[1:4]
 colnames(mat1) <- LETTERS[1:4]
-mat2 <- matrix(c(0,1,0,0,3,0,2,0,0,5,0,4,0,0,0,0),4,4, byrow = TRUE)
+mat2 <- matrix(c(0,1,0,0,2,0,3,0,0,4,0,5,0,0,0,0),4,4, byrow = TRUE)
 rownames(mat2) <- LETTERS[1:4]
 colnames(mat2) <- LETTERS[1:4]
 # Unweighted test
-data1 <- data.frame(from = c("A","B","B","C","C"),
-                    to = c("B","C","A","D","B"))
+data1 <- dplyr::arrange(data.frame(from = c("A","B","B","C","C"),
+                    to = c("B","C","A","D","B")),
+                    from, to)
 # Weighted test
 data2 <- data1
 data2$weight <- 1:5
