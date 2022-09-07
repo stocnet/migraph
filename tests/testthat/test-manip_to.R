@@ -84,10 +84,10 @@ test_that("to_blocks works", {
   block2 <- node_structural_equivalence(ison_southern_women)
   m1 <- block2[!node_mode(ison_southern_women)]
   m2 <- block2[node_mode(ison_southern_women)]
-  expect_equal(max(block), ncol(to_blocks(ison_algebra, block)))
-  expect_equal(ncol(to_blocks(ison_algebra, block)), nrow(to_blocks(ison_algebra, block)))
-  expect_equal(ncol(to_blocks(ison_southern_women, block2)), max(m2))
-  expect_equal(nrow(to_blocks(ison_southern_women, block2)), max(m1))
+  expect_equal(max(block), ncol(to_blocks(as_matrix(ison_algebra), block)))
+  expect_equal(ncol(to_blocks(as_matrix(ison_algebra), block)), nrow(to_blocks(as_matrix(ison_algebra), block)))
+  expect_equal(ncol(as_matrix(to_blocks(ison_southern_women, block2))), max(m2))
+  expect_equal(nrow(to_blocks(as_matrix(ison_southern_women), block2)), max(m1))
 })
 
 test_that("to matching works", {

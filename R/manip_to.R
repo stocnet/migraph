@@ -56,11 +56,6 @@ NULL
 to_uniplex <- function(object, edge) UseMethod("to_uniplex")
 
 #' @export
-to_uniplex.tbl_graph <- function(object, edge){
-  as_tidygraph(to_uniplex(as_igraph(object), edge))
-}
-
-#' @export
 to_uniplex.igraph <- function(object, edge){
   out <- igraph::delete_edges(object,
                               igraph::E(object)[igraph::get.edge.attribute(object, edge) == 0])
@@ -73,6 +68,26 @@ to_uniplex.igraph <- function(object, edge){
   if (is.numeric(igraph::get.edge.attribute(object, edge))) 
     names(igraph::edge_attr(out)) <- "weight"
   out
+}
+
+#' @export
+to_uniplex.tbl_graph <- function(object, edge){
+  as_tidygraph(to_uniplex(as_igraph(object), edge))
+}
+
+#' @export
+to_uniplex.network <- function(object, edge){
+  as_network(to_uniplex(as_igraph(object), edge))
+}
+
+#' @export
+to_uniplex.data.frame <- function(object, edge){
+  as_edgelist(to_uniplex(as_igraph(object), edge))
+}
+
+#' @export
+to_uniplex.matrix <- function(object, edge){
+  as_matrix(to_uniplex(as_igraph(object), edge))
 }
 
 #' @describeIn reformat Returns an object that has any edge direction removed,
@@ -104,6 +119,11 @@ to_undirected.matrix <- function(object) {
   if (is_twomode(object)) {
     object
   } else ((object + t(object)) > 0) * 1
+}
+
+#' @export
+to_undirected.data.frame <- function(object) {
+  as_edgelist(to_undirected(as_igraph(object)))
 }
 
 #' @describeIn reformat Returns an object that has any edge direction transposed,
@@ -140,6 +160,11 @@ to_redirected.data.frame <- function(object) {
 #' @export
 to_redirected.matrix <- function(object) {
   t(object)
+}
+
+#' @export
+to_redirected.network <- function(object) {
+  as_network(to_redirected(as_igraph(object)))
 }
 
 #' @describeIn reformat Returns an object that has all edge weights removed
@@ -237,6 +262,12 @@ to_unsigned.igraph <- function(object,
   } else object
 }
 
+#' @export
+to_unsigned.network <- function(object, 
+                               keep = c("positive", "negative")){
+  as_network(to_unsigned(as_igraph(object)))
+}
+
 #' @describeIn reformat Returns an object with all vertex names removed
 #' @export
 to_unnamed <- function(object) UseMethod("to_unnamed")
@@ -331,6 +362,11 @@ to_named.matrix <- function(object, names = NULL) {
   object
 }
 
+#' @export
+to_named.network <- function(object, names = NULL) {
+  as_network(to_named(as_igraph(object), names))
+}
+
 #' @describeIn reformat Returns an object that has all loops or self-ties removed
 #' @importFrom igraph simplify
 #' @export
@@ -363,9 +399,11 @@ to_onemode <- function(object) UseMethod("to_onemode")
 
 #' @export
 to_onemode.matrix <- function(object) {
-  if (nrow(object) != ncol(object)) 
-    object <- rbind(cbind(object, matrix(0, nrow(object), nrow(object))),
-                    cbind(matrix(0, ncol(object), ncol(object)), object))
+  if (nrow(object) != ncol(object)){
+    object <- rbind(cbind(matrix(0, nrow(object), nrow(object)), object),
+                    cbind(t(object), matrix(0, ncol(object), ncol(object))))
+    colnames(object) <- rownames(object)
+  }
   object
 }
 
@@ -423,8 +461,12 @@ to_twomode.igraph <- function(object, mark){
 
 #' @export
 to_twomode.tbl_graph <- function(object, mark){
-  out <- to_twomode.igraph(object, mark)
-  as_tidygraph(out)
+  as_tidygraph(to_twomode.igraph(object, mark))
+}
+
+#' @export
+to_twomode.network <- function(object, mark){
+  as_network(to_twomode(as_igraph(object, mark)))
 }
 
 
@@ -611,9 +653,32 @@ to_giant.matrix <- function(object) {
 #' @param ... Arguments passed on to dplyr::filter
 #' @importFrom dplyr filter
 #' @export
-to_subgraph <- function(object, ...){
-  dplyr::filter(.data = as_tidygraph(object), ..., 
+to_subgraph <- function(object, ...) UseMethod("to_subgraph")
+
+#' @export
+to_subgraph.tbl_graph <- function(object, ...){
+  dplyr::filter(.data = object, ..., 
                 .preserve = FALSE)
+}
+
+#' @export
+to_subgraph.igraph <- function(object, ...){
+  as_igraph(to_subgraph(as_tidygraph(object), ...))
+}
+
+#' @export
+to_subgraph.network <- function(object, ...){
+  as_network(to_subgraph(as_tidygraph(object), ...))
+}
+
+#' @export
+to_subgraph.data.frame <- function(object, ...){
+  as_edgelist(to_subgraph(as_tidygraph(object), ...))
+}
+
+#' @export
+to_subgraph.matrix <- function(object, ...){
+  as_matrix(to_subgraph(as_tidygraph(object), ...))
 }
 
 #' @describeIn transform Returns a matrix (named if possible) 
@@ -623,11 +688,34 @@ to_subgraph <- function(object, ...){
 #' autographr(ison_adolescents) +  
 #' autographr(to_ties(ison_adolescents))
 #' @export
-to_ties <- function(object){
-  out <- igraph::make_line_graph(as_igraph(object))
+to_ties <- function(object) UseMethod("to_ties")
+
+#' @export
+to_ties.igraph <- function(object){
+  out <- igraph::make_line_graph(object)
   out <- add_node_attribute(out, "name", attr(igraph::E(object), "vnames"))
   igraph::V(out)$name <- gsub("\\|", "-", igraph::V(out)$name)
   out
+}
+
+#' @export
+to_ties.tbl_graph <- function(object){
+  as_tidygraph(to_ties(as_igraph(object)))
+}
+
+#' @export
+to_ties.network <- function(object){
+  as_network(to_ties(as_igraph(object)))
+}
+
+#' @export
+to_ties.data.frame <- function(object){
+  as_edgelist(to_ties(as_igraph(object)))
+}
+
+#' @export
+to_ties.matrix <- function(object){
+  as_matrix(to_ties(as_igraph(object)))
 }
 
 #' @describeIn transform Returns a reduced graph from a given
@@ -642,9 +730,12 @@ to_ties <- function(object){
 #'   node_regular_equivalence(ison_adolescents, k = 3)))
 #' autographr(adolblock)
 #' @export
-to_blocks <- function(object, membership, FUN = mean){
+to_blocks <- function(object, membership, FUN = mean) UseMethod("to_blocks")
+
+#' @export
+to_blocks.matrix <- function(object, membership, FUN = mean){
   if(is_twomode(object)){
-    mat <- as_matrix(to_onemode(object))
+    mat <- to_onemode(object)
     m1_membs <- membership[!node_mode(object)]
     m2_membs <- membership[node_mode(object)]
     x <- length(unique(m1_membs))
@@ -658,7 +749,7 @@ to_blocks <- function(object, membership, FUN = mean){
     rownames(out) <- paste("Block", seq_len(unique(m1_membs)[x]))
     colnames(out) <- paste("Block", seq_len(unique(m2_membs)[y]))
   } else {
-    mat <- as_matrix(object)
+    mat <- object
     parts <- max(membership)
     out <- matrix(nrow = parts, 
                   ncol = parts)
@@ -669,7 +760,28 @@ to_blocks <- function(object, membership, FUN = mean){
     rownames(out) <- paste("Block", seq_len(parts))
     colnames(out) <- paste("Block", seq_len(parts))
   }
+  out[is.na(out)] <- 0
   out
+}
+
+#' @export
+to_blocks.igraph <- function(object, membership, FUN = mean){
+  as_igraph(to_blocks(as_matrix(object), membership, FUN))
+}
+
+#' @export
+to_blocks.network <- function(object, membership, FUN = mean){
+  as_network(to_blocks(as_matrix(object), membership, FUN))
+}
+
+#' @export
+to_blocks.data.frame <- function(object, membership, FUN = mean){
+  as_edgelist(to_blocks(as_matrix(object), membership, FUN))
+}
+
+#' @export
+to_blocks.tbl_graph <- function(object, membership, FUN = mean){
+  as_tidygraph(to_blocks(as_matrix(object), membership, FUN))
 }
 
 #' @describeIn transform Returns a network with only
@@ -681,8 +793,10 @@ to_blocks <- function(object, membership, FUN = mean){
 #' autographr(to_matching(mpn_elite_usa_advice), "bipartite")
 #' autographr(to_matching(ison_southern_women), "bipartite")
 #' @export
-to_matching <- function(object, mark = "type"){
-  object <- as_igraph(object)
+to_matching <- function(object, mark = "type") UseMethod("to_matching")
+
+#' @export
+to_matching.igraph <- function(object, mark = "type"){
   if(length(unique(node_attribute(object, mark)))>2)
     stop("This function currently only works with binary attributes.")
   el <- igraph::max_bipartite_match(object, 
@@ -692,5 +806,25 @@ to_matching <- function(object, mark = "type"){
   out <- igraph::delete_vertices(out, "NA")
   out <- to_twomode(out, node_attribute(object, mark))
   out
+}
+
+#' @export
+to_matching.tbl_graph <- function(object, mark = "type"){
+  as_tidygraph(to_matching(as_igraph(object), mark))
+}
+
+#' @export
+to_matching.network <- function(object, mark = "type"){
+  as_network(to_matching(as_igraph(object), mark))
+}
+
+#' @export
+to_matching.data.frame <- function(object, mark = "type"){
+  as_edgelist(to_matching(as_igraph(object), mark))
+}
+
+#' @export
+to_matching.matrix <- function(object, mark = "type"){
+  as_matrix(to_matching(as_igraph(object), mark))
 }
 
