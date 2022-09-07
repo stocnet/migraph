@@ -24,13 +24,13 @@ library(migraph)
 autographr(ison_brandes)
 ```
 
-![plot of chunk coercion](figure/coercion-1.png)
+![plot of chunk coercion](teaching/coercion-1.png)
 
 ```r
 autographr(ison_brandes2)
 ```
 
-![plot of chunk coercion](figure/coercion-2.png)
+![plot of chunk coercion](teaching/coercion-2.png)
 
 ```r
 (mat <- as_matrix(ison_brandes))
@@ -72,7 +72,7 @@ ison_brandes2 <- to_named(ison_brandes2)
 autographr(ison_brandes)
 ```
 
-![plot of chunk addingnames](figure/addingnames-1.png)
+![plot of chunk addingnames](teaching/addingnames-1.png)
 
 Note that you will likely get a different set of names,
 as they are assigned randomly from a pool of (American) first names.
@@ -90,8 +90,8 @@ rowSums(mat) == colSums(mat)
 # Are they all equal? Why?
 # You can also just use a built in command in migraph though:
 node_degree(ison_brandes, normalized = FALSE)
-#>    Kirk  Levi Camila Zachary Effie Trina Wendy Wendell
-#> 1     1     1      3       3     2     3     3       2
+#>    Axel Colby Anthony Blake Charlie Roscoe   Tim Annie
+#> 1     1     1       3     3       2      3     3     2
 #> # ... with 3 more from this nodeset in the vector.
 ```
 
@@ -105,7 +105,7 @@ plot(node_degree(ison_brandes), "h") +
   plot(node_degree(ison_brandes), "d")
 ```
 
-![plot of chunk distrib](figure/distrib-1.png)
+![plot of chunk distrib](teaching/distrib-1.png)
 
 Other measures of centrality can be a little trickier to calculate by hand.
 Fortunately, we can use functions from `{migraph}` to help:
@@ -113,16 +113,16 @@ Fortunately, we can use functions from `{migraph}` to help:
 
 ```r
 node_betweenness(ison_brandes)
-#>    Kirk  Levi Camila Zachary Effie Trina Wendy Wendell
-#> 1     0     0  0.378   0.485 0.133 0.337 0.304   0.122
+#>    Axel Colby Anthony Blake Charlie Roscoe   Tim Annie
+#> 1     0     0   0.378 0.485   0.133  0.337 0.304 0.122
 #> # ... with 3 more from this nodeset in the vector.
 node_closeness(ison_brandes)
-#>    Kirk  Levi Camila Zachary Effie Trina Wendy Wendell
-#> 1 0.278 0.278  0.370   0.455 0.435 0.476 0.455   0.417
+#>    Axel Colby Anthony Blake Charlie Roscoe   Tim Annie
+#> 1 0.278 0.278   0.370 0.455   0.435  0.476 0.455 0.417
 #> # ... with 3 more from this nodeset in the vector.
 node_eigenvector(ison_brandes)
-#>    Kirk  Levi Camila Zachary Effie Trina Wendy Wendell
-#> 1 0.106 0.106  0.277   0.510 0.437 0.615 0.631   0.464
+#>    Axel Colby Anthony Blake Charlie Roscoe   Tim Annie
+#> 1 0.106 0.106   0.277 0.510   0.437  0.615 0.631 0.464
 #> # ... with 3 more from this nodeset in the vector.
 # TASK: Can you create degree distributions for each of these?
 ```
@@ -149,7 +149,7 @@ ison_brandes %>%
   autographr(node_color = "color")
 ```
 
-![plot of chunk ggid](figure/ggid-1.png)
+![plot of chunk ggid](teaching/ggid-1.png)
 
 ```r
 ison_brandes %>%
@@ -157,7 +157,7 @@ ison_brandes %>%
   autographr(node_color = "color")
 ```
 
-![plot of chunk ggid](figure/ggid-2.png)
+![plot of chunk ggid](teaching/ggid-2.png)
 
 ```r
 ison_brandes %>%
@@ -165,7 +165,7 @@ ison_brandes %>%
   autographr(node_color = "color")
 ```
 
-![plot of chunk ggid](figure/ggid-3.png)
+![plot of chunk ggid](teaching/ggid-3.png)
 
 ```r
 ison_brandes %>%
@@ -173,7 +173,7 @@ ison_brandes %>%
   autographr(node_color = "color")
 ```
 
-![plot of chunk ggid](figure/ggid-4.png)
+![plot of chunk ggid](teaching/ggid-4.png)
 
 How neat! Try it with the two-mode version.
 What can you see?
@@ -227,7 +227,7 @@ ge <- autographr(ison_brandes, node_color = "eigenvector") +
 (gd | gb) / (gc | ge)
 ```
 
-![plot of chunk multiplot](figure/multiplot-1.png)
+![plot of chunk multiplot](teaching/multiplot-1.png)
 
 ```r
 # ggsave("brandes-centralities.pdf")

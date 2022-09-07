@@ -63,7 +63,7 @@ autographr(marvel_friends,
            node_color = "PowerOrigin")
 ```
 
-![plot of chunk vis](figure/vis-1.png)
+![plot of chunk vis](teaching/vis-1.png)
 
 There seems to be a bit of a distribution of some of these variables.
 
@@ -127,7 +127,7 @@ autographr(marvel_friends,
            node_shape = "Gender")
 ```
 
-![plot of chunk blaugroups](figure/blaugroups-1.png)
+![plot of chunk blaugroups](teaching/blaugroups-1.png)
 
 ```r
 autographr(marvel_friends, 
@@ -135,7 +135,7 @@ autographr(marvel_friends,
            node_shape = "Intellect")
 ```
 
-![plot of chunk blaugroups](figure/blaugroups-2.png)
+![plot of chunk blaugroups](teaching/blaugroups-2.png)
 
 ## Calculating EI index
 
@@ -193,7 +193,7 @@ plot(rand.power) /
 plot(rand.attract)
 ```
 
-![plot of chunk rando](figure/rando-1.png)
+![plot of chunk rando](teaching/rando-1.png)
 
 This is really interesting.
 It looks like we cannot reject the null hypothesis that there is no homophily
@@ -225,7 +225,7 @@ new <- autographr(generate_permutation(marvel_friends, with_attr = TRUE),
 old + new
 ```
 
-![plot of chunk perm](figure/perm-1.png)
+![plot of chunk perm](teaching/perm-1.png)
 
 This single permutation suggests there might otherwise be some more even mixing of these
 attributes, but it is just a single permutation.
@@ -251,7 +251,7 @@ for gender that we did, but the lack of power origin heterophily is surprising.
 (plot(perm.gender) | plot(perm.power))
 ```
 
-![plot of chunk cugqap](figure/cugqap-1.png)
+![plot of chunk cugqap](teaching/cugqap-1.png)
 
 Note how distributions are generally wider when permuting the observed network 
 than creating a random distribution.
@@ -294,7 +294,7 @@ autographr(ison_networkers,
            node_color = "Discipline")
 ```
 
-![plot of chunk intro-eies](figure/intro-eies-1.png)
+![plot of chunk intro-eies](teaching/intro-eies-1.png)
 
 Let's use both the continuous `Citations` and the categorical `Discipline` variables and come up with a couple of key hypotheses:
 
@@ -319,9 +319,9 @@ tidy(model1)
 #> # A tibble: 3 × 4
 #>   term            estimate statistic p.value
 #>   <chr>              <dbl>     <dbl>   <dbl>
-#> 1 (intercept)       16.3        8.38     0  
-#> 2 alter Citations   -0.132     -3.02     0.1
-#> 3 same Discipline    5.40       1.85     0.3
+#> 1 (intercept)       16.3        8.38    0   
+#> 2 alter Citations   -0.132     -3.02    0.3 
+#> 3 same Discipline    5.40       1.85    0.15
 glance(model1)
 #> # A tibble: 1 × 8
 #>   r.squared adj.r.…¹ sigma stati…² p.value    df df.re…³
@@ -333,7 +333,7 @@ glance(model1)
 plot(model1)
 ```
 
-![plot of chunk qap-interp](figure/qap-interp-1.png)
+![plot of chunk qap-interp](teaching/qap-interp-1.png)
 
 
 Hmm, looks like we can't say much from this fit.
