@@ -3,6 +3,8 @@
 ## Package
 
 - Reference and articles tabs on package website now called "Function Overview" and "Practical Lessons" respectively
+- Reinstated equivalence and blockmodelling vignettes
+- All vignettes now precompiled to avoid CRAN issues
 
 ## Manipulation
 
@@ -62,7 +64,7 @@
 ## Data
 
 - `mpn_cow_igo` now includes "polity2" scores
-- Added visualisations to some `ison_` and `mpn_` data documentation
+- Added visualisations to some `ison_` and `mpn_` data documentation (closed #237)
 
 # migraph 0.10.6
 
