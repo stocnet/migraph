@@ -82,27 +82,27 @@ including for two-mode networks.
 }
 \section{Functions}{
 \itemize{
-\item \code{node_degree}: Calculates the degree centrality of nodes in an unweighted network,
+\item \code{node_degree()}: Calculates the degree centrality of nodes in an unweighted network,
 or weighted degree/strength of nodes in a weighted network.
 
-\item \code{tie_degree}: Calculate the degree centrality of edges in a network
+\item \code{tie_degree()}: Calculate the degree centrality of edges in a network
 
-\item \code{node_closeness}: Calculate the closeness centrality of nodes in a network
+\item \code{node_closeness()}: Calculate the closeness centrality of nodes in a network
 
-\item \code{tie_closeness}: Calculate the closeness of each edge to each other edge
+\item \code{tie_closeness()}: Calculate the closeness of each edge to each other edge
 in the network.
 
-\item \code{node_betweenness}: Calculate the betweenness centralities of nodes in a network
+\item \code{node_betweenness()}: Calculate the betweenness centralities of nodes in a network
 
-\item \code{tie_betweenness}: Calculate number of shortest paths going through an edge
+\item \code{tie_betweenness()}: Calculate number of shortest paths going through an edge
 
-\item \code{node_eigenvector}: Calculate the eigenvector centrality of nodes in a network
+\item \code{node_eigenvector()}: Calculate the eigenvector centrality of nodes in a network
 
-\item \code{tie_eigenvector}: Calculate the eigenvector centrality of edges in a network
+\item \code{tie_eigenvector()}: Calculate the eigenvector centrality of edges in a network
 
-\item \code{node_reach}: Calculate nodes' reach centrality
+\item \code{node_reach()}: Calculate nodes' reach centrality
+
 }}
-
 \examples{
 node_degree(mpn_elite_mex)
 node_degree(ison_southern_women)

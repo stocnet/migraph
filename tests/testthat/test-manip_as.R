@@ -3,12 +3,13 @@
 mat1 <- matrix(c(0,1,0,0,1,0,1,0,0,1,0,1,0,0,0,0),4,4, byrow = TRUE)
 rownames(mat1) <- LETTERS[1:4]
 colnames(mat1) <- LETTERS[1:4]
-mat2 <- matrix(c(0,1,0,0,3,0,2,0,0,5,0,4,0,0,0,0),4,4, byrow = TRUE)
+mat2 <- matrix(c(0,1,0,0,2,0,3,0,0,4,0,5,0,0,0,0),4,4, byrow = TRUE)
 rownames(mat2) <- LETTERS[1:4]
 colnames(mat2) <- LETTERS[1:4]
 # Unweighted test
-data1 <- data.frame(from = c("A","B","B","C","C"),
-                    to = c("B","C","A","D","B"))
+data1 <- dplyr::arrange(data.frame(from = c("A","B","B","C","C"),
+                    to = c("B","C","A","D","B")),
+                    from, to)
 # Weighted test
 data2 <- data1
 data2$weight <- 1:5
@@ -72,5 +73,10 @@ test_that("as_edgelist converts correctly", {
   expect_equal(as_edgelist(as_tidygraph(data1)), dplyr::as_tibble(data1))
   expect_equal(as_edgelist(as_network(data1)), dplyr::as_tibble(data1))
   expect_equal(as_edgelist(as_network(data2)), dplyr::as_tibble(data2))
+})
 
+# test conversion of siena objects
+test_that("as_tidygraph.siena converts correctly", {
+  expect_equal(graph_nodes(as_igraph(sienadata)), graph_nodes(as_matrix(sienadata)))
+  expect_equal(graph_nodes(as_igraph(sienadata)), length(sienadata[["nodeSets"]][["Actors"]]))
 })

@@ -29,16 +29,39 @@ Fewer, identifiable letters, e.g. \code{"e"} for Euclidean, is sufficient.}
 }}
 }
 \description{
-Methods for equivalence clustering
+These functions are used to cluster some census object.
+They are not intended to be called directly,
+but are called within \code{node_equivalence()} and related
+functions.
+They are exported and listed here to provide
+more detailed documentation.
 }
 \section{Functions}{
 \itemize{
-\item \code{cluster_hierarchical}: Returns a hierarchical clustering object
+\item \code{cluster_hierarchical()}: Returns a hierarchical clustering object
 created by \code{stats::hclust()}
 
-\item \code{cluster_concor}: Returns a hierarchical clustering object
+\item \code{cluster_concor()}: Returns a hierarchical clustering object
 created from a convergence of correlations procedure (CONCOR)
+
 }}
+\section{CONCOR}{
+
+
+First a matrix of Pearson correlation coefficients between each pair of nodes
+profiles in the given census is created.
+Then, again, we find the correlations of this square, symmetric matrix,
+and continue to do this iteratively until each entry is either \code{1} or \code{-1}.
+These values are used to split the data into two partitions,
+with members either holding the values \code{1} or \code{-1}.
+This procedure from census to convergence is then repeated within each block,
+allowing further partitions to be found.
+Unlike UCINET, partitions are continued until there are single members in
+each partition.
+Then a distance matrix is constructed from records of in which partition phase
+nodes were separated,
+and this is given to \code{stats::hclust()} so that dendrograms etc can be returned.
+}
 
 \references{
 Breiger, Ronald L., Scott A. Boorman, and Phipps Arabie. 1975.

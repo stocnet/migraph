@@ -33,10 +33,9 @@
 #'   drawing convex but also concave hulls around clusters of nodes.
 #'   These groupings will be labelled with the categories of the variable passed.
 #' @param ... Extra arguments.
-#' @importFrom ggraph create_layout ggraph geom_edge_link geom_node_text
+#' @importFrom ggraph geom_edge_link geom_node_text
 #' @importFrom ggraph geom_conn_bundle get_con geom_node_point
 #' @importFrom ggraph scale_edge_width_continuous geom_node_label
-#' @importFrom igraph get.vertex.attribute
 #' @importFrom ggplot2 aes arrow unit scale_color_brewer scale_fill_brewer
 #' @importFrom ggforce geom_mark_hull
 #' @examples
@@ -50,6 +49,7 @@
 #'   activate(edges) %>% 
 #'   mutate(high_betweenness = tie_is_max(tie_betweenness(ison_adolescents))) %>% 
 #'   autographr(node_color = "high_degree", edge_color = "high_betweenness")
+#' autographr(mpn_elite_usa_advice, "concentric")
 #' @export
 autographr <- auto_graph <- function(object,
                                      layout = "stress",
@@ -65,6 +65,25 @@ autographr <- auto_graph <- function(object,
   g <- as_tidygraph(object)
 
   # Add layout ----
+  p <- .graph_layout(g, layout, labels)
+
+  # Add edges ----
+  p <- .graph_edges(p, g, edge_color)
+  
+  # Add nodes ----
+  p <- .graph_nodes(p, g, node_color, node_shape, node_size)
+
+  # Add groups ----
+  # if (!is.null(node_group)) p <- .graph_groups(p, g, node_group, lo)
+
+  p
+}
+
+#' @importFrom ggraph create_layout ggraph
+#' @importFrom igraph get.vertex.attribute
+#' @importFrom ggplot2 theme_void
+.graph_layout <- function(g, layout, labels){
+  name <- NULL
   lo <- ggraph::create_layout(g, layout)
   if ("graph" %in% names(attributes(lo))) {
     if (!setequal(names(as.data.frame(attr(lo, "graph"))), names(lo))) {
@@ -74,7 +93,48 @@ autographr <- auto_graph <- function(object,
     } 
   }
   p <- ggraph::ggraph(lo) + ggplot2::theme_void()
-  # Add edges ----
+
+  if (labels & is_labelled(g)){
+    if(layout %in% c("concentric", "circle")){
+      # https://stackoverflow.com/questions/57000414/ggraph-node-labels-truncated?rq=1
+      angles <- as.data.frame(cart2pol(as.matrix(lo[,1:2])))
+      angles$degree <- angles$phi * 180/pi
+      angles <- dplyr::case_when(lo[,2] >= 0 & lo[,1] > 0 ~ angles$degree, 
+                                 lo[,2] < 0 & lo[,1] > 0 ~ angles$degree,
+                                 lo[,1] == 1 ~angles$degree,
+                                 TRUE ~ angles$degree - 180)
+      hj <- ifelse(lo[,1] > 0, -0.2, 1.2)
+      p <- p + ggraph::geom_node_text(ggplot2::aes(label = name),
+                                      size = 2,
+                                       hjust = hj,
+                                       angle = angles) +
+        ggplot2::coord_cartesian(xlim=c(-1.2,1.2), ylim=c(-1.2,1.2))
+    } else if(layout %in% c("bipartite", "railway") | 
+              (layout == "hierarchy" & length(unique(lo[,2])) <= 2)){
+      p <- p + ggraph::geom_node_text(ggplot2::aes(label = name),
+                                      size = 2,
+                                      hjust = "outward",
+                                      nudge_y = ifelse(lo[,2] == 1, 0.05, -0.05),
+                                      # vjust = ifelse(node_mode(object), -1, 1),
+                                      angle = 90) +
+        ggplot2::coord_cartesian(ylim=c(-0.2,1.2))
+    } else if(!is_twomode(g)) { # Plot one mode
+      p <- p + ggraph::geom_node_label(ggplot2::aes(label = name),
+                                       label.padding = 0.15,
+                                       label.size = 0,
+                                       repel = TRUE)
+    } else { # Plot two modes
+      p <- p + ggraph::geom_node_text(ggplot2::aes(label = name),
+                                       size = 2,
+                                       hjust = "outward",
+                                      nudge_x = ifelse(lo[,1] == 1, 0.05, -0.05)) +
+        ggplot2::coord_cartesian(xlim=c(-0.2,1.2))
+    }
+  }
+  p
+}
+
+.graph_edges <- function(p, g, edge_color){
   # if (is_signed(g)) {
   #   edge_linetype <- ifelse(igraph::E(g)$sign >= 0, "solid", "dashed")
   #   edge_color <- ifelse(igraph::E(g)$sign >= 0, "#0072B2", "#E20020")
@@ -90,7 +150,8 @@ autographr <- auto_graph <- function(object,
   #     edge_linetype <- "solid"
   #     edge_color <- "black"
   # }
-  # Begin plotting edges in various cases ----
+  weight <- NULL
+  # Begin plotting edges in various cases
   if (is_directed(g)) {
     if (is_weighted(g)) {
       if (!is.null(edge_color)) {
@@ -218,8 +279,9 @@ autographr <- auto_graph <- function(object,
       }
     }
   }
-  
-  # Node size
+}
+
+.graph_nodes <- function(p, g, node_color, node_shape, node_size){
   if (!is.null(node_size)) {
     if (is.character(node_size)) {
       nsize <- node_attribute(g, node_size)
@@ -231,7 +293,7 @@ autographr <- auto_graph <- function(object,
   } else {
     nsize <- ifelse(graph_nodes(g) <= 10, 5, (100 / graph_nodes(g)) / 2)
   }
-  # Add nodes ----
+
   if (!is.null(node_shape)) {
     node_shape <- as.factor(igraph::get.vertex.attribute(g, node_shape))
     node_shape <- c("circle","square","triangle")[node_shape]
@@ -246,63 +308,103 @@ autographr <- auto_graph <- function(object,
     if (!is.null(node_color)) {
       color_factor_node <- as.factor(igraph::get.vertex.attribute(g, node_color))
       p <- p + ggraph::geom_node_point(ggplot2::aes(color = color_factor_node),
-                               size = nsize,
-                               shape = node_shape) +
+                                       size = nsize,
+                                       shape = node_shape) +
         ggplot2::scale_colour_brewer(palette = "Set1",
-                                     direction = -1,
+                                     # direction = -1,
                                      guide = "none")
     } else {
       p <- p + ggraph::geom_node_point(size = nsize,
-                               shape = node_shape)
+                                       shape = node_shape)
     }
   } else {
     if (!is.null(node_color)) {
       color_factor_node <- as.factor(igraph::get.vertex.attribute(g, node_color))
       p <- p + ggraph::geom_node_point(aes(color = color_factor_node),
-                               size = nsize,
-                               shape = node_shape) +
+                                       size = nsize,
+                                       shape = node_shape) +
         ggplot2::scale_colour_brewer(palette = "Set1",
-                                     direction = -1,
+                                     # direction = -1,
                                      guide = "none")
     } else {
       p <- p + ggraph::geom_node_point(size = nsize,
                                        shape = node_shape)
     }
   }
-  # Plot one mode
-  if (labels & is_labelled(g) & !is_twomode(g)) {
-    p <- p + ggraph::geom_node_label(ggplot2::aes(label = name),
-                                     label.padding = 0.15,
-                                     label.size = 0,
-                                     repel = TRUE)
-  p
-  }
-  # Plot two modes
-  if (labels & is_labelled(g) & is_twomode(g)) {
-    p <- p + ggraph::geom_node_label(ggplot2::aes(label = name),
-                                     label.padding = 0.15,
-                                     label.size = 0,
-                                     # fontface = ifelse(igraph::V(g)$type,
-                                     #                   "bold",
-                                     #                   "plain"),
-                                     # size = ifelse(igraph::V(g)$type,
-                                     #               4,
-                                     #               3),
-                                     hjust = "inward",
-                                     repel = TRUE)
-  p
-  }
-  if (!is.null(node_group)) {
-    if (!("concaveman" %in% rownames(utils::installed.packages()))) {
-      message("Please install package `{concaveman}`.")
-    } else {
-      p <- p + ggforce::geom_mark_hull(ggplot2::aes(x = lo$x, y = lo$y,
-                                                    fill = as.factor(igraph::get.vertex.attribute(g, node_group)),
-                                                    label = as.factor(igraph::get.vertex.attribute(g, node_group))),
-                                       concavity = 2) +
-        ggplot2::scale_fill_brewer(palette = "Set1", guide = "none")
-    }
-  }
   p
 }
 
+.graph_groups <- function(p, g, node_group, lo){
+  if (!("concaveman" %in% rownames(utils::installed.packages()))) {
+    message("Please install package `{concaveman}`.")
+  } else {
+    p <- p + ggforce::geom_mark_hull(ggplot2::aes(x = lo$x, y = lo$y,
+                                                  fill = as.factor(igraph::get.vertex.attribute(g, node_group)),
+                                                  label = as.factor(igraph::get.vertex.attribute(g, node_group))),
+                                     concavity = 2) +
+      ggplot2::scale_fill_brewer(palette = "Set1", guide = "none")
+  }
+}
+  
+cart2pol <- function(xyz){
+  stopifnot(is.numeric(xyz))
+  if (is.vector(xyz) && (length(xyz) == 2 || length(xyz) == 
+                         3)) {
+    x <- xyz[1]
+    y <- xyz[2]
+    m <- 1
+    n <- length(xyz)
+  }
+  else if (is.matrix(xyz) && (ncol(xyz) == 2 || ncol(xyz) == 
+                              3)) {
+    x <- xyz[, 1]
+    y <- xyz[, 2]
+    m <- nrow(xyz)
+    n <- ncol(xyz)
+  }
+  else stop("Input must be a vector of length 3 or a matrix with 3 columns.")
+  phi <- atan2(y, x)
+  r <- hypot(x, y)
+  if (n == 2) {
+    if (m == 1) 
+      prz <- c(phi, r)
+    else prz <- cbind(phi, r)
+  }
+  else {
+    if (m == 1) {
+      z <- xyz[3]
+      prz <- c(phi, r, z)
+    }
+    else {
+      z <- xyz[, 3]
+      prz <- cbind(phi, r, z)
+    }
+  }
+  return(prz)
+}
+
+hypot <- function (x, y) {
+  if ((length(x) == 0 && is.numeric(y) && length(y) <= 1) || 
+      (length(y) == 0 && is.numeric(x) && length(x) <= 1)) 
+    return(vector())
+  if (!is.numeric(x) && !is.complex(x) || !is.numeric(y) && 
+      !is.complex(y)) 
+    stop("Arguments 'x' and 'y' must be numeric or complex.")
+  if (length(x) == 1 && length(y) > 1) {
+    x <- rep(x, length(y))
+    dim(x) <- dim(y)
+  }
+  else if (length(x) > 1 && length(y) == 1) {
+    y <- rep(y, length(x))
+    dim(y) <- dim(x)
+  }
+  if ((is.vector(x) && is.vector(y) && length(x) != length(y)) || 
+      (is.matrix(x) && is.matrix(y) && dim(x) != dim(y)) || 
+      (is.vector(x) && is.matrix(y)) || is.matrix(x) && is.vector(y)) 
+    stop("Arguments 'x' and 'y' must be of the same size.")
+  x <- abs(x)
+  y <- abs(y)
+  m <- pmin(x, y)
+  M <- pmax(x, y)
+  ifelse(M == 0, 0, M * sqrt(1 + (m/M)^2))
+}

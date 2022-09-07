@@ -27,9 +27,17 @@ node_names <- function(object){
 #' node_mode(mpn_elite_usa_advice)
 #' @export
 node_mode <- function(object){
-  if(is_twomode(object)) 
-    igraph::get.vertex.attribute(as_igraph(object), "type")
-  else rep(FALSE, graph_nodes(object))
+  if(is_twomode(object)){
+    out <- igraph::get.vertex.attribute(as_igraph(object), "type")
+  } else{
+    out <- rep(FALSE, graph_nodes(object))
+  }
+  # cannot use make_node_mark here because then eternal loop
+  class(out) <- c("node_mark", class(out))
+  if(is.null(names(out)) & is_labelled(object))
+    names(out) <- node_names(object)
+  attr(out, "mode") <- out
+  out
 }
 
 #' @describeIn grab Extracts an attribute's values for the nodes in a network.

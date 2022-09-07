@@ -38,18 +38,18 @@ or from a specified vector supplied by the user.
 }
 \section{Functions}{
 \itemize{
-\item \code{add_node_attribute}: Insert specified values from a vector into the graph
+\item \code{add_node_attribute()}: Insert specified values from a vector into the graph
 as node attributes
 
-\item \code{add_tie_attribute}: Insert specified values from a vector into the graph
+\item \code{add_tie_attribute()}: Insert specified values from a vector into the graph
 as tie attributes
 
-\item \code{copy_node_attributes}: Copies node attributes from a given graph into specified graph
+\item \code{copy_node_attributes()}: Copies node attributes from a given graph into specified graph
 
-\item \code{join_ties}: Copies ties from another graph to specified graph and
+\item \code{join_ties()}: Copies ties from another graph to specified graph and
 adds a tie attribute identifying the ties that were newly added
-}}
 
+}}
 \examples{
 add_node_attribute(mpn_elite_mex, "wealth", 1:35)
 add_node_attribute(mpn_elite_usa_advice, "wealth", 1:14)

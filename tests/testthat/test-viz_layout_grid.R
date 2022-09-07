@@ -1,4 +1,4 @@
-# Test layouts
+# Test grid layouts
 set.seed(1000)
 x <- layout_tbl_graph_frgrid(mpn_ryanair)$x
 y <- layout_tbl_graph_frgrid(mpn_ryanair)$y

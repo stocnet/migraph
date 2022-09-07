@@ -38,35 +38,35 @@ and where the nodes or edges that would increase fragmentation are.
 }
 \section{Functions}{
 \itemize{
-\item \code{graph_density}: summarises the ratio of ties
+\item \code{graph_density()}: summarises the ratio of ties
 to the number of possible ties.
 
-\item \code{graph_components}: Returns number of (strong) components in the network.
+\item \code{graph_components()}: Returns number of (strong) components in the network.
 To get the 'weak' components of a directed graph,
 please use \code{to_undirected()} first.
 
-\item \code{graph_cohesion}: Returns the minimum number of nodes to remove
+\item \code{graph_cohesion()}: Returns the minimum number of nodes to remove
 from the network needed to increase the number of components.
 
-\item \code{graph_adhesion}: Returns the minimum number of edges needed
+\item \code{graph_adhesion()}: Returns the minimum number of edges needed
 to remove from the network to increase the number of components.
 
-\item \code{graph_diameter}: Returns the maximum path length in the network.
+\item \code{graph_diameter()}: Returns the maximum path length in the network.
 
-\item \code{graph_length}: Returns the average path length in the network.
+\item \code{graph_length()}: Returns the average path length in the network.
+
 }}
-
 \examples{
 graph_density(mpn_elite_mex)
 graph_density(mpn_elite_usa_advice)
 graph_cohesion(ison_marvel_relationships)
-graph_cohesion(to_main_component(ison_marvel_relationships))
+graph_cohesion(to_giant(ison_marvel_relationships))
 graph_adhesion(ison_marvel_relationships)
-graph_adhesion(to_main_component(ison_marvel_relationships))
+graph_adhesion(to_giant(ison_marvel_relationships))
 graph_diameter(ison_marvel_relationships)
-graph_diameter(to_main_component(ison_marvel_relationships))
+graph_diameter(to_giant(ison_marvel_relationships))
 graph_length(ison_marvel_relationships)
-graph_length(to_main_component(ison_marvel_relationships))
+graph_length(to_giant(ison_marvel_relationships))
 }
 \references{
 White, Douglas R and Frank Harary. 2001.

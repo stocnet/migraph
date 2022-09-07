@@ -1,3 +1,71 @@
+# migraph 0.11.0
+
+## Package
+
+- Reference and articles tabs on package website now called "Function Overview" and "Practical Lessons" respectively
+- Reinstated equivalence and blockmodelling vignettes
+- All vignettes now precompiled to avoid CRAN issues
+
+## Manipulation
+
+- Added `as_graphAM()` methods for all migraph-consistent object classes so `{Rgraphviz}` can be used effectively
+- Added `as_igraph()`, `as_tidygraph()`, and `as_network()` methods for `{RSiena}` sienaData objects (thanks @JaelTan, closed #94)
+- Added `as_edgelist()` and `as_matrix()` methods for `network.goldfish` class objects
+- The `"twomode"` argument in `as_matrix()` is now `NULL` by default, allowing both one-mode and two-mode coercion
+- `to_mode1()` and `to_mode2()` now take an extra argument to produce weighted projections by different "similarity" measures
+  - "count" (the default) returns a raw count of the coincidence of nodes in the specified mode with nodes of the other mode
+  - "jaccard" (Jaccard index) offers a measure of opportunity weighted by participation
+  - "rand" (Simple Matching Coefficient) offers a measure of behavioral mirroring
+  - "pearson" (Pearson's correlation) and "yule" (Yule's Q) offer correlation coefficients for valued and binary data, respectively
+  - These options work for edgelists, matrices, igraph and tidygraph, and network objects
+- Added `to_matching()` methods to transform a two-mode network or network with some other (binary) "mark" attribute into a network of matching ties
+- Renamed `to_main_component()` to `to_giant()` to be more space efficient
+  - Added methods for edgelists and matrices
+- Added two-mode application for `to_blocks()` (closed #242)
+  - Fixed bug in `to_blocks()` where NA blocks couldn't be subsequently coerced
+- Filled in a number of S3 methods
+  - `to_blocks()`, `to_subgraph()`, and `to_ties()` are now S3 methods, returning objects of the same class as given
+  - Added `to_onemode()` method for matrices
+  - Added `to_twomode()` methods for igraph, tidygraph, and network
+  - Added network methods for `to_named()`, `to_redirected()`, `to_uniplex()`, and `to_unsigned()`
+  - Added edgelist methods for `to_undirected()` and `to_uniplex()`
+  - Added matrix method for `to_uniplex()`
+- Fixed bug where `to_unweighted()` didn't respect the "threshold" specified
+
+## Marks
+
+- Fixed eternal loop bug where `node_mode()` couldn't produce a "mark" class object
+- Fixed bug where node names/labels were not being added to mark objects
+- Fixed bug in `is_twomode()` where labelling information was being ignored
+
+## Measures
+
+- `graph_core()` now runs `node_core()` (see below) if no "membership" vector is provided
+
+## Membership
+
+- Added `node_core()` for partitioning nodes into core and periphery memberships
+- Fixed floating point bug in `k_strict()`
+
+## Models
+
+- Added "tertius" effect for `network_reg()`
+- "ego" and "alter" effects now work better for two-mode networks in `network_reg()`
+
+## Mapping
+
+- Added "hierarchy" and "alluvial" layout methods
+- Added "railway" and "ladder" layout methods (closed #125)
+- Added "concentric" layout method
+- Restructured `autographr()` to improve future debugging and development
+- `autographr()` now rotates labels for partitioning layouts, including "concentric", so that they are readable and overlap less
+- Fixed `gglineage()` to use "alluvial" layout and better position nodes on the _x_-axis
+
+## Data
+
+- `mpn_cow_igo` now includes "polity2" scores
+- Added visualisations to some `ison_` and `mpn_` data documentation (closed #237)
+
 # migraph 0.10.6
 
 ## Package

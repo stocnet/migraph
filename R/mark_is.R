@@ -109,7 +109,10 @@ is_twomode.tbl_graph <- function(object) {
 
 #' @export
 is_twomode.matrix <- function(object) {
-  dim(object)[1] != dim(object)[2]
+  out <- dim(object)[1] != dim(object)[2]
+  if(!out & is_labelled(object))
+    out <- !all(rownames(object)==colnames(object))
+  out
 }
 
 #' @export

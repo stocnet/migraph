@@ -92,19 +92,19 @@ assignment.
 }
 \section{Functions}{
 \itemize{
-\item \code{node_equivalence}: Returns nodes' membership in
+\item \code{node_equivalence()}: Returns nodes' membership in
 according to their equivalence with respective to some census/class
 
-\item \code{node_structural_equivalence}: Returns nodes' membership in
+\item \code{node_structural_equivalence()}: Returns nodes' membership in
 structurally equivalent classes
 
-\item \code{node_regular_equivalence}: Returns nodes' membership in
+\item \code{node_regular_equivalence()}: Returns nodes' membership in
 regularly equivalent classes
 
-\item \code{node_automorphic_equivalence}: Returns nodes' membership in
+\item \code{node_automorphic_equivalence()}: Returns nodes' membership in
 automorphically equivalent classes
-}}
 
+}}
 \examples{
 \donttest{
 (nse <- node_structural_equivalence(mpn_elite_usa_advice))
@@ -133,8 +133,9 @@ Rousseeuw, Peter J. 1987.
 \doi{10.1016/0377-0427(87)90125-7}.
 }
 \seealso{
-Other membership: 
+Other memberships: 
 \code{\link{community}},
-\code{\link{components}()}
+\code{\link{components}()},
+\code{\link{core-periphery}}
 }
-\concept{membership}
+\concept{memberships}

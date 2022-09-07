@@ -1,7 +1,7 @@
 Package: migraph
 Title: Tools for Multimodal Network Analysis
-Version: 0.10.6
-Date: 2022-07-03
+Version: 0.11.0
+Date: 2022-09-07
 Description: A set of tools for analysing multimodal networks.
    All functions operate with matrices, edge lists, 
    and 'igraph', 'network', and 'tidygraph' objects,
@@ -19,14 +19,16 @@ License: MIT + file LICENSE
 Language: en-GB
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 Imports: 
+    BiocManager,
     dplyr,
     generics,
     ggforce,
     ggplot2,
     ggraph,
     igraph,
+    methods,
     network,
     future,
     furrr,
@@ -44,6 +46,7 @@ Suggests:
     knitr,
     oaqc,
     readxl,
+    Rgraphviz,
     rmarkdown,
     roxygen2,
     testthat

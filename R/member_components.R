@@ -22,7 +22,7 @@
 #'   but not to the (_k_+1)-core.
 #' @inheritParams is
 #' @name components
-#' @family membership
+#' @family memberships
 NULL
 
 #' @describeIn components Returns nodes' component membership

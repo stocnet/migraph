@@ -7,52 +7,52 @@
 \alias{mpn_elite_usa_money}
 \title{Two-mode and three-mode American power elite database (Domhoff 2016)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 34 nodes and 46 edges
-## #
-## # A bipartite simple graph with 1 component
-## #
-## # Node Data: 34 × 2 (active)
-##   type  name    
-##   <lgl> <chr>   
-## 1 FALSE Albright
-## 2 FALSE Argyros 
-## 3 FALSE Armitage
-## 4 FALSE Curry   
-## 5 FALSE Fukuyama
-## 6 FALSE Gray    
-## # … with 28 more rows
-## #
-## # Edge Data: 46 × 2
-##    from    to
-##   <int> <int>
-## 1     1    17
-## 2     1    19
-## 3     1    21
-## # … with 43 more rows
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 34 nodes and 46 edges
+#> #
+#> # A bipartite simple graph with 1 component
+#> #
+#> # Node Data: 34 x 2 (active)
+#>   type  name    
+#>   <lgl> <chr>   
+#> 1 FALSE Albright
+#> 2 FALSE Argyros 
+#> 3 FALSE Armitage
+#> 4 FALSE Curry   
+#> 5 FALSE Fukuyama
+#> 6 FALSE Gray    
+#> # ... with 28 more rows
+#> #
+#> # Edge Data: 46 x 2
+#>    from    to
+#>   <int> <int>
+#> 1     1    17
+#> 2     1    19
+#> 3     1    21
+#> # ... with 43 more rows
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 38 nodes and 103 edges
-## #
-## # A bipartite simple graph with 1 component
-## #
-## # Node Data: 38 × 2 (active)
-##   type  name    
-##   <lgl> <chr>   
-## 1 FALSE Adkerson
-## 2 FALSE Akins   
-## 3 FALSE Banga   
-## 4 FALSE Boyce   
-## 5 FALSE Britt   
-## 6 FALSE Cannon  
-## # … with 32 more rows
-## #
-## # Edge Data: 103 × 2
-##    from    to
-##   <int> <int>
-## 1     1    27
-## 2     1    28
-## 3     1    34
-## # … with 100 more rows
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 38 nodes and 103 edges
+#> #
+#> # A bipartite simple graph with 1 component
+#> #
+#> # Node Data: 38 x 2 (active)
+#>   type  name    
+#>   <lgl> <chr>   
+#> 1 FALSE Adkerson
+#> 2 FALSE Akins   
+#> 3 FALSE Banga   
+#> 4 FALSE Boyce   
+#> 5 FALSE Britt   
+#> 6 FALSE Cannon  
+#> # ... with 32 more rows
+#> #
+#> # Edge Data: 103 x 2
+#>    from    to
+#>   <int> <int>
+#> 1     1    27
+#> 2     1    28
+#> 3     1    34
+#> # ... with 100 more rows
 }\if{html}{\out{</div>}}
 }
 \usage{
@@ -74,6 +74,10 @@ and also made campaign contributions to one or more of six candidates
 running in the primary election contests for the 2008 Presidential nominations
 of the Republican Party (Rudy Giuliani, John McCain, Mitt Romney)
 or the Democratic Party (Hillary Clinton, Christopher Dodd, Barack Obama).
+}
+\details{
+\if{html}{\figure{mpn_elite_usa.png}{options: width="100\%" alt="Figure: mpn_elite_usa"}}
+\if{latex}{\figure{mpn_elite_usa.pdf}{options: width=7cm}}
 }
 \references{
 Domhoff, G William. 2016. \href{https://whorulesamerica.ucsc.edu/power_elite/}{“Who Rules America? Power Elite Database.”}

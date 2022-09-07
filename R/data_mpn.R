@@ -18,6 +18,13 @@
 #' José López Portillo (1976-82), Miguel de la Madrid (1982-88), and Carlos Salinas de Gortari (1988-94,
 #' who was also the son of another core member, Raúl Salinas Lozano).
 #'
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
+#'   autographr(mpn_elite_mex, labels = FALSE) + ggtitle("mpn_elite_mex")
+#'   ggsave("man/figures/mpn_elite_mex.png", width = 5, height = 5, dpi = "screen")
+#'   ggsave("man/figures/mpn_elite_mex.pdf", width = 5, height = 5)
+#'   ```
+#' \if{html}{\figure{mpn_elite_mex.png}{options: width="100\%" alt="Figure: mpn_elite_mex"}}
+#' \if{latex}{\figure{mpn_elite_mex.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name mpn_elite_mex
@@ -52,6 +59,15 @@
 #' of the Republican Party (Rudy Giuliani, John McCain, Mitt Romney)
 #' or the Democratic Party (Hillary Clinton, Christopher Dodd, Barack Obama).
 #'
+#' @details 
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
+#'   autographr(mpn_elite_usa_advice, labels = FALSE) + ggtitle("mpn_elite_usa_advice") +
+#'     autographr(mpn_elite_usa_money, labels = FALSE) + ggtitle("mpn_elite_usa_money")
+#'   ggsave("man/figures/mpn_elite_usa.png", width = 7, height = 3.5, dpi = "screen")
+#'   ggsave("man/figures/mpn_elite_usa.pdf", width = 7, height = 3.5)
+#'   ```
+#' \if{html}{\figure{mpn_elite_usa.png}{options: width="100\%" alt="Figure: mpn_elite_usa"}}
+#' \if{latex}{\figure{mpn_elite_usa.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name mpn_elite_usa
@@ -95,8 +111,8 @@
 #' @keywords datasets
 #' @name mpn_bristol
 #' @usage data(mpn_bristol)
-#' @details The data is presented as a `tbl_graph` object with 264 nodes and 1496 edges.
-#'   While represented as a two-mode network, it contains three levels:
+#' @details 
+#' Although represented as a two-mode network, it contains three levels:
 #' \describe{
 #'   \item{1.}{150 Individuals, anonymised with numeric ID}
 #'   \item{2.}{97 Bristol civic organizations}
@@ -138,7 +154,11 @@
 #' interest intermediation played by actors in the AER,
 #' a comparatively obscure body representing the interests of a number of
 #' European regional bodies at the EU institutions.
-#'
+#'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
+#'   autographr(mpn_ryanair, "sphere", labels = FALSE) + ggtitle("mpn_ryanair")
+#'   ggsave("man/figures/mpn_ryanair.png", width = 5, height = 5, dpi = "screen")
+#'   ggsave("man/figures/mpn_ryanair.pdf", width = 7, height = 3.5)
+#'   ```
 #' @docType data
 #' @keywords datasets
 #' @name mpn_ryanair
@@ -181,7 +201,6 @@
 #' primary and the general election). We aggregated the contributions across
 #' all three electoral cycles, then dichotomized the sums into no contribution
 #' (0) and any contribution (1).
-#'
 #' @docType data
 #' @keywords datasets
 #' @name mpn_senate112
@@ -221,7 +240,6 @@
 #' and 2008. The Italy data has 658 respondents in 1990 and 540 in 2008.
 #' The Germany data has 1369 respondents in 1990 and 503 in 2008.
 #' The UK data has 738 respondents in 1990 and 664 in 2008.
-#'
 #' @docType data
 #' @keywords datasets
 #' @name mpn_evs
@@ -284,17 +302,29 @@ NULL
 #' `mpn_cow_trade` is a one-mode matrix representing the trade relations between 116 states. 
 #' The data is derived from the Correlates of War Project (COW) Trade Dataset (v3.0),
 #' which contains the annual dyadic and national trade figures for states (listed in COW)
-#' between 1870 to 2009. This network is based only on the dyadic trade figures in 2009 for the
-#' 116 states listed in Appendix 7.1 in 
+#' between 1870 to 2009.
+#' This network is based only on the dyadic trade figures in 2009 for the 116 states
+#' listed in Appendix 7.1 in 
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
-#' (Knoke et al., 2021). The value in each cell of the matrix represents the value of
-#' exports from the 116 row states to the 116 column states.
+#' (Knoke et al., 2021).
+#' The value in each cell of the matrix represents the value of exports
+#' from the 116 row states to the 116 column states.
 #' 
+#' `mpn_cow_igo` is a two-mode graph representing the membership of 116 states
+#' in 40 intergovernmental organizations (IGOs).
+#' The data is derived from the Correlates of War Project (COW)
+#' Intergovernmental Organizations Dataset (v3.0),
+#' which contains information about intergovernmental organizations from 1815-2014,
+#' such as founding year and membership.
+#' This network contains only a subset of the states and IGOs listed in COW,
+#' with 116 states listed in Appendix 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
+#' and 40 IGOs from Table 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
+#' that also overlap with the COW dataset (Knoke et al., 2021).
 #' @name mpn_cow
 #' @docType data
 #' @keywords datasets
 #' @usage data(mpn_cow_trade)
-#' @references 
+#' @references
 #' Barbieri, Katherine, Omar M. G. Keshk, and Brian Pollins. 2009.
 #' “TRADING DATA: Evaluating our Assumptions and Coding Rules.” 
 #' _Conflict Management and Peace Science_ 26(5): 471-491.
@@ -316,15 +346,8 @@ NULL
 "mpn_cow_trade"
 
 #' @rdname mpn_cow
-#' @details 
-#' Two-mode matrix representing the membership of 116 states to 40 intergovernmental organizations (IGOs).
-#' The data is derived from the Correlates of War Project (COW) Intergovernmental Organizations Dataset (v3.0),
-#' which contains information about intergovernmental organizations from 1815-2014, such as founding year and membership.
-#' This network contains only a subset of the states and IGOs listed in COW, with 116 states listed in Appendix 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
-#' and 40 IGOs from Table 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
-#' that also overlap with the COW dataset (Knoke et al., 2021).
 #' @usage data(mpn_cow_igo)
-#' @source 
+#' @source
 #' The Correlates of War Project. 2019.
 #' \href{https://correlatesofwar.org/data-sets/IGOs}{\emph{Intergovernmental Organization v3}}.
 #' @references 

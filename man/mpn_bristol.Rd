@@ -5,28 +5,28 @@
 \alias{mpn_bristol}
 \title{Multimodal (3) Bristol protest events, 1990-2002 (Diani and Bison 2004)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 264 nodes and 1496 edges
-## #
-## # A bipartite simple graph with 3 components
-## #
-## # Node Data: 264 × 3 (active)
-##   name  type    lvl
-##   <chr> <lgl> <dbl>
-## 1 101   FALSE     1
-## 2 102   FALSE     1
-## 3 103   FALSE     1
-## 4 104   FALSE     1
-## 5 105   FALSE     1
-## 6 106   FALSE     1
-## # … with 258 more rows
-## #
-## # Edge Data: 1,496 × 2
-##    from    to
-##   <int> <int>
-## 1    36   151
-## 2    40   151
-## 3    73   151
-## # … with 1,493 more rows
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 264 nodes and 1496 edges
+#> #
+#> # A bipartite simple graph with 3 components
+#> #
+#> # Node Data: 264 x 3 (active)
+#>   name  type    lvl
+#>   <chr> <lgl> <dbl>
+#> 1 101   FALSE     1
+#> 2 102   FALSE     1
+#> 3 103   FALSE     1
+#> 4 104   FALSE     1
+#> 5 105   FALSE     1
+#> 6 106   FALSE     1
+#> # ... with 258 more rows
+#> #
+#> # Edge Data: 1,496 x 2
+#>    from    to
+#>   <int> <int>
+#> 1    36   151
+#> 2    40   151
+#> 3    73   151
+#> # ... with 1,493 more rows
 }\if{html}{\out{</div>}}
 }
 \source{
@@ -45,8 +45,7 @@ in Bristol, the participation of these individuals in major protest and civic ev
 and the involvement of the civic organizations in these events.
 }
 \details{
-The data is presented as a \code{tbl_graph} object with 264 nodes and 1496 edges.
-While represented as a two-mode network, it contains three levels:
+Although represented as a two-mode network, it contains three levels:
 \describe{
 \item{1.}{150 Individuals, anonymised with numeric ID}
 \item{2.}{97 Bristol civic organizations}

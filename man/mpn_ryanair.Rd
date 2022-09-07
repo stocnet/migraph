@@ -5,28 +5,28 @@
 \alias{mpn_ryanair}
 \title{One-mode EU policy influence network, June 2004 (Christopoulos 2006)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 20 nodes and 177 edges
-## #
-## # A directed simple graph with 1 component
-## #
-## # Node Data: 20 × 1 (active)
-##   name          
-##   <chr>         
-## 1 1 AER         
-## 2 2 AER         
-## 3 5 AER/COR     
-## 4 7 RYANAIR     
-## 5 8 DG TRANSPORT
-## 6 9 COR         
-## # … with 14 more rows
-## #
-## # Edge Data: 177 × 3
-##    from    to weight
-##   <int> <int>  <dbl>
-## 1     1     2      1
-## 2     1     3      1
-## 3     1     4      1
-## # … with 174 more rows
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 20 nodes and 177 edges
+#> #
+#> # A directed simple graph with 1 component
+#> #
+#> # Node Data: 20 x 1 (active)
+#>   name          
+#>   <chr>         
+#> 1 1 AER         
+#> 2 2 AER         
+#> 3 5 AER/COR     
+#> 4 7 RYANAIR     
+#> 5 8 DG TRANSPORT
+#> 6 9 COR         
+#> # ... with 14 more rows
+#> #
+#> # Edge Data: 177 x 3
+#>    from    to weight
+#>   <int> <int>  <dbl>
+#> 1     1     2      1
+#> 2     1     3      1
+#> 3     1     4      1
+#> # ... with 174 more rows
 }\if{html}{\out{</div>}}
 }
 \source{

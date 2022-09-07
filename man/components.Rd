@@ -49,25 +49,26 @@ but not to the (\emph{k}+1)-core.
 }
 \section{Functions}{
 \itemize{
-\item \code{node_components}: Returns nodes' component membership
+\item \code{node_components()}: Returns nodes' component membership
 using edge direction where available.
 
-\item \code{node_weak_components}: Returns nodes' component membership
+\item \code{node_weak_components()}: Returns nodes' component membership
 ignoring edge direction.
 
-\item \code{node_strong_components}: Returns nodes' component membership
+\item \code{node_strong_components()}: Returns nodes' component membership
 based on edge direction.
 
-\item \code{node_coreness}: Returns k-cores
-}}
+\item \code{node_coreness()}: Returns k-cores
 
+}}
 \examples{
 node_components(mpn_bristol)
 node_coreness(ison_adolescents)
 }
 \seealso{
-Other membership: 
+Other memberships: 
 \code{\link{community}},
+\code{\link{core-periphery}},
 \code{\link{equivalence}}
 }
-\concept{membership}
+\concept{memberships}

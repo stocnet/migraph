@@ -15,11 +15,11 @@
 #' “Application of Approximate Pattern Matching in Two Dimensional Spaces to Grid Layout for Biochemical Network Maps” edited by J. Bourdon. 
 #' _PLoS ONE_ 7(6):e37739.
 #' \doi{https://doi.org/10.1371/journal.pone.0037739}.
-#' @name layouts
+#' @name grid_layouts
 #' @family mapping
 NULL
 
-#' @rdname layouts
+#' @rdname grid_layouts
 #' @export
 layout_tbl_graph_frgrid <- function(object, circular = FALSE, times = 1000){
   xy <- as.data.frame(igraph::layout_with_fr(object, maxiter = times))
@@ -29,7 +29,7 @@ layout_tbl_graph_frgrid <- function(object, circular = FALSE, times = 1000){
   xy
 }
 
-#' @rdname layouts
+#' @rdname grid_layouts
 #' @export
 layout_tbl_graph_kkgrid <- function(object, circular = FALSE, times = 1000){
   xy <- as.data.frame(igraph::layout_with_kk(object, maxiter = times))
@@ -39,7 +39,7 @@ layout_tbl_graph_kkgrid <- function(object, circular = FALSE, times = 1000){
   xy
 }
 
-#' @rdname layouts
+#' @rdname grid_layouts
 #' @export
 layout_tbl_graph_gogrid <- function(object, circular = FALSE, times = 1000){
   xy <- as.data.frame(igraph::layout_with_graphopt(object, niter = times))
@@ -49,7 +49,7 @@ layout_tbl_graph_gogrid <- function(object, circular = FALSE, times = 1000){
   xy
 }
 
-#' @rdname layouts
+#' @rdname grid_layouts
 #' @export
 layout_tbl_graph_stressgrid <- function(object, circular = FALSE, times = 1000){
   xy <- as.data.frame(ggraph::create_layout(object, "stress")[,1:2])

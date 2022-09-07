@@ -31,6 +31,11 @@ for the sending and receiving nodes
 \item \code{sim()} constructs a matrix where the cells reflect the
 proportional similarity between the attribute's values
 for the sending and receiving nodes
+\item \code{tertius()} constructs a matrix where the cells reflect some
+aggregate of an attribute associated with a node's other ties.
+Currently "mean" and "sum" are available aggregating functions.
+'ego' is excluded from these calculations.
+See Haunss and Hollway (2023) for more on this effect.
 \item dyadic covariates (other networks) can just be named
 }}
 
@@ -87,7 +92,7 @@ which can be useful when many simulations are required.
 \item results are \href{https://broom.tidymodels.org}{\code{{broom}}}-compatible,
 with \code{tidy()} and \code{glance()} reports to facilitate comparison
 with results from different models.
-Note that a t- or z-value is always used as the test statistic,
+Note that a \emph{t}- or \emph{z}-value is always used as the test statistic,
 and properties of the dependent network
 -- modes, directedness, loops, etc --
 will always be respected in permutations and analysis.

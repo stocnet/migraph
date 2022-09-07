@@ -21,22 +21,20 @@
 gglineage <- function(object, labels = TRUE){
   nodes <- NULL # Avoid R CMD check note
   object <- as_tidygraph(object)
-  if (all(grepl("[:digit:]{4}", attr(object[1], "names")))) {
+  if (all(grepl("\\d{4}", node_names(object)))) {
     object <- object %>%
       activate(nodes) %>%
-      mutate(year = sub("[:digit:]{4}", "\\1", .data$name))
+      mutate(year = as.numeric(sub(".*_([0-9]{4}).*", "\\1", node_names(object))))
   }
-  lo <- ggraph::create_layout(object, layout = "igraph",
-                              algorithm = "sugiyama",
-                              maxiter = 100000)
-  if (!is.null(lo$year)) lo$y = lo$year
+  lo <- ggraph::create_layout(object, layout = "alluvial")
+  if (!is.null(lo$year)) lo$x = lo$year else 
+    if ("year" %in% graph_node_attributes(object)) lo$x = node_attribute(object, "year")
+  if (is.null(lo$name)) lo$name = node_names(object)
   g <- ggraph::ggraph(object, graph = lo) +
     ggraph::geom_edge_diagonal(aes(edge_color = as.factor(.data$from)),
                                show.legend = FALSE) +
     ggraph::geom_node_point(shape = 3) +
-    ggplot2::theme_void() +
-    ggplot2::coord_flip() +
-    ggplot2::scale_x_reverse()
+    ggplot2::theme_void()
   if (labels) {
     g <- g + ggraph::geom_node_text(aes(label = .data$name),
                                     nudge_x = 0.1,

@@ -7,52 +7,52 @@
 \alias{mpn_cow_igo}
 \title{One-mode interstate trade relations and two-mode state membership in IGOs (COW)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 116 nodes and 11489 edges
-## #
-## # A directed simple graph with 1 component
-## #
-## # Node Data: 116 × 1 (active)
-##   name                    
-##   <chr>                   
-## 1 United States of America
-## 2 Canada                  
-## 3 Cuba                    
-## 4 Dominican Republic      
-## 5 Jamaica                 
-## 6 Trinidad and Tobago     
-## # … with 110 more rows
-## #
-## # Edge Data: 11,489 × 3
-##    from    to  weight
-##   <int> <int>   <dbl>
-## 1     1     2 180387 
-## 2     1     3    587.
-## 3     1     4   5511.
-## # … with 11,486 more rows
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 116 nodes and 11489 edges
+#> #
+#> # A directed simple graph with 1 component
+#> #
+#> # Node Data: 116 x 1 (active)
+#>   name                    
+#>   <chr>                   
+#> 1 United States of America
+#> 2 Canada                  
+#> 3 Cuba                    
+#> 4 Dominican Republic      
+#> 5 Jamaica                 
+#> 6 Trinidad and Tobago     
+#> # ... with 110 more rows
+#> #
+#> # Edge Data: 11,489 x 3
+#>    from    to  weight
+#>   <int> <int>   <dbl>
+#> 1     1     2 180387 
+#> 2     1     3    587.
+#> 3     1     4   5511.
+#> # ... with 11,486 more rows
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tbl_graph: 156 nodes and 862 edges
-## #
-## # A bipartite simple graph with 1 component
-## #
-## # Node Data: 156 × 2 (active)
-##   type  name       
-##   <lgl> <chr>      
-## 1 FALSE Afghanistan
-## 2 FALSE Albania    
-## 3 FALSE Algeria    
-## 4 FALSE Angola     
-## 5 FALSE Argentina  
-## 6 FALSE Australia  
-## # … with 150 more rows
-## #
-## # Edge Data: 862 × 2
-##    from    to
-##   <int> <int>
-## 1     1   121
-## 2     1   132
-## 3     1   139
-## # … with 859 more rows
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 152 nodes and 839 edges
+#> #
+#> # A directed acyclic simple graph with 1 component
+#> #
+#> # Node Data: 152 x 3 (active)
+#>   name        type  polity2
+#>   <chr>       <lgl>   <dbl>
+#> 1 Afghanistan FALSE      -7
+#> 2 Albania     FALSE       5
+#> 3 Algeria     FALSE      -3
+#> 4 Angola      FALSE      -6
+#> 5 Argentina   FALSE       8
+#> 6 Australia   FALSE      10
+#> # ... with 146 more rows
+#> #
+#> # Edge Data: 839 x 3
+#>    from    to weight
+#>   <int> <int>  <dbl>
+#> 1     1   113      1
+#> 2     1   114      1
+#> 3     1   115      0
+#> # ... with 836 more rows
 }\if{html}{\out{</div>}}
 }
 \source{
@@ -77,16 +77,22 @@ One-mode interstate trade relations and two-mode state membership in IGOs (COW)
 \code{mpn_cow_trade} is a one-mode matrix representing the trade relations between 116 states.
 The data is derived from the Correlates of War Project (COW) Trade Dataset (v3.0),
 which contains the annual dyadic and national trade figures for states (listed in COW)
-between 1870 to 2009. This network is based only on the dyadic trade figures in 2009 for the
-116 states listed in Appendix 7.1 in
+between 1870 to 2009.
+This network is based only on the dyadic trade figures in 2009 for the 116 states
+listed in Appendix 7.1 in
 \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
-(Knoke et al., 2021). The value in each cell of the matrix represents the value of
-exports from the 116 row states to the 116 column states.
+(Knoke et al., 2021).
+The value in each cell of the matrix represents the value of exports
+from the 116 row states to the 116 column states.
 
-Two-mode matrix representing the membership of 116 states to 40 intergovernmental organizations (IGOs).
-The data is derived from the Correlates of War Project (COW) Intergovernmental Organizations Dataset (v3.0),
-which contains information about intergovernmental organizations from 1815-2014, such as founding year and membership.
-This network contains only a subset of the states and IGOs listed in COW, with 116 states listed in Appendix 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
+\code{mpn_cow_igo} is a two-mode graph representing the membership of 116 states
+in 40 intergovernmental organizations (IGOs).
+The data is derived from the Correlates of War Project (COW)
+Intergovernmental Organizations Dataset (v3.0),
+which contains information about intergovernmental organizations from 1815-2014,
+such as founding year and membership.
+This network contains only a subset of the states and IGOs listed in COW,
+with 116 states listed in Appendix 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
 and 40 IGOs from Table 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
 that also overlap with the COW dataset (Knoke et al., 2021).
 }

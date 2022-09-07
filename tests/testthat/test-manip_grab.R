@@ -25,8 +25,9 @@ test_that("node_attribute works", {
 })
 
 test_that("node_mode works", {
-  expect_equal(node_mode(ison_southern_women)[1],
-               !node_mode(ison_southern_women)[length(ison_southern_women)])
+  expect_equal(as.logical(node_mode(ison_southern_women)[1]),
+               as.logical(!node_mode(ison_southern_women)[length(ison_southern_women)]))
+  expect_s3_class(node_mode(ison_southern_women), c("node mark", "logical"))
 })
 
 test_that("tie_attribute works", {

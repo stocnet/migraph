@@ -70,9 +70,11 @@ ison_adolescents \%>\%
   activate(edges) \%>\% 
   mutate(high_betweenness = tie_is_max(tie_betweenness(ison_adolescents))) \%>\% 
   autographr(node_color = "high_degree", edge_color = "high_betweenness")
+autographr(mpn_elite_usa_advice, "concentric")
 }
 \seealso{
 Other mapping: 
-\code{\link{layouts}}
+\code{\link{grid_layouts}},
+\code{\link{partition_layouts}}
 }
 \concept{mapping}

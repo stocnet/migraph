@@ -5,6 +5,8 @@
 ^working$
 ^\.github$
 ^data-raw$
+vignettes/*\.Rmd\.orig
+vignettes/precompile\.R
 ^docs$
 ^pkgdown$
 ^cran-comments\.md$

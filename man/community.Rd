@@ -22,11 +22,11 @@ Community graph partitioning algorithms
 }
 \section{Functions}{
 \itemize{
-\item \code{node_kernighanlin}: A greedy, iterative, deterministic graph
+\item \code{node_kernighanlin()}: A greedy, iterative, deterministic graph
 partitioning algorithm that results in a graph with two
 equally-sized communities
-}}
 
+}}
 \examples{
 node_kernighanlin(ison_adolescents)
 node_kernighanlin(ison_southern_women)
@@ -38,8 +38,9 @@ Kernighan, Brian W., and Shen Lin. 1970.
 \doi{10.1002/j.1538-7305.1970.tb01770.x}
 }
 \seealso{
-Other membership: 
+Other memberships: 
 \code{\link{components}()},
+\code{\link{core-periphery}},
 \code{\link{equivalence}}
 }
-\concept{membership}
+\concept{memberships}

@@ -46,7 +46,7 @@ NULL
 #' autographr(ison_algebra)
 #' a <- to_uniplex(ison_algebra, "friends")
 #' autographr(a)
-#' a <- to_main_component(a)
+#' a <- to_giant(a)
 #' autographr(a)
 #' a <- to_undirected(a)
 #' autographr(a)
@@ -54,11 +54,6 @@ NULL
 #' autographr(a)
 #' @export
 to_uniplex <- function(object, edge) UseMethod("to_uniplex")
-
-#' @export
-to_uniplex.tbl_graph <- function(object, edge){
-  as_tidygraph(to_uniplex(as_igraph(object), edge))
-}
 
 #' @export
 to_uniplex.igraph <- function(object, edge){
@@ -73,6 +68,26 @@ to_uniplex.igraph <- function(object, edge){
   if (is.numeric(igraph::get.edge.attribute(object, edge))) 
     names(igraph::edge_attr(out)) <- "weight"
   out
+}
+
+#' @export
+to_uniplex.tbl_graph <- function(object, edge){
+  as_tidygraph(to_uniplex(as_igraph(object), edge))
+}
+
+#' @export
+to_uniplex.network <- function(object, edge){
+  as_network(to_uniplex(as_igraph(object), edge))
+}
+
+#' @export
+to_uniplex.data.frame <- function(object, edge){
+  as_edgelist(to_uniplex(as_igraph(object), edge))
+}
+
+#' @export
+to_uniplex.matrix <- function(object, edge){
+  as_matrix(to_uniplex(as_igraph(object), edge))
 }
 
 #' @describeIn reformat Returns an object that has any edge direction removed,
@@ -104,6 +119,11 @@ to_undirected.matrix <- function(object) {
   if (is_twomode(object)) {
     object
   } else ((object + t(object)) > 0) * 1
+}
+
+#' @export
+to_undirected.data.frame <- function(object) {
+  as_edgelist(to_undirected(as_igraph(object)))
 }
 
 #' @describeIn reformat Returns an object that has any edge direction transposed,
@@ -142,35 +162,37 @@ to_redirected.matrix <- function(object) {
   t(object)
 }
 
+#' @export
+to_redirected.network <- function(object) {
+  as_network(to_redirected(as_igraph(object)))
+}
+
 #' @describeIn reformat Returns an object that has all edge weights removed
 #' @export
 to_unweighted <- function(object, threshold = 1) UseMethod("to_unweighted")
 
 #' @export
 to_unweighted.tbl_graph <- function(object, threshold = 1) {
-  if ("weight" %in% igraph::edge_attr_names(object)) 
-    object <- igraph::delete_edge_attr(object, "weight")
-  tidygraph::as_tbl_graph(object)
+  edges <- NULL
+  weight <- NULL
+  object %>% activate(edges) %>% 
+    filter(weight >= threshold) %>% 
+    select(-c(weight))
 }
 
 #' @export
 to_unweighted.igraph <- function(object, threshold = 1) {
-    if ("weight" %in% igraph::edge_attr_names(object)) {
-      igraph::delete_edge_attr(object, "weight")
-    } else object
+    as_igraph(to_unweighted(as_tidygraph(object), threshold))
 }
 
 #' @export
 to_unweighted.network <- function(object, threshold = 1) {
-    out <- network::delete.edge.attribute(object,
-                                          attrname = "weight")
-    out
+  as_network(to_unweighted(as_tidygraph(object), threshold))
 }
 
 #' @export
 to_unweighted.matrix <- function(object, threshold = 1) {
-  object <- (object >= threshold)*1
-  object
+  (object >= threshold)*1
 }
 
 #' @export
@@ -238,6 +260,12 @@ to_unsigned.igraph <- function(object,
     out <- igraph::delete_edge_attr(out, "sign")
     out
   } else object
+}
+
+#' @export
+to_unsigned.network <- function(object, 
+                               keep = c("positive", "negative")){
+  as_network(to_unsigned(as_igraph(object)))
 }
 
 #' @describeIn reformat Returns an object with all vertex names removed
@@ -334,6 +362,11 @@ to_named.matrix <- function(object, names = NULL) {
   object
 }
 
+#' @export
+to_named.network <- function(object, names = NULL) {
+  as_network(to_named(as_igraph(object), names))
+}
+
 #' @describeIn reformat Returns an object that has all loops or self-ties removed
 #' @importFrom igraph simplify
 #' @export
@@ -365,13 +398,24 @@ to_simplex.matrix <- function(object) {
 to_onemode <- function(object) UseMethod("to_onemode")
 
 #' @export
+to_onemode.matrix <- function(object) {
+  if (is_twomode(object)){
+    object <- rbind(cbind(matrix(0, nrow(object), nrow(object)), object),
+                    cbind(t(object), matrix(0, ncol(object), ncol(object))))
+    colnames(object) <- rownames(object)
+  }
+  object
+}
+
+#' @export
 to_onemode.tbl_graph <- function(object) {
   as_tidygraph(to_onemode(as_igraph(object)))
 }
 
 #' @export
 to_onemode.igraph <- function(object) {
-  if ("type" %in% igraph::vertex_attr_names(object)) object <- igraph::delete_vertex_attr(object, "type")
+  if ("type" %in% igraph::vertex_attr_names(object)) 
+    object <- igraph::delete_vertex_attr(object, "type")
   object
 }
 
@@ -402,6 +446,29 @@ to_multilevel.matrix <- function(object) {
   colnames(out) <- rownames(out)
   out
 }
+
+#' @describeIn reformat Returns a network that divides the nodes into two mode types.
+#' @param mark A logical vector marking two types or modes.
+#'   By default "type".
+#' @export
+to_twomode <- function(object, mark) UseMethod("to_twomode")
+
+#' @export
+to_twomode.igraph <- function(object, mark){
+  igraph::V(object)$type <- mark
+  object
+}
+
+#' @export
+to_twomode.tbl_graph <- function(object, mark){
+  as_tidygraph(to_twomode.igraph(object, mark))
+}
+
+#' @export
+to_twomode.network <- function(object, mark){
+  as_network(to_twomode(as_igraph(object, mark)))
+}
+
 
 # Transforming ####
 
@@ -434,30 +501,71 @@ to_multilevel.matrix <- function(object) {
 NULL
 
 #' @describeIn transform Results in a weighted one-mode object
-#' that retains the row nodes from a two-mode object,
-#' and weights the ties between them on the basis of
-#' their joint ties to nodes in the second mode (columns)
+#'   that retains the row nodes from a two-mode object,
+#'   and weights the ties between them on the basis of
+#'   their joint ties to nodes in the second mode (columns)
+#' @param similarity Method for establishing ties,
+#'   currently "count" (default), "jaccard", or "rand".
+#'   "count" calculates the number of coinciding ties,
+#'   and can be interpreted as indicating the degree of opportunities
+#'   between nodes.
+#'   "jaccard" uses this count as the numerator in a proportion,
+#'   where the denominator consists of any cell where either node has a tie.
+#'   It can be interpreted as opportunity weighted by participation.
+#'   "rand", or the Simple Matching Coefficient,
+#'   is a proportion where the numerator consists of the count of cells where
+#'   both nodes are present or both are absent,
+#'   over all possible cells.
+#'   It can be interpreted as the (weighted) degree of behavioral mirroring
+#'   between two nodes.
+#'   "pearson" (Pearson's coefficient) and "yule" (Yule's Q)
+#'   produce correlations for valued and binary data, respectively.
+#'   Note that Yule's Q has a straightforward interpretation related to the odds ratio.
 #' @importFrom igraph bipartite.projection
 #' @examples
 #' autographr(ison_southern_women) /
 #' (autographr(to_mode1(ison_southern_women)) |
 #' autographr(to_mode2(ison_southern_women)))
 #' @export
-to_mode1 <- function(object) UseMethod("to_mode1")
+to_mode1 <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) UseMethod("to_mode1")
 
 #' @export
-to_mode1.matrix <- function(object) {
-  object %*% t(object)
+to_mode1.matrix <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  similarity <- match.arg(similarity)
+  a <- object %*% t(object)
+  b <- object %*% (1 - t(object))
+  c <- (1 - object) %*% t(object)
+  d <- ncol(object) - a - b - c
+  out <- switch(similarity,
+         "count" = a,
+         "jaccard" = a/(a + b + c),
+         "rand" = (a + d)/(a + b + c + d),
+         "pearson" = cor(t(object)),
+         "yule" = (a*d - b*c)/(a*d + b*c))
+  diag(out) <- 0
+  out
 }
 
 #' @export
-to_mode1.igraph <- function(object) {
-  igraph::bipartite.projection(object)$proj1
+to_mode1.igraph <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  similarity <- match.arg(similarity)
+  if(similarity == "count") igraph::bipartite.projection(object)$proj1
+  else as_igraph(to_mode1(as_matrix(object), similarity))
 }
 
 #' @export
-to_mode1.tbl_graph <- function(object) {
-  as_tidygraph(igraph::bipartite.projection(object)$proj1)
+to_mode1.tbl_graph <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  as_tidygraph(to_mode1(as_igraph(object), similarity = similarity))
+}
+
+#' @export
+to_mode1.network <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  as_network(to_mode1(as_matrix(object), similarity = similarity))
+}
+
+#' @export
+to_mode1.data.frame <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  as_edgelist(to_mode1(as_matrix(object), similarity = similarity))
 }
 
 #' @describeIn transform Results in a weighted one-mode object
@@ -465,45 +573,79 @@ to_mode1.tbl_graph <- function(object) {
 #' and weights the ties between them on the basis of
 #' their joint ties to nodes in the first mode (rows).
 #' @export
-to_mode2 <- function(object) UseMethod("to_mode2")
+to_mode2 <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) UseMethod("to_mode2")
 
 #' @export
-to_mode2.matrix <- function(object) {
-  t(object) %*% object
+to_mode2.matrix <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  similarity <- match.arg(similarity)
+  a <- t(object) %*% object
+  b <- t(object) %*% (1 - object)
+  c <- (1 - t(object)) %*% object
+  d <- nrow(object) - a - b - c
+  out <- switch(similarity,
+                "count" = a,
+                "jaccard" = a/(a + b + c),
+                "rand" = (a + d)/(a + b + c + d),
+                "pearson" = cor(object),
+                "yule" = (a*d - b*c)/(a*d + b*c))
+  diag(out) <- 0
+  out
 }
 
 #' @export
-to_mode2.igraph <- function(object) {
-  igraph::bipartite.projection(object)$proj2
+to_mode2.igraph <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  similarity <- match.arg(similarity)
+  if(similarity == "count") igraph::bipartite.projection(object)$proj2
+  else as_igraph(to_mode2(as_matrix(object), similarity))
 }
 
 #' @export
-to_mode2.tbl_graph <- function(object) {
-  as_tidygraph(igraph::bipartite.projection(object)$proj2)
+to_mode2.tbl_graph <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  as_tidygraph(to_mode2(as_igraph(object), similarity))
+}
+
+#' @export
+to_mode2.network <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  as_network(to_mode2(as_matrix(object), similarity))
+}
+
+#' @export
+to_mode2.data.frame <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  as_edgelist(to_mode2(as_matrix(object), similarity))
 }
 
 #' @describeIn transform Returns an object that includes only the main component
 #' without any smaller components or isolates
 #' @export
-to_main_component <- function(object) UseMethod("to_main_component")
+to_giant <- function(object) UseMethod("to_giant")
 
 #' @export
-to_main_component.tbl_graph <- function(object) {
-  as_tidygraph(to_main_component(as_igraph(object)))
-}
-
-#' @export
-to_main_component.igraph <- function(object) {
+to_giant.igraph <- function(object) {
   comps <- igraph::components(object)
   max.comp <- which.max(comps$csize)
   igraph::delete.vertices(object, comps$membership != max.comp)
 }
 
 #' @export
-to_main_component.network <- function(object) {
+to_giant.network <- function(object) {
   network::delete.vertices(object, 
                            which(!sna::component.largest(object,
                                                          result = "membership")))
+}
+
+#' @export
+to_giant.tbl_graph <- function(object) {
+  as_tidygraph(to_giant(as_igraph(object)))
+}
+
+#' @export
+to_giant.data.frame <- function(object) {
+  as_edgelist(to_giant(as_igraph(object)))
+}
+
+#' @export
+to_giant.matrix <- function(object) {
+  as_matrix(to_giant(as_igraph(object)))
 }
 
 #' @describeIn transform Returns a network subgraph filtered
@@ -511,9 +653,32 @@ to_main_component.network <- function(object) {
 #' @param ... Arguments passed on to dplyr::filter
 #' @importFrom dplyr filter
 #' @export
-to_subgraph <- function(object, ...){
-  dplyr::filter(.data = as_tidygraph(object), ..., 
+to_subgraph <- function(object, ...) UseMethod("to_subgraph")
+
+#' @export
+to_subgraph.tbl_graph <- function(object, ...){
+  dplyr::filter(.data = object, ..., 
                 .preserve = FALSE)
+}
+
+#' @export
+to_subgraph.igraph <- function(object, ...){
+  as_igraph(to_subgraph(as_tidygraph(object), ...))
+}
+
+#' @export
+to_subgraph.network <- function(object, ...){
+  as_network(to_subgraph(as_tidygraph(object), ...))
+}
+
+#' @export
+to_subgraph.data.frame <- function(object, ...){
+  as_edgelist(to_subgraph(as_tidygraph(object), ...))
+}
+
+#' @export
+to_subgraph.matrix <- function(object, ...){
+  as_matrix(to_subgraph(as_tidygraph(object), ...))
 }
 
 #' @describeIn transform Returns a matrix (named if possible) 
@@ -523,16 +688,39 @@ to_subgraph <- function(object, ...){
 #' autographr(ison_adolescents) +  
 #' autographr(to_ties(ison_adolescents))
 #' @export
-to_ties <- function(object){
-  out <- igraph::make_line_graph(as_igraph(object))
+to_ties <- function(object) UseMethod("to_ties")
+
+#' @export
+to_ties.igraph <- function(object){
+  out <- igraph::make_line_graph(object)
   out <- add_node_attribute(out, "name", attr(igraph::E(object), "vnames"))
   igraph::V(out)$name <- gsub("\\|", "-", igraph::V(out)$name)
   out
 }
 
+#' @export
+to_ties.tbl_graph <- function(object){
+  as_tidygraph(to_ties(as_igraph(object)))
+}
+
+#' @export
+to_ties.network <- function(object){
+  as_network(to_ties(as_igraph(object)))
+}
+
+#' @export
+to_ties.data.frame <- function(object){
+  as_edgelist(to_ties(as_igraph(object)))
+}
+
+#' @export
+to_ties.matrix <- function(object){
+  as_matrix(to_ties(as_igraph(object)))
+}
+
 #' @describeIn transform Returns a reduced graph from a given
 #'   partition membership vector
-#' @param membership A vector of partition memberships
+#' @param membership A vector of partition memberships.
 #' @param FUN A function for summarising block content.
 #'   By default `mean`.
 #'   Other recommended options include `median`, `sum`,
@@ -542,13 +730,26 @@ to_ties <- function(object){
 #'   node_regular_equivalence(ison_adolescents, k = 3)))
 #' autographr(adolblock)
 #' @export
-to_blocks <- function(object, membership, FUN = mean){
-  mat <- as_matrix(to_onemode(object))
+to_blocks <- function(object, membership, FUN = mean) UseMethod("to_blocks")
+
+#' @export
+to_blocks.matrix <- function(object, membership, FUN = mean){
   if(is_twomode(object)){
+    mat <- to_onemode(object)
     m1_membs <- membership[!node_mode(object)]
     m2_membs <- membership[node_mode(object)]
-  } 
-  if(!is_twomode(object)) {
+    x <- length(unique(m1_membs))
+    y <- length(unique(m2_membs))
+    out <- matrix(nrow = unique(m1_membs)[x],
+                  ncol = unique(m2_membs)[y])
+    for(i in unique(m1_membs)) for (j in unique(m2_membs))
+      out[i, j] <- FUN(mat[membership == i, 
+                           membership == j, drop = FALSE], 
+                       na.rm = TRUE)
+    rownames(out) <- paste("Block", seq_len(unique(m1_membs)[x]))
+    colnames(out) <- paste("Block", seq_len(unique(m2_membs)[y]))
+  } else {
+    mat <- object
     parts <- max(membership)
     out <- matrix(nrow = parts, 
                   ncol = parts)
@@ -558,18 +759,72 @@ to_blocks <- function(object, membership, FUN = mean){
                        na.rm = TRUE)
     rownames(out) <- paste("Block", seq_len(parts))
     colnames(out) <- paste("Block", seq_len(parts))
-  } else {
-    out <- matrix(nrow = length(unique(m1_membs)),
-                  ncol = length(unique(m2_membs)))
-    for(i in unique(m1_membs)) for (j in unique(m2_membs))
-      out[i, j] <- FUN(mat[membership == i, 
-                           membership == j, drop = FALSE], 
-                       na.rm = TRUE)
-    rownames(out) <- paste("Block", unique(m1_membs))
-    colnames(out) <- paste("Block", unique(m2_membs))
   }
+  out[is.na(out)] <- 0
   out
 }
 
+#' @export
+to_blocks.igraph <- function(object, membership, FUN = mean){
+  as_igraph(to_blocks(as_matrix(object), membership, FUN))
+}
 
+#' @export
+to_blocks.network <- function(object, membership, FUN = mean){
+  as_network(to_blocks(as_matrix(object), membership, FUN))
+}
+
+#' @export
+to_blocks.data.frame <- function(object, membership, FUN = mean){
+  as_edgelist(to_blocks(as_matrix(object), membership, FUN))
+}
+
+#' @export
+to_blocks.tbl_graph <- function(object, membership, FUN = mean){
+  as_tidygraph(to_blocks(as_matrix(object), membership, FUN))
+}
+
+#' @describeIn transform Returns a network with only
+#'   matching ties
+#' @param mark A logical vector marking two types or modes.
+#'   By default "type".
+#' @importFrom igraph max_bipartite_match
+#' @examples 
+#' autographr(to_matching(mpn_elite_usa_advice), "bipartite")
+#' autographr(to_matching(ison_southern_women), "bipartite")
+#' @export
+to_matching <- function(object, mark = "type") UseMethod("to_matching")
+
+#' @export
+to_matching.igraph <- function(object, mark = "type"){
+  if(length(unique(node_attribute(object, mark)))>2)
+    stop("This function currently only works with binary attributes.")
+  el <- igraph::max_bipartite_match(object, 
+                 types = node_attribute(object, mark))$matching
+  el <- data.frame(from = names(el), to = el)
+  out <- suppressWarnings(as_igraph(el, twomode = TRUE))
+  out <- igraph::delete_vertices(out, "NA")
+  out <- to_twomode(out, node_attribute(object, mark))
+  out
+}
+
+#' @export
+to_matching.tbl_graph <- function(object, mark = "type"){
+  as_tidygraph(to_matching(as_igraph(object), mark))
+}
+
+#' @export
+to_matching.network <- function(object, mark = "type"){
+  as_network(to_matching(as_igraph(object), mark))
+}
+
+#' @export
+to_matching.data.frame <- function(object, mark = "type"){
+  as_edgelist(to_matching(as_igraph(object), mark))
+}
+
+#' @export
+to_matching.matrix <- function(object, mark = "type"){
+  as_matrix(to_matching(as_igraph(object), mark))
+}
 

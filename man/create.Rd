@@ -78,29 +78,29 @@ In two-mode networks, this is ignored.
 }
 \section{Functions}{
 \itemize{
-\item \code{create_empty}: Creates an empty graph of the given dimensions.
+\item \code{create_empty()}: Creates an empty graph of the given dimensions.
 
-\item \code{create_complete}: Creates a filled graph of the given dimensions,
+\item \code{create_complete()}: Creates a filled graph of the given dimensions,
 with every possible tie realised.
 
-\item \code{create_ring}: Creates a ring or chord graph of the given dimensions
+\item \code{create_ring()}: Creates a ring or chord graph of the given dimensions
 that loops around is of a certain width or thickness.
 
-\item \code{create_star}: Creates a graph of the given dimensions
+\item \code{create_star()}: Creates a graph of the given dimensions
 that has a maximally central node
 
-\item \code{create_tree}: Creates a graph of the given dimensions with successive branches.
+\item \code{create_tree()}: Creates a graph of the given dimensions with successive branches.
 
-\item \code{create_lattice}: Creates a graph of the given dimensions with ties to all neighbouring nodes
+\item \code{create_lattice()}: Creates a graph of the given dimensions with ties to all neighbouring nodes
 
-\item \code{create_components}: Creates a graph in which the nodes are clustered
+\item \code{create_components()}: Creates a graph in which the nodes are clustered
 into separate components.
 
-\item \code{create_core}: Creates a graph with a certain proportion of nodes
+\item \code{create_core()}: Creates a graph with a certain proportion of nodes
 being core nodes, densely tied to each other and peripheral nodes,
 and the rest peripheral, tied only to the core.
-}}
 
+}}
 \examples{
 autographr(create_empty(10)) + autographr(create_complete(10))
 autographr(create_empty(c(8,6))) + autographr(create_complete(c(8,6)))
