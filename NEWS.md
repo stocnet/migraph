@@ -1,3 +1,9 @@
+# migraph 0.11.1
+
+## Package
+
+- Fixed documentation issues (URLs, equations)
+
 # migraph 0.11.0
 
 ## Package
