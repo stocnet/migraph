@@ -17,7 +17,7 @@
 #' - results are [`{broom}`](https://broom.tidymodels.org)-compatible, 
 #'   with `tidy()` and `glance()` reports to facilitate comparison
 #'   with results from different models.
-#' Note that a t- or z-value is always used as the test statistic,
+#' Note that a _t_- or _z_-value is always used as the test statistic,
 #' and properties of the dependent network 
 #' -- modes, directedness, loops, etc --
 #' will always be respected in permutations and analysis.
@@ -38,6 +38,11 @@
 #'   - `sim()` constructs a matrix where the cells reflect the
 #'   proportional similarity between the attribute's values 
 #'   for the sending and receiving nodes
+#'   - `tertius()` constructs a matrix where the cells reflect some
+#'   aggregate of an attribute associated with a node's other ties.
+#'   Currently "mean" and "sum" are available aggregating functions.
+#'   'ego' is excluded from these calculations.
+#'   See Haunss and Hollway (2023) for more on this effect.
 #'   - dyadic covariates (other networks) can just be named
 #' @inheritParams is
 #' @param method A method for establishing the null hypothesis.
@@ -286,8 +291,10 @@ convertToMatrixList <- function(formula, data){
   IVnames <- getRHSNames(formula)
   IVs <- lapply(IVnames, function(IV){
     out <- lapply(seq_along(IV), function(elem){
+      # ego ####
       if(IV[[elem]][1] == "ego"){
         vct <- node_attribute(data, IV[[elem]][2])
+        if(is_twomode(data)) vct <- vct[!node_attribute(data, "type")]
         if(is.character(vct) | is.factor(vct)){
           fct <- factor(vct)
           if(length(levels(fct)) == 2){
@@ -309,8 +316,10 @@ convertToMatrixList <- function(formula, data){
           names(out) <- paste(IV[[elem]], collapse = " ")
           out <- out
         }
+        # alter ####
       } else if (IV[[elem]][1] == "alter"){
           vct <- node_attribute(data, IV[[elem]][2])
+          if(is_twomode(data)) vct <- vct[node_attribute(data, "type")]
           if(is.character(vct) | is.factor(vct)){
             fct <- factor(vct)
             if(length(levels(fct)) == 2){
@@ -332,6 +341,7 @@ convertToMatrixList <- function(formula, data){
             names(out) <- paste(IV[[elem]], collapse = " ")
             out <- out
           }
+          # same ####
       } else if (IV[[elem]][1] == "same"){
         rows <- matrix(node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV))
@@ -341,6 +351,7 @@ convertToMatrixList <- function(formula, data){
         out <- list(out)
         names(out) <- paste(IV[[elem]], collapse = " ")
         out <- out
+        # dist ####
       } else if (IV[[elem]][1] == "dist"){
         if(is.character(node_attribute(data, IV[[elem]][2])))
           stop("Distance undefined for factors.")
@@ -352,6 +363,7 @@ convertToMatrixList <- function(formula, data){
         out <- list(out)
         names(out) <- paste(IV[[elem]], collapse = " ")
         out <- out
+        # sim ####
       } else if (IV[[elem]][1] == "sim"){
         if(is.character(node_attribute(data, IV[[elem]][2])))
           stop("Similarity undefined for factors.")
@@ -360,6 +372,23 @@ convertToMatrixList <- function(formula, data){
         cols <- matrix(node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV), byrow = TRUE)
         out <- abs(1- abs(rows - cols)/max(abs(rows - cols)))
+        out <- list(out)
+        names(out) <- paste(IV[[elem]], collapse = " ")
+        out <- out
+        # tertius ####
+      } else if (IV[[elem]][1] == "tertius"){
+        vct <- node_attribute(data, IV[[elem]][2])
+        if(is_twomode(data)) vct <- vct[!node_attribute(data, "type")]
+        val <- matrix(vct, nrow(DV), ncol(DV)) * DV
+        if(is.na(IV[[elem]][3])) IV[[elem]][3] <- "mean"
+        out <- t(vapply(seq_len(nrow(DV)), 
+                        function(x){
+                          if(IV[[elem]][3] == "mean") 
+                            colMeans(val[-x,], na.rm = TRUE)
+                          else if(IV[[elem]][3] == "sum") colSums(val[-x,], na.rm = TRUE)
+                          else stop("tertius summary function not recognised")
+                        }, 
+                        FUN.VALUE = numeric(ncol(DV))))
         out <- list(out)
         names(out) <- paste(IV[[elem]], collapse = " ")
         out <- out
@@ -401,7 +430,7 @@ getRHSNames <- function(formula) {
   rhs <- strsplit(rhs, ":")
   # embed single parameter models in list
   if (!is.list(rhs)) rhs <- list(rhs)
-  lapply(rhs, function(term) strsplit(gsub("\\)", "", term), "\\("))
+  lapply(rhs, function(term) strsplit(gsub("\\)", "", term), "\\(|,|, "))
 }
 
 getDependentName <- function(formula) {
