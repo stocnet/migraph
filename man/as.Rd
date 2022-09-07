@@ -20,7 +20,7 @@ as_tidygraph(object, twomode = FALSE)
 
 as_network(object, twomode = FALSE)
 
-as_graphAM(object, twomode = FALSE)
+as_graphAM(object, twomode = NULL)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -38,15 +38,15 @@ adjacency (one-mode/unipartite) networks.
 By default FALSE.}
 }
 \value{
-The currently implemented coercions or translations are:
-
-|  to/from  | edgelists  | matrices  |igraph  |tidygraph  |network  | siena | goldfish | graphAM
-| ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
-| edgelists (data frames)  | X | X | X | X | X |   | X |   |
-| matrices                 | X | X | X | X | X |   | X | X |
-| igraph                   | X | X | X | X | X | X | X |   |
-| tidygraph                | X | X | X | X | X | X | X |   |
-| network                  | X | X | X | X | X | X | X |   |
+The currently implemented coercions or translations are:\tabular{lccccccc}{
+   to/from \tab edgelists \tab matrices \tab igraph \tab tidygraph \tab network \tab siena \tab goldfish \cr
+   edgelists (data frames) \tab X \tab X \tab X \tab X \tab X \tab X \tab X \cr
+   matrices \tab X \tab X \tab X \tab X \tab X \tab X \tab X \cr
+   igraph \tab X \tab X \tab X \tab X \tab X \tab X \tab X \cr
+   tidygraph \tab X \tab X \tab X \tab X \tab X \tab X \tab X \cr
+   network \tab X \tab X \tab X \tab X \tab X \tab X \tab X \cr
+   graphAM \tab X \tab X \tab X \tab X \tab X \tab X \tab X \cr
+}
 }
 \description{
 The \code{as_} functions in \code{{migraph}} coerce objects
@@ -96,6 +96,7 @@ as_matrix(test)
 as_igraph(test)
 as_tidygraph(test)
 as_network(test)
+as_graphAM(test)
 }
 \seealso{
 Other manipulations: 

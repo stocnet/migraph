@@ -54,16 +54,18 @@
 #' as_igraph(test)
 #' as_tidygraph(test)
 #' as_network(test)
+#' as_graphAM(test)
 #' @return
 #' The currently implemented coercions or translations are:
 #' 
-#' |  to/from  | edgelists  | matrices  |igraph  |tidygraph  |network  | siena | goldfish | graphAM
+#' |  to/from  | edgelists  | matrices  |igraph  |tidygraph  |network  | siena | goldfish
 #' | ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
-#' | edgelists (data frames)  | X | X | X | X | X |   | X |   |
-#' | matrices                 | X | X | X | X | X |   | X | X |
-#' | igraph                   | X | X | X | X | X | X | X |   |
-#' | tidygraph                | X | X | X | X | X | X | X |   |
-#' | network                  | X | X | X | X | X | X | X |   |
+#' | edgelists (data frames)  | X | X | X | X | X | X | X |
+#' | matrices                 | X | X | X | X | X | X | X |
+#' | igraph                   | X | X | X | X | X | X | X |
+#' | tidygraph                | X | X | X | X | X | X | X |
+#' | network                  | X | X | X | X | X | X | X |
+#' | graphAM                  | X | X | X | X | X | X | X |
 NULL
 
 # Edgelists ####
@@ -735,11 +737,41 @@ as_network.siena <- function(object, twomode = FALSE) {
 #' @importFrom methods new
 #' @export
 as_graphAM <- function(object,
-                     twomode = FALSE) UseMethod("as_graphAM")
+                     twomode = NULL) UseMethod("as_graphAM")
 
 #' @export
-as_graphAM.matrix <- function(object, twomode = FALSE){
-  methods::new("graphAM", adjMat = object, 
+as_graphAM.matrix <- function(object, twomode = NULL){
+  methods::new("graphAM", adjMat = to_onemode(object), 
                edgemode = ifelse(is_directed(object), 
                                  "directed", "undirected"))
+}
+
+#' @export
+as_graphAM.igraph <- function(object, twomode = NULL){
+  as_graphAM(as_matrix(object), twomode)
+}
+
+#' @export
+as_graphAM.tbl_graph <- function(object, twomode = NULL){
+  as_graphAM(as_matrix(object), twomode)
+}
+
+#' @export
+as_graphAM.network <- function(object, twomode = NULL){
+  as_graphAM(as_matrix(object), twomode)
+}
+
+#' @export
+as_graphAM.data.frame <- function(object, twomode = NULL){
+  as_graphAM(as_matrix(object), twomode)
+}
+
+#' @export
+as_graphAM.siena <- function(object, twomode = NULL){
+  as_graphAM(as_matrix(object), twomode)
+}
+
+#' @export
+as_graphAM.network.goldfish <- function(object, twomode = NULL){
+  as_graphAM(as_matrix(object), twomode)
 }
