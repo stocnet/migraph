@@ -399,7 +399,7 @@ to_onemode <- function(object) UseMethod("to_onemode")
 
 #' @export
 to_onemode.matrix <- function(object) {
-  if (nrow(object) != ncol(object)){
+  if (is_twomode(object)){
     object <- rbind(cbind(matrix(0, nrow(object), nrow(object)), object),
                     cbind(t(object), matrix(0, ncol(object), ncol(object))))
     colnames(object) <- rownames(object)
