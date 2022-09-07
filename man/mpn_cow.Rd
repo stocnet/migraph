@@ -57,13 +57,13 @@
 }
 \source{
 The Correlates of War Project. 2012.
-\href{https://correlatesofwar.org/data-sets/bilateral-trade}{\emph{Trade}}.
+\href{https://correlatesofwar.org/data-sets/bilateral-trade/}{\emph{Trade}}.
 
 Barbieri, Katherine and Omar Keshk. 2012.
 Correlates of War Project Trade Data Set Codebook, Version 3.0.
 
 The Correlates of War Project. 2019.
-\href{https://correlatesofwar.org/data-sets/IGOs}{\emph{Intergovernmental Organization v3}}.
+\href{https://correlatesofwar.org/data-sets/IGOs/}{\emph{Intergovernmental Organization v3}}.
 }
 \usage{
 data(mpn_cow_trade)
