@@ -521,6 +521,11 @@ to_mode1.network <- function(object, similarity = c("count","jaccard","rand","pe
   as_network(to_mode1(as_matrix(object), similarity = similarity))
 }
 
+#' @export
+to_mode1.data.frame <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  as_edgelist(to_mode1(as_matrix(object), similarity = similarity))
+}
+
 #' @describeIn transform Results in a weighted one-mode object
 #' that retains the column nodes from a two-mode object,
 #' and weights the ties between them on the basis of
@@ -562,15 +567,15 @@ to_mode2.network <- function(object, similarity = c("count","jaccard","rand","pe
   as_network(to_mode2(as_matrix(object), similarity))
 }
 
+#' @export
+to_mode2.data.frame <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+  as_edgelist(to_mode2(as_matrix(object), similarity))
+}
+
 #' @describeIn transform Returns an object that includes only the main component
 #' without any smaller components or isolates
 #' @export
 to_giant <- function(object) UseMethod("to_giant")
-
-#' @export
-to_giant.tbl_graph <- function(object) {
-  as_tidygraph(to_main_component(as_igraph(object)))
-}
 
 #' @export
 to_giant.igraph <- function(object) {
@@ -584,6 +589,21 @@ to_giant.network <- function(object) {
   network::delete.vertices(object, 
                            which(!sna::component.largest(object,
                                                          result = "membership")))
+}
+
+#' @export
+to_giant.tbl_graph <- function(object) {
+  as_tidygraph(to_giant(as_igraph(object)))
+}
+
+#' @export
+to_giant.data.frame <- function(object) {
+  as_edgelist(to_giant(as_igraph(object)))
+}
+
+#' @export
+to_giant.matrix <- function(object) {
+  as_matrix(to_giant(as_igraph(object)))
 }
 
 #' @describeIn transform Returns a network subgraph filtered

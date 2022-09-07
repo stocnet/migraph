@@ -87,7 +87,7 @@ of network properties, e.g.:
 - `r list_functions("^is_")`
 
 `{migraph}`'s `to_*()` functions can be used on any class object 
-to transform networks into networks with other properties, e.g.:
+to reformat or transform networks into networks with other properties, e.g.:
 
 - `r list_functions("^to_")`
 
