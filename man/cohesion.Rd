@@ -60,13 +60,13 @@ to remove from the network to increase the number of components.
 graph_density(mpn_elite_mex)
 graph_density(mpn_elite_usa_advice)
 graph_cohesion(ison_marvel_relationships)
-graph_cohesion(to_main_component(ison_marvel_relationships))
+graph_cohesion(to_giant(ison_marvel_relationships))
 graph_adhesion(ison_marvel_relationships)
-graph_adhesion(to_main_component(ison_marvel_relationships))
+graph_adhesion(to_giant(ison_marvel_relationships))
 graph_diameter(ison_marvel_relationships)
-graph_diameter(to_main_component(ison_marvel_relationships))
+graph_diameter(to_giant(ison_marvel_relationships))
 graph_length(ison_marvel_relationships)
-graph_length(to_main_component(ison_marvel_relationships))
+graph_length(to_giant(ison_marvel_relationships))
 }
 \references{
 White, Douglas R and Frank Harary. 2001.

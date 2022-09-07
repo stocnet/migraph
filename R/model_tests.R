@@ -14,7 +14,7 @@ NULL
 #'   against a distribution of measures on random networks of the same dimensions
 #' @examples 
 #' marvel_friends <- to_unsigned(ison_marvel_relationships)
-#' marvel_friends <- to_main_component(marvel_friends) %>% 
+#' marvel_friends <- to_giant(marvel_friends) %>% 
 #'   to_subgraph(PowerOrigin == "Human")
 #' (cugtest <- test_random(marvel_friends, graph_ei_index, attribute = "Attractive",
 #'   times = 200))

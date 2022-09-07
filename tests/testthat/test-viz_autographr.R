@@ -16,7 +16,7 @@ test_that("unweighted, unsigned, undirected networks graph correctly", {
 })
 
 # Unweighted, signed, undirected network
-test_marvel <- autographr(to_main_component(ison_marvel_relationships))
+test_marvel <- autographr(to_giant(ison_marvel_relationships))
 
 test_that("unweighted, signed, undirected networks graph correctly", {
   # Node position

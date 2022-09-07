@@ -127,7 +127,7 @@ but embeds two or more modes into a multimodal network structure.
 autographr(ison_algebra)
 a <- to_uniplex(ison_algebra, "friends")
 autographr(a)
-a <- to_main_component(a)
+a <- to_giant(a)
 autographr(a)
 a <- to_undirected(a)
 autographr(a)

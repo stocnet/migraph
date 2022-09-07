@@ -16,6 +16,7 @@
   - "rand" (Simple Matching Coefficient) offers a measure of behavioral mirroring
   - "pearson" (Pearson's correlation) and "yule" (Yule's Q) offer correlation coefficients for valued and binary data, respectively
   - These options work for matrices, igraph and tidygraph, and network objects
+- Renamed `to_main_component()` to `to_giant()` to be more space efficient
 - Added `to_onemode()` method for matrices
 - Added `to_twomode()` methods for igraph and tidygraph
 - Added `to_matching()` to transform a two-mode network or network with some other (binary) "mark" attribute into a network of matching ties
@@ -35,6 +36,11 @@ Added two-mode application for `to_blocks()` (closed #242)
 
 - Added `node_core()` for partitioning nodes into core and periphery memberships
 - Fixed floating point bug in `k_strict()`
+
+## Models
+
+- Added "tertius" effect for `network_reg()`
+- "ego" and "alter" effects now work better for two-mode networks in `network_reg()`
 
 ## Mapping
 

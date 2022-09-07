@@ -26,9 +26,9 @@ test_that("to_onemode works",{
                as_matrix(as_tidygraph(igraph::delete_vertex_attr(ison_marvel_teams, "type"))))
 })
 
-test_that("to_main_component works",{
+test_that("to_giant works",{
   expect_equal(graph_nodes(ison_marvel_relationships), 53)
-  expect_equal(graph_nodes(to_main_component(ison_marvel_relationships)), 50)
+  expect_equal(graph_nodes(to_giant(ison_marvel_relationships)), 50)
 })
 
 test_that("to_uniplex works", {

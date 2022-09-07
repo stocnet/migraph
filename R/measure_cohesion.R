@@ -44,7 +44,7 @@ graph_components <- function(object){
 #' _Sociological Methodology_ 31(1): 305-59.
 #' @examples 
 #' graph_cohesion(ison_marvel_relationships)
-#' graph_cohesion(to_main_component(ison_marvel_relationships))
+#' graph_cohesion(to_giant(ison_marvel_relationships))
 #' @export
 graph_cohesion <- function(object){
   make_graph_measure(igraph::cohesion(as_igraph(object)),
@@ -56,7 +56,7 @@ graph_cohesion <- function(object){
 #' @importFrom igraph adhesion
 #' @examples 
 #' graph_adhesion(ison_marvel_relationships)
-#' graph_adhesion(to_main_component(ison_marvel_relationships))
+#' graph_adhesion(to_giant(ison_marvel_relationships))
 #' @export
 graph_adhesion <- function(object){
   make_graph_measure(igraph::adhesion(as_igraph(object)),
@@ -67,7 +67,7 @@ graph_adhesion <- function(object){
 #' @importFrom igraph diameter
 #' @examples 
 #' graph_diameter(ison_marvel_relationships)
-#' graph_diameter(to_main_component(ison_marvel_relationships))
+#' graph_diameter(to_giant(ison_marvel_relationships))
 #' @export
 graph_diameter <- function(object){
   object <- as_igraph(object)
@@ -80,7 +80,7 @@ graph_diameter <- function(object){
 #' @importFrom igraph mean_distance
 #' @examples 
 #' graph_length(ison_marvel_relationships)
-#' graph_length(to_main_component(ison_marvel_relationships))
+#' graph_length(to_giant(ison_marvel_relationships))
 #' @export
 graph_length <- function(object){
   object <- as_igraph(object)

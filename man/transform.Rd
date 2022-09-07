@@ -4,7 +4,7 @@
 \alias{transform}
 \alias{to_mode1}
 \alias{to_mode2}
-\alias{to_main_component}
+\alias{to_giant}
 \alias{to_subgraph}
 \alias{to_ties}
 \alias{to_blocks}
@@ -15,7 +15,7 @@ to_mode1(object, similarity = c("count", "jaccard", "rand", "pearson", "yule"))
 
 to_mode2(object, similarity = c("count", "jaccard", "rand", "pearson", "yule"))
 
-to_main_component(object)
+to_giant(object)
 
 to_subgraph(object, ...)
 
@@ -100,7 +100,7 @@ that retains the column nodes from a two-mode object,
 and weights the ties between them on the basis of
 their joint ties to nodes in the first mode (rows).
 
-\item \code{to_main_component()}: Returns an object that includes only the main component
+\item \code{to_giant()}: Returns an object that includes only the main component
 without any smaller components or isolates
 
 \item \code{to_subgraph()}: Returns a network subgraph filtered

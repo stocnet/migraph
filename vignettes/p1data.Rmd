@@ -160,7 +160,7 @@ Then there are a few more special functions included here too:
 
 - `to_multilevel()` converts objects with two or more modes into a multimodal network structure with attribute 'lvl' (1, 2, etc) instead of 'type' (FALSE or TRUE)
 - `to_onemode()` converts multimodal networks into networks with only one type of node, retaining the same nodes and ties
-- `to_main_component()` identifies and returns only the main component of a network
+- `to_giant()` identifies and returns only the main component of a network
 - `to_named()` adds random names to an anonymous network, which can be useful for pedagogical purposes
 
 ```{r combine}

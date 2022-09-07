@@ -46,7 +46,7 @@ NULL
 #' autographr(ison_algebra)
 #' a <- to_uniplex(ison_algebra, "friends")
 #' autographr(a)
-#' a <- to_main_component(a)
+#' a <- to_giant(a)
 #' autographr(a)
 #' a <- to_undirected(a)
 #' autographr(a)
@@ -565,22 +565,22 @@ to_mode2.network <- function(object, similarity = c("count","jaccard","rand","pe
 #' @describeIn transform Returns an object that includes only the main component
 #' without any smaller components or isolates
 #' @export
-to_main_component <- function(object) UseMethod("to_main_component")
+to_giant <- function(object) UseMethod("to_giant")
 
 #' @export
-to_main_component.tbl_graph <- function(object) {
+to_giant.tbl_graph <- function(object) {
   as_tidygraph(to_main_component(as_igraph(object)))
 }
 
 #' @export
-to_main_component.igraph <- function(object) {
+to_giant.igraph <- function(object) {
   comps <- igraph::components(object)
   max.comp <- which.max(comps$csize)
   igraph::delete.vertices(object, comps$membership != max.comp)
 }
 
 #' @export
-to_main_component.network <- function(object) {
+to_giant.network <- function(object) {
   network::delete.vertices(object, 
                            which(!sna::component.largest(object,
                                                          result = "membership")))
