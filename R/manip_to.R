@@ -491,6 +491,7 @@ to_twomode.network <- function(object, mark){
 #' | subgraph  | X |  X | X | X | X |
 #' | ties  | X |  X | X | X | X |
 #' | blocks  | X |  X | X | X | X |
+#' | matching | X | X | X | X | X |
 #'
 #' Note that `to_subgraph()` returns a 'tidygraph' object,
 #' `to_ties()` returns an 'igraph' object,
