@@ -1,3 +1,9 @@
+# migraph 0.11.2
+
+## Package
+
+- Dropped some older defunct functions
+
 # migraph 0.11.1
 
 ## Package
