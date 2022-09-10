@@ -20,7 +20,7 @@ than the original object."><meta property="og:image" content="https://snlab-ch.g
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.2</span>
       </span>
     </div>
 
@@ -137,10 +137,7 @@ By default "type".</p></dd>
     <div id="details">
     <h2>Details</h2>
     <p>Since some modifications are easier to implement for some objects than others,
-here are the currently implemented modifications:</p><table class="table table"><tr><td>to_</td><td>edgelists</td><td>matrices</td><td>igraph</td><td>tidygraph</td><td>network</td></tr><tr><td>mode1</td><td></td><td>X</td><td>X</td><td>X</td><td></td></tr><tr><td>mode2</td><td></td><td>X</td><td>X</td><td>X</td><td></td></tr><tr><td>main_component</td><td></td><td></td><td>X</td><td>X</td><td>X</td></tr><tr><td>subgraph</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>ties</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>blocks</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr></table><p>Note that <code>to_subgraph()</code> returns a 'tidygraph' object,
-<code>to_ties()</code> returns an 'igraph' object,
-and <code>to_blocks()</code> returns a 'matrix' object.</p>
-    </div>
+here are the currently implemented modifications:</p><table class="table table"><tr><td>to_</td><td>edgelists</td><td>matrices</td><td>igraph</td><td>tidygraph</td><td>network</td></tr><tr><td>mode1</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>mode2</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>giant</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>subgraph</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>ties</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>blocks</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>matching</td><td>X</td><td>X</td><td>X</td><td>X</td><td>X</td></tr></table></div>
     <div id="functions">
     <h2>Functions</h2>
     
@@ -159,10 +156,36 @@ on the basis of some node-related logical statement.</p></li>
 <li><p><code>to_ties()</code>: Returns a matrix (named if possible)
 where the edges are the nodes</p></li>
 <li><p><code>to_blocks()</code>: Returns a reduced graph from a given
-partition membership vector</p></li>
+partition membership vector.
+Reduced graphs provide summary representations of network structures
+by collapsing groups of connected nodes into single nodes
+while preserving the topology of the original structures.</p></li>
 <li><p><code>to_matching()</code>: Returns a network with only
 matching ties</p></li>
 </ul></div>
+    <div id="to-matching">
+    <h2>to_matching</h2>
+    
+
+<p><code>to_matching()</code> uses <code>{igraph}</code>'s <code>max_bipartite_match()</code>
+to return a network in which each node is only tied to
+one of its previous ties.
+The number of these ties left is its <em>cardinality</em>,
+and the algorithm seeks to maximise this such that,
+where possible, each node will be associated with just one
+node in the other mode or some other mark.
+The algorithm used is the push-relabel algorithm
+with greedy initialization and a global relabelling
+after every \(\frac{n}{2}\) steps,
+where \(n\) is the number of nodes in the network.</p>
+    </div>
+    <div id="references">
+    <h2>References</h2>
+    <p>Goldberg, A V; Tarjan, R E (1986).
+"A new approach to the maximum flow problem".
+<em>Proceedings of the eighteenth annual ACM symposium on Theory of computing – STOC '86</em>. p. 136.
+<a href="https://doi.org/10.1145/12130.12144" class="external-link">doi:10.1145/12130.12144</a></p>
+    </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other manipulations: 

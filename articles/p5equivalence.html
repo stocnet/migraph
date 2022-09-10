@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.2</span>
       </span>
     </div>
 
@@ -192,9 +192,9 @@
 <p>Where might innovation be most likely to occur in these networks? Let’s take a look at which actors are least constrained by their position in the task network to begin with. <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> makes this easy enough with the <code><a href="../reference/holes.html">node_constraint()</a></code> function.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/holes.html">node_constraint</a></span><span class="op">(</span><span class="va">tasks</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   Melinda  Abby Darryl Veron…¹ Rylan Lindsey  Lula  Elva</span></span>
-<span><span class="co">#&gt; 1   0.930 0.877  0.664   0.987 0.611   0.609 0.900 0.894</span></span>
-<span><span class="co">#&gt; # ... with 8 more from this nodeset in the vector.</span></span></code></pre></div>
+<span><span class="co">#&gt;   Melinda  Abby Darryl Veronica Rylan</span></span>
+<span><span class="co">#&gt; 1   0.930 0.877  0.664    0.987 0.611</span></span>
+<span><span class="co">#&gt; # ... with 11 more from this nodeset in the vector.</span></span></code></pre></div>
 <p>We see that this function returns a vector of constraint scores that can range between 0 and 1. Let’s size the nodes according to this score, and identify the node with the minimum constraint score.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tasks</span> <span class="op">&lt;-</span> <span class="va">tasks</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>low_constraint <span class="op">=</span> <span class="fu"><a href="../reference/mark_nodes.html">node_is_min</a></span><span class="op">(</span><span class="fu"><a href="../reference/holes.html">node_constraint</a></span><span class="op">(</span><span class="va">tasks</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -237,31 +237,31 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/node_census.html">node_tie_census</a></span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 16 × 96</span></span>
-<span><span class="co">#&gt;    fromMelinda…¹ fromA…² fromD…³ fromV…⁴ fromR…⁵ fromL…⁶</span></span>
-<span><span class="co">#&gt;            &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1             0       1       0       0       1       1</span></span>
-<span><span class="co">#&gt;  2             0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt;  3             0       0       0       0       1       2</span></span>
-<span><span class="co">#&gt;  4             0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt;  5             0       0       1       0       0       1</span></span>
-<span><span class="co">#&gt;  6             0       0       1       0       1       0</span></span>
-<span><span class="co">#&gt;  7             0       1       0       0       0       1</span></span>
-<span><span class="co">#&gt;  8             0       1       0       0       1       0</span></span>
-<span><span class="co">#&gt;  9             0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; 10             0       0       0       0       1       1</span></span>
-<span><span class="co">#&gt; 11             0       0       1       0       2       1</span></span>
-<span><span class="co">#&gt; 12             0       0       0       0       0       1</span></span>
-<span><span class="co">#&gt; 13             0       2       0       0       0       0</span></span>
-<span><span class="co">#&gt; 14             0       1       1       0       0       0</span></span>
-<span><span class="co">#&gt; 15             0       0       1       0       0       0</span></span>
-<span><span class="co">#&gt; 16             0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; # … with 90 more variables: fromLula_friends &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   fromElva_friends &lt;dbl&gt;, fromMiriam_friends &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   fromGeorge_friends &lt;dbl&gt;, fromLuella_friends &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   fromDustin_friends &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   fromColleen_friends &lt;dbl&gt;, fromEzra_friends &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   fromMarsha_friends &lt;dbl&gt;, fromDiane_friends &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   toMelinda_friends &lt;dbl&gt;, toAbby_friends &lt;dbl&gt;, …</span></span>
+<span><span class="co">#&gt;    fromM…¹ fromA…² fromD…³ fromV…⁴ fromR…⁵</span></span>
+<span><span class="co">#&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1       0       1       0       0       1</span></span>
+<span><span class="co">#&gt;  2       0       0       0       0       0</span></span>
+<span><span class="co">#&gt;  3       0       0       0       0       1</span></span>
+<span><span class="co">#&gt;  4       0       0       0       0       0</span></span>
+<span><span class="co">#&gt;  5       0       0       1       0       0</span></span>
+<span><span class="co">#&gt;  6       0       0       1       0       1</span></span>
+<span><span class="co">#&gt;  7       0       1       0       0       0</span></span>
+<span><span class="co">#&gt;  8       0       1       0       0       1</span></span>
+<span><span class="co">#&gt;  9       0       0       0       0       0</span></span>
+<span><span class="co">#&gt; 10       0       0       0       0       1</span></span>
+<span><span class="co">#&gt; 11       0       0       1       0       2</span></span>
+<span><span class="co">#&gt; 12       0       0       0       0       0</span></span>
+<span><span class="co">#&gt; 13       0       2       0       0       0</span></span>
+<span><span class="co">#&gt; 14       0       1       1       0       0</span></span>
+<span><span class="co">#&gt; 15       0       0       1       0       0</span></span>
+<span><span class="co">#&gt; 16       0       0       0       0       0</span></span>
+<span><span class="co">#&gt; # … with 91 more variables:</span></span>
+<span><span class="co">#&gt; #   fromLindsey_friends &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   fromLula_friends &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   fromElva_friends &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   fromMiriam_friends &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   fromGeorge_friends &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   fromLuella_friends &lt;dbl&gt;, …</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu"><a href="../reference/node_census.html">node_tie_census</a></span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 16 96</span></span></code></pre></div>
 <p>We can see that the result is a matrix of 16 rows and 96 columns, because we want to catalogue or take a census of all the different incoming/outgoing partners our 16 nodes might have across these three networks. Note also that the result is a weighted matrix; what would you do if you wanted it to be binary?</p>
@@ -350,19 +350,19 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="../reference/node_census.html">node_tie_census</a></span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span>,</span>
 <span>        membership <span class="op">=</span> <span class="va">str_clu</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 4 × 96</span></span>
-<span><span class="co">#&gt;   fromMelinda_…¹ fromA…² fromD…³ fromV…⁴ fromR…⁵ fromL…⁶</span></span>
-<span><span class="co">#&gt;            &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1              0   0.167   0.167       0   0.333     0.5</span></span>
-<span><span class="co">#&gt; 2              0   1       0.2         0   0.2       0.2</span></span>
-<span><span class="co">#&gt; 3              0   0       0.75        0   1         1  </span></span>
-<span><span class="co">#&gt; 4              0   0       0           0   0         0  </span></span>
-<span><span class="co">#&gt; # … with 90 more variables: fromLula_friends &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   fromElva_friends &lt;dbl&gt;, fromMiriam_friends &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   fromGeorge_friends &lt;dbl&gt;, fromLuella_friends &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   fromDustin_friends &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   fromColleen_friends &lt;dbl&gt;, fromEzra_friends &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   fromMarsha_friends &lt;dbl&gt;, fromDiane_friends &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   toMelinda_friends &lt;dbl&gt;, toAbby_friends &lt;dbl&gt;, …</span></span></code></pre></div>
+<span><span class="co">#&gt;   fromMe…¹ fromA…² fromD…³ fromV…⁴ fromR…⁵</span></span>
+<span><span class="co">#&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1        0   0.167   0.167       0   0.333</span></span>
+<span><span class="co">#&gt; 2        0   1       0.2         0   0.2  </span></span>
+<span><span class="co">#&gt; 3        0   0       0.75        0   1    </span></span>
+<span><span class="co">#&gt; 4        0   0       0           0   0    </span></span>
+<span><span class="co">#&gt; # … with 91 more variables:</span></span>
+<span><span class="co">#&gt; #   fromLindsey_friends &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   fromLula_friends &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   fromElva_friends &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   fromMiriam_friends &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   fromGeorge_friends &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   fromLuella_friends &lt;dbl&gt;, …</span></span></code></pre></div>
 <p>Since this node census produces 96 columns, <span class="math inline">\(16 \text{nodes} * 2 \text{directions} * 3 \text{edge types}\)</span>, it takes a bit to look through what varies between the different classes as ‘blocked’.</p>
 <p>Another way to do this is to plot the blockmodel as a whole. Passing the <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> function an adjacency/incidence matrix along with a membership vector allows the matrix to be sorted and framed (without the membership vector, just the adjacency/incidence matrix is plotted):</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">

@@ -23,7 +23,7 @@ wherever possible and update your scripts accordingly."><meta property="og:image
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.2</span>
       </span>
     </div>
 
@@ -74,38 +74,7 @@ wherever possible and update your scripts accordingly.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ggtree</span><span class="op">(</span><span class="va">hc</span>, k <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">ggidentify_clusters</span><span class="op">(</span><span class="va">hc</span>, <span class="va">census</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"elbow"</span>, <span class="st">"strict"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">cluster_structural_equivalence</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">cluster_regular_equivalence</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">blockmodel_concor</span><span class="op">(</span></span>
-<span>  <span class="va">object</span>,</span>
-<span>  p <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  cutoff <span class="op">=</span> <span class="fl">0.999</span>,</span>
-<span>  max.iter <span class="op">=</span> <span class="fl">25</span>,</span>
-<span>  block.content <span class="op">=</span> <span class="st">"density"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">summarise_statistics</span><span class="op">(</span><span class="va">node_measure</span>, clusters <span class="op">=</span> <span class="cn">NULL</span>, sumFUN <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">blockmodel</span><span class="op">(</span><span class="va">object</span>, <span class="va">clusters</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S3 method for block_model</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">reduce_graph</span><span class="op">(</span><span class="va">blockmodel</span>, block_labels <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">ggatyear</span><span class="op">(</span><span class="va">edgelist</span>, <span class="va">year</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">group_tie_census</span><span class="op">(</span><span class="va">object</span>, <span class="va">clusters</span>, decimals <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">group_triad_census</span><span class="op">(</span><span class="va">object</span>, <span class="va">clusters</span>, decimals <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">add_edge_attribute</span><span class="op">(</span><span class="va">object</span>, <span class="va">attr_name</span>, <span class="va">vector</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_edge_attribute</span><span class="op">(</span><span class="va">object</span>, <span class="va">attr_name</span>, <span class="va">vector</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">edge_attribute</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span><span class="op">)</span></span>
 <span></span>
@@ -137,25 +106,19 @@ wherever possible and update your scripts accordingly.</p>
 <span></span>
 <span><span class="fu">to_edges</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">join_edges</span><span class="op">(</span><span class="va">object</span>, <span class="va">object2</span>, <span class="va">attr_name</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">join_edges</span><span class="op">(</span><span class="va">object</span>, <span class="va">object2</span>, <span class="va">attr_name</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">to_main_component</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">graph_blau_index</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span>, clusters <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">graph_ei_index</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>ggtree()</code>: Deprecated on 2022-05-27.</p></li>
-<li><p><code>ggidentify_clusters()</code>: Defunct on 2022-05-27.</p></li>
-<li><p><code>cluster_structural_equivalence()</code>: Deprecated on 2022-05-27.</p></li>
-<li><p><code>cluster_regular_equivalence()</code>: Deprecated on 2022-05-27.</p></li>
-<li><p><code>blockmodel_concor()</code>: Deprecated on 2022-05-30.</p></li>
-<li><p><code>summarise_statistics()</code>: Deprecated on 2022-06-03.</p></li>
-<li><p><code>blockmodel()</code>: Deprecated on 2022-06-03.</p></li>
-<li><p><code>print(block_model)</code>: Deprecated on 2022-06-03.</p></li>
-<li><p><code>reduce_graph()</code>: Deprecated on 2022-06-03.</p></li>
-<li><p><code>ggatyear()</code>: Deprecated on 2022-06-08.</p></li>
-<li><p><code>group_tie_census()</code>: Deprecated on 2022-06-09.</p></li>
-<li><p><code>group_triad_census()</code>: Deprecated on 2022-06-09.</p></li>
-<li><p><code>add_edge_attribute()</code>: Deprecated on 2022-06-28.</p></li>
+<ul><li><p><code>add_edge_attribute()</code>: Deprecated on 2022-06-28.</p></li>
 <li><p><code>edge_attribute()</code>: Deprecated on 2022-06-28.</p></li>
 <li><p><code>edge_signs()</code>: Deprecated on 2022-06-28.</p></li>
 <li><p><code>edge_weights()</code>: Deprecated on 2022-06-28.</p></li>
@@ -172,6 +135,9 @@ wherever possible and update your scripts accordingly.</p>
 <li><p><code>node_cuts()</code>: Deprecated on 2022-06-30.</p></li>
 <li><p><code>to_edges()</code>: Deprecated on 2022-06-28.</p></li>
 <li><p><code>join_edges()</code>: Deprecated on 2022-07-03.</p></li>
+<li><p><code>to_main_component()</code>: Deprecated on 2022-09-07.</p></li>
+<li><p><code>graph_blau_index()</code>: Deprecated on 2022-09-10.</p></li>
+<li><p><code>graph_ei_index()</code>: Deprecated on 2022-09-10.</p></li>
 </ul></div>
 
   </div>

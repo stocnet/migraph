@@ -19,7 +19,7 @@ across this attribute."><meta property="og:image" content="https://snlab-ch.gith
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.2</span>
       </span>
     </div>
 
@@ -66,9 +66,9 @@ across this attribute.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">graph_blau_index</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span>, clusters <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">graph_diversity</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span>, clusters <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">graph_ei_index</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span><span class="op">)</span></span>
+<span><span class="fu">graph_homophily</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">graph_assortativity</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -85,7 +85,8 @@ across this attribute.</p>
 
 
 <dt>attribute</dt>
-<dd><p>The name of a vertex attribute to measure the diversity of.</p></dd>
+<dd><p>Name of a nodal attribute or membership vector
+to use as categories for the diversity measure.</p></dd>
 
 
 <dt>clusters</dt>
@@ -95,12 +96,51 @@ across this attribute.</p>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>graph_blau_index()</code>: Calculates the heterogeneity of ties across a network or
-within clusters by node attributes</p></li>
-<li><p><code>graph_ei_index()</code>: Calculates the embeddedness of a node within the group
+<ul><li><p><code>graph_diversity()</code>: Calculates the heterogeneity of ties across a network or
+within clusters by node attributes.</p></li>
+<li><p><code>graph_homophily()</code>: Calculates the embeddedness of a node within the group
 of nodes of the same attribute</p></li>
-<li><p><code>graph_assortativity()</code>: Calculates the degree assortativity in a graph</p></li>
+<li><p><code>graph_assortativity()</code>: Calculates the degree assortativity in a graph.</p></li>
 </ul></div>
+    <div id="graph-diversity">
+    <h2>graph_diversity</h2>
+    
+
+<p>Blau's index (1977) uses a formula known also in other disciplines
+by other names
+(Gini-Simpson Index, Gini impurity, Gini's diversity index,
+Gibbs-Martin index, and probability of interspecific encounter (PIE)):
+$$1 - \sum\limits_{i = 1}^k {p_i^2 }$$,
+where \(p_i\) is the proportion of group members in \(i\)th category
+and <em>k</em> is the number of categories for an attribute of interest.
+This index can be interpreted as the probability that two members
+randomly selected from a group would be from different categories.
+This index finds its minimum value (0) when there is no variety,
+i.e. when all individuals are classified in the same category.
+The maximum value depends on the number of categories and
+whether nodes can be evenly distributed across categories.</p>
+    </div>
+    <div id="graph-homophily">
+    <h2>graph_homophily</h2>
+    
+
+<p>Given a partition of a network into a number of mutually exclusive groups then
+The E-I index is the number of ties between (or <em>external</em>) nodes
+grouped in some mutually exclusive categories
+minus the number of ties within (or <em>internal</em>) these groups
+divided by the total number of ties.
+This value can range from 1 to -1,
+where 1 indicates ties only between categories/groups and -1 ties only within categories/groups.</p>
+    </div>
+    <div id="references">
+    <h2>References</h2>
+    <p>Blau, Peter M. (1977).
+<em>Inequality and heterogeneity</em>.
+New York: Free Press.</p>
+<p>Krackhardt, David and Robert N. Stern (1988).
+Informal networks and organizational crises: an experimental simulation.
+<em>Social Psychology Quarterly</em> 51(2), 123-140.</p>
+    </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other measures: 
@@ -115,15 +155,15 @@ of nodes of the same attribute</p></li>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="reformat.html">to_unsigned</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span>, <span class="st">"positive"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">graph_blau_index</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Gender"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graph_diversity</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Gender"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.306</span>
-<span class="r-in"><span><span class="fu">graph_blau_index</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Attractive"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graph_diversity</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Attractive"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.35</span>
-<span class="r-in"><span><span class="fu">graph_blau_index</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Gender"</span>, <span class="st">"Rich"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graph_diversity</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Gender"</span>, <span class="st">"Rich"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.337 0.165</span>
-<span class="r-in"><span><span class="fu">graph_ei_index</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Gender"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graph_homophily</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Gender"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.285</span>
-<span class="r-in"><span><span class="fu">graph_ei_index</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Attractive"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graph_homophily</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Attractive"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.632</span>
 <span class="r-in"><span><span class="fu">graph_assortativity</span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.176</span>
