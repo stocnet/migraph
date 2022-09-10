@@ -2,6 +2,7 @@
 
 ## Package
 
+- Filled in some further documentation
 - Dropped some older defunct functions
 
 ## Measures

@@ -485,17 +485,13 @@ to_twomode.network <- function(object, mark){
 #' 
 #' |  to_      | edgelists | matrices  |igraph  |tidygraph  |network  |
 #' | ------------- |:-----:|:-----:|:-----:|:-----:|:-----:|
-#' | mode1 | | X | X | X | |
-#' | mode2 | | X | X | X | |
-#' | main_component  |  |   | X | X | X |
-#' | subgraph  | X |  X | X | X | X |
-#' | ties  | X |  X | X | X | X |
-#' | blocks  | X |  X | X | X | X |
+#' | mode1 | X | X | X | X | X |
+#' | mode2 | X | X | X | X | X |
+#' | giant  | X | X | X | X | X |
+#' | subgraph  | X | X | X | X | X |
+#' | ties  | X | X | X | X | X |
+#' | blocks  | X | X | X | X | X |
 #' | matching | X | X | X | X | X |
-#'
-#' Note that `to_subgraph()` returns a 'tidygraph' object,
-#' `to_ties()` returns an 'igraph' object,
-#' and `to_blocks()` returns a 'matrix' object.
 #' @name transform
 #' @family manipulations
 #' @inheritParams reformat
@@ -720,7 +716,10 @@ to_ties.matrix <- function(object){
 }
 
 #' @describeIn transform Returns a reduced graph from a given
-#'   partition membership vector
+#'   partition membership vector.
+#'   Reduced graphs provide summary representations of network structures 
+#'   by collapsing groups of connected nodes into single nodes 
+#'   while preserving the topology of the original structures.
 #' @param membership A vector of partition memberships.
 #' @param FUN A function for summarising block content.
 #'   By default `mean`.
@@ -787,6 +786,23 @@ to_blocks.tbl_graph <- function(object, membership, FUN = mean){
 
 #' @describeIn transform Returns a network with only
 #'   matching ties
+#' @section to_matching:
+#'   `to_matching()` uses `{igraph}`'s `max_bipartite_match()`
+#'   to return a network in which each node is only tied to
+#'   one of its previous ties.
+#'   The number of these ties left is its _cardinality_,
+#'   and the algorithm seeks to maximise this such that,
+#'   where possible, each node will be associated with just one
+#'   node in the other mode or some other mark.
+#'   The algorithm used is the push-relabel algorithm
+#'   with greedy initialization and a global relabelling
+#'   after every \eqn{\frac{n}{2}} steps,
+#'   where \eqn{n} is the number of nodes in the network.
+#' @references 
+#'   Goldberg, A V; Tarjan, R E (1986). 
+#'   "A new approach to the maximum flow problem". 
+#'   _Proceedings of the eighteenth annual ACM symposium on Theory of computing – STOC '86_. p. 136. 
+#'   \doi{10.1145/12130.12144}
 #' @param mark A logical vector marking two types or modes.
 #'   By default "type".
 #' @importFrom igraph max_bipartite_match
