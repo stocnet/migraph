@@ -4,6 +4,11 @@
 
 - Dropped some older defunct functions
 
+## Measures
+
+- Renamed `graph_blau_index()` to `graph_diversity()`
+- Renamed `graph_ei_index()` to `graph_homophily()`
+
 ## Mapping
 
 - Fixed bug with `autographr()`'s "node_group" argument

@@ -2,14 +2,14 @@
 % Please edit documentation in R/measure_diversity.R
 \name{diversity}
 \alias{diversity}
-\alias{graph_blau_index}
-\alias{graph_ei_index}
+\alias{graph_diversity}
+\alias{graph_homophily}
 \alias{graph_assortativity}
 \title{Measures of network diversity}
 \usage{
-graph_blau_index(object, attribute, clusters = NULL)
+graph_diversity(object, attribute, clusters = NULL)
 
-graph_ei_index(object, attribute)
+graph_homophily(object, attribute)
 
 graph_assortativity(object)
 }
@@ -23,7 +23,8 @@ graph_assortativity(object)
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
 
-\item{attribute}{The name of a vertex attribute to measure the diversity of.}
+\item{attribute}{Name of a nodal attribute or membership vector
+to use as categories for the diversity measure.}
 
 \item{clusters}{A nodal cluster membership vector or name of a vertex attribute.}
 }
@@ -34,23 +35,60 @@ across this attribute.
 }
 \section{Functions}{
 \itemize{
-\item \code{graph_blau_index()}: Calculates the heterogeneity of ties across a network or
-within clusters by node attributes
+\item \code{graph_diversity()}: Calculates the heterogeneity of ties across a network or
+within clusters by node attributes.
 
-\item \code{graph_ei_index()}: Calculates the embeddedness of a node within the group
+\item \code{graph_homophily()}: Calculates the embeddedness of a node within the group
 of nodes of the same attribute
 
-\item \code{graph_assortativity()}: Calculates the degree assortativity in a graph
+\item \code{graph_assortativity()}: Calculates the degree assortativity in a graph.
 
 }}
+\section{graph_diversity}{
+
+Blau's index (1977) uses a formula known also in other disciplines
+by other names
+(Gini-Simpson Index, Gini impurity, Gini's diversity index,
+Gibbs-Martin index, and probability of interspecific encounter (PIE)):
+\deqn{1 - \sum\limits_{i = 1}^k {p_i^2 }},
+where \eqn{p_i} is the proportion of group members in \eqn{i}th category
+and \emph{k} is the number of categories for an attribute of interest.
+This index can be interpreted as the probability that two members
+randomly selected from a group would be from different categories.
+This index finds its minimum value (0) when there is no variety,
+i.e. when all individuals are classified in the same category.
+The maximum value depends on the number of categories and
+whether nodes can be evenly distributed across categories.
+}
+
+\section{graph_homophily}{
+
+Given a partition of a network into a number of mutually exclusive groups then
+The E-I index is the number of ties between (or \emph{external}) nodes
+grouped in some mutually exclusive categories
+minus the number of ties within (or \emph{internal}) these groups
+divided by the total number of ties.
+This value can range from 1 to -1,
+where 1 indicates ties only between categories/groups and -1 ties only within categories/groups.
+}
+
 \examples{
 marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
-graph_blau_index(marvel_friends, "Gender")
-graph_blau_index(marvel_friends, "Attractive")
-graph_blau_index(marvel_friends, "Gender", "Rich")
-graph_ei_index(marvel_friends, "Gender")
-graph_ei_index(marvel_friends, "Attractive")
+graph_diversity(marvel_friends, "Gender")
+graph_diversity(marvel_friends, "Attractive")
+graph_diversity(marvel_friends, "Gender", "Rich")
+graph_homophily(marvel_friends, "Gender")
+graph_homophily(marvel_friends, "Attractive")
 graph_assortativity(mpn_elite_mex)
+}
+\references{
+Blau, Peter M. (1977).
+\emph{Inequality and heterogeneity}.
+New York: Free Press.
+
+Krackhardt, David and Robert N. Stern (1988).
+Informal networks and organizational crises: an experimental simulation.
+\emph{Social Psychology Quarterly} 51(2), 123-140.
 }
 \seealso{
 Other measures: 

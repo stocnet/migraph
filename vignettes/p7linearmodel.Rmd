@@ -12,12 +12,18 @@ vignette: >
 
 # Setting up
 
-For this lab, we'll explore a couple of different datasets.
-First, let's examine heterogeneity within the Marvel relationships dataset.
-Since this is a signed network, let's first extract just the friendships.
-We'll also concentrate on just the main component (no isolates).
-And, for the sake of simplicity, just the characters that appear
-in the comics more than average for these characters.
+For this session, we'll explore a couple of different datasets.
+
+First, let's examine homogeneity/heterogeneity in the Marvel relationships dataset.
+The dataset included in the package is quite complicated,
+so to make this simpler, let's concentrate on:
+
+- just the positive (friendship) ties and not the negative (enmity) ties
+- the main component without any isolates
+- just those characters that appear in the comics more than average
+
+Fortunately, all these data cleaning moves are easy to do in `{migraph}`,
+and can be seen in the following chunk in order:
 
 
 ```r
@@ -31,16 +37,18 @@ marvel_friends
 #> # An undirected simple graph with 1 component
 #> #
 #> # Node Data: 19 × 10 (active)
-#>   name  Gender Appear… Attrac…  Rich Intell… Omnili…
-#>   <chr> <chr>    <int>   <int> <int>   <int>   <int>
-#> 1 Beast Male      7609       1     0       1       0
-#> 2 Capt… Male      9000       1     0       1       0
-#> 3 Colo… Male      5974       1     0       0       0
-#> 4 Cycl… Male      8853       1     0       1       0
-#> 5 Emma… Female    4777       1     0       0       1
-#> 6 Hawk… Male      3982       1     0       0       0
-#> # … with 13 more rows, and 3 more variables:
-#> #   PowerOrigin <chr>, UnarmedCombat <int>,
+#>   name  Gender Appear… Attrac…  Rich
+#>   <chr> <chr>    <int>   <int> <int>
+#> 1 Beast Male      7609       1     0
+#> 2 Capt… Male      9000       1     0
+#> 3 Colo… Male      5974       1     0
+#> 4 Cycl… Male      8853       1     0
+#> 5 Emma… Female    4777       1     0
+#> 6 Hawk… Male      3982       1     0
+#> # … with 13 more rows, and 5 more
+#> #   variables: Intellect <int>,
+#> #   Omnilingual <int>, PowerOrigin <chr>,
+#> #   UnarmedCombat <int>,
 #> #   ArmedCombat <int>
 #> #
 #> # Edge Data: 107 × 2
@@ -63,9 +71,14 @@ autographr(marvel_friends,
            node_color = "PowerOrigin")
 ```
 
-![plot of chunk vis](teaching/vis-1.png)
+![plot of chunk unnamed-chunk-2](teaching/unnamed-chunk-2-1.png)
 
-There seems to be a bit of a distribution of some of these variables.
+These variables seem to be distributed unevenly across the network.
+There seems to be some homophily, or like choosing like,
+operating here, but it is difficult to tell because there are
+clearly more male than female superheros shown here,
+as well as clearly more superheros of mutant origin than others.
+To get started then, we need to establish how diverse this network is really.
 
 # Calculating diversity
 
@@ -84,15 +97,15 @@ would receive a score of 1.
 
 
 ```r
-graph_blau_index(marvel_friends, "Gender")
+graph_diversity(marvel_friends, "Gender")
 #> [1] 0.388
-graph_blau_index(marvel_friends, "PowerOrigin")
+graph_diversity(marvel_friends, "PowerOrigin")
 #> [1] 0.593
-graph_blau_index(marvel_friends, "Attractive")
+graph_diversity(marvel_friends, "Attractive")
 #> [1] 0.188
-graph_blau_index(marvel_friends, "Rich")
+graph_diversity(marvel_friends, "Rich")
 #> [1] 0.188
-graph_blau_index(marvel_friends, "Intellect")
+graph_diversity(marvel_friends, "Intellect")
 #> [1] 0.465
 ```
 
@@ -107,13 +120,15 @@ or equally intellectually diverse across gender.^[Note that this works for calcu
 
 
 ```r
-graph_blau_index(marvel_friends, "Gender", "PowerOrigin")
+graph_diversity(marvel_friends, "Gender", "PowerOrigin")
 #> [1] 0.000 0.000 0.463 0.375
-graph_blau_index(marvel_friends, "Intellect", "Gender")
+graph_diversity(marvel_friends, "Intellect", "Gender")
 #> [1] 0.480 0.459
 ```
 
-Looks like some origin stories are much more diverse than others.
+Note that the length of the vector returned as a result
+is the number of categories in the second category listed.
+It looks like some origin stories are much more diverse than others.
 Gods (just Thor here) and humans are all men,
 whereas those with mutant or radiation origin stories are more gender diverse.
 There doesn't seem to be any significant difference in intellect 
@@ -124,21 +139,25 @@ We can visualise this quite effectively using the `node_groups` argument:
 ```r
 autographr(marvel_friends, 
            node_group = "PowerOrigin", 
-           node_shape = "Gender")
+           node_color = "Gender")
 ```
 
 ![plot of chunk blaugroups](teaching/blaugroups-1.png)
 
 ```r
 autographr(marvel_friends, 
-           node_group = "Gender", 
-           node_shape = "Intellect")
+           node_color = "Gender", 
+           node_size = "Intellect")
 ```
 
 ![plot of chunk blaugroups](teaching/blaugroups-2.png)
 
+Ok, this tells us about how (un)even the distribution of these variables is in this network,
+but it doesn't necessarily tell us whether within this network there is homophily/heterophily.
+
 ## Calculating EI index
 
+A step in this direction is to calculate the EI (or E-I) index.
 Calculating the EI index follows the same syntax.
 Recall that the EI index is calculated as:
 
@@ -150,11 +169,11 @@ As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1
 
 
 ```r
-(obs.gender <- graph_ei_index(marvel_friends, "Gender"))
+(obs.gender <- graph_homophily(marvel_friends, "Gender"))
 #> [1] -0.196
-(obs.powers <- graph_ei_index(marvel_friends, "PowerOrigin")) 
+(obs.powers <- graph_homophily(marvel_friends, "PowerOrigin")) 
 #> [1] -0.00935
-(obs.attract <- graph_ei_index(marvel_friends, "Attractive")) 
+(obs.attract <- graph_homophily(marvel_friends, "Attractive")) 
 #> [1] -0.645
 ```
 
@@ -163,8 +182,8 @@ but the score for power origin homophily is so close to 0 that
 it does not seem to signal much.
 There seems to be a fairly large effect for homophily on the basis of looks though...
 
-But ultimately these are just scores,
-and this doesn't tell us whether this is any more or less than
+Ultimately though, these are just scores,
+and doesn't tell us whether this is any more or less than
 what we might expect the score to be by chance for a network
 of this size and density and distribution of that attribute.
 
@@ -172,21 +191,26 @@ of this size and density and distribution of that attribute.
 
 ## Conditional uniform graph tests
 
-To get at that, we will simulate a series of random graphs
+To see whether we should be surprised by a score this high/low, 
+we will simulate a series of random graphs
 (Erdös-Renyi/Bernoulli) of the same dimensions and
 distribution of the attribute to find out whether there is
 more homophily or heterophily than expected by chance.
 
+This is called a conditional uniform graph test,
+but `{migraph}` chooses more descriptive function names,
+such as `test_random()`:
+
 
 ```r
 rand.gender <- test_random(marvel_friends, 
-                            graph_ei_index, attribute = "Gender", 
+                            graph_homophily, attribute = "Gender", 
                            times = 20)
 rand.power <- test_random(marvel_friends, 
-                           graph_ei_index, attribute = "PowerOrigin", 
+                           graph_homophily, attribute = "PowerOrigin", 
                            times = 20)
 rand.attract <- test_random(marvel_friends, 
-                             graph_ei_index, attribute = "Attractive", 
+                             graph_homophily, attribute = "Attractive", 
                            times = 20)
 plot(rand.gender) / 
 plot(rand.power) /
@@ -195,18 +219,30 @@ plot(rand.attract)
 
 ![plot of chunk rando](teaching/rando-1.png)
 
-This is really interesting.
-It looks like we cannot reject the null hypothesis that there is no homophily
-for gender nor for attractiveness,
-but we can reject the null hypothesis with respect to their power origin story.
-While the effect itself is close to 0 (neither strong homophily nor heterophily),
+The plots of these results use a dotted vertical line for 0 where this is in bounds,
+a red vertical line for the observed score,
+and a density plot of the scores from the randomly generated networks.
+The grey tails of the distribution are a visual aid indicating the most extreme 5% of scores
+from the distribution.
+
+The results are _really_ interesting.
+Despite being the larger coefficients (in absolute terms),
+it looks like we cannot reject the null hypothesis that there is no homophily
+for gender nor for attractiveness.
+Both observed scores fall within the range of scores we would expect from
+randomly generated networks with the same distribution of that variable.
+
+However, we can reject the null hypothesis with respect to their power origin story.
+While the coefficient itself is close to 0 (neither strong homophily nor heterophily),
 all the random networks generated returned larger EI scores, between .1 and .4.
-So there is significantly less heterophily here than expected.
+That is, there is significantly less heterophily here than expected.
 
 ## Quadratic assignment procedure tests
 
-But perhaps the random graph is not the best reference group for establishing whether
-there is a significant homophily effect here.
+Ah, but perhaps the random graph is not the best reference group 
+for establishing whether there is a significant homophily effect here.
+After all, social networks are not completely random; they are structured.
+
 Another approach is to use permutations of the network.
 Permuting the network retains the structure of the network, 
 but reassigns any labels (variables) randomly.
@@ -235,11 +271,11 @@ just as we did with random graphs.
 
 ```r
 perm.gender <- test_permutation(marvel_friends, 
-                                graph_ei_index, attribute = "Gender",
-                                times = 20)
+                                graph_homophily, attribute = "Gender",
+                                times = 1000)
 perm.power <- test_permutation(marvel_friends, 
-                               graph_ei_index, attribute = "PowerOrigin",
-                                times = 20)
+                               graph_homophily, attribute = "PowerOrigin",
+                                times = 1000)
 ```
 
 Again, we see that there is perhaps nothing so surprising that we got the homophily score
@@ -253,15 +289,16 @@ for gender that we did, but the lack of power origin heterophily is surprising.
 
 ![plot of chunk cugqap](teaching/cugqap-1.png)
 
-Note how distributions are generally wider when permuting the observed network 
-than creating a random distribution.
-That is, we expect a larger spread in the EI index for a network of this structure.
+Note how the distributions are generally wider when permuting the observed network 
+than creating a random distribution (be mindful of the scale of the _x_-axis).
+That is, taking into account the structure of the network leads us to
+expect a larger spread in the EI index than when the variable is distributed around a random network.
 
 # Network linear models
 
-Next let us examine another network and see to what degree homophily plays a role.
-Here we are going to use the EIES dataset.
+Next let us examine homophily in another network.
 The data were collected as part of an early experiment on communication between social network researchers who were using an Electronic Information Exchange System (EIES).
+You may recognise some of the names.
 The main network consists of 32 scholars with directed ties weighted by the total number of messages sent from $i$ to $j$ over the period of the study.
 Nodal attributes collected include the primary discipline and number of citations in the social science citation index at the start of the study.
 
@@ -273,14 +310,14 @@ ison_networkers
 #> # A directed simple graph with 1 component
 #> #
 #> # Node Data: 32 × 3 (active)
-#>   name               Discipline   Citations
-#>   <chr>              <chr>            <dbl>
-#> 1 LIN FREEMAN        Sociology           19
-#> 2 DOUG WHITE         Anthropology         3
-#> 3 EV ROGERS          Other              170
-#> 4 RICHARD ALBA       Sociology           23
-#> 5 PHIPPS ARABIE      Other               16
-#> 6 CAROL BARNER-BARRY Other                6
+#>   name               Discipline   Citatio…
+#>   <chr>              <chr>           <dbl>
+#> 1 LIN FREEMAN        Sociology          19
+#> 2 DOUG WHITE         Anthropology        3
+#> 3 EV ROGERS          Other             170
+#> 4 RICHARD ALBA       Sociology          23
+#> 5 PHIPPS ARABIE      Other              16
+#> 6 CAROL BARNER-BARRY Other               6
 #> # … with 26 more rows
 #> #
 #> # Edge Data: 440 × 3
@@ -296,17 +333,20 @@ autographr(ison_networkers,
 
 ![plot of chunk intro-eies](teaching/intro-eies-1.png)
 
-Let's use both the continuous `Citations` and the categorical `Discipline` variables and come up with a couple of key hypotheses:
+Let's use both the continuous `Citations` and the categorical `Discipline` variables 
+and come up with a couple of key hypotheses:
 
-- whether these researchers send more emails to those who are cited more
-- whether there is disciplinary homophily
+- $H_1$: whether these researchers send more emails to those who are cited more
+- $H_2$: whether there is disciplinary homophily
 
-Let's start with a pretty maximally specified model (note that it doesn't make sense to include both ego and alter effects because these are undirected :
+Let's start with a pretty maximally specified model 
+(note that it doesn't make sense to include both ego and alter effects because these are undirected):
 
 
 ```r
-model1 <- network_reg(weight ~ alter(Citations) + same(Discipline), 
-                      ison_networkers, times = 20)
+model1 <- network_reg(weight ~ alter(Citations) + sim(Citations) + 
+                      alter(Discipline) + same(Discipline), 
+                      ison_networkers, times = 200)
 ```
 
 We can use tidy methods to get the salient information from this model,
@@ -316,26 +356,38 @@ facilitate the quick interpretation of these results.
 
 ```r
 tidy(model1)
-#> # A tibble: 3 × 4
-#>   term            estimate statistic p.value
-#>   <chr>              <dbl>     <dbl>   <dbl>
-#> 1 (intercept)       16.3        8.38    0   
-#> 2 alter Citations   -0.132     -3.02    0.3 
-#> 3 same Discipline    5.40       1.85    0.15
+#> # A tibble: 7 × 4
+#>   term            estimate stati…¹ p.value
+#>   <chr>              <dbl>   <dbl>   <dbl>
+#> 1 (intercept)       1.72     0.194   0.91 
+#> 2 alter Citations  -0.0326  -0.588   0.58 
+#> 3 sim Citations    24.4      2.86    0.235
+#> 4 alter Discipli… -16.8     -3.07    0.29 
+#> 5 alter Discipli… -10.6     -2.31    0.475
+#> 6 alter Discipli…  -7.37    -1.90    0.575
+#> 7 same Discipline   3.90     1.23    0.395
+#> # … with abbreviated variable name
+#> #   ¹​statistic
 glance(model1)
 #> # A tibble: 1 × 8
-#>   r.squared adj.r.…¹ sigma stati…² p.value    df df.re…³
-#>       <dbl>    <dbl> <dbl>   <dbl>   <dbl> <dbl>   <int>
-#> 1    0.0120   0.0100  43.5    6.03 0.00250     2     989
-#> # … with 1 more variable: nobs <int>, and abbreviated
-#> #   variable names ¹​adj.r.squared, ²​statistic,
-#> #   ³​df.residual
+#>   r.squared adj.r.…¹ sigma stati…² p.value
+#>       <dbl>    <dbl> <dbl>   <dbl>   <dbl>
+#> 1    0.0334   0.0275  43.1    5.67 8.33e-6
+#> # … with 3 more variables: df <dbl>,
+#> #   df.residual <int>, nobs <int>, and
+#> #   abbreviated variable names
+#> #   ¹​adj.r.squared, ²​statistic
 plot(model1)
 ```
 
 ![plot of chunk qap-interp](teaching/qap-interp-1.png)
 
+This voilin plot presents the distribution of coefficients from permutations of the network,
+with the fitted coefficient from the data as a red dot.
+Subtle lines are used to indicate 95%,
+but here the distributions are rendered so wide that they are often not seen.
 
-Hmm, looks like we can't say much from this fit.
-You can try and increase the number of `times` we permute,
-but it's unlike to make much difference.
+Hmm, looks like we can't say much from this fit:
+the fitted coefficients are, if not typical, at least unsurprising
+from permutations of the network and so there's no evidence 
+for rejecting our hypotheses in this data.

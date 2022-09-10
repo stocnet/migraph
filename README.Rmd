@@ -133,7 +133,7 @@ with existing function names wherever possible.
 - Centralization: `graph_degree()`, `graph_closeness()`, `graph_betweenness()`, and `graph_eigenvector()`
 - Cohesion: `graph_density()`, `graph_reciprocity()`, `graph_transitivity()`, `graph_equivalency()`, and `graph_congruency()`
 - Connectedness: `graph_components()`, `graph_cohesion()`, `graph_adhesion()`, `graph_diameter()`, `graph_length()`
-- Diversity: `graph_blau_index()`, `graph_ei_index()`, `graph_assortativity()`
+- Diversity: `graph_diversity()`, `graph_homophily()`, `graph_assortativity()`
 - Structural holes: e.g. `node_redundancy()`, `node_effsize()`, `node_efficiency()`, `node_constraint()`, `node_hierarchy()`
 - Topological features: e.g. `graph_core()`, `graph_factions()`, `graph_modularity()`, `graph_smallworld()`, `graph_balance()`
 
