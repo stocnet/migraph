@@ -335,7 +335,7 @@ NULL
 #' Cambridge University Press. Cambridge University Press.
 #' @source 
 #' The Correlates of War Project. 2012.
-#' \href{https://correlatesofwar.org/data-sets/bilateral-trade}{\emph{Trade}}.
+#' \href{https://correlatesofwar.org/data-sets/bilateral-trade/}{\emph{Trade}}.
 #' 
 #' Barbieri, Katherine and Omar Keshk. 2012. 
 #' Correlates of War Project Trade Data Set Codebook, Version 3.0.
@@ -349,7 +349,7 @@ NULL
 #' @usage data(mpn_cow_igo)
 #' @source
 #' The Correlates of War Project. 2019.
-#' \href{https://correlatesofwar.org/data-sets/IGOs}{\emph{Intergovernmental Organization v3}}.
+#' \href{https://correlatesofwar.org/data-sets/IGOs/}{\emph{Intergovernmental Organization v3}}.
 #' @references 
 #' Pevehouse, Jon C.W., Timothy Nordstron, Roseanne W McManus, Anne Spencer Jamison. 2020.
 #' “Tracking Organizations in the World: The Correlates of War IGO Version 3.0 datasets”.

@@ -47,6 +47,7 @@ Note that we use Borgatti's reformulation for unweighted networks in
 Redundancy is thus \eqn{\frac{2t}{n}},
 where \eqn{t} is the sum of ties and \eqn{n} the sum of nodes in each node's neighbourhood,
 and effective size is calculated as \eqn{n - \frac{2t}{n}}.
+Node efficiency is the node's effective size divided by its degree.
 }
 \section{Functions}{
 \itemize{

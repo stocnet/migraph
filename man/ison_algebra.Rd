@@ -40,7 +40,7 @@ data(ison_algebra)
 Multiplex graph object of friends, social, and task ties (McFarland 2001)
 }
 \details{
-Multiplex graph object of friends, social, and task ties between 16 #' anonymous students.
+Multiplex graph object of friends, social, and task ties between 16 anonymous students.
 M182 was an honors algebra class where researchers
 collected friendship, social, and task ties between 16 students.
 The edge attribute \code{friends} contains friendship ties,

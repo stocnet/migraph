@@ -65,7 +65,7 @@ autographr <- auto_graph <- function(object,
   g <- as_tidygraph(object)
 
   # Add layout ----
-  p <- .graph_layout(g, layout, labels)
+  p <- .graph_layout(g, layout, labels, node_group)
 
   # Add edges ----
   p <- .graph_edges(p, g, edge_color)
@@ -73,16 +73,13 @@ autographr <- auto_graph <- function(object,
   # Add nodes ----
   p <- .graph_nodes(p, g, node_color, node_shape, node_size)
 
-  # Add groups ----
-  # if (!is.null(node_group)) p <- .graph_groups(p, g, node_group, lo)
-
   p
 }
 
 #' @importFrom ggraph create_layout ggraph
 #' @importFrom igraph get.vertex.attribute
 #' @importFrom ggplot2 theme_void
-.graph_layout <- function(g, layout, labels){
+.graph_layout <- function(g, layout, labels, node_group){
   name <- NULL
   lo <- ggraph::create_layout(g, layout)
   if ("graph" %in% names(attributes(lo))) {
@@ -131,6 +128,9 @@ autographr <- auto_graph <- function(object,
         ggplot2::coord_cartesian(xlim=c(-0.2,1.2))
     }
   }
+  
+  if (!is.null(node_group)) p <- .graph_groups(p, g, node_group, lo)
+  
   p
 }
 

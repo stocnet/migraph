@@ -34,7 +34,7 @@ graph_length(object)
 }
 \description{
 These functions return values or vectors relating to how connected a network is
-and where the nodes or edges that would increase fragmentation are.
+and the number of nodes or edges to remove that would increase fragmentation.
 }
 \section{Functions}{
 \itemize{

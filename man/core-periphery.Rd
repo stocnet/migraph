@@ -21,7 +21,7 @@ node_core(object)
 This function is used to identify which nodes should belong to the core,
 and which to the periphery.
 It seeks to minimize the following quantity:
-\deqn{Z(S_1) = \sum_{(i<j)\in S_1} \mathbb{I}_{\{A_{ij}=0\}} + \sum_{(i<j)\notin S_1} \mathbb{I}_{\{A_{ij}=1\}}}
+\deqn{Z(S_1) = \sum_{(i<j)\in S_1} \textbf{I}_{\{A_{ij}=0\}} + \sum_{(i<j)\notin S_1} \textbf{I}_{\{A_{ij}=1\}}}
 where nodes \eqn{\{i,j,...,n\}} are ordered in descending degree,
 \eqn{A} is the adjacency matrix,
 and the indicator function is 1 if the predicate is true or 0 otherwise.

@@ -9,4 +9,4 @@
 
 0 errors | 0 warnings | 0 notes
 
-- All vignettes now precompiled to avoid issues
+- Fixed documentation issues

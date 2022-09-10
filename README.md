@@ -84,11 +84,11 @@ properties, e.g.:
 reformat or transform networks into networks with other properties,
 e.g.:
 
--   `to_blocks()`, `to_edges()`, `to_giant()`, `to_matching()`,
-    `to_mode1()`, `to_mode2()`, `to_multilevel()`, `to_named()`,
-    `to_onemode()`, `to_redirected()`, `to_simplex()`, `to_subgraph()`,
-    `to_ties()`, `to_twomode()`, `to_undirected()`, `to_uniplex()`,
-    `to_unnamed()`, `to_unsigned()`, `to_unweighted()`
+-   `to_blocks()`, `to_edges()`, `to_giant()`, `to_main_component()`,
+    `to_matching()`, `to_mode1()`, `to_mode2()`, `to_multilevel()`,
+    `to_named()`, `to_onemode()`, `to_redirected()`, `to_simplex()`,
+    `to_subgraph()`, `to_ties()`, `to_twomode()`, `to_undirected()`,
+    `to_uniplex()`, `to_unnamed()`, `to_unsigned()`, `to_unweighted()`
 
 #### Making
 
@@ -149,7 +149,7 @@ function names wherever possible.
     `graph_congruency()`
 -   Connectedness: `graph_components()`, `graph_cohesion()`,
     `graph_adhesion()`, `graph_diameter()`, `graph_length()`
--   Diversity: `graph_blau_index()`, `graph_ei_index()`,
+-   Diversity: `graph_diversity()`, `graph_homophily()`,
     `graph_assortativity()`
 -   Structural holes: e.g. `node_redundancy()`, `node_effsize()`,
     `node_efficiency()`, `node_constraint()`, `node_hierarchy()`

@@ -3,7 +3,7 @@
 \docType{data}
 \name{ison_adolescents}
 \alias{ison_adolescents}
-\title{One-mode subset of the adolescent society (Coleman 1961)}
+\title{One-mode subset (8 individuals) of the adolescent society (Coleman 1961).}
 \format{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 8 nodes and 10 edges
 #> #

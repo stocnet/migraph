@@ -16,7 +16,7 @@ NULL
 #' marvel_friends <- to_unsigned(ison_marvel_relationships)
 #' marvel_friends <- to_giant(marvel_friends) %>% 
 #'   to_subgraph(PowerOrigin == "Human")
-#' (cugtest <- test_random(marvel_friends, graph_ei_index, attribute = "Attractive",
+#' (cugtest <- test_random(marvel_friends, graph_homophily, attribute = "Attractive",
 #'   times = 200))
 #' plot(cugtest)
 #' @export
@@ -65,7 +65,7 @@ test_random <- function(object, FUN, ...,
 #'   against a distribution of measures on permutations of the original network
 #' @examples 
 #' (qaptest <- test_permutation(marvel_friends, 
-#'                 graph_ei_index, attribute = "Attractive",
+#'                 graph_homophily, attribute = "Attractive",
 #'                 times = 200))
 #' plot(qaptest)
 #' @export

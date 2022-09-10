@@ -34,30 +34,30 @@ autographr(ison_brandes2)
 
 ```r
 (mat <- as_matrix(ison_brandes))
-#>       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
-#>  [1,]    0    0    1    0    0    0    0    0    0
-#>  [2,]    0    0    1    0    0    0    0    0    0
-#>  [3,]    1    1    0    1    0    0    0    0    0
-#>  [4,]    0    0    1    0    1    1    0    0    0
-#>  [5,]    0    0    0    1    0    0    1    0    0
-#>  [6,]    0    0    0    1    0    0    1    1    0
-#>  [7,]    0    0    0    0    1    1    0    0    1
-#>  [8,]    0    0    0    0    0    1    0    0    1
-#>  [9,]    0    0    0    0    0    0    1    1    0
-#> [10,]    0    0    0    0    0    0    0    0    1
-#> [11,]    0    0    0    0    0    0    0    0    1
-#>       [,10] [,11]
-#>  [1,]     0     0
-#>  [2,]     0     0
-#>  [3,]     0     0
-#>  [4,]     0     0
-#>  [5,]     0     0
-#>  [6,]     0     0
-#>  [7,]     0     0
-#>  [8,]     0     0
-#>  [9,]     1     1
-#> [10,]     0     0
-#> [11,]     0     0
+#>       [,1] [,2] [,3] [,4] [,5] [,6] [,7]
+#>  [1,]    0    0    1    0    0    0    0
+#>  [2,]    0    0    1    0    0    0    0
+#>  [3,]    1    1    0    1    0    0    0
+#>  [4,]    0    0    1    0    1    1    0
+#>  [5,]    0    0    0    1    0    0    1
+#>  [6,]    0    0    0    1    0    0    1
+#>  [7,]    0    0    0    0    1    1    0
+#>  [8,]    0    0    0    0    0    1    0
+#>  [9,]    0    0    0    0    0    0    1
+#> [10,]    0    0    0    0    0    0    0
+#> [11,]    0    0    0    0    0    0    0
+#>       [,8] [,9] [,10] [,11]
+#>  [1,]    0    0     0     0
+#>  [2,]    0    0     0     0
+#>  [3,]    0    0     0     0
+#>  [4,]    0    0     0     0
+#>  [5,]    0    0     0     0
+#>  [6,]    1    0     0     0
+#>  [7,]    0    1     0     0
+#>  [8,]    0    1     0     0
+#>  [9,]    1    0     1     1
+#> [10,]    0    1     0     0
+#> [11,]    0    1     0     0
 ```
 
 The network is anonymous, but I think it would be nice to add some names,
@@ -85,14 +85,14 @@ Just sum the rows or columns of the matrix!
 (degrees <- rowSums(mat))
 #>  [1] 1 1 3 3 2 3 3 2 4 1 1
 rowSums(mat) == colSums(mat)
-#>  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
-#> [11] TRUE
+#>  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+#>  [8] TRUE TRUE TRUE TRUE
 # Are they all equal? Why?
 # You can also just use a built in command in migraph though:
 node_degree(ison_brandes, normalized = FALSE)
-#>    Axel Colby Anthony Blake Charlie Roscoe   Tim Annie
-#> 1     1     1       3     3       2      3     3     2
-#> # ... with 3 more from this nodeset in the vector.
+#>   Kelly Bentley Clifford  Lily  Ivan Debra
+#> 1     1       1        3     3     2     3
+#> # ... with 5 more from this nodeset in the vector.
 ```
 
 Often we are interested in the distribution of (degree) centrality in a network.
@@ -113,17 +113,17 @@ Fortunately, we can use functions from `{migraph}` to help:
 
 ```r
 node_betweenness(ison_brandes)
-#>    Axel Colby Anthony Blake Charlie Roscoe   Tim Annie
-#> 1     0     0   0.378 0.485   0.133  0.337 0.304 0.122
-#> # ... with 3 more from this nodeset in the vector.
+#>   Kelly Bentley Clifford  Lily  Ivan Debra
+#> 1     0       0    0.378 0.485 0.133 0.337
+#> # ... with 5 more from this nodeset in the vector.
 node_closeness(ison_brandes)
-#>    Axel Colby Anthony Blake Charlie Roscoe   Tim Annie
-#> 1 0.278 0.278   0.370 0.455   0.435  0.476 0.455 0.417
-#> # ... with 3 more from this nodeset in the vector.
+#>   Kelly Bentley Clifford  Lily  Ivan Debra
+#> 1 0.278   0.278    0.370 0.455 0.435 0.476
+#> # ... with 5 more from this nodeset in the vector.
 node_eigenvector(ison_brandes)
-#>    Axel Colby Anthony Blake Charlie Roscoe   Tim Annie
-#> 1 0.106 0.106   0.277 0.510   0.437  0.615 0.631 0.464
-#> # ... with 3 more from this nodeset in the vector.
+#>   Kelly Bentley Clifford  Lily  Ivan Debra
+#> 1 0.106   0.106    0.277 0.510 0.437 0.615
+#> # ... with 5 more from this nodeset in the vector.
 # TASK: Can you create degree distributions for each of these?
 ```
 
