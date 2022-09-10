@@ -4,6 +4,10 @@
 
 - Dropped some older defunct functions
 
+## Mapping
+
+- Fixed bug with `autographr()`'s "node_group" argument
+
 # migraph 0.11.1
 
 ## Package
