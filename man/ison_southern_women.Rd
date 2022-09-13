@@ -28,8 +28,8 @@ about the attendance pattern of women at informal social events
 during a 9 month period. Events and women are named.
 }
 \details{
-\if{html}{\figure{ison_southern_women.png}{options: width="75\%" alt="Figure: ison_southern_women"}}
-\if{latex}{\figure{ison_southern_women.pdf}{options: width=7cm}}
+\if{html}{\figure{isonsouthernwomen.png}{options: width="75\%" alt="Figure: ison_southern_women"}}
+\if{latex}{\figure{isonsouthernwomen.pdf}{options: width=7cm}}
 }
 \references{
 Davis, Allison, Burleigh B. Gardner, and Mary R. Gardner. 1941.

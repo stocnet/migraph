@@ -34,7 +34,7 @@ These datasets should only be used
 for demonstration purposes as they do not describe a real world network.
 All examples contain named nodes.
 
-\if{html}{\figure{ison_proj.png}{options: width="100\%" alt="Figure: ison_proj"}}
-\if{latex}{\figure{ison_proj.pdf}{options: width=7cm}}
+\if{html}{\figure{isonproj.png}{options: width="100\%" alt="Figure: ison_proj"}}
+\if{latex}{\figure{isonproj.pdf}{options: width=7cm}}
 }
 \keyword{datasets}

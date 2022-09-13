@@ -57,7 +57,7 @@ José López Portillo (1976-82), Miguel de la Madrid (1982-88), and Carlos Salin
 who was also the son of another core member, Raúl Salinas Lozano).
 }
 \details{
-\if{html}{\figure{mpn_elite_mex.png}{options: width="100\%" alt="Figure: mpn_elite_mex"}}
-\if{latex}{\figure{mpn_elite_mex.pdf}{options: width=7cm}}
+\if{html}{\figure{mpnelitemex.png}{options: width="100\%" alt="Figure: mpn_elite_mex"}}
+\if{latex}{\figure{mpnelitemex.pdf}{options: width=7cm}}
 }
 \keyword{datasets}
