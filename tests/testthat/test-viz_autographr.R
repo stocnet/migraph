@@ -124,3 +124,11 @@ test_that("edge colours graph correctly", {
   test_brandes2 <- autographr(ison_brandes2, edge_color = "tiecolour")
   expect_false(is.null(test_brandes2$layers[[1]]$mapping$edge_colour))
 })
+
+# Named networks
+test_that("named networks plot correctly", {
+  onemode <- autographr(ison_adolescents)
+  twomode <- autographr(ison_southern_women)
+  expect_equal(onemode[["data"]][["name"]], node_names(ison_adolescents))
+  expect_equal(twomode[["data"]][["name"]], node_names(ison_southern_women))
+})

@@ -53,11 +53,11 @@
 #'   (autographr(ison_bb) | autographr(ison_bm) | autographr(ison_mm) | autographr(ison_mb))/
 #'   (autographr(to_mode1(ison_mm)) | autographr(to_mode1(ison_mm)) | 
 #'     autographr(to_mode1(ison_mm)) | autographr(to_mode1(ison_mm)))
-#'   ggsave("man/figures/ison_proj.png", width = 7, height = 3.5, dpi = "screen")
-#'   ggsave("man/figures/ison_proj.pdf", width = 7, height = 3.5)
+#'   ggsave("man/figures/isonproj.png", width = 7, height = 3.5, dpi = "screen")
+#'   ggsave("man/figures/isonproj.pdf", width = 7, height = 3.5)
 #'   ```
-#' \if{html}{\figure{ison_proj.png}{options: width="100\%" alt="Figure: ison_proj"}}
-#' \if{latex}{\figure{ison_proj.pdf}{options: width=7cm}}
+#' \if{html}{\figure{isonproj.png}{options: width="100\%" alt="Figure: ison_proj"}}
+#' \if{latex}{\figure{isonproj.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_projection
@@ -94,11 +94,11 @@
 #' 
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_algebra, labels = FALSE) + ggtitle("ison_algebra")
-#'   ggsave("man/figures/ison_algebra.png", width = 5, height = 5, dpi = "screen")
-#'   ggsave("man/figures/ison_algebra.pdf", width = 5, height = 5)
+#'   ggsave("man/figures/isonalgebra.png", width = 5, height = 5, dpi = "screen")
+#'   ggsave("man/figures/isonalgebra.pdf", width = 5, height = 5)
 #'   ```
-#' \if{html}{\figure{ison_algebra.png}{options: width="75\%" alt="Figure: ison_algebra"}}
-#' \if{latex}{\figure{ison_algebra.pdf}{options: width=7cm}}
+#' \if{html}{\figure{isonalgebra.png}{options: width="75\%" alt="Figure: ison_algebra"}}
+#' \if{latex}{\figure{isonalgebra.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_algebra
@@ -121,11 +121,11 @@
 #'
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_adolescents, labels = FALSE) + ggtitle("ison_adolescents")
-#'   ggsave("man/figures/ison_adolescents.png", width = 5, height = 5, dpi = "screen")
-#'   ggsave("man/figures/ison_adolescents.pdf", width = 5, height = 5)
+#'   ggsave("man/figures/isonadolescents.png", width = 5, height = 5, dpi = "screen")
+#'   ggsave("man/figures/isonadolescents.pdf", width = 5, height = 5)
 #'   ```
-#' \if{html}{\figure{ison_adolescents.png}{options: width="75\%" alt="Figure: ison_adolescents"}}
-#' \if{latex}{\figure{ison_adolescents.pdf}{options: width=7cm}}
+#' \if{html}{\figure{isonadolescents.png}{options: width="75\%" alt="Figure: ison_adolescents"}}
+#' \if{latex}{\figure{isonadolescents.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_adolescents
@@ -159,11 +159,11 @@
 #' 
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_karateka) + ggtitle("ison_karateka")
-#'   ggsave("man/figures/ison_karateka.png", width = 7, height = 3.5, dpi = "screen")
-#'   ggsave("man/figures/ison_karateka.pdf", width = 7, height = 3.5)
+#'   ggsave("man/figures/isonkarateka.png", width = 7, height = 3.5, dpi = "screen")
+#'   ggsave("man/figures/isonkarateka.pdf", width = 7, height = 3.5)
 #'   ```
-#' \if{html}{\figure{ison_karateka.png}{options: width="75\%" alt="Figure: ison_karateka"}}
-#' \if{latex}{\figure{ison_karateka.pdf}{options: width=7cm}}
+#' \if{html}{\figure{isonkarateka.png}{options: width="75\%" alt="Figure: ison_karateka"}}
+#' \if{latex}{\figure{isonkarateka.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_karateka
@@ -191,10 +191,10 @@
 #' 
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_networkers, labels = FALSE) + ggtitle("ison_networkers")
-#'   ggsave("man/figures/ison_networkers.png", width = 5, height = 5, dpi = "screen")
-#'   ggsave("man/figures/ison_networkers.pdf", width = 5, height = 5)
+#'   ggsave("man/figures/isonnetworkers.png", width = 5, height = 5, dpi = "screen")
+#'   ggsave("man/figures/isonnetworkers.pdf", width = 5, height = 5)
 #'   ```
-#' \if{latex}{\figure{ison_networkers.pdf}{options: width=7cm}}
+#' \if{latex}{\figure{isonnetworkers.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_networkers
@@ -223,11 +223,11 @@
 #'
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_brandes) + ggtitle("ison_brandes") + autographr(ison_brandes2)
-#'   ggsave("man/figures/ison_brandes.png", width = 7, height = 3.5, dpi = "screen")
-#'   ggsave("man/figures/ison_brandes.pdf", width = 7, height = 3.5)
+#'   ggsave("man/figures/isonbrandes.png", width = 7, height = 3.5, dpi = "screen")
+#'   ggsave("man/figures/isonbrandes.pdf", width = 7, height = 3.5)
 #'   ```
-#' \if{html}{\figure{ison_brandes.png}{options: width="100\%" alt="Figure: ison_brandes"}}
-#' \if{latex}{\figure{ison_brandes.pdf}{options: width=7cm}}
+#' \if{html}{\figure{isonbrandes.png}{options: width="100\%" alt="Figure: ison_brandes"}}
+#' \if{latex}{\figure{isonbrandes.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_brandes
@@ -257,11 +257,11 @@
 #'
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(ison_southern_women, "hierarchy", labels = FALSE) + ggtitle("ison_southern_women")
-#'   ggsave("man/figures/ison_southern_women.png", width = 7, height = 3.5, dpi = "screen")
-#'   ggsave("man/figures/ison_southern_women.pdf", width = 7, height = 3.5)
+#'   ggsave("man/figures/isonsouthernwomen.png", width = 7, height = 3.5, dpi = "screen")
+#'   ggsave("man/figures/isonsouthernwomen.pdf", width = 7, height = 3.5)
 #'   ```
-#' \if{html}{\figure{ison_southern_women.png}{options: width="75\%" alt="Figure: ison_southern_women"}}
-#' \if{latex}{\figure{ison_southern_women.pdf}{options: width=7cm}}
+#' \if{html}{\figure{isonsouthernwomen.png}{options: width="75\%" alt="Figure: ison_southern_women"}}
+#' \if{latex}{\figure{isonsouthernwomen.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_southern_women

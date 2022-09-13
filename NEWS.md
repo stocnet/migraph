@@ -1,3 +1,14 @@
+# migraph 0.11.3
+
+## Package
+
+- Fixed CRAN LaTeX issue relating to underscores in manual figures
+
+## Mapping
+
+- Fixed bug in plotting space coordinates for named two-mode networks
+- Suppressed messages relating to 'graph' class being defined by multiple packages
+
 # migraph 0.11.2
 
 ## Package

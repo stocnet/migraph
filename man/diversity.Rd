@@ -52,7 +52,7 @@ by other names
 Gibbs-Martin index, and probability of interspecific encounter (PIE)):
 \deqn{1 - \sum\limits_{i = 1}^k {p_i^2 }},
 where \eqn{p_i} is the proportion of group members in \eqn{i}th category
-and \emph{k} is the number of categories for an attribute of interest.
+and \eqn{k} is the number of categories for an attribute of interest.
 This index can be interpreted as the probability that two members
 randomly selected from a group would be from different categories.
 This index finds its minimum value (0) when there is no variety,

@@ -48,8 +48,8 @@ where \code{2} = best friends, \code{1} = friend, and \code{0} is not a friend.
 \code{social} consists of social interactions per hour,
 and \code{tasks} consists of task interactions per hour.
 
-\if{html}{\figure{ison_algebra.png}{options: width="75\%" alt="Figure: ison_algebra"}}
-\if{latex}{\figure{ison_algebra.pdf}{options: width=7cm}}
+\if{html}{\figure{isonalgebra.png}{options: width="75\%" alt="Figure: ison_algebra"}}
+\if{latex}{\figure{isonalgebra.pdf}{options: width=7cm}}
 }
 \references{
 McFarland, Daniel A. (2001) “Student Resistance.”

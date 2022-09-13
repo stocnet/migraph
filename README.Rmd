@@ -71,7 +71,12 @@ as well as with objects constructed from the following packages:
 `{migraph}`'s `as_*()` functions can be used to translate objects 
 from one of the above classes into any other, and include:
 
-- `r list_functions("^as_")`
+```{r coercion-graph, echo = FALSE}
+autographr(igraph::graph_from_literal(edgelist:matrix:igraph:network:tidygraph+--+edgelist:matrix:igraph:network:tidygraph,
+                                      edgelist:matrix:igraph:network:tidygraph--+graphAM,
+                                      siena:goldfish--+edgelist:matrix:igraph:network:tidygraph:graphAM),
+           "circle", node_size = 2)
+```
 
 These functions are designed to be as intuitive and lossless as possible,
 outperforming many other class-coercion packages.

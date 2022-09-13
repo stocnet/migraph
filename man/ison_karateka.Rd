@@ -29,8 +29,8 @@ The allegiance of each node is listed in the \code{obc} argument
 which takes the value 1 if the individual sided with Mr. Hi after the fight
 and 2 if the individual sided with John A.
 
-\if{html}{\figure{ison_karateka.png}{options: width="75\%" alt="Figure: ison_karateka"}}
-\if{latex}{\figure{ison_karateka.pdf}{options: width=7cm}}
+\if{html}{\figure{isonkarateka.png}{options: width="75\%" alt="Figure: ison_karateka"}}
+\if{latex}{\figure{isonkarateka.pdf}{options: width=7cm}}
 }
 \references{
 Zachary, Wayne W. 1977. “An Information Flow Model for Conflict and Fission in Small Groups.”

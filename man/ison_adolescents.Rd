@@ -33,8 +33,8 @@
 data(ison_adolescents)
 }
 \description{
-\if{html}{\figure{ison_adolescents.png}{options: width="75\%" alt="Figure: ison_adolescents"}}
-\if{latex}{\figure{ison_adolescents.pdf}{options: width=7cm}}
+\if{html}{\figure{isonadolescents.png}{options: width="75\%" alt="Figure: ison_adolescents"}}
+\if{latex}{\figure{isonadolescents.pdf}{options: width=7cm}}
 }
 \references{
 Coleman, James S. 1961. The Adolescent Society.

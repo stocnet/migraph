@@ -76,8 +76,8 @@ of the Republican Party (Rudy Giuliani, John McCain, Mitt Romney)
 or the Democratic Party (Hillary Clinton, Christopher Dodd, Barack Obama).
 }
 \details{
-\if{html}{\figure{mpn_elite_usa.png}{options: width="100\%" alt="Figure: mpn_elite_usa"}}
-\if{latex}{\figure{mpn_elite_usa.pdf}{options: width=7cm}}
+\if{html}{\figure{mpneliteusa.png}{options: width="100\%" alt="Figure: mpn_elite_usa"}}
+\if{latex}{\figure{mpneliteusa.pdf}{options: width=7cm}}
 }
 \references{
 Domhoff, G William. 2016. \href{https://whorulesamerica.ucsc.edu/power_elite/}{“Who Rules America? Power Elite Database.”}

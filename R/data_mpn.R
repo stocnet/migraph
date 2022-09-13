@@ -20,11 +20,11 @@
 #'
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(mpn_elite_mex, labels = FALSE) + ggtitle("mpn_elite_mex")
-#'   ggsave("man/figures/mpn_elite_mex.png", width = 5, height = 5, dpi = "screen")
-#'   ggsave("man/figures/mpn_elite_mex.pdf", width = 5, height = 5)
+#'   ggsave("man/figures/mpnelitemex.png", width = 5, height = 5, dpi = "screen")
+#'   ggsave("man/figures/mpnelitemex.pdf", width = 5, height = 5)
 #'   ```
-#' \if{html}{\figure{mpn_elite_mex.png}{options: width="100\%" alt="Figure: mpn_elite_mex"}}
-#' \if{latex}{\figure{mpn_elite_mex.pdf}{options: width=7cm}}
+#' \if{html}{\figure{mpnelitemex.png}{options: width="100\%" alt="Figure: mpn_elite_mex"}}
+#' \if{latex}{\figure{mpnelitemex.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name mpn_elite_mex
@@ -63,11 +63,11 @@
 #'   ```{r, eval = FALSE, echo = FALSE, include = FALSE}
 #'   autographr(mpn_elite_usa_advice, labels = FALSE) + ggtitle("mpn_elite_usa_advice") +
 #'     autographr(mpn_elite_usa_money, labels = FALSE) + ggtitle("mpn_elite_usa_money")
-#'   ggsave("man/figures/mpn_elite_usa.png", width = 7, height = 3.5, dpi = "screen")
-#'   ggsave("man/figures/mpn_elite_usa.pdf", width = 7, height = 3.5)
+#'   ggsave("man/figures/mpneliteusa.png", width = 7, height = 3.5, dpi = "screen")
+#'   ggsave("man/figures/mpneliteusa.pdf", width = 7, height = 3.5)
 #'   ```
-#' \if{html}{\figure{mpn_elite_usa.png}{options: width="100\%" alt="Figure: mpn_elite_usa"}}
-#' \if{latex}{\figure{mpn_elite_usa.pdf}{options: width=7cm}}
+#' \if{html}{\figure{mpneliteusa.png}{options: width="100\%" alt="Figure: mpn_elite_usa"}}
+#' \if{latex}{\figure{mpneliteusa.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name mpn_elite_usa
