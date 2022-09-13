@@ -124,8 +124,7 @@ autographr <- auto_graph <- function(object,
       p <- p + ggraph::geom_node_text(ggplot2::aes(label = name),
                                        size = 2,
                                        hjust = "outward",
-                                      nudge_x = ifelse(lo[,1] == 1, 0.05, -0.05)) +
-        ggplot2::coord_cartesian(xlim=c(-0.2,1.2))
+                                      nudge_x = ifelse(lo[,1] == 1, 0.05, -0.05))
     }
   }
   
