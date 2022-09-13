@@ -61,8 +61,7 @@ as well as with objects constructed from the following packages:
 `{migraph}`’s `as_*()` functions can be used to translate objects from
 one of the above classes into any other, and include:
 
--   `as_edgelist()`, `as_graphAM()`, `as_igraph()`, `as_matrix()`,
-    `as_network()`, `as_tidygraph()`
+<img src="man/figures/README-coercion-graph-1.png" width="100%" />
 
 These functions are designed to be as intuitive and lossless as
 possible, outperforming many other class-coercion packages.
