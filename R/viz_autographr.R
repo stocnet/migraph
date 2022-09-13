@@ -122,8 +122,9 @@ autographr <- auto_graph <- function(object,
                                        repel = TRUE)
     } else { # Plot two modes
       p <- p + ggraph::geom_node_text(ggplot2::aes(label = name),
-                                       size = 2,
-                                       hjust = "outward",
+                                      repel = TRUE,
+                                      size = 2,
+                                      hjust = "outward",
                                       nudge_x = ifelse(lo[,1] == 1, 0.05, -0.05))
     }
   }
