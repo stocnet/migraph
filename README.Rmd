@@ -154,8 +154,26 @@ with existing function names wherever possible.
 
 #### Visualization
 
-- `autographr()` for plotting graphs with sensible defaults based on their properties
-- New layouts: `r list_functions("^layout_")` for snapping a layout to a grid
+- `autographr()` for one-line plotting graphs with sensible defaults based on their properties
+- New layouts for snapping a layout to a grid or for visualizing partitions:
+
+```{r layout-comparison, echo = FALSE, message=FALSE}
+library(migraph)
+library(igraph)
+library(gridBase)
+library(grid)
+
+par(mfrow=c(1, 2), mai = c(0,0,0.5,0))
+plot(as_igraph(mpn_elite_usa_advice), layout = layout_as_bipartite, main = "{igraph} bipartite")
+## the last one is the current plot
+plot.new()              ## suggested by @Josh
+vps <- baseViewports()
+pushViewport(vps$figure) ##   I am in the space of the autocorrelation plot
+vp1 <-plotViewport(c(1.8,1,0,1)) ## create new vp with margins, you play with this values 
+p <- autographr(mpn_elite_usa_advice, "hierarchy") + ggtitle("{migraph} layout")
+print(p,vp = vp1) 
+```
+
 - Class-based plots: e.g. `plot.matrix()`, `plot.members()`, `plot.node_measure()`
 
 Please explore [the list of functions](https://snlab-ch.github.io/migraph/reference/index.html) to find out more.

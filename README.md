@@ -172,14 +172,13 @@ function names wherever possible.
 
 #### Visualization
 
--   `autographr()` for plotting graphs with sensible defaults based on
-    their properties
--   New layouts: `layout_tbl_graph_alluvial()`,
-    `layout_tbl_graph_concentric()`, `layout_tbl_graph_frgrid()`,
-    `layout_tbl_graph_gogrid()`, `layout_tbl_graph_hierarchy()`,
-    `layout_tbl_graph_kkgrid()`, `layout_tbl_graph_ladder()`,
-    `layout_tbl_graph_railway()`, `layout_tbl_graph_stressgrid()` for
-    snapping a layout to a grid
+-   `autographr()` for one-line plotting graphs with sensible defaults
+    based on their properties
+-   New layouts for snapping a layout to a grid or for visualizing
+    partitions:
+
+<img src="man/figures/README-layout-comparison-1.png" width="100%" />
+
 -   Class-based plots: e.g. `plot.matrix()`, `plot.members()`,
     `plot.node_measure()`
 
