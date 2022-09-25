@@ -18,7 +18,7 @@ NULL
 #' @export
 node_kernighanlin <- function(object){
   # assign groups arbitrarily
-  n <- graph_nodes(object)
+  n <- network_nodes(object)
   group_size <- ifelse(n %% 2 == 0, n/2, (n+1)/2)
   
   # count internal and external costs of each vertex

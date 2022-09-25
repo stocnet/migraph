@@ -28,7 +28,7 @@ gglineage <- function(object, labels = TRUE){
   }
   lo <- ggraph::create_layout(object, layout = "alluvial")
   if (!is.null(lo$year)) lo$x = lo$year else 
-    if ("year" %in% graph_node_attributes(object)) lo$x = node_attribute(object, "year")
+    if ("year" %in% network_node_attributes(object)) lo$x = node_attribute(object, "year")
   if (is.null(lo$name)) lo$name = node_names(object)
   g <- ggraph::ggraph(object, graph = lo) +
     ggraph::geom_edge_diagonal(aes(edge_color = as.factor(.data$from)),

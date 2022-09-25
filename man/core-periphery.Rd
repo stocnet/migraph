@@ -33,7 +33,7 @@ it ignores ties between these blocks.
 mpn_elite_usa_advice \%>\% as_tidygraph \%>\% 
   mutate(corep = node_core(mpn_elite_usa_advice)) \%>\% 
   autographr(node_color = "corep")
-graph_core(mpn_elite_usa_advice)
+network_core(mpn_elite_usa_advice)
 }
 \references{
 Borgatti, Stephen P., & Everett, Martin G. 1999.

@@ -8,35 +8,35 @@ NULL
 #' @describeIn features Returns correlation between a given network
 #'   and a core-periphery model with the same dimensions.
 #' @examples 
-#' graph_core(ison_adolescents)
-#' graph_core(ison_southern_women)
+#' network_core(ison_adolescents)
+#' network_core(ison_southern_women)
 #' @references 
 #' Borgatti, Stephen P., and Martin G. Everett. 2000. 
 #' “Models of Core/Periphery Structures.” 
 #' _Social Networks_ 21(4):375–95.
 #' \doi{10.1016/S0378-8733(99)00019-2}
 #' @export
-graph_core <- function(object,
+network_core <- function(object,
                        membership = NULL){
   if(is.null(membership)) membership <- node_core(object)
   out <- stats::cor(c(as_matrix(object)), 
                     c(as_matrix(create_core(object,
                                             membership = membership))))
-  make_graph_measure(out, object)
+  make_network_measure(out, object)
 }
 
 #' @describeIn features Returns correlation between a given network
 #'   and a component model with the same dimensions.
 #' @examples 
-#' graph_factions(ison_adolescents)
-#' graph_factions(ison_southern_women)
+#' network_factions(ison_adolescents)
+#' network_factions(ison_southern_women)
 #' @export
-graph_factions <- function(object,
+network_factions <- function(object,
                        membership = NULL){
   out <- stats::cor(c(as_matrix(object)), 
                     c(as_matrix(create_components(object,
                                                   membership = membership))))
-  make_graph_measure(out, object)
+  make_network_measure(out, object)
 }
 
 #' @describeIn features Returns modularity of one- or two-mode networks
@@ -44,9 +44,9 @@ graph_factions <- function(object,
 #' @param resolution A proportion indicating the resolution scale.
 #'   By default 1.
 #' @examples 
-#' graph_modularity(ison_adolescents, 
+#' network_modularity(ison_adolescents, 
 #'   node_kernighanlin(ison_adolescents))
-#' graph_modularity(ison_southern_women, 
+#' network_modularity(ison_southern_women, 
 #'   node_kernighanlin(ison_southern_women))
 #' @references 
 #' Murata, Tsuyoshi. 2010. Modularity for Bipartite Networks. 
@@ -55,15 +55,15 @@ graph_factions <- function(object,
 #' Springer, Boston, MA. 
 #' \doi{10.1007/978-1-4419-6287-4_7}
 #' @export
-graph_modularity <- function(object, 
+network_modularity <- function(object, 
                              membership = NULL, 
                              resolution = 1){
   if(!is_graph(object)) object <- as_igraph(object)
   if(is_twomode(object)){
-    make_graph_measure(igraph::modularity(to_multilevel(object), 
+    make_network_measure(igraph::modularity(to_multilevel(object), 
                                           membership = membership,
                                           resolution = resolution), object)
-  } else make_graph_measure(igraph::modularity(object, 
+  } else make_network_measure(igraph::modularity(object, 
                                                membership = membership,
                                                resolution = resolution),
                             object)
@@ -75,9 +75,9 @@ graph_modularity <- function(object,
 #'    have short path lengths.
 #' @param times Integer of number of simulations.
 #' @examples
-#' graph_smallworld(ison_brandes)
-#' graph_smallworld(ison_southern_women)
-#' @seealso [graph_transitivity()] and [graph_equivalency()]
+#' network_smallworld(ison_brandes)
+#' network_smallworld(ison_southern_women)
+#' @seealso [network_transitivity()] and [network_equivalency()]
 #'   for how clustering is calculated
 #' @references 
 #' Watts, Duncan J., and Steven H. Strogatz. 1998. 
@@ -85,26 +85,26 @@ graph_modularity <- function(object,
 #' _Nature_ 393(6684):440–42.
 #' \doi{10.1038/30918}.
 #' @export
-graph_smallworld <- function(object, times = 100) {
+network_smallworld <- function(object, times = 100) {
   
   if(is_twomode(object)){
-    obsclust <- graph_equivalency(object)
+    obsclust <- network_equivalency(object)
     expclust <- mean(vapply(1:times, 
-                            function(x) graph_equivalency(generate_random(object)),
+                            function(x) network_equivalency(generate_random(object)),
                             FUN.VALUE = numeric(1)))
   } else {
-    obsclust <- graph_transitivity(object)
+    obsclust <- network_transitivity(object)
     expclust <- mean(vapply(1:times, 
-                            function(x) graph_transitivity(generate_random(object)),
+                            function(x) network_transitivity(generate_random(object)),
                             FUN.VALUE = numeric(1)))
   }
   
-  obspath <- graph_length(object)
+  obspath <- network_length(object)
   exppath <- mean(vapply(1:times, 
-                         function(x) graph_length(generate_random(object)),
+                         function(x) network_length(generate_random(object)),
                          FUN.VALUE = numeric(1)))
   
-  make_graph_measure((obsclust/expclust)/(obspath/exppath),
+  make_network_measure((obsclust/expclust)/(obspath/exppath),
                      object)
 }
 
@@ -114,9 +114,9 @@ graph_smallworld <- function(object, times = 100) {
 #'   `1` if all triangles are balanced.
 #' @source `{signnet}` by David Schoch
 #' @examples
-#' graph_balance(ison_marvel_relationships)
+#' network_balance(ison_marvel_relationships)
 #' @export
-graph_balance <- function(object) {
+network_balance <- function(object) {
   
   count_signed_triangles <- function(object){
     g <- as_igraph(object)
@@ -171,6 +171,6 @@ graph_balance <- function(object) {
     stop("sign may only contain -1 and 1")
   }
   tria_count <- count_signed_triangles(g)
-  make_graph_measure(unname((tria_count["+++"] + tria_count["+--"])/sum(tria_count)),
+  make_network_measure(unname((tria_count["+++"] + tria_count["+--"])/sum(tria_count)),
                      object)
 }

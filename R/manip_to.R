@@ -318,7 +318,7 @@ to_named.tbl_graph <- function(object, names = NULL) {
     object <- object %>% mutate(name = names)
   } else {
     object <- object %>% mutate(name = sample(baby_names,
-                                              graph_nodes(object)))
+                                              network_nodes(object)))
   }
   object
 }
@@ -329,7 +329,7 @@ to_named.igraph <- function(object, names = NULL) {
     igraph::V(object)$name  <- names
   } else {
     igraph::V(object)$name  <- sample(baby_names,
-                                      graph_nodes(object))
+                                      network_nodes(object))
   }
   object
 }
@@ -341,9 +341,9 @@ to_named.data.frame <- function(object, names = NULL) {
     object[,2]  <- names[as.numeric(object[,2])]
   } else {
     object[,1]  <- sample(baby_names, 
-                          graph_nodes(object))[as.numeric(object[,1])]
+                          network_nodes(object))[as.numeric(object[,1])]
     object[,2]  <- sample(baby_names, 
-                          graph_nodes(object))[as.numeric(object[,2])]
+                          network_nodes(object))[as.numeric(object[,2])]
   }
   object
 }
@@ -351,7 +351,7 @@ to_named.data.frame <- function(object, names = NULL) {
 #' @export
 to_named.matrix <- function(object, names = NULL) {
   if(is.null(names)) names <- sample(baby_names, 
-                                     graph_nodes(object))
+                                     network_nodes(object))
   if(is_twomode(object)){
     rownames(object)  <- names[seq_len(nrow(object))]
     colnames(object)  <- names[(nrow(object)+1):length(names)]

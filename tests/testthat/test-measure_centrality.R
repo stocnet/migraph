@@ -94,34 +94,34 @@ test_that("node measure class works", {
 ####### Centralization
 
 test_that("one-mode centralisation is calculated correctly", {
-  expect_equal(as.numeric(graph_degree(mpn_elite_mex)), 0.303, tolerance = 0.001)
-  expect_equal(as.numeric(graph_closeness(mpn_elite_mex)), 0.386, tolerance = 0.001)
-  expect_equal(as.numeric(graph_betweenness(mpn_elite_mex)), 0.202, tolerance = 0.001)
-  expect_equal(as.numeric(graph_eigenvector(mpn_elite_mex)), 0.630, tolerance = 0.001)
+  expect_equal(as.numeric(network_degree(mpn_elite_mex)), 0.303, tolerance = 0.001)
+  expect_equal(as.numeric(network_closeness(mpn_elite_mex)), 0.386, tolerance = 0.001)
+  expect_equal(as.numeric(network_betweenness(mpn_elite_mex)), 0.202, tolerance = 0.001)
+  expect_equal(as.numeric(network_eigenvector(mpn_elite_mex)), 0.630, tolerance = 0.001)
 })
 
 test_that("two mode degree centralisation calculated correctly", {
-  expect_equal(as.numeric(graph_degree(ison_southern_women, normalized = FALSE)), c(0.1813, 0.5097), tolerance = 0.001)
-  expect_equal(as.numeric(graph_degree(ison_southern_women, direction = "in")), c(0.2308, 0.4661), tolerance = 0.001)
-  expect_equal(as.numeric(graph_degree(ison_southern_women, normalized = TRUE)), c(0.2268, 0.4744), tolerance = 0.001)
+  expect_equal(as.numeric(network_degree(ison_southern_women, normalized = FALSE)), c(0.1813, 0.5097), tolerance = 0.001)
+  expect_equal(as.numeric(network_degree(ison_southern_women, direction = "in")), c(0.2308, 0.4661), tolerance = 0.001)
+  expect_equal(as.numeric(network_degree(ison_southern_women, normalized = TRUE)), c(0.2268, 0.4744), tolerance = 0.001)
 })
 
 test_that("two mode closeness centralisation calculated correctly", {
-  expect_equal(as.numeric(graph_closeness(ison_southern_women, normalized = TRUE)), c(0.2843, 0.4418), tolerance = 0.001)
-  expect_equal(as.numeric(graph_closeness(ison_southern_women, direction = "in")), c(0.2135, 0.5285), tolerance = 0.001)
+  expect_equal(as.numeric(network_closeness(ison_southern_women, normalized = TRUE)), c(0.2843, 0.4418), tolerance = 0.001)
+  expect_equal(as.numeric(network_closeness(ison_southern_women, direction = "in")), c(0.2135, 0.5285), tolerance = 0.001)
 })
 
 test_that("two mode betweenness centralisation calculated correctly", {
-  expect_equal(as.numeric(graph_betweenness(ison_southern_women, normalized = FALSE)), c(0.0580, 0.2073), tolerance = 0.001)
-  expect_equal(as.numeric(graph_betweenness(ison_southern_women, direction = "in")), c(0.0668, 0.1982), tolerance = 0.001)
-  expect_equal(as.numeric(graph_betweenness(ison_southern_women, normalized = TRUE)), c(0.0586, 0.207), tolerance = 0.001)
+  expect_equal(as.numeric(network_betweenness(ison_southern_women, normalized = FALSE)), c(0.0580, 0.2073), tolerance = 0.001)
+  expect_equal(as.numeric(network_betweenness(ison_southern_women, direction = "in")), c(0.0668, 0.1982), tolerance = 0.001)
+  expect_equal(as.numeric(network_betweenness(ison_southern_women, normalized = TRUE)), c(0.0586, 0.207), tolerance = 0.001)
 })
 
-test_that("graph_measure class works", {
-  expect_s3_class(graph_degree(ison_algebra), "graph_measure")
-  expect_s3_class(graph_betweenness(mpn_elite_usa_advice), "graph_measure")
-  expect_s3_class(graph_closeness(mpn_elite_usa_advice), "graph_measure")
-  expect_output(print(graph_degree(ison_algebra)))
+test_that("network_measure class works", {
+  expect_s3_class(network_degree(ison_algebra), "network_measure")
+  expect_s3_class(network_betweenness(mpn_elite_usa_advice), "network_measure")
+  expect_s3_class(network_closeness(mpn_elite_usa_advice), "network_measure")
+  expect_output(print(network_degree(ison_algebra)))
 })
 
 ####### Edge centrality
@@ -129,14 +129,14 @@ test_that("tie_degree works", {
   expect_s3_class(tie_degree(ison_adolescents), 
                   "tie_measure")
   expect_length(tie_degree(ison_adolescents), 
-                graph_ties(ison_adolescents))
+                network_ties(ison_adolescents))
 })
 
 test_that("tie_betweenness works", {
   expect_s3_class(tie_betweenness(ison_adolescents), 
                   "tie_measure")
   expect_length(tie_betweenness(ison_adolescents), 
-                graph_ties(ison_adolescents))
+                network_ties(ison_adolescents))
   expect_equal(unname(tie_betweenness(ison_adolescents)[1:3]), 
                c(7,3,5), tolerance = 0.001)
 })
@@ -145,7 +145,7 @@ test_that("tie_closeness works", {
   expect_s3_class(tie_closeness(ison_adolescents), 
                   "tie_measure")
   expect_length(tie_closeness(ison_adolescents), 
-                graph_ties(ison_adolescents))
+                network_ties(ison_adolescents))
   expect_equal(unname(tie_closeness(ison_adolescents)[1:3]), 
                c(0.562,0.692,0.600), tolerance = 0.001)
 })
@@ -154,5 +154,5 @@ test_that("tie_eigenvector works", {
   expect_s3_class(tie_eigenvector(ison_southern_women), 
                   "tie_measure")
   expect_length(tie_eigenvector(ison_southern_women), 
-                graph_ties(ison_southern_women))
+                network_ties(ison_southern_women))
 })

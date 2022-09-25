@@ -49,7 +49,7 @@ tie_is_reciprocated <- function(object){
 #' @export
 tie_is_bridge <- function(object){
   num_comp <- length( igraph::decompose(as_igraph(object)) )
-  out <- vapply(seq_len(graph_ties(object)), function(x){
+  out <- vapply(seq_len(network_ties(object)), function(x){
     length( igraph::decompose(igraph::delete.edges(object, x)) ) > num_comp
   }, FUN.VALUE = logical(1))
   if(is_labelled(object)) 

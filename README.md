@@ -17,6 +17,8 @@ coverage](https://codecov.io/gh/snlab-ch/migraph/branch/main/graph/badge.svg)](h
 [![CodeFactor](https://www.codefactor.io/repository/github/snlab-ch/migraph/badge)](https://www.codefactor.io/repository/github/snlab-ch/migraph)
 [![CII Best
 Practices](https://bestpractices.coreinfrastructure.org/projects/4559/badge)](https://bestpractices.coreinfrastructure.org/projects/4559)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7076396.svg)](https://doi.org/10.5281/zenodo.7076396)
+<!-- see https://zenodo.org/record/7076396 -->
 <!-- ![GitHub All Releases](https://img.shields.io/github/downloads/snlab-ch/migraph/total) -->
 <!-- badges: end -->
 
@@ -141,25 +143,25 @@ function names wherever possible.
 
 -   Centrality: `node_degree()`, `node_closeness()`,
     `node_betweenness()`, and `node_eigenvector()`
--   Centralization: `graph_degree()`, `graph_closeness()`,
-    `graph_betweenness()`, and `graph_eigenvector()`
--   Cohesion: `graph_density()`, `graph_reciprocity()`,
-    `graph_transitivity()`, `graph_equivalency()`, and
-    `graph_congruency()`
--   Connectedness: `graph_components()`, `graph_cohesion()`,
-    `graph_adhesion()`, `graph_diameter()`, `graph_length()`
--   Diversity: `graph_diversity()`, `graph_homophily()`,
-    `graph_assortativity()`
+-   Centralization: `network_degree()`, `network_closeness()`,
+    `network_betweenness()`, and `network_eigenvector()`
+-   Cohesion: `network_density()`, `network_reciprocity()`,
+    `network_transitivity()`, `network_equivalency()`, and
+    `network_congruency()`
+-   Connectedness: `network_components()`, `network_cohesion()`,
+    `network_adhesion()`, `network_diameter()`, `network_length()`
+-   Diversity: `network_diversity()`, `network_homophily()`,
+    `network_assortativity()`
 -   Structural holes: e.g. `node_redundancy()`, `node_effsize()`,
     `node_efficiency()`, `node_constraint()`, `node_hierarchy()`
--   Topological features: e.g. `graph_core()`, `graph_factions()`,
-    `graph_modularity()`, `graph_smallworld()`, `graph_balance()`
+-   Topological features: e.g. `network_core()`, `network_factions()`,
+    `network_modularity()`, `network_smallworld()`, `network_balance()`
 
 #### Motifs
 
 -   Censuses: `node_path_census()`, `node_quad_census()`,
-    `node_tie_census()`, `node_triad_census()`, `graph_dyad_census()`,
-    `graph_mixed_census()`, `graph_triad_census()`
+    `node_tie_census()`, `node_triad_census()`, `network_dyad_census()`,
+    `network_mixed_census()`, `network_triad_census()`
 
 #### Models
 

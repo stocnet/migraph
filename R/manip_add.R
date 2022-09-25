@@ -19,12 +19,12 @@ NULL
 #' add_node_attribute(mpn_elite_usa_advice, "wealth", 1:14)
 #' @export
 add_node_attribute <- function(object, attr_name, vector){
-  if(length(vector)!=graph_nodes(object)){
-    if(is_twomode(object) && any(length(vector) == graph_dims(object))){
-      if(length(vector) == graph_dims(object)[1]){
-        vector <- c(vector, rep(NA, graph_dims(object)[2]))
-      } else if (length(vector) == graph_dims(object)[2]){
-        vector <- c(rep(NA, graph_dims(object)[1]), vector)
+  if(length(vector)!=network_nodes(object)){
+    if(is_twomode(object) && any(length(vector) == network_dims(object))){
+      if(length(vector) == network_dims(object)[1]){
+        vector <- c(vector, rep(NA, network_dims(object)[2]))
+      } else if (length(vector) == network_dims(object)[2]){
+        vector <- c(rep(NA, network_dims(object)[1]), vector)
       }
     } else 
       stop("Attribute vector must be same length as nodes in object.")
@@ -49,7 +49,7 @@ add_tie_attribute <- function(object, attr_name, vector){
 #' @describeIn add Copies node attributes from a given graph into specified graph
 #' @export
 copy_node_attributes <- function(object, object2){
-  if(graph_nodes(object) != graph_nodes(object2)) 
+  if(network_nodes(object) != network_nodes(object2)) 
     stop("Objects need to be of compatible dimensions.")
   object <- as_igraph(object)
   object2 <- as_igraph(object2)

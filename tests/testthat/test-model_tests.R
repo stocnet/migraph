@@ -2,11 +2,11 @@
 marvel_friends <- to_giant(to_unsigned(ison_marvel_relationships)) %>%
   to_subgraph(PowerOrigin == "Human")
 cugtest <- test_random(marvel_friends,
-                       graph_homophily,
+                       network_homophily,
                        attribute = "Attractive",
                        times = 200)
 cugtest2 <- test_random(marvel_friends,
-                        graph_betweenness,
+                        network_betweenness,
                         times = 200)
 
 test_that("test_random works", {
@@ -20,7 +20,7 @@ test_that("test_random works", {
   expect_equal(class(cugtest$plteobs), "numeric")
   expect_equal(class(cugtest$pgteobs), "numeric")
   expect_equal(cugtest$reps, 200)
-  expect_s3_class(cugtest, "graph_test")
+  expect_s3_class(cugtest, "network_test")
   # Test stuff cug2
   expect_equal(as.numeric(cugtest2$testval), 0.238, tolerance = 0.001)
   expect_equal(length(cugtest2$testdist), 200) # NB: Stochastic
@@ -30,7 +30,7 @@ test_that("test_random works", {
   expect_equal(round(cugtest2$plteobs), 1)
   expect_equal(round(cugtest2$pgteobs), 0)
   expect_equal(cugtest2$reps, 200)
-  expect_s3_class(cugtest2, "graph_test")
+  expect_s3_class(cugtest2, "network_test")
 })
 
 # Set the qaptest up
@@ -38,7 +38,7 @@ marvel_friends <- to_unsigned(ison_marvel_relationships)
 marvel_friends <- to_giant(marvel_friends)
 marvel_friends <- to_subgraph(marvel_friends, PowerOrigin == "Human")
 qaptest <- test_permutation(marvel_friends,
-                            graph_homophily,
+                            network_homophily,
                             attribute = "Attractive",
                             times = 200)
 test_that("test_permutation works", {
@@ -47,7 +47,7 @@ test_that("test_permutation works", {
   expect_equal(class(qaptest$plteobs), "numeric") # NB: Stochastic
   expect_equal(class(qaptest$pgteobs), "numeric") # NB: Stochastic
   expect_equal(qaptest$reps, 200)
-  expect_s3_class(qaptest, "graph_test")
+  expect_s3_class(qaptest, "network_test")
 })
 
 cugplot <- plot(cugtest)

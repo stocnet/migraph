@@ -1,3 +1,9 @@
+# migraph 0.12.0
+
+## Package
+
+- `graph_*()` functions now renamed to `network_*()` for terminological consistency
+
 # migraph 0.11.4
 
 ## Package

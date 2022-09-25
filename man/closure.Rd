@@ -2,19 +2,19 @@
 % Please edit documentation in R/measure_closure.R
 \name{closure}
 \alias{closure}
-\alias{graph_reciprocity}
-\alias{graph_transitivity}
-\alias{graph_equivalency}
-\alias{graph_congruency}
+\alias{network_reciprocity}
+\alias{network_transitivity}
+\alias{network_equivalency}
+\alias{network_congruency}
 \title{Measures of network closure}
 \usage{
-graph_reciprocity(object, method = "default")
+network_reciprocity(object, method = "default")
 
-graph_transitivity(object)
+network_transitivity(object)
 
-graph_equivalency(object)
+network_equivalency(object)
 
-graph_congruency(object, object2)
+network_congruency(object, object2)
 }
 \arguments{
 \item{object}{A one-mode or two-mode matrix, igraph, or tidygraph}
@@ -30,31 +30,31 @@ in one-, two-, and three-mode networks.
 }
 \details{
 For one-mode networks, shallow wrappers of igraph versions exist via
-\code{graph_reciprocity} and \code{graph_transitivity}.
+\code{network_reciprocity} and \code{network_transitivity}.
 
-For two-mode networks, \code{graph_equivalency} calculates the proportion of three-paths in the network
+For two-mode networks, \code{network_equivalency} calculates the proportion of three-paths in the network
 that are closed by fourth tie to establish a "shared four-cycle" structure.
 
-For three-mode networks, \code{graph_congruency} calculates the proportion of three-paths
+For three-mode networks, \code{network_congruency} calculates the proportion of three-paths
 spanning two two-mode networks that are closed by a fourth tie to establish a
 "congruent four-cycle" structure.
 }
 \section{Functions}{
 \itemize{
-\item \code{graph_reciprocity()}: Calculate reciprocity in a (usually directed) network
+\item \code{network_reciprocity()}: Calculate reciprocity in a (usually directed) network
 
-\item \code{graph_transitivity()}: Calculate transitivity in a network
+\item \code{network_transitivity()}: Calculate transitivity in a network
 
-\item \code{graph_equivalency()}: Calculate equivalence or reinforcement
+\item \code{network_equivalency()}: Calculate equivalence or reinforcement
 in a (usually two-mode) network
 
-\item \code{graph_congruency()}: Calculate congruency across two two-mode networks
+\item \code{network_congruency()}: Calculate congruency across two two-mode networks
 
 }}
 \examples{
-graph_reciprocity(ison_southern_women)
-graph_transitivity(ison_southern_women)
-graph_equivalency(ison_southern_women)
+network_reciprocity(ison_southern_women)
+network_transitivity(ison_southern_women)
+network_equivalency(ison_southern_women)
 }
 \references{
 Robins, Garry L, and Malcolm Alexander. 2004.

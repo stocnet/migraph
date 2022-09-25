@@ -2,19 +2,23 @@
 % Please edit documentation in R/measure_centrality.R
 \name{centralisation}
 \alias{centralisation}
-\alias{graph_degree}
-\alias{graph_closeness}
-\alias{graph_betweenness}
-\alias{graph_eigenvector}
+\alias{network_degree}
+\alias{network_closeness}
+\alias{network_betweenness}
+\alias{network_eigenvector}
 \title{Measures of network centralisation}
 \usage{
-graph_degree(object, normalized = TRUE, direction = c("all", "out", "in"))
+network_degree(object, normalized = TRUE, direction = c("all", "out", "in"))
 
-graph_closeness(object, normalized = TRUE, direction = c("all", "out", "in"))
+network_closeness(object, normalized = TRUE, direction = c("all", "out", "in"))
 
-graph_betweenness(object, normalized = TRUE, direction = c("all", "out", "in"))
+network_betweenness(
+  object,
+  normalized = TRUE,
+  direction = c("all", "out", "in")
+)
 
-graph_eigenvector(object, normalized = TRUE)
+network_eigenvector(object, normalized = TRUE)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -44,21 +48,21 @@ Measures of network centralisation
 }
 \section{Functions}{
 \itemize{
-\item \code{graph_degree()}: Calculate the degree centralization for a graph
+\item \code{network_degree()}: Calculate the degree centralization for a graph
 
-\item \code{graph_closeness()}: Calculate the closeness centralization for a graph
+\item \code{network_closeness()}: Calculate the closeness centralization for a graph
 
-\item \code{graph_betweenness()}: Calculate the betweenness centralization for a graph
+\item \code{network_betweenness()}: Calculate the betweenness centralization for a graph
 
-\item \code{graph_eigenvector()}: Calculate the eigenvector centralization for a graph
+\item \code{network_eigenvector()}: Calculate the eigenvector centralization for a graph
 
 }}
 \examples{
-graph_degree(ison_southern_women, direction = "in")
-graph_closeness(ison_southern_women, direction = "in")
-graph_betweenness(ison_southern_women, direction = "in")
-graph_eigenvector(mpn_elite_mex)
-graph_eigenvector(ison_southern_women)
+network_degree(ison_southern_women, direction = "in")
+network_closeness(ison_southern_women, direction = "in")
+network_betweenness(ison_southern_women, direction = "in")
+network_eigenvector(mpn_elite_mex)
+network_eigenvector(ison_southern_women)
 }
 \seealso{
 Other measures: 

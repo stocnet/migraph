@@ -393,7 +393,7 @@ convertToMatrixList <- function(formula, data){
         names(out) <- paste(IV[[elem]], collapse = " ")
         out <- out
       } else {
-        if (IV[[elem]][1] %in% graph_tie_attributes(data)){
+        if (IV[[elem]][1] %in% network_tie_attributes(data)){
           out <- as_matrix(to_uniplex(data, 
                                       edge = IV[[elem]][1]))
           out <- list(out)

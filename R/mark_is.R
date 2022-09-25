@@ -169,8 +169,8 @@ is_directed <- function(object) UseMethod("is_directed")
 
 #' @export
 is_directed.data.frame <- function(object) {
-  !(graph_reciprocity(object) == 0 |
-    graph_reciprocity(object) == 1)
+  !(network_reciprocity(object) == 0 |
+    network_reciprocity(object) == 1)
 }
 
 #' @export
@@ -322,13 +322,13 @@ is_multiplex.matrix <- function(object){
 #' @export
 is_multiplex.tbl_graph <- function(object){
   igraph::any_multiple(object) |
-    length(graph_tie_attributes(object)) > 1
+    length(network_tie_attributes(object)) > 1
 }
 
 #' @export
 is_multiplex.igraph <- function(object){
   igraph::any_multiple(object) |
-    length(graph_tie_attributes(object)) > 1
+    length(network_tie_attributes(object)) > 1
 }
 
 #' @export

@@ -38,25 +38,25 @@ test_that("tie_weights works", {
   expect_equal(tie_weights(net2), tie_attribute(net2, "weight"))
 })
 
-test_that("graph_nodes works", {
-  expect_equal(graph_nodes(net), 5)
+test_that("network_nodes works", {
+  expect_equal(network_nodes(net), 5)
 })
 
-test_that("graph_ties works", {
-  expect_equal(graph_ties(net), 5)
+test_that("network_ties works", {
+  expect_equal(network_ties(net), 5)
 })
 
-test_that("graph_dims works", {
-  expect_equal(graph_dims(ison_karateka), 34)
-  expect_equal(graph_dims(ison_southern_women), c(18,14))
+test_that("network_dims works", {
+  expect_equal(network_dims(ison_karateka), 34)
+  expect_equal(network_dims(ison_southern_women), c(18,14))
 })
 
-test_that("graph_node_attributes works", {
-  expect_equal(graph_node_attributes(net), c("name", "gender"))
-  expect_length(graph_node_attributes(net), 2)
+test_that("network_node_attributes works", {
+  expect_equal(network_node_attributes(net), c("name", "gender"))
+  expect_length(network_node_attributes(net), 2)
 })
 
-test_that("graph_tie_attributes works", {
-  expect_equal(graph_tie_attributes(net2), "weight")
-  expect_length(graph_tie_attributes(net2), 1)
+test_that("network_tie_attributes works", {
+  expect_equal(network_tie_attributes(net2), "weight")
+  expect_length(network_tie_attributes(net2), 1)
 })
