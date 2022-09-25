@@ -125,9 +125,9 @@ by their position in the task network to begin with.
 
 ```r
 node_constraint(tasks)
-#>   Melinda  Abby Darryl Veronica Rylan
-#> 1   0.930 0.877  0.664    0.987 0.611
-#> # ... with 11 more from this nodeset in the vector.
+#>   Melinda  Abby Darryl Veronica Rylan Lindsey  Lula  Elva
+#> 1   0.930 0.877  0.664    0.987 0.611   0.609 0.900 0.894
+#> # ... with 8 more from this nodeset in the vector.
 ```
 
 We see that this function returns a vector of 
@@ -190,31 +190,31 @@ both outgoing and incoming ties, to reveal their relationships to tie partners.
 ```r
 node_tie_census(ison_algebra)
 #> # A tibble: 16 × 96
-#>    fromM…¹ fromA…² fromD…³ fromV…⁴ fromR…⁵
-#>      <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#>  1       0       1       0       0       1
-#>  2       0       0       0       0       0
-#>  3       0       0       0       0       1
-#>  4       0       0       0       0       0
-#>  5       0       0       1       0       0
-#>  6       0       0       1       0       1
-#>  7       0       1       0       0       0
-#>  8       0       1       0       0       1
-#>  9       0       0       0       0       0
-#> 10       0       0       0       0       1
-#> 11       0       0       1       0       2
-#> 12       0       0       0       0       0
-#> 13       0       2       0       0       0
-#> 14       0       1       1       0       0
-#> 15       0       0       1       0       0
-#> 16       0       0       0       0       0
-#> # … with 91 more variables:
-#> #   fromLindsey_friends <dbl>,
-#> #   fromLula_friends <dbl>,
-#> #   fromElva_friends <dbl>,
-#> #   fromMiriam_friends <dbl>,
-#> #   fromGeorge_friends <dbl>,
-#> #   fromLuella_friends <dbl>, …
+#>    fromM…¹ fromA…² fromD…³ fromV…⁴ fromR…⁵ fromL…⁶ fromL…⁷
+#>      <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+#>  1       0       1       0       0       1       1       0
+#>  2       0       0       0       0       0       0       1
+#>  3       0       0       0       0       1       2       0
+#>  4       0       0       0       0       0       0       0
+#>  5       0       0       1       0       0       1       0
+#>  6       0       0       1       0       1       0       0
+#>  7       0       1       0       0       0       1       0
+#>  8       0       1       0       0       1       0       1
+#>  9       0       0       0       0       0       0       0
+#> 10       0       0       0       0       1       1       0
+#> 11       0       0       1       0       2       1       0
+#> 12       0       0       0       0       0       1       0
+#> 13       0       2       0       0       0       0       1
+#> 14       0       1       1       0       0       0       1
+#> 15       0       0       1       0       0       0       0
+#> 16       0       0       0       0       0       0       0
+#> # … with 89 more variables: fromElva_friends <dbl>,
+#> #   fromMiriam_friends <dbl>, fromGeorge_friends <dbl>,
+#> #   fromLuella_friends <dbl>, fromDustin_friends <dbl>,
+#> #   fromColleen_friends <dbl>, fromEzra_friends <dbl>,
+#> #   fromMarsha_friends <dbl>, fromDiane_friends <dbl>,
+#> #   toMelinda_friends <dbl>, toAbby_friends <dbl>,
+#> #   toDarryl_friends <dbl>, toVeronica_friends <dbl>, …
 dim(node_tie_census(ison_algebra))
 #> [1] 16 96
 ```
@@ -437,19 +437,19 @@ but this can be tweaked by assigning some other summary statistic as `FUN = `.
 summary(node_tie_census(ison_algebra),
         membership = str_clu)
 #> # A tibble: 4 × 96
-#>   fromMe…¹ fromA…² fromD…³ fromV…⁴ fromR…⁵
-#>      <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#> 1        0   0.167   0.167       0   0.333
-#> 2        0   1       0.2         0   0.2  
-#> 3        0   0       0.75        0   1    
-#> 4        0   0       0           0   0    
-#> # … with 91 more variables:
-#> #   fromLindsey_friends <dbl>,
-#> #   fromLula_friends <dbl>,
-#> #   fromElva_friends <dbl>,
-#> #   fromMiriam_friends <dbl>,
-#> #   fromGeorge_friends <dbl>,
-#> #   fromLuella_friends <dbl>, …
+#>   fromMe…¹ fromA…² fromD…³ fromV…⁴ fromR…⁵ fromL…⁶ fromL…⁷
+#>      <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+#> 1        0   0.167   0.167       0   0.333     0.5     0  
+#> 2        0   1       0.2         0   0.2       0.2     0.8
+#> 3        0   0       0.75        0   1         1       0  
+#> 4        0   0       0           0   0         0       0  
+#> # … with 89 more variables: fromElva_friends <dbl>,
+#> #   fromMiriam_friends <dbl>, fromGeorge_friends <dbl>,
+#> #   fromLuella_friends <dbl>, fromDustin_friends <dbl>,
+#> #   fromColleen_friends <dbl>, fromEzra_friends <dbl>,
+#> #   fromMarsha_friends <dbl>, fromDiane_friends <dbl>,
+#> #   toMelinda_friends <dbl>, toAbby_friends <dbl>,
+#> #   toDarryl_friends <dbl>, toVeronica_friends <dbl>, …
 ```
 
 Since this node census produces 96 columns, 

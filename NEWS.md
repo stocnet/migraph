@@ -3,6 +3,10 @@
 ## Package
 
 - `graph_*()` functions now renamed to `network_*()` for terminological consistency
+- Added `p2visualization` vignette
+  - more motivation re Tufte and Brandes et al
+  - an overview on key multimodal layouts
+  - a few demonstrations of `{patchwork}` functionality
 
 # migraph 0.11.4
 
