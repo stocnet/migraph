@@ -203,11 +203,11 @@ wherever possible and update your scripts accordingly.
 
 \item \code{graph_edge_attributes()}: Deprecated on 2022-06-28.
 
-\item \code{graph_tie_attributes()}: Deprecated on 2022-09-23.
+\item \code{graph_tie_attributes()}: Deprecated on 2022-09-25.
 
 \item \code{graph_edges()}: Deprecated on 2022-06-28.
 
-\item \code{graph_ties()}: Deprecated on 2022-09-23.
+\item \code{graph_ties()}: Deprecated on 2022-09-25.
 
 \item \code{node_cuts()}: Deprecated on 2022-06-30.
 
@@ -219,71 +219,71 @@ wherever possible and update your scripts accordingly.
 
 \item \code{graph_blau_index()}: Deprecated on 2022-09-10.
 
-\item \code{graph_diversity()}: Deprecated on 2022-09-23.
+\item \code{graph_diversity()}: Deprecated on 2022-09-25.
 
 \item \code{graph_ei_index()}: Deprecated on 2022-09-10.
 
-\item \code{graph_homophily()}: Deprecated on 2022-09-23.
+\item \code{graph_homophily()}: Deprecated on 2022-09-25.
 
-\item \code{plot(graph_test)}: Deprecated on 2022-09-23.
+\item \code{plot(graph_test)}: Deprecated on 2022-09-25.
 
-\item \code{print(graph_test)}: Deprecated on 2022-09-23.
+\item \code{print(graph_test)}: Deprecated on 2022-09-25.
 
-\item \code{print(graph_measure)}: Deprecated on 2022-09-23.
+\item \code{print(graph_measure)}: Deprecated on 2022-09-25.
 
-\item \code{print(graph_motif)}: Deprecated on 2022-09-23.
+\item \code{print(graph_motif)}: Deprecated on 2022-09-25.
 
-\item \code{graph_adhesion()}: Deprecated on 2022-09-23.
+\item \code{graph_adhesion()}: Deprecated on 2022-09-25.
 
-\item \code{graph_cohesion()}: Deprecated on 2022-09-23.
+\item \code{graph_cohesion()}: Deprecated on 2022-09-25.
 
-\item \code{graph_assortativity()}: Deprecated on 2022-09-23.
+\item \code{graph_assortativity()}: Deprecated on 2022-09-25.
 
-\item \code{graph_balance()}: Deprecated on 2022-09-23.
+\item \code{graph_balance()}: Deprecated on 2022-09-25.
 
-\item \code{graph_betweenness()}: Deprecated on 2022-09-23.
+\item \code{graph_betweenness()}: Deprecated on 2022-09-25.
 
-\item \code{graph_closeness()}: Deprecated on 2022-09-23.
+\item \code{graph_closeness()}: Deprecated on 2022-09-25.
 
-\item \code{graph_degree()}: Deprecated on 2022-09-23.
+\item \code{graph_degree()}: Deprecated on 2022-09-25.
 
-\item \code{graph_eigenvector()}: Deprecated on 2022-09-23.
+\item \code{graph_eigenvector()}: Deprecated on 2022-09-25.
 
-\item \code{graph_components()}: Deprecated on 2022-09-23.
+\item \code{graph_components()}: Deprecated on 2022-09-25.
 
-\item \code{graph_factions()}: Deprecated on 2022-09-23.
+\item \code{graph_factions()}: Deprecated on 2022-09-25.
 
-\item \code{graph_congruency()}: Deprecated on 2022-09-23.
+\item \code{graph_congruency()}: Deprecated on 2022-09-25.
 
-\item \code{graph_equivalency()}: Deprecated on 2022-09-23.
+\item \code{graph_equivalency()}: Deprecated on 2022-09-25.
 
-\item \code{graph_core()}: Deprecated on 2022-09-23.
+\item \code{graph_core()}: Deprecated on 2022-09-25.
 
-\item \code{graph_density()}: Deprecated on 2022-09-23.
+\item \code{graph_density()}: Deprecated on 2022-09-25.
 
-\item \code{graph_reciprocity()}: Deprecated on 2022-09-23.
+\item \code{graph_reciprocity()}: Deprecated on 2022-09-25.
 
-\item \code{graph_transitivity()}: Deprecated on 2022-09-23.
+\item \code{graph_transitivity()}: Deprecated on 2022-09-25.
 
-\item \code{graph_diameter()}: Deprecated on 2022-09-23.
+\item \code{graph_diameter()}: Deprecated on 2022-09-25.
 
-\item \code{graph_length()}: Deprecated on 2022-09-23.
+\item \code{graph_length()}: Deprecated on 2022-09-25.
 
-\item \code{graph_dims()}: Deprecated on 2022-09-23.
+\item \code{graph_dims()}: Deprecated on 2022-09-25.
 
-\item \code{graph_nodes()}: Deprecated on 2022-09-23.
+\item \code{graph_nodes()}: Deprecated on 2022-09-25.
 
-\item \code{graph_dyad_census()}: Deprecated on 2022-09-23.
+\item \code{graph_dyad_census()}: Deprecated on 2022-09-25.
 
-\item \code{graph_triad_census()}: Deprecated on 2022-09-23.
+\item \code{graph_triad_census()}: Deprecated on 2022-09-25.
 
-\item \code{graph_mixed_census()}: Deprecated on 2022-09-23.
+\item \code{graph_mixed_census()}: Deprecated on 2022-09-25.
 
-\item \code{graph_modularity()}: Deprecated on 2022-09-23.
+\item \code{graph_modularity()}: Deprecated on 2022-09-25.
 
-\item \code{graph_node_attributes()}: Deprecated on 2022-09-23.
+\item \code{graph_node_attributes()}: Deprecated on 2022-09-25.
 
-\item \code{graph_smallworld()}: Deprecated on 2022-09-23.
+\item \code{graph_smallworld()}: Deprecated on 2022-09-25.
 
 }}
 \keyword{internal}

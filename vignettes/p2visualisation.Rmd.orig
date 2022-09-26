@@ -11,7 +11,9 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.cap = "",
+  fig.path = "teaching/"
 )
 ```
 
@@ -22,7 +24,7 @@ As Tufte (1983: 9) said:
 
 > "At their best, graphics are instruments for reasoning about quantitative information. Often the most effective way to describe, explore, and summarize a set of numbers – even a very large set – is to look at pictures of those numbers"
 
-As Brandes et al (1999) argue, visualising networks demands thinking about:
+Brandes et al (1999) argue that visualising networks demands thinking about:
 
 - _substance_: a concise and precise delivery of insights to the researcher and/or readers
 - _design_: the ergonomics of function are 98% of the purpose of good design, aesthetics only 2%
@@ -117,7 +119,7 @@ autographr(ison_adolescents) / autographr(ison_algebra)
 A range of graph layouts are available across the `{igraph}`, `{graphlayouts}`, and `{migraph}` packages 
 that can be used together with `autographr()`.
 
-```{r }
+```{r layoutseg, echo=TRUE, message=FALSE, warning=FALSE}
 (autographr(ison_southern_women, layout = "bipartite") + ggtitle("bipartite") |
 autographr(ison_southern_women, layout = "hierarchy") + ggtitle("hierarchy")) /
 (autographr(ison_southern_women, layout = "concentric") + ggtitle("concentric") |

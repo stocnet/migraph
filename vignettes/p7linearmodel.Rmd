@@ -69,7 +69,7 @@ autographr(marvel_friends,
            node_color = "PowerOrigin")
 ```
 
-![plot of chunk unnamed-chunk-2](teaching/unnamed-chunk-2-1.png)
+![](teaching/unnamed-chunk-2-1.png)
 
 These variables seem to be distributed unevenly across the network.
 There seems to be some homophily, or like choosing like,
@@ -140,7 +140,7 @@ autographr(marvel_friends,
            node_color = "Gender")
 ```
 
-![plot of chunk blaugroups](teaching/blaugroups-1.png)
+![](teaching/blaugroups-1.png)
 
 ```r
 autographr(marvel_friends, 
@@ -148,7 +148,7 @@ autographr(marvel_friends,
            node_size = "Intellect")
 ```
 
-![plot of chunk blaugroups](teaching/blaugroups-2.png)
+![](teaching/blaugroups-2.png)
 
 Ok, this tells us about how (un)even the distribution of these variables is in this network,
 but it doesn't necessarily tell us whether within this network there is homophily/heterophily.
@@ -215,7 +215,7 @@ plot(rand.power) /
 plot(rand.attract)
 ```
 
-![plot of chunk rando](teaching/rando-1.png)
+![](teaching/rando-1.png)
 
 The plots of these results use a dotted vertical line for 0 where this is in bounds,
 a red vertical line for the observed score,
@@ -259,7 +259,7 @@ new <- autographr(generate_permutation(marvel_friends, with_attr = TRUE),
 old + new
 ```
 
-![plot of chunk perm](teaching/perm-1.png)
+![](teaching/perm-1.png)
 
 This single permutation suggests there might otherwise be some more even mixing of these
 attributes, but it is just a single permutation.
@@ -285,7 +285,7 @@ for gender that we did, but the lack of power origin heterophily is surprising.
 (plot(perm.gender) | plot(perm.power))
 ```
 
-![plot of chunk cugqap](teaching/cugqap-1.png)
+![](teaching/cugqap-1.png)
 
 Note how the distributions are generally wider when permuting the observed network 
 than creating a random distribution (be mindful of the scale of the _x_-axis).
@@ -329,7 +329,7 @@ autographr(ison_networkers,
            node_color = "Discipline")
 ```
 
-![plot of chunk intro-eies](teaching/intro-eies-1.png)
+![](teaching/intro-eies-1.png)
 
 Let's use both the continuous `Citations` and the categorical `Discipline` variables 
 and come up with a couple of key hypotheses:
@@ -355,28 +355,28 @@ facilitate the quick interpretation of these results.
 ```r
 tidy(model1)
 #> # A tibble: 7 × 4
-#>   term                            estimate stati…¹ p.value
-#>   <chr>                              <dbl>   <dbl>   <dbl>
-#> 1 (intercept)                       1.72     0.194   0.95 
-#> 2 alter Citations                  -0.0326  -0.588   0.605
-#> 3 sim Citations                    24.4      2.86    0.225
-#> 4 alter Discipline Mathematics/S… -16.8     -3.07    0.365
-#> 5 alter Discipline Other          -10.6     -2.31    0.48 
-#> 6 alter Discipline Sociology       -7.37    -1.90    0.515
-#> 7 same Discipline                   3.90     1.23    0.41 
+#>   term                       estimate stati…¹ p.value
+#>   <chr>                         <dbl>   <dbl>   <dbl>
+#> 1 (intercept)                  1.72     0.194   0.94 
+#> 2 alter Citations             -0.0326  -0.588   0.625
+#> 3 sim Citations               24.4      2.86    0.215
+#> 4 alter Discipline Mathemat… -16.8     -3.07    0.265
+#> 5 alter Discipline Other     -10.6     -2.31    0.475
+#> 6 alter Discipline Sociology  -7.37    -1.90    0.495
+#> 7 same Discipline              3.90     1.23    0.41 
 #> # … with abbreviated variable name ¹​statistic
 glance(model1)
 #> # A tibble: 1 × 8
-#>   r.squared adj.r.sq…¹ sigma stati…² p.value    df df.re…³
-#>       <dbl>      <dbl> <dbl>   <dbl>   <dbl> <dbl>   <int>
-#> 1    0.0334     0.0275  43.1    5.67 8.33e-6     6     985
-#> # … with 1 more variable: nobs <int>, and abbreviated
-#> #   variable names ¹​adj.r.squared, ²​statistic,
-#> #   ³​df.residual
+#>   r.squ…¹ adj.r…² sigma stati…³ p.value    df df.re…⁴
+#>     <dbl>   <dbl> <dbl>   <dbl>   <dbl> <dbl>   <int>
+#> 1  0.0334  0.0275  43.1    5.67 8.33e-6     6     985
+#> # … with 1 more variable: nobs <int>, and
+#> #   abbreviated variable names ¹​r.squared,
+#> #   ²​adj.r.squared, ³​statistic, ⁴​df.residual
 plot(model1)
 ```
 
-![plot of chunk qap-interp](teaching/qap-interp-1.png)
+![](teaching/qap-interp-1.png)
 
 This voilin plot presents the distribution of coefficients from permutations of the network,
 with the fitted coefficient from the data as a red dot.
