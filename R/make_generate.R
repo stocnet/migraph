@@ -152,7 +152,7 @@ generate_permutation <- function(object, with_attr = TRUE) {
 # Helper functions ------------------
 
 r1perm <- function(m) {
-  n <- sample(1:dim(m)[1])
+  n <- sample(seq_len(dim(m)[1]))
   if(is_labelled(m)){
     p <- matrix(data = m[n, n], nrow = dim(m)[1], ncol = dim(m)[2],
                 dimnames = dimnames(m))
@@ -163,8 +163,8 @@ r1perm <- function(m) {
 }
 
 r2perm <- function(m) {
-  n <- sample(1:dim(m)[1])
-  o <- sample(1:dim(m)[2])
+  n <- sample(seq_len(dim(m)[1]))
+  o <- sample(seq_len(dim(m)[2]))
   if(is_labelled(m)){
     p <- matrix(data = m[n, o], nrow = dim(m)[1], ncol = dim(m)[2],
                 dimnames = dimnames(m))
