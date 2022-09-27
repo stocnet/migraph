@@ -194,7 +194,6 @@
 #'   ggsave("man/figures/isonnetworkers.png", width = 5, height = 5, dpi = "screen")
 #'   ggsave("man/figures/isonnetworkers.pdf", width = 5, height = 5)
 #'   ```
-#' \if{latex}{\figure{isonnetworkers.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name ison_networkers

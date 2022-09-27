@@ -42,8 +42,6 @@ on an Electronic Information Exchange System among them. Node attributes
 include the number of citations (\code{Citations}) and the discipline of the
 researchers (\code{Discipline}). Edge weights illustrate the number of emails
 sent from one academic to another over the studied time period.
-
-\if{latex}{\figure{isonnetworkers.pdf}{options: width=7cm}}
 }
 \references{
 Freeman, Sue C. and Linton C. Freeman. 1979.
