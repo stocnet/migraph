@@ -16,7 +16,7 @@ NULL
 #' marvel_friends <- to_unsigned(ison_marvel_relationships)
 #' marvel_friends <- to_giant(marvel_friends) %>% 
 #'   to_subgraph(PowerOrigin == "Human")
-#' (cugtest <- test_random(marvel_friends, graph_homophily, attribute = "Attractive",
+#' (cugtest <- test_random(marvel_friends, network_homophily, attribute = "Attractive",
 #'   times = 200))
 #' plot(cugtest)
 #' @export
@@ -30,8 +30,8 @@ test_random <- function(object, FUN, ...,
   } else {
     obsd <- FUN(object)
   }
-  n <- graph_nodes(object)
-  d <- graph_density(object)
+  n <- network_nodes(object)
+  d <- network_density(object)
   future::plan(strategy)
   rands <- furrr::future_map(1:times, generate_random, n = n, p = d, 
                              .progress = verbose, 
@@ -58,14 +58,14 @@ test_random <- function(object, FUN, ...,
               plteobs = mean(simd <= obsd),
               pgteobs = mean(simd >= obsd),
               reps = times)
-  class(out) <- "graph_test"
+  class(out) <- "network_test"
   out
 }
 #' @describeIn tests Returns test results for some measure on an object
 #'   against a distribution of measures on permutations of the original network
 #' @examples 
 #' (qaptest <- test_permutation(marvel_friends, 
-#'                 graph_homophily, attribute = "Attractive",
+#'                 network_homophily, attribute = "Attractive",
 #'                 times = 200))
 #' plot(qaptest)
 #' @export
@@ -79,8 +79,8 @@ test_permutation <- function(object, FUN, ...,
   } else {
     obsd <- FUN(object)
   }
-  n <- graph_nodes(object)
-  d <- graph_density(object)
+  n <- network_nodes(object)
+  d <- network_density(object)
   future::plan(strategy)
   rands <- furrr::future_map(1:times, 
                   function(x) as_igraph(generate_permutation(object)), 
@@ -105,12 +105,12 @@ test_permutation <- function(object, FUN, ...,
               plteobs = mean(simd <= obsd),
               pgteobs = mean(simd >= obsd),
               reps = times)
-  class(out) <- "graph_test"
+  class(out) <- "network_test"
   out
 }
 
 #' @export
-print.graph_test <- function(x, ...,
+print.network_test <- function(x, ...,
                              max.length = 6,
                              digits = 3){
   cat(paste("\n", x$test, "Test Results\n\n"))
@@ -120,7 +120,7 @@ print.graph_test <- function(x, ...,
 }
 
 #' @export
-plot.graph_test <- function(x, ...,
+plot.network_test <- function(x, ...,
                             threshold = .95, 
                             tails = c("two", "one")){
   data <- data.frame(Statistic = x$testdist)

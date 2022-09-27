@@ -4,9 +4,9 @@ make_node_motif <- function(out, object) {
   out
 }
 
-make_graph_motif <- function(out, object) {
-  class(out) <- c("graph_motif", class(out))
-  attr(out, "mode") <- graph_dims(object)
+make_network_motif <- function(out, object) {
+  class(out) <- c("network_motif", class(out))
+  attr(out, "mode") <- network_dims(object)
   out
 }
 
@@ -37,7 +37,7 @@ summary.node_motif <- function(object, ...,
 }
 
 #' @export
-print.graph_motif <- function(x, ...) {
+print.network_motif <- function(x, ...) {
   names <- list(names(x))
   x <- as.numeric(x)
   mat <- matrix(x, dimnames = names)

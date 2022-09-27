@@ -13,6 +13,7 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
+  fig.cap = "",
   fig.path = "teaching/"
 )
 ```
@@ -229,7 +230,7 @@ We can describe the network using similar functions.
 How many nodes in the network, or how many edges?
 
 ```{r dims}
-graph_nodes(mpn_elite_mex)
-graph_ties(mpn_elite_mex)
-graph_dims(mpn_elite_mex)
+network_nodes(mpn_elite_mex)
+network_ties(mpn_elite_mex)
+network_dims(mpn_elite_mex)
 ```

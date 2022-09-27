@@ -178,17 +178,17 @@ node_path_census <- function(object){
 
 #' Censuses of graphs' motifs
 #' 
-#' @name graph_census
+#' @name network_census
 #' @family motifs
 #' @param object A migraph-consistent object.
 #' @param object2 A second, two-mode migraph-consistent object.
 NULL
 
-#' @describeIn graph_census Returns a census of dyad motifs in a network
+#' @describeIn network_census Returns a census of dyad motifs in a network
 #' @examples 
-#' graph_dyad_census(ison_adolescents)
+#' network_dyad_census(ison_adolescents)
 #' @export
-graph_dyad_census <- function(object) {
+network_dyad_census <- function(object) {
   if (is_twomode(object)) {
     stop("A twomode or multilevel option for a dyad census is not yet implemented.")
   } else {
@@ -196,18 +196,18 @@ graph_dyad_census <- function(object) {
     out <- unlist(out)
     names(out) <- c("Mutual", "Asymmetric", "Null")
     if (!is_directed(object)) out <- out[c(1, 3)]
-    make_graph_motif(out, object)
+    make_network_motif(out, object)
   }
 }
 
-#' @describeIn graph_census Returns a census of triad motifs in a network
+#' @describeIn network_census Returns a census of triad motifs in a network
 #' @references 
 #' Davis, James A., and Samuel Leinhardt. 1967. 
 #' “\href{https://files.eric.ed.gov/fulltext/ED024086.pdf}{The Structure of Positive Interpersonal Relations in Small Groups}.” 55.
 #' @examples 
-#' graph_triad_census(ison_adolescents)
+#' network_triad_census(ison_adolescents)
 #' @export
-graph_triad_census <- function(object) {
+network_triad_census <- function(object) {
   if (is_twomode(object)) {
     stop("A twomode or multilevel option for a triad census is not yet implemented.")
   } else {
@@ -217,11 +217,11 @@ graph_triad_census <- function(object) {
                     "030T", "030C", "201", "120D",
                     "120U", "120C", "210", "300")
     if (!is_directed(object)) out <- out[c(1, 2, 3, 11, 15, 16)]
-    make_graph_motif(out, object)
+    make_network_motif(out, object)
   }
 }
 
-#' @describeIn graph_census Returns a census of triad motifs that span
+#' @describeIn network_census Returns a census of triad motifs that span
 #'   a one-mode and a two-mode network
 #' @source Alejandro Espinosa 'netmem'
 #' @references 
@@ -231,12 +231,12 @@ graph_triad_census <- function(object) {
 #' \doi{10.1017/nws.2017.8}
 #' @examples 
 #' marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
-#' (mixed_cen <- graph_mixed_census(marvel_friends, ison_marvel_teams))
+#' (mixed_cen <- network_mixed_census(marvel_friends, ison_marvel_teams))
 #' @export
-graph_mixed_census <- function (object, object2) {
+network_mixed_census <- function (object, object2) {
   if(is_twomode(object)) stop("First object should be a one-mode network")
   if(!is_twomode(object2)) stop("Second object should be a two-mode network")
-  if(graph_dims(object)[1]!=graph_dims(object2)[1]) stop("Non-conformable arrays")
+  if(network_dims(object)[1]!=network_dims(object2)[1]) stop("Non-conformable arrays")
   
   m1 <- as_matrix(object)
   m2 <- as_matrix(object2)
@@ -269,5 +269,5 @@ graph_mixed_census <- function (object, object2) {
            "02" = sum(onemode.reciprocal * bipartite.null) / 2,
            "01" = sum(onemode.forward * bipartite.null) / 2 + sum(onemode.backward * bipartite.null) / 2,
            "00" = sum(onemode.null * bipartite.null) / 2)  
-  make_graph_motif(res, object)
+  make_network_motif(res, object)
 }

@@ -110,7 +110,7 @@ gtask <- autographr(tasks) + ggtitle("Task")
 gfriend + gsocial + gtask
 ```
 
-![plot of chunk separatingnets](teaching/separatingnets-1.png)
+![](teaching/separatingnets-1.png)
 
 Note also that these are weighted networks.
 `autographr()` automatically registers these different weights and plots them.
@@ -125,9 +125,9 @@ by their position in the task network to begin with.
 
 ```r
 node_constraint(tasks)
-#>   Melinda  Abby Darryl Veronica Rylan
-#> 1   0.930 0.877  0.664    0.987 0.611
-#> # ... with 11 more from this nodeset in the vector.
+#>   Melinda  Abby Darryl Veronica Rylan Lindsey  Lula
+#> 1   0.930 0.877  0.664    0.987 0.611   0.609 0.900
+#> # ... with 9 more from this nodeset in the vector.
 ```
 
 We see that this function returns a vector of 
@@ -141,7 +141,7 @@ tasks <- tasks %>% mutate(low_constraint = node_is_min(node_constraint(tasks)))
 autographr(tasks, node_color = "low_constraint")
 ```
 
-![plot of chunk constraintplot](teaching/constraintplot-1.png)
+![](teaching/constraintplot-1.png)
 
 Why minimum? And what can we learn from this plot
 about where innovation might occur within this network?
@@ -174,7 +174,7 @@ ison_algebra %>%
   autographr(node_color = "se")
 ```
 
-![plot of chunk find-se](teaching/find-se-1.png)
+![](teaching/find-se-1.png)
 
 But actually, a lot is going on behind the scenes here that we can unpack.
 
@@ -190,31 +190,31 @@ both outgoing and incoming ties, to reveal their relationships to tie partners.
 ```r
 node_tie_census(ison_algebra)
 #> # A tibble: 16 × 96
-#>    fromM…¹ fromA…² fromD…³ fromV…⁴ fromR…⁵
-#>      <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#>  1       0       1       0       0       1
-#>  2       0       0       0       0       0
-#>  3       0       0       0       0       1
-#>  4       0       0       0       0       0
-#>  5       0       0       1       0       0
-#>  6       0       0       1       0       1
-#>  7       0       1       0       0       0
-#>  8       0       1       0       0       1
-#>  9       0       0       0       0       0
-#> 10       0       0       0       0       1
-#> 11       0       0       1       0       2
-#> 12       0       0       0       0       0
-#> 13       0       2       0       0       0
-#> 14       0       1       1       0       0
-#> 15       0       0       1       0       0
-#> 16       0       0       0       0       0
-#> # … with 91 more variables:
-#> #   fromLindsey_friends <dbl>,
-#> #   fromLula_friends <dbl>,
+#>    fromMeli…¹ fromA…² fromD…³ fromV…⁴ fromR…⁵ fromL…⁶
+#>         <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+#>  1          0       1       0       0       1       1
+#>  2          0       0       0       0       0       0
+#>  3          0       0       0       0       1       2
+#>  4          0       0       0       0       0       0
+#>  5          0       0       1       0       0       1
+#>  6          0       0       1       0       1       0
+#>  7          0       1       0       0       0       1
+#>  8          0       1       0       0       1       0
+#>  9          0       0       0       0       0       0
+#> 10          0       0       0       0       1       1
+#> 11          0       0       1       0       2       1
+#> 12          0       0       0       0       0       1
+#> 13          0       2       0       0       0       0
+#> 14          0       1       1       0       0       0
+#> 15          0       0       1       0       0       0
+#> 16          0       0       0       0       0       0
+#> # … with 90 more variables: fromLula_friends <dbl>,
 #> #   fromElva_friends <dbl>,
 #> #   fromMiriam_friends <dbl>,
 #> #   fromGeorge_friends <dbl>,
-#> #   fromLuella_friends <dbl>, …
+#> #   fromLuella_friends <dbl>,
+#> #   fromDustin_friends <dbl>,
+#> #   fromColleen_friends <dbl>, …
 dim(node_tie_census(ison_algebra))
 #> [1] 16 96
 ```
@@ -257,19 +257,19 @@ by plotting the dendrograms (hidden) in the output from `node_structural_equival
 plot(node_structural_equivalence(ison_algebra, cluster = "hier", distance = "euclidean"))
 ```
 
-![plot of chunk vary-clust](teaching/vary-clust-1.png)
+![](teaching/vary-clust-1.png)
 
 ```r
 plot(node_structural_equivalence(ison_algebra, cluster = "hier", distance = "manhattan"))
 ```
 
-![plot of chunk vary-clust](teaching/vary-clust-2.png)
+![](teaching/vary-clust-2.png)
 
 ```r
 plot(node_structural_equivalence(ison_algebra, cluster = "concor"))
 ```
 
-![plot of chunk vary-clust](teaching/vary-clust-3.png)
+![](teaching/vary-clust-3.png)
 
 So plotting a `membership` vector from `{migraph}` returns a dendrogram
 with the names of the nodes on the _y_-axis and the distance between them on the _x_-axis.
@@ -314,7 +314,7 @@ We could set this ourselves by just passing `k` an integer.
 plot(node_structural_equivalence(ison_algebra, k = 2))
 ```
 
-![plot of chunk k-discrete](teaching/k-discrete-1.png)
+![](teaching/k-discrete-1.png)
 
 But we're really just guessing. Maybe 2 is not the best `k`?
 To establish that, we need to iterate through a number of potential `k`,
@@ -359,13 +359,13 @@ See what we have here, with all other arguments held the same:
 plot(node_structural_equivalence(ison_algebra, k = "elbow"))
 ```
 
-![plot of chunk elbowsil](teaching/elbowsil-1.png)
+![](teaching/elbowsil-1.png)
 
 ```r
 plot(node_structural_equivalence(ison_algebra, k = "silhouette"))
 ```
 
-![plot of chunk elbowsil](teaching/elbowsil-2.png)
+![](teaching/elbowsil-2.png)
 
 Ok, so it looks like the elbow method returns `k == 3` as a good trade-off
 between fit and parsimony.
@@ -395,7 +395,7 @@ despite some variation, can be considered as similar on some dimension.
 plot(node_structural_equivalence(ison_algebra, k = "strict"))
 ```
 
-![plot of chunk strict](teaching/strict-1.png)
+![](teaching/strict-1.png)
 
 Here for example, no two nodes have precisely the same tie-profile,
 otherwise their branches would join/fork at a distance of 0.
@@ -419,7 +419,7 @@ ison_algebra %>%
   autographr(node_color = "se")
 ```
 
-![plot of chunk strplot](teaching/strplot-1.png)
+![](teaching/strplot-1.png)
 
 While this plot enters the class information in to our earlier graph,
 it doesn't always help us understand how the classes vary.
@@ -437,19 +437,19 @@ but this can be tweaked by assigning some other summary statistic as `FUN = `.
 summary(node_tie_census(ison_algebra),
         membership = str_clu)
 #> # A tibble: 4 × 96
-#>   fromMe…¹ fromA…² fromD…³ fromV…⁴ fromR…⁵
-#>      <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#> 1        0   0.167   0.167       0   0.333
-#> 2        0   1       0.2         0   0.2  
-#> 3        0   0       0.75        0   1    
-#> 4        0   0       0           0   0    
-#> # … with 91 more variables:
-#> #   fromLindsey_friends <dbl>,
-#> #   fromLula_friends <dbl>,
+#>   fromMelin…¹ fromA…² fromD…³ fromV…⁴ fromR…⁵ fromL…⁶
+#>         <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+#> 1           0   0.167   0.167       0   0.333     0.5
+#> 2           0   1       0.2         0   0.2       0.2
+#> 3           0   0       0.75        0   1         1  
+#> 4           0   0       0           0   0         0  
+#> # … with 90 more variables: fromLula_friends <dbl>,
 #> #   fromElva_friends <dbl>,
 #> #   fromMiriam_friends <dbl>,
 #> #   fromGeorge_friends <dbl>,
-#> #   fromLuella_friends <dbl>, …
+#> #   fromLuella_friends <dbl>,
+#> #   fromDustin_friends <dbl>,
+#> #   fromColleen_friends <dbl>, …
 ```
 
 Since this node census produces 96 columns, 
@@ -468,7 +468,7 @@ plot(as_matrix(ison_algebra),
      membership = str_clu)
 ```
 
-![plot of chunk block](teaching/block-1.png)
+![](teaching/block-1.png)
 
 So, with this information, we might characterise them like so:
 
@@ -521,7 +521,7 @@ bm <- bm %>% as_tidygraph %>% mutate(name = c("Freaks", "Squares", "Nerds", "Gee
 autographr(bm)
 ```
 
-![plot of chunk structblock](teaching/structblock-1.png)
+![](teaching/structblock-1.png)
 
 # Unit Test
 

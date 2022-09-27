@@ -37,7 +37,7 @@ test_that("as_igraph converts correctly",{
   expect_s3_class(as_igraph(as_network(ison_southern_women)), "igraph")
   expect_s3_class(as_igraph(mpn_elite_usa_money), "igraph")
   expect_error(as_igraph(data3, weight = T))
-  expect_equal(graph_nodes(as_igraph(as_network(data2))), graph_nodes(as_igraph(data2)))
+  expect_equal(network_nodes(as_igraph(as_network(data2))), network_nodes(as_igraph(data2)))
   # NB: ordering of edges is a little different when converting from network
   # to igraph. Should not matter though.
 })
@@ -56,7 +56,7 @@ test_that("as_network converts correctly",{
   expect_s3_class(as_network(mpn_elite_usa_money), "network")
   expect_equal(as_network(as_network(data2)), as_network(data2))
   expect_equal(as_network(as_igraph(ison_marvel_relationships)), as_network(ison_marvel_relationships))
-  expect_equal(graph_nodes(as_network(dplyr::as_tibble(data2))), graph_nodes(as_network(data2)))
+  expect_equal(network_nodes(as_network(dplyr::as_tibble(data2))), network_nodes(as_network(data2)))
   expect_equal(is_directed(ison_southern_women), is_directed(as_network(ison_southern_women)))
   expect_equal(is_directed(mpn_DemSxP), is_directed(as_network(mpn_DemSxP)))
   expect_equal(is_directed(ison_adolescents), is_directed(as_network(ison_adolescents)))
@@ -77,6 +77,6 @@ test_that("as_edgelist converts correctly", {
 
 # test conversion of siena objects
 test_that("as_tidygraph.siena converts correctly", {
-  expect_equal(graph_nodes(as_igraph(sienadata)), graph_nodes(as_matrix(sienadata)))
-  expect_equal(graph_nodes(as_igraph(sienadata)), length(sienadata[["nodeSets"]][["Actors"]]))
+  expect_equal(network_nodes(as_igraph(sienadata)), network_nodes(as_matrix(sienadata)))
+  expect_equal(network_nodes(as_igraph(sienadata)), length(sienadata[["nodeSets"]][["Actors"]]))
 })

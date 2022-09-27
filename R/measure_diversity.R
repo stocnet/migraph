@@ -13,7 +13,7 @@ NULL
 
 #' @describeIn diversity Calculates the heterogeneity of ties across a network or 
 #'    within clusters by node attributes.
-#' @section graph_diversity:
+#' @section network_diversity:
 #'    Blau's index (1977) uses a formula known also in other disciplines
 #'    by other names 
 #'    (Gini-Simpson Index, Gini impurity, Gini's diversity index, 
@@ -33,11 +33,11 @@ NULL
 #'   New York: Free Press.
 #' @examples
 #' marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
-#' graph_diversity(marvel_friends, "Gender")
-#' graph_diversity(marvel_friends, "Attractive")
-#' graph_diversity(marvel_friends, "Gender", "Rich")
+#' network_diversity(marvel_friends, "Gender")
+#' network_diversity(marvel_friends, "Attractive")
+#' network_diversity(marvel_friends, "Gender", "Rich")
 #' @export
-graph_diversity <- function(object, attribute, clusters = NULL){
+network_diversity <- function(object, attribute, clusters = NULL){
   blau <- function(features) { 1 - sum((table(features)/length(features))^2) }
   attr <- node_attribute(object, attribute)
   if (is.null(clusters)) {
@@ -55,12 +55,12 @@ graph_diversity <- function(object, attribute, clusters = NULL){
     names(blauout) <- paste0("Cluster ", unique(clu))
     blauout <- blauout[order(names(blauout))]
   } else stop("`clusters` must be the name of a nodal variable in the object.")
-  make_graph_measure(blauout, object)
+  make_network_measure(blauout, object)
 }
 
 #' @describeIn diversity Calculates the embeddedness of a node within the group
 #'    of nodes of the same attribute
-#' @section graph_homophily:
+#' @section network_homophily:
 #'   Given a partition of a network into a number of mutually exclusive groups then 
 #'   The E-I index is the number of ties between (or _external_) nodes 
 #'   grouped in some mutually exclusive categories
@@ -73,10 +73,10 @@ graph_diversity <- function(object, attribute, clusters = NULL){
 #'   Informal networks and organizational crises: an experimental simulation. 
 #'   _Social Psychology Quarterly_ 51(2), 123-140.
 #' @examples 
-#' graph_homophily(marvel_friends, "Gender")
-#' graph_homophily(marvel_friends, "Attractive")
+#' network_homophily(marvel_friends, "Gender")
+#' network_homophily(marvel_friends, "Attractive")
 #' @export
-graph_homophily <- function(object, attribute){
+network_homophily <- function(object, attribute){
   m <- as_matrix(object)
   if (length(attribute) == 1 && is.character(attribute)) {
     attribute <- node_attribute(object, attribute)
@@ -88,16 +88,16 @@ graph_homophily <- function(object, attribute){
   nInternal <- sum(m * same)
   nExternal <- sum(m) - nInternal
   ei <- (nExternal - nInternal) / sum(m)
-  make_graph_measure(ei, object)
+  make_network_measure(ei, object)
 }
 
 #' @describeIn diversity Calculates the degree assortativity in a graph.
 #' @importFrom igraph assortativity_degree
 #' @examples 
-#' graph_assortativity(mpn_elite_mex)
+#' network_assortativity(mpn_elite_mex)
 #' @export
-graph_assortativity <- function(object){
-  make_graph_measure(igraph::assortativity_degree(as_igraph(object), 
+network_assortativity <- function(object){
+  make_network_measure(igraph::assortativity_degree(as_igraph(object), 
                                directed = is_directed(object)),
                      object)
 }

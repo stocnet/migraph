@@ -31,7 +31,7 @@ node_is_cutpoint <- function(object){
            "names")
     names(out) <- node_names(object)
   } else {
-    out <- 1:graph_nodes(object) %in% 
+    out <- 1:network_nodes(object) %in% 
       igraph::articulation_points(as_igraph(object))
   }
   make_node_mark(out, object)

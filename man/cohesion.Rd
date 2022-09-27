@@ -2,25 +2,25 @@
 % Please edit documentation in R/measure_cohesion.R
 \name{cohesion}
 \alias{cohesion}
-\alias{graph_density}
-\alias{graph_components}
-\alias{graph_cohesion}
-\alias{graph_adhesion}
-\alias{graph_diameter}
-\alias{graph_length}
+\alias{network_density}
+\alias{network_components}
+\alias{network_cohesion}
+\alias{network_adhesion}
+\alias{network_diameter}
+\alias{network_length}
 \title{Measures of network cohesion or connectedness}
 \usage{
-graph_density(object)
+network_density(object)
 
-graph_components(object)
+network_components(object)
 
-graph_cohesion(object)
+network_cohesion(object)
 
-graph_adhesion(object)
+network_adhesion(object)
 
-graph_diameter(object)
+network_diameter(object)
 
-graph_length(object)
+network_length(object)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -38,35 +38,35 @@ and the number of nodes or edges to remove that would increase fragmentation.
 }
 \section{Functions}{
 \itemize{
-\item \code{graph_density()}: summarises the ratio of ties
+\item \code{network_density()}: summarises the ratio of ties
 to the number of possible ties.
 
-\item \code{graph_components()}: Returns number of (strong) components in the network.
+\item \code{network_components()}: Returns number of (strong) components in the network.
 To get the 'weak' components of a directed graph,
 please use \code{to_undirected()} first.
 
-\item \code{graph_cohesion()}: Returns the minimum number of nodes to remove
+\item \code{network_cohesion()}: Returns the minimum number of nodes to remove
 from the network needed to increase the number of components.
 
-\item \code{graph_adhesion()}: Returns the minimum number of edges needed
+\item \code{network_adhesion()}: Returns the minimum number of edges needed
 to remove from the network to increase the number of components.
 
-\item \code{graph_diameter()}: Returns the maximum path length in the network.
+\item \code{network_diameter()}: Returns the maximum path length in the network.
 
-\item \code{graph_length()}: Returns the average path length in the network.
+\item \code{network_length()}: Returns the average path length in the network.
 
 }}
 \examples{
-graph_density(mpn_elite_mex)
-graph_density(mpn_elite_usa_advice)
-graph_cohesion(ison_marvel_relationships)
-graph_cohesion(to_giant(ison_marvel_relationships))
-graph_adhesion(ison_marvel_relationships)
-graph_adhesion(to_giant(ison_marvel_relationships))
-graph_diameter(ison_marvel_relationships)
-graph_diameter(to_giant(ison_marvel_relationships))
-graph_length(ison_marvel_relationships)
-graph_length(to_giant(ison_marvel_relationships))
+network_density(mpn_elite_mex)
+network_density(mpn_elite_usa_advice)
+network_cohesion(ison_marvel_relationships)
+network_cohesion(to_giant(ison_marvel_relationships))
+network_adhesion(ison_marvel_relationships)
+network_adhesion(to_giant(ison_marvel_relationships))
+network_diameter(ison_marvel_relationships)
+network_diameter(to_giant(ison_marvel_relationships))
+network_length(ison_marvel_relationships)
+network_length(to_giant(ison_marvel_relationships))
 }
 \references{
 White, Douglas R and Frank Harary. 2001.

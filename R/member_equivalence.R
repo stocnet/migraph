@@ -142,7 +142,7 @@ node_automorphic_equivalence <- function(object,
 
 k_strict <- function(hc, object){
   zero_merged <- hc$merge[round(hc$height,4) == 0,]
-  k <- nrow(zero_merged) + graph_nodes(object) - sum(zero_merged < 0) + sum(zero_merged > 0)
+  k <- nrow(zero_merged) + network_nodes(object) - sum(zero_merged < 0) + sum(zero_merged > 0)
   k
 }
 
@@ -187,7 +187,7 @@ k_elbow <- function(hc, object, census, range){
     x_max_dist
   }
   
-  vertices <- graph_nodes(object)
+  vertices <- network_nodes(object)
   observedcorrelation <- cor(t(census))
 
   resultlist <- list()
@@ -215,8 +215,8 @@ k_elbow <- function(hc, object, census, range){
 }
 
 k_silhouette <- function(hc, object, range){
-  kcs <- 2:min(range, graph_nodes(object))
-  ns <- seq_len(graph_nodes(object))
+  kcs <- 2:min(range, network_nodes(object))
+  ns <- seq_len(network_nodes(object))
   distances <- hc$distances
   ks <- vector()
   for(kc in kcs){

@@ -29,16 +29,16 @@ NULL
 #' @export
 generate_random <- function(n, p = 0.5, directed = FALSE, with_attr = TRUE) {
   if(is_migraph(n)){
-    m <- graph_ties(n)
+    m <- network_ties(n)
     directed <- is_directed(n)
     if(is_twomode(n)){
-      g <- igraph::sample_bipartite(graph_dims(n)[1], 
-                                    graph_dims(n)[2],
+      g <- igraph::sample_bipartite(network_dims(n)[1], 
+                                    network_dims(n)[2],
                                     m = m, type = "gnm",
                                     directed = directed,
                                     mode = "out")
     } else {
-      g <- igraph::sample_gnm(graph_nodes(n), 
+      g <- igraph::sample_gnm(network_nodes(n), 
                                     m = m,
                                     directed = directed)
     }
@@ -152,7 +152,7 @@ generate_permutation <- function(object, with_attr = TRUE) {
 # Helper functions ------------------
 
 r1perm <- function(m) {
-  n <- sample(1:dim(m)[1])
+  n <- sample(seq_len(dim(m)[1]))
   if(is_labelled(m)){
     p <- matrix(data = m[n, n], nrow = dim(m)[1], ncol = dim(m)[2],
                 dimnames = dimnames(m))
@@ -163,8 +163,8 @@ r1perm <- function(m) {
 }
 
 r2perm <- function(m) {
-  n <- sample(1:dim(m)[1])
-  o <- sample(1:dim(m)[2])
+  n <- sample(seq_len(dim(m)[1]))
+  o <- sample(seq_len(dim(m)[2]))
   if(is_labelled(m)){
     p <- matrix(data = m[n, o], nrow = dim(m)[1], ncol = dim(m)[2],
                 dimnames = dimnames(m))

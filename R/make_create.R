@@ -208,7 +208,7 @@ create_tree <- function(n,
 #' @export
 create_lattice <- function(n,
                            directed = FALSE) {
-  if (is_migraph(n)) n <- graph_dims(n)
+  if (is_migraph(n)) n <- network_dims(n)
   igraph::make_lattice(n, directed = directed)
 }
 
@@ -296,7 +296,7 @@ create_core <- function(n, membership = NULL) {
 # Helper functions ------------------
 
 infer_n <- function(n) {
-  if (is_migraph(n)) n <- graph_dims(n)
+  if (is_migraph(n)) n <- network_dims(n)
   if (length(n) > 2) stop(paste("`n` should be a single integer for a one-mode network or",
                              "a vector of two integers for a two-mode network."))
   n

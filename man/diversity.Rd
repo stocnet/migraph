@@ -2,16 +2,16 @@
 % Please edit documentation in R/measure_diversity.R
 \name{diversity}
 \alias{diversity}
-\alias{graph_diversity}
-\alias{graph_homophily}
-\alias{graph_assortativity}
+\alias{network_diversity}
+\alias{network_homophily}
+\alias{network_assortativity}
 \title{Measures of network diversity}
 \usage{
-graph_diversity(object, attribute, clusters = NULL)
+network_diversity(object, attribute, clusters = NULL)
 
-graph_homophily(object, attribute)
+network_homophily(object, attribute)
 
-graph_assortativity(object)
+network_assortativity(object)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -35,16 +35,16 @@ across this attribute.
 }
 \section{Functions}{
 \itemize{
-\item \code{graph_diversity()}: Calculates the heterogeneity of ties across a network or
+\item \code{network_diversity()}: Calculates the heterogeneity of ties across a network or
 within clusters by node attributes.
 
-\item \code{graph_homophily()}: Calculates the embeddedness of a node within the group
+\item \code{network_homophily()}: Calculates the embeddedness of a node within the group
 of nodes of the same attribute
 
-\item \code{graph_assortativity()}: Calculates the degree assortativity in a graph.
+\item \code{network_assortativity()}: Calculates the degree assortativity in a graph.
 
 }}
-\section{graph_diversity}{
+\section{network_diversity}{
 
 Blau's index (1977) uses a formula known also in other disciplines
 by other names
@@ -61,7 +61,7 @@ The maximum value depends on the number of categories and
 whether nodes can be evenly distributed across categories.
 }
 
-\section{graph_homophily}{
+\section{network_homophily}{
 
 Given a partition of a network into a number of mutually exclusive groups then
 The E-I index is the number of ties between (or \emph{external}) nodes
@@ -74,12 +74,12 @@ where 1 indicates ties only between categories/groups and -1 ties only within ca
 
 \examples{
 marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
-graph_diversity(marvel_friends, "Gender")
-graph_diversity(marvel_friends, "Attractive")
-graph_diversity(marvel_friends, "Gender", "Rich")
-graph_homophily(marvel_friends, "Gender")
-graph_homophily(marvel_friends, "Attractive")
-graph_assortativity(mpn_elite_mex)
+network_diversity(marvel_friends, "Gender")
+network_diversity(marvel_friends, "Attractive")
+network_diversity(marvel_friends, "Gender", "Rich")
+network_homophily(marvel_friends, "Gender")
+network_homophily(marvel_friends, "Attractive")
+network_assortativity(mpn_elite_mex)
 }
 \references{
 Blau, Peter M. (1977).

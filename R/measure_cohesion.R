@@ -11,17 +11,17 @@ NULL
 #' to the number of possible ties.
 #' @importFrom igraph edge_density
 #' @examples 
-#' graph_density(mpn_elite_mex)
-#' graph_density(mpn_elite_usa_advice)
+#' network_density(mpn_elite_mex)
+#' network_density(mpn_elite_usa_advice)
 #' @export
-graph_density <- function(object) {
+network_density <- function(object) {
   if (is_twomode(object)) {
     mat <- as_matrix(object)
     out <- sum(mat) / (nrow(mat) * ncol(mat))
   } else {
     out <- igraph::edge_density(as_igraph(object))
   }
-  make_graph_measure(out, object)
+  make_network_measure(out, object)
 }
 
 #' @describeIn cohesion Returns number of (strong) components in the network.
@@ -29,9 +29,9 @@ graph_density <- function(object) {
 #'   please use `to_undirected()` first.
 #' @importFrom igraph components
 #' @export
-graph_components <- function(object){
+network_components <- function(object){
   object <- as_igraph(object)
-  make_graph_measure(igraph::components(object, mode = "strong")$no,
+  make_network_measure(igraph::components(object, mode = "strong")$no,
                      object)
 }
 
@@ -43,11 +43,11 @@ graph_components <- function(object){
 #' "The Cohesiveness of Blocks In Social Networks: Node Connectivity and Conditional Density." 
 #' _Sociological Methodology_ 31(1): 305-59.
 #' @examples 
-#' graph_cohesion(ison_marvel_relationships)
-#' graph_cohesion(to_giant(ison_marvel_relationships))
+#' network_cohesion(ison_marvel_relationships)
+#' network_cohesion(to_giant(ison_marvel_relationships))
 #' @export
-graph_cohesion <- function(object){
-  make_graph_measure(igraph::cohesion(as_igraph(object)),
+network_cohesion <- function(object){
+  make_network_measure(igraph::cohesion(as_igraph(object)),
                      object)
 }
 
@@ -55,23 +55,23 @@ graph_cohesion <- function(object){
 #'   to remove from the network to increase the number of components.
 #' @importFrom igraph adhesion
 #' @examples 
-#' graph_adhesion(ison_marvel_relationships)
-#' graph_adhesion(to_giant(ison_marvel_relationships))
+#' network_adhesion(ison_marvel_relationships)
+#' network_adhesion(to_giant(ison_marvel_relationships))
 #' @export
-graph_adhesion <- function(object){
-  make_graph_measure(igraph::adhesion(as_igraph(object)),
+network_adhesion <- function(object){
+  make_network_measure(igraph::adhesion(as_igraph(object)),
                      object)
 }
 
 #' @describeIn cohesion Returns the maximum path length in the network.
 #' @importFrom igraph diameter
 #' @examples 
-#' graph_diameter(ison_marvel_relationships)
-#' graph_diameter(to_giant(ison_marvel_relationships))
+#' network_diameter(ison_marvel_relationships)
+#' network_diameter(to_giant(ison_marvel_relationships))
 #' @export
-graph_diameter <- function(object){
+network_diameter <- function(object){
   object <- as_igraph(object)
-  make_graph_measure(igraph::diameter(object, 
+  make_network_measure(igraph::diameter(object, 
                    directed = is_directed(object)),
                    object)
 }
@@ -79,12 +79,12 @@ graph_diameter <- function(object){
 #' @describeIn cohesion Returns the average path length in the network.
 #' @importFrom igraph mean_distance
 #' @examples 
-#' graph_length(ison_marvel_relationships)
-#' graph_length(to_giant(ison_marvel_relationships))
+#' network_length(ison_marvel_relationships)
+#' network_length(to_giant(ison_marvel_relationships))
 #' @export
-graph_length <- function(object){
+network_length <- function(object){
   object <- as_igraph(object)
-  make_graph_measure(igraph::mean_distance(object, 
+  make_network_measure(igraph::mean_distance(object, 
                         directed = is_directed(object)),
                      object)
 }

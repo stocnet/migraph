@@ -285,7 +285,7 @@ tie_eigenvector <- function(object, normalized = TRUE){
 #' @export
 node_reach <- function(object, normalized = TRUE, k = 2){
   out <- rowSums(node_path_census(object)==k)
-  if(normalized) out <- out/(graph_nodes(object)-1)
+  if(normalized) out <- out/(network_nodes(object)-1)
   out <- make_node_measure(out, object)
   out
 }
@@ -298,9 +298,9 @@ NULL
 
 #' @describeIn centralisation Calculate the degree centralization for a graph
 #' @examples
-#' graph_degree(ison_southern_women, direction = "in")
+#' network_degree(ison_southern_women, direction = "in")
 #' @export
-graph_degree <- function(object, normalized = TRUE,
+network_degree <- function(object, normalized = TRUE,
                          direction = c("all", "out", "in")){
   
   direction <- match.arg(direction)
@@ -329,15 +329,15 @@ graph_degree <- function(object, normalized = TRUE,
     out <- igraph::centr_degree(graph = object, mode = direction, 
                                 normalized = normalized)$centralization
   }
-  out <- make_graph_measure(out, object)
+  out <- make_network_measure(out, object)
   out
 }
 
 #' @describeIn centralisation Calculate the closeness centralization for a graph
 #' @examples
-#' graph_closeness(ison_southern_women, direction = "in")
+#' network_closeness(ison_southern_women, direction = "in")
 #' @export
-graph_closeness <- function(object, normalized = TRUE,
+network_closeness <- function(object, normalized = TRUE,
                             direction = c("all", "out", "in")){
   
   direction <- match.arg(direction)
@@ -393,15 +393,15 @@ graph_closeness <- function(object, normalized = TRUE,
                              mode = direction,
                              normalized = normalized)$centralization
   }
-  out <- make_graph_measure(out, object)
+  out <- make_network_measure(out, object)
   out
 }
 
 #' @describeIn centralisation Calculate the betweenness centralization for a graph
 #' @examples
-#' graph_betweenness(ison_southern_women, direction = "in")
+#' network_betweenness(ison_southern_women, direction = "in")
 #' @export
-graph_betweenness <- function(object, normalized = TRUE,
+network_betweenness <- function(object, normalized = TRUE,
                               direction = c("all", "out", "in")) {
   
   direction <- match.arg(direction)
@@ -449,16 +449,16 @@ graph_betweenness <- function(object, normalized = TRUE,
   } else {
     out <- igraph::centr_betw(graph = graph)$centralization
   }
-  out <- make_graph_measure(out, object)
+  out <- make_network_measure(out, object)
   out
 }
 
 #' @describeIn centralisation Calculate the eigenvector centralization for a graph
 #' @examples
-#' graph_eigenvector(mpn_elite_mex)
-#' graph_eigenvector(ison_southern_women)
+#' network_eigenvector(mpn_elite_mex)
+#' network_eigenvector(ison_southern_women)
 #' @export
-graph_eigenvector <- function(object, normalized = TRUE){
+network_eigenvector <- function(object, normalized = TRUE){
   if (is_twomode(object)) {
     out <- c(igraph::centr_eigen(as_igraph(to_mode1(object)), 
                                  normalized = normalized)$centralization,
@@ -468,7 +468,7 @@ graph_eigenvector <- function(object, normalized = TRUE){
     out <- igraph::centr_eigen(as_igraph(object), 
                                normalized = normalized)$centralization
   }
-  out <- make_graph_measure(out, object)
+  out <- make_network_measure(out, object)
   out
 }
 

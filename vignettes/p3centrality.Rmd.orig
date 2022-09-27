@@ -13,6 +13,7 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
+  fig.cap = "",
   fig.path = "teaching/"
 )
 ```
@@ -116,10 +117,10 @@ Here we are no longer interested in the level of the node,
 but in the level of the whole graph, so the syntax is:
 
 ```{r centzn}
-graph_degree(ison_brandes)
-graph_betweenness(ison_brandes)
-graph_closeness(ison_brandes)
-graph_eigenvector(ison_brandes)
+network_degree(ison_brandes)
+network_betweenness(ison_brandes)
+network_closeness(ison_brandes)
+network_eigenvector(ison_brandes)
 ```
 
 By default, scores are printed to 3 decimal places,
@@ -142,13 +143,13 @@ ison_brandes <- ison_brandes %>%
   add_node_attribute("closeness", node_is_max(node_closeness(ison_brandes))) %>%
   add_node_attribute("eigenvector", node_is_max(node_eigenvector(ison_brandes)))
 gd <- autographr(ison_brandes, node_color = "degree") + 
-  ggtitle("Degree", subtitle = round(graph_degree(ison_brandes), 2))
+  ggtitle("Degree", subtitle = round(network_degree(ison_brandes), 2))
 gc <- autographr(ison_brandes, node_color = "closeness") + 
-  ggtitle("Closeness", subtitle = round(graph_closeness(ison_brandes), 2))
+  ggtitle("Closeness", subtitle = round(network_closeness(ison_brandes), 2))
 gb <- autographr(ison_brandes, node_color = "betweenness") + 
-  ggtitle("Betweenness", subtitle = round(graph_betweenness(ison_brandes), 2))
+  ggtitle("Betweenness", subtitle = round(network_betweenness(ison_brandes), 2))
 ge <- autographr(ison_brandes, node_color = "eigenvector") + 
-  ggtitle("Eigenvector", subtitle = round(graph_eigenvector(ison_brandes), 2))
+  ggtitle("Eigenvector", subtitle = round(network_eigenvector(ison_brandes), 2))
 (gd | gb) / (gc | ge)
 # ggsave("brandes-centralities.pdf")
 ```

@@ -4,7 +4,7 @@
 #'   from given network data.
 #'   They are also useful as helpers within other functions.
 #'   
-#'   `graph_*()` functions always relate to the overall graph or network,
+#'   `network_*()` functions always relate to the overall graph or network,
 #'   usually returning a scalar.
 #'   `node_*()` and `tie_*()` always return vectors the same length
 #'   as the number of nodes or edges in the network, respectively.
@@ -30,7 +30,7 @@ node_mode <- function(object){
   if(is_twomode(object)){
     out <- igraph::get.vertex.attribute(as_igraph(object), "type")
   } else{
-    out <- rep(FALSE, graph_nodes(object))
+    out <- rep(FALSE, network_nodes(object))
   }
   # cannot use make_node_mark here because then eternal loop
   class(out) <- c("node_mark", class(out))
@@ -63,7 +63,7 @@ tie_attribute <- function(object, attribute){
 tie_weights <- function(object){
   object <- as_igraph(object)
   out <- igraph::get.edge.attribute(object, "weight")
-  if(is.null(out)) out <- rep(1, graph_ties(object))
+  if(is.null(out)) out <- rep(1, network_ties(object))
   out
 }
 
@@ -74,33 +74,33 @@ tie_weights <- function(object){
 tie_signs <- function(object){
   object <- as_igraph(object)
   out <- igraph::get.edge.attribute(object, "sign")
-  if(is.null(out)) out <- rep(1, graph_ties(object))
+  if(is.null(out)) out <- rep(1, network_ties(object))
   out
 }
 
 #' @describeIn grab Returns the total number of nodes (of any mode) in a network.
 #' @examples
-#' graph_nodes(ison_southern_women)
+#' network_nodes(ison_southern_women)
 #' @export
-graph_nodes <- function(object){
+network_nodes <- function(object){
   igraph::vcount(as_igraph(object))
 }
 
 #' @describeIn grab Returns the number of edges in a network.
 #' @examples
-#' graph_ties(ison_southern_women)
+#' network_ties(ison_southern_women)
 #' @export
-graph_ties <- function(object){
+network_ties <- function(object){
   igraph::ecount(as_igraph(object))
 }
 
 #' @describeIn grab Returns the dimensions of a network in a vector
 #'   as long as the number of modes in the network.
 #' @examples
-#' graph_dims(ison_southern_women)
-#' graph_dims(to_mode1(ison_southern_women))
+#' network_dims(ison_southern_women)
+#' network_dims(to_mode1(ison_southern_women))
 #' @export
-graph_dims <- function(object){
+network_dims <- function(object){
   if(is_twomode(object)){
     c(sum(!igraph::V(as_igraph(object))$type),
       sum(igraph::V(as_igraph(object))$type))
@@ -112,17 +112,17 @@ graph_dims <- function(object){
 #' @describeIn grab Returns a vector of nodal attributes in a network
 #' @importFrom igraph list.vertex.attributes
 #' @examples
-#' graph_node_attributes(mpn_elite_mex)
+#' network_node_attributes(mpn_elite_mex)
 #' @export
-graph_node_attributes <- function(object){
+network_node_attributes <- function(object){
   igraph::list.vertex.attributes(as_igraph(object))
 }
 
 #' @describeIn grab Returns a vector of edge attributes in a network
 #' @importFrom igraph list.edge.attributes
 #' @examples
-#' graph_tie_attributes(mpn_elite_mex)
+#' network_tie_attributes(mpn_elite_mex)
 #' @export
-graph_tie_attributes <- function(object){
+network_tie_attributes <- function(object){
   igraph::list.edge.attributes(as_igraph(object))
 }

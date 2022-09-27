@@ -37,18 +37,16 @@ marvel_friends
 #> # An undirected simple graph with 1 component
 #> #
 #> # Node Data: 19 × 10 (active)
-#>   name  Gender Appear… Attrac…  Rich
-#>   <chr> <chr>    <int>   <int> <int>
-#> 1 Beast Male      7609       1     0
-#> 2 Capt… Male      9000       1     0
-#> 3 Colo… Male      5974       1     0
-#> 4 Cycl… Male      8853       1     0
-#> 5 Emma… Female    4777       1     0
-#> 6 Hawk… Male      3982       1     0
-#> # … with 13 more rows, and 5 more
-#> #   variables: Intellect <int>,
-#> #   Omnilingual <int>, PowerOrigin <chr>,
-#> #   UnarmedCombat <int>,
+#>   name  Gender Appear… Attrac…  Rich Intell… Omnili…
+#>   <chr> <chr>    <int>   <int> <int>   <int>   <int>
+#> 1 Beast Male      7609       1     0       1       0
+#> 2 Capt… Male      9000       1     0       1       0
+#> 3 Colo… Male      5974       1     0       0       0
+#> 4 Cycl… Male      8853       1     0       1       0
+#> 5 Emma… Female    4777       1     0       0       1
+#> 6 Hawk… Male      3982       1     0       0       0
+#> # … with 13 more rows, and 3 more variables:
+#> #   PowerOrigin <chr>, UnarmedCombat <int>,
 #> #   ArmedCombat <int>
 #> #
 #> # Edge Data: 107 × 2
@@ -71,7 +69,7 @@ autographr(marvel_friends,
            node_color = "PowerOrigin")
 ```
 
-![plot of chunk unnamed-chunk-2](teaching/unnamed-chunk-2-1.png)
+![](teaching/unnamed-chunk-2-1.png)
 
 These variables seem to be distributed unevenly across the network.
 There seems to be some homophily, or like choosing like,
@@ -97,15 +95,15 @@ would receive a score of 1.
 
 
 ```r
-graph_diversity(marvel_friends, "Gender")
+network_diversity(marvel_friends, "Gender")
 #> [1] 0.388
-graph_diversity(marvel_friends, "PowerOrigin")
+network_diversity(marvel_friends, "PowerOrigin")
 #> [1] 0.593
-graph_diversity(marvel_friends, "Attractive")
+network_diversity(marvel_friends, "Attractive")
 #> [1] 0.188
-graph_diversity(marvel_friends, "Rich")
+network_diversity(marvel_friends, "Rich")
 #> [1] 0.188
-graph_diversity(marvel_friends, "Intellect")
+network_diversity(marvel_friends, "Intellect")
 #> [1] 0.465
 ```
 
@@ -120,9 +118,9 @@ or equally intellectually diverse across gender.^[Note that this works for calcu
 
 
 ```r
-graph_diversity(marvel_friends, "Gender", "PowerOrigin")
+network_diversity(marvel_friends, "Gender", "PowerOrigin")
 #> [1] 0.000 0.000 0.463 0.375
-graph_diversity(marvel_friends, "Intellect", "Gender")
+network_diversity(marvel_friends, "Intellect", "Gender")
 #> [1] 0.480 0.459
 ```
 
@@ -142,7 +140,7 @@ autographr(marvel_friends,
            node_color = "Gender")
 ```
 
-![plot of chunk blaugroups](teaching/blaugroups-1.png)
+![](teaching/blaugroups-1.png)
 
 ```r
 autographr(marvel_friends, 
@@ -150,7 +148,7 @@ autographr(marvel_friends,
            node_size = "Intellect")
 ```
 
-![plot of chunk blaugroups](teaching/blaugroups-2.png)
+![](teaching/blaugroups-2.png)
 
 Ok, this tells us about how (un)even the distribution of these variables is in this network,
 but it doesn't necessarily tell us whether within this network there is homophily/heterophily.
@@ -169,11 +167,11 @@ As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1
 
 
 ```r
-(obs.gender <- graph_homophily(marvel_friends, "Gender"))
+(obs.gender <- network_homophily(marvel_friends, "Gender"))
 #> [1] -0.196
-(obs.powers <- graph_homophily(marvel_friends, "PowerOrigin")) 
+(obs.powers <- network_homophily(marvel_friends, "PowerOrigin")) 
 #> [1] -0.00935
-(obs.attract <- graph_homophily(marvel_friends, "Attractive")) 
+(obs.attract <- network_homophily(marvel_friends, "Attractive")) 
 #> [1] -0.645
 ```
 
@@ -204,20 +202,20 @@ such as `test_random()`:
 
 ```r
 rand.gender <- test_random(marvel_friends, 
-                            graph_homophily, attribute = "Gender", 
+                            network_homophily, attribute = "Gender", 
                            times = 20)
 rand.power <- test_random(marvel_friends, 
-                           graph_homophily, attribute = "PowerOrigin", 
+                           network_homophily, attribute = "PowerOrigin", 
                            times = 20)
 rand.attract <- test_random(marvel_friends, 
-                             graph_homophily, attribute = "Attractive", 
+                             network_homophily, attribute = "Attractive", 
                            times = 20)
 plot(rand.gender) / 
 plot(rand.power) /
 plot(rand.attract)
 ```
 
-![plot of chunk rando](teaching/rando-1.png)
+![](teaching/rando-1.png)
 
 The plots of these results use a dotted vertical line for 0 where this is in bounds,
 a red vertical line for the observed score,
@@ -261,7 +259,7 @@ new <- autographr(generate_permutation(marvel_friends, with_attr = TRUE),
 old + new
 ```
 
-![plot of chunk perm](teaching/perm-1.png)
+![](teaching/perm-1.png)
 
 This single permutation suggests there might otherwise be some more even mixing of these
 attributes, but it is just a single permutation.
@@ -271,10 +269,10 @@ just as we did with random graphs.
 
 ```r
 perm.gender <- test_permutation(marvel_friends, 
-                                graph_homophily, attribute = "Gender",
+                                network_homophily, attribute = "Gender",
                                 times = 1000)
 perm.power <- test_permutation(marvel_friends, 
-                               graph_homophily, attribute = "PowerOrigin",
+                               network_homophily, attribute = "PowerOrigin",
                                 times = 1000)
 ```
 
@@ -287,7 +285,7 @@ for gender that we did, but the lack of power origin heterophily is surprising.
 (plot(perm.gender) | plot(perm.power))
 ```
 
-![plot of chunk cugqap](teaching/cugqap-1.png)
+![](teaching/cugqap-1.png)
 
 Note how the distributions are generally wider when permuting the observed network 
 than creating a random distribution (be mindful of the scale of the _x_-axis).
@@ -310,14 +308,14 @@ ison_networkers
 #> # A directed simple graph with 1 component
 #> #
 #> # Node Data: 32 × 3 (active)
-#>   name               Discipline   Citatio…
-#>   <chr>              <chr>           <dbl>
-#> 1 LIN FREEMAN        Sociology          19
-#> 2 DOUG WHITE         Anthropology        3
-#> 3 EV ROGERS          Other             170
-#> 4 RICHARD ALBA       Sociology          23
-#> 5 PHIPPS ARABIE      Other              16
-#> 6 CAROL BARNER-BARRY Other               6
+#>   name               Discipline   Citations
+#>   <chr>              <chr>            <dbl>
+#> 1 LIN FREEMAN        Sociology           19
+#> 2 DOUG WHITE         Anthropology         3
+#> 3 EV ROGERS          Other              170
+#> 4 RICHARD ALBA       Sociology           23
+#> 5 PHIPPS ARABIE      Other               16
+#> 6 CAROL BARNER-BARRY Other                6
 #> # … with 26 more rows
 #> #
 #> # Edge Data: 440 × 3
@@ -331,7 +329,7 @@ autographr(ison_networkers,
            node_color = "Discipline")
 ```
 
-![plot of chunk intro-eies](teaching/intro-eies-1.png)
+![](teaching/intro-eies-1.png)
 
 Let's use both the continuous `Citations` and the categorical `Discipline` variables 
 and come up with a couple of key hypotheses:
@@ -357,30 +355,28 @@ facilitate the quick interpretation of these results.
 ```r
 tidy(model1)
 #> # A tibble: 7 × 4
-#>   term            estimate stati…¹ p.value
-#>   <chr>              <dbl>   <dbl>   <dbl>
-#> 1 (intercept)       1.72     0.194   0.91 
-#> 2 alter Citations  -0.0326  -0.588   0.58 
-#> 3 sim Citations    24.4      2.86    0.235
-#> 4 alter Discipli… -16.8     -3.07    0.29 
-#> 5 alter Discipli… -10.6     -2.31    0.475
-#> 6 alter Discipli…  -7.37    -1.90    0.575
-#> 7 same Discipline   3.90     1.23    0.395
-#> # … with abbreviated variable name
-#> #   ¹​statistic
+#>   term                       estimate stati…¹ p.value
+#>   <chr>                         <dbl>   <dbl>   <dbl>
+#> 1 (intercept)                  1.72     0.194   0.94 
+#> 2 alter Citations             -0.0326  -0.588   0.625
+#> 3 sim Citations               24.4      2.86    0.215
+#> 4 alter Discipline Mathemat… -16.8     -3.07    0.265
+#> 5 alter Discipline Other     -10.6     -2.31    0.475
+#> 6 alter Discipline Sociology  -7.37    -1.90    0.495
+#> 7 same Discipline              3.90     1.23    0.41 
+#> # … with abbreviated variable name ¹​statistic
 glance(model1)
 #> # A tibble: 1 × 8
-#>   r.squared adj.r.…¹ sigma stati…² p.value
-#>       <dbl>    <dbl> <dbl>   <dbl>   <dbl>
-#> 1    0.0334   0.0275  43.1    5.67 8.33e-6
-#> # … with 3 more variables: df <dbl>,
-#> #   df.residual <int>, nobs <int>, and
-#> #   abbreviated variable names
-#> #   ¹​adj.r.squared, ²​statistic
+#>   r.squ…¹ adj.r…² sigma stati…³ p.value    df df.re…⁴
+#>     <dbl>   <dbl> <dbl>   <dbl>   <dbl> <dbl>   <int>
+#> 1  0.0334  0.0275  43.1    5.67 8.33e-6     6     985
+#> # … with 1 more variable: nobs <int>, and
+#> #   abbreviated variable names ¹​r.squared,
+#> #   ²​adj.r.squared, ³​statistic, ⁴​df.residual
 plot(model1)
 ```
 
-![plot of chunk qap-interp](teaching/qap-interp-1.png)
+![](teaching/qap-interp-1.png)
 
 This voilin plot presents the distribution of coefficients from permutations of the network,
 with the fitted coefficient from the data as a red dot.

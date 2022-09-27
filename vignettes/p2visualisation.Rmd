@@ -1,0 +1,232 @@
+---
+title: "2. Visualisation"
+author: "James Hollway"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{2. Visualisation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+# Why we graph
+
+Network visualisation is important and non-trivial.
+As Tufte (1983: 9) said:
+
+> "At their best, graphics are instruments for reasoning about quantitative information. Often the most effective way to describe, explore, and summarize a set of numbers – even a very large set – is to look at pictures of those numbers"
+
+Brandes et al (1999) argue that visualising networks demands thinking about:
+
+- _substance_: a concise and precise delivery of insights to the researcher and/or readers
+- _design_: the ergonomics of function are 98% of the purpose of good design, aesthetics only 2%
+- and _algorithm_: the features of the e.g. the layout algorithm
+
+While there may be many dead-ends to exploratory visualisation,
+it is worth taking the time to make sure that your main points are
+easy to appreciate.
+
+On [her excellent and helpful website](https://kateto.net/network-visualization), 
+Katya Ognyanova outlines some key dimensions of control
+that network researchers have to play with:
+
+- vertex position (layout)
+- vertex shape
+- vertex color
+- vertex size
+- vertex labels
+- edge color
+- edge size
+- edge shape
+- edge arrows
+
+# Approaches to visualising networks in R
+
+There are a host of packages for plotting in R, 
+and for plotting networks in R.
+Plotting in R is typically based around two main approaches:
+the 'base' approach in R by default,
+and the 'grid' approach made popular by the famous and very flexible `{ggplot2}` package.^['gg' stands for the Grammar of Graphics.]
+Approaches to plotting _graphs_ or _networks_ in R can be similarly divided.
+
+The two classic packages are `{igraph}` and `{sna}`, both building upon the base R graphics engine.
+Newer packages [`{ggnetwork}`](https://www.r-bloggers.com/2016/03/ggnetwork-network-geometries-for-ggplot2/) and 
+[`{ggraph}`](https://ggraph.data-imaginist.com/index.html) build upon a grid approach.^[
+Others include: 'Networkly' for creating 2-D and 3-D interactive networks
+that can be rendered with plotly and can be easily integrated into
+shiny apps or markdown documents;
+'visNetwork' interacts with javascript (vis.js) to make interactive networks
+(http://datastorm-open.github.io/visNetwork/); and
+'networkD3' interacts with javascript (D3) to make interactive networks
+(https://www.r-bloggers.com/2016/10/network-visualization-part-6-d3-and-r-networkd3/).
+]
+This vignette introduces some functions in the `{migraph}` package for plotting and 
+visualising network data.
+`{migraph}` builds upon the ggplot2/ggraph engine for plotting.
+
+# Using `{migraph}` to quickly plot network graphs
+  
+To get a basic visualisation of the network before adding various specifications,
+the `autographr()` function in `{migraph}` is a quick and easy way 
+to obtain a clear first look of the network 
+for preliminary investigations and understanding of the network.
+  
+
+```r
+library(migraph)
+autographr(ison_brandes)
+```
+
+![](teaching/migrapheg-1.png)
+  
+We can also specify the colours, groups, shapes, and sizes of nodes in 
+the `autographr()` function using the following parameters:
+  
+* `node_colour`
+* `node_shape`
+* `node_size`
+
+## Appending more
+
+Append `ggtitle()` to add a title.
+`{migraph}` works well with both `{ggplot2}` and `{ggraph}` functions 
+that can be appended to create more tailored visualisations 
+of the network.
+  
+
+```r
+autographr(ison_adolescents,
+           labels = TRUE,
+           node_size = 1.5) + 
+  ggtitle("Visualisation")
+```
+
+![](teaching/migraphexample2-1.png)
+
+`{migraph}` also uses the `{patchwork}` package for arranging
+graphs together, e.g. side-by-side or above one another.
+The syntax is quite straight forward and is used throughout these vignettes.
+
+
+```r
+autographr(ison_adolescents) + autographr(ison_algebra)
+```
+
+![](teaching/patchwork-1.png)
+
+```r
+autographr(ison_adolescents) / autographr(ison_algebra)
+```
+
+![](teaching/patchwork-2.png)
+
+## Layouts
+
+A range of graph layouts are available across the `{igraph}`, `{graphlayouts}`, and `{migraph}` packages 
+that can be used together with `autographr()`.
+
+
+```r
+(autographr(ison_southern_women, layout = "bipartite") + ggtitle("bipartite") |
+autographr(ison_southern_women, layout = "hierarchy") + ggtitle("hierarchy")) /
+(autographr(ison_southern_women, layout = "concentric") + ggtitle("concentric") |
+   autographr(ison_southern_women, layout = "railway") + ggtitle("railway"))
+```
+
+![](teaching/layoutseg-1.png)
+
+# Using `{ggraph}` for more flexibility
+
+For more flexibility with visualizations, 
+`{migraph}` users are encouraged to use the excellent `{ggraph}` package.
+`{ggraph}` is built upon the venerable `{ggplot2}` package
+and works with `tbl_graph` and `igraph` objects.
+As with `{ggplot2}`, `{ggraph}` users are expected to build
+a particular plot from the ground up,
+adding explicit layers to visualise the nodes and edges.
+  
+
+```r
+library(ggraph)
+ggraph(mpn_elite_mex, layout = "fr") + 
+  geom_edge_link(edge_colour = "dark grey", 
+                  arrow = arrow(angle = 45,
+                                length = unit(2, "mm"),
+                                type = "closed"),
+                  end_cap = circle(3, "mm")) +
+  geom_node_point(size = 2.5, shape = 19, colour = "blue") +
+  geom_node_text(aes(label=name), family = "serif", size = 2.5) +
+  scale_edge_width(range = c(0.3,1.5)) +
+  theme_graph() +
+  theme(legend.position = "none")
+```
+
+![](teaching/ggrapheg-1.png)
+  
+As we can see in the code above, we can specify various aspects of the plot to 
+tailor it to our network. 
+Firstly, we can alter the **layout** of the network using the `layout =` argument
+to create a clearer visualisation of the ties between nodes. 
+This is especially important for larger networks, where nodes and ties are more 
+easily obscured or misrepresented.
+In `{ggraph}`, the default layout is the "stress" layout. 
+The "stress" layout is a safe choice because it is deterministic and 
+fits well with almost any graph, but it is also a good idea to explore and try 
+out other layouts on your data.
+More layouts can be found in the `{graphlayouts}` and `{igraph}` R packages. 
+To use a layout from the `{igraph}` package, enter only the last part of the layout 
+algorithm name (eg. `layout = "mds"` for "layout_with_mds").
+  
+Secondly, using `geom_node_point()` which draws the nodes as geometric shapes 
+(circles, squares, or triangles), we can specify the presentation of **nodes** 
+in the network in terms of their *shape* (`shape=`, choose from 1 to 21), 
+*size* (`size=`), or *colour* (`colour=`). We can also use `aes()` to match to 
+node attributes. To add labels, use `geom_node_text()` or 
+`geom_node_label()` (draws labels within a box). The font (`family=`), 
+font size (`size=`), and colour (`colour=`) of the labels can be specified.
+  
+Thirdly, we can also specify the presentation of **edges** in the network.
+To draw edges, we use `geom_edge_link0()` or `geom_edge_link()`. 
+Using the latter function makes it possible to draw a straight line with a 
+gradient. 
+The following features can be tailored either globally or matched to specific
+edge attributes using `aes()`:
+  
+* *colour*: `edge_colour=`
+  
+* *width*: `edge_width=`
+  
+* *linetype*: `edge_linetype=`
+  
+* *opacity*: `edge_alpha=`
+  
+For directed graphs, arrows can be drawn using the `arrow=` argument and the 
+`arrow()` function from `{ggplot2}`. The angle, length, arrowhead type, and
+padding between the arrowhead and the node can also be specified.
+  
+To change the position of the legend, add the `theme()` function from `{ggplot2}`.
+The legend can be positioned at the top, bottom, left, or right, 
+or removed using "none".
+
+For more see David Schoch's [excellent resources on this](http://mr.schochastics.net/netVizR.html).
+  
+# Exporting plots to PDF
+
+We can print the plots we have made to PDF by point-and-click
+by selecting 'Save as PDF...' from under the 'Export' dropdown menu
+in the plots panel tab of RStudio.
+
+If you want to do this programmatically,
+say because you want to record how you have saved it so that you can
+e.g. make some changes to the parameters at some point,
+this is also not too difficult.
+
+After running the (gg-based) plot you want to save,
+use the command `ggsave("my_filename.pdf")` to save your plot
+as a PDF to your working directory.
+If you want to save it somewhere else, you will need to specify the file path
+(or change the working directory, but that might be more cumbersome).
+If you want to save it as a different filetype,
+replace `.pdf` with e.g. `.png` or `.jpeg`.
+See `?ggsave` for more.

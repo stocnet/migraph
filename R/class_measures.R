@@ -9,9 +9,9 @@ make_tie_measure <- function(out, object) {
   out
 }
 
-make_graph_measure <- function(out, object) {
-  class(out) <- c("graph_measure", class(out))
-  attr(out, "mode") <- graph_dims(object)
+make_network_measure <- function(out, object) {
+  class(out) <- c("network_measure", class(out))
+  attr(out, "mode") <- network_dims(object)
   out
 }
 
@@ -41,7 +41,7 @@ print.tie_measure <- function(x, ...,
 }
 
 #' @export
-print.graph_measure <- function(x, ...,
+print.network_measure <- function(x, ...,
                                digits = 3) {
     if (length(attr(x, "mode")) == 1) {
       print(as.numeric(x), digits = digits)

@@ -13,6 +13,7 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
+  fig.cap = "",
   fig.path = "teaching/"
 )
 ```
@@ -73,11 +74,11 @@ while a perfectly heterogeneous group (with members spread evenly over the maxim
 would receive a score of 1.
 
 ```{r blau}
-graph_diversity(marvel_friends, "Gender")
-graph_diversity(marvel_friends, "PowerOrigin")
-graph_diversity(marvel_friends, "Attractive")
-graph_diversity(marvel_friends, "Rich")
-graph_diversity(marvel_friends, "Intellect")
+network_diversity(marvel_friends, "Gender")
+network_diversity(marvel_friends, "PowerOrigin")
+network_diversity(marvel_friends, "Attractive")
+network_diversity(marvel_friends, "Rich")
+network_diversity(marvel_friends, "Intellect")
 ```
 
 Looks like there is more diversity in terms of where these characters got
@@ -90,8 +91,8 @@ are equally gender diverse across their (power) origin stories,
 or equally intellectually diverse across gender.^[Note that this works for calculated categorical variables too, such as cluster/group assignment from community detection or equivalence classes.]
 
 ```{r crossref}
-graph_diversity(marvel_friends, "Gender", "PowerOrigin")
-graph_diversity(marvel_friends, "Intellect", "Gender")
+network_diversity(marvel_friends, "Gender", "PowerOrigin")
+network_diversity(marvel_friends, "Intellect", "Gender")
 ```
 
 Note that the length of the vector returned as a result
@@ -128,9 +129,9 @@ and $I$ is the number of ties present within a variable's categories (i.e. inter
 As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1 suggests perfect heterophily.
 
 ```{r ei}
-(obs.gender <- graph_homophily(marvel_friends, "Gender"))
-(obs.powers <- graph_homophily(marvel_friends, "PowerOrigin")) 
-(obs.attract <- graph_homophily(marvel_friends, "Attractive")) 
+(obs.gender <- network_homophily(marvel_friends, "Gender"))
+(obs.powers <- network_homophily(marvel_friends, "PowerOrigin")) 
+(obs.attract <- network_homophily(marvel_friends, "Attractive")) 
 ```
 
 Looks like there might be some gender homophily present,
@@ -159,13 +160,13 @@ such as `test_random()`:
 
 ```{r rando}
 rand.gender <- test_random(marvel_friends, 
-                            graph_homophily, attribute = "Gender", 
+                            network_homophily, attribute = "Gender", 
                            times = 20)
 rand.power <- test_random(marvel_friends, 
-                           graph_homophily, attribute = "PowerOrigin", 
+                           network_homophily, attribute = "PowerOrigin", 
                            times = 20)
 rand.attract <- test_random(marvel_friends, 
-                             graph_homophily, attribute = "Attractive", 
+                             network_homophily, attribute = "Attractive", 
                            times = 20)
 plot(rand.gender) / 
 plot(rand.power) /
@@ -220,10 +221,10 @@ just as we did with random graphs.
 
 ```{r test_permute}
 perm.gender <- test_permutation(marvel_friends, 
-                                graph_homophily, attribute = "Gender",
+                                network_homophily, attribute = "Gender",
                                 times = 1000)
 perm.power <- test_permutation(marvel_friends, 
-                               graph_homophily, attribute = "PowerOrigin",
+                               network_homophily, attribute = "PowerOrigin",
                                 times = 1000)
 ```
 

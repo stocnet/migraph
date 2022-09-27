@@ -85,7 +85,7 @@ cluster_concor <- function(object, census){
                                             c(t(cbind(t(utils::combn(g, 2)), p)))
                                       } ))
   merges <- c(merges, 
-              list(c(t(cbind(t(utils::combn(seq_len(graph_nodes(object)), 2)), 0)))))
+              list(c(t(cbind(t(utils::combn(seq_len(network_nodes(object)), 2)), 0)))))
   merged <- matrix(unlist(merges), ncol = 3, byrow = TRUE)
   merged <- merged[!duplicated(merged[,1:2]),]
   merged[,3] <- abs(merged[,3] - max(merged[,3]))

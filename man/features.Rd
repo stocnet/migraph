@@ -2,25 +2,25 @@
 % Please edit documentation in R/measure_features.R
 \name{features}
 \alias{features}
-\alias{graph_core}
-\alias{graph_factions}
-\alias{graph_modularity}
-\alias{graph_smallworld}
-\alias{graph_balance}
+\alias{network_core}
+\alias{network_factions}
+\alias{network_modularity}
+\alias{network_smallworld}
+\alias{network_balance}
 \title{Measures of network topological features}
 \source{
 \code{{signnet}} by David Schoch
 }
 \usage{
-graph_core(object, membership = NULL)
+network_core(object, membership = NULL)
 
-graph_factions(object, membership = NULL)
+network_factions(object, membership = NULL)
 
-graph_modularity(object, membership = NULL, resolution = 1)
+network_modularity(object, membership = NULL, resolution = 1)
 
-graph_smallworld(object, times = 100)
+network_smallworld(object, times = 100)
 
-graph_balance(object)
+network_balance(object)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -44,38 +44,38 @@ Measures of network topological features
 }
 \section{Functions}{
 \itemize{
-\item \code{graph_core()}: Returns correlation between a given network
+\item \code{network_core()}: Returns correlation between a given network
 and a core-periphery model with the same dimensions.
 
-\item \code{graph_factions()}: Returns correlation between a given network
+\item \code{network_factions()}: Returns correlation between a given network
 and a component model with the same dimensions.
 
-\item \code{graph_modularity()}: Returns modularity of one- or two-mode networks
+\item \code{network_modularity()}: Returns modularity of one- or two-mode networks
 based on nodes' membership in pre-defined clusters.
 
-\item \code{graph_smallworld()}: Returns small-world metrics for one- and
+\item \code{network_smallworld()}: Returns small-world metrics for one- and
 two-mode networks.
 Small-world networks can be highly clustered and yet
 have short path lengths.
 
-\item \code{graph_balance()}: Returns the structural balance index on
+\item \code{network_balance()}: Returns the structural balance index on
 the proportion of balanced triangles,
 ranging between \code{0} if all triangles are imbalanced and
 \code{1} if all triangles are balanced.
 
 }}
 \examples{
-graph_core(ison_adolescents)
-graph_core(ison_southern_women)
-graph_factions(ison_adolescents)
-graph_factions(ison_southern_women)
-graph_modularity(ison_adolescents, 
+network_core(ison_adolescents)
+network_core(ison_southern_women)
+network_factions(ison_adolescents)
+network_factions(ison_southern_women)
+network_modularity(ison_adolescents, 
   node_kernighanlin(ison_adolescents))
-graph_modularity(ison_southern_women, 
+network_modularity(ison_southern_women, 
   node_kernighanlin(ison_southern_women))
-graph_smallworld(ison_brandes)
-graph_smallworld(ison_southern_women)
-graph_balance(ison_marvel_relationships)
+network_smallworld(ison_brandes)
+network_smallworld(ison_southern_women)
+network_balance(ison_marvel_relationships)
 }
 \references{
 Borgatti, Stephen P., and Martin G. Everett. 2000.
@@ -95,7 +95,7 @@ Watts, Duncan J., and Steven H. Strogatz. 1998.
 \doi{10.1038/30918}.
 }
 \seealso{
-\code{\link[=graph_transitivity]{graph_transitivity()}} and \code{\link[=graph_equivalency]{graph_equivalency()}}
+\code{\link[=network_transitivity]{network_transitivity()}} and \code{\link[=network_equivalency]{network_equivalency()}}
 for how clustering is calculated
 
 Other measures: 

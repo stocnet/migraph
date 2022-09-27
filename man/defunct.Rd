@@ -15,13 +15,47 @@
 \alias{edge_bridges}
 \alias{edge_reciprocal}
 \alias{graph_edge_attributes}
+\alias{graph_tie_attributes}
 \alias{graph_edges}
+\alias{graph_ties}
 \alias{node_cuts}
 \alias{to_edges}
 \alias{join_edges}
 \alias{to_main_component}
 \alias{graph_blau_index}
+\alias{graph_diversity}
 \alias{graph_ei_index}
+\alias{graph_homophily}
+\alias{plot.graph_test}
+\alias{print.graph_test}
+\alias{print.graph_measure}
+\alias{print.graph_motif}
+\alias{graph_adhesion}
+\alias{graph_cohesion}
+\alias{graph_assortativity}
+\alias{graph_balance}
+\alias{graph_betweenness}
+\alias{graph_closeness}
+\alias{graph_degree}
+\alias{graph_eigenvector}
+\alias{graph_components}
+\alias{graph_factions}
+\alias{graph_congruency}
+\alias{graph_equivalency}
+\alias{graph_core}
+\alias{graph_density}
+\alias{graph_reciprocity}
+\alias{graph_transitivity}
+\alias{graph_diameter}
+\alias{graph_length}
+\alias{graph_dims}
+\alias{graph_nodes}
+\alias{graph_dyad_census}
+\alias{graph_triad_census}
+\alias{graph_mixed_census}
+\alias{graph_modularity}
+\alias{graph_node_attributes}
+\alias{graph_smallworld}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 add_edge_attribute(object, attr_name, vector)
@@ -50,7 +84,11 @@ edge_reciprocal(object)
 
 graph_edge_attributes(object)
 
+graph_tie_attributes(object)
+
 graph_edges(object)
+
+graph_ties(object)
 
 node_cuts(object)
 
@@ -62,7 +100,71 @@ to_main_component(object)
 
 graph_blau_index(object, attribute, clusters = NULL)
 
+graph_diversity(object, attribute, clusters = NULL)
+
 graph_ei_index(object, attribute)
+
+graph_homophily(object, attribute)
+
+\method{plot}{graph_test}(x, ..., threshold = 0.95, tails = c("two", "one"))
+
+\method{print}{graph_test}(x, ..., max.length = 6, digits = 3)
+
+\method{print}{graph_measure}(x, ..., digits = 3)
+
+\method{print}{graph_motif}(x, ...)
+
+graph_adhesion(object)
+
+graph_cohesion(object)
+
+graph_assortativity(object)
+
+graph_balance(object)
+
+graph_betweenness(object, normalized = TRUE, direction = c("all", "out", "in"))
+
+graph_closeness(object, normalized = TRUE, direction = c("all", "out", "in"))
+
+graph_degree(object, normalized = TRUE, direction = c("all", "out", "in"))
+
+graph_eigenvector(object, normalized = TRUE)
+
+graph_components(object)
+
+graph_factions(object, membership = NULL)
+
+graph_congruency(object, object2)
+
+graph_equivalency(object)
+
+graph_core(object, membership = NULL)
+
+graph_density(object)
+
+graph_reciprocity(object, method = "default")
+
+graph_transitivity(object)
+
+graph_diameter(object)
+
+graph_length(object)
+
+graph_dims(object)
+
+graph_nodes(object)
+
+graph_dyad_census(object)
+
+graph_triad_census(object)
+
+graph_mixed_census(object, object2)
+
+graph_modularity(object, membership = NULL, resolution = 1)
+
+graph_node_attributes(object)
+
+graph_smallworld(object, times = 100)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -101,7 +203,11 @@ wherever possible and update your scripts accordingly.
 
 \item \code{graph_edge_attributes()}: Deprecated on 2022-06-28.
 
+\item \code{graph_tie_attributes()}: Deprecated on 2022-09-25.
+
 \item \code{graph_edges()}: Deprecated on 2022-06-28.
+
+\item \code{graph_ties()}: Deprecated on 2022-09-25.
 
 \item \code{node_cuts()}: Deprecated on 2022-06-30.
 
@@ -113,7 +219,71 @@ wherever possible and update your scripts accordingly.
 
 \item \code{graph_blau_index()}: Deprecated on 2022-09-10.
 
+\item \code{graph_diversity()}: Deprecated on 2022-09-25.
+
 \item \code{graph_ei_index()}: Deprecated on 2022-09-10.
+
+\item \code{graph_homophily()}: Deprecated on 2022-09-25.
+
+\item \code{plot(graph_test)}: Deprecated on 2022-09-25.
+
+\item \code{print(graph_test)}: Deprecated on 2022-09-25.
+
+\item \code{print(graph_measure)}: Deprecated on 2022-09-25.
+
+\item \code{print(graph_motif)}: Deprecated on 2022-09-25.
+
+\item \code{graph_adhesion()}: Deprecated on 2022-09-25.
+
+\item \code{graph_cohesion()}: Deprecated on 2022-09-25.
+
+\item \code{graph_assortativity()}: Deprecated on 2022-09-25.
+
+\item \code{graph_balance()}: Deprecated on 2022-09-25.
+
+\item \code{graph_betweenness()}: Deprecated on 2022-09-25.
+
+\item \code{graph_closeness()}: Deprecated on 2022-09-25.
+
+\item \code{graph_degree()}: Deprecated on 2022-09-25.
+
+\item \code{graph_eigenvector()}: Deprecated on 2022-09-25.
+
+\item \code{graph_components()}: Deprecated on 2022-09-25.
+
+\item \code{graph_factions()}: Deprecated on 2022-09-25.
+
+\item \code{graph_congruency()}: Deprecated on 2022-09-25.
+
+\item \code{graph_equivalency()}: Deprecated on 2022-09-25.
+
+\item \code{graph_core()}: Deprecated on 2022-09-25.
+
+\item \code{graph_density()}: Deprecated on 2022-09-25.
+
+\item \code{graph_reciprocity()}: Deprecated on 2022-09-25.
+
+\item \code{graph_transitivity()}: Deprecated on 2022-09-25.
+
+\item \code{graph_diameter()}: Deprecated on 2022-09-25.
+
+\item \code{graph_length()}: Deprecated on 2022-09-25.
+
+\item \code{graph_dims()}: Deprecated on 2022-09-25.
+
+\item \code{graph_nodes()}: Deprecated on 2022-09-25.
+
+\item \code{graph_dyad_census()}: Deprecated on 2022-09-25.
+
+\item \code{graph_triad_census()}: Deprecated on 2022-09-25.
+
+\item \code{graph_mixed_census()}: Deprecated on 2022-09-25.
+
+\item \code{graph_modularity()}: Deprecated on 2022-09-25.
+
+\item \code{graph_node_attributes()}: Deprecated on 2022-09-25.
+
+\item \code{graph_smallworld()}: Deprecated on 2022-09-25.
 
 }}
 \keyword{internal}

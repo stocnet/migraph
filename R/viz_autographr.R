@@ -291,7 +291,7 @@ autographr <- auto_graph <- function(object,
       nsize <- node_size(g)
     }
   } else {
-    nsize <- ifelse(graph_nodes(g) <= 10, 5, (100 / graph_nodes(g)) / 2)
+    nsize <- ifelse(network_nodes(g) <= 10, 5, (100 / network_nodes(g)) / 2)
   }
 
   if (!is.null(node_shape)) {

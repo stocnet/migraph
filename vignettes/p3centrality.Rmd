@@ -24,40 +24,40 @@ library(migraph)
 autographr(ison_brandes)
 ```
 
-![plot of chunk coercion](teaching/coercion-1.png)
+![](teaching/coercion-1.png)
 
 ```r
 autographr(ison_brandes2)
 ```
 
-![plot of chunk coercion](teaching/coercion-2.png)
+![](teaching/coercion-2.png)
 
 ```r
 (mat <- as_matrix(ison_brandes))
-#>       [,1] [,2] [,3] [,4] [,5] [,6] [,7]
-#>  [1,]    0    0    1    0    0    0    0
-#>  [2,]    0    0    1    0    0    0    0
-#>  [3,]    1    1    0    1    0    0    0
-#>  [4,]    0    0    1    0    1    1    0
-#>  [5,]    0    0    0    1    0    0    1
-#>  [6,]    0    0    0    1    0    0    1
-#>  [7,]    0    0    0    0    1    1    0
-#>  [8,]    0    0    0    0    0    1    0
-#>  [9,]    0    0    0    0    0    0    1
-#> [10,]    0    0    0    0    0    0    0
-#> [11,]    0    0    0    0    0    0    0
-#>       [,8] [,9] [,10] [,11]
-#>  [1,]    0    0     0     0
-#>  [2,]    0    0     0     0
-#>  [3,]    0    0     0     0
-#>  [4,]    0    0     0     0
-#>  [5,]    0    0     0     0
-#>  [6,]    1    0     0     0
-#>  [7,]    0    1     0     0
-#>  [8,]    0    1     0     0
-#>  [9,]    1    0     1     1
-#> [10,]    0    1     0     0
-#> [11,]    0    1     0     0
+#>       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
+#>  [1,]    0    0    1    0    0    0    0    0    0
+#>  [2,]    0    0    1    0    0    0    0    0    0
+#>  [3,]    1    1    0    1    0    0    0    0    0
+#>  [4,]    0    0    1    0    1    1    0    0    0
+#>  [5,]    0    0    0    1    0    0    1    0    0
+#>  [6,]    0    0    0    1    0    0    1    1    0
+#>  [7,]    0    0    0    0    1    1    0    0    1
+#>  [8,]    0    0    0    0    0    1    0    0    1
+#>  [9,]    0    0    0    0    0    0    1    1    0
+#> [10,]    0    0    0    0    0    0    0    0    1
+#> [11,]    0    0    0    0    0    0    0    0    1
+#>       [,10] [,11]
+#>  [1,]     0     0
+#>  [2,]     0     0
+#>  [3,]     0     0
+#>  [4,]     0     0
+#>  [5,]     0     0
+#>  [6,]     0     0
+#>  [7,]     0     0
+#>  [8,]     0     0
+#>  [9,]     1     1
+#> [10,]     0     0
+#> [11,]     0     0
 ```
 
 The network is anonymous, but I think it would be nice to add some names,
@@ -72,7 +72,7 @@ ison_brandes2 <- to_named(ison_brandes2)
 autographr(ison_brandes)
 ```
 
-![plot of chunk addingnames](teaching/addingnames-1.png)
+![](teaching/addingnames-1.png)
 
 Note that you will likely get a different set of names,
 as they are assigned randomly from a pool of (American) first names.
@@ -85,14 +85,14 @@ Just sum the rows or columns of the matrix!
 (degrees <- rowSums(mat))
 #>  [1] 1 1 3 3 2 3 3 2 4 1 1
 rowSums(mat) == colSums(mat)
-#>  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE
-#>  [8] TRUE TRUE TRUE TRUE
+#>  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+#> [10] TRUE TRUE
 # Are they all equal? Why?
 # You can also just use a built in command in migraph though:
 node_degree(ison_brandes, normalized = FALSE)
-#>   Kelly Bentley Clifford  Lily  Ivan Debra
-#> 1     1       1        3     3     2     3
-#> # ... with 5 more from this nodeset in the vector.
+#>   Melinda Haley Mallory Pamela Florence  Cora  Olga
+#> 1       1     1       3      3        2     3     3
+#> # ... with 4 more from this nodeset in the vector.
 ```
 
 Often we are interested in the distribution of (degree) centrality in a network.
@@ -105,7 +105,7 @@ plot(node_degree(ison_brandes), "h") +
   plot(node_degree(ison_brandes), "d")
 ```
 
-![plot of chunk distrib](teaching/distrib-1.png)
+![](teaching/distrib-1.png)
 
 Other measures of centrality can be a little trickier to calculate by hand.
 Fortunately, we can use functions from `{migraph}` to help:
@@ -113,17 +113,17 @@ Fortunately, we can use functions from `{migraph}` to help:
 
 ```r
 node_betweenness(ison_brandes)
-#>   Kelly Bentley Clifford  Lily  Ivan Debra
-#> 1     0       0    0.378 0.485 0.133 0.337
-#> # ... with 5 more from this nodeset in the vector.
+#>   Melinda Haley Mallory Pamela Florence  Cora  Olga
+#> 1       0     0   0.378  0.485    0.133 0.337 0.304
+#> # ... with 4 more from this nodeset in the vector.
 node_closeness(ison_brandes)
-#>   Kelly Bentley Clifford  Lily  Ivan Debra
-#> 1 0.278   0.278    0.370 0.455 0.435 0.476
-#> # ... with 5 more from this nodeset in the vector.
+#>   Melinda Haley Mallory Pamela Florence  Cora  Olga
+#> 1   0.278 0.278   0.370  0.455    0.435 0.476 0.455
+#> # ... with 4 more from this nodeset in the vector.
 node_eigenvector(ison_brandes)
-#>   Kelly Bentley Clifford  Lily  Ivan Debra
-#> 1 0.106   0.106    0.277 0.510 0.437 0.615
-#> # ... with 5 more from this nodeset in the vector.
+#>   Melinda Haley Mallory Pamela Florence  Cora  Olga
+#> 1   0.106 0.106   0.277  0.510    0.437 0.615 0.631
+#> # ... with 4 more from this nodeset in the vector.
 # TASK: Can you create degree distributions for each of these?
 ```
 
@@ -149,7 +149,7 @@ ison_brandes %>%
   autographr(node_color = "color")
 ```
 
-![plot of chunk ggid](teaching/ggid-1.png)
+![](teaching/ggid-1.png)
 
 ```r
 ison_brandes %>%
@@ -157,7 +157,7 @@ ison_brandes %>%
   autographr(node_color = "color")
 ```
 
-![plot of chunk ggid](teaching/ggid-2.png)
+![](teaching/ggid-2.png)
 
 ```r
 ison_brandes %>%
@@ -165,7 +165,7 @@ ison_brandes %>%
   autographr(node_color = "color")
 ```
 
-![plot of chunk ggid](teaching/ggid-3.png)
+![](teaching/ggid-3.png)
 
 ```r
 ison_brandes %>%
@@ -173,7 +173,7 @@ ison_brandes %>%
   autographr(node_color = "color")
 ```
 
-![plot of chunk ggid](teaching/ggid-4.png)
+![](teaching/ggid-4.png)
 
 How neat! Try it with the two-mode version.
 What can you see?
@@ -186,13 +186,13 @@ but in the level of the whole graph, so the syntax is:
 
 
 ```r
-graph_degree(ison_brandes)
+network_degree(ison_brandes)
 #> [1] 0.182
-graph_betweenness(ison_brandes)
+network_betweenness(ison_brandes)
 #> [1] 0.318
-graph_closeness(ison_brandes)
+network_closeness(ison_brandes)
 #> [1] 0.23
-graph_eigenvector(ison_brandes)
+network_eigenvector(ison_brandes)
 #> [1] 0.484
 ```
 
@@ -217,17 +217,17 @@ ison_brandes <- ison_brandes %>%
   add_node_attribute("closeness", node_is_max(node_closeness(ison_brandes))) %>%
   add_node_attribute("eigenvector", node_is_max(node_eigenvector(ison_brandes)))
 gd <- autographr(ison_brandes, node_color = "degree") + 
-  ggtitle("Degree", subtitle = round(graph_degree(ison_brandes), 2))
+  ggtitle("Degree", subtitle = round(network_degree(ison_brandes), 2))
 gc <- autographr(ison_brandes, node_color = "closeness") + 
-  ggtitle("Closeness", subtitle = round(graph_closeness(ison_brandes), 2))
+  ggtitle("Closeness", subtitle = round(network_closeness(ison_brandes), 2))
 gb <- autographr(ison_brandes, node_color = "betweenness") + 
-  ggtitle("Betweenness", subtitle = round(graph_betweenness(ison_brandes), 2))
+  ggtitle("Betweenness", subtitle = round(network_betweenness(ison_brandes), 2))
 ge <- autographr(ison_brandes, node_color = "eigenvector") + 
-  ggtitle("Eigenvector", subtitle = round(graph_eigenvector(ison_brandes), 2))
+  ggtitle("Eigenvector", subtitle = round(network_eigenvector(ison_brandes), 2))
 (gd | gb) / (gc | ge)
 ```
 
-![plot of chunk multiplot](teaching/multiplot-1.png)
+![](teaching/multiplot-1.png)
 
 ```r
 # ggsave("brandes-centralities.pdf")

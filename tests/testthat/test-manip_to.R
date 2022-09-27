@@ -27,8 +27,8 @@ test_that("to_onemode works",{
 })
 
 test_that("to_giant works",{
-  expect_equal(graph_nodes(ison_marvel_relationships), 53)
-  expect_equal(graph_nodes(to_giant(ison_marvel_relationships)), 50)
+  expect_equal(network_nodes(ison_marvel_relationships), 53)
+  expect_equal(network_nodes(to_giant(ison_marvel_relationships)), 50)
 })
 
 test_that("to_uniplex works", {
@@ -51,7 +51,7 @@ test_that("to_unsigned works", {
 test_that("to_named works", {
   expect_false(is_labelled(ison_brandes))
   expect_true(is_labelled(to_named(ison_brandes)))
-  expect_true(is_labelled(to_named(ison_brandes, seq_len(graph_nodes(ison_brandes)))))
+  expect_true(is_labelled(to_named(ison_brandes, seq_len(network_nodes(ison_brandes)))))
 })
 
 test_that("multilevel works", {
@@ -64,7 +64,7 @@ test_that("matrix projected correctly by rows",{
   expect_true(all(node_names(to_mode1(ison_southern_women)) %in% node_names(ison_southern_women)))
   expect_true(length(node_names(to_mode1(ison_southern_women))) != length(node_names(ison_southern_women)))
   expect_equal(length(node_names(to_mode1(ison_southern_women))), length(rownames(as_matrix(ison_southern_women))))
-  expect_equal(graph_nodes(to_mode1(ison_southern_women, "count")), graph_nodes(to_mode1(ison_southern_women, "jaccard")))
+  expect_equal(network_nodes(to_mode1(ison_southern_women, "count")), network_nodes(to_mode1(ison_southern_women, "jaccard")))
   expect_true(is_weighted(to_mode1(mpn_elite_usa_advice, "pearson")))
   expect_false(tie_weights(to_mode1(mpn_elite_usa_advice, "rand"))[3] == tie_weights(to_mode1(mpn_elite_usa_advice, "count"))[3])
 })
@@ -74,7 +74,7 @@ test_that("matrix projected correctly by columns",{
   expect_true(all(node_names(to_mode2(ison_southern_women)) %in% node_names(ison_southern_women)))
   expect_true(length(node_names(to_mode2(ison_southern_women))) != length(node_names(ison_southern_women)))
   expect_equal(length(node_names(to_mode2(ison_southern_women))), length(colnames(as_matrix(ison_southern_women))))
-  expect_equal(graph_nodes(to_mode2(ison_southern_women, "count")), graph_nodes(to_mode2(ison_southern_women, "jaccard")))
+  expect_equal(network_nodes(to_mode2(ison_southern_women, "count")), network_nodes(to_mode2(ison_southern_women, "jaccard")))
   expect_true(is_weighted(to_mode2(mpn_elite_usa_advice, "pearson")))
   expect_false(tie_weights(to_mode2(mpn_elite_usa_advice, "rand"))[1] == tie_weights(to_mode2(mpn_elite_usa_advice, "count"))[1])
 })
@@ -92,6 +92,6 @@ test_that("to_blocks works", {
 
 test_that("to matching works", {
   sw <- as_edgelist(to_matching(ison_southern_women))
-  expect_equal(graph_nodes(to_matching(ison_southern_women)), graph_nodes(ison_southern_women))
+  expect_equal(network_nodes(to_matching(ison_southern_women)), network_nodes(ison_southern_women))
   expect_true(nrow(sw) == nrow(dplyr::distinct(sw)))
 })
