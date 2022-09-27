@@ -22,6 +22,9 @@
     <loc>https://snlab-ch.github.io/migraph/articles/p1data.html</loc>
   </url>
   <url>
+    <loc>https://snlab-ch.github.io/migraph/articles/p2visualisation.html</loc>
+  </url>
+  <url>
     <loc>https://snlab-ch.github.io/migraph/articles/p3centrality.html</loc>
   </url>
   <url>
@@ -103,9 +106,6 @@
     <loc>https://snlab-ch.github.io/migraph/reference/grab.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/graph_census.html</loc>
-  </url>
-  <url>
     <loc>https://snlab-ch.github.io/migraph/reference/grid_layouts.html</loc>
   </url>
   <url>
@@ -167,6 +167,9 @@
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/mpn_senate112.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/network_census.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/node_census.html</loc>

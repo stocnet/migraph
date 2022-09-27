@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
       </span>
     </div>
 
@@ -178,24 +178,24 @@
 <ul>
 <li>Centrality: <code><a href="reference/centrality.html">node_degree()</a></code>, <code><a href="reference/centrality.html">node_closeness()</a></code>, <code><a href="reference/centrality.html">node_betweenness()</a></code>, and <code><a href="reference/centrality.html">node_eigenvector()</a></code>
 </li>
-<li>Centralization: <code><a href="reference/centralisation.html">graph_degree()</a></code>, <code><a href="reference/centralisation.html">graph_closeness()</a></code>, <code><a href="reference/centralisation.html">graph_betweenness()</a></code>, and <code><a href="reference/centralisation.html">graph_eigenvector()</a></code>
+<li>Centralization: <code><a href="reference/centralisation.html">network_degree()</a></code>, <code><a href="reference/centralisation.html">network_closeness()</a></code>, <code><a href="reference/centralisation.html">network_betweenness()</a></code>, and <code><a href="reference/centralisation.html">network_eigenvector()</a></code>
 </li>
-<li>Cohesion: <code><a href="reference/cohesion.html">graph_density()</a></code>, <code><a href="reference/closure.html">graph_reciprocity()</a></code>, <code><a href="reference/closure.html">graph_transitivity()</a></code>, <code><a href="reference/closure.html">graph_equivalency()</a></code>, and <code><a href="reference/closure.html">graph_congruency()</a></code>
+<li>Cohesion: <code><a href="reference/cohesion.html">network_density()</a></code>, <code><a href="reference/closure.html">network_reciprocity()</a></code>, <code><a href="reference/closure.html">network_transitivity()</a></code>, <code><a href="reference/closure.html">network_equivalency()</a></code>, and <code><a href="reference/closure.html">network_congruency()</a></code>
 </li>
-<li>Connectedness: <code><a href="reference/cohesion.html">graph_components()</a></code>, <code><a href="reference/cohesion.html">graph_cohesion()</a></code>, <code><a href="reference/cohesion.html">graph_adhesion()</a></code>, <code><a href="reference/cohesion.html">graph_diameter()</a></code>, <code><a href="reference/cohesion.html">graph_length()</a></code>
+<li>Connectedness: <code><a href="reference/cohesion.html">network_components()</a></code>, <code><a href="reference/cohesion.html">network_cohesion()</a></code>, <code><a href="reference/cohesion.html">network_adhesion()</a></code>, <code><a href="reference/cohesion.html">network_diameter()</a></code>, <code><a href="reference/cohesion.html">network_length()</a></code>
 </li>
-<li>Diversity: <code><a href="reference/diversity.html">graph_diversity()</a></code>, <code><a href="reference/diversity.html">graph_homophily()</a></code>, <code><a href="reference/diversity.html">graph_assortativity()</a></code>
+<li>Diversity: <code><a href="reference/diversity.html">network_diversity()</a></code>, <code><a href="reference/diversity.html">network_homophily()</a></code>, <code><a href="reference/diversity.html">network_assortativity()</a></code>
 </li>
 <li>Structural holes: e.g. <code><a href="reference/holes.html">node_redundancy()</a></code>, <code><a href="reference/holes.html">node_effsize()</a></code>, <code><a href="reference/holes.html">node_efficiency()</a></code>, <code><a href="reference/holes.html">node_constraint()</a></code>, <code><a href="reference/holes.html">node_hierarchy()</a></code>
 </li>
-<li>Topological features: e.g. <code><a href="reference/features.html">graph_core()</a></code>, <code><a href="reference/features.html">graph_factions()</a></code>, <code><a href="reference/features.html">graph_modularity()</a></code>, <code><a href="reference/features.html">graph_smallworld()</a></code>, <code><a href="reference/features.html">graph_balance()</a></code>
+<li>Topological features: e.g. <code><a href="reference/features.html">network_core()</a></code>, <code><a href="reference/features.html">network_factions()</a></code>, <code><a href="reference/features.html">network_modularity()</a></code>, <code><a href="reference/features.html">network_smallworld()</a></code>, <code><a href="reference/features.html">network_balance()</a></code>
 </li>
 </ul>
 </div>
 <div class="section level4">
 <h4 id="motifs">Motifs<a class="anchor" aria-label="anchor" href="#motifs"></a>
 </h4>
-<ul><li>Censuses: <code><a href="reference/node_census.html">node_path_census()</a></code>, <code><a href="reference/node_census.html">node_quad_census()</a></code>, <code><a href="reference/node_census.html">node_tie_census()</a></code>, <code><a href="reference/node_census.html">node_triad_census()</a></code>, <code><a href="reference/graph_census.html">graph_dyad_census()</a></code>, <code><a href="reference/graph_census.html">graph_mixed_census()</a></code>, <code><a href="reference/graph_census.html">graph_triad_census()</a></code>
+<ul><li>Censuses: <code><a href="reference/node_census.html">node_path_census()</a></code>, <code><a href="reference/node_census.html">node_quad_census()</a></code>, <code><a href="reference/node_census.html">node_tie_census()</a></code>, <code><a href="reference/node_census.html">node_triad_census()</a></code>, <code><a href="reference/network_census.html">network_dyad_census()</a></code>, <code><a href="reference/network_census.html">network_mixed_census()</a></code>, <code><a href="reference/network_census.html">network_triad_census()</a></code>
 </li></ul>
 </div>
 <div class="section level4">
@@ -215,11 +215,12 @@
 </h4>
 <ul>
 <li>
-<code><a href="reference/autographr.html">autographr()</a></code> for plotting graphs with sensible defaults based on their properties</li>
-<li>New layouts: <code><a href="reference/partition_layouts.html">layout_tbl_graph_alluvial()</a></code>, <code><a href="reference/partition_layouts.html">layout_tbl_graph_concentric()</a></code>, <code><a href="reference/grid_layouts.html">layout_tbl_graph_frgrid()</a></code>, <code><a href="reference/grid_layouts.html">layout_tbl_graph_gogrid()</a></code>, <code><a href="reference/partition_layouts.html">layout_tbl_graph_hierarchy()</a></code>, <code><a href="reference/grid_layouts.html">layout_tbl_graph_kkgrid()</a></code>, <code><a href="reference/partition_layouts.html">layout_tbl_graph_ladder()</a></code>, <code><a href="reference/partition_layouts.html">layout_tbl_graph_railway()</a></code>, <code><a href="reference/grid_layouts.html">layout_tbl_graph_stressgrid()</a></code> for snapping a layout to a grid</li>
-<li>Class-based plots: e.g. <code>plot.matrix()</code>, <code>plot.members()</code>, <code>plot.node_measure()</code>
-</li>
+<code><a href="reference/autographr.html">autographr()</a></code> for one-line plotting graphs with sensible defaults based on their properties</li>
+<li>New layouts for snapping a layout to a grid or for visualizing partitions:</li>
 </ul>
+<p><img src="reference/figures/README-layout-comparison-1.png" width="100%"></p>
+<ul><li>Class-based plots: e.g. <code>plot.matrix()</code>, <code>plot.members()</code>, <code>plot.node_measure()</code>
+</li></ul>
 <p>Please explore <a href="https://snlab-ch.github.io/migraph/reference/index.html">the list of functions</a> to find out more.</p>
 </div>
 </div>

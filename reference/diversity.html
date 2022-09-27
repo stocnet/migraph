@@ -19,7 +19,7 @@ across this attribute."><meta property="og:image" content="https://snlab-ch.gith
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
       </span>
     </div>
 
@@ -66,11 +66,11 @@ across this attribute.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">graph_diversity</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span>, clusters <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">network_diversity</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span>, clusters <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">graph_homophily</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span><span class="op">)</span></span>
+<span><span class="fu">network_homophily</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">graph_assortativity</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">network_assortativity</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,14 +96,14 @@ to use as categories for the diversity measure.</p></dd>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>graph_diversity()</code>: Calculates the heterogeneity of ties across a network or
+<ul><li><p><code>network_diversity()</code>: Calculates the heterogeneity of ties across a network or
 within clusters by node attributes.</p></li>
-<li><p><code>graph_homophily()</code>: Calculates the embeddedness of a node within the group
+<li><p><code>network_homophily()</code>: Calculates the embeddedness of a node within the group
 of nodes of the same attribute</p></li>
-<li><p><code>graph_assortativity()</code>: Calculates the degree assortativity in a graph.</p></li>
+<li><p><code>network_assortativity()</code>: Calculates the degree assortativity in a graph.</p></li>
 </ul></div>
-    <div id="graph-diversity">
-    <h2>graph_diversity</h2>
+    <div id="network-diversity">
+    <h2>network_diversity</h2>
     
 
 <p>Blau's index (1977) uses a formula known also in other disciplines
@@ -120,8 +120,8 @@ i.e. when all individuals are classified in the same category.
 The maximum value depends on the number of categories and
 whether nodes can be evenly distributed across categories.</p>
     </div>
-    <div id="graph-homophily">
-    <h2>graph_homophily</h2>
+    <div id="network-homophily">
+    <h2>network_homophily</h2>
     
 
 <p>Given a partition of a network into a number of mutually exclusive groups then
@@ -155,17 +155,17 @@ Informal networks and organizational crises: an experimental simulation.
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="reformat.html">to_unsigned</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span>, <span class="st">"positive"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">graph_diversity</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Gender"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">network_diversity</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Gender"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.306</span>
-<span class="r-in"><span><span class="fu">graph_diversity</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Attractive"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">network_diversity</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Attractive"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.35</span>
-<span class="r-in"><span><span class="fu">graph_diversity</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Gender"</span>, <span class="st">"Rich"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">network_diversity</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Gender"</span>, <span class="st">"Rich"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.337 0.165</span>
-<span class="r-in"><span><span class="fu">graph_homophily</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Gender"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">network_homophily</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Gender"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.285</span>
-<span class="r-in"><span><span class="fu">graph_homophily</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Attractive"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">network_homophily</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Attractive"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.632</span>
-<span class="r-in"><span><span class="fu">graph_assortativity</span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">network_assortativity</span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.176</span>
 </code></pre></div>
     </div>

@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
       </span>
     </div>
 
@@ -152,14 +152,14 @@
 <span><span class="co">#&gt; IGRAPH f8d9f5f UN-B 32 93 -- </span></span>
 <span><span class="co">#&gt; + attr: type (v/l), name (v/c)</span></span>
 <span><span class="co">#&gt; + edges from f8d9f5f (vertex names):</span></span>
-<span><span class="co">#&gt;  [1] EVELYN --E1 EVELYN --E2 EVELYN --E3</span></span>
-<span><span class="co">#&gt;  [4] EVELYN --E4 EVELYN --E5 EVELYN --E6</span></span>
-<span><span class="co">#&gt;  [7] EVELYN --E8 EVELYN --E9 LAURA  --E1</span></span>
-<span><span class="co">#&gt; [10] LAURA  --E2 LAURA  --E3 LAURA  --E5</span></span>
-<span><span class="co">#&gt; [13] LAURA  --E6 LAURA  --E7 LAURA  --E8</span></span>
-<span><span class="co">#&gt; [16] THERESA--E2 THERESA--E3 THERESA--E4</span></span>
-<span><span class="co">#&gt; [19] THERESA--E5 THERESA--E6 THERESA--E7</span></span>
-<span><span class="co">#&gt; [22] THERESA--E8 THERESA--E9 BRENDA --E1</span></span>
+<span><span class="co">#&gt;  [1] EVELYN --E1 EVELYN --E2 EVELYN --E3 EVELYN --E4</span></span>
+<span><span class="co">#&gt;  [5] EVELYN --E5 EVELYN --E6 EVELYN --E8 EVELYN --E9</span></span>
+<span><span class="co">#&gt;  [9] LAURA  --E1 LAURA  --E2 LAURA  --E3 LAURA  --E5</span></span>
+<span><span class="co">#&gt; [13] LAURA  --E6 LAURA  --E7 LAURA  --E8 THERESA--E2</span></span>
+<span><span class="co">#&gt; [17] THERESA--E3 THERESA--E4 THERESA--E5 THERESA--E6</span></span>
+<span><span class="co">#&gt; [21] THERESA--E7 THERESA--E8 THERESA--E9 BRENDA --E1</span></span>
+<span><span class="co">#&gt; [25] BRENDA --E3 BRENDA --E4 BRENDA --E5 BRENDA --E6</span></span>
+<span><span class="co">#&gt; [29] BRENDA --E7 BRENDA --E8</span></span>
 <span><span class="co">#&gt; + ... omitted several edges</span></span>
 <span><span class="fu"><a href="../reference/as.html">as_tidygraph</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span> <span class="co"># now let's make it a tidygraph tbl_graph object</span></span>
 <span><span class="co">#&gt; # A tbl_graph: 32 nodes and 93 edges</span></span>
@@ -201,44 +201,25 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; No edge attributes</span></span>
 <span><span class="fu"><a href="../reference/as.html">as_matrix</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span> <span class="co"># a matrix object</span></span>
-<span><span class="co">#&gt;           E1 E2 E3 E4 E5 E6 E7 E8 E9 E10</span></span>
-<span><span class="co">#&gt; EVELYN     1  1  1  1  1  1  0  1  1   0</span></span>
-<span><span class="co">#&gt; LAURA      1  1  1  0  1  1  1  1  0   0</span></span>
-<span><span class="co">#&gt; THERESA    0  1  1  1  1  1  1  1  1   0</span></span>
-<span><span class="co">#&gt; BRENDA     1  0  1  1  1  1  1  1  0   0</span></span>
-<span><span class="co">#&gt; CHARLOTTE  0  0  1  1  1  0  1  0  0   0</span></span>
-<span><span class="co">#&gt; FRANCES    0  0  1  0  1  1  0  1  0   0</span></span>
-<span><span class="co">#&gt; ELEANOR    0  0  0  0  1  1  1  1  0   0</span></span>
-<span><span class="co">#&gt; PEARL      0  0  0  0  0  1  0  1  1   0</span></span>
-<span><span class="co">#&gt; RUTH       0  0  0  0  1  0  1  1  1   0</span></span>
-<span><span class="co">#&gt; VERNE      0  0  0  0  0  0  1  1  1   0</span></span>
-<span><span class="co">#&gt; MYRA       0  0  0  0  0  0  0  1  1   1</span></span>
-<span><span class="co">#&gt; KATHERINE  0  0  0  0  0  0  0  1  1   1</span></span>
-<span><span class="co">#&gt; SYLVIA     0  0  0  0  0  0  1  1  1   1</span></span>
-<span><span class="co">#&gt; NORA       0  0  0  0  0  1  1  0  1   1</span></span>
-<span><span class="co">#&gt; HELEN      0  0  0  0  0  0  1  1  0   1</span></span>
-<span><span class="co">#&gt; DOROTHY    0  0  0  0  0  0  0  1  1   1</span></span>
-<span><span class="co">#&gt; OLIVIA     0  0  0  0  0  0  0  0  1   0</span></span>
-<span><span class="co">#&gt; FLORA      0  0  0  0  0  0  0  0  1   0</span></span>
-<span><span class="co">#&gt;           E11 E12 E13 E14</span></span>
-<span><span class="co">#&gt; EVELYN      0   0   0   0</span></span>
-<span><span class="co">#&gt; LAURA       0   0   0   0</span></span>
-<span><span class="co">#&gt; THERESA     0   0   0   0</span></span>
-<span><span class="co">#&gt; BRENDA      0   0   0   0</span></span>
-<span><span class="co">#&gt; CHARLOTTE   0   0   0   0</span></span>
-<span><span class="co">#&gt; FRANCES     0   0   0   0</span></span>
-<span><span class="co">#&gt; ELEANOR     0   0   0   0</span></span>
-<span><span class="co">#&gt; PEARL       0   0   0   0</span></span>
-<span><span class="co">#&gt; RUTH        0   0   0   0</span></span>
-<span><span class="co">#&gt; VERNE       0   1   0   0</span></span>
-<span><span class="co">#&gt; MYRA        0   1   0   0</span></span>
-<span><span class="co">#&gt; KATHERINE   0   1   1   1</span></span>
-<span><span class="co">#&gt; SYLVIA      0   1   1   1</span></span>
-<span><span class="co">#&gt; NORA        1   1   1   1</span></span>
-<span><span class="co">#&gt; HELEN       1   1   1   1</span></span>
-<span><span class="co">#&gt; DOROTHY     0   1   0   0</span></span>
-<span><span class="co">#&gt; OLIVIA      1   0   0   0</span></span>
-<span><span class="co">#&gt; FLORA       1   0   0   0</span></span>
+<span><span class="co">#&gt;           E1 E2 E3 E4 E5 E6 E7 E8 E9 E10 E11 E12 E13 E14</span></span>
+<span><span class="co">#&gt; EVELYN     1  1  1  1  1  1  0  1  1   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; LAURA      1  1  1  0  1  1  1  1  0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; THERESA    0  1  1  1  1  1  1  1  1   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; BRENDA     1  0  1  1  1  1  1  1  0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; CHARLOTTE  0  0  1  1  1  0  1  0  0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; FRANCES    0  0  1  0  1  1  0  1  0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; ELEANOR    0  0  0  0  1  1  1  1  0   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; PEARL      0  0  0  0  0  1  0  1  1   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; RUTH       0  0  0  0  1  0  1  1  1   0   0   0   0   0</span></span>
+<span><span class="co">#&gt; VERNE      0  0  0  0  0  0  1  1  1   0   0   1   0   0</span></span>
+<span><span class="co">#&gt; MYRA       0  0  0  0  0  0  0  1  1   1   0   1   0   0</span></span>
+<span><span class="co">#&gt; KATHERINE  0  0  0  0  0  0  0  1  1   1   0   1   1   1</span></span>
+<span><span class="co">#&gt; SYLVIA     0  0  0  0  0  0  1  1  1   1   0   1   1   1</span></span>
+<span><span class="co">#&gt; NORA       0  0  0  0  0  1  1  0  1   1   1   1   1   1</span></span>
+<span><span class="co">#&gt; HELEN      0  0  0  0  0  0  1  1  0   1   1   1   1   1</span></span>
+<span><span class="co">#&gt; DOROTHY    0  0  0  0  0  0  0  1  1   1   0   1   0   0</span></span>
+<span><span class="co">#&gt; OLIVIA     0  0  0  0  0  0  0  0  1   0   1   0   0   0</span></span>
+<span><span class="co">#&gt; FLORA      0  0  0  0  0  0  0  0  1   0   1   0   0   0</span></span>
 <span><span class="co"># this is an incidence matrix since it is a two-mode network</span></span>
 <span><span class="co"># if it were a one-mode network, the function would return an adjacency matrix</span></span>
 <span><span class="fu"><a href="../reference/as.html">as_edgelist</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span> <span class="co"># an edgelist data frame/tibble</span></span>
@@ -300,19 +281,16 @@
 <span><span class="co">#&gt; # An undirected multigraph with 4 components</span></span>
 <span><span class="co">#&gt; #</span></span>
 <span><span class="co">#&gt; # Node Data: 53 × 9 (active)</span></span>
-<span><span class="co">#&gt;   Gender Appear… Attrac…  Rich Intell…</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 Male       427       0     0       1</span></span>
-<span><span class="co">#&gt; 2 Male       589       1     0       1</span></span>
-<span><span class="co">#&gt; 3 Male      1207       0     0       1</span></span>
-<span><span class="co">#&gt; 4 Male      7609       1     0       1</span></span>
-<span><span class="co">#&gt; 5 Male      2189       1     1       1</span></span>
-<span><span class="co">#&gt; 6 Female    2907       1     0       1</span></span>
-<span><span class="co">#&gt; # … with 47 more rows, and 4 more</span></span>
-<span><span class="co">#&gt; #   variables: Omnilingual &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   PowerOrigin &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   UnarmedCombat &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   ArmedCombat &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   Gender Appear… Attrac…  Rich Intell… Omnili… PowerO…</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt; &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt; 1 Male       427       0     0       1       1 Radiat…</span></span>
+<span><span class="co">#&gt; 2 Male       589       1     0       1       0 Human  </span></span>
+<span><span class="co">#&gt; 3 Male      1207       0     0       1       1 Mutant </span></span>
+<span><span class="co">#&gt; 4 Male      7609       1     0       1       0 Mutant </span></span>
+<span><span class="co">#&gt; 5 Male      2189       1     1       1       0 Human  </span></span>
+<span><span class="co">#&gt; 6 Female    2907       1     0       1       0 Human  </span></span>
+<span><span class="co">#&gt; # … with 47 more rows, and 2 more variables:</span></span>
+<span><span class="co">#&gt; #   UnarmedCombat &lt;int&gt;, ArmedCombat &lt;int&gt;</span></span>
 <span><span class="co">#&gt; #</span></span>
 <span><span class="co">#&gt; # Edge Data: 558 × 3</span></span>
 <span><span class="co">#&gt;    from    to  sign</span></span>
@@ -329,12 +307,12 @@
 <span><span class="co">#&gt; # Node Data: 16 × 1 (active)</span></span>
 <span><span class="co">#&gt;   name   </span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt; 1 Dustin </span></span>
-<span><span class="co">#&gt; 2 Roberto</span></span>
-<span><span class="co">#&gt; 3 Orville</span></span>
-<span><span class="co">#&gt; 4 Ashlee </span></span>
-<span><span class="co">#&gt; 5 Debora </span></span>
-<span><span class="co">#&gt; 6 Grant  </span></span>
+<span><span class="co">#&gt; 1 Chris  </span></span>
+<span><span class="co">#&gt; 2 Manuel </span></span>
+<span><span class="co">#&gt; 3 Tom    </span></span>
+<span><span class="co">#&gt; 4 Carlos </span></span>
+<span><span class="co">#&gt; 5 Leonard</span></span>
+<span><span class="co">#&gt; 6 Clara  </span></span>
 <span><span class="co">#&gt; # … with 10 more rows</span></span>
 <span><span class="co">#&gt; #</span></span>
 <span><span class="co">#&gt; # Edge Data: 144 × 5</span></span>
@@ -373,18 +351,16 @@
 <span><span class="co">#&gt; # An undirected simple graph with 6 components</span></span>
 <span><span class="co">#&gt; #</span></span>
 <span><span class="co">#&gt; # Node Data: 53 × 10 (active)</span></span>
-<span><span class="co">#&gt;   name  Gender Appear… Attrac…  Rich</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 Abom… Male       427       0     0</span></span>
-<span><span class="co">#&gt; 2 Ant-… Male       589       1     0</span></span>
-<span><span class="co">#&gt; 3 Apoc… Male      1207       0     0</span></span>
-<span><span class="co">#&gt; 4 Beast Male      7609       1     0</span></span>
-<span><span class="co">#&gt; 5 Blac… Male      2189       1     1</span></span>
-<span><span class="co">#&gt; 6 Blac… Female    2907       1     0</span></span>
-<span><span class="co">#&gt; # … with 47 more rows, and 5 more</span></span>
-<span><span class="co">#&gt; #   variables: Intellect &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   Omnilingual &lt;int&gt;, PowerOrigin &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   UnarmedCombat &lt;int&gt;,</span></span>
+<span><span class="co">#&gt;   name  Gender Appear… Attrac…  Rich Intell… Omnili…</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 Abom… Male       427       0     0       1       1</span></span>
+<span><span class="co">#&gt; 2 Ant-… Male       589       1     0       1       0</span></span>
+<span><span class="co">#&gt; 3 Apoc… Male      1207       0     0       1       1</span></span>
+<span><span class="co">#&gt; 4 Beast Male      7609       1     0       1       0</span></span>
+<span><span class="co">#&gt; 5 Blac… Male      2189       1     1       1       0</span></span>
+<span><span class="co">#&gt; 6 Blac… Female    2907       1     0       1       0</span></span>
+<span><span class="co">#&gt; # … with 47 more rows, and 3 more variables:</span></span>
+<span><span class="co">#&gt; #   PowerOrigin &lt;chr&gt;, UnarmedCombat &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   ArmedCombat &lt;int&gt;</span></span>
 <span><span class="co">#&gt; #</span></span>
 <span><span class="co">#&gt; # Edge Data: 277 × 2</span></span>
@@ -397,30 +373,30 @@
 <p>Note that for two-mode networks, there are also functions for converting or ‘projecting’ two-mode networks into one-mode networks.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/transform.html">to_mode1</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span>
-<span><span class="co">#&gt; IGRAPH 22634be UNW- 18 139 -- </span></span>
+<span><span class="co">#&gt; IGRAPH c911999 UNW- 18 139 -- </span></span>
 <span><span class="co">#&gt; + attr: name (v/c), weight (e/n)</span></span>
-<span><span class="co">#&gt; + edges from 22634be (vertex names):</span></span>
-<span><span class="co">#&gt;  [1] EVELYN--LAURA     EVELYN--BRENDA   </span></span>
-<span><span class="co">#&gt;  [3] EVELYN--THERESA   EVELYN--CHARLOTTE</span></span>
-<span><span class="co">#&gt;  [5] EVELYN--FRANCES   EVELYN--ELEANOR  </span></span>
-<span><span class="co">#&gt;  [7] EVELYN--RUTH      EVELYN--PEARL    </span></span>
-<span><span class="co">#&gt;  [9] EVELYN--NORA      EVELYN--VERNE    </span></span>
-<span><span class="co">#&gt; [11] EVELYN--MYRA      EVELYN--KATHERINE</span></span>
-<span><span class="co">#&gt; [13] EVELYN--SYLVIA    EVELYN--HELEN    </span></span>
-<span><span class="co">#&gt; [15] EVELYN--DOROTHY   EVELYN--OLIVIA   </span></span>
+<span><span class="co">#&gt; + edges from c911999 (vertex names):</span></span>
+<span><span class="co">#&gt;  [1] EVELYN--LAURA     EVELYN--BRENDA    EVELYN--THERESA  </span></span>
+<span><span class="co">#&gt;  [4] EVELYN--CHARLOTTE EVELYN--FRANCES   EVELYN--ELEANOR  </span></span>
+<span><span class="co">#&gt;  [7] EVELYN--RUTH      EVELYN--PEARL     EVELYN--NORA     </span></span>
+<span><span class="co">#&gt; [10] EVELYN--VERNE     EVELYN--MYRA      EVELYN--KATHERINE</span></span>
+<span><span class="co">#&gt; [13] EVELYN--SYLVIA    EVELYN--HELEN     EVELYN--DOROTHY  </span></span>
+<span><span class="co">#&gt; [16] EVELYN--OLIVIA    EVELYN--FLORA     LAURA --BRENDA   </span></span>
+<span><span class="co">#&gt; [19] LAURA --THERESA   LAURA --CHARLOTTE LAURA --FRANCES  </span></span>
+<span><span class="co">#&gt; [22] LAURA --ELEANOR   LAURA --RUTH      LAURA --PEARL    </span></span>
 <span><span class="co">#&gt; + ... omitted several edges</span></span>
 <span><span class="fu"><a href="../reference/transform.html">to_mode2</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span>
-<span><span class="co">#&gt; IGRAPH 54edf77 UNW- 14 66 -- </span></span>
+<span><span class="co">#&gt; IGRAPH 7f7d9ee UNW- 14 66 -- </span></span>
 <span><span class="co">#&gt; + attr: name (v/c), weight (e/n)</span></span>
-<span><span class="co">#&gt; + edges from 54edf77 (vertex names):</span></span>
-<span><span class="co">#&gt;  [1] E1--E2  E1--E3  E1--E4  E1--E5 </span></span>
-<span><span class="co">#&gt;  [5] E1--E6  E1--E8  E1--E9  E1--E7 </span></span>
-<span><span class="co">#&gt;  [9] E2--E3  E2--E4  E2--E5  E2--E6 </span></span>
-<span><span class="co">#&gt; [13] E2--E8  E2--E9  E2--E7  E3--E4 </span></span>
-<span><span class="co">#&gt; [17] E3--E5  E3--E6  E3--E8  E3--E9 </span></span>
-<span><span class="co">#&gt; [21] E3--E7  E4--E5  E4--E6  E4--E8 </span></span>
-<span><span class="co">#&gt; [25] E4--E9  E4--E7  E5--E6  E5--E8 </span></span>
-<span><span class="co">#&gt; [29] E5--E9  E5--E7  E6--E8  E6--E9 </span></span>
+<span><span class="co">#&gt; + edges from 7f7d9ee (vertex names):</span></span>
+<span><span class="co">#&gt;  [1] E1--E2  E1--E3  E1--E4  E1--E5  E1--E6  E1--E8 </span></span>
+<span><span class="co">#&gt;  [7] E1--E9  E1--E7  E2--E3  E2--E4  E2--E5  E2--E6 </span></span>
+<span><span class="co">#&gt; [13] E2--E8  E2--E9  E2--E7  E3--E4  E3--E5  E3--E6 </span></span>
+<span><span class="co">#&gt; [19] E3--E8  E3--E9  E3--E7  E4--E5  E4--E6  E4--E8 </span></span>
+<span><span class="co">#&gt; [25] E4--E9  E4--E7  E5--E6  E5--E8  E5--E9  E5--E7 </span></span>
+<span><span class="co">#&gt; [31] E6--E8  E6--E9  E6--E7  E6--E10 E6--E11 E6--E12</span></span>
+<span><span class="co">#&gt; [37] E6--E13 E6--E14 E7--E8  E7--E9  E7--E12 E7--E10</span></span>
+<span><span class="co">#&gt; [43] E7--E13 E7--E14 E7--E11 E8--E9  E8--E12 E8--E10</span></span>
 <span><span class="co">#&gt; + ... omitted several edges</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -438,18 +414,16 @@
 <span><span class="co">#&gt; # An undirected simple graph with 1 component</span></span>
 <span><span class="co">#&gt; #</span></span>
 <span><span class="co">#&gt; # Node Data: 35 × 11 (active)</span></span>
-<span><span class="co">#&gt;   name  full_n… entry_… milita… in_mpn</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 Trev… Trevin…    1910       1      0</span></span>
-<span><span class="co">#&gt; 2 Made… Madero…    1911       0      0</span></span>
-<span><span class="co">#&gt; 3 Carr… Carran…    1913       1      0</span></span>
-<span><span class="co">#&gt; 4 Agui… Aguila…    1918       1      0</span></span>
-<span><span class="co">#&gt; 5 Obre… Obrego…    1920       1      0</span></span>
-<span><span class="co">#&gt; 6 Call… Calles…    1924       1      0</span></span>
-<span><span class="co">#&gt; # … with 29 more rows, and 6 more</span></span>
-<span><span class="co">#&gt; #   variables: PlaceOfBirth &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   state &lt;chr&gt;, region &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   order &lt;int&gt;, color &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt;   name  full_n… entry_… milita… in_mpn PlaceO… state</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 Trev… Trevin…    1910       1      0 Guerre… Coah…</span></span>
+<span><span class="co">#&gt; 2 Made… Madero…    1911       0      0 Parras… Coah…</span></span>
+<span><span class="co">#&gt; 3 Carr… Carran…    1913       1      0 Cuatro… Coah…</span></span>
+<span><span class="co">#&gt; 4 Agui… Aguila…    1918       1      0 Cordoba Vera…</span></span>
+<span><span class="co">#&gt; 5 Obre… Obrego…    1920       1      0 Siquis… Sono…</span></span>
+<span><span class="co">#&gt; 6 Call… Calles…    1924       1      0 Guaymas Sono…</span></span>
+<span><span class="co">#&gt; # … with 29 more rows, and 4 more variables:</span></span>
+<span><span class="co">#&gt; #   region &lt;dbl&gt;, order &lt;int&gt;, color &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   degree &lt;node_msr&gt;</span></span>
 <span><span class="co">#&gt; #</span></span>
 <span><span class="co">#&gt; # Edge Data: 117 × 2</span></span>
@@ -463,20 +437,20 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/generate.html">generate_random</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">.3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/add.html">join_ties</a></span><span class="op">(</span><span class="fu"><a href="../reference/generate.html">generate_random</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">.3</span><span class="op">)</span>, <span class="st">"next"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tbl_graph: 10 nodes and 22 edges</span></span>
+<span><span class="co">#&gt; # A tbl_graph: 10 nodes and 28 edges</span></span>
 <span><span class="co">#&gt; #</span></span>
 <span><span class="co">#&gt; # An undirected simple graph with 1 component</span></span>
 <span><span class="co">#&gt; #</span></span>
 <span><span class="co">#&gt; # Node Data: 10 × 0 (active)</span></span>
 <span><span class="co">#&gt; # … with 4 more rows</span></span>
 <span><span class="co">#&gt; #</span></span>
-<span><span class="co">#&gt; # Edge Data: 22 × 4</span></span>
+<span><span class="co">#&gt; # Edge Data: 28 × 4</span></span>
 <span><span class="co">#&gt;    from    to  orig `next`</span></span>
 <span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1     1     2     0      1</span></span>
-<span><span class="co">#&gt; 2     1     5     1      0</span></span>
-<span><span class="co">#&gt; 3     1     6     1      1</span></span>
-<span><span class="co">#&gt; # … with 19 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; 2     1     4     0      1</span></span>
+<span><span class="co">#&gt; 3     1     9     1      0</span></span>
+<span><span class="co">#&gt; # … with 25 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="retrieving-data">Retrieving data<a class="anchor" aria-label="anchor" href="#retrieving-data"></a>
@@ -484,119 +458,81 @@
 <p>Lastly, sometimes we want to extract certain information from a network or graph object. Here too <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> has you covered.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/grab.html">node_names</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span> <span class="co"># gets the names of the nodes</span></span>
-<span><span class="co">#&gt;  [1] "Trevino"           </span></span>
-<span><span class="co">#&gt;  [2] "Madero"            </span></span>
-<span><span class="co">#&gt;  [3] "Carranza"          </span></span>
-<span><span class="co">#&gt;  [4] "Aguilar"           </span></span>
-<span><span class="co">#&gt;  [5] "Obregon"           </span></span>
-<span><span class="co">#&gt;  [6] "Calles"            </span></span>
-<span><span class="co">#&gt;  [7] "Aleman Gonzalez"   </span></span>
-<span><span class="co">#&gt;  [8] "Portes Gil"        </span></span>
-<span><span class="co">#&gt;  [9] "L. Cardenas"       </span></span>
-<span><span class="co">#&gt; [10] "Avila Camacho"     </span></span>
-<span><span class="co">#&gt; [11] "I. Beteta"         </span></span>
-<span><span class="co">#&gt; [12] "Jara"              </span></span>
-<span><span class="co">#&gt; [13] "R. Beteta"         </span></span>
-<span><span class="co">#&gt; [14] "Aleman Valdes"     </span></span>
-<span><span class="co">#&gt; [15] "Sanchez Taboada"   </span></span>
-<span><span class="co">#&gt; [16] "Serra Rojas"       </span></span>
-<span><span class="co">#&gt; [17] "Ruiz Galindo"      </span></span>
-<span><span class="co">#&gt; [18] "Bustamante"        </span></span>
-<span><span class="co">#&gt; [19] "Loyo"              </span></span>
-<span><span class="co">#&gt; [20] "Carvajal"          </span></span>
-<span><span class="co">#&gt; [21] "Ruiz Cortines"     </span></span>
-<span><span class="co">#&gt; [22] "Carrillo Flores"   </span></span>
-<span><span class="co">#&gt; [23] "Ortiz Mena"        </span></span>
-<span><span class="co">#&gt; [24] "Gonzalez Blanco"   </span></span>
-<span><span class="co">#&gt; [25] "Salinas Lozano"    </span></span>
-<span><span class="co">#&gt; [26] "Lopez Mateos"      </span></span>
-<span><span class="co">#&gt; [27] "Margain"           </span></span>
-<span><span class="co">#&gt; [28] "Diaz Ordaz"        </span></span>
-<span><span class="co">#&gt; [29] "M.R. Beteta"       </span></span>
-<span><span class="co">#&gt; [30] "Echeverria Alvarez"</span></span>
-<span><span class="co">#&gt; [31] "Lopez Portillo"    </span></span>
-<span><span class="co">#&gt; [32] "C. Cardenas"       </span></span>
-<span><span class="co">#&gt; [33] "De la Madrid"      </span></span>
-<span><span class="co">#&gt; [34] "Salinas de Gortari"</span></span>
+<span><span class="co">#&gt;  [1] "Trevino"            "Madero"            </span></span>
+<span><span class="co">#&gt;  [3] "Carranza"           "Aguilar"           </span></span>
+<span><span class="co">#&gt;  [5] "Obregon"            "Calles"            </span></span>
+<span><span class="co">#&gt;  [7] "Aleman Gonzalez"    "Portes Gil"        </span></span>
+<span><span class="co">#&gt;  [9] "L. Cardenas"        "Avila Camacho"     </span></span>
+<span><span class="co">#&gt; [11] "I. Beteta"          "Jara"              </span></span>
+<span><span class="co">#&gt; [13] "R. Beteta"          "Aleman Valdes"     </span></span>
+<span><span class="co">#&gt; [15] "Sanchez Taboada"    "Serra Rojas"       </span></span>
+<span><span class="co">#&gt; [17] "Ruiz Galindo"       "Bustamante"        </span></span>
+<span><span class="co">#&gt; [19] "Loyo"               "Carvajal"          </span></span>
+<span><span class="co">#&gt; [21] "Ruiz Cortines"      "Carrillo Flores"   </span></span>
+<span><span class="co">#&gt; [23] "Ortiz Mena"         "Gonzalez Blanco"   </span></span>
+<span><span class="co">#&gt; [25] "Salinas Lozano"     "Lopez Mateos"      </span></span>
+<span><span class="co">#&gt; [27] "Margain"            "Diaz Ordaz"        </span></span>
+<span><span class="co">#&gt; [29] "M.R. Beteta"        "Echeverria Alvarez"</span></span>
+<span><span class="co">#&gt; [31] "Lopez Portillo"     "C. Cardenas"       </span></span>
+<span><span class="co">#&gt; [33] "De la Madrid"       "Salinas de Gortari"</span></span>
 <span><span class="co">#&gt; [35] "Aleman Velasco"</span></span>
 <span><span class="fu"><a href="../reference/grab.html">node_attribute</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span>, <span class="st">"Gender"</span><span class="op">)</span> <span class="co"># gets any named nodal attribute</span></span>
-<span><span class="co">#&gt;  [1] "Male"   "Male"   "Male"   "Male"  </span></span>
-<span><span class="co">#&gt;  [5] "Male"   "Female" "Male"   "Male"  </span></span>
-<span><span class="co">#&gt;  [9] "Male"   "Male"   "Male"   "Male"  </span></span>
-<span><span class="co">#&gt; [13] "Male"   "Male"   "Male"   "Male"  </span></span>
-<span><span class="co">#&gt; [17] "Male"   "Female" "Male"   "Male"  </span></span>
-<span><span class="co">#&gt; [21] "Male"   "Male"   "Male"   "Male"  </span></span>
-<span><span class="co">#&gt; [25] "Female" "Male"   "Male"   "Female"</span></span>
-<span><span class="co">#&gt; [29] "Female" "Male"   "Male"   "Female"</span></span>
-<span><span class="co">#&gt; [33] "Female" "Male"   "Male"   "Male"  </span></span>
-<span><span class="co">#&gt; [37] "Female" "Male"   "Male"   "Male"  </span></span>
-<span><span class="co">#&gt; [41] "Male"   "Male"   "Male"   "Female"</span></span>
-<span><span class="co">#&gt; [45] "Male"   "Male"   "Female" "Male"  </span></span>
-<span><span class="co">#&gt; [49] "Male"   "Male"   "Male"   "Male"  </span></span>
-<span><span class="co">#&gt; [53] "Male"</span></span>
+<span><span class="co">#&gt;  [1] "Male"   "Male"   "Male"   "Male"   "Male"   "Female"</span></span>
+<span><span class="co">#&gt;  [7] "Male"   "Male"   "Male"   "Male"   "Male"   "Male"  </span></span>
+<span><span class="co">#&gt; [13] "Male"   "Male"   "Male"   "Male"   "Male"   "Female"</span></span>
+<span><span class="co">#&gt; [19] "Male"   "Male"   "Male"   "Male"   "Male"   "Male"  </span></span>
+<span><span class="co">#&gt; [25] "Female" "Male"   "Male"   "Female" "Female" "Male"  </span></span>
+<span><span class="co">#&gt; [31] "Male"   "Female" "Female" "Male"   "Male"   "Male"  </span></span>
+<span><span class="co">#&gt; [37] "Female" "Male"   "Male"   "Male"   "Male"   "Male"  </span></span>
+<span><span class="co">#&gt; [43] "Male"   "Female" "Male"   "Male"   "Female" "Male"  </span></span>
+<span><span class="co">#&gt; [49] "Male"   "Male"   "Male"   "Male"   "Male"</span></span>
 <span><span class="fu"><a href="../reference/grab.html">tie_attribute</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span>, <span class="st">"sign"</span><span class="op">)</span> <span class="co"># gets any named edge attribute</span></span>
-<span><span class="co">#&gt;   [1] -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1</span></span>
-<span><span class="co">#&gt;  [13]  1  1  1 -1 -1 -1  1 -1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt;  [25] -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1</span></span>
-<span><span class="co">#&gt;  [37]  1  1  1  1  1  1  1  1  1  1  1  1</span></span>
-<span><span class="co">#&gt;  [49]  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt;  [61] -1 -1  1  1  1  1  1  1  1  1  1  1</span></span>
-<span><span class="co">#&gt;  [73]  1  1  1  1  1  1  1  1  1  1  1 -1</span></span>
-<span><span class="co">#&gt;  [85] -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1</span></span>
-<span><span class="co">#&gt;  [97]  1  1  1  1  1  1  1  1  1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [109] -1 -1 -1  1  1  1  1  1  1  1  1 -1</span></span>
-<span><span class="co">#&gt; [121] -1 -1 -1  1  1  1  1  1  1  1  1  1</span></span>
-<span><span class="co">#&gt; [133]  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [145] -1 -1 -1 -1 -1  1  1  1  1  1  1  1</span></span>
-<span><span class="co">#&gt; [157]  1  1  1  1 -1 -1 -1 -1 -1 -1  1  1</span></span>
-<span><span class="co">#&gt; [169]  1  1  1  1  1  1  1  1  1  1  1  1</span></span>
-<span><span class="co">#&gt; [181] -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [193]  1  1  1  1  1  1  1  1  1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [205] -1 -1 -1  1  1  1  1  1  1  1  1  1</span></span>
-<span><span class="co">#&gt; [217] -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1</span></span>
-<span><span class="co">#&gt; [229]  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [241] -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1</span></span>
-<span><span class="co">#&gt; [253] -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1</span></span>
-<span><span class="co">#&gt; [265]  1  1  1  1  1  1  1  1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [277]  1  1 -1  1  1  1 -1 -1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [289] -1 -1 -1 -1 -1 -1 -1 -1  1  1 -1 -1</span></span>
-<span><span class="co">#&gt; [301]  1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1</span></span>
-<span><span class="co">#&gt; [313]  1  1 -1  1  1  1  1  1  1  1  1  1</span></span>
-<span><span class="co">#&gt; [325] -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1</span></span>
-<span><span class="co">#&gt; [337]  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [349] -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1</span></span>
-<span><span class="co">#&gt; [361]  1  1  1  1  1  1  1  1  1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [373] -1 -1 -1 -1 -1 -1  1  1  1  1  1  1</span></span>
-<span><span class="co">#&gt; [385]  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [397] -1 -1 -1  1  1  1  1  1  1  1  1  1</span></span>
-<span><span class="co">#&gt; [409]  1 -1 -1 -1 -1 -1 -1 -1  1  1 -1  1</span></span>
-<span><span class="co">#&gt; [421]  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [433] -1  1  1 -1 -1  1  1  1  1  1  1 -1</span></span>
-<span><span class="co">#&gt; [445] -1 -1  1 -1 -1 -1 -1 -1 -1  1  1 -1</span></span>
-<span><span class="co">#&gt; [457] -1 -1 -1 -1  1  1  1  1  1  1  1 -1</span></span>
-<span><span class="co">#&gt; [469] -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1</span></span>
-<span><span class="co">#&gt; [481]  1  1  1 -1 -1 -1 -1 -1  1  1  1  1</span></span>
-<span><span class="co">#&gt; [493]  1 -1 -1  1  1  1  1  1  1  1 -1  1</span></span>
-<span><span class="co">#&gt; [505]  1  1  1 -1  1  1  1 -1 -1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [517] -1 -1 -1 -1 -1 -1  1  1  1 -1 -1 -1</span></span>
-<span><span class="co">#&gt; [529] -1  1  1  1  1 -1 -1  1  1  1  1  1</span></span>
-<span><span class="co">#&gt; [541] -1 -1 -1  1  1  1 -1 -1 -1 -1  1  1</span></span>
-<span><span class="co">#&gt; [553] -1 -1  1 -1  1 -1</span></span>
+<span><span class="co">#&gt;   [1] -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1 -1 -1</span></span>
+<span><span class="co">#&gt;  [18] -1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1</span></span>
+<span><span class="co">#&gt;  [35]  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt;  [52]  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt;  [69]  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1 -1 -1</span></span>
+<span><span class="co">#&gt;  [86] -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [103]  1  1  1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [120] -1 -1 -1 -1  1  1  1  1  1  1  1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [137]  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [154]  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [171]  1  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [188] -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1  1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [205] -1 -1 -1  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [222] -1 -1 -1  1  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [239] -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [256] -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [273] -1 -1 -1 -1  1  1 -1  1  1  1 -1 -1 -1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [290] -1 -1 -1 -1 -1 -1 -1  1  1 -1 -1  1 -1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [307] -1 -1  1  1  1  1  1  1 -1  1  1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [324]  1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [341]  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [358]  1  1  1  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [375] -1 -1 -1 -1  1  1  1  1  1  1  1  1  1  1  1  1 -1</span></span>
+<span><span class="co">#&gt; [392] -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [409]  1 -1 -1 -1 -1 -1 -1 -1  1  1 -1  1  1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [426] -1 -1 -1 -1 -1 -1 -1 -1  1  1 -1 -1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [443]  1 -1 -1 -1  1 -1 -1 -1 -1 -1 -1  1  1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [460] -1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1</span></span>
+<span><span class="co">#&gt; [477] -1 -1  1  1  1  1  1 -1 -1 -1 -1 -1  1  1  1  1  1</span></span>
+<span><span class="co">#&gt; [494] -1 -1  1  1  1  1  1  1  1 -1  1  1  1  1 -1  1  1</span></span>
+<span><span class="co">#&gt; [511]  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1 -1 -1</span></span>
+<span><span class="co">#&gt; [528] -1 -1  1  1  1  1 -1 -1  1  1  1  1  1 -1 -1 -1  1</span></span>
+<span><span class="co">#&gt; [545]  1  1 -1 -1 -1 -1  1  1 -1 -1  1 -1  1 -1</span></span>
 <span><span class="fu"><a href="../reference/grab.html">tie_weights</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span>
-<span><span class="co">#&gt;  [19] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span>
-<span><span class="co">#&gt;  [37] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span>
-<span><span class="co">#&gt;  [55] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span>
-<span><span class="co">#&gt;  [73] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span>
-<span><span class="co">#&gt;  [91] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span>
-<span><span class="co">#&gt; [109] 1 1 1 1 1 1 1 1 1</span></span></code></pre></div>
+<span><span class="co">#&gt;   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span>
+<span><span class="co">#&gt;  [27] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span>
+<span><span class="co">#&gt;  [53] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span>
+<span><span class="co">#&gt;  [79] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span>
+<span><span class="co">#&gt; [105] 1 1 1 1 1 1 1 1 1 1 1 1 1</span></span></code></pre></div>
 <p>We can describe the network using similar functions. How many nodes in the network, or how many edges?</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/grab.html">graph_nodes</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/grab.html">network_nodes</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 35</span></span>
-<span><span class="fu"><a href="../reference/grab.html">graph_ties</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/grab.html">network_ties</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 117</span></span>
-<span><span class="fu"><a href="../reference/grab.html">graph_dims</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/grab.html">network_dims</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 35</span></span></code></pre></div>
 </div>
 </div>

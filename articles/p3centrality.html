@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
       </span>
     </div>
 
@@ -100,83 +100,75 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="teaching/coercion-1.png" alt=""><p class="caption">plot of chunk coercion</p>
-</div>
+<p><img src="teaching/coercion-1.png"></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes2</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="teaching/coercion-2.png" alt=""><p class="caption">plot of chunk coercion</p>
-</div>
+<p><img src="teaching/coercion-2.png"></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as.html">as_matrix</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7]</span></span>
-<span><span class="co">#&gt;  [1,]    0    0    1    0    0    0    0</span></span>
-<span><span class="co">#&gt;  [2,]    0    0    1    0    0    0    0</span></span>
-<span><span class="co">#&gt;  [3,]    1    1    0    1    0    0    0</span></span>
-<span><span class="co">#&gt;  [4,]    0    0    1    0    1    1    0</span></span>
-<span><span class="co">#&gt;  [5,]    0    0    0    1    0    0    1</span></span>
-<span><span class="co">#&gt;  [6,]    0    0    0    1    0    0    1</span></span>
-<span><span class="co">#&gt;  [7,]    0    0    0    0    1    1    0</span></span>
-<span><span class="co">#&gt;  [8,]    0    0    0    0    0    1    0</span></span>
-<span><span class="co">#&gt;  [9,]    0    0    0    0    0    0    1</span></span>
-<span><span class="co">#&gt; [10,]    0    0    0    0    0    0    0</span></span>
-<span><span class="co">#&gt; [11,]    0    0    0    0    0    0    0</span></span>
-<span><span class="co">#&gt;       [,8] [,9] [,10] [,11]</span></span>
-<span><span class="co">#&gt;  [1,]    0    0     0     0</span></span>
-<span><span class="co">#&gt;  [2,]    0    0     0     0</span></span>
-<span><span class="co">#&gt;  [3,]    0    0     0     0</span></span>
-<span><span class="co">#&gt;  [4,]    0    0     0     0</span></span>
-<span><span class="co">#&gt;  [5,]    0    0     0     0</span></span>
-<span><span class="co">#&gt;  [6,]    1    0     0     0</span></span>
-<span><span class="co">#&gt;  [7,]    0    1     0     0</span></span>
-<span><span class="co">#&gt;  [8,]    0    1     0     0</span></span>
-<span><span class="co">#&gt;  [9,]    1    0     1     1</span></span>
-<span><span class="co">#&gt; [10,]    0    1     0     0</span></span>
-<span><span class="co">#&gt; [11,]    0    1     0     0</span></span></code></pre></div>
+<span><span class="co">#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]</span></span>
+<span><span class="co">#&gt;  [1,]    0    0    1    0    0    0    0    0    0</span></span>
+<span><span class="co">#&gt;  [2,]    0    0    1    0    0    0    0    0    0</span></span>
+<span><span class="co">#&gt;  [3,]    1    1    0    1    0    0    0    0    0</span></span>
+<span><span class="co">#&gt;  [4,]    0    0    1    0    1    1    0    0    0</span></span>
+<span><span class="co">#&gt;  [5,]    0    0    0    1    0    0    1    0    0</span></span>
+<span><span class="co">#&gt;  [6,]    0    0    0    1    0    0    1    1    0</span></span>
+<span><span class="co">#&gt;  [7,]    0    0    0    0    1    1    0    0    1</span></span>
+<span><span class="co">#&gt;  [8,]    0    0    0    0    0    1    0    0    1</span></span>
+<span><span class="co">#&gt;  [9,]    0    0    0    0    0    0    1    1    0</span></span>
+<span><span class="co">#&gt; [10,]    0    0    0    0    0    0    0    0    1</span></span>
+<span><span class="co">#&gt; [11,]    0    0    0    0    0    0    0    0    1</span></span>
+<span><span class="co">#&gt;       [,10] [,11]</span></span>
+<span><span class="co">#&gt;  [1,]     0     0</span></span>
+<span><span class="co">#&gt;  [2,]     0     0</span></span>
+<span><span class="co">#&gt;  [3,]     0     0</span></span>
+<span><span class="co">#&gt;  [4,]     0     0</span></span>
+<span><span class="co">#&gt;  [5,]     0     0</span></span>
+<span><span class="co">#&gt;  [6,]     0     0</span></span>
+<span><span class="co">#&gt;  [7,]     0     0</span></span>
+<span><span class="co">#&gt;  [8,]     0     0</span></span>
+<span><span class="co">#&gt;  [9,]     1     1</span></span>
+<span><span class="co">#&gt; [10,]     0     0</span></span>
+<span><span class="co">#&gt; [11,]     0     0</span></span></code></pre></div>
 <p>The network is anonymous, but I think it would be nice to add some names, even if it’s just pretend. Luckily, <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> has a function for this. This makes plotting the network just a wee bit more accessible and interpretable:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ison_brandes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reformat.html">to_named</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span>
 <span><span class="va">ison_brandes2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reformat.html">to_named</a></span><span class="op">(</span><span class="va">ison_brandes2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="teaching/addingnames-1.png" alt=""><p class="caption">plot of chunk addingnames</p>
-</div>
+<p><img src="teaching/addingnames-1.png"></p>
 <p>Note that you will likely get a different set of names, as they are assigned randomly from a pool of (American) first names.</p>
 <p>Let’s start with calculating degree, as it is easy to calculate yourself. Just sum the rows or columns of the matrix!</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">degrees</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] 1 1 3 3 2 3 3 2 4 1 1</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE</span></span>
-<span><span class="co">#&gt;  [8] TRUE TRUE TRUE TRUE</span></span>
+<span><span class="co">#&gt;  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</span></span>
+<span><span class="co">#&gt; [10] TRUE TRUE</span></span>
 <span><span class="co"># Are they all equal? Why?</span></span>
 <span><span class="co"># You can also just use a built in command in migraph though:</span></span>
 <span><span class="fu"><a href="../reference/centrality.html">node_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span>, normalized <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   Kelly Bentley Clifford  Lily  Ivan Debra</span></span>
-<span><span class="co">#&gt; 1     1       1        3     3     2     3</span></span>
-<span><span class="co">#&gt; # ... with 5 more from this nodeset in the vector.</span></span></code></pre></div>
+<span><span class="co">#&gt;   Melinda Haley Mallory Pamela Florence  Cora  Olga</span></span>
+<span><span class="co">#&gt; 1       1     1       3      3        2     3     3</span></span>
+<span><span class="co">#&gt; # ... with 4 more from this nodeset in the vector.</span></span></code></pre></div>
 <p>Often we are interested in the distribution of (degree) centrality in a network. <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> offers a way to get a pretty good first look at this distribution, though there are more elaborate ways to do this in base and grid graphics.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">node_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="st">"h"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">node_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="st">"d"</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="teaching/distrib-1.png" alt=""><p class="caption">plot of chunk distrib</p>
-</div>
+<p><img src="teaching/distrib-1.png"></p>
 <p>Other measures of centrality can be a little trickier to calculate by hand. Fortunately, we can use functions from <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> to help:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/centrality.html">node_betweenness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   Kelly Bentley Clifford  Lily  Ivan Debra</span></span>
-<span><span class="co">#&gt; 1     0       0    0.378 0.485 0.133 0.337</span></span>
-<span><span class="co">#&gt; # ... with 5 more from this nodeset in the vector.</span></span>
+<span><span class="co">#&gt;   Melinda Haley Mallory Pamela Florence  Cora  Olga</span></span>
+<span><span class="co">#&gt; 1       0     0   0.378  0.485    0.133 0.337 0.304</span></span>
+<span><span class="co">#&gt; # ... with 4 more from this nodeset in the vector.</span></span>
 <span><span class="fu"><a href="../reference/centrality.html">node_closeness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   Kelly Bentley Clifford  Lily  Ivan Debra</span></span>
-<span><span class="co">#&gt; 1 0.278   0.278    0.370 0.455 0.435 0.476</span></span>
-<span><span class="co">#&gt; # ... with 5 more from this nodeset in the vector.</span></span>
+<span><span class="co">#&gt;   Melinda Haley Mallory Pamela Florence  Cora  Olga</span></span>
+<span><span class="co">#&gt; 1   0.278 0.278   0.370  0.455    0.435 0.476 0.455</span></span>
+<span><span class="co">#&gt; # ... with 4 more from this nodeset in the vector.</span></span>
 <span><span class="fu"><a href="../reference/centrality.html">node_eigenvector</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   Kelly Bentley Clifford  Lily  Ivan Debra</span></span>
-<span><span class="co">#&gt; 1 0.106   0.106    0.277 0.510 0.437 0.615</span></span>
-<span><span class="co">#&gt; # ... with 5 more from this nodeset in the vector.</span></span>
+<span><span class="co">#&gt;   Melinda Haley Mallory Pamela Florence  Cora  Olga</span></span>
+<span><span class="co">#&gt; 1   0.106 0.106   0.277  0.510    0.437 0.615 0.631</span></span>
+<span><span class="co">#&gt; # ... with 4 more from this nodeset in the vector.</span></span>
 <span><span class="co"># TASK: Can you create degree distributions for each of these?</span></span></code></pre></div>
 <p>Note that all centrality measures in <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> return normalized scores by default – for the raw scores, just add <code>normalized = FALSE</code> as an extra argument.</p>
 </div>
@@ -188,30 +180,22 @@
 <code class="sourceCode R"><span><span class="va">ison_brandes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add.html">add_node_attribute</a></span><span class="op">(</span><span class="st">"color"</span>, <span class="fu"><a href="../reference/mark_nodes.html">node_is_max</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">node_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span>node_color <span class="op">=</span> <span class="st">"color"</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="teaching/ggid-1.png" alt=""><p class="caption">plot of chunk ggid</p>
-</div>
+<p><img src="teaching/ggid-1.png"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ison_brandes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add.html">add_node_attribute</a></span><span class="op">(</span><span class="st">"color"</span>, <span class="fu"><a href="../reference/mark_nodes.html">node_is_max</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">node_betweenness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span>node_color <span class="op">=</span> <span class="st">"color"</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="teaching/ggid-2.png" alt=""><p class="caption">plot of chunk ggid</p>
-</div>
+<p><img src="teaching/ggid-2.png"></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ison_brandes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add.html">add_node_attribute</a></span><span class="op">(</span><span class="st">"color"</span>, <span class="fu"><a href="../reference/mark_nodes.html">node_is_min</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">node_closeness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span>node_color <span class="op">=</span> <span class="st">"color"</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="teaching/ggid-3.png" alt=""><p class="caption">plot of chunk ggid</p>
-</div>
+<p><img src="teaching/ggid-3.png"></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ison_brandes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add.html">add_node_attribute</a></span><span class="op">(</span><span class="st">"color"</span>, <span class="fu"><a href="../reference/mark_nodes.html">node_is_min</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">node_eigenvector</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span>node_color <span class="op">=</span> <span class="st">"color"</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="teaching/ggid-4.png" alt=""><p class="caption">plot of chunk ggid</p>
-</div>
+<p><img src="teaching/ggid-4.png"></p>
 <p>How neat! Try it with the two-mode version. What can you see?</p>
 </div>
 <div class="section level2">
@@ -219,13 +203,13 @@
 </h2>
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> also implements centralization functions. Here we are no longer interested in the level of the node, but in the level of the whole graph, so the syntax is:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/centralisation.html">graph_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/centralisation.html">network_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.182</span></span>
-<span><span class="fu"><a href="../reference/centralisation.html">graph_betweenness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/centralisation.html">network_betweenness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.318</span></span>
-<span><span class="fu"><a href="../reference/centralisation.html">graph_closeness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/centralisation.html">network_closeness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.23</span></span>
-<span><span class="fu"><a href="../reference/centralisation.html">graph_eigenvector</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/centralisation.html">network_eigenvector</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.484</span></span></code></pre></div>
 <p>By default, scores are printed to 3 decimal places, but this can be modified and, in any case, the unrounded values are retained internally and passed on.</p>
 <p>Note that for centralization in two-mode networks, two values are given (as a named vector), since normalization typically depends on the (asymmetric) number of nodes in each mode.</p>
@@ -237,17 +221,15 @@
 <span>  <span class="fu"><a href="../reference/add.html">add_node_attribute</a></span><span class="op">(</span><span class="st">"closeness"</span>, <span class="fu"><a href="../reference/mark_nodes.html">node_is_max</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">node_closeness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add.html">add_node_attribute</a></span><span class="op">(</span><span class="st">"eigenvector"</span>, <span class="fu"><a href="../reference/mark_nodes.html">node_is_max</a></span><span class="op">(</span><span class="fu"><a href="../reference/centrality.html">node_eigenvector</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">gd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, node_color <span class="op">=</span> <span class="st">"degree"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Degree"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centralisation.html">graph_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Degree"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centralisation.html">network_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">gc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, node_color <span class="op">=</span> <span class="st">"closeness"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Closeness"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centralisation.html">graph_closeness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Closeness"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centralisation.html">network_closeness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">gb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, node_color <span class="op">=</span> <span class="st">"betweenness"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Betweenness"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centralisation.html">graph_betweenness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Betweenness"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centralisation.html">network_betweenness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">ge</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">ison_brandes</span>, node_color <span class="op">=</span> <span class="st">"eigenvector"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Eigenvector"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centralisation.html">graph_eigenvector</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Eigenvector"</span>, subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="../reference/centralisation.html">network_eigenvector</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">gd</span> <span class="op">|</span> <span class="va">gb</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">gc</span> <span class="op">|</span> <span class="va">ge</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="teaching/multiplot-1.png" alt=""><p class="caption">plot of chunk multiplot</p>
-</div>
+<p><img src="teaching/multiplot-1.png"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ggsave("brandes-centralities.pdf")</span></span></code></pre></div>
 </div>

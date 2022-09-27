@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
       </span>
     </div>
 
@@ -62,13 +62,17 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">graph_degree</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span>, direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"out"</span>, <span class="st">"in"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">network_degree</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span>, direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"out"</span>, <span class="st">"in"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">graph_closeness</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span>, direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"out"</span>, <span class="st">"in"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">network_closeness</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span>, direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"out"</span>, <span class="st">"in"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">graph_betweenness</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span>, direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"out"</span>, <span class="st">"in"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">network_betweenness</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  normalized <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"out"</span>, <span class="st">"in"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">graph_eigenvector</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">network_eigenvector</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -102,10 +106,10 @@ against only the centrality scores of the other nodes in that mode.</p></dd>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>graph_degree()</code>: Calculate the degree centralization for a graph</p></li>
-<li><p><code>graph_closeness()</code>: Calculate the closeness centralization for a graph</p></li>
-<li><p><code>graph_betweenness()</code>: Calculate the betweenness centralization for a graph</p></li>
-<li><p><code>graph_eigenvector()</code>: Calculate the eigenvector centralization for a graph</p></li>
+<ul><li><p><code>network_degree()</code>: Calculate the degree centralization for a graph</p></li>
+<li><p><code>network_closeness()</code>: Calculate the closeness centralization for a graph</p></li>
+<li><p><code>network_betweenness()</code>: Calculate the betweenness centralization for a graph</p></li>
+<li><p><code>network_eigenvector()</code>: Calculate the eigenvector centralization for a graph</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -120,18 +124,18 @@ against only the centrality scores of the other nodes in that mode.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">graph_degree</span><span class="op">(</span><span class="va">ison_southern_women</span>, direction <span class="op">=</span> <span class="st">"in"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">network_degree</span><span class="op">(</span><span class="va">ison_southern_women</span>, direction <span class="op">=</span> <span class="st">"in"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mode 1 Mode 2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  0.231  0.466 </span>
-<span class="r-in"><span><span class="fu">graph_closeness</span><span class="op">(</span><span class="va">ison_southern_women</span>, direction <span class="op">=</span> <span class="st">"in"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">network_closeness</span><span class="op">(</span><span class="va">ison_southern_women</span>, direction <span class="op">=</span> <span class="st">"in"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mode 1 Mode 2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  0.214  0.528 </span>
-<span class="r-in"><span><span class="fu">graph_betweenness</span><span class="op">(</span><span class="va">ison_southern_women</span>, direction <span class="op">=</span> <span class="st">"in"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">network_betweenness</span><span class="op">(</span><span class="va">ison_southern_women</span>, direction <span class="op">=</span> <span class="st">"in"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mode 1 Mode 2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.0668 0.1982 </span>
-<span class="r-in"><span><span class="fu">graph_eigenvector</span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">network_eigenvector</span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.63</span>
-<span class="r-in"><span><span class="fu">graph_eigenvector</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">network_eigenvector</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mode 1 Mode 2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.0849 0.2630 </span>
 </code></pre></div>

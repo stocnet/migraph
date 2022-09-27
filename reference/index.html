@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@
         </td>
         <td><p>Adding and copying attributes from one graph to another</p></td>
       </tr><tr><td>
-          <p><code><a href="grab.html">node_names()</a></code> <code><a href="grab.html">node_mode()</a></code> <code><a href="grab.html">node_attribute()</a></code> <code><a href="grab.html">tie_attribute()</a></code> <code><a href="grab.html">tie_weights()</a></code> <code><a href="grab.html">tie_signs()</a></code> <code><a href="grab.html">graph_nodes()</a></code> <code><a href="grab.html">graph_ties()</a></code> <code><a href="grab.html">graph_dims()</a></code> <code><a href="grab.html">graph_node_attributes()</a></code> <code><a href="grab.html">graph_tie_attributes()</a></code> </p>
+          <p><code><a href="grab.html">node_names()</a></code> <code><a href="grab.html">node_mode()</a></code> <code><a href="grab.html">node_attribute()</a></code> <code><a href="grab.html">tie_attribute()</a></code> <code><a href="grab.html">tie_weights()</a></code> <code><a href="grab.html">tie_signs()</a></code> <code><a href="grab.html">network_nodes()</a></code> <code><a href="grab.html">network_ties()</a></code> <code><a href="grab.html">network_dims()</a></code> <code><a href="grab.html">network_node_attributes()</a></code> <code><a href="grab.html">network_tie_attributes()</a></code> </p>
         </td>
         <td><p>Grab various node or edge attributes from a network</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
@@ -116,7 +116,7 @@
           <p class="section-desc"></p><p>Functions for measuring multimodal networks, all returning numeric scalars or vectors. Note that all <code>node_</code> and <code>tie_</code> measures return a single vector so that they can be added directly to graph objects. <code>graph_</code> measures return one or, in some cases of two-mode measures, two values.</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="cohesion.html">graph_density()</a></code> <code><a href="cohesion.html">graph_components()</a></code> <code><a href="cohesion.html">graph_cohesion()</a></code> <code><a href="cohesion.html">graph_adhesion()</a></code> <code><a href="cohesion.html">graph_diameter()</a></code> <code><a href="cohesion.html">graph_length()</a></code> </p>
+          <p><code><a href="cohesion.html">network_density()</a></code> <code><a href="cohesion.html">network_components()</a></code> <code><a href="cohesion.html">network_cohesion()</a></code> <code><a href="cohesion.html">network_adhesion()</a></code> <code><a href="cohesion.html">network_diameter()</a></code> <code><a href="cohesion.html">network_length()</a></code> </p>
         </td>
         <td><p>Measures of network cohesion or connectedness</p></td>
       </tr><tr><td>
@@ -124,11 +124,11 @@
         </td>
         <td><p>Measures of node and tie centrality</p></td>
       </tr><tr><td>
-          <p><code><a href="centralisation.html">graph_degree()</a></code> <code><a href="centralisation.html">graph_closeness()</a></code> <code><a href="centralisation.html">graph_betweenness()</a></code> <code><a href="centralisation.html">graph_eigenvector()</a></code> </p>
+          <p><code><a href="centralisation.html">network_degree()</a></code> <code><a href="centralisation.html">network_closeness()</a></code> <code><a href="centralisation.html">network_betweenness()</a></code> <code><a href="centralisation.html">network_eigenvector()</a></code> </p>
         </td>
         <td><p>Measures of network centralisation</p></td>
       </tr><tr><td>
-          <p><code><a href="closure.html">graph_reciprocity()</a></code> <code><a href="closure.html">graph_transitivity()</a></code> <code><a href="closure.html">graph_equivalency()</a></code> <code><a href="closure.html">graph_congruency()</a></code> </p>
+          <p><code><a href="closure.html">network_reciprocity()</a></code> <code><a href="closure.html">network_transitivity()</a></code> <code><a href="closure.html">network_equivalency()</a></code> <code><a href="closure.html">network_congruency()</a></code> </p>
         </td>
         <td><p>Measures of network closure</p></td>
       </tr><tr><td>
@@ -136,11 +136,11 @@
         </td>
         <td><p>Measures of structural holes</p></td>
       </tr><tr><td>
-          <p><code><a href="diversity.html">graph_diversity()</a></code> <code><a href="diversity.html">graph_homophily()</a></code> <code><a href="diversity.html">graph_assortativity()</a></code> </p>
+          <p><code><a href="diversity.html">network_diversity()</a></code> <code><a href="diversity.html">network_homophily()</a></code> <code><a href="diversity.html">network_assortativity()</a></code> </p>
         </td>
         <td><p>Measures of network diversity</p></td>
       </tr><tr><td>
-          <p><code><a href="features.html">graph_core()</a></code> <code><a href="features.html">graph_factions()</a></code> <code><a href="features.html">graph_modularity()</a></code> <code><a href="features.html">graph_smallworld()</a></code> <code><a href="features.html">graph_balance()</a></code> </p>
+          <p><code><a href="features.html">network_core()</a></code> <code><a href="features.html">network_factions()</a></code> <code><a href="features.html">network_modularity()</a></code> <code><a href="features.html">network_smallworld()</a></code> <code><a href="features.html">network_balance()</a></code> </p>
         </td>
         <td><p>Measures of network topological features</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
@@ -148,7 +148,7 @@
           <p class="section-desc"></p><p>Functions for calculating subgraphs in multimodal networks. These functions have an additional dimension than <code>node_</code> and <code>graph_</code> measures and marks that capture the different motifs surveyed.</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="graph_census.html">graph_dyad_census()</a></code> <code><a href="graph_census.html">graph_triad_census()</a></code> <code><a href="graph_census.html">graph_mixed_census()</a></code> </p>
+          <p><code><a href="network_census.html">network_dyad_census()</a></code> <code><a href="network_census.html">network_triad_census()</a></code> <code><a href="network_census.html">network_mixed_census()</a></code> </p>
         </td>
         <td><p>Censuses of graphs' motifs</p></td>
       </tr><tr><td>

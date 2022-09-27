@@ -18,7 +18,7 @@ in one-, two-, and three-mode networks."><meta property="og:image" content="http
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
       </span>
     </div>
 
@@ -64,13 +64,13 @@ in one-, two-, and three-mode networks.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">graph_reciprocity</span><span class="op">(</span><span class="va">object</span>, method <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">network_reciprocity</span><span class="op">(</span><span class="va">object</span>, method <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">graph_transitivity</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span><span class="fu">network_transitivity</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">graph_equivalency</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span><span class="fu">network_equivalency</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">graph_congruency</span><span class="op">(</span><span class="va">object</span>, <span class="va">object2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">network_congruency</span><span class="op">(</span><span class="va">object</span>, <span class="va">object2</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -91,21 +91,21 @@ See <code><a href="https://rdrr.io/pkg/igraph/man/reciprocity.html" class="exter
     <div id="details">
     <h2>Details</h2>
     <p>For one-mode networks, shallow wrappers of igraph versions exist via
-<code>graph_reciprocity</code> and <code>graph_transitivity</code>.</p>
-<p>For two-mode networks, <code>graph_equivalency</code> calculates the proportion of three-paths in the network
+<code>network_reciprocity</code> and <code>network_transitivity</code>.</p>
+<p>For two-mode networks, <code>network_equivalency</code> calculates the proportion of three-paths in the network
 that are closed by fourth tie to establish a "shared four-cycle" structure.</p>
-<p>For three-mode networks, <code>graph_congruency</code> calculates the proportion of three-paths
+<p>For three-mode networks, <code>network_congruency</code> calculates the proportion of three-paths
 spanning two two-mode networks that are closed by a fourth tie to establish a
 "congruent four-cycle" structure.</p>
     </div>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>graph_reciprocity()</code>: Calculate reciprocity in a (usually directed) network</p></li>
-<li><p><code>graph_transitivity()</code>: Calculate transitivity in a network</p></li>
-<li><p><code>graph_equivalency()</code>: Calculate equivalence or reinforcement
+<ul><li><p><code>network_reciprocity()</code>: Calculate reciprocity in a (usually directed) network</p></li>
+<li><p><code>network_transitivity()</code>: Calculate transitivity in a network</p></li>
+<li><p><code>network_equivalency()</code>: Calculate equivalence or reinforcement
 in a (usually two-mode) network</p></li>
-<li><p><code>graph_congruency()</code>: Calculate congruency across two two-mode networks</p></li>
+<li><p><code>network_congruency()</code>: Calculate congruency across two two-mode networks</p></li>
 </ul></div>
     <div id="references">
     <h2>References</h2>
@@ -132,11 +132,11 @@ Cambridge University Press. Cambridge University Press.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">graph_reciprocity</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">network_reciprocity</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
-<span class="r-in"><span><span class="fu">graph_transitivity</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">network_transitivity</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
-<span class="r-in"><span><span class="fu">graph_equivalency</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">network_equivalency</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.487</span>
 </code></pre></div>
     </div>
