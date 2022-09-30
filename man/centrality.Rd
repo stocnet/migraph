@@ -13,7 +13,12 @@
 \alias{node_reach}
 \title{Measures of node and tie centrality}
 \usage{
-node_degree(object, normalized = TRUE, direction = c("all", "out", "in"))
+node_degree(
+  object,
+  normalized = TRUE,
+  alpha = 0,
+  direction = c("all", "out", "in")
+)
 
 tie_degree(object, normalized = TRUE)
 
@@ -44,6 +49,19 @@ node_reach(object, normalized = TRUE, k = 2)
 \item{normalized}{Logical scalar, whether the centrality scores are normalized.
 Different denominators are used depending on whether the object is one-mode or two-mode,
 the type of centrality, and other arguments.}
+
+\item{alpha}{Numeric scalar, the positive tuning parameter introduced in
+Opsahl et al (2010) for trading off between degree and strength centrality measures.
+By default, \code{alpha = 0}, which ignores tie weights and the measure is solely based
+upon degree (the number of ties).
+\code{alpha = 1} ignores the number of ties and provides the sum of the tie weights
+as strength centrality.
+Values between 0 and 1 reflect different trade-offs in the relative contributions of
+degree and strength to the final outcome, with 0.5 as the middle ground.
+Values above 1 penalise for the number of ties.
+Of two nodes with the same sum of tie weights, the node with fewer ties will obtain
+the higher score.
+This argument is ignored except in the case of a weighted network.}
 
 \item{direction}{Character string, “out” bases the measure on outgoing ties,
 “in” on incoming ties, and "all" on either/the sum of the two.
@@ -143,6 +161,11 @@ In \emph{The SAGE Handbook of Social Network Analysis},
 edited by John Scott and Peter J. Carrington, 417–33.
 London, UK: Sage.
 \doi{10.4135/9781446294413.n28}.
+
+Opsahl, Tore, Filip Agneessens, and John Skvoretz. 2010.
+"Node centrality in weighted networks: Generalizing degree and shortest paths."
+\emph{Social Networks} 32, 245-251.
+\doi{10.1016/j.socnet.2010.03.006}
 
 Bonacich, Phillip. 1991.
 “Simultaneous Group and Individual Centralities.”

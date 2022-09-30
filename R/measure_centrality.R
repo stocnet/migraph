@@ -16,6 +16,18 @@
 #' @param normalized Logical scalar, whether the centrality scores are normalized.
 #'   Different denominators are used depending on whether the object is one-mode or two-mode,
 #'   the type of centrality, and other arguments.
+#' @param alpha Numeric scalar, the positive tuning parameter introduced in
+#'   Opsahl et al (2010) for trading off between degree and strength centrality measures.
+#'   By default, `alpha = 0`, which ignores tie weights and the measure is solely based
+#'   upon degree (the number of ties).
+#'   `alpha = 1` ignores the number of ties and provides the sum of the tie weights 
+#'   as strength centrality.
+#'   Values between 0 and 1 reflect different trade-offs in the relative contributions of
+#'   degree and strength to the final outcome, with 0.5 as the middle ground.
+#'   Values above 1 penalise for the number of ties.
+#'   Of two nodes with the same sum of tie weights, the node with fewer ties will obtain
+#'   the higher score.
+#'   This argument is ignored except in the case of a weighted network.
 #' @param direction Character string, “out” bases the measure on outgoing ties, 
 #'   “in” on incoming ties, and "all" on either/the sum of the two. 
 #'   For two-mode networks, "all" uses as numerator the sum of differences
@@ -45,6 +57,11 @@
 #' edited by John Scott and Peter J. Carrington, 417–33. 
 #' London, UK: Sage.
 #' \doi{10.4135/9781446294413.n28}.
+#' 
+#' Opsahl, Tore, Filip Agneessens, and John Skvoretz. 2010. 
+#' "Node centrality in weighted networks: Generalizing degree and shortest paths." 
+#' _Social Networks_ 32, 245-251.
+#' \doi{10.1016/j.socnet.2010.03.006}
 #' @examples
 #' node_degree(mpn_elite_mex)
 #' node_degree(ison_southern_women)
@@ -55,7 +72,7 @@ NULL
 #' @describeIn centrality Calculates the degree centrality of nodes in an unweighted network,
 #'   or weighted degree/strength of nodes in a weighted network.
 #' @export
-node_degree <- function (object, normalized = TRUE, 
+node_degree <- function (object, normalized = TRUE, alpha = 0,
                          direction = c("all","out","in")){
   
   if(missing(object)){
@@ -85,9 +102,13 @@ node_degree <- function (object, normalized = TRUE,
                      normalized = normalized)
     }
     else {
-      out <- igraph::strength(graph = graph, vids = igraph::V(graph), 
+      ki <- igraph::degree(graph = graph, v = igraph::V(graph), 
+                     mode = direction, 
+                     loops = is_complex(object))
+      si <- igraph::strength(graph = graph, vids = igraph::V(graph), 
                        mode = direction,
                        loops = is_complex(object), weights = weights)
+      out <- ki * (si/ki)^alpha
     }
   }
   out <- make_node_measure(out, object)
