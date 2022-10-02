@@ -360,3 +360,12 @@ is_acyclic <- function(object){
   object <- as_igraph(object)
   igraph::is_dag(object)
 }
+
+#' @describeIn is Tests whether network is a directed acyclic graph
+#' @examples 
+#' is_perfect_matching(ison_southern_women)
+#' @export
+is_perfect_matching <- function(object, mark = "type"){
+  matches <- to_matching(object, mark = mark)
+  network_ties(matches)*2 == network_nodes(matches)
+}

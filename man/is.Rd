@@ -15,6 +15,7 @@
 \alias{is_multiplex}
 \alias{is_uniplex}
 \alias{is_acyclic}
+\alias{is_perfect_matching}
 \title{Marking networks based on their properties}
 \usage{
 is_migraph(object)
@@ -42,6 +43,8 @@ is_multiplex(object)
 is_uniplex(object)
 
 is_acyclic(object)
+
+is_perfect_matching(object, mark = "type")
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -93,6 +96,8 @@ or multiple columns to the edgelist.
 
 \item \code{is_acyclic()}: Tests whether network is a directed acyclic graph
 
+\item \code{is_perfect_matching()}: Tests whether network is a directed acyclic graph
+
 }}
 \examples{
 is_twomode(ison_southern_women)
@@ -104,6 +109,7 @@ is_connected(ison_southern_women)
 is_complex(ison_southern_women)
 is_uniplex(ison_algebra)
 is_acyclic(ison_algebra)
+is_perfect_matching(ison_southern_women)
 }
 \seealso{
 Other marks: 
