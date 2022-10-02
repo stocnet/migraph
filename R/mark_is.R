@@ -361,7 +361,8 @@ is_acyclic <- function(object){
   igraph::is_dag(object)
 }
 
-#' @describeIn is Tests whether network is a directed acyclic graph
+#' @describeIn is Tests whether there is a matching for a network
+#'   that covers every node in the network
 #' @examples 
 #' is_perfect_matching(ison_southern_women)
 #' @export

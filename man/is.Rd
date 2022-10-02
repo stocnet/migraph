@@ -96,7 +96,8 @@ or multiple columns to the edgelist.
 
 \item \code{is_acyclic()}: Tests whether network is a directed acyclic graph
 
-\item \code{is_perfect_matching()}: Tests whether network is a directed acyclic graph
+\item \code{is_perfect_matching()}: Tests whether there is a matching for a network
+that covers every node in the network
 
 }}
 \examples{

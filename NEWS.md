@@ -1,3 +1,19 @@
+# migraph 0.12.1
+
+## Manipulations
+
+- `to_twomode()` now returns an undirected network
+- Added `to_anti()` for obtaining the complement of the given network
+  - Note that unlike the implementation in `{igraph}`, this respects two-mode constructions
+
+## Marks
+
+- Added `is_perfect_matching()` for a logical expression of whether the maximum matching of a network is also perfect
+
+## Measures
+
+- `node_degree()` now has an additional parameter for trading off between degree and strength in the case of weighted networks
+
 # migraph 0.12.0
 
 ## Package
