@@ -53,6 +53,16 @@ node_is_isolate <- function(object){
   make_node_mark(out, object)
 }
 
+#' @describeIn mark_nodes Returns logical of which nodes are members
+#'   of the core of the network.
+#' @examples 
+#' node_is_core(ison_brandes)
+#' @export
+node_is_core <- function(object){
+  out <- node_core(object)==1
+  make_node_mark(out, object)
+}
+
 #' @describeIn mark_nodes Returns logical of which nodes 
 #'   hold the maximum of some measure
 #' @param node_measure An object created by a `node_` measure.

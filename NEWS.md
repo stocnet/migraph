@@ -9,6 +9,7 @@
 ## Marks
 
 - Added `is_perfect_matching()` for a logical expression of whether the maximum matching of a network is also perfect
+- Added `node_is_core()` for a logical vector of which nodes are members of the core
 
 ## Measures
 

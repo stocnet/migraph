@@ -4,6 +4,7 @@
 \alias{mark_nodes}
 \alias{node_is_cutpoint}
 \alias{node_is_isolate}
+\alias{node_is_core}
 \alias{node_is_max}
 \alias{node_is_min}
 \title{Marking nodes based on their properties}
@@ -11,6 +12,8 @@
 node_is_cutpoint(object)
 
 node_is_isolate(object)
+
+node_is_core(object)
 
 node_is_max(node_measure)
 
@@ -50,6 +53,9 @@ increasing the number of connected components in a graph when removed.
 \item \code{node_is_isolate()}: Returns logical of which nodes are isolates,
 with neither incoming nor outgoing ties.
 
+\item \code{node_is_core()}: Returns logical of which nodes are members
+of the core of the network.
+
 \item \code{node_is_max()}: Returns logical of which nodes
 hold the maximum of some measure
 
@@ -60,6 +66,7 @@ hold the minimum of some measure
 \examples{
 node_is_cutpoint(ison_brandes)
 node_is_isolate(ison_brandes)
+node_is_core(ison_brandes)
 node_is_max(node_degree(ison_brandes))
 node_is_min(node_degree(ison_brandes))
 }
