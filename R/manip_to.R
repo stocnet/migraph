@@ -456,7 +456,7 @@ to_twomode <- function(object, mark) UseMethod("to_twomode")
 #' @export
 to_twomode.igraph <- function(object, mark){
   igraph::V(object)$type <- mark
-  object
+  to_undirected(object)
 }
 
 #' @export
