@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
       </span>
     </div>
 
@@ -57,7 +57,32 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.12.0" id="migraph-0120">migraph 0.12.0<a class="anchor" aria-label="anchor" href="#migraph-0120"></a></h2>
+<h2 class="page-header" data-toc-text="0.12.1" id="migraph-0121">migraph 0.12.1<a class="anchor" aria-label="anchor" href="#migraph-0121"></a></h2>
+<div class="section level3">
+<h3 id="manipulations-0-12-1">Manipulations<a class="anchor" aria-label="anchor" href="#manipulations-0-12-1"></a></h3>
+<ul><li>
+<code><a href="../reference/reformat.html">to_twomode()</a></code> now returns an undirected network</li>
+<li>Added <code><a href="../reference/transform.html">to_anti()</a></code> for obtaining the complement of the given network<ul><li>Note that unlike the implementation in <a href="https://igraph.org" class="external-link">igraph</a>, this respects two-mode constructions</li></ul></li>
+</ul></div>
+<div class="section level3">
+<h3 id="marks-0-12-1">Marks<a class="anchor" aria-label="anchor" href="#marks-0-12-1"></a></h3>
+<ul><li>Added <code><a href="../reference/is.html">is_perfect_matching()</a></code> for a logical expression of whether the maximum matching of a network is also perfect</li>
+<li>Added <code><a href="../reference/mark_nodes.html">node_is_core()</a></code> for a logical vector of which nodes are members of the core</li>
+</ul></div>
+<div class="section level3">
+<h3 id="measures-0-12-1">Measures<a class="anchor" aria-label="anchor" href="#measures-0-12-1"></a></h3>
+<ul><li>
+<code><a href="../reference/centrality.html">node_degree()</a></code> now has an additional parameter for trading off between degree and strength in the case of weighted networks</li>
+<li>Added <code><a href="../reference/centrality.html">node_power()</a></code> for Bonacich power centrality for both one- and two-mode networks (closed <a href="https://github.com/snlab-ch/migraph/issues/193" class="external-link">#193</a>)</li>
+<li>Tie centrality measures now have their own help page (WIP)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="mapping-0-12-1">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-12-1"></a></h3>
+<ul><li>Fixed <code><a href="../reference/autographr.html">autographr()</a></code> tests to work with new version of <a href="https://ggraph.data-imaginist.com" class="external-link">ggraph</a>
+</li></ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.12.0" id="migraph-0120">migraph 0.12.0<small>2022-09-27</small><a class="anchor" aria-label="anchor" href="#migraph-0120"></a></h2>
 <div class="section level3">
 <h3 id="package-0-12-0">Package<a class="anchor" aria-label="anchor" href="#package-0-12-0"></a></h3>
 <ul><li>

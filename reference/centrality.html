@@ -23,7 +23,7 @@ including for two-mode networks."><meta property="og:image" content="https://snl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
       </span>
     </div>
 
@@ -74,23 +74,22 @@ including for two-mode networks.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">node_degree</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span>, direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"out"</span>, <span class="st">"in"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">tie_degree</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">node_degree</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  normalized <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"out"</span>, <span class="st">"in"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">node_closeness</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span>, direction <span class="op">=</span> <span class="st">"out"</span>, cutoff <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">tie_closeness</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
 <span><span class="fu">node_betweenness</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span>, cutoff <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">tie_betweenness</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">node_eigenvector</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span>, scale <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">tie_eigenvector</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">node_reach</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span>, k <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">node_reach</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span>, k <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">node_power</span><span class="op">(</span><span class="va">object</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span>, scale <span class="op">=</span> <span class="cn">FALSE</span>, exponent <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -108,6 +107,21 @@ including for two-mode networks.</p>
 <dd><p>Logical scalar, whether the centrality scores are normalized.
 Different denominators are used depending on whether the object is one-mode or two-mode,
 the type of centrality, and other arguments.</p></dd>
+
+
+<dt>alpha</dt>
+<dd><p>Numeric scalar, the positive tuning parameter introduced in
+Opsahl et al (2010) for trading off between degree and strength centrality measures.
+By default, <code>alpha = 0</code>, which ignores tie weights and the measure is solely based
+upon degree (the number of ties).
+<code>alpha = 1</code> ignores the number of ties and provides the sum of the tie weights
+as strength centrality.
+Values between 0 and 1 reflect different trade-offs in the relative contributions of
+degree and strength to the final outcome, with 0.5 as the middle ground.
+Values above 1 penalise for the number of ties.
+Of two nodes with the same sum of tie weights, the node with fewer ties will obtain
+the higher score.
+This argument is ignored except in the case of a weighted network.</p></dd>
 
 
 <dt>direction</dt>
@@ -132,6 +146,10 @@ against only the centrality scores of the other nodes in that mode.</p></dd>
 <dt>k</dt>
 <dd><p>Integer of steps out to calculate reach</p></dd>
 
+
+<dt>exponent</dt>
+<dd><p>Decay rate for the Bonacich power centrality score.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -149,21 +167,21 @@ the function will return a <code>tidygraph</code> object where the nodes have be
 
 
 <p>A numeric vector giving the eigenvector centrality measure of each node.</p>
+
+
+<p>A numeric vector giving each node's power centrality measure.</p>
     </div>
     <div id="functions">
     <h2>Functions</h2>
     
 <ul><li><p><code>node_degree()</code>: Calculates the degree centrality of nodes in an unweighted network,
 or weighted degree/strength of nodes in a weighted network.</p></li>
-<li><p><code>tie_degree()</code>: Calculate the degree centrality of edges in a network</p></li>
 <li><p><code>node_closeness()</code>: Calculate the closeness centrality of nodes in a network</p></li>
-<li><p><code>tie_closeness()</code>: Calculate the closeness of each edge to each other edge
-in the network.</p></li>
 <li><p><code>node_betweenness()</code>: Calculate the betweenness centralities of nodes in a network</p></li>
-<li><p><code>tie_betweenness()</code>: Calculate number of shortest paths going through an edge</p></li>
 <li><p><code>node_eigenvector()</code>: Calculate the eigenvector centrality of nodes in a network</p></li>
-<li><p><code>tie_eigenvector()</code>: Calculate the eigenvector centrality of edges in a network</p></li>
-<li><p><code>node_reach()</code>: Calculate nodes' reach centrality</p></li>
+<li><p><code>node_reach()</code>: Calculate nodes' reach centrality
+or how many nodes they can reach within <em>k</em> steps</p></li>
+<li><p><code>node_power()</code>: Calculate the power centrality of nodes in a network</p></li>
 </ul></div>
     <div id="references">
     <h2>References</h2>
@@ -184,10 +202,20 @@ edited by John Scott and Peter J. Carrington, 417–33.
 London, UK: Sage.
 <a href="https://doi.org/10.4135/9781446294413.n28" class="external-link">doi:10.4135/9781446294413.n28</a>
 .</p>
+<p>Opsahl, Tore, Filip Agneessens, and John Skvoretz. 2010.
+"Node centrality in weighted networks: Generalizing degree and shortest paths."
+<em>Social Networks</em> 32, 245-251.
+<a href="https://doi.org/10.1016/j.socnet.2010.03.006" class="external-link">doi:10.1016/j.socnet.2010.03.006</a></p>
 <p>Bonacich, Phillip. 1991.
 “Simultaneous Group and Individual Centralities.”
 <em>Social Networks</em> 13(2):155–68.
 <a href="https://doi.org/10.1016/0378-8733%2891%2990018-O" class="external-link">doi:10.1016/0378-8733(91)90018-O</a>
+.</p>
+<p>Bonacich, Phillip. 1987.
+“Power and Centrality: A Family of Measures.”
+<em>The American Journal of Sociology</em>
+92(5): 1170–82.
+<a href="https://doi.org/10.1086/228631" class="external-link">doi:10.1086/228631</a>
 .</p>
     </div>
     <div id="see-also">
@@ -200,7 +228,8 @@ and <code><a href="reformat.html">to_unweighted()</a></code> for removing weight
 <code><a href="cohesion.html">cohesion</a>()</code>,
 <code><a href="diversity.html">diversity</a></code>,
 <code><a href="features.html">features</a></code>,
-<code><a href="holes.html">holes</a></code></p></div>
+<code><a href="holes.html">holes</a></code>,
+<code><a href="tie_centrality.html">tie_centrality</a></code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -216,10 +245,6 @@ and <code><a href="reformat.html">to_unweighted()</a></code> for removing weight
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.167 0.167 0.333 0.222 0.444 0.444 0.556 0.778 0.667 0.333 0.222 0.389 0.222</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more from this nodeset in the vector.</span></span>
-<span class="r-in"><span><span class="fu">tie_degree</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   `Betty-Sue` Sue-Alic…¹ Alice…² Sue-D…³ Alice…⁴ Jane-…⁵ Sue-P…⁶ Alice…⁷ Pam-C…⁸</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>       0.333      0.667   0.444   0.556   0.556   0.333   0.556   0.556   0.333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more from this nodeset in the vector.</span></span>
 <span class="r-in"><span><span class="fu">node_closeness</span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Trevino Madero Carranza Aguilar Obregon Calles Alema…¹ Porte…² L. Ca…³ Avila…⁴</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0.4  0.405    0.466   0.493   0.436  0.459   0.466   0.493   0.586   0.523</span>
@@ -231,16 +256,6 @@ and <code><a href="reformat.html">to_unweighted()</a></code> for removing weight
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.524 0.524 0.564 0.537 0.595 0.688 0.733 0.846 0.786 0.564 0.537 0.579 0.537</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more from this nodeset in the vector.</span></span>
-<span class="r-in"><span><span class="op">(</span><span class="va">ec</span> <span class="op">&lt;-</span> <span class="fu">tie_closeness</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   `Betty-Sue` Sue-Alic…¹ Alice…² Sue-D…³ Alice…⁴ Jane-…⁵ Sue-P…⁶ Alice…⁷ Pam-C…⁸</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>       0.562      0.692     0.6   0.643   0.643     0.5   0.692   0.692   0.562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more from this nodeset in the vector.</span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ec</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="centrality-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="va">ison_adolescents</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">ec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
-<span class="r-in"><span>  <span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="centrality-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu">node_betweenness</span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Trevino  Madero Carra…¹ Aguilar Obregon Calles Alema…² Porte…³ L. Ca…⁴ Avila…⁵</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.005<span style="text-decoration: underline;">05</span> 0.008<span style="text-decoration: underline;">19</span>  0.030<span style="text-decoration: underline;">9</span>  0.020<span style="text-decoration: underline;">6</span> 0.008<span style="text-decoration: underline;">06</span> 0.024<span style="text-decoration: underline;">9</span> 0.009<span style="text-decoration: underline;">44</span>  0.038<span style="text-decoration: underline;">9</span>   0.157  0.020<span style="text-decoration: underline;">4</span></span>
@@ -252,16 +267,6 @@ and <code><a href="reformat.html">to_unweighted()</a></code> for removing weight
 <span class="r-out co"><span class="r-pr">#&gt;</span>        V1      V2     V3      V4     V5     V6    V7    V8    V9    V10    V11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.002<span style="text-decoration: underline;">15</span> 0.002<span style="text-decoration: underline;">09</span> 0.018<span style="text-decoration: underline;">1</span> 0.007<span style="text-decoration: underline;">64</span> 0.037<span style="text-decoration: underline;">6</span> 0.062<span style="text-decoration: underline;">0</span> 0.129 0.240 0.213 0.015<span style="text-decoration: underline;">1</span> 0.020<span style="text-decoration: underline;">0</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 3 more from this nodeset in the vector.</span></span>
-<span class="r-in"><span><span class="op">(</span><span class="va">tb</span> <span class="op">&lt;-</span> <span class="fu">tie_betweenness</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   `Betty-Sue` Sue-Alic…¹ Alice…² Sue-D…³ Alice…⁴ Jane-…⁵ Sue-P…⁶ Alice…⁷ Pam-C…⁸</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>           7          3       5     4.5     2.5       2     7.5     7.5      12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more from this nodeset in the vector.</span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="centrality-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="va">ison_adolescents</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">tb</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
-<span class="r-in"><span>  <span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="centrality-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu">node_eigenvector</span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Trevino Madero Carranza Aguilar Obregon Calles Alema…¹ Porte…² L. Ca…³ Avila…⁴</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  0.080<span style="text-decoration: underline;">8</span>  0.109    0.166   0.170   0.130  0.138   0.140   0.208   0.302   0.253</span>
@@ -273,13 +278,16 @@ and <code><a href="reformat.html">to_unweighted()</a></code> for removing weight
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.215 0.228 0.356 0.261 0.431 0.447 0.522 0.639 0.505 0.323 0.159 0.361 0.251</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more from this nodeset in the vector.</span></span>
-<span class="r-in"><span><span class="fu">tie_eigenvector</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   `Betty-Sue` Sue-Alic…¹ Alice…² Sue-D…³ Alice…⁴ Jane-…⁵ Sue-P…⁶ Alice…⁷ Pam-C…⁸</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>       0.366      0.638   0.447   0.524   0.541   0.333   0.502   0.520   0.236</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more from this nodeset in the vector.</span></span>
 <span class="r-in"><span><span class="fu">node_reach</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Betty   Sue Alice  Jane  Dale   Pam Carol  Tina</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.429 0.286 0.286 0.286 0.286 0.571 0.286 0.143</span>
+<span class="r-in"><span><span class="fu">node_power</span><span class="op">(</span><span class="va">ison_southern_women</span>, exponent <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  -<span style="color: #BB0000;">1.44</span> -<span style="color: #BB0000;">1.38</span>   -<span style="color: #BB0000;">1.44</span>  -<span style="color: #BB0000;">1.38</span>     -<span style="color: #BB0000;">1.00</span>   -<span style="color: #BB0000;">1.38</span>   -<span style="color: #BB0000;">1.38</span> -<span style="color: #BB0000;">1.52</span> -<span style="color: #BB0000;">1.44</span> -<span style="color: #BB0000;">1.44</span> -<span style="color: #BB0000;">1.52</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more from this nodeset in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> -<span style="color: #BB0000;">1.32</span> -<span style="color: #BB0000;">1.32</span> -<span style="color: #BB0000;">1.32</span> -<span style="color: #BB0000;">1.32</span> -<span style="color: #BB0000;">1.32</span> -<span style="color: #BB0000;">1.62</span> -<span style="color: #BB0000;">1.62</span> -<span style="color: #BB0000;">1.62</span> -<span style="color: #BB0000;">1.62</span> -<span style="color: #BB0000;">1.32</span> -<span style="color: #BB0000;">1.32</span> -<span style="color: #BB0000;">1.32</span> -<span style="color: #BB0000;">1.32</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more from this nodeset in the vector.</span></span>
 </code></pre></div>
     </div>
   </div>

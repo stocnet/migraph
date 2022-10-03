@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@
         </td>
         <td><p>Tools for reformatting networks, graphs, and matrices</p></td>
       </tr><tr><td>
-          <p><code><a href="transform.html">to_mode1()</a></code> <code><a href="transform.html">to_mode2()</a></code> <code><a href="transform.html">to_giant()</a></code> <code><a href="transform.html">to_subgraph()</a></code> <code><a href="transform.html">to_ties()</a></code> <code><a href="transform.html">to_blocks()</a></code> <code><a href="transform.html">to_matching()</a></code> </p>
+          <p><code><a href="transform.html">to_mode1()</a></code> <code><a href="transform.html">to_mode2()</a></code> <code><a href="transform.html">to_giant()</a></code> <code><a href="transform.html">to_subgraph()</a></code> <code><a href="transform.html">to_ties()</a></code> <code><a href="transform.html">to_blocks()</a></code> <code><a href="transform.html">to_matching()</a></code> <code><a href="transform.html">to_anti()</a></code> </p>
         </td>
         <td><p>Tools for transforming networks, graphs, and matrices</p></td>
       </tr><tr><td>
@@ -100,11 +100,11 @@
           <p class="section-desc"></p><p>Functions for identifying properties of graphs, nodes or ties, all returning logical scalars or vectors. Note that all <code>node_</code> and <code>tie_</code> measures return a single vector so that they can be added directly to graph objects. <code>graph_</code> measures return one or, in some cases of two-mode measures, two values.</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="is.html">is_migraph()</a></code> <code><a href="is.html">is_graph()</a></code> <code><a href="is.html">is_edgelist()</a></code> <code><a href="is.html">is_twomode()</a></code> <code><a href="is.html">is_weighted()</a></code> <code><a href="is.html">is_directed()</a></code> <code><a href="is.html">is_labelled()</a></code> <code><a href="is.html">is_signed()</a></code> <code><a href="is.html">is_connected()</a></code> <code><a href="is.html">is_complex()</a></code> <code><a href="is.html">is_multiplex()</a></code> <code><a href="is.html">is_uniplex()</a></code> <code><a href="is.html">is_acyclic()</a></code> </p>
+          <p><code><a href="is.html">is_migraph()</a></code> <code><a href="is.html">is_graph()</a></code> <code><a href="is.html">is_edgelist()</a></code> <code><a href="is.html">is_twomode()</a></code> <code><a href="is.html">is_weighted()</a></code> <code><a href="is.html">is_directed()</a></code> <code><a href="is.html">is_labelled()</a></code> <code><a href="is.html">is_signed()</a></code> <code><a href="is.html">is_connected()</a></code> <code><a href="is.html">is_complex()</a></code> <code><a href="is.html">is_multiplex()</a></code> <code><a href="is.html">is_uniplex()</a></code> <code><a href="is.html">is_acyclic()</a></code> <code><a href="is.html">is_perfect_matching()</a></code> </p>
         </td>
         <td><p>Marking networks based on their properties</p></td>
       </tr><tr><td>
-          <p><code><a href="mark_nodes.html">node_is_cutpoint()</a></code> <code><a href="mark_nodes.html">node_is_isolate()</a></code> <code><a href="mark_nodes.html">node_is_max()</a></code> <code><a href="mark_nodes.html">node_is_min()</a></code> </p>
+          <p><code><a href="mark_nodes.html">node_is_cutpoint()</a></code> <code><a href="mark_nodes.html">node_is_isolate()</a></code> <code><a href="mark_nodes.html">node_is_core()</a></code> <code><a href="mark_nodes.html">node_is_max()</a></code> <code><a href="mark_nodes.html">node_is_min()</a></code> </p>
         </td>
         <td><p>Marking nodes based on their properties</p></td>
       </tr><tr><td>
@@ -120,9 +120,13 @@
         </td>
         <td><p>Measures of network cohesion or connectedness</p></td>
       </tr><tr><td>
-          <p><code><a href="centrality.html">node_degree()</a></code> <code><a href="centrality.html">tie_degree()</a></code> <code><a href="centrality.html">node_closeness()</a></code> <code><a href="centrality.html">tie_closeness()</a></code> <code><a href="centrality.html">node_betweenness()</a></code> <code><a href="centrality.html">tie_betweenness()</a></code> <code><a href="centrality.html">node_eigenvector()</a></code> <code><a href="centrality.html">tie_eigenvector()</a></code> <code><a href="centrality.html">node_reach()</a></code> </p>
+          <p><code><a href="centrality.html">node_degree()</a></code> <code><a href="centrality.html">node_closeness()</a></code> <code><a href="centrality.html">node_betweenness()</a></code> <code><a href="centrality.html">node_eigenvector()</a></code> <code><a href="centrality.html">node_reach()</a></code> <code><a href="centrality.html">node_power()</a></code> </p>
         </td>
         <td><p>Measures of node and tie centrality</p></td>
+      </tr><tr><td>
+          <p><code><a href="tie_centrality.html">tie_degree()</a></code> <code><a href="tie_centrality.html">tie_closeness()</a></code> <code><a href="tie_centrality.html">tie_betweenness()</a></code> <code><a href="tie_centrality.html">tie_eigenvector()</a></code> </p>
+        </td>
+        <td><p>Measures of tie centrality</p></td>
       </tr><tr><td>
           <p><code><a href="centralisation.html">network_degree()</a></code> <code><a href="centralisation.html">network_closeness()</a></code> <code><a href="centralisation.html">network_betweenness()</a></code> <code><a href="centralisation.html">network_eigenvector()</a></code> </p>
         </td>

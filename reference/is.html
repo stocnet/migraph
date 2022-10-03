@@ -18,7 +18,7 @@ properties."><meta property="og:image" content="https://snlab-ch.github.io/migra
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
       </span>
     </div>
 
@@ -88,7 +88,9 @@ properties.</p>
 <span></span>
 <span><span class="fu">is_uniplex</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">is_acyclic</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">is_acyclic</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_perfect_matching</span><span class="op">(</span><span class="va">object</span>, mark <span class="op">=</span> <span class="st">"type"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -100,6 +102,11 @@ properties.</p>
 <li><p>network, from the <code>{network}</code> package</p></li>
 <li><p>tbl_graph, from the <code>{tidygraph}</code> package</p></li>
 </ul></dd>
+
+
+<dt>mark</dt>
+<dd><p>A logical vector marking two types or modes.
+By default "type".</p></dd>
 
 </dl></div>
     <div id="value">
@@ -129,6 +136,8 @@ either from multiple rows with the same sender and receiver,
 or multiple columns to the edgelist.</p></li>
 <li><p><code>is_uniplex()</code>: Tests whether network is simple (both uniplex and simplex)</p></li>
 <li><p><code>is_acyclic()</code>: Tests whether network is a directed acyclic graph</p></li>
+<li><p><code>is_perfect_matching()</code>: Tests whether there is a matching for a network
+that covers every node in the network</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -156,6 +165,8 @@ or multiple columns to the edgelist.</p></li>
 <span class="r-in"><span><span class="fu">is_uniplex</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span><span class="fu">is_acyclic</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-in"><span><span class="fu">is_perfect_matching</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 </code></pre></div>
     </div>
