@@ -55,6 +55,9 @@ is_perfect_matching(object, mark = "type")
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
+
+\item{mark}{A logical vector marking two types or modes.
+By default "type".}
 }
 \value{
 TRUE if the condition is met, or FALSE otherwise.

@@ -363,7 +363,9 @@ is_acyclic <- function(object){
 
 #' @describeIn is Tests whether there is a matching for a network
 #'   that covers every node in the network
-#' @examples 
+#' @param mark A logical vector marking two types or modes.
+#'   By default "type".
+#' @examples
 #' is_perfect_matching(ison_southern_women)
 #' @export
 is_perfect_matching <- function(object, mark = "type"){
