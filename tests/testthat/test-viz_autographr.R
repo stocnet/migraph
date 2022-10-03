@@ -43,8 +43,8 @@ test_that("unweighted, unsigned, directed networks graph correctly", {
   expect_equal(test_algebra[["layers"]][[2]][["aes_params"]][["edge_linetype"]], "solid")
   expect_equal(test_algebra[["layers"]][[2]][["aes_params"]][["edge_colour"]], "black")
   expect_equal(as.character(test_algebra[["layers"]][[2]][["aes_params"]][["end_cap"]]), "circle")
-  expect_s3_class(test_algebra[["layers"]][[2]][["aes_params"]][["end_cap"]], "geometry")
-  # # Node parameters
+  #expect_s3_class(test_algebra[["layers"]][[2]][["aes_params"]][["end_cap"]], "ggraph_geometry")
+  # Node parameters
   expect_equal(round(test_algebra[["layers"]][[3]][["aes_params"]][["size"]]), 3)
   expect_equal(test_algebra[["layers"]][[3]][["aes_params"]][["shape"]], "circle")
 })
@@ -61,10 +61,10 @@ test_that("weighted, unsigned, directed networks graph correctly", {
   expect_equal(test_networkers[["layers"]][[2]][["aes_params"]][["edge_linetype"]], "solid")
   expect_equal(test_networkers[["layers"]][[2]][["aes_params"]][["edge_colour"]], "black")
   expect_equal(as.character(test_networkers[["layers"]][[2]][["aes_params"]][["end_cap"]]), "circle")
-  expect_s3_class(test_networkers[["layers"]][[2]][["aes_params"]][["end_cap"]], "geometry")
+  #expect_s3_class(test_networkers[["layers"]][[2]][["aes_params"]][["end_cap"]], "ggraph_geometry")
   expect_equal(rlang::quo_get_expr(test_networkers[["layers"]][[2]][["mapping"]][["edge_width"]]),
                as.name("weight"))
-  # # Node parameters
+  # Node parameters
   expect_equal(round(test_networkers[["layers"]][[3]][["aes_params"]][["size"]]), 2)
   expect_equal(test_networkers[["layers"]][[3]][["aes_params"]][["shape"]], "circle")
 })
@@ -132,3 +132,4 @@ test_that("named networks plot correctly", {
   expect_equal(onemode[["data"]][["name"]], node_names(ison_adolescents))
   expect_equal(twomode[["data"]][["name"]], node_names(ison_southern_women))
 })
+
