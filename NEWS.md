@@ -15,6 +15,10 @@
 
 - `node_degree()` now has an additional parameter for trading off between degree and strength in the case of weighted networks
 
+## Mapping
+
+- Fixed `autographr()` tests to work with new version of `{ggraph}`
+
 # migraph 0.12.0
 
 ## Package
