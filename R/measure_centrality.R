@@ -288,6 +288,52 @@ node_eigenvector <- function(object, normalized = TRUE, scale = FALSE){
 }
 
 #' @describeIn centrality Calculate the eigenvector centrality of edges in a network
+
+#' @describeIn centrality Calculate the power centrality of nodes in a network
+#' @param exponent Decay rate for the Bonacich power centrality score.
+#' @references 
+#' Bonacich, Phillip. 1987. 
+#' “Power and Centrality: A Family of Measures.” 
+#' _The American Journal of Sociology_ 
+#' 92(5): 1170–82.
+#' \doi{10.1086/228631}.
+#' @importFrom igraph power_centrality
+#' @examples
+#' node_power(ison_southern_women, exponent = 0.5)
+#' @return A numeric vector giving each node's power centrality measure.
+#' @export 
+node_power <- function(object, normalized = TRUE, scale = FALSE, exponent = 1){
+  
+  if(missing(object)){
+    expect_nodes()
+    object <- .G()
+  }
+  weights <- `if`(is_weighted(object), 
+                  tie_weights(object), NA)
+  graph <- as_igraph(object)
+  
+  # Do the calculations
+  if (!is_twomode(graph)){
+    out <- igraph::power_centrality(graph = graph, 
+                                    exponent = exponent,
+                                    rescale = scale)
+    if (normalized) out <- out / sqrt(1/2)
+  } else {
+    eigen1 <- to_mode1(graph)
+    eigen1 <- igraph::power_centrality(graph = eigen1, 
+                                       exponent = exponent,
+                                       rescale = scale)
+    eigen2 <- to_mode2(graph)
+    eigen2 <- igraph::power_centrality(graph = eigen2, 
+                                       exponent = exponent,
+                                       rescale = scale)
+    out <- c(eigen1, eigen2)
+    if (normalized) out <- out / sqrt(1/2)
+  }
+  out <- make_node_measure(out, object)
+  out
+}
+
 #' @examples 
 #' tie_eigenvector(ison_adolescents)
 #' @export

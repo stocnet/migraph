@@ -14,6 +14,7 @@
 ## Measures
 
 - `node_degree()` now has an additional parameter for trading off between degree and strength in the case of weighted networks
+- Added `node_power()` for Bonacich power centrality for both one- and two-mode networks
 
 ## Mapping
 
