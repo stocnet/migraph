@@ -115,18 +115,6 @@ node_degree <- function (object, normalized = TRUE, alpha = 0,
   out
 }
 
-#' @describeIn centrality Calculate the degree centrality of edges in a network
-#' @examples 
-#' tie_degree(ison_adolescents)
-#' @export
-tie_degree <- function(object, normalized = TRUE){
-  edge_adj <- to_ties(object)
-  out <- node_degree(edge_adj, normalized = normalized)
-  class(out) <- "numeric"
-  out <- make_tie_measure(out, object)
-  out
-}
-
 #' @describeIn centrality Calculate the closeness centrality of nodes in a network
 #' @param cutoff Maximum path length to use during calculations.
 #' @import tidygraph
@@ -164,23 +152,6 @@ node_closeness <- function(object, normalized = TRUE,
   out <- make_node_measure(out, object)
   out
 } 
-
-#' @describeIn centrality Calculate the closeness of each edge to each other edge
-#' in the network.
-#' @examples
-#' (ec <- tie_closeness(ison_adolescents))
-#' plot(ec)
-#' ison_adolescents %>% 
-#'   activate(edges) %>% mutate(weight = ec) %>% 
-#'   autographr()
-#' @export
-tie_closeness <- function(object, normalized = TRUE){
-  edge_adj <- to_ties(object)
-  out <- node_closeness(edge_adj, normalized = normalized)
-  class(out) <- "numeric"
-  out <- make_tie_measure(out, object)
-  out
-}
 
 #' @describeIn centrality Calculate the betweenness centralities of nodes in a network
 #' @import tidygraph
@@ -221,25 +192,6 @@ node_betweenness <- function(object, normalized = TRUE,
     }
   }
   out <- make_node_measure(out, object)
-  out
-}
-
-#' @describeIn centrality Calculate number of shortest paths going through an edge
-#' @importFrom igraph edge_betweenness
-#' @examples
-#' (tb <- tie_betweenness(ison_adolescents))
-#' plot(tb)
-#' ison_adolescents %>% 
-#'   activate(edges) %>% mutate(weight = tb) %>% 
-#'   autographr()
-#' @export
-tie_betweenness <- function(object, normalized = TRUE){
-  object <- as_igraph(object)
-  edges <- as_edgelist(object)
-  edges <- paste(edges$from, edges$to, sep = "-")
-  out <- igraph::edge_betweenness(object)
-  names(out) <- edges
-  out <- make_tie_measure(out, object)
   out
 }
 
@@ -287,7 +239,18 @@ node_eigenvector <- function(object, normalized = TRUE, scale = FALSE){
   out
 }
 
-#' @describeIn centrality Calculate the eigenvector centrality of edges in a network
+#' @describeIn centrality Calculate nodes' reach centrality
+#'   or how many nodes they can reach within _k_ steps
+#' @param k Integer of steps out to calculate reach
+#' @examples
+#' node_reach(ison_adolescents)
+#' @export
+node_reach <- function(object, normalized = TRUE, k = 2){
+  out <- rowSums(node_path_census(object)==k)
+  if(normalized) out <- out/(network_nodes(object)-1)
+  out <- make_node_measure(out, object)
+  out
+}
 
 #' @describeIn centrality Calculate the power centrality of nodes in a network
 #' @param exponent Decay rate for the Bonacich power centrality score.
@@ -334,6 +297,61 @@ node_power <- function(object, normalized = TRUE, scale = FALSE, exponent = 1){
   out
 }
 
+#' Measures of tie centrality
+#' @name tie_centrality
+#' @family measures
+#' @inheritParams centrality
+NULL
+
+#' @describeIn tie_centrality Calculate the degree centrality of edges in a network
+#' @examples 
+#' tie_degree(ison_adolescents)
+#' @export
+tie_degree <- function(object, normalized = TRUE){
+  edge_adj <- to_ties(object)
+  out <- node_degree(edge_adj, normalized = normalized)
+  class(out) <- "numeric"
+  out <- make_tie_measure(out, object)
+  out
+}
+
+#' @describeIn tie_centrality Calculate the closeness of each edge to each other edge
+#' in the network.
+#' @examples
+#' (ec <- tie_closeness(ison_adolescents))
+#' plot(ec)
+#' ison_adolescents %>% 
+#'   activate(edges) %>% mutate(weight = ec) %>% 
+#'   autographr()
+#' @export
+tie_closeness <- function(object, normalized = TRUE){
+  edge_adj <- to_ties(object)
+  out <- node_closeness(edge_adj, normalized = normalized)
+  class(out) <- "numeric"
+  out <- make_tie_measure(out, object)
+  out
+}
+
+#' @describeIn tie_centrality Calculate number of shortest paths going through an edge
+#' @importFrom igraph edge_betweenness
+#' @examples
+#' (tb <- tie_betweenness(ison_adolescents))
+#' plot(tb)
+#' ison_adolescents %>% 
+#'   activate(edges) %>% mutate(weight = tb) %>% 
+#'   autographr()
+#' @export
+tie_betweenness <- function(object, normalized = TRUE){
+  object <- as_igraph(object)
+  edges <- as_edgelist(object)
+  edges <- paste(edges$from, edges$to, sep = "-")
+  out <- igraph::edge_betweenness(object)
+  names(out) <- edges
+  out <- make_tie_measure(out, object)
+  out
+}
+
+#' @describeIn tie_centrality Calculate the eigenvector centrality of edges in a network
 #' @examples 
 #' tie_eigenvector(ison_adolescents)
 #' @export
@@ -342,18 +360,6 @@ tie_eigenvector <- function(object, normalized = TRUE){
   out <- node_eigenvector(edge_adj, normalized = normalized)
   class(out) <- "numeric"
   out <- make_tie_measure(out, object)
-  out
-}
-
-#' @describeIn centrality Calculate nodes' reach centrality
-#' @param k Integer of steps out to calculate reach
-#' @examples
-#' node_reach(ison_adolescents)
-#' @export
-node_reach <- function(object, normalized = TRUE, k = 2){
-  out <- rowSums(node_path_census(object)==k)
-  if(normalized) out <- out/(network_nodes(object)-1)
-  out <- make_node_measure(out, object)
   out
 }
 
