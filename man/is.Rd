@@ -15,6 +15,7 @@
 \alias{is_multiplex}
 \alias{is_uniplex}
 \alias{is_acyclic}
+\alias{is_perfect_matching}
 \title{Marking networks based on their properties}
 \usage{
 is_migraph(object)
@@ -42,6 +43,8 @@ is_multiplex(object)
 is_uniplex(object)
 
 is_acyclic(object)
+
+is_perfect_matching(object, mark = "type")
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -52,6 +55,9 @@ is_acyclic(object)
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
+
+\item{mark}{A logical vector marking two types or modes.
+By default "type".}
 }
 \value{
 TRUE if the condition is met, or FALSE otherwise.
@@ -93,6 +99,9 @@ or multiple columns to the edgelist.
 
 \item \code{is_acyclic()}: Tests whether network is a directed acyclic graph
 
+\item \code{is_perfect_matching()}: Tests whether there is a matching for a network
+that covers every node in the network
+
 }}
 \examples{
 is_twomode(ison_southern_women)
@@ -104,6 +113,7 @@ is_connected(ison_southern_women)
 is_complex(ison_southern_women)
 is_uniplex(ison_algebra)
 is_acyclic(ison_algebra)
+is_perfect_matching(ison_southern_women)
 }
 \seealso{
 Other marks: 

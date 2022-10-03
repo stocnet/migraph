@@ -9,4 +9,4 @@
 
 0 errors | 0 warnings | 0 notes
 
-- Renamed figures for the PDF manual
+- Package size known to be slight over 5Mb (5.1Mb) due to documentation

@@ -74,6 +74,7 @@ reference:
     contents:
       - cohesion
       - centrality
+      - tie_centrality
       - centralisation
       - closure
       - holes

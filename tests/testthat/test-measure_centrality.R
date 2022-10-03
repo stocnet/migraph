@@ -8,7 +8,7 @@ test_that("one mode degree centrality calculated correctly",{
 test_that("one mode strength centrality calculated correctly",{
   expect_equal(unname(node_degree(to_unweighted(ison_networkers), direction = "in", normalized = FALSE)[1:5]), 
                c(29, 24, 11, 18, 8))
-  expect_equal(unname(node_degree(ison_networkers, direction = "in", normalized = FALSE)[1:5]), 
+  expect_equal(unname(node_degree(ison_networkers, direction = "in", normalized = FALSE, alpha = 1)[1:5]), 
                c(2495, 1212, 101, 322, 89))
 })
 

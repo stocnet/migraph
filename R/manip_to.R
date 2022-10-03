@@ -456,7 +456,7 @@ to_twomode <- function(object, mark) UseMethod("to_twomode")
 #' @export
 to_twomode.igraph <- function(object, mark){
   igraph::V(object)$type <- mark
-  object
+  to_undirected(object)
 }
 
 #' @export
@@ -807,8 +807,7 @@ to_blocks.tbl_graph <- function(object, membership, FUN = mean){
 #'   By default "type".
 #' @importFrom igraph max_bipartite_match
 #' @examples 
-#' autographr(to_matching(mpn_elite_usa_advice), "bipartite")
-#' autographr(to_matching(ison_southern_women), "bipartite")
+#' autographr(to_matching(ison_southern_women), "hierarchy")
 #' @export
 to_matching <- function(object, mark = "type") UseMethod("to_matching")
 
@@ -845,3 +844,46 @@ to_matching.matrix <- function(object, mark = "type"){
   as_matrix(to_matching(as_igraph(object), mark))
 }
 
+#' @describeIn transform Returns the complement of a network
+#'   where only ties _not_ present in the original network
+#'   are included in the new network.
+#' @importFrom igraph complementer
+#' @examples 
+#' autographr(to_anti(ison_southern_women), "hierarchy")
+#' @export
+to_anti <- function(object) UseMethod("to_anti")
+
+#' @export
+to_anti.matrix <- function(object){
+  matrix(1, nrow(object), ncol(object)) - object
+}
+
+#' @export
+to_anti.data.frame <- function(object){
+  as_edgelist.matrix(to_anti.matrix(as_matrix(object)))
+}
+
+#' @export
+to_anti.igraph <- function(object){
+  if(is_twomode(object)){
+    as_igraph(to_anti.matrix(as_matrix(object)))
+  } else {
+    igraph::complementer(as_igraph(object), 
+                         loops = is_complex(object))
+  }
+}
+
+#' @export
+to_anti.tbl_graph <- function(object){
+  if(is_twomode(object)){
+    as_tidygraph(to_anti.matrix(as_matrix(object)))
+  } else {
+    as_tidygraph(igraph::complementer(as_igraph(object), 
+                         loops = is_complex(object)))
+  }
+}
+
+#' @export
+to_anti.network <- function(object){
+  as_network(to_anti(as_igraph(object)))
+}

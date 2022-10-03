@@ -9,6 +9,7 @@
 \alias{to_ties}
 \alias{to_blocks}
 \alias{to_matching}
+\alias{to_anti}
 \title{Tools for transforming networks, graphs, and matrices}
 \usage{
 to_mode1(object, similarity = c("count", "jaccard", "rand", "pearson", "yule"))
@@ -24,6 +25,8 @@ to_ties(object)
 to_blocks(object, membership, FUN = mean)
 
 to_matching(object, mark = "type")
+
+to_anti(object)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -114,6 +117,10 @@ while preserving the topology of the original structures.
 \item \code{to_matching()}: Returns a network with only
 matching ties
 
+\item \code{to_anti()}: Returns the complement of a network
+where only ties \emph{not} present in the original network
+are included in the new network.
+
 }}
 \section{to_matching}{
 
@@ -139,8 +146,8 @@ autographr(to_ties(ison_adolescents))
 (adolblock <- to_blocks(ison_adolescents, 
   node_regular_equivalence(ison_adolescents, k = 3)))
 autographr(adolblock)
-autographr(to_matching(mpn_elite_usa_advice), "bipartite")
-autographr(to_matching(ison_southern_women), "bipartite")
+autographr(to_matching(ison_southern_women), "hierarchy")
+autographr(to_anti(ison_southern_women), "hierarchy")
 }
 \references{
 Goldberg, A V; Tarjan, R E (1986).

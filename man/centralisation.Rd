@@ -71,6 +71,7 @@ Other measures:
 \code{\link{cohesion}()},
 \code{\link{diversity}},
 \code{\link{features}},
-\code{\link{holes}}
+\code{\link{holes}},
+\code{\link{tie_centrality}}
 }
 \concept{measures}

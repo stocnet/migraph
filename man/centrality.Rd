@@ -3,33 +3,29 @@
 \name{centrality}
 \alias{centrality}
 \alias{node_degree}
-\alias{tie_degree}
 \alias{node_closeness}
-\alias{tie_closeness}
 \alias{node_betweenness}
-\alias{tie_betweenness}
 \alias{node_eigenvector}
-\alias{tie_eigenvector}
 \alias{node_reach}
+\alias{node_power}
 \title{Measures of node and tie centrality}
 \usage{
-node_degree(object, normalized = TRUE, direction = c("all", "out", "in"))
-
-tie_degree(object, normalized = TRUE)
+node_degree(
+  object,
+  normalized = TRUE,
+  alpha = 0,
+  direction = c("all", "out", "in")
+)
 
 node_closeness(object, normalized = TRUE, direction = "out", cutoff = NULL)
 
-tie_closeness(object, normalized = TRUE)
-
 node_betweenness(object, normalized = TRUE, cutoff = NULL)
-
-tie_betweenness(object, normalized = TRUE)
 
 node_eigenvector(object, normalized = TRUE, scale = FALSE)
 
-tie_eigenvector(object, normalized = TRUE)
-
 node_reach(object, normalized = TRUE, k = 2)
+
+node_power(object, normalized = TRUE, scale = FALSE, exponent = 1)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -45,6 +41,19 @@ node_reach(object, normalized = TRUE, k = 2)
 Different denominators are used depending on whether the object is one-mode or two-mode,
 the type of centrality, and other arguments.}
 
+\item{alpha}{Numeric scalar, the positive tuning parameter introduced in
+Opsahl et al (2010) for trading off between degree and strength centrality measures.
+By default, \code{alpha = 0}, which ignores tie weights and the measure is solely based
+upon degree (the number of ties).
+\code{alpha = 1} ignores the number of ties and provides the sum of the tie weights
+as strength centrality.
+Values between 0 and 1 reflect different trade-offs in the relative contributions of
+degree and strength to the final outcome, with 0.5 as the middle ground.
+Values above 1 penalise for the number of ties.
+Of two nodes with the same sum of tie weights, the node with fewer ties will obtain
+the higher score.
+This argument is ignored except in the case of a weighted network.}
+
 \item{direction}{Character string, “out” bases the measure on outgoing ties,
 “in” on incoming ties, and "all" on either/the sum of the two.
 For two-mode networks, "all" uses as numerator the sum of differences
@@ -59,6 +68,8 @@ against only the centrality scores of the other nodes in that mode.}
 \item{scale}{Logical scalar, whether to rescale the vector so the maximum score is 1.}
 
 \item{k}{Integer of steps out to calculate reach}
+
+\item{exponent}{Decay rate for the Bonacich power centrality score.}
 }
 \value{
 A single centralization score if the object was one-mode,
@@ -70,6 +81,8 @@ the function will return a \code{tidygraph} object where the nodes have been upd
 A numeric vector giving the betweenness centrality measure of each node.
 
 A numeric vector giving the eigenvector centrality measure of each node.
+
+A numeric vector giving each node's power centrality measure.
 }
 \description{
 These functions calculate common centrality measures for one- and two-mode networks.
@@ -85,46 +98,29 @@ including for two-mode networks.
 \item \code{node_degree()}: Calculates the degree centrality of nodes in an unweighted network,
 or weighted degree/strength of nodes in a weighted network.
 
-\item \code{tie_degree()}: Calculate the degree centrality of edges in a network
-
 \item \code{node_closeness()}: Calculate the closeness centrality of nodes in a network
-
-\item \code{tie_closeness()}: Calculate the closeness of each edge to each other edge
-in the network.
 
 \item \code{node_betweenness()}: Calculate the betweenness centralities of nodes in a network
 
-\item \code{tie_betweenness()}: Calculate number of shortest paths going through an edge
-
 \item \code{node_eigenvector()}: Calculate the eigenvector centrality of nodes in a network
 
-\item \code{tie_eigenvector()}: Calculate the eigenvector centrality of edges in a network
-
 \item \code{node_reach()}: Calculate nodes' reach centrality
+or how many nodes they can reach within \emph{k} steps
+
+\item \code{node_power()}: Calculate the power centrality of nodes in a network
 
 }}
 \examples{
 node_degree(mpn_elite_mex)
 node_degree(ison_southern_women)
-tie_degree(ison_adolescents)
 node_closeness(mpn_elite_mex)
 node_closeness(ison_southern_women)
-(ec <- tie_closeness(ison_adolescents))
-plot(ec)
-ison_adolescents \%>\% 
-  activate(edges) \%>\% mutate(weight = ec) \%>\% 
-  autographr()
 node_betweenness(mpn_elite_mex)
 node_betweenness(ison_southern_women)
-(tb <- tie_betweenness(ison_adolescents))
-plot(tb)
-ison_adolescents \%>\% 
-  activate(edges) \%>\% mutate(weight = tb) \%>\% 
-  autographr()
 node_eigenvector(mpn_elite_mex)
 node_eigenvector(ison_southern_women)
-tie_eigenvector(ison_adolescents)
 node_reach(ison_adolescents)
+node_power(ison_southern_women, exponent = 0.5)
 }
 \references{
 Faust, Katherine. 1997.
@@ -144,10 +140,21 @@ edited by John Scott and Peter J. Carrington, 417–33.
 London, UK: Sage.
 \doi{10.4135/9781446294413.n28}.
 
+Opsahl, Tore, Filip Agneessens, and John Skvoretz. 2010.
+"Node centrality in weighted networks: Generalizing degree and shortest paths."
+\emph{Social Networks} 32, 245-251.
+\doi{10.1016/j.socnet.2010.03.006}
+
 Bonacich, Phillip. 1991.
 “Simultaneous Group and Individual Centralities.”
 \emph{Social Networks} 13(2):155–68.
 \doi{10.1016/0378-8733(91)90018-O}.
+
+Bonacich, Phillip. 1987.
+“Power and Centrality: A Family of Measures.”
+\emph{The American Journal of Sociology}
+92(5): 1170–82.
+\doi{10.1086/228631}.
 }
 \seealso{
 \code{\link[=to_undirected]{to_undirected()}} for removing edge directions
@@ -159,6 +166,7 @@ Other measures:
 \code{\link{cohesion}()},
 \code{\link{diversity}},
 \code{\link{features}},
-\code{\link{holes}}
+\code{\link{holes}},
+\code{\link{tie_centrality}}
 }
 \concept{measures}

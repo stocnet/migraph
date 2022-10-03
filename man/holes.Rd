@@ -102,6 +102,7 @@ Other measures:
 \code{\link{closure}},
 \code{\link{cohesion}()},
 \code{\link{diversity}},
-\code{\link{features}}
+\code{\link{features}},
+\code{\link{tie_centrality}}
 }
 \concept{measures}
