@@ -100,10 +100,10 @@ ison_brandes %>%
   add_node_attribute("color", node_is_max(node_betweenness(ison_brandes))) %>%
   autographr(node_color = "color")
 ison_brandes %>%
-  add_node_attribute("color", node_is_min(node_closeness(ison_brandes))) %>%
+  add_node_attribute("color", node_is_max(node_closeness(ison_brandes))) %>%
   autographr(node_color = "color")
 ison_brandes %>%
-  add_node_attribute("color", node_is_min(node_eigenvector(ison_brandes))) %>%
+  add_node_attribute("color", node_is_max(node_eigenvector(ison_brandes))) %>%
   autographr(node_color = "color")
 ```
 
