@@ -4,6 +4,10 @@
 
 - Added `is_eulerian()` for a logical expression of whether the network has an Eulerian path
 
+## Mapping
+
+- Reversed blue/red colour assignment for binary variables
+
 # migraph 0.12.1
 
 ## Manipulations
