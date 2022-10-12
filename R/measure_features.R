@@ -74,6 +74,29 @@ network_modularity <- function(object,
 #'    Small-world networks can be highly clustered and yet
 #'    have short path lengths.
 #' @param times Integer of number of simulations.
+#' @section network_smallworld:
+#'   There are three small-world measures implemented:
+#'   
+#'   - "sigma" is the original equation from Watts and Strogatz (1998),
+#'     \deqn{\frac{\frac{C}{C_r}}{\frac{L}{L_r}}}, 
+#'     where \eqn{C} and \eqn{L} are the observed 
+#'     clustering coefficient and path length, respectively,
+#'     and \eqn{C_r} and \eqn{L_r} are the averages obtained from
+#'     random networks of the same dimensions and density.
+#'     A \eqn{\sigma > 1} is considered to be small-world,
+#'     but this measure is highly sensitive to network size.
+#'  -  "omega" (the default) is an update from Telesford et al. (2011),
+#'     \deqn{\frac{L_r}{L} - \frac{C}{C_l}},
+#'     where \eqn{C_l} is the clustering coefficient for a lattice graph
+#'     with the same dimensions.
+#'     \eqn{\omega} ranges between 0 and 1, 
+#'     where 1 is as close to a small-world as possible.
+#'  -  "SWI" is an alternative proposed by Neal (2017),
+#'     \deqn{\frac{L - L_l}{L_r - L_l} \times \frac{C - C_r}{C_l - C_r}},
+#'     where \eqn{L_l} is the average path length for a lattice graph
+#'     with the same dimensions.
+#'     \eqn{SWI} also ranges between 0 and 1 with the same interpretation, 
+#'     but where there may not be a network for which \eqn{SWI = 1}.
 #' @examples
 #' network_smallworld(ison_brandes)
 #' network_smallworld(ison_southern_women)
@@ -81,30 +104,57 @@ network_modularity <- function(object,
 #'   for how clustering is calculated
 #' @references 
 #' Watts, Duncan J., and Steven H. Strogatz. 1998. 
-#' “Collective Dynamics of ‘Small-World’ Networks.” 
-#' _Nature_ 393(6684):440–42.
-#' \doi{10.1038/30918}.
+#'   “Collective Dynamics of ‘Small-World’ Networks.” 
+#'   _Nature_ 393(6684):440–42.
+#'   \doi{10.1038/30918}.
+#' 
+#' Telesford QK, Joyce KE, Hayasaka S, Burdette JH, Laurienti PJ. 2011. 
+#'   "The ubiquity of small-world networks". 
+#'   _Brain Connectivity_ 1(5): 367–75.
+#'   \doi{10.1089/brain.2011.0038}.
+#'   
+#' Neal Zachary P. 2017. 
+#'   "How small is it? Comparing indices of small worldliness". 
+#'   _Network Science_. 5 (1): 30–44.
+#'   \doi{10.1017/nws.2017.5}.
 #' @export
-network_smallworld <- function(object, times = 100) {
+network_smallworld <- function(object, 
+                               method = c("omega", "sigma", "SWI"),
+                               times = 100) {
+  
+  method <- match.arg(method)
   
   if(is_twomode(object)){
-    obsclust <- network_equivalency(object)
-    expclust <- mean(vapply(1:times, 
-                            function(x) network_equivalency(generate_random(object)),
-                            FUN.VALUE = numeric(1)))
+    co <- network_equivalency(object)
+    cr <- mean(vapply(1:times, 
+                      function(x) network_equivalency(generate_random(object)),
+                      FUN.VALUE = numeric(1)))
+    if(method %in% c("omega", "SWI")){
+      cl <- network_equivalency(create_ring(object))
+    }
   } else {
-    obsclust <- network_transitivity(object)
-    expclust <- mean(vapply(1:times, 
+    co <- network_transitivity(object)
+    cr <- mean(vapply(1:times, 
                             function(x) network_transitivity(generate_random(object)),
                             FUN.VALUE = numeric(1)))
+    if(method %in% c("omega", "SWI")){
+      cl <- network_transitivity(create_lattice(object))
+    }
   }
   
-  obspath <- network_length(object)
-  exppath <- mean(vapply(1:times, 
+  lo <- network_length(object)
+  lr <- mean(vapply(1:times, 
                          function(x) network_length(generate_random(object)),
                          FUN.VALUE = numeric(1)))
+  if(method %in% c("SWI")){
+    ll <- network_length(create_ring(object))
+  }
   
-  make_network_measure((obsclust/expclust)/(obspath/exppath),
+  out <- switch(method,
+                "omega" = (lr/lo - co/cl),
+                "sigma" = (co/cr)/(lo/lr),
+                "SWI" = ((lo - ll)/(lr - ll))*((co - cr)/(cl - cr)))
+  make_network_measure(out,
                      object)
 }
 

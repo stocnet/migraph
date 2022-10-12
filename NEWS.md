@@ -4,6 +4,12 @@
 
 - Added `is_eulerian()` for a logical expression of whether the network has an Eulerian path
 
+## Measures
+
+- `network_smallworld()` now takes a method argument for different ways of calculating a small-world coefficient
+  - "omega" (the new default) offers a better range, 0 to 1, than the previous (now "sigma") metric.
+  - "SWI" is also included and offers a 0 to 1 range, but where 1 may not be realisable
+
 ## Mapping
 
 - Reversed blue/red colour assignment for binary variables
