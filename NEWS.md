@@ -1,3 +1,9 @@
+# migraph 0.12.2
+
+## Marks
+
+- Added `is_eulerian()` for a logical expression of whether the network has an Eulerian path
+
 # migraph 0.12.1
 
 ## Manipulations
@@ -19,7 +25,7 @@
 
 ## Mapping
 
-- Fixed `autographr()` tests to work with new version of `{ggraph}`
+- Fixed `autographr()` tests to work with new version of `{ggraph}` (closed #247, thanks @henriquesposito)
 
 # migraph 0.12.0
 

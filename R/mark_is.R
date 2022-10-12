@@ -372,3 +372,13 @@ is_perfect_matching <- function(object, mark = "type"){
   matches <- to_matching(object, mark = mark)
   network_ties(matches)*2 == network_nodes(matches)
 }
+
+#' @describeIn is Tests whether there is a Eulerian path for a network
+#'   where that path passes through every tie exactly once
+#'   @importFrom igraph has_eulerian_path
+#' @examples
+#' is_eulerian(ison_brandes)
+#' @export
+is_eulerian <- function(object){
+  igraph::has_eulerian_path(as_igraph(object))
+}

@@ -16,6 +16,7 @@
 \alias{is_uniplex}
 \alias{is_acyclic}
 \alias{is_perfect_matching}
+\alias{is_eulerian}
 \title{Marking networks based on their properties}
 \usage{
 is_migraph(object)
@@ -45,6 +46,8 @@ is_uniplex(object)
 is_acyclic(object)
 
 is_perfect_matching(object, mark = "type")
+
+is_eulerian(object)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -102,6 +105,10 @@ or multiple columns to the edgelist.
 \item \code{is_perfect_matching()}: Tests whether there is a matching for a network
 that covers every node in the network
 
+\item \code{is_eulerian()}: Tests whether there is a Eulerian path for a network
+where that path passes through every tie exactly once
+@importFrom igraph has_eulerian_path
+
 }}
 \examples{
 is_twomode(ison_southern_women)
@@ -114,6 +121,7 @@ is_complex(ison_southern_women)
 is_uniplex(ison_algebra)
 is_acyclic(ison_algebra)
 is_perfect_matching(ison_southern_women)
+is_eulerian(ison_brandes)
 }
 \seealso{
 Other marks: 
