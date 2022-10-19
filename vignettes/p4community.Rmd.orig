@@ -9,9 +9,12 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
+#| purl = FALSE
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.cap = "",
+  fig.path = "teaching/"
 )
 ```
 

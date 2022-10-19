@@ -39,7 +39,7 @@ ison_algebra <- to_named(ison_algebra)
 autographr(ison_algebra)
 ```
 
-![plot of chunk addingnames](figure/addingnames-1.png)
+![](teaching/addingnames-1.png)
 
 Note that you will likely get a different set of names,
 as they are assigned randomly from a pool of (American) first names.
@@ -56,14 +56,14 @@ We can extract them and investigate them separately using `to_uniplex()`:
 #> # A directed simple graph with 3 components
 #> #
 #> # Node Data: 16 × 1 (active)
-#>   name     
-#>   <chr>    
-#> 1 Bernice  
-#> 2 Priscilla
-#> 3 Kristie  
-#> 4 Lowell   
-#> 5 Mckenzie 
-#> 6 Doreen   
+#>   name   
+#>   <chr>  
+#> 1 Jude   
+#> 2 Tristan
+#> 3 Max    
+#> 4 Colby  
+#> 5 Mathew 
+#> 6 Julia  
 #> # … with 10 more rows
 #> #
 #> # Edge Data: 62 × 3
@@ -80,14 +80,14 @@ gfriend <- autographr(friends) + ggtitle("Friendship")
 #> # A directed simple graph with 1 component
 #> #
 #> # Node Data: 16 × 1 (active)
-#>   name     
-#>   <chr>    
-#> 1 Bernice  
-#> 2 Priscilla
-#> 3 Kristie  
-#> 4 Lowell   
-#> 5 Mckenzie 
-#> 6 Doreen   
+#>   name   
+#>   <chr>  
+#> 1 Jude   
+#> 2 Tristan
+#> 3 Max    
+#> 4 Colby  
+#> 5 Mathew 
+#> 6 Julia  
 #> # … with 10 more rows
 #> #
 #> # Edge Data: 129 × 3
@@ -104,14 +104,14 @@ gsocial <- autographr(social) + ggtitle("Social")
 #> # A directed simple graph with 1 component
 #> #
 #> # Node Data: 16 × 1 (active)
-#>   name     
-#>   <chr>    
-#> 1 Bernice  
-#> 2 Priscilla
-#> 3 Kristie  
-#> 4 Lowell   
-#> 5 Mckenzie 
-#> 6 Doreen   
+#>   name   
+#>   <chr>  
+#> 1 Jude   
+#> 2 Tristan
+#> 3 Max    
+#> 4 Colby  
+#> 5 Mathew 
+#> 6 Julia  
 #> # … with 10 more rows
 #> #
 #> # Edge Data: 88 × 3
@@ -125,7 +125,7 @@ gtask <- autographr(tasks) + ggtitle("Task")
 gfriend + gsocial + gtask
 ```
 
-![plot of chunk separatingnets](figure/separatingnets-1.png)
+![](teaching/separatingnets-1.png)
 
 Note also that these are weighted networks.
 `autographr()` automatically registers these different weights and plots them.
@@ -204,7 +204,7 @@ autographr(friends, node_color = "weak_comp") + ggtitle("Weak components") +
 autographr(friends, node_color = "strong_comp") + ggtitle("Strong components")
 ```
 
-![plot of chunk comp-memb](figure/comp-memb-1.png)
+![](teaching/comp-memb-1.png)
 
 # Community Detection
 
@@ -224,14 +224,14 @@ and consider friendship undirected:
 #> # A directed simple graph with 1 component
 #> #
 #> # Node Data: 14 × 3 (active)
-#>   name      weak_comp strong_comp
-#>   <chr>         <dbl>       <dbl>
-#> 1 Bernice           1           4
-#> 2 Priscilla         1           3
-#> 3 Kristie           1           3
-#> 4 Mckenzie          1           3
-#> 5 Doreen            1           3
-#> 6 Thomas            1           3
+#>   name    weak_comp strong_comp
+#>   <chr>       <dbl>       <dbl>
+#> 1 Jude            1           4
+#> 2 Tristan         1           3
+#> 3 Max             1           3
+#> 4 Mathew          1           3
+#> 5 Julia           1           3
+#> 6 Joel            1           3
 #> # … with 8 more rows
 #> #
 #> # Edge Data: 62 × 3
@@ -247,14 +247,14 @@ and consider friendship undirected:
 #> # An undirected simple graph with 1 component
 #> #
 #> # Node Data: 14 × 3 (active)
-#>   name      weak_comp strong_comp
-#>   <chr>         <dbl>       <dbl>
-#> 1 Bernice           1           4
-#> 2 Priscilla         1           3
-#> 3 Kristie           1           3
-#> 4 Mckenzie          1           3
-#> 5 Doreen            1           3
-#> 6 Thomas            1           3
+#>   name    weak_comp strong_comp
+#>   <chr>       <dbl>       <dbl>
+#> 1 Jude            1           4
+#> 2 Tristan         1           3
+#> 3 Max             1           3
+#> 4 Mathew          1           3
+#> 5 Julia           1           3
+#> 6 Joel            1           3
 #> # … with 8 more rows
 #> #
 #> # Edge Data: 42 × 3
@@ -267,7 +267,7 @@ and consider friendship undirected:
 autographr(friends)
 ```
 
-![plot of chunk manip-fri](figure/manip-fri-1.png)
+![](teaching/manip-fri-1.png)
 
 Comparing `friends` before and after these operations, 
 you'll notice the number of ties decreases as reciprocated directed ties
@@ -340,14 +340,14 @@ friends <- friends %>%
 autographr(friends, node_color = "walk_comm")
 ```
 
-![plot of chunk walkplot](figure/walkplot-1.png)
+![](teaching/walkplot-1.png)
 
 ```r
 # to be fancy, we could even draw the group borders around the nodes
 autographr(friends, node_group = "walk_comm")
 ```
 
-![plot of chunk walkplot](figure/walkplot-2.png)
+![](teaching/walkplot-2.png)
 
 ```r
 # or both!
@@ -358,7 +358,7 @@ autographr(friends,
     subtitle = round(network_modularity(friends, friend_wt), 3))
 ```
 
-![plot of chunk walkplot](figure/walkplot-3.png)
+![](teaching/walkplot-3.png)
 
 This can be helpful when polygons overlap to better identify membership
 Or use node color and size to indicate other attributes...
@@ -382,20 +382,17 @@ The following works similarly to walktrap, but no need to set a step length.
 friend_eb <- node_edge_betweenness(friends)
 #> Warning in
 #> igraph::cluster_edge_betweenness(as_igraph(object)):
-#> At core/community/
-#> edge_betweenness.c:493 : Membership
-#> vector will be selected based on the
+#> At core/community/edge_betweenness.c:493 :
+#> Membership vector will be selected based on the
 #> highest modularity score.
 #> Warning in
 #> igraph::cluster_edge_betweenness(as_igraph(object)):
-#> At core/community/
-#> edge_betweenness.c:500 : Modularity
-#> calculation with weighted edge
-#> betweenness community detection
-#> might not make sense -- modularity
-#> treats edge weights as similarities
-#> while edge betwenness treats them as
-#> distances.
+#> At core/community/edge_betweenness.c:500 :
+#> Modularity calculation with weighted edge
+#> betweenness community detection might not make
+#> sense -- modularity treats edge weights as
+#> similarities while edge betwenness treats them
+#> as distances.
 friend_eb
 #> 1 
 #>    1, 3, 4, 5, 8, 9, 10, 11, 14
@@ -421,7 +418,7 @@ autographr(friends,
     subtitle = round(network_modularity(friends, friend_eb), 3))
 ```
 
-![plot of chunk ebplot](figure/ebplot-1.png)
+![](teaching/ebplot-1.png)
 
 For more on this algorithm, see M Newman and M Girvan: Finding and 
 evaluating community structure in networks, Physical Review E 69, 026113
@@ -461,7 +458,7 @@ autographr(friends,
     subtitle = round(network_modularity(friends, friend_fg), 3))
 ```
 
-![plot of chunk fg](figure/fg-1.png)
+![](teaching/fg-1.png)
 
 See A Clauset, MEJ Newman, C Moore: 
 Finding community structure in very large networks, 
@@ -479,25 +476,25 @@ ison_southern_women
 #> IGRAPH f8d9f5f UN-B 32 93 -- 
 #> + attr: type (v/l), name (v/c)
 #> + edges from f8d9f5f (vertex names):
-#>  [1] EVELYN --E1 EVELYN --E2
-#>  [3] EVELYN --E3 EVELYN --E4
-#>  [5] EVELYN --E5 EVELYN --E6
-#>  [7] EVELYN --E8 EVELYN --E9
-#>  [9] LAURA  --E1 LAURA  --E2
-#> [11] LAURA  --E3 LAURA  --E5
-#> [13] LAURA  --E6 LAURA  --E7
-#> [15] LAURA  --E8 THERESA--E2
+#>  [1] EVELYN --E1 EVELYN --E2 EVELYN --E3
+#>  [4] EVELYN --E4 EVELYN --E5 EVELYN --E6
+#>  [7] EVELYN --E8 EVELYN --E9 LAURA  --E1
+#> [10] LAURA  --E2 LAURA  --E3 LAURA  --E5
+#> [13] LAURA  --E6 LAURA  --E7 LAURA  --E8
+#> [16] THERESA--E2 THERESA--E3 THERESA--E4
+#> [19] THERESA--E5 THERESA--E6 THERESA--E7
+#> [22] THERESA--E8 THERESA--E9 BRENDA --E1
 #> + ... omitted several edges
 autographr(ison_southern_women, node_color = "type")
 ```
 
-![plot of chunk setup-women](figure/setup-women-1.png)
+![](teaching/setup-women-1.png)
 
 ```r
 autographr(ison_southern_women, "railway", node_color = "type")
 ```
 
-![plot of chunk setup-women](figure/setup-women-2.png)
+![](teaching/setup-women-2.png)
 
 ## Project two-mode network into two one-mode networks
 
@@ -521,14 +518,14 @@ women_graph <- to_mode1(ison_southern_women)
 autographr(women_graph)
 ```
 
-![plot of chunk easyway](figure/easyway-1.png)
+![](teaching/easyway-1.png)
 
 ```r
 event_graph <- to_mode2(ison_southern_women)
 autographr(event_graph)
 ```
 
-![plot of chunk easyway](figure/easyway-2.png)
+![](teaching/easyway-2.png)
 
 `{migraph}` also includes several other options for how to construct the projection.
 Please see the help file for more details.
@@ -541,7 +538,7 @@ autographr(to_mode2(ison_southern_women, similarity = "pearson")) + ggtitle("Pea
 autographr(to_mode2(ison_southern_women, similarity = "yule")) + ggtitle("Yule's Q")
 ```
 
-![plot of chunk otherway](figure/otherway-1.png)
+![](teaching/otherway-1.png)
 
 Which women/events 'bind' which events/women?
 Let's return to the question of cohesion.
