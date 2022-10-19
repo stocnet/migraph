@@ -24,6 +24,14 @@
 - Added `node_reciprocity()` for calculating each node's reciprocity
 - Added `node_transitivity()` for calculating each node's transitivity/clustering
 
+## Memberships
+
+- Added wrappers for several community detection algorithms from igraph,
+  unlike tidygraph these can operate on objects directly
+  - Added `node_walktrap()`
+  - Added `node_edge_betweenness()`
+  - Added `node_fast_greedy()`
+
 ## Mapping
 
 - Reversed blue/red colour assignment for binary variables
