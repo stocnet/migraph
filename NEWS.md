@@ -15,6 +15,8 @@
   - "SWI" is also included and offers a 0 to 1 range, but where 1 may not be realisable
 - Added `node_diversity()` for calculating heterogeneity among each nodes' ego network
 - Added `node_homophily()` for calculating homophilous ties among each nodes' ego network
+- Added `node_reciprocity()` for calculating each node's reciprocity
+- Added `node_transitivity()` for calculating each node's transitivity/clustering
 
 ## Mapping
 

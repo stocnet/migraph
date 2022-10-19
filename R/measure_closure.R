@@ -40,14 +40,34 @@ network_reciprocity <- function(object, method = "default") {
                      object)
 }
 
+#' @describeIn closure Calculate nodes' reciprocity
+#' @examples
+#' node_reciprocity(to_unweighted(ison_networkers))
+#' @export
+node_reciprocity <- function(object) {
+  out <- as_matrix(object)
+  make_node_measure(rowSums(out * t(out))/rowSums(out), 
+                    object)
+}
+
 #' @describeIn closure Calculate transitivity in a network
 #' @importFrom igraph transitivity
 #' @examples
-#' network_transitivity(ison_southern_women)
+#' network_transitivity(ison_adolescents)
 #' @export
 network_transitivity <- function(object) {
   make_network_measure(igraph::transitivity(as_igraph(object)), 
                      object)
+}
+
+#' @describeIn closure Calculate nodes' transitivity
+#' @examples
+#' node_transitivity(ison_adolescents)
+#' @export
+node_transitivity <- function(object) {
+  make_node_measure(igraph::transitivity(as_igraph(object), 
+                                         type = "local"), 
+                       object)
 }
 
 #' @describeIn closure Calculate equivalence or reinforcement 

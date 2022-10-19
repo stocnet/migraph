@@ -3,14 +3,20 @@
 \name{closure}
 \alias{closure}
 \alias{network_reciprocity}
+\alias{node_reciprocity}
 \alias{network_transitivity}
+\alias{node_transitivity}
 \alias{network_equivalency}
 \alias{network_congruency}
 \title{Measures of network closure}
 \usage{
 network_reciprocity(object, method = "default")
 
+node_reciprocity(object)
+
 network_transitivity(object)
+
+node_transitivity(object)
 
 network_equivalency(object)
 
@@ -43,7 +49,11 @@ spanning two two-mode networks that are closed by a fourth tie to establish a
 \itemize{
 \item \code{network_reciprocity()}: Calculate reciprocity in a (usually directed) network
 
+\item \code{node_reciprocity()}: Calculate nodes' reciprocity
+
 \item \code{network_transitivity()}: Calculate transitivity in a network
+
+\item \code{node_transitivity()}: Calculate nodes' transitivity
 
 \item \code{network_equivalency()}: Calculate equivalence or reinforcement
 in a (usually two-mode) network
@@ -53,7 +63,9 @@ in a (usually two-mode) network
 }}
 \examples{
 network_reciprocity(ison_southern_women)
-network_transitivity(ison_southern_women)
+node_reciprocity(to_unweighted(ison_networkers))
+network_transitivity(ison_adolescents)
+node_transitivity(ison_adolescents)
 network_equivalency(ison_southern_women)
 }
 \references{
