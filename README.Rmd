@@ -218,8 +218,24 @@ and install using an adapted version of the following commands:
 To install from source the latest main version of `{migraph}` from Github, 
 please install the `{remotes}` or `{devtools}` package from CRAN and then:
 
-- For latest stable version: `remotes::install_github("snlab-ch/migraph")`
-- For latest development version: `remotes::install_github("snlab-ch/migraph@develop")`
+- For latest stable version: 
+`remotes::install_github("snlab-ch/migraph", build_vignettes = TRUE)`
+- For latest development version: 
+`remotes::install_github("snlab-ch/migraph@develop", build_vignettes = TRUE)`
+
+### Vignettes
+
+To make sure you have the vignettes installed, 
+please either install the latest binary from CRAN for your OS,
+or use the `remotes` command above to make sure that the vignettes are also built.
+
+Once you have the package with the vignettes built installed,
+you can access them using the following command:
+`r browseVignettes("migraph")`.
+
+This gives you access to the compiled vignettes in html form,
+as well as the original source (an Rmarkdown file),
+and just the R code without any of the annotations.
 
 ## Relationship to other packages
 
