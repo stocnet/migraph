@@ -113,8 +113,7 @@ autographr(create_tree(c(7,8), directed = TRUE)) +
 autographr(create_tree(15, directed = TRUE), "tree") +
 autographr(create_tree(15, directed = TRUE, width = 3), "tree")
 autographr(create_lattice(5), layout = "kk") +
-autographr(create_lattice(c(5,5))) +
-autographr(create_lattice(c(5,5,5)))
+autographr(create_lattice(c(5,5)))
 autographr(create_components(10, membership = c(1,1,1,2,2,2,3,3,3,3)))
 autographr(create_components(c(10, 12)))
 autographr(create_core(6)) +

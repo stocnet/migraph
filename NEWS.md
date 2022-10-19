@@ -4,6 +4,12 @@
 
 - Fixed several typos in the centrality vignette
 
+## Make
+
+- `create_lattice()` now conforms to other `create_*()` functions in how it interprets `"n"`
+  - from an inferred `"n"` for a one-mode network, it will create a transitive lattice of as even dimensions as possible
+  - for a two-mode network, this depends on how balanced the two modes are, and is still a work in progress... (WIP)
+
 ## Marks
 
 - Added `is_eulerian()` for a logical expression of whether the network has an Eulerian path
