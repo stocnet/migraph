@@ -2,7 +2,8 @@
 
 ## Package
 
-- Fixed several typos in the centrality vignette
+- Fixed several typos in the centrality vignette and reexported figures
+- Added community detection vignette
 
 ## Make
 
