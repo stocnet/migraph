@@ -224,10 +224,8 @@ create_lattice <- function(n,
     divs2 <- intersect(divs2, c(divs1+1, divs1-1))
     mat <- matrix(0, n[1], n[2])
     diag(mat) <- 1
-    for (i in 1:(width)) {
-      w <- roll_over(mat)
-      mat <- mat + w
-    }
+    w <- roll_over(mat)
+    mat <- mat + w
     mat[lower.tri(mat)] <- 0
     out <- mat[rowSums(mat)==2,]
     out <- do.call(rbind, replicate(nrow(mat)/nrow(out), out, simplify=FALSE))

@@ -63,6 +63,8 @@ node_kernighanlin <- function(object){
 }
 
 #' @describeIn community The walktrap algorithm
+#' @param times Integer indicating number of simulations/walks used.
+#'   By default, `times=50`.
 #' @examples
 #' node_walktrap(ison_adolescents)
 #' @export

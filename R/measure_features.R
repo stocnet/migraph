@@ -74,9 +74,7 @@ network_modularity <- function(object,
 #'    Small-world networks can be highly clustered and yet
 #'    have short path lengths.
 #' @param times Integer of number of simulations.
-#' @section network_smallworld:
-#'   There are three small-world measures implemented:
-#'   
+#' @param method There are three small-world measures implemented:
 #'   - "sigma" is the original equation from Watts and Strogatz (1998),
 #'     \deqn{\frac{\frac{C}{C_r}}{\frac{L}{L_r}}}, 
 #'     where \eqn{C} and \eqn{L} are the observed 

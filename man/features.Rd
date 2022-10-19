@@ -37,6 +37,30 @@ network_balance(object)
 \item{resolution}{A proportion indicating the resolution scale.
 By default 1.}
 
+\item{method}{There are three small-world measures implemented:
+\itemize{
+\item "sigma" is the original equation from Watts and Strogatz (1998),
+\deqn{\frac{\frac{C}{C_r}}{\frac{L}{L_r}}},
+where \eqn{C} and \eqn{L} are the observed
+clustering coefficient and path length, respectively,
+and \eqn{C_r} and \eqn{L_r} are the averages obtained from
+random networks of the same dimensions and density.
+A \eqn{\sigma > 1} is considered to be small-world,
+but this measure is highly sensitive to network size.
+\item "omega" (the default) is an update from Telesford et al. (2011),
+\deqn{\frac{L_r}{L} - \frac{C}{C_l}},
+where \eqn{C_l} is the clustering coefficient for a lattice graph
+with the same dimensions.
+\eqn{\omega} ranges between 0 and 1,
+where 1 is as close to a small-world as possible.
+\item "SWI" is an alternative proposed by Neal (2017),
+\deqn{\frac{L - L_l}{L_r - L_l} \times \frac{C - C_r}{C_l - C_r}},
+where \eqn{L_l} is the average path length for a lattice graph
+with the same dimensions.
+\eqn{SWI} also ranges between 0 and 1 with the same interpretation,
+but where there may not be a network for which \eqn{SWI = 1}.
+}}
+
 \item{times}{Integer of number of simulations.}
 }
 \description{
@@ -64,33 +88,6 @@ ranging between \code{0} if all triangles are imbalanced and
 \code{1} if all triangles are balanced.
 
 }}
-\section{network_smallworld}{
-
-There are three small-world measures implemented:
-\itemize{
-\item "sigma" is the original equation from Watts and Strogatz (1998),
-\deqn{\frac{\frac{C}{C_r}}{\frac{L}{L_r}}},
-where \eqn{C} and \eqn{L} are the observed
-clustering coefficient and path length, respectively,
-and \eqn{C_r} and \eqn{L_r} are the averages obtained from
-random networks of the same dimensions and density.
-A \eqn{\sigma > 1} is considered to be small-world,
-but this measure is highly sensitive to network size.
-\item "omega" (the default) is an update from Telesford et al. (2011),
-\deqn{\frac{L_r}{L} - \frac{C}{C_l}},
-where \eqn{C_l} is the clustering coefficient for a lattice graph
-with the same dimensions.
-\eqn{\omega} ranges between 0 and 1,
-where 1 is as close to a small-world as possible.
-\item "SWI" is an alternative proposed by Neal (2017),
-\deqn{\frac{L - L_l}{L_r - L_l} \times \frac{C - C_r}{C_l - C_r}},
-where \eqn{L_l} is the average path length for a lattice graph
-with the same dimensions.
-\eqn{SWI} also ranges between 0 and 1 with the same interpretation,
-but where there may not be a network for which \eqn{SWI = 1}.
-}
-}
-
 \examples{
 network_core(ison_adolescents)
 network_core(ison_southern_women)

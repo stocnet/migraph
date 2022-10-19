@@ -25,6 +25,9 @@ node_fast_greedy(object)
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
+
+\item{times}{Integer indicating number of simulations/walks used.
+By default, \code{times=50}.}
 }
 \description{
 Community graph partitioning algorithms
