@@ -138,17 +138,13 @@ We can visualise this quite effectively using the `node_groups` argument:
 autographr(marvel_friends, 
            node_group = "PowerOrigin", 
            node_color = "Gender")
-```
-
-![](teaching/blaugroups-1.png)
-
-```r
+#> Error in anchors[[i]]: subscript out of bounds
 autographr(marvel_friends, 
            node_color = "Gender", 
            node_size = "Intellect")
 ```
 
-![](teaching/blaugroups-2.png)
+![](teaching/blaugroups-1.png)
 
 Ok, this tells us about how (un)even the distribution of these variables is in this network,
 but it doesn't necessarily tell us whether within this network there is homophily/heterophily.

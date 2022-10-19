@@ -161,13 +161,13 @@ such as `test_random()`:
 ```{r rando}
 rand.gender <- test_random(marvel_friends, 
                             network_homophily, attribute = "Gender", 
-                           times = 20)
+                           times = 200)
 rand.power <- test_random(marvel_friends, 
                            network_homophily, attribute = "PowerOrigin", 
-                           times = 20)
+                           times = 200)
 rand.attract <- test_random(marvel_friends, 
                              network_homophily, attribute = "Attractive", 
-                           times = 20)
+                           times = 200)
 plot(rand.gender) / 
 plot(rand.power) /
 plot(rand.attract)
