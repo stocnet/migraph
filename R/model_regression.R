@@ -578,7 +578,8 @@ plot.netlm <- function(x, ...){
   distrib <- as.data.frame(distrib)
   names(distrib) <- x$names
   distrib$obs <- seq_len(nrow(distrib))
-  distrib <- tidyr::pivot_longer(distrib, -.data$obs)
+  distrib <- tidyr::pivot_longer(distrib, 
+                                 cols = 1:(ncol(distrib)-1))
   distrib$coef <- rep(unname(x$coefficients), nrow(x$dist))
   distrib$tstat <- rep(unname(x$tstat), nrow(x$dist))
   distrib$name <- factor(distrib$name, x$names)
@@ -597,7 +598,8 @@ plot.netlogit <- function(x, ...){
   distrib <- as.data.frame(distrib)
   names(distrib) <- x$names
   distrib$obs <- seq_len(nrow(distrib))
-  distrib <- tidyr::pivot_longer(distrib, -.data$obs)
+  distrib <- tidyr::pivot_longer(distrib, 
+                                 cols = 1:(ncol(distrib)-1))
   distrib$coef <- rep(unname(x$coefficients), nrow(x$dist))
   distrib$tstat <- rep(unname(x$tstat), nrow(x$dist))
   distrib$name <- factor(distrib$name, x$names)

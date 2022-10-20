@@ -1,0 +1,352 @@
+---
+title: "4. Community"
+author: "James Hollway"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{4. Community}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+#| purl = FALSE
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.cap = "",
+  fig.path = "teaching/"
+)
+```
+
+# Working with Multiplex Networks
+
+The data we're going to use here is included in the `{migraph}` package.
+This dataset is multiplex, meaning that it contains 
+several different types of ties: friendship, social and task interactions.
+
+```{r setup}
+# library(migraph)
+data("ison_algebra", package = "migraph")
+# ?migraph::ison_algebra
+```
+
+Note that you do not need to load the package using `library()` to get the data,
+but you probably want to load it all the same so that you have access to all the functions.
+Now you know how to create new matrices in R, load .csv files, 
+saved .RData files, and data from packages!
+
+The network is anonymous, but I think it would be nice to add some names,
+even if it's just pretend. 
+Luckily, `{migraph}` has a function for this.
+This makes plotting the network just a wee bit more accessible and interpretable:
+
+```{r addingnames}
+ison_algebra <- to_named(ison_algebra)
+autographr(ison_algebra)
+```
+
+Note that you will likely get a different set of names,
+as they are assigned randomly from a pool of (American) first names.
+
+As a multiplex network, 
+there are actually three different types of tie in this network.
+We can extract them and investigate them separately using `to_uniplex()`:
+
+```{r separatingnets}
+(friends <- to_uniplex(ison_algebra, "friends"))
+gfriend <- autographr(friends) + ggtitle("Friendship")
+(social <- to_uniplex(ison_algebra, "social"))
+gsocial <- autographr(social) + ggtitle("Social")
+(tasks <- to_uniplex(ison_algebra, "tasks"))
+gtask <- autographr(tasks) + ggtitle("Task")
+gfriend + gsocial + gtask
+```
+
+Note also that these are weighted networks.
+`autographr()` automatically registers these different weights and plots them.
+
+# Cohesion
+
+Let's concentrate on the task network for now and calculate a few basic
+measures of cohesion: density, reciprocity, transitivity, and components.
+
+## Density
+
+Because this is a directed network, we can calculate the density as:
+
+```{r dens-explicit}
+network_ties(tasks)/(network_nodes(tasks)*(network_nodes(tasks)-1))
+```
+
+but we can also just use the `{migraph}` function...
+
+```{r dens}
+network_density(tasks)
+```
+
+Note that the various measures in `{migraph}` print results to three decimal points
+by default, but the underlying result retains the same recurrence.
+So same result... Is this high or low?
+
+## Closure
+
+Next let's calculate reciprocity.
+
+```{r recip}
+network_reciprocity(tasks)
+```
+
+And let's calculate transitivity.
+
+```{r trans}
+network_transitivity(tasks)
+```
+
+What can we say about task closure in this network?
+Would we expect it to be higher or lower than for `social`?
+Is it?
+
+## Components
+
+Now let's look at the friend network.
+
+```{r comp-no}
+network_components(friends)
+network_components(to_undirected(friends))
+```
+
+How many components are there? Why are the results different?
+ 
+We can use the membership vector in the resulting object to color nodes:
+
+```{r comp-memb}
+friends <- friends %>% 
+  mutate(weak_comp = node_components(to_undirected(friends)),
+         strong_comp = node_components(friends))
+autographr(friends, node_color = "weak_comp") + ggtitle("Weak components") +
+autographr(friends, node_color = "strong_comp") + ggtitle("Strong components")
+```
+
+# Community Detection
+
+Ok, the friendship network has 3-4 components, but how many 'groups' are there?
+Just visually, it looks like there are two denser clusters within the main component.
+
+Today we'll use the friend subgraph for exploring community detection methods.
+For clarity and simplicity, 
+we will concentrate on the main component (the so-called 'giant' component)
+and consider friendship undirected:
+
+```{r manip-fri}
+(friends <- to_giant(friends))
+(friends <- to_undirected(friends))
+autographr(friends)
+```
+
+Comparing `friends` before and after these operations, 
+you'll notice the number of ties decreases as reciprocated directed ties
+are consolidated into single undirected ties, 
+and the number of nodes decreases as the couple of isolates are removed.
+
+There is no one single best community detection algorithm. 
+Instead there are several, each with their strengths and weaknesses. 
+Since this is a rather small network, we'll focus on the following methods: 
+walktrap, edge betweenness, and fast greedy.
+`{igraph}` also includes others though too; all are named cluster_...
+As you use them, consider how they portray clusters and consider which one(s) 
+afford a sensible view of the social world as cohesively organized.
+
+## Walktrap
+
+This algorithm detects communities through a series of short random walks, 
+with the idea that nodes encountered on any given random walk 
+are more likely to be within a community than not.
+It was proposed by Pons and Latapy (2005).
+
+The algorithm initially treats all nodes as communities of their own, then 
+merges them into larger communities, still larger communities, and so on.
+In each step a new community is created from two other communities, 
+and its ID will be one larger than the largest community ID so far. 
+This means that before the first merge we have n communities 
+(the number of vertices in the graph) numbered from zero to n-1.
+The first merge creates community n, the second community n+1, etc. 
+This merge history is returned by the function: 
+` # ?igraph::cluster_walktrap`
+
+Note the "steps=" argument that specifies the length of the random walks.
+While `{igraph}` sets this to 4 by default, 
+which is what is recommended by Pons and Latapy,
+Waugh et al (2009) found that for many groups (Congresses), 
+these lengths did not provide the maximum modularity score. 
+To be thorough in their attempts to optimize modularity, they ran the walktrap 
+algorithm 50 times for each group (using random walks of lengths 1–50) and 
+selected the network partition with the highest modularity value from those 50. 
+They call this the "maximum modularity partition" and insert the parenthetical 
+"(though, strictly speaking, this cannot be proven to be the optimum without 
+computationally-prohibitive exhaustive enumeration (Brandes et al. 2008))."
+
+So let's try and get a community classification using the walktrap algorithm
+with path lengths of the random walks specified to be 50.
+
+```{r walk}
+friend_wt <- node_walktrap(friends, times=50)
+friend_wt # note that it prints pretty, but underlying its just a vector:
+c(friend_wt)
+```
+
+This says that dividing the graph into 2 communities maximises modularity,
+one with the nodes `r which(friend_wt == 1)`, and the other `r which(friend_wt == 2)`, 
+resulting in a modularity of `r network_modularity(friends, friend_wt)`.
+
+We can also visualise the clusters on the original network
+How does the following look? Plausible?
+
+```{r walkplot}
+friends <- friends %>% 
+  mutate(walk_comm = friend_wt)
+autographr(friends, node_color = "walk_comm")
+# to be fancy, we could even draw the group borders around the nodes
+autographr(friends, node_group = "walk_comm")
+# or both!
+autographr(friends, 
+           node_color = "walk_comm", 
+           node_group = "walk_comm") +
+  ggtitle("Walktrap",
+    subtitle = round(network_modularity(friends, friend_wt), 3))
+```
+
+This can be helpful when polygons overlap to better identify membership
+Or use node color and size to indicate other attributes...
+
+## Edge Betweenness
+
+Edge betweenness is like betweenness centrality but for ties not nodes.
+The edge-betweenness score of an edge measures the number of
+shortest paths from one vertex to another that go through it.
+
+The idea of the edge-betweenness based community structure detection is that 
+it is likely that edges connecting separate clusters have high edge-betweenness, 
+as all the shortest paths from one cluster to another must traverse through them. 
+So if we iteratively remove the edge with the highest edge-betweenness score 
+we will get a hierarchical map (dendrogram) of the communities in the graph. 
+
+The following works similarly to walktrap, but no need to set a step length. 
+
+```{r eb}
+friend_eb <- node_edge_betweenness(friends)
+friend_eb
+```
+
+How does community membership differ here from that found by walktrap?
+
+We can see how the edge betweenness community detection method works
+here: http://jfaganuk.github.io/2015/01/24/basic-network-analysis/
+
+To visualise the result:
+
+```{r ebplot}
+friends <- friends %>% 
+  mutate(eb_comm = friend_eb)
+autographr(friends, 
+           node_color = "eb_comm", 
+           node_group = "eb_comm") +
+  ggtitle("Edge-betweenness",
+    subtitle = round(network_modularity(friends, friend_eb), 3))
+```
+
+For more on this algorithm, see M Newman and M Girvan: Finding and 
+evaluating community structure in networks, Physical Review E 69, 026113
+(2004), https://arxiv.org/abs/cond-mat/0308217. 
+
+## Fast Greedy
+
+This algorithm is the Clauset-Newman-Moore algorithm. 
+Whereas edge betweenness was divisive (top-down), 
+the fast greedy algorithm is agglomerative (bottom-up).
+
+At each step, the algorithm seeks a merge that would most increase modularity.
+This is very fast, but has the disadvantage of being a greedy algorithm, 
+so it might not produce the best overall community partitioning, 
+although I personally find it both useful and in many cases quite "accurate". 
+
+```{r fg}
+friend_fg <- node_fast_greedy(friends)
+friend_fg # Does this result in a different community partition?
+network_modularity(friends, friend_fg) # Compare this to the edge betweenness procedure
+
+# Again, we can visualise these communities in different ways:
+friends <- friends %>% 
+  mutate(fg_comm = friend_fg)
+autographr(friends, 
+           node_color = "fg_comm", 
+           node_group = "fg_comm") +
+  ggtitle("Fast-greedy",
+    subtitle = round(network_modularity(friends, friend_fg), 3))
+```
+
+See A Clauset, MEJ Newman, C Moore: 
+Finding community structure in very large networks, 
+https://arxiv.org/abs/cond-mat/0408187
+
+# Two-mode network: Southern women
+
+The next dataset is also available in migraph.
+Let's take a look at the loaded objects.
+
+```{r setup-women}
+data("ison_southern_women")
+ison_southern_women
+autographr(ison_southern_women, node_color = "type")
+autographr(ison_southern_women, "railway", node_color = "type")
+```
+
+## Project two-mode network into two one-mode networks
+
+Now what if we are only interested in one part of the network?
+For that, we can obtain a 'projection' of the two-mode network.
+There are two ways of doing this.
+The hard way...
+
+```{r hardway}
+twomode_matrix <- as_matrix(ison_southern_women)
+women_matrix <- twomode_matrix %*% t(twomode_matrix)
+event_matrix <- t(twomode_matrix) %*% twomode_matrix
+```
+
+Or the easy way
+
+```{r easyway}
+women_graph <- to_mode1(ison_southern_women)
+autographr(women_graph)
+event_graph <- to_mode2(ison_southern_women)
+autographr(event_graph)
+```
+
+`{migraph}` also includes several other options for how to construct the projection.
+Please see the help file for more details.
+
+```{r otherway}
+autographr(to_mode2(ison_southern_women, similarity = "jaccard")) + ggtitle("Jaccard") +
+autographr(to_mode2(ison_southern_women, similarity = "rand")) + ggtitle("Rand") +
+autographr(to_mode2(ison_southern_women, similarity = "pearson")) + ggtitle("Pearson") +
+autographr(to_mode2(ison_southern_women, similarity = "yule")) + ggtitle("Yule's Q")
+```
+
+Which women/events 'bind' which events/women?
+Let's return to the question of cohesion.
+
+```{r twomode-cohesion}
+network_equivalency(ison_southern_women)
+network_transitivity(women_graph)
+network_transitivity(event_graph)
+```
+
+What do we learn from this?
+
+# Task/Unit Test
+
+1. What is the difference between communities and components?
+2. Produce a plot comparing 3 community detection procedures used here on a 
+(women) projection of the ison_southern_women dataset. Identify which you prefer, and explain why.
+3. Explain in no more than a paragraph why projection can lead to misleading transitivity measures.
+4. Explain in no more than a paragraph how structural balance might lead to group identity.

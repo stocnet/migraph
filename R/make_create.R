@@ -89,11 +89,6 @@ create_complete <- function(n, directed = FALSE) {
 create_ring <- function(n, width = 1, directed = FALSE, ...) {
   n <- infer_n(n)
   
-  # Helper function
-  roll_over <- function(w) {
-    cbind(w[, ncol(w)], w[, 1:(ncol(w) - 1)])
-  }
-  
   if (length(n) == 1) {
     if (width == 1) {
      out <- igraph::make_ring(n, directed, ...)
@@ -203,13 +198,39 @@ create_tree <- function(n,
 #' @importFrom igraph make_lattice
 #' @examples
 #' autographr(create_lattice(5), layout = "kk") +
-#' autographr(create_lattice(c(5,5))) +
-#' autographr(create_lattice(c(5,5,5)))
+#' autographr(create_lattice(c(5,5)))
 #' @export
 create_lattice <- function(n,
                            directed = FALSE) {
-  if (is_migraph(n)) n <- network_dims(n)
-  igraph::make_lattice(n, directed = directed)
+  n <- infer_n(n)
+  
+  divisors <- function(x){
+    y <- seq_len(x)
+    y[ x%%y == 0 ]
+  }
+  
+  if(length(n)== 1){
+    divs <- divisors(n)
+    if((length(divs) %% 2) == 0){
+      dims <- c(divs[length(divs)/2], divs[length(divs)/2+1])
+    } else dims <- c(median(divs), median(divs))
+    igraph::make_lattice(dims, nei = 2, directed = directed)
+  } else {
+    divs1 <- divisors(n[1])
+    divs2 <- divisors(n[2])
+    divs1 <- divs1[-c(1, length(divs1))]
+    divs2 <- divs2[-c(1, length(divs2))]
+    divs1 <- intersect(divs1, c(divs2+1, divs2-1))
+    divs2 <- intersect(divs2, c(divs1+1, divs1-1))
+    mat <- matrix(0, n[1], n[2])
+    diag(mat) <- 1
+    w <- roll_over(mat)
+    mat <- mat + w
+    mat[lower.tri(mat)] <- 0
+    out <- mat[rowSums(mat)==2,]
+    out <- do.call(rbind, replicate(nrow(mat)/nrow(out), out, simplify=FALSE))
+    as_igraph(out)
+  }
 }
 
 #' @describeIn create Creates a graph in which the nodes are clustered
@@ -310,4 +331,8 @@ infer_membership <- function(n, membership) {
     } else membership <- sort(abs(seq_len(n) %% 2 -2))
   }
   membership
+}
+
+roll_over <- function(w) {
+  cbind(w[, ncol(w)], w[, 1:(ncol(w) - 1)])
 }

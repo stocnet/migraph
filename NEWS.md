@@ -1,3 +1,42 @@
+# migraph 0.12.2
+
+## Package
+
+- Fixed several typos in the centrality vignette and reexported figures
+- Added community detection vignette
+
+## Make
+
+- `create_lattice()` now conforms to other `create_*()` functions in how it interprets `"n"`
+  - from an inferred `"n"` for a one-mode network, it will create a transitive lattice of as even dimensions as possible
+  - for a two-mode network, this depends on how balanced the two modes are, and is still a work in progress... (WIP)
+
+## Marks
+
+- Added `is_eulerian()` for a logical expression of whether the network has an Eulerian path
+
+## Measures
+
+- `network_smallworld()` now takes a method argument for different ways of calculating a small-world coefficient
+  - "omega" (the new default) offers a better range, 0 to 1, than the previous (now "sigma") metric.
+  - "SWI" is also included and offers a 0 to 1 range, but where 1 may not be realisable
+- Added `node_diversity()` for calculating heterogeneity among each nodes' ego network
+- Added `node_homophily()` for calculating homophilous ties among each nodes' ego network
+- Added `node_reciprocity()` for calculating each node's reciprocity
+- Added `node_transitivity()` for calculating each node's transitivity/clustering
+
+## Memberships
+
+- Added wrappers for several community detection algorithms from igraph,
+  unlike tidygraph these can operate on objects directly
+  - Added `node_walktrap()`
+  - Added `node_edge_betweenness()`
+  - Added `node_fast_greedy()`
+
+## Mapping
+
+- Reversed blue/red colour assignment for binary variables
+
 # migraph 0.12.1
 
 ## Manipulations
@@ -19,7 +58,7 @@
 
 ## Mapping
 
-- Fixed `autographr()` tests to work with new version of `{ggraph}`
+- Fixed `autographr()` tests to work with new version of `{ggraph}` (closed #247, thanks @henriquesposito)
 
 # migraph 0.12.0
 

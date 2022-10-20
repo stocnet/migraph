@@ -18,7 +18,7 @@ network_factions(object, membership = NULL)
 
 network_modularity(object, membership = NULL, resolution = 1)
 
-network_smallworld(object, times = 100)
+network_smallworld(object, method = c("omega", "sigma", "SWI"), times = 100)
 
 network_balance(object)
 }
@@ -36,6 +36,30 @@ network_balance(object)
 
 \item{resolution}{A proportion indicating the resolution scale.
 By default 1.}
+
+\item{method}{There are three small-world measures implemented:
+\itemize{
+\item "sigma" is the original equation from Watts and Strogatz (1998),
+\deqn{\frac{\frac{C}{C_r}}{\frac{L}{L_r}}},
+where \eqn{C} and \eqn{L} are the observed
+clustering coefficient and path length, respectively,
+and \eqn{C_r} and \eqn{L_r} are the averages obtained from
+random networks of the same dimensions and density.
+A \eqn{\sigma > 1} is considered to be small-world,
+but this measure is highly sensitive to network size.
+\item "omega" (the default) is an update from Telesford et al. (2011),
+\deqn{\frac{L_r}{L} - \frac{C}{C_l}},
+where \eqn{C_l} is the clustering coefficient for a lattice graph
+with the same dimensions.
+\eqn{\omega} ranges between 0 and 1,
+where 1 is as close to a small-world as possible.
+\item "SWI" is an alternative proposed by Neal (2017),
+\deqn{\frac{L - L_l}{L_r - L_l} \times \frac{C - C_r}{C_l - C_r}},
+where \eqn{L_l} is the average path length for a lattice graph
+with the same dimensions.
+\eqn{SWI} also ranges between 0 and 1 with the same interpretation,
+but where there may not be a network for which \eqn{SWI = 1}.
+}}
 
 \item{times}{Integer of number of simulations.}
 }
@@ -93,6 +117,16 @@ Watts, Duncan J., and Steven H. Strogatz. 1998.
 “Collective Dynamics of ‘Small-World’ Networks.”
 \emph{Nature} 393(6684):440–42.
 \doi{10.1038/30918}.
+
+Telesford QK, Joyce KE, Hayasaka S, Burdette JH, Laurienti PJ. 2011.
+"The ubiquity of small-world networks".
+\emph{Brain Connectivity} 1(5): 367–75.
+\doi{10.1089/brain.2011.0038}.
+
+Neal Zachary P. 2017.
+"How small is it? Comparing indices of small worldliness".
+\emph{Network Science}. 5 (1): 30–44.
+\doi{10.1017/nws.2017.5}.
 }
 \seealso{
 \code{\link[=network_transitivity]{network_transitivity()}} and \code{\link[=network_equivalency]{network_equivalency()}}

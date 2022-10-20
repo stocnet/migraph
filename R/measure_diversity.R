@@ -58,8 +58,23 @@ network_diversity <- function(object, attribute, clusters = NULL){
   make_network_measure(blauout, object)
 }
 
-#' @describeIn diversity Calculates the embeddedness of a node within the group
-#'    of nodes of the same attribute
+#' @describeIn diversity Calculates the heterogeneity of each node's
+#'   local neighbourhood.
+#' @examples 
+#' node_diversity(marvel_friends, "Gender")
+#' node_diversity(marvel_friends, "Attractive")
+#' @export
+node_diversity <- function(object, attribute){
+  out <- vapply(igraph::ego(as_igraph(object)),
+                function(x) network_diversity(
+                  igraph::induced_subgraph(as_igraph(object), x),
+                  attribute),
+                FUN.VALUE = numeric(1))
+  make_node_measure(out, object)
+}
+
+#' @describeIn diversity Calculates how embedded nodes in the network
+#'    are within groups of nodes with the same attribute
 #' @section network_homophily:
 #'   Given a partition of a network into a number of mutually exclusive groups then 
 #'   The E-I index is the number of ties between (or _external_) nodes 
@@ -89,6 +104,21 @@ network_homophily <- function(object, attribute){
   nExternal <- sum(m) - nInternal
   ei <- (nExternal - nInternal) / sum(m)
   make_network_measure(ei, object)
+}
+
+#' @describeIn diversity Calculates each node's embeddedness within groups
+#'    of nodes with the same attribute
+#' @examples 
+#' node_homophily(marvel_friends, "Gender")
+#' node_homophily(marvel_friends, "Attractive")
+#' @export
+node_homophily <- function(object, attribute){
+  out <- vapply(igraph::ego(as_igraph(object)),
+         function(x) network_homophily(
+           igraph::induced_subgraph(as_igraph(object), x),
+           attribute),
+         FUN.VALUE = numeric(1))
+  make_node_measure(out, object)
 }
 
 #' @describeIn diversity Calculates the degree assortativity in a graph.

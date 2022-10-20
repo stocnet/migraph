@@ -38,3 +38,7 @@ test_that("three-mode clustering calculated correctly",{
   expect_output(print(network_congruency(mat1, mat2)))
 })
 
+test_that("node_transitivity is reported correctly",{
+  expect_length(node_transitivity(ison_algebra), network_nodes(ison_algebra))
+  expect_s3_class(node_transitivity(ison_algebra), "node_measure")
+})

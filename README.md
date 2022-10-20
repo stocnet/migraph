@@ -77,19 +77,21 @@ can be used to work with and manipulate your data.
 properties, e.g.:
 
 -   `is_acyclic()`, `is_bipartite()`, `is_complex()`, `is_connected()`,
-    `is_directed()`, `is_edgelist()`, `is_graph()`, `is_labelled()`,
-    `is_migraph()`, `is_multiplex()`, `is_signed()`, `is_twomode()`,
+    `is_directed()`, `is_edgelist()`, `is_eulerian()`, `is_graph()`,
+    `is_labelled()`, `is_migraph()`, `is_multiplex()`,
+    `is_perfect_matching()`, `is_signed()`, `is_twomode()`,
     `is_uniplex()`, `is_weighted()`
 
 `{migraph}`’s `to_*()` functions can be used on any class object to
 reformat or transform networks into networks with other properties,
 e.g.:
 
--   `to_blocks()`, `to_edges()`, `to_giant()`, `to_main_component()`,
-    `to_matching()`, `to_mode1()`, `to_mode2()`, `to_multilevel()`,
-    `to_named()`, `to_onemode()`, `to_redirected()`, `to_simplex()`,
-    `to_subgraph()`, `to_ties()`, `to_twomode()`, `to_undirected()`,
-    `to_uniplex()`, `to_unnamed()`, `to_unsigned()`, `to_unweighted()`
+-   `to_anti()`, `to_blocks()`, `to_edges()`, `to_giant()`,
+    `to_main_component()`, `to_matching()`, `to_mode1()`, `to_mode2()`,
+    `to_multilevel()`, `to_named()`, `to_onemode()`, `to_redirected()`,
+    `to_simplex()`, `to_subgraph()`, `to_ties()`, `to_twomode()`,
+    `to_undirected()`, `to_uniplex()`, `to_unnamed()`, `to_unsigned()`,
+    `to_unweighted()`
 
 #### Making
 
@@ -231,9 +233,22 @@ Github, please install the `{remotes}` or `{devtools}` package from CRAN
 and then:
 
 -   For latest stable version:
-    `remotes::install_github("snlab-ch/migraph")`
+    `remotes::install_github("snlab-ch/migraph", build_vignettes = TRUE)`
 -   For latest development version:
-    `remotes::install_github("snlab-ch/migraph@develop")`
+    `remotes::install_github("snlab-ch/migraph@develop", build_vignettes = TRUE)`
+
+### Vignettes
+
+To make sure you have the vignettes installed, please either install the
+latest binary from CRAN for your OS, or use the `remotes` command above
+to make sure that the vignettes are also built.
+
+Once you have the package with the vignettes built installed, you can
+access them using the following command: .
+
+This gives you access to the compiled vignettes in html form, as well as
+the original source (an Rmarkdown file), and just the R code without any
+of the annotations.
 
 ## Relationship to other packages
 

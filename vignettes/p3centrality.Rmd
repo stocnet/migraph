@@ -90,8 +90,8 @@ rowSums(mat) == colSums(mat)
 # Are they all equal? Why?
 # You can also just use a built in command in migraph though:
 node_degree(ison_brandes, normalized = FALSE)
-#>   Melinda Haley Mallory Pamela Florence  Cora  Olga
-#> 1       1     1       3      3        2     3     3
+#>   Becky  Luna Rylee Jenna Deborah Claire Damian
+#> 1     1     1     3     3       2      3      3
 #> # ... with 4 more from this nodeset in the vector.
 ```
 
@@ -113,16 +113,16 @@ Fortunately, we can use functions from `{migraph}` to help:
 
 ```r
 node_betweenness(ison_brandes)
-#>   Melinda Haley Mallory Pamela Florence  Cora  Olga
-#> 1       0     0   0.378  0.485    0.133 0.337 0.304
+#>   Becky  Luna Rylee Jenna Deborah Claire Damian
+#> 1     0     0 0.378 0.485   0.133  0.337  0.304
 #> # ... with 4 more from this nodeset in the vector.
 node_closeness(ison_brandes)
-#>   Melinda Haley Mallory Pamela Florence  Cora  Olga
-#> 1   0.278 0.278   0.370  0.455    0.435 0.476 0.455
+#>   Becky  Luna Rylee Jenna Deborah Claire Damian
+#> 1 0.278 0.278 0.370 0.455   0.435  0.476  0.455
 #> # ... with 4 more from this nodeset in the vector.
 node_eigenvector(ison_brandes)
-#>   Melinda Haley Mallory Pamela Florence  Cora  Olga
-#> 1   0.106 0.106   0.277  0.510    0.437 0.615 0.631
+#>   Becky  Luna Rylee Jenna Deborah Claire Damian
+#> 1 0.106 0.106 0.277 0.510   0.437  0.615  0.631
 #> # ... with 4 more from this nodeset in the vector.
 # TASK: Can you create degree distributions for each of these?
 ```
@@ -161,7 +161,7 @@ ison_brandes %>%
 
 ```r
 ison_brandes %>%
-  add_node_attribute("color", node_is_min(node_closeness(ison_brandes))) %>%
+  add_node_attribute("color", node_is_max(node_closeness(ison_brandes))) %>%
   autographr(node_color = "color")
 ```
 
@@ -169,7 +169,7 @@ ison_brandes %>%
 
 ```r
 ison_brandes %>%
-  add_node_attribute("color", node_is_min(node_eigenvector(ison_brandes))) %>%
+  add_node_attribute("color", node_is_max(node_eigenvector(ison_brandes))) %>%
   autographr(node_color = "color")
 ```
 

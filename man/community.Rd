@@ -3,9 +3,18 @@
 \name{community}
 \alias{community}
 \alias{node_kernighanlin}
+\alias{node_walktrap}
+\alias{node_edge_betweenness}
+\alias{node_fast_greedy}
 \title{Community graph partitioning algorithms}
 \usage{
 node_kernighanlin(object)
+
+node_walktrap(object, times = 50)
+
+node_edge_betweenness(object)
+
+node_fast_greedy(object)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -16,6 +25,9 @@ node_kernighanlin(object)
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
+
+\item{times}{Integer indicating number of simulations/walks used.
+By default, \code{times=50}.}
 }
 \description{
 Community graph partitioning algorithms
@@ -26,10 +38,19 @@ Community graph partitioning algorithms
 partitioning algorithm that results in a graph with two
 equally-sized communities
 
+\item \code{node_walktrap()}: The walktrap algorithm
+
+\item \code{node_edge_betweenness()}: The edge-betweenness algorithm
+
+\item \code{node_fast_greedy()}: The fast-greedy algorithm
+
 }}
 \examples{
 node_kernighanlin(ison_adolescents)
 node_kernighanlin(ison_southern_women)
+node_walktrap(ison_adolescents)
+node_edge_betweenness(ison_adolescents)
+node_fast_greedy(ison_adolescents)
 }
 \references{
 Kernighan, Brian W., and Shen Lin. 1970.

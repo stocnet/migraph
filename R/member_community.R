@@ -62,3 +62,37 @@ node_kernighanlin <- function(object){
   make_node_member(out, object)
 }
 
+#' @describeIn community The walktrap algorithm
+#' @param times Integer indicating number of simulations/walks used.
+#'   By default, `times=50`.
+#' @examples
+#' node_walktrap(ison_adolescents)
+#' @export
+node_walktrap <- function(object, times = 50){
+  out <- igraph::cluster_walktrap(as_igraph(object), 
+                           steps=times)$membership
+  make_node_member(out, object)
+  
+}
+
+#' @describeIn community The edge-betweenness algorithm
+#' @examples
+#' node_edge_betweenness(ison_adolescents)
+#' @export
+node_edge_betweenness <- function(object){
+  out <- igraph::cluster_edge_betweenness(as_igraph(object)
+                                          )$membership
+  make_node_member(out, object)
+  
+}
+
+#' @describeIn community The fast-greedy algorithm
+#' @examples
+#' node_fast_greedy(ison_adolescents)
+#' @export
+node_fast_greedy <- function(object){
+  out <- igraph::cluster_fast_greedy(as_igraph(object)
+  )$membership
+  make_node_member(out, object)
+  
+}
