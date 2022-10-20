@@ -49,4 +49,10 @@ test_that("core-periphery creation works", {
 #   expect_s3_class(create_nest(2,4, as = "igraph"), "igraph")
 #   expect_s3_class(create_nest(2,4, as = "tidygraph"), "tbl_graph")
 # })
-# 
+
+test_that("create lattice works", {
+  expect_s3_class(create_lattice(4), "igraph")
+  expect_equal(network_nodes(create_lattice(5)), 5)
+  expect_false(is_directed(create_lattice(6)))
+  expect_true(is_directed(create_lattice(6, directed = TRUE)))
+})
