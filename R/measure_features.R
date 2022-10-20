@@ -144,7 +144,7 @@ network_smallworld <- function(object,
   lr <- mean(vapply(1:times, 
                          function(x) network_length(generate_random(object)),
                          FUN.VALUE = numeric(1)))
-  if(method %in% c("SWI")){
+  if(method == "SWI"){
     ll <- network_length(create_ring(object))
   }
   
