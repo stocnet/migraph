@@ -5,9 +5,10 @@ articles:
   p1data: p1data.html
   p2visualisation: p2visualisation.html
   p3centrality: p3centrality.html
+  p4community: p4community.html
   p5equivalence: p5equivalence.html
   p7linearmodel: p7linearmodel.html
-last_built: 2022-10-03T20:51Z
+last_built: 2022-10-20T12:24Z
 urls:
   reference: https://snlab-ch.github.io/migraph/reference
   article: https://snlab-ch.github.io/migraph/articles

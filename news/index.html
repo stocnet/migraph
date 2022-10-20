@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.2</span>
       </span>
     </div>
 
@@ -57,7 +57,47 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.12.1" id="migraph-0121">migraph 0.12.1<a class="anchor" aria-label="anchor" href="#migraph-0121"></a></h2>
+<h2 class="page-header" data-toc-text="0.12.2" id="migraph-0122">migraph 0.12.2<a class="anchor" aria-label="anchor" href="#migraph-0122"></a></h2>
+<div class="section level3">
+<h3 id="package-0-12-2">Package<a class="anchor" aria-label="anchor" href="#package-0-12-2"></a></h3>
+<ul><li>Fixed several typos in the centrality vignette and reexported figures</li>
+<li>Added community detection vignette</li>
+</ul></div>
+<div class="section level3">
+<h3 id="make-0-12-2">Make<a class="anchor" aria-label="anchor" href="#make-0-12-2"></a></h3>
+<ul><li>
+<code><a href="../reference/create.html">create_lattice()</a></code> now conforms to other <code>create_*()</code> functions in how it interprets <code>"n"</code><ul><li>from an inferred <code>"n"</code> for a one-mode network, it will create a transitive lattice of as even dimensions as possible</li>
+<li>for a two-mode network, this depends on how balanced the two modes are, and is still a work in progress… (WIP)</li>
+</ul></li></ul></div>
+<div class="section level3">
+<h3 id="marks-0-12-2">Marks<a class="anchor" aria-label="anchor" href="#marks-0-12-2"></a></h3>
+<ul><li>Added <code><a href="../reference/is.html">is_eulerian()</a></code> for a logical expression of whether the network has an Eulerian path</li></ul></div>
+<div class="section level3">
+<h3 id="measures-0-12-2">Measures<a class="anchor" aria-label="anchor" href="#measures-0-12-2"></a></h3>
+<ul><li>
+<code><a href="../reference/features.html">network_smallworld()</a></code> now takes a method argument for different ways of calculating a small-world coefficient<ul><li>“omega” (the new default) offers a better range, 0 to 1, than the previous (now “sigma”) metric.</li>
+<li>“SWI” is also included and offers a 0 to 1 range, but where 1 may not be realisable</li>
+</ul></li>
+<li>Added <code><a href="../reference/diversity.html">node_diversity()</a></code> for calculating heterogeneity among each nodes’ ego network</li>
+<li>Added <code><a href="../reference/diversity.html">node_homophily()</a></code> for calculating homophilous ties among each nodes’ ego network</li>
+<li>Added <code><a href="../reference/closure.html">node_reciprocity()</a></code> for calculating each node’s reciprocity</li>
+<li>Added <code><a href="../reference/closure.html">node_transitivity()</a></code> for calculating each node’s transitivity/clustering</li>
+</ul></div>
+<div class="section level3">
+<h3 id="memberships-0-12-2">Memberships<a class="anchor" aria-label="anchor" href="#memberships-0-12-2"></a></h3>
+<ul><li>Added wrappers for several community detection algorithms from igraph, unlike tidygraph these can operate on objects directly<ul><li>Added <code><a href="../reference/community.html">node_walktrap()</a></code>
+</li>
+<li>Added <code><a href="../reference/community.html">node_edge_betweenness()</a></code>
+</li>
+<li>Added <code><a href="../reference/community.html">node_fast_greedy()</a></code>
+</li>
+</ul></li></ul></div>
+<div class="section level3">
+<h3 id="mapping-0-12-2">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-12-2"></a></h3>
+<ul><li>Reversed blue/red colour assignment for binary variables</li></ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.12.1" id="migraph-0121">migraph 0.12.1<small>2022-10-04</small><a class="anchor" aria-label="anchor" href="#migraph-0121"></a></h2>
 <div class="section level3">
 <h3 id="manipulations-0-12-1">Manipulations<a class="anchor" aria-label="anchor" href="#manipulations-0-12-1"></a></h3>
 <ul><li>
@@ -78,8 +118,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="mapping-0-12-1">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-12-1"></a></h3>
-<ul><li>Fixed <code><a href="../reference/autographr.html">autographr()</a></code> tests to work with new version of <a href="https://ggraph.data-imaginist.com" class="external-link">ggraph</a>
-</li></ul></div>
+<ul><li>Fixed <code><a href="../reference/autographr.html">autographr()</a></code> tests to work with new version of <a href="https://ggraph.data-imaginist.com" class="external-link">ggraph</a> (closed <a href="https://github.com/snlab-ch/migraph/issues/247" class="external-link">#247</a>, thanks <a href="https://github.com/henriquesposito" class="external-link">@henriquesposito</a>)</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.12.0" id="migraph-0120">migraph 0.12.0<small>2022-09-27</small><a class="anchor" aria-label="anchor" href="#migraph-0120"></a></h2>
@@ -697,7 +736,7 @@
 </li></ul></div>
 <div class="section level3">
 <h3 id="package-0-8-11">Package<a class="anchor" aria-label="anchor" href="#package-0-8-11"></a></h3>
-<ul><li>Fixed <a href="https://github.com/snlab-ch/migraph/issues/173" class="external-link">#173</a> by extending <code><a href="../reference/as.html">as_network()</a></code> method to convert correctly form an <a href="https://igraph.org" class="external-link">igraph</a> to a <a href="http://statnet.org/" class="external-link">network</a> object.</li>
+<ul><li>Fixed <a href="https://github.com/snlab-ch/migraph/issues/173" class="external-link">#173</a> by extending <code><a href="../reference/as.html">as_network()</a></code> method to convert correctly form an <a href="https://igraph.org" class="external-link">igraph</a> to a <a href="https://statnet.org/" class="external-link">network</a> object.</li>
 <li>Removed <code>ggraphgrid()</code> documentation</li>
 </ul></div>
 </div>

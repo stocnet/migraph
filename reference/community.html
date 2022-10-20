@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.2</span>
       </span>
     </div>
 
@@ -62,7 +62,13 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">node_kernighanlin</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">node_kernighanlin</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">node_walktrap</span><span class="op">(</span><span class="va">object</span>, times <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">node_edge_betweenness</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">node_fast_greedy</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -75,6 +81,11 @@
 <li><p>tbl_graph, from the <code>{tidygraph}</code> package</p></li>
 </ul></dd>
 
+
+<dt>times</dt>
+<dd><p>Integer indicating number of simulations/walks used.
+By default, <code>times=50</code>.</p></dd>
+
 </dl></div>
     <div id="functions">
     <h2>Functions</h2>
@@ -82,6 +93,9 @@
 <ul><li><p><code>node_kernighanlin()</code>: A greedy, iterative, deterministic graph
 partitioning algorithm that results in a graph with two
 equally-sized communities</p></li>
+<li><p><code>node_walktrap()</code>: The walktrap algorithm</p></li>
+<li><p><code>node_edge_betweenness()</code>: The edge-betweenness algorithm</p></li>
+<li><p><code>node_fast_greedy()</code>: The fast-greedy algorithm</p></li>
 </ul></div>
     <div id="references">
     <h2>References</h2>
@@ -112,6 +126,25 @@ equally-sized communities</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    EVELYN, LAURA, THERESA, BRENDA, CHARLOTTE, FRANCES, ELEANOR, PEARL, RUTH, VERNE, MYRA, KATHERINE, SYLVIA, NORA, HELEN, DOROTHY</span>
+<span class="r-in"><span><span class="fu">node_walktrap</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    7, 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1, 2, 3, 4, 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    6</span>
+<span class="r-in"><span><span class="fu">node_edge_betweenness</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1, 2, 3, 4, 5, 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    7, 8</span>
+<span class="r-in"><span><span class="fu">node_fast_greedy</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    6, 7, 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3, 4, 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1, 2</span>
 </code></pre></div>
     </div>
   </div>

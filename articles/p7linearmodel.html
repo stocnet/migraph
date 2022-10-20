@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.2</span>
       </span>
     </div>
 
@@ -173,13 +173,12 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">marvel_friends</span>, </span>
 <span>           node_group <span class="op">=</span> <span class="st">"PowerOrigin"</span>, </span>
-<span>           node_color <span class="op">=</span> <span class="st">"Gender"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="teaching/blaugroups-1.png"></p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">marvel_friends</span>, </span>
+<span>           node_color <span class="op">=</span> <span class="st">"Gender"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in anchors[[i]]: subscript out of bounds</span></span>
+<span><span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">marvel_friends</span>, </span>
 <span>           node_color <span class="op">=</span> <span class="st">"Gender"</span>, </span>
 <span>           node_size <span class="op">=</span> <span class="st">"Intellect"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="teaching/blaugroups-2.png"></p>
+<p><img src="teaching/blaugroups-1.png"></p>
 <p>Ok, this tells us about how (un)even the distribution of these variables is in this network, but it doesn’t necessarily tell us whether within this network there is homophily/heterophily.</p>
 </div>
 <div class="section level3">
@@ -188,7 +187,7 @@
 <p>A step in this direction is to calculate the EI (or E-I) index. Calculating the EI index follows the same syntax. Recall that the EI index is calculated as:</p>
 <p><span class="math display">\[\frac{E-I}{E+I}\]</span></p>
 <p>where <span class="math inline">\(E\)</span> is the number of ties present between a variable’s categories (i.e. external), and <span class="math inline">\(I\)</span> is the number of ties present within a variable’s categories (i.e. internal). As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1 suggests perfect heterophily.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">obs.gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/diversity.html">network_homophily</a></span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"Gender"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] -0.196</span></span>
 <span><span class="op">(</span><span class="va">obs.powers</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/diversity.html">network_homophily</a></span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="st">"PowerOrigin"</span><span class="op">)</span><span class="op">)</span> </span>
@@ -207,7 +206,7 @@
 </h3>
 <p>To see whether we should be surprised by a score this high/low, we will simulate a series of random graphs (Erdös-Renyi/Bernoulli) of the same dimensions and distribution of the attribute to find out whether there is more homophily or heterophily than expected by chance.</p>
 <p>This is called a conditional uniform graph test, but <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> chooses more descriptive function names, such as <code><a href="../reference/tests.html">test_random()</a></code>:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rand.gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tests.html">test_random</a></span><span class="op">(</span><span class="va">marvel_friends</span>, </span>
 <span>                            <span class="va">network_homophily</span>, attribute <span class="op">=</span> <span class="st">"Gender"</span>, </span>
 <span>                           times <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
@@ -230,7 +229,7 @@
 </h3>
 <p>Ah, but perhaps the random graph is not the best reference group for establishing whether there is a significant homophily effect here. After all, social networks are not completely random; they are structured.</p>
 <p>Another approach is to use permutations of the network. Permuting the network retains the structure of the network, but reassigns any labels (variables) randomly. Let’s first plot the observed data and some permuted data next to each other.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">old</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/autographr.html">autographr</a></span><span class="op">(</span><span class="va">marvel_friends</span>, </span>
 <span>                  labels <span class="op">=</span> <span class="cn">FALSE</span>, node_size <span class="op">=</span> <span class="fl">6</span>, </span>
 <span>                  node_color <span class="op">=</span> <span class="st">"PowerOrigin"</span>, </span>
@@ -242,7 +241,7 @@
 <span><span class="va">old</span> <span class="op">+</span> <span class="va">new</span></span></code></pre></div>
 <p><img src="teaching/perm-1.png"></p>
 <p>This single permutation suggests there might otherwise be some more even mixing of these attributes, but it is just a single permutation. Let’s try a test that runs this over a succession of permutations, just as we did with random graphs.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">perm.gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tests.html">test_permutation</a></span><span class="op">(</span><span class="va">marvel_friends</span>, </span>
 <span>                                <span class="va">network_homophily</span>, attribute <span class="op">=</span> <span class="st">"Gender"</span>,</span>
 <span>                                times <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
@@ -250,7 +249,7 @@
 <span>                               <span class="va">network_homophily</span>, attribute <span class="op">=</span> <span class="st">"PowerOrigin"</span>,</span>
 <span>                                times <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span></code></pre></div>
 <p>Again, we see that there is perhaps nothing so surprising that we got the homophily score for gender that we did, but the lack of power origin heterophily is surprising.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rand.gender</span><span class="op">)</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rand.power</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span></span>
 <span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">perm.gender</span><span class="op">)</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">perm.power</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="teaching/cugqap-1.png"></p>
@@ -261,7 +260,7 @@
 <h2 id="network-linear-models">Network linear models<a class="anchor" aria-label="anchor" href="#network-linear-models"></a>
 </h2>
 <p>Next let us examine homophily in another network. The data were collected as part of an early experiment on communication between social network researchers who were using an Electronic Information Exchange System (EIES). You may recognise some of the names. The main network consists of 32 scholars with directed ties weighted by the total number of messages sent from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> over the period of the study. Nodal attributes collected include the primary discipline and number of citations in the social science citation index at the start of the study.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ison_networkers</span></span>
 <span><span class="co">#&gt; # A tbl_graph: 32 nodes and 440 edges</span></span>
 <span><span class="co">#&gt; #</span></span>
@@ -296,12 +295,12 @@
 <span class="math inline">\(H_2\)</span>: whether there is disciplinary homophily</li>
 </ul>
 <p>Let’s start with a pretty maximally specified model (note that it doesn’t make sense to include both ego and alter effects because these are undirected):</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/regression.html">network_reg</a></span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="fu">alter</span><span class="op">(</span><span class="va">Citations</span><span class="op">)</span> <span class="op">+</span> <span class="fu">sim</span><span class="op">(</span><span class="va">Citations</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>                      <span class="fu">alter</span><span class="op">(</span><span class="va">Discipline</span><span class="op">)</span> <span class="op">+</span> <span class="fu">same</span><span class="op">(</span><span class="va">Discipline</span><span class="op">)</span>, </span>
 <span>                      <span class="va">ison_networkers</span>, times <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span></code></pre></div>
 <p>We can use tidy methods to get the salient information from this model, and <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> includes also a plot method for these results to facilitate the quick interpretation of these results.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">model1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 7 × 4</span></span>
 <span><span class="co">#&gt;   term                       estimate stati…¹ p.value</span></span>

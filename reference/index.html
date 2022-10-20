@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.2</span>
       </span>
     </div>
 
@@ -100,7 +100,7 @@
           <p class="section-desc"></p><p>Functions for identifying properties of graphs, nodes or ties, all returning logical scalars or vectors. Note that all <code>node_</code> and <code>tie_</code> measures return a single vector so that they can be added directly to graph objects. <code>graph_</code> measures return one or, in some cases of two-mode measures, two values.</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="is.html">is_migraph()</a></code> <code><a href="is.html">is_graph()</a></code> <code><a href="is.html">is_edgelist()</a></code> <code><a href="is.html">is_twomode()</a></code> <code><a href="is.html">is_weighted()</a></code> <code><a href="is.html">is_directed()</a></code> <code><a href="is.html">is_labelled()</a></code> <code><a href="is.html">is_signed()</a></code> <code><a href="is.html">is_connected()</a></code> <code><a href="is.html">is_complex()</a></code> <code><a href="is.html">is_multiplex()</a></code> <code><a href="is.html">is_uniplex()</a></code> <code><a href="is.html">is_acyclic()</a></code> <code><a href="is.html">is_perfect_matching()</a></code> </p>
+          <p><code><a href="is.html">is_migraph()</a></code> <code><a href="is.html">is_graph()</a></code> <code><a href="is.html">is_edgelist()</a></code> <code><a href="is.html">is_twomode()</a></code> <code><a href="is.html">is_weighted()</a></code> <code><a href="is.html">is_directed()</a></code> <code><a href="is.html">is_labelled()</a></code> <code><a href="is.html">is_signed()</a></code> <code><a href="is.html">is_connected()</a></code> <code><a href="is.html">is_complex()</a></code> <code><a href="is.html">is_multiplex()</a></code> <code><a href="is.html">is_uniplex()</a></code> <code><a href="is.html">is_acyclic()</a></code> <code><a href="is.html">is_perfect_matching()</a></code> <code><a href="is.html">is_eulerian()</a></code> </p>
         </td>
         <td><p>Marking networks based on their properties</p></td>
       </tr><tr><td>
@@ -132,7 +132,7 @@
         </td>
         <td><p>Measures of network centralisation</p></td>
       </tr><tr><td>
-          <p><code><a href="closure.html">network_reciprocity()</a></code> <code><a href="closure.html">network_transitivity()</a></code> <code><a href="closure.html">network_equivalency()</a></code> <code><a href="closure.html">network_congruency()</a></code> </p>
+          <p><code><a href="closure.html">network_reciprocity()</a></code> <code><a href="closure.html">node_reciprocity()</a></code> <code><a href="closure.html">network_transitivity()</a></code> <code><a href="closure.html">node_transitivity()</a></code> <code><a href="closure.html">network_equivalency()</a></code> <code><a href="closure.html">network_congruency()</a></code> </p>
         </td>
         <td><p>Measures of network closure</p></td>
       </tr><tr><td>
@@ -140,7 +140,7 @@
         </td>
         <td><p>Measures of structural holes</p></td>
       </tr><tr><td>
-          <p><code><a href="diversity.html">network_diversity()</a></code> <code><a href="diversity.html">network_homophily()</a></code> <code><a href="diversity.html">network_assortativity()</a></code> </p>
+          <p><code><a href="diversity.html">network_diversity()</a></code> <code><a href="diversity.html">node_diversity()</a></code> <code><a href="diversity.html">network_homophily()</a></code> <code><a href="diversity.html">node_homophily()</a></code> <code><a href="diversity.html">network_assortativity()</a></code> </p>
         </td>
         <td><p>Measures of network diversity</p></td>
       </tr><tr><td>
@@ -164,7 +164,7 @@
           <p class="section-desc"></p><p>Functions for identifying community, cluster, or class memberships in partitions within multimodal networks. They return integer vectors the length of the nodes in the network.</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="community.html">node_kernighanlin()</a></code> </p>
+          <p><code><a href="community.html">node_kernighanlin()</a></code> <code><a href="community.html">node_walktrap()</a></code> <code><a href="community.html">node_edge_betweenness()</a></code> <code><a href="community.html">node_fast_greedy()</a></code> </p>
         </td>
         <td><p>Community graph partitioning algorithms</p></td>
       </tr><tr><td>

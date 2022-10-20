@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.2</span>
       </span>
     </div>
 
@@ -130,11 +130,11 @@
 <p>Regardless of which class object you are working with, the same syntax can be used to work with and manipulate your data.</p>
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code>is_*()</code> functions offer fast logical tests of network properties, e.g.:</p>
 <ul><li>
-<code><a href="reference/is.html">is_acyclic()</a></code>, <code><a href="https://rdrr.io/pkg/igraph/man/make_bipartite_graph.html" class="external-link">is_bipartite()</a></code>, <code><a href="reference/is.html">is_complex()</a></code>, <code><a href="reference/is.html">is_connected()</a></code>, <code><a href="reference/is.html">is_directed()</a></code>, <code><a href="reference/is.html">is_edgelist()</a></code>, <code><a href="reference/is.html">is_graph()</a></code>, <code><a href="reference/is.html">is_labelled()</a></code>, <code><a href="reference/is.html">is_migraph()</a></code>, <code><a href="reference/is.html">is_multiplex()</a></code>, <code><a href="reference/is.html">is_signed()</a></code>, <code><a href="reference/is.html">is_twomode()</a></code>, <code><a href="reference/is.html">is_uniplex()</a></code>, <code><a href="reference/is.html">is_weighted()</a></code>
+<code><a href="reference/is.html">is_acyclic()</a></code>, <code><a href="https://rdrr.io/pkg/igraph/man/make_bipartite_graph.html" class="external-link">is_bipartite()</a></code>, <code><a href="reference/is.html">is_complex()</a></code>, <code><a href="reference/is.html">is_connected()</a></code>, <code><a href="reference/is.html">is_directed()</a></code>, <code><a href="reference/is.html">is_edgelist()</a></code>, <code><a href="reference/is.html">is_eulerian()</a></code>, <code><a href="reference/is.html">is_graph()</a></code>, <code><a href="reference/is.html">is_labelled()</a></code>, <code><a href="reference/is.html">is_migraph()</a></code>, <code><a href="reference/is.html">is_multiplex()</a></code>, <code><a href="reference/is.html">is_perfect_matching()</a></code>, <code><a href="reference/is.html">is_signed()</a></code>, <code><a href="reference/is.html">is_twomode()</a></code>, <code><a href="reference/is.html">is_uniplex()</a></code>, <code><a href="reference/is.html">is_weighted()</a></code>
 </li></ul>
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code>to_*()</code> functions can be used on any class object to reformat or transform networks into networks with other properties, e.g.:</p>
 <ul><li>
-<code><a href="reference/transform.html">to_blocks()</a></code>, <code><a href="reference/defunct.html">to_edges()</a></code>, <code><a href="reference/transform.html">to_giant()</a></code>, <code><a href="reference/defunct.html">to_main_component()</a></code>, <code><a href="reference/transform.html">to_matching()</a></code>, <code><a href="reference/transform.html">to_mode1()</a></code>, <code><a href="reference/transform.html">to_mode2()</a></code>, <code><a href="reference/reformat.html">to_multilevel()</a></code>, <code><a href="reference/reformat.html">to_named()</a></code>, <code><a href="reference/reformat.html">to_onemode()</a></code>, <code><a href="reference/reformat.html">to_redirected()</a></code>, <code><a href="reference/reformat.html">to_simplex()</a></code>, <code><a href="reference/transform.html">to_subgraph()</a></code>, <code><a href="reference/transform.html">to_ties()</a></code>, <code><a href="reference/reformat.html">to_twomode()</a></code>, <code><a href="reference/reformat.html">to_undirected()</a></code>, <code><a href="reference/reformat.html">to_uniplex()</a></code>, <code><a href="reference/reformat.html">to_unnamed()</a></code>, <code><a href="reference/reformat.html">to_unsigned()</a></code>, <code><a href="reference/reformat.html">to_unweighted()</a></code>
+<code><a href="reference/transform.html">to_anti()</a></code>, <code><a href="reference/transform.html">to_blocks()</a></code>, <code><a href="reference/defunct.html">to_edges()</a></code>, <code><a href="reference/transform.html">to_giant()</a></code>, <code><a href="reference/defunct.html">to_main_component()</a></code>, <code><a href="reference/transform.html">to_matching()</a></code>, <code><a href="reference/transform.html">to_mode1()</a></code>, <code><a href="reference/transform.html">to_mode2()</a></code>, <code><a href="reference/reformat.html">to_multilevel()</a></code>, <code><a href="reference/reformat.html">to_named()</a></code>, <code><a href="reference/reformat.html">to_onemode()</a></code>, <code><a href="reference/reformat.html">to_redirected()</a></code>, <code><a href="reference/reformat.html">to_simplex()</a></code>, <code><a href="reference/transform.html">to_subgraph()</a></code>, <code><a href="reference/transform.html">to_ties()</a></code>, <code><a href="reference/reformat.html">to_twomode()</a></code>, <code><a href="reference/reformat.html">to_undirected()</a></code>, <code><a href="reference/reformat.html">to_uniplex()</a></code>, <code><a href="reference/reformat.html">to_unnamed()</a></code>, <code><a href="reference/reformat.html">to_unsigned()</a></code>, <code><a href="reference/reformat.html">to_unweighted()</a></code>
 </li></ul>
 </div>
 <div class="section level4">
@@ -253,11 +253,18 @@
 </ul>
 <p>To install from source the latest main version of <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> from Github, please install the <a href="https://remotes.r-lib.org" class="external-link">remotes</a> or <a href="https://devtools.r-lib.org/" class="external-link">devtools</a> package from CRAN and then:</p>
 <ul>
-<li>For latest stable version: <code>remotes::install_github("snlab-ch/migraph")</code>
+<li>For latest stable version: <code>remotes::install_github("snlab-ch/migraph", build_vignettes = TRUE)</code>
 </li>
-<li>For latest development version: <code>remotes::install_github("snlab-ch/migraph@develop")</code>
+<li>For latest development version: <code>remotes::install_github("snlab-ch/migraph@develop", build_vignettes = TRUE)</code>
 </li>
 </ul>
+</div>
+<div class="section level3">
+<h3 id="vignettes">Vignettes<a class="anchor" aria-label="anchor" href="#vignettes"></a>
+</h3>
+<p>To make sure you have the vignettes installed, please either install the latest binary from CRAN for your OS, or use the <code>remotes</code> command above to make sure that the vignettes are also built.</p>
+<p>Once you have the package with the vignettes built installed, you can access them using the following command: .</p>
+<p>This gives you access to the compiled vignettes in html form, as well as the original source (an Rmarkdown file), and just the R code without any of the annotations.</p>
 </div>
 </div>
 <div class="section level2">

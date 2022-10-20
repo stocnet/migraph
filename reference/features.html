@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.2</span>
       </span>
     </div>
 
@@ -68,7 +68,7 @@
 <span></span>
 <span><span class="fu">network_modularity</span><span class="op">(</span><span class="va">object</span>, membership <span class="op">=</span> <span class="cn">NULL</span>, resolution <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">network_smallworld</span><span class="op">(</span><span class="va">object</span>, times <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="fu">network_smallworld</span><span class="op">(</span><span class="va">object</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"omega"</span>, <span class="st">"sigma"</span>, <span class="st">"SWI"</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">network_balance</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -95,6 +95,30 @@
 <dt>resolution</dt>
 <dd><p>A proportion indicating the resolution scale.
 By default 1.</p></dd>
+
+
+<dt>method</dt>
+<dd><p>There are three small-world measures implemented:</p><ul><li><p>"sigma" is the original equation from Watts and Strogatz (1998),
+$$\frac{\frac{C}{C_r}}{\frac{L}{L_r}}$$,
+where \(C\) and \(L\) are the observed
+clustering coefficient and path length, respectively,
+and \(C_r\) and \(L_r\) are the averages obtained from
+random networks of the same dimensions and density.
+A \(\sigma &gt; 1\) is considered to be small-world,
+but this measure is highly sensitive to network size.</p></li>
+<li><p>"omega" (the default) is an update from Telesford et al. (2011),
+$$\frac{L_r}{L} - \frac{C}{C_l}$$,
+where \(C_l\) is the clustering coefficient for a lattice graph
+with the same dimensions.
+\(\omega\) ranges between 0 and 1,
+where 1 is as close to a small-world as possible.</p></li>
+<li><p>"SWI" is an alternative proposed by Neal (2017),
+$$\frac{L - L_l}{L_r - L_l} \times \frac{C - C_r}{C_l - C_r}$$,
+where \(L_l\) is the average path length for a lattice graph
+with the same dimensions.
+\(SWI\) also ranges between 0 and 1 with the same interpretation,
+but where there may not be a network for which \(SWI = 1\).</p></li>
+</ul></dd>
 
 
 <dt>times</dt>
@@ -135,6 +159,16 @@ Springer, Boston, MA.
 <em>Nature</em> 393(6684):440–42.
 <a href="https://doi.org/10.1038/30918" class="external-link">doi:10.1038/30918</a>
 .</p>
+<p>Telesford QK, Joyce KE, Hayasaka S, Burdette JH, Laurienti PJ. 2011.
+"The ubiquity of small-world networks".
+<em>Brain Connectivity</em> 1(5): 367–75.
+<a href="https://doi.org/10.1089/brain.2011.0038" class="external-link">doi:10.1089/brain.2011.0038</a>
+.</p>
+<p>Neal Zachary P. 2017.
+"How small is it? Comparing indices of small worldliness".
+<em>Network Science</em>. 5 (1): 30–44.
+<a href="https://doi.org/10.1017/nws.2017.5" class="external-link">doi:10.1017/nws.2017.5</a>
+.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -167,9 +201,9 @@ for how clustering is calculated</p>
 <span class="r-in"><span>  <span class="fu"><a href="community.html">node_kernighanlin</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.458</span>
 <span class="r-in"><span><span class="fu">network_smallworld</span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.859</span>
 <span class="r-in"><span><span class="fu">network_smallworld</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.04</span>
 <span class="r-in"><span><span class="fu">network_balance</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.668</span>
 </code></pre></div>
