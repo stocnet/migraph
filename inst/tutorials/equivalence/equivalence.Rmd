@@ -1,30 +1,24 @@
 ---
-title: "5. Equivalence"
+title: "Equivalence"
 author: "James Hollway"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{5. Equivalence}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+output: learnr::tutorial
+runtime: shiny_prerendered
 ---
 
-```{r, include = FALSE}
-#| purl = FALSE
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.cap = "",
-  fig.path = "teaching/"
-)
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# Setting up
+
+## Setting up
 
 The data we're going to use here is included in the `{migraph}` package.
 This dataset is multiplex, meaning that it contains 
-several different types of ties: friendship, social and task interactions.
+several different types of ties: 
+friendship, social and task interactions.
 
-```{r setup}
+```{r data, exercise=TRUE}
 library(migraph)
 data("ison_algebra", package = "migraph")
 # ?migraph::ison_algebra
@@ -34,13 +28,13 @@ Note that you do not need to load the package using `library()` to get the data.
 Now you know how to create new matrices in R, load .csv files, 
 saved .RData files, and data from packages!
 
-## Separating multiplex networks
+### Separating multiplex networks
 
 As a multiplex network, 
 there are actually three different types of tie in this network.
 We can extract them and investigate them separately using `to_uniplex()`:
 
-```{r separatingnets}
+```{r separatingnets, exercise=TRUE}
 (friends <- to_uniplex(ison_algebra, "friends"))
 gfriend <- autographr(friends) + ggtitle("Friendship")
 (social <- to_uniplex(ison_algebra, "social"))
@@ -53,14 +47,14 @@ gfriend + gsocial + gtask
 Note also that these are weighted networks.
 `autographr()` automatically registers these different weights and plots them.
 
-# Structural Holes and Constraint
+## Structural Holes and Constraint
 
 Where might innovation be most likely to occur in these networks?
 Let's take a look at which actors are least constrained 
 by their position in the task network to begin with.
 `{migraph}` makes this easy enough with the `node_constraint()` function.
 
-```{r constraint}
+```{r constraint, exercise=TRUE, exercise.setup = "separatingnets"}
 node_constraint(tasks)
 ```
 
@@ -69,7 +63,7 @@ constraint scores that can range between 0 and 1.
 Let's size the nodes according to this score,
 and identify the node with the minimum constraint score.
 
-```{r constraintplot}
+```{r constraintplot, exercise=TRUE, exercise.setup = "separatingnets"}
 tasks <- tasks %>% mutate(low_constraint = node_is_min(node_constraint(tasks)))
 autographr(tasks, node_color = "low_constraint")
 ```
@@ -77,19 +71,19 @@ autographr(tasks, node_color = "low_constraint")
 Why minimum? And what can we learn from this plot
 about where innovation might occur within this network?
 
-# Structural Equivalence
+## Structural Equivalence
 
 Now we are going to identify and interpret the roles
 or relations between a set of structurally equivalent positions.
 We're going to identify structurally equivalent positions
 across all the data that we have, including 'task', 'social', and 'friend' ties.
 
-## Finding structurally equivalent classes
+### Finding structurally equivalent classes
 
 In `{migraph}`, finding how the nodes of a network can be partitioned
 into structurally equivalent classes is as easy as:
 
-```{r find-se}
+```{r find-se, exercise = TRUE, exercise.setup = "data"}
 node_structural_equivalence(ison_algebra)
 ison_algebra %>% 
   mutate(se = node_structural_equivalence(ison_algebra)) %>% 
@@ -98,7 +92,7 @@ ison_algebra %>%
 
 But actually, a lot is going on behind the scenes here that we can unpack.
 
-## Step one: starting with a census
+### Step one: starting with a census
 
 All equivalence classes are based on nodes' similarity across some profile of motifs.
 In `{migraph}`, we call these motif censuses.
@@ -106,13 +100,13 @@ Any kind of census can be used, and `{migraph}` includes a few options,
 but `node_structural_equivalence()` is based off of the census of all the nodes' ties,
 both outgoing and incoming ties, to reveal their relationships to tie partners.
 
-```{r construct-cor}
+```{r construct-cor, exercise = TRUE, exercise.setup = "data"}
 node_tie_census(ison_algebra)
 dim(node_tie_census(ison_algebra))
 ```
 
-We can see that the result is a matrix of `r dim(node_tie_census(ison_algebra))[1]` rows
-and `r dim(node_tie_census(ison_algebra))[2]` columns, 
+We can see that the result is a matrix of 16 rows
+and 96 columns, 
 because we want to catalogue or take a census of all the different incoming/outgoing partners 
 our 16 nodes might have across these three networks.
 Note also that the result is a weighted matrix; 
@@ -125,7 +119,7 @@ Feel free to explore using some of the other censuses available in `{migraph}`,
 though some common ones are already used in the other equivalence convenience functions,
 `node_regular_equivalence()` and `node_automorphic_equivalence()`.
 
-## Step two: growing a tree of similarity
+### Step two: growing a tree of similarity
 
 The next part is all done internally,
 though there are several important parameters that can be set to obtain different results.
@@ -144,7 +138,7 @@ which implements a CONCOR (CONvergence of CORrelations) algorithm.
 We can see the difference from varying the clustering algorithm and/or distance
 by plotting the dendrograms (hidden) in the output from `node_structural_equivalence()`:
 
-```{r vary-clust}
+```{r vary-clust, exercise = TRUE, exercise.setup = "data"}
 plot(node_structural_equivalence(ison_algebra, cluster = "hier", distance = "euclidean"))
 plot(node_structural_equivalence(ison_algebra, cluster = "hier", distance = "manhattan"))
 plot(node_structural_equivalence(ison_algebra, cluster = "concor"))
@@ -171,7 +165,7 @@ the nodes into one of two partitions.
 As such the 'distance' is really just the (inverse) number of steps
 of bifurcations until nodes belong to the same class.
 
-## Step three: identifying the number of clusters
+### Step three: identifying the number of clusters
 
 Another bit of information represented in the dendrogram
 is where the tree should be cut (the dashed red line) and
@@ -188,7 +182,7 @@ Remember, the further to the right the red line is
 the more dissimilar we're allowing nodes in the same cluster to be.
 We could set this ourselves by just passing `k` an integer.
 
-```{r k-discrete}
+```{r k-discrete, exercise = TRUE, exercise.setup = "data"}
 plot(node_structural_equivalence(ison_algebra, k = 2))
 ```
 
@@ -230,7 +224,7 @@ which is what `k = "silhouette"` does,
 can return a somewhat different result to the elbow method.
 See what we have here, with all other arguments held the same:
 
-```{r elbowsil}
+```{r elbowsil, exercise = TRUE, exercise.setup = "data"}
 plot(node_structural_equivalence(ison_algebra, k = "elbow"))
 plot(node_structural_equivalence(ison_algebra, k = "silhouette"))
 ```
@@ -242,7 +236,7 @@ and dissimilarity.
 Either is probably fine here, 
 and there is much debate around how to select the number of clusters anyway,
 but the silhouette method seems to do a better job of identifying how unique
-`r node_names(ison_algebra)[16]` is.
+the 16th node is.
 The silhouette method is also the default in `{migraph}`.
 
 Note that there is a somewhat hidden parameter here, `range`.
@@ -258,7 +252,7 @@ This is quick and rigorous solution,
 however oftentimes this misses the point in finding clusters of nodes that, 
 despite some variation, can be considered as similar on some dimension.
 
-```{r strict}
+```{r strict, exercise = TRUE, exercise.setup = "data"}
 plot(node_structural_equivalence(ison_algebra, k = "strict"))
 ```
 
@@ -269,14 +263,14 @@ Where networks have a number of nodes with strictly the same profiles,
 such a k-selection method might be helpful to recognise those in exactly the same structural position,
 but here it essentially just reports nodes' identity.
 
-# Blockmodelling
+## Blockmodelling
 
-## Summarising profiles
+### Summarising profiles
 
 Ok, so now we have a result from establishing nodes' membership in structurally equivalent classes.
 We can graph this of course, as above:
 
-```{r strplot}
+```{r strplot, exercise = TRUE, exercise.setup = "data"}
 str_clu <- node_structural_equivalence(ison_algebra)
 ison_algebra %>% 
   mutate(se = str_clu) %>% 
@@ -294,7 +288,7 @@ and then it summarises the census by the partition assignment.
 By default it takes the average of ties (values),
 but this can be tweaked by assigning some other summary statistic as `FUN = `.
 
-```{r summ}
+```{r summ, exercise = TRUE, exercise.setup = "strplot"}
 summary(node_tie_census(ison_algebra),
         membership = str_clu)
 ```
@@ -309,45 +303,42 @@ Passing the `plot()` function an adjacency/incidence matrix
 along with a membership vector allows the matrix to be sorted and framed
 (without the membership vector, just the adjacency/incidence matrix is plotted):
 
-```{r block}
+```{r block, exercise = TRUE, exercise.setup = "strplot"}
 plot(as_matrix(ison_algebra),
      membership = str_clu)
 ```
 
 So, with this information, we might characterise them like so:
 
-- `r names(str_clu[which(str_clu==1)])` work together only in reciprocal pairs on tasks,
-preferring to approach `r names(str_clu[which(str_clu==4)])` but also those of the other two roles.
+- The first group work together only in reciprocal pairs on tasks,
+preferring to approach the nerd but also those of the other two roles.
 While they hang out with each other socially quite a bit, friendship from groups 2 and 3 are preferred.
-We shall call them *freaks*.
-- `r names(str_clu[which(str_clu==2)])` also work together only in reciprocal pairs,
-preferring to work collaboratively with group 1 or also `r names(str_clu[which(str_clu==4)])`.
+- The second group also work together only in reciprocal pairs,
+preferring to work collaboratively with group 1 or also the nerd.
 They also tend to count those from group 1 as friends,
 and hang out with everyone else but themselves.
-We shall call them *squares*.
-- `r names(str_clu[which(str_clu==3)])` will work with either some in group 1 and 3, or 2,
-but again prefer `r names(str_clu[which(str_clu==4)])` for task advice.
+- The third group will work with either some in group 1 and 3, or 2,
+but again prefer the nerd for task advice.
 They are pretty good friends with each other though,
 and pretty happy to socialise with everyone.
-We shall call them *nerds*.
-- `r names(str_clu[which(str_clu==4)])` is a loner, no friends,
-but everyone hangs out with them for task advice, therefore the *geek*.
+- The nerd is a loner, no friends,
+but everyone hangs out with them for task advice.
 
-## Reduced graph
+### Reduced graph
 
 Lastly, we can consider how _classes_ of nodes relate to one another in a blockmodel.
 Let's use the 4-cluster solution on the valued network (though binary is possible too).
 
-```{r structblock}
+```{r structblock, exercise = TRUE, exercise.setup = "data"}
 str_clu <- node_structural_equivalence(ison_algebra)
 (bm <- to_blocks(ison_algebra, str_clu))
 bm <- bm %>% as_tidygraph %>% mutate(name = c("Freaks", "Squares", "Nerds", "Geek"))
 autographr(bm)
 ```
 
-# Unit Test
+## Unit Test
 
-1. Plot labelled, reduced graph of STURCTURALLY equivalent classes 
+1. Plot labelled, reduced graph of STRUCTURALLY equivalent classes 
 on the `mpn_elite_usa_advice` network and interpret
 
 2. Plot labelled, reduced graph of REGULARLY equivalent classes 
