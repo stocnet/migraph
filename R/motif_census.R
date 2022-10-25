@@ -9,6 +9,10 @@
 #' @name node_census
 #' @family motifs
 #' @inheritParams is
+#' @param membership A vector of partition membership as integers.
+#' @param standardized Whether the score should be standardized
+#'   into a _z_-score indicating how many standard deviations above
+#'   or below the average the score lies.
 #' @importFrom igraph vcount graph.neighborhood delete_vertices triad_census
 NULL
 
@@ -118,12 +122,16 @@ node_triad_census <- function(object){
 #' | 04 | C4
 #' | Z42, Z43 | diamond
 #' | X4 | K4
+#' 
+#' See also [this list of graph classes](https://www.graphclasses.org/smallgraphs.html#nodes4).
 #' @importFrom tidygraph %E>%
 #' @references 
 #'  Ortmann, Mark, and Ulrik Brandes. 2017. 
 #'  “Efficient Orbit-Aware Triad and Quad Census in Directed and Undirected Graphs.” 
 #'  \emph{Applied Network Science} 2(1):13. 
 #'  \doi{10.1007/s41109-017-0027-2}.
+#' @examples 
+#' node_quad_census(ison_southern_women)
 #' @export
 node_quad_census <- function(object){
   if (!("oaqc" %in% rownames(utils::installed.packages()))) {
@@ -149,6 +157,38 @@ node_quad_census <- function(object){
     make_node_motif(out, object)
   }
 }
+
+#' #' @export
+#' node_bmotif_census <- function(object, normalized = FALSE){
+#'   if (!("bmotif" %in% rownames(utils::installed.packages()))) {
+#'     message("Please install package `{bmotif}`.")
+#'     out <- bmotif::node_positions(as_matrix(object), 
+#'                                   weights_method = ifelse(is_weighted(object),
+#'                                                           'mean_motifweights', 'none'),
+#'                                   normalisation = ifelse(normalized, 
+#'                                                          'levelsize_NAzero', 'none'))
+#'     make_node_motif(out, object)
+#'   }
+#' }
+#' 
+#' #' @export
+#' node_igraph_census <- function(object, normalized = FALSE){
+#'     out <- igraph::motifs(as_igraph(object), 4)
+#'     if(is_labelled(object))
+#'       rownames(out) <- node_names(object)
+#'     colnames(out) <- c("co-K4",
+#'                        "co-diamond",
+#'                        "co-C4",
+#'                        "co-paw",
+#'                        "co-claw",
+#'                        "P4",
+#'                        "claw",
+#'                        "paw",
+#'                        "C4",
+#'                        "diamond",
+#'                        "K4")
+#'     make_node_motif(out, object)
+#' }
 
 #' @describeIn node_census Returns the shortest path lengths
 #'   of each node to every other node in the network.
@@ -176,17 +216,35 @@ node_path_census <- function(object){
   make_node_motif(out, object)
 }
 
-#' Censuses of graphs' motifs
+#' @describeIn node_census Returns the Gould-Fernandez brokerage
+#'   roles played by nodes in a network.
+#' @importFrom sna brokerage
+#' @references 
+#' Gould, R.V. and Fernandez, R.M. 1989. 
+#' “Structures of Mediation: A Formal Approach to Brokerage in Transaction Networks.” 
+#' _Sociological Methodology_, 19: 89-126.
+#' @examples 
+#' node_brokerage_census(ison_networkers, "Discipline")
+#' @export
+node_brokerage_census <- function(object, membership, standardized = FALSE){
+  out <- sna::brokerage(as_network(object), node_attribute(object, membership))
+  out <- if(standardized) out$z.nli else out$raw.nli
+  colnames(out) <- c("Coordinator", "Itinerant", "Gatekeeper", 
+                     "Representative", "Liaison", "Total")
+  make_node_motif(out, object)
+}
+
+#' Censuses of motifs at the network level
 #' 
 #' @name network_census
 #' @family motifs
-#' @param object A migraph-consistent object.
+#' @inheritParams node_census
 #' @param object2 A second, two-mode migraph-consistent object.
 NULL
 
 #' @describeIn network_census Returns a census of dyad motifs in a network
 #' @examples 
-#' network_dyad_census(ison_adolescents)
+#' network_dyad_census(ison_algebra)
 #' @export
 network_dyad_census <- function(object) {
   if (is_twomode(object)) {
@@ -271,3 +329,23 @@ network_mixed_census <- function (object, object2) {
            "00" = sum(onemode.null * bipartite.null) / 2)  
   make_network_motif(res, object)
 }
+
+#' @describeIn network_census Returns the Gould-Fernandez brokerage
+#'   roles in a network.
+#' @importFrom sna brokerage
+#' @references 
+#' Gould, R.V. and Fernandez, R.M. 1989. 
+#' “Structures of Mediation: A Formal Approach to Brokerage in Transaction Networks.” 
+#' _Sociological Methodology_, 19: 89-126.
+#' @examples 
+#' network_brokerage_census(ison_networkers, "Discipline")
+#' @export
+network_brokerage_census <- function(object, membership, standardized = FALSE){
+  out <- sna::brokerage(as_network(object), node_attribute(object, membership))
+  out <- if(standardized) out$z.gli else out$raw.gli
+  names(out) <- c("Coordinator", "Itinerant", "Gatekeeper", 
+                     "Representative", "Liaison", "Total")
+  make_network_motif(out, object)
+}
+
+

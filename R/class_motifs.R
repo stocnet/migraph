@@ -14,6 +14,9 @@ make_network_motif <- function(out, object) {
 print.node_motif <- function(x, ...,
                          max.length = 6,
                          digits = 3) {
+  if(!is.null(attr(x, "dimnames")[[1]])){
+    x <- data.frame(names = attr(x, "dimnames")[[1]], x)
+  }
   if (any(attr(x, "mode"))) {
     print(dplyr::tibble(as.data.frame(x)[!attr(x, "mode")]))
     print(dplyr::tibble(as.data.frame(x)[attr(x, "mode")]))

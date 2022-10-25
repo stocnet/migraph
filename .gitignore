@@ -13,3 +13,5 @@ tests/testthat/Rplots.pdf
 .DS_Store
 CRAN-SUBMISSION
 man/figures/unnamed-chunk-1-1.png
+inst/tutorials/community/community_data/*
+inst/tutorials/equivalence/equivalence_data/*
