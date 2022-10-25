@@ -6,6 +6,7 @@
 \alias{node_triad_census}
 \alias{node_quad_census}
 \alias{node_path_census}
+\alias{node_brokerage_census}
 \title{Censuses of nodes' motifs}
 \usage{
 node_tie_census(object)
@@ -15,6 +16,8 @@ node_triad_census(object)
 node_quad_census(object)
 
 node_path_census(object)
+
+node_brokerage_census(object, membership, standardized = FALSE)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -25,6 +28,12 @@ node_path_census(object)
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
+
+\item{membership}{A vector of partition membership as integers.}
+
+\item{standardized}{Whether the score should be standardized
+into a \emph{z}-score indicating how many standard deviations above
+or below the average the score lies.}
 }
 \description{
 These functions include ways to take a census of the positions of nodes
@@ -32,6 +41,25 @@ in a network. These include a triad census based on the triad profile
 of nodes, but also a tie census based on the particular tie partners
 of nodes. Included also are group census functions for summarising
 the profiles of clusters of nodes in a network.
+
+#' @export
+node_igraph_census <- function(object, normalized = FALSE){
+out <- igraph::motifs(as_igraph(object), 4)
+if(is_labelled(object))
+rownames(out) <- node_names(object)
+colnames(out) <- c("co-K4",
+"co-diamond",
+"co-C4",
+"co-paw",
+"co-claw",
+"P4",
+"claw",
+"paw",
+"C4",
+"diamond",
+"K4")
+make_node_motif(out, object)
+}
 }
 \details{
 The quad census uses the \code{{oaqc}} package to do
@@ -56,6 +84,9 @@ For now, we offer a rough translation:\tabular{ll}{
    Z42, Z43 \tab diamond \cr
    X4 \tab K4 \cr
 }
+
+
+See also \href{https://www.graphclasses.org/smallgraphs.html#nodes4}{this list of graph classes}.
 }
 \section{Functions}{
 \itemize{
@@ -71,13 +102,18 @@ in motifs of four nodes.
 \item \code{node_path_census()}: Returns the shortest path lengths
 of each node to every other node in the network.
 
+\item \code{node_brokerage_census()}: Returns the Gould-Fernandez brokerage
+roles played by nodes in a network.
+
 }}
 \examples{
 task_eg <- to_named(to_uniplex(ison_algebra, "task_tie"))
 (tie_cen <- node_tie_census(task_eg))
 (triad_cen <- node_triad_census(task_eg))
+node_quad_census(ison_southern_women)
 node_path_census(ison_adolescents)
 node_path_census(ison_southern_women)
+node_brokerage_census(ison_networkers, "Discipline")
 }
 \references{
 Davis, James A., and Samuel Leinhardt. 1967.
@@ -97,6 +133,10 @@ Opsahl, Tore, Filip Agneessens, and John Skvoretz. 2010.
 "Node centrality in weighted networks: Generalizing degree and shortest paths".
 \emph{Social Networks} 32(3): 245-51.
 \doi{10.1016/j.socnet.2010.03.006}.
+
+Gould, R.V. and Fernandez, R.M. 1989.
+“Structures of Mediation: A Formal Approach to Brokerage in Transaction Networks.”
+\emph{Sociological Methodology}, 19: 89-126.
 }
 \seealso{
 Other motifs: 
