@@ -9,4 +9,4 @@
 
 0 errors | 0 warnings | 0 notes
 
-- Package size known to be slight over 5Mb (5.1Mb) due to documentation
+- Package size no longer over 5MB
