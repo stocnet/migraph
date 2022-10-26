@@ -216,24 +216,6 @@ node_path_census <- function(object){
   make_node_motif(out, object)
 }
 
-#' @describeIn node_census Returns the Gould-Fernandez brokerage
-#'   roles played by nodes in a network.
-#' @importFrom sna brokerage
-#' @references 
-#' Gould, R.V. and Fernandez, R.M. 1989. 
-#' “Structures of Mediation: A Formal Approach to Brokerage in Transaction Networks.” 
-#' _Sociological Methodology_, 19: 89-126.
-#' @examples 
-#' node_brokerage_census(ison_networkers, "Discipline")
-#' @export
-node_brokerage_census <- function(object, membership, standardized = FALSE){
-  out <- sna::brokerage(as_network(object), node_attribute(object, membership))
-  out <- if(standardized) out$z.nli else out$raw.nli
-  colnames(out) <- c("Coordinator", "Itinerant", "Gatekeeper", 
-                     "Representative", "Liaison", "Total")
-  make_node_motif(out, object)
-}
-
 #' Censuses of motifs at the network level
 #' 
 #' @name network_census
@@ -330,13 +312,33 @@ network_mixed_census <- function (object, object2) {
   make_network_motif(res, object)
 }
 
-#' @describeIn network_census Returns the Gould-Fernandez brokerage
-#'   roles in a network.
+#' Censuses of brokerage motifs
+#' 
+#' @name brokerage_census
+#' @family motifs
+#' @inheritParams node_census
+NULL
+
+#' @describeIn brokerage_census Returns the Gould-Fernandez brokerage
+#'   roles played by nodes in a network.
 #' @importFrom sna brokerage
 #' @references 
 #' Gould, R.V. and Fernandez, R.M. 1989. 
 #' “Structures of Mediation: A Formal Approach to Brokerage in Transaction Networks.” 
 #' _Sociological Methodology_, 19: 89-126.
+#' @examples 
+#' node_brokerage_census(ison_networkers, "Discipline")
+#' @export
+node_brokerage_census <- function(object, membership, standardized = FALSE){
+  out <- sna::brokerage(as_network(object), node_attribute(object, membership))
+  out <- if(standardized) out$z.nli else out$raw.nli
+  colnames(out) <- c("Coordinator", "Itinerant", "Gatekeeper", 
+                     "Representative", "Liaison", "Total")
+  make_node_motif(out, object)
+}
+
+#' @describeIn brokerage_census Returns the Gould-Fernandez brokerage
+#'   roles in a network.
 #' @examples 
 #' network_brokerage_census(ison_networkers, "Discipline")
 #' @export

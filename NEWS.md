@@ -3,6 +3,8 @@
 ## Package
 
 - Converted 'visualisation' vignette to a learnr tutorial
+- Brokerage census gets their own documentation page
+
 # migraph 0.12.3
 
 ## Package
