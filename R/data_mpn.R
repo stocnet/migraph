@@ -334,8 +334,7 @@ NULL
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
 #' Cambridge University Press. Cambridge University Press.
 #' @source 
-#' The Correlates of War Project. 2012.
-#' \href{https://correlatesofwar.org/data-sets/bilateral-trade/}{\emph{Trade}}.
+#' The Correlates of War Project. 2012. \emph{Trade}.
 #' 
 #' Barbieri, Katherine and Omar Keshk. 2012. 
 #' Correlates of War Project Trade Data Set Codebook, Version 3.0.
@@ -348,8 +347,7 @@ NULL
 #' @rdname mpn_cow
 #' @usage data(mpn_cow_igo)
 #' @source
-#' The Correlates of War Project. 2019.
-#' \href{https://correlatesofwar.org/data-sets/IGOs/}{\emph{Intergovernmental Organization v3}}.
+#' The Correlates of War Project. 2019. \emph{Intergovernmental Organization v3}.
 #' @references 
 #' Pevehouse, Jon C.W., Timothy Nordstron, Roseanne W McManus, Anne Spencer Jamison. 2020.
 #' “Tracking Organizations in the World: The Correlates of War IGO Version 3.0 datasets”.

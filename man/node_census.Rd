@@ -6,7 +6,6 @@
 \alias{node_triad_census}
 \alias{node_quad_census}
 \alias{node_path_census}
-\alias{node_brokerage_census}
 \title{Censuses of nodes' motifs}
 \usage{
 node_tie_census(object)
@@ -16,8 +15,6 @@ node_triad_census(object)
 node_quad_census(object)
 
 node_path_census(object)
-
-node_brokerage_census(object, membership, standardized = FALSE)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -28,12 +25,6 @@ node_brokerage_census(object, membership, standardized = FALSE)
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
-
-\item{membership}{A vector of partition membership as integers.}
-
-\item{standardized}{Whether the score should be standardized
-into a \emph{z}-score indicating how many standard deviations above
-or below the average the score lies.}
 }
 \description{
 These functions include ways to take a census of the positions of nodes
@@ -102,9 +93,6 @@ in motifs of four nodes.
 \item \code{node_path_census()}: Returns the shortest path lengths
 of each node to every other node in the network.
 
-\item \code{node_brokerage_census()}: Returns the Gould-Fernandez brokerage
-roles played by nodes in a network.
-
 }}
 \examples{
 task_eg <- to_named(to_uniplex(ison_algebra, "task_tie"))
@@ -113,7 +101,6 @@ task_eg <- to_named(to_uniplex(ison_algebra, "task_tie"))
 node_quad_census(ison_southern_women)
 node_path_census(ison_adolescents)
 node_path_census(ison_southern_women)
-node_brokerage_census(ison_networkers, "Discipline")
 }
 \references{
 Davis, James A., and Samuel Leinhardt. 1967.
@@ -133,13 +120,10 @@ Opsahl, Tore, Filip Agneessens, and John Skvoretz. 2010.
 "Node centrality in weighted networks: Generalizing degree and shortest paths".
 \emph{Social Networks} 32(3): 245-51.
 \doi{10.1016/j.socnet.2010.03.006}.
-
-Gould, R.V. and Fernandez, R.M. 1989.
-“Structures of Mediation: A Formal Approach to Brokerage in Transaction Networks.”
-\emph{Sociological Methodology}, 19: 89-126.
 }
 \seealso{
 Other motifs: 
+\code{\link{brokerage_census}},
 \code{\link{network_census}}
 }
 \concept{motifs}

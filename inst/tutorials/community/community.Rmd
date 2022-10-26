@@ -1,5 +1,5 @@
 ---
-title: "Equivalence"
+title: "Community"
 author: "James Hollway"
 output: learnr::tutorial
 runtime: shiny_prerendered

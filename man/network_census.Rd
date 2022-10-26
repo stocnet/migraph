@@ -5,7 +5,6 @@
 \alias{network_dyad_census}
 \alias{network_triad_census}
 \alias{network_mixed_census}
-\alias{network_brokerage_census}
 \title{Censuses of motifs at the network level}
 \source{
 Alejandro Espinosa 'netmem'
@@ -16,8 +15,6 @@ network_dyad_census(object)
 network_triad_census(object)
 
 network_mixed_census(object, object2)
-
-network_brokerage_census(object, membership, standardized = FALSE)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -30,12 +27,6 @@ network_brokerage_census(object, membership, standardized = FALSE)
 }}
 
 \item{object2}{A second, two-mode migraph-consistent object.}
-
-\item{membership}{A vector of partition membership as integers.}
-
-\item{standardized}{Whether the score should be standardized
-into a \emph{z}-score indicating how many standard deviations above
-or below the average the score lies.}
 }
 \description{
 Censuses of motifs at the network level
@@ -49,16 +40,12 @@ Censuses of motifs at the network level
 \item \code{network_mixed_census()}: Returns a census of triad motifs that span
 a one-mode and a two-mode network
 
-\item \code{network_brokerage_census()}: Returns the Gould-Fernandez brokerage
-roles in a network.
-
 }}
 \examples{
 network_dyad_census(ison_algebra)
 network_triad_census(ison_adolescents)
 marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
 (mixed_cen <- network_mixed_census(marvel_friends, ison_marvel_teams))
-network_brokerage_census(ison_networkers, "Discipline")
 }
 \references{
 Davis, James A., and Samuel Leinhardt. 1967.
@@ -68,13 +55,10 @@ Hollway, James, Alessandro Lomi, Francesca Pallotti, and Christoph Stadtfeld. 20
 “Multilevel Social Spaces: The Network Dynamics of Organizational Fields.”
 \emph{Network Science} 5(2): 187–212.
 \doi{10.1017/nws.2017.8}
-
-Gould, R.V. and Fernandez, R.M. 1989.
-“Structures of Mediation: A Formal Approach to Brokerage in Transaction Networks.”
-\emph{Sociological Methodology}, 19: 89-126.
 }
 \seealso{
 Other motifs: 
+\code{\link{brokerage_census}},
 \code{\link{node_census}}
 }
 \concept{motifs}

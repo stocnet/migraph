@@ -1,23 +1,16 @@
 ---
-title: "2. Visualisation"
+title: "Visualisation"
 author: "James Hollway"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{2. Visualisation}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+output: learnr::tutorial
+runtime: shiny_prerendered
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.cap = "",
-  fig.path = "teaching/"
-)
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# Why we graph
+## Why we graph
 
 Network visualisation is important and non-trivial.
 As Tufte (1983: 9) said:
@@ -48,7 +41,7 @@ that network researchers have to play with:
 - edge shape
 - edge arrows
 
-# Approaches to visualising networks in R
+## Approaches to visualising networks in R
 
 There are a host of packages for plotting in R, 
 and for plotting networks in R.
@@ -72,14 +65,14 @@ This vignette introduces some functions in the `{migraph}` package for plotting 
 visualising network data.
 `{migraph}` builds upon the ggplot2/ggraph engine for plotting.
 
-# Using `{migraph}` to quickly plot network graphs
+## Using `{migraph}` to quickly plot network graphs
   
 To get a basic visualisation of the network before adding various specifications,
 the `autographr()` function in `{migraph}` is a quick and easy way 
 to obtain a clear first look of the network 
 for preliminary investigations and understanding of the network.
   
-```{r migrapheg, echo=TRUE}
+```{r migrapheg, echo=TRUE, exercise = TRUE}
 library(migraph)
 autographr(ison_brandes)
 ```
@@ -91,14 +84,14 @@ the `autographr()` function using the following parameters:
 * `node_shape`
 * `node_size`
 
-## Appending more
+### Appending more
 
 Append `ggtitle()` to add a title.
 `{migraph}` works well with both `{ggplot2}` and `{ggraph}` functions 
 that can be appended to create more tailored visualisations 
 of the network.
   
-```{r migraphexample2, echo=TRUE, message=FALSE, warning=FALSE}
+```{r migraphexample2, echo=TRUE, message=FALSE, warning=FALSE, exercise = TRUE}
 autographr(ison_adolescents,
            labels = TRUE,
            node_size = 1.5) + 
@@ -109,24 +102,24 @@ autographr(ison_adolescents,
 graphs together, e.g. side-by-side or above one another.
 The syntax is quite straight forward and is used throughout these vignettes.
 
-```{r patchwork, echo=TRUE, message=FALSE, warning=FALSE}
+```{r patchwork, echo=TRUE, message=FALSE, warning=FALSE, exercise = TRUE}
 autographr(ison_adolescents) + autographr(ison_algebra)
 autographr(ison_adolescents) / autographr(ison_algebra)
 ```
 
-## Layouts
+### Layouts
 
 A range of graph layouts are available across the `{igraph}`, `{graphlayouts}`, and `{migraph}` packages 
 that can be used together with `autographr()`.
 
-```{r layoutseg, echo=TRUE, message=FALSE, warning=FALSE}
+```{r layoutseg, echo=TRUE, message=FALSE, warning=FALSE, exercise = TRUE}
 (autographr(ison_southern_women, layout = "bipartite") + ggtitle("bipartite") |
 autographr(ison_southern_women, layout = "hierarchy") + ggtitle("hierarchy")) /
 (autographr(ison_southern_women, layout = "concentric") + ggtitle("concentric") |
    autographr(ison_southern_women, layout = "railway") + ggtitle("railway"))
 ```
 
-# Using `{ggraph}` for more flexibility
+## Using `{ggraph}` for more flexibility
 
 For more flexibility with visualizations, 
 `{migraph}` users are encouraged to use the excellent `{ggraph}` package.
@@ -136,7 +129,7 @@ As with `{ggplot2}`, `{ggraph}` users are expected to build
 a particular plot from the ground up,
 adding explicit layers to visualise the nodes and edges.
   
-```{r ggrapheg, echo=TRUE, message=FALSE, warning=FALSE}
+```{r ggrapheg, echo=TRUE, message=FALSE, warning=FALSE, exercise = TRUE}
 library(ggraph)
 ggraph(mpn_elite_mex, layout = "fr") + 
   geom_edge_link(edge_colour = "dark grey", 
@@ -198,7 +191,7 @@ or removed using "none".
 
 For more see David Schoch's [excellent resources on this](http://mr.schochastics.net/netVizR.html).
   
-# Exporting plots to PDF
+## Exporting plots to PDF
 
 We can print the plots we have made to PDF by point-and-click
 by selecting 'Save as PDF...' from under the 'Export' dropdown menu
