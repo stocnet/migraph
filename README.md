@@ -161,8 +161,9 @@ function names wherever possible.
 
 #### Motifs
 
--   Censuses: `node_path_census()`, `node_quad_census()`,
-    `node_tie_census()`, `node_triad_census()`, `network_dyad_census()`,
+-   Censuses: `node_brokerage_census()`, `node_path_census()`,
+    `node_quad_census()`, `node_tie_census()`, `node_triad_census()`,
+    `network_brokerage_census()`, `network_dyad_census()`,
     `network_mixed_census()`, `network_triad_census()`
 
 #### Models
@@ -249,6 +250,31 @@ access them using the following command: .
 This gives you access to the compiled vignettes in html form, as well as
 the original source (an Rmarkdown file), and just the R code without any
 of the annotations.
+
+### Tutorials
+
+We are however moving away from the use of vignettes in this package, in
+favour of smaller and more interactive `{learnr}` tutorials. Since
+version 0.12.3, many of the previous vignettes are instead available as
+tutorials, more will be converted soon, and those that have been
+converted will continue to be updated and enriched.
+
+To access the tutorials, you will need to have the additional package
+`{learnr}` installed: `install.packages("learnr")`. Then we would first
+suggest that you check to see which vignettes are currently available:
+
+``` r
+learnr::available_tutorials("migraph")
+#> Available tutorials:
+#> * migraph
+#>   - community   : "Equivalence"
+#>   - equivalence : "Equivalence"
+```
+
+You can then choose to begin a tutorial using the following command:
+e.g. `learnr::run_tutorial("equivalence", "migraph")`. For more details
+on the `{learnr}` package, see
+[here](https://rstudio.github.io/learnr/).
 
 ## Relationship to other packages
 
