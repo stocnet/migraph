@@ -1,3 +1,8 @@
+# migraph 0.12.4
+
+## Package
+
+- Converted 'visualisation' vignette to a learnr tutorial
 # migraph 0.12.3
 
 ## Package
@@ -8,7 +13,7 @@
 ## Motifs
 
 - Added node names to node_motif class where available
-- Added `node_brokerage_census()` and `network_network_census()` for counting Gould-Fernandez brokerage roles
+- Added `node_brokerage_census()` and `network_brokerage_census()` for counting Gould-Fernandez brokerage roles
 
 # migraph 0.12.2
 
