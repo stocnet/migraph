@@ -3,6 +3,7 @@
 ## Package
 
 - Converted 'visualisation' vignette to a learnr tutorial
+- Deleted troublesome URLs to correlatesofwar.org
 - Brokerage census gets their own documentation page
 
 # migraph 0.12.3
