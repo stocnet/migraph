@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.4</span>
       </span>
     </div>
 
@@ -195,7 +195,7 @@
 <div class="section level4">
 <h4 id="motifs">Motifs<a class="anchor" aria-label="anchor" href="#motifs"></a>
 </h4>
-<ul><li>Censuses: <code><a href="reference/node_census.html">node_path_census()</a></code>, <code><a href="reference/node_census.html">node_quad_census()</a></code>, <code><a href="reference/node_census.html">node_tie_census()</a></code>, <code><a href="reference/node_census.html">node_triad_census()</a></code>, <code><a href="reference/network_census.html">network_dyad_census()</a></code>, <code><a href="reference/network_census.html">network_mixed_census()</a></code>, <code><a href="reference/network_census.html">network_triad_census()</a></code>
+<ul><li>Censuses: <code><a href="reference/brokerage_census.html">node_brokerage_census()</a></code>, <code><a href="reference/node_census.html">node_path_census()</a></code>, <code><a href="reference/node_census.html">node_quad_census()</a></code>, <code><a href="reference/node_census.html">node_tie_census()</a></code>, <code><a href="reference/node_census.html">node_triad_census()</a></code>, <code><a href="reference/brokerage_census.html">network_brokerage_census()</a></code>, <code><a href="reference/network_census.html">network_dyad_census()</a></code>, <code><a href="reference/network_census.html">network_mixed_census()</a></code>, <code><a href="reference/network_census.html">network_triad_census()</a></code>
 </li></ul>
 </div>
 <div class="section level4">
@@ -265,6 +265,19 @@
 <p>To make sure you have the vignettes installed, please either install the latest binary from CRAN for your OS, or use the <code>remotes</code> command above to make sure that the vignettes are also built.</p>
 <p>Once you have the package with the vignettes built installed, you can access them using the following command: .</p>
 <p>This gives you access to the compiled vignettes in html form, as well as the original source (an Rmarkdown file), and just the R code without any of the annotations.</p>
+</div>
+<div class="section level3">
+<h3 id="tutorials">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials"></a>
+</h3>
+<p>We are however moving away from the use of vignettes in this package, in favour of smaller and more interactive <a href="https://rstudio.github.io/learnr/" class="external-link">learnr</a> tutorials. Since version 0.12.3, many of the previous vignettes are instead available as tutorials, more will be converted soon, and those that have been converted will continue to be updated and enriched.</p>
+<p>To access the tutorials, you will need to have the additional package <a href="https://rstudio.github.io/learnr/" class="external-link">learnr</a> installed: <code>install.packages("learnr")</code>. Then we would first suggest that you check to see which vignettes are currently available:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">learnr</span><span class="fu">::</span><span class="fu">available_tutorials</span><span class="op">(</span><span class="st">"migraph"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Available tutorials:</span></span>
+<span><span class="co">#&gt; * migraph</span></span>
+<span><span class="co">#&gt;   - community   : "Equivalence"</span></span>
+<span><span class="co">#&gt;   - equivalence : "Equivalence"</span></span></code></pre></div>
+<p>You can then choose to begin a tutorial using the following command: e.g. <code>learnr::run_tutorial("equivalence", "migraph")</code>. For more details on the <a href="https://rstudio.github.io/learnr/" class="external-link">learnr</a> package, see <a href="https://rstudio.github.io/learnr/" class="external-link">here</a>.</p>
 </div>
 </div>
 <div class="section level2">

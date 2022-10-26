@@ -22,16 +22,7 @@
     <loc>https://snlab-ch.github.io/migraph/articles/p1data.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/articles/p2visualisation.html</loc>
-  </url>
-  <url>
     <loc>https://snlab-ch.github.io/migraph/articles/p3centrality.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/articles/p4community.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/articles/p5equivalence.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/articles/p7linearmodel.html</loc>
@@ -56,6 +47,9 @@
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/autographr.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/brokerage_census.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/centralisation.html</loc>
