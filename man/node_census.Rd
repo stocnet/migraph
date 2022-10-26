@@ -25,12 +25,6 @@ node_path_census(object)
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
-
-\item{membership}{A vector of partition membership as integers.}
-
-\item{standardized}{Whether the score should be standardized
-into a \emph{z}-score indicating how many standard deviations above
-or below the average the score lies.}
 }
 \description{
 These functions include ways to take a census of the positions of nodes

@@ -9,10 +9,6 @@
 #' @name node_census
 #' @family motifs
 #' @inheritParams is
-#' @param membership A vector of partition membership as integers.
-#' @param standardized Whether the score should be standardized
-#'   into a _z_-score indicating how many standard deviations above
-#'   or below the average the score lies.
 #' @importFrom igraph vcount graph.neighborhood delete_vertices triad_census
 NULL
 
@@ -317,6 +313,10 @@ network_mixed_census <- function (object, object2) {
 #' @name brokerage_census
 #' @family motifs
 #' @inheritParams node_census
+#' @param membership A vector of partition membership as integers.
+#' @param standardized Whether the score should be standardized
+#'   into a _z_-score indicating how many standard deviations above
+#'   or below the average the score lies.
 NULL
 
 #' @describeIn brokerage_census Returns the Gould-Fernandez brokerage
