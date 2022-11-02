@@ -1,3 +1,29 @@
+# migraph 0.12.5
+
+## Package
+
+- Added topology tutorial
+
+## Makes
+
+- Fixed integer recognition bug in `generate_random()`
+
+## Manipulating
+
+- Added more similarity options for projection (`to_mode1()` and `to_mode2()`)
+- Fixed bug in `to_redirected.igraph()` where routing through an edgelist caused problems
+
+## Measures
+
+- Elaborated documentation on modularity
+- Added `network_scalefree()` for returning power law alpha/exponent
+  - A message is given if the KS p-value is less than 0.05
+  
+## Data
+
+- Added `ison_lotr` dataset for examples using interactions among Lord of the Rings
+  characters in the books
+
 # migraph 0.12.4
 
 ## Package

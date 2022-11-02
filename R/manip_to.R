@@ -144,10 +144,8 @@ to_redirected.tbl_graph <- function(object) {
 
 #' @export
 to_redirected.igraph <- function(object) {
-    df <- igraph::as_data_frame(object, what = "both")
-    igraph::graph_from_data_frame(df$edges[,c(2:1, 3:ncol(df$edges))], 
-                                  directed = T, df$vertices)
-  }
+  igraph::reverse_edges(object)
+}
 
 #' @export
 to_redirected.data.frame <- function(object) {
@@ -527,7 +525,8 @@ NULL
 to_mode1 <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) UseMethod("to_mode1")
 
 #' @export
-to_mode1.matrix <- function(object, similarity = c("count","jaccard","rand","pearson","yule")) {
+to_mode1.matrix <- function(object, 
+                            similarity = c("count","jaccard","rand","pearson","yule")) {
   similarity <- match.arg(similarity)
   a <- object %*% t(object)
   b <- object %*% (1 - t(object))
@@ -537,6 +536,12 @@ to_mode1.matrix <- function(object, similarity = c("count","jaccard","rand","pea
          "count" = a,
          "jaccard" = a/(a + b + c),
          "rand" = (a + d)/(a + b + c + d),
+         "sokalsneath1" = a/(a + 2 * (b + c)),
+         "sokalsneath2" = a * d/sqrt((a + b) * (a + c) * (d + b) * (d + c)),
+         "gowerlegendre" = (a - (b + c) + d)/(a + b + c + d),
+         "rogerstanimoto" = (a + d)/(a + 2 * (b + c) + d),
+         "czekanowski" = 2*a/(2 * a + b + c),
+         "ochiai" = a/sqrt((a+b)*(a+c)),
          "pearson" = cor(t(object)),
          "yule" = (a*d - b*c)/(a*d + b*c))
   diag(out) <- 0
@@ -583,6 +588,12 @@ to_mode2.matrix <- function(object, similarity = c("count","jaccard","rand","pea
                 "count" = a,
                 "jaccard" = a/(a + b + c),
                 "rand" = (a + d)/(a + b + c + d),
+                "sokalsneath1" = a/(a + 2 * (b + c)),
+                "sokalsneath2" = a * d/sqrt((a + b) * (a + c) * (d + b) * (d + c)),
+                "gowerlegendre" = (a - (b + c) + d)/(a + b + c + d),
+                "rogerstanimoto" = (a + d)/(a + 2 * (b + c) + d),
+                "czekanowski" = 2*a/(2 * a + b + c),
+                "ochiai" = a/sqrt((a+b)*(a+c)),
                 "pearson" = cor(object),
                 "yule" = (a*d - b*c)/(a*d + b*c))
   diag(out) <- 0
