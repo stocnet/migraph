@@ -39,8 +39,24 @@ network_factions <- function(object,
   make_network_measure(out, object)
 }
 
-#' @describeIn features Returns modularity of one- or two-mode networks
-#'    based on nodes' membership in pre-defined clusters. 
+#' @describeIn features Returns modularity based on nodes' membership 
+#'   in pre-defined clusters.
+#' @section Modularity:
+#'   Modularity measures the difference between the number of ties within each community
+#'   from the number of ties expected within each community in a random graph
+#'   with the same degrees, and ranges between -1 and +1.
+#'   Modularity scores of +1 mean that ties only appear within communities,
+#'   while -1 would mean that ties only appear between communities.
+#'   A score of 0 would mean that ties are half within and half between communities,
+#'   as one would expect in a random graph.
+#'   
+#'   Modularity faces a difficult problem known as the resolution limit 
+#'   (Fortunato and Barthélemy 2007).
+#'   This problem appears when optimising modularity,
+#'   particularly with large networks or depending on the degree of interconnectedness,
+#'   can miss small clusters that 'hide' inside larger clusters.
+#'   In the extreme case, this can be where they are only connected
+#'   to the rest of the network through a single tie.
 #' @param resolution A proportion indicating the resolution scale.
 #'   By default 1.
 #' @examples 
@@ -51,7 +67,7 @@ network_factions <- function(object,
 #' @references 
 #' Murata, Tsuyoshi. 2010. Modularity for Bipartite Networks. 
 #' In: Memon, N., Xu, J., Hicks, D., Chen, H. (eds) 
-#' _Data Mining for Social Network Data. Annals of Information Systems_, V1ol 12. 
+#' _Data Mining for Social Network Data. Annals of Information Systems_, Vol 12. 
 #' Springer, Boston, MA. 
 #' \doi{10.1007/978-1-4419-6287-4_7}
 #' @export
@@ -95,9 +111,6 @@ network_modularity <- function(object,
 #'     with the same dimensions.
 #'     \eqn{SWI} also ranges between 0 and 1 with the same interpretation, 
 #'     but where there may not be a network for which \eqn{SWI = 1}.
-#' @examples
-#' network_smallworld(ison_brandes)
-#' network_smallworld(ison_southern_women)
 #' @seealso [network_transitivity()] and [network_equivalency()]
 #'   for how clustering is calculated
 #' @references 
@@ -115,6 +128,9 @@ network_modularity <- function(object,
 #'   "How small is it? Comparing indices of small worldliness". 
 #'   _Network Science_. 5 (1): 30–44.
 #'   \doi{10.1017/nws.2017.5}.
+#' @examples
+#' network_smallworld(ison_brandes)
+#' network_smallworld(ison_southern_women)
 #' @export
 network_smallworld <- function(object, 
                                method = c("omega", "sigma", "SWI"),
