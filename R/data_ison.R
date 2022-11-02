@@ -41,6 +41,18 @@
 #' 558 signed (`1` = friends, `-1` = enemies) undirected ties
 "ison_marvel_relationships"
 
+# Lord of the Rings ####
+
+#' One-mode interaction network of Lord of the Rings (book) character interactions
+#'
+#' @docType data
+#' @keywords datasets
+#' @name ison_lotr
+#' @usage data(ison_lotr)
+#' @format One-mode tidygraph of 36 Lord of the Rings book characters and 
+#'   66 interactions
+"ison_lotr"
+
 # Projection ####
 
 #' Two-mode projection examples (Hollway 2021)
