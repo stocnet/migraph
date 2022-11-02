@@ -1,0 +1,214 @@
+---
+title: "Topology"
+author: "James Hollway, Andrea Biswas-Tortajada"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(migraph)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Generate networks of different structures
+
+This tutorial covers a range of different network topologies:
+trees, lattices, random, small-world, scale-free, and core-periphery
+networks.
+These ideal networks exaggerate centrality, cohesion, and randomness features, 
+and are thus great for theory-building and investigating the relationship between rules and structure.
+
+In this practical, we're going to create/generate
+a number of ideal-typical network topologies and plot them.
+We'll first look at some deterministic algorithms for _creating_ networks
+of different structures, 
+and then look at how the introduction of some randomness can _generate_ a variety of network structures.
+
+## Deterministic graphs with `create_*()`
+
+We can use this to make graphs like this:
+
+```{r empty, exercise=TRUE}
+(emptyg <- autographr(create_empty(50), "circle") + ggtitle("Empty graph"))
+(compg <- autographr(to_undirected(create_complete(50))) + ggtitle("Complete graph"))
+(compg2 <- autographr(to_undirected(create_complete(50/2))) + ggtitle("Complete graph (smaller)"))
+emptyg + compg + compg2
+```
+
+`create_empty()` creates an empty graph with the given number of nodes, 
+in this case 50 nodes.
+For `create_complete()` we're creating a full graph,
+where all of the nodes are connected to all of the other nodes.
+
+### Stars
+
+In a star network, there is one node to which all other nodes are connected.
+There is no transitivity.
+The maximum path length is two.
+And centrality is maximised!
+This network maximises all centrality measures as one node acts
+as the sole bridge connecting one part of the network to the other
+
+```{r star, exercise = TRUE}
+(star1 <- autographr(create_star(50)) + ggtitle("Star graph"))
+(star2 <- autographr(create_star(50, directed = TRUE)) + ggtitle("Star out"))
+(star3 <- autographr(to_redirected(create_star(50, directed = TRUE))) + ggtitle("Star in"))
+```
+
+### Trees
+
+Trees, or regular trees, are networks with branching nodes.
+They can be directed or undirected, and tend to indicate strong hierarchy.
+
+```{r tree, exercise = TRUE}
+(tree1 <- autographr(create_tree(50, width = 2)) + ggtitle("Tree graph"))
+(tree2 <- autographr(create_tree(50, width = 2, directed = TRUE)) + ggtitle("Tree out"))
+(tree3 <- autographr(create_tree(50, width = 2, directed = TRUE), "tree") + ggtitle("Tree layout"))
+```
+
+### Lattices
+
+Lattices reflect highly clustered networks
+where there is a high likelihood that interaction partners also interact.
+They are used to show how clustering facilitates or limits diffusion
+or makes pockets of behaviour stable.
+
+Note that `create_lattice()` in `{migraph}` works a little differently
+to how it works in `{igraph}`.
+In `{igraph}` the number or vector passed to the function indicates
+the length of each dimension.
+So `c(50)` would be a one-dimensional lattice,
+essentially a chain of 50 nodes connected to their neighbours.
+`c(50,50)` would be a two-dimensional lattice,
+of 50 nodes long and 50 nodes wide.
+`c(50,50,50)` would be a three-dimensional lattice,
+of 50 nodes long, 50 nodes wide, and 50 nodes deep, etc.
+
+But this doesn't help us when we want to see what a lattice representation
+with the same order (number of nodes) as a given network would be.
+For example, perhaps we just want to know what a lattice with 50 nodes
+would look like.
+So `{migraph}` instead tries to find the most even or balanced 
+two-dimensional representation with a given number of nodes.
+
+```{r lattices, exercise = TRUE}
+(lat1 <- autographr(create_lattice(50)) + ggtitle("One-mode lattice graph"))
+```
+
+### Rings
+
+This creates a graph where each node has two separate neighbours
+which creates a ring graph
+If we want a more densely connected neighbourhood (some transtivity)
+we can further connect those at distance two
+This isn't particularly revealing though, because the ties run concurrently
+
+```{r rings, exercise = TRUE}
+(ring1 <- autographr(create_ring(50)) + ggtitle("Ring graph", subtitle = "Starring Naomi Watts"))
+(ring2 <- autographr(create_ring(50, width = 2), "circle") + ggtitle("The Ring Two"))
+(ring3 <- autographr(create_ring(50, width = 2), "stress") + ggtitle("The Ring Two v2.0"))
+```
+
+## Probabilistic graphs with `generate_*()`
+
+Next we are going to take a look at some probabilistic graphs.
+
+### Random graphs
+
+An Erdös-Renyi graph is simply a random graph.
+You will need to specify the probability of a tie
+in addition to the number of nodes.
+An An Erdos-Renyi  graph on the vertex set $V$ is a random graph
+which connects each pair of nodes ${i,j}$ with probability $p$, independent.
+Note that for a “sparse” ER graphs, $p$ must decrease as $N$ goes up.
+
+```{r random, exercise = TRUE}
+(erdren1 <- autographr(generate_random(50, 0.08)) + ggtitle("Random 1 graph"))
+(erdren2 <- autographr(generate_random(50, 0.08)) + ggtitle("Random 2 graph"))
+(erdren3 <- autographr(generate_random(50, 0.08)) + ggtitle("Random 3 graph"))
+```
+
+Keep going if you like... it will be a little different every time.
+Note that you can also pass the second argument an integer,
+in which case the function will interpret that as the number of ties/edges rather than the probability that a tie is present.
+
+```{r randomno, exercise = TRUE}
+(erdren4 <- autographr(generate_random(50, 200)) + ggtitle("Random 1 graph"))
+```
+
+### Small-world graphs
+
+Remember the ring graph from above?
+What if we rewire (change) some of the edges at a certain probability?
+
+```{r smallw, exercise = TRUE}
+(watstr1 <- autographr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 1 graph"))
+(watstr2 <- autographr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 2 graph"))
+(watstr3 <- autographr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 3 graph"))
+```
+
+With on average 2.5 ties randomly rewired, does the structure look different?
+This is a small-world network, where clustering/transitivity remains high
+but path lengths are much lower than they would otherwise be.
+Remember that in a small-world network, the shortest-path  distance between nodes
+increases sufficiently slowly as a function of the number of nodes in the network.
+You can also call these networks a Watts–Strogatz toy network.
+If you want to review this, go back to the reading by Watts (2004).
+
+There is also such a thing as a small-world coefficient.
+See the help page for more details,
+but with the default equation ('omega'),
+the coefficient typically ranges between 0 and 1,
+where 1 is as close to a small-world as possible.
+
+```{r smallwtest, exercise = TRUE}
+network_smallworld(generate_smallworld(50, 0.25))
+```
+
+### Scale-free graphs
+
+There is another famous model in network science: the scale-free model.
+Remember:
+"In many real-world networks, the distribution of the number of network neighbours
+the degree distribution is typically right-skewed with a "heavy tail".
+A majority of the nodes have less-than-average degree and
+a small fraction of hubs are many times better connected than average (2004, p. 250).
+
+The following generates a scale-free graph according to the Barabasi-Albert (BA) model
+that rests upon the mechanism of preferential attachment.
+More on this on the Watts paper (2005, p.51) and Merton (1968)
+The BA model rests on two mechanisms: 
+population growth and preferential attachment.
+Population growth: real networks grow in time as new members join the population.
+Preferential/cumulative attachment means that newly arriving nodes will tend to
+connect to already well-connected nodes rather than poorly connected ones.
+
+The first graph shows a directed network.
+For this function, $p = x$ refers to the number of edges in the network/ number of possible edges.
+
+```{r scalef, exercise = TRUE}
+(baralb1 <- autographr(generate_scalefree(50, 0.5)) +
+    ggtitle("Scalefree 1 graph", subtitle = "Power = .5"))
+(baralb2 <- autographr(generate_scalefree(50, 1)) +
+    ggtitle("Scalefree 2 graph", subtitle = "Power = 1"))
+(baralb3 <- autographr(generate_scalefree(50, 1.5)) +
+    ggtitle("Scalefree 3 graph", subtitle = "Power = 1.5"))
+baralb1 + baralb2 + baralb3
+```
+
+You can test whether a network has a degree distribution that fits
+the scale-free model using the following function:
+
+```{r scaleftest, exercise = TRUE}
+network_scalefree(generate_scalefree(50, 1.5))
+network_scalefree(generate_scalefree(50, 0.02))
+```
+
+When a Kolmogorov-Smirnov test p-value less than 0.05 is implied,
+a message is given that you should reject the hypothesis 
+that a power law fits here.
+With an alpha/power-law exponent between 2 and 3, 
+one generally cannot reject the hypothesis that the observed data 
+comes from a power-law distribution.
+be .
