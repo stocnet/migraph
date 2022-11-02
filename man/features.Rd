@@ -127,8 +127,8 @@ network_modularity(ison_southern_women,
 network_smallworld(ison_brandes)
 network_smallworld(ison_southern_women)
 network_scalefree(ison_adolescents)
-network_scalefree(create_lattice(100))
 network_scalefree(generate_scalefree(50, 1.5))
+network_scalefree(create_lattice(100))
 network_balance(ison_marvel_relationships)
 }
 \references{

@@ -144,10 +144,8 @@ to_redirected.tbl_graph <- function(object) {
 
 #' @export
 to_redirected.igraph <- function(object) {
-    df <- igraph::as_data_frame(object, what = "both")
-    igraph::graph_from_data_frame(df$edges[,c(2:1, 3:ncol(df$edges))], 
-                                  directed = T, df$vertices)
-  }
+  igraph::reverse_edges(object)
+}
 
 #' @export
 to_redirected.data.frame <- function(object) {
