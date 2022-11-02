@@ -25,21 +25,32 @@ We'll first look at some deterministic algorithms for _creating_ networks
 of different structures, 
 and then look at how the introduction of some randomness can _generate_ a variety of network structures.
 
-## Deterministic graphs with `create_*()`
+## Deterministic graphs
 
-We can use this to make graphs like this:
-
-```{r empty, exercise=TRUE}
-(emptyg <- autographr(create_empty(50), "circle") + ggtitle("Empty graph"))
-(compg <- autographr(to_undirected(create_complete(50))) + ggtitle("Complete graph"))
-(compg2 <- autographr(to_undirected(create_complete(50/2))) + ggtitle("Complete graph (smaller)"))
-emptyg + compg + compg2
-```
-
+To begin with, let's create a few 'empty' and full or 'complete' graphs.
+You will want to use some of the `create_*()` group of functions,
+because they create graphs following some strict rule(s).
+The two functions you will want to use here are `create_empty()` and `create_complete()`.
 `create_empty()` creates an empty graph with the given number of nodes, 
 in this case 50 nodes.
 For `create_complete()` we're creating a full graph,
 where all of the nodes are connected to all of the other nodes.
+
+Let's say that we want to explore networks of fifty nodes in this script.
+Graph one empty and one complete network with 50 nodes each,
+give them an informative title, and plot the graphs together.
+What would a complete network with half the nodes look like?
+Add that too.
+
+```{r empty, exercise=TRUE}
+
+```
+
+```{r empty-solution}
+(emptyg <- autographr(create_empty(50), "circle") + ggtitle("Empty graph"))
+(compg <- autographr(to_undirected(create_complete(50))) + ggtitle("Complete graph"))
+(compg2 <- autographr(to_undirected(create_complete(50/2))) + ggtitle("Complete graph (smaller)"))
+```
 
 ### Stars
 
@@ -48,9 +59,19 @@ There is no transitivity.
 The maximum path length is two.
 And centrality is maximised!
 This network maximises all centrality measures as one node acts
-as the sole bridge connecting one part of the network to the other
+as the sole bridge connecting one part of the network to the other.
+
+Use the `create_star()` function to graph three star networks:
+
+- an undirected star network
+- a out-directed star network
+- and an in-directed star network
 
 ```{r star, exercise = TRUE}
+
+```
+
+```{r star-solution}
 (star1 <- autographr(create_star(50)) + ggtitle("Star graph"))
 (star2 <- autographr(create_star(50, directed = TRUE)) + ggtitle("Star out"))
 (star3 <- autographr(to_redirected(create_star(50, directed = TRUE))) + ggtitle("Star in"))
@@ -60,12 +81,23 @@ as the sole bridge connecting one part of the network to the other
 
 Trees, or regular trees, are networks with branching nodes.
 They can be directed or undirected, and tend to indicate strong hierarchy.
+Again graph three networks:
+
+- one undirected with 2 branches per node
+- a directed network with 2 branches per node
+- the same as above, but graphed using the "tree" layout
 
 ```{r tree, exercise = TRUE}
+
+```
+
+```{r tree-solution}
 (tree1 <- autographr(create_tree(50, width = 2)) + ggtitle("Tree graph"))
 (tree2 <- autographr(create_tree(50, width = 2, directed = TRUE)) + ggtitle("Tree out"))
 (tree3 <- autographr(create_tree(50, width = 2, directed = TRUE), "tree") + ggtitle("Tree layout"))
 ```
+
+Try varying the `width` argument to see the result.
 
 ### Lattices
 
@@ -85,34 +117,52 @@ of 50 nodes long and 50 nodes wide.
 `c(50,50,50)` would be a three-dimensional lattice,
 of 50 nodes long, 50 nodes wide, and 50 nodes deep, etc.
 
-But this doesn't help us when we want to see what a lattice representation
+_But_ this doesn't help us when we want to see what a lattice representation
 with the same order (number of nodes) as a given network would be.
 For example, perhaps we just want to know what a lattice with 50 nodes
 would look like.
 So `{migraph}` instead tries to find the most even or balanced 
 two-dimensional representation with a given number of nodes.
 
+Graph two lattices, one with 50 nodes, 
+and another with half the number of nodes.
+
 ```{r lattices, exercise = TRUE}
+
+```
+
+```{r lattices-solution}
 (lat1 <- autographr(create_lattice(50)) + ggtitle("One-mode lattice graph"))
+(lat2 <- autographr(create_lattice(50/2)) + ggtitle("Smaller lattice graph"))
 ```
 
 ### Rings
 
 This creates a graph where each node has two separate neighbours
-which creates a ring graph
-If we want a more densely connected neighbourhood (some transtivity)
-we can further connect those at distance two
-This isn't particularly revealing though, because the ties run concurrently
+which creates a ring graph.
+Graph three ring networks:
+
+- one with 50 nodes
+- one with 50 nodes where they are connected to neighbours two steps away,
+  on a "circle" layout
+- the same as above, but on a "stress" layout
 
 ```{r rings, exercise = TRUE}
+
+```
+
+```{r rings-solution}
 (ring1 <- autographr(create_ring(50)) + ggtitle("Ring graph", subtitle = "Starring Naomi Watts"))
-(ring2 <- autographr(create_ring(50, width = 2), "circle") + ggtitle("The Ring Two"))
+(ring2 <- autographr(create_ring(50, width = 2), "circle") + ggtitle("The Ring Two", subtitle = "No different?"))
 (ring3 <- autographr(create_ring(50, width = 2), "stress") + ggtitle("The Ring Two v2.0"))
 ```
 
-## Probabilistic graphs with `generate_*()`
+## Probabilistic graphs
 
 Next we are going to take a look at some probabilistic graphs.
+These involve some random element, perhaps in addition to specific rules,
+to stochastically 'generate' networks of certain types of topologies.
+As such, we'll be using the `generate_*()` group of functions here.
 
 ### Random graphs
 
@@ -122,8 +172,13 @@ in addition to the number of nodes.
 An An Erdos-Renyi  graph on the vertex set $V$ is a random graph
 which connects each pair of nodes ${i,j}$ with probability $p$, independent.
 Note that for a “sparse” ER graphs, $p$ must decrease as $N$ goes up.
+Generate three random networks of 50 nodes and a density of 0.08:
 
 ```{r random, exercise = TRUE}
+
+```
+
+```{r random-solution}
 (erdren1 <- autographr(generate_random(50, 0.08)) + ggtitle("Random 1 graph"))
 (erdren2 <- autographr(generate_random(50, 0.08)) + ggtitle("Random 2 graph"))
 (erdren3 <- autographr(generate_random(50, 0.08)) + ggtitle("Random 3 graph"))
@@ -132,8 +187,13 @@ Note that for a “sparse” ER graphs, $p$ must decrease as $N$ goes up.
 Keep going if you like... it will be a little different every time.
 Note that you can also pass the second argument an integer,
 in which case the function will interpret that as the number of ties/edges rather than the probability that a tie is present.
+Try generating a random graph with 200 edges/ties now:
 
 ```{r randomno, exercise = TRUE}
+
+```
+
+```{r randomno-solution}
 (erdren4 <- autographr(generate_random(50, 200)) + ggtitle("Random 1 graph"))
 ```
 
@@ -141,8 +201,14 @@ in which case the function will interpret that as the number of ties/edges rathe
 
 Remember the ring graph from above?
 What if we rewire (change) some of the edges at a certain probability?
+This is how small-world networks are generated.
+Graph three small-world networks, all with 50 nodes and a rewiring probability of 0.025.
 
 ```{r smallw, exercise = TRUE}
+
+```
+
+```{r smallw-solution}
 (watstr1 <- autographr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 1 graph"))
 (watstr2 <- autographr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 2 graph"))
 (watstr3 <- autographr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 3 graph"))
@@ -156,13 +222,19 @@ increases sufficiently slowly as a function of the number of nodes in the networ
 You can also call these networks a Watts–Strogatz toy network.
 If you want to review this, go back to the reading by Watts (2004).
 
-There is also such a thing as a small-world coefficient.
+There is also such a thing as a network's small-world coefficient.
 See the help page for more details,
 but with the default equation ('omega'),
 the coefficient typically ranges between 0 and 1,
 where 1 is as close to a small-world as possible.
+Try it now on a small-world generated network,
+but with a rewiring probability of 0.25:
 
 ```{r smallwtest, exercise = TRUE}
+
+```
+
+```{r smallwtest-solution}
 network_smallworld(generate_smallworld(50, 0.25))
 ```
 
@@ -184,31 +256,36 @@ Population growth: real networks grow in time as new members join the population
 Preferential/cumulative attachment means that newly arriving nodes will tend to
 connect to already well-connected nodes rather than poorly connected ones.
 
-The first graph shows a directed network.
-For this function, $p = x$ refers to the number of edges in the network/ number of possible edges.
+Generate and graph three scale-free networks,
+with alpha parameters of 0.5, 1, and 1.5.
 
 ```{r scalef, exercise = TRUE}
+
+```
+
+```{r scalef-solution}
 (baralb1 <- autographr(generate_scalefree(50, 0.5)) +
     ggtitle("Scalefree 1 graph", subtitle = "Power = .5"))
 (baralb2 <- autographr(generate_scalefree(50, 1)) +
     ggtitle("Scalefree 2 graph", subtitle = "Power = 1"))
 (baralb3 <- autographr(generate_scalefree(50, 1.5)) +
     ggtitle("Scalefree 3 graph", subtitle = "Power = 1.5"))
-baralb1 + baralb2 + baralb3
 ```
 
-You can test whether a network has a degree distribution that fits
-the scale-free model using the following function:
-
-```{r scaleftest, exercise = TRUE}
-network_scalefree(generate_scalefree(50, 1.5))
-network_scalefree(generate_scalefree(50, 0.02))
-```
-
+You can also test whether a network has a degree distribution that fits
+the scale-free model.
 When a Kolmogorov-Smirnov test p-value less than 0.05 is implied,
 a message is given that you should reject the hypothesis 
 that a power law fits here.
 With an alpha/power-law exponent between 2 and 3, 
 one generally cannot reject the hypothesis that the observed data 
 comes from a power-law distribution.
-be .
+
+```{r scaleftest, exercise = TRUE}
+
+```
+
+```{r scaleftest-solution}
+network_scalefree(generate_scalefree(50, 2))
+```
+

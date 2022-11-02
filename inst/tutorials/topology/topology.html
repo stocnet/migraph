@@ -124,48 +124,80 @@ deterministic algorithms for <em>creating</em> networks of different
 structures, and then look at how the introduction of some randomness can
 <em>generate</em> a variety of network structures.</p>
 </div>
-<div id="section-deterministic-graphs-with-create_"
-class="section level2">
-<h2>Deterministic graphs with <code>create_*()</code></h2>
-<p>We can use this to make graphs like this:</p>
+<div id="section-deterministic-graphs" class="section level2">
+<h2>Deterministic graphs</h2>
+<p>To begin with, let’s create a few ‘empty’ and full or ‘complete’
+graphs. You will want to use some of the <code>create_*()</code> group
+of functions, because they create graphs following some strict rule(s).
+The two functions you will want to use here are
+<code>create_empty()</code> and <code>create_complete()</code>.
+<code>create_empty()</code> creates an empty graph with the given number
+of nodes, in this case 50 nodes. For <code>create_complete()</code>
+we’re creating a full graph, where all of the nodes are connected to all
+of the other nodes.</p>
+<p>Let’s say that we want to explore networks of fifty nodes in this
+script. Graph one empty and one complete network with 50 nodes each,
+give them an informative title, and plot the graphs together. What would
+a complete network with half the nodes look like? Add that too.</p>
 <div class="tutorial-exercise" data-label="empty" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>(emptyg &lt;- autographr(create_empty(50), &quot;circle&quot;) + ggtitle(&quot;Empty graph&quot;))
-(compg &lt;- autographr(to_undirected(create_complete(50))) + ggtitle(&quot;Complete graph&quot;))
-(compg2 &lt;- autographr(to_undirected(create_complete(50/2))) + ggtitle(&quot;Complete graph (smaller)&quot;))
-emptyg + compg + compg2</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
-<p><code>create_empty()</code> creates an empty graph with the given
-number of nodes, in this case 50 nodes. For
-<code>create_complete()</code> we’re creating a full graph, where all of
-the nodes are connected to all of the other nodes.</p>
+<div class="tutorial-exercise-support" data-label="empty-solution"
+data-completion="1" data-diagnostics="1" data-startover="1"
+data-lines="0">
+<pre class="text"><code>(emptyg &lt;- autographr(create_empty(50), &quot;circle&quot;) + ggtitle(&quot;Empty graph&quot;))
+(compg &lt;- autographr(to_undirected(create_complete(50))) + ggtitle(&quot;Complete graph&quot;))
+(compg2 &lt;- autographr(to_undirected(create_complete(50/2))) + ggtitle(&quot;Complete graph (smaller)&quot;))</code></pre>
+</div>
 <div id="section-stars" class="section level3">
 <h3>Stars</h3>
 <p>In a star network, there is one node to which all other nodes are
 connected. There is no transitivity. The maximum path length is two. And
 centrality is maximised! This network maximises all centrality measures
 as one node acts as the sole bridge connecting one part of the network
-to the other</p>
+to the other.</p>
+<p>Use the <code>create_star()</code> function to graph three star
+networks:</p>
+<ul>
+<li>an undirected star network</li>
+<li>a out-directed star network</li>
+<li>and an in-directed star network</li>
+</ul>
 <div class="tutorial-exercise" data-label="star" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0">
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="star-solution"
+data-completion="1" data-diagnostics="1" data-startover="1"
+data-lines="0">
 <pre class="text"><code>(star1 &lt;- autographr(create_star(50)) + ggtitle(&quot;Star graph&quot;))
 (star2 &lt;- autographr(create_star(50, directed = TRUE)) + ggtitle(&quot;Star out&quot;))
 (star3 &lt;- autographr(to_redirected(create_star(50, directed = TRUE))) + ggtitle(&quot;Star in&quot;))</code></pre>
-<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 </div>
 <div id="section-trees" class="section level3">
 <h3>Trees</h3>
 <p>Trees, or regular trees, are networks with branching nodes. They can
-be directed or undirected, and tend to indicate strong hierarchy.</p>
+be directed or undirected, and tend to indicate strong hierarchy. Again
+graph three networks:</p>
+<ul>
+<li>one undirected with 2 branches per node</li>
+<li>a directed network with 2 branches per node</li>
+<li>the same as above, but graphed using the “tree” layout</li>
+</ul>
 <div class="tutorial-exercise" data-label="tree" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0">
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="tree-solution"
+data-completion="1" data-diagnostics="1" data-startover="1"
+data-lines="0">
 <pre class="text"><code>(tree1 &lt;- autographr(create_tree(50, width = 2)) + ggtitle(&quot;Tree graph&quot;))
 (tree2 &lt;- autographr(create_tree(50, width = 2, directed = TRUE)) + ggtitle(&quot;Tree out&quot;))
 (tree3 &lt;- autographr(create_tree(50, width = 2, directed = TRUE), &quot;tree&quot;) + ggtitle(&quot;Tree layout&quot;))</code></pre>
-<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
+<p>Try varying the <code>width</code> argument to see the result.</p>
 </div>
 <div id="section-lattices" class="section level3">
 <h3>Lattices</h3>
@@ -182,38 +214,55 @@ their neighbours. <code>c(50,50)</code> would be a two-dimensional
 lattice, of 50 nodes long and 50 nodes wide. <code>c(50,50,50)</code>
 would be a three-dimensional lattice, of 50 nodes long, 50 nodes wide,
 and 50 nodes deep, etc.</p>
-<p>But this doesn’t help us when we want to see what a lattice
+<p><em>But</em> this doesn’t help us when we want to see what a lattice
 representation with the same order (number of nodes) as a given network
 would be. For example, perhaps we just want to know what a lattice with
 50 nodes would look like. So <code>{migraph}</code> instead tries to
 find the most even or balanced two-dimensional representation with a
 given number of nodes.</p>
+<p>Graph two lattices, one with 50 nodes, and another with half the
+number of nodes.</p>
 <div class="tutorial-exercise" data-label="lattices" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>(lat1 &lt;- autographr(create_lattice(50)) + ggtitle(&quot;One-mode lattice graph&quot;))</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="lattices-solution"
+data-completion="1" data-diagnostics="1" data-startover="1"
+data-lines="0">
+<pre class="text"><code>(lat1 &lt;- autographr(create_lattice(50)) + ggtitle(&quot;One-mode lattice graph&quot;))
+(lat2 &lt;- autographr(create_lattice(50/2)) + ggtitle(&quot;Smaller lattice graph&quot;))</code></pre>
 </div>
 </div>
 <div id="section-rings" class="section level3">
 <h3>Rings</h3>
 <p>This creates a graph where each node has two separate neighbours
-which creates a ring graph If we want a more densely connected
-neighbourhood (some transtivity) we can further connect those at
-distance two This isn’t particularly revealing though, because the ties
-run concurrently</p>
+which creates a ring graph. Graph three ring networks:</p>
+<ul>
+<li>one with 50 nodes</li>
+<li>one with 50 nodes where they are connected to neighbours two steps
+away, on a “circle” layout</li>
+<li>the same as above, but on a “stress” layout</li>
+</ul>
 <div class="tutorial-exercise" data-label="rings" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>(ring1 &lt;- autographr(create_ring(50)) + ggtitle(&quot;Ring graph&quot;, subtitle = &quot;Starring Naomi Watts&quot;))
-(ring2 &lt;- autographr(create_ring(50, width = 2), &quot;circle&quot;) + ggtitle(&quot;The Ring Two&quot;))
-(ring3 &lt;- autographr(create_ring(50, width = 2), &quot;stress&quot;) + ggtitle(&quot;The Ring Two v2.0&quot;))</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
+<div class="tutorial-exercise-support" data-label="rings-solution"
+data-completion="1" data-diagnostics="1" data-startover="1"
+data-lines="0">
+<pre class="text"><code>(ring1 &lt;- autographr(create_ring(50)) + ggtitle(&quot;Ring graph&quot;, subtitle = &quot;Starring Naomi Watts&quot;))
+(ring2 &lt;- autographr(create_ring(50, width = 2), &quot;circle&quot;) + ggtitle(&quot;The Ring Two&quot;, subtitle = &quot;No different?&quot;))
+(ring3 &lt;- autographr(create_ring(50, width = 2), &quot;stress&quot;) + ggtitle(&quot;The Ring Two v2.0&quot;))</code></pre>
 </div>
 </div>
-<div id="section-probabilistic-graphs-with-generate_"
-class="section level2">
-<h2>Probabilistic graphs with <code>generate_*()</code></h2>
-<p>Next we are going to take a look at some probabilistic graphs.</p>
+</div>
+<div id="section-probabilistic-graphs" class="section level2">
+<h2>Probabilistic graphs</h2>
+<p>Next we are going to take a look at some probabilistic graphs. These
+involve some random element, perhaps in addition to specific rules, to
+stochastically ‘generate’ networks of certain types of topologies. As
+such, we’ll be using the <code>generate_*()</code> group of functions
+here.</p>
 <div id="section-random-graphs" class="section level3">
 <h3>Random graphs</h3>
 <p>An Erdös-Renyi graph is simply a random graph. You will need to
@@ -223,34 +272,50 @@ class="math inline">\(V\)</span> is a random graph which connects each
 pair of nodes <span class="math inline">\({i,j}\)</span> with
 probability <span class="math inline">\(p\)</span>, independent. Note
 that for a “sparse” ER graphs, <span class="math inline">\(p\)</span>
-must decrease as <span class="math inline">\(N\)</span> goes up.</p>
+must decrease as <span class="math inline">\(N\)</span> goes up.
+Generate three random networks of 50 nodes and a density of 0.08:</p>
 <div class="tutorial-exercise" data-label="random" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0">
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="random-solution"
+data-completion="1" data-diagnostics="1" data-startover="1"
+data-lines="0">
 <pre class="text"><code>(erdren1 &lt;- autographr(generate_random(50, 0.08)) + ggtitle(&quot;Random 1 graph&quot;))
 (erdren2 &lt;- autographr(generate_random(50, 0.08)) + ggtitle(&quot;Random 2 graph&quot;))
 (erdren3 &lt;- autographr(generate_random(50, 0.08)) + ggtitle(&quot;Random 3 graph&quot;))</code></pre>
-<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <p>Keep going if you like… it will be a little different every time.
 Note that you can also pass the second argument an integer, in which
 case the function will interpret that as the number of ties/edges rather
-than the probability that a tie is present.</p>
+than the probability that a tie is present. Try generating a random
+graph with 200 edges/ties now:</p>
 <div class="tutorial-exercise" data-label="randomno" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>(erdren4 &lt;- autographr(generate_random(50, 200)) + ggtitle(&quot;Random 1 graph&quot;))</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="randomno-solution"
+data-completion="1" data-diagnostics="1" data-startover="1"
+data-lines="0">
+<pre class="text"><code>(erdren4 &lt;- autographr(generate_random(50, 200)) + ggtitle(&quot;Random 1 graph&quot;))</code></pre>
 </div>
 </div>
 <div id="section-small-world-graphs" class="section level3">
 <h3>Small-world graphs</h3>
 <p>Remember the ring graph from above? What if we rewire (change) some
-of the edges at a certain probability?</p>
+of the edges at a certain probability? This is how small-world networks
+are generated. Graph three small-world networks, all with 50 nodes and a
+rewiring probability of 0.025.</p>
 <div class="tutorial-exercise" data-label="smallw" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0">
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="smallw-solution"
+data-completion="1" data-diagnostics="1" data-startover="1"
+data-lines="0">
 <pre class="text"><code>(watstr1 &lt;- autographr(generate_smallworld(50, 0.025)) + ggtitle(&quot;Smallworld 1 graph&quot;))
 (watstr2 &lt;- autographr(generate_smallworld(50, 0.025)) + ggtitle(&quot;Smallworld 2 graph&quot;))
 (watstr3 &lt;- autographr(generate_smallworld(50, 0.025)) + ggtitle(&quot;Smallworld 3 graph&quot;))</code></pre>
-<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <p>With on average 2.5 ties randomly rewired, does the structure look
 different? This is a small-world network, where clustering/transitivity
@@ -260,15 +325,20 @@ between nodes increases sufficiently slowly as a function of the number
 of nodes in the network. You can also call these networks a
 Watts–Strogatz toy network. If you want to review this, go back to the
 reading by Watts (2004).</p>
-<p>There is also such a thing as a small-world coefficient. See the help
-page for more details, but with the default equation (‘omega’), the
-coefficient typically ranges between 0 and 1, where 1 is as close to a
-small-world as possible.</p>
+<p>There is also such a thing as a network’s small-world coefficient.
+See the help page for more details, but with the default equation
+(‘omega’), the coefficient typically ranges between 0 and 1, where 1 is
+as close to a small-world as possible. Try it now on a small-world
+generated network, but with a rewiring probability of 0.25:</p>
 <div class="tutorial-exercise" data-label="smallwtest"
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0">
-<pre class="text"><code>network_smallworld(generate_smallworld(50, 0.25))</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="smallwtest-solution"
+data-completion="1" data-diagnostics="1" data-startover="1"
+data-lines="0">
+<pre class="text"><code>network_smallworld(generate_smallworld(50, 0.25))</code></pre>
 </div>
 </div>
 <div id="section-scale-free-graphs" class="section level3">
@@ -287,83 +357,91 @@ preferential attachment. Population growth: real networks grow in time
 as new members join the population. Preferential/cumulative attachment
 means that newly arriving nodes will tend to connect to already
 well-connected nodes rather than poorly connected ones.</p>
-<p>The first graph shows a directed network. For this function, <span
-class="math inline">\(p = x\)</span> refers to the number of edges in
-the network/ number of possible edges.</p>
+<p>Generate and graph three scale-free networks, with alpha parameters
+of 0.5, 1, and 1.5.</p>
 <div class="tutorial-exercise" data-label="scalef" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0">
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="scalef-solution"
+data-completion="1" data-diagnostics="1" data-startover="1"
+data-lines="0">
 <pre class="text"><code>(baralb1 &lt;- autographr(generate_scalefree(50, 0.5)) +
     ggtitle(&quot;Scalefree 1 graph&quot;, subtitle = &quot;Power = .5&quot;))
 (baralb2 &lt;- autographr(generate_scalefree(50, 1)) +
     ggtitle(&quot;Scalefree 2 graph&quot;, subtitle = &quot;Power = 1&quot;))
 (baralb3 &lt;- autographr(generate_scalefree(50, 1.5)) +
-    ggtitle(&quot;Scalefree 3 graph&quot;, subtitle = &quot;Power = 1.5&quot;))
-baralb1 + baralb2 + baralb3</code></pre>
-<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+    ggtitle(&quot;Scalefree 3 graph&quot;, subtitle = &quot;Power = 1.5&quot;))</code></pre>
 </div>
-<p>You can test whether a network has a degree distribution that fits
-the scale-free model using the following function:</p>
+<p>You can also test whether a network has a degree distribution that
+fits the scale-free model. When a Kolmogorov-Smirnov test p-value less
+than 0.05 is implied, a message is given that you should reject the
+hypothesis that a power law fits here. With an alpha/power-law exponent
+between 2 and 3, one generally cannot reject the hypothesis that the
+observed data comes from a power-law distribution.</p>
 <div class="tutorial-exercise" data-label="scaleftest"
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0">
-<pre class="text"><code>network_scalefree(generate_scalefree(50, 1.5))
-network_scalefree(generate_scalefree(50, 0.02))</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
-<p>When a Kolmogorov-Smirnov test p-value less than 0.05 is implied, a
-message is given that you should reject the hypothesis that a power law
-fits here. With an alpha/power-law exponent between 2 and 3, one
-generally cannot reject the hypothesis that the observed data comes from
-a power-law distribution. be . 
+<div class="tutorial-exercise-support" data-label="scaleftest-solution"
+data-completion="1" data-diagnostics="1" data-startover="1"
+data-lines="0">
+<pre class="text"><code>network_scalefree(generate_scalefree(50, 2))</code></pre>
+</div>
+<p>
 <script type="application/shiny-prerendered" data-context="server-start">
 library(learnr)
 library(migraph)
 knitr::opts_chunk$set(echo = FALSE)
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::register_http_handlers(session, metadata = NULL)
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::prepare_tutorial_state(session)
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::i18n_observe_tutorial_language(input, session)
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 session$onSessionEnded(function() {
         learnr:::event_trigger(session, "session_stop")
       })
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-empty-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-empty-code-editor`)), session)
 output$`tutorial-exercise-empty-output` <- renderUI({
   `tutorial-exercise-empty-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "empty", global_setup = structure(c("library(learnr)", 
 "library(migraph)", "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(
     label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "empty", code = "(emptyg <- autographr(create_empty(50), \"circle\") + ggtitle(\"Empty graph\"))\n(compg <- autographr(to_undirected(create_complete(50))) + ggtitle(\"Complete graph\"))\n(compg2 <- autographr(to_undirected(create_complete(50/2))) + ggtitle(\"Complete graph (smaller)\"))\nemptyg + compg + compg2", 
-        opts = list(label = "\"empty\"", exercise = "TRUE"), 
-        engine = "r")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = NULL, tests = NULL, options = list(
-        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
-        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
-        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "topology_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "topology_files/figure-html/", 
+    list(label = "empty", code = "", opts = list(label = "\"empty\"", 
+        exercise = "TRUE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = structure(c("(emptyg <- autographr(create_empty(50), \"circle\") + ggtitle(\"Empty graph\"))", 
+    "(compg <- autographr(to_undirected(create_complete(50))) + ggtitle(\"Complete graph\"))", 
+    "(compg2 <- autographr(to_undirected(create_complete(50/2))) + ggtitle(\"Complete graph (smaller)\"))"
+    ), chunk_opts = list(label = "empty-solution")), tests = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "topology_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "topology_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -372,31 +450,32 @@ learnr:::store_exercise_cache(structure(list(label = "empty", global_setup = str
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, label = "empty", exercise = TRUE, code = c("(emptyg <- autographr(create_empty(50), \"circle\") + ggtitle(\"Empty graph\"))", 
-        "(compg <- autographr(to_undirected(create_complete(50))) + ggtitle(\"Complete graph\"))", 
-        "(compg2 <- autographr(to_undirected(create_complete(50/2))) + ggtitle(\"Complete graph (smaller)\"))", 
-        "emptyg + compg + compg2"), out.width.px = 624, out.height.px = 384, 
-        params.src = "empty, exercise=TRUE", fig.num = 0, exercise.df_print = "paged", 
-        exercise.checker = "NULL"), engine = "r", version = "4"), class = c("r", 
-"tutorial_exercise")))
+        max.print = 1000, label = "empty", exercise = TRUE, code = "", 
+        out.width.px = 624, out.height.px = 384, params.src = "empty, exercise=TRUE", 
+        fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
+    engine = "r", version = "4"), class = c("r", "tutorial_exercise"
+)))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-star-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-star-code-editor`)), session)
 output$`tutorial-exercise-star-output` <- renderUI({
   `tutorial-exercise-star-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "star", global_setup = structure(c("library(learnr)", 
 "library(migraph)", "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(
     label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "star", code = "(star1 <- autographr(create_star(50)) + ggtitle(\"Star graph\"))\n(star2 <- autographr(create_star(50, directed = TRUE)) + ggtitle(\"Star out\"))\n(star3 <- autographr(to_redirected(create_star(50, directed = TRUE))) + ggtitle(\"Star in\"))", 
-        opts = list(label = "\"star\"", exercise = "TRUE"), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
-    tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
+    list(label = "star", code = "", opts = list(label = "\"star\"", 
+        exercise = "TRUE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = structure(c("(star1 <- autographr(create_star(50)) + ggtitle(\"Star graph\"))", 
+    "(star2 <- autographr(create_star(50, directed = TRUE)) + ggtitle(\"Star out\"))", 
+    "(star3 <- autographr(to_redirected(create_star(50, directed = TRUE))) + ggtitle(\"Star in\"))"
+    ), chunk_opts = list(label = "star-solution")), tests = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
         comment = NA, highlight = FALSE, size = "normalsize", 
         background = "#F7F7F7", strip.white = TRUE, cache = 0, 
@@ -412,31 +491,32 @@ learnr:::store_exercise_cache(structure(list(label = "star", global_setup = stru
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, label = "star", exercise = TRUE, code = c("(star1 <- autographr(create_star(50)) + ggtitle(\"Star graph\"))", 
-        "(star2 <- autographr(create_star(50, directed = TRUE)) + ggtitle(\"Star out\"))", 
-        "(star3 <- autographr(to_redirected(create_star(50, directed = TRUE))) + ggtitle(\"Star in\"))"
-        ), out.width.px = 624, out.height.px = 384, params.src = "star, exercise = TRUE", 
-        fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
+        max.print = 1000, label = "star", exercise = TRUE, code = "", 
+        out.width.px = 624, out.height.px = 384, params.src = "star, exercise = TRUE", 
+        fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-tree-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-tree-code-editor`)), session)
 output$`tutorial-exercise-tree-output` <- renderUI({
   `tutorial-exercise-tree-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "tree", global_setup = structure(c("library(learnr)", 
 "library(migraph)", "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(
     label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "tree", code = "(tree1 <- autographr(create_tree(50, width = 2)) + ggtitle(\"Tree graph\"))\n(tree2 <- autographr(create_tree(50, width = 2, directed = TRUE)) + ggtitle(\"Tree out\"))\n(tree3 <- autographr(create_tree(50, width = 2, directed = TRUE), \"tree\") + ggtitle(\"Tree layout\"))", 
-        opts = list(label = "\"tree\"", exercise = "TRUE"), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
-    tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
+    list(label = "tree", code = "", opts = list(label = "\"tree\"", 
+        exercise = "TRUE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = structure(c("(tree1 <- autographr(create_tree(50, width = 2)) + ggtitle(\"Tree graph\"))", 
+    "(tree2 <- autographr(create_tree(50, width = 2, directed = TRUE)) + ggtitle(\"Tree out\"))", 
+    "(tree3 <- autographr(create_tree(50, width = 2, directed = TRUE), \"tree\") + ggtitle(\"Tree layout\"))"
+    ), chunk_opts = list(label = "tree-solution")), tests = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
         comment = NA, highlight = FALSE, size = "normalsize", 
         background = "#F7F7F7", strip.white = TRUE, cache = 0, 
@@ -452,38 +532,38 @@ learnr:::store_exercise_cache(structure(list(label = "tree", global_setup = stru
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, label = "tree", exercise = TRUE, code = c("(tree1 <- autographr(create_tree(50, width = 2)) + ggtitle(\"Tree graph\"))", 
-        "(tree2 <- autographr(create_tree(50, width = 2, directed = TRUE)) + ggtitle(\"Tree out\"))", 
-        "(tree3 <- autographr(create_tree(50, width = 2, directed = TRUE), \"tree\") + ggtitle(\"Tree layout\"))"
-        ), out.width.px = 624, out.height.px = 384, params.src = "tree, exercise = TRUE", 
-        fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
+        max.print = 1000, label = "tree", exercise = TRUE, code = "", 
+        out.width.px = 624, out.height.px = 384, params.src = "tree, exercise = TRUE", 
+        fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-lattices-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-lattices-code-editor`)), session)
 output$`tutorial-exercise-lattices-output` <- renderUI({
   `tutorial-exercise-lattices-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "lattices", global_setup = structure(c("library(learnr)", 
 "library(migraph)", "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(
     label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "lattices", code = "(lat1 <- autographr(create_lattice(50)) + ggtitle(\"One-mode lattice graph\"))", 
-        opts = list(label = "\"lattices\"", exercise = "TRUE"), 
-        engine = "r")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = NULL, tests = NULL, options = list(
-        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
-        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
-        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "topology_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "topology_files/figure-html/", 
+    list(label = "lattices", code = "", opts = list(label = "\"lattices\"", 
+        exercise = "TRUE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = structure(c("(lat1 <- autographr(create_lattice(50)) + ggtitle(\"One-mode lattice graph\"))", 
+    "(lat2 <- autographr(create_lattice(50/2)) + ggtitle(\"Smaller lattice graph\"))"
+    ), chunk_opts = list(label = "lattices-solution")), tests = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "topology_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "topology_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -493,36 +573,38 @@ learnr:::store_exercise_cache(structure(list(label = "lattices", global_setup = 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "lattices", exercise = TRUE, 
-        code = "(lat1 <- autographr(create_lattice(50)) + ggtitle(\"One-mode lattice graph\"))", 
-        out.width.px = 624, out.height.px = 384, params.src = "lattices, exercise = TRUE", 
-        fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "lattices, exercise = TRUE", 
+        fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-rings-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-rings-code-editor`)), session)
 output$`tutorial-exercise-rings-output` <- renderUI({
   `tutorial-exercise-rings-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "rings", global_setup = structure(c("library(learnr)", 
 "library(migraph)", "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(
     label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "rings", code = "(ring1 <- autographr(create_ring(50)) + ggtitle(\"Ring graph\", subtitle = \"Starring Naomi Watts\"))\n(ring2 <- autographr(create_ring(50, width = 2), \"circle\") + ggtitle(\"The Ring Two\"))\n(ring3 <- autographr(create_ring(50, width = 2), \"stress\") + ggtitle(\"The Ring Two v2.0\"))", 
-        opts = list(label = "\"rings\"", exercise = "TRUE"), 
-        engine = "r")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = NULL, tests = NULL, options = list(
-        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
-        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
-        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "topology_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "topology_files/figure-html/", 
+    list(label = "rings", code = "", opts = list(label = "\"rings\"", 
+        exercise = "TRUE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = structure(c("(ring1 <- autographr(create_ring(50)) + ggtitle(\"Ring graph\", subtitle = \"Starring Naomi Watts\"))", 
+    "(ring2 <- autographr(create_ring(50, width = 2), \"circle\") + ggtitle(\"The Ring Two\", subtitle = \"No different?\"))", 
+    "(ring3 <- autographr(create_ring(50, width = 2), \"stress\") + ggtitle(\"The Ring Two v2.0\"))"
+    ), chunk_opts = list(label = "rings-solution")), tests = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "topology_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "topology_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -531,38 +613,39 @@ learnr:::store_exercise_cache(structure(list(label = "rings", global_setup = str
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
-        max.print = 1000, label = "rings", exercise = TRUE, code = c("(ring1 <- autographr(create_ring(50)) + ggtitle(\"Ring graph\", subtitle = \"Starring Naomi Watts\"))", 
-        "(ring2 <- autographr(create_ring(50, width = 2), \"circle\") + ggtitle(\"The Ring Two\"))", 
-        "(ring3 <- autographr(create_ring(50, width = 2), \"stress\") + ggtitle(\"The Ring Two v2.0\"))"
-        ), out.width.px = 624, out.height.px = 384, params.src = "rings, exercise = TRUE", 
-        fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
+        max.print = 1000, label = "rings", exercise = TRUE, code = "", 
+        out.width.px = 624, out.height.px = 384, params.src = "rings, exercise = TRUE", 
+        fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-random-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-random-code-editor`)), session)
 output$`tutorial-exercise-random-output` <- renderUI({
   `tutorial-exercise-random-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "random", global_setup = structure(c("library(learnr)", 
 "library(migraph)", "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(
     label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "random", code = "(erdren1 <- autographr(generate_random(50, 0.08)) + ggtitle(\"Random 1 graph\"))\n(erdren2 <- autographr(generate_random(50, 0.08)) + ggtitle(\"Random 2 graph\"))\n(erdren3 <- autographr(generate_random(50, 0.08)) + ggtitle(\"Random 3 graph\"))", 
-        opts = list(label = "\"random\"", exercise = "TRUE"), 
-        engine = "r")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = NULL, tests = NULL, options = list(
-        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
-        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
-        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "topology_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "topology_files/figure-html/", 
+    list(label = "random", code = "", opts = list(label = "\"random\"", 
+        exercise = "TRUE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = structure(c("(erdren1 <- autographr(generate_random(50, 0.08)) + ggtitle(\"Random 1 graph\"))", 
+    "(erdren2 <- autographr(generate_random(50, 0.08)) + ggtitle(\"Random 2 graph\"))", 
+    "(erdren3 <- autographr(generate_random(50, 0.08)) + ggtitle(\"Random 3 graph\"))"
+    ), chunk_opts = list(label = "random-solution")), tests = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "topology_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "topology_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -572,31 +655,28 @@ learnr:::store_exercise_cache(structure(list(label = "random", global_setup = st
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "random", exercise = TRUE, 
-        code = c("(erdren1 <- autographr(generate_random(50, 0.08)) + ggtitle(\"Random 1 graph\"))", 
-        "(erdren2 <- autographr(generate_random(50, 0.08)) + ggtitle(\"Random 2 graph\"))", 
-        "(erdren3 <- autographr(generate_random(50, 0.08)) + ggtitle(\"Random 3 graph\"))"
-        ), out.width.px = 624, out.height.px = 384, params.src = "random, exercise = TRUE", 
-        fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "random, exercise = TRUE", 
+        fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-randomno-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-randomno-code-editor`)), session)
 output$`tutorial-exercise-randomno-output` <- renderUI({
   `tutorial-exercise-randomno-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "randomno", global_setup = structure(c("library(learnr)", 
 "library(migraph)", "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(
     label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "randomno", code = "(erdren4 <- autographr(generate_random(50, 200)) + ggtitle(\"Random 1 graph\"))", 
-        opts = list(label = "\"randomno\"", exercise = "TRUE"), 
-        engine = "r")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = NULL, tests = NULL, options = list(
+    list(label = "randomno", code = "", opts = list(label = "\"randomno\"", 
+        exercise = "TRUE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = structure("(erdren4 <- autographr(generate_random(50, 200)) + ggtitle(\"Random 1 graph\"))", chunk_opts = list(
+        label = "randomno-solution")), tests = NULL, options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
         tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
         highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
@@ -613,36 +693,38 @@ learnr:::store_exercise_cache(structure(list(label = "randomno", global_setup = 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "randomno", exercise = TRUE, 
-        code = "(erdren4 <- autographr(generate_random(50, 200)) + ggtitle(\"Random 1 graph\"))", 
-        out.width.px = 624, out.height.px = 384, params.src = "randomno, exercise = TRUE", 
-        fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "randomno, exercise = TRUE", 
+        fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-smallw-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-smallw-code-editor`)), session)
 output$`tutorial-exercise-smallw-output` <- renderUI({
   `tutorial-exercise-smallw-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "smallw", global_setup = structure(c("library(learnr)", 
 "library(migraph)", "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(
     label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "smallw", code = "(watstr1 <- autographr(generate_smallworld(50, 0.025)) + ggtitle(\"Smallworld 1 graph\"))\n(watstr2 <- autographr(generate_smallworld(50, 0.025)) + ggtitle(\"Smallworld 2 graph\"))\n(watstr3 <- autographr(generate_smallworld(50, 0.025)) + ggtitle(\"Smallworld 3 graph\"))", 
-        opts = list(label = "\"smallw\"", exercise = "TRUE"), 
-        engine = "r")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = NULL, tests = NULL, options = list(
-        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
-        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
-        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "topology_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "topology_files/figure-html/", 
+    list(label = "smallw", code = "", opts = list(label = "\"smallw\"", 
+        exercise = "TRUE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = structure(c("(watstr1 <- autographr(generate_smallworld(50, 0.025)) + ggtitle(\"Smallworld 1 graph\"))", 
+    "(watstr2 <- autographr(generate_smallworld(50, 0.025)) + ggtitle(\"Smallworld 2 graph\"))", 
+    "(watstr3 <- autographr(generate_smallworld(50, 0.025)) + ggtitle(\"Smallworld 3 graph\"))"
+    ), chunk_opts = list(label = "smallw-solution")), tests = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "topology_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "topology_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -652,31 +734,28 @@ learnr:::store_exercise_cache(structure(list(label = "smallw", global_setup = st
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "smallw", exercise = TRUE, 
-        code = c("(watstr1 <- autographr(generate_smallworld(50, 0.025)) + ggtitle(\"Smallworld 1 graph\"))", 
-        "(watstr2 <- autographr(generate_smallworld(50, 0.025)) + ggtitle(\"Smallworld 2 graph\"))", 
-        "(watstr3 <- autographr(generate_smallworld(50, 0.025)) + ggtitle(\"Smallworld 3 graph\"))"
-        ), out.width.px = 624, out.height.px = 384, params.src = "smallw, exercise = TRUE", 
-        fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "smallw, exercise = TRUE", 
+        fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-smallwtest-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-smallwtest-code-editor`)), session)
 output$`tutorial-exercise-smallwtest-output` <- renderUI({
   `tutorial-exercise-smallwtest-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "smallwtest", global_setup = structure(c("library(learnr)", 
 "library(migraph)", "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(
     label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "smallwtest", code = "network_smallworld(generate_smallworld(50, 0.25))", 
-        opts = list(label = "\"smallwtest\"", exercise = "TRUE"), 
-        engine = "r")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = NULL, tests = NULL, options = list(
+    list(label = "smallwtest", code = "", opts = list(label = "\"smallwtest\"", 
+        exercise = "TRUE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = structure("network_smallworld(generate_smallworld(50, 0.25))", chunk_opts = list(
+        label = "smallwtest-solution")), tests = NULL, options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
         tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
         highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
@@ -693,36 +772,40 @@ learnr:::store_exercise_cache(structure(list(label = "smallwtest", global_setup 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "smallwtest", exercise = TRUE, 
-        code = "network_smallworld(generate_smallworld(50, 0.25))", 
-        out.width.px = 624, out.height.px = 384, params.src = "smallwtest, exercise = TRUE", 
-        fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "smallwtest, exercise = TRUE", 
+        fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-scalef-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-scalef-code-editor`)), session)
 output$`tutorial-exercise-scalef-output` <- renderUI({
   `tutorial-exercise-scalef-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "scalef", global_setup = structure(c("library(learnr)", 
 "library(migraph)", "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(
     label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "scalef", code = "(baralb1 <- autographr(generate_scalefree(50, 0.5)) +\n    ggtitle(\"Scalefree 1 graph\", subtitle = \"Power = .5\"))\n(baralb2 <- autographr(generate_scalefree(50, 1)) +\n    ggtitle(\"Scalefree 2 graph\", subtitle = \"Power = 1\"))\n(baralb3 <- autographr(generate_scalefree(50, 1.5)) +\n    ggtitle(\"Scalefree 3 graph\", subtitle = \"Power = 1.5\"))\nbaralb1 + baralb2 + baralb3", 
-        opts = list(label = "\"scalef\"", exercise = "TRUE"), 
-        engine = "r")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = NULL, tests = NULL, options = list(
-        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
-        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
-        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "topology_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "topology_files/figure-html/", 
+    list(label = "scalef", code = "", opts = list(label = "\"scalef\"", 
+        exercise = "TRUE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = structure(c("(baralb1 <- autographr(generate_scalefree(50, 0.5)) +", 
+    "    ggtitle(\"Scalefree 1 graph\", subtitle = \"Power = .5\"))", 
+    "(baralb2 <- autographr(generate_scalefree(50, 1)) +", "    ggtitle(\"Scalefree 2 graph\", subtitle = \"Power = 1\"))", 
+    "(baralb3 <- autographr(generate_scalefree(50, 1.5)) +", 
+    "    ggtitle(\"Scalefree 3 graph\", subtitle = \"Power = 1.5\"))"
+    ), chunk_opts = list(label = "scalef-solution")), tests = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "topology_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "topology_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -732,35 +815,28 @@ learnr:::store_exercise_cache(structure(list(label = "scalef", global_setup = st
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "scalef", exercise = TRUE, 
-        code = c("(baralb1 <- autographr(generate_scalefree(50, 0.5)) +", 
-        "    ggtitle(\"Scalefree 1 graph\", subtitle = \"Power = .5\"))", 
-        "(baralb2 <- autographr(generate_scalefree(50, 1)) +", 
-        "    ggtitle(\"Scalefree 2 graph\", subtitle = \"Power = 1\"))", 
-        "(baralb3 <- autographr(generate_scalefree(50, 1.5)) +", 
-        "    ggtitle(\"Scalefree 3 graph\", subtitle = \"Power = 1.5\"))", 
-        "baralb1 + baralb2 + baralb3"), out.width.px = 624, out.height.px = 384, 
-        params.src = "scalef, exercise = TRUE", fig.num = 0, 
-        exercise.df_print = "paged", exercise.checker = "NULL"), 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "scalef, exercise = TRUE", 
+        fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-scaleftest-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-scaleftest-code-editor`)), session)
 output$`tutorial-exercise-scaleftest-output` <- renderUI({
   `tutorial-exercise-scaleftest-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "scaleftest", global_setup = structure(c("library(learnr)", 
 "library(migraph)", "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(
     label = "setup", include = FALSE)), setup = NULL, chunks = list(
-    list(label = "scaleftest", code = "network_scalefree(generate_scalefree(50, 1.5))\nnetwork_scalefree(generate_scalefree(50, 0.02))", 
-        opts = list(label = "\"scaleftest\"", exercise = "TRUE"), 
-        engine = "r")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = NULL, tests = NULL, options = list(
+    list(label = "scaleftest", code = "", opts = list(label = "\"scaleftest\"", 
+        exercise = "TRUE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = structure("network_scalefree(generate_scalefree(50, 2))", chunk_opts = list(
+        label = "scaleftest-solution")), tests = NULL, options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
         tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
         highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
@@ -777,10 +853,8 @@ learnr:::store_exercise_cache(structure(list(label = "scaleftest", global_setup 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "scaleftest", exercise = TRUE, 
-        code = c("network_scalefree(generate_scalefree(50, 1.5))", 
-        "network_scalefree(generate_scalefree(50, 0.02))"), out.width.px = 624, 
-        out.height.px = 384, params.src = "scaleftest, exercise = TRUE", 
-        fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "scaleftest, exercise = TRUE", 
+        fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
@@ -792,7 +866,7 @@ learnr:::store_exercise_cache(structure(list(label = "scaleftest", global_setup 
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94]}},"value":[{"type":"character","attributes":{},"value":["assertthat","backports","base","BiocManager","bslib","cachem","checkmate","cli","coda","codetools","colorspace","compiler","curl","datasets","DBI","digest","dplyr","ellipsis","evaluate","fansi","farver","fastmap","furrr","future","generics","ggforce","ggplot2","ggraph","ggrepel","globals","glue","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","htmltools","htmlwidgets","httpuv","igraph","jquerylib","jsonlite","knitr","later","lattice","learnr","lifecycle","listenv","magrittr","markdown","MASS","methods","migraph","mime","munsell","network","parallel","parallelly","patchwork","pillar","pkgconfig","polyclip","promises","purrr","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","scales","shiny","sna","statnet.common","stats","stringi","stringr","tibble","tidygraph","tidyr","tidyselect","tools","tweenr","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["0.2.1","1.4.1","4.2.1","1.30.18","0.4.0","1.0.6","2.1.0","3.4.1","0.19-4","0.2-18","2.0-3","4.2.1","4.3.3","4.2.1","1.1.3","0.6.30","1.0.10","0.3.2","0.17","1.0.3","2.1.1","1.1.0","0.3.1","1.28.0","0.1.3","0.4.1","3.3.6.9000","2.1.0","0.9.1","0.16.1","1.6.2","4.2.1","0.8.2","4.2.1","4.2.1","2.3","0.3.1","0.5.3","1.5.4","1.6.6","1.3.5","0.1.4","1.8.2","1.40","1.3.0","0.20-45","0.11.1","1.0.3","0.8.0","2.0.3","1.1","7.3-58.1","4.2.1","0.12.4","0.12","0.5.0","1.18.0","4.2.1","1.32.1","1.1.2","1.8.1","2.0.3","1.10-0","1.2.0.1","0.3.5","2.5.1","1.0.9","1.0.6","2.17","2.0.3","0.14","0.4.2","1.2.1","1.7.2","2.7","4.7.0","4.2.1","1.7.8","1.4.1","3.1.8","1.2.2","1.2.1","1.2.0","4.2.1","2.0.2","1.2.2","4.2.1","0.5.0","0.6.2","0.4.1","2.5.0","0.33","1.8-4","2.3.5"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94]}},"value":[{"type":"character","attributes":{},"value":["assertthat","backports","base","BiocManager","bslib","cachem","checkmate","cli","coda","codetools","colorspace","compiler","curl","datasets","DBI","digest","dplyr","ellipsis","evaluate","fansi","farver","fastmap","furrr","future","generics","ggforce","ggplot2","ggraph","ggrepel","globals","glue","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","htmltools","htmlwidgets","httpuv","igraph","jquerylib","jsonlite","knitr","later","lattice","learnr","lifecycle","listenv","magrittr","markdown","MASS","methods","migraph","mime","munsell","network","parallel","parallelly","patchwork","pillar","pkgconfig","polyclip","promises","purrr","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","scales","shiny","sna","statnet.common","stats","stringi","stringr","tibble","tidygraph","tidyr","tidyselect","tools","tweenr","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["0.2.1","1.4.1","4.2.1","1.30.18","0.4.0","1.0.6","2.1.0","3.4.1","0.19-4","0.2-18","2.0-3","4.2.1","4.3.3","4.2.1","1.1.3","0.6.30","1.0.10","0.3.2","0.17","1.0.3","2.1.1","1.1.0","0.3.1","1.28.0","0.1.3","0.4.1","3.3.6.9000","2.1.0","0.9.1","0.16.1","1.6.2","4.2.1","0.8.2","4.2.1","4.2.1","2.3","0.3.1","0.5.3","1.5.4","1.6.6","1.3.5","0.1.4","1.8.2","1.40","1.3.0","0.20-45","0.11.1","1.0.3","0.8.0","2.0.3","1.1","7.3-58.1","4.2.1","0.12.5","0.12","0.5.0","1.18.0","4.2.1","1.32.1","1.1.2","1.8.1","2.0.3","1.10-0","1.2.0.1","0.3.5","2.5.1","1.0.9","1.0.6","2.17","2.0.3","0.14","0.4.2","1.2.1","1.7.2","2.7","4.7.0","4.2.1","1.7.8","1.4.1","3.1.8","1.2.2","1.2.1","1.2.0","4.2.1","2.0.2","1.2.2","4.2.1","0.5.0","0.6.2","0.4.1","2.5.0","0.33","1.8-4","2.3.5"]}]}]}
 </script>
 <!--/html_preserve-->
 </div>
