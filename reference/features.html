@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.5</span>
       </span>
     </div>
 
@@ -69,6 +69,8 @@
 <span><span class="fu">network_modularity</span><span class="op">(</span><span class="va">object</span>, membership <span class="op">=</span> <span class="cn">NULL</span>, resolution <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">network_smallworld</span><span class="op">(</span><span class="va">object</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"omega"</span>, <span class="st">"sigma"</span>, <span class="st">"SWI"</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">network_scalefree</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">network_balance</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -132,17 +134,40 @@ but where there may not be a network for which \(SWI = 1\).</p></li>
 and a core-periphery model with the same dimensions.</p></li>
 <li><p><code>network_factions()</code>: Returns correlation between a given network
 and a component model with the same dimensions.</p></li>
-<li><p><code>network_modularity()</code>: Returns modularity of one- or two-mode networks
-based on nodes' membership in pre-defined clusters.</p></li>
+<li><p><code>network_modularity()</code>: Returns modularity based on nodes' membership
+in pre-defined clusters.</p></li>
 <li><p><code>network_smallworld()</code>: Returns small-world metrics for one- and
 two-mode networks.
 Small-world networks can be highly clustered and yet
 have short path lengths.</p></li>
+<li><p><code>network_scalefree()</code>: Returns the exponent of the fitted
+power-law distribution.
+Usually an exponent between 2 and 3 indicates a power-law
+distribution.</p></li>
 <li><p><code>network_balance()</code>: Returns the structural balance index on
 the proportion of balanced triangles,
 ranging between <code>0</code> if all triangles are imbalanced and
 <code>1</code> if all triangles are balanced.</p></li>
 </ul></div>
+    <div id="modularity">
+    <h2>Modularity</h2>
+    
+
+<p>Modularity measures the difference between the number of ties within each community
+from the number of ties expected within each community in a random graph
+with the same degrees, and ranges between -1 and +1.
+Modularity scores of +1 mean that ties only appear within communities,
+while -1 would mean that ties only appear between communities.
+A score of 0 would mean that ties are half within and half between communities,
+as one would expect in a random graph.</p>
+<p>Modularity faces a difficult problem known as the resolution limit
+(Fortunato and Barthélemy 2007).
+This problem appears when optimising modularity,
+particularly with large networks or depending on the degree of interconnectedness,
+can miss small clusters that 'hide' inside larger clusters.
+In the extreme case, this can be where they are only connected
+to the rest of the network through a single tie.</p>
+    </div>
     <div id="references">
     <h2>References</h2>
     <p>Borgatti, Stephen P., and Martin G. Everett. 2000.
@@ -151,7 +176,7 @@ ranging between <code>0</code> if all triangles are imbalanced and
 <a href="https://doi.org/10.1016/S0378-8733%2899%2900019-2" class="external-link">doi:10.1016/S0378-8733(99)00019-2</a></p>
 <p>Murata, Tsuyoshi. 2010. Modularity for Bipartite Networks.
 In: Memon, N., Xu, J., Hicks, D., Chen, H. (eds)
-<em>Data Mining for Social Network Data. Annals of Information Systems</em>, V1ol 12.
+<em>Data Mining for Social Network Data. Annals of Information Systems</em>, Vol 12.
 Springer, Boston, MA.
 <a href="https://doi.org/10.1007/978-1-4419-6287-4_7" class="external-link">doi:10.1007/978-1-4419-6287-4_7</a></p>
 <p>Watts, Duncan J., and Steven H. Strogatz. 1998.
@@ -201,9 +226,16 @@ for how clustering is calculated</p>
 <span class="r-in"><span>  <span class="fu"><a href="community.html">node_kernighanlin</a></span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.458</span>
 <span class="r-in"><span><span class="fu">network_smallworld</span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.842</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.835</span>
 <span class="r-in"><span><span class="fu">network_smallworld</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.03</span>
+<span class="r-in"><span><span class="fu">network_scalefree</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.69</span>
+<span class="r-in"><span><span class="fu">network_scalefree</span><span class="op">(</span><span class="fu"><a href="generate.html">generate_scalefree</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.82</span>
+<span class="r-in"><span><span class="fu">network_scalefree</span><span class="op">(</span><span class="fu"><a href="create.html">create_lattice</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Note: Kolgomorov-Smirnov test that data could have been drawn from a power-law distribution rejected.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12.1</span>
 <span class="r-in"><span><span class="fu">network_balance</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.668</span>
 </code></pre></div>
