@@ -172,6 +172,26 @@ network_smallworld <- function(object,
                      object)
 }
 
+#' @describeIn features Returns the exponent of the fitted
+#'   power-law distribution.
+#'   Usually an exponent between 2 and 3 indicates a power-law
+#'   distribution.
+#' @importFrom igraph fit_power_law
+#' @examples 
+#' network_scalefree(ison_adolescents)
+#' network_scalefree(generate_scalefree(50, 1.5))
+#' network_scalefree(create_lattice(100))
+#' @export
+network_scalefree <- function(object){
+  out <- igraph::fit_power_law(node_degree(object, 
+                                    normalized = FALSE))
+  if(out$KS.p < 0.05) 
+    cat(paste("Note: Kolgomorov-Smirnov test that data",
+              "could have been drawn from a power-law", 
+              "distribution rejected.\n"))
+  make_network_measure(out$alpha, object)
+}
+
 #' @describeIn features Returns the structural balance index on 
 #'   the proportion of balanced triangles,
 #'   ranging between `0` if all triangles are imbalanced and 
