@@ -47,9 +47,9 @@ Add that too.
 ```
 
 ```{r empty-solution}
-(emptyg <- autographr(create_empty(50), "circle") + ggtitle("Empty graph"))
-(compg <- autographr(to_undirected(create_complete(50))) + ggtitle("Complete graph"))
-(compg2 <- autographr(to_undirected(create_complete(50/2))) + ggtitle("Complete graph (smaller)"))
+(autographr(create_empty(50), "circle") + ggtitle("Empty graph"))
+(autographr(to_undirected(create_complete(50))) + ggtitle("Complete graph"))
+(autographr(to_undirected(create_complete(50/2))) + ggtitle("Complete graph (smaller)"))
 ```
 
 ### Stars
@@ -72,9 +72,9 @@ Use the `create_star()` function to graph three star networks:
 ```
 
 ```{r star-solution}
-(star1 <- autographr(create_star(50)) + ggtitle("Star graph"))
-(star2 <- autographr(create_star(50, directed = TRUE)) + ggtitle("Star out"))
-(star3 <- autographr(to_redirected(create_star(50, directed = TRUE))) + ggtitle("Star in"))
+(autographr(create_star(50)) + ggtitle("Star graph"))
+(autographr(create_star(50, directed = TRUE)) + ggtitle("Star out"))
+(autographr(to_redirected(create_star(50, directed = TRUE))) + ggtitle("Star in"))
 ```
 
 ### Trees
@@ -92,9 +92,9 @@ Again graph three networks:
 ```
 
 ```{r tree-solution}
-(tree1 <- autographr(create_tree(50, width = 2)) + ggtitle("Tree graph"))
-(tree2 <- autographr(create_tree(50, width = 2, directed = TRUE)) + ggtitle("Tree out"))
-(tree3 <- autographr(create_tree(50, width = 2, directed = TRUE), "tree") + ggtitle("Tree layout"))
+(autographr(create_tree(50, width = 2)) + ggtitle("Tree graph"))
+(autographr(create_tree(50, width = 2, directed = TRUE)) + ggtitle("Tree out"))
+(autographr(create_tree(50, width = 2, directed = TRUE), "tree") + ggtitle("Tree layout"))
 ```
 
 Try varying the `width` argument to see the result.
@@ -132,8 +132,8 @@ and another with half the number of nodes.
 ```
 
 ```{r lattices-solution}
-(lat1 <- autographr(create_lattice(50)) + ggtitle("One-mode lattice graph"))
-(lat2 <- autographr(create_lattice(50/2)) + ggtitle("Smaller lattice graph"))
+(autographr(create_lattice(50)) + ggtitle("One-mode lattice graph"))
+(autographr(create_lattice(50/2)) + ggtitle("Smaller lattice graph"))
 ```
 
 ### Rings
@@ -152,9 +152,9 @@ Graph three ring networks:
 ```
 
 ```{r rings-solution}
-(ring1 <- autographr(create_ring(50)) + ggtitle("Ring graph", subtitle = "Starring Naomi Watts"))
-(ring2 <- autographr(create_ring(50, width = 2), "circle") + ggtitle("The Ring Two", subtitle = "No different?"))
-(ring3 <- autographr(create_ring(50, width = 2), "stress") + ggtitle("The Ring Two v2.0"))
+(autographr(create_ring(50)) + ggtitle("Ring graph", subtitle = "Starring Naomi Watts"))
+(autographr(create_ring(50, width = 2), "circle") + ggtitle("The Ring Two", subtitle = "No different?"))
+(autographr(create_ring(50, width = 2), "stress") + ggtitle("The Ring Two v2.0"))
 ```
 
 ## Probabilistic graphs
@@ -179,9 +179,9 @@ Generate three random networks of 50 nodes and a density of 0.08:
 ```
 
 ```{r random-solution}
-(erdren1 <- autographr(generate_random(50, 0.08)) + ggtitle("Random 1 graph"))
-(erdren2 <- autographr(generate_random(50, 0.08)) + ggtitle("Random 2 graph"))
-(erdren3 <- autographr(generate_random(50, 0.08)) + ggtitle("Random 3 graph"))
+(autographr(generate_random(50, 0.08)) + ggtitle("Random 1 graph"))
+(autographr(generate_random(50, 0.08)) + ggtitle("Random 2 graph"))
+(autographr(generate_random(50, 0.08)) + ggtitle("Random 3 graph"))
 ```
 
 Keep going if you like... it will be a little different every time.
@@ -209,9 +209,9 @@ Graph three small-world networks, all with 50 nodes and a rewiring probability o
 ```
 
 ```{r smallw-solution}
-(watstr1 <- autographr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 1 graph"))
-(watstr2 <- autographr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 2 graph"))
-(watstr3 <- autographr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 3 graph"))
+(autographr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 1 graph"))
+(autographr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 2 graph"))
+(autographr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 3 graph"))
 ```
 
 With on average 2.5 ties randomly rewired, does the structure look different?
@@ -264,11 +264,11 @@ with alpha parameters of 0.5, 1, and 1.5.
 ```
 
 ```{r scalef-solution}
-(baralb1 <- autographr(generate_scalefree(50, 0.5)) +
+(autographr(generate_scalefree(50, 0.5)) +
     ggtitle("Scalefree 1 graph", subtitle = "Power = .5"))
-(baralb2 <- autographr(generate_scalefree(50, 1)) +
+(autographr(generate_scalefree(50, 1)) +
     ggtitle("Scalefree 2 graph", subtitle = "Power = 1"))
-(baralb3 <- autographr(generate_scalefree(50, 1.5)) +
+(autographr(generate_scalefree(50, 1.5)) +
     ggtitle("Scalefree 3 graph", subtitle = "Power = 1.5"))
 ```
 
@@ -289,3 +289,59 @@ comes from a power-law distribution.
 network_scalefree(generate_scalefree(50, 2))
 ```
 
+### Core-periphery graphs
+
+Lastly, we'll take a look at some core-periphery graphs.
+The most common definition of a core-periphery network
+is one in which the network can be partitioned into two groups
+such that one group of nodes (the core) has 
+dense interactions among themselves,
+moderately dense interactions with the second group,
+and the second group (the periphery) has
+verse sparse interactions among themselves.
+
+We can visualise extreme versions of such a network
+using the `create_core()` function.
+Graph a core-periphery network of 50 nodes
+(which, unless a core-periphery membership assignment is given,
+will be split evenly between core and periphery partitions).
+
+```{r core, exercise=TRUE}
+
+```
+
+```{r core-solution}
+(autographr(create_core(50)) + ggtitle("Core"))
+```
+
+Let's consider identifying the core and peripheral nodes
+in a network.
+Let's use the `ison_brandes` dataset,
+and identify the core/periphery assignment of the _nodes_.
+Graph the data with the core/periphery assignment.
+
+```{r nodecore, exercise=TRUE}
+
+```
+
+```{r nodecore-solution}
+ison_brandes %>% 
+  mutate(nc = node_core(ison_brandes)) %>% 
+  autographr(node_color = "nc")
+```
+
+An alternative route is to identify 'core' nodes
+depending on their _k_-coreness.
+In `{migraph}`, we can return nodes _k_-coreness
+with `node_coreness()` instead of 
+the `node_core()` used for core-periphery.
+
+```{r nodecoren, exercise=TRUE}
+
+```
+
+```{r nodecoren-solution}
+ison_brandes %>% 
+  mutate(ncn = node_coreness(ison_brandes)) %>% 
+  autographr(node_color = "ncn")
+```
