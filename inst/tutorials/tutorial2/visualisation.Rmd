@@ -94,8 +94,12 @@ Append `ggtitle()` to add a title.
 `{migraph}` works well with both `{ggplot2}` and `{ggraph}` functions 
 that can be appended to create more tailored visualisations 
 of the network.
+
+```{r migraphexample2, exercise=TRUE}
+
+```
   
-```{r migraphexample2, echo=TRUE, message=FALSE, warning=FALSE, exercise = TRUE}
+```{r migraphexample2-solution}
 autographr(ison_adolescents,
            labels = TRUE,
            node_size = 1.5) + 
@@ -106,7 +110,11 @@ autographr(ison_adolescents,
 graphs together, e.g. side-by-side or above one another.
 The syntax is quite straight forward and is used throughout these vignettes.
 
-```{r patchwork, echo=TRUE, message=FALSE, warning=FALSE, exercise = TRUE}
+```{r patchwork, exercise=TRUE}
+
+```
+
+```{r patchwork-solution}
 autographr(ison_adolescents) + autographr(ison_algebra)
 autographr(ison_adolescents) / autographr(ison_algebra)
 ```
@@ -116,7 +124,11 @@ autographr(ison_adolescents) / autographr(ison_algebra)
 A range of graph layouts are available across the `{igraph}`, `{graphlayouts}`, and `{migraph}` packages 
 that can be used together with `autographr()`.
 
-```{r layoutseg, echo=TRUE, message=FALSE, warning=FALSE, exercise = TRUE}
+```{r layoutseg, exercise=TRUE}
+
+```
+
+```{r layoutseg-solution}
 (autographr(ison_southern_women, layout = "bipartite") + ggtitle("bipartite") |
 autographr(ison_southern_women, layout = "hierarchy") + ggtitle("hierarchy")) /
 (autographr(ison_southern_women, layout = "concentric") + ggtitle("concentric") |
@@ -132,8 +144,12 @@ and works with `tbl_graph` and `igraph` objects.
 As with `{ggplot2}`, `{ggraph}` users are expected to build
 a particular plot from the ground up,
 adding explicit layers to visualise the nodes and edges.
-  
-```{r ggrapheg, echo=TRUE, message=FALSE, warning=FALSE, exercise = TRUE}
+
+```{r ggrapheg, exercise=TRUE}
+
+```
+
+```{r ggrapheg-solution}
 library(ggraph)
 ggraph(mpn_elite_mex, layout = "fr") + 
   geom_edge_link(edge_colour = "dark grey", 
