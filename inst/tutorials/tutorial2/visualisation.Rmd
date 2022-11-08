@@ -71,8 +71,12 @@ To get a basic visualisation of the network before adding various specifications
 the `autographr()` function in `{migraph}` is a quick and easy way 
 to obtain a clear first look of the network 
 for preliminary investigations and understanding of the network.
+
+```{r migrapheg, exercise=TRUE}
+
+```
   
-```{r migrapheg, echo=TRUE, exercise = TRUE}
+```{r migrapheg-solution}
 library(migraph)
 autographr(ison_brandes)
 ```
