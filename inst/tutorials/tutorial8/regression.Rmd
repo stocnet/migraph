@@ -1,24 +1,17 @@
 ---
-title: "7. Testing"
+title: "Regression"
 author: "James Hollway"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{7. Testing}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+output: learnr::tutorial
+runtime: shiny_prerendered
 ---
 
-```{r, include = FALSE}
-#| purl = FALSE
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.cap = "",
-  fig.path = "teaching/"
-)
+```{r setup, include=FALSE}
+library(learnr)
+library(migraph)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# Setting up
+## Setting up
 
 For this session, we'll explore a couple of different datasets.
 
@@ -33,8 +26,11 @@ so to make this simpler, let's concentrate on:
 Fortunately, all these data cleaning moves are easy to do in `{migraph}`,
 and can be seen in the following chunk in order:
 
-```{r setup}
-library(migraph)
+```{r friends, exercise=TRUE}
+
+```
+
+```{r friends-solution}
 marvel_friends <- to_unsigned(ison_marvel_relationships, keep = "positive")
 marvel_friends <- to_giant(marvel_friends)
 marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances))
@@ -45,7 +41,11 @@ This gives us a dataset of nearly twenty characters and a little more than 100 e
 Recall that this data has several nodal attributes.
 Let's explore a couple of these attributes visually.
 
-```{r}
+```{r plotfriends, exercise=TRUE}
+
+```
+
+```{r plotfriends-solution}
 autographr(marvel_friends, 
            node_shape = "Gender",
            node_color = "PowerOrigin")
@@ -58,9 +58,9 @@ clearly more male than female superheros shown here,
 as well as clearly more superheros of mutant origin than others.
 To get started then, we need to establish how diverse this network is really.
 
-# Calculating diversity
+## Calculating diversity
 
-## Calculating Blau index
+### Calculating Blau index
 
 We can begin by calculating the Blau diversity for each attribute.
 Recall that the Blau index for any given diversity variable is:
@@ -73,7 +73,11 @@ As such a perfectly homogeneous group would receive a score of 0,
 while a perfectly heterogeneous group (with members spread evenly over the maximum categories)
 would receive a score of 1.
 
-```{r blau}
+```{r blau, exercise=TRUE}
+
+```
+
+```{r blau-solution}
 network_diversity(marvel_friends, "Gender")
 network_diversity(marvel_friends, "PowerOrigin")
 network_diversity(marvel_friends, "Attractive")
@@ -90,7 +94,11 @@ For example, we might be interested in whether our comic book heroes
 are equally gender diverse across their (power) origin stories,
 or equally intellectually diverse across gender.^[Note that this works for calculated categorical variables too, such as cluster/group assignment from community detection or equivalence classes.]
 
-```{r crossref}
+```{r crossref, exercise=TRUE}
+
+```
+
+```{r crossref-solution}
 network_diversity(marvel_friends, "Gender", "PowerOrigin")
 network_diversity(marvel_friends, "Intellect", "Gender")
 ```
@@ -104,7 +112,11 @@ There doesn't seem to be any significant difference in intellect
 across gender categories however.
 We can visualise this quite effectively using the `node_groups` argument:
 
-```{r blaugroups}
+```{r blaugroups, exercise=TRUE}
+
+```
+
+```{r blaugroups-solution}
 autographr(marvel_friends, 
            node_group = "PowerOrigin", 
            node_color = "Gender")
@@ -116,7 +128,7 @@ autographr(marvel_friends,
 Ok, this tells us about how (un)even the distribution of these variables is in this network,
 but it doesn't necessarily tell us whether within this network there is homophily/heterophily.
 
-## Calculating EI index
+### Calculating EI index
 
 A step in this direction is to calculate the EI (or E-I) index.
 Calculating the EI index follows the same syntax.
@@ -128,7 +140,11 @@ where $E$ is the number of ties present between a variable's categories (i.e. ex
 and $I$ is the number of ties present within a variable's categories (i.e. internal).
 As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1 suggests perfect heterophily.
 
-```{r ei}
+```{r ei, exercise=TRUE}
+
+```
+
+```{r ei-solution}
 (obs.gender <- network_homophily(marvel_friends, "Gender"))
 (obs.powers <- network_homophily(marvel_friends, "PowerOrigin")) 
 (obs.attract <- network_homophily(marvel_friends, "Attractive")) 
@@ -144,9 +160,9 @@ and doesn't tell us whether this is any more or less than
 what we might expect the score to be by chance for a network
 of this size and density and distribution of that attribute.
 
-# Testing scores
+## Testing scores
 
-## Conditional uniform graph tests
+### Conditional uniform graph tests
 
 To see whether we should be surprised by a score this high/low, 
 we will simulate a series of random graphs
@@ -158,7 +174,11 @@ This is called a conditional uniform graph test,
 but `{migraph}` chooses more descriptive function names,
 such as `test_random()`:
 
-```{r rando}
+```{r rando, exercise=TRUE}
+
+```
+
+```{r rando-solution}
 rand.gender <- test_random(marvel_friends, 
                             network_homophily, attribute = "Gender", 
                            times = 200)
@@ -191,7 +211,7 @@ While the coefficient itself is close to 0 (neither strong homophily nor heterop
 all the random networks generated returned larger EI scores, between .1 and .4.
 That is, there is significantly less heterophily here than expected.
 
-## Quadratic assignment procedure tests
+### Quadratic assignment procedure tests
 
 Ah, but perhaps the random graph is not the best reference group 
 for establishing whether there is a significant homophily effect here.
@@ -202,7 +222,11 @@ Permuting the network retains the structure of the network,
 but reassigns any labels (variables) randomly.
 Let's first plot the observed data and some permuted data next to each other.
 
-```{r perm}
+```{r perm, exercise=TRUE}
+
+```
+
+```{r perm-solution}
 old <- autographr(marvel_friends, 
                   labels = FALSE, node_size = 6, 
                   node_color = "PowerOrigin", 
@@ -219,7 +243,11 @@ attributes, but it is just a single permutation.
 Let's try a test that runs this over a succession of permutations,
 just as we did with random graphs.
 
-```{r test_permute}
+```{r testpermute, exercise=TRUE}
+
+```
+
+```{r testpermute-solution}
 perm.gender <- test_permutation(marvel_friends, 
                                 network_homophily, attribute = "Gender",
                                 times = 1000)
@@ -231,7 +259,11 @@ perm.power <- test_permutation(marvel_friends,
 Again, we see that there is perhaps nothing so surprising that we got the homophily score
 for gender that we did, but the lack of power origin heterophily is surprising.
 
-```{r cugqap}
+```{r cugqap, exercise=TRUE}
+
+```
+
+```{r cugqap-solution}
 (plot(rand.gender) | plot(rand.power)) /
 (plot(perm.gender) | plot(perm.power))
 ```
@@ -241,7 +273,7 @@ than creating a random distribution (be mindful of the scale of the _x_-axis).
 That is, taking into account the structure of the network leads us to
 expect a larger spread in the EI index than when the variable is distributed around a random network.
 
-# Network linear models
+## Network linear models
 
 Next let us examine homophily in another network.
 The data were collected as part of an early experiment on communication between social network researchers who were using an Electronic Information Exchange System (EIES).
@@ -249,7 +281,11 @@ You may recognise some of the names.
 The main network consists of 32 scholars with directed ties weighted by the total number of messages sent from $i$ to $j$ over the period of the study.
 Nodal attributes collected include the primary discipline and number of citations in the social science citation index at the start of the study.
 
-```{r intro-eies}
+```{r introeies, exercise=TRUE}
+
+```
+
+```{r introeies-solution}
 ison_networkers
 autographr(ison_networkers,
            node_color = "Discipline")
@@ -264,7 +300,11 @@ and come up with a couple of key hypotheses:
 Let's start with a pretty maximally specified model 
 (note that it doesn't make sense to include both ego and alter effects because these are undirected):
 
-```{r qap-max}
+```{r qapmax, exercise=TRUE}
+
+```
+
+```{r qapmax-solution}
 model1 <- network_reg(weight ~ alter(Citations) + sim(Citations) + 
                       alter(Discipline) + same(Discipline), 
                       ison_networkers, times = 200)
@@ -274,7 +314,11 @@ We can use tidy methods to get the salient information from this model,
 and `{migraph}` includes also a plot method for these results to
 facilitate the quick interpretation of these results.
 
-```{r qap-interp}
+```{r qapinterp, exercise=TRUE}
+
+```
+
+```{r qapinterp-solution}
 tidy(model1)
 glance(model1)
 plot(model1)
