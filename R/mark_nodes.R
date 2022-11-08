@@ -63,6 +63,19 @@ node_is_core <- function(object){
   make_node_mark(out, object)
 }
 
+#' @describeIn mark_nodes Returns a logical vector
+#'   indicating a random selection of nodes as TRUE.
+#' @param size The number of nodes to select (as TRUE).
+#' @examples 
+#' node_is_random(ison_brandes, 2)
+#' @export
+node_is_random <- function(object, size = 1){
+  n <- network_nodes(object)
+  out <- rep(FALSE, n)
+  out[sample.int(n, size)] <- TRUE
+  make_node_mark(out, object)
+}
+
 #' @describeIn mark_nodes Returns logical of which nodes 
 #'   hold the maximum of some measure
 #' @param node_measure An object created by a `node_` measure.
