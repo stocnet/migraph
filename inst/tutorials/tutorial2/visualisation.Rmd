@@ -88,7 +88,7 @@ the `autographr()` function using the following parameters:
 * `node_shape`
 * `node_size`
 
-### Appending more
+### Adding titles and subtitles
 
 Append `ggtitle()` to add a title.
 `{migraph}` works well with both `{ggplot2}` and `{ggraph}` functions 
@@ -133,6 +133,34 @@ that can be used together with `autographr()`.
 autographr(ison_southern_women, layout = "hierarchy") + ggtitle("hierarchy")) /
 (autographr(ison_southern_women, layout = "concentric") + ggtitle("concentric") |
    autographr(ison_southern_women, layout = "railway") + ggtitle("railway"))
+```
+
+### Using different colours
+
+Because the autographr function is based on
+the grammar of graphics,
+it's easy to extend or alter aesthetic aspects.
+Here let's try and change the colors
+assigned to the different regions in the `mpn_elite_mex` dataset.
+
+```{r colorch, exercise = TRUE}
+autographr(mpn_elite_mex,
+           node_color = "region")
+
+autographr(mpn_elite_mex,
+           node_color = "region") +
+  ggplot2::scale_colour_hue()
+
+autographr(mpn_elite_mex,
+           node_color = "region") +
+  ggplot2::scale_colour_grey()
+
+autographr(mpn_elite_mex,
+           node_color = "region") +
+  ggplot2::scale_colour_manual(
+    values = c("1" = "red",
+               "3" = "blue",
+               "2" = "green"))
 ```
 
 ## Using `{ggraph}` for more flexibility
