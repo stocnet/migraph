@@ -223,23 +223,9 @@ please install the `{remotes}` or `{devtools}` package from CRAN and then:
 - For latest development version: 
 `remotes::install_github("snlab-ch/migraph@develop", build_vignettes = TRUE)`
 
-### Vignettes
-
-To make sure you have the vignettes installed, 
-please either install the latest binary from CRAN for your OS,
-or use the `remotes` command above to make sure that the vignettes are also built.
-
-Once you have the package with the vignettes built installed,
-you can access them using the following command:
-`r browseVignettes("migraph")`.
-
-This gives you access to the compiled vignettes in html form,
-as well as the original source (an Rmarkdown file),
-and just the R code without any of the annotations.
-
 ### Tutorials
 
-We are however moving away from the use of vignettes in this package,
+This package has recently moved away from the use of vignettes,
 in favour of smaller and more interactive `{learnr}` tutorials.
 Since version 0.12.3, many of the previous vignettes are instead
 available as tutorials, more will be converted soon,
@@ -254,7 +240,7 @@ learnr::available_tutorials("migraph")
 ```
 
 You can then choose to begin a tutorial using the following command: e.g.
-`learnr::run_tutorial("equivalence", "migraph")`.
+`learnr::run_tutorial("tutorial2", "migraph")`.
 For more details on the `{learnr}` package, see [here](https://rstudio.github.io/learnr/).
 
 ## Relationship to other packages

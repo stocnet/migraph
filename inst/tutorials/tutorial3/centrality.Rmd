@@ -1,16 +1,17 @@
 ---
-title: "3. Centrality"
+title: "Centrality"
 author: "James Hollway"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{3. Centrality}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+output: learnr::tutorial
+runtime: shiny_prerendered
 ---
 
+```{r setup, include=FALSE}
+library(learnr)
+library(migraph)
+knitr::opts_chunk$set(echo = FALSE)
+```
 
-
-# Calculating different centrality measures
+## Calculating different centrality measures
 
 For this exercise, we'll use the `ison_brandes` and `ison_brandes2` datasets.
 The `ison_brandes2` is a two-mode version of the `ison_brandes` dataset.
@@ -18,46 +19,14 @@ This dataset is in a 'tidygraph' format,
 but migraph makes it easy to coerce this into other forms
 to be compatible with other packages.
 
+```{r coercion, exercise = TRUE}
 
-```r
-library(migraph)
+```
+
+```{r coercion-solution}
 autographr(ison_brandes)
-```
-
-![](teaching/coercion-1.png)
-
-```r
 autographr(ison_brandes2)
-```
-
-![](teaching/coercion-2.png)
-
-```r
 (mat <- as_matrix(ison_brandes))
-#>       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
-#>  [1,]    0    0    1    0    0    0    0    0    0
-#>  [2,]    0    0    1    0    0    0    0    0    0
-#>  [3,]    1    1    0    1    0    0    0    0    0
-#>  [4,]    0    0    1    0    1    1    0    0    0
-#>  [5,]    0    0    0    1    0    0    1    0    0
-#>  [6,]    0    0    0    1    0    0    1    1    0
-#>  [7,]    0    0    0    0    1    1    0    0    1
-#>  [8,]    0    0    0    0    0    1    0    0    1
-#>  [9,]    0    0    0    0    0    0    1    1    0
-#> [10,]    0    0    0    0    0    0    0    0    1
-#> [11,]    0    0    0    0    0    0    0    0    1
-#>       [,10] [,11]
-#>  [1,]     0     0
-#>  [2,]     0     0
-#>  [3,]     0     0
-#>  [4,]     0     0
-#>  [5,]     0     0
-#>  [6,]     0     0
-#>  [7,]     0     0
-#>  [8,]     0     0
-#>  [9,]     1     1
-#> [10,]     0     0
-#> [11,]     0     0
 ```
 
 The network is anonymous, but I think it would be nice to add some names,
@@ -65,14 +34,15 @@ even if it's just pretend.
 Luckily, `{migraph}` has a function for this.
 This makes plotting the network just a wee bit more accessible and interpretable:
 
+```{r addingnames, exercise = TRUE}
 
-```r
+```
+
+```{r addingnames-solution}
 ison_brandes <- to_named(ison_brandes)
 ison_brandes2 <- to_named(ison_brandes2)
 autographr(ison_brandes)
 ```
-
-![](teaching/addingnames-1.png)
 
 Note that you will likely get a different set of names,
 as they are assigned randomly from a pool of (American) first names.
@@ -80,50 +50,42 @@ as they are assigned randomly from a pool of (American) first names.
 Let's start with calculating degree, as it is easy to calculate yourself.
 Just sum the rows or columns of the matrix!
 
+```{r degreesum, exercise = TRUE}
 
-```r
+```
+
+```{r degreesum-solution}
 (degrees <- rowSums(mat))
-#>  [1] 1 1 3 3 2 3 3 2 4 1 1
 rowSums(mat) == colSums(mat)
-#>  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
-#> [10] TRUE TRUE
 # Are they all equal? Why?
 # You can also just use a built in command in migraph though:
 node_degree(ison_brandes, normalized = FALSE)
-#>   Becky  Luna Rylee Jenna Deborah Claire Damian
-#> 1     1     1     3     3       2      3      3
-#> # ... with 4 more from this nodeset in the vector.
 ```
 
 Often we are interested in the distribution of (degree) centrality in a network.
 `{migraph}` offers a way to get a pretty good first look at this distribution,
 though there are more elaborate ways to do this in base and grid graphics.
 
+```{r distrib, exercise = TRUE}
 
-```r
+```
+
+```{r distrib-solution}
 plot(node_degree(ison_brandes), "h") +
   plot(node_degree(ison_brandes), "d")
 ```
 
-![](teaching/distrib-1.png)
-
 Other measures of centrality can be a little trickier to calculate by hand.
 Fortunately, we can use functions from `{migraph}` to help:
 
+```{r micent, exercise = TRUE}
 
-```r
+```
+
+```{r micent-solution}
 node_betweenness(ison_brandes)
-#>   Becky  Luna Rylee Jenna Deborah Claire Damian
-#> 1     0     0 0.378 0.485   0.133  0.337  0.304
-#> # ... with 4 more from this nodeset in the vector.
 node_closeness(ison_brandes)
-#>   Becky  Luna Rylee Jenna Deborah Claire Damian
-#> 1 0.278 0.278 0.370 0.455   0.435  0.476  0.455
-#> # ... with 4 more from this nodeset in the vector.
 node_eigenvector(ison_brandes)
-#>   Becky  Luna Rylee Jenna Deborah Claire Damian
-#> 1 0.106 0.106 0.277 0.510   0.437  0.615  0.631
-#> # ... with 4 more from this nodeset in the vector.
 # TASK: Can you create degree distributions for each of these?
 ```
 
@@ -131,7 +93,7 @@ Note that all centrality measures in `{migraph}` return normalized
 scores by default -- 
 for the raw scores, just add `normalized = FALSE` as an extra argument.
 
-# Plotting different centrality measures
+## Plotting different centrality measures
 
 It is straightforward in `{migraph}` to highlight nodes and ties 
 with maximum or minimum (e.g. degree) scores.
@@ -142,58 +104,43 @@ e.g. `node_is_max()` or `tie_is_min()`.
 By passing this attribute to the `autographr()` argument "node_color"
 we can highlight which node or nodes hold the maximum score in red.
 
+```{r ggid, exercise = TRUE}
 
-```r
+```
+
+```{r ggid-solution}
 ison_brandes %>%
   add_node_attribute("color", node_is_max(node_degree(ison_brandes))) %>%
   autographr(node_color = "color")
-```
-
-![](teaching/ggid-1.png)
-
-```r
 ison_brandes %>%
   add_node_attribute("color", node_is_max(node_betweenness(ison_brandes))) %>%
   autographr(node_color = "color")
-```
-
-![](teaching/ggid-2.png)
-
-```r
 ison_brandes %>%
   add_node_attribute("color", node_is_max(node_closeness(ison_brandes))) %>%
   autographr(node_color = "color")
-```
-
-![](teaching/ggid-3.png)
-
-```r
 ison_brandes %>%
   add_node_attribute("color", node_is_max(node_eigenvector(ison_brandes))) %>%
   autographr(node_color = "color")
 ```
 
-![](teaching/ggid-4.png)
-
 How neat! Try it with the two-mode version.
 What can you see?
 
-# Calculating centralization
+## Calculating centralization
 
 `{migraph}` also implements centralization functions.
 Here we are no longer interested in the level of the node,
 but in the level of the whole graph, so the syntax is:
 
+```{r centzn, exercise = TRUE}
 
-```r
+```
+
+```{r centzn-solution}
 network_degree(ison_brandes)
-#> [1] 0.182
 network_betweenness(ison_brandes)
-#> [1] 0.318
 network_closeness(ison_brandes)
-#> [1] 0.23
 network_eigenvector(ison_brandes)
-#> [1] 0.484
 ```
 
 By default, scores are printed to 3 decimal places,
@@ -209,8 +156,11 @@ What if we want to have a single image/figure with multiple plots?
 This can be a little tricky with gg-based plots,
 but fortunately the `{patchwork}` package is here to help.
 
+```{r multiplot, exercise = TRUE}
 
-```r
+```
+
+```{r multiplot-solution}
 ison_brandes <- ison_brandes %>%
   add_node_attribute("degree", node_is_max(node_degree(ison_brandes))) %>%
   add_node_attribute("betweenness", node_is_max(node_betweenness(ison_brandes))) %>%
@@ -225,15 +175,11 @@ gb <- autographr(ison_brandes, node_color = "betweenness") +
 ge <- autographr(ison_brandes, node_color = "eigenvector") + 
   ggtitle("Eigenvector", subtitle = round(network_eigenvector(ison_brandes), 2))
 (gd | gb) / (gc | ge)
-```
-
-![](teaching/multiplot-1.png)
-
-```r
 # ggsave("brandes-centralities.pdf")
 ```
 
-# Tasks
+## Tasks
+
 1. Try this with the `ison_brandes2` dataset in the package.
 
 2. Name a plausible research question you could ask of this data
