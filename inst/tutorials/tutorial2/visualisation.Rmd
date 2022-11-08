@@ -143,7 +143,11 @@ it's easy to extend or alter aesthetic aspects.
 Here let's try and change the colors
 assigned to the different regions in the `mpn_elite_mex` dataset.
 
-```{r colorch, exercise = TRUE}
+```{r colorch, exercise=TRUE}
+
+```
+
+```{r colorch-solution}
 autographr(mpn_elite_mex,
            node_color = "region")
 
