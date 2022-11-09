@@ -4,7 +4,7 @@
 \alias{play_diffusion}
 \title{Functions to play games on networks}
 \usage{
-play_diffusion(object, seeds = 1:2, thresholds = 1, times)
+play_diffusion(object, seeds = 1:2, thresholds = 1, steps)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:

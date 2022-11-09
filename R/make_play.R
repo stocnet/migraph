@@ -8,9 +8,9 @@
 play_diffusion <- function(object, 
                            seeds = 1:2,
                            thresholds = 1,
-                           times){
+                           steps){
   n <- network_nodes(object)
-  if(missing(times)) times <- n
+  if(missing(steps)) steps <- n
   if(length(thresholds)==1) thresholds <- rep(thresholds, n)
   
   infected <- seeds
@@ -27,7 +27,7 @@ play_diffusion <- function(object,
     t <- t+1
     events <- rbind(events, data.frame(t = t, nodes = new))
     if(length(infected)==n) break
-    if(t==times) break
+    if(t==steps) break
   }
-  events
+  make_diff_model(events, object)
 }
