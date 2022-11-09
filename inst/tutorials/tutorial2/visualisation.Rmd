@@ -71,8 +71,12 @@ To get a basic visualisation of the network before adding various specifications
 the `autographr()` function in `{migraph}` is a quick and easy way 
 to obtain a clear first look of the network 
 for preliminary investigations and understanding of the network.
+
+```{r migrapheg, exercise=TRUE}
+
+```
   
-```{r migrapheg, echo=TRUE, exercise = TRUE}
+```{r migrapheg-solution}
 library(migraph)
 autographr(ison_brandes)
 ```
@@ -84,14 +88,18 @@ the `autographr()` function using the following parameters:
 * `node_shape`
 * `node_size`
 
-### Appending more
+### Adding titles and subtitles
 
 Append `ggtitle()` to add a title.
 `{migraph}` works well with both `{ggplot2}` and `{ggraph}` functions 
 that can be appended to create more tailored visualisations 
 of the network.
+
+```{r migraphexample2, exercise=TRUE}
+
+```
   
-```{r migraphexample2, echo=TRUE, message=FALSE, warning=FALSE, exercise = TRUE}
+```{r migraphexample2-solution}
 autographr(ison_adolescents,
            labels = TRUE,
            node_size = 1.5) + 
@@ -102,7 +110,11 @@ autographr(ison_adolescents,
 graphs together, e.g. side-by-side or above one another.
 The syntax is quite straight forward and is used throughout these vignettes.
 
-```{r patchwork, echo=TRUE, message=FALSE, warning=FALSE, exercise = TRUE}
+```{r patchwork, exercise=TRUE}
+
+```
+
+```{r patchwork-solution}
 autographr(ison_adolescents) + autographr(ison_algebra)
 autographr(ison_adolescents) / autographr(ison_algebra)
 ```
@@ -112,11 +124,47 @@ autographr(ison_adolescents) / autographr(ison_algebra)
 A range of graph layouts are available across the `{igraph}`, `{graphlayouts}`, and `{migraph}` packages 
 that can be used together with `autographr()`.
 
-```{r layoutseg, echo=TRUE, message=FALSE, warning=FALSE, exercise = TRUE}
+```{r layoutseg, exercise=TRUE}
+
+```
+
+```{r layoutseg-solution}
 (autographr(ison_southern_women, layout = "bipartite") + ggtitle("bipartite") |
 autographr(ison_southern_women, layout = "hierarchy") + ggtitle("hierarchy")) /
 (autographr(ison_southern_women, layout = "concentric") + ggtitle("concentric") |
    autographr(ison_southern_women, layout = "railway") + ggtitle("railway"))
+```
+
+### Using different colours
+
+Because the autographr function is based on
+the grammar of graphics,
+it's easy to extend or alter aesthetic aspects.
+Here let's try and change the colors
+assigned to the different regions in the `mpn_elite_mex` dataset.
+
+```{r colorch, exercise=TRUE}
+
+```
+
+```{r colorch-solution}
+autographr(mpn_elite_mex,
+           node_color = "region")
+
+autographr(mpn_elite_mex,
+           node_color = "region") +
+  ggplot2::scale_colour_hue()
+
+autographr(mpn_elite_mex,
+           node_color = "region") +
+  ggplot2::scale_colour_grey()
+
+autographr(mpn_elite_mex,
+           node_color = "region") +
+  ggplot2::scale_colour_manual(
+    values = c("1" = "red",
+               "3" = "blue",
+               "2" = "green"))
 ```
 
 ## Using `{ggraph}` for more flexibility
@@ -128,8 +176,12 @@ and works with `tbl_graph` and `igraph` objects.
 As with `{ggplot2}`, `{ggraph}` users are expected to build
 a particular plot from the ground up,
 adding explicit layers to visualise the nodes and edges.
-  
-```{r ggrapheg, echo=TRUE, message=FALSE, warning=FALSE, exercise = TRUE}
+
+```{r ggrapheg, exercise=TRUE}
+
+```
+
+```{r ggrapheg-solution}
 library(ggraph)
 ggraph(mpn_elite_mex, layout = "fr") + 
   geom_edge_link(edge_colour = "dark grey", 

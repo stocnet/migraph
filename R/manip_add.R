@@ -108,3 +108,9 @@ join_ties <- function(object, object2, attr_name){
                        directed = is_directed(object))
   
 }
+
+#' @export
+mutate.igraph <- function(.data, ...){
+  .data %>% as_tidygraph() %>% 
+    mutate(...) %>% as_igraph()
+}

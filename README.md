@@ -119,7 +119,7 @@ methods.
     `mpn_IT_2008`, `mpn_OverSxP`, `mpn_RepSxP`, `mpn_ryanair`,
     `mpn_UK_1990`, `mpn_UK_2008`
 -   `ison_adolescents`, `ison_algebra`, `ison_bb`, `ison_bm`,
-    `ison_brandes`, `ison_brandes2`, `ison_karateka`,
+    `ison_brandes`, `ison_brandes2`, `ison_karateka`, `ison_lotr`,
     `ison_marvel_relationships`, `ison_marvel_teams`, `ison_mb`,
     `ison_mm`, `ison_networkers`, `ison_southern_women`
 
@@ -238,22 +238,9 @@ and then:
 -   For latest development version:
     `remotes::install_github("snlab-ch/migraph@develop", build_vignettes = TRUE)`
 
-### Vignettes
-
-To make sure you have the vignettes installed, please either install the
-latest binary from CRAN for your OS, or use the `remotes` command above
-to make sure that the vignettes are also built.
-
-Once you have the package with the vignettes built installed, you can
-access them using the following command: .
-
-This gives you access to the compiled vignettes in html form, as well as
-the original source (an Rmarkdown file), and just the R code without any
-of the annotations.
-
 ### Tutorials
 
-We are however moving away from the use of vignettes in this package, in
+This package has recently moved away from the use of vignettes, in
 favour of smaller and more interactive `{learnr}` tutorials. Since
 version 0.12.3, many of the previous vignettes are instead available as
 tutorials, more will be converted soon, and those that have been
@@ -267,14 +254,18 @@ suggest that you check to see which vignettes are currently available:
 learnr::available_tutorials("migraph")
 #> Available tutorials:
 #> * migraph
-#>   - community   : "Equivalence"
-#>   - equivalence : "Equivalence"
+#>   - tutorial2 : "Visualisation"
+#>   - tutorial3 : "Centrality"
+#>   - tutorial4 : "Community"
+#>   - tutorial5 : "Equivalence"
+#>   - tutorial6 : "Topology"
+#>   - tutorial7 : "Diffusion"
+#>   - tutorial8 : "Regression"
 ```
 
 You can then choose to begin a tutorial using the following command:
-e.g. `learnr::run_tutorial("equivalence", "migraph")`. For more details
-on the `{learnr}` package, see
-[here](https://rstudio.github.io/learnr/).
+e.g. `learnr::run_tutorial("tutorial2", "migraph")`. For more details on
+the `{learnr}` package, see [here](https://rstudio.github.io/learnr/).
 
 ## Relationship to other packages
 

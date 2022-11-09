@@ -1,3 +1,30 @@
+# migraph 0.12.6
+
+## Package
+
+- Changed tutorial naming structure to numeric
+- Made all existing tutorials solution oriented
+- Converted visualisation vignette into tutorial
+  - Added further instruction as to how to change e.g. node_color colors
+- Converted centrality vignette into tutorial
+- Converted regression vignette into tutorial
+  - Added a lot more interactivity to regression tutorial
+- Deleted vignette instructions off of the README
+- Added some core/coreness aspects to topology tutorial
+
+## Manipulations
+
+- `mutate()` now works with igraph objects
+
+## Marks
+
+- Added `node_is_random()` for selecting n nodes at random
+
+## Models
+
+- Added first draft of (SI) `play_diffusion()` model
+  - Added diff_model class, together with print, summary, and plot methods
+
 # migraph 0.12.5
 
 ## Package
