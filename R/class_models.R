@@ -191,3 +191,12 @@ summary.diff_model <- function(object, ...){
     mutate(cum_sum = cumsum(n)) %>% 
     mutate(percent = cum_sum/ns)
 }
+
+#' @export
+plot.diff_model <- function(x, ...){
+  y <- summary(x)
+  ggplot2::ggplot(y) + 
+    ggplot2::geom_line(aes(x = t, y = percent)) +
+    ggplot2::theme_minimal() +
+    ggplot2::ylab("Proportion") + ggplot2::xlab("Time")
+}
