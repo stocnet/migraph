@@ -2,6 +2,10 @@
 #' @inheritParams is
 #' @param seeds A valid mark vector the length of the
 #'   number of nodes in the network.
+#' @param thresholds A numeric vector indicating the thresholds
+#'   each node has. By default 1.
+#' @param steps The number of steps forward in the diffusion to play.
+#'   By default the number of nodes in the network.
 #' @examples 
 #' play_diffusion(generate_smallworld(15, 0.025))
 #' @export

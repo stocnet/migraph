@@ -110,7 +110,7 @@ join_ties <- function(object, object2, attr_name){
 }
 
 #' @export
-mutate.igraph <- function(object, ...){
-  object %>% as_tidygraph() %>% 
+mutate.igraph <- function(.data, ...){
+  .data %>% as_tidygraph() %>% 
     mutate(...) %>% as_igraph()
 }

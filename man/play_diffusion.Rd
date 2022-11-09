@@ -18,6 +18,12 @@ play_diffusion(object, seeds = 1:2, thresholds = 1, steps)
 
 \item{seeds}{A valid mark vector the length of the
 number of nodes in the network.}
+
+\item{thresholds}{A numeric vector indicating the thresholds
+each node has. By default 1.}
+
+\item{steps}{The number of steps forward in the diffusion to play.
+By default the number of nodes in the network.}
 }
 \description{
 Functions to play games on networks

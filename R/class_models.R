@@ -186,6 +186,7 @@ print.diff_model <- function(x, ...){
 
 #' @export
 summary.diff_model <- function(object, ...){
+  cum_sum <- NULL
   ns <- length(attr(object, "mode"))
   dplyr::count(object, t) %>% 
     mutate(cum_sum = cumsum(n)) %>% 
@@ -194,6 +195,7 @@ summary.diff_model <- function(object, ...){
 
 #' @export
 plot.diff_model <- function(x, ...){
+  percent <- NULL
   y <- summary(x)
   ggplot2::ggplot(y) + 
     ggplot2::geom_line(aes(x = t, y = percent)) +
