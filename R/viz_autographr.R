@@ -32,12 +32,16 @@
 #' @param node_group Node variable in quotation marks to be used for
 #'   drawing convex but also concave hulls around clusters of nodes.
 #'   These groupings will be labelled with the categories of the variable passed.
-#' @param ... Extra arguments.
+#' @param ... Extra arguments to pass on to `autographr()`/`ggraph()`/`ggplot()`.
 #' @importFrom ggraph geom_edge_link geom_node_text
 #' @importFrom ggraph geom_conn_bundle get_con geom_node_point
 #' @importFrom ggraph scale_edge_width_continuous geom_node_label
 #' @importFrom ggplot2 aes arrow unit scale_color_brewer scale_fill_brewer
 #' @importFrom ggforce geom_mark_hull
+#' @name auto_graph
+NULL
+
+#' @describeIn auto_graph Graphs a network with sensible defaults
 #' @examples
 #' ison_adolescents %>% 
 #'   mutate(shape = rep(c("circle", "square"), times = 4)) %>%
@@ -51,18 +55,20 @@
 #'   autographr(node_color = "high_degree", edge_color = "high_betweenness")
 #' autographr(mpn_elite_usa_advice, "concentric")
 #' @export
-autographr <- auto_graph <- function(object,
-                                     layout = "stress",
-                                     labels = TRUE,
-                                     node_color = NULL,
-                                     node_group = NULL,
-                                     node_shape = NULL,
-                                     node_size = NULL,
-                                     edge_color = NULL,
-                                     ...) {
+autographr <- function(object,
+                       layout = "stress",
+                       labels = TRUE,
+                       node_color = NULL,
+                       node_group = NULL,
+                       node_shape = NULL,
+                       node_size = NULL,
+                       edge_color = NULL,
+                       ...) {
   
   name <- weight <- NULL # initialize variables to avoid CMD check notes
   g <- as_tidygraph(object)
+  if(!is.null(node_group)) g <- g %>% 
+    mutate(node_group = as.factor(node_group))
 
   # Add layout ----
   p <- .graph_layout(g, layout, labels, node_group)
@@ -74,6 +80,23 @@ autographr <- auto_graph <- function(object,
   p <- .graph_nodes(p, g, node_color, node_shape, node_size)
 
   p
+}
+
+#' @describeIn auto_graph Graphs a list of networks 
+#'   with sensible defaults
+#' @param netlist A list of migraph-compatible networks.
+#' @importFrom patchwork wrap_plots
+#' @examples 
+#' autographs(to_egos(ison_adolescents))
+#' @export
+autographs <- function(netlist, ...){
+  if(!is.null(names(netlist)))
+    gs <- lapply(1:length(netlist), function(x) 
+    autographr(netlist[[x]], ...) + 
+      ggtitle(names(netlist)[x])) else 
+        gs <- lapply(netlist, function(x) 
+          autographr(x, ...))
+  do.call(patchwork::wrap_plots, gs)
 }
 
 #' @importFrom ggraph create_layout ggraph
@@ -341,8 +364,8 @@ autographr <- auto_graph <- function(object,
     message("Please install package `{concaveman}`.")
   } else {
     p <- p + ggforce::geom_mark_hull(ggplot2::aes(x = lo$x, y = lo$y,
-                                                  fill = as.factor(igraph::get.vertex.attribute(g, node_group)),
-                                                  label = as.factor(igraph::get.vertex.attribute(g, node_group))),
+                                       fill = node_group,
+                                       label = node_group),
                                      concavity = 2) +
       ggplot2::scale_fill_brewer(palette = "Set1", guide = "none")
   }

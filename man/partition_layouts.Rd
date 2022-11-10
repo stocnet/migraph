@@ -71,7 +71,7 @@ autographr(ison_karateka, "hierarchy")
 }
 \seealso{
 Other mapping: 
-\code{\link{autographr}()},
+\code{\link{auto_graph}},
 \code{\link{grid_layouts}}
 }
 \concept{mapping}
