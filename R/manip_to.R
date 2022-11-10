@@ -898,3 +898,68 @@ to_anti.tbl_graph <- function(object){
 to_anti.network <- function(object){
   as_network(to_anti(as_igraph(object)))
 }
+
+#' @describeIn transform Returns a list of ego (or focal)
+#'   networks.
+#' @param max_dist The maximum breadth of the neighbourhood.
+#'   By default 1.
+#' @param min_dist The minimum breadth of the neighbourhood.
+#'   By default 0. 
+#'   Increasing this to 1 excludes the ego,
+#'   and 2 excludes ego's direct alters.
+#' @importFrom igraph make_ego_graph
+#' @examples 
+#' autographs(to_egos(ison_adolescents))
+#' autographs(to_egos(ison_adolescents,2))
+#' @export
+to_egos <- function(object, 
+                    max_dist = 1, 
+                    min_dist = 0) UseMethod("to_egos")
+
+#' @export
+to_egos.igraph <- function(object, 
+                           max_dist = 1, 
+                           min_dist = 0){
+  out <- igraph::make_ego_graph(object,
+                                order = max_dist,
+                                mindist = min_dist)
+  if(is_labelled(object)) 
+    names(out) <- node_names(object)
+  out
+}
+
+#' @export
+to_egos.tbl_graph <- function(object, 
+                           max_dist = 1, 
+                           min_dist = 0){
+  as_tidygraph(to_egos(as_igraph(object), 
+                       max_dist, 
+                       min_dist))
+}
+
+#' @export
+to_egos.network <- function(object, 
+                              max_dist = 1, 
+                              min_dist = 0){
+  as_network(to_egos(as_igraph(object), 
+                       max_dist, 
+                       min_dist))
+}
+
+#' @export
+to_egos.matrix <- function(object, 
+                              max_dist = 1, 
+                              min_dist = 0){
+  as_matrix(to_egos(as_igraph(object), 
+                       max_dist, 
+                       min_dist))
+}
+
+#' @export
+to_egos.data.frame <- function(object, 
+                              max_dist = 1, 
+                              min_dist = 0){
+  as_edgelist(to_egos(as_igraph(object), 
+                       max_dist, 
+                       min_dist))
+}
