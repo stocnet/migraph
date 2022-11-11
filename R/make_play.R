@@ -16,6 +16,7 @@ play_diffusion <- function(object,
   n <- network_nodes(object)
   if(missing(steps)) steps <- n
   if(length(thresholds)==1) thresholds <- rep(thresholds, n)
+  if(is.logical(seeds)) seeds <- which(seeds)
   
   infected <- seeds
   t = 0
