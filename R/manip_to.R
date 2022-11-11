@@ -932,34 +932,38 @@ to_egos.igraph <- function(object,
 to_egos.tbl_graph <- function(object, 
                            max_dist = 1, 
                            min_dist = 0){
-  as_tidygraph(to_egos(as_igraph(object), 
+  out <- to_egos(as_igraph(object), 
                        max_dist, 
-                       min_dist))
+                       min_dist)
+  lapply(out, function(x) as_tidygraph(x))
 }
 
 #' @export
 to_egos.network <- function(object, 
                               max_dist = 1, 
                               min_dist = 0){
-  as_network(to_egos(as_igraph(object), 
+  out <- to_egos(as_igraph(object), 
                        max_dist, 
-                       min_dist))
+                       min_dist)
+  lapply(out, function(x) as_network(x))
 }
 
 #' @export
 to_egos.matrix <- function(object, 
                               max_dist = 1, 
                               min_dist = 0){
-  as_matrix(to_egos(as_igraph(object), 
+  out <- to_egos(as_igraph(object), 
                        max_dist, 
-                       min_dist))
+                       min_dist)
+  lapply(out, function(x) as_matrix(x))
 }
 
 #' @export
 to_egos.data.frame <- function(object, 
                               max_dist = 1, 
                               min_dist = 0){
-  as_edgelist(to_egos(as_igraph(object), 
+  out <- to_egos(as_igraph(object), 
                        max_dist, 
-                       min_dist))
+                       min_dist)
+  lapply(out, function(x) as_edgelist(x))
 }
