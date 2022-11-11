@@ -11,6 +11,24 @@
 #' @family measures
 NULL
 
+#' @describeIn diversity Calculates the number of unique categories 
+#'   in a network attribute.
+#' @export
+network_richness <- function(object, attribute){
+  make_network_measure(length(unique(node_attribute(object, attribute))),
+                       object)
+}
+
+#' @describeIn diversity Calculates the number of unique categories 
+#'   of an attribute to which each node is connected.
+#' @export
+node_richness <- function(object, attribute){
+  out <- vapply(to_egos(object, min_dist = 1), 
+         function(x) length(unique(node_attribute(x, attribute))),
+         FUN.VALUE = numeric(1))
+  make_node_measure(out, object)
+}
+
 #' @describeIn diversity Calculates the heterogeneity of ties across a network or 
 #'    within clusters by node attributes.
 #' @section network_diversity:
