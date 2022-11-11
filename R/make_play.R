@@ -6,6 +6,11 @@
 #'   each node has. By default 1.
 #' @param steps The number of steps forward in the diffusion to play.
 #'   By default the number of nodes in the network.
+#' @family models
+#' @name play
+NULL
+
+#' @describeIn play Playing compartmental diffusion on networks.
 #' @examples 
 #' play_diffusion(generate_smallworld(15, 0.025))
 #' @export
@@ -35,4 +40,35 @@ play_diffusion <- function(object,
     if(t==steps) break
   }
   make_diff_model(events, object)
+}
+
+#' @describeIn play Playing DeGroot learning on networks.
+#' @examples 
+#' play_learning(ison_networkers, 
+#'       rbinom(network_nodes(ison_networkers),1,prob = 0.25))
+#' @export
+play_learning <- function(object, 
+                           beliefs,
+                           steps,
+                          epsilon = 0.0005){
+  n <- network_nodes(object)
+  if(is.logical(beliefs)) beliefs <- beliefs*1
+  if(missing(steps)) steps <- n
+
+  t = 0
+  out <- matrix(NA,steps+1,length(beliefs))
+  out[1,] <- beliefs
+  trust_mat <- as_matrix(object)/rowSums(as_matrix(object))
+  
+  repeat{
+    old_beliefs <- beliefs
+    beliefs <- trust_mat %*% beliefs
+    if(all(abs(old_beliefs - beliefs) < epsilon)) break
+    t = t+1
+    out[t+1,] <- beliefs
+    if(t==steps) break
+  }
+  out <- na.omit(out)
+  
+  make_diff_model(out, object)
 }
