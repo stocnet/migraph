@@ -106,15 +106,39 @@ test_that("autographr works for bipartite networks", {
 
 # Testing the node_color, node_size, node_group, and node_shape args by specifying a node attribute
 test_that("fancy node mods graph correctly", {
+  # one-mode network
   ison_marvel_relationships <- dplyr::mutate(ison_marvel_relationships, nodesize = Appearances/1000)
   testcolnodes <- autographr(ison_marvel_relationships,
                              node_color = "Gender",
                              node_size = "nodesize",
                              node_shape = "Attractive",
                              node_group = "Rich")
-  expect_equal(class(testcolnodes), c("ggraph","gg","ggplot"))
+  expect_s3_class(testcolnodes, c("ggraph","gg","ggplot"))
+  expect_s3_class(testcolnodes[["plot_env"]][["node_group"]], "factor")
+  expect_equal(testcolnodes[["plot_env"]][["node_group"]],
+               as.factor(node_attribute(ison_marvel_relationships, "Rich")))
+  expect_equal(testcolnodes[["layers"]][[4]][["aes_params"]]$size,
+               node_attribute(ison_marvel_relationships, "nodesize"))
+  expect_equal(length(unique(testcolnodes[["layers"]][[4]][["aes_params"]]$shape)),
+               length(unique(node_attribute(ison_marvel_relationships, "Attractive"))))
   expect_equal(round(testcolnodes$data$x[1]), 4)
   expect_equal(round(testcolnodes$data$y[1]), 3)
+  expect_equal(nrow(testcolnodes[["plot_env"]][["lo"]]),
+               network_nodes(ison_marvel_relationships))
+  # two-mode network
+  ison_southern_women <- add_node_attribute(ison_southern_women, "group",
+                                            c(node_fast_greedy(ison_southern_women)))
+  test2 <- autographr(ison_southern_women,
+                      node_color = "type",
+                      node_group = "group")
+  expect_s3_class(test2, c("ggraph","gg","ggplot"))
+  expect_s3_class(test2[["plot_env"]][["node_group"]], "factor")
+  expect_equal(test2[["plot_env"]][["node_group"]],
+               as.factor(node_attribute(ison_southern_women, "group")))
+  expect_equal(round(test2$data$x[1]), 1)
+  expect_equal(round(test2$data$y[1]), 1)
+  expect_equal(nrow(test2[["plot_env"]][["lo"]]),
+               network_nodes(ison_southern_women))
 })
 
 test_that("edge colours graph correctly", {

@@ -67,8 +67,12 @@ autographr <- function(object,
   
   name <- weight <- NULL # initialize variables to avoid CMD check notes
   g <- as_tidygraph(object)
-  if(!is.null(node_group)) g <- g %>% 
-    mutate(node_group = as.factor(node_group))
+  if(!is.null(node_group)) {
+    node_group <- as.factor(node_attribute(g, node_group))
+    g <- as_tidygraph(g) %>% 
+      tidygraph::activate(nodes) %>%
+      dplyr::mutate(node_group = node_group)
+  }
 
   # Add layout ----
   p <- .graph_layout(g, layout, labels, node_group)
@@ -178,7 +182,7 @@ autographs <- function(netlist, ...){
   if (is_directed(g)) {
     if (is_weighted(g)) {
       if (!is.null(edge_color)) {
-        edge_color <- as.factor(igraph::get.edge.attribute(g, edge_color))
+        edge_color <- as.factor(tie_attribute(g, edge_color))
         p <- p + ggraph::geom_edge_link(ggplot2::aes(width = weight,
                                                      colour = edge_color),
                                         edge_alpha = 0.4,
@@ -219,7 +223,7 @@ autographs <- function(netlist, ...){
       }
     } else {
       if (!is.null(edge_color)) {
-        edge_color <- as.factor(igraph::get.edge.attribute(g, edge_color))
+        edge_color <- as.factor(tie_attribute(g, edge_color))
         p <- p + ggraph::geom_edge_link(ggplot2::aes(colour = edge_color),
                                         edge_alpha = 0.4,
                                         edge_linetype = "solid",
@@ -253,7 +257,7 @@ autographs <- function(netlist, ...){
   } else {
     if (is_weighted(g)) { # weighted and undirected
       if (!is.null(edge_color)) {
-        edge_color <- as.factor(igraph::get.edge.attribute(g, edge_color))
+        edge_color <- as.factor(tie_attribute(g, edge_color))
         p <- p + ggraph::geom_edge_link(ggplot2::aes(width = weight,
                                                      colour = edge_color),
                                         edge_alpha = 0.4,
@@ -282,7 +286,7 @@ autographs <- function(netlist, ...){
       }
     } else { # unweighted and undirected
       if (!is.null(edge_color)) {
-        edge_color <- as.factor(igraph::get.edge.attribute(g, edge_color))
+        edge_color <- as.factor(tie_attribute(g, edge_color))
         p <- p + ggraph::geom_edge_link0(ggplot2::aes(colour = edge_color),
                                          edge_linetype = "solid",
                                          edge_alpha = 0.4) +
@@ -318,7 +322,7 @@ autographs <- function(netlist, ...){
   }
 
   if (!is.null(node_shape)) {
-    node_shape <- as.factor(igraph::get.vertex.attribute(g, node_shape))
+    node_shape <- as.factor(node_attribute(g, node_shape))
     node_shape <- c("circle","square","triangle")[node_shape]
   } else if (is_twomode(g)) {
     node_shape <- ifelse(igraph::V(g)$type,
@@ -329,7 +333,7 @@ autographs <- function(netlist, ...){
   }
   if (is_twomode(g)) {
     if (!is.null(node_color)) {
-      color_factor_node <- as.factor(igraph::get.vertex.attribute(g, node_color))
+      color_factor_node <- as.factor(node_attribute(g, node_color))
       p <- p + ggraph::geom_node_point(ggplot2::aes(color = color_factor_node),
                                        size = nsize,
                                        shape = node_shape) +
@@ -343,7 +347,7 @@ autographs <- function(netlist, ...){
     }
   } else {
     if (!is.null(node_color)) {
-      color_factor_node <- as.factor(igraph::get.vertex.attribute(g, node_color))
+      color_factor_node <- as.factor(node_attribute(g, node_color))
       p <- p + ggraph::geom_node_point(aes(color = color_factor_node),
                                        size = nsize,
                                        shape = node_shape) +
@@ -364,8 +368,8 @@ autographs <- function(netlist, ...){
     message("Please install package `{concaveman}`.")
   } else {
     p <- p + ggforce::geom_mark_hull(ggplot2::aes(x = lo$x, y = lo$y,
-                                       fill = node_group,
-                                       label = node_group),
+                                                  fill = node_group,
+                                                  label = node_group),
                                      concavity = 2) +
       ggplot2::scale_fill_brewer(palette = "Set1", guide = "none")
   }
@@ -433,3 +437,4 @@ hypot <- function (x, y) {
   M <- pmax(x, y)
   ifelse(M == 0, 0, M * sqrt(1 + (m/M)^2))
 }
+
