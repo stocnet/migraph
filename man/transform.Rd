@@ -10,7 +10,6 @@
 \alias{to_blocks}
 \alias{to_matching}
 \alias{to_anti}
-\alias{to_egos}
 \title{Tools for transforming networks, graphs, and matrices}
 \usage{
 to_mode1(object, similarity = c("count", "jaccard", "rand", "pearson", "yule"))
@@ -28,8 +27,6 @@ to_blocks(object, membership, FUN = mean)
 to_matching(object, mark = "type")
 
 to_anti(object)
-
-to_egos(object, max_dist = 1, min_dist = 0)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -70,14 +67,6 @@ Other recommended options include \code{median}, \code{sum},
 
 \item{mark}{A logical vector marking two types or modes.
 By default "type".}
-
-\item{max_dist}{The maximum breadth of the neighbourhood.
-By default 1.}
-
-\item{min_dist}{The minimum breadth of the neighbourhood.
-By default 0.
-Increasing this to 1 excludes the ego,
-and 2 excludes ego's direct alters.}
 }
 \description{
 These functions offer tools for transforming migraph-consistent objects
@@ -132,9 +121,6 @@ matching ties
 where only ties \emph{not} present in the original network
 are included in the new network.
 
-\item \code{to_egos()}: Returns a list of ego (or focal)
-networks.
-
 }}
 \section{to_matching}{
 
@@ -162,8 +148,6 @@ autographr(to_ties(ison_adolescents))
 autographr(adolblock)
 autographr(to_matching(ison_southern_women), "hierarchy")
 autographr(to_anti(ison_southern_women), "hierarchy")
-autographs(to_egos(ison_adolescents))
-autographs(to_egos(ison_adolescents,2))
 }
 \references{
 Goldberg, A V; Tarjan, R E (1986).
@@ -176,6 +160,7 @@ Other manipulations:
 \code{\link{add}},
 \code{\link{as}()},
 \code{\link{grab}},
-\code{\link{reformat}}
+\code{\link{reformat}},
+\code{\link{split}()}
 }
 \concept{manipulations}

@@ -66,6 +66,7 @@ Other manipulations:
 \code{\link{as}()},
 \code{\link{grab}},
 \code{\link{reformat}},
+\code{\link{split}()},
 \code{\link{transform}()}
 }
 \concept{manipulations}

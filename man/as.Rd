@@ -103,6 +103,7 @@ Other manipulations:
 \code{\link{add}},
 \code{\link{grab}},
 \code{\link{reformat}},
+\code{\link{split}()},
 \code{\link{transform}()}
 }
 \concept{manipulations}

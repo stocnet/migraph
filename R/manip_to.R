@@ -899,7 +899,19 @@ to_anti.network <- function(object){
   as_network(to_anti(as_igraph(object)))
 }
 
-#' @describeIn transform Returns a list of ego (or focal)
+# Splitting ####
+#' Tools for splitting networks, graphs, and matrices
+#' 
+#' @description
+#' These functions offer tools for splitting migraph-consistent objects
+#' (matrices, igraph, tidygraph, or network objects).
+#' Splitting means that the returned object will be a list of objects.
+#' @name split
+#' @family manipulations
+#' @inheritParams reformat
+NULL
+
+#' @describeIn split Returns a list of ego (or focal)
 #'   networks.
 #' @param max_dist The maximum breadth of the neighbourhood.
 #'   By default 1.
@@ -967,3 +979,42 @@ to_egos.data.frame <- function(object,
                        min_dist)
   lapply(out, function(x) as_edgelist(x))
 }
+
+#' @describeIn split Returns a list of the components
+#'   in a network.
+#' @examples 
+#' to_components(ison_marvel_relationships)
+#' @export
+to_components <- function(object) UseMethod("to_components")
+
+#' @importFrom igraph decompose
+#' @export
+to_components.igraph <- function(object){
+  igraph::decompose(object)
+}
+
+#' @export
+to_components.tbl_graph <- function(object){
+  out <- to_components.igraph(as_igraph(object))
+  lapply(out, function(x) as_tidygraph(x))
+}
+
+#' @export
+to_components.network <- function(object){
+  out <- to_components.igraph(as_igraph(object))
+  lapply(out, function(x) as_network(x))
+}
+
+#' @export
+to_components.matrix <- function(object){
+  out <- to_components.igraph(as_igraph(object))
+  lapply(out, function(x) as_matrix(x))
+}
+
+#' @export
+to_components.data.frame <- function(object){
+  out <- to_components.igraph(as_igraph(object))
+  lapply(out, function(x) as_edgelist(x))
+}
+
+
