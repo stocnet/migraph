@@ -197,13 +197,14 @@ summary.diff_model <- function(object, ...){
 #' @importFrom ggplot2 geom_histogram
 #' @export
 plot.diff_model <- function(x, ...){
-  y <- dplyr::left_join(x, summary(x))
+  y <- dplyr::left_join(x, summary(x), by = "t")
+  y$dens <- y$n/length(attr(x, "mode"))
   ggplot2::ggplot(y) + 
     ggplot2::geom_line(ggplot2::aes(x = t, y = percent)) +
-    ggplot2::geom_histogram(ggplot2::aes(x = t, y = ..density..), 
-                            alpha = 0.4, binwidth = 1) +
-    ggplot2::theme_minimal() +
-    ggplot2::ylab("Proportion") + ggplot2::xlab("Time")
+    ggplot2::geom_col(ggplot2::aes(x = t, y = dens), 
+                            alpha = 0.4) +
+    ggplot2::theme_minimal() + ggplot2::ylim(0,1) +
+    ggplot2::ylab("Proportion") + ggplot2::xlab("Steps")
 }
 
 # learn_model ####
