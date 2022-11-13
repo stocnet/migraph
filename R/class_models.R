@@ -184,7 +184,6 @@ print.diff_model <- function(x, ...){
   print(dplyr::tibble(x))
 }
 
-
 #' @export
 summary.diff_model <- function(object, ...){
   cum_sum <- NULL
@@ -194,12 +193,15 @@ summary.diff_model <- function(object, ...){
     mutate(percent = cum_sum/ns)
 }
 
+#' @importFrom dplyr left_join
+#' @importFrom ggplot2 geom_histogram
 #' @export
 plot.diff_model <- function(x, ...){
-  percent <- NULL
-  y <- summary(x)
+  y <- dplyr::left_join(x, summary(x))
   ggplot2::ggplot(y) + 
-    ggplot2::geom_line(aes(x = t, y = percent)) +
+    ggplot2::geom_line(ggplot2::aes(x = t, y = percent)) +
+    ggplot2::geom_histogram(ggplot2::aes(x = t, y = ..density..), 
+                            alpha = 0.4, binwidth = 1) +
     ggplot2::theme_minimal() +
     ggplot2::ylab("Proportion") + ggplot2::xlab("Time")
 }
