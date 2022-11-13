@@ -172,6 +172,7 @@ plot.netlogit <- function(x, ...){
     scale_y_discrete(limits=rev)
 }
 
+# diff_model ####
 make_diff_model <- function(out, object) {
   class(out) <- c("diff_model", class(out))
   attr(out, "mode") <- node_mode(object)
@@ -202,3 +203,45 @@ plot.diff_model <- function(x, ...){
     ggplot2::theme_minimal() +
     ggplot2::ylab("Proportion") + ggplot2::xlab("Time")
 }
+
+# learn_model ####
+make_learn_model <- function(out, object) {
+  out <- as.data.frame(out)
+  if(is_labelled(object))
+    names(out) <- node_names(object)
+  class(out) <- c("learn_model", class(out))
+  attr(out, "mode") <- node_mode(object)
+  out
+}
+
+#' @export
+print.learn_model <- function(x, ...){
+  print(dplyr::tibble(x))
+}
+
+#' @export
+summary.learn_model <- function(object, ..., epsilon = 0.0005){
+  steps <- nrow(object)
+  max_belief <- max(object[steps,])
+  min_belief <- min(object[steps,])
+  if(abs(max_belief - min_belief) < epsilon){
+    cat(paste(nrow(x)-1, 
+              "steps to convergence.\n"))
+    cat("Final belief =", max_belief)
+  } else 
+    cat(paste("No convergence after",
+                  nrow(x)-1, "steps."))
+}
+
+#' @export
+plot.learn_model <- function(x, ...){
+  y <- t(x)
+  colnames(y) <- paste0("t",0:(ncol(y)-1))
+  y <- as.data.frame.table(y)
+  y$Step <- as.numeric(gsub("t", "", y$Var2))
+  ggplot2::ggplot(y, ggplot2::aes(x = Step, y = Freq, color = Var1)) + 
+    ggplot2::geom_line(show.legend = FALSE) + ggplot2::theme_minimal() +
+    ggplot2::ylab("Belief")
+}
+
+
