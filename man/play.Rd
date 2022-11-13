@@ -47,6 +47,7 @@ Functions to play games on networks
 }}
 \examples{
 play_diffusion(generate_smallworld(15, 0.025))
+play_diffusion(generate_smallworld(15, 0.025), thresholds = 0.4)
 play_learning(ison_networkers, 
       rbinom(network_nodes(ison_networkers),1,prob = 0.25))
 }

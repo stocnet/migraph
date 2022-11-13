@@ -13,6 +13,7 @@ NULL
 #' @describeIn play Playing compartmental diffusion on networks.
 #' @examples 
 #' play_diffusion(generate_smallworld(15, 0.025))
+#' play_diffusion(generate_smallworld(15, 0.025), thresholds = 0.4)
 #' @export
 play_diffusion <- function(object, 
                            seeds = 1:2,
@@ -21,6 +22,9 @@ play_diffusion <- function(object,
   n <- network_nodes(object)
   if(missing(steps)) steps <- n
   if(length(thresholds)==1) thresholds <- rep(thresholds, n)
+  if(all(thresholds <= 1) & !all(thresholds == 1)) 
+    thresholds <- thresholds * 
+      node_degree(object, normalized = FALSE)
   if(is.logical(seeds)) seeds <- which(seeds)
   
   infected <- seeds
@@ -70,5 +74,5 @@ play_learning <- function(object,
   }
   out <- na.omit(out)
   
-  make_diff_model(out, object)
+  make_learn_model(out, object)
 }
