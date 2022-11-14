@@ -405,7 +405,7 @@ glance(model1)
 plot(model1)
 ```
 
-This voilin plot presents the distribution of coefficients from permutations of the network,
+This violin plot presents the distribution of coefficients from permutations of the network,
 with the fitted coefficient from the data as a red dot.
 Subtle lines are used to indicate 95%,
 but here the distributions are rendered so wide that they are often not seen.
