@@ -18,9 +18,9 @@ node_is_core(object)
 
 node_is_random(object, size = 1)
 
-node_is_max(node_measure)
+node_is_max(node_measure, ranks = 1)
 
-node_is_min(node_measure)
+node_is_min(node_measure, ranks = 1)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -35,6 +35,12 @@ node_is_min(node_measure)
 \item{size}{The number of nodes to select (as TRUE).}
 
 \item{node_measure}{An object created by a \code{node_} measure.}
+
+\item{ranks}{The number of ranks of max or min to return.
+For example, \code{ranks = 3} will return TRUE for nodes with
+scores equal to any of the top (or, for \code{node_is_min()}, bottom)
+three scores.
+By default, \code{ranks = 1}.}
 }
 \description{
 These functions return logical vectors the length of the

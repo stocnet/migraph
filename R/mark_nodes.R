@@ -79,20 +79,30 @@ node_is_random <- function(object, size = 1){
 #' @describeIn mark_nodes Returns logical of which nodes 
 #'   hold the maximum of some measure
 #' @param node_measure An object created by a `node_` measure.
+#' @param ranks The number of ranks of max or min to return.
+#'   For example, `ranks = 3` will return TRUE for nodes with
+#'   scores equal to any of the top (or, for `node_is_min()`, bottom)
+#'   three scores.
+#'   By default, `ranks = 1`.
 #' @examples 
 #' node_is_max(node_degree(ison_brandes))
 #' @export
-node_is_max <- function(node_measure){
+node_is_max <- function(node_measure, ranks = 1){
   if(!inherits(node_measure, "node_measure"))
     stop("This function expects an object of class `node_measure`")
   if(any(attr(node_measure, "mode"))){
-    out <- data.frame(meas = as.numeric(node_measure),
-               mode = attr(node_measure, "mode"),
-               max1 = max(as.numeric(node_measure)[!attr(node_measure, "mode")]),
-               max2 = max(as.numeric(node_measure)[attr(node_measure, "mode")]))
-    out <- out$meas == ifelse(out$mode, out$max2, out$max1)
+    mode1 <- as.numeric(node_measure)[!as.logical(attr(node_measure, "mode"))]
+    max1 <- mode1[order(mode1, decreasing = TRUE)[1:ranks]]
+    mode2 <- as.numeric(node_measure)[as.logical(attr(node_measure, "mode"))]
+    max2 <- mode2[order(mode2, decreasing = TRUE)[1:ranks]]
+    out <- ((as.numeric(node_measure) %in% max1 & 
+      !as.logical(attr(node_measure, "mode"))) | 
+      (as.numeric(node_measure) %in% max2 & 
+      as.logical(attr(node_measure, "mode"))))
+    attr(out, "mode") <- attr(node_measure, "mode")
   } else {
-    out <- as.numeric(node_measure) == max(as.numeric(node_measure))
+    out <- node_measure %in% node_measure[order(node_measure,
+                                   decreasing = TRUE)[1:ranks]]
   }
   names(out) <- attr(node_measure, "names")
   class(out) <- c("node_mark", class(out))
@@ -104,17 +114,22 @@ node_is_max <- function(node_measure){
 #' @examples 
 #' node_is_min(node_degree(ison_brandes))
 #' @export
-node_is_min <- function(node_measure){
+node_is_min <- function(node_measure, ranks = 1){
   if(!inherits(node_measure, "node_measure"))
     stop("This function expects an object of class `node_measure`")
   if(any(attr(node_measure, "mode"))){
-    out <- data.frame(meas = as.numeric(node_measure),
-                      mode = attr(node_measure, "mode"),
-                      min1 = min(as.numeric(node_measure)[!attr(node_measure, "mode")]),
-                      min2 = min(as.numeric(node_measure)[attr(node_measure, "mode")]))
-    out <- out$meas == ifelse(out$mode, out$min2, out$min1)
+    mode1 <- as.numeric(node_measure)[!as.logical(attr(node_measure, "mode"))]
+    max1 <- mode1[order(mode1, decreasing = FALSE)[1:ranks]]
+    mode2 <- as.numeric(node_measure)[as.logical(attr(node_measure, "mode"))]
+    max2 <- mode2[order(mode2, decreasing = FALSE)[1:ranks]]
+    out <- ((as.numeric(node_measure) %in% max1 & 
+               !as.logical(attr(node_measure, "mode"))) | 
+              (as.numeric(node_measure) %in% max2 & 
+                 as.logical(attr(node_measure, "mode"))))
+    attr(out, "mode") <- attr(node_measure, "mode")
   } else {
-    out <- as.numeric(node_measure) == min(as.numeric(node_measure))
+    out <- node_measure %in% node_measure[order(node_measure,
+                                                decreasing = FALSE)[1:ranks]]
   }
   names(out) <- attr(node_measure, "names")
   class(out) <- c("node_mark", class(out))
