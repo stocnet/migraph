@@ -4,6 +4,8 @@
 #'   number of nodes in the network.
 #' @param thresholds A numeric vector indicating the thresholds
 #'   each node has. By default 1.
+#'   If less than 1, the threshold is interpreted as complex,
+#'   where the threshold concerns the proportion of contacts.
 #' @param steps The number of steps forward in the diffusion to play.
 #'   By default the number of nodes in the network.
 #' @family models
@@ -14,10 +16,12 @@ NULL
 #' @examples 
 #' play_diffusion(generate_smallworld(15, 0.025))
 #' play_diffusion(generate_smallworld(15, 0.025), thresholds = 0.4)
+#' play_diffusion(generate_smallworld(15, 0.025), recovery = 0.4)
 #' @export
 play_diffusion <- function(object, 
-                           seeds = 1:2,
+                           seeds = 1,
                            thresholds = 1,
+                           recovery = NULL,
                            steps){
   n <- network_nodes(object)
   if(missing(steps)) steps <- n
@@ -29,17 +33,25 @@ play_diffusion <- function(object,
   
   infected <- seeds
   t = 0
-  events <- data.frame(t = t, nodes = seeds)
+  events <- data.frame(t = t, nodes = seeds, event = "I")
   
   repeat{
     exposed <- unlist(sapply(igraph::neighborhood(object, nodes = infected),
                              function(x) setdiff(x, infected)))
     tabexp <- table(exposed)
-    new <- as.numeric(names(which(tabexp > thresholds[as.numeric(names(tabexp))])))
+    new <- as.numeric(names(which(tabexp >= thresholds[as.numeric(names(tabexp))])))
     if(length(new)==0) break
+    if(!is.null(recovery)){
+      recovered <- infected[rbinom(length(infected), 1, recovery)==1]
+      infected <- infected[-recovered]
+    }
     infected <- c(infected, new)
     t <- t+1
-    events <- rbind(events, data.frame(t = t, nodes = new))
+    events <- rbind(events, 
+                    data.frame(t = t, nodes = new, event = "I"))
+    if(!is.null(recovered) & length(recovered)>0)
+      events <- rbind(events,
+                      data.frame(t = t, nodes = recovered, event = "R"))
     if(length(infected)==n) break
     if(t==steps) break
   }

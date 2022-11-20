@@ -8,9 +8,9 @@
 \usage{
 play_diffusion(
   object,
-  seeds = 1:2,
+  seeds = 1,
   thresholds = 1,
-  compartments = c("si", "sis"),
+  recovery = NULL,
   steps
 )
 
