@@ -932,6 +932,7 @@ to_egos <- function(object,
 to_egos.igraph <- function(object, 
                            max_dist = 1, 
                            min_dist = 0){
+  if(is_twomode(object)) max_dist <- max_dist*2
   out <- igraph::make_ego_graph(object,
                                 order = max_dist,
                                 mindist = min_dist)
