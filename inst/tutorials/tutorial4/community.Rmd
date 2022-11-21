@@ -183,9 +183,22 @@ And let's calculate transitivity.
 network_transitivity(tasks)
 ```
 
-What can we say about task closure in this network?
-Would we expect it to be higher or lower than for `social`?
-Is it?
+```{r trans-interp, echo=FALSE}
+question("What can we say about task closure in this network? Choose all that apply.",
+  answer("Transitivity for the task network is 0.568",
+         correct = TRUE),
+  answer("Transitivity for the task network is -0.568", 
+         message = "Transivitity must be between 0 and 1."),
+  answer("Transitivity is quite low in this network", 
+         message = "Transitivity is usually around 0.3 in most social networks."),
+  answer("Transitivity is quite high in this network", 
+         correct = TRUE),
+  answer("Transitivity is likely higher in the social network than the task network", 
+         correct = TRUE),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+)
+```
 
 ### Components
 
@@ -213,8 +226,22 @@ network_components(friends)
 network_components(to_undirected(friends))
 ```
 
-How many components are there? Why are the results different?
- 
+```{r comp-interp, echo = FALSE}
+question("How many components are there?",
+  answer("2", 
+         message = "There are more than 2 components."),
+  answer("3", 
+         message = "There are 3 _weak_ components.",
+         correct = TRUE),
+  answer("4", 
+         message = "There are 4 _strong_ components.",
+         correct = TRUE),
+  answer("5", 
+         message = "There are fewer than 5 components."),
+  allow_retry = TRUE
+)
+```
+
 We can use the membership vector in the resulting object to color nodes:
 
 ```{r comp-memb, exercise=TRUE, exercise.setup = "separatingnets"}
@@ -526,7 +553,7 @@ See A Clauset, MEJ Newman, C Moore:
 Finding community structure in very large networks, 
 https://arxiv.org/abs/cond-mat/0408187
 
-# Two-mode network: Southern women
+## Two-mode network: Southern women
 
 The next dataset is also available in migraph.
 Let's take a look at the loaded objects.
@@ -645,10 +672,18 @@ network_transitivity(event_graph)
 
 What do we learn from this?
 
+```{r comm-comp, echo=FALSE}
+question("What is the difference between communities and components?",
+         answer("Communities and components are just different terms for the same thing"),
+         answer("Communities are a stricter form of component"),
+         answer("Components are about paths whereas communities are about the relationship between within-group and between-group ties",
+                correct = TRUE),
+         allow_retry = TRUE)
+```
+
 ## Task/Unit Test
 
-1. What is the difference between communities and components?
-2. Produce a plot comparing 3 community detection procedures used here on a 
+1. Produce a plot comparing 3 community detection procedures used here on a 
 (women) projection of the ison_southern_women dataset. Identify which you prefer, and explain why.
-3. Explain in no more than a paragraph why projection can lead to misleading transitivity measures.
-4. Explain in no more than a paragraph how structural balance might lead to group identity.
+2. Explain in no more than a paragraph why projection can lead to misleading transitivity measures.
+3. Explain in no more than a paragraph how structural balance might lead to group identity.
