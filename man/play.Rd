@@ -12,6 +12,7 @@ play_diffusion(
   thresholds = 1,
   recovery = 0,
   waning = 0,
+  immune = NULL,
   steps
 )
 

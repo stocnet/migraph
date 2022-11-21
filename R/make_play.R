@@ -28,6 +28,7 @@ play_diffusion <- function(object,
                            thresholds = 1,
                            recovery = 0,
                            waning = 0,
+                           immune = NULL,
                            steps){
   n <- network_nodes(object)
   recovered <- NULL
@@ -37,6 +38,10 @@ play_diffusion <- function(object,
     thresholds <- thresholds * 
       node_degree(object, normalized = FALSE)
   if(is.logical(seeds)) seeds <- which(seeds)
+  if(!is.null(immune)){
+    if(is.logical(immune)) immune <- which(immune)
+    recovered <- immune
+  }
   
   infected <- seeds
   t = 0
