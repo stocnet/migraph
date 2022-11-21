@@ -6,6 +6,11 @@
 #'   each node has. By default 1.
 #'   If less than 1, the threshold is interpreted as complex,
 #'   where the threshold concerns the proportion of contacts.
+#' @param recovery A proportion indicating the rate of recovery, 
+#'   \eqn{\gamma}.
+#'   For example, if infected individuals take, on average, 
+#'   four days to recover, then $\gamma = 0.25$.
+#'   By default NULL, which means there is no recovery (i.e. an SI model). 
 #' @param steps The number of steps forward in the diffusion to play.
 #'   By default the number of nodes in the network.
 #' @family models
@@ -21,9 +26,10 @@ NULL
 play_diffusion <- function(object, 
                            seeds = 1,
                            thresholds = 1,
-                           recovery = NULL,
+                           recovery = 0,
                            steps){
   n <- network_nodes(object)
+  recovered <- NULL
   if(missing(steps)) steps <- n
   if(length(thresholds)==1) thresholds <- rep(thresholds, n)
   if(all(thresholds <= 1) & !all(thresholds == 1)) 
@@ -35,21 +41,29 @@ play_diffusion <- function(object,
   t = 0
   events <- data.frame(t = t, nodes = seeds, event = "I")
   
-  repeat{
+  repeat{ # At each time step:
+    
+    # some may recover:
+    recovers <- infected[rbinom(length(infected), 1, recovery)==1]
+    # the recovered are no longer infected
+    recovered <- c(recovered, recovers)
+    infected <- setdiff(infected, recovered)
     exposed <- unlist(sapply(igraph::neighborhood(object, nodes = infected),
                              function(x) setdiff(x, infected)))
     tabexp <- table(exposed)
     new <- as.numeric(names(which(tabexp >= thresholds[as.numeric(names(tabexp))])))
-    if(length(new)==0) break
-    if(!is.null(recovery)){
-      recovered <- infected[rbinom(length(infected), 1, recovery)==1]
-      infected <- infected[-recovered]
-    }
+    if(!is.null(recovery) & length(recovered)>0) 
+      new <- setdiff(new, recovered) # recovered can't be reinfected
+    if(length(new)==0) break # if no new infections we can stop
+
     infected <- c(infected, new)
     t <- t+1
     events <- rbind(events, 
                     data.frame(t = t, nodes = new, event = "I"))
-    if(!is.null(recovered) & length(recovered)>0)
+    # record recoveries
+    if(!is.null(recovers) & length(recovers)>0)
+      events <- rbind(events,
+                      data.frame(t = t, nodes = recovers, event = "R"))
       events <- rbind(events,
                       data.frame(t = t, nodes = recovered, event = "R"))
     if(length(infected)==n) break

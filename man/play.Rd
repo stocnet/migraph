@@ -10,7 +10,7 @@ play_diffusion(
   object,
   seeds = 1,
   thresholds = 1,
-  recovery = NULL,
+  recovery = 0,
   steps
 )
 
@@ -30,7 +30,15 @@ play_learning(object, beliefs, steps, epsilon = 5e-04)
 number of nodes in the network.}
 
 \item{thresholds}{A numeric vector indicating the thresholds
-each node has. By default 1.}
+each node has. By default 1.
+If less than 1, the threshold is interpreted as complex,
+where the threshold concerns the proportion of contacts.}
+
+\item{recovery}{A proportion indicating the rate of recovery,
+\eqn{\gamma}.
+For example, if infected individuals take, on average,
+four days to recover, then $\gamma = 0.25$.
+By default NULL, which means there is no recovery (i.e. an SI model).}
 
 \item{steps}{The number of steps forward in the diffusion to play.
 By default the number of nodes in the network.}
@@ -48,6 +56,7 @@ Functions to play games on networks
 \examples{
 play_diffusion(generate_smallworld(15, 0.025))
 play_diffusion(generate_smallworld(15, 0.025), thresholds = 0.4)
+play_diffusion(generate_smallworld(15, 0.025), recovery = 0.4)
 play_learning(ison_networkers, 
       rbinom(network_nodes(ison_networkers),1,prob = 0.25))
 }
