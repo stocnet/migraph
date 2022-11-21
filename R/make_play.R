@@ -27,6 +27,7 @@ play_diffusion <- function(object,
                            seeds = 1,
                            thresholds = 1,
                            recovery = 0,
+                           waning = 0,
                            steps){
   n <- network_nodes(object)
   recovered <- NULL
@@ -43,29 +44,42 @@ play_diffusion <- function(object,
   
   repeat{ # At each time step:
     
+    # some who have already recovered may lose their immunity:
+    waned <- recovered[rbinom(length(recovered), 1, waning)==1]
     # some may recover:
     recovers <- infected[rbinom(length(infected), 1, recovery)==1]
     # the recovered are no longer infected
     recovered <- c(recovered, recovers)
     infected <- setdiff(infected, recovered)
+    # those for whom immunity has waned are no longer immune
+    recovered <- setdiff(recovered, waned)
+    
+    # at main infection stage, get currently exposed to infection:
     exposed <- unlist(sapply(igraph::neighborhood(object, nodes = infected),
                              function(x) setdiff(x, infected)))
+    # count exposures for each node:
     tabexp <- table(exposed)
+    # identify those nodes who are exposed at or above their threshold
     new <- as.numeric(names(which(tabexp >= thresholds[as.numeric(names(tabexp))])))
     if(!is.null(recovery) & length(recovered)>0) 
       new <- setdiff(new, recovered) # recovered can't be reinfected
     if(length(new)==0) break # if no new infections we can stop
 
+    # new list of infected 
     infected <- c(infected, new)
+    # tick time
     t <- t+1
+    # record new infections
     events <- rbind(events, 
                     data.frame(t = t, nodes = new, event = "I"))
     # record recoveries
     if(!is.null(recovers) & length(recovers)>0)
       events <- rbind(events,
                       data.frame(t = t, nodes = recovers, event = "R"))
+    # record wanings
+    if(!is.null(waned) & length(waned)>0)
       events <- rbind(events,
-                      data.frame(t = t, nodes = recovered, event = "R"))
+                      data.frame(t = t, nodes = waned, event = "S"))
     if(length(infected)==n) break
     if(t==steps) break
   }

@@ -11,6 +11,7 @@ play_diffusion(
   seeds = 1,
   thresholds = 1,
   recovery = 0,
+  waning = 0,
   steps
 )
 
