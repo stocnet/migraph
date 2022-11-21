@@ -46,6 +46,12 @@ play_diffusion <- function(object,
   infected <- seeds
   t = 0
   events <- data.frame(t = t, nodes = seeds, event = "I")
+  report <- data.frame(t = t,
+                       n = n,
+                       S = n - length(infected) - length(recovered),
+                       I = length(infected),
+                       I_new = seeds,
+                       R = length(recovered))
   
   repeat{ # At each time step:
     
@@ -85,10 +91,17 @@ play_diffusion <- function(object,
     if(!is.null(waned) & length(waned)>0)
       events <- rbind(events,
                       data.frame(t = t, nodes = waned, event = "S"))
+    report <- rbind(report,
+                    data.frame(t = t,
+                               n = n,
+                         S = n - length(infected) - length(recovered),
+                         I = length(infected),
+                         I_new = length(new),
+                         R = length(recovered)))
     if(length(infected)==n) break
     if(t==steps) break
   }
-  make_diff_model(events, object)
+  make_diff_model(events, report, object)
 }
 
 #' @describeIn play Playing DeGroot learning on networks.

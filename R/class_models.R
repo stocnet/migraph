@@ -173,38 +173,48 @@ plot.netlogit <- function(x, ...){
 }
 
 # diff_model ####
-make_diff_model <- function(out, object) {
+make_diff_model <- function(out, report, object) {
   class(out) <- c("diff_model", class(out))
+  attr(out, "report") <- report
   attr(out, "mode") <- node_mode(object)
   out
 }
 
 #' @export
 print.diff_model <- function(x, ...){
-  print(dplyr::tibble(x))
+  print(dplyr::tibble(x, ...))
 }
 
 #' @export
 summary.diff_model <- function(object, ...){
-  cum_sum <- NULL
-  ns <- length(attr(object, "mode"))
-  dplyr::count(object, t) %>% 
-    mutate(cum_sum = cumsum(n)) %>% 
-    mutate(percent = cum_sum/ns)
+  dplyr::tibble(attr(object, "report"), ...)
+  # cum_sum <- NULL
+  # ns <- length(attr(object, "mode"))
+  # dplyr::count(object, t, event) %>% 
+  #   # dplyr::group_by(t) %>% 
+  #   # mutate()
+  #   dplyr::group_by(event) %>% 
+  #   mutate(cum_sum = cumsum(n)) %>% 
+  #   mutate(percent = cum_sum/ns)
 }
 
 #' @importFrom dplyr left_join
 #' @importFrom ggplot2 geom_histogram
 #' @export
 plot.diff_model <- function(x, ...){
-  y <- dplyr::left_join(x, summary(x), by = "t")
-  y$dens <- y$n/length(attr(x, "mode"))
-  ggplot2::ggplot(y) + 
-    ggplot2::geom_line(ggplot2::aes(x = t, y = percent)) +
-    ggplot2::geom_col(ggplot2::aes(x = t, y = dens), 
-                            alpha = 0.4) +
+  
+  data <- summary(x)
+  p <- ggplot2::ggplot(data) + 
+    ggplot2::geom_line(ggplot2::aes(x = t, y = S/n), color = "blue") +
+    ggplot2::geom_line(ggplot2::aes(x = t, y = I/n), color = "red") +
+    ggplot2::geom_col(ggplot2::aes(x = t, y = I_new/n), 
+                      alpha = 0.4) +
     ggplot2::theme_minimal() + ggplot2::ylim(0,1) +
     ggplot2::ylab("Proportion") + ggplot2::xlab("Steps")
+  if(any(data$R>0))
+    p <- p +
+    ggplot2::geom_line(ggplot2::aes(x = t, y = R/n), color = "darkgreen")
+  p
 }
 
 # learn_model ####
