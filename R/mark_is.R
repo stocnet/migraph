@@ -361,6 +361,30 @@ is_acyclic <- function(object){
   igraph::is_dag(object)
 }
 
+#' @describeIn is Tests whether network is aperiodic
+#' @source https://stackoverflow.com/questions/55091438/r-igraph-find-all-cycles
+#' @examples 
+#' is_aperiodic(ison_algebra)
+#' @export
+is_aperiodic <- function(object, cutoff = 5){
+  g <- as_igraph(object)
+  out <- NULL
+  for(v1 in igraph::V(g)) {
+    if(igraph::degree(g, v1, mode="in") == 0) {next}
+    GoodNeighbors <- igraph::neighbors(g, v1, mode="out")
+    GoodNeighbors <- GoodNeighbors[GoodNeighbors > v1]
+    out <- c(out, unlist(lapply(GoodNeighbors, function(v2){
+      vapply(igraph::all_simple_paths(g, v2, v1, mode="out", 
+                                     cutoff = cutoff), length, FUN.VALUE = numeric(1))
+    })))
+  }
+  if (!("minMSE" %in% rownames(utils::installed.packages()))) {
+    message("Please install package `{minMSE}` from CRAN.")
+  } else {
+  minMSE::vector_gcd(out)==1
+  }
+}
+
 #' @describeIn is Tests whether there is a matching for a network
 #'   that covers every node in the network
 #' @param mark A logical vector marking two types or modes.
