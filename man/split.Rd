@@ -3,10 +3,13 @@
 \name{split}
 \alias{split}
 \alias{to_egos}
+\alias{to_subgraphs}
 \alias{to_components}
 \title{Tools for splitting networks, graphs, and matrices}
 \usage{
 to_egos(object, max_dist = 1, min_dist = 0)
+
+to_subgraphs(object, attribute)
 
 to_components(object)
 }
@@ -37,6 +40,9 @@ Splitting means that the returned object will be a list of objects.
 \itemize{
 \item \code{to_egos()}: Returns a list of ego (or focal)
 networks.
+
+\item \code{to_subgraphs()}: Returns a list of subgraphs
+on some given attribute.
 
 \item \code{to_components()}: Returns a list of the components
 in a network.

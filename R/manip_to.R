@@ -981,6 +981,29 @@ to_egos.data.frame <- function(object,
   lapply(out, function(x) as_edgelist(x))
 }
 
+#' @describeIn split Returns a list of subgraphs
+#'   on some given attribute.
+#' @importFrom igraph induced_subgraph
+#' @export
+to_subgraphs <- function(object, attribute) UseMethod("to_subgraphs")
+
+#' @export
+to_subgraphs.igraph <- function(object, attribute){
+  types <- unique(node_attribute(object, attribute))
+  lapply(types, function(x) igraph::induced_subgraph(object, 
+                              node_attribute(object, attribute) == x))
+}
+
+#' @export
+to_subgraphs.tbl_graph <- function(object, attribute){
+  as_tidygraph(to_subgraphs(as_igraph(object), attribute))
+}
+
+#' @export
+to_subgraphs.network <- function(object, attribute){
+  as_network(to_subgraphs(as_igraph(object), attribute))
+}
+
 #' @describeIn split Returns a list of the components
 #'   in a network.
 #' @examples 
