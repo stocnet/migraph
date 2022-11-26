@@ -49,7 +49,7 @@ is_uniplex(object)
 
 is_acyclic(object)
 
-is_aperiodic(object, cutoff = 5)
+is_aperiodic(object, cutoff = 4)
 
 is_perfect_matching(object, mark = "type")
 
