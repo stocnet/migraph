@@ -173,48 +173,53 @@ plot.netlogit <- function(x, ...){
 }
 
 # diff_model ####
-make_diff_model <- function(out, report, object) {
-  class(out) <- c("diff_model", class(out))
-  attr(out, "report") <- report
-  attr(out, "mode") <- node_mode(object)
-  out
+make_diff_model <- function(events, report, object) {
+  class(report) <- c("diff_model", class(report))
+  attr(report, "events") <- events
+  attr(report, "mode") <- node_mode(object)
+  report
+}
+
 }
 
 #' @export
 print.diff_model <- function(x, ...){
+  x <- x[,colSums(x, na.rm=TRUE) != 0]
+  x$I_new <- NULL
+  print(dplyr::tibble(x, ...))
+}
+
   print(dplyr::tibble(x, ...))
 }
 
 #' @export
 summary.diff_model <- function(object, ...){
-  dplyr::tibble(attr(object, "report"), ...)
-  # cum_sum <- NULL
-  # ns <- length(attr(object, "mode"))
-  # dplyr::count(object, t, event) %>% 
-  #   # dplyr::group_by(t) %>% 
-  #   # mutate()
-  #   dplyr::group_by(event) %>% 
-  #   mutate(cum_sum = cumsum(n)) %>% 
-  #   mutate(percent = cum_sum/ns)
+  dplyr::tibble(attr(object, "events"), ...)
 }
 
 #' @importFrom dplyr left_join
 #' @importFrom ggplot2 geom_histogram
 #' @export
 plot.diff_model <- function(x, ...){
-  
-  data <- summary(x)
-  p <- ggplot2::ggplot(data) + 
-    ggplot2::geom_line(ggplot2::aes(x = t, y = S/n), color = "blue") +
-    ggplot2::geom_line(ggplot2::aes(x = t, y = I/n), color = "red") +
-    ggplot2::geom_col(ggplot2::aes(x = t, y = I_new/n), 
-                      alpha = 0.4) +
-    ggplot2::theme_minimal() + ggplot2::ylim(0,1) +
-    ggplot2::ylab("Proportion") + ggplot2::xlab("Steps")
-  if(any(data$R>0))
-    p <- p +
-    ggplot2::geom_line(ggplot2::aes(x = t, y = R/n), color = "darkgreen")
-  p
+  if(nrow(x)==1) warning("No diffusion observed.") else {
+    data <- x
+    p <- ggplot2::ggplot(data) + 
+      ggplot2::geom_line(ggplot2::aes(x = t, y = S/n), color = "blue") +
+      ggplot2::geom_line(ggplot2::aes(x = t, y = I/n), color = "red") +
+      ggplot2::geom_col(ggplot2::aes(x = t, y = I_new/n), 
+                        alpha = 0.4) +
+      ggplot2::theme_minimal() + ggplot2::ylim(0,1) +
+      ggplot2::ylab("Proportion") + ggplot2::xlab("Steps")
+    if(any(data$E>0))
+      p <- p +
+      ggplot2::geom_line(ggplot2::aes(x = t, y = E/n), color = "orange")
+    if(any(data$R>0))
+      p <- p +
+      ggplot2::geom_line(ggplot2::aes(x = t, y = R/n), color = "darkgreen")
+    p
+  }
+}
+
 }
 
 # learn_model ####
