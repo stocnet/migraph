@@ -10,6 +10,7 @@ play_diffusion(
   object,
   seeds = 1,
   thresholds = 1,
+  latency = 0,
   recovery = 0,
   waning = 0,
   immune = NULL,

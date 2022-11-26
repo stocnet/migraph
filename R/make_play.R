@@ -26,11 +26,13 @@ NULL
 play_diffusion <- function(object, 
                            seeds = 1,
                            thresholds = 1,
+                           latency = 0,
                            recovery = 0,
                            waning = 0,
                            immune = NULL,
                            steps){
   n <- network_nodes(object)
+  exposed <- NULL
   recovered <- NULL
   if(missing(steps)) steps <- n
   if(length(thresholds)==1) thresholds <- rep(thresholds, n)
@@ -48,9 +50,10 @@ play_diffusion <- function(object,
   events <- data.frame(t = t, nodes = seeds, event = "I")
   report <- data.frame(t = t,
                        n = n,
-                       S = n - length(infected) - length(recovered),
-                       I = length(infected),
+                       S = n - (length(exposed) + length(infected) + length(recovered)),
+                       E = length(exposed),
                        I_new = seeds,
+                       I = length(infected),
                        R = length(recovered))
   
   repeat{ # At each time step:
@@ -66,23 +69,33 @@ play_diffusion <- function(object,
     recovered <- setdiff(recovered, waned)
     
     # at main infection stage, get currently exposed to infection:
-    exposed <- unlist(sapply(igraph::neighborhood(object, nodes = infected),
+    contacts <- unlist(sapply(igraph::neighborhood(object, nodes = infected),
                              function(x) setdiff(x, infected)))
     # count exposures for each node:
-    tabexp <- table(exposed)
+    tabcontact <- table(contacts)
     # identify those nodes who are exposed at or above their threshold
-    new <- as.numeric(names(which(tabexp >= thresholds[as.numeric(names(tabexp))])))
+    new <- as.numeric(names(which(tabcontact >= thresholds[as.numeric(names(tabcontact))])))
     if(!is.null(recovery) & length(recovered)>0) 
       new <- setdiff(new, recovered) # recovered can't be reinfected
-    if(length(new)==0) break # if no new infections we can stop
+    if(!is.null(exposed) & length(exposed)>0) 
+      new <- setdiff(new, exposed) # exposed already infected
+    if(length(new)==0 & length(exposed)==0) break # if no new infections we can stop
+    exposed <- c(exposed, new)
 
     # new list of infected 
-    infected <- c(infected, new)
+    infectious <- exposed[rbinom(length(exposed), 1, 1-latency)==1]
+    exposed <- setdiff(exposed, infectious)
+    infected <- c(infected, infectious)
     # tick time
     t <- t+1
     # record new infections
-    events <- rbind(events, 
+    if(!is.null(new) & length(new)>0)
+      events <- rbind(events, 
                     data.frame(t = t, nodes = new, event = "I"))
+    # record recoveries
+    if(!is.null(exposed) & length(exposed)>0)
+      events <- rbind(events,
+                      data.frame(t = t, nodes = exposed, event = "E"))
     # record recoveries
     if(!is.null(recovers) & length(recovers)>0)
       events <- rbind(events,
@@ -94,9 +107,10 @@ play_diffusion <- function(object,
     report <- rbind(report,
                     data.frame(t = t,
                                n = n,
-                         S = n - length(infected) - length(recovered),
-                         I = length(infected),
+                         S = n - (length(exposed) + length(infected) + length(recovered)),
+                         E = length(exposed),
                          I_new = length(new),
+                         I = length(infected),
                          R = length(recovered)))
     if(length(infected)==n) break
     if(t==steps) break
