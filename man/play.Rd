@@ -3,6 +3,7 @@
 \name{play}
 \alias{play}
 \alias{play_diffusion}
+\alias{play_diffusions}
 \alias{play_learning}
 \title{Functions to play games on networks}
 \usage{
@@ -15,6 +16,20 @@ play_diffusion(
   waning = 0,
   immune = NULL,
   steps
+)
+
+play_diffusions(
+  object,
+  seeds = 1,
+  thresholds = 1,
+  latency = 0,
+  recovery = 0,
+  waning = 0,
+  immune = NULL,
+  steps,
+  times = 1000,
+  strategy = "sequential",
+  verbose = FALSE
 )
 
 play_learning(object, beliefs, steps, epsilon = 5e-04)
@@ -53,6 +68,8 @@ Functions to play games on networks
 \itemize{
 \item \code{play_diffusion()}: Playing compartmental diffusion on networks.
 
+\item \code{play_diffusions()}: Playing multiple compartmental diffusions on networks.
+
 \item \code{play_learning()}: Playing DeGroot learning on networks.
 
 }}
@@ -60,6 +77,7 @@ Functions to play games on networks
 play_diffusion(generate_smallworld(15, 0.025))
 play_diffusion(generate_smallworld(15, 0.025), thresholds = 0.4)
 play_diffusion(generate_smallworld(15, 0.025), recovery = 0.4)
+play_diffusions(generate_smallworld(15, 0.025))
 play_learning(ison_networkers, 
       rbinom(network_nodes(ison_networkers),1,prob = 0.25))
 }

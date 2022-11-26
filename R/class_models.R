@@ -180,6 +180,10 @@ make_diff_model <- function(events, report, object) {
   report
 }
 
+make_diffs_model <- function(report, object) {
+  class(report) <- c("diffs_model", class(report))
+  attr(report, "mode") <- node_mode(object)
+  report
 }
 
 #' @export
@@ -189,6 +193,10 @@ print.diff_model <- function(x, ...){
   print(dplyr::tibble(x, ...))
 }
 
+#' @export
+print.diffs_model <- function(x, ...){
+  x <- x[,colSums(x, na.rm=TRUE) != 0]
+  x$I_new <- NULL
   print(dplyr::tibble(x, ...))
 }
 
@@ -220,6 +228,28 @@ plot.diff_model <- function(x, ...){
   }
 }
 
+#' @export
+plot.diffs_model <- function(x, ...){
+    data <- dplyr::tibble(x)
+    # ggplot2::ggplot(data) + geom_smooth()
+    
+    p <- ggplot2::ggplot(data) + 
+      # ggplot2::geom_point(ggplot2::aes(x = t, y = S/n))
+      ggplot2::geom_smooth(ggplot2::aes(x = t, y = S/n), color = "blue", 
+                           method = "loess", se=TRUE, level = .95, formula = 'y~x') +
+      ggplot2::geom_smooth(ggplot2::aes(x = t, y = I/n), color = "red", 
+                           method = "loess", se=TRUE, level = .95, formula = 'y~x') +
+      ggplot2::theme_minimal() + ggplot2::ylim(0,1) +
+      ggplot2::ylab("Proportion") + ggplot2::xlab("Steps")
+    if(any(data$E>0))
+      p <- p +
+      ggplot2::geom_smooth(ggplot2::aes(x = t, y = E/n), color = "orange", 
+                           method = "loess", se=TRUE, level = .95, formula = 'y~x')
+    if(any(data$R>0))
+      p <- p +
+      ggplot2::geom_smooth(ggplot2::aes(x = t, y = R/n), color = "darkgreen", 
+                           method = "loess", se=TRUE, level = .95, formula = 'y~x')
+    p
 }
 
 # learn_model ####

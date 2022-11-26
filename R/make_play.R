@@ -118,6 +118,33 @@ play_diffusion <- function(object,
   make_diff_model(events, report, object)
 }
 
+#' @describeIn play Playing multiple compartmental diffusions on networks.
+#' @examples 
+#' play_diffusions(generate_smallworld(15, 0.025))
+#' @export
+play_diffusions <- function(object,
+                            seeds = 1,
+                            thresholds = 1,
+                            latency = 0,
+                            recovery = 0,
+                            waning = 0,
+                            immune = NULL,
+                            steps,
+                            times = 1000,
+                            strategy = "sequential",
+                            verbose = FALSE){
+  if(missing(steps)) steps <- network_nodes(object)
+  future::plan(strategy)
+  out <- furrr::future_map_dfr(1:times, function(j){
+      data.frame(sim = j,
+                 play_diffusion(object, 
+                     seeds = seeds, thresholds = thresholds,
+                     latency = latency, recovery = recovery, waning = waning,
+                     immune = immune, steps = steps))
+    }, .progress = verbose, .options = furrr::furrr_options(seed = T))
+  make_diffs_model(out, object)
+}
+
 #' @describeIn play Playing DeGroot learning on networks.
 #' @examples 
 #' play_learning(ison_networkers, 
