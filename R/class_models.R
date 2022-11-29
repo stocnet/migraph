@@ -205,11 +205,19 @@ summary.diff_model <- function(object, ...){
   dplyr::tibble(attr(object, "events"), ...)
 }
 
+#' @export
+summary.diffs_model <- function(object, ...){
+  sim <- fin <- NULL
+  object %>% dplyr::mutate(fin = (I!=n)*1) %>% 
+    group_by(sim) %>% summarise(toa = sum(fin)+1)
+}
+
 #' @importFrom dplyr left_join
 #' @importFrom ggplot2 geom_histogram
 #' @export
 plot.diff_model <- function(x, ...){
   if(nrow(x)==1) warning("No diffusion observed.") else {
+    S <- E <- I <- I_new <- R <- NULL # initialize variables to avoid CMD check notes
     data <- x
     p <- ggplot2::ggplot(data) + 
       ggplot2::geom_line(ggplot2::aes(x = t, y = S/n), color = "blue") +
@@ -230,7 +238,8 @@ plot.diff_model <- function(x, ...){
 
 #' @export
 plot.diffs_model <- function(x, ...){
-    data <- dplyr::tibble(x)
+  S <- E <- I <- R <- NULL # initialize variables to avoid CMD check notes
+  data <- dplyr::tibble(x)
     # ggplot2::ggplot(data) + geom_smooth()
     
     p <- ggplot2::ggplot(data) + 
@@ -273,16 +282,19 @@ summary.learn_model <- function(object, ..., epsilon = 0.0005){
   max_belief <- max(object[steps,])
   min_belief <- min(object[steps,])
   if(abs(max_belief - min_belief) < epsilon){
-    cat(paste(nrow(x)-1, 
+    cat(paste(steps-1, 
               "steps to convergence.\n"))
     cat("Final belief =", max_belief)
   } else 
     cat(paste("No convergence after",
-                  nrow(x)-1, "steps."))
+                  steps-1, "steps."))
 }
 
 #' @export
 plot.learn_model <- function(x, ...){
+  Step <- NULL
+  Freq <- NULL
+  Var1 <- NULL
   y <- t(x)
   colnames(y) <- paste0("t",0:(ncol(y)-1))
   y <- as.data.frame.table(y)
