@@ -362,11 +362,14 @@ is_acyclic <- function(object){
 }
 
 #' @describeIn is Tests whether network is aperiodic
+#' @param max_path_length Maximum path length considered.
+#'   If negative, paths of all lengths are considered.
+#'   By default 4, to avoid potentially very long computation times.
 #' @source https://stackoverflow.com/questions/55091438/r-igraph-find-all-cycles
 #' @examples 
 #' is_aperiodic(ison_algebra)
 #' @export
-is_aperiodic <- function(object, cutoff = 4){
+is_aperiodic <- function(object, max_path_length = 4){
   g <- as_igraph(object)
   out <- NULL
   for(v1 in igraph::V(g)) {
@@ -375,7 +378,7 @@ is_aperiodic <- function(object, cutoff = 4){
     goodNeighbors <- goodNeighbors[goodNeighbors > v1]
     out <- c(out, unlist(lapply(goodNeighbors, function(v2){
       vapply(igraph::all_simple_paths(g, v2, v1, mode="out", 
-                     cutoff = cutoff), length, FUN.VALUE = numeric(1))
+                     cutoff = max_path_length), length, FUN.VALUE = numeric(1))
     })))
   }
   if (!("minMSE" %in% rownames(utils::installed.packages()))) {

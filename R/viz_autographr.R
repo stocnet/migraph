@@ -65,7 +65,7 @@ autographr <- function(object,
                        edge_color = NULL,
                        ...) {
   
-  name <- weight <- NULL # initialize variables to avoid CMD check notes
+  name <- weight <- nodes <- NULL # initialize variables to avoid CMD check notes
   g <- as_tidygraph(object)
   if(!is.null(node_group)) {
     node_group <- as.factor(node_attribute(g, node_group))

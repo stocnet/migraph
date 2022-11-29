@@ -49,7 +49,7 @@ is_uniplex(object)
 
 is_acyclic(object)
 
-is_aperiodic(object, cutoff = 4)
+is_aperiodic(object, max_path_length = 4)
 
 is_perfect_matching(object, mark = "type")
 
@@ -64,6 +64,10 @@ is_eulerian(object)
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
+
+\item{max_path_length}{Maximum path length considered.
+If negative, paths of all lengths are considered.
+By default 4, to avoid potentially very long computation times.}
 
 \item{mark}{A logical vector marking two types or modes.
 By default "type".}

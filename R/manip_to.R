@@ -983,6 +983,8 @@ to_egos.data.frame <- function(object,
 
 #' @describeIn split Returns a list of subgraphs
 #'   on some given attribute.
+#' @param attribute A character string indicating the categorical
+#'   attribute in a network used to split into subgraphs.
 #' @importFrom igraph induced_subgraph
 #' @export
 to_subgraphs <- function(object, attribute) UseMethod("to_subgraphs")

@@ -30,6 +30,9 @@ By default 1.}
 By default 0.
 Increasing this to 1 excludes the ego,
 and 2 excludes ego's direct alters.}
+
+\item{attribute}{A character string indicating the categorical
+attribute in a network used to split into subgraphs.}
 }
 \description{
 These functions offer tools for splitting migraph-consistent objects

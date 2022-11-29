@@ -44,6 +44,7 @@ Suggests:
     covr,
     ggdendro,
     knitr,
+    minMSE,
     oaqc,
     readxl,
     Rgraphviz,
