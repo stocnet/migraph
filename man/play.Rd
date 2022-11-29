@@ -11,6 +11,7 @@ play_diffusion(
   object,
   seeds = 1,
   thresholds = 1,
+  transmissibility = 1,
   latency = 0,
   recovery = 0,
   waning = 0,
@@ -22,12 +23,13 @@ play_diffusions(
   object,
   seeds = 1,
   thresholds = 1,
+  transmissibility = 1,
   latency = 0,
   recovery = 0,
   waning = 0,
   immune = NULL,
   steps,
-  times = 1000,
+  times = 20,
   strategy = "sequential",
   verbose = FALSE
 )
@@ -52,14 +54,71 @@ each node has. By default 1.
 If less than 1, the threshold is interpreted as complex,
 where the threshold concerns the proportion of contacts.}
 
+\item{transmissibility}{A proportion indicating the transmission rate,
+\eqn{\beta}.
+By default 1, which means any node for which the threshold is met
+or exceeded will become infected.
+Anything lower means a correspondingly lower probability of adoption,
+even when the threshold is met or exceeded.}
+
+\item{latency}{A proportion indicating the rate at which those exposed
+become infectious (infected), \eqn{\sigma}.
+For example, if exposed individuals take, on average,
+four days to become infectious, then \eqn{\sigma = 0.25}.
+By default 0, which means those exposed become immediately infectious (i.e. an SI model).
+Anything higher results in e.g. a SEI model.}
+
 \item{recovery}{A proportion indicating the rate of recovery,
 \eqn{\gamma}.
 For example, if infected individuals take, on average,
-four days to recover, then $\gamma = 0.25$.
-By default NULL, which means there is no recovery (i.e. an SI model).}
+four days to recover, then \eqn{\gamma = 0.25}.
+By default 0, which means there is no recovery (i.e. an SI model).
+Anything higher results in an SIR model.}
+
+\item{waning}{A proportion indicating the rate at which those who are
+recovered become susceptible again, \eqn{\xi}.
+For example, if recovered individuals take, on average,
+four days to lose their immunity, then \eqn{\xi = 0.25}.
+By default 0, which means any recovered individuals retain lifelong immunity (i.e. an SIR model).
+Anything higher results in e.g. a SIRS model.
+\eqn{\xi = 1} would mean there is no period of immunity, e.g. an SIS model.}
+
+\item{immune}{A logical or numeric vector identifying nodes
+that begin the diffusion process as already recovered.
+This could be interpreted as those who are vaccinated or equivalent.
+Note however that a waning parameter will affect these nodes too.
+By default NULL, indicating that no nodes begin immune.}
 
 \item{steps}{The number of steps forward in the diffusion to play.
-By default the number of nodes in the network.}
+By default the number of nodes in the network.
+If \code{steps = Inf} then the diffusion process will continue until
+there are no new infections or all nodes are infected.}
+
+\item{times}{Integer indicating number of simulations used for quantile estimation.
+(Relevant to the null hypothesis test only -
+the analysis itself is unaffected by this parameter.)
+Note that, as for all Monte Carlo procedures, convergence is slower for more
+extreme quantiles.
+By default, \code{times=1000}.
+1,000 - 10,000 repetitions recommended for publication-ready results.}
+
+\item{strategy}{If \code{{furrr}} is installed,
+then multiple cores can be used to accelerate the function.
+By default \code{"sequential"},
+but if multiple cores available,
+then \code{"multisession"} or \code{"multicore"} may be useful.
+Generally this is useful only when \code{times} > 1000.
+See \href{https://furrr.futureverse.org}{\code{{furrr}}} for more.}
+
+\item{verbose}{Whether the function should report on its progress.
+By default FALSE.
+See \href{https://progressr.futureverse.org}{\code{{progressr}}} for more.}
+
+\item{beliefs}{A vector indicating the probabilities nodes
+put on some outcome being 'true'.}
+
+\item{epsilon}{The maximum difference in beliefs accepted
+for convergence to a consensus.}
 }
 \description{
 Functions to play games on networks
@@ -74,10 +133,10 @@ Functions to play games on networks
 
 }}
 \examples{
-play_diffusion(generate_smallworld(15, 0.025))
-play_diffusion(generate_smallworld(15, 0.025), thresholds = 0.4)
-play_diffusion(generate_smallworld(15, 0.025), recovery = 0.4)
-play_diffusions(generate_smallworld(15, 0.025))
+plot(play_diffusion(generate_smallworld(15, 0.025)))
+plot(play_diffusion(generate_smallworld(15, 0.025), thresholds = 0.4))
+plot(play_diffusion(generate_smallworld(15, 0.025), recovery = 0.4))
+plot(play_diffusions(generate_smallworld(15, 0.025), times = 20))
 play_learning(ison_networkers, 
       rbinom(network_nodes(ison_networkers),1,prob = 0.25))
 }
