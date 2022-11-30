@@ -84,7 +84,7 @@ by constructing the various dependent and independent matrices for the user.
 \item it uses a more intuitive formula-based system for specifying the model,
 with several ways to specify how nodal attributes should be handled.
 \item it can handle categorical variables (factors/characters) and
-interactions intuitively.
+interactions intuitively, naming the reference variable where appropriate.
 \item it relies on \href{https://furrr.futureverse.org}{\code{{furrr}}} for parallelising
 and \href{https://progressr.futureverse.org}{\code{{progressr}}}
 for reporting progress to the user,
@@ -122,6 +122,7 @@ Dekker, David, David Krackhard, and Tom A. B. Snijders. 2007.
 \code{vignette("p7linearmodel")}
 
 Other models: 
+\code{\link{play}},
 \code{\link{tests}}
 }
 \concept{models}

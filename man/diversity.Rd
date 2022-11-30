@@ -2,6 +2,8 @@
 % Please edit documentation in R/measure_diversity.R
 \name{diversity}
 \alias{diversity}
+\alias{network_richness}
+\alias{node_richness}
 \alias{network_diversity}
 \alias{node_diversity}
 \alias{network_homophily}
@@ -9,6 +11,10 @@
 \alias{network_assortativity}
 \title{Measures of network diversity}
 \usage{
+network_richness(object, attribute)
+
+node_richness(object, attribute)
+
 network_diversity(object, attribute, clusters = NULL)
 
 node_diversity(object, attribute)
@@ -41,6 +47,12 @@ across this attribute.
 }
 \section{Functions}{
 \itemize{
+\item \code{network_richness()}: Calculates the number of unique categories
+in a network attribute.
+
+\item \code{node_richness()}: Calculates the number of unique categories
+of an attribute to which each node is connected.
+
 \item \code{network_diversity()}: Calculates the heterogeneity of ties across a network or
 within clusters by node attributes.
 

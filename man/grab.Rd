@@ -104,6 +104,7 @@ Other manipulations:
 \code{\link{add}},
 \code{\link{as}()},
 \code{\link{reformat}},
+\code{\link{split}()},
 \code{\link{transform}()}
 }
 \concept{manipulations}

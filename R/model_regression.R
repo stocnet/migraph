@@ -9,7 +9,7 @@
 #' - it uses a more intuitive formula-based system for specifying the model,
 #'   with several ways to specify how nodal attributes should be handled.
 #' - it can handle categorical variables (factors/characters) and
-#'   interactions intuitively.
+#'   interactions intuitively, naming the reference variable where appropriate.
 #' - it relies on [`{furrr}`](https://furrr.futureverse.org) for parallelising 
 #'   and [`{progressr}`](https://progressr.futureverse.org) 
 #'   for reporting progress to the user,
@@ -307,7 +307,8 @@ convertToMatrixList <- function(formula, data){
                           function (x) matrix((as.numeric(fct)==x)*1,
                                               nrow(DV), ncol(DV)))
             names(out) <- paste(paste(IV[[elem]], collapse = " "), 
-                                levels(fct)[2:length(levels(fct))])
+                                levels(fct)[2:length(levels(fct))],
+                                paste0("[",levels(fct)[1],"]"))
             out <- out
           }
         } else {
@@ -332,7 +333,8 @@ convertToMatrixList <- function(formula, data){
                             function (x) matrix((as.numeric(fct)==x)*1,
                                                 nrow(DV), ncol(DV)))
               names(out) <- paste(paste(IV[[elem]], collapse = " "), 
-                                  levels(fct)[2:length(levels(fct))])
+                                  levels(fct)[2:length(levels(fct))],
+                                  paste0("[",levels(fct)[1],"]"))
               out <- out
             }
           } else {

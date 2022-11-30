@@ -22,10 +22,22 @@ friendship, social and task interactions.
 
 ```
 
+```{r data-hint-1}
+# first, let's load the migraph package
+library(migraph)
+```
+
+```{r data-hint-2}
+# next, let's call and load the 'ison_algebra' dataset
+data("ison_algebra", package = "migraph")
+
+# if you want to learn more about the 'ison_algebra' dataset, use the following function (below)
+?migraph::ison_algebra
+```
+
 ```{r data-solution}
 library(migraph)
 data("ison_algebra", package = "migraph")
-# ?migraph::ison_algebra
 ```
 
 Note that you do not need to load the package using `library()` to get the data.
@@ -41,6 +53,14 @@ This makes plotting the network just a wee bit more accessible and interpretable
 
 ```{r addingnames, exercise=TRUE, exercise.setup = "data"}
 
+```
+
+```{r addingnames-hint-1}
+ison_algebra <- to_named(ison_algebra)
+```
+
+```{r addingnames-hint-2}
+autographr(ison_algebra)
 ```
 
 ```{r addingnames-solution}
@@ -61,13 +81,39 @@ We can extract them and investigate them separately using `to_uniplex()`:
 
 ```
 
+```{r separatingnets-hint-1}
+# let's focus on the 'friends' attribute
+friends <- to_uniplex(ison_algebra, "friends")
+gfriend <- autographr(friends) + ggtitle("Friendship")
+```
+
+```{r separatingnets-hint-2}
+# let's focus on the 'social' attribute
+social <- to_uniplex(ison_algebra, "social")
+gsocial <- autographr(social) + ggtitle("Social")
+```
+
+```{r separatingnets-hint-3}
+# let's focus on the 'tasks' attribute
+tasks <- to_uniplex(ison_algebra, "tasks")
+gtask <- autographr(tasks) + ggtitle("Task")
+```
+
+```{r separatingnets-hint-4}
+# now, let's compare the each attribute's graph, side-by-side
+gfriend + gsocial + gtask
+```
+
 ```{r separatingnets-solution}
 friends <- to_uniplex(ison_algebra, "friends")
 gfriend <- autographr(friends) + ggtitle("Friendship")
+
 social <- to_uniplex(ison_algebra, "social")
 gsocial <- autographr(social) + ggtitle("Social")
+
 tasks <- to_uniplex(ison_algebra, "tasks")
 gtask <- autographr(tasks) + ggtitle("Task")
+
 gfriend + gsocial + gtask
 ```
 
@@ -103,7 +149,17 @@ network_density(tasks)
 
 Note that the various measures in `{migraph}` print results to three decimal points
 by default, but the underlying result retains the same recurrence.
-So same result... Is this high or low?
+So same result...
+
+```{r dens-qa, echo=FALSE}
+question("Is this high or low?",
+         answer("High",
+                message = "The closer the value is to 1, the more dense the network and the more cohesive the nodes are in the network."),
+         answer("Low",
+                correct = TRUE,
+                message = "The closer the value is to 1, the more dense the network and the more cohesive the nodes are in the network.")
+)
+```
 
 ### Closure
 
@@ -127,9 +183,22 @@ And let's calculate transitivity.
 network_transitivity(tasks)
 ```
 
-What can we say about task closure in this network?
-Would we expect it to be higher or lower than for `social`?
-Is it?
+```{r trans-interp, echo=FALSE}
+question("What can we say about task closure in this network? Choose all that apply.",
+  answer("Transitivity for the task network is 0.568",
+         correct = TRUE),
+  answer("Transitivity for the task network is -0.568", 
+         message = "Transivitity must be between 0 and 1."),
+  answer("Transitivity is quite low in this network", 
+         message = "Transitivity is usually around 0.3 in most social networks."),
+  answer("Transitivity is quite high in this network", 
+         correct = TRUE),
+  answer("Transitivity is likely higher in the social network than the task network", 
+         correct = TRUE),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+)
+```
 
 ### Components
 
@@ -139,17 +208,55 @@ Now let's look at the friend network.
 
 ```
 
+```{r comp-no-hint-1}
+network_components(friends)
+```
+
+```{r comp-no-hint-2}
+# Now let's look at the number of components for objects connected by an undirected edge
+# Note: to_undirected() returns an object that has any edge direction removed, so that 
+# any pair of nodes with at least one directed edge will be connected by an undirected edge 
+# in the new network.
+
+network_components(to_undirected(friends))
+```
+
 ```{r comp-no-solution}
 network_components(friends)
 network_components(to_undirected(friends))
 ```
 
-How many components are there? Why are the results different?
- 
+```{r comp-interp, echo = FALSE}
+question("How many components are there?",
+  answer("2", 
+         message = "There are more than 2 components."),
+  answer("3", 
+         message = "There are 3 _weak_ components.",
+         correct = TRUE),
+  answer("4", 
+         message = "There are 4 _strong_ components.",
+         correct = TRUE),
+  answer("5", 
+         message = "There are fewer than 5 components."),
+  allow_retry = TRUE
+)
+```
+
 We can use the membership vector in the resulting object to color nodes:
 
 ```{r comp-memb, exercise=TRUE, exercise.setup = "separatingnets"}
 
+```
+
+```{r comp-memb-hint-1}
+friends <- friends %>% 
+  mutate(weak_comp = node_components(to_undirected(friends)),
+         strong_comp = node_components(friends))
+```
+
+```{r comp-memb-hint-2}
+autographr(friends, node_color = "weak_comp") + ggtitle("Weak components") +
+autographr(friends, node_color = "strong_comp") + ggtitle("Strong components")
 ```
 
 ```{r comp-memb-solution}
@@ -165,13 +272,28 @@ autographr(friends, node_color = "strong_comp") + ggtitle("Strong components")
 Ok, the friendship network has 3-4 components, but how many 'groups' are there?
 Just visually, it looks like there are two denser clusters within the main component.
 
-Today we'll use the friend subgraph for exploring community detection methods.
+Today we'll use the 'friend' subgraph for exploring community detection methods.
 For clarity and simplicity, 
 we will concentrate on the main component (the so-called 'giant' component)
 and consider friendship undirected:
 
 ```{r manip-fri, exercise=TRUE, exercise.setup = "separatingnets"}
 
+```
+
+```{r manip-fri-hint-1}
+# let's use to_giant() which returns an object that includes only the main component without any smaller components or isolates
+
+(friends <- to_giant(friends))
+```
+
+```{r manip-fri-hint-2}
+(friends <- to_undirected(friends))
+```
+
+```{r manip-fri-hint-3}
+# now, let's graph the new network
+autographr(friends)
 ```
 
 ```{r manip-fri-solution}
@@ -229,9 +351,33 @@ with path lengths of the random walks specified to be 50.
 
 ```
 
-```{r walk-solution}
+```{r walk-hint-1}
+# let's use the node_walktrap()function to create a hierarchical, 
+# agglomerative algorithm based on random walks, and assign it to
+# an object
+
 friend_wt <- node_walktrap(friends, times=50)
 friend_wt # note that it prints pretty, but underlying its just a vector:
+```
+
+```{r walk-hint-2}
+c(friend_wt)
+
+# This says that dividing the graph into 2 communities maximises modularity,
+# one with the nodes 
+which(friend_wt == 1)
+# and the other 
+which(friend_wt == 2)
+```
+
+```{r walk-hint-3}
+# resulting in a modularity of 
+network_modularity(friends, friend_wt)
+```
+
+```{r walk-solution}
+friend_wt <- node_walktrap(friends, times=50)
+friend_wt # note that it prints pretty, but underlying it is just a vector:
 # c(friend_wt)
 
 # This says that dividing the graph into 2 communities maximises modularity,
@@ -247,6 +393,32 @@ We can also visualise the clusters on the original network
 How does the following look? Plausible?
 
 ```{r walkplot, exercise=TRUE, exercise.setup = "walk"}
+```
+
+```{r walkplot-hint-1}
+# plot 1: groups by node color
+
+friends <- friends %>% 
+  mutate(walk_comm = friend_wt)
+autographr(friends, node_color = "walk_comm")
+```
+
+```{r walkplot-hint-2}
+#plot 2: groups by borders
+
+# to be fancy, we could even draw the group borders around the nodes
+autographr(friends, node_group = "walk_comm")
+```
+
+```{r walkplot-hint-3}
+# plot 3: group and node colors
+
+# or both!
+autographr(friends, 
+           node_color = "walk_comm", 
+           node_group = "walk_comm") +
+  ggtitle("Walktrap",
+    subtitle = round(network_modularity(friends, friend_wt), 3))
 ```
 
 ```{r walkplot-solution}
@@ -299,6 +471,23 @@ To visualise the result:
 
 ```
 
+```{r ebplot-hint-1}
+# create an object
+
+friends <- friends %>% 
+  mutate(eb_comm = friend_eb)
+```
+
+```{r ebplot-hint-2}
+# create a graph with a title and subtitle returning the modularity score
+
+autographr(friends, 
+           node_color = "eb_comm", 
+           node_group = "eb_comm") +
+  ggtitle("Edge-betweenness",
+    subtitle = round(network_modularity(friends, friend_eb), 3))
+```
+
 ```{r ebplot-solution}
 friends <- friends %>% 
   mutate(eb_comm = friend_eb)
@@ -328,6 +517,23 @@ although I personally find it both useful and in many cases quite "accurate".
 
 ```
 
+```{r fg-hint-1}
+friend_fg <- node_fast_greedy(friends)
+friend_fg # Does this result in a different community partition?
+network_modularity(friends, friend_fg) # Compare this to the edge betweenness procedure
+```
+
+```{r fg-hint-2}
+# Again, we can visualise these communities in different ways:
+friends <- friends %>% 
+  mutate(fg_comm = friend_fg)
+autographr(friends, 
+           node_color = "fg_comm", 
+           node_group = "fg_comm") +
+  ggtitle("Fast-greedy",
+    subtitle = round(network_modularity(friends, friend_fg), 3))
+```
+
 ```{r fg-solution}
 friend_fg <- node_fast_greedy(friends)
 friend_fg # Does this result in a different community partition?
@@ -347,13 +553,24 @@ See A Clauset, MEJ Newman, C Moore:
 Finding community structure in very large networks, 
 https://arxiv.org/abs/cond-mat/0408187
 
-# Two-mode network: Southern women
+## Two-mode network: Southern women
 
 The next dataset is also available in migraph.
 Let's take a look at the loaded objects.
 
 ```{r setup-women, exercise=TRUE, exercise.setup = "data"}
 
+```
+
+```{r setup-women-hint-1}
+# let's load the data and analyze it
+data("ison_southern_women")
+ison_southern_women
+```
+
+```{r setup-women-hint-2}
+autographr(ison_southern_women, node_color = "type")
+autographr(ison_southern_women, "railway", node_color = "type")
 ```
 
 ```{r setup-women-solution}
@@ -386,6 +603,26 @@ Or the easy way
 
 ```
 
+```{r easyway-hint-1}
+# women-graph
+# to_mode1(): Results in a weighted one-mode object that retains the row nodes from
+# a two-mode object, and weights the ties between them on the basis of their joint
+# ties to nodes in the second mode (columns)
+
+women_graph <- to_mode1(ison_southern_women)
+autographr(women_graph)
+```
+
+```{r easyway-hint-2}
+# event-graph
+# to_mode2(): Results in a weighted one-mode object that retains the column nodes from
+# a two-mode object, and weights the ties between them on the basis of their joint ties
+# to nodes in the first mode (rows)
+
+event_graph <- to_mode2(ison_southern_women)
+autographr(event_graph)
+```
+
 ```{r easyway-solution}
 women_graph <- to_mode1(ison_southern_women)
 autographr(women_graph)
@@ -414,6 +651,19 @@ Let's return to the question of cohesion.
 
 ```
 
+```{r twomode-cohesion-hint-1}
+# network_equivalency(): Calculate equivalence or reinforcement in a (usually two-mode) network
+
+network_equivalency(ison_southern_women)
+```
+
+```{r twomode-cohesion-hint-2}
+# network_transitivity(): Calculate transitivity in a network
+
+network_transitivity(women_graph)
+network_transitivity(event_graph)
+```
+
 ```{r twomode-cohesion-solution}
 network_equivalency(ison_southern_women)
 network_transitivity(women_graph)
@@ -422,10 +672,18 @@ network_transitivity(event_graph)
 
 What do we learn from this?
 
+```{r comm-comp, echo=FALSE}
+question("What is the difference between communities and components?",
+         answer("Communities and components are just different terms for the same thing"),
+         answer("Communities are a stricter form of component"),
+         answer("Components are about paths whereas communities are about the relationship between within-group and between-group ties",
+                correct = TRUE),
+         allow_retry = TRUE)
+```
+
 ## Task/Unit Test
 
-1. What is the difference between communities and components?
-2. Produce a plot comparing 3 community detection procedures used here on a 
+1. Produce a plot comparing 3 community detection procedures used here on a 
 (women) projection of the ison_southern_women dataset. Identify which you prefer, and explain why.
-3. Explain in no more than a paragraph why projection can lead to misleading transitivity measures.
-4. Explain in no more than a paragraph how structural balance might lead to group identity.
+2. Explain in no more than a paragraph why projection can lead to misleading transitivity measures.
+3. Explain in no more than a paragraph how structural balance might lead to group identity.

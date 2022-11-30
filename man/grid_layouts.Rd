@@ -44,7 +44,7 @@ Inoue, Kentaro, Shinichi Shimozono, Hideaki Yoshida, and Hiroyuki Kurata. 2012.
 }
 \seealso{
 Other mapping: 
-\code{\link{autographr}()},
+\code{\link{auto_graph}},
 \code{\link{partition_layouts}}
 }
 \concept{mapping}

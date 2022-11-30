@@ -361,6 +361,33 @@ is_acyclic <- function(object){
   igraph::is_dag(object)
 }
 
+#' @describeIn is Tests whether network is aperiodic
+#' @param max_path_length Maximum path length considered.
+#'   If negative, paths of all lengths are considered.
+#'   By default 4, to avoid potentially very long computation times.
+#' @source https://stackoverflow.com/questions/55091438/r-igraph-find-all-cycles
+#' @examples 
+#' is_aperiodic(ison_algebra)
+#' @export
+is_aperiodic <- function(object, max_path_length = 4){
+  g <- as_igraph(object)
+  out <- NULL
+  for(v1 in igraph::V(g)) {
+    if(igraph::degree(g, v1, mode="in") == 0) {next}
+    goodNeighbors <- igraph::neighbors(g, v1, mode="out")
+    goodNeighbors <- goodNeighbors[goodNeighbors > v1]
+    out <- c(out, unlist(lapply(goodNeighbors, function(v2){
+      vapply(igraph::all_simple_paths(g, v2, v1, mode="out", 
+                     cutoff = max_path_length), length, FUN.VALUE = numeric(1))
+    })))
+  }
+  if (!("minMSE" %in% rownames(utils::installed.packages()))) {
+    message("Please install package `{minMSE}` from CRAN.")
+  } else {
+  minMSE::vector_gcd(out)==1
+  }
+}
+
 #' @describeIn is Tests whether there is a matching for a network
 #'   that covers every node in the network
 #' @param mark A logical vector marking two types or modes.

@@ -898,3 +898,149 @@ to_anti.tbl_graph <- function(object){
 to_anti.network <- function(object){
   as_network(to_anti(as_igraph(object)))
 }
+
+# Splitting ####
+#' Tools for splitting networks, graphs, and matrices
+#' 
+#' @description
+#' These functions offer tools for splitting migraph-consistent objects
+#' (matrices, igraph, tidygraph, or network objects).
+#' Splitting means that the returned object will be a list of objects.
+#' @name split
+#' @family manipulations
+#' @inheritParams reformat
+NULL
+
+#' @describeIn split Returns a list of ego (or focal)
+#'   networks.
+#' @param max_dist The maximum breadth of the neighbourhood.
+#'   By default 1.
+#' @param min_dist The minimum breadth of the neighbourhood.
+#'   By default 0. 
+#'   Increasing this to 1 excludes the ego,
+#'   and 2 excludes ego's direct alters.
+#' @importFrom igraph make_ego_graph
+#' @examples 
+#' autographs(to_egos(ison_adolescents))
+#' autographs(to_egos(ison_adolescents,2))
+#' @export
+to_egos <- function(object, 
+                    max_dist = 1, 
+                    min_dist = 0) UseMethod("to_egos")
+
+#' @export
+to_egos.igraph <- function(object, 
+                           max_dist = 1, 
+                           min_dist = 0){
+  if(is_twomode(object)) max_dist <- max_dist*2
+  out <- igraph::make_ego_graph(object,
+                                order = max_dist,
+                                mindist = min_dist)
+  if(is_labelled(object)) 
+    names(out) <- node_names(object)
+  out
+}
+
+#' @export
+to_egos.tbl_graph <- function(object, 
+                           max_dist = 1, 
+                           min_dist = 0){
+  out <- to_egos(as_igraph(object), 
+                       max_dist, 
+                       min_dist)
+  lapply(out, function(x) as_tidygraph(x))
+}
+
+#' @export
+to_egos.network <- function(object, 
+                              max_dist = 1, 
+                              min_dist = 0){
+  out <- to_egos(as_igraph(object), 
+                       max_dist, 
+                       min_dist)
+  lapply(out, function(x) as_network(x))
+}
+
+#' @export
+to_egos.matrix <- function(object, 
+                              max_dist = 1, 
+                              min_dist = 0){
+  out <- to_egos(as_igraph(object), 
+                       max_dist, 
+                       min_dist)
+  lapply(out, function(x) as_matrix(x))
+}
+
+#' @export
+to_egos.data.frame <- function(object, 
+                              max_dist = 1, 
+                              min_dist = 0){
+  out <- to_egos(as_igraph(object), 
+                       max_dist, 
+                       min_dist)
+  lapply(out, function(x) as_edgelist(x))
+}
+
+#' @describeIn split Returns a list of subgraphs
+#'   on some given attribute.
+#' @param attribute A character string indicating the categorical
+#'   attribute in a network used to split into subgraphs.
+#' @importFrom igraph induced_subgraph
+#' @export
+to_subgraphs <- function(object, attribute) UseMethod("to_subgraphs")
+
+#' @export
+to_subgraphs.igraph <- function(object, attribute){
+  types <- unique(node_attribute(object, attribute))
+  lapply(types, function(x) igraph::induced_subgraph(object, 
+                              node_attribute(object, attribute) == x))
+}
+
+#' @export
+to_subgraphs.tbl_graph <- function(object, attribute){
+  as_tidygraph(to_subgraphs(as_igraph(object), attribute))
+}
+
+#' @export
+to_subgraphs.network <- function(object, attribute){
+  as_network(to_subgraphs(as_igraph(object), attribute))
+}
+
+#' @describeIn split Returns a list of the components
+#'   in a network.
+#' @examples 
+#' to_components(ison_marvel_relationships)
+#' @export
+to_components <- function(object) UseMethod("to_components")
+
+#' @importFrom igraph decompose
+#' @export
+to_components.igraph <- function(object){
+  igraph::decompose(object)
+}
+
+#' @export
+to_components.tbl_graph <- function(object){
+  out <- to_components.igraph(as_igraph(object))
+  lapply(out, function(x) as_tidygraph(x))
+}
+
+#' @export
+to_components.network <- function(object){
+  out <- to_components.igraph(as_igraph(object))
+  lapply(out, function(x) as_network(x))
+}
+
+#' @export
+to_components.matrix <- function(object){
+  out <- to_components.igraph(as_igraph(object))
+  lapply(out, function(x) as_matrix(x))
+}
+
+#' @export
+to_components.data.frame <- function(object){
+  out <- to_components.igraph(as_igraph(object))
+  lapply(out, function(x) as_edgelist(x))
+}
+
+

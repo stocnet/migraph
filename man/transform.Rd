@@ -160,6 +160,7 @@ Other manipulations:
 \code{\link{add}},
 \code{\link{as}()},
 \code{\link{grab}},
-\code{\link{reformat}}
+\code{\link{reformat}},
+\code{\link{split}()}
 }
 \concept{manipulations}

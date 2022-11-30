@@ -153,6 +153,7 @@ with existing function names wherever possible.
 - Blockmodelling: `r list_functions("node.*equivalence")`
 - Testing (via CUG/QAP): `r list_functions("^test_")`
 - Linear and logistic regression for networks (via MRQAP): `network_reg()`
+- Diffusion and learning models: `r list_functions("^play_")`
 
 #### Visualization
 

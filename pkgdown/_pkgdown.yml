@@ -102,11 +102,12 @@ reference:
     contents:
       - starts_with("test")
       - regression
+      - starts_with("play")
       - cluster
   - title: "Mapping"
     desc: "Functions for plotting and visualising graphs of different types:"
     contents:
-      - autographr
+      - auto_graph
       - starts_with("layout_")
       - gglineage
       - ggevolution

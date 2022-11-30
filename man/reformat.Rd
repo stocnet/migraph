@@ -139,6 +139,7 @@ Other manipulations:
 \code{\link{add}},
 \code{\link{as}()},
 \code{\link{grab}},
+\code{\link{split}()},
 \code{\link{transform}()}
 }
 \concept{manipulations}

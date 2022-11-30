@@ -172,33 +172,136 @@ plot.netlogit <- function(x, ...){
     scale_y_discrete(limits=rev)
 }
 
-make_diff_model <- function(out, object) {
-  class(out) <- c("diff_model", class(out))
+# diff_model ####
+make_diff_model <- function(events, report, object) {
+  class(report) <- c("diff_model", class(report))
+  attr(report, "events") <- events
+  attr(report, "mode") <- node_mode(object)
+  report
+}
+
+make_diffs_model <- function(report, object) {
+  class(report) <- c("diffs_model", class(report))
+  attr(report, "mode") <- node_mode(object)
+  report
+}
+
+#' @export
+print.diff_model <- function(x, ...){
+  x <- x[,colSums(x, na.rm=TRUE) != 0]
+  x$I_new <- NULL
+  print(dplyr::tibble(x, ...))
+}
+
+#' @export
+print.diffs_model <- function(x, ...){
+  x <- x[,colSums(x, na.rm=TRUE) != 0]
+  x$I_new <- NULL
+  print(dplyr::tibble(x, ...))
+}
+
+#' @export
+summary.diff_model <- function(object, ...){
+  dplyr::tibble(attr(object, "events"), ...)
+}
+
+#' @export
+summary.diffs_model <- function(object, ...){
+  sim <- fin <- NULL
+  object %>% dplyr::mutate(fin = (I!=n)*1) %>% 
+    group_by(sim) %>% summarise(toa = sum(fin)+1)
+}
+
+#' @importFrom dplyr left_join
+#' @importFrom ggplot2 geom_histogram
+#' @export
+plot.diff_model <- function(x, ...){
+  if(nrow(x)==1) warning("No diffusion observed.") else {
+    S <- E <- I <- I_new <- R <- NULL # initialize variables to avoid CMD check notes
+    data <- x
+    p <- ggplot2::ggplot(data) + 
+      ggplot2::geom_line(ggplot2::aes(x = t, y = S/n), color = "blue") +
+      ggplot2::geom_line(ggplot2::aes(x = t, y = I/n), color = "red") +
+      ggplot2::geom_col(ggplot2::aes(x = t, y = I_new/n), 
+                        alpha = 0.4) +
+      ggplot2::theme_minimal() + ggplot2::ylim(0,1) +
+      ggplot2::ylab("Proportion") + ggplot2::xlab("Steps")
+    if(any(data$E>0))
+      p <- p +
+      ggplot2::geom_line(ggplot2::aes(x = t, y = E/n), color = "orange")
+    if(any(data$R>0))
+      p <- p +
+      ggplot2::geom_line(ggplot2::aes(x = t, y = R/n), color = "darkgreen")
+    p
+  }
+}
+
+#' @export
+plot.diffs_model <- function(x, ...){
+  S <- E <- I <- R <- NULL # initialize variables to avoid CMD check notes
+  data <- dplyr::tibble(x)
+    # ggplot2::ggplot(data) + geom_smooth()
+    
+    p <- ggplot2::ggplot(data) + 
+      # ggplot2::geom_point(ggplot2::aes(x = t, y = S/n))
+      ggplot2::geom_smooth(ggplot2::aes(x = t, y = S/n), color = "blue", 
+                           method = "loess", se=TRUE, level = .95, formula = 'y~x') +
+      ggplot2::geom_smooth(ggplot2::aes(x = t, y = I/n), color = "red", 
+                           method = "loess", se=TRUE, level = .95, formula = 'y~x') +
+      ggplot2::theme_minimal() + ggplot2::ylim(0,1) +
+      ggplot2::ylab("Proportion") + ggplot2::xlab("Steps")
+    if(any(data$E>0))
+      p <- p +
+      ggplot2::geom_smooth(ggplot2::aes(x = t, y = E/n), color = "orange", 
+                           method = "loess", se=TRUE, level = .95, formula = 'y~x')
+    if(any(data$R>0))
+      p <- p +
+      ggplot2::geom_smooth(ggplot2::aes(x = t, y = R/n), color = "darkgreen", 
+                           method = "loess", se=TRUE, level = .95, formula = 'y~x')
+    p
+}
+
+# learn_model ####
+make_learn_model <- function(out, object) {
+  out <- as.data.frame(out)
+  if(is_labelled(object))
+    names(out) <- node_names(object)
+  class(out) <- c("learn_model", class(out))
   attr(out, "mode") <- node_mode(object)
   out
 }
 
 #' @export
-print.diff_model <- function(x, ...){
+print.learn_model <- function(x, ...){
   print(dplyr::tibble(x))
 }
 
-
 #' @export
-summary.diff_model <- function(object, ...){
-  cum_sum <- NULL
-  ns <- length(attr(object, "mode"))
-  dplyr::count(object, t) %>% 
-    mutate(cum_sum = cumsum(n)) %>% 
-    mutate(percent = cum_sum/ns)
+summary.learn_model <- function(object, ..., epsilon = 0.0005){
+  steps <- nrow(object)
+  max_belief <- max(object[steps,])
+  min_belief <- min(object[steps,])
+  if(abs(max_belief - min_belief) < epsilon){
+    cat(paste(steps-1, 
+              "steps to convergence.\n"))
+    cat("Final belief =", max_belief)
+  } else 
+    cat(paste("No convergence after",
+                  steps-1, "steps."))
 }
 
 #' @export
-plot.diff_model <- function(x, ...){
-  percent <- NULL
-  y <- summary(x)
-  ggplot2::ggplot(y) + 
-    ggplot2::geom_line(aes(x = t, y = percent)) +
-    ggplot2::theme_minimal() +
-    ggplot2::ylab("Proportion") + ggplot2::xlab("Time")
+plot.learn_model <- function(x, ...){
+  Step <- NULL
+  Freq <- NULL
+  Var1 <- NULL
+  y <- t(x)
+  colnames(y) <- paste0("t",0:(ncol(y)-1))
+  y <- as.data.frame.table(y)
+  y$Step <- as.numeric(gsub("t", "", y$Var2))
+  ggplot2::ggplot(y, ggplot2::aes(x = Step, y = Freq, color = Var1)) + 
+    ggplot2::geom_line(show.legend = FALSE) + ggplot2::theme_minimal() +
+    ggplot2::ylab("Belief")
 }
+
+
