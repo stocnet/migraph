@@ -112,7 +112,7 @@ play_diffusion <- function(object,
     exposed <- c(exposed, new)
 
     # new list of infected 
-    infectious <- exposed[stats::rbinom(length(exposed), 1, latency)==1]
+    infectious <- exposed[stats::rbinom(length(exposed), 1, latency)==0]
     exposed <- setdiff(exposed, infectious)
     infected <- c(infected, infectious)
     # tick time
