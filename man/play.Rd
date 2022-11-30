@@ -29,7 +29,7 @@ play_diffusions(
   waning = 0,
   immune = NULL,
   steps,
-  times = 20,
+  times = 5,
   strategy = "sequential",
   verbose = FALSE
 )

@@ -80,7 +80,7 @@ play_diffusion <- function(object,
                        n = n,
                        S = n - (length(exposed) + length(infected) + length(recovered)),
                        E = length(exposed),
-                       I_new = seeds,
+                       I_new = length(seeds),
                        I = length(infected),
                        R = length(recovered))
   
@@ -112,7 +112,7 @@ play_diffusion <- function(object,
     exposed <- c(exposed, new)
 
     # new list of infected 
-    infectious <- exposed[stats::rbinom(length(exposed), 1, 1-latency)==1]
+    infectious <- exposed[stats::rbinom(length(exposed), 1, latency)==1]
     exposed <- setdiff(exposed, infectious)
     infected <- c(infected, infectious)
     # tick time
