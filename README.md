@@ -51,14 +51,14 @@ network analysis and thus tries to work well with whatever format
 network objects you are already working with. All `{migraph}` measures
 and models work with data in base formats:
 
--   adjacency and incidence *matrices*
--   one-mode and two-mode *data frame* edgelists
+- adjacency and incidence *matrices*
+- one-mode and two-mode *data frame* edgelists
 
 as well as with objects constructed from the following packages:
 
--   [`{igraph}`](https://igraph.org/r/)
--   [`{network}`](https://statnet.org)
--   [`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html)
+- [`{igraph}`](https://igraph.org/r/)
+- [`{network}`](https://statnet.org)
+- [`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html)
 
 `{migraph}`’s `as_*()` functions can be used to translate objects from
 one of the above classes into any other, and include:
@@ -76,22 +76,22 @@ can be used to work with and manipulate your data.
 `{migraph}`’s `is_*()` functions offer fast logical tests of network
 properties, e.g.:
 
--   `is_acyclic()`, `is_bipartite()`, `is_complex()`, `is_connected()`,
-    `is_directed()`, `is_edgelist()`, `is_eulerian()`, `is_graph()`,
-    `is_labelled()`, `is_migraph()`, `is_multiplex()`,
-    `is_perfect_matching()`, `is_signed()`, `is_twomode()`,
-    `is_uniplex()`, `is_weighted()`
+- `is_acyclic()`, `is_aperiodic()`, `is_bipartite()`, `is_complex()`,
+  `is_connected()`, `is_directed()`, `is_edgelist()`, `is_eulerian()`,
+  `is_graph()`, `is_labelled()`, `is_migraph()`, `is_multiplex()`,
+  `is_perfect_matching()`, `is_signed()`, `is_twomode()`,
+  `is_uniplex()`, `is_weighted()`
 
 `{migraph}`’s `to_*()` functions can be used on any class object to
 reformat or transform networks into networks with other properties,
 e.g.:
 
--   `to_anti()`, `to_blocks()`, `to_edges()`, `to_giant()`,
-    `to_main_component()`, `to_matching()`, `to_mode1()`, `to_mode2()`,
-    `to_multilevel()`, `to_named()`, `to_onemode()`, `to_redirected()`,
-    `to_simplex()`, `to_subgraph()`, `to_ties()`, `to_twomode()`,
-    `to_undirected()`, `to_uniplex()`, `to_unnamed()`, `to_unsigned()`,
-    `to_unweighted()`
+- `to_anti()`, `to_blocks()`, `to_components()`, `to_edges()`,
+  `to_egos()`, `to_giant()`, `to_main_component()`, `to_matching()`,
+  `to_mode1()`, `to_mode2()`, `to_multilevel()`, `to_named()`,
+  `to_onemode()`, `to_redirected()`, `to_simplex()`, `to_subgraph()`,
+  `to_subgraphs()`, `to_ties()`, `to_twomode()`, `to_undirected()`,
+  `to_uniplex()`, `to_unnamed()`, `to_unsigned()`, `to_unweighted()`
 
 #### Making
 
@@ -99,38 +99,36 @@ e.g.:
 networks with particular properties. The `create_*` group of functions
 create networks with a particular structure, e.g.:
 
--   `create_complete()`, `create_components()`, `create_core()`,
-    `create_empty()`, `create_lattice()`, `create_ring()`,
-    `create_star()`, `create_tree()`
+- `create_complete()`, `create_components()`, `create_core()`,
+  `create_empty()`, `create_lattice()`, `create_ring()`,
+  `create_star()`, `create_tree()`
 
 The `generate_*` group of functions generate networks from particular
 generative mechanisms, e.g.:
 
--   `generate_permutation()`, `generate_random()`,
-    `generate_scalefree()`, `generate_smallworld()`
+- `generate_permutation()`, `generate_random()`, `generate_scalefree()`,
+  `generate_smallworld()`
 
 `{migraph}` includes a number of prominent network datasets, especially
 multimodal and multiplex examples for demonstrating more advanced
 methods.
 
--   `mpn_bristol`, `mpn_cow_igo`, `mpn_cow_trade`, `mpn_DE_1990`,
-    `mpn_DE_2008`, `mpn_DemSxP`, `mpn_elite_mex`,
-    `mpn_elite_usa_advice`, `mpn_elite_usa_money`, `mpn_IT_1990`,
-    `mpn_IT_2008`, `mpn_OverSxP`, `mpn_RepSxP`, `mpn_ryanair`,
-    `mpn_UK_1990`, `mpn_UK_2008`
--   `ison_adolescents`, `ison_algebra`, `ison_bb`, `ison_bm`,
-    `ison_brandes`, `ison_brandes2`, `ison_karateka`, `ison_lotr`,
-    `ison_marvel_relationships`, `ison_marvel_teams`, `ison_mb`,
-    `ison_mm`, `ison_networkers`, `ison_southern_women`
+- `mpn_bristol`, `mpn_cow_igo`, `mpn_cow_trade`, `mpn_DE_1990`,
+  `mpn_DE_2008`, `mpn_DemSxP`, `mpn_elite_mex`, `mpn_elite_usa_advice`,
+  `mpn_elite_usa_money`, `mpn_IT_1990`, `mpn_IT_2008`, `mpn_OverSxP`,
+  `mpn_RepSxP`, `mpn_ryanair`, `mpn_UK_1990`, `mpn_UK_2008`
+- `ison_adolescents`, `ison_algebra`, `ison_bb`, `ison_bm`,
+  `ison_brandes`, `ison_brandes2`, `ison_karateka`, `ison_lotr`,
+  `ison_marvel_relationships`, `ison_marvel_teams`, `ison_mb`,
+  `ison_mm`, `ison_networkers`, `ison_southern_women`
 
 `{migraph}` can also import and export to Excel edgelists and nodelists,
 [UCINET](http://www.analytictech.com/archive/ucinet.htm) and
 [Pajek](http://mrvar.fdv.uni-lj.si/pajek/) files, e.g.:
 
--   `read_edgelist()`, `read_nodelist()`, `read_pajek()`,
-    `read_ucinet()`
--   `write_edgelist()`, `write_nodelist()`, `write_pajek()`,
-    `write_ucinet()`
+- `read_edgelist()`, `read_nodelist()`, `read_pajek()`, `read_ucinet()`
+- `write_edgelist()`, `write_nodelist()`, `write_pajek()`,
+  `write_ucinet()`
 
 ### Extends your current network analysis workflow
 
@@ -143,49 +141,51 @@ function names wherever possible.
 
 #### Measures
 
--   Centrality: `node_degree()`, `node_closeness()`,
-    `node_betweenness()`, and `node_eigenvector()`
--   Centralization: `network_degree()`, `network_closeness()`,
-    `network_betweenness()`, and `network_eigenvector()`
--   Cohesion: `network_density()`, `network_reciprocity()`,
-    `network_transitivity()`, `network_equivalency()`, and
-    `network_congruency()`
--   Connectedness: `network_components()`, `network_cohesion()`,
-    `network_adhesion()`, `network_diameter()`, `network_length()`
--   Diversity: `network_diversity()`, `network_homophily()`,
-    `network_assortativity()`
--   Structural holes: e.g. `node_redundancy()`, `node_effsize()`,
-    `node_efficiency()`, `node_constraint()`, `node_hierarchy()`
--   Topological features: e.g. `network_core()`, `network_factions()`,
-    `network_modularity()`, `network_smallworld()`, `network_balance()`
+- Centrality: `node_degree()`, `node_closeness()`, `node_betweenness()`,
+  and `node_eigenvector()`
+- Centralization: `network_degree()`, `network_closeness()`,
+  `network_betweenness()`, and `network_eigenvector()`
+- Cohesion: `network_density()`, `network_reciprocity()`,
+  `network_transitivity()`, `network_equivalency()`, and
+  `network_congruency()`
+- Connectedness: `network_components()`, `network_cohesion()`,
+  `network_adhesion()`, `network_diameter()`, `network_length()`
+- Diversity: `network_diversity()`, `network_homophily()`,
+  `network_assortativity()`
+- Structural holes: e.g. `node_redundancy()`, `node_effsize()`,
+  `node_efficiency()`, `node_constraint()`, `node_hierarchy()`
+- Topological features: e.g. `network_core()`, `network_factions()`,
+  `network_modularity()`, `network_smallworld()`, `network_balance()`
 
 #### Motifs
 
--   Censuses: `node_brokerage_census()`, `node_path_census()`,
-    `node_quad_census()`, `node_tie_census()`, `node_triad_census()`,
-    `network_brokerage_census()`, `network_dyad_census()`,
-    `network_mixed_census()`, `network_triad_census()`
+- Censuses: `node_brokerage_census()`, `node_path_census()`,
+  `node_quad_census()`, `node_tie_census()`, `node_triad_census()`,
+  `network_brokerage_census()`, `network_dyad_census()`,
+  `network_mixed_census()`, `network_triad_census()`
 
 #### Models
 
--   Blockmodelling: `node_automorphic_equivalence()`,
-    `node_equivalence()`, `node_regular_equivalence()`,
-    `node_structural_equivalence()`
--   Testing (via CUG/QAP): `test_permutation()`, `test_random()`
--   Linear and logistic regression for networks (via MRQAP):
-    `network_reg()`
+- Blockmodelling: `node_automorphic_equivalence()`,
+  `node_equivalence()`, `node_regular_equivalence()`,
+  `node_structural_equivalence()`
+- Testing (via CUG/QAP): `test_permutation()`, `test_random()`
+- Linear and logistic regression for networks (via MRQAP):
+  `network_reg()`
+- Diffusion and learning models: `play_diffusion()`,
+  `play_diffusions()`, `play_learning()`
 
 #### Visualization
 
--   `autographr()` for one-line plotting graphs with sensible defaults
-    based on their properties
--   New layouts for snapping a layout to a grid or for visualizing
-    partitions:
+- `autographr()` for one-line plotting graphs with sensible defaults
+  based on their properties
+- New layouts for snapping a layout to a grid or for visualizing
+  partitions:
 
 <img src="man/figures/README-layout-comparison-1.png" width="100%" />
 
--   Class-based plots: e.g. `plot.matrix()`, `plot.members()`,
-    `plot.node_measure()`
+- Class-based plots: e.g. `plot.matrix()`, `plot.members()`,
+  `plot.node_measure()`
 
 Please explore [the list of
 functions](https://snlab-ch.github.io/migraph/reference/index.html) to
@@ -222,21 +222,21 @@ The latest binary releases for all major OSes – Windows, Mac, and Linux
 the appropriate binary for your operating system, and install using an
 adapted version of the following commands:
 
--   For Windows:
-    `install.packages("~/Downloads/migraph_winOS.zip", repos = NULL)`
--   For Mac:
-    `install.packages("~/Downloads/migraph_macOS.tgz", repos = NULL)`
--   For Unix:
-    `install.packages("~/Downloads/migraph_linuxOS.tar.gz", repos = NULL)`
+- For Windows:
+  `install.packages("~/Downloads/migraph_winOS.zip", repos = NULL)`
+- For Mac:
+  `install.packages("~/Downloads/migraph_macOS.tgz", repos = NULL)`
+- For Unix:
+  `install.packages("~/Downloads/migraph_linuxOS.tar.gz", repos = NULL)`
 
 To install from source the latest main version of `{migraph}` from
 Github, please install the `{remotes}` or `{devtools}` package from CRAN
 and then:
 
--   For latest stable version:
-    `remotes::install_github("snlab-ch/migraph", build_vignettes = TRUE)`
--   For latest development version:
-    `remotes::install_github("snlab-ch/migraph@develop", build_vignettes = TRUE)`
+- For latest stable version:
+  `remotes::install_github("snlab-ch/migraph", build_vignettes = TRUE)`
+- For latest development version:
+  `remotes::install_github("snlab-ch/migraph@develop", build_vignettes = TRUE)`
 
 ### Tutorials
 
