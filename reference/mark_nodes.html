@@ -25,7 +25,7 @@ are key because they minimise or, more often, maximise some measure."><meta prop
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.0</span>
       </span>
     </div>
 
@@ -84,9 +84,11 @@ are key because they minimise or, more often, maximise some measure.</p>
 <span></span>
 <span><span class="fu">node_is_core</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">node_is_max</span><span class="op">(</span><span class="va">node_measure</span><span class="op">)</span></span>
+<span><span class="fu">node_is_random</span><span class="op">(</span><span class="va">object</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">node_is_min</span><span class="op">(</span><span class="va">node_measure</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">node_is_max</span><span class="op">(</span><span class="va">node_measure</span>, ranks <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">node_is_min</span><span class="op">(</span><span class="va">node_measure</span>, ranks <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -100,8 +102,20 @@ are key because they minimise or, more often, maximise some measure.</p>
 </ul></dd>
 
 
+<dt>size</dt>
+<dd><p>The number of nodes to select (as TRUE).</p></dd>
+
+
 <dt>node_measure</dt>
 <dd><p>An object created by a <code>node_</code> measure.</p></dd>
+
+
+<dt>ranks</dt>
+<dd><p>The number of ranks of max or min to return.
+For example, <code>ranks = 3</code> will return TRUE for nodes with
+scores equal to any of the top (or, for <code>node_is_min()</code>, bottom)
+three scores.
+By default, <code>ranks = 1</code>.</p></dd>
 
 </dl></div>
     <div id="functions">
@@ -114,6 +128,8 @@ increasing the number of connected components in a graph when removed.</p></li>
 with neither incoming nor outgoing ties.</p></li>
 <li><p><code>node_is_core()</code>: Returns logical of which nodes are members
 of the core of the network.</p></li>
+<li><p><code>node_is_random()</code>: Returns a logical vector
+indicating a random selection of nodes as TRUE.</p></li>
 <li><p><code>node_is_max()</code>: Returns logical of which nodes
 hold the maximum of some measure</p></li>
 <li><p><code>node_is_min()</code>: Returns logical of which nodes
@@ -137,6 +153,9 @@ hold the minimum of some measure</p></li>
 <span class="r-in"><span><span class="fu">node_is_core</span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   V1    V2    V3    V4    V5    V6    V7    V8    V9    V10   V11  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FALSE FALSE TRUE  TRUE  FALSE FALSE FALSE FALSE TRUE  FALSE FALSE</span>
+<span class="r-in"><span><span class="fu">node_is_random</span><span class="op">(</span><span class="va">ison_brandes</span>, <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   V1    V2    V3    V4    V5    V6    V7    V8    V9    V10   V11  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FALSE FALSE TRUE  FALSE FALSE FALSE TRUE  FALSE FALSE FALSE FALSE</span>
 <span class="r-in"><span><span class="fu">node_is_max</span><span class="op">(</span><span class="fu"><a href="centrality.html">node_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   V1    V2    V3    V4    V5    V6    V7    V8    V9    V10   V11  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE TRUE  FALSE FALSE</span>

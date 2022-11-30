@@ -19,7 +19,7 @@ across this attribute."><meta property="og:image" content="https://snlab-ch.gith
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.0</span>
       </span>
     </div>
 
@@ -66,7 +66,11 @@ across this attribute.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">network_diversity</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span>, clusters <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">network_richness</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">node_richness</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">network_diversity</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span>, clusters <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">node_diversity</span><span class="op">(</span><span class="va">object</span>, <span class="va">attribute</span><span class="op">)</span></span>
 <span></span>
@@ -100,7 +104,11 @@ to use as categories for the diversity measure.</p></dd>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>network_diversity()</code>: Calculates the heterogeneity of ties across a network or
+<ul><li><p><code>network_richness()</code>: Calculates the number of unique categories
+in a network attribute.</p></li>
+<li><p><code>node_richness()</code>: Calculates the number of unique categories
+of an attribute to which each node is connected.</p></li>
+<li><p><code>network_diversity()</code>: Calculates the heterogeneity of ties across a network or
 within clusters by node attributes.</p></li>
 <li><p><code>node_diversity()</code>: Calculates the heterogeneity of each node's
 local neighbourhood.</p></li>

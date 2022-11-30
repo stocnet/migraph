@@ -18,7 +18,7 @@ or from a specified vector supplied by the user."><meta property="og:image" cont
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.0</span>
       </span>
     </div>
 
@@ -113,6 +113,7 @@ adds a tie attribute identifying the ties that were newly added</p></li>
 <code><a href="as.html">as</a>()</code>,
 <code><a href="grab.html">grab</a></code>,
 <code><a href="reformat.html">reformat</a></code>,
+<code><a href="split.html">split</a>()</code>,
 <code><a href="transform.html">transform</a>()</code></p></div>
     </div>
 
@@ -150,15 +151,15 @@ adds a tie attribute identifying the ties that were newly added</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + edges from 799a6c5 (vertex names):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] Betty--Sue   Sue  --Alice Alice--Jane  Sue  --Dale  Alice--Dale </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [6] Jane --Dale  Sue  --Pam   Alice--Pam   Pam  --Carol Carol--Tina </span>
-<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="auto_graph.html">autographr</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">both</span> <span class="op">&lt;-</span> <span class="fu">join_ties</span><span class="op">(</span><span class="va">mpn_elite_mex</span>, <span class="fu"><a href="generate.html">generate_random</a></span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span>, <span class="st">"random"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">both</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="auto_graph.html">autographr</a></span><span class="op">(</span><span class="va">both</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">random</span> <span class="op">&lt;-</span> <span class="fu"><a href="reformat.html">to_uniplex</a></span><span class="op">(</span><span class="va">both</span>, <span class="st">"random"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="va">random</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="auto_graph.html">autographr</a></span><span class="op">(</span><span class="va">random</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu"><a href="autographr.html">autographr</a></span><span class="op">(</span><span class="fu"><a href="reformat.html">to_uniplex</a></span><span class="op">(</span><span class="va">both</span>, <span class="st">"orig"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="auto_graph.html">autographr</a></span><span class="op">(</span><span class="fu"><a href="reformat.html">to_uniplex</a></span><span class="op">(</span><span class="va">both</span>, <span class="st">"orig"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>

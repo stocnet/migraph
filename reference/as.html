@@ -31,7 +31,7 @@ object classes, which could otherwise lead to some unexpected results."><meta pr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.0</span>
       </span>
     </div>
 
@@ -150,6 +150,7 @@ specified to override this heuristic.</p>
 <code><a href="add.html">add</a></code>,
 <code><a href="grab.html">grab</a></code>,
 <code><a href="reformat.html">reformat</a></code>,
+<code><a href="split.html">split</a>()</code>,
 <code><a href="transform.html">transform</a>()</code></p></div>
     </div>
 
@@ -170,9 +171,9 @@ specified to override this heuristic.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> B 1 0 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> C 1 1 0</span>
 <span class="r-in"><span><span class="fu">as_igraph</span><span class="op">(</span><span class="va">test</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH df09eb5 DN-B 6 5 -- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH f94637a DN-B 6 5 -- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + attr: name (v/c), type (v/l)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from df09eb5 (vertex names):</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from f94637a (vertex names):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] A-&gt;I B-&gt;G B-&gt;I C-&gt;G C-&gt;H</span>
 <span class="r-in"><span><span class="fu">as_tidygraph</span><span class="op">(</span><span class="va">test</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tbl_graph: 6 nodes and 5 edges</span></span>

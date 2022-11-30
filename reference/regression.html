@@ -8,7 +8,7 @@ by constructing the various dependent and independent matrices for the user.
 it uses a more intuitive formula-based system for specifying the model,
 with several ways to specify how nodal attributes should be handled.
 it can handle categorical variables (factors/characters) and
-interactions intuitively.
+interactions intuitively, naming the reference variable where appropriate.
 it relies on {furrr} for parallelising
 and {progressr}
 for reporting progress to the user,
@@ -39,7 +39,7 @@ will always be respected in permutations and analysis.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.0</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@ by constructing the various dependent and independent matrices for the user.</p>
 <li><p>it uses a more intuitive formula-based system for specifying the model,
 with several ways to specify how nodal attributes should be handled.</p></li>
 <li><p>it can handle categorical variables (factors/characters) and
-interactions intuitively.</p></li>
+interactions intuitively, naming the reference variable where appropriate.</p></li>
 <li><p>it relies on <a href="https://furrr.futureverse.org" class="external-link"><code>{furrr}</code></a> for parallelising
 and <a href="https://progressr.futureverse.org" class="external-link"><code>{progressr}</code></a>
 for reporting progress to the user,
@@ -196,8 +196,9 @@ See <a href="https://progressr.futureverse.org" class="external-link"><code>{pro
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="../articles/p7linearmodel.html">vignette("p7linearmodel")</a></code></p>
+    <div class="dont-index"><p><code>vignette("p7linearmodel")</code></p>
 <p>Other models: 
+<code><a href="play.html">play</a></code>,
 <code><a href="tests.html">tests</a></code></p></div>
     </div>
 
@@ -212,8 +213,8 @@ See <a href="https://progressr.futureverse.org" class="external-link"><code>{pro
 <span class="r-out co"><span class="r-pr">#&gt;</span>   term            estimate statistic p.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (intercept)       -<span style="color: #BB0000;">8.47</span>     -<span style="color: #BB0000;">0.839</span>    0.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> alter Citations   -<span style="color: #BB0000;">0.125</span>    -<span style="color: #BB0000;">0.791</span>    0.35</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> sim Citations     44.9       3.68     0.05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> alter Citations   -<span style="color: #BB0000;">0.125</span>    -<span style="color: #BB0000;">0.791</span>    0.65</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> sim Citations     44.9       3.68     0.1 </span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance</a></span><span class="op">(</span><span class="va">model1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 8</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   r.squared adj.r.squared sigma statistic  p.value    df df.residual  nobs</span>

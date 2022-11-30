@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.0</span>
       </span>
     </div>
 
@@ -84,6 +84,10 @@
         </td>
         <td><p>Tools for reformatting networks, graphs, and matrices</p></td>
       </tr><tr><td>
+          <p><code><a href="split.html">to_egos()</a></code> <code><a href="split.html">to_subgraphs()</a></code> <code><a href="split.html">to_components()</a></code> </p>
+        </td>
+        <td><p>Tools for splitting networks, graphs, and matrices</p></td>
+      </tr><tr><td>
           <p><code><a href="transform.html">to_mode1()</a></code> <code><a href="transform.html">to_mode2()</a></code> <code><a href="transform.html">to_giant()</a></code> <code><a href="transform.html">to_subgraph()</a></code> <code><a href="transform.html">to_ties()</a></code> <code><a href="transform.html">to_blocks()</a></code> <code><a href="transform.html">to_matching()</a></code> <code><a href="transform.html">to_anti()</a></code> </p>
         </td>
         <td><p>Tools for transforming networks, graphs, and matrices</p></td>
@@ -100,11 +104,11 @@
           <p class="section-desc"></p><p>Functions for identifying properties of graphs, nodes or ties, all returning logical scalars or vectors. Note that all <code>node_</code> and <code>tie_</code> measures return a single vector so that they can be added directly to graph objects. <code>graph_</code> measures return one or, in some cases of two-mode measures, two values.</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="is.html">is_migraph()</a></code> <code><a href="is.html">is_graph()</a></code> <code><a href="is.html">is_edgelist()</a></code> <code><a href="is.html">is_twomode()</a></code> <code><a href="is.html">is_weighted()</a></code> <code><a href="is.html">is_directed()</a></code> <code><a href="is.html">is_labelled()</a></code> <code><a href="is.html">is_signed()</a></code> <code><a href="is.html">is_connected()</a></code> <code><a href="is.html">is_complex()</a></code> <code><a href="is.html">is_multiplex()</a></code> <code><a href="is.html">is_uniplex()</a></code> <code><a href="is.html">is_acyclic()</a></code> <code><a href="is.html">is_perfect_matching()</a></code> <code><a href="is.html">is_eulerian()</a></code> </p>
+          <p><code><a href="is.html">is_migraph()</a></code> <code><a href="is.html">is_graph()</a></code> <code><a href="is.html">is_edgelist()</a></code> <code><a href="is.html">is_twomode()</a></code> <code><a href="is.html">is_weighted()</a></code> <code><a href="is.html">is_directed()</a></code> <code><a href="is.html">is_labelled()</a></code> <code><a href="is.html">is_signed()</a></code> <code><a href="is.html">is_connected()</a></code> <code><a href="is.html">is_complex()</a></code> <code><a href="is.html">is_multiplex()</a></code> <code><a href="is.html">is_uniplex()</a></code> <code><a href="is.html">is_acyclic()</a></code> <code><a href="is.html">is_aperiodic()</a></code> <code><a href="is.html">is_perfect_matching()</a></code> <code><a href="is.html">is_eulerian()</a></code> </p>
         </td>
         <td><p>Marking networks based on their properties</p></td>
       </tr><tr><td>
-          <p><code><a href="mark_nodes.html">node_is_cutpoint()</a></code> <code><a href="mark_nodes.html">node_is_isolate()</a></code> <code><a href="mark_nodes.html">node_is_core()</a></code> <code><a href="mark_nodes.html">node_is_max()</a></code> <code><a href="mark_nodes.html">node_is_min()</a></code> </p>
+          <p><code><a href="mark_nodes.html">node_is_cutpoint()</a></code> <code><a href="mark_nodes.html">node_is_isolate()</a></code> <code><a href="mark_nodes.html">node_is_core()</a></code> <code><a href="mark_nodes.html">node_is_random()</a></code> <code><a href="mark_nodes.html">node_is_max()</a></code> <code><a href="mark_nodes.html">node_is_min()</a></code> </p>
         </td>
         <td><p>Marking nodes based on their properties</p></td>
       </tr><tr><td>
@@ -140,7 +144,7 @@
         </td>
         <td><p>Measures of structural holes</p></td>
       </tr><tr><td>
-          <p><code><a href="diversity.html">network_diversity()</a></code> <code><a href="diversity.html">node_diversity()</a></code> <code><a href="diversity.html">network_homophily()</a></code> <code><a href="diversity.html">node_homophily()</a></code> <code><a href="diversity.html">network_assortativity()</a></code> </p>
+          <p><code><a href="diversity.html">network_richness()</a></code> <code><a href="diversity.html">node_richness()</a></code> <code><a href="diversity.html">network_diversity()</a></code> <code><a href="diversity.html">node_diversity()</a></code> <code><a href="diversity.html">network_homophily()</a></code> <code><a href="diversity.html">node_homophily()</a></code> <code><a href="diversity.html">network_assortativity()</a></code> </p>
         </td>
         <td><p>Measures of network diversity</p></td>
       </tr><tr><td>
@@ -196,6 +200,10 @@
         </td>
         <td><p>Linear and logistic regression for network data</p></td>
       </tr><tr><td>
+          <p><code><a href="play.html">play_diffusion()</a></code> <code><a href="play.html">play_diffusions()</a></code> <code><a href="play.html">play_learning()</a></code> </p>
+        </td>
+        <td><p>Functions to play games on networks</p></td>
+      </tr><tr><td>
           <p><code><a href="cluster.html">cluster_hierarchical()</a></code> <code><a href="cluster.html">cluster_concor()</a></code> </p>
         </td>
         <td><p>Methods for equivalence clustering</p></td>
@@ -204,7 +212,7 @@
           <p class="section-desc"></p><p>Functions for plotting and visualising graphs of different types:</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="autographr.html">autographr()</a></code> </p>
+          <p><code><a href="auto_graph.html">autographr()</a></code> <code><a href="auto_graph.html">autographs()</a></code> </p>
         </td>
         <td><p>Quickly graph networks with sensible defaults</p></td>
       </tr><tr><td>

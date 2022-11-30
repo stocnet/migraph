@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.0</span>
       </span>
     </div>
 
@@ -56,6 +56,84 @@
       <small>Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.13.0" id="migraph-0130">migraph 0.13.0<a class="anchor" aria-label="anchor" href="#migraph-0130"></a></h2>
+<div class="section level3">
+<h3 id="package-0-13-0">Package<a class="anchor" aria-label="anchor" href="#package-0-13-0"></a></h3>
+<ul><li>Added hints and questions to community tutorial</li>
+<li>Added diffusion tutorial</li>
+</ul></div>
+<div class="section level3">
+<h3 id="marks-0-13-0">Marks<a class="anchor" aria-label="anchor" href="#marks-0-13-0"></a></h3>
+<ul><li>Added <code><a href="../reference/is.html">is_aperiodic()</a></code> for testing whether a network is aperiodic (the greatest common divisor for all cycles in the network is 1)<ul><li>Note that for computational efficiency, this will check only up to a specified path length (by default 4)</li></ul></li>
+<li>
+<code><a href="../reference/mark_nodes.html">node_is_max()</a></code> and <code><a href="../reference/mark_nodes.html">node_is_min()</a></code> now take a “rank” argument for selecting more than the first ranked maxima or minima</li>
+</ul></div>
+<div class="section level3">
+<h3 id="manipulations-0-13-0">Manipulations<a class="anchor" aria-label="anchor" href="#manipulations-0-13-0"></a></h3>
+<ul><li>Added several new functions for splitting networks into a list of networks<ul><li>Added <code><a href="../reference/split.html">to_components()</a></code> to return the components of a network as a list of networks</li>
+<li>Added <code><a href="../reference/split.html">to_egos()</a></code> to return the ego networks of a network as a list of networks</li>
+<li>Added <code><a href="../reference/split.html">to_subgraphs()</a></code> to return attribute-based subgraphs as a list of networks</li>
+</ul></li></ul></div>
+<div class="section level3">
+<h3 id="measures-0-13-0">Measures<a class="anchor" aria-label="anchor" href="#measures-0-13-0"></a></h3>
+<ul><li>Added <code><a href="../reference/diversity.html">network_richness()</a></code> and <code><a href="../reference/diversity.html">node_richness()</a></code> for calculating the richness (a common diversity measure) of an attribute in a network</li></ul></div>
+<div class="section level3">
+<h3 id="models-0-13-0">Models<a class="anchor" aria-label="anchor" href="#models-0-13-0"></a></h3>
+<ul><li>Extended <code><a href="../reference/play.html">play_diffusion()</a></code> to include more compartment and transition options<ul><li>The print method now tabulates the compartment sums per step</li>
+<li>The summary method now presents the diffusion event list</li>
+<li>The plot method now:<ul><li>plots lines for S and I compartments, as blue and red lines respectively, if available or informs the user if no diffusion could be simulated</li>
+<li>plots lines for E and R compartments, as orange and green lines respectively, if relevant</li>
+<li>plots a bar graph behind showing the number of new infections per step</li>
+</ul></li>
+<li>Added “transmissibility” parameter to allow for more probabilistic contagion, by default 1 (all contacts over the threshold result in contagion)</li>
+<li>Added “latency” parameter to allow for an Exposed compartment to be included, by default 0 (no incubation period)</li>
+<li>Added “recovery” rate parameter to allow for a Recovered compartment to be included, by default 0 (no recovery)</li>
+<li>Added “waning” parameter to allow for returns to the Susceptible compartment, by default 0 (any recovered have lifelong immunity)</li>
+<li>Added “immune” parameter to allow for issuing of targetted vaccinations or related</li>
+<li>“thresholds” can now be proportions, in which case they are interpreted as complex</li>
+<li>“seeds” is now 1 by default</li>
+</ul></li>
+<li>Added <code><a href="../reference/play.html">play_diffusions()</a></code> for running a diffusion model multiple times<ul><li>Note for accelerating documentation and tutorials, this is 5 by default, but for publication quality results this should be increased</li>
+<li>A print method tabulates the compartment sums per step per simulation</li>
+<li>A summary method tabulates the steps until complete infection (or recovery) for each simulation</li>
+<li>A plot method visualises the loess for each compartment across all simulations</li>
+<li>Note that this function uses <a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a> and so a multicore or multisession strategy can be used for parallelisation (but this only makes sense for many simulations)</li>
+</ul></li>
+<li>Added <code><a href="../reference/play.html">play_learning()</a></code> for running a DeGroot learning model<ul><li>A print method tabulates nodes beliefs at each step</li>
+<li>A summary method informs how many steps it took until convergence or whether there was no convergence after <em>t</em> steps</li>
+<li>A plot method visualises the belief trajectories for each node</li>
+</ul></li>
+<li>
+<code><a href="../reference/regression.html">network_reg()</a></code> now declares the reference category for nominal variables</li>
+</ul></div>
+<div class="section level3">
+<h3 id="mapping-0-13-0">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-13-0"></a></h3>
+<ul><li>Added <code><a href="../reference/auto_graph.html">autographs()</a></code> for autoplotting lists of networks</li></ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.12.6" id="migraph-0126">migraph 0.12.6<a class="anchor" aria-label="anchor" href="#migraph-0126"></a></h2>
+<div class="section level3">
+<h3 id="package-0-12-6">Package<a class="anchor" aria-label="anchor" href="#package-0-12-6"></a></h3>
+<ul><li>Changed tutorial naming structure to numeric</li>
+<li>Made all existing tutorials solution oriented</li>
+<li>Converted visualisation vignette into tutorial<ul><li>Added further instruction as to how to change e.g. node_color colors</li></ul></li>
+<li>Converted centrality vignette into tutorial</li>
+<li>Converted regression vignette into tutorial<ul><li>Added a lot more interactivity to regression tutorial</li></ul></li>
+<li>Deleted vignette instructions off of the README</li>
+<li>Added some core/coreness aspects to topology tutorial</li>
+</ul></div>
+<div class="section level3">
+<h3 id="manipulations-0-12-6">Manipulations<a class="anchor" aria-label="anchor" href="#manipulations-0-12-6"></a></h3>
+<ul><li>
+<code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> now works with igraph objects</li></ul></div>
+<div class="section level3">
+<h3 id="marks-0-12-6">Marks<a class="anchor" aria-label="anchor" href="#marks-0-12-6"></a></h3>
+<ul><li>Added <code><a href="../reference/mark_nodes.html">node_is_random()</a></code> for selecting n nodes at random</li></ul></div>
+<div class="section level3">
+<h3 id="models-0-12-6">Models<a class="anchor" aria-label="anchor" href="#models-0-12-6"></a></h3>
+<ul><li>Added first draft of (SI) <code><a href="../reference/play.html">play_diffusion()</a></code> model<ul><li>Added diff_model class, together with print, summary, and plot methods</li></ul></li></ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.12.5" id="migraph-0125">migraph 0.12.5<a class="anchor" aria-label="anchor" href="#migraph-0125"></a></h2>
 <div class="section level3">
@@ -163,7 +241,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="mapping-0-12-1">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-12-1"></a></h3>
-<ul><li>Fixed <code><a href="../reference/autographr.html">autographr()</a></code> tests to work with new version of <a href="https://ggraph.data-imaginist.com" class="external-link">ggraph</a> (closed <a href="https://github.com/snlab-ch/migraph/issues/247" class="external-link">#247</a>, thanks <a href="https://github.com/henriquesposito" class="external-link">@henriquesposito</a>)</li></ul></div>
+<ul><li>Fixed <code><a href="../reference/auto_graph.html">autographr()</a></code> tests to work with new version of <a href="https://ggraph.data-imaginist.com" class="external-link">ggraph</a> (closed <a href="https://github.com/snlab-ch/migraph/issues/247" class="external-link">#247</a>, thanks <a href="https://github.com/henriquesposito" class="external-link">@henriquesposito</a>)</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.12.0" id="migraph-0120">migraph 0.12.0<small>2022-09-27</small><a class="anchor" aria-label="anchor" href="#migraph-0120"></a></h2>
@@ -210,7 +288,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="mapping-0-11-2">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-11-2"></a></h3>
-<ul><li>Fixed bug with <code><a href="../reference/autographr.html">autographr()</a></code>’s “node_group” argument</li></ul></div>
+<ul><li>Fixed bug with <code><a href="../reference/auto_graph.html">autographr()</a></code>’s “node_group” argument</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.11.1" id="migraph-0111">migraph 0.11.1<a class="anchor" aria-label="anchor" href="#migraph-0111"></a></h2>
@@ -283,9 +361,9 @@
 <ul><li>Added “hierarchy” and “alluvial” layout methods</li>
 <li>Added “railway” and “ladder” layout methods (closed <a href="https://github.com/snlab-ch/migraph/issues/125" class="external-link">#125</a>)</li>
 <li>Added “concentric” layout method</li>
-<li>Restructured <code><a href="../reference/autographr.html">autographr()</a></code> to improve future debugging and development</li>
+<li>Restructured <code><a href="../reference/auto_graph.html">autographr()</a></code> to improve future debugging and development</li>
 <li>
-<code><a href="../reference/autographr.html">autographr()</a></code> now rotates labels for partitioning layouts, including “concentric”, so that they are readable and overlap less</li>
+<code><a href="../reference/auto_graph.html">autographr()</a></code> now rotates labels for partitioning layouts, including “concentric”, so that they are readable and overlap less</li>
 <li>Fixed <code><a href="../reference/gglineage.html">gglineage()</a></code> to use “alluvial” layout and better position nodes on the <em>x</em>-axis</li>
 </ul></div>
 <div class="section level3">
@@ -356,7 +434,7 @@
 <div class="section level3">
 <h3 id="mapping-0-10-3">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-10-3"></a></h3>
 <ul><li>
-<code><a href="../reference/autographr.html">autographr()</a></code> no longer requires “highlight_measure” and “identify_function” arguments as users can now convert ‘measures’ to ‘marks’ and use these for “node_color” or “edge_color”</li></ul></div>
+<code><a href="../reference/auto_graph.html">autographr()</a></code> no longer requires “highlight_measure” and “identify_function” arguments as users can now convert ‘measures’ to ‘marks’ and use these for “node_color” or “edge_color”</li></ul></div>
 <div class="section level3">
 <h3 id="data-0-10-3">Data<a class="anchor" aria-label="anchor" href="#data-0-10-3"></a></h3>
 <ul><li>Added prints of each data object to <code>@format</code> for more consistent documentation</li>
@@ -388,7 +466,7 @@
 <div class="section level3">
 <h3 id="package-0-10-0">Package<a class="anchor" aria-label="anchor" href="#package-0-10-0"></a></h3>
 <ul><li>Reduced package dependencies by 5<ul><li>
-<a href="https://joelgombin.github.io/concaveman/" class="external-link">concaveman</a>, <a href="https://github.com/andrie/ggdendro" class="external-link">ggdendro</a>, <code>{oaqc}</code> are now Suggests; the user is prompted to install them when required in <code><a href="../reference/autographr.html">autographr()</a></code>, <code>plot.member()</code>, and <code><a href="../reference/node_census.html">node_quad_census()</a></code> respectively</li>
+<a href="https://joelgombin.github.io/concaveman/" class="external-link">concaveman</a>, <a href="https://github.com/andrie/ggdendro" class="external-link">ggdendro</a>, <code>{oaqc}</code> are now Suggests; the user is prompted to install them when required in <code><a href="../reference/auto_graph.html">autographr()</a></code>, <code>plot.member()</code>, and <code><a href="../reference/node_census.html">node_quad_census()</a></code> respectively</li>
 <li>
 <a href="https://stringr.tidyverse.org" class="external-link">stringr</a> and <a href="https://tibble.tidyverse.org/" class="external-link">tibble</a> replaced with base or other code and therefore no longer necessary</li>
 </ul></li>
@@ -506,7 +584,7 @@
 <div class="section level3">
 <h3 id="mapping-0-10-0">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-10-0"></a></h3>
 <ul><li>
-<code><a href="../reference/autographr.html">autographr()</a></code> can highlight nodes that max (by default) some measure (thank you, <a href="https://github.com/BBieri" class="external-link">@BBieri</a>, closed <a href="https://github.com/snlab-ch/migraph/issues/224" class="external-link">#224</a>)</li>
+<code><a href="../reference/auto_graph.html">autographr()</a></code> can highlight nodes that max (by default) some measure (thank you, <a href="https://github.com/BBieri" class="external-link">@BBieri</a>, closed <a href="https://github.com/snlab-ch/migraph/issues/224" class="external-link">#224</a>)</li>
 <li>Added <code><a href="../reference/grid_layouts.html">layout_tbl_graph_stressgrid()</a></code> as an extra option</li>
 <li>
 <code>ggatyear()</code> is deprecated</li>
@@ -650,9 +728,9 @@
 </ul></div>
 <div class="section level3">
 <h3 id="mapping-0-9-0">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-9-0"></a></h3>
-<ul><li>Added ‘visualization’ vignette that starts to introduce how <code><a href="../reference/autographr.html">autographr()</a></code> works and how <a href="https://ggraph.data-imaginist.com" class="external-link">ggraph</a> extends this</li>
+<ul><li>Added ‘visualization’ vignette that starts to introduce how <code><a href="../reference/auto_graph.html">autographr()</a></code> works and how <a href="https://ggraph.data-imaginist.com" class="external-link">ggraph</a> extends this</li>
 <li>
-<code><a href="../reference/autographr.html">autographr()</a></code> now incorporates <code>ggidentify()</code> functionality (closed <a href="https://github.com/snlab-ch/migraph/issues/150" class="external-link">#150</a>)</li>
+<code><a href="../reference/auto_graph.html">autographr()</a></code> now incorporates <code>ggidentify()</code> functionality (closed <a href="https://github.com/snlab-ch/migraph/issues/150" class="external-link">#150</a>)</li>
 <li>
 <a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a> is now used to assemble multiple plots together</li>
 <li>Fixed <a href="https://github.com/snlab-ch/migraph/issues/204" class="external-link">#204</a> layout issues with <code>ggatyear()</code>
@@ -830,7 +908,7 @@
 <ul><li>Fixed <code><a href="../reference/regression.html">network_reg()</a></code> example</li></ul></div>
 <div class="section level3">
 <h3 id="visualisation-0-8-9">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation-0-8-9"></a></h3>
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/117" class="external-link">#117</a> by updating the node/edge/arrow size limits in <code><a href="../reference/autographr.html">autographr()</a></code>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/117" class="external-link">#117</a> by updating the node/edge/arrow size limits in <code><a href="../reference/auto_graph.html">autographr()</a></code>
 </li></ul></div>
 </div>
     <div class="section level2">
@@ -900,7 +978,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="visualisation-0-8-7">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation-0-8-7"></a></h3>
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/148" class="external-link">#148</a> and <a href="https://github.com/snlab-ch/migraph/issues/153" class="external-link">#153</a> by making all <code><a href="../reference/autographr.html">autographr()</a></code> arguments take variable names in quotation marks</li></ul></div>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/148" class="external-link">#148</a> and <a href="https://github.com/snlab-ch/migraph/issues/153" class="external-link">#153</a> by making all <code><a href="../reference/auto_graph.html">autographr()</a></code> arguments take variable names in quotation marks</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.6" id="migraph-086">migraph 0.8.6<a class="anchor" aria-label="anchor" href="#migraph-086"></a></h2>
@@ -954,7 +1032,7 @@
 <h3 id="visualization-0-8-6">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-8-6"></a></h3>
 <ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/135" class="external-link">#135</a> by reexporting <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code> from <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>
 </li>
-<li>Added <code>node_shape</code> option to <code><a href="../reference/autographr.html">autographr()</a></code>
+<li>Added <code>node_shape</code> option to <code><a href="../reference/auto_graph.html">autographr()</a></code>
 </li>
 </ul></div>
 </div>
@@ -1028,7 +1106,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="visualization-0-8-3">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-8-3"></a></h3>
-<ul><li>Added option to <code><a href="../reference/autographr.html">autographr()</a></code> for plotting convex/concave hulls</li>
+<ul><li>Added option to <code><a href="../reference/auto_graph.html">autographr()</a></code> for plotting convex/concave hulls</li>
 <li>Closed <a href="https://github.com/snlab-ch/migraph/issues/124" class="external-link">#124</a> by making <code>ggraphgrid()</code> a set of layout functions:<ul><li>
 <code><a href="../reference/grid_layouts.html">layout_tbl_graph_frgrid()</a></code> or <code>autographr(object, "frgrid")</code> for snapping Fruchterman-Reingold to a grid</li>
 <li>
@@ -1083,7 +1161,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="visualisation-0-8-1">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation-0-8-1"></a></h3>
-<ul><li>Added sensible plotting defaults for signed networks in <code><a href="../reference/autographr.html">autographr()</a></code>
+<ul><li>Added sensible plotting defaults for signed networks in <code><a href="../reference/auto_graph.html">autographr()</a></code>
 </li>
 <li>Removed <code>plot_releases()</code> from this package</li>
 </ul></div>
@@ -1134,7 +1212,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="visualization-0-8-0">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-8-0"></a></h3>
-<ul><li>Added <code><a href="../reference/autographr.html">autographr()</a></code> for plotting graphs with sensible defaults<ul><li>Uses a more contrastive discrete palette when some nodal attribute is given</li>
+<ul><li>Added <code><a href="../reference/auto_graph.html">autographr()</a></code> for plotting graphs with sensible defaults<ul><li>Uses a more contrastive discrete palette when some nodal attribute is given</li>
 <li>Uses an alpha for edges, and edges will now be sized by edge weight, where available</li>
 <li>Uses node labels, sans borders, where available</li>
 <li>Uses different shaped nodes, and different fonts, for different node sets</li>

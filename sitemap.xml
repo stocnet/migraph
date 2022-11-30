@@ -22,12 +22,6 @@
     <loc>https://snlab-ch.github.io/migraph/articles/p1data.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/articles/p3centrality.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/articles/p7linearmodel.html</loc>
-  </url>
-  <url>
     <loc>https://snlab-ch.github.io/migraph/authors.html</loc>
   </url>
   <url>
@@ -46,7 +40,7 @@
     <loc>https://snlab-ch.github.io/migraph/reference/as.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/autographr.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/auto_graph.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/brokerage_census.html</loc>
@@ -178,6 +172,9 @@
     <loc>https://snlab-ch.github.io/migraph/reference/partition_layouts.html</loc>
   </url>
   <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/play.html</loc>
+  </url>
+  <url>
     <loc>https://snlab-ch.github.io/migraph/reference/read.html</loc>
   </url>
   <url>
@@ -188,6 +185,9 @@
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/regression.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/split.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/tests.html</loc>
