@@ -114,8 +114,7 @@ by their position in the *task* network to begin with.
 ```{r constraint-hint-1}
 node_constraint(____)
 
-# Don't forget we want to look at which actors are least constrained 
-# By their position in the 'task' network
+# Don't forget we want to look at which actors are least constrained by their position in the 'task' network
 ```
 
 ```{r constraint-solution}
@@ -198,7 +197,7 @@ both outgoing and incoming ties, to reveal their relationships to tie partners.
 ```
 
 ```{r construct-cor-hint-1}
-# Let's us the node_tie_census() function
+# Let's use the node_tie_census() function
 # The function accepts an object such as a dataset
 # Hint: Which dataset are we using in this tutorial?
 
@@ -316,7 +315,7 @@ We could set this ourselves by just passing `k` an integer.
 ```
 
 ```{r k-discrete-hint-1}
-# Let's us the node_structural_equivalence() function and set 'k' to 2
+# Let's use the node_structural_equivalence() function and set 'k' to 2
 
 node_structural_equivalence(____, k = ____)
 ```
