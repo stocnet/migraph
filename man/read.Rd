@@ -24,7 +24,7 @@ read_nodelist(file = file.choose(), sv = c("comma", "semi-colon"), ...)
 
 write_nodelist(object, filename, name, ...)
 
-read_pajek(file = file.choose(), ...)
+read_pajek(file = file.choose(), ties = NULL, ...)
 
 write_pajek(object, filename, ...)
 
@@ -59,6 +59,8 @@ and be saved to the working directory.}
 
 \item{name}{name of matrix to be known in UCINET.
 By default the name will be the same as the object.}
+
+\item{ties}{Where there are}
 }
 \value{
 The \code{read_edgelist()} and \code{read_nodelist()} functions will import

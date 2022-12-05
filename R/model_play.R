@@ -4,6 +4,11 @@
 #'   number of nodes in the network.
 #' @param thresholds A numeric vector indicating the thresholds
 #'   each node has. By default 1.
+#'   A single number means a generic threshold;
+#'   for thresholds that vary among the population please use a vector
+#'   the length of the number of nodes in the network.
+#'   If 1 or larger, the threshold is interpreted as a simple count
+#'   of the number of contacts/exposures sufficient for infection.
 #'   If less than 1, the threshold is interpreted as complex,
 #'   where the threshold concerns the proportion of contacts.
 #' @param transmissibility A proportion indicating the transmission rate,
@@ -112,7 +117,7 @@ play_diffusion <- function(object,
     exposed <- c(exposed, new)
 
     # new list of infected 
-    infectious <- exposed[stats::rbinom(length(exposed), 1, latency)==1]
+    infectious <- exposed[stats::rbinom(length(exposed), 1, latency)==0]
     exposed <- setdiff(exposed, infectious)
     infected <- c(infected, infectious)
     # tick time

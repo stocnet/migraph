@@ -150,31 +150,50 @@ write_nodelist <- function(object,
 }
 
 #' @describeIn read Reading pajek (.net/.paj) files
+#' @param ties Where there are 
 #' @importFrom network read.paj
 #' @importFrom utils read.delim
 #' @export
-read_pajek <- function(file = file.choose(), ...) {
-  out <- network::read.paj(file, ...)
-  if (!is.network(out)) out <- out[[1]][[1]]
-  out <- as_tidygraph(out)
-  if(grepl("Partition", utils::read.delim(file))){
-    clus <- strsplit(paste(utils::read.delim(file)), "\\*")[[1]]
-    clus <- clus[grepl("^Vertices|^Partition", clus)][-1]
-    if(length(clus) %% 2 != 0) stop("Unexpected .pajek file structure.")
-    namo <- clus[c(TRUE, FALSE)]
-    attr <- clus[c(FALSE, TRUE)]
-    for (i in seq_len(namo)){
-      vct <- strsplit(attr[i], ",")[[1]][-1]
-      vct <- gsub("\"", "", vct)
-      vct <- gsub(" ", "", vct, fixed = TRUE)
-      vct <- vct[!grepl("^$", vct)]
-      if(all(grepl("^-?[0-9.]+$", vct))) vct <- as.numeric(vct)
-      out <- add_node_attribute(out, 
-                                 attr_name = strsplit(namo[i], " |\\.")[[1]][2],
-                                 vector = vct)
+read_pajek <- function(file = file.choose(), 
+                       ties = NULL,
+                       ...) {
+  paj <- network::read.paj(file, ...)
+  if(!is.network(paj)){
+    if(is.null(ties)) 
+      stop(paste("This file contains multiple networks/ties.",
+        "Please choose a set of ties for the imported network among:\n",
+                 paste0("- '", names(paj$networks), "'", collapse = "\n "),
+        "\n by adding the name as a character string to the `ties = ` argument"))
+    out <- paj[[1]][[ties]]
+    if("partitions" %in% names(paj)){
+      for(x in names(paj$partitions)){
+        out <- add_node_attribute(out, 
+                                  attr_name = gsub(".clu","",x),
+                                  vector = paj$partitions[,x])
+      }
     }
-  } 
-  as_tidygraph(out)
+    out <- as_tidygraph(out)
+  } else {
+    out <- as_tidygraph(paj)
+  }
+  # if(grepl("Partition", utils::read.delim(file))){
+  #   clus <- strsplit(paste(utils::read.delim(file)), "\\*")[[1]]
+  #   clus <- clus[grepl("^Vertices|^Partition", clus)][-1]
+  #   if(length(clus) %% 2 != 0) stop("Unexpected .pajek file structure.")
+  #   namo <- clus[c(TRUE, FALSE)]
+  #   attr <- clus[c(FALSE, TRUE)]
+  #   for (i in seq_len(namo)){
+  #     vct <- strsplit(attr[i], ",")[[1]][-1]
+  #     vct <- gsub("\"", "", vct)
+  #     vct <- gsub(" ", "", vct, fixed = TRUE)
+  #     vct <- vct[!grepl("^$", vct)]
+  #     if(all(grepl("^-?[0-9.]+$", vct))) vct <- as.numeric(vct)
+  #     out <- add_node_attribute(out, 
+  #                               attr_name = strsplit(namo[i], " |\\.")[[1]][2],
+  #                               vector = vct)
+  #   }
+  # } 
+  out
 }
 
 #' @describeIn read Writing pajek .net files

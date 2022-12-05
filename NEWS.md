@@ -1,3 +1,18 @@
+# migraph 0.13.1
+
+## Package
+
+- Added hints, solutions, comments, and questions to equivalence and centrality tutorials
+- Changed theme across all tutorials
+
+## Makes
+
+- Fixed bug in `read_pajek()` where multiple networks/ties were causing an issue for partition assignment
+
+## Models
+
+- Fixed bug in `play_diffusion()` relating to latency inversion
+
 # migraph 0.13.0
 
 ## Package

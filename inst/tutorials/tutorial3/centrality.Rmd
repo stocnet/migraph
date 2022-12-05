@@ -1,7 +1,9 @@
 ---
 title: "Centrality"
-author: "James Hollway"
-output: learnr::tutorial
+author: "by James Hollway"
+output: 
+  learnr::tutorial:
+    theme: journal
 runtime: shiny_prerendered
 ---
 
@@ -23,6 +25,20 @@ to be compatible with other packages.
 
 ```
 
+```{r coercion-hint-1}
+# Let's graph both datasets
+autographr(____)
+autographr(____)
+
+```
+
+```{r coercion-hint-2}
+# Now, let's look at "ison_brandes" as a matrix 
+# using the as_matrix() function
+
+(mat <- as_matrix(____))
+```
+
 ```{r coercion-solution}
 autographr(ison_brandes)
 autographr(ison_brandes2)
@@ -36,6 +52,27 @@ This makes plotting the network just a wee bit more accessible and interpretable
 
 ```{r addingnames, exercise = TRUE}
 
+```
+
+```{r addingnames-hint-1}
+# Let's use the to_named() function to assign 
+# the networks data to a relevant object name
+
+ison_brandes <- to_named(____)
+ison_brandes2 <- to_named(____)
+
+```
+
+```{r addingnames-hint-2}
+ison_brandes <- to_named(ison_brandes)
+ison_brandes2 <- to_named(ison_brandes2)
+
+```
+
+```{r addingnames-hint-3}
+# Now, let's graph using the object names: "ison_brandes"
+
+autographr(____)
 ```
 
 ```{r addingnames-solution}
@@ -54,12 +91,34 @@ Just sum the rows or columns of the matrix!
 
 ```
 
+```{r degreesum-hint-1}
+# We can calculate degree centrality like this:
+
+(degrees <- rowSums(mat))
+rowSums(mat) == colSums(mat)
+```
+
+```{r degreesum-hint-2}
+# Or by using a built in command in migraph like this:
+
+node_degree(ison_brandes, normalized = FALSE)
+```
+
 ```{r degreesum-solution}
 (degrees <- rowSums(mat))
 rowSums(mat) == colSums(mat)
-# Are they all equal? Why?
 # You can also just use a built in command in migraph though:
 node_degree(ison_brandes, normalized = FALSE)
+```
+
+```{r degreesum-Q, echo=FALSE}
+question("Are the row sums the same as the column sums?",
+  answer("Yes",
+         correct = TRUE,
+         message = "That's right, that's because this is an undirected network."),
+  answer("No"),
+  allow_retry = FALSE
+)
 ```
 
 Often we are interested in the distribution of (degree) centrality in a network.
@@ -79,7 +138,29 @@ Other measures of centrality can be a little trickier to calculate by hand.
 Fortunately, we can use functions from `{migraph}` to help:
 
 ```{r micent, exercise = TRUE}
+# Let's explore this using the "ison_brandes" dataset
 
+```
+
+```{r micent-hint-1}
+# Use the node_betweenness() function to calculate the
+# betweenness centralities of nodes in a network
+
+node_betweenness(ison_brandes)
+```
+
+```{r micent-hint-2}
+# Use the node_closeness() function to calculate the 
+# closeness centrality of nodes in a network
+
+node_closeness(ison_brandes)
+```
+
+```{r micent-hint-3}
+# Use the node_eigenvector() function to calculate 
+# the eigenvector centrality of nodes in a network
+
+node_eigenvector(ison_brandes)
 ```
 
 ```{r micent-solution}
@@ -112,12 +193,15 @@ we can highlight which node or nodes hold the maximum score in red.
 ison_brandes %>%
   add_node_attribute("color", node_is_max(node_degree(ison_brandes))) %>%
   autographr(node_color = "color")
+
 ison_brandes %>%
   add_node_attribute("color", node_is_max(node_betweenness(ison_brandes))) %>%
   autographr(node_color = "color")
+
 ison_brandes %>%
   add_node_attribute("color", node_is_max(node_closeness(ison_brandes))) %>%
   autographr(node_color = "color")
+
 ison_brandes %>%
   add_node_attribute("color", node_is_max(node_eigenvector(ison_brandes))) %>%
   autographr(node_color = "color")
@@ -126,6 +210,39 @@ ison_brandes %>%
 How neat! Try it with the two-mode version.
 What can you see?
 
+```{r ggid_twomode, exercise = TRUE}
+# Instead of "ison_brandes", use "ison_brandes2"
+
+```
+
+```{r ggid_twomode-solution}
+ison_brandes2 %>%
+  add_node_attribute("color", node_is_max(node_degree(ison_brandes2))) %>%
+  autographr(node_color = "color")
+
+ison_brandes2 %>%
+  add_node_attribute("color", node_is_max(node_betweenness(ison_brandes2))) %>%
+  autographr(node_color = "color")
+
+ison_brandes2 %>%
+  add_node_attribute("color", node_is_max(node_closeness(ison_brandes2))) %>%
+  autographr(node_color = "color")
+
+ison_brandes2 %>%
+  add_node_attribute("color", node_is_max(node_eigenvector(ison_brandes2))) %>%
+  autographr(node_color = "color")
+```
+
+```{r brandes2quiz}
+question("Select all that are true.",
+         answer("Only one node is selected in each plot."),
+         answer("The maximum degree square has a higher degree than the maximum degree circle(s).",
+                correct = TRUE),
+         answer("No node is ever the most central according to two or more different centrality measures."),
+         allow_retry = TRUE,
+         random_answer_order = TRUE)
+```
+
 ## Calculating centralization
 
 `{migraph}` also implements centralization functions.
@@ -133,6 +250,8 @@ Here we are no longer interested in the level of the node,
 but in the level of the whole graph, so the syntax is:
 
 ```{r centzn, exercise = TRUE}
+# We will now look at the same centralization measures for the entire graph or network by 
+# calling the same functions as those used for nodes but instead of "node_", replace it with "network_"
 
 ```
 
@@ -178,13 +297,23 @@ ge <- autographr(ison_brandes, node_color = "eigenvector") +
 # ggsave("brandes-centralities.pdf")
 ```
 
+
+```{r centzdq}
+question("How centralized is the ison_brandes network? Select all that apply.",
+         answer("It is more degree centralised than betweenness centralised.",
+                message = "Degree centralisation is at 0.18 for this network whereas betweenness centralisation is at 0.32."),
+         answer("It is more closeness centralised than betweenness centralised.",
+                message = "Closeness centralisation is at 0.23 for this network whereas betweenness centralisation is at 0.32."),
+         answer("It is more eigenvector centralised than betweenness centralised.",
+                correct = TRUE,
+                message = "That's right, eigenvector centralisation is at 0.48 for this network whereas betweenness centralisation is at 0.32."),
+         random_answer_order = TRUE, 
+         allow_retry = TRUE)
+```
+
 ## Tasks
 
-1. Try this with the `ison_brandes2` dataset in the package.
-
-2. Name a plausible research question you could ask of this data
+1. Name a plausible research question you could ask of this data
 for each of the four main centrality measures
 (degree, betweenness, closeness, eigenvector)
 You may want to add these as titles or subtitles to each plot.
-
-3. How centralized is the network?
