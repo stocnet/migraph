@@ -1,8 +1,9 @@
 ---
 title: "Equivalence"
-author: "James Hollway"
+author: "by James Hollway"
 output: 
-  learnr::tutorial
+  learnr::tutorial:
+    theme: journal
 runtime: shiny_prerendered
 ---
 
@@ -264,12 +265,23 @@ which implements a CONCOR (CONvergence of CORrelations) algorithm.
 We can see the difference from varying the clustering algorithm and/or distance
 by plotting the dendrograms (hidden) in the output from `node_structural_equivalence()`:
 
-```{r vary-clust, exercise = TRUE, exercise.setup = "data"}
+```{r varyclust, exercise = TRUE, exercise.setup = "data"}
+
+```
+
+```{r varyclust-solution}
 plot(node_structural_equivalence(ison_algebra, cluster = "hier", distance = "euclidean"))
 
 plot(node_structural_equivalence(ison_algebra, cluster = "hier", distance = "manhattan"))
 
 plot(node_structural_equivalence(ison_algebra, cluster = "concor"))
+```
+
+```{r scale-interp, echo=FALSE}
+question("Do you see any differences?",
+         answer("Yes", correct = TRUE),
+         answer("No"),
+        allow_retry = TRUE)
 ```
 
 So plotting a `membership` vector from `{migraph}` returns a dendrogram
@@ -542,7 +554,14 @@ but everyone hangs out with them for task advice.
 ### Reduced graph
 
 Lastly, we can consider how _classes_ of nodes relate to one another in a blockmodel.
-Let's use the 4-cluster solution on the valued network (though binary is possible too).
+Let's use the 4-cluster solution on the valued network (though binary is possible too)
+to create a _reduced graph_.
+A reduced graph is a transformation of a network such that 
+the nodes are no longer the individual nodes but the groups of one or more nodes as a class,
+and the ties between these blocked nodes can represent the sum or average tie between these classes.
+Of course, this means that there can be self-ties or loops,
+because even if the original network was simple (not complex), 
+any within-class ties will end up becoming loops and thus the network will be complex.
 
 ```{r structblock, exercise = TRUE, exercise.setup = "data"}
 str_clu <- node_structural_equivalence(ison_algebra)
