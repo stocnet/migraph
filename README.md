@@ -277,3 +277,10 @@ available in other excellent R packages such as
 features currently only available outside the R ecosystem in packages
 such as
 [**UCINET**](https://sites.google.com/site/ucinetsoftware/download?authuser=0).
+
+## Funding details
+
+Subsequent work on this package has been funded by the Swiss National
+Science Foundation (SNSF) [Grant Number
+188976](https://data.snf.ch/grants/grant/188976): “Power and Networks
+and the Rate of Change in Institutional Complexes” (PANARCHIC).
