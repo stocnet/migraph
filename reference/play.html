@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.1</span>
       </span>
     </div>
 
@@ -53,7 +53,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Functions to play games on networks</h1>
-    <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/R/make_play.R" class="external-link"><code>R/make_play.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/R/model_play.R" class="external-link"><code>R/model_play.R</code></a></small>
     <div class="hidden name"><code>play.Rd</code></div>
     </div>
 
@@ -111,6 +111,11 @@ number of nodes in the network.</p></dd>
 <dt>thresholds</dt>
 <dd><p>A numeric vector indicating the thresholds
 each node has. By default 1.
+A single number means a generic threshold;
+for thresholds that vary among the population please use a vector
+the length of the number of nodes in the network.
+If 1 or larger, the threshold is interpreted as a simple count
+of the number of contacts/exposures sufficient for infection.
 If less than 1, the threshold is interpreted as complex,
 where the threshold concerns the proportion of contacts.</p></dd>
 
@@ -226,20 +231,23 @@ for convergence to a consensus.</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">play_diffusion</span><span class="op">(</span><span class="fu"><a href="generate.html">generate_smallworld</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">0.025</span><span class="op">)</span>, recovery <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="play-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">play_diffusions</span><span class="op">(</span><span class="fu"><a href="generate.html">generate_smallworld</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">0.025</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 22 rows containing missing values (`geom_smooth()`).</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 46 rows containing missing values (`geom_smooth()`).</span>
 <span class="r-plt img"><img src="play-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu">play_learning</span><span class="op">(</span><span class="va">ison_networkers</span>, </span></span>
 <span class="r-in"><span>      <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">rbinom</a></span><span class="op">(</span><span class="fu"><a href="grab.html">network_nodes</a></span><span class="op">(</span><span class="va">ison_networkers</span><span class="op">)</span>,<span class="fl">1</span>,prob <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 32</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 32</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   `LIN FREEMAN` DOUG W…¹ EV RO…² RICHA…³ PHIPP…⁴ CAROL…⁵ GARY …⁶ RUSS …⁷ JOHN …⁸</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         1        0       0       0       0       0       1       1       0    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         0.455    0.544   0.643   0.495   0.484   0.644   0.7     0.717   0.537</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>         0.593    0.549   0.580   0.524   0.593   0.543   0.477   0.574   0.559</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>         0.560    0.571   0.571   0.564   0.558   0.575   0.589   0.578   0.570</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>         0.571    0.567   0.570   0.566   0.571   0.566   0.560   0.568   0.568</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>         0.568    0.569   0.569   0.568   0.568   0.569   0.571   0.569   0.569</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>         0.569    0.568   0.569   0.568   0.569   0.568   0.568   0.569   0.569</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>         0.568    0.569   0.569   0.569   0.568   0.569   0.569   0.569   0.569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         0        0       0       1       0       0       1      1        1    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         0.229    0.166   0.357   0.175   0.232   0.121   0      0.047<span style="text-decoration: underline;">6</span>   0.106</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>         0.167    0.185   0.142   0.246   0.169   0.194   0.224  0.283    0.243</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>         0.196    0.185   0.215   0.188   0.190   0.182   0.173  0.169    0.181</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>         0.187    0.190   0.182   0.194   0.188   0.190   0.194  0.201    0.195</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>         0.190    0.189   0.193   0.190   0.190   0.189   0.188  0.187    0.189</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>         0.189    0.190   0.189   0.190   0.190   0.190   0.190  0.191    0.190</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>         0.190    0.190   0.190   0.190   0.190   0.190   0.189  0.189    0.190</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span>         0.190    0.190   0.190   0.190   0.190   0.190   0.190  0.190    0.190</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 23 more variables: `RON BURT` &lt;dbl&gt;, `PAT DOREIAN` &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `CLAUDE FISCHER` &lt;dbl&gt;, `BRIAN FOSTER` &lt;dbl&gt;, `MARK GRANOVETTER` &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `MAUREEN HALLINAN` &lt;dbl&gt;, `PAUL HOLLAND` &lt;dbl&gt;, `JACK HUNTER` &lt;dbl&gt;,</span></span>
