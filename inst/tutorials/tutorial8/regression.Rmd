@@ -1,7 +1,9 @@
 ---
 title: "Regression"
-author: "James Hollway"
-output: learnr::tutorial
+author: "by James Hollway"
+output: 
+  learnr::tutorial:
+    theme: journal
 runtime: shiny_prerendered
 ---
 

@@ -1,7 +1,9 @@
 ---
 title: "Topology"
-author: "James Hollway, Andrea Biswas-Tortajada"
-output: learnr::tutorial
+author: "by James Hollway, Andrea Biswas-Tortajada"
+output: 
+  learnr::tutorial:
+    theme: journal
 runtime: shiny_prerendered
 ---
 
