@@ -1,7 +1,9 @@
 ---
 title: "Centrality"
-author: "James Hollway"
-output: learnr::tutorial
+author: "by James Hollway"
+output: 
+  learnr::tutorial:
+    theme: journal
 runtime: shiny_prerendered
 ---
 
@@ -105,17 +107,16 @@ node_degree(ison_brandes, normalized = FALSE)
 ```{r degreesum-solution}
 (degrees <- rowSums(mat))
 rowSums(mat) == colSums(mat)
-# Are they all equal? Why?
 # You can also just use a built in command in migraph though:
 node_degree(ison_brandes, normalized = FALSE)
 ```
 
 ```{r degreesum-Q, echo=FALSE}
-question("Are they all equal? Why? Choose all that apply.",
+question("Are the row sums the same as the column sums?",
   answer("Yes",
-         correct = FALSE),
-  answer("No", 
-         correct = TRUE),
+         correct = TRUE,
+         message = "That's right, that's because this is an undirected network."),
+  answer("No"),
   allow_retry = FALSE
 )
 ```
@@ -232,6 +233,16 @@ ison_brandes2 %>%
   autographr(node_color = "color")
 ```
 
+```{r brandes2quiz}
+question("Select all that are true.",
+         answer("Only one node is selected in each plot."),
+         answer("The maximum degree square has a higher degree than the maximum degree circle(s).",
+                correct = TRUE),
+         answer("No node is ever the most central according to two or more different centrality measures."),
+         allow_retry = TRUE,
+         random_answer_order = TRUE)
+```
+
 ## Calculating centralization
 
 `{migraph}` also implements centralization functions.
@@ -286,13 +297,23 @@ ge <- autographr(ison_brandes, node_color = "eigenvector") +
 # ggsave("brandes-centralities.pdf")
 ```
 
+
+```{r centzdq}
+question("How centralized is the ison_brandes network? Select all that apply.",
+         answer("It is more degree centralised than betweenness centralised.",
+                message = "Degree centralisation is at 0.18 for this network whereas betweenness centralisation is at 0.32."),
+         answer("It is more closeness centralised than betweenness centralised.",
+                message = "Closeness centralisation is at 0.23 for this network whereas betweenness centralisation is at 0.32."),
+         answer("It is more eigenvector centralised than betweenness centralised.",
+                correct = TRUE,
+                message = "That's right, eigenvector centralisation is at 0.48 for this network whereas betweenness centralisation is at 0.32."),
+         random_answer_order = TRUE, 
+         allow_retry = TRUE)
+```
+
 ## Tasks
 
-1. Try this with the `ison_brandes2` dataset in the package.
-
-2. Name a plausible research question you could ask of this data
+1. Name a plausible research question you could ask of this data
 for each of the four main centrality measures
 (degree, betweenness, closeness, eigenvector)
 You may want to add these as titles or subtitles to each plot.
-
-3. How centralized is the network?
