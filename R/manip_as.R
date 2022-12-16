@@ -577,6 +577,20 @@ as_tidygraph.data.frame <- function(object, twomode = FALSE) {
   tidygraph::as_tbl_graph(as_igraph(object))
 }
 
+#' @importFrom tidygraph tbl_graph
+#' @export
+as_tidygraph.list <- function(object, twomode = FALSE) {
+  if(!is.null(names(object))){
+    if("nodes" %in% names(object) & "ties" %in% names(object)){
+      tidygraph::tbl_graph(nodes = object[["nodes"]],
+                           edges = object[["ties"]])
+    } else if ("nodes" %in% names(object) & "edges" %in% names(object)){
+      tidygraph::tbl_graph(nodes = object[["nodes"]],
+                           edges = object[["edges"]])
+    } else stop("Please name the list elements 'nodes' and 'ties'.")
+  } else stop("Please name the list elements 'nodes' and 'ties'.")
+}
+  
 #' @export
 as_tidygraph.matrix <- function(object, twomode = FALSE) {
   tidygraph::as_tbl_graph(as_igraph(object))
