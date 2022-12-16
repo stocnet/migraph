@@ -499,3 +499,40 @@ write_ucinet <- function(object,
   }
   close(UCINET.data)
 }
+
+#' @describeIn read Reading DynetML files
+#' @export
+read_dynetml <- function(file = file.choose()) {
+  if(!requireNamespace("xml2", quietly = TRUE)){
+    stop("Please install `xml2` from CRAN to import DynetML files.")
+  } else {
+    xmlfile <- xml2::read_xml(file)
+    xmllist <- xml2::as_list(xmlfile)
+    nodesets <- xmllist$DynamicNetwork$MetaMatrix$nodes
+    nodesets <- dplyr::coalesce(unlist(lapply(nodesets, 
+                                              function(x) ifelse(is.null(attr(x, "id")),
+                                                                 NA_character_, attr(x, "id")))),
+                                unlist(lapply(nodesets, 
+                                              function(x) ifelse(is.null(attr(x, "type")),
+                                                                 NA_character_, attr(x, "type")))))
+    nodesets <- unname(rep(nodesets, vapply(xmllist$DynamicNetwork$MetaMatrix$nodes,
+           function(x) length(x), numeric(1))))
+    
+    nodes <- xml2::as_list(xml2::xml_find_all(xmlfile, ".//node"))
+    nodes <- dplyr::bind_rows(lapply(nodes, function(x){
+      values <- sapply(x$properties, function(y) attr(y, "value"))
+      attrs <- sapply(x$properties, function(y) attr(y, "name"))
+      names(values) <- attrs
+      c(name = attr(x, "id"), values)
+    }))
+    nodes <- nodes %>% dplyr::mutate(nodeset = nodesets) %>% 
+      dplyr::select(name, nodeset, dplyr::everything())
+
+    edgelist <- xml2::xml_attrs(xml2::xml_find_all(xmlfile, ".//edge"))
+    edgelist <- as.data.frame(t(sapply(edgelist, function(x) x, simplify = TRUE)))
+    edgelist$type <- NULL
+    edgelist$value <- as.numeric(edgelist$value)
+    as_tidygraph(list(nodes = nodes, ties = edgelist))
+  }
+}
+  

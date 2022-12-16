@@ -10,6 +10,7 @@
 \alias{write_pajek}
 \alias{read_ucinet}
 \alias{write_ucinet}
+\alias{read_dynetml}
 \title{Make networks from/to external formats}
 \source{
 \code{read_ucinet()} and \code{write_ucinet()} kindly supplied by Christian Steglich,
@@ -31,6 +32,8 @@ write_pajek(object, filename, ...)
 read_ucinet(file = file.choose())
 
 write_ucinet(object, filename, name)
+
+read_dynetml(file = file.choose())
 }
 \arguments{
 \item{file}{A character string with the system path to the file to import.
@@ -131,6 +134,8 @@ you will need to unpack them and convert them one by one.
 \item \code{read_ucinet()}: Reading UCINET files
 
 \item \code{write_ucinet()}: Writing UCINET files
+
+\item \code{read_dynetml()}: Reading DynetML files
 
 }}
 \examples{
