@@ -7,7 +7,7 @@ output:
 runtime: shiny_prerendered
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE}
 library(learnr)
 library(migraph)
 knitr::opts_chunk$set(echo = FALSE)
@@ -23,8 +23,104 @@ Let's take the `ison_networkers` dataset from `{migraph}`,
 and create or generate ring, lattice, random, scale-free, and small-world
 versions with the same number of nodes.
 
-```{r create, echo = TRUE, exercise=TRUE}
+```{r create, echo = TRUE, exercise = TRUE}
+
+```
+
+```{r create-hint-1}
+# Let's create a new object, "nw", the removes the names of all vertex names
+# Hint: We want to use two functions used for reformatting networks, graphs, and matrices
+
+nw <- ____(____(ison_networkers))
+```
+
+```{r create-hint-2}
+# We also want to remove edge direction, so that any pair of nodes with at least
+# one directed edge will be connected by an undirected edge in the new network.
+
+nw <- ____(to_unnamed(ison_networkers))
+```
+
+```{r create-solution}
 nw <- to_undirected(to_unnamed(ison_networkers))
+```
+
+### Creating and visualising different network structures
+
+Now, using the "nw" network from the last section, let's create or generate ring, lattice, random, scale-free, and small-world versions with the same number of nodes using functions like:
+
++ `create_ring()`: Creates a ring or chord graph of the given dimensions that loops around is of a certain width or thickness.
++ `create_lattice()`: Creates a graph of the given dimensions with ties to all neighbouring nodes
++ `generate_random()`: Generates a random network with a particular probability.
++ `generate_scalefree()`: Generates a small-world structure following the lattice rewiring model.
++ `generate_smallworld()`: Generates a scale-free structure following the preferential attachment model.
+
+```{r create-nwstructure, echo = TRUE, exercise = TRUE}
+
+```
+
+```{r create-nwstructure-hint-1}
+# Let's generate a ring structure, "rg", with a width of 2, using the appropriate
+# function above
+
+rg <- ____(____, ____)
+```
+
+```{r create-nwstructure-hint-2}
+
+rg <- create_ring(nw, width = 2)
+```
+
+```{r create-nwstructure-hint-3}
+# Let's generate a lattice structure, "la", using the appropriate function above
+
+la <- ____(____)
+```
+
+```{r create-nwstructure-hint-4}
+
+la <- create_lattice(nw)
+```
+
+```{r create-nwstructure-hint-5}
+# Let's generate a random structure, "rd", without attributes
+
+rd <- ____(____, ____)
+```
+
+```{r create-nwstructure-hint-6}
+
+rd <- generate_random(nw, with_attr = FALSE)
+```
+
+```{r create-nwstructure-hint-7}
+# The last two will look similar. For the smallworld structure we call the object "sw" 
+# and for scalefree, "sf". We will also set the proportion of possible ties to 0.025.
+
+sf <- ____(nw, ____)
+sw <- ____(nw, ____)
+```
+
+```{r create-nwstructure-hint-8}
+
+sf <- generate_scalefree(nw, 0.025)
+sw <- generate_smallworld(nw, 0.025)
+```
+
+```{r create-nwstructure-hint-9}
+# Finally, let's plot the respective graphs:
+
+autographr(____) + ggtitle("Networkers") +
+autographr(____) + ggtitle("Ring") +
+autographr(____) + ggtitle("Lattice") +
+autographr(____) + ggtitle("Random") +
+autographr(____) + ggtitle("Scale-Free") +
+autographr(____) + ggtitle("Small-World")
+```
+
+```{r create-nwstructure-solution}
+# Here is the solution:
+
 rg <- create_ring(nw, width = 2)
 la <- create_lattice(nw)
 rd <- generate_random(nw, with_attr = FALSE)
@@ -38,15 +134,24 @@ autographr(sf) + ggtitle("Scale-Free") +
 autographr(sw) + ggtitle("Small-World")
 ```
 
+
 ### Examining diffusion across networks of different structure
 
-Now let's start off by examining a pretty straight-forward structure,
+Now, let's start off by examining a pretty straight-forward structure,
 that of the ring network.
 To run a basic diffusion model across this network,
 simply pass it to `play_diffusion()` and (save and) plot the result.
 
 ```{r ring, exercise = TRUE, exercise.setup = "create"}
 
+```
+
+```{r ring-hint}
+# Let's call the ring structure from the previous section, "rg", and create a new object
+# "rg1" with a seed of 1. Don't forget to plot it!
+
+rg1 <- play_diffusion(____, ____)
+____(____)
 ```
 
 ```{r ring-solution}
@@ -82,7 +187,7 @@ rg2 <- play_diffusion(rg, seeds = 16)
 plot(rg2)
 ```
 
-```{r ring2-interp, echo=FALSE}
+```{r ring2-interp, echo = FALSE}
 question("Do you see any differences?",
          answer("Yes"),
          answer("No", correct = TRUE),
@@ -97,6 +202,12 @@ but doesn't really conclude that much faster.
 
 ```
 
+```{r ring3-hint}
+# Remember we want to see the first four nodes.
+
+plot(play_diffusion(rg, seeds = ____))
+```
+
 ```{r ring3-solution}
 plot(play_diffusion(rg, seeds = 1:4))
 ```
@@ -109,11 +220,18 @@ Try it with four randomly-selected nodes and see what you get.
 
 ```
 
+```{r ring4-hint}
+# We will be using the node_is_random() within the seed argument to random select 
+# 4 nodes
+
+plot(play_diffusion(rg, seeds = ____(rg, ____)))
+```
+
 ```{r ring4-solution}
 plot(play_diffusion(rg, seeds = node_is_random(rg, 4)))
 ```
 
-```{r ring4-interp, echo=FALSE}
+```{r ring4-interp, echo = FALSE}
 question("Do you see any differences?",
          answer("Yes", correct = TRUE),
          answer("No"),
@@ -140,7 +258,7 @@ plot(play_diffusion(la, seeds = 1))/
 plot(play_diffusion(la, seeds = 16))
 ```
 
-```{r lattice-interp, echo=FALSE}
+```{r lattice-interp, echo = FALSE}
 question("Do you see any differences?",
          answer("Yes", correct = TRUE),
          answer("No"),
@@ -150,6 +268,12 @@ question("Do you see any differences?",
 Let's try one more network type, this time the scale-free network.
 Play and plot the results over ten steps for node 10,
 random, maximum, and minimum nodes as seeds.
+
+Similar to the previous examples, we will be using the following functions within the seed argument:
+
++ `node_is_random()`: Returns a logical vector indicating a random selection of nodes as TRUE.
++ `node_is_max()`: Returns logical of which nodes hold the maximum of some measure.
++ `node_is_min()`: Returns logical of which nodes hold the minimum of some measure.
 
 ```{r scale, exercise = TRUE, exercise.setup = "create"}
 
@@ -162,7 +286,7 @@ plot(play_diffusion(sf, seeds = node_is_max(node_degree(sf)), steps = 10)) /
 plot(play_diffusion(sf, seeds = node_is_min(node_degree(sf)), steps = 10))
 ```
 
-```{r scale-interp, echo=FALSE}
+```{r scale-interp, echo = FALSE}
 question("Do you see any differences?",
          answer("Yes", correct = TRUE),
          answer("No"),
@@ -193,12 +317,12 @@ plot(play_diffusion(rg, seeds = 1:2, thresholds = 2))/
 plot(play_diffusion(rg, seeds = c(1,16), thresholds = 2))
 ```
 
-```{r complex-interp, echo=FALSE}
+```{r complex-interp, echo = FALSE}
 question("For which seed/threshold combinations was there complete infection?",
-         answer("seeds=1 and thresholds=1", correct = TRUE),
-         answer("seeds=1 and thresholds=2"),
-         answer("seeds=1:2 and thresholds=2", correct = TRUE),
-         answer("seeds=c(1,16) and thresholds=2"),
+         answer("seeds = 1 and thresholds = 1", correct = TRUE),
+         answer("seeds = 1 and thresholds = 2"),
+         answer("seeds = 1:2 and thresholds = 2", correct = TRUE),
+         answer("seeds = c(1,16) and thresholds = 2"),
         allow_retry = TRUE)
 ```
 
@@ -233,13 +357,19 @@ Try thresholds of 0.1, 0.25, and 0.5 on two seeds and 10 steps.
 
 ```
 
+```{r sfprop-hint}
+plot(play_diffusion(sf, seeds = 1:2, thresholds = ____, steps = ____))/
+plot(play_diffusion(sf, seeds = 1:2, thresholds = ____, steps = ____))/
+plot(play_diffusion(sf, seeds = 1:2, thresholds = ____, steps = ____))
+```
+
 ```{r sfprop-solution}
 plot(play_diffusion(sf, seeds = 1:2, thresholds = 0.1, steps = 10))/
 plot(play_diffusion(sf, seeds = 1:2, thresholds = 0.25, steps = 10))/
 plot(play_diffusion(sf, seeds = 1:2, thresholds = 0.5, steps = 10))
 ```
 
-```{r sfprop-interp, echo=FALSE}
+```{r sfprop-interp, echo = FALSE}
 question("Does the threshold proportion matter?",
          answer("Yes", correct = TRUE),
          answer("No"),
@@ -252,7 +382,7 @@ are obstructing the diffusion process because it is unlikely that many of their 
 Lastly, note that it may be that thresholds vary across the network.
 You could make this depend on some nodal attribute, 
 or just assign some random variation.
-Try two diffusions, one where the threshold is 0.1 for the first 10
+Try two diffusion models, one where the threshold is 0.1 for the first 10
 and 0.25 for the latter group of 22 nodes,
 and another diffusion where the threshold levels are reversed.
 
@@ -260,9 +390,14 @@ and another diffusion where the threshold levels are reversed.
 
 ```
 
+```{r rand-hint}
+plot(play_diffusion(sf, thresholds = c(rep(____,____), rep(____,____))))/
+plot(play_diffusion(sf, thresholds = c(rep(____,____), rep(____,____))))
+```
+
 ```{r rand-solution}
-plot(play_diffusion(sf, thresholds = c(rep(0.1,10),rep(0.25,22))))/
-plot(play_diffusion(sf, thresholds = c(rep(0.25,10),rep(0.1,22))))
+plot(play_diffusion(sf, thresholds = c(rep(0.1,10), rep(0.25,22))))/
+plot(play_diffusion(sf, thresholds = c(rep(0.25,10), rep(0.1,22))))
 ```
 
 Since the first ten nodes are the first to join the scale-free network
@@ -289,16 +424,23 @@ To do this, we need to use `play_diffusions()` (note the plural).
 It has all the same arguments as its singular counterpart,
 along with a couple of additional parameters 
 to indicate how many simulations it should run, e.g. `times = 50`,
-whether it should use `strategy="multisession"` 
+whether it should use `strategy = "multisession"` 
 to run the simulations across multiple cores
-instead of the default `strategy="sequential`,
-and `verbose=TRUE` if it should inform you of computational progress.
+instead of the default `strategy = "sequential`,
+and `verbose = TRUE` if it should inform you of computational progress.
 Try this out with our well-mixed random network, 10 steps, 5 times,
 and with a `transmissibility` parameter set to 0.5
 to indicate that in only 1/2 cases is contagion successful.
 
 ```{r diffusions, exercise = TRUE, exercise.setup = "create"}
 
+```
+
+```{r diffusions-hint}
+# Remember, we are looking at the random network from before, "rd", with 
+# a transmissibility parameter of 0.5, 5 times, and 10 steps.
+
+plot(play_diffusions(____, transmissibility = ____, times = ____, steps = ____))
 ```
 
 ```{r diffusions-solution}
@@ -312,7 +454,7 @@ and the red line is the proportion of nodes in the Infected compartment.
 
 ### SIR models
 
-Let's start off with an SIR model in which, 
+Let's start off with an **SIR** model in which, 
 after some period in which an infected node is themselves infectious,
 they recover and can no longer infect or become reinfected.
 To add a recovered component to the model,
@@ -323,6 +465,13 @@ which means that it'll take an infected node on average
 
 ```{r sir, exercise = TRUE}
 
+```
+
+```{r sir-hint}
+# Remember, we are still looking at the random network, "rd", with a 
+# recovery rate of 20 percent.
+
+plot(play_diffusions(____, recovery = ____))
 ```
 
 ```{r sir-solution}
@@ -340,7 +489,7 @@ from the contagion doesn't last forever.
 In this kind of model, add an additional waning parameter of 0.05.
 Play a single diffusion so that you can see what's going on in a particular run.
 
-```{r sirs, exercise=TRUE}
+```{r sirs, exercise = TRUE}
 
 ```
 
@@ -348,7 +497,7 @@ Play a single diffusion so that you can see what's going on in a particular run.
 plot(play_diffusion(rd, recovery = 0.25, waning = 0.05))
 ```
 
-```{r sirs-interp, echo=FALSE}
+```{r sirs-interp, echo = FALSE}
 question("Does the process reach a stable state?",
          answer("Yes", correct = TRUE),
          answer("No"),
@@ -382,7 +531,10 @@ will converge to a consensus of (any) beliefs entered.
 ### Expectations of convergence and consensus 
 
 Let's try this out on the `ison_networkers` dataset included in the package.
-First of all, check whether the network is _connected_ and _aperiodic_.
+First of all, check whether the network is _connected_ and _aperiodic_ via the following functions:
+
++ `is_connected()`: Tests whether network is weakly connected if the network is *undirected* or strongly connected if directed.
++ `is_aperiodic()`: Tests whether network is aperiodic.
 
 ```{r aperiod, exercise = TRUE}
 
@@ -398,7 +550,7 @@ is_connected(ison_networkers)
 is_aperiodic(ison_networkers)
 ```
 
-```{r aperiod-interp, echo=FALSE}
+```{r aperiod-interp, echo = FALSE}
 question("Based on these results, would you expect this network to converge to a consensus?",
   answer("No"),
   answer("Yes", correct = TRUE),
@@ -411,12 +563,12 @@ question("Based on these results, would you expect this network to converge to a
 
 Now let's see whether you are right.
 We want to see whether some random distribution of beliefs converges
-to a consensus in this network.
+to a consensus in this network (`ison_networkers`).
 Let's play the DeGroot learning game on this network
 with a vector of random belief probabilities 
 (the same length as the nodes in the network)
-drawn from the binomial distribution with probability 0.25.
-Create the distribution of beliefs and graph the network
+drawn from the binomial distribution with **probability 0.25**.
+Create the distribution of **beliefs** and graph the network
 to show where they have been distributed.
 Then play the learning model with these beliefs, and plot the result.
 
@@ -424,15 +576,15 @@ Then play the learning model with these beliefs, and plot the result.
 
 ```
 
-```{r degroot-hint-1}
-beliefs <- rbinom(network_nodes(____),1,prob = 0.25)
+```{r degroot-hint}
+beliefs <- rbinom(network_nodes(____), 1, prob = 0.25)
 ____ %>% mutate(____ = beliefs) %>% autographr(node_color = "____")
 netlearn <- play_learning(____, ____)
 plot(____)
 ```
 
 ```{r degroot-solution}
-beliefs <- rbinom(network_nodes(ison_networkers),1,prob = 0.25)
+beliefs <- rbinom(network_nodes(ison_networkers), 1, prob = 0.25)
 ison_networkers %>% mutate(beliefs = beliefs) %>% autographr(node_color = "beliefs")
 netlearn <- play_learning(ison_networkers, beliefs)
 plot(netlearn)
@@ -446,7 +598,7 @@ Then we can see how responsive these nodes are to the random distribution
 of beliefs across the network.
 Some revise their beliefs more significantly than others.
 
-```{r degroot-interp, echo=FALSE}
+```{r degroot-interp, echo = FALSE}
 question("What are some true statements about these results?",
   answer("Some nodes revise their beliefs more than others.",
          correct = TRUE),
