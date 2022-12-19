@@ -508,16 +508,27 @@ read_dynetml <- function(file = file.choose()) {
   } else {
     xmlfile <- xml2::read_xml(file)
     xmllist <- xml2::as_list(xmlfile)
-    nodesets <- xmllist$DynamicNetwork$MetaMatrix$nodes
+    
+    # Getting nodeset
+    # to deal with legacy constructions:
+    if("MetaMatrix" %in% names(xmllist$DynamicNetwork))
+      nodesets <- xmllist$DynamicNetwork$MetaMatrix$nodes else
+        nodesets <- xmllist$DynamicNetwork$MetaNetwork$nodes
     nodesets <- dplyr::coalesce(unlist(lapply(nodesets, 
                                               function(x) ifelse(is.null(attr(x, "id")),
                                                                  NA_character_, attr(x, "id")))),
                                 unlist(lapply(nodesets, 
                                               function(x) ifelse(is.null(attr(x, "type")),
                                                                  NA_character_, attr(x, "type")))))
-    nodesets <- unname(rep(nodesets, vapply(xmllist$DynamicNetwork$MetaMatrix$nodes,
-           function(x) length(x), numeric(1))))
+    # to deal with legacy constructions:
+    if("MetaMatrix" %in% names(xmllist$DynamicNetwork)){
+      nodesets <- unname(rep(nodesets, vapply(xmllist$DynamicNetwork$MetaMatrix$nodes,
+                                              function(x) length(x), numeric(1))))
+    } else
+      nodesets <- unname(rep(nodesets, vapply(xmllist$DynamicNetwork$MetaNetwork$nodes,
+                                              function(x) length(x), numeric(1)))) 
     
+    # Getting nodes
     nodes <- xml2::as_list(xml2::xml_find_all(xmlfile, ".//node"))
     nodes <- dplyr::bind_rows(lapply(nodes, function(x){
       values <- sapply(x$properties, function(y) attr(y, "value"))
@@ -525,13 +536,22 @@ read_dynetml <- function(file = file.choose()) {
       names(values) <- attrs
       c(name = attr(x, "id"), values)
     }))
-    nodes <- nodes %>% dplyr::mutate(nodeset = nodesets) %>% 
+    # Add nodeset information if necessary
+    if(length(unique(nodesets))==2)
+      nodes <- nodes %>% dplyr::mutate(type = nodesets == unique(nodesets)[2]) %>% 
+      dplyr::select(name, type, dplyr::everything()) else if (length(unique(nodesets))>2)
+        nodes <- nodes %>% dplyr::mutate(nodeset = nodesets) %>% 
       dplyr::select(name, nodeset, dplyr::everything())
-
+    
+    # Getting edges
     edgelist <- xml2::xml_attrs(xml2::xml_find_all(xmlfile, ".//edge"))
+    # to deal with legacy constructions:
+    if(length(edgelist)==0) edgelist <- xml2::xml_attrs(xml2::xml_find_all(xmlfile, ".//link"))
     edgelist <- as.data.frame(t(sapply(edgelist, function(x) x, simplify = TRUE)))
     edgelist$type <- NULL
     edgelist$value <- as.numeric(edgelist$value)
+    edgelist <- dplyr::filter(edgelist, source %in% nodes$name & target %in% nodes$name)
+    edgelist <- dplyr::filter(edgelist, value != 0)
     as_tidygraph(list(nodes = nodes, ties = edgelist))
   }
 }
