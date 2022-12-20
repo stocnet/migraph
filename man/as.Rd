@@ -7,6 +7,7 @@
 \alias{as_igraph}
 \alias{as_tidygraph}
 \alias{as_network}
+\alias{as_siena}
 \alias{as_graphAM}
 \title{Coercion between migraph-compatible object classes}
 \usage{
@@ -19,6 +20,8 @@ as_igraph(object, twomode = FALSE)
 as_tidygraph(object, twomode = FALSE)
 
 as_network(object, twomode = FALSE)
+
+as_siena(object, twomode = FALSE)
 
 as_graphAM(object, twomode = NULL)
 }
