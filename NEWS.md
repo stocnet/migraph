@@ -8,7 +8,7 @@
 ## Makes
 
 - Added `read_matrix()` for importing CSVs of adjacency/incidence matrices
-- Added `read_dynetml()` for importing DynetML .xml files
+- Added `read_dynetml()` for importing DynetML .xml files (closed #261)
 
 ## Manipulations
 

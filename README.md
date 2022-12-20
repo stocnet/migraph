@@ -267,7 +267,7 @@ engine. This also makes extending and theming default output easy, and
 
 In addition, `{migraph}` offers some additional layout algorithms for
 snapping layouts to a grid or visualising partitions horizontally,
-vertically, or concentrically. The following figure illustrates the
+vertically, or concentrically. The following figures illustrate the
 difference in results over `{igraph}`:
 
 <img src="man/figures/README-layout-comparison-1.png" width="100%" />

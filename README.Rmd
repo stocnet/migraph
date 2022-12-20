@@ -255,9 +255,9 @@ and `{patchwork}` is used to help arrange individual plots together.
 In addition, `{migraph}` offers some additional layout algorithms for
 snapping layouts to a grid or 
 visualising partitions horizontally, vertically, or concentrically.
-The following figure illustrates the difference in results over `{igraph}`:
+The following figures illustrate the difference in results over `{igraph}`:
 
-```{r layout-comparison, echo = FALSE, message=FALSE}
+```{r layout-comparison, echo = FALSE, message=FALSE, dpi = 300}
 library(migraph)
 library(igraph)
 library(gridBase)
