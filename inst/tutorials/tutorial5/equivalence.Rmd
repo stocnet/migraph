@@ -7,8 +7,9 @@ output:
 runtime: shiny_prerendered
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE}
 library(learnr)
+library(migraph)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -24,13 +25,8 @@ friendship, social and task interactions.
 
 ```
 
-```{r data-hint-1}
-# First, let's load the migraph package
-library(migraph)
-```
-
-```{r data-hint-2}
-# Next, let's call and load the 'ison_algebra' dataset
+```{r data-hint}
+# Let's call and load the 'ison_algebra' dataset
 data("ison_algebra", package = "migraph")
 
 # If you want to learn more about the 'ison_algebra' dataset, use the following function (below)
@@ -38,7 +34,6 @@ data("ison_algebra", package = "migraph")
 ```
 
 ```{r data-solution}
-library(migraph)
 data("ison_algebra", package = "migraph")
 ```
 
@@ -49,7 +44,7 @@ saved .RData files, and data from packages!
 ### Separating multiplex networks
 
 As a multiplex network, 
-there are actually three different types of tie in this network.
+there are actually three different types of ties in this network.
 We can extract them and investigate them separately using `to_uniplex()`:
 
 ```{r separatingnets, exercise=TRUE, exercise.setup = "data"}
@@ -78,7 +73,8 @@ gtask <- autographr(tasks) + ggtitle("Task")
 ```
 
 ```{r separatingnets-hint-4}
-# Now, let's compare the each attribute's graph, side-by-side
+# Now, let's compare the each attribute's graph, side-by-side by using "+"
+# Note: using "/" after each graph will order them vertically; however, it might not be best way
 
 gfriend + gsocial + gtask
 ```
@@ -108,14 +104,21 @@ Let's take a look at which actors are least constrained
 by their position in the *task* network to begin with.
 `{migraph}` makes this easy enough with the `node_constraint()` function.
 
-```{r constraint, exercise=TRUE, exercise.setup = "separatingnets"}
+```{r objects-setup}
+friends <- to_uniplex(ison_algebra, "friends")
+social <- to_uniplex(ison_algebra, "social")
+tasks <- to_uniplex(ison_algebra, "tasks")
+```
+
+```{r constraint, exercise = TRUE, exercise.setup = "objects-setup"}
 
 ```
 
-```{r constraint-hint-1}
+```{r constraint-hint}
 node_constraint(____)
 
-# Don't forget we want to look at which actors are least constrained by their position in the 'task' network
+# Don't forget we want to look at which actors are least constrained by their position 
+# in the 'tasks' network
 ```
 
 ```{r constraint-solution}
@@ -127,7 +130,7 @@ constraint scores that can range between 0 and 1.
 Let's size the nodes according to this score,
 and identify the node with the minimum constraint score.
 
-```{r constraintplot, exercise=TRUE, exercise.setup = "separatingnets"}
+```{r constraintplot, exercise=TRUE, exercise.setup = "objects-setup"}
 
 ```
 
@@ -277,7 +280,7 @@ plot(node_structural_equivalence(ison_algebra, cluster = "hier", distance = "man
 plot(node_structural_equivalence(ison_algebra, cluster = "concor"))
 ```
 
-```{r scale-interp, echo=FALSE}
+```{r scale-interp, echo = FALSE}
 question("Do you see any differences?",
          answer("Yes", correct = TRUE),
          answer("No"),
@@ -435,7 +438,7 @@ despite some variation, can be considered as similar on some dimension.
 
 ```
 
-```{r strict-hint-1}
+```{r strict-hint}
 # Again, let's use the same function as those used above and change 'k'
 
 plot(node_structural_equivalence(ison_algebra, k = "____"))
@@ -522,7 +525,7 @@ along with a membership vector allows the matrix to be sorted and framed
 
 ```
 
-```{r block-hint-1}
+```{r block-hint}
 # Let's plot the blockmodel using the plot() function we used for the dendrograms
 # Instead of node_tie_census() let's us as_matrix()
 

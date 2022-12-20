@@ -1,4 +1,4 @@
-#' Measures of node and tie centrality
+#' Measures of node centrality
 #'
 #' @description
 #'   These functions calculate common centrality measures for one- and two-mode networks.

@@ -1,7 +1,7 @@
 Package: migraph
 Title: Tools for Multimodal Network Analysis
-Version: 0.13.1
-Date: 2022-12-05
+Version: 0.13.2
+Date: 2022-12-20
 Description: A set of tools for analysing multimodal networks.
    All functions operate with matrices, edge lists, 
    and 'igraph', 'network', and 'tidygraph' objects,
@@ -48,10 +48,12 @@ Suggests:
     oaqc,
     readxl,
     Rgraphviz,
+    RSiena,
     rmarkdown,
     roxygen2,
     rsconnect,
-    testthat
+    testthat,
+    xml2
 Authors@R: 
     c(person(given = "James",
              family = "Hollway",

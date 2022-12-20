@@ -495,10 +495,10 @@ as_igraph.siena <- function(object, twomode = NULL) {
   }
   
   .get_attributes <- function(ndy, x, name = NULL) {
-    for(d in seq_len(dim(ndy)[3])) {
+    for(d in seq_len(dim(ndy)[2])) {
       x <- add_node_attribute(x,
                               attr_name = paste0(name, "_", "t", d),
-                              as.vector(ndy[,,d]))
+                              as.vector(ndy[,d]))
     }
     x
   }
@@ -577,6 +577,20 @@ as_tidygraph.data.frame <- function(object, twomode = FALSE) {
   tidygraph::as_tbl_graph(as_igraph(object))
 }
 
+#' @importFrom tidygraph tbl_graph
+#' @export
+as_tidygraph.list <- function(object, twomode = FALSE) {
+  if(!is.null(names(object))){
+    if("nodes" %in% names(object) & "ties" %in% names(object)){
+      tidygraph::tbl_graph(nodes = object[["nodes"]],
+                           edges = object[["ties"]])
+    } else if ("nodes" %in% names(object) & "edges" %in% names(object)){
+      tidygraph::tbl_graph(nodes = object[["nodes"]],
+                           edges = object[["edges"]])
+    } else stop("Please name the list elements 'nodes' and 'ties'.")
+  } else stop("Please name the list elements 'nodes' and 'ties'.")
+}
+  
 #' @export
 as_tidygraph.matrix <- function(object, twomode = FALSE) {
   tidygraph::as_tbl_graph(as_igraph(object))
@@ -719,19 +733,42 @@ as_network.siena <- function(object, twomode = FALSE) {
 
 # RSiena ####
 
-# #' @rdname as
-# #' @export
-# as_siena <- function(object,
-#                       twomode = FALSE) UseMethod("as_siena")
+#' @rdname as
+#' @export
+as_siena <- function(object,
+                      twomode = FALSE) UseMethod("as_siena")
 
-# #' @export
-# as_siena.tbl_graph <- function(object, twomode = FALSE){
-#   RSiena::sienaDependent()
-#   RSiena::coCovar()
-#   RSiena::varCovar()
-#   RSiena::sienaDependent()
-#   RSiena::sienaDataCreate()
-# }
+#' @export
+as_siena.igraph <- function(object, twomode = FALSE){
+  if(!requireNamespace("RSiena", quietly = TRUE)){
+    stop("Please install `RSiena` from CRAN to import DynetML files.")
+  } else {
+    # First separate out the dependent ties
+    nets <- network_tie_attributes(object)
+    ties <- unique(gsub("_t[0-9]","",nets))
+    waves <- max(vapply(strsplit(nets, "_t"), function(t) as.numeric(t[2]), numeric(1)))
+    depnet <- ties[1]
+    depnetArray <- simplify2array(lapply(1:waves, 
+                                        function(t) as_matrix(to_uniplex(object, 
+                                                           paste0(depnet, "_t", t)))))
+    depnet <- RSiena::sienaDependent(depnetArray, 
+                           type = ifelse(is_twomode(object) | twomode,
+                                         "bipartite", "oneMode"))
+    
+    # nodeatts <- network_node_attributes(object)
+    # nodeatts <- nodeatts[nodeatts != "name"]
+    # # Add constant covariates
+    # consatts <- nodeatts[!grepl("_t[0-9]",nodeatts)]
+    # consvars <- lapply(consatts, function(cons) 
+    #   RSiena::coCovar(node_attribute(object, cons)))
+    # names(consvars) <- consatts
+    # .newEnv <- new.env(parent=globalenv())
+    # list2env(consvars, envir = .newEnv)
+    # RSiena::varCovar()
+    
+    RSiena::sienaDataCreate(depnet)
+  }
+}
 
 # graphAM ####
 
