@@ -87,7 +87,7 @@ read_matrix <- function(file = file.choose(),
   if((dim(out)[1]+1) == dim(out)[2])
     out <- out[,-1]
   if(!is.null(colnames(out)) & 
-     all(colnames(out) == paste0("X",1:length(colnames(out)))))
+     all(colnames(out) == paste0("X",seq_along(colnames(out)))))
     colnames(out) <- NULL
   if(!is.null(colnames(out)) & is.null(rownames(out)) &
      dim(out)[1] == dim(out)[2])
