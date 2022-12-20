@@ -24,7 +24,7 @@ by raising an issue on Github."><meta property="og:image" content="https://snlab
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.2</span>
       </span>
     </div>
 
@@ -76,7 +76,9 @@ by <a href="https://github.com/snlab-ch/migraph/issues" class="external-link">ra
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_edgelist</span><span class="op">(</span>file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.choose.html" class="external-link">file.choose</a></span><span class="op">(</span><span class="op">)</span>, sv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"comma"</span>, <span class="st">"semi-colon"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_matrix</span><span class="op">(</span>file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.choose.html" class="external-link">file.choose</a></span><span class="op">(</span><span class="op">)</span>, sv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"comma"</span>, <span class="st">"semi-colon"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">read_edgelist</span><span class="op">(</span>file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.choose.html" class="external-link">file.choose</a></span><span class="op">(</span><span class="op">)</span>, sv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"comma"</span>, <span class="st">"semi-colon"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">write_edgelist</span><span class="op">(</span><span class="va">object</span>, <span class="va">filename</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -90,7 +92,9 @@ by <a href="https://github.com/snlab-ch/migraph/issues" class="external-link">ra
 <span></span>
 <span><span class="fu">read_ucinet</span><span class="op">(</span>file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.choose.html" class="external-link">file.choose</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">write_ucinet</span><span class="op">(</span><span class="va">object</span>, <span class="va">filename</span>, <span class="va">name</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">write_ucinet</span><span class="op">(</span><span class="va">object</span>, <span class="va">filename</span>, <span class="va">name</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">read_dynetml</span><span class="op">(</span>file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.choose.html" class="external-link">file.choose</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="source">
@@ -145,13 +149,14 @@ By default the name will be the same as the object.</p></dd>
     <h2>Value</h2>
     
 
-<p>The <code>read_edgelist()</code> and <code>read_nodelist()</code> functions will import
+<p><code>read_edgelist()</code> and <code>read_nodelist()</code> will import
 into edgelist (tibble) format which can then be coerced or combined into
 different graph objects from there.</p>
 
 
-<p>The <code>read_pajek()</code> and <code>read_ucinet()</code> functions will import into
+<p><code>read_pajek()</code> and <code>read_ucinet()</code> will import into
 a tidygraph format, since they already contain both edge and attribute data.
+<code>read_matrix()</code> will import into tidygraph format too.
 Note that all graphs can be easily coerced into other formats
 with <code>{migraph}</code>'s <code>as_</code> methods.</p>
 
@@ -183,7 +188,8 @@ you will need to unpack them and convert them one by one.</p>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>read_edgelist()</code>: Reading edgelists from Excel/csv files</p></li>
+<ul><li><p><code>read_matrix()</code>: Reading adjacency matrices from Excel/csv files</p></li>
+<li><p><code>read_edgelist()</code>: Reading edgelists from Excel/csv files</p></li>
 <li><p><code>write_edgelist()</code>: Writing edgelists to csv files</p></li>
 <li><p><code>read_nodelist()</code>: Reading nodelists from Excel/csv files</p></li>
 <li><p><code>write_nodelist()</code>: Writing nodelists to csv files</p></li>
@@ -191,6 +197,7 @@ you will need to unpack them and convert them one by one.</p>
 <li><p><code>write_pajek()</code>: Writing pajek .net files</p></li>
 <li><p><code>read_ucinet()</code>: Reading UCINET files</p></li>
 <li><p><code>write_ucinet()</code>: Writing UCINET files</p></li>
+<li><p><code>read_dynetml()</code>: Reading DynetML files</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -224,7 +231,7 @@ you will need to unpack them and convert them one by one.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

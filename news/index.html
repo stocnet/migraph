@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.2</span>
       </span>
     </div>
 
@@ -56,6 +56,22 @@
       <small>Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.13.2" id="migraph-0132">migraph 0.13.2<a class="anchor" aria-label="anchor" href="#migraph-0132"></a></h2>
+<div class="section level3">
+<h3 id="package-0-13-2">Package<a class="anchor" aria-label="anchor" href="#package-0-13-2"></a></h3>
+<ul><li>Updated README with better structuring and explanation<ul><li>Also improved figure quality</li></ul></li></ul></div>
+<div class="section level3">
+<h3 id="makes-0-13-2">Makes<a class="anchor" aria-label="anchor" href="#makes-0-13-2"></a></h3>
+<ul><li>Added <code><a href="../reference/read.html">read_matrix()</a></code> for importing CSVs of adjacency/incidence matrices</li>
+<li>Added <code><a href="../reference/read.html">read_dynetml()</a></code> for importing DynetML .xml files (closed <a href="https://github.com/snlab-ch/migraph/issues/261" class="external-link">#261</a>)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="manipulations-0-13-2">Manipulations<a class="anchor" aria-label="anchor" href="#manipulations-0-13-2"></a></h3>
+<ul><li>Added list method for <code><a href="../reference/as.html">as_tidygraph()</a></code> for merging nodelists and edgelists<ul><li>Note that a named list is expected, with names “nodes” and “ties”</li></ul></li>
+<li>Added igraph method for <code><a href="../reference/as.html">as_siena()</a></code><ul><li>Note that this is a WIP proof of concept, and will currently only create the DV</li></ul></li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.13.1" id="migraph-0131">migraph 0.13.1<a class="anchor" aria-label="anchor" href="#migraph-0131"></a></h2>
 <div class="section level3">
@@ -1590,7 +1606,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

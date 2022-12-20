@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.2</span>
       </span>
     </div>
 
@@ -68,7 +68,7 @@
         </td>
         <td><p>Make networks with a stochastic element</p></td>
       </tr><tr><td>
-          <p><code><a href="read.html">read_edgelist()</a></code> <code><a href="read.html">write_edgelist()</a></code> <code><a href="read.html">read_nodelist()</a></code> <code><a href="read.html">write_nodelist()</a></code> <code><a href="read.html">read_pajek()</a></code> <code><a href="read.html">write_pajek()</a></code> <code><a href="read.html">read_ucinet()</a></code> <code><a href="read.html">write_ucinet()</a></code> </p>
+          <p><code><a href="read.html">read_matrix()</a></code> <code><a href="read.html">read_edgelist()</a></code> <code><a href="read.html">write_edgelist()</a></code> <code><a href="read.html">read_nodelist()</a></code> <code><a href="read.html">write_nodelist()</a></code> <code><a href="read.html">read_pajek()</a></code> <code><a href="read.html">write_pajek()</a></code> <code><a href="read.html">read_ucinet()</a></code> <code><a href="read.html">write_ucinet()</a></code> <code><a href="read.html">read_dynetml()</a></code> </p>
         </td>
         <td><p>Make networks from/to external formats</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
@@ -76,7 +76,7 @@
           <p class="section-desc"></p><p>Functions for coercing objects between different classes, reformatting or transforming the type of network, or adding information to or retrieving information from the network.</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="as.html">as_edgelist()</a></code> <code><a href="as.html">as_matrix()</a></code> <code><a href="as.html">as_igraph()</a></code> <code><a href="as.html">as_tidygraph()</a></code> <code><a href="as.html">as_network()</a></code> <code><a href="as.html">as_graphAM()</a></code> </p>
+          <p><code><a href="as.html">as_edgelist()</a></code> <code><a href="as.html">as_matrix()</a></code> <code><a href="as.html">as_igraph()</a></code> <code><a href="as.html">as_tidygraph()</a></code> <code><a href="as.html">as_network()</a></code> <code><a href="as.html">as_siena()</a></code> <code><a href="as.html">as_graphAM()</a></code> </p>
         </td>
         <td><p>Coercion between migraph-compatible object classes</p></td>
       </tr><tr><td>
@@ -101,7 +101,7 @@
         <td><p>Grab various node or edge attributes from a network</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="marks">Marks <a href="#marks" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions for identifying properties of graphs, nodes or ties, all returning logical scalars or vectors. Note that all <code>node_</code> and <code>tie_</code> measures return a single vector so that they can be added directly to graph objects. <code>graph_</code> measures return one or, in some cases of two-mode measures, two values.</p>
+          <p class="section-desc"></p><p>Functions for identifying properties of graphs, nodes or ties, all returning logical scalars or vectors. Note that all <code>node_</code> and <code>tie_</code> measures return a single vector so that they can be added directly to graph objects. <code>network_</code> measures return one or, in some cases of two-mode measures, two values.</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="is.html">is_migraph()</a></code> <code><a href="is.html">is_graph()</a></code> <code><a href="is.html">is_edgelist()</a></code> <code><a href="is.html">is_twomode()</a></code> <code><a href="is.html">is_weighted()</a></code> <code><a href="is.html">is_directed()</a></code> <code><a href="is.html">is_labelled()</a></code> <code><a href="is.html">is_signed()</a></code> <code><a href="is.html">is_connected()</a></code> <code><a href="is.html">is_complex()</a></code> <code><a href="is.html">is_multiplex()</a></code> <code><a href="is.html">is_uniplex()</a></code> <code><a href="is.html">is_acyclic()</a></code> <code><a href="is.html">is_aperiodic()</a></code> <code><a href="is.html">is_perfect_matching()</a></code> <code><a href="is.html">is_eulerian()</a></code> </p>
@@ -117,7 +117,7 @@
         <td><p>Marking ties based on their properties</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="measures">Measures <a href="#measures" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions for measuring multimodal networks, all returning numeric scalars or vectors. Note that all <code>node_</code> and <code>tie_</code> measures return a single vector so that they can be added directly to graph objects. <code>graph_</code> measures return one or, in some cases of two-mode measures, two values.</p>
+          <p class="section-desc"></p><p>Functions for measuring multimodal networks, all returning numeric scalars or vectors. Note that all <code>node_</code> and <code>tie_</code> measures return a single vector so that they can be added directly to graph objects. <code>network_</code> measures return one or, in some cases of two-mode measures, two values.</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="cohesion.html">network_density()</a></code> <code><a href="cohesion.html">network_components()</a></code> <code><a href="cohesion.html">network_cohesion()</a></code> <code><a href="cohesion.html">network_adhesion()</a></code> <code><a href="cohesion.html">network_diameter()</a></code> <code><a href="cohesion.html">network_length()</a></code> </p>
@@ -126,7 +126,7 @@
       </tr><tr><td>
           <p><code><a href="centrality.html">node_degree()</a></code> <code><a href="centrality.html">node_closeness()</a></code> <code><a href="centrality.html">node_betweenness()</a></code> <code><a href="centrality.html">node_eigenvector()</a></code> <code><a href="centrality.html">node_reach()</a></code> <code><a href="centrality.html">node_power()</a></code> </p>
         </td>
-        <td><p>Measures of node and tie centrality</p></td>
+        <td><p>Measures of node centrality</p></td>
       </tr><tr><td>
           <p><code><a href="tie_centrality.html">tie_degree()</a></code> <code><a href="tie_centrality.html">tie_closeness()</a></code> <code><a href="tie_centrality.html">tie_betweenness()</a></code> <code><a href="tie_centrality.html">tie_eigenvector()</a></code> </p>
         </td>
@@ -153,7 +153,7 @@
         <td><p>Measures of network topological features</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="motifs">Motifs <a href="#motifs" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions for calculating subgraphs in multimodal networks. These functions have an additional dimension than <code>node_</code> and <code>graph_</code> measures and marks that capture the different motifs surveyed.</p>
+          <p class="section-desc"></p><p>Functions for calculating subgraphs in multimodal networks. These functions have an additional dimension than <code>node_</code> and <code>network_</code> measures and marks that capture the different motifs surveyed.</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="brokerage_census.html">node_brokerage_census()</a></code> <code><a href="brokerage_census.html">network_brokerage_census()</a></code> </p>
@@ -313,7 +313,7 @@ book characters (Yüksel 2017)</p></td>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

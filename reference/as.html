@@ -31,7 +31,7 @@ object classes, which could otherwise lead to some unexpected results."><meta pr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.2</span>
       </span>
     </div>
 
@@ -96,6 +96,8 @@ object classes, which could otherwise lead to some unexpected results.</p>
 <span><span class="fu">as_tidygraph</span><span class="op">(</span><span class="va">object</span>, twomode <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">as_network</span><span class="op">(</span><span class="va">object</span>, twomode <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">as_siena</span><span class="op">(</span><span class="va">object</span>, twomode <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">as_graphAM</span><span class="op">(</span><span class="va">object</span>, twomode <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -171,9 +173,9 @@ specified to override this heuristic.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> B 1 0 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> C 1 1 0</span>
 <span class="r-in"><span><span class="fu">as_igraph</span><span class="op">(</span><span class="va">test</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH 68ff3ac DN-B 6 5 -- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH 7757f80 DN-B 6 5 -- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + attr: name (v/c), type (v/l)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from 68ff3ac (vertex names):</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from 7757f80 (vertex names):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] A-&gt;I B-&gt;G B-&gt;I C-&gt;G C-&gt;H</span>
 <span class="r-in"><span><span class="fu">as_tidygraph</span><span class="op">(</span><span class="va">test</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tbl_graph: 6 nodes and 5 edges</span></span>
@@ -277,7 +279,7 @@ specified to override this heuristic.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
