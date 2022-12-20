@@ -59,7 +59,7 @@ reference:
       all returning logical scalars or vectors.
       Note that all `node_` and `tie_` measures return a single vector
       so that they can be added directly to graph objects.
-      `graph_` measures return one or, in some cases of two-mode measures,
+      `network_` measures return one or, in some cases of two-mode measures,
       two values.
     contents:
       - contains("is_")
@@ -69,7 +69,7 @@ reference:
       all returning numeric scalars or vectors.
       Note that all `node_` and `tie_` measures return a single vector
       so that they can be added directly to graph objects.
-      `graph_` measures return one or, in some cases of two-mode measures,
+      `network_` measures return one or, in some cases of two-mode measures,
       two values.
     contents:
       - cohesion
@@ -83,7 +83,7 @@ reference:
   - title: "Motifs"
     desc: |
       Functions for calculating subgraphs in multimodal networks.
-      These functions have an additional dimension than `node_` and `graph_`
+      These functions have an additional dimension than `node_` and `network_`
       measures and marks that capture the different motifs surveyed.
     contents:
       - ends_with("_census")
