@@ -76,7 +76,7 @@ test_that("as_edgelist converts correctly", {
 })
 
 # test conversion of siena objects
-test_that("as_tidygraph.siena converts correctly", {
-  expect_equal(network_nodes(as_igraph(sienadata)), network_nodes(as_matrix(sienadata)))
-  expect_equal(network_nodes(as_igraph(sienadata)), length(sienadata[["nodeSets"]][["Actors"]]))
-})
+# test_that("as_tidygraph.siena converts correctly", {
+#   expect_equal(network_nodes(as_igraph(sienadata)), network_nodes(as_matrix(sienadata)))
+#   expect_equal(network_nodes(as_igraph(sienadata)), length(sienadata[["nodeSets"]][["Actors"]]))
+# })

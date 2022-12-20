@@ -156,5 +156,5 @@ plot.network_test <- function(x, ...,
   }
   p + ggplot2::theme_classic() + ggplot2::geom_density() +
     ggplot2::geom_vline(ggplot2::aes(xintercept = x$testval),
-                        color="red", size=1.2) + ggplot2::ylab("Density")
+                        color="red", linewidth=1.2) + ggplot2::ylab("Density")
 }

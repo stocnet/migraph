@@ -535,6 +535,9 @@ read_dynetml <- function(file = file.choose()) {
   if(!requireNamespace("xml2", quietly = TRUE)){
     stop("Please install `xml2` from CRAN to import DynetML files.")
   } else {
+    
+    name <- type <- nodeset <- target <- value <- NULL
+    
     xmlfile <- xml2::read_xml(file)
     xmllist <- xml2::as_list(xmlfile)
     

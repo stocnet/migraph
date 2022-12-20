@@ -8,7 +8,7 @@
 \alias{node_eigenvector}
 \alias{node_reach}
 \alias{node_power}
-\title{Measures of node and tie centrality}
+\title{Measures of node centrality}
 \usage{
 node_degree(
   object,
