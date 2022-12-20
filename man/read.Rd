@@ -2,6 +2,7 @@
 % Please edit documentation in R/make_read.R
 \name{read}
 \alias{read}
+\alias{read_matrix}
 \alias{read_edgelist}
 \alias{write_edgelist}
 \alias{read_nodelist}
@@ -17,6 +18,8 @@
 constructed on 18 June 2015.
 }
 \usage{
+read_matrix(file = file.choose(), sv = c("comma", "semi-colon"), ...)
+
 read_edgelist(file = file.choose(), sv = c("comma", "semi-colon"), ...)
 
 write_edgelist(object, filename, name, ...)
@@ -66,12 +69,13 @@ By default the name will be the same as the object.}
 \item{ties}{Where there are}
 }
 \value{
-The \code{read_edgelist()} and \code{read_nodelist()} functions will import
+\code{read_edgelist()} and \code{read_nodelist()} will import
 into edgelist (tibble) format which can then be coerced or combined into
 different graph objects from there.
 
-The \code{read_pajek()} and \code{read_ucinet()} functions will import into
+\code{read_pajek()} and \code{read_ucinet()} will import into
 a tidygraph format, since they already contain both edge and attribute data.
+\code{read_matrix()} will import into tidygraph format too.
 Note that all graphs can be easily coerced into other formats
 with \code{{migraph}}'s \code{as_} methods.
 
@@ -119,6 +123,8 @@ you will need to unpack them and convert them one by one.
 }
 \section{Functions}{
 \itemize{
+\item \code{read_matrix()}: Reading adjacency matrices from Excel/csv files
+
 \item \code{read_edgelist()}: Reading edgelists from Excel/csv files
 
 \item \code{write_edgelist()}: Writing edgelists to csv files

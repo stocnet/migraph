@@ -19,12 +19,13 @@
 #' @param sv Allows users to specify whether their csv file is
 #' `"comma"` (English) or `"semi-colon"` (European) separated.
 #' @param ... Additional parameters passed to the read/write function.
-#' @return The `read_edgelist()` and `read_nodelist()` functions will import
+#' @return `read_edgelist()` and `read_nodelist()` will import
 #' into edgelist (tibble) format which can then be coerced or combined into
 #' different graph objects from there.
 #'
-#' The `read_pajek()` and `read_ucinet()` functions will import into
+#' `read_pajek()` and `read_ucinet()` will import into
 #' a tidygraph format, since they already contain both edge and attribute data.
+#' `read_matrix()` will import into tidygraph format too.
 #' Note that all graphs can be easily coerced into other formats
 #' with `{migraph}`'s `as_` methods.
 #'
@@ -65,6 +66,34 @@
 #' @name read
 #' @seealso [as]
 NULL
+
+#' @describeIn read Reading adjacency matrices from Excel/csv files
+#' @export
+read_matrix <- function(file = file.choose(),
+                          sv = c("comma", "semi-colon"),
+                          ...) {
+  sv <- match.arg(sv)
+  if (grepl("csv$", file)) {
+    if (sv == "comma") {
+      out <- read.csv(file, ...) # For US
+    } else {
+      out <- read.csv2(file, ...) # For EU
+    }
+  } else if (grepl("xlsx$|xls$", file)) {
+    if(requireNamespace("readxl", quietly = TRUE)){
+      out <- readxl::read_excel(file, ...)  
+    } else stop("Please install `readxl` from CRAN to import Excel files.")
+  }
+  if((dim(out)[1]+1) == dim(out)[2])
+    out <- out[,-1]
+  if(!is.null(colnames(out)) & 
+     all(colnames(out) == paste0("X",1:length(colnames(out)))))
+    colnames(out) <- NULL
+  if(!is.null(colnames(out)) & is.null(rownames(out)) &
+     dim(out)[1] == dim(out)[2])
+    rownames(out) <- colnames(out)
+  as_tidygraph(as.matrix(out))
+}
 
 #' @describeIn read Reading edgelists from Excel/csv files
 #' @export
