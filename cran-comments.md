@@ -8,6 +8,3 @@
 ## R CMD check results
 
 0 errors | 0 warnings | 0 notes
-
-- Package size no longer over 5MB
-  - Using learnr tutorials instead of vignettes
