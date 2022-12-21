@@ -9,6 +9,7 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(migraph)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -119,6 +120,44 @@ The syntax is quite straight forward and is used throughout these vignettes.
 ```{r patchwork-solution}
 autographr(ison_adolescents) + autographr(ison_algebra)
 autographr(ison_adolescents) / autographr(ison_algebra)
+```
+
+### Adding legends
+
+By default, `{migraph}` doesn't add legends automatically, 
+as often the colours are pretty self-explanatory,
+for example in the following figure.
+
+```{r maxbet}
+ison_adolescents %>% 
+  mutate(maxbet = node_is_max(node_betweenness(ison_adolescents))) %>% 
+  autographr(node_color = "maxbet")
+```
+
+But other times it is important to add in a legend.
+`{migraph}` supports the `{ggplot2}` way of adding legends
+after the main plot has been constructed,
+using `guides()` to add in the legends,
+and `labs()` for giving those legends particular titles.
+
+```{r discipline, exercise = TRUE}
+
+```
+
+```{r discipline-solution}
+ison_networkers %>% 
+  autographr(node_color = "Discipline") +
+  guides(color = "legend") + 
+  labs(color = "Discipline")
+```
+
+```{r discq}
+question("What discipline is Charles Kadushin in according to this graph?",
+         answer("Anthropology"),
+         answer("Mathematics/Statistics"),
+         answer("Other"),
+         answer("Sociology", correct = TRUE),
+        allow_retry = TRUE, random_answer_order = TRUE)
 ```
 
 ### Layouts
