@@ -65,6 +65,7 @@ autographr(to_uniplex(both, "orig"))
 Other manipulations: 
 \code{\link{as}()},
 \code{\link{grab}},
+\code{\link{na}},
 \code{\link{reformat}},
 \code{\link{split}()},
 \code{\link{transform}()}

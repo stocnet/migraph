@@ -103,6 +103,7 @@ network_tie_attributes(mpn_elite_mex)
 Other manipulations: 
 \code{\link{add}},
 \code{\link{as}()},
+\code{\link{na}},
 \code{\link{reformat}},
 \code{\link{split}()},
 \code{\link{transform}()}

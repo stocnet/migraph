@@ -61,6 +61,7 @@ Other manipulations:
 \code{\link{add}},
 \code{\link{as}()},
 \code{\link{grab}},
+\code{\link{na}},
 \code{\link{reformat}},
 \code{\link{transform}()}
 }

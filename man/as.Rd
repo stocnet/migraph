@@ -105,6 +105,7 @@ as_graphAM(test)
 Other manipulations: 
 \code{\link{add}},
 \code{\link{grab}},
+\code{\link{na}},
 \code{\link{reformat}},
 \code{\link{split}()},
 \code{\link{transform}()}

@@ -1044,3 +1044,101 @@ to_components.data.frame <- function(object){
 }
 
 
+# Missing ####
+
+#' Tools for imputing missing tie data
+#' 
+#' These functions offer tools for imputing missing tie data.
+#' @name na
+#' @family manipulations
+NULL
+
+#' @describeIn na Impute missing tie data as null,
+#'   the modal value in sparse social networks.
+#' @examples 
+#' missTest <- ison_adolescents %>% 
+#'    add_tie_attribute("weight", c(1,NA,NA,1,1,1,NA,NA,1,1)) %>% 
+#'    as_matrix
+#' missTest
+#' na_to_null(missTest)
+#' na_to_mean(missTest)
+#' @export
+na_to_null <- function(object) UseMethod("na_to_null")
+
+#' @export
+na_to_null.tbl_graph <- function(object){
+  object %>% activate(edges) %>% 
+    dplyr::filter(!is.na(weight)) %>% 
+    activate(nodes)
+}
+
+#' @export
+na_to_null.igraph <- function(object){
+  as_igraph(na_to_null(as_tidygraph(object)))
+}
+
+#' @export
+na_to_null.network <- function(object){
+  as_network(na_to_null(as_tidygraph(object)))
+}
+
+#' @export
+na_to_null.matrix <- function(object){
+  object[is.na(object)] <- 0
+  object
+}
+
+#' @export
+na_to_null.data.frame <- function(object){
+  object[is.na(object[,3]),3] <- 0
+  object
+}
+
+#' @describeIn na Impute missing tie data as
+#'   the mean value in the network.
+#' @export
+na_to_mean <- function(object) UseMethod("na_to_mean")
+
+#' @export
+na_to_mean.tbl_graph <- function(object){
+  if(is_weighted(object) & any(tie_weights(object)>1)){
+    object %>% activate(edges) %>% 
+      mutate(weight = ifelse(is.na(weight), 
+                             mean(weight, na.rm = TRUE), 
+                             weight)) %>% 
+      activate(nodes)
+  } else {
+    prob <- sum(tie_attribute(object, "weight"), na.rm = TRUE)/
+      sum(!is.na(tie_attribute(object, "weight")))
+    object %>% activate(edges) %>% 
+      mutate(weight = vapply(seq_len(weight),
+                              function(x) ifelse(is.na(x),
+                                             rbinom(1,1,prob),
+                                             x),
+                            numeric(1))) %>% 
+      activate(nodes)
+  }
+}
+
+#' @export
+na_to_mean.igraph <- function(object){
+  as_igraph(na_to_mean(as_tidygraph(object)))
+}
+
+#' @export
+na_to_mean.network <- function(object){
+  as_network(na_to_mean(as_tidygraph(object)))
+}
+
+#' @export
+na_to_mean.matrix <- function(object){
+  if(any(object>1, na.rm = TRUE)){
+    object[is.na(object)] <- mean(object, na.rm = TRUE)
+    object
+  } else {
+    object[is.na(object)] <- rbinom(sum(is.na(object)), 
+                                    1, mean(object, na.rm = TRUE))
+    object
+  }
+}
+
