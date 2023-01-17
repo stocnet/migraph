@@ -460,3 +460,11 @@ graph_smallworld <- function(object, times = 100) {
   network_smallworld(object, times = times)
 }
 
+#' @describeIn defunct Deprecated on 2022-09-25.
+#' @export
+network_homophily <- function(object, attribute) {
+  .Deprecated("network_heterophily", package = "migraph",
+              old = "network_homophily")
+  network_heterophily(object, attribute)
+}
+

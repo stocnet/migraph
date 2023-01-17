@@ -106,10 +106,10 @@ node_diversity <- function(object, attribute){
 #'   Informal networks and organizational crises: an experimental simulation. 
 #'   _Social Psychology Quarterly_ 51(2), 123-140.
 #' @examples 
-#' network_homophily(marvel_friends, "Gender")
-#' network_homophily(marvel_friends, "Attractive")
+#' network_heterophily(marvel_friends, "Gender")
+#' network_heterophily(marvel_friends, "Attractive")
 #' @export
-network_homophily <- function(object, attribute){
+network_heterophily <- function(object, attribute){
   m <- as_matrix(object)
   if (length(attribute) == 1 && is.character(attribute)) {
     attribute <- node_attribute(object, attribute)
@@ -118,9 +118,9 @@ network_homophily <- function(object, attribute){
     attribute <- as.factor(attribute)
   }
   same <- outer(attribute, attribute, "==")
-  nInternal <- sum(m * same)
-  nExternal <- sum(m) - nInternal
-  ei <- (nExternal - nInternal) / sum(m)
+  nInternal <- sum(m * same, na.rm = TRUE)
+  nExternal <- sum(m, na.rm = TRUE) - nInternal
+  ei <- (nExternal - nInternal) / sum(m, na.rm = TRUE)
   make_network_measure(ei, object)
 }
 
