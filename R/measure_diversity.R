@@ -127,16 +127,27 @@ network_heterophily <- function(object, attribute){
 #' @describeIn diversity Calculates each node's embeddedness within groups
 #'    of nodes with the same attribute
 #' @examples 
-#' node_homophily(marvel_friends, "Gender")
-#' node_homophily(marvel_friends, "Attractive")
+#' node_heterophily(marvel_friends, "Gender")
+#' node_heterophily(marvel_friends, "Attractive")
 #' @export
-node_homophily <- function(object, attribute){
-  out <- vapply(igraph::ego(as_igraph(object)),
-         function(x) network_homophily(
-           igraph::induced_subgraph(as_igraph(object), x),
-           attribute),
-         FUN.VALUE = numeric(1))
-  make_node_measure(out, object)
+node_heterophily <- function(object, attribute){
+  m <- as_matrix(object)
+  if (length(attribute) == 1 && is.character(attribute)) {
+    attribute <- node_attribute(object, attribute)
+  }
+  if (is.character(attribute) | is.numeric(attribute)) {
+    attribute <- as.factor(attribute)
+  }
+  if(anyNA(attribute)){
+    m[is.na(attribute),] <- NA
+    m[,is.na(attribute)] <- NA
+  }
+  same <- outer(attribute, attribute, "==")
+  nInternal <- rowSums(m * same, na.rm = TRUE)
+  nInternal[is.na(attribute)] <- NA
+  nExternal <- rowSums(m, na.rm = TRUE) - nInternal
+  ei <- (nExternal - nInternal) / rowSums(m, na.rm = TRUE)
+  make_node_measure(ei, object)
 }
 
 #' @describeIn diversity Calculates the degree assortativity in a graph.

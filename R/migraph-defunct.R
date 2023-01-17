@@ -468,3 +468,11 @@ network_homophily <- function(object, attribute) {
   network_heterophily(object, attribute)
 }
 
+#' @describeIn defunct Deprecated on 2022-09-25.
+#' @export
+node_homophily <- function(object, attribute) {
+  .Deprecated("node_heterophily", package = "migraph",
+              old = "node_homophily")
+  node_heterophily(object, attribute)
+}
+

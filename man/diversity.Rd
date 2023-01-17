@@ -6,8 +6,8 @@
 \alias{node_richness}
 \alias{network_diversity}
 \alias{node_diversity}
-\alias{network_homophily}
-\alias{node_homophily}
+\alias{network_heterophily}
+\alias{node_heterophily}
 \alias{network_assortativity}
 \title{Measures of network diversity}
 \usage{
@@ -19,9 +19,9 @@ network_diversity(object, attribute, clusters = NULL)
 
 node_diversity(object, attribute)
 
-network_homophily(object, attribute)
+network_heterophily(object, attribute)
 
-node_homophily(object, attribute)
+node_heterophily(object, attribute)
 
 network_assortativity(object)
 }
@@ -59,10 +59,10 @@ within clusters by node attributes.
 \item \code{node_diversity()}: Calculates the heterogeneity of each node's
 local neighbourhood.
 
-\item \code{network_homophily()}: Calculates how embedded nodes in the network
+\item \code{network_heterophily()}: Calculates how embedded nodes in the network
 are within groups of nodes with the same attribute
 
-\item \code{node_homophily()}: Calculates each node's embeddedness within groups
+\item \code{node_heterophily()}: Calculates each node's embeddedness within groups
 of nodes with the same attribute
 
 \item \code{network_assortativity()}: Calculates the degree assortativity in a graph.
@@ -103,10 +103,10 @@ network_diversity(marvel_friends, "Attractive")
 network_diversity(marvel_friends, "Gender", "Rich")
 node_diversity(marvel_friends, "Gender")
 node_diversity(marvel_friends, "Attractive")
-network_homophily(marvel_friends, "Gender")
-network_homophily(marvel_friends, "Attractive")
-node_homophily(marvel_friends, "Gender")
-node_homophily(marvel_friends, "Attractive")
+network_heterophily(marvel_friends, "Gender")
+network_heterophily(marvel_friends, "Attractive")
+node_heterophily(marvel_friends, "Gender")
+node_heterophily(marvel_friends, "Attractive")
 network_assortativity(mpn_elite_mex)
 }
 \references{
