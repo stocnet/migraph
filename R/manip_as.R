@@ -766,7 +766,7 @@ as_siena.igraph <- function(object, twomode = FALSE){
     # list2env(consvars, envir = .newEnv)
     # RSiena::varCovar()
     
-    RSiena::sienaDataCreate(depnet)
+    RSiena::sienaDataCreate(list("depnet" = depnet))
   }
 }
 
