@@ -5,6 +5,7 @@
 \alias{play_diffusion}
 \alias{play_diffusions}
 \alias{play_learning}
+\alias{play_segregation}
 \title{Functions to play games on networks}
 \usage{
 play_diffusion(
@@ -35,6 +36,8 @@ play_diffusions(
 )
 
 play_learning(object, beliefs, steps, epsilon = 5e-04)
+
+play_segregation(object, membership, heterophily = 0, steps)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -136,6 +139,8 @@ Functions to play games on networks
 
 \item \code{play_learning()}: Playing DeGroot learning on networks.
 
+\item \code{play_segregation()}: Playing Schelling segregation on networks.
+
 }}
 \examples{
 plot(play_diffusion(generate_smallworld(15, 0.025)))
@@ -144,6 +149,12 @@ plot(play_diffusion(generate_smallworld(15, 0.025), recovery = 0.4))
 plot(play_diffusions(generate_smallworld(15, 0.025), times = 20))
 play_learning(ison_networkers, 
       rbinom(network_nodes(ison_networkers),1,prob = 0.25))
+startValues <- rbinom(100,1,prob = 0.5)
+startValues[sample(seq_len(100), round(100*0.2))] <- NA
+latticeEg <- add_node_attribute(create_lattice(100), "startValues", startValues)
+latticeEg <- add_node_attribute(latticeEg, "name", seq_len(100))
+autographr(latticeEg, node_color = "startValues", node_size = 5) +
+autographr(play_segregation(latticeEg, "startValues", 0.5), node_color = "startValues", node_size = 5)
 }
 \seealso{
 Other models: 

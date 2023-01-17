@@ -218,3 +218,50 @@ play_learning <- function(object,
   
   make_learn_model(out, object)
 }
+
+
+#' @describeIn play Playing Schelling segregation on networks.
+#' @examples 
+#' startValues <- rbinom(100,1,prob = 0.5)
+#' startValues[sample(seq_len(100), round(100*0.2))] <- NA
+#' latticeEg <- add_node_attribute(create_lattice(100), "startValues", startValues)
+#' latticeEg <- add_node_attribute(latticeEg, "name", seq_len(100))
+#' autographr(latticeEg, node_color = "startValues", node_size = 5) +
+#' autographr(play_segregation(latticeEg, "startValues", 0.5), node_color = "startValues", node_size = 5)
+#' @export
+play_segregation <- function(object, 
+                             membership,
+                             heterophily = 0,
+                             steps){
+  n <- network_nodes(object)
+  if(missing(steps)) steps <- n
+  swtch <- function(x,i,j) {x[c(i,j)] <- x[c(j,i)]; x} 
+
+  t = 0
+  temp <- object
+  moved <- NULL
+  while(steps > t){
+    t <- t+1
+    current <- node_attribute(temp, membership)
+    heterophily_scores <- node_heterophily(temp, membership)
+    dissatisfied <- which(heterophily_scores > heterophily)
+    unoccupied <- which(is.na(current))
+    dissatisfied <- setdiff(dissatisfied, unoccupied)
+    dissatisfied <- setdiff(dissatisfied, moved)
+    if(length(dissatisfied)==0) break
+    dissatisfied <- dissatisfied[1]
+    options <- vapply(unoccupied, function(u){
+      test <- add_node_attribute(temp, "test", 
+                                 swtch(current, dissatisfied, u))
+      node_heterophily(test, "test")[u]
+    }, FUN.VALUE = numeric(1))
+    if(length(options)==0) next
+    move_to <- unoccupied[which(options <= heterophily)[1]]
+    if(is.na(move_to)) next
+    print(paste("Moving node", dissatisfied, "to node", move_to))
+    temp <- add_node_attribute(temp, membership, 
+                               swtch(current, dissatisfied, move_to))
+    moved <- c(dissatisfied, moved)
+  }
+  temp
+}
