@@ -57,6 +57,7 @@
 \alias{graph_node_attributes}
 \alias{graph_smallworld}
 \alias{network_homophily}
+\alias{node_homophily}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 add_edge_attribute(object, attr_name, vector)
@@ -168,6 +169,8 @@ graph_node_attributes(object)
 graph_smallworld(object, times = 100)
 
 network_homophily(object, attribute)
+
+node_homophily(object, attribute)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -289,6 +292,8 @@ wherever possible and update your scripts accordingly.
 \item \code{graph_smallworld()}: Deprecated on 2022-09-25.
 
 \item \code{network_homophily()}: Deprecated on 2022-09-25.
+
+\item \code{node_homophily()}: Deprecated on 2022-09-25.
 
 }}
 \keyword{internal}

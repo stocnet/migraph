@@ -22,7 +22,7 @@ create_star(n, directed = FALSE)
 
 create_tree(n, directed = FALSE, width = 2)
 
-create_lattice(n, directed = FALSE)
+create_lattice(n, max_neighbourhood = 8, directed = FALSE)
 
 create_components(n, membership = NULL)
 

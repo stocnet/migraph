@@ -200,7 +200,8 @@ create_tree <- function(n,
 #' autographr(create_lattice(5), layout = "kk") +
 #' autographr(create_lattice(c(5,5)))
 #' @export
-create_lattice <- function(n,
+create_lattice <- function(n, 
+                           max_neighbourhood = 8,
                            directed = FALSE) {
   n <- infer_n(n)
   
@@ -214,7 +215,20 @@ create_lattice <- function(n,
     if((length(divs) %% 2) == 0){
       dims <- c(divs[length(divs)/2], divs[length(divs)/2+1])
     } else dims <- c(median(divs), median(divs))
-    igraph::make_lattice(dims, nei = 2, directed = directed)
+    if(max_neighbourhood == 8){
+      nei1.5 <- as_matrix(igraph::make_lattice(dims, nei = 2, directed = directed))
+      for(i in 1:(prod(dims)-2)){
+        nei1.5[i,i+2] <- 0
+        if(i+dims[1]*2<=prod(dims))
+          nei1.5[i,i+dims[1]*2] <- 0
+      }
+      nei1.5[lower.tri(nei1.5)] <- t(nei1.5)[lower.tri(nei1.5)]
+      as_igraph(nei1.5)
+    } else if (max_neighbourhood == 12){
+      igraph::make_lattice(dims, nei = 2, directed = directed)
+    } else if (max_neighbourhood == 4){
+      igraph::make_lattice(dims, nei = 1, directed = directed)
+    } else stop("`max_neighbourhood` expected to be 4, 8, or 12")
   } else {
     divs1 <- divisors(n[1])
     divs2 <- divisors(n[2])
