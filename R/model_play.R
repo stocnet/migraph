@@ -233,10 +233,12 @@ play_segregation <- function(object,
                              attribute,
                              heterophily = 0,
                              who_moves = c("ordered","random","most_dissatisfied"),
+                             choice_function = c("satisficing","optimising"),
                              steps){
   n <- network_nodes(object)
   if(missing(steps)) steps <- n
   who_moves <- match.arg(who_moves)
+  choice_function <- match.arg(choice_function)
   swtch <- function(x,i,j) {x[c(i,j)] <- x[c(j,i)]; x} 
 
   t = 0
@@ -263,7 +265,9 @@ play_segregation <- function(object,
       node_heterophily(test, "test")[u]
     }, FUN.VALUE = numeric(1))
     if(length(options)==0) next
-    move_to <- unoccupied[which(options <= heterophily)[1]]
+    move_to <- switch(choice_function,
+                      satisficing = unoccupied[which(options <= heterophily)[1]],
+                      optimising = unoccupied[which(options == min(options))[1]])
     if(is.na(move_to)) next
     print(paste("Moving node", dissatisfied, "to node", move_to))
     temp <- add_node_attribute(temp, attribute, 
