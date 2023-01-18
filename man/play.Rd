@@ -37,7 +37,14 @@ play_diffusions(
 
 play_learning(object, beliefs, steps, epsilon = 5e-04)
 
-play_segregation(object, membership, heterophily = 0, steps)
+play_segregation(
+  object,
+  attribute,
+  heterophily = 0,
+  who_moves = c("ordered", "random", "most_dissatisfied"),
+  choice_function = c("satisficing", "optimising"),
+  steps
+)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:

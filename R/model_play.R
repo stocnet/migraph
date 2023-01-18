@@ -239,6 +239,8 @@ play_segregation <- function(object,
   if(missing(steps)) steps <- n
   who_moves <- match.arg(who_moves)
   choice_function <- match.arg(choice_function)
+  if(length(heterophily)==1) heterophily <- rep(heterophily, n)
+  if(length(heterophily)!=n) stop("Heterophily threshold must be the same length as the number of nodes in the network.")
   swtch <- function(x,i,j) {x[c(i,j)] <- x[c(j,i)]; x} 
 
   t = 0
