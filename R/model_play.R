@@ -230,11 +230,13 @@ play_learning <- function(object,
 #' autographr(play_segregation(latticeEg, "startValues", 0.5), node_color = "startValues", node_size = 5)
 #' @export
 play_segregation <- function(object, 
-                             membership,
+                             attribute,
                              heterophily = 0,
+                             who_moves = c("ordered","random","most_dissatisfied"),
                              steps){
   n <- network_nodes(object)
   if(missing(steps)) steps <- n
+  who_moves <- match.arg(who_moves)
   swtch <- function(x,i,j) {x[c(i,j)] <- x[c(j,i)]; x} 
 
   t = 0
@@ -242,14 +244,19 @@ play_segregation <- function(object,
   moved <- NULL
   while(steps > t){
     t <- t+1
-    current <- node_attribute(temp, membership)
-    heterophily_scores <- node_heterophily(temp, membership)
+    current <- node_attribute(temp, attribute)
+    heterophily_scores <- node_heterophily(temp, attribute)
     dissatisfied <- which(heterophily_scores > heterophily)
     unoccupied <- which(is.na(current))
     dissatisfied <- setdiff(dissatisfied, unoccupied)
     dissatisfied <- setdiff(dissatisfied, moved)
     if(length(dissatisfied)==0) break
-    dissatisfied <- dissatisfied[1]
+    dissatisfied <- switch(who_moves,
+                           ordered = dissatisfied[1],
+                           random = sample(dissatisfied, 1),
+                           most_dissatisfied = dissatisfied[
+                             which(heterophily_scores[dissatisfied] == 
+                                     max(heterophily_scores[dissatisfied]))[1]])
     options <- vapply(unoccupied, function(u){
       test <- add_node_attribute(temp, "test", 
                                  swtch(current, dissatisfied, u))
@@ -259,7 +266,7 @@ play_segregation <- function(object,
     move_to <- unoccupied[which(options <= heterophily)[1]]
     if(is.na(move_to)) next
     print(paste("Moving node", dissatisfied, "to node", move_to))
-    temp <- add_node_attribute(temp, membership, 
+    temp <- add_node_attribute(temp, attribute, 
                                swtch(current, dissatisfied, move_to))
     moved <- c(dissatisfied, moved)
   }
