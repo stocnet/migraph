@@ -9,14 +9,14 @@ runtime: shiny_prerendered
 
 ```{r setup, include = FALSE}
 library(learnr)
-library(migraph)
+library(manynet)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
 ## Setting up
 
-The data we're going to use here is included in the `{migraph}` package.
+The data we're going to use here is included in the `{manynet}` package.
 This dataset is multiplex, meaning that it contains 
 several different types of ties: 
 friendship, social and task interactions.
@@ -27,14 +27,14 @@ friendship, social and task interactions.
 
 ```{r data-hint}
 # Let's call and load the 'ison_algebra' dataset
-data("ison_algebra", package = "migraph")
+data("ison_algebra", package = "manynet")
 
 # If you want to learn more about the 'ison_algebra' dataset, use the following function (below)
-?migraph::ison_algebra
+?manynet::ison_algebra
 ```
 
 ```{r data-solution}
-data("ison_algebra", package = "migraph")
+data("ison_algebra", package = "manynet")
 ```
 
 Note that you do not need to load the package using `library()` to get the data.
@@ -102,7 +102,7 @@ Note also that these are weighted networks.
 Where might innovation be most likely to occur in these networks?
 Let's take a look at which actors are least constrained 
 by their position in the *task* network to begin with.
-`{migraph}` makes this easy enough with the `node_constraint()` function.
+`{manynet}` makes this easy enough with the `node_constraint()` function.
 
 ```{r objects-setup}
 friends <- to_uniplex(ison_algebra, "friends")
@@ -175,7 +175,7 @@ across all the data that we have, including 'task', 'social', and 'friend' ties.
 
 ### Finding structurally equivalent classes
 
-In `{migraph}`, finding how the nodes of a network can be partitioned
+In `{manynet}`, finding how the nodes of a network can be partitioned
 into structurally equivalent classes is as easy as:
 
 ```{r find-se, exercise = TRUE, exercise.setup = "data"}
@@ -191,8 +191,8 @@ But actually, a lot is going on behind the scenes here that we can unpack.
 ### Step one: starting with a census
 
 All equivalence classes are based on nodes' similarity across some profile of motifs.
-In `{migraph}`, we call these motif *censuses*.
-Any kind of census can be used, and `{migraph}` includes a few options,
+In `{manynet}`, we call these motif *censuses*.
+Any kind of census can be used, and `{manynet}` includes a few options,
 but `node_structural_equivalence()` is based off of the census of all the nodes' ties,
 both outgoing and incoming ties, to reveal their relationships to tie partners.
 
@@ -245,7 +245,7 @@ what would you do if you wanted it to be binary?
 Note that `node_tie_census()` does not need to be passed to `node_structural_equivalence()` ---
 this is done automatically --- 
 but the more generic `node_equivalence()` can be used with whichever tie census is desired.
-Feel free to explore using some of the other censuses available in `{migraph}`,
+Feel free to explore using some of the other censuses available in `{manynet}`,
 though some common ones are already used in the other equivalence convenience functions,
 `node_regular_equivalence()` and `node_automorphic_equivalence()`.
 
@@ -261,7 +261,7 @@ so that help page should be consulted for more details.
 By default `"euclidean"` is used.
 
 Second, we can also set the type of clustering algorithm employed.
-By default, `{migraph}`'s equivalence functions use hierarchical clustering, `"hier"`,
+By default, `{manynet}`'s equivalence functions use hierarchical clustering, `"hier"`,
 but for compatibility and enthusiasts, we also offer `"concor"`,
 which implements a CONCOR (CONvergence of CORrelations) algorithm.
 
@@ -287,7 +287,7 @@ question("Do you see any differences?",
         allow_retry = TRUE)
 ```
 
-So plotting a `membership` vector from `{migraph}` returns a dendrogram
+So plotting a `membership` vector from `{manynet}` returns a dendrogram
 with the names of the nodes on the _y_-axis and the distance between them on the _x_-axis.
 Using the census as material, the distances between the nodes
 is used to create a dendrogram of (dis)similarity among the nodes.
@@ -318,7 +318,7 @@ But where does this red line come from?
 Or, more technically, how do we identify the number of clusters
 into which to assign nodes?
 
-`{migraph}` includes several different ways of establishing `k`,
+`{manynet}` includes several different ways of establishing `k`,
 or the number of clusters.
 Remember, the further to the right the red line is 
 (the lower on the tree the cut point is)
@@ -368,7 +368,7 @@ then we might expect there to be a relatively rapid increase
 in correlation as we move from, for example, 3 clusters to 4 clusters,
 but a relatively small increase from, for example, 13 clusters to 14 clusters.
 By identifying the inflection point in this line graph,
-`{migraph}` selects a number of clusters that represents a trade-off
+`{manynet}` selects a number of clusters that represents a trade-off
 between fit and parsimony.
 This is the `k = "elbow"` method.
 
@@ -419,12 +419,12 @@ Either is probably fine here,
 and there is much debate around how to select the number of clusters anyway,
 but the silhouette method seems to do a better job of identifying how unique
 the 16th node is.
-The silhouette method is also the default in `{migraph}`.
+The silhouette method is also the default in `{manynet}`.
 
 Note that there is a somewhat hidden parameter here, `range`.
 Since testing across all possible numbers of clusters can get 
 computationally expensive (not to mention uninterpretable) for large networks,
-`{migraph}` only considers up to 8 clusters by default.
+`{manynet}` only considers up to 8 clusters by default.
 This however can be modified to be higher or lower, e.g. `range = 16`.
 
 Finally, one last option is `k = "strict"`,

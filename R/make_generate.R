@@ -28,7 +28,7 @@ NULL
 #' autographr(generate_random(c(6, 6), 0.4))
 #' @export
 generate_random <- function(n, p = 0.5, directed = FALSE, with_attr = TRUE) {
-  if(is_migraph(n)){
+  if(is_manynet(n)){
     m <- network_ties(n)
     directed <- is_directed(n)
     if(is_twomode(n)){

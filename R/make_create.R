@@ -26,7 +26,7 @@
 #'   a one-mode network will be created.
 #'   \item A vector of two integers, e.g. `n = c(5,10)`,
 #'   a two-mode network will be created.
-#'   \item A migraph-compatible object,
+#'   \item A manynet-compatible object,
 #'   a network of the same dimensions will be created.
 #'   }
 #' @param directed Logical whether the graph should be directed.
@@ -331,7 +331,7 @@ create_core <- function(n, membership = NULL) {
 # Helper functions ------------------
 
 infer_n <- function(n) {
-  if (is_migraph(n)) n <- network_dims(n)
+  if (is_manynet(n)) n <- network_dims(n)
   if (length(n) > 2) stop(paste("`n` should be a single integer for a one-mode network or",
                              "a vector of two integers for a two-mode network."))
   n

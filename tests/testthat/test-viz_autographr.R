@@ -1,5 +1,5 @@
 # Unweighted, unsigned, undirected network
-test_brandes <- autographr(migraph::ison_brandes)
+test_brandes <- autographr(manynet::ison_brandes)
 
 test_that("unweighted, unsigned, undirected networks graph correctly", {
   # Node position
@@ -142,8 +142,8 @@ test_that("fancy node mods graph correctly", {
 })
 
 test_that("edge colours graph correctly", {
-  ison_brandes2 <- migraph::ison_brandes2 %>%
-    migraph::add_tie_attribute("tiecolour",
+  ison_brandes2 <- manynet::ison_brandes2 %>%
+    manynet::add_tie_attribute("tiecolour",
                                 c("A", "B", "A", "B", "B", "B", "B", "B", "B", "B", "B", "B"))
   test_brandes2 <- autographr(ison_brandes2, edge_color = "tiecolour")
   expect_false(is.null(test_brandes2$layers[[1]]$mapping$edge_colour))

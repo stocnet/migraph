@@ -105,7 +105,7 @@ node_triad_census <- function(object){
 #'   the number and configuration of ties.
 #'   For now, we offer a rough translation:
 #'   
-#' | migraph | Ortmann and Brandes      
+#' | manynet | Ortmann and Brandes      
 #' | ------------- |------------- |
 #' | E4  | co-K4
 #' | I40, I41  | co-diamond
@@ -217,7 +217,7 @@ node_path_census <- function(object){
 #' @name network_census
 #' @family motifs
 #' @inheritParams node_census
-#' @param object2 A second, two-mode migraph-consistent object.
+#' @param object2 A second, two-mode manynet-consistent object.
 NULL
 
 #' @describeIn network_census Returns a census of dyad motifs in a network

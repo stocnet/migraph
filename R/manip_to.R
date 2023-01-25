@@ -3,7 +3,7 @@
 #' Tools for reformatting networks, graphs, and matrices
 #' 
 #' @description
-#' These functions offer tools for reformatting migraph-consistent objects
+#' These functions offer tools for reformatting manynet-consistent objects
 #' (matrices, igraph, tidygraph, or network objects).
 #' Unlike the `as_*()` group of functions,
 #' these functions always return the same object type as they are given,
@@ -473,7 +473,7 @@ to_twomode.network <- function(object, mark){
 #' Tools for transforming networks, graphs, and matrices
 #' 
 #' @description
-#' These functions offer tools for transforming migraph-consistent objects
+#' These functions offer tools for transforming manynet-consistent objects
 #' (matrices, igraph, tidygraph, or network objects).
 #' Transforming means that the returned object may have different dimensions
 #' than the original object.
@@ -903,7 +903,7 @@ to_anti.network <- function(object){
 #' Tools for splitting networks, graphs, and matrices
 #' 
 #' @description
-#' These functions offer tools for splitting migraph-consistent objects
+#' These functions offer tools for splitting manynet-consistent objects
 #' (matrices, igraph, tidygraph, or network objects).
 #' Splitting means that the returned object will be a list of objects.
 #' @name split

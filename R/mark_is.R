@@ -2,7 +2,7 @@
 #' 
 #' These functions implement logical tests for various network
 #' properties.
-#' @param object An object of a migraph-consistent class:
+#' @param object An object of a manynet-consistent class:
 #'   \itemize{
 #'   \item matrix (adjacency or incidence) from `{base}` R
 #'   \item edgelist, a data frame from `{base}` R or tibble from `{tibble}`
@@ -15,12 +15,12 @@
 #' @name is
 NULL
 
-#' @describeIn is Tests whether network is migraph-compatible
+#' @describeIn is Tests whether network is manynet-compatible
 #' @importFrom igraph is.igraph
 #' @importFrom tidygraph is.tbl_graph
 #' @importFrom network is.network
 #' @export
-is_migraph <- function(object){
+is_manynet <- function(object){
   tidygraph::is.tbl_graph(object) |
     network::is.network(object) |
     igraph::is.igraph(object) |

@@ -3,13 +3,13 @@
 #' @description 
 #' Researchers regularly need to work with a variety of external data formats.
 #' The following functions offer ways to import from some common external
-#' file formats into objects that `{migraph}` and other graph/network packages
+#' file formats into objects that `{manynet}` and other graph/network packages
 #' in R can work with.
 #' 
 #' Note that these functions are not as actively maintained as others
 #' in the package, so please let us know if any are not currently working
 #' for you or if there are missing import routines 
-#' by [raising an issue on Github](https://github.com/snlab-ch/migraph/issues).
+#' by [raising an issue on Github](https://github.com/snlab-ch/manynet/issues).
 #' @param file A character string with the system path to the file to import.
 #' If left unspecified, an OS-specific file picker is opened to help users select it.
 #' Note that in `read_ucinet()` the file path should be to the header file (.##h),
@@ -27,7 +27,7 @@
 #' a tidygraph format, since they already contain both edge and attribute data.
 #' `read_matrix()` will import into tidygraph format too.
 #' Note that all graphs can be easily coerced into other formats
-#' with `{migraph}`'s `as_` methods.
+#' with `{manynet}`'s `as_` methods.
 #'
 #' The `write_`functions export to different file formats,
 #' depending on the function.

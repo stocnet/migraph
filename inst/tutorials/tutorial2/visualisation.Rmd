@@ -9,7 +9,7 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
-library(migraph)
+library(manynet)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -64,23 +64,23 @@ shiny apps or markdown documents;
 'networkD3' interacts with javascript (D3) to make interactive networks
 (https://www.r-bloggers.com/2016/10/network-visualization-part-6-d3-and-r-networkd3/).
 ]
-This vignette introduces some functions in the `{migraph}` package for plotting and 
+This vignette introduces some functions in the `{manynet}` package for plotting and 
 visualising network data.
-`{migraph}` builds upon the ggplot2/ggraph engine for plotting.
+`{manynet}` builds upon the ggplot2/ggraph engine for plotting.
 
-## Using `{migraph}` to quickly plot network graphs
+## Using `{manynet}` to quickly plot network graphs
   
 To get a basic visualisation of the network before adding various specifications,
-the `autographr()` function in `{migraph}` is a quick and easy way 
+the `autographr()` function in `{manynet}` is a quick and easy way 
 to obtain a clear first look of the network 
 for preliminary investigations and understanding of the network.
 
-```{r migrapheg, exercise=TRUE}
+```{r manyneteg, exercise=TRUE}
 
 ```
   
-```{r migrapheg-solution}
-library(migraph)
+```{r manyneteg-solution}
+library(manynet)
 autographr(ison_brandes)
 ```
   
@@ -94,22 +94,22 @@ the `autographr()` function using the following parameters:
 ### Adding titles and subtitles
 
 Append `ggtitle()` to add a title.
-`{migraph}` works well with both `{ggplot2}` and `{ggraph}` functions 
+`{manynet}` works well with both `{ggplot2}` and `{ggraph}` functions 
 that can be appended to create more tailored visualisations 
 of the network.
 
-```{r migraphexample2, exercise=TRUE}
+```{r manynetexample2, exercise=TRUE}
 
 ```
   
-```{r migraphexample2-solution}
+```{r manynetexample2-solution}
 autographr(ison_adolescents,
            labels = TRUE,
            node_size = 1.5) + 
   ggtitle("Visualisation")
 ```
 
-`{migraph}` also uses the `{patchwork}` package for arranging
+`{manynet}` also uses the `{patchwork}` package for arranging
 graphs together, e.g. side-by-side or above one another.
 The syntax is quite straight forward and is used throughout these vignettes.
 
@@ -124,7 +124,7 @@ autographr(ison_adolescents) / autographr(ison_algebra)
 
 ### Adding legends
 
-By default, `{migraph}` doesn't add legends automatically, 
+By default, `{manynet}` doesn't add legends automatically, 
 as often the colours are pretty self-explanatory,
 for example in the following figure.
 
@@ -135,7 +135,7 @@ ison_adolescents %>%
 ```
 
 But other times it is important to add in a legend.
-`{migraph}` supports the `{ggplot2}` way of adding legends
+`{manynet}` supports the `{ggplot2}` way of adding legends
 after the main plot has been constructed,
 using `guides()` to add in the legends,
 and `labs()` for giving those legends particular titles.
@@ -162,7 +162,7 @@ question("What discipline is Charles Kadushin in according to this graph?",
 
 ### Layouts
 
-A range of graph layouts are available across the `{igraph}`, `{graphlayouts}`, and `{migraph}` packages 
+A range of graph layouts are available across the `{igraph}`, `{graphlayouts}`, and `{manynet}` packages 
 that can be used together with `autographr()`.
 
 ```{r layoutseg, exercise=TRUE}
@@ -211,7 +211,7 @@ autographr(mpn_elite_mex,
 ## Using `{ggraph}` for more flexibility
 
 For more flexibility with visualizations, 
-`{migraph}` users are encouraged to use the excellent `{ggraph}` package.
+`{manynet}` users are encouraged to use the excellent `{ggraph}` package.
 `{ggraph}` is built upon the venerable `{ggplot2}` package
 and works with `tbl_graph` and `igraph` objects.
 As with `{ggplot2}`, `{ggraph}` users are expected to build

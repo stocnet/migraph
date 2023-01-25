@@ -1,3 +1,5 @@
+# manynet 1.0.0
+
 # migraph 0.13.2
 
 ## Package

@@ -3,7 +3,7 @@
 #' Lineage implies a direct descent from an ancestor; ancestry or pedigree.
 #' That is, how observation derives and is connected to previous observations. 
 #' The function plots a lineage graph of citations, amendments, and more, for example.
-#' @param object A migraph-consistent network/graph.
+#' @param object A manynet-consistent network/graph.
 #' @param labels Whether to plot node labels or not. Default: TRUE.
 #' @importFrom ggraph create_layout ggraph geom_edge_diagonal
 #' @importFrom ggplot2 theme_void coord_flip scale_x_reverse

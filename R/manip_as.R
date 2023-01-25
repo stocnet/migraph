@@ -1,7 +1,7 @@
-#' Coercion between migraph-compatible object classes 
+#' Coercion between manynet-compatible object classes 
 #' 
 #' @description
-#' The `as_` functions in `{migraph}` coerce objects
+#' The `as_` functions in `{manynet}` coerce objects
 #' between several common classes of social network objects.
 #' These include:
 #' - edgelists, as data frames or tibbles

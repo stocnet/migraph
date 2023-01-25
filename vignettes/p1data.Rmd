@@ -12,12 +12,12 @@ vignette: >
 
 # Obtaining data
 
-While `{migraph}` includes a number of datasets (see [here](https://snlab-ch.github.io/migraph/reference/index.html#data)),
+While `{manynet}` includes a number of datasets (see [here](https://snlab-ch.github.io/manynet/reference/index.html#data)),
 and there are several packages in R that already include
 a range of social network data,
 there often comes a time when it is necessary to import and analyse data
 from other sources.
-Fortunately, `{migraph}` has a range of tools you can employ to import your data and manipulate it.
+Fortunately, `{manynet}` has a range of tools you can employ to import your data and manipulate it.
 
 ## Finding data
 
@@ -43,7 +43,7 @@ of social or political networks and we would be happy to add them here.
 
 ## Import data
 
-`{migraph}` includes several functions that help 
+`{manynet}` includes several functions that help 
 read from (import) and write to (export) network data 
 in a growing number of formats.
 
@@ -54,7 +54,7 @@ and we can import them from an Excel file or a `.csv` file.^[Note that if you im
 
 
 ```r
-library(migraph)
+library(manynet)
 g1 <- read_edgelist("~Downloads/mynetworkdata.xlsx")
 g1 <- read_edgelist("~Downloads/mynetworkdata.csv", sv = "semi-colon")
 g1 <- read_edgelist()
@@ -70,7 +70,7 @@ In some cases, users will be faced with having to collect data themselves,
 or wish to first manipulate the data in Excel before importing it,
 but may be uncertain about the expected format of an edgelist.
 Here it may be useful to try exporting one of the built-in datasets
-in `{migraph}` to see how complete network data looks.
+in `{manynet}` to see how complete network data looks.
 If this is potentially complex, 
 calling `write_edgelist()` without any arguments will export a test
 file with a barebones structure that you can overwrite with your own data.
@@ -99,7 +99,7 @@ into a data frame or tibble format or 'class' object,
 and `read_` and `write_` `pajek` or `ucinet` will import objects into a
 tidygraph class format.
 
-These can be already useful, as `{migraph}` functions recognise and 
+These can be already useful, as `{manynet}` functions recognise and 
 work with most main classes of network/graph objects in R: 
 edgelists, matrices, igraph, tidygraph, and network objects.
 
@@ -107,17 +107,17 @@ However it is sometimes necessary to convert a given object
 from one class to another.
 Here we can use any of a collection of coercion functions, 
 all prefixed by `as_`, to move from any of those objects
-that `{migraph}` recognises to any other.
+that `{manynet}` recognises to any other.
   
-Let's use one of the built in datasets in `{migraph}` to demonstrate this.
+Let's use one of the built in datasets in `{manynet}` to demonstrate this.
 Davis, Gardner and Gardner's (1941) `ison_southern_women` dataset is a classic
 two-mode network, so let's use this to start with.
-`{migraph}` stores this dataset as an 'igraph' object,
+`{manynet}` stores this dataset as an 'igraph' object,
 though other included datasets are in 'tidygraph' or sometimes 'network' formats.
   
 
 ```r
-library(migraph)
+library(manynet)
 ison_southern_women # this is in igraph format
 #> IGRAPH f8d9f5f UN-B 32 93 -- 
 #> + attr: type (v/l), name (v/c)
@@ -217,10 +217,10 @@ as_edgelist(ison_southern_women) # an edgelist data frame/tibble
 
 ## Transforming network data
   
-Generally, `{migraph}` attempts to retain as much information as possible when converting objects between different classes.
+Generally, `{manynet}` attempts to retain as much information as possible when converting objects between different classes.
 The presumption is that users should explicitly decide to reduce or simplify
 their data.
-`{migraph}` includes [a number of functions](https://snlab-ch.github.io/migraph/reference/reformat.html) 
+`{manynet}` includes [a number of functions](https://snlab-ch.github.io/manynet/reference/reformat.html) 
 for transforming (or removing) certain properties of network objects.
 For example: 
 
@@ -379,7 +379,7 @@ One can bind a single new attribute to the nodes with `add_node_attribute()`
 or copy a set of attributes from one network/graph to another with `copy_node_attributes()`.
 But often the easiest way to do this is to take a network/graph,
 make sure it is first coerced into a tidygraph object,
-and then add any additional nodal attributes (including measures from `{migraph}`)
+and then add any additional nodal attributes (including measures from `{manynet}`)
 as follows:
 
 
@@ -446,7 +446,7 @@ generate_random(10, .3) %>%
 ## Retrieving data
 
 Lastly, sometimes we want to extract certain information from a network or graph object.
-Here too `{migraph}` has you covered.
+Here too `{manynet}` has you covered.
 
 
 ```r

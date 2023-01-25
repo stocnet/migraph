@@ -9,7 +9,7 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
-library(migraph)
+library(manynet)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -26,7 +26,7 @@ so to make this simpler, let's concentrate on:
 - the main (giant) component without any isolates
 - just those characters that appear in the comics more than average
 
-Fortunately, all these data cleaning moves are easy to do in `{migraph}`,
+Fortunately, all these data cleaning moves are easy to do in `{manynet}`,
 and can be seen in the following chunk in order:
 
 ```{r friends, exercise=TRUE}
@@ -223,7 +223,7 @@ distribution of the attribute to find out whether there is
 more homophily or heterophily than expected by chance.
 
 This is called a conditional uniform graph test,
-but `{migraph}` chooses more descriptive function names,
+but `{manynet}` chooses more descriptive function names,
 such as `test_random()`.
 Plot the results of running this function with respect to the EI index
 on each of the three variables used above one thousand times.
@@ -394,7 +394,7 @@ model1 <- network_reg(weight ~ alter(Citations) + sim(Citations) +
 ```
 
 We can use tidy methods to get the salient information from this model,
-and `{migraph}` includes also a plot method for these results to
+and `{manynet}` includes also a plot method for these results to
 facilitate the quick interpretation of these results.
 
 ```{r qapinterp, exercise=TRUE, exercise.setup = "qapmax-solution"}

@@ -7,7 +7,7 @@
 #' preferences regarding node size, colour, and shape. The function also supports
 #' visualisation of network measures such as centrality.
 #' @family mapping
-#' @param object A migraph-consistent object.
+#' @param object A manynet-consistent object.
 #' @param layout An igraph layout algorithm,
 #'   currently defaults to 'stress'.
 #' @param labels Logical, whether to print node names
@@ -88,7 +88,7 @@ autographr <- function(object,
 
 #' @describeIn auto_graph Graphs a list of networks 
 #'   with sensible defaults
-#' @param netlist A list of migraph-compatible networks.
+#' @param netlist A list of manynet-compatible networks.
 #' @importFrom patchwork wrap_plots
 #' @examples 
 #' autographs(to_egos(ison_adolescents))
