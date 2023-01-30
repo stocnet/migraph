@@ -4,6 +4,7 @@
 \alias{auto_graph}
 \alias{autographr}
 \alias{autographs}
+\alias{autographt}
 \title{Quickly graph networks with sensible defaults}
 \usage{
 autographr(
@@ -19,6 +20,8 @@ autographr(
 )
 
 autographs(netlist, ...)
+
+autographt(object, time = "date", ...)
 }
 \arguments{
 \item{object}{A migraph-consistent object.}
@@ -57,6 +60,9 @@ to the graph before plotting.}
 \item{...}{Extra arguments to pass on to \code{autographr()}/\code{ggraph()}/\code{ggplot()}.}
 
 \item{netlist}{A list of migraph-compatible networks.}
+
+\item{time}{A time variable.
+By deafault, "date".}
 }
 \description{
 The aim of this function is to provide users with a quick and easy
@@ -72,6 +78,8 @@ visualisation of network measures such as centrality.
 \item \code{autographs()}: Graphs a list of networks
 with sensible defaults
 
+\item \code{autographt()}: Graphs a network with sensible defaults
+
 }}
 \examples{
 ison_adolescents \%>\% 
@@ -86,6 +94,10 @@ ison_adolescents \%>\%
   autographr(node_color = "high_degree", edge_color = "high_betweenness")
 autographr(mpn_elite_usa_advice, "concentric")
 autographs(to_egos(ison_adolescents))
+#ison_adolescents \%>\%
+#activate(edges) \%>\%
+#mutate(year = 2001:2010) \%>\%
+#autographt(time = "year")
 }
 \seealso{
 Other mapping: 

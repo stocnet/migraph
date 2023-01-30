@@ -103,6 +103,21 @@ autographs <- function(netlist, ...){
   do.call(patchwork::wrap_plots, gs)
 }
 
+#' @describeIn auto_graph Graphs a network with sensible defaults
+#' @param time A time variable.
+#' By deafault, "date".
+#' @importFrom gganimate transition_reveal
+#' @examples
+#' #ison_adolescents %>%
+#' #activate(edges) %>%
+#' #mutate(year = 2001:2010) %>%
+#' #autographt(time = "year")
+#' @export
+autographt <- function(object, time = "date", ...) {
+    autographr(object) +
+    gganimate::transition_reveal(.data[[time]])
+}
+
 #' @importFrom ggraph create_layout ggraph
 #' @importFrom igraph get.vertex.attribute
 #' @importFrom ggplot2 theme_void
@@ -146,13 +161,15 @@ autographs <- function(netlist, ...){
       p <- p + ggraph::geom_node_label(ggplot2::aes(label = name),
                                        label.padding = 0.15,
                                        label.size = 0,
-                                       repel = TRUE)
+                                       repel = TRUE,
+                                       seed = 1234)
     } else { # Plot two modes
       p <- p + ggraph::geom_node_text(ggplot2::aes(label = name),
                                       repel = TRUE,
                                       size = 2,
                                       hjust = "outward",
-                                      nudge_x = ifelse(lo[,1] == 1, 0.05, -0.05))
+                                      nudge_x = ifelse(lo[,1] == 1, 0.05, -0.05),
+                                      seed = 1234)
     }
   }
   

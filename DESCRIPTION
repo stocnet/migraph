@@ -38,7 +38,8 @@ Imports:
     rlang,
     sna,
     tidygraph,
-    tidyr
+    tidyr,
+    gganimate
 Suggests: 
     concaveman,
     covr,
