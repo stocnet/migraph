@@ -6,7 +6,7 @@
 \title{Two-mode southern women (Davis, Gardner and Gardner 1941)}
 \format{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> IGRAPH f8d9f5f UN-B 32 93 -- 
-#> + attr: type (v/l), name (v/c)
+#> + attr: type (v/l), name (v/c), group (v/n)
 #> + edges from f8d9f5f (vertex names):
 #>  [1] EVELYN   --E1 EVELYN   --E2 EVELYN   --E3 EVELYN   --E4 EVELYN   --E5
 #>  [6] EVELYN   --E6 EVELYN   --E8 EVELYN   --E9 LAURA    --E1 LAURA    --E2

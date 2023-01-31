@@ -108,13 +108,24 @@ autographs <- function(netlist, ...){
 #' By deafault, "date".
 #' @importFrom gganimate transition_reveal
 #' @examples
-#' #ison_adolescents %>%
-#' #activate(edges) %>%
-#' #mutate(year = 2001:2010) %>%
-#' #autographt(time = "year")
+#' # ison_adolescents %>%
+#' #   activate(edges) %>%
+#' #   mutate(year = 2001:2010) %>%
+#' #   autographt(time = "year")
+#' # ison_adolescents %>%
+#' #   mutate(shape = rep(c("circle", "square"), times = 4)) %>%
+#' #   mutate(color = rep(c("blue", "red"), times = 4)) %>%
+#' #   activate(edges) %>%
+#' #   mutate(year = 2001:2010) %>%
+#' #   autographt(node_shape = "shape", node_color = "color", time = "year")
 #' @export
-autographt <- function(object, time = "date", ...) {
-    autographr(object) +
+autographt <- function(object, ..., time = "date") {
+  # check if necessary packages for animations to properly work are installed
+  if (sum(grepl("gifski|^png$|av$", list.files(.libPaths()))) != 3) {
+    message("Please make sure the 'gifski', 'png', and 'av' packages are
+            installed for animations to properly display.")
+  }
+  autographr(object, ...) +
     gganimate::transition_reveal(.data[[time]])
 }
 
