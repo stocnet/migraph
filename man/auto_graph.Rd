@@ -95,15 +95,15 @@ ison_adolescents \%>\%
 autographr(mpn_elite_usa_advice, "concentric")
 autographs(to_egos(ison_adolescents))
 # ison_adolescents \%>\%
-#   activate(edges) \%>\%
-#   mutate(year = 2001:2010) \%>\%
-#   autographt(time = "year")
-# ison_adolescents \%>\%
 #   mutate(shape = rep(c("circle", "square"), times = 4)) \%>\%
 #   mutate(color = rep(c("blue", "red"), times = 4)) \%>\%
 #   activate(edges) \%>\%
 #   mutate(year = 2001:2010) \%>\%
 #   autographt(node_shape = "shape", node_color = "color", time = "year")
+# ison_adolescents \%>\%
+#   activate(edges) \%>\%
+#   mutate(year = sample(1:3, 10, replace = TRUE)) \%>\%
+#   autographt(layout = "circle", time = "year")
 }
 \seealso{
 Other mapping: 

@@ -106,18 +106,18 @@ autographs <- function(netlist, ...){
 #' @describeIn auto_graph Graphs a network with sensible defaults
 #' @param time A time variable.
 #' By deafault, "date".
-#' @importFrom gganimate transition_reveal
+#' @importFrom gganimate transition_reveal ease_aes
 #' @examples
-#' # ison_adolescents %>%
-#' #   activate(edges) %>%
-#' #   mutate(year = 2001:2010) %>%
-#' #   autographt(time = "year")
 #' # ison_adolescents %>%
 #' #   mutate(shape = rep(c("circle", "square"), times = 4)) %>%
 #' #   mutate(color = rep(c("blue", "red"), times = 4)) %>%
 #' #   activate(edges) %>%
 #' #   mutate(year = 2001:2010) %>%
 #' #   autographt(node_shape = "shape", node_color = "color", time = "year")
+#' # ison_adolescents %>%
+#' #   activate(edges) %>%
+#' #   mutate(year = sample(1:3, 10, replace = TRUE)) %>%
+#' #   autographt(layout = "circle", time = "year")
 #' @export
 autographt <- function(object, ..., time = "date") {
   # check if necessary packages for animations to properly work are installed
@@ -126,7 +126,8 @@ autographt <- function(object, ..., time = "date") {
             installed for animations to properly display.")
   }
   autographr(object, ...) +
-    gganimate::transition_reveal(.data[[time]])
+    gganimate::transition_time(.data[[time]]) +
+    gganimate::ease_aes('cubic-in-out')
 }
 
 #' @importFrom ggraph create_layout ggraph
