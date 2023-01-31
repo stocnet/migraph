@@ -126,8 +126,10 @@ autographt <- function(object, ..., time = "date") {
             installed for animations to properly display.")
   }
   autographr(object, ...) +
-    gganimate::transition_time(.data[[time]]) +
-    gganimate::ease_aes('cubic-in-out')
+    gganimate::transition_states(.data[[time]],
+                                 state_length = 0.5,
+                                 wrap = FALSE) +
+    labs(title = paste0(time, " {closest_state}"))
 }
 
 #' @importFrom ggraph create_layout ggraph
