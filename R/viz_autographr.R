@@ -104,32 +104,37 @@ autographs <- function(netlist, ...){
 }
 
 #' @describeIn auto_graph Graphs a network with sensible defaults
-#' @param time A time variable.
+#' @param timevar A time variable.
 #' By deafault, "date".
-#' @importFrom gganimate transition_reveal ease_aes
+#' If start and end times are available, users can declare two
+#' time variables as a list (e.g. timevar = c("start", "end")).
+#' The first value will be taken as the start, and the second as the end, times.
+#' @importFrom gganimate transition_states
 #' @examples
 #' # ison_adolescents %>%
 #' #   mutate(shape = rep(c("circle", "square"), times = 4)) %>%
 #' #   mutate(color = rep(c("blue", "red"), times = 4)) %>%
 #' #   activate(edges) %>%
 #' #   mutate(year = 2001:2010) %>%
-#' #   autographt(node_shape = "shape", node_color = "color", time = "year")
+#' #   autographt(node_shape = "shape", node_color = "color", timevar = "year")
 #' # ison_adolescents %>%
 #' #   activate(edges) %>%
 #' #   mutate(year = sample(1:3, 10, replace = TRUE)) %>%
-#' #   autographt(layout = "circle", time = "year")
+#' #   autographt(layout = "circle", timevar = "year")
 #' @export
-autographt <- function(object, ..., time = "date") {
+autographt <- function(object, ..., timevar = "date") {
   # check if necessary packages for animations to properly work are installed
   if (sum(grepl("gifski|^png$|av$", list.files(.libPaths()))) != 3) {
-    message("Please make sure the 'gifski', 'png', and 'av' packages are
-            installed for animations to properly display.")
+    message("Please make sure the 'gifski', 'png', and 'av' packages are installed.")
   }
   autographr(object, ...) +
-    gganimate::transition_states(.data[[time]],
-                                 state_length = 0.5,
-                                 wrap = FALSE) +
-    labs(title = paste0(time, " {closest_state}"))
+    gganimate::transition_states(.data[[timevar]], transition_length = 1.5,
+                                 state_length = 1) +
+    gganimate::ease_aes('cubic-in') +
+    labs(title = paste0(timevar, " {closest_state}")) +
+    gganimate::shadow_wake(wake_length = 0.2) +
+    gganimate::enter_fade() +
+    gganimate::exit_shrink()
 }
 
 #' @importFrom ggraph create_layout ggraph

@@ -21,7 +21,7 @@ autographr(
 
 autographs(netlist, ...)
 
-autographt(object, ..., time = "date")
+autographt(object, ..., timevar = "date")
 }
 \arguments{
 \item{object}{A migraph-consistent object.}
@@ -61,8 +61,11 @@ to the graph before plotting.}
 
 \item{netlist}{A list of migraph-compatible networks.}
 
-\item{time}{A time variable.
-By deafault, "date".}
+\item{timevar}{A time variable.
+By deafault, "date".
+If start and end times are available, users can declare two
+time variables as a list (e.g. timevar = c("start", "end")).
+The first value will be taken as the start, and the second as the end, times.}
 }
 \description{
 The aim of this function is to provide users with a quick and easy
@@ -99,11 +102,11 @@ autographs(to_egos(ison_adolescents))
 #   mutate(color = rep(c("blue", "red"), times = 4)) \%>\%
 #   activate(edges) \%>\%
 #   mutate(year = 2001:2010) \%>\%
-#   autographt(node_shape = "shape", node_color = "color", time = "year")
+#   autographt(node_shape = "shape", node_color = "color", timevar = "year")
 # ison_adolescents \%>\%
 #   activate(edges) \%>\%
 #   mutate(year = sample(1:3, 10, replace = TRUE)) \%>\%
-#   autographt(layout = "circle", time = "year")
+#   autographt(layout = "circle", timevar = "year")
 }
 \seealso{
 Other mapping: 
