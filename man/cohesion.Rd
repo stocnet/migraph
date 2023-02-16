@@ -78,7 +78,7 @@ Other measures:
 \code{\link{centralisation}},
 \code{\link{centrality}},
 \code{\link{closure}},
-\code{\link{diversity}},
+\code{\link{diversity}()},
 \code{\link{features}},
 \code{\link{holes}},
 \code{\link{tie_centrality}}
