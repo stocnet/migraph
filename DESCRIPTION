@@ -39,7 +39,8 @@ Imports:
     sna,
     tidygraph,
     tidyr,
-    gganimate
+    gganimate,
+    graphlayouts
 Suggests: 
     concaveman,
     covr,
