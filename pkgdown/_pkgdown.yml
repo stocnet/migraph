@@ -53,6 +53,7 @@ reference:
       - starts_with("to_")
       - add
       - grab
+      - na
   - title: "Marks"
     desc: |
       Functions for identifying properties of graphs, nodes or ties,
@@ -73,9 +74,7 @@ reference:
       two values.
     contents:
       - cohesion
-      - centrality
-      - tie_centrality
-      - centralisation
+      - ends_with("_centrality")
       - closure
       - holes
       - diversity
