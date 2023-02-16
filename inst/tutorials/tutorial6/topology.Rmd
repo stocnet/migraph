@@ -9,7 +9,7 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
-library(manynet)
+library(migraph)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -108,7 +108,7 @@ where there is a high likelihood that interaction partners also interact.
 They are used to show how clustering facilitates or limits diffusion
 or makes pockets of behaviour stable.
 
-Note that `create_lattice()` in `{manynet}` works a little differently
+Note that `create_lattice()` in `{migraph}` works a little differently
 to how it works in `{igraph}`.
 In `{igraph}` the number or vector passed to the function indicates
 the length of each dimension.
@@ -123,7 +123,7 @@ _But_ this doesn't help us when we want to see what a lattice representation
 with the same order (number of nodes) as a given network would be.
 For example, perhaps we just want to know what a lattice with 50 nodes
 would look like.
-So `{manynet}` instead tries to find the most even or balanced 
+So `{migraph}` instead tries to find the most even or balanced 
 two-dimensional representation with a given number of nodes.
 
 Graph two lattices, one with 50 nodes, 
@@ -334,7 +334,7 @@ ison_brandes %>%
 
 An alternative route is to identify 'core' nodes
 depending on their _k_-coreness.
-In `{manynet}`, we can return nodes _k_-coreness
+In `{migraph}`, we can return nodes _k_-coreness
 with `node_coreness()` instead of 
 the `node_core()` used for core-periphery.
 

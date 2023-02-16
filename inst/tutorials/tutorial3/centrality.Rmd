@@ -9,7 +9,7 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
-library(manynet)
+library(migraph)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = FALSE)
 For this exercise, we'll use the `ison_brandes` and `ison_brandes2` datasets.
 The `ison_brandes2` is a two-mode version of the `ison_brandes` dataset.
 This dataset is in a 'tidygraph' format, 
-but manynet makes it easy to coerce this into other forms
+but migraph makes it easy to coerce this into other forms
 to be compatible with other packages.
 
 ```{r coercion, exercise = TRUE}
@@ -47,7 +47,7 @@ autographr(ison_brandes2)
 
 The network is anonymous, but I think it would be nice to add some names,
 even if it's just pretend. 
-Luckily, `{manynet}` has a function for this.
+Luckily, `{migraph}` has a function for this.
 This makes plotting the network just a wee bit more accessible and interpretable:
 
 ```{r addingnames, exercise = TRUE}
@@ -99,7 +99,7 @@ rowSums(mat) == colSums(mat)
 ```
 
 ```{r degreesum-hint-2}
-# Or by using a built in command in manynet like this:
+# Or by using a built in command in migraph like this:
 
 node_degree(ison_brandes, normalized = FALSE)
 ```
@@ -107,7 +107,7 @@ node_degree(ison_brandes, normalized = FALSE)
 ```{r degreesum-solution}
 (degrees <- rowSums(mat))
 rowSums(mat) == colSums(mat)
-# You can also just use a built in command in manynet though:
+# You can also just use a built in command in migraph though:
 node_degree(ison_brandes, normalized = FALSE)
 ```
 
@@ -122,7 +122,7 @@ question("Are the row sums the same as the column sums?",
 ```
 
 Often we are interested in the distribution of (degree) centrality in a network.
-`{manynet}` offers a way to get a pretty good first look at this distribution,
+`{migraph}` offers a way to get a pretty good first look at this distribution,
 though there are more elaborate ways to do this in base and grid graphics.
 
 ```{r distrib, exercise = TRUE}
@@ -135,7 +135,7 @@ plot(node_degree(ison_brandes), "h") +
 ```
 
 Other measures of centrality can be a little trickier to calculate by hand.
-Fortunately, we can use functions from `{manynet}` to help:
+Fortunately, we can use functions from `{migraph}` to help:
 
 ```{r micent, exercise = TRUE}
 # Let's explore this using the "ison_brandes" dataset
@@ -170,13 +170,13 @@ node_eigenvector(ison_brandes)
 # TASK: Can you create degree distributions for each of these?
 ```
 
-Note that all centrality measures in `{manynet}` return normalized
+Note that all centrality measures in `{migraph}` return normalized
 scores by default -- 
 for the raw scores, just add `normalized = FALSE` as an extra argument.
 
 ## Plotting different centrality measures
 
-It is straightforward in `{manynet}` to highlight nodes and ties 
+It is straightforward in `{migraph}` to highlight nodes and ties 
 with maximum or minimum (e.g. degree) scores.
 If the vector is numeric (i.e. a "measure"),
 then this can be easily converted into a logical vector that
@@ -245,7 +245,7 @@ question("Select all that are true.",
 
 ## Calculating centralization
 
-`{manynet}` also implements centralization functions.
+`{migraph}` also implements centralization functions.
 Here we are no longer interested in the level of the node,
 but in the level of the whole graph, so the syntax is:
 

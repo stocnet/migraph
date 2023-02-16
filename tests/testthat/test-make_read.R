@@ -81,7 +81,7 @@ test_that("read_pajek works", {
   testpaj <- read_pajek(testthat::test_path("sheets", "SouthernWomen.paj"))
   expect_true(is.tbl_graph(testpaj))
   edgetest <- as_edgelist(testpaj)
-  expect_equal(head(toupper(edgetest$from)), head(manynet::as_edgelist(ison_southern_women)$from))
+  expect_equal(head(toupper(edgetest$from)), head(migraph::as_edgelist(ison_southern_women)$from))
 })
 
 test_that("write_pajek works", {

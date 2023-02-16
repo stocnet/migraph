@@ -1,22 +1,19 @@
-Package: manynet
-Title: Many Network Analysis and Visualisation Tools
-Version: 1.0.0
-Date: 2023-01-24
-Description: A set of tools for analysing many different types of networks.
+Package: migraph
+Title: Tools for Multimodal Network Analysis
+Version: 0.13.2
+Date: 2022-12-20
+Description: A set of tools for analysing multimodal networks.
    All functions operate with matrices, edge lists, 
    and 'igraph', 'network', and 'tidygraph' objects,
-   weighted and signed networks,
-   as well as one-mode, two-mode (bipartite), and sometimes three-mode networks.
+   and on one-mode, two-mode (bipartite), and sometimes three-mode networks.
    It includes functions for measuring 
    centrality, centralization, cohesion, closure, and constraint,
    as well as for network block-modelling, regression, and diffusion models.
    The package is released as a complement to 
    'Multimodal Political Networks' (2021, ISBN:9781108985000),
-   and includes datasets used in the book and other network data often used
-   for teaching.
-   The package includes a broad range of tutorials for networks courses.
-URL: https://github.com/snlab-ch/manynet
-BugReports: https://github.com/snlab-ch/manynet/issues
+   and includes various datasets used in the book in addition to other network data.
+URL: https://github.com/snlab-ch/migraph
+BugReports: https://github.com/snlab-ch/migraph/issues
 Depends: R (>= 3.6.0)
 License: MIT + file LICENSE
 Language: en-GB

@@ -1,4 +1,4 @@
-url: https://snlab-ch.github.io/manynet/
+url: https://snlab-ch.github.io/migraph/
 development:
     mode: auto
 template:
@@ -32,7 +32,7 @@ navbar:
       href: news/index.html
     github:
       icon: "fab fa-github fa-lg"
-      href: https://github.com/snlab-ch/manynet
+      href: https://github.com/snlab-ch/migraph
 reference:
   - title: "Making"
     desc: |

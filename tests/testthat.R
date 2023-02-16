@@ -1,4 +1,4 @@
 library(testthat)
-library(manynet)
+library(migraph)
 
-test_check("manynet")
+test_check("migraph")
