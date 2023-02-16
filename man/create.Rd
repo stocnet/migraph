@@ -3,7 +3,7 @@
 \name{create}
 \alias{create}
 \alias{create_empty}
-\alias{create_complete}
+\alias{create_filled}
 \alias{create_ring}
 \alias{create_star}
 \alias{create_tree}
@@ -12,9 +12,9 @@
 \alias{create_core}
 \title{Make networks with defined structures}
 \usage{
-create_empty(n)
+create_empty(n, directed = FALSE)
 
-create_complete(n, directed = FALSE)
+create_filled(n, directed = FALSE)
 
 create_ring(n, width = 1, directed = FALSE, ...)
 
@@ -24,9 +24,9 @@ create_tree(n, directed = FALSE, width = 2)
 
 create_lattice(n, max_neighbourhood = 8, directed = FALSE)
 
-create_components(n, membership = NULL)
+create_components(n, directed = FALSE, membership = NULL)
 
-create_core(n, membership = NULL)
+create_core(n, directed = FALSE, membership = NULL)
 }
 \arguments{
 \item{n}{Given:
@@ -80,7 +80,7 @@ In two-mode networks, this is ignored.
 \itemize{
 \item \code{create_empty()}: Creates an empty graph of the given dimensions.
 
-\item \code{create_complete()}: Creates a filled graph of the given dimensions,
+\item \code{create_filled()}: Creates a complete graph of the given dimensions,
 with every possible tie realised.
 
 \item \code{create_ring()}: Creates a ring or chord graph of the given dimensions
@@ -102,8 +102,8 @@ and the rest peripheral, tied only to the core.
 
 }}
 \examples{
-autographr(create_empty(10)) + autographr(create_complete(10))
-autographr(create_empty(c(8,6))) + autographr(create_complete(c(8,6)))
+autographr(create_empty(10)) + autographr(create_filled(10))
+autographr(create_empty(c(8,6))) + autographr(create_filled(c(8,6)))
 autographr(create_ring(8, width = 2)) +
 autographr(create_ring(c(8,6), width = 2))
 autographr(create_star(12)) +

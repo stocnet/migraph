@@ -48,26 +48,33 @@ NULL
 
 #' @describeIn create Creates an empty graph of the given dimensions.
 #' @examples
-#' autographr(create_empty(10)) + autographr(create_complete(10))
-#' autographr(create_empty(c(8,6))) + autographr(create_complete(c(8,6)))
+#' autographr(create_empty(10)) + autographr(create_filled(10))
+#' autographr(create_empty(c(8,6))) + autographr(create_filled(c(8,6)))
 #' @export
-create_empty <- function(n) {
-  n <- infer_n(n)
+create_empty <- function(n, directed = FALSE) {
+  if(is_migraph(n)){
+    directed <- is_directed(n)
+    n <- infer_n(n)
+  } 
   if (length(n) == 1) {
     out <- matrix(0, n, n)
     out <- igraph::graph_from_adjacency_matrix(out)
   } else if (length(n) == 2) {
     out <- matrix(0, n[1], n[2])
     out <- as_igraph(out, twomode = TRUE)
-  } 
+  }
+  if(!directed) out <- to_undirected(out)
   out
 }
 
-#' @describeIn create Creates a filled graph of the given dimensions,
+#' @describeIn create Creates a complete graph of the given dimensions,
 #'   with every possible tie realised. 
 #' @export
-create_complete <- function(n, directed = FALSE) {
-  n <- infer_n(n)
+create_filled <- function(n, directed = FALSE) {
+  if(is_migraph(n)){
+    directed <- is_directed(n)
+    n <- infer_n(n)
+  } 
   if (length(n) == 1) {
     out <- matrix(1, n, n)
     diag(out) <- 0
@@ -87,8 +94,10 @@ create_complete <- function(n, directed = FALSE) {
 #' autographr(create_ring(c(8,6), width = 2))
 #' @export
 create_ring <- function(n, width = 1, directed = FALSE, ...) {
-  n <- infer_n(n)
-  
+  if(is_migraph(n)){
+    directed <- is_directed(n)
+    n <- infer_n(n)
+  } 
   if (length(n) == 1) {
     if (width == 1) {
      out <- igraph::make_ring(n, directed, ...)
@@ -100,9 +109,9 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
       }
       diag(out) <- 0
       out[out > 1] <- 1
-      if (directed) {
-        out <- igraph::graph_from_adjacency_matrix(out, mode = "directed")
-      } else out <- igraph::graph_from_adjacency_matrix(out, mode = "undirected")
+      out <- igraph::graph_from_adjacency_matrix(out,
+                                                 ifelse(directed, 
+                                                        "directed", "undirected"))
     }
   } else if (length(n) == 2) {
     mat <- matrix(0, n[1], n[2])
@@ -139,8 +148,10 @@ create_ring <- function(n, width = 1, directed = FALSE, ...) {
 #' @export
 create_star <- function(n,
                         directed = FALSE) {
-  
-  n <- infer_n(n)
+  if(is_migraph(n)){
+    directed <- is_directed(n)
+    n <- infer_n(n)
+  } 
   if (length(n) == 1) {
     out <- igraph::make_star(n,
                              mode = ifelse(directed, "out", "undirected"))
@@ -166,7 +177,10 @@ create_star <- function(n,
 create_tree <- function(n,
                         directed = FALSE,
                         width = 2) {
-  n <- infer_n(n)
+  if(is_migraph(n)){
+    directed <- is_directed(n)
+    n <- infer_n(n)
+  } 
   if (length(n) > 1) {
     out <- matrix(0, n[1], n[2])
     avail1 <- 1:n[1]
@@ -203,8 +217,10 @@ create_tree <- function(n,
 create_lattice <- function(n, 
                            max_neighbourhood = 8,
                            directed = FALSE) {
-  n <- infer_n(n)
-  
+  if(is_migraph(n)){
+    directed <- is_directed(n)
+    n <- infer_n(n)
+  } 
   divisors <- function(x){
     y <- seq_len(x)
     y[ x%%y == 0 ]
@@ -216,13 +232,15 @@ create_lattice <- function(n,
       dims <- c(divs[length(divs)/2], divs[length(divs)/2+1])
     } else dims <- c(median(divs), median(divs))
     if(max_neighbourhood == 8){
-      nei1.5 <- as_matrix(igraph::make_lattice(dims, nei = 2, directed = directed))
+      nei1.5 <- as_matrix(igraph::make_lattice(dims, nei = 2, 
+                                               directed = directed))
       for(i in 1:(prod(dims)-2)){
         nei1.5[i,i+2] <- 0
         if(i+dims[1]*2<=prod(dims))
           nei1.5[i,i+dims[1]*2] <- 0
       }
-      nei1.5[lower.tri(nei1.5)] <- t(nei1.5)[lower.tri(nei1.5)]
+      if(!directed)
+        nei1.5[lower.tri(nei1.5)] <- t(nei1.5)[lower.tri(nei1.5)]
       as_igraph(nei1.5)
     } else if (max_neighbourhood == 12){
       igraph::make_lattice(dims, nei = 2, directed = directed)
@@ -253,13 +271,17 @@ create_lattice <- function(n,
 #' autographr(create_components(10, membership = c(1,1,1,2,2,2,3,3,3,3)))
 #' autographr(create_components(c(10, 12)))
 #' @export
-create_components <- function(n, membership = NULL) {
-  n <- infer_n(n)
+create_components <- function(n, directed = FALSE, membership = NULL) {
+  if(is_migraph(n)){
+    directed <- is_directed(n)
+    n <- infer_n(n)
+  } 
   membership <- infer_membership(n, membership)
   if (length(n) == 1) {
     out <- matrix(0, n, n)
     for (x in unique(membership)) out[membership == x, membership == x] <- 1
     diag(out) <- 0
+    if(directed) out[lower.tri(out)] <- 0
     out <- as_igraph(out)
   } else if (length(n) == 2) {
     out <- matrix(0, n[1], n[2])
@@ -278,8 +300,11 @@ create_components <- function(n, membership = NULL) {
 #' autographr(create_core(6, membership = c(1,1,1,1,2,2))) +
 #' autographr(create_core(c(6,6)))
 #' @export
-create_core <- function(n, membership = NULL) {
-  n <- infer_n(n)
+create_core <- function(n, directed = FALSE, membership = NULL) {
+  if(is_migraph(n)){
+    directed <- is_directed(n)
+    n <- infer_n(n)
+  } 
   membership <- infer_membership(n, membership)
   if (length(n) > 1) {
     mat <- matrix(0, n[1], n[2])
@@ -291,6 +316,7 @@ create_core <- function(n, membership = NULL) {
     mat[membership==1,] <- 1
     mat[, membership==1] <- 1
     diag(mat) <- 0
+    if(directed) mat[lower.tri(mat)] <- 0
     as_igraph(mat)
   }
 }
