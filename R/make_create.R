@@ -93,7 +93,7 @@ create_filled <- function(n, directed = FALSE) {
 #' autographr(create_ring(8, width = 2)) +
 #' autographr(create_ring(c(8,6), width = 2))
 #' @export
-create_ring <- function(n, width = 1, directed = FALSE, ...) {
+create_ring <- function(n, directed = FALSE, width = 1, ...) {
   if(is_migraph(n)){
     directed <- is_directed(n)
     n <- infer_n(n)
@@ -214,9 +214,9 @@ create_tree <- function(n,
 #' autographr(create_lattice(5), layout = "kk") +
 #' autographr(create_lattice(c(5,5)))
 #' @export
-create_lattice <- function(n, 
-                           max_neighbourhood = 8,
-                           directed = FALSE) {
+create_lattice <- function(n,
+                           directed = FALSE, 
+                           max_neighbourhood = 8) {
   if(is_migraph(n)){
     directed <- is_directed(n)
     n <- infer_n(n)

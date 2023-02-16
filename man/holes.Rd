@@ -97,12 +97,13 @@ Hollway, James, Jean-Frédéric Morin, and Joost Pauwelyn. 2020.
 }
 \seealso{
 Other measures: 
-\code{\link{centralisation}},
-\code{\link{centrality}},
+\code{\link{between_centrality}},
+\code{\link{close_centrality}},
 \code{\link{closure}},
 \code{\link{cohesion}()},
+\code{\link{degree_centrality}},
 \code{\link{diversity}()},
-\code{\link{features}},
-\code{\link{tie_centrality}}
+\code{\link{eigenv_centrality}},
+\code{\link{features}}
 }
 \concept{measures}

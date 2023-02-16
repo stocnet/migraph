@@ -120,12 +120,13 @@ Informal networks and organizational crises: an experimental simulation.
 }
 \seealso{
 Other measures: 
-\code{\link{centralisation}},
-\code{\link{centrality}},
+\code{\link{between_centrality}},
+\code{\link{close_centrality}},
 \code{\link{closure}},
 \code{\link{cohesion}()},
+\code{\link{degree_centrality}},
+\code{\link{eigenv_centrality}},
 \code{\link{features}},
-\code{\link{holes}},
-\code{\link{tie_centrality}}
+\code{\link{holes}}
 }
 \concept{measures}

@@ -123,7 +123,7 @@ autographs <- function(netlist, ...){
 #' @export
 autographt <- function(object, ..., timevar, animate = TRUE) {
   # create lists of lists based on timevar (nodes need to be identical)
-  l <- unique(igraph::get.edge.attribute(object, timevar))
+  l <- unique(tie_attribute(object, timevar))
   df <- vector("list", length(l))
   for (i in seq_len(length(l))) {
     df[[i]] <- dplyr::filter(object, get(timevar) == i)
@@ -132,6 +132,7 @@ autographt <- function(object, ..., timevar, animate = TRUE) {
   df <- lapply(df, as_igraph)
   if (animate == TRUE) {
     # Add separate dynamic layouts for each time point
+    require(igraph)
     layout <- graphlayouts::layout_as_dynamic(df, alpha = 0.2) 
     # Create a node list for each time point
     nodes_lst <- lapply(1:length(df), function(i) {

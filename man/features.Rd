@@ -163,12 +163,13 @@ Neal Zachary P. 2017.
 for how clustering is calculated
 
 Other measures: 
-\code{\link{centralisation}},
-\code{\link{centrality}},
+\code{\link{between_centrality}},
+\code{\link{close_centrality}},
 \code{\link{closure}},
 \code{\link{cohesion}()},
+\code{\link{degree_centrality}},
 \code{\link{diversity}()},
-\code{\link{holes}},
-\code{\link{tie_centrality}}
+\code{\link{eigenv_centrality}},
+\code{\link{holes}}
 }
 \concept{measures}

@@ -81,12 +81,13 @@ Cambridge University Press. Cambridge University Press.
 }
 \seealso{
 Other measures: 
-\code{\link{centralisation}},
-\code{\link{centrality}},
+\code{\link{between_centrality}},
+\code{\link{close_centrality}},
 \code{\link{cohesion}()},
+\code{\link{degree_centrality}},
 \code{\link{diversity}()},
+\code{\link{eigenv_centrality}},
 \code{\link{features}},
-\code{\link{holes}},
-\code{\link{tie_centrality}}
+\code{\link{holes}}
 }
 \concept{measures}

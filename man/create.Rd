@@ -16,13 +16,13 @@ create_empty(n, directed = FALSE)
 
 create_filled(n, directed = FALSE)
 
-create_ring(n, width = 1, directed = FALSE, ...)
+create_ring(n, directed = FALSE, width = 1, ...)
 
 create_star(n, directed = FALSE)
 
 create_tree(n, directed = FALSE, width = 2)
 
-create_lattice(n, max_neighbourhood = 8, directed = FALSE)
+create_lattice(n, directed = FALSE, max_neighbourhood = 8)
 
 create_components(n, directed = FALSE, membership = NULL)
 

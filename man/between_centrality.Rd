@@ -62,7 +62,7 @@ Other measures:
 \code{\link{closure}},
 \code{\link{cohesion}()},
 \code{\link{degree_centrality}},
-\code{\link{diversity}},
+\code{\link{diversity}()},
 \code{\link{eigenv_centrality}},
 \code{\link{features}},
 \code{\link{holes}}

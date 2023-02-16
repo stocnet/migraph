@@ -75,12 +75,13 @@ White, Douglas R and Frank Harary. 2001.
 }
 \seealso{
 Other measures: 
-\code{\link{centralisation}},
-\code{\link{centrality}},
+\code{\link{between_centrality}},
+\code{\link{close_centrality}},
 \code{\link{closure}},
+\code{\link{degree_centrality}},
 \code{\link{diversity}()},
+\code{\link{eigenv_centrality}},
 \code{\link{features}},
-\code{\link{holes}},
-\code{\link{tie_centrality}}
+\code{\link{holes}}
 }
 \concept{measures}
