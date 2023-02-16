@@ -6,6 +6,9 @@
 \alias{autographs}
 \alias{autographt}
 \title{Quickly graph networks with sensible defaults}
+\source{
+http://blog.schochastics.net/post/animating-network-evolutions-with-gganimate/
+}
 \usage{
 autographr(
   object,
@@ -21,7 +24,7 @@ autographr(
 
 autographs(netlist, ...)
 
-autographt(object, ..., timevar = "date")
+autographt(object, ..., timevar, animate = TRUE)
 }
 \arguments{
 \item{object}{A migraph-consistent object.}
@@ -61,11 +64,11 @@ to the graph before plotting.}
 
 \item{netlist}{A list of migraph-compatible networks.}
 
-\item{timevar}{A time variable.
-By deafault, "date".
-If start and end times are available, users can declare two
-time variables as a list (e.g. timevar = c("start", "end")).
-The first value will be taken as the start, and the second as the end, times.}
+\item{timevar}{A time variable.}
+
+\item{interactive}{Would you like the output to be interactive?
+By default TRUE.
+If FALSE, plots frames of the network at each time point.}
 }
 \description{
 The aim of this function is to provide users with a quick and easy
@@ -97,16 +100,10 @@ ison_adolescents \%>\%
   autographr(node_color = "high_degree", edge_color = "high_betweenness")
 autographr(mpn_elite_usa_advice, "concentric")
 autographs(to_egos(ison_adolescents))
-# ison_adolescents \%>\%
-#   mutate(shape = rep(c("circle", "square"), times = 4)) \%>\%
-#   mutate(color = rep(c("blue", "red"), times = 4)) \%>\%
-#   activate(edges) \%>\%
-#   mutate(year = 2001:2010) \%>\%
-#   autographt(node_shape = "shape", node_color = "color", timevar = "year")
-# ison_adolescents \%>\%
-#   activate(edges) \%>\%
-#   mutate(year = sample(1:3, 10, replace = TRUE)) \%>\%
-#   autographt(layout = "circle", timevar = "year")
+ison_adolescents \%>\%
+ activate(edges) \%>\%
+ mutate(year = sample(1:4, 10, replace = TRUE)) \%>\%
+ autographt(timevar = "year")
 }
 \seealso{
 Other mapping: 

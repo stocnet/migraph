@@ -90,7 +90,7 @@ autographr <- function(object,
 #'   with sensible defaults
 #' @param netlist A list of migraph-compatible networks.
 #' @importFrom patchwork wrap_plots
-#' @examples 
+#' @examples
 #' autographs(to_egos(ison_adolescents))
 #' @export
 autographs <- function(netlist, ...){
@@ -105,36 +105,99 @@ autographs <- function(netlist, ...){
 
 #' @describeIn auto_graph Graphs a network with sensible defaults
 #' @param timevar A time variable.
-#' By deafault, "date".
-#' If start and end times are available, users can declare two
-#' time variables as a list (e.g. timevar = c("start", "end")).
-#' The first value will be taken as the start, and the second as the end, times.
-#' @importFrom gganimate transition_states
+#' @param interactive Would you like the output to be interactive?
+#' By default TRUE.
+#' If FALSE, plots frames of the network at each time point. 
+#' @import igraph
+#' @importFrom ggplot2 ggplot geom_segment geom_point geom_text
+#' scale_alpha_manual
+#' @importFrom gganimate transition_states ease_aes
+#' @importFrom graphlayouts layout_as_dynamic
+#' @importFrom dplyr filter
+#' @source http://blog.schochastics.net/post/animating-network-evolutions-with-gganimate/
 #' @examples
-#' # ison_adolescents %>%
-#' #   mutate(shape = rep(c("circle", "square"), times = 4)) %>%
-#' #   mutate(color = rep(c("blue", "red"), times = 4)) %>%
-#' #   activate(edges) %>%
-#' #   mutate(year = 2001:2010) %>%
-#' #   autographt(node_shape = "shape", node_color = "color", timevar = "year")
-#' # ison_adolescents %>%
-#' #   activate(edges) %>%
-#' #   mutate(year = sample(1:3, 10, replace = TRUE)) %>%
-#' #   autographt(layout = "circle", timevar = "year")
+#' ison_adolescents %>%
+#'  activate(edges) %>%
+#'  mutate(year = sample(1:4, 10, replace = TRUE)) %>%
+#'  autographt(timevar = "year")
 #' @export
-autographt <- function(object, ..., timevar = "date") {
-  # check if necessary packages for animations to properly work are installed
-  if (sum(grepl("gifski|^png$|av$", list.files(.libPaths()))) != 3) {
-    message("Please make sure the 'gifski', 'png', and 'av' packages are installed.")
+autographt <- function(object, ..., timevar, animate = TRUE) {
+  # create lists of lists based on timevar (nodes need to be identical)
+  l <- unique(igraph::get.edge.attribute(object, timevar))
+  df <- vector("list", length(l))
+  for (i in seq_len(length(l))) {
+    df[[i]] <- dplyr::filter(object, get(timevar) == i)
   }
-  autographr(object, ...) +
-    gganimate::transition_states(.data[[timevar]], transition_length = 1.5,
-                                 state_length = 1) +
-    gganimate::ease_aes('cubic-in') +
-    labs(title = paste0(timevar, " {closest_state}")) +
-    gganimate::shadow_wake(wake_length = 0.2) +
-    gganimate::enter_fade() +
-    gganimate::exit_shrink()
+  # Transform back to igraph object
+  df <- lapply(df, as_igraph)
+  if (animate == TRUE) {
+    # Add separate dynamic layouts for each time point
+    layout <- graphlayouts::layout_as_dynamic(df, alpha = 0.2) 
+    # Create a node list for each time point
+    nodes_lst <- lapply(1:length(df), function(i) {
+      cbind(igraph::as_data_frame(df[[i]], "vertices"),
+            x = layout[[i]][, 1], y = layout[[i]][, 2], frame = i)
+    })
+    # Create an edge list for each time point
+    edges_lst <- lapply(1:length(df), function(i)
+      cbind(igraph::as_data_frame(df[[i]], "edges"), frame = i))
+    edges_lst <- lapply(1:length(df), function(i) {
+      edges_lst[[i]]$x <- nodes_lst[[i]]$x[match(edges_lst[[i]]$from,
+                                                 nodes_lst[[i]]$name)]
+      edges_lst[[i]]$y <- nodes_lst[[i]]$y[match(edges_lst[[i]]$from,
+                                                 nodes_lst[[i]]$name)]
+      edges_lst[[i]]$xend <- nodes_lst[[i]]$x[match(edges_lst[[i]]$to,
+                                                    nodes_lst[[i]]$name)]
+      edges_lst[[i]]$yend <- nodes_lst[[i]]$y[match(edges_lst[[i]]$to,
+                                                    nodes_lst[[i]]$name)]
+      edges_lst[[i]]$id <- paste0(edges_lst[[i]]$from, "-",
+                                  edges_lst[[i]]$to)
+      edges_lst[[i]]$status <- TRUE
+      edges_lst[[i]]
+    })
+    # Get edge IDs for all edges
+    all_edges <- do.call("rbind", lapply(df, get.edgelist))
+    all_edges <- all_edges[!duplicated(all_edges), ]
+    all_edges <- cbind(all_edges, paste0(all_edges[, 1], "-", all_edges[, 2]))
+    # Add edges level information for edge transitions
+    edges_lst <- lapply(1:length(df), function(i) {
+      idx <- which(!all_edges[, 3] %in% edges_lst[[i]]$id)
+      if (length(idx != 0)) {
+        tmp <- data.frame(from = all_edges[idx, 1],
+                          to = all_edges[idx, 2],
+                          id = all_edges[idx, 3])
+        tmp$x <- nodes_lst[[i]]$x[match(tmp$from, nodes_lst[[i]]$name)]
+        tmp$y <- nodes_lst[[i]]$y[match(tmp$from, nodes_lst[[i]]$name)]
+        tmp$xend <- nodes_lst[[i]]$x[match(tmp$to, nodes_lst[[i]]$name)]
+        tmp$yend <- nodes_lst[[i]]$y[match(tmp$to, nodes_lst[[i]]$name)]
+        tmp$frame <- i
+        tmp[timevar] <- i
+        tmp$status <- FALSE
+        edges_lst[[i]] <- rbind(edges_lst[[i]], tmp)
+      }
+      edges_lst[[i]]
+    })
+    # Bind nodes and edges list
+    edges_df <- do.call("rbind", edges_lst)
+    nodes_df <- do.call("rbind", nodes_lst)
+    # Plot with ggplo2 and gganimate
+    ggplot2::ggplot() +
+      ggplot2::geom_segment(data = edges_df,
+                   aes(x = x, xend = xend, y = y, yend = yend,
+                       group = id, alpha = status), show.legend = FALSE) +
+      ggplot2::geom_point(data = nodes_df, aes(x, y, group = name),
+                          shape = 21, size = 4, show.legend = FALSE) +
+      ggplot2::geom_text(data = nodes_df, aes(x, y, label = name),
+                         hjust = -0.5, vjust = -0.5) +
+      ggplot2::scale_alpha_manual(values = c(0, 1)) +
+      gganimate::ease_aes("quadratic-in-out") +
+      gganimate::transition_states(frame, state_length = 0.75, wrap = FALSE) +
+      ggplot2::labs(title = paste0(timevar, " {closest_state}")) +
+      ggplot2::theme_void()
+  } else {
+    names(df) <- unique(igraph::get.edge.attribute(object, timevar))
+    autographs(df)
+  }
 }
 
 #' @importFrom ggraph create_layout ggraph
@@ -473,4 +536,3 @@ hypot <- function (x, y) {
   M <- pmax(x, y)
   ifelse(M == 0, 0, M * sqrt(1 + (m/M)^2))
 }
-

@@ -167,7 +167,7 @@ Other measures:
 \code{\link{centrality}},
 \code{\link{closure}},
 \code{\link{cohesion}()},
-\code{\link{diversity}},
+\code{\link{diversity}()},
 \code{\link{holes}},
 \code{\link{tie_centrality}}
 }
