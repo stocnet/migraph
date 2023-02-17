@@ -24,7 +24,7 @@ autographr(
 
 autographs(netlist, ...)
 
-autographt(object, ..., timevar, animate = TRUE)
+autographt(object, timevar, animate = TRUE)
 }
 \arguments{
 \item{object}{A migraph-consistent object.}

@@ -121,7 +121,13 @@ autographs <- function(netlist, ...){
 #'  mutate(year = sample(1:4, 10, replace = TRUE)) %>%
 #'  autographt(timevar = "year")
 #' @export
-autographt <- function(object, ..., timevar, animate = TRUE) {
+autographt <- function(object, timevar, animate = TRUE) {
+
+  # Todo: make code more concise and setup helper functions
+  # Todo: make plot defaults similar to ´autographr()´
+  # Todo: added extra (...) arguments passed on to `ggraph()`/`ggplot()`
+  # Todo: make function work with different ´autographr()´ layouts?
+
   # Create lists of lists based on timevar (nodes need to be identical)
   l <- unique(tie_attribute(object, timevar))
   df <- vector("list", length(l))
