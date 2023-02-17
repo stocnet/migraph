@@ -7,11 +7,11 @@
 #' @param attribute Name of a nodal attribute or membership vector
 #'   to use as categories for the diversity measure.
 #' @param clusters A nodal cluster membership vector or name of a vertex attribute.
-#' @name diversity
+#' @name heterogeneity
 #' @family measures
 NULL
 
-#' @describeIn diversity Calculates the number of unique categories 
+#' @describeIn heterogeneity Calculates the number of unique categories 
 #'   in a network attribute.
 #' @export
 network_richness <- function(object, attribute){
@@ -19,7 +19,7 @@ network_richness <- function(object, attribute){
                        object)
 }
 
-#' @describeIn diversity Calculates the number of unique categories 
+#' @describeIn heterogeneity Calculates the number of unique categories 
 #'   of an attribute to which each node is connected.
 #' @export
 node_richness <- function(object, attribute){
@@ -29,7 +29,7 @@ node_richness <- function(object, attribute){
   make_node_measure(out, object)
 }
 
-#' @describeIn diversity Calculates the heterogeneity of ties across a network or 
+#' @describeIn heterogeneity Calculates the heterogeneity of ties across a network or 
 #'    within clusters by node attributes.
 #' @section network_diversity:
 #'    Blau's index (1977) uses a formula known also in other disciplines
@@ -76,7 +76,7 @@ network_diversity <- function(object, attribute, clusters = NULL){
   make_network_measure(blauout, object)
 }
 
-#' @describeIn diversity Calculates the heterogeneity of each node's
+#' @describeIn heterogeneity Calculates the heterogeneity of each node's
 #'   local neighbourhood.
 #' @examples 
 #' node_diversity(marvel_friends, "Gender")
@@ -91,7 +91,7 @@ node_diversity <- function(object, attribute){
   make_node_measure(out, object)
 }
 
-#' @describeIn diversity Calculates how embedded nodes in the network
+#' @describeIn heterogeneity Calculates how embedded nodes in the network
 #'    are within groups of nodes with the same attribute
 #' @section network_homophily:
 #'   Given a partition of a network into a number of mutually exclusive groups then 
@@ -124,7 +124,7 @@ network_heterophily <- function(object, attribute){
   make_network_measure(ei, object)
 }
 
-#' @describeIn diversity Calculates each node's embeddedness within groups
+#' @describeIn heterogeneity Calculates each node's embeddedness within groups
 #'    of nodes with the same attribute
 #' @examples 
 #' node_heterophily(marvel_friends, "Gender")
@@ -150,7 +150,7 @@ node_heterophily <- function(object, attribute){
   make_node_measure(ei, object)
 }
 
-#' @describeIn diversity Calculates the degree assortativity in a graph.
+#' @describeIn heterogeneity Calculates the degree assortativity in a graph.
 #' @importFrom igraph assortativity_degree
 #' @examples 
 #' network_assortativity(mpn_elite_mex)

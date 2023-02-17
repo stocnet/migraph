@@ -127,8 +127,8 @@ Other measures:
 \code{\link{closure}},
 \code{\link{cohesion}()},
 \code{\link{degree_centrality}},
-\code{\link{diversity}},
 \code{\link{features}},
+\code{\link{heterogeneity}},
 \code{\link{holes}}
 
 Other centrality: 
