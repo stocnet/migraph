@@ -34,16 +34,24 @@ add_node_attribute <- function(object, attr_name, vector){
   object
 }
 
-#' @describeIn add Insert specified values from a vector into the graph 
-#' as tie attributes
+#' @describeIn add Insert specified values from a vector into the network.
+#'   as tie attributes
 #' @importFrom igraph edge_attr
 #' @examples
 #' add_tie_attribute(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
 #' @export
-add_tie_attribute <- function(object, attr_name, vector){
-  object <- as_igraph(object)
-  igraph::edge_attr(object, name = attr_name) <- vector
-  object
+add_tie_attribute <- function(.data, attr_name, vector){
+  out <- as_igraph(.data)
+  igraph::edge_attr(out, name = attr_name) <- vector
+  out
+}
+
+#' @describeIn add Tidy way to add vector as tie attributes.
+#' @export
+mutate_ties <- function(.data, ...){
+  nodes <- edges <- NULL
+  out <- as_tidygraph(.data)
+  out %>% activate(edges) %>% mutate(...) %>% activate(nodes)
 }
 
 #' @describeIn add Copies node attributes from a given graph into specified graph

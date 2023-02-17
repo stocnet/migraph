@@ -4,13 +4,16 @@
 \alias{add}
 \alias{add_node_attribute}
 \alias{add_tie_attribute}
+\alias{mutate_ties}
 \alias{copy_node_attributes}
 \alias{join_ties}
 \title{Adding and copying attributes from one graph to another}
 \usage{
 add_node_attribute(object, attr_name, vector)
 
-add_tie_attribute(object, attr_name, vector)
+add_tie_attribute(.data, attr_name, vector)
+
+mutate_ties(.data, ...)
 
 copy_node_attributes(object, object2)
 
@@ -41,8 +44,10 @@ or from a specified vector supplied by the user.
 \item \code{add_node_attribute()}: Insert specified values from a vector into the graph
 as node attributes
 
-\item \code{add_tie_attribute()}: Insert specified values from a vector into the graph
+\item \code{add_tie_attribute()}: Insert specified values from a vector into the network.
 as tie attributes
+
+\item \code{mutate_ties()}: Tidy way to add vector as tie attributes.
 
 \item \code{copy_node_attributes()}: Copies node attributes from a given graph into specified graph
 

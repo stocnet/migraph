@@ -741,7 +741,7 @@ as_siena <- function(object,
 #' @export
 as_siena.igraph <- function(object, twomode = FALSE){
   if(!requireNamespace("RSiena", quietly = TRUE)){
-    stop("Please install `RSiena` from CRAN to import DynetML files.")
+    stop("Please install `RSiena` from CRAN to coerce into RSiena data objects.")
   } else {
     # First separate out the dependent ties
     nets <- network_tie_attributes(object)

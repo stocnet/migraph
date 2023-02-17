@@ -77,7 +77,7 @@ reference:
       - ends_with("_centrality")
       - closure
       - holes
-      - diversity
+      - heterogeneity
       - features
   - title: "Motifs"
     desc: |
