@@ -126,46 +126,78 @@ to_undirected.data.frame <- function(object) {
   as_edgelist(to_undirected(as_igraph(object)))
 }
 
+#' @describeIn reformat Returns a directed object.
+#'   Note that ties' direction will be randomly assigned.
+#'   To flip the direction, use `to_redirected()`.
+#'   To match the direction, use `to_reciprocated()`.
+#' @export
+to_directed <- function(.data) UseMethod("to_directed")
+
+#' @export
+to_directed.igraph <- function(.data) {
+  if(!is_directed.igraph(.data))
+    igraph::as.directed(.data, mode = "random")
+  else .data
+}
+
 #' @describeIn reformat Returns an object that has any edge direction transposed,
 #'   or flipped, so that senders become receivers and receivers become senders.
 #'   This essentially has no effect on undirected networks or reciprocated ties.
 #' @export
-to_redirected <- function(object) UseMethod("to_redirected")
+to_redirected <- function(.data) UseMethod("to_redirected")
 
 #' @export
-to_redirected.tbl_graph <- function(object) {
+to_redirected.tbl_graph <- function(.data) {
   nodes <- NULL
   edges <- NULL
-  out <- object %>% activate(edges)
-  out$from <- object$to
-  out$to <- object$from
+  out <- .data %>% activate(edges)
+  out$from <- .data$to
+  out$to <- .data$from
   out %>% activate(nodes)
 }
 
 #' @export
-to_redirected.igraph <- function(object) {
-  igraph::reverse_edges(object)
+to_redirected.igraph <- function(.data) {
+  igraph::reverse_edges(.data)
 }
 
 #' @export
-to_redirected.data.frame <- function(object) {
-  out <- object
-  out$from <- object$to
-  out$to <- object$from
+to_redirected.data.frame <- function(.data) {
+  out <- .data
+  out$from <- .data$to
+  out$to <- .data$from
   out
 }
 
 #' @export
-to_redirected.matrix <- function(object) {
-  t(object)
+to_redirected.matrix <- function(.data) {
+  t(.data)
 }
 
 #' @export
-to_redirected.network <- function(object) {
-  as_network(to_redirected(as_igraph(object)))
+to_redirected.network <- function(.data) {
+  as_network(to_redirected(as_igraph(.data)))
 }
 
-#' @describeIn reformat Returns an object that has all edge weights removed
+#' @describeIn reformat Returns an object where all ties are reciprocated.
+#' @export
+to_reciprocated <- function(.data) UseMethod("to_reciprocated")
+
+#' @export
+to_reciprocated.igraph <- function(.data) {
+  igraph::as.directed(.data, mode = "mutual")
+}
+
+#' @describeIn reformat Returns an object where all ties are acyclic.
+#' @export
+to_acyclic <- function(.data) UseMethod("to_acyclic")
+
+#' @export
+to_acyclic.igraph <- function(.data) {
+  igraph::as.directed(.data, mode = "acyclic")
+}
+
+#' @describeIn reformat Returns an object that has all edge weights removed.
 #' @export
 to_unweighted <- function(object, threshold = 1) UseMethod("to_unweighted")
 

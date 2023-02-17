@@ -4,7 +4,10 @@
 \alias{reformat}
 \alias{to_uniplex}
 \alias{to_undirected}
+\alias{to_directed}
 \alias{to_redirected}
+\alias{to_reciprocated}
+\alias{to_acyclic}
 \alias{to_unweighted}
 \alias{to_unsigned}
 \alias{to_unnamed}
@@ -19,7 +22,13 @@ to_uniplex(object, edge)
 
 to_undirected(object)
 
-to_redirected(object)
+to_directed(.data)
+
+to_redirected(.data)
+
+to_reciprocated(.data)
+
+to_acyclic(.data)
 
 to_unweighted(object, threshold = 1)
 
@@ -97,11 +106,20 @@ so that any pair of nodes with at least one directed edge will be
 connected by an undirected edge in the new network.
 This is equivalent to the "collapse" mode in \code{{igraph}}.
 
+\item \code{to_directed()}: Returns a directed object.
+Note that ties' direction will be randomly assigned.
+To flip the direction, use \code{to_redirected()}.
+To match the direction, use \code{to_reciprocated()}.
+
 \item \code{to_redirected()}: Returns an object that has any edge direction transposed,
 or flipped, so that senders become receivers and receivers become senders.
 This essentially has no effect on undirected networks or reciprocated ties.
 
-\item \code{to_unweighted()}: Returns an object that has all edge weights removed
+\item \code{to_reciprocated()}: Returns an object where all ties are reciprocated.
+
+\item \code{to_acyclic()}: Returns an object where all ties are acyclic.
+
+\item \code{to_unweighted()}: Returns an object that has all edge weights removed.
 
 \item \code{to_unsigned()}: Returns a network with either just the "positive" ties
 or just the "negative" ties
