@@ -85,7 +85,8 @@ generate_random <- function(n, p = 0.5, directed = FALSE, with_attr = TRUE) {
 #' autographr(generate_smallworld(12, 0.25)) +
 #' autographr(generate_smallworld(c(6,6), 0.025))
 #' @export
-generate_smallworld <- function(n, p = 0.05, width = 2, directed = FALSE) {
+generate_smallworld <- function(n, p = 0.05, directed = FALSE, width = 2) {
+  directed <- infer_directed(n, directed)
   n <- infer_n(n)
   if(length(n) > 1){
     g <- create_ring(n, width = width, directed = directed)
@@ -93,7 +94,7 @@ generate_smallworld <- function(n, p = 0.05, width = 2, directed = FALSE) {
   } else {
     g <- igraph::sample_smallworld(dim = 1, size = n, 
                             nei = width, p = p)
-    if(directed) g <- to_redirected(g)
+    if(directed) g <- to_acyclic(g)
   }
   g
 }
@@ -113,6 +114,7 @@ generate_smallworld <- function(n, p = 0.05, width = 2, directed = FALSE) {
 #' autographr(generate_scalefree(c(12,6), 1.25))
 #' @export
 generate_scalefree <- function(n, p = 1, directed = FALSE) {
+  directed <- infer_directed(n, directed)
   n <- infer_n(n)
   if(length(n) > 1){
     g <- matrix(0, n[1], n[2])
@@ -138,14 +140,14 @@ generate_scalefree <- function(n, p = 1, directed = FALSE) {
 #' autographr(mpn_elite_usa_advice) +
 #' autographr(generate_permutation(mpn_elite_usa_advice))
 #' @export
-generate_permutation <- function(object, with_attr = TRUE) {
-  out <- as_matrix(object)
-  if(is_twomode(object)){
+generate_permutation <- function(.data, with_attr = TRUE) {
+  out <- as_matrix(.data)
+  if(is_twomode(.data)){
     out <- r2perm(out)
   } else {
     out <- r1perm(out)
   }
-  if(with_attr) out <- copy_node_attributes(out, object)
+  if(with_attr) out <- copy_node_attributes(out, .data)
   out
 }
 

@@ -10,11 +10,11 @@
 \usage{
 generate_random(n, p = 0.5, directed = FALSE, with_attr = TRUE)
 
-generate_smallworld(n, p = 0.05, width = 2, directed = FALSE)
+generate_smallworld(n, p = 0.05, directed = FALSE, width = 2)
 
 generate_scalefree(n, p = 1, directed = FALSE)
 
-generate_permutation(object, with_attr = TRUE)
+generate_permutation(.data, with_attr = TRUE)
 }
 \arguments{
 \item{n}{Given:
@@ -36,17 +36,8 @@ if integer greater than 1, the number of ties in the network.}
 should be retained.
 By default TRUE.}
 
-\item{width}{Integer specifying the width or breadth
-of the ring or branches.}
-
-\item{object}{An object of a migraph-consistent class:
-\itemize{
-\item matrix (adjacency or incidence) from \code{{base}} R
-\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
-\item igraph, from the \code{{igraph}} package
-\item network, from the \code{{network}} package
-\item tbl_graph, from the \code{{tidygraph}} package
-}}
+\item{width}{Integer specifying the width of the ring,
+breadth of the branches, or maximum extent of the neighbourbood.}
 }
 \value{
 By default an \code{igraph} object is returned,
