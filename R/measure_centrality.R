@@ -290,6 +290,7 @@ network_betweenness <- function(.data, normalized = TRUE,
   out <- make_network_measure(out, .data)
   out
 }
+
 # Closeness-like centralities ####
 
 #' Measures of closeness-like centrality and centralisation
@@ -452,10 +453,10 @@ NULL
 #'   most routines solve the eigenvector equation \eqn{Ax = \lambda x}.
 #' @param scale Logical scalar, whether to rescale the vector so the maximum score is 1. 
 #' @references 
-#' Bonacich, Phillip. 1991. 
-#' “Simultaneous Group and Individual Centralities.” 
-#' _Social Networks_ 13(2):155–68. 
-#' \doi{10.1016/0378-8733(91)90018-O}.
+#'   Bonacich, Phillip. 1991. 
+#'   “Simultaneous Group and Individual Centralities.” 
+#'   _Social Networks_ 13(2):155–68. 
+#'   \doi{10.1016/0378-8733(91)90018-O}.
 #' @examples
 #' node_eigenvector(mpn_elite_mex)
 #' node_eigenvector(ison_southern_women)
@@ -494,6 +495,8 @@ node_eigenvector <- function(.data, normalized = TRUE, scale = FALSE){
 
 #' @describeIn eigenv_centrality Calculate the power centrality of nodes in a network
 #' @param exponent Decay rate for the Bonacich power centrality score.
+#' @section Power centrality:
+#'   Power or beta (or Bonacich) centrality 
 #' @references 
 #'   Bonacich, Phillip. 1987. 
 #'   “Power and Centrality: A Family of Measures.” 
@@ -534,6 +537,10 @@ node_power <- function(.data, normalized = TRUE, scale = FALSE, exponent = 1){
 }
 
 #' @describeIn eigenv_centrality Calculate the alpha or Katz centrality of nodes in a network
+#' @param alpha A constant that trades off the importance of external influence against the importance of connection.
+#'   When \eqn{\alpha = 0}, only the external influence matters.
+#'   As \eqn{\alpha} gets larger, only the connectivity matters and we reduce to eigenvector centrality.
+#'   By default \eqn{\alpha = 0.85}.
 #' @section Alpha centrality:
 #'   Alpha or Katz (or Katz-Bonacich) centrality operates better than eigenvector centrality
 #'   for directed networks.
@@ -546,6 +553,11 @@ node_power <- function(.data, normalized = TRUE, scale = FALSE, exponent = 1){
 #'   strongly connected component begin with some basic influence.
 #'   Note that many equations replace \eqn{\frac{1}{\lambda}} with \eqn{\alpha},
 #'   hence the name.
+#'
+#'   For example, if \eqn{\alpha = 0.5}, then each direct connection (or alter) would be worth \eqn{(0.5)^1 = 0.5},
+#'   each secondary connection (or tertius) would be worth \eqn{(0.5)^2 = 0.25},
+#'   each tertiary connection would be worth \eqn{(0.5)^3 = 0.125}, and so on.
+#'
 #'   Rather than performing this iteration though,
 #'   most routines solve the equation \eqn{x = (I - \frac{1}{\lambda} A^T)^{-1} e}.
 #' @importFrom igraph alpha_centrality

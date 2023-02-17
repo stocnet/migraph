@@ -117,11 +117,11 @@ read_edgelist <- function(file = file.choose(),
 
 #' @describeIn read Writing edgelists to csv files
 #' @export
-write_edgelist <- function(object,
+write_edgelist <- function(.data,
                            filename,
                            name,
                            ...) {
-  if (missing(object)) {
+  if (missing(.data)) {
     out <- data.frame(
       from = c("A", "B", "C"),
       to = c("B", "C", "A"),
@@ -129,8 +129,8 @@ write_edgelist <- function(object,
     )
     object_name <- "test"
   } else {
-    object_name <- deparse(substitute(object))
-    out <- as.data.frame(as_edgelist(object))
+    object_name <- deparse(substitute(.data))
+    out <- as.data.frame(as_edgelist(.data))
   }
   if (missing(filename)) filename <- paste0(getwd(), "/", object_name, ".csv")
   if (missing(name)) name <- object_name
@@ -159,19 +159,19 @@ read_nodelist <- function(file = file.choose(),
 
 #' @describeIn read Writing nodelists to csv files
 #' @export
-write_nodelist <- function(object,
+write_nodelist <- function(.data,
                            filename,
                            name,
                            ...) {
-  if (missing(object)) {
+  if (missing(.data)) {
     out <- data.frame(
       type = c(FALSE, FALSE, TRUE),
       name = c("A", "B", "C")
     )
     object_name <- "test"
   } else {
-    object_name <- deparse(substitute(object))
-    out <- as.data.frame(as_tidygraph(object))
+    object_name <- deparse(substitute(.data))
+    out <- as.data.frame(as_tidygraph(.data))
   }
   if (missing(filename)) filename <- paste0(getwd(), "/", object_name, ".csv")
   if (missing(name)) name <- object_name
@@ -228,14 +228,14 @@ read_pajek <- function(file = file.choose(),
 #' @describeIn read Writing pajek .net files
 #' @importFrom igraph write_graph
 #' @export
-write_pajek <- function(object,
+write_pajek <- function(.data,
                         filename,
                         ...) {
   if (missing(filename)) {
-    object_name <- deparse(substitute(object))
+    object_name <- deparse(substitute(.data))
     filename <- paste0(getwd(), "/", object_name, ".net")
   }
-  igraph::write_graph(as_igraph(object),
+  igraph::write_graph(as_igraph(.data),
     file = filename,
     format = "pajek",
     ...
@@ -421,10 +421,10 @@ read_ucinet <- function(file = file.choose()) {
 #' write_ucinet(horseplay, "R&D-horseplay")
 #' }
 #' @export
-write_ucinet <- function(object,
+write_ucinet <- function(.data,
                          filename,
                          name) {
-  object_name <- deparse(substitute(object))
+  object_name <- deparse(substitute(.data))
   if (missing(filename)) filename <- paste0(getwd(), "/", object_name)
   if (missing(name)) name <- object_name
   # Check to avoid overwriting files by mistake
@@ -437,7 +437,7 @@ write_ucinet <- function(object,
       stop("Writing aborted by user.")
     }
   }
-  mat <- as_matrix(object)
+  mat <- as_matrix(.data)
   # start with UCINET header file:
   UCINET.header <- file(paste(filename, ".##h", sep = ""), "wb")
   writeBin(as.integer(5), UCINET.header, size = 1)

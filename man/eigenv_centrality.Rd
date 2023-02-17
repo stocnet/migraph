@@ -28,18 +28,10 @@ the type of centrality, and other arguments.}
 
 \item{exponent}{Decay rate for the Bonacich power centrality score.}
 
-\item{alpha}{Numeric scalar, the positive tuning parameter introduced in
-Opsahl et al (2010) for trading off between degree and strength centrality measures.
-By default, \code{alpha = 0}, which ignores tie weights and the measure is solely based
-upon degree (the number of ties).
-\code{alpha = 1} ignores the number of ties and provides the sum of the tie weights
-as strength centrality.
-Values between 0 and 1 reflect different trade-offs in the relative contributions of
-degree and strength to the final outcome, with 0.5 as the middle ground.
-Values above 1 penalise for the number of ties.
-Of two nodes with the same sum of tie weights, the node with fewer ties will obtain
-the higher score.
-This argument is ignored except in the case of a weighted network.}
+\item{alpha}{A constant that trades off the importance of external influence against the importance of connection.
+When \eqn{\alpha = 0}, only the external influence matters.
+As \eqn{\alpha} gets larger, only the connectivity matters and we reduce to eigenvector centrality.
+By default \eqn{\alpha = 0.85}.}
 }
 \value{
 A numeric vector giving the eigenvector centrality measure of each node.
@@ -74,6 +66,11 @@ Rather than performing this iteration,
 most routines solve the eigenvector equation \eqn{Ax = \lambda x}.
 }
 
+\section{Power centrality}{
+
+Power or beta (or Bonacich) centrality
+}
+
 \section{Alpha centrality}{
 
 Alpha or Katz (or Katz-Bonacich) centrality operates better than eigenvector centrality
@@ -87,6 +84,11 @@ and \eqn{e_i} is some external influence used to ensure that even nodes beyond t
 strongly connected component begin with some basic influence.
 Note that many equations replace \eqn{\frac{1}{\lambda}} with \eqn{\alpha},
 hence the name.
+
+For example, if \eqn{\alpha = 0.5}, then each direct connection (or alter) would be worth \eqn{(0.5)^1 = 0.5},
+each secondary connection (or tertius) would be worth \eqn{(0.5)^2 = 0.25},
+each tertiary connection would be worth \eqn{(0.5)^3 = 0.125}, and so on.
+
 Rather than performing this iteration though,
 most routines solve the equation \eqn{x = (I - \frac{1}{\lambda} A^T)^{-1} e}.
 }
@@ -125,7 +127,7 @@ Other measures:
 \code{\link{closure}},
 \code{\link{cohesion}()},
 \code{\link{degree_centrality}},
-\code{\link{diversity}()},
+\code{\link{diversity}},
 \code{\link{features}},
 \code{\link{holes}}
 
