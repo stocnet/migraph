@@ -9,7 +9,7 @@
 #'   where the first integer indicates the number of nodes in the first mode,
 #'   and the second integer indicates the number of nodes in the second mode.
 #'   As an alternative, an existing network can be provided to `n`
-#'   and the number of modes and nodes will be inferred.
+#'   and the number of modes, nodes, and directedness will be inferred.
 #'   
 #'   By default, all networks are created as undirected.
 #'   This can be overruled with the argument `directed = TRUE`.
@@ -32,8 +32,8 @@
 #' @param directed Logical whether the graph should be directed.
 #'   By default `directed = FALSE`.
 #'   If the opposite direction is desired, use `to_redirected()`.
-#' @param width Integer specifying the width or breadth
-#'   of the ring or branches.
+#' @param width Integer specifying the width of the ring,
+#'   breadth of the branches, or maximum extent of the neighbourbood.
 #' @param membership A vector of partition membership as integers.
 #'   If left as `NULL` (the default), nodes in each mode will be
 #'   assigned to two, equally sized partitions.
@@ -52,10 +52,8 @@ NULL
 #' autographr(create_empty(c(8,6))) + autographr(create_filled(c(8,6)))
 #' @export
 create_empty <- function(n, directed = FALSE) {
-  if(is_migraph(n)){
-    directed <- is_directed(n)
-    n <- infer_n(n)
-  } 
+  directed <- infer_directed(n, directed)
+  n <- infer_n(n)
   if (length(n) == 1) {
     out <- matrix(0, n, n)
     out <- igraph::graph_from_adjacency_matrix(out)
@@ -71,10 +69,8 @@ create_empty <- function(n, directed = FALSE) {
 #'   with every possible tie realised. 
 #' @export
 create_filled <- function(n, directed = FALSE) {
-  if(is_migraph(n)){
-    directed <- is_directed(n)
-    n <- infer_n(n)
-  } 
+  directed <- infer_directed(n, directed)
+  n <- infer_n(n)
   if (length(n) == 1) {
     out <- matrix(1, n, n)
     diag(out) <- 0
@@ -94,10 +90,8 @@ create_filled <- function(n, directed = FALSE) {
 #' autographr(create_ring(c(8,6), width = 2))
 #' @export
 create_ring <- function(n, directed = FALSE, width = 1, ...) {
-  if(is_migraph(n)){
-    directed <- is_directed(n)
-    n <- infer_n(n)
-  } 
+  directed <- infer_directed(n, directed)
+  n <- infer_n(n)
   if (length(n) == 1) {
     if (width == 1) {
      out <- igraph::make_ring(n, directed, ...)
@@ -148,10 +142,8 @@ create_ring <- function(n, directed = FALSE, width = 1, ...) {
 #' @export
 create_star <- function(n,
                         directed = FALSE) {
-  if(is_migraph(n)){
-    directed <- is_directed(n)
-    n <- infer_n(n)
-  } 
+  directed <- infer_directed(n, directed)
+  n <- infer_n(n)
   if (length(n) == 1) {
     out <- igraph::make_star(n,
                              mode = ifelse(directed, "out", "undirected"))
@@ -177,10 +169,8 @@ create_star <- function(n,
 create_tree <- function(n,
                         directed = FALSE,
                         width = 2) {
-  if(is_migraph(n)){
-    directed <- is_directed(n)
-    n <- infer_n(n)
-  } 
+  directed <- infer_directed(n, directed)
+  n <- infer_n(n)
   if (length(n) > 1) {
     out <- matrix(0, n[1], n[2])
     avail1 <- 1:n[1]
@@ -208,30 +198,23 @@ create_tree <- function(n,
                     mode = ifelse(directed, "out", "undirected"))
 }
 
-#' @describeIn create Creates a graph of the given dimensions with ties to all neighbouring nodes
+#' @describeIn create Creates a lattice graph of the given dimensions with ties to all neighbouring nodes
 #' @importFrom igraph make_lattice
 #' @examples
-#' autographr(create_lattice(5), layout = "kk") +
-#' autographr(create_lattice(c(5,5)))
+#' autographr(create_grid(5), layout = "kk") +
+#' autographr(create_grid(c(5,5)))
 #' @export
-create_lattice <- function(n,
-                           directed = FALSE, 
-                           max_neighbourhood = 8) {
-  if(is_migraph(n)){
-    directed <- is_directed(n)
-    n <- infer_n(n)
-  } 
-  divisors <- function(x){
-    y <- seq_len(x)
-    y[ x%%y == 0 ]
-  }
-  
+create_grid <- function(n,
+                        directed = FALSE, 
+                        width = 8) {
+  directed <- infer_directed(n, directed)
+  n <- infer_n(n)
   if(length(n)== 1){
     divs <- divisors(n)
     if((length(divs) %% 2) == 0){
       dims <- c(divs[length(divs)/2], divs[length(divs)/2+1])
     } else dims <- c(median(divs), median(divs))
-    if(max_neighbourhood == 8){
+    if(width == 8){
       nei1.5 <- as_matrix(igraph::make_lattice(dims, nei = 2, 
                                                directed = directed))
       for(i in 1:(prod(dims)-2)){
@@ -242,9 +225,9 @@ create_lattice <- function(n,
       if(!directed)
         nei1.5[lower.tri(nei1.5)] <- t(nei1.5)[lower.tri(nei1.5)]
       as_igraph(nei1.5)
-    } else if (max_neighbourhood == 12){
+    } else if (width == 12){
       igraph::make_lattice(dims, nei = 2, directed = directed)
-    } else if (max_neighbourhood == 4){
+    } else if (width == 4){
       igraph::make_lattice(dims, nei = 1, directed = directed)
     } else stop("`max_neighbourhood` expected to be 4, 8, or 12")
   } else {
@@ -265,6 +248,45 @@ create_lattice <- function(n,
   }
 }
 
+# #' @describeIn create Creates a honeycomb-style, isometric, or triangular grid/mesh lattice graph 
+# #'   of the given dimensions with ties to nodes up to a maximum width.
+# #' @importFrom igraph make_lattice
+# #' @examples
+# #' autographr(create_mesh(5), layout = "kk")
+# #' @export
+# create_mesh <- function(n,
+#                         directed = FALSE, 
+#                         width = 8) {
+  
+  # offset_divisors <- function(x){
+  #   y <- seq_len(x)
+  #   y[ x%%y == 0 ]
+  # }
+  # 
+  # if(length(n)== 1){
+  #   divs <- offset_divisors(n)
+    # if((length(divs) %% 2) == 0){
+    #   dims <- c(divs[length(divs)/2], divs[length(divs)/2+1])
+    # } else dims <- c(median(divs), median(divs))
+    # if(width == 8){
+    #   nei1.5 <- as_matrix(igraph::make_lattice(dims, nei = 2, 
+    #                                            directed = directed))
+    #   for(i in 1:(prod(dims)-2)){
+    #     nei1.5[i,i+2] <- 0
+    #     if(i+dims[1]*2<=prod(dims))
+    #       nei1.5[i,i+dims[1]*2] <- 0
+    #   }
+    #   if(!directed)
+    #     nei1.5[lower.tri(nei1.5)] <- t(nei1.5)[lower.tri(nei1.5)]
+    #   as_igraph(nei1.5)
+    # } else if (width == 12){
+    #   igraph::make_lattice(dims, nei = 2, directed = directed)
+    # } else if (width == 4){
+    #   igraph::make_lattice(dims, nei = 1, directed = directed)
+    # } else stop("`max_neighbourhood` expected to be 4, 8, or 12")
+#   }
+# }
+  
 #' @describeIn create Creates a graph in which the nodes are clustered
 #'   into separate components.
 #' @examples
@@ -272,11 +294,9 @@ create_lattice <- function(n,
 #' autographr(create_components(c(10, 12)))
 #' @export
 create_components <- function(n, directed = FALSE, membership = NULL) {
-  if(is_migraph(n)){
-    directed <- is_directed(n)
-    n <- infer_n(n)
-  } 
+  directed <- infer_directed(n, directed)
   membership <- infer_membership(n, membership)
+  n <- infer_n(n)
   if (length(n) == 1) {
     out <- matrix(0, n, n)
     for (x in unique(membership)) out[membership == x, membership == x] <- 1
@@ -301,11 +321,9 @@ create_components <- function(n, directed = FALSE, membership = NULL) {
 #' autographr(create_core(c(6,6)))
 #' @export
 create_core <- function(n, directed = FALSE, membership = NULL) {
-  if(is_migraph(n)){
-    directed <- is_directed(n)
-    n <- infer_n(n)
-  } 
+  directed <- infer_directed(n, directed)
   membership <- infer_membership(n, membership)
+  n <- infer_n(n)
   if (length(n) > 1) {
     mat <- matrix(0, n[1], n[2])
     mat[membership[1:n[1]]==1,] <- 1
@@ -363,6 +381,11 @@ infer_n <- function(n) {
   n
 }
 
+infer_directed <- function(n, directed){
+  if(is_migraph(n)) directed <- is_directed(n)
+  directed
+}
+
 infer_membership <- function(n, membership) {
   if (is.null(membership)) {
     if (length(n) > 1) {
@@ -371,6 +394,11 @@ infer_membership <- function(n, membership) {
     } else membership <- sort(abs(seq_len(n) %% 2 -2))
   }
   membership
+}
+
+divisors <- function(x){
+  y <- seq_len(x)
+  y[ x%%y == 0 ]
 }
 
 roll_over <- function(w) {

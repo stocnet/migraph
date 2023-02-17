@@ -7,7 +7,7 @@
 \alias{create_ring}
 \alias{create_star}
 \alias{create_tree}
-\alias{create_lattice}
+\alias{create_grid}
 \alias{create_components}
 \alias{create_core}
 \title{Make networks with defined structures}
@@ -22,7 +22,7 @@ create_star(n, directed = FALSE)
 
 create_tree(n, directed = FALSE, width = 2)
 
-create_lattice(n, directed = FALSE, max_neighbourhood = 8)
+create_grid(n, directed = FALSE, width = 8)
 
 create_components(n, directed = FALSE, membership = NULL)
 
@@ -43,8 +43,8 @@ a network of the same dimensions will be created.
 By default \code{directed = FALSE}.
 If the opposite direction is desired, use \code{to_redirected()}.}
 
-\item{width}{Integer specifying the width or breadth
-of the ring or branches.}
+\item{width}{Integer specifying the width of the ring,
+breadth of the branches, or maximum extent of the neighbourbood.}
 
 \item{...}{Additional arguments passed on to \code{{igraph}}.}
 
@@ -67,7 +67,7 @@ To create a two-mode network, pass \code{n} a vector of \emph{two} integers,
 where the first integer indicates the number of nodes in the first mode,
 and the second integer indicates the number of nodes in the second mode.
 As an alternative, an existing network can be provided to \code{n}
-and the number of modes and nodes will be inferred.
+and the number of modes, nodes, and directedness will be inferred.
 
 By default, all networks are created as undirected.
 This can be overruled with the argument \code{directed = TRUE}.
@@ -91,7 +91,7 @@ that has a maximally central node
 
 \item \code{create_tree()}: Creates a graph of the given dimensions with successive branches.
 
-\item \code{create_lattice()}: Creates a graph of the given dimensions with ties to all neighbouring nodes
+\item \code{create_grid()}: Creates a lattice graph of the given dimensions with ties to all neighbouring nodes
 
 \item \code{create_components()}: Creates a graph in which the nodes are clustered
 into separate components.
@@ -112,8 +112,8 @@ autographr(create_star(c(12,1)))
 autographr(create_tree(c(7,8), directed = TRUE)) +
 autographr(create_tree(15, directed = TRUE), "tree") +
 autographr(create_tree(15, directed = TRUE, width = 3), "tree")
-autographr(create_lattice(5), layout = "kk") +
-autographr(create_lattice(c(5,5)))
+autographr(create_grid(5), layout = "kk") +
+autographr(create_grid(c(5,5)))
 autographr(create_components(10, membership = c(1,1,1,2,2,2,3,3,3,3)))
 autographr(create_components(c(10, 12)))
 autographr(create_core(6)) +
