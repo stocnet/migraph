@@ -173,16 +173,16 @@ plot.netlogit <- function(x, ...){
 }
 
 # diff_model ####
-make_diff_model <- function(events, report, object) {
+make_diff_model <- function(events, report, .data) {
   class(report) <- c("diff_model", class(report))
   attr(report, "events") <- events
-  attr(report, "mode") <- node_mode(object)
+  attr(report, "mode") <- node_mode(.data)
   report
 }
 
-make_diffs_model <- function(report, object) {
+make_diffs_model <- function(report, .data) {
   class(report) <- c("diffs_model", class(report))
-  attr(report, "mode") <- node_mode(object)
+  attr(report, "mode") <- node_mode(.data)
   report
 }
 
@@ -270,12 +270,12 @@ plot.diffs_model <- function(x, ...){
 }
 
 # learn_model ####
-make_learn_model <- function(out, object) {
+make_learn_model <- function(out, .data) {
   out <- as.data.frame(out)
   if(is_labelled(object))
-    names(out) <- node_names(object)
+    names(out) <- node_names(.data)
   class(out) <- c("learn_model", class(out))
-  attr(out, "mode") <- node_mode(object)
+  attr(out, "mode") <- node_mode(.data)
   out
 }
 

@@ -1,6 +1,6 @@
-make_node_member <- function(out, object) {
+make_node_member <- function(out, .data) {
   class(out) <- c("node_member", class(out))
-  attr(out, "mode") <- node_mode(object)
+  attr(out, "mode") <- node_mode(.data)
   out
 }
 

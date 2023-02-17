@@ -1,17 +1,17 @@
-make_node_measure <- function(out, object) {
+make_node_measure <- function(out, .data) {
   class(out) <- c("node_measure", class(out))
-  attr(out, "mode") <- node_mode(object)
+  attr(out, "mode") <- node_mode(.data)
   out
 }
 
-make_tie_measure <- function(out, object) {
+make_tie_measure <- function(out, .data) {
   class(out) <- c("tie_measure", class(out))
   out
 }
 
-make_network_measure <- function(out, object) {
+make_network_measure <- function(out, .data) {
   class(out) <- c("network_measure", class(out))
-  attr(out, "mode") <- network_dims(object)
+  attr(out, "mode") <- network_dims(.data)
   out
 }
 
