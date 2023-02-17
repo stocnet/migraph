@@ -103,12 +103,12 @@ autographs <- function(netlist, ...){
   do.call(patchwork::wrap_plots, gs)
 }
 
-#' @describeIn auto_graph Graphs a network with sensible defaults
-#' @param timevar A time variable.
+#' @describeIn auto_graph Graphs a network with panels or events dynamically
+#' @param attribute A time variable.
 #' @param animate Would you like the plot to be animated?
 #' By default TRUE.
 #' If FALSE, plots frames of the network at each time point. 
-#' @import igraph
+# #' @import igraph
 #' @importFrom ggplot2 ggplot geom_segment geom_point geom_text
 #' scale_alpha_manual
 #' @importFrom gganimate transition_states ease_aes
@@ -119,26 +119,26 @@ autographs <- function(netlist, ...){
 #' ison_adolescents %>%
 #'  activate(edges) %>%
 #'  mutate(year = sample(1:4, 10, replace = TRUE)) %>%
-#'  autographt(timevar = "year")
+#'  autographd(attribute = "year")
 #' @export
-autographt <- function(object, timevar, animate = TRUE) {
+autographd <- function(object, attribute, animate = TRUE) {
 
   # Todo: make code more concise and setup helper functions
   # Todo: make plot defaults similar to ´autographr()´
   # Todo: added extra (...) arguments passed on to `ggraph()`/`ggplot()`
   # Todo: make function work with different ´autographr()´ layouts?
 
-  # Create lists of lists based on timevar (nodes need to be identical)
-  l <- unique(tie_attribute(object, timevar))
+  # Create lists of lists based on attribute (nodes need to be identical)
+  l <- unique(tie_attribute(object, attribute))
   df <- vector("list", length(l))
   for (i in seq_len(length(l))) {
-    df[[i]] <- dplyr::filter(object, get(timevar) == i)
+    df[[i]] <- dplyr::filter(object, get(attribute) == i)
   }
   # Transform back to igraph object
   df <- lapply(df, as_igraph)
   if (animate == TRUE) {
     # Add separate dynamic layouts for each time point
-    require(igraph)
+    # require(igraph)
     # Make sure igraph package is loaded/imported to avoid layout errors
     layout <- graphlayouts::layout_as_dynamic(df, alpha = 0.2) 
     # Create a node list for each time point
@@ -203,7 +203,7 @@ autographt <- function(object, timevar, animate = TRUE) {
       ggplot2::labs(title = paste0(timevar, " {closest_state}")) +
       ggplot2::theme_void()
   } else {
-    names(df) <- unique(igraph::get.edge.attribute(object, timevar))
+    names(df) <- unique(igraph::get.edge.attribute(object, attribute))
     autographs(df)
   }
 }
