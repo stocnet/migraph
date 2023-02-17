@@ -105,7 +105,7 @@ autographs <- function(netlist, ...){
 
 #' @describeIn auto_graph Graphs a network with sensible defaults
 #' @param timevar A time variable.
-#' @param interactive Would you like the output to be interactive?
+#' @param animate Would you like the plot to be animated?
 #' By default TRUE.
 #' If FALSE, plots frames of the network at each time point. 
 #' @import igraph
@@ -122,7 +122,7 @@ autographs <- function(netlist, ...){
 #'  autographt(timevar = "year")
 #' @export
 autographt <- function(object, ..., timevar, animate = TRUE) {
-  # create lists of lists based on timevar (nodes need to be identical)
+  # Create lists of lists based on timevar (nodes need to be identical)
   l <- unique(tie_attribute(object, timevar))
   df <- vector("list", length(l))
   for (i in seq_len(length(l))) {
@@ -133,6 +133,7 @@ autographt <- function(object, ..., timevar, animate = TRUE) {
   if (animate == TRUE) {
     # Add separate dynamic layouts for each time point
     require(igraph)
+    # Make sure igraph package is loaded/imported to avoid layout errors
     layout <- graphlayouts::layout_as_dynamic(df, alpha = 0.2) 
     # Create a node list for each time point
     nodes_lst <- lapply(1:length(df), function(i) {

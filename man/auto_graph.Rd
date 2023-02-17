@@ -66,7 +66,7 @@ to the graph before plotting.}
 
 \item{timevar}{A time variable.}
 
-\item{interactive}{Would you like the output to be interactive?
+\item{animate}{Would you like the plot to be animated?
 By default TRUE.
 If FALSE, plots frames of the network at each time point.}
 }
