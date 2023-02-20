@@ -33,9 +33,8 @@
 #'   drawing convex but also concave hulls around clusters of nodes.
 #'   These groupings will be labelled with the categories of the variable passed.
 #' @param ... Extra arguments to pass on to `autographr()`/`ggraph()`/`ggplot()`.
-#' @importFrom ggraph geom_edge_link geom_node_text
-#' @importFrom ggraph geom_conn_bundle get_con geom_node_point
-#' @importFrom ggraph scale_edge_width_continuous geom_node_label
+#' @importFrom ggraph geom_edge_link geom_node_text geom_conn_bundle
+#' get_con geom_node_point scale_edge_width_continuous geom_node_label
 #' @importFrom ggplot2 aes arrow unit scale_color_brewer scale_fill_brewer
 #' @importFrom ggforce geom_mark_hull
 #' @name auto_graph
@@ -89,26 +88,11 @@ autographr <- function(object,
 #' @describeIn auto_graph Graphs a list of networks 
 #'   with sensible defaults
 #' @param netlist A list of migraph-compatible networks.
-#' @importFrom patchwork wrap_plots
-#' @examples
-#' autographs(to_egos(ison_adolescents))
-#' @export
-autographs <- function(netlist, ...){
-  if(!is.null(names(netlist)))
-    gs <- lapply(1:length(netlist), function(x) 
-    autographr(netlist[[x]], ...) + 
-      ggtitle(names(netlist)[x])) else 
-        gs <- lapply(netlist, function(x) 
-          autographr(x, ...))
-  do.call(patchwork::wrap_plots, gs)
-}
-
-#' @describeIn auto_graph Graphs a network with panels or events dynamically
 #' @param attribute A time variable.
 #' @param animate Would you like the plot to be animated?
-#' By default TRUE.
-#' If FALSE, plots frames of the network at each time point. 
-# #' @import igraph
+#' By default FALSE.
+#' If TRUE, an animated version of the plot is generated with ´gganimate´.
+#' @importFrom igraph as_data_frame get.edgelist
 #' @importFrom ggplot2 ggplot geom_segment geom_point geom_text
 #' scale_alpha_manual
 #' @importFrom gganimate transition_states ease_aes
@@ -116,31 +100,45 @@ autographs <- function(netlist, ...){
 #' @importFrom dplyr filter
 #' @source http://blog.schochastics.net/post/animating-network-evolutions-with-gganimate/
 #' @examples
+#' autographs(to_egos(ison_adolescents))
 #' ison_adolescents %>%
 #'  activate(edges) %>%
 #'  mutate(year = sample(1:4, 10, replace = TRUE)) %>%
-#'  autographd(attribute = "year")
+#'  autographs(attribute = "year", animate = TRUE)
 #' @export
-autographd <- function(object, attribute, animate = TRUE) {
+autographs <- function(netlist, ..., attribute = NULL, animate = FALSE) {
 
   # Todo: make code more concise and setup helper functions
   # Todo: make plot defaults similar to ´autographr()´
   # Todo: added extra (...) arguments passed on to `ggraph()`/`ggplot()`
+  # Todo: allow for multiple time variables to be passed (e.g. beg and end)
   # Todo: make function work with different ´autographr()´ layouts?
 
-  # Create lists of lists based on attribute (nodes need to be identical)
-  l <- unique(tie_attribute(object, attribute))
-  df <- vector("list", length(l))
-  for (i in seq_len(length(l))) {
-    df[[i]] <- dplyr::filter(object, get(attribute) == i)
+  # List by attribute, if attribute is declared
+  if (!is.null(attribute)) {
+    # Check if attribute exists in 'netlist' object
+    if (is.null(tie_attribute(netlist, attribute))) {
+      stop("Declared 'attribute' not found in netlist object.")
+    }
+    # Create lists of lists based on attribute (nodes need to be identical)
+    l <- unique(tie_attribute(netlist, attribute))
+    df <- vector("list", length(l))
+    for (i in seq_len(length(l))) {
+      df[[i]] <- dplyr::filter(netlist, get(attribute) == i)
+    }
+    names(df) <- unique(igraph::get.edge.attribute(netlist, attribute))
+    netlist <- df
   }
-  # Transform back to igraph object
-  df <- lapply(df, as_igraph)
   if (animate == TRUE) {
+    # Check attribute is declared
+    if (is.null(attribute)) {
+      stop("Please declare an 'attribute' to animate the plot.")
+    }
+    # Transform into an 'igraph' object
+    df <- lapply(netlist, as_igraph)
     # Add separate dynamic layouts for each time point
-    # require(igraph)
-    # Make sure igraph package is loaded/imported to avoid layout errors
-    layout <- graphlayouts::layout_as_dynamic(df, alpha = 0.2) 
+    require(igraph, quietly = TRUE)
+    layout <- graphlayouts::layout_as_dynamic(df, alpha = 0.2)
     # Create a node list for each time point
     nodes_lst <- lapply(1:length(df), function(i) {
       cbind(igraph::as_data_frame(df[[i]], "vertices"),
@@ -158,28 +156,26 @@ autographd <- function(object, attribute, animate = TRUE) {
                                                     nodes_lst[[i]]$name)]
       edges_lst[[i]]$yend <- nodes_lst[[i]]$y[match(edges_lst[[i]]$to,
                                                     nodes_lst[[i]]$name)]
-      edges_lst[[i]]$id <- paste0(edges_lst[[i]]$from, "-",
-                                  edges_lst[[i]]$to)
+      edges_lst[[i]]$id <- paste0(edges_lst[[i]]$from, "-", edges_lst[[i]]$to)
       edges_lst[[i]]$status <- TRUE
       edges_lst[[i]]
     })
     # Get edge IDs for all edges
-    all_edges <- do.call("rbind", lapply(df, get.edgelist))
+    all_edges <- do.call("rbind", lapply(df, igraph::get.edgelist))
     all_edges <- all_edges[!duplicated(all_edges), ]
     all_edges <- cbind(all_edges, paste0(all_edges[, 1], "-", all_edges[, 2]))
     # Add edges level information for edge transitions
     edges_lst <- lapply(1:length(df), function(i) {
       idx <- which(!all_edges[, 3] %in% edges_lst[[i]]$id)
       if (length(idx != 0)) {
-        tmp <- data.frame(from = all_edges[idx, 1],
-                          to = all_edges[idx, 2],
+        tmp <- data.frame(from = all_edges[idx, 1], to = all_edges[idx, 2],
                           id = all_edges[idx, 3])
         tmp$x <- nodes_lst[[i]]$x[match(tmp$from, nodes_lst[[i]]$name)]
         tmp$y <- nodes_lst[[i]]$y[match(tmp$from, nodes_lst[[i]]$name)]
         tmp$xend <- nodes_lst[[i]]$x[match(tmp$to, nodes_lst[[i]]$name)]
         tmp$yend <- nodes_lst[[i]]$y[match(tmp$to, nodes_lst[[i]]$name)]
         tmp$frame <- i
-        tmp[timevar] <- i
+        tmp[attribute] <- i
         tmp$status <- FALSE
         edges_lst[[i]] <- rbind(edges_lst[[i]], tmp)
       }
@@ -191,8 +187,9 @@ autographd <- function(object, attribute, animate = TRUE) {
     # Plot with ggplo2 and gganimate
     ggplot2::ggplot() +
       ggplot2::geom_segment(data = edges_df,
-                   aes(x = x, xend = xend, y = y, yend = yend,
-                       group = id, alpha = status), show.legend = FALSE) +
+                            aes(x = x, xend = xend, y = y, yend = yend,
+                                group = id, alpha = status),
+                            show.legend = FALSE) +
       ggplot2::geom_point(data = nodes_df, aes(x, y, group = name),
                           shape = 21, size = 4, show.legend = FALSE) +
       ggplot2::geom_text(data = nodes_df, aes(x, y, label = name),
@@ -200,11 +197,16 @@ autographd <- function(object, attribute, animate = TRUE) {
       ggplot2::scale_alpha_manual(values = c(0, 1)) +
       gganimate::ease_aes("quadratic-in-out") +
       gganimate::transition_states(frame, state_length = 0.75, wrap = FALSE) +
-      ggplot2::labs(title = paste0(timevar, " {closest_state}")) +
+      ggplot2::labs(title = paste0(attribute, " {closest_state}")) +
       ggplot2::theme_void()
   } else {
-    names(df) <- unique(igraph::get.edge.attribute(object, attribute))
-    autographs(df)
+    if(!is.null(names(netlist)))
+      gs <- lapply(1:length(netlist), function(x)
+        autographr(netlist[[x]], ...) +
+          ggtitle(names(netlist)[x])) else
+            gs <- lapply(netlist, function(x)
+              autographr(x, ...))
+          do.call(patchwork::wrap_plots, gs)
   }
 }
 

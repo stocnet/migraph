@@ -4,7 +4,6 @@
 \alias{auto_graph}
 \alias{autographr}
 \alias{autographs}
-\alias{autographd}
 \title{Quickly graph networks with sensible defaults}
 \source{
 http://blog.schochastics.net/post/animating-network-evolutions-with-gganimate/
@@ -22,9 +21,7 @@ autographr(
   ...
 )
 
-autographs(netlist, ...)
-
-autographd(object, attribute, animate = TRUE)
+autographs(netlist, ..., attribute = NULL, animate = FALSE)
 }
 \arguments{
 \item{object}{A migraph-consistent object.}
@@ -67,8 +64,8 @@ to the graph before plotting.}
 \item{attribute}{A time variable.}
 
 \item{animate}{Would you like the plot to be animated?
-By default TRUE.
-If FALSE, plots frames of the network at each time point.}
+By default FALSE.
+If TRUE, an animated version of the plot is generated with ´gganimate´.}
 }
 \description{
 The aim of this function is to provide users with a quick and easy
@@ -83,8 +80,6 @@ visualisation of network measures such as centrality.
 
 \item \code{autographs()}: Graphs a list of networks
 with sensible defaults
-
-\item \code{autographd()}: Graphs a network with panels or events dynamically
 
 }}
 \examples{
@@ -103,7 +98,7 @@ autographs(to_egos(ison_adolescents))
 ison_adolescents \%>\%
  activate(edges) \%>\%
  mutate(year = sample(1:4, 10, replace = TRUE)) \%>\%
- autographd(attribute = "year")
+ autographs(attribute = "year", animate = TRUE)
 }
 \seealso{
 Other mapping: 
