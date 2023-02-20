@@ -5,13 +5,22 @@
 \alias{to_egos}
 \alias{to_subgraphs}
 \alias{to_components}
-\title{Tools for splitting networks, graphs, and matrices}
+\alias{to_waves}
+\alias{to_slices}
+\alias{to_joined}
+\title{Tools for splitting and joining networks, graphs, and matrices}
 \usage{
 to_egos(object, max_dist = 1, min_dist = 0)
 
 to_subgraphs(object, attribute)
 
 to_components(object)
+
+to_waves(.data, dates)
+
+to_slices(.data, dates)
+
+to_joined(.data, from = c("waves"))
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -33,11 +42,18 @@ and 2 excludes ego's direct alters.}
 
 \item{attribute}{A character string indicating the categorical
 attribute in a network used to split into subgraphs.}
+
+\item{dates}{Character string indicating the date
+attribute in a network used to split into subgraphs.}
+
+\item{from}{Character string indicating the type of source in the list.
+Either "egos", "subgraphs", "components", "waves", or "slices".}
 }
 \description{
 These functions offer tools for splitting migraph-consistent objects
 (matrices, igraph, tidygraph, or network objects).
 Splitting means that the returned object will be a list of objects.
+Joining expects a list of objects and returns a network object.
 }
 \section{Functions}{
 \itemize{
@@ -49,6 +65,17 @@ on some given attribute.
 
 \item \code{to_components()}: Returns a list of the components
 in a network.
+
+\item \code{to_waves()}: Returns a network
+with some discrete observations over time
+into a list of those observations.
+
+\item \code{to_slices()}: Returns a list of a network
+with some continuous time variable
+at some time slice(s).
+
+\item \code{to_joined()}: Returns a single network object
+from a list.
 
 }}
 \examples{

@@ -931,13 +931,14 @@ to_anti.network <- function(object){
   as_network(to_anti(as_igraph(object)))
 }
 
-# Splitting ####
-#' Tools for splitting networks, graphs, and matrices
+# Splitting and joining ####
+#' Tools for splitting and joining networks, graphs, and matrices
 #' 
 #' @description
-#' These functions offer tools for splitting migraph-consistent objects
-#' (matrices, igraph, tidygraph, or network objects).
-#' Splitting means that the returned object will be a list of objects.
+#'   These functions offer tools for splitting migraph-consistent objects
+#'   (matrices, igraph, tidygraph, or network objects).
+#'   Splitting means that the returned object will be a list of objects.
+#'   Joining expects a list of objects and returns a network object.
 #' @name split
 #' @family manipulations
 #' @inheritParams reformat
@@ -1075,6 +1076,51 @@ to_components.data.frame <- function(object){
   lapply(out, function(x) as_edgelist(x))
 }
 
+#' @describeIn split Returns a network
+#'   with some discrete observations over time
+#'   into a list of those observations.
+#' @param dates Character string indicating the date
+#'   attribute in a network used to split into subgraphs.
+#' @export
+to_waves <- function(.data, dates) UseMethod("to_waves")
+
+#' @export
+to_waves.tbl_graph <- function(.data, dates){
+  
+}
+
+#' @describeIn split Returns a list of a network
+#'   with some continuous time variable
+#'   at some time slice(s).
+#' @param dates Character string indicating the date
+#'   attribute in a network used to split into subgraphs.
+#' @export
+to_slices <- function(.data, dates) UseMethod("to_slices")
+
+#' @export
+to_slices.tbl_graph <- function(.data, dates){
+  
+}
+
+#' @describeIn split Returns a single network object
+#'   from a list.
+#' @param from Character string indicating the type of source in the list.
+#'   Either "egos", "subgraphs", "components", "waves", or "slices".
+#' @export
+to_joined <- function(.data, from = c("waves")) UseMethod("to_joined")
+
+#' @export
+to_joined.list <- function(.data, 
+                           from = c("waves")){
+  from <- match.arg(from)
+  ann <- switch(from,
+         "waves" = lapply(seq_along(.data), function(x) mutate_ties(.data[[x]], wave = x)))
+  out <- ann[[1]]
+  for (i in seq_along(ann)[-1]){
+    out <- join_ties(out, ann[[i]], "wave")
+  }
+  out
+}
 
 # Missing ####
 
