@@ -1096,12 +1096,15 @@ to_waves <- function(.data, attribute = "wave",
 #' @export
 to_waves.igraph <- function(.data, attribute = "wave",
                             delete.vertices = FALSE) {
+
+  # Todo: what about node attributes, does it make sense here?
+  # igraph::get.vertex.attribute(.data, attribute)
+  # Todo: what about multiple attribute date variables?
+
   # Check if tie attribute exists in data
   if (is.null(tie_attribute(.data, attribute))) {
     stop("Declared tie 'attribute' not found in object.")
   }
-  # Todo: what about node attributes, does it make sense here?
-  # igraph::get.vertex.attribute(.data, attribute)
   l <- unique(tie_attribute(.data, attribute))
   # Return list of lists based on attribute
   out <- vector("list", length(l))
@@ -1156,6 +1159,11 @@ to_slices <- function(.data, attribute, slice,
 
 #' @export
 to_slices.igraph <- function(.data, attribute, slice, delete.vertices = FALSE) {
+
+  # Todo: what about node attributes, does it make sense here?
+  # igraph::get.vertex.attribute(.data, attribute)
+  # Todo: what about multiple attribute date variables?
+
   # Check if tie attribute exists in data
   if (is.null(tie_attribute(.data, attribute))) {
     stop("Declared tie 'attribute' not found in object.")
