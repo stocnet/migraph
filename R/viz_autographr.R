@@ -115,7 +115,6 @@ autographs <- function(netlist, ...) {
 #' scale_alpha_manual theme_void
 #' @importFrom gganimate transition_states ease_aes
 #' @importFrom graphlayouts layout_as_dynamic
-#' @importFrom dplyr filter
 #' @source http://blog.schochastics.net/post/animating-network-evolutions-with-gganimate/
 #' @examples
 #' ison_adolescents %>% 
