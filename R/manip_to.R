@@ -1079,28 +1079,148 @@ to_components.data.frame <- function(object){
 #' @describeIn split Returns a network
 #'   with some discrete observations over time
 #'   into a list of those observations.
-#' @param dates Character string indicating the date
+#' @param attribute Character string indicating the date
 #'   attribute in a network used to split into subgraphs.
+#' @param delete.vertices Would you like to remove vertices that do not have
+#'  any adjacent edges for each wave?
+#' @examples
+#' ison_adolescents %>%
+#'   activate(edges) %>%
+#'   mutate(wave = sample(1:4, 10, replace = TRUE)) %>%
+#'   to_waves(attribute = "wave")
 #' @export
-to_waves <- function(.data, dates) UseMethod("to_waves")
+to_waves <- function(.data, attribute = "wave",
+                     delete.vertices = FALSE) UseMethod("to_waves")
+
+#' @importFrom igraph subgraph.edges
+#' @export
+to_waves.igraph <- function(.data, attribute = "wave",
+                            delete.vertices = FALSE) {
+  # Check if tie attribute exists in data
+  if (is.null(tie_attribute(.data, attribute))) {
+    stop("Declared tie 'attribute' not found in object.")
+  }
+  # Todo: what about node attributes, does it make sense here?
+  # igraph::get.vertex.attribute(.data, attribute)
+  l <- unique(tie_attribute(.data, attribute))
+  # Return list of lists based on attribute
+  out <- vector("list", length(l))
+  for (i in l) {
+    out[[i]] <- igraph::subgraph.edges(.data, E(.data)[get(attribute) == i],
+                                       delete.vertices)
+  }
+  out
+}
 
 #' @export
-to_waves.tbl_graph <- function(.data, dates){
-  
+to_waves.tbl_graph <- function(.data, attribute = "wave",
+                               delete.vertices = FALSE) {
+  to_waves.igraph(as_igraph(.data), attribute, delete.vertices)
 }
+
+#' @importFrom igraph graph.data.frame
+#' @export
+to_waves.data.frame <- function(.data, attribute = "wave",
+                                delete.vertices = FALSE) {
+  to_waves.igraph(igraph::graph.data.frame(.data), attribute, delete.vertices)
+}
+
+# #' @export
+# to_waves.network <- function(.data, attribute = "wave",
+#                              delete.vertices = FALSE) {
+#   to_waves.igraph(as_igraph(.data), attribute, delete.vertices)
+# }
+
+# #' @export
+# to_waves.matrix <- function(.data, attribute = "wave",
+#                             delete.vertices = TRUE) {
+#   to_waves.igraph(as_igraph(.data), attribute, delete.vertices)
+# }
 
 #' @describeIn split Returns a list of a network
 #'   with some continuous time variable
 #'   at some time slice(s).
-#' @param dates Character string indicating the date
-#'   attribute in a network used to split into subgraphs.
+#' @param attribute Character string indicating attribute used to slice data.
+#' @param slice Character string or list indicating the date(s) or integer(s)
+#'   from attribute used to slice data into subgraphs.
+#' @param delete.vertices Would you like to remove vertices that do not have
+#'   any adjacent edges for each slice?
+#' @examples
+#' ison_adolescents %>%
+#'   activate(edges) %>%
+#'   mutate(wave = sample(1:6, 10, replace = TRUE)) %>%
+#'   to_slices(attribute = "wave", slice = c(2, 4, 6))
 #' @export
-to_slices <- function(.data, dates) UseMethod("to_slices")
+to_slices <- function(.data, attribute, slice,
+                      delete.vertices = FALSE) UseMethod("to_slices")
 
 #' @export
-to_slices.tbl_graph <- function(.data, dates){
-  
+to_slices.igraph <- function(.data, attribute, slice, delete.vertices = FALSE) {
+  # Check if tie attribute exists in data
+  if (is.null(tie_attribute(.data, attribute))) {
+    stop("Declared tie 'attribute' not found in object.")
+  }
+  # Check if tie attribute is date or numeric
+  if (!inherits(tie_attribute(.data, attribute)[[1]], "Date") &
+      !is.numeric(tie_attribute(.data, attribute))) {
+    stop("Please declare either a date or an interger as a tie 'attribute'.")
+  }
+  # Check if dates are multiple
+  if (length(slice) == 1) {
+    out <- vector("list", 2)
+    out[[1]] <- igraph::subgraph.edges(.data, E(.data)[get(attribute) < slice],
+                                       delete.vertices)
+    out[[2]] <- igraph::subgraph.edges(.data, E(.data)[get(attribute) > slice],
+                                       delete.vertices)
+  } else {
+    out <- vector("list", length(slice))
+    for (i in seq_len(length(slice))) {
+      if (i == 1) {
+        out[[i]] <- igraph::subgraph.edges(.data,
+                                           E(.data)[get(attribute) <= slice[i]],
+                                           delete.vertices)
+      } else if (i == length(slice)) {
+        out[[i]] <- igraph::subgraph.edges(.data,
+                                           E(.data)[get(attribute) >= slice[i]],
+                                           delete.vertices)
+      } else {
+        out[[i]] <- igraph::subgraph.edges(.data,
+                                           E(.data)[get(attribute) >= slice[i] &
+                                                      get(attribute) < slice[i + 1]],
+                                           delete.vertices)
+      }
+    }
+  }
+  out
 }
+
+#' @export
+to_slices.tbl_graph <- function(.data, attribute, slice,
+                                delete.vertices = FALSE) {
+  to_slices.igraph(as_igraph(.data), attribute, slice, delete.vertices)
+}
+
+#' @importFrom igraph graph.data.frame
+#' @export
+to_slices.data.frame <- function(.data, attribute, slice,
+                                 delete.vertices = FALSE) {
+  to_slices.igraph(igraph::graph.data.frame(.data), attribute, slice,
+                   delete.vertices)
+}
+
+# #' @export
+# to_slices.network <- function(.data, attribute, slice,
+#                                  delete.vertices = FALSE) {
+#   to_slices.igraph(as_igraph(.data), attribute, slice,
+#                    delete.vertices)
+# }
+
+# #' @export
+# to_slices.matrix <- function(.data, attribute, slice,
+#                                  delete.vertices = FALSE) {
+#   to_slices.igraph(as_igraph(.data), attribute, slice,
+#                    delete.vertices)
+# }
 
 #' @describeIn split Returns a single network object
 #'   from a list.

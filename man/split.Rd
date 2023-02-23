@@ -16,9 +16,9 @@ to_subgraphs(object, attribute)
 
 to_components(object)
 
-to_waves(.data, dates)
+to_waves(.data, attribute = "wave", delete.vertices = FALSE)
 
-to_slices(.data, dates)
+to_slices(.data, attribute, slice, delete.vertices = FALSE)
 
 to_joined(.data, from = c("waves"))
 }
@@ -40,11 +40,13 @@ By default 0.
 Increasing this to 1 excludes the ego,
 and 2 excludes ego's direct alters.}
 
-\item{attribute}{A character string indicating the categorical
-attribute in a network used to split into subgraphs.}
+\item{attribute}{Character string indicating attribute used to slice data.}
 
-\item{dates}{Character string indicating the date
-attribute in a network used to split into subgraphs.}
+\item{delete.vertices}{Would you like to remove vertices that do not have
+any adjacent edges for each slice?}
+
+\item{slice}{Character string or list indicating the date(s) or integer(s)
+from attribute used to slice data into subgraphs.}
 
 \item{from}{Character string indicating the type of source in the list.
 Either "egos", "subgraphs", "components", "waves", or "slices".}
@@ -82,6 +84,14 @@ from a list.
 autographs(to_egos(ison_adolescents))
 autographs(to_egos(ison_adolescents,2))
 to_components(ison_marvel_relationships)
+ison_adolescents \%>\%
+  activate(edges) \%>\%
+  mutate(wave = sample(1:4, 10, replace = TRUE)) \%>\%
+  to_waves(attribute = "wave")
+ison_adolescents \%>\%
+  activate(edges) \%>\%
+  mutate(wave = sample(1:6, 10, replace = TRUE)) \%>\%
+  to_slices(attribute = "wave", slice = c(2, 4, 6))
 }
 \seealso{
 Other manipulations: 
