@@ -119,8 +119,8 @@ autographs <- function(netlist, ...) {
 #' @source http://blog.schochastics.net/post/animating-network-evolutions-with-gganimate/
 #' @examples
 #' ison_adolescents %>% 
-#'   mutate(shape = rep(c("circle", "square"), times = 4)) %>%
-#'   mutate(color = rep(c("blue", "red"), times = 4)) %>% 
+#'   mutate(shape = rep(c("circle", "square"), times = 4),
+#'          color = rep(c("blue", "red"), times = 4)) %>% 
 #'   activate(edges) %>%
 #'   mutate(year = sample(1:4, 10, replace = TRUE)) %>%
 #'   autographd(attribute = "year", animate = FALSE,
@@ -134,32 +134,21 @@ autographd <- function(object, attribute, animate = FALSE, ...) {
 
   # Todo: make code more concise and setup helper functions
   # Todo: make plot defaults similar to ´autographr()´
-  # Todo: added extra (...) arguments passed on to `ggraph()`/`ggplot()`
+  # Todo: add extra (...) arguments passed on to `ggraph()`/`ggplot()`
   # Todo: allow for multiple time attributes/variable to be passed (e.g. beg/end)
   # Todo: make function work with different ´autographr()´ layouts?
+  # Todo: option to keep/remove isolates at each time?
 
   # Check if attribute is declared
   if (missing(attribute)) {
     stop("Please declare a network 'attribute'.")
   }
-  # Check if attribute exists in object
-  if (is.null(tie_attribute(object, attribute))) {
-    stop("Declared 'attribute' not found in object.")
-  }
-  # Create lists of lists based on attribute
-  l <- unique(tie_attribute(object, attribute))
-  # Todo: order objects correctly
-  out <- vector("list", length(l))
-  for (i in seq_len(length(l))) {
-    out[[i]] <- dplyr::filter(object, get(attribute) == i)
-  }
-  names(out) <- unique(igraph::get.edge.attribute(object, attribute))
-  # Transform into an 'igraph' object
-  out <- lapply(out, as_igraph)
+  # Create lists of lists based on tie attribute
+  out <- to_waves(object, attribute)
   # Animate
   if (animate == TRUE) {
     # Add separate dynamic layouts for each time point
-    require(igraph, quietly = TRUE)
+    require(igraph, quietly = TRUE) # Issue if igraph is not loaded?
     layout <- graphlayouts::layout_as_dynamic(out, alpha = 0.2)
     # Create a node list for each time point
     nodes_lst <- lapply(1:length(out), function(i) {
