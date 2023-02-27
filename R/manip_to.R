@@ -1081,6 +1081,8 @@ to_components.data.frame <- function(object){
 #'   into a list of those observations.
 #' @param attribute Character string indicating the date
 #'   attribute in a network used to split into subgraphs.
+#'   Two attributes can be declared as a list,
+#'   the function assumes the first are "begin" and second "end" values.
 #' @param delete.vertices Would you like to remove vertices that do not have
 #'  any adjacent edges for each wave?
 #' @examples
@@ -1106,8 +1108,8 @@ to_waves.igraph <- function(.data, attribute = "wave",
   # igraph::get.vertex.attribute(.data, attribute)
 
   # Check for multiple attributes
-  if (length(attribute) > 1) {
-    cat("Multiple attributes declared. First and second attributes will be taken as begin and end values.")
+  if (length(attribute) > 2) {
+    cat("More than 2 attributes were declared.\nOnly the first and second attributes will be taken as begin and end values.")
     if (is.null(tie_attribute(.data, attribute[1]))) {
       stop(paste0(attribute[1], " tie attribute not found in data."))
     }
