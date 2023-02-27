@@ -170,6 +170,10 @@ autographd <- function(object, attribute, animate = FALSE, ...) {
       edges_lst[[i]]$status <- TRUE
       edges_lst[[i]]
     })
+    # Keep only necessary columns
+    edges_lst <- lapply(edges_lst, function (x) x[,c("from", "to", "frame", "x",
+                                                     "y", "xend", "yend", "id",
+                                                     "status")])
     # Get edge IDs for all edges
     all_edges <- do.call("rbind", lapply(out, igraph::get.edgelist))
     all_edges <- all_edges[!duplicated(all_edges), ]
@@ -185,7 +189,6 @@ autographd <- function(object, attribute, animate = FALSE, ...) {
         tmp$xend <- nodes_lst[[i]]$x[match(tmp$to, nodes_lst[[i]]$name)]
         tmp$yend <- nodes_lst[[i]]$y[match(tmp$to, nodes_lst[[i]]$name)]
         tmp$frame <- i
-        tmp[attribute] <- i
         tmp$status <- FALSE
         edges_lst[[i]] <- rbind(edges_lst[[i]], tmp)
       }
@@ -207,7 +210,7 @@ autographd <- function(object, attribute, animate = FALSE, ...) {
       ggplot2::scale_alpha_manual(values = c(0, 1)) +
       gganimate::ease_aes("quadratic-in-out") +
       gganimate::transition_states(frame, state_length = 0.75, wrap = FALSE) +
-      ggplot2::labs(title = paste0(attribute, " {closest_state}")) +
+      ggplot2::labs(title = paste0("wave", " {closest_state}")) +
       ggplot2::theme_void()
   } else {
     autographs(out, ...)
