@@ -1088,6 +1088,11 @@ to_components.data.frame <- function(object){
 #'   activate(edges) %>%
 #'   mutate(wave = sample(1:4, 10, replace = TRUE)) %>%
 #'   to_waves(attribute = "wave")
+#' ison_adolescents %>%
+#'   activate(edges) %>%
+#'   mutate(beg = sample(1:4, 10, replace = TRUE),
+#'   end = sample(5:8, 10, replace = TRUE)) %>%
+#'   to_waves(attribute = c("beg", "end"))
 #' @export
 to_waves <- function(.data, attribute = "wave",
                      delete.vertices = FALSE) UseMethod("to_waves")
@@ -1099,19 +1104,36 @@ to_waves.igraph <- function(.data, attribute = "wave",
 
   # Todo: what about node attributes, does it make sense here?
   # igraph::get.vertex.attribute(.data, attribute)
-  # Todo: what about multiple attribute date variables?
 
-  # Check if tie attribute exists in data
-  if (is.null(tie_attribute(.data, attribute))) {
-    stop("Declared tie 'attribute' not found in object.")
+  # Check for multiple attributes
+  if (length(attribute) > 1) {
+    cat("Multiple attributes declared. First and second attributes will be taken as begin and end values.")
+    if (is.null(tie_attribute(.data, attribute[1]))) {
+      stop(paste0(attribute[1], " tie attribute not found in data."))
+    }
+    if (is.null(tie_attribute(.data, attribute[2]))) {
+      stop(paste0(attribute[2], " tie attribute not found in data."))
+    }
+    .data <- igraph::as_data_frame(.data) %>%
+      rename("var1" := !!attribute[1],
+             "var2" := !!attribute[2]) %>%
+      dplyr::group_by(var1, var2) %>%
+      dplyr::mutate(group_id = dplyr::cur_group_id()) %>%
+      igraph::graph_from_data_frame()
+    attribute <- "group_id"
+  } else {
+    # Check if tie attribute exists in data
+    if (is.null(tie_attribute(.data, attribute))) {
+      stop("Declared tie 'attribute' not found in data.")
+    }
   }
-  l <- unique(tie_attribute(.data, attribute))
-  # Return list of lists based on attribute
-  out <- vector("list", length(l))
-  for (i in l) {
-    out[[i]] <- igraph::subgraph.edges(.data, E(.data)[get(attribute) == i],
-                                       delete.vertices)
-  }
+    l <- unique(tie_attribute(.data, attribute))
+    # Return list of lists based on attribute
+    out <- vector("list", length(l))
+    for (i in l) {
+      out[[i]] <- igraph::subgraph.edges(.data, E(.data)[get(attribute) == i],
+                                         delete.vertices)
+    }
   out
 }
 
@@ -1230,24 +1252,48 @@ to_slices.data.frame <- function(.data, attribute, slice,
 #                    delete.vertices)
 # }
 
-#' @describeIn split Returns a single network object
-#'   from a list.
-#' @param from Character string indicating the type of source in the list.
-#'   Either "egos", "subgraphs", "components", "waves", or "slices".
-#' @export
-to_joined <- function(.data, from = c("waves")) UseMethod("to_joined")
+#' #' @describeIn split Returns a single network object
+#' #'   from a list.
+#' #' @param from Character string indicating the type of source in the list.
+#' #' Either "egos", "subgraphs", "components", "waves", or "slices".
+#' #' @export
+#' to_joined <- function(.data, from = c("waves")) UseMethod("to_joined")
+#' 
+#' #' @export
+#' to_joined.list <- function(.data, 
+#'                            from = c("waves")){
+#'   from <- match.arg(from)
+#'   ann <- switch(from,
+#'                 "waves" = lapply(seq_along(.data), function(x) mutate_ties(.data[[x]], wave = x)))
+#'   out <- ann[[1]]
+#'   for (i in seq_along(ann)[-1]){
+#'     out <- join_ties(out, ann[[i]], "wave")
+#'   }
+#'   out
+#' }
 
+#' @describeIn split Returns a single network object
+#'  from a list of waves.
+#' @examples
+#' ison_adolescents %>%
+#'   activate(edges) %>%
+#'   mutate(wave = sample(1:4, 10, replace = TRUE)) %>%
+#'   to_waves(attribute = "wave") %>%
+#'   from_waves()
 #' @export
-to_joined.list <- function(.data, 
-                           from = c("waves")){
-  from <- match.arg(from)
-  ann <- switch(from,
-         "waves" = lapply(seq_along(.data), function(x) mutate_ties(.data[[x]], wave = x)))
-  out <- ann[[1]]
+from_waves <- function(.data) UseMethod("from_waves")
+
+#' @importFrom igraph as_data_frame
+#' @export
+from_waves.list <- function(.data) {
+  ann <- lapply(.data, as_igraph)
+  ann <- lapply(seq_along(.data), function(x) mutate_ties(.data[[x]],
+                                                          "wave" = x))
+  out <- igraph::as_data_frame(ann[[1]])
   for (i in seq_along(ann)[-1]){
-    out <- join_ties(out, ann[[i]], "wave")
+    out <- rbind(out, igraph::as_data_frame(ann[[i]]))
   }
-  out
+  as_igraph(out)
 }
 
 # Missing ####

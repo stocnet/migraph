@@ -7,7 +7,7 @@
 \alias{to_components}
 \alias{to_waves}
 \alias{to_slices}
-\alias{to_joined}
+\alias{from_waves}
 \title{Tools for splitting and joining networks, graphs, and matrices}
 \usage{
 to_egos(object, max_dist = 1, min_dist = 0)
@@ -20,7 +20,7 @@ to_waves(.data, attribute = "wave", delete.vertices = FALSE)
 
 to_slices(.data, attribute, slice, delete.vertices = FALSE)
 
-to_joined(.data, from = c("waves"))
+from_waves(.data)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -47,15 +47,25 @@ any adjacent edges for each slice?}
 
 \item{slice}{Character string or list indicating the date(s) or integer(s)
 from attribute used to slice data into subgraphs.}
-
-\item{from}{Character string indicating the type of source in the list.
-Either "egos", "subgraphs", "components", "waves", or "slices".}
 }
 \description{
 These functions offer tools for splitting migraph-consistent objects
 (matrices, igraph, tidygraph, or network objects).
 Splitting means that the returned object will be a list of objects.
 Joining expects a list of objects and returns a network object.
+
+#' @export
+to_joined.list <- function(.data,
+from = c("waves")){
+from <- match.arg(from)
+ann <- switch(from,
+"waves" = lapply(seq_along(.data), function(x) mutate_ties(.data[\link{x}], wave = x)))
+out <- ann[\link{1}]
+for (i in seq_along(ann)\link{-1}){
+out <- join_ties(out, ann[\link{i}], "wave")
+}
+out
+}
 }
 \section{Functions}{
 \itemize{
@@ -76,8 +86,8 @@ into a list of those observations.
 with some continuous time variable
 at some time slice(s).
 
-\item \code{to_joined()}: Returns a single network object
-from a list.
+\item \code{from_waves()}: Returns a single network object
+from a list of waves.
 
 }}
 \examples{
@@ -90,8 +100,18 @@ ison_adolescents \%>\%
   to_waves(attribute = "wave")
 ison_adolescents \%>\%
   activate(edges) \%>\%
+  mutate(beg = sample(1:4, 10, replace = TRUE),
+  end = sample(5:8, 10, replace = TRUE)) \%>\%
+  to_waves(attribute = c("beg", "end"))
+ison_adolescents \%>\%
+  activate(edges) \%>\%
   mutate(wave = sample(1:6, 10, replace = TRUE)) \%>\%
   to_slices(attribute = "wave", slice = c(2, 4, 6))
+ison_adolescents \%>\%
+  activate(edges) \%>\%
+  mutate(wave = sample(1:4, 10, replace = TRUE)) \%>\%
+  to_waves(attribute = "wave") \%>\%
+  from_waves()
 }
 \seealso{
 Other manipulations: 
