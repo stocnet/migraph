@@ -7,7 +7,10 @@
 \alias{to_components}
 \alias{to_waves}
 \alias{to_slices}
+\alias{from_subgraphs}
+\alias{from_egos}
 \alias{from_waves}
+\alias{from_slices}
 \title{Tools for splitting and joining networks, graphs, and matrices}
 \usage{
 to_egos(object, max_dist = 1, min_dist = 0)
@@ -18,9 +21,15 @@ to_components(object)
 
 to_waves(.data, attribute = "wave", delete.vertices = FALSE)
 
-to_slices(.data, attribute, slice, delete.vertices = FALSE)
+to_slices(.data, attributes, slice, delete.vertices = FALSE)
+
+from_subgraphs(.data)
+
+from_egos(.data)
 
 from_waves(.data)
+
+from_slices(.data, remove.duplicates = FALSE)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -40,32 +49,26 @@ By default 0.
 Increasing this to 1 excludes the ego,
 and 2 excludes ego's direct alters.}
 
-\item{attribute}{Character string indicating attribute used to slice data.}
+\item{attribute}{Character string indicating the date
+attribute in a network used to split into subgraphs.}
 
 \item{delete.vertices}{Would you like to remove vertices that do not have
 any adjacent edges for each slice?}
 
-\item{slice}{Character string or list indicating the date(s) or integer(s)
-from attribute used to slice data into subgraphs.}
+\item{attributes}{List indicating two attributes used to slice data.}
+
+\item{slice}{Character string or character list indicating the date(s)
+or integer(s) range used to slice data (e.g slice = c(1:2, 3:4)).}
+
+\item{remove.duplicates}{Should duplicates be removed?
+By default FALSE.
+If TRUE, duplicated edges are removed.}
 }
 \description{
 These functions offer tools for splitting migraph-consistent objects
 (matrices, igraph, tidygraph, or network objects).
 Splitting means that the returned object will be a list of objects.
 Joining expects a list of objects and returns a network object.
-
-#' @export
-to_joined.list <- function(.data,
-from = c("waves")){
-from <- match.arg(from)
-ann <- switch(from,
-"waves" = lapply(seq_along(.data), function(x) mutate_ties(.data[\link{x}], wave = x)))
-out <- ann[\link{1}]
-for (i in seq_along(ann)\link{-1}){
-out <- join_ties(out, ann[\link{i}], "wave")
-}
-out
-}
 }
 \section{Functions}{
 \itemize{
@@ -73,7 +76,7 @@ out
 networks.
 
 \item \code{to_subgraphs()}: Returns a list of subgraphs
-on some given attribute.
+on some given node attribute.
 
 \item \code{to_components()}: Returns a list of the components
 in a network.
@@ -86,32 +89,58 @@ into a list of those observations.
 with some continuous time variable
 at some time slice(s).
 
+\item \code{from_subgraphs()}: Returns a single network object
+from a list of subgraphs.
+
+\item \code{from_egos()}: Returns a single network object
+from a list of egos.
+
 \item \code{from_waves()}: Returns a single network object
 from a list of waves.
+
+\item \code{from_slices()}: Returns a single network object
+from a list of slices.
 
 }}
 \examples{
 autographs(to_egos(ison_adolescents))
 autographs(to_egos(ison_adolescents,2))
+ison_adolescents \%>\%
+  activate(nodes) \%>\%
+  mutate(unicorn = sample(c("yes", "no"), 8,
+  replace = TRUE)) \%>\%
+  to_subgraphs(attribute = "unicorn")
 to_components(ison_marvel_relationships)
 ison_adolescents \%>\%
   activate(edges) \%>\%
-  mutate(wave = sample(1:4, 10, replace = TRUE)) \%>\%
+  mutate(wave = sample(1995:1998, 10, replace = TRUE)) \%>\%
   to_waves(attribute = "wave")
 ison_adolescents \%>\%
   activate(edges) \%>\%
-  mutate(beg = sample(1:4, 10, replace = TRUE),
-  end = sample(5:8, 10, replace = TRUE)) \%>\%
-  to_waves(attribute = c("beg", "end"))
+  mutate(beg = sample(1:3, 10, replace = TRUE),
+  end = sample(4:6, 10, replace = TRUE)) \%>\%
+  to_slices(attributes = c("beg", "end"), slice = c("1:6", "2:5", "3:4"))
+ison_adolescents \%>\%
+  activate(nodes) \%>\%
+  mutate(unicorn = sample(c("yes", "no"), 8,
+  replace = TRUE)) \%>\%
+  to_subgraphs(attribute = "unicorn") \%>\%
+  from_subgraphs()
 ison_adolescents \%>\%
   activate(edges) \%>\%
-  mutate(wave = sample(1:6, 10, replace = TRUE)) \%>\%
-  to_slices(attribute = "wave", slice = c(2, 4, 6))
+  to_egos() \%>\%
+  from_egos()
 ison_adolescents \%>\%
   activate(edges) \%>\%
   mutate(wave = sample(1:4, 10, replace = TRUE)) \%>\%
   to_waves(attribute = "wave") \%>\%
   from_waves()
+ison_adolescents \%>\%
+  activate(edges) \%>\%
+  mutate(beg = sample(1:3, 10, replace = TRUE),
+  end = sample(4:6, 10, replace = TRUE)) \%>\%
+  to_slices(attributes = c("beg", "end"), slice = c("1:6", "2:5", "3:4")) \%>\%
+  from_slices()
 }
 \seealso{
 Other manipulations: 
