@@ -95,3 +95,26 @@ test_that("to matching works", {
   expect_equal(network_nodes(to_matching(ison_southern_women)), network_nodes(ison_southern_women))
   expect_true(nrow(sw) == nrow(dplyr::distinct(sw)))
 })
+
+test_that("to, and from, waves work", {
+  orig <- ison_adolescents %>%
+    activate(edges) %>%
+    mutate(wave = sample(1995:1998, 10, replace = TRUE))
+  waves <- to_waves(orig, attribute = "wave")
+  from_wave <- from_waves(waves)
+  expect_length(waves, length(unique(tie_attribute(orig, "wave"))))
+  expect_equal(length(from_wave), length(as.igraph(orig)))
+})
+
+test_that("to, and from, slices work", {
+  orig <- ison_adolescents %>%
+    activate(edges) %>%
+    mutate(beg = sample(1:3, 10, replace = TRUE),
+           end = sample(4:6, 10, replace = TRUE))
+  slice <- to_slices(orig, attributes = c("beg", "end"),
+                     slice = c("1:6", "2:5", "3:4"))
+  slist <- c("1:6", "2:5", "3:4")
+  from_slices <- from_waves(slice)
+  expect_length(slice, length(slist))
+  expect_equal(length(from_slices), length(as.igraph(orig)))
+})
