@@ -1114,8 +1114,8 @@ to_waves.igraph <- function(.data, attribute = "wave",
   # Return list of lists based on attribute
   out <- vector("list", length(l))
   names(out) <- l
-  for (i in l) {
-    out[[i]] <- igraph::subgraph.edges(.data, E(.data)[get(attribute) == i],
+  for (i in names(out)) {
+    out[[i]] <- igraph::subgraph.edges(.data, igraph::E(.data)[get(attribute) == i],
                                        delete.vertices)
     }
   out
@@ -1131,7 +1131,17 @@ to_waves.tbl_graph <- function(.data, attribute = "wave",
 #' @export
 to_waves.data.frame <- function(.data, attribute = "wave",
                                 delete.vertices = FALSE) {
-  to_waves.igraph(igraph::graph.data.frame(.data), attribute, delete.vertices)
+  #Convert to data frame
+  ann <- igraph::as_data_frame(.data)
+  l <- as.character(unique(tie_attribute(.data, attribute)))
+  # Return list of lists based on attribute
+  out <- vector("list", length(l))
+  names(out) <- l
+  # Subset
+  for (i in names(out)) {
+    out[[i]] <- dplyr::filter(ann, get(attribute) == i)
+  }
+  lapply(out, igraph::graph_from_data_frame)
 }
 
 # #' @export
@@ -1234,6 +1244,9 @@ to_slices.data.frame <- function(.data, attributes, slice,
 
 #' @describeIn split Returns a single network object
 #'  from a list of subgraphs.
+#' @param directed Is graph directed?
+#' By default, FALSE.
+#' If TRUE returns a directed graph object.
 #' @importFrom igraph graph_from_data_frame as_data_frame set.vertex.attribute
 #' @examples
 #' ison_adolescents %>%
@@ -1243,7 +1256,7 @@ to_slices.data.frame <- function(.data, attributes, slice,
 #'   to_subgraphs(attribute = "unicorn") %>%
 #'   from_subgraphs()
 #' @export
-from_subgraphs <- function(.data) {
+from_subgraphs <- function(.data, directed = FALSE) {
   if (!is.list(.data)) {
     stop("Please declare a list of subgraphs. ")
   }
@@ -1256,16 +1269,19 @@ from_subgraphs <- function(.data) {
   for (i in seq_along(ann)[-1]) {
     vertex <- rbind(vertex, igraph::as_data_frame(ann[[i]], what = "vertices"))
   }
-  out <- igraph::graph_from_data_frame(edges)
+  out <- igraph::graph_from_data_frame(edges, directed = directed)
   for (i in names(vertex)) {
-    out <- igraph::set.vertex.attribute(out, name = i,
-                                        value = unlist(vertex[i]))
+    out <- suppressWarnings(igraph::set.vertex.attribute(out, name = i,
+                                                         value = unlist(vertex[i])))
   }
   out
 }
 
 #' @describeIn split Returns a single network object
 #'  from a list of egos.
+#' @param directed Is graph directed?
+#' By default, FALSE.
+#' If TRUE returns a directed graph object.
 #' @importFrom igraph graph_from_data_frame as_data_frame
 #' @importFrom dplyr distinct
 #' @examples
@@ -1274,7 +1290,7 @@ from_subgraphs <- function(.data) {
 #'   to_egos() %>%
 #'   from_egos()
 #' @export
-from_egos <- function(.data) {
+from_egos <- function(.data, directed = FALSE) {
   if (!is.list(.data)) {
     stop("Please declare a list of egos.")
   }
@@ -1283,11 +1299,14 @@ from_egos <- function(.data) {
   for (i in seq_along(ann)[-1]){
     out <- rbind(out, igraph::as_data_frame(ann[[i]]))
   }
-  igraph::graph_from_data_frame(dplyr::distinct(out))
+  igraph::graph_from_data_frame(dplyr::distinct(out), directed = directed)
 }
 
 #' @describeIn split Returns a single network object
 #'  from a list of waves.
+#' @param directed Is graph directed?
+#' By default, FALSE.
+#' If TRUE returns a directed graph object.
 #' @importFrom igraph graph_from_data_frame as_data_frame
 #' @examples
 #' ison_adolescents %>%
@@ -1296,7 +1315,7 @@ from_egos <- function(.data) {
 #'   to_waves(attribute = "wave") %>%
 #'   from_waves()
 #' @export
-from_waves <- function(.data) {
+from_waves <- function(.data, directed = FALSE) {
   if (!is.list(.data)) {
     stop("Please declare a list of waves.")
   }
@@ -1305,11 +1324,14 @@ from_waves <- function(.data) {
   for (i in seq_along(ann)[-1]){
     out <- rbind(out, igraph::as_data_frame(ann[[i]]))
   }
-  igraph::graph_from_data_frame(out)
+  igraph::graph_from_data_frame(out, directed = directed)
 }
 
 #' @describeIn split Returns a single network object
 #'  from a list of slices.
+#' @param directed Is graph directed?
+#' By default, FALSE.
+#' If TRUE returns a directed graph object.
 #' @param remove.duplicates Should duplicates be removed?
 #' By default FALSE.
 #' If TRUE, duplicated edges are removed.
@@ -1323,7 +1345,7 @@ from_waves <- function(.data) {
 #'   to_slices(attributes = c("beg", "end"), slice = c("1:6", "2:5", "3:4")) %>%
 #'   from_slices()
 #' @export
-from_slices <- function(.data, remove.duplicates = FALSE) {
+from_slices <- function(.data, directed = FALSE, remove.duplicates = FALSE) {
   if (!is.list(.data)) {
     stop("Please declare a list of slices.")
   }
@@ -1335,7 +1357,7 @@ from_slices <- function(.data, remove.duplicates = FALSE) {
   if (isTRUE(remove.duplicates)) {
     out <- dplyr::distinct(out)
   }
-  igraph::graph_from_data_frame(out)
+  igraph::graph_from_data_frame(out, directed = directed)
 }
 
 # Missing ####
