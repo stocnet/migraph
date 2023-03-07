@@ -1098,11 +1098,10 @@ to_components.data.frame <- function(object){
 to_waves <- function(.data, attribute = "wave",
                      delete.vertices = FALSE) UseMethod("to_waves")
 
-#' @importFrom igraph subgraph.edges
+#' @importFrom tidygraph to_subgraph as_tbl_graph
 #' @export
-to_waves.igraph <- function(.data, attribute = "wave",
-                            delete.vertices = FALSE) {
-
+to_waves.tbl_graph <- function(.data, attribute = "wave", 
+                               delete.vertices = FALSE) {
   # Todo: what about node attributes, does it make sense here?
   # igraph::get.vertex.attribute(.data, attribute)
 
@@ -1110,51 +1109,56 @@ to_waves.igraph <- function(.data, attribute = "wave",
   if (is.null(tie_attribute(.data, attribute))) {
     stop("Declared tie 'attribute' not found in data.")
   }
+  # Get all unique names
   l <- as.character(unique(tie_attribute(.data, attribute)))
-  # Return list of lists based on attribute
+  # Handle NA, if present
+  l <- ifelse(is.na(l), "NA", l)
+  # Crete a named list
   out <- vector("list", length(l))
   names(out) <- l
+  # Return list of lists of tbl_graphs based on attribute
   for (i in names(out)) {
-    out[[i]] <- igraph::subgraph.edges(.data, igraph::E(.data)[get(attribute) == i],
-                                       delete.vertices)
-    }
+    out[[i]] <- suppressMessages(tidygraph::to_subgraph(.data,
+                                                        get(attribute) == i))
+    # Fix issue with to_subgraph returning objects of class list
+    out[[i]] <- tidygraph::as_tbl_graph(out[[i]]$subgraph)
+  }
+  # Delete edges not present vertices
+  if (isTRUE(delete.vertices)) {
+    out <- lapply(out, function(x) {
+      x %>% activate(nodes) %>% filter(!node_is_isolated())
+    })
+  }
   out
 }
 
 #' @export
-to_waves.tbl_graph <- function(.data, attribute = "wave",
-                               delete.vertices = FALSE) {
-  to_waves.igraph(as_igraph(.data), attribute, delete.vertices)
+to_waves.igraph <- function(.data, attribute = "wave",
+                            delete.vertices = FALSE) {
+  .data <- as_tidygraph(.data) %>% activate(edges)
+  to_waves.tbl_graph(.data, attribute, delete.vertices)
 }
 
-#' @importFrom igraph graph.data.frame
 #' @export
 to_waves.data.frame <- function(.data, attribute = "wave",
                                 delete.vertices = FALSE) {
-  #Convert to data frame
-  ann <- igraph::as_data_frame(.data)
-  l <- as.character(unique(tie_attribute(.data, attribute)))
-  # Return list of lists based on attribute
-  out <- vector("list", length(l))
-  names(out) <- l
-  # Subset
-  for (i in names(out)) {
-    out[[i]] <- dplyr::filter(ann, get(attribute) == i)
-  }
-  lapply(out, igraph::graph_from_data_frame)
+  .data <- as_tidygraph(.data) %>% activate(edges)
+  to_waves.tbl_graph(.data, attribute, delete.vertices)
 }
 
-# #' @export
-# to_waves.network <- function(.data, attribute = "wave",
-#                              delete.vertices = FALSE) {
-#   to_waves.igraph(as_igraph(.data), attribute, delete.vertices)
-# }
+#' @export
+to_waves.network <- function(.data, attribute = "wave",
+                             delete.vertices = FALSE) {
+  .data <- as_tidygraph(.data) %>% activate(edges)
+  to_waves.tbl_graph(.data, attribute, delete.vertices)
+}
 
-# #' @export
-# to_waves.matrix <- function(.data, attribute = "wave",
-#                             delete.vertices = TRUE) {
-#   to_waves.igraph(as_igraph(.data), attribute, delete.vertices)
-# }
+#' @export
+to_waves.matrix <- function(.data, attribute = "wave",
+                            delete.vertices = TRUE) {
+  .data <- as_tidygraph(.data) %>% activate(edges)
+  to_waves.tbl_graph(.data, attribute, delete.vertices)
+}
 
 #' @describeIn split Returns a list of a network
 #'   with some continuous time variable
@@ -1175,9 +1179,8 @@ to_slices <- function(.data, attributes, slice,
                       delete.vertices = FALSE) UseMethod("to_slices")
 
 #' @export
-to_slices.igraph <- function(.data, attributes = c("beg", "end"),
-                             slice, delete.vertices = FALSE) {
-
+to_slices.tbl_graph <- function(.data, attributes = c("beg", "end"), slice,
+                                delete.vertices = FALSE) {
   # Todo: what about node attributes, does it make sense here?
   # igraph::get.vertex.attribute(.data, attribute)
 
@@ -1193,60 +1196,85 @@ to_slices.igraph <- function(.data, attributes = c("beg", "end"),
       !is.numeric(tie_attribute(.data, attributes[1]))) {
     stop("Please declare either a date or an interger as a tie 'attribute'.")
   }
-  if (!inherits(tie_attribute(.data, attributes[1]), "Date") &
-         !is.numeric(tie_attribute(.data, attributes[1]))) {
-    stop("Please declare either a date or an interger as a tie 'attribute'.")
-  }
   # Check slices are correctly declared
   if (any(!grepl("\\:", slice))) {
     stop("Please declare how to slice as a list chracter
          using a range of values (e.g. slice = c('1:2', '3:4')).")
   }
+  # Check if date or numeric
+  if (!inherits(tie_attribute(.data, attributes[1]), "Date") &
+      !is.numeric(tie_attribute(.data, attributes[1]))) {
+    stop("Please declare either a date or an interger as a tie 'attribute'.")
+  }
+  # Create an empty list
   out <- vector("list", length(slice))
-  for (i in seq_len(length(slice))) {
-    slice1 <- as.numeric(strsplit(slice[i], "\\:")[[1]][1])
-    slice2 <- as.numeric(strsplit(slice[i], "\\:")[[1]][2])
-    out[[i]] <- igraph::subgraph.edges(.data, E(.data)[get(attributes[1]) >= slice1 &
-                                                         get(attributes[2]) <= slice2],
-                                       delete.vertices)
+  # Check if dates or numeric
+  if (inherits(tie_attribute(.data, attributes[1]), "Date")) {
+    # Slice into lists of lists
+    for (i in seq_len(length(slice))) {
+      slice1 <- as.Date(strsplit(slice[i], "\\:")[[1]][1])
+      slice2 <- as.Date(strsplit(slice[i], "\\:")[[1]][2])
+      out[[i]] <- suppressMessages(
+        tidygraph::to_subgraph(.data, get(attributes[1]) >= slice1 &
+                                 get(attributes[2]) <= slice2)
+      )
+      # Fix issue with to_subgraph returning objects of class list
+      out[[i]] <- tidygraph::as_tbl_graph(out[[i]]$subgraph)
+    }
+  } else {
+    # Slice into lists of lists
+    for (i in seq_len(length(slice))) {
+      slice1 <- as.numeric(strsplit(slice[i], "\\:")[[1]][1])
+      slice2 <- as.numeric(strsplit(slice[i], "\\:")[[1]][2])
+      out[[i]] <- suppressMessages(
+        tidygraph::to_subgraph(.data, get(attributes[1]) >= slice1 &
+                                 get(attributes[2]) <= slice2)
+      )
+      # Fix issue with to_subgraph returning objects of class list
+      out[[i]] <- tidygraph::as_tbl_graph(out[[i]]$subgraph)
+    }
+  }
+  # Delete edges not present vertices
+  if (isTRUE(delete.vertices)) {
+    out <- lapply(out, function(x) {
+      x %>% activate(nodes) %>% filter(!node_is_isolated())
+    })
   }
   names(out) <- slice
   out
 }
 
 #' @export
-to_slices.tbl_graph <- function(.data, attributes, slice,
-                                delete.vertices = FALSE) {
-  to_slices.igraph(as_igraph(.data), attributes, slice, delete.vertices)
+to_slices.igraph <- function(.data, attributes, slice,
+                             delete.vertices = FALSE) {
+  .data <- as_tidygraph(.data) %>% activate(edges)
+  to_slices.tbl_graph(.data, attributes, slice, delete.vertices)
 }
 
 #' @importFrom igraph graph.data.frame
 #' @export
 to_slices.data.frame <- function(.data, attributes, slice,
                                  delete.vertices = FALSE) {
-  to_slices.igraph(igraph::graph.data.frame(.data), attributes, slice,
-                   delete.vertices)
+  .data <- as_tidygraph(.data) %>% activate(edges)
+  to_slices.tbl_graph(.data, attributes, slice, delete.vertices)
 }
 
-# #' @export
-# to_slices.network <- function(.data, attributes, slice,
-#                                  delete.vertices = FALSE) {
-#   to_slices.igraph(as_igraph(.data), attributes, slice,
-#                    delete.vertices)
-# }
+#' @export
+to_slices.network <- function(.data, attributes, slice,
+                              delete.vertices = FALSE) {
+  .data <- as_tidygraph(.data) %>% activate(edges)
+  to_slices.tbl_graph(.data, attributes, slice, delete.vertices)
+}
 
-# #' @export
-# to_slices.matrix <- function(.data, attributes, slice,
-#                                  delete.vertices = FALSE) {
-#   to_slices.igraph(as_igraph(.data), attributes, slice,
-#                    delete.vertices)
-# }
+#' @export
+to_slices.matrix <- function(.data, attributes, slice,
+                             delete.vertices = FALSE) {
+  .data <- as_tidygraph(.data) %>% activate(edges)
+  to_slices.tbl_graph(.data, attributes, slice, delete.vertices)
+}
 
 #' @describeIn split Returns a single network object
 #'  from a list of subgraphs.
-#' @param directed Is graph directed?
-#' By default, FALSE.
-#' If TRUE returns a directed graph object.
 #' @importFrom igraph graph_from_data_frame as_data_frame set.vertex.attribute
 #' @examples
 #' ison_adolescents %>%
@@ -1256,7 +1284,7 @@ to_slices.data.frame <- function(.data, attributes, slice,
 #'   to_subgraphs(attribute = "unicorn") %>%
 #'   from_subgraphs()
 #' @export
-from_subgraphs <- function(.data, directed = FALSE) {
+from_subgraphs <- function(.data) {
   if (!is.list(.data)) {
     stop("Please declare a list of subgraphs. ")
   }
@@ -1269,7 +1297,7 @@ from_subgraphs <- function(.data, directed = FALSE) {
   for (i in seq_along(ann)[-1]) {
     vertex <- rbind(vertex, igraph::as_data_frame(ann[[i]], what = "vertices"))
   }
-  out <- igraph::graph_from_data_frame(edges, directed = directed)
+  out <- igraph::graph_from_data_frame(edges)
   for (i in names(vertex)) {
     out <- suppressWarnings(igraph::set.vertex.attribute(out, name = i,
                                                          value = unlist(vertex[i])))
@@ -1279,9 +1307,6 @@ from_subgraphs <- function(.data, directed = FALSE) {
 
 #' @describeIn split Returns a single network object
 #'  from a list of egos.
-#' @param directed Is graph directed?
-#' By default, FALSE.
-#' If TRUE returns a directed graph object.
 #' @importFrom igraph graph_from_data_frame as_data_frame
 #' @importFrom dplyr distinct
 #' @examples
@@ -1290,7 +1315,7 @@ from_subgraphs <- function(.data, directed = FALSE) {
 #'   to_egos() %>%
 #'   from_egos()
 #' @export
-from_egos <- function(.data, directed = FALSE) {
+from_egos <- function(.data) {
   if (!is.list(.data)) {
     stop("Please declare a list of egos.")
   }
@@ -1299,14 +1324,11 @@ from_egos <- function(.data, directed = FALSE) {
   for (i in seq_along(ann)[-1]){
     out <- rbind(out, igraph::as_data_frame(ann[[i]]))
   }
-  igraph::graph_from_data_frame(dplyr::distinct(out), directed = directed)
+  igraph::graph_from_data_frame(dplyr::distinct(out))
 }
 
 #' @describeIn split Returns a single network object
 #'  from a list of waves.
-#' @param directed Is graph directed?
-#' By default, FALSE.
-#' If TRUE returns a directed graph object.
 #' @importFrom igraph graph_from_data_frame as_data_frame
 #' @examples
 #' ison_adolescents %>%
@@ -1324,14 +1346,11 @@ from_waves <- function(.data, directed = FALSE) {
   for (i in seq_along(ann)[-1]){
     out <- rbind(out, igraph::as_data_frame(ann[[i]]))
   }
-  igraph::graph_from_data_frame(out, directed = directed)
+  igraph::graph_from_data_frame(out)
 }
 
 #' @describeIn split Returns a single network object
 #'  from a list of slices.
-#' @param directed Is graph directed?
-#' By default, FALSE.
-#' If TRUE returns a directed graph object.
 #' @param remove.duplicates Should duplicates be removed?
 #' By default FALSE.
 #' If TRUE, duplicated edges are removed.
@@ -1345,7 +1364,7 @@ from_waves <- function(.data, directed = FALSE) {
 #'   to_slices(attributes = c("beg", "end"), slice = c("1:6", "2:5", "3:4")) %>%
 #'   from_slices()
 #' @export
-from_slices <- function(.data, directed = FALSE, remove.duplicates = FALSE) {
+from_slices <- function(.data, remove.duplicates = FALSE) {
   if (!is.list(.data)) {
     stop("Please declare a list of slices.")
   }
@@ -1357,7 +1376,7 @@ from_slices <- function(.data, directed = FALSE, remove.duplicates = FALSE) {
   if (isTRUE(remove.duplicates)) {
     out <- dplyr::distinct(out)
   }
-  igraph::graph_from_data_frame(out, directed = directed)
+  igraph::graph_from_data_frame(out)
 }
 
 # Missing ####
