@@ -23,13 +23,13 @@ to_waves(.data, attribute = "wave", delete.vertices = FALSE)
 
 to_slices(.data, attributes, slice, delete.vertices = FALSE)
 
-from_subgraphs(.data, directed = FALSE)
+from_subgraphs(.data)
 
-from_egos(.data, directed = FALSE)
+from_egos(.data)
 
 from_waves(.data, directed = FALSE)
 
-from_slices(.data, directed = FALSE, remove.duplicates = FALSE)
+from_slices(.data, remove.duplicates = FALSE)
 }
 \arguments{
 \item{object}{An object of a migraph-consistent class:
@@ -59,10 +59,6 @@ any adjacent edges for each slice?}
 
 \item{slice}{Character string or character list indicating the date(s)
 or integer(s) range used to slice data (e.g slice = c(1:2, 3:4)).}
-
-\item{directed}{Is graph directed?
-By default, FALSE.
-If TRUE returns a directed graph object.}
 
 \item{remove.duplicates}{Should duplicates be removed?
 By default FALSE.
@@ -118,6 +114,7 @@ to_components(ison_marvel_relationships)
 ison_adolescents \%>\%
   activate(edges) \%>\%
   mutate(wave = sample(1995:1998, 10, replace = TRUE)) \%>\%
+  as_igraph() \%>\%
   to_waves(attribute = "wave")
 ison_adolescents \%>\%
   activate(edges) \%>\%
