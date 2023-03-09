@@ -1087,21 +1087,25 @@ to_components.data.frame <- function(object){
 #'   into a list of those observations.
 #' @param attribute Character string indicating the date
 #'   attribute in a network used to split into subgraphs.
-#' @param delete.vertices Would you like to remove vertices that do not have
-#'  any adjacent edges for each wave?
+#' @param panels Would you like to select certain waves?
+#'   NULL by default.
+#'   That is, a list of networks for every available wave is returned.
+#'   Users can also list specific waves they want to select.
 #' @examples
 #' ison_adolescents %>%
 #'   activate(edges) %>%
 #'   mutate(wave = sample(1995:1998, 10, replace = TRUE)) %>%
 #'   to_waves(attribute = "wave")
+#' ison_adolescents %>%
+#'   activate(edges) %>%
+#'   mutate(wave = sample(1995:1998, 10, replace = TRUE)) %>%
+#'   to_waves(attribute = "wave", panels = c(1995, 1996))
 #' @export
-to_waves <- function(.data, attribute = "wave",
-                     delete.vertices = FALSE) UseMethod("to_waves")
+to_waves <- function(.data, attribute = "wave", panels = NULL) UseMethod("to_waves")
 
 #' @importFrom tidygraph to_subgraph as_tbl_graph
 #' @export
-to_waves.tbl_graph <- function(.data, attribute = "wave", 
-                               delete.vertices = FALSE) {
+to_waves.tbl_graph <- function(.data, attribute = "wave", panels = NULL) {
   # Todo: what about node attributes, does it make sense here?
   # igraph::get.vertex.attribute(.data, attribute)
 
@@ -1123,55 +1127,45 @@ to_waves.tbl_graph <- function(.data, attribute = "wave",
     # Fix issue with to_subgraph returning objects of class list
     out[[i]] <- tidygraph::as_tbl_graph(out[[i]]$subgraph)
   }
-  # Delete edges not present vertices
-  if (isTRUE(delete.vertices)) {
-    out <- lapply(out, function(x) {
-      x %>% activate(nodes) %>% filter(!node_is_isolated())
-    })
+  if (!is.null(panels)) {
+    out <- out[as.character(panels)]
   }
   out
 }
 
 #' @importFrom tidygraph as_tbl_graph
 #' @export
-to_waves.igraph <- function(.data, attribute = "wave",
-                            delete.vertices = FALSE) {
+to_waves.igraph <- function(.data, attribute = "wave", panels = NULL) {
   .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
-  to_waves.tbl_graph(.data, attribute, delete.vertices)
+  to_waves.tbl_graph(.data, attribute, panels)
 }
 
 #' @importFrom tidygraph as_tbl_graph
 #' @export
-to_waves.data.frame <- function(.data, attribute = "wave",
-                                delete.vertices = FALSE) {
+to_waves.data.frame <- function(.data, attribute = "wave", panels = NULL) {
   .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
-  to_waves.tbl_graph(.data, attribute, delete.vertices)
+  to_waves.tbl_graph(.data, attribute, panels)
 }
 
 #' @importFrom tidygraph as_tbl_graph
 #' @export
-to_waves.network <- function(.data, attribute = "wave",
-                             delete.vertices = FALSE) {
+to_waves.network <- function(.data, attribute = "wave", panels = NULL) {
   .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
-  to_waves.tbl_graph(.data, attribute, delete.vertices)
+  to_waves.tbl_graph(.data, attribute, panels)
 }
 
 #' @importFrom tidygraph as_tbl_graph
 #' @export
-to_waves.matrix <- function(.data, attribute = "wave",
-                            delete.vertices = TRUE) {
+to_waves.matrix <- function(.data, attribute = "wave", panels = NULL) {
   .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
-  to_waves.tbl_graph(.data, attribute, delete.vertices)
+  to_waves.tbl_graph(.data, attribute, panels)
 }
 
 #' @describeIn split Returns a list of a network
-#'   with some continuous time variable
-#'   at some time slice(s).
+#'   with some continuous time variable at some time slice(s).
 #' @param attributes List indicating two attributes used to slice data.
 #' @param slice Character string or character list indicating the date(s)
 #'   or integer(s) range used to slice data (e.g slice = c(1:2, 3:4)).
-#' @param delete.vertices Would you like to remove vertices that do not have
-#'   any adjacent edges for each slice?
 #' @examples
 #' ison_adolescents %>%
 #'   activate(edges) %>%
@@ -1179,12 +1173,10 @@ to_waves.matrix <- function(.data, attribute = "wave",
 #'   end = sample(4:6, 10, replace = TRUE)) %>%
 #'   to_slices(attributes = c("beg", "end"), slice = c("1:6", "2:5", "3:4"))
 #' @export
-to_slices <- function(.data, attributes, slice,
-                      delete.vertices = FALSE) UseMethod("to_slices")
+to_slices <- function(.data, attributes, slice) UseMethod("to_slices")
 
 #' @export
-to_slices.tbl_graph <- function(.data, attributes = c("beg", "end"), slice,
-                                delete.vertices = FALSE) {
+to_slices.tbl_graph <- function(.data, attributes = c("beg", "end"), slice) {
   # Todo: what about node attributes, does it make sense here?
   # igraph::get.vertex.attribute(.data, attribute)
 
@@ -1238,47 +1230,69 @@ to_slices.tbl_graph <- function(.data, attributes = c("beg", "end"), slice,
       out[[i]] <- tidygraph::as_tbl_graph(out[[i]]$subgraph)
     }
   }
-  # Delete edges not present vertices
-  if (isTRUE(delete.vertices)) {
-    out <- lapply(out, function(x) {
-      x %>% activate(nodes) %>% filter(!node_is_isolated())
-    })
-  }
   names(out) <- slice
   out
 }
 
 #' @importFrom tidygraph as_tbl_graph
 #' @export
-to_slices.igraph <- function(.data, attributes, slice,
-                             delete.vertices = FALSE) {
+to_slices.igraph <- function(.data, attributes, slice) {
   .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
-  to_slices.tbl_graph(.data, attributes, slice, delete.vertices)
+  to_slices.tbl_graph(.data, attributes, slice)
 }
 
 #' @importFrom tidygraph as_tbl_graph
 #' @export
-to_slices.data.frame <- function(.data, attributes, slice,
-                                 delete.vertices = FALSE) {
+to_slices.data.frame <- function(.data, attributes, slice) {
   .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
-  to_slices.tbl_graph(.data, attributes, slice, delete.vertices)
+  to_slices.tbl_graph(.data, attributes, slice)
 }
 
 #' @importFrom tidygraph as_tbl_graph
 #' @export
-to_slices.network <- function(.data, attributes, slice,
-                              delete.vertices = FALSE) {
+to_slices.network <- function(.data, attributes, slice) {
   .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
-  to_slices.tbl_graph(.data, attributes, slice, delete.vertices)
+  to_slices.tbl_graph(.data, attributes, slice)
 }
 
 #' @importFrom tidygraph as_tbl_graph
 #' @export
-to_slices.matrix <- function(.data, attributes, slice,
-                             delete.vertices = FALSE) {
+to_slices.matrix <- function(.data, attributes, slice) {
   .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
-  to_slices.tbl_graph(.data, attributes, slice, delete.vertices)
+  to_slices.tbl_graph(.data, attributes, slice)
 }
+
+#' @describeIn split Removes network vertices that have no edges
+#'   in lists of lists.
+#' @param tlist A migraph-compatible network listed according to
+#'   a time attribute, waves, or slices.
+#' @importFrom tidygraph node_is_isolated
+#' @importFrom dplyr filter
+#' @examples
+#' ison_adolescents %>%
+#'   activate(edges) %>%
+#'   mutate(wave = sample(1995:1998, 10, replace = TRUE)) %>%
+#'   to_waves(attribute = "wave") %>%
+#'   to_no_isolates()
+#' ison_adolescents %>%
+#'   activate(edges) %>%
+#'   mutate(beg = sample(1:3, 10, replace = TRUE),
+#'   end = sample(4:6, 10, replace = TRUE)) %>%
+#'   to_slices(attributes = c("beg", "end"), slice = c("1:6", "2:5", "3:4")) %>%
+#'   to_no_isolates()
+#' @export
+to_no_isolates <- function(.data) {
+  # Check if object is a list of lists
+  if (!is.list(.data)) {
+    stop("Please declare a migraph-compatible network listed according
+         to an attribute, waves, or slices.")
+  }
+  # Remove isolates at each step
+  # Delete edges not present vertices
+  lapply(.data, function(x) {
+    x %>% activate(nodes) %>% dplyr::filter(!tidygraph::node_is_isolated())
+  })
+} 
 
 #' @describeIn split Returns a single network object
 #'  from a list of subgraphs.
