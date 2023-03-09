@@ -114,7 +114,6 @@ to_components(ison_marvel_relationships)
 ison_adolescents \%>\%
   activate(edges) \%>\%
   mutate(wave = sample(1995:1998, 10, replace = TRUE)) \%>\%
-  as_igraph() \%>\%
   to_waves(attribute = "wave")
 ison_adolescents \%>\%
   activate(edges) \%>\%

@@ -1132,31 +1132,35 @@ to_waves.tbl_graph <- function(.data, attribute = "wave",
   out
 }
 
+#' @importFrom tidygraph as_tbl_graph
 #' @export
 to_waves.igraph <- function(.data, attribute = "wave",
                             delete.vertices = FALSE) {
-  .data <- as_tidygraph(.data) %>% activate(edges)
+  .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
   to_waves.tbl_graph(.data, attribute, delete.vertices)
 }
 
+#' @importFrom tidygraph as_tbl_graph
 #' @export
 to_waves.data.frame <- function(.data, attribute = "wave",
                                 delete.vertices = FALSE) {
-  .data <- as_tidygraph(.data) %>% activate(edges)
+  .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
   to_waves.tbl_graph(.data, attribute, delete.vertices)
 }
 
+#' @importFrom tidygraph as_tbl_graph
 #' @export
 to_waves.network <- function(.data, attribute = "wave",
                              delete.vertices = FALSE) {
-  .data <- as_tidygraph(.data) %>% activate(edges)
+  .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
   to_waves.tbl_graph(.data, attribute, delete.vertices)
 }
 
+#' @importFrom tidygraph as_tbl_graph
 #' @export
 to_waves.matrix <- function(.data, attribute = "wave",
                             delete.vertices = TRUE) {
-  .data <- as_tidygraph(.data) %>% activate(edges)
+  .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
   to_waves.tbl_graph(.data, attribute, delete.vertices)
 }
 
@@ -1244,32 +1248,35 @@ to_slices.tbl_graph <- function(.data, attributes = c("beg", "end"), slice,
   out
 }
 
+#' @importFrom tidygraph as_tbl_graph
 #' @export
 to_slices.igraph <- function(.data, attributes, slice,
                              delete.vertices = FALSE) {
-  .data <- as_tidygraph(.data) %>% activate(edges)
+  .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
   to_slices.tbl_graph(.data, attributes, slice, delete.vertices)
 }
 
-#' @importFrom igraph graph.data.frame
+#' @importFrom tidygraph as_tbl_graph
 #' @export
 to_slices.data.frame <- function(.data, attributes, slice,
                                  delete.vertices = FALSE) {
-  .data <- as_tidygraph(.data) %>% activate(edges)
+  .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
   to_slices.tbl_graph(.data, attributes, slice, delete.vertices)
 }
 
+#' @importFrom tidygraph as_tbl_graph
 #' @export
 to_slices.network <- function(.data, attributes, slice,
                               delete.vertices = FALSE) {
-  .data <- as_tidygraph(.data) %>% activate(edges)
+  .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
   to_slices.tbl_graph(.data, attributes, slice, delete.vertices)
 }
 
+#' @importFrom tidygraph as_tbl_graph
 #' @export
 to_slices.matrix <- function(.data, attributes, slice,
                              delete.vertices = FALSE) {
-  .data <- as_tidygraph(.data) %>% activate(edges)
+  .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
   to_slices.tbl_graph(.data, attributes, slice, delete.vertices)
 }
 
