@@ -18,20 +18,20 @@ NULL
 #' add_node_attribute(mpn_elite_mex, "wealth", 1:35)
 #' add_node_attribute(mpn_elite_usa_advice, "wealth", 1:14)
 #' @export
-add_node_attribute <- function(object, attr_name, vector){
-  if(length(vector)!=network_nodes(object)){
-    if(is_twomode(object) && any(length(vector) == network_dims(object))){
-      if(length(vector) == network_dims(object)[1]){
-        vector <- c(vector, rep(NA, network_dims(object)[2]))
-      } else if (length(vector) == network_dims(object)[2]){
-        vector <- c(rep(NA, network_dims(object)[1]), vector)
+add_node_attribute <- function(.data, attr_name, vector){
+  if(length(vector)!=network_nodes(.data)){
+    if(is_twomode(.data) && any(length(vector) == network_dims(.data))){
+      if(length(vector) == network_dims(.data)[1]){
+        vector <- c(vector, rep(NA, network_dims(.data)[2]))
+      } else if (length(vector) == network_dims(.data)[2]){
+        vector <- c(rep(NA, network_dims(.data)[1]), vector)
       }
     } else 
       stop("Attribute vector must be same length as nodes in object.")
   }
-  object <- as_igraph(object)
-  igraph::vertex_attr(object, name = attr_name) <- vector
-  object
+  out <- as_igraph(.data)
+  igraph::vertex_attr(out, name = attr_name) <- vector
+  out
 }
 
 #' @describeIn add Insert specified values from a vector into the network.
@@ -43,6 +43,17 @@ add_node_attribute <- function(object, attr_name, vector){
 add_tie_attribute <- function(.data, attr_name, vector){
   out <- as_igraph(.data)
   igraph::edge_attr(out, name = attr_name) <- vector
+  out
+}
+
+#' @describeIn add Add additional ties to a network
+#' @importFrom igraph add_edges
+#' @examples
+#' add_ties(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
+#' @export
+add_ties <- function(.data, ties, attribute = NULL){
+  out <- as_igraph(.data)
+  out <- igraph::add_edges(out, edges = ties, attr = attribute)
   out
 }
 

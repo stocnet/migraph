@@ -4,14 +4,17 @@
 \alias{add}
 \alias{add_node_attribute}
 \alias{add_tie_attribute}
+\alias{add_ties}
 \alias{mutate_ties}
 \alias{copy_node_attributes}
 \alias{join_ties}
 \title{Adding and copying attributes from one graph to another}
 \usage{
-add_node_attribute(object, attr_name, vector)
+add_node_attribute(.data, attr_name, vector)
 
 add_tie_attribute(.data, attr_name, vector)
+
+add_ties(.data, ties, attribute = NULL)
 
 mutate_ties(.data, ...)
 
@@ -20,6 +23,10 @@ copy_node_attributes(object, object2)
 join_ties(object, object2, attr_name)
 }
 \arguments{
+\item{attr_name}{Name of the new attribute in the resulting object.}
+
+\item{vector}{A vector of values for the new attribute.}
+
 \item{object}{An object of a migraph-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
@@ -28,10 +35,6 @@ join_ties(object, object2, attr_name)
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
-
-\item{attr_name}{Name of the new attribute in the resulting object.}
-
-\item{vector}{A vector of values for the new attribute.}
 
 \item{object2}{A second object to copy nodes or edges from.}
 }
@@ -47,6 +50,8 @@ as node attributes
 \item \code{add_tie_attribute()}: Insert specified values from a vector into the network.
 as tie attributes
 
+\item \code{add_ties()}: Add additional ties to a network
+
 \item \code{mutate_ties()}: Tidy way to add vector as tie attributes.
 
 \item \code{copy_node_attributes()}: Copies node attributes from a given graph into specified graph
@@ -59,6 +64,7 @@ adds a tie attribute identifying the ties that were newly added
 add_node_attribute(mpn_elite_mex, "wealth", 1:35)
 add_node_attribute(mpn_elite_usa_advice, "wealth", 1:14)
 add_tie_attribute(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
+add_ties(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
 autographr(mpn_elite_mex)
 both <- join_ties(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
 autographr(both)
