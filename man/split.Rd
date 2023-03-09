@@ -22,7 +22,7 @@ to_components(object)
 
 to_waves(.data, attribute = "wave", panels = NULL)
 
-to_slices(.data, attributes, slice)
+to_slices(.data, attribute, slice)
 
 to_no_isolates(.data)
 
@@ -52,15 +52,12 @@ By default 0.
 Increasing this to 1 excludes the ego,
 and 2 excludes ego's direct alters.}
 
-\item{attribute}{Character string indicating the date
-attribute in a network used to split into subgraphs.}
+\item{attribute}{One or two attributes used to slice data.}
 
 \item{panels}{Would you like to select certain waves?
 NULL by default.
 That is, a list of networks for every available wave is returned.
 Users can also list specific waves they want to select.}
-
-\item{attributes}{List indicating two attributes used to slice data.}
 
 \item{slice}{Character string or character list indicating the date(s)
 or integer(s) range used to slice data (e.g slice = c(1:2, 3:4)).}
@@ -129,7 +126,7 @@ ison_adolescents \%>\%
   activate(edges) \%>\%
   mutate(beg = sample(1:3, 10, replace = TRUE),
   end = sample(4:6, 10, replace = TRUE)) \%>\%
-  to_slices(attributes = c("beg", "end"), slice = c("1:6", "2:5", "3:4"))
+  to_slices(attribute = c("beg", "end"), slice = c("1:6", "2:5", "3:4"))
 ison_adolescents \%>\%
   activate(edges) \%>\%
   to_subgraph(from == 1:5) \%>\%
@@ -158,7 +155,7 @@ ison_adolescents \%>\%
   activate(edges) \%>\%
   mutate(beg = sample(1:3, 10, replace = TRUE),
   end = sample(4:6, 10, replace = TRUE)) \%>\%
-  to_slices(attributes = c("beg", "end"), slice = c("1:6", "2:5", "3:4")) \%>\%
+  to_slices(attribute = c("beg", "end"), slice = c("1:6", "2:5", "3:4")) \%>\%
   from_slices()
 }
 \seealso{

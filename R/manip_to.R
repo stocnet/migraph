@@ -1163,7 +1163,7 @@ to_waves.matrix <- function(.data, attribute = "wave", panels = NULL) {
 
 #' @describeIn split Returns a list of a network
 #'   with some continuous time variable at some time slice(s).
-#' @param attributes List indicating two attributes used to slice data.
+#' @param attribute One or two attributes used to slice data.
 #' @param slice Character string or character list indicating the date(s)
 #'   or integer(s) range used to slice data (e.g slice = c(1:2, 3:4)).
 #' @examples
@@ -1171,49 +1171,52 @@ to_waves.matrix <- function(.data, attribute = "wave", panels = NULL) {
 #'   activate(edges) %>%
 #'   mutate(beg = sample(1:3, 10, replace = TRUE),
 #'   end = sample(4:6, 10, replace = TRUE)) %>%
-#'   to_slices(attributes = c("beg", "end"), slice = c("1:6", "2:5", "3:4"))
+#'   to_slices(attribute = c("beg", "end"), slice = c("1:6", "2:5", "3:4"))
 #' @export
-to_slices <- function(.data, attributes, slice) UseMethod("to_slices")
+to_slices <- function(.data, attribute, slice) UseMethod("to_slices")
 
 #' @export
-to_slices.tbl_graph <- function(.data, attributes = c("beg", "end"), slice) {
+to_slices.tbl_graph <- function(.data, attribute = c("beg", "end"), slice) {
   # Todo: what about node attributes, does it make sense here?
   # igraph::get.vertex.attribute(.data, attribute)
 
   # Check attribute and slices
-  if (length(attributes) != 2) {
-    stop("Please declare 2 attributes.")
+  if (length(attribute) > 2) {
+    stop("Please declare one or two attribute(s).")
   }
+  # Check if slice argument is not missing
   if (missing(slice)) {
     stop("Please declare the slices used to split the data.")
   }
-  # Check if tie attribute is date or numeric
-  if (!inherits(tie_attribute(.data, attributes[1]), "Date") &
-      !is.numeric(tie_attribute(.data, attributes[1]))) {
-    stop("Please declare either a date or an interger as a tie 'attribute'.")
-  }
   # Check slices are correctly declared
   if (any(!grepl("\\:", slice))) {
-    stop("Please declare how to slice as a list chracter
+    stop("Please declare how to slice as a list character
          using a range of values (e.g. slice = c('1:2', '3:4')).")
   }
-  # Check if date or numeric
-  if (!inherits(tie_attribute(.data, attributes[1]), "Date") &
-      !is.numeric(tie_attribute(.data, attributes[1]))) {
+  # Check if tie attribute is date or numeric
+  if (!inherits(tie_attribute(.data, attribute[1]), "Date") &
+      !is.numeric(tie_attribute(.data, attribute[1]))) {
     stop("Please declare either a date or an interger as a tie 'attribute'.")
   }
   # Create an empty list
   out <- vector("list", length(slice))
   # Check if dates or numeric
-  if (inherits(tie_attribute(.data, attributes[1]), "Date")) {
+  if (inherits(tie_attribute(.data, attribute[1]), "Date")) {
     # Slice into lists of lists
     for (i in seq_len(length(slice))) {
       slice1 <- as.Date(strsplit(slice[i], "\\:")[[1]][1])
       slice2 <- as.Date(strsplit(slice[i], "\\:")[[1]][2])
-      out[[i]] <- suppressMessages(
-        tidygraph::to_subgraph(.data, get(attributes[1]) >= slice1 &
-                                 get(attributes[2]) <= slice2)
-      )
+      if (length(attribute) == 1) {
+        out[[i]] <- suppressMessages(
+          tidygraph::to_subgraph(.data, get(attribute[1]) >= slice1 &
+                                   get(attribute[1]) <= slice2)
+          )
+      } else {
+        out[[i]] <- suppressMessages(
+          tidygraph::to_subgraph(.data, get(attribute[1]) >= slice1 &
+                                   get(attribute[2]) <= slice2)
+          )
+      }
       # Fix issue with to_subgraph returning objects of class list
       out[[i]] <- tidygraph::as_tbl_graph(out[[i]]$subgraph)
     }
@@ -1222,10 +1225,17 @@ to_slices.tbl_graph <- function(.data, attributes = c("beg", "end"), slice) {
     for (i in seq_len(length(slice))) {
       slice1 <- as.numeric(strsplit(slice[i], "\\:")[[1]][1])
       slice2 <- as.numeric(strsplit(slice[i], "\\:")[[1]][2])
-      out[[i]] <- suppressMessages(
-        tidygraph::to_subgraph(.data, get(attributes[1]) >= slice1 &
-                                 get(attributes[2]) <= slice2)
-      )
+      if (length(attribute) == 1) {
+        out[[i]] <- suppressMessages(
+          tidygraph::to_subgraph(.data, get(attribute[1]) >= slice1 &
+                                   get(attribute[1]) <= slice2)
+        )
+      } else {
+        out[[i]] <- suppressMessages(
+          tidygraph::to_subgraph(.data, get(attribute[1]) >= slice1 &
+                                   get(attribute[2]) <= slice2)
+        )
+      }
       # Fix issue with to_subgraph returning objects of class list
       out[[i]] <- tidygraph::as_tbl_graph(out[[i]]$subgraph)
     }
@@ -1236,30 +1246,30 @@ to_slices.tbl_graph <- function(.data, attributes = c("beg", "end"), slice) {
 
 #' @importFrom tidygraph as_tbl_graph
 #' @export
-to_slices.igraph <- function(.data, attributes, slice) {
+to_slices.igraph <- function(.data, attribute, slice) {
   .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
-  to_slices.tbl_graph(.data, attributes, slice)
+  to_slices.tbl_graph(.data, attribute, slice)
 }
 
 #' @importFrom tidygraph as_tbl_graph
 #' @export
-to_slices.data.frame <- function(.data, attributes, slice) {
+to_slices.data.frame <- function(.data, attribute, slice) {
   .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
-  to_slices.tbl_graph(.data, attributes, slice)
+  to_slices.tbl_graph(.data, attribute, slice)
 }
 
 #' @importFrom tidygraph as_tbl_graph
 #' @export
-to_slices.network <- function(.data, attributes, slice) {
+to_slices.network <- function(.data, attribute, slice) {
   .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
-  to_slices.tbl_graph(.data, attributes, slice)
+  to_slices.tbl_graph(.data, attribute, slice)
 }
 
 #' @importFrom tidygraph as_tbl_graph
 #' @export
-to_slices.matrix <- function(.data, attributes, slice) {
+to_slices.matrix <- function(.data, attribute, slice) {
   .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
-  to_slices.tbl_graph(.data, attributes, slice)
+  to_slices.tbl_graph(.data, attribute, slice)
 }
 
 #' @describeIn split Removes network vertices that have no edges.
@@ -1377,7 +1387,7 @@ from_waves <- function(.data, directed = FALSE) {
 #'   activate(edges) %>%
 #'   mutate(beg = sample(1:3, 10, replace = TRUE),
 #'   end = sample(4:6, 10, replace = TRUE)) %>%
-#'   to_slices(attributes = c("beg", "end"), slice = c("1:6", "2:5", "3:4")) %>%
+#'   to_slices(attribute = c("beg", "end"), slice = c("1:6", "2:5", "3:4")) %>%
 #'   from_slices()
 #' @export
 from_slices <- function(.data, remove.duplicates = FALSE) {
