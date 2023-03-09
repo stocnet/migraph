@@ -7,6 +7,7 @@
 \alias{to_components}
 \alias{to_waves}
 \alias{to_slices}
+\alias{to_no_isolates}
 \alias{from_subgraphs}
 \alias{from_egos}
 \alias{from_waves}
@@ -19,9 +20,11 @@ to_subgraphs(object, attribute)
 
 to_components(object)
 
-to_waves(.data, attribute = "wave", delete.vertices = FALSE)
+to_waves(.data, attribute = "wave", panels = NULL)
 
-to_slices(.data, attributes, slice, delete.vertices = FALSE)
+to_slices(.data, attributes, slice)
+
+to_no_isolates(.data)
 
 from_subgraphs(.data)
 
@@ -52,8 +55,10 @@ and 2 excludes ego's direct alters.}
 \item{attribute}{Character string indicating the date
 attribute in a network used to split into subgraphs.}
 
-\item{delete.vertices}{Would you like to remove vertices that do not have
-any adjacent edges for each slice?}
+\item{panels}{Would you like to select certain waves?
+NULL by default.
+That is, a list of networks for every available wave is returned.
+Users can also list specific waves they want to select.}
 
 \item{attributes}{List indicating two attributes used to slice data.}
 
@@ -86,8 +91,9 @@ with some discrete observations over time
 into a list of those observations.
 
 \item \code{to_slices()}: Returns a list of a network
-with some continuous time variable
-at some time slice(s).
+with some continuous time variable at some time slice(s).
+
+\item \code{to_no_isolates()}: Removes network vertices that have no edges.
 
 \item \code{from_subgraphs()}: Returns a single network object
 from a list of subgraphs.
@@ -117,9 +123,22 @@ ison_adolescents \%>\%
   to_waves(attribute = "wave")
 ison_adolescents \%>\%
   activate(edges) \%>\%
+  mutate(wave = sample(1995:1998, 10, replace = TRUE)) \%>\%
+  to_waves(attribute = "wave", panels = c(1995, 1996))
+ison_adolescents \%>\%
+  activate(edges) \%>\%
   mutate(beg = sample(1:3, 10, replace = TRUE),
   end = sample(4:6, 10, replace = TRUE)) \%>\%
   to_slices(attributes = c("beg", "end"), slice = c("1:6", "2:5", "3:4"))
+ison_adolescents \%>\%
+  activate(edges) \%>\%
+  to_subgraph(from == 1:5) \%>\%
+  to_no_isolates()
+ison_adolescents \%>\%
+  activate(edges) \%>\%
+  mutate(wave = sample(1995:1998, 10, replace = TRUE)) \%>\%
+  to_waves(attribute = "wave") \%>\%
+  to_no_isolates()
 ison_adolescents \%>\%
   activate(nodes) \%>\%
   mutate(unicorn = sample(c("yes", "no"), 8,

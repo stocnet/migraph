@@ -1262,37 +1262,34 @@ to_slices.matrix <- function(.data, attributes, slice) {
   to_slices.tbl_graph(.data, attributes, slice)
 }
 
-#' @describeIn split Removes network vertices that have no edges
-#'   in lists of lists.
-#' @param tlist A migraph-compatible network listed according to
-#'   a time attribute, waves, or slices.
+#' @describeIn split Removes network vertices that have no edges.
 #' @importFrom tidygraph node_is_isolated
 #' @importFrom dplyr filter
 #' @examples
 #' ison_adolescents %>%
 #'   activate(edges) %>%
-#'   mutate(wave = sample(1995:1998, 10, replace = TRUE)) %>%
-#'   to_waves(attribute = "wave") %>%
+#'   to_subgraph(from == 1:5) %>%
 #'   to_no_isolates()
 #' ison_adolescents %>%
 #'   activate(edges) %>%
-#'   mutate(beg = sample(1:3, 10, replace = TRUE),
-#'   end = sample(4:6, 10, replace = TRUE)) %>%
-#'   to_slices(attributes = c("beg", "end"), slice = c("1:6", "2:5", "3:4")) %>%
+#'   mutate(wave = sample(1995:1998, 10, replace = TRUE)) %>%
+#'   to_waves(attribute = "wave") %>%
 #'   to_no_isolates()
 #' @export
 to_no_isolates <- function(.data) {
   # Check if object is a list of lists
-  if (!is.list(.data)) {
-    stop("Please declare a migraph-compatible network listed according
-         to an attribute, waves, or slices.")
+  if (is.list(.data[1])) {
+    # Delete edges not present vertices in each list
+    lapply(.data, function(x) {
+      x %>% activate(nodes) %>% dplyr::filter(!tidygraph::node_is_isolated())
+    })
+  } else {
+    # Delete edges not present vertices
+    .data %>%
+      tidygraph::activate(nodes) %>%
+      dplyr::filter(!tidygraph::node_is_isolated())
   }
-  # Remove isolates at each step
-  # Delete edges not present vertices
-  lapply(.data, function(x) {
-    x %>% activate(nodes) %>% dplyr::filter(!tidygraph::node_is_isolated())
-  })
-} 
+}
 
 #' @describeIn split Returns a single network object
 #'  from a list of subgraphs.
@@ -1306,7 +1303,7 @@ to_no_isolates <- function(.data) {
 #'   from_subgraphs()
 #' @export
 from_subgraphs <- function(.data) {
-  if (!is.list(.data)) {
+  if (!is.list(.data[1])) {
     stop("Please declare a list of subgraphs. ")
   }
   ann <- lapply(.data, as_igraph)
@@ -1337,7 +1334,7 @@ from_subgraphs <- function(.data) {
 #'   from_egos()
 #' @export
 from_egos <- function(.data) {
-  if (!is.list(.data)) {
+  if (!is.list(.data[1])) {
     stop("Please declare a list of egos.")
   }
   ann <- lapply(.data, as_igraph)
@@ -1359,7 +1356,7 @@ from_egos <- function(.data) {
 #'   from_waves()
 #' @export
 from_waves <- function(.data, directed = FALSE) {
-  if (!is.list(.data)) {
+  if (!is.list(.data[1])) {
     stop("Please declare a list of waves.")
   }
   ann <- lapply(.data, as_igraph)
@@ -1386,7 +1383,7 @@ from_waves <- function(.data, directed = FALSE) {
 #'   from_slices()
 #' @export
 from_slices <- function(.data, remove.duplicates = FALSE) {
-  if (!is.list(.data)) {
+  if (!is.list(.data[1])) {
     stop("Please declare a list of slices.")
   }
   ann <- lapply(.data, as_igraph)

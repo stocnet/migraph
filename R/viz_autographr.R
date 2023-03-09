@@ -143,7 +143,7 @@ autographd <- function(tlist, delete.vertices = FALSE, ...) {
   # Todo: make function work with different layouts?
 
   # Check if object is a list of lists
-  if (!is.list(tlist)) {
+  if (!is.list(tlist[[1]])) {
     stop("Please declare a migraph-compatible network listed according
          to a time attribute, waves, or slices.")
   }
