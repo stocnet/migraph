@@ -1285,9 +1285,7 @@ to_no_isolates <- function(.data) {
     })
   } else {
     # Delete edges not present vertices
-    .data %>%
-      tidygraph::activate(nodes) %>%
-      dplyr::filter(!tidygraph::node_is_isolated())
+    .data %>% activate(nodes) %>% dplyr::filter(!tidygraph::node_is_isolated())
   }
 }
 
