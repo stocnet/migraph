@@ -6,6 +6,9 @@
 \alias{add_tie_attribute}
 \alias{add_ties}
 \alias{mutate_ties}
+\alias{select_ties}
+\alias{filter_ties}
+\alias{rename_ties}
 \alias{copy_node_attributes}
 \alias{join_ties}
 \title{Adding and copying attributes from one graph to another}
@@ -17,6 +20,12 @@ add_tie_attribute(.data, attr_name, vector)
 add_ties(.data, ties, attribute = NULL)
 
 mutate_ties(.data, ...)
+
+select_ties(.data, ...)
+
+filter_ties(.data, ...)
+
+rename_ties(.data, ...)
 
 copy_node_attributes(object, object2)
 
@@ -53,6 +62,13 @@ as tie attributes
 \item \code{add_ties()}: Add additional ties to a network
 
 \item \code{mutate_ties()}: Tidy way to add vector as tie attributes.
+
+\item \code{select_ties()}: Tidy way to select tie attributes.
+
+\item \code{filter_ties()}: Tidy way to filter ties based on a logical statement with
+relation to some tie attribute.
+
+\item \code{rename_ties()}: Tidy way to rename tie attributes.
 
 \item \code{copy_node_attributes()}: Copies node attributes from a given graph into specified graph
 
