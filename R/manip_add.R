@@ -51,9 +51,18 @@ add_tie_attribute <- function(.data, attr_name, vector){
 #' @examples
 #'   add_nodes(ison_adolescents, 4, list(name = c("Matthew", "Mark", "Luke", "Tim")))
 #' @export
-add_nodes <- function(.data, nodes, attribute = NULL){
-  out <- as_igraph(.data)
-  igraph::add_vertices(out, nv = nodes, attr = attribute)
+add_nodes <- function(.data, nodes, attribute = NULL) UseMethod("add_nodes")
+
+add_nodes.igraph <- function(.data, nodes, attribute = NULL){
+  igraph::add_vertices(.data, nv = nodes, attr = attribute)
+}
+
+add_nodes.tbl_graph <- function(.data, nodes, attribute = NULL){
+  as_tidygraph(add_nodes(as_igraph(.data), nodes, attribute))
+}
+
+add_nodes.network <- function(.data, nodes, attribute = NULL){
+  as_network(add_nodes(as_igraph(.data), nodes, attribute))
 }
 
 #' @describeIn add Add additional ties to a network
@@ -61,9 +70,18 @@ add_nodes <- function(.data, nodes, attribute = NULL){
 #' @examples
 #'   add_ties(ison_adolescents, c(1,2), list(time = 2, increment = -1))
 #' @export
-add_ties <- function(.data, ties, attribute = NULL){
-  out <- as_igraph(.data)
-  igraph::add_edges(out, edges = ties, attr = attribute)
+add_ties <- function(.data, ties, attribute = NULL) UseMethod("add_ties")
+
+add_ties.igraph <- function(.data, ties, attribute = NULL){
+  igraph::add_edges(.data, edges = ties, attr = attribute)
+}
+
+add_ties.tbl_graph <- function(.data, ties, attribute = NULL){
+  as_tidygraph(add_ties(as_igraph(.data), ties, attribute))
+}
+
+add_ties.network <- function(.data, ties, attribute = NULL){
+  as_network(add_ties(as_igraph(.data), ties, attribute))
 }
 
 #' @describeIn add Tidy way to add vector as tie attributes.
