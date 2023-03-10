@@ -53,14 +53,17 @@ add_tie_attribute <- function(.data, attr_name, vector){
 #' @export
 add_nodes <- function(.data, nodes, attribute = NULL) UseMethod("add_nodes")
 
+#' @export
 add_nodes.igraph <- function(.data, nodes, attribute = NULL){
   igraph::add_vertices(.data, nv = nodes, attr = attribute)
 }
 
+#' @export
 add_nodes.tbl_graph <- function(.data, nodes, attribute = NULL){
   as_tidygraph(add_nodes(as_igraph(.data), nodes, attribute))
 }
 
+#' @export
 add_nodes.network <- function(.data, nodes, attribute = NULL){
   as_network(add_nodes(as_igraph(.data), nodes, attribute))
 }
@@ -72,14 +75,17 @@ add_nodes.network <- function(.data, nodes, attribute = NULL){
 #' @export
 add_ties <- function(.data, ties, attribute = NULL) UseMethod("add_ties")
 
+#' @export
 add_ties.igraph <- function(.data, ties, attribute = NULL){
   igraph::add_edges(.data, edges = ties, attr = attribute)
 }
 
+#' @export
 add_ties.tbl_graph <- function(.data, ties, attribute = NULL){
   as_tidygraph(add_ties(as_igraph(.data), ties, attribute))
 }
 
+#' @export
 add_ties.network <- function(.data, ties, attribute = NULL){
   as_network(add_ties(as_igraph(.data), ties, attribute))
 }
