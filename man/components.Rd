@@ -16,16 +16,6 @@ node_strong_components(object)
 
 node_coreness(object)
 }
-\arguments{
-\item{object}{An object of a migraph-consistent class:
-\itemize{
-\item matrix (adjacency or incidence) from \code{{base}} R
-\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
-\item igraph, from the \code{{igraph}} package
-\item network, from the \code{{network}} package
-\item tbl_graph, from the \code{{tidygraph}} package
-}}
-}
 \description{
 These functions create a vector of nodes' memberships in
 components or degrees of coreness.

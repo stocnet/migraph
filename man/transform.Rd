@@ -10,6 +10,7 @@
 \alias{to_blocks}
 \alias{to_matching}
 \alias{to_anti}
+\alias{to_no_isolates}
 \title{Tools for transforming networks, graphs, and matrices}
 \usage{
 to_mode1(object, similarity = c("count", "jaccard", "rand", "pearson", "yule"))
@@ -27,17 +28,10 @@ to_blocks(object, membership, FUN = mean)
 to_matching(object, mark = "type")
 
 to_anti(object)
+
+to_no_isolates(.data)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
-\itemize{
-\item matrix (adjacency or incidence) from \code{{base}} R
-\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
-\item igraph, from the \code{{igraph}} package
-\item network, from the \code{{network}} package
-\item tbl_graph, from the \code{{tidygraph}} package
-}}
-
 \item{similarity}{Method for establishing ties,
 currently "count" (default), "jaccard", or "rand".
 "count" calculates the number of coinciding ties,
@@ -67,6 +61,15 @@ Other recommended options include \code{median}, \code{sum},
 
 \item{mark}{A logical vector marking two types or modes.
 By default "type".}
+
+\item{.data}{An object of a migraph-consistent class:
+\itemize{
+\item matrix (adjacency or incidence) from \code{{base}} R
+\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
+\item igraph, from the \code{{igraph}} package
+\item network, from the \code{{network}} package
+\item tbl_graph, from the \code{{tidygraph}} package
+}}
 }
 \description{
 These functions offer tools for transforming migraph-consistent objects
@@ -121,6 +124,8 @@ matching ties
 where only ties \emph{not} present in the original network
 are included in the new network.
 
+\item \code{to_no_isolates()}: Removes all nodes without ties
+
 }}
 \section{to_matching}{
 
@@ -148,6 +153,15 @@ autographr(to_ties(ison_adolescents))
 autographr(adolblock)
 autographr(to_matching(ison_southern_women), "hierarchy")
 autographr(to_anti(ison_southern_women), "hierarchy")
+ison_adolescents \%>\%
+  activate(edges) \%>\%
+  to_subgraph(from == 1:5) \%>\%
+  to_no_isolates()
+ison_adolescents \%>\%
+  activate(edges) \%>\%
+  mutate(wave = sample(1995:1998, 10, replace = TRUE)) \%>\%
+  to_waves(attribute = "wave") \%>\%
+  to_no_isolates()
 }
 \references{
 Goldberg, A V; Tarjan, R E (1986).

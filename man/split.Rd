@@ -7,7 +7,6 @@
 \alias{to_components}
 \alias{to_waves}
 \alias{to_slices}
-\alias{to_no_isolates}
 \alias{from_subgraphs}
 \alias{from_egos}
 \alias{from_waves}
@@ -24,8 +23,6 @@ to_waves(.data, attribute = "wave", panels = NULL)
 
 to_slices(.data, attribute, slice)
 
-to_no_isolates(.data)
-
 from_subgraphs(.data)
 
 from_egos(.data)
@@ -35,15 +32,6 @@ from_waves(.data, directed = FALSE)
 from_slices(.data, remove.duplicates = FALSE)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
-\itemize{
-\item matrix (adjacency or incidence) from \code{{base}} R
-\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
-\item igraph, from the \code{{igraph}} package
-\item network, from the \code{{network}} package
-\item tbl_graph, from the \code{{tidygraph}} package
-}}
-
 \item{max_dist}{The maximum breadth of the neighbourhood.
 By default 1.}
 
@@ -53,6 +41,15 @@ Increasing this to 1 excludes the ego,
 and 2 excludes ego's direct alters.}
 
 \item{attribute}{One or two attributes used to slice data.}
+
+\item{.data}{An object of a migraph-consistent class:
+\itemize{
+\item matrix (adjacency or incidence) from \code{{base}} R
+\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
+\item igraph, from the \code{{igraph}} package
+\item network, from the \code{{network}} package
+\item tbl_graph, from the \code{{tidygraph}} package
+}}
 
 \item{panels}{Would you like to select certain waves?
 NULL by default.
@@ -90,8 +87,6 @@ into a list of those observations.
 \item \code{to_slices()}: Returns a list of a network
 with some continuous time variable at some time slice(s).
 
-\item \code{to_no_isolates()}: Removes network vertices that have no edges.
-
 \item \code{from_subgraphs()}: Returns a single network object
 from a list of subgraphs.
 
@@ -127,15 +122,6 @@ ison_adolescents \%>\%
   mutate(beg = sample(1:3, 10, replace = TRUE),
   end = sample(4:6, 10, replace = TRUE)) \%>\%
   to_slices(attribute = c("beg", "end"), slice = c("1:6", "2:5", "3:4"))
-ison_adolescents \%>\%
-  activate(edges) \%>\%
-  to_subgraph(from == 1:5) \%>\%
-  to_no_isolates()
-ison_adolescents \%>\%
-  activate(edges) \%>\%
-  mutate(wave = sample(1995:1998, 10, replace = TRUE)) \%>\%
-  to_waves(attribute = "wave") \%>\%
-  to_no_isolates()
 ison_adolescents \%>\%
   activate(nodes) \%>\%
   mutate(unicorn = sample(c("yes", "no"), 8,

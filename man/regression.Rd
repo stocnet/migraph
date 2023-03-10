@@ -39,15 +39,6 @@ See Haunss and Hollway (2023) for more on this effect.
 \item dyadic covariates (other networks) can just be named
 }}
 
-\item{object}{An object of a migraph-consistent class:
-\itemize{
-\item matrix (adjacency or incidence) from \code{{base}} R
-\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
-\item igraph, from the \code{{igraph}} package
-\item network, from the \code{{network}} package
-\item tbl_graph, from the \code{{tidygraph}} package
-}}
-
 \item{method}{A method for establishing the null hypothesis.
 Note that "qap" uses Dekker et al's (2007) double semi-partialling technique,
 whereas "qapy" permutes only the $y$ variable.

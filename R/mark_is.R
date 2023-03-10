@@ -2,7 +2,7 @@
 #' 
 #' These functions implement logical tests for various network
 #' properties.
-#' @param object An object of a migraph-consistent class:
+#' @param .data An object of a migraph-consistent class:
 #'   \itemize{
 #'   \item matrix (adjacency or incidence) from `{base}` R
 #'   \item edgelist, a data frame from `{base}` R or tibble from `{tibble}`
@@ -22,13 +22,13 @@ NULL
 #' @importFrom tidygraph is.tbl_graph
 #' @importFrom network is.network
 #' @export
-is_migraph <- function(object){
-  tidygraph::is.tbl_graph(object) |
-    network::is.network(object) |
-    igraph::is.igraph(object) |
-    (is.data.frame(object) & 
-       "from" %in% names(object) & "to" %in% names(object)) |
-    (is.matrix(object) & is.numeric(object))
+is_migraph <- function(.data){
+  tidygraph::is.tbl_graph(.data) |
+    network::is.network(.data) |
+    igraph::is.igraph(.data) |
+    (is.data.frame(.data) & 
+       "from" %in% names(.data) & "to" %in% names(.data)) |
+    (is.matrix(.data) & is.numeric(.data))
 }
 
 #' @describeIn is Tests whether network contains graph-level information
@@ -36,61 +36,43 @@ is_migraph <- function(object){
 #' @importFrom tidygraph is.tbl_graph
 #' @importFrom network is.network
 #' @export
-is_graph <- function(object) UseMethod("is_graph")
+is_graph <- function(.data) UseMethod("is_graph")
 
 #' @export
-is_graph.data.frame <- function(object){
-  FALSE
-}
+is_graph.data.frame <- function(.data) FALSE
 
 #' @export
-is_graph.matrix <- function(object){
-  FALSE
-}
+is_graph.matrix <- function(.data) FALSE
 
 #' @export
-is_graph.tbl_graph <- function(object){
-  tidygraph::is.tbl_graph(object)
-}
+is_graph.tbl_graph <- function(.data) TRUE
 
 #' @export
-is_graph.igraph <- function(object){
-  igraph::is.igraph(object)
-}
+is_graph.igraph <- function(.data) TRUE
 
 #' @export
-is_graph.network <- function(object){
-  FALSE
-}
+is_graph.network <- function(.data) FALSE
 
 #' @describeIn is Tests whether data frame is an edgelist
 #' @export
-is_edgelist <- function(object) UseMethod("is_edgelist")
+is_edgelist <- function(.data) UseMethod("is_edgelist")
   
 #' @export
-is_edgelist.data.frame <- function(object){
-  ncol(object) >= 2 & "from" %in% names(object) & "to" %in% names(object)
+is_edgelist.data.frame <- function(.data){
+  ncol(.data) >= 2 & "from" %in% names(.data) & "to" %in% names(.data)
 }
 
 #' @export
-is_edgelist.matrix <- function(object){
-  FALSE
-}
+is_edgelist.matrix <- function(.data) FALSE
 
 #' @export
-is_edgelist.network <- function(object){
-  FALSE
-}
+is_edgelist.network <- function(.data) FALSE
 
 #' @export
-is_edgelist.igraph <- function(object){
-  FALSE
-}
+is_edgelist.igraph <- function(.data) FALSE
 
 #' @export
-is_edgelist.tbl_graph <- function(object){
-  FALSE
-}
+is_edgelist.tbl_graph <- function(.data) FALSE
 
 # Formats ####
 
@@ -99,36 +81,36 @@ is_edgelist.tbl_graph <- function(object){
 #' @examples
 #' is_twomode(ison_southern_women)
 #' @export
-is_twomode <- function(object) UseMethod("is_twomode")
+is_twomode <- function(.data) UseMethod("is_twomode")
 
 #' @export
-is_twomode.igraph <- function(object) {
-  igraph::is.bipartite(object)
+is_twomode.igraph <- function(.data) {
+  igraph::is.bipartite(.data)
 }
 
 #' @export
-is_twomode.tbl_graph <- function(object) {
-  igraph::is.bipartite(object)
+is_twomode.tbl_graph <- function(.data) {
+  igraph::is.bipartite(.data)
 }
 
 #' @export
-is_twomode.matrix <- function(object) {
-  out <- dim(object)[1] != dim(object)[2]
-  if(!out & is_labelled(object))
-    out <- !all(rownames(object)==colnames(object))
+is_twomode.matrix <- function(.data) {
+  out <- dim(.data)[1] != dim(.data)[2]
+  if(!out & is_labelled(.data))
+    out <- !all(rownames(.data)==colnames(.data))
   out
 }
 
 #' @export
-is_twomode.network <- function(object) {
-  object <- as_matrix(object)
-  dim(object)[1] != dim(object)[2]
+is_twomode.network <- function(.data) {
+  .data <- as_matrix(.data)
+  dim(.data)[1] != dim(.data)[2]
 }
 
 #' @export
-is_twomode.data.frame <- function(object) {
-  is_edgelist(object) && 
-    length(intersect(object[,1], object[,2])) == 0
+is_twomode.data.frame <- function(.data) {
+  is_edgelist(.data) && 
+    length(intersect(.data[,1], .data[,2])) == 0
 }
 
 #' @describeIn is Tests whether network is weighted
@@ -136,32 +118,32 @@ is_twomode.data.frame <- function(object) {
 #' @examples
 #' is_weighted(ison_southern_women)
 #' @export
-is_weighted <- function(object) UseMethod("is_weighted")
+is_weighted <- function(.data) UseMethod("is_weighted")
 
 #' @export
-is_weighted.igraph <- function(object) {
-  igraph::is.weighted(object)
+is_weighted.igraph <- function(.data) {
+  igraph::is.weighted(.data)
 }
 
 #' @export
-is_weighted.tbl_graph <- function(object) {
-  igraph::is.weighted(object)
+is_weighted.tbl_graph <- function(.data) {
+  igraph::is.weighted(.data)
 }
 
 #' @export
-is_weighted.matrix <- function(object) {
-  !all(object == 0 | object == 1)
+is_weighted.matrix <- function(.data) {
+  !all(.data == 0 | .data == 1)
 }
 
 #' @export
-is_weighted.network <- function(object) {
-  "weight" %in% network::list.edge.attributes(object)
+is_weighted.network <- function(.data) {
+  "weight" %in% network::list.edge.attributes(.data)
 }
 
 #' @export
-is_weighted.data.frame <- function(object) {
-  ncol(object)>=3 && 
-    ("weight" %in% names(object) | is.numeric(object[,3]))
+is_weighted.data.frame <- function(.data) {
+  ncol(.data)>=3 && 
+    ("weight" %in% names(.data) | is.numeric(.data[,3]))
 }
 
 #' @describeIn is Tests whether network is directed
@@ -169,32 +151,32 @@ is_weighted.data.frame <- function(object) {
 #' @examples
 #' is_directed(ison_algebra)
 #' @export
-is_directed <- function(object) UseMethod("is_directed")
+is_directed <- function(.data) UseMethod("is_directed")
 
 #' @export
-is_directed.data.frame <- function(object) {
-  !(network_reciprocity(object) == 0 |
-    network_reciprocity(object) == 1)
+is_directed.data.frame <- function(.data) {
+  !(network_reciprocity(.data) == 0 |
+    network_reciprocity(.data) == 1)
 }
 
 #' @export
-is_directed.igraph <- function(object) {
-  if(is_twomode(object)) FALSE else igraph::is.directed(object)
+is_directed.igraph <- function(.data) {
+  if(is_twomode(.data)) FALSE else igraph::is.directed(.data)
 }
 
 #' @export
-is_directed.tbl_graph <- function(object) {
-  if(is_twomode(object)) FALSE else igraph::is.directed(object)
+is_directed.tbl_graph <- function(.data) {
+  if(is_twomode(.data)) FALSE else igraph::is.directed(.data)
 }
 
 #' @export
-is_directed.network <- function(object) {
-    object$gal$directed
+is_directed.network <- function(.data) {
+  .data$gal$directed
 }
 
 #' @export
-is_directed.matrix <- function(object) {
-  if(is_twomode(object)) FALSE else !isSymmetric(object)
+is_directed.matrix <- function(.data) {
+  if(is_twomode(.data)) FALSE else !isSymmetric(.data)
 }
 
 #' @describeIn is Tests whether network includes names for the nodes
@@ -202,32 +184,31 @@ is_directed.matrix <- function(object) {
 #' @examples
 #' is_labelled(ison_southern_women)
 #' @export
-is_labelled <- function(object) UseMethod("is_labelled")
+is_labelled <- function(.data) UseMethod("is_labelled")
 
 #' @export
-is_labelled.igraph <- function(object) {
-  igraph::is.named(object)
+is_labelled.igraph <- function(.data) {
+  igraph::is.named(.data)
 }
 
 #' @export
-is_labelled.tbl_graph <- function(object) {
-  igraph::is.named(object)
+is_labelled.tbl_graph <- function(.data) {
+  igraph::is.named(.data)
 }
 
 #' @export
-is_labelled.matrix <- function(object) {
-  !is.null(dimnames(object))
+is_labelled.matrix <- function(.data) {
+  !is.null(dimnames(.data))
 }
 
 #' @export
-is_labelled.network <- function(object) {
-  object <- as_matrix(object)
-  !is.null(dimnames(object))
+is_labelled.network <- function(.data) {
+  !is.null(dimnames(as_matrix(.data)))
 }
 
 #' @export
-is_labelled.data.frame <- function(object) {
-  is.character(object[,1]) & is.character(object[,2])
+is_labelled.data.frame <- function(.data) {
+  is.character(.data[,1]) & is.character(.data[,2])
 }
 
 #' @describeIn is Tests whether network is signed positive/negative
@@ -235,34 +216,34 @@ is_labelled.data.frame <- function(object) {
 #' @examples
 #' is_signed(ison_southern_women)
 #' @export
-is_signed <- function(object) UseMethod("is_signed")
+is_signed <- function(.data) UseMethod("is_signed")
 
 is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  
   abs(x - round(x)) < tol
 
 #' @export
-is_signed.data.frame <- function(object) {
-  all(is.wholenumber(object[,3])) && any(object[,3] < 0)
+is_signed.data.frame <- function(.data) {
+  all(is.wholenumber(.data[,3])) && any(.data[,3] < 0)
 }
 
 #' @export
-is_signed.matrix <- function(object) {
-  all(is.wholenumber(c(object))) && any(object < 0)
+is_signed.matrix <- function(.data) {
+  all(is.wholenumber(c(.data))) && any(.data < 0)
 }
 
 #' @export
-is_signed.igraph <- function(object) {
-  "sign" %in% igraph::edge_attr_names(object)
+is_signed.igraph <- function(.data) {
+  "sign" %in% igraph::edge_attr_names(.data)
 }
 
 #' @export
-is_signed.tbl_graph <- function(object) {
-  "sign" %in% igraph::edge_attr_names(object)
+is_signed.tbl_graph <- function(.data) {
+  "sign" %in% igraph::edge_attr_names(.data)
 }
 
 #' @export
-is_signed.network <- function(object) {
-  "sign" %in% network::list.edge.attributes(object)
+is_signed.network <- function(.data) {
+  "sign" %in% network::list.edge.attributes(.data)
 }
 
 #' @describeIn is Tests whether network contains any loops
@@ -270,31 +251,31 @@ is_signed.network <- function(object) {
 #' @examples
 #' is_complex(ison_southern_women)
 #' @export
-is_complex <- function(object) UseMethod("is_complex")
+is_complex <- function(.data) UseMethod("is_complex")
 
 #' @export
-is_complex.igraph <- function(object) {
-  any(igraph::which_loop(object))
+is_complex.igraph <- function(.data) {
+  any(igraph::which_loop(.data))
 }
 
 #' @export
-is_complex.tbl_graph <- function(object) {
-  any(igraph::which_loop(object))
+is_complex.tbl_graph <- function(.data) {
+  any(igraph::which_loop(.data))
 }
 
 #' @export
-is_complex.matrix <- function(object) {
-  !(is_twomode(object) || all(is.na(diag(object))) || all(diag(object) == 0))
+is_complex.matrix <- function(.data) {
+  !(is_twomode(.data) || all(is.na(diag(.data))) || all(diag(.data) == 0))
 }
 
 #' @export
-is_complex.data.frame <- function(object) {
-  any(object[,1] == object[,2])
+is_complex.data.frame <- function(.data) {
+  any(.data[,1] == .data[,2])
 }
 
 #' @export
-is_complex.network <- function(object) {
-  network::has.loops(object)
+is_complex.network <- function(.data) {
+  network::has.loops(.data)
 }
 
 #' @describeIn is Tests whether network is multiplex,
@@ -302,33 +283,33 @@ is_complex.network <- function(object) {
 #'   or multiple columns to the edgelist.
 #' @importFrom igraph any_multiple
 #' @export
-is_multiplex <- function(object) UseMethod("is_multiplex")
+is_multiplex <- function(.data) UseMethod("is_multiplex")
 
 #' @export
-is_multiplex.matrix <- function(object){
+is_multiplex.matrix <- function(.data){
   FALSE
 }
 
 #' @export
-is_multiplex.tbl_graph <- function(object){
-  igraph::any_multiple(object) |
-    length(network_tie_attributes(object)) > 1
+is_multiplex.tbl_graph <- function(.data){
+  igraph::any_multiple(.data) |
+    length(network_tie_attributes(.data)) > 1
 }
 
 #' @export
-is_multiplex.igraph <- function(object){
-  igraph::any_multiple(object) |
-    length(network_tie_attributes(object)) > 1
+is_multiplex.igraph <- function(.data){
+  igraph::any_multiple(.data) |
+    length(network_tie_attributes(.data)) > 1
 }
 
 #' @export
-is_multiplex.network <- function(object){
-  network::is.multiplex(object)
+is_multiplex.network <- function(.data){
+  network::is.multiplex(.data)
 }
 
 #' @export
-is_multiplex.data.frame <- function(object){
-  ncol(object) > 3
+is_multiplex.data.frame <- function(.data){
+  ncol(.data) > 3
 }
 
 #' @describeIn is Tests whether network is simple (both uniplex and simplex)
@@ -369,9 +350,9 @@ is_dynamic <- function(.data){
 #' @examples
 #' is_connected(ison_southern_women)
 #' @export
-is_connected <- function(object) {
-  igraph::is.connected(as_igraph(object), 
-                       mode = ifelse(is_directed(object),
+is_connected <- function(.data) {
+  igraph::is.connected(as_igraph(.data), 
+                       mode = ifelse(is_directed(.data),
                                      "strong", "weak"))
 }
 

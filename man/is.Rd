@@ -25,25 +25,25 @@
 https://stackoverflow.com/questions/55091438/r-igraph-find-all-cycles
 }
 \usage{
-is_migraph(object)
+is_migraph(.data)
 
-is_graph(object)
+is_graph(.data)
 
-is_edgelist(object)
+is_edgelist(.data)
 
-is_twomode(object)
+is_twomode(.data)
 
-is_weighted(object)
+is_weighted(.data)
 
-is_directed(object)
+is_directed(.data)
 
-is_labelled(object)
+is_labelled(.data)
 
-is_signed(object)
+is_signed(.data)
 
-is_complex(object)
+is_complex(.data)
 
-is_multiplex(object)
+is_multiplex(.data)
 
 is_uniplex(.data)
 
@@ -51,7 +51,7 @@ is_longitudinal(.data)
 
 is_dynamic(.data)
 
-is_connected(object)
+is_connected(.data)
 
 is_perfect_matching(.data, mark = "type")
 
@@ -62,7 +62,7 @@ is_acyclic(.data)
 is_aperiodic(.data, max_path_length = 4)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
+\item{.data}{An object of a migraph-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}

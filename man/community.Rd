@@ -17,15 +17,6 @@ node_edge_betweenness(object)
 node_fast_greedy(object)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
-\itemize{
-\item matrix (adjacency or incidence) from \code{{base}} R
-\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
-\item igraph, from the \code{{igraph}} package
-\item network, from the \code{{network}} package
-\item tbl_graph, from the \code{{tidygraph}} package
-}}
-
 \item{times}{Integer indicating number of simulations/walks used.
 By default, \code{times=50}.}
 }

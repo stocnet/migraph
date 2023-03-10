@@ -50,6 +50,15 @@ networks from a single UCINET file. Please convert these one by one.}
 
 \item{...}{Additional parameters passed to the read/write function.}
 
+\item{.data}{An object of a migraph-consistent class:
+\itemize{
+\item matrix (adjacency or incidence) from \code{{base}} R
+\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
+\item igraph, from the \code{{igraph}} package
+\item network, from the \code{{network}} package
+\item tbl_graph, from the \code{{tidygraph}} package
+}}
+
 \item{filename}{UCINET filename (without ## extension).
 By default the files will have the same name as the object
 and be saved to the working directory.}

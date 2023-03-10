@@ -23,15 +23,6 @@ node_is_max(node_measure, ranks = 1)
 node_is_min(node_measure, ranks = 1)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
-\itemize{
-\item matrix (adjacency or incidence) from \code{{base}} R
-\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
-\item igraph, from the \code{{igraph}} package
-\item network, from the \code{{network}} package
-\item tbl_graph, from the \code{{tidygraph}} package
-}}
-
 \item{size}{The number of nodes to select (as TRUE).}
 
 \item{node_measure}{An object created by a \code{node_} measure.}

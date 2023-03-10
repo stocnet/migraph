@@ -26,15 +26,6 @@ as_siena(object, twomode = FALSE)
 as_graphAM(object, twomode = NULL)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
-\itemize{
-\item matrix (adjacency or incidence) from \code{{base}} R
-\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
-\item igraph, from the \code{{igraph}} package
-\item network, from the \code{{network}} package
-\item tbl_graph, from the \code{{tidygraph}} package
-}}
-
 \item{twomode}{Logical option used to override heuristics for
 distinguishing incidence (two-mode/bipartite) from
 adjacency (one-mode/unipartite) networks.

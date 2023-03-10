@@ -32,11 +32,7 @@ copy_node_attributes(object, object2)
 join_ties(object, object2, attr_name)
 }
 \arguments{
-\item{attr_name}{Name of the new attribute in the resulting object.}
-
-\item{vector}{A vector of values for the new attribute.}
-
-\item{object}{An object of a migraph-consistent class:
+\item{.data}{An object of a migraph-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
@@ -44,6 +40,10 @@ join_ties(object, object2, attr_name)
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
+
+\item{attr_name}{Name of the new attribute in the resulting object.}
+
+\item{vector}{A vector of values for the new attribute.}
 
 \item{object2}{A second object to copy nodes or edges from.}
 }

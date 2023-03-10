@@ -38,6 +38,15 @@ By default TRUE.}
 
 \item{width}{Integer specifying the width of the ring,
 breadth of the branches, or maximum extent of the neighbourbood.}
+
+\item{.data}{An object of a migraph-consistent class:
+\itemize{
+\item matrix (adjacency or incidence) from \code{{base}} R
+\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
+\item igraph, from the \code{{igraph}} package
+\item network, from the \code{{network}} package
+\item tbl_graph, from the \code{{tidygraph}} package
+}}
 }
 \value{
 By default an \code{igraph} object is returned,

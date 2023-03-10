@@ -47,7 +47,9 @@ to_multilevel(object)
 to_twomode(object, mark)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
+\item{edge}{Character string naming an edge attribute to retain from a graph.}
+
+\item{.data}{An object of a migraph-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
@@ -55,8 +57,6 @@ to_twomode(object, mark)
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
-
-\item{edge}{Character string naming an edge attribute to retain from a graph.}
 
 \item{threshold}{For a matrix, the threshold to binarise/dichotomise at.}
 
