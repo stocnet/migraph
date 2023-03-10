@@ -49,12 +49,21 @@ add_tie_attribute <- function(.data, attr_name, vector){
 #' @describeIn add Add additional ties to a network
 #' @importFrom igraph add_edges
 #' @examples
-#' add_ties(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
+#'   add_nodes(ison_adolescents, 4, list(name = c("Matthew", "Mark", "Luke", "Tim")))
+#' @export
+add_nodes <- function(.data, nodes, attribute = NULL){
+  out <- as_igraph(.data)
+  igraph::add_vertices(out, nv = nodes, attr = attribute)
+}
+
+#' @describeIn add Add additional ties to a network
+#' @importFrom igraph add_edges
+#' @examples
+#'   add_ties(ison_adolescents, c(1,2), list(time = 2, increment = -1))
 #' @export
 add_ties <- function(.data, ties, attribute = NULL){
   out <- as_igraph(.data)
-  out <- igraph::add_edges(out, edges = ties, attr = attribute)
-  out
+  igraph::add_edges(out, edges = ties, attr = attribute)
 }
 
 #' @describeIn add Tidy way to add vector as tie attributes.
