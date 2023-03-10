@@ -1134,47 +1134,34 @@ to_waves <- function(.data, attribute = "wave", panels = NULL) UseMethod("to_wav
 #' @export
 to_waves.tbl_graph <- function(.data, attribute = "wave", panels = NULL) {
   # Todo: what about node attributes, does it make sense here?
-  # igraph::get.vertex.attribute(.data, attribute)
 
   # Check if tie attribute exists in data
   if (is.null(tie_attribute(.data, attribute))) {
     stop("Declared tie 'attribute' not found in data.")
   }
   # Get all unique names
-  l <- as.character(unique(tie_attribute(.data, attribute)))
-  # Handle NA, if present
-  l <- ifelse(is.na(l), "NA", l)
-  # Crete a named list
-  out <- vector("list", length(l))
-  names(out) <- l
-  # Return list of lists of tbl_graphs based on attribute
-  for (i in names(out)) {
-    out[[i]] <- suppressMessages(tidygraph::to_subgraph(.data,
-                                                        get(attribute) == i))
-    # Fix issue with to_subgraph returning objects of class list
-    out[[i]] <- tidygraph::as_tbl_graph(out[[i]]$subgraph)
-  }
-  if (!is.null(panels)) {
-    out <- out[as.character(panels)]
-  }
+  wp <- unique(tie_attribute(.data, attribute))
+  if(!is.null(panels))
+    wp <- intersect(panels, wp)
+  out <- lapply(wp, function(l){
+    filter_ties(.data, !!as.name(attribute) == l)
+  })
+  names(out) <- wp
   out
 }
 
-#' @importFrom tidygraph as_tbl_graph
 #' @export
 to_waves.igraph <- function(.data, attribute = "wave", panels = NULL) {
   .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
   to_waves.tbl_graph(.data, attribute, panels)
 }
 
-#' @importFrom tidygraph as_tbl_graph
 #' @export
 to_waves.data.frame <- function(.data, attribute = "wave", panels = NULL) {
   .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
   to_waves.tbl_graph(.data, attribute, panels)
 }
 
-#' @importFrom tidygraph as_tbl_graph
 #' @export
 to_waves.network <- function(.data, attribute = "wave", panels = NULL) {
   .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
