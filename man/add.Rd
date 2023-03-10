@@ -4,11 +4,13 @@
 \alias{add}
 \alias{add_node_attribute}
 \alias{add_tie_attribute}
+\alias{add_nodes}
 \alias{add_ties}
 \alias{mutate_ties}
 \alias{select_ties}
 \alias{filter_ties}
 \alias{rename_ties}
+\alias{summarise_ties}
 \alias{copy_node_attributes}
 \alias{join_ties}
 \title{Adding and copying attributes from one graph to another}
@@ -16,6 +18,8 @@
 add_node_attribute(.data, attr_name, vector)
 
 add_tie_attribute(.data, attr_name, vector)
+
+add_nodes(.data, nodes, attribute = NULL)
 
 add_ties(.data, ties, attribute = NULL)
 
@@ -26,6 +30,8 @@ select_ties(.data, ...)
 filter_ties(.data, ...)
 
 rename_ties(.data, ...)
+
+summarise_ties(.data, ...)
 
 copy_node_attributes(object, object2)
 
@@ -59,6 +65,8 @@ as node attributes
 \item \code{add_tie_attribute()}: Insert specified values from a vector into the network.
 as tie attributes
 
+\item \code{add_nodes()}: Add additional ties to a network
+
 \item \code{add_ties()}: Add additional ties to a network
 
 \item \code{mutate_ties()}: Tidy way to add vector as tie attributes.
@@ -70,6 +78,8 @@ relation to some tie attribute.
 
 \item \code{rename_ties()}: Tidy way to rename tie attributes.
 
+\item \code{summarise_ties()}: Tidy way to summarise tie attributes.
+
 \item \code{copy_node_attributes()}: Copies node attributes from a given graph into specified graph
 
 \item \code{join_ties()}: Copies ties from another graph to specified graph and
@@ -80,7 +90,8 @@ adds a tie attribute identifying the ties that were newly added
 add_node_attribute(mpn_elite_mex, "wealth", 1:35)
 add_node_attribute(mpn_elite_usa_advice, "wealth", 1:14)
 add_tie_attribute(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
-add_ties(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
+  add_nodes(ison_adolescents, 4, list(name = c("Matthew", "Mark", "Luke", "Tim")))
+  add_ties(ison_adolescents, c(1,2), list(time = 2, increment = -1))
 autographr(mpn_elite_mex)
 both <- join_ties(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
 autographr(both)

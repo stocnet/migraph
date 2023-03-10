@@ -99,6 +99,20 @@ rename_ties <- function(.data, ...){
   out %>% activate(edges) %>% dplyr::rename(...) %>% activate(nodes)
 }
 
+#' @describeIn add Tidy way to summarise tie attributes.
+#' @importFrom dplyr summarise
+#' @export
+summarise_ties <- function(.data, ...){
+  out <- as_edgelist(.data) %>% dplyr::summarise(..., .by = c("from","to")) %>% 
+    as_tidygraph()
+  missingNodes <- setdiff(node_names(.data), node_names(out))
+  if(length(missingNodes)>0)
+    out <- add_nodes(out, length(missingNodes), list(name = missingNodes))
+  out <- as_tidygraph(copy_node_attributes(out, .data))
+  if(!is_directed(.data)) out <- to_undirected(out)
+  out
+}
+
 #' @describeIn add Copies node attributes from a given graph into specified graph
 #' @export
 copy_node_attributes <- function(object, object2){
