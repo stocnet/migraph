@@ -15,6 +15,8 @@
 #' @name is
 NULL
 
+# Classes ####
+
 #' @describeIn is Tests whether network is migraph-compatible
 #' @importFrom igraph is.igraph
 #' @importFrom tidygraph is.tbl_graph
@@ -89,6 +91,8 @@ is_edgelist.igraph <- function(object){
 is_edgelist.tbl_graph <- function(object){
   FALSE
 }
+
+# Formats ####
 
 #' @describeIn is Tests whether network is a two-mode network
 #' @importFrom igraph is.bipartite
@@ -261,20 +265,6 @@ is_signed.network <- function(object) {
   "sign" %in% network::list.edge.attributes(object)
 }
 
-#' @describeIn is Tests whether network is weakly connected if
-#'   the network is undirected or strongly connected if directed.
-#'   To test weak connection on a directed network,
-#'   please see `to_undirected()`.
-#' @importFrom igraph is.connected
-#' @examples
-#' is_connected(ison_southern_women)
-#' @export
-is_connected <- function(object) {
-  igraph::is.connected(as_igraph(object), 
-                       mode = ifelse(is_directed(object),
-                                     "strong", "weak"))
-}
-
 #' @describeIn is Tests whether network contains any loops
 #' @importFrom igraph is.loop
 #' @examples
@@ -346,9 +336,65 @@ is_multiplex.data.frame <- function(object){
 #' @examples 
 #' is_uniplex(ison_algebra)
 #' @export
-is_uniplex <- function(object){
-  object <- as_igraph(object)
-  igraph::is.simple(object)
+is_uniplex <- function(.data){
+  obj <- as_igraph(.data)
+  igraph::is.simple(obj)
+}
+
+#' @describeIn is Tests whether network is longitudinal, panel data
+#' @examples 
+#' is_longitudinal(ison_algebra)
+#' @export
+is_longitudinal <- function(.data){
+  atts <- network_tie_attributes(.data)
+  "wave" %in% atts | "panel" %in% atts
+}
+
+#' @describeIn is Tests whether network is dynamic, time-stamped data
+#' @examples 
+#' is_dynamic(ison_algebra)
+#' @export
+is_dynamic <- function(.data){
+  atts <- network_tie_attributes(.data)
+  "time" %in% atts | "beg" %in% atts | "begin" %in% atts | "start" %in% atts
+}
+
+# Features ####
+
+#' @describeIn is Tests whether network is weakly connected if
+#'   the network is undirected or strongly connected if directed.
+#'   To test weak connection on a directed network,
+#'   please see `to_undirected()`.
+#' @importFrom igraph is.connected
+#' @examples
+#' is_connected(ison_southern_women)
+#' @export
+is_connected <- function(object) {
+  igraph::is.connected(as_igraph(object), 
+                       mode = ifelse(is_directed(object),
+                                     "strong", "weak"))
+}
+
+#' @describeIn is Tests whether there is a matching for a network
+#'   that covers every node in the network
+#' @param mark A logical vector marking two types or modes.
+#'   By default "type".
+#' @examples
+#' is_perfect_matching(ison_southern_women)
+#' @export
+is_perfect_matching <- function(.data, mark = "type"){
+  matches <- to_matching(.data, mark = mark)
+  network_ties(matches)*2 == network_nodes(matches)
+}
+
+#' @describeIn is Tests whether there is a Eulerian path for a network
+#'   where that path passes through every tie exactly once
+#'   @importFrom igraph has_eulerian_path
+#' @examples
+#' is_eulerian(ison_brandes)
+#' @export
+is_eulerian <- function(.data){
+  igraph::has_eulerian_path(as_igraph(.data))
 }
 
 #' @describeIn is Tests whether network is a directed acyclic graph
@@ -356,9 +402,9 @@ is_uniplex <- function(object){
 #' @examples 
 #' is_acyclic(ison_algebra)
 #' @export
-is_acyclic <- function(object){
-  object <- as_igraph(object)
-  igraph::is_dag(object)
+is_acyclic <- function(.data){
+  obj <- as_igraph(.data)
+  igraph::is_dag(obj)
 }
 
 #' @describeIn is Tests whether network is aperiodic
@@ -369,8 +415,8 @@ is_acyclic <- function(object){
 #' @examples 
 #' is_aperiodic(ison_algebra)
 #' @export
-is_aperiodic <- function(object, max_path_length = 4){
-  g <- as_igraph(object)
+is_aperiodic <- function(.data, max_path_length = 4){
+  g <- as_igraph(.data)
   out <- NULL
   for(v1 in igraph::V(g)) {
     if(igraph::degree(g, v1, mode="in") == 0) {next}
@@ -378,34 +424,12 @@ is_aperiodic <- function(object, max_path_length = 4){
     goodNeighbors <- goodNeighbors[goodNeighbors > v1]
     out <- c(out, unlist(lapply(goodNeighbors, function(v2){
       vapply(igraph::all_simple_paths(g, v2, v1, mode="out", 
-                     cutoff = max_path_length), length, FUN.VALUE = numeric(1))
+                                      cutoff = max_path_length), length, FUN.VALUE = numeric(1))
     })))
   }
   if (!("minMSE" %in% rownames(utils::installed.packages()))) {
     message("Please install package `{minMSE}` from CRAN.")
   } else {
-  minMSE::vector_gcd(out)==1
+    minMSE::vector_gcd(out)==1
   }
-}
-
-#' @describeIn is Tests whether there is a matching for a network
-#'   that covers every node in the network
-#' @param mark A logical vector marking two types or modes.
-#'   By default "type".
-#' @examples
-#' is_perfect_matching(ison_southern_women)
-#' @export
-is_perfect_matching <- function(object, mark = "type"){
-  matches <- to_matching(object, mark = mark)
-  network_ties(matches)*2 == network_nodes(matches)
-}
-
-#' @describeIn is Tests whether there is a Eulerian path for a network
-#'   where that path passes through every tie exactly once
-#'   @importFrom igraph has_eulerian_path
-#' @examples
-#' is_eulerian(ison_brandes)
-#' @export
-is_eulerian <- function(object){
-  igraph::has_eulerian_path(as_igraph(object))
 }
