@@ -21,7 +21,7 @@ to_components(object)
 
 to_waves(.data, attribute = "wave", panels = NULL)
 
-to_slices(.data, attribute, slice)
+to_slices(.data, attribute = "time", slice = NULL)
 
 from_subgraphs(.data)
 
@@ -118,10 +118,9 @@ ison_adolescents \%>\%
   mutate(wave = sample(1995:1998, 10, replace = TRUE)) \%>\%
   to_waves(attribute = "wave", panels = c(1995, 1996))
 ison_adolescents \%>\%
-  activate(edges) \%>\%
-  mutate(beg = sample(1:3, 10, replace = TRUE),
-  end = sample(4:6, 10, replace = TRUE)) \%>\%
-  to_slices(attribute = c("beg", "end"), slice = c("1:6", "2:5", "3:4"))
+  mutate_ties(time = 1:10, increment = 1) \%>\% 
+  add_ties(c(1,2), list(time = 3, increment = -1)) \%>\% 
+  to_slices(slice = 7)
 ison_adolescents \%>\%
   activate(nodes) \%>\%
   mutate(unicorn = sample(c("yes", "no"), 8,

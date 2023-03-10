@@ -1177,108 +1177,36 @@ to_waves.data.frame <- function(.data, attribute = "wave", panels = NULL) {
 #'   or integer(s) range used to slice data (e.g slice = c(1:2, 3:4)).
 #' @examples
 #' ison_adolescents %>%
-#'   activate(edges) %>%
-#'   mutate(beg = sample(1:3, 10, replace = TRUE),
-#'   end = sample(4:6, 10, replace = TRUE)) %>%
-#'   to_slices(attribute = c("beg", "end"), slice = c("1:6", "2:5", "3:4"))
+#'   mutate_ties(time = 1:10, increment = 1) %>% 
+#'   add_ties(c(1,2), list(time = 3, increment = -1)) %>% 
+#'   to_slices(slice = 7)
 #' @export
-to_slices <- function(.data, attribute, slice) UseMethod("to_slices")
+to_slices <- function(.data, attribute = "time", slice = NULL) UseMethod("to_slices")
 
 #' @export
-to_slices.tbl_graph <- function(.data, attribute = c("beg", "end"), slice) {
-  # Todo: what about node attributes, does it make sense here?
-  # igraph::get.vertex.attribute(.data, attribute)
+to_slices.tbl_graph <- function(.data, attribute = "time", slice = NULL) {
 
-  # Check attribute and slices
-  if (length(attribute) > 2) {
-    stop("Please declare one or two attribute(s).")
-  }
-  # Check if slice argument is not missing
-  if (missing(slice)) {
-    stop("Please declare the slices used to split the data.")
-  }
-  # Check slices are correctly declared
-  if (any(!grepl("\\:", slice))) {
-    stop("Please declare how to slice as a list character
-         using a range of values (e.g. slice = c('1:2', '3:4')).")
-  }
-  # Check if tie attribute is date or numeric
-  if (!inherits(tie_attribute(.data, attribute[1]), "Date") &
-      !is.numeric(tie_attribute(.data, attribute[1]))) {
-    stop("Please declare either a date or an interger as a tie 'attribute'.")
-  }
-  # Create an empty list
-  out <- vector("list", length(slice))
-  # Check if dates or numeric
-  if (inherits(tie_attribute(.data, attribute[1]), "Date")) {
-    # Slice into lists of lists
-    for (i in seq_len(length(slice))) {
-      slice1 <- as.Date(strsplit(slice[i], "\\:")[[1]][1])
-      slice2 <- as.Date(strsplit(slice[i], "\\:")[[1]][2])
-      if (length(attribute) == 1) {
-        out[[i]] <- suppressMessages(
-          tidygraph::to_subgraph(.data, get(attribute[1]) >= slice1 &
-                                   get(attribute[1]) <= slice2)
-          )
-      } else {
-        out[[i]] <- suppressMessages(
-          tidygraph::to_subgraph(.data, get(attribute[1]) >= slice1 &
-                                   get(attribute[2]) <= slice2)
-          )
-      }
-      # Fix issue with to_subgraph returning objects of class list
-      out[[i]] <- tidygraph::as_tbl_graph(out[[i]]$subgraph)
-    }
+  incremented <- "increment" %in% network_tie_attributes(.data)
+  updated <- "replace" %in% network_tie_attributes(.data)
+  moments <- unique(tie_attribute(.data, attribute = attribute))
+  if(!is.null(slice))
+    moments <- intersect(slice, moments)
+  if(length(moments)>1){
+    out <- lapply(moments, function(t){
+      snap <- filter_ties(.data, !!as.name(attribute) <= t)
+      if(incremented) snap <- summarise_ties(snap, sum(increment))
+      if(updated) snap <- summarise_ties(snap, dplyr::last(replace))
+      snap <- filter_ties(snap, weight != 0)
+      snap
+    })
+    names(out) <- moments
   } else {
-    # Slice into lists of lists
-    for (i in seq_len(length(slice))) {
-      slice1 <- as.numeric(strsplit(slice[i], "\\:")[[1]][1])
-      slice2 <- as.numeric(strsplit(slice[i], "\\:")[[1]][2])
-      if (length(attribute) == 1) {
-        out[[i]] <- suppressMessages(
-          tidygraph::to_subgraph(.data, get(attribute[1]) >= slice1 &
-                                   get(attribute[1]) <= slice2)
-        )
-      } else {
-        out[[i]] <- suppressMessages(
-          tidygraph::to_subgraph(.data, get(attribute[1]) >= slice1 &
-                                   get(attribute[2]) <= slice2)
-        )
-      }
-      # Fix issue with to_subgraph returning objects of class list
-      out[[i]] <- tidygraph::as_tbl_graph(out[[i]]$subgraph)
-    }
+    out <- filter_ties(.data, !!as.name(attribute) <= moments)
+    if(incremented) out <- summarise_ties(out, sum(increment))
+    if(updated) out <- summarise_ties(out, dplyr::last(replace))
+    out <- filter_ties(out, weight != 0)
   }
-  names(out) <- slice
   out
-}
-
-#' @importFrom tidygraph as_tbl_graph
-#' @export
-to_slices.igraph <- function(.data, attribute, slice) {
-  .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
-  to_slices.tbl_graph(.data, attribute, slice)
-}
-
-#' @importFrom tidygraph as_tbl_graph
-#' @export
-to_slices.data.frame <- function(.data, attribute, slice) {
-  .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
-  to_slices.tbl_graph(.data, attribute, slice)
-}
-
-#' @importFrom tidygraph as_tbl_graph
-#' @export
-to_slices.network <- function(.data, attribute, slice) {
-  .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
-  to_slices.tbl_graph(.data, attribute, slice)
-}
-
-#' @importFrom tidygraph as_tbl_graph
-#' @export
-to_slices.matrix <- function(.data, attribute, slice) {
-  .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
-  to_slices.tbl_graph(.data, attribute, slice)
 }
 
 #' @describeIn split Returns a single network object
