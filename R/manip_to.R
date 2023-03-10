@@ -1133,27 +1133,27 @@ to_waves <- function(.data, attribute = "wave", panels = NULL) UseMethod("to_wav
 #' @importFrom tidygraph to_subgraph as_tbl_graph
 #' @export
 to_waves.tbl_graph <- function(.data, attribute = "wave", panels = NULL) {
-  # Todo: what about node attributes, does it make sense here?
-
-  # Check if tie attribute exists in data
-  if (is.null(tie_attribute(.data, attribute)))
-    stop("Tie 'attribute' not found in data.")
   
-  # Get all unique names
   wp <- unique(tie_attribute(.data, attribute))
   if(!is.null(panels))
     wp <- intersect(panels, wp)
-  out <- lapply(wp, function(l){
-    filter_ties(.data, !!as.name(attribute) == l)
-  })
-  names(out) <- wp
+  if(length(wp)>1){
+    out <- lapply(wp, function(l){
+      filter_ties(.data, !!as.name(attribute) == l)
+    })
+    names(out) <- wp
+  } else {
+    out <- filter_ties(.data, !!as.name(attribute) == wp)
+  }
   out
 }
 
 #' @export
 to_waves.igraph <- function(.data, attribute = "wave", panels = NULL) {
   out <- to_waves(as_tidygraph(.data))
-  lapply(out, function(o) as_igraph(0))
+  if(length(out)>1){
+    lapply(out, function(o) as_igraph(0))  
+  } else as_igraph(out)
 }
 
 #' @export
@@ -1161,8 +1161,12 @@ to_waves.data.frame <- function(.data, attribute = "wave", panels = NULL) {
   wp <- unique(tie_attribute(.data, attribute))
   if(!is.null(panels))
     wp <- intersect(panels, wp)
-  out <- lapply(wp, function(l) .data[,attribute == l])
-  names(out) <- wp
+  if(length(wp)>1){
+    out <- lapply(wp, function(l) .data[,attribute == l])
+    names(out) <- wp
+  } else if(length(wp)>1){
+    out <- .data[,attribute == wp]
+  }
   out
 }
 

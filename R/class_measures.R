@@ -15,6 +15,16 @@ make_network_measure <- function(out, .data) {
   out
 }
 
+#' @inheritParams regression
+#' @export
+over_waves <- function(.data, FUN, ..., attribute = "wave",
+                       strategy = "sequential",
+                       verbose = FALSE){
+  future::plan(strategy)
+  furrr::future_map_dbl(to_waves(.data, attribute), function(j) FUN(j, ...), 
+                        .progress = verbose, .options = furrr::furrr_options(seed = T))
+}
+
 # Printing ####
 #' @export
 print.node_measure <- function(x, ...,
