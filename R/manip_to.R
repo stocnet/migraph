@@ -931,6 +931,33 @@ to_anti.network <- function(object){
   as_network(to_anti(as_igraph(object)))
 }
 
+#' @describeIn transform Removes all nodes without ties
+#' @importFrom tidygraph node_is_isolated
+#' @importFrom dplyr filter
+#' @examples
+#' ison_adolescents %>%
+#'   activate(edges) %>%
+#'   to_subgraph(from == 1:5) %>%
+#'   to_no_isolates()
+#' ison_adolescents %>%
+#'   activate(edges) %>%
+#'   mutate(wave = sample(1995:1998, 10, replace = TRUE)) %>%
+#'   to_waves(attribute = "wave") %>%
+#'   to_no_isolates()
+#' @export
+to_no_isolates <- function(.data) {
+  # Check if object is a list of lists
+  if (is.list(.data[1])) {
+    # Delete edges not present vertices in each list
+    lapply(.data, function(x) {
+      x %>% activate(nodes) %>% dplyr::filter(!tidygraph::node_is_isolated())
+    })
+  } else {
+    # Delete edges not present vertices
+    .data %>% activate(nodes) %>% dplyr::filter(!tidygraph::node_is_isolated())
+  }
+}
+
 # Splitting and joining ####
 #' Tools for splitting and joining networks, graphs, and matrices
 #' 
@@ -1270,33 +1297,6 @@ to_slices.network <- function(.data, attribute, slice) {
 to_slices.matrix <- function(.data, attribute, slice) {
   .data <- tidygraph::as_tbl_graph(.data) %>% activate(edges)
   to_slices.tbl_graph(.data, attribute, slice)
-}
-
-#' @describeIn split Removes network vertices that have no edges.
-#' @importFrom tidygraph node_is_isolated
-#' @importFrom dplyr filter
-#' @examples
-#' ison_adolescents %>%
-#'   activate(edges) %>%
-#'   to_subgraph(from == 1:5) %>%
-#'   to_no_isolates()
-#' ison_adolescents %>%
-#'   activate(edges) %>%
-#'   mutate(wave = sample(1995:1998, 10, replace = TRUE)) %>%
-#'   to_waves(attribute = "wave") %>%
-#'   to_no_isolates()
-#' @export
-to_no_isolates <- function(.data) {
-  # Check if object is a list of lists
-  if (is.list(.data[1])) {
-    # Delete edges not present vertices in each list
-    lapply(.data, function(x) {
-      x %>% activate(nodes) %>% dplyr::filter(!tidygraph::node_is_isolated())
-    })
-  } else {
-    # Delete edges not present vertices
-    .data %>% activate(nodes) %>% dplyr::filter(!tidygraph::node_is_isolated())
-  }
 }
 
 #' @describeIn split Returns a single network object
