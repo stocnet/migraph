@@ -65,6 +65,15 @@ mutate_ties <- function(.data, ...){
   out %>% activate(edges) %>% mutate(...) %>% activate(nodes)
 }
 
+#' @describeIn add Tidy way to filter ties based on a logical statement with
+#'   relation to some tie attribute.
+#' @export
+filter_ties <- function(.data, ...){
+  nodes <- edges <- NULL
+  out <- as_tidygraph(.data)
+  out %>% activate(edges) %>% dplyr::filter(...) %>% activate(nodes)
+}
+
 #' @describeIn add Copies node attributes from a given graph into specified graph
 #' @export
 copy_node_attributes <- function(object, object2){
