@@ -11,11 +11,11 @@
 \alias{as_graphAM}
 \title{Coercion between migraph-compatible object classes}
 \usage{
-as_edgelist(object, twomode = FALSE)
+as_edgelist(.data, twomode = FALSE)
 
 as_matrix(object, twomode = NULL)
 
-as_igraph(object, twomode = FALSE)
+as_igraph(.data, twomode = FALSE)
 
 as_tidygraph(object, twomode = FALSE)
 
@@ -26,6 +26,15 @@ as_siena(object, twomode = FALSE)
 as_graphAM(object, twomode = NULL)
 }
 \arguments{
+\item{.data}{An object of a migraph-consistent class:
+\itemize{
+\item matrix (adjacency or incidence) from \code{{base}} R
+\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
+\item igraph, from the \code{{igraph}} package
+\item network, from the \code{{network}} package
+\item tbl_graph, from the \code{{tidygraph}} package
+}}
+
 \item{twomode}{Logical option used to override heuristics for
 distinguishing incidence (two-mode/bipartite) from
 adjacency (one-mode/unipartite) networks.
@@ -82,6 +91,11 @@ specified to override this heuristic.
 This information is usually already embedded in \code{{igraph}},
 \code{{tidygraph}}, and \code{{network}} objects.
 }
+\section{Functions}{
+\itemize{
+\item \code{as_edgelist()}: Coercing various network objects into an edgelist
+
+}}
 \examples{
 test <- data.frame(from = c("A","B","B","C","C"),
                    to = c("I","G","I","G","H"))

@@ -70,46 +70,46 @@ NULL
 
 # Edgelists ####
 
-#' @rdname as
+#' @describeIn as Coercing various network objects into an edgelist
 #' @importFrom igraph as_edgelist
 #' @importFrom dplyr arrange
 #' @export
-as_edgelist <- function(object,
+as_edgelist <- function(.data,
                         twomode = FALSE) UseMethod("as_edgelist")
 
 #' @export
-as_edgelist.igraph <- function(object,
+as_edgelist.igraph <- function(.data,
                                twomode = FALSE){
-  out <- igraph::get.data.frame(object)
-  dplyr::as_tibble(out)
+  igraph::as_data_frame(.data, what = "edges") %>% 
+    dplyr::as_tibble()
 }
 
 #' @export
-as_edgelist.tbl_graph <- function(object,
+as_edgelist.tbl_graph <- function(.data,
                                   twomode = FALSE){
-  out <- igraph::get.data.frame(object)
-  dplyr::as_tibble(out)
+  igraph::as_data_frame(.data, what = "edges") %>% 
+    dplyr::as_tibble()
 }
 
 #' @export
-as_edgelist.network <- function(object,
+as_edgelist.network <- function(.data,
                                 twomode = FALSE){
-  out <- sna::as.edgelist.sna(object)
+  out <- sna::as.edgelist.sna(.data)
   edges <- as.data.frame(out)
-  if (is_twomode(object)) {
+  if (is_twomode(.data)) {
     edges <- edges[((nrow(edges)/2) + 1):nrow(edges),]
   }
   from <- to <- NULL
   names(edges) <- c("from", "to", "weight")
   # Handle node names
-  if (is_labelled(object)) {
+  if (is_labelled(.data)) {
     names <- attr(out, "vnames")
     edges[,1] <- names[edges[,1]]
     edges[,2] <- names[edges[,2]]
   }
   # Handle edge weights
-  if (is_weighted(object)) {
-    edges[,3] <- network::get.edge.attribute(object, "weight")
+  if (is_weighted(.data)) {
+    edges[,3] <- network::get.edge.attribute(.data, "weight")
   }
   # Remove weight column if only unity weights.
   if (all(edges$weight == 1)) edges <- edges[, -3]
@@ -117,36 +117,36 @@ as_edgelist.network <- function(object,
 }
 
 #' @export
-as_edgelist.matrix <- function(object,
+as_edgelist.matrix <- function(.data,
                                twomode = FALSE){
-  as_edgelist(as_igraph(object,
-                               twomode = FALSE))
+  as_edgelist(as_igraph(.data,
+                        twomode = FALSE))
 }
 
 #' @export
-as_edgelist.data.frame <- function(object,
+as_edgelist.data.frame <- function(.data,
                                    twomode = FALSE){
-  if(ncol(object) == 2 && any(names(object) != c("from", "to"))){
-    names(object) <- c("from", "to")
+  if(ncol(.data) == 2 && any(names(.data) != c("from", "to"))){
+    names(.data) <- c("from", "to")
     object
-  } else if(ncol(object) == 3 && 
-            (any(names(object) != c("from", "to", "weight")) | 
-            any(names(object) != c("from", "to", "sign")))){
-    names(object) <- c("from", "to", "weight")
-    object
-  } else object
+  } else if(ncol(.data) == 3 && 
+            (any(names(.data) != c("from", "to", "weight")) | 
+            any(names(.data) != c("from", "to", "sign")))){
+    names(.data) <- c("from", "to", "weight")
+    .data
+  } else .data
 }
 
 #' @export
-as_edgelist.network.goldfish <- function(object,
+as_edgelist.network.goldfish <- function(.data,
                                          twomode = FALSE) {
-  as_matrix(as_igraph(object, twomode = twomode))
+  as_matrix(as_igraph(.data, twomode = twomode))
 }
 
 #' @export
-as_edgelist.siena <- function(object,
+as_edgelist.siena <- function(.data,
                               twomode = NULL) {
-  as_edgelist(as_igraph(object, twomode = twomode))
+  as_edgelist(as_igraph(.data, twomode = twomode))
 }
 
 # Matrices ####
@@ -301,22 +301,29 @@ as_matrix.siena <- function(object,
 #' @importFrom igraph graph_from_data_frame graph_from_incidence_matrix
 #' @importFrom igraph graph_from_adjacency_matrix
 #' @export
-as_igraph <- function(object,
+as_igraph <- function(.data,
                       twomode = FALSE) UseMethod("as_igraph")
 
 #' @export
-as_igraph.data.frame <- function(object,
+as_igraph.data.frame <- function(.data,
                                  twomode = FALSE) {
-  if ("tbl_df" %in% class(object)) object <- as.data.frame(object)
+  if (inherits(.data, "tbl_df")) .data <- as.data.frame(.data)
   
   # Warn if no column named weight and weight set to true
-  if (is_weighted(object) & !("weight" %in% names(object))) {
-    names(object)[3] <- "weight"
+  if (migraph::is_weighted(.data) & !("weight" %in% names(.data))) {
+    names(.data)[3] <- "weight"
     # stop("Please rename the weight column of your dataframe to 'weight'")
   }
-  graph <- igraph::graph_from_data_frame(object)
-  if (length(intersect(c(object[,1]), c(object[,2]))) == 0) {
-    igraph::V(graph)$type <- igraph::V(graph)$name %in% object[,2]
+  if(!is_labelled(.data)){
+    graph <- igraph::graph_from_data_frame(.data, 
+                      vertices = data.frame(name = 1:max(c(.data$from, .data$to))))
+  } else graph <- igraph::graph_from_data_frame(.data)
+  if(!is_labelled(.data)){
+    graph <- igraph::delete_vertex_attr(graph, "name")
+  }
+  # length(intersect(c(.data[,1]), c(.data[,2]))) == 0 && length(.data[,1])>1
+  if (twomode) {
+    igraph::V(graph)$type <- igraph::V(graph)$name %in% .data[,2]
   }
   graph
 }

@@ -1192,8 +1192,8 @@ to_slices.tbl_graph <- function(.data, attribute = "time", slice = NULL) {
   if(!is.null(slice))
     moments <- intersect(slice, moments)
   if(length(moments)>1){
-    out <- lapply(moments, function(t){
-      snap <- filter_ties(.data, !!as.name(attribute) <= t)
+    out <- lapply(moments, function(tm){
+      snap <- filter_ties(.data, !!as.name(attribute) <= tm)
       if(incremented) snap <- summarise_ties(snap, sum(increment))
       if(updated) snap <- summarise_ties(snap, dplyr::last(replace))
       snap <- filter_ties(snap, weight != 0)
