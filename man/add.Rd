@@ -13,6 +13,7 @@
 \alias{filter_ties}
 \alias{rename_ties}
 \alias{summarise_ties}
+\alias{bind_node_attributes}
 \title{Adding and copying attributes from one network to another}
 \usage{
 join_nodes(
@@ -41,6 +42,8 @@ filter_ties(.data, ...)
 rename_ties(.data, ...)
 
 summarise_ties(.data, ...)
+
+bind_node_attributes(.data, source)
 }
 \arguments{
 \item{.data}{An object of a migraph-consistent class:
@@ -92,6 +95,8 @@ relation to some tie attribute.
 \item \code{rename_ties()}: Tidy way to rename tie attributes.
 
 \item \code{summarise_ties()}: Tidy way to summarise tie attributes.
+
+\item \code{bind_node_attributes()}: Copying all nodal attributes from one network to another
 
 }}
 \examples{

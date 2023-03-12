@@ -202,9 +202,26 @@ rename_ties <- function(.data, ...){
 #' @importFrom dplyr summarise
 #' @export
 summarise_ties <- function(.data, ...){
-  out <- as_edgelist(.data) %>% dplyr::summarise(..., .by = c("from","to")) %>% 
-    as_tidygraph()
-  out <- as_tidygraph(join_nodes(out, .data))
+  out <- migraph::as_edgelist(.data) %>% 
+    dplyr::summarise(..., .by = c("from","to")) %>% 
+    as_tidygraph(twomode = is_twomode(.data))
+  out <- as_tidygraph(bind_node_attributes(out, .data))
   if(!is_directed(.data)) out <- to_undirected(out)
+  out
+}
+
+#' @describeIn add Copying all nodal attributes from one network to another
+#' @export
+bind_node_attributes <- function(.data, source){
+  out <- as_igraph(.data)
+  source <- as_igraph(source)
+  if(network_nodes(.data) != network_nodes(source)){
+    warning("Not the same dimensions. Coercing to same.")
+    out <- add_nodes(out, network_nodes(source) - network_nodes(out))
+  }
+  for(a in igraph::vertex_attr_names(source)){
+    out <- igraph::set.vertex.attribute(out, a, 
+                                        value = igraph::get.vertex.attribute(source, a))
+  }
   out
 }
