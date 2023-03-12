@@ -2,26 +2,35 @@
 % Please edit documentation in R/manip_add.R
 \name{add}
 \alias{add}
-\alias{add_node_attribute}
-\alias{add_tie_attribute}
+\alias{join_nodes}
+\alias{join_ties}
 \alias{add_nodes}
 \alias{add_ties}
+\alias{add_node_attribute}
+\alias{add_tie_attribute}
 \alias{mutate_ties}
 \alias{select_ties}
 \alias{filter_ties}
 \alias{rename_ties}
 \alias{summarise_ties}
-\alias{copy_node_attributes}
-\alias{join_ties}
-\title{Adding and copying attributes from one graph to another}
+\title{Adding and copying attributes from one network to another}
 \usage{
-add_node_attribute(.data, attr_name, vector)
+join_nodes(
+  .data,
+  source,
+  by = NULL,
+  join_type = c("full", "left", "right", "inner")
+)
 
-add_tie_attribute(.data, attr_name, vector)
+join_ties(object, object2, attr_name)
 
 add_nodes(.data, nodes, attribute = NULL)
 
 add_ties(.data, ties, attribute = NULL)
+
+add_node_attribute(.data, attr_name, vector)
+
+add_tie_attribute(.data, attr_name, vector)
 
 mutate_ties(.data, ...)
 
@@ -32,10 +41,6 @@ filter_ties(.data, ...)
 rename_ties(.data, ...)
 
 summarise_ties(.data, ...)
-
-copy_node_attributes(object, object2)
-
-join_ties(object, object2, attr_name)
 }
 \arguments{
 \item{.data}{An object of a migraph-consistent class:
@@ -47,27 +52,35 @@ join_ties(object, object2, attr_name)
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
 
+\item{object2}{A second object to copy nodes or edges from.}
+
 \item{attr_name}{Name of the new attribute in the resulting object.}
 
 \item{vector}{A vector of values for the new attribute.}
-
-\item{object2}{A second object to copy nodes or edges from.}
 }
 \description{
-These functions allow users to add attributes to a graph from another graph
-or from a specified vector supplied by the user.
+These functions allow users to add nodes, ties, or attributes to the nodes or ties
+of a network.
+The \verb{join_*()}, \verb{mutate_*()}, \verb{select_*()}, \verb{filter_*()}, \verb{rename_*()}, and \verb{summarise_*()}
+functions adapt the \code{{dplyr}}-type syntax to work with networks of any type.
+The \verb{add_*()} functions operate similarly to in \code{{igraph}}.
 }
 \section{Functions}{
 \itemize{
+\item \code{join_nodes()}: Copies node attributes from a given graph into specified graph
+
+\item \code{join_ties()}: Copies ties from another graph to specified graph and
+adds a tie attribute identifying the ties that were newly added
+
+\item \code{add_nodes()}: Add additional ties to a network
+
+\item \code{add_ties()}: Add additional ties to a network
+
 \item \code{add_node_attribute()}: Insert specified values from a vector into the graph
 as node attributes
 
 \item \code{add_tie_attribute()}: Insert specified values from a vector into the network.
 as tie attributes
-
-\item \code{add_nodes()}: Add additional ties to a network
-
-\item \code{add_ties()}: Add additional ties to a network
 
 \item \code{mutate_ties()}: Tidy way to add vector as tie attributes.
 
@@ -80,24 +93,21 @@ relation to some tie attribute.
 
 \item \code{summarise_ties()}: Tidy way to summarise tie attributes.
 
-\item \code{copy_node_attributes()}: Copies node attributes from a given graph into specified graph
-
-\item \code{join_ties()}: Copies ties from another graph to specified graph and
-adds a tie attribute identifying the ties that were newly added
-
 }}
 \examples{
+  other <- create_empty(4) \%>\% mutate(name = c("Sue", "Tim", "Pam", "Mark"))
+  join_nodes(ison_adolescents, other)
+  autographr(mpn_elite_mex)
+  both <- join_ties(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
+  autographr(both)
+  random <- to_uniplex(both, "random")
+  autographr(random)
+  autographr(to_uniplex(both, "orig"))
+  add_nodes(ison_adolescents, 4, list(name = c("Matthew", "Mark", "Luke", "Tim")))
+  add_ties(ison_adolescents, c(1,2), list(time = 2, increment = -1))
 add_node_attribute(mpn_elite_mex, "wealth", 1:35)
 add_node_attribute(mpn_elite_usa_advice, "wealth", 1:14)
 add_tie_attribute(ison_adolescents, "weight", c(1,2,1,1,1,3,2,2,3,1))
-  add_nodes(ison_adolescents, 4, list(name = c("Matthew", "Mark", "Luke", "Tim")))
-  add_ties(ison_adolescents, c(1,2), list(time = 2, increment = -1))
-autographr(mpn_elite_mex)
-both <- join_ties(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
-autographr(both)
-random <- to_uniplex(both, "random")
-autographr(random)
-autographr(to_uniplex(both, "orig"))
 }
 \seealso{
 Other manipulations: 

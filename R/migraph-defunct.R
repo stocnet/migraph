@@ -476,3 +476,20 @@ node_homophily <- function(object, attribute) {
   node_heterophily(object, attribute)
 }
 
+#' @describeIn defunct Deprecated on 2023-03-12
+#' @export
+copy_node_attributes <- function(.data, source){
+  .Deprecated("join_nodes", package = "migraph",
+              old = "copy_node_attributes")
+  if(network_nodes(.data) != network_nodes(source))
+    stop("Not the same dimensions. Coercing to same.")
+  out <- as_igraph(.data)
+  source <- as_igraph(source)
+  for(a in igraph::vertex_attr_names(source)){
+    out <- igraph::set.vertex.attribute(out, a, 
+                                        value = igraph::get.vertex.attribute(source, a))
+  }
+  out
+}
+
+
