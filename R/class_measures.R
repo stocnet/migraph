@@ -15,6 +15,15 @@ make_network_measure <- function(out, .data) {
   out
 }
 
+make_network_measures <- function(out, .data) {
+  out <- dplyr::as_tibble(out) %>% 
+    dplyr::mutate(time = as.numeric(names(out))) %>% 
+    dplyr::select(time, value)
+  class(out) <- c("network_measures", class(out))
+  attr(out, "mode") <- network_dims(.data)
+  out
+}
+
 #' @inheritParams regression
 #' @export
 over_waves <- function(.data, FUN, ..., attribute = "wave",
@@ -23,6 +32,16 @@ over_waves <- function(.data, FUN, ..., attribute = "wave",
   future::plan(strategy)
   furrr::future_map_dbl(to_waves(.data, attribute), function(j) FUN(j, ...), 
                         .progress = verbose, .options = furrr::furrr_options(seed = T))
+}
+
+#' @export
+over_time <- function(.data, FUN, ..., attribute = "time",
+                      strategy = "sequential",
+                      verbose = FALSE){
+  future::plan(strategy)
+  out <- furrr::future_map_dbl(to_slices(.data, attribute), function(j) FUN(j, ...), 
+                        .progress = verbose, .options = furrr::furrr_options(seed = T))
+  make_network_measures(out, .data)
 }
 
 # Printing ####
@@ -143,6 +162,14 @@ plot.tie_measure <- function(x, type = c("h", "d"), ...) {
   p + ggplot2::theme_classic() +
     ggplot2::theme(panel.grid.major = ggplot2::element_line(colour = "grey90"))
 }
+
+#' @export
+plot.network_measures <- function(x, ...) {
+  ggplot2::ggplot(data = x, ggplot2::aes(x = .data$time, y = .data$value)) +
+    ggplot2::geom_line() +
+    ggplot2::theme_minimal()
+}
+  
 
 # make tblvec ####
 print_tblvec <- function(y, names){
