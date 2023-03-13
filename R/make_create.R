@@ -199,12 +199,26 @@ create_tree <- function(n,
 }
 
 #' @describeIn create Creates a lattice graph of the given dimensions with ties to all neighbouring nodes
+#' @section Lattice graphs:
+#'   `create_lattice()` creates both two-dimensional grid and triangular lattices with as even dimensions
+#'   as possible.
+#'   When the `width` parameter is set to 4, nodes cannot have (in or out) degrees larger than 4.
+#'   This creates regular square grid lattices where possible.
+#'   Such a network is bipartite, that is partitionable into two types that are not adjacent to any
+#'   of their own type.
+#'   If the number of nodes is a prime number, it will only return a chain (a single dimensional lattice).
+#'   
+#'   A `width` parameter of 8 creates a network where the maximum degree of any nodes is 8.
+#'   This can create a triangular mesh lattice or a Queen's move lattice, depending on the dimensions.
+#'   A `width` parameter of 12 creates a network where the maximum degree of any nodes is 12.
+#'   Prime numbers of nodes will return a chain.
 #' @importFrom igraph make_lattice
 #' @examples
-#' autographr(create_grid(5), layout = "kk") +
-#' autographr(create_grid(c(5,5)))
+#' autographr(create_lattice(12, width = 4), layout = "kk") +
+#' autographr(create_lattice(12, width = 8), layout = "kk") +
+#' autographr(create_lattice(12, width = 12), layout = "kk")
 #' @export
-create_grid <- function(n,
+create_lattice <- function(n,
                         directed = FALSE, 
                         width = 8) {
   directed <- infer_directed(n, directed)
@@ -233,10 +247,12 @@ create_grid <- function(n,
   } else {
     divs1 <- divisors(n[1])
     divs2 <- divisors(n[2])
-    divs1 <- divs1[-c(1, length(divs1))]
-    divs2 <- divs2[-c(1, length(divs2))]
-    divs1 <- intersect(divs1, c(divs2+1, divs2-1))
-    divs2 <- intersect(divs2, c(divs1+1, divs1-1))
+    # divs1 <- divs1[-c(1, length(divs1))]
+    # divs2 <- divs2[-c(1, length(divs2))]
+    divs1 <- intersect(divs1, divs2)
+    divs2 <- intersect(divs2, divs1)
+    # divs1 <- intersect(divs1, c(divs2+1, divs2-1))
+    # divs2 <- intersect(divs2, c(divs1+1, divs1-1))
     mat <- matrix(0, n[1], n[2])
     diag(mat) <- 1
     w <- roll_over(mat)
