@@ -1209,6 +1209,14 @@ to_slices.tbl_graph <- function(.data, attribute = "time", slice = NULL) {
   out
 }
 
+#' @export
+to_slices.igraph <- function(.data, attribute = "time", slice = NULL) {
+  out <- to_slices(as_tidygraph(.data), attribute, slice)
+  if(is.list(out) & !is_graph(out)) 
+    lapply(out, function(ea) as_igraph(ea)) else
+      as_igraph(out)
+}
+
 #' @describeIn split Returns a single network object
 #'  from a list of subgraphs.
 #' @importFrom igraph graph_from_data_frame as_data_frame set.vertex.attribute
