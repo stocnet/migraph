@@ -91,16 +91,18 @@ autographr <- function(object,
 #' @importFrom patchwork wrap_plots
 #' @source http://blog.schochastics.net/post/animating-network-evolutions-with-gganimate/
 #' @examples
-#' autographs(to_egos(ison_adolescents))
+#'   autographs(to_egos(ison_adolescents))
 #' @export
 autographs <- function(netlist, ...) {
-  if(!is.null(names(netlist)))
+  if(!is.null(names(netlist))){
     gs <- lapply(1:length(netlist), function(x)
       autographr(netlist[[x]], ...) +
-        ggtitle(names(netlist)[x])) else
-          gs <- lapply(netlist, function(x)
-            autographr(x, ...))
-        do.call(patchwork::wrap_plots, gs)
+        ggtitle(names(netlist)[x]))
+  } else {
+    gs <- lapply(netlist, function(x)
+      autographr(x, ...))
+  }
+  do.call(patchwork::wrap_plots, gs)
 }
 
 #' @describeIn auto_graph Graphs an dynamic (animated) network

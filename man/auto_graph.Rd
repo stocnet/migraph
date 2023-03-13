@@ -109,7 +109,7 @@ ison_adolescents \%>\%
   mutate(high_betweenness = tie_is_max(tie_betweenness(ison_adolescents))) \%>\% 
   autographr(node_color = "high_degree", edge_color = "high_betweenness")
 autographr(mpn_elite_usa_advice, "concentric")
-autographs(to_egos(ison_adolescents))
+  autographs(to_egos(ison_adolescents))
 ison_adolescents \%>\%
   activate(edges) \%>\%
   mutate(year = sample(1995:1998, 10, replace = TRUE)) \%>\%

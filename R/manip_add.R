@@ -216,7 +216,7 @@ bind_node_attributes <- function(.data, source){
   out <- as_igraph(.data)
   source <- as_igraph(source)
   if(network_nodes(.data) != network_nodes(source)){
-    warning("Not the same dimensions. Coercing to same.")
+    # warning("Not the same dimensions. Coercing to same.")
     out <- add_nodes(out, network_nodes(source) - network_nodes(out))
   }
   for(a in igraph::vertex_attr_names(source)){
