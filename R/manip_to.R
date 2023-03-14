@@ -1188,9 +1188,9 @@ to_slices.tbl_graph <- function(.data, attribute = "time", slice = NULL) {
 
   incremented <- "increment" %in% network_tie_attributes(.data)
   updated <- "replace" %in% network_tie_attributes(.data)
-  moments <- unique(tie_attribute(.data, attribute = attribute))
   if(!is.null(slice))
-    moments <- intersect(slice, moments)
+    moments <- slice else 
+      moments <- unique(tie_attribute(.data, attribute = attribute))
   if(length(moments)>1){
     out <- lapply(moments, function(tm){
       snap <- filter_ties(.data, !!as.name(attribute) <= tm)

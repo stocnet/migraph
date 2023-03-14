@@ -36,11 +36,14 @@ over_waves <- function(.data, FUN, ..., attribute = "wave",
 
 #' @export
 over_time <- function(.data, FUN, ..., attribute = "time",
+                      slice = NULL,
                       strategy = "sequential",
                       verbose = FALSE){
   future::plan(strategy)
-  out <- furrr::future_map_dbl(to_slices(.data, attribute), function(j) FUN(j, ...), 
-                        .progress = verbose, .options = furrr::furrr_options(seed = T))
+  out <- furrr::future_map_dbl(to_slices(.data, attribute, slice), 
+                               function(j) FUN(j, ...), 
+                        .progress = verbose, 
+                        .options = furrr::furrr_options(seed = T))
   make_network_measures(out, .data)
 }
 
@@ -167,7 +170,9 @@ plot.tie_measure <- function(x, type = c("h", "d"), ...) {
 plot.network_measures <- function(x, ...) {
   ggplot2::ggplot(data = x, ggplot2::aes(x = .data$time, y = .data$value)) +
     ggplot2::geom_line() +
-    ggplot2::theme_minimal()
+    ggplot2::theme_minimal() +
+    ggplot2::xlab("Time") +
+    ggplot2::ylab("Value")
 }
   
 
