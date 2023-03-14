@@ -26,7 +26,7 @@ autographr(
 
 autographs(netlist, ...)
 
-autographd(tlist, delete.vertices = FALSE, ...)
+autographd(tlist, delete.vertices = FALSE, layout = "dynamic", ...)
 }
 \arguments{
 \item{object}{A migraph-consistent object.}
@@ -62,8 +62,7 @@ to using this function.}
 coloring the nodes. It is easiest if this is added as an edge or tie attribute
 to the graph before plotting.}
 
-\item{...}{Extra arguments to pass on to
-\code{autographr()}/\code{ggraph()}/\code{ggplot()}/\code{gganimate()}.}
+\item{...}{Extra arguments to pass on to \code{autographr()}/\code{ggraph()}/\code{ggplot()}.}
 
 \item{netlist}{A list of migraph-compatible networks.}
 
@@ -100,7 +99,7 @@ with sensible defaults
 \examples{
 ison_adolescents \%>\% 
   mutate(shape = rep(c("circle", "square"), times = 4)) \%>\%
-  mutate(color = rep(c("blue", "red"), times = 4)) \%>\% 
+  mutate(color = rep(c("blue", "red"), times = 4)) \%>\%
   autographr(node_shape = "shape", node_color = "color")
 autographr(ison_karateka, node_size = 8)
 ison_adolescents \%>\% 
@@ -113,14 +112,8 @@ autographr(mpn_elite_usa_advice, "concentric")
 ison_adolescents \%>\%
   activate(edges) \%>\%
   mutate(year = sample(1995:1998, 10, replace = TRUE)) \%>\%
-  to_waves(attribute = "year") \%>\%
+  to_waves(attribute = "year")
   autographd()
-ison_adolescents \%>\%
-  activate(edges) \%>\%
-  mutate(beg = sample(1:3, 10, replace = TRUE),
-  end = sample(4:6, 10, replace = TRUE)) \%>\%
-  to_slices(attribute = c("beg", "end"), slice = c("1:6", "2:5", "3:4")) \%>\%
-  autographd(delete.vertices = TRUE)
 }
 \seealso{
 Other mapping: 
