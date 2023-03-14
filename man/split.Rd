@@ -119,7 +119,7 @@ ison_adolescents \%>\%
   to_waves(attribute = "wave", panels = c(1995, 1996))
 ison_adolescents \%>\%
   mutate_ties(time = 1:10, increment = 1) \%>\% 
-  add_ties(c(1,2), list(time = 3, increment = -1)) \%>\%
+  add_ties(c(1,2), list(time = 3, increment = -1)) \%>\% 
   to_slices(slice = 7)
 ison_adolescents \%>\%
   activate(nodes) \%>\%
@@ -137,10 +137,9 @@ ison_adolescents \%>\%
   to_waves(attribute = "wave") \%>\%
   from_waves()
 ison_adolescents \%>\%
-  activate(edges) \%>\%
-  mutate(beg = sample(1:3, 10, replace = TRUE),
-  end = sample(4:6, 10, replace = TRUE)) \%>\%
-  to_slices(attribute = c("beg", "end"), slice = c("1:6", "2:5", "3:4")) \%>\%
+  mutate_ties(time = 1:10, increment = 1) \%>\% 
+  add_ties(c(1,2), list(time = 3, increment = -1)) \%>\% 
+  to_slices(slice = c(5,7)) \%>\%
   from_slices()
 }
 \seealso{

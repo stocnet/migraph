@@ -5,29 +5,9 @@
 \alias{mpn_elite_mex}
 \title{One-mode Mexican power elite database (Knoke 1990)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 35 nodes and 117 edges
-#> #
-#> # An undirected simple graph with 1 component
-#> #
-#> # Node Data: 35 x 8 (active)
-#>   name     full_name            entry_year military in_mpn PlaceOf~ state region
-#>   <chr>    <chr>                     <dbl>    <dbl>  <dbl> <chr>    <chr>  <dbl>
-#> 1 Trevino  Trevino, Jacinto B.        1910        1      0 Guerrero Coah~      1
-#> 2 Madero   Madero, Francisco          1911        0      0 Parras ~ Coah~      1
-#> 3 Carranza Carranza, Venustiano       1913        1      0 Cuatro ~ Coah~      1
-#> 4 Aguilar  Aguilar, Candido           1918        1      0 Cordoba  Vera~      3
-#> 5 Obregon  Obregon, Alvaro            1920        1      0 Siquisi~ Sono~      1
-#> 6 Calles   Calles, Plutarco E.        1924        1      0 Guaymas  Sono~      1
-#> # ... with 29 more rows
-#> #
-#> # Edge Data: 117 x 2
-#>    from    to
-#>   <int> <int>
-#> 1     2     3
-#> 2     2     5
-#> 3     2     6
-#> # ... with 114 more rows
-}\if{html}{\out{</div>}}
+```{r, echo = FALSE}
+  mpn_elite_mex
+  ```
 }
 \source{
 Knoke, David. 1990. \emph{Political Networks}.

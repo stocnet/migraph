@@ -1302,25 +1302,25 @@ from_waves <- function(.data, directed = FALSE) {
 #' @importFrom dplyr distinct
 #' @examples
 #' ison_adolescents %>%
-#'   activate(edges) %>%
-#'   mutate(beg = sample(1:3, 10, replace = TRUE),
-#'   end = sample(4:6, 10, replace = TRUE)) %>%
-#'   to_slices(attribute = c("beg", "end"), slice = c("1:6", "2:5", "3:4")) %>%
+#'   mutate_ties(time = 1:10, increment = 1) %>% 
+#'   add_ties(c(1,2), list(time = 3, increment = -1)) %>% 
+#'   to_slices(slice = c(5,7)) %>%
 #'   from_slices()
 #' @export
 from_slices <- function(.data, remove.duplicates = FALSE) {
-  if (!is.list(.data[1])) {
-    stop("Please declare a list of slices.")
+  if (is.list(.data[1])) {
+    ann <- lapply(.data, as_igraph)
+    out <- igraph::as_data_frame(ann[[1]])
+    for (i in seq_along(ann)[-1]){
+      out <- rbind(out, igraph::as_data_frame(ann[[i]]))
+    }
+    if (isTRUE(remove.duplicates)) {
+      out <- dplyr::distinct(out)
+    }
+    igraph::graph_from_data_frame(out)
+  } else {
+    message("Only one slice is available, cannot be joined.")
   }
-  ann <- lapply(.data, as_igraph)
-  out <- igraph::as_data_frame(ann[[1]])
-  for (i in seq_along(ann)[-1]){
-    out <- rbind(out, igraph::as_data_frame(ann[[i]]))
-  }
-  if (isTRUE(remove.duplicates)) {
-    out <- dplyr::distinct(out)
-  }
-  igraph::graph_from_data_frame(out)
 }
 
 # Missing ####
