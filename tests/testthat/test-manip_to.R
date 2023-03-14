@@ -108,12 +108,9 @@ test_that("to, and from, waves work", {
 
 test_that("to, and from, slices work", {
   orig <- ison_adolescents %>%
-    activate(edges) %>%
-    mutate(beg = sample(1:3, 10, replace = TRUE),
-           end = sample(4:6, 10, replace = TRUE))
-  slice <- to_slices(orig, attributes = c("beg", "end"),
-                     slice = c("1:6", "2:5", "3:4"))
-  slist <- c("1:6", "2:5", "3:4")
+      mutate_ties(time = 1:10, increment = 1) %>%
+      add_ties(c(1,2), list(time = 3, increment = -1))
+  slice <- to_slices(orig, slice = 7)
   from_slices <- from_waves(slice)
   expect_length(slice, length(slist))
   expect_equal(length(from_slices), length(as.igraph(orig)))
