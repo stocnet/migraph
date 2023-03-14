@@ -51,3 +51,11 @@ test_that("join_ties works", {
   testmutateedges <- join_ties(mpn_elite_mex, generate_random(mpn_elite_mex), "random")
   expect_equal(class(testmutateedges), c("tbl_graph", "igraph"))
 })
+
+test_that("mutate_ties and filter_ties works", {
+  orig <- ison_adolescents %>% mutate_ties(year = 1:10)
+  filt <- orig %>% activate(edges) %>% dplyr::filter(year > 5) %>% activate(nodes)
+  filt1 <- filter_ties(orig, year > 5)
+  expect_equal(1:10, tie_attribute(orig, "year"))
+  expect_equal(tie_attribute(filt, "year"), tie_attribute(filt1, "year"))
+})
