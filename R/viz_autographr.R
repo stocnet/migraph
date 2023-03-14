@@ -44,7 +44,7 @@ NULL
 #' @examples
 #' ison_adolescents %>% 
 #'   mutate(shape = rep(c("circle", "square"), times = 4)) %>%
-#'   mutate(color = rep(c("blue", "red"), times = 4)) %>% 
+#'   mutate(color = rep(c("blue", "red"), times = 4)) %>%
 #'   autographr(node_shape = "shape", node_color = "color")
 #' autographr(ison_karateka, node_size = 8)
 #' ison_adolescents %>% 
@@ -113,8 +113,6 @@ autographs <- function(netlist, ...) {
 #'   any adjacent edges in each frame?
 #'   FALSE by default.
 #'   If TRUE, delete isolated vertices in each frame.
-#' @param ... Extra arguments to pass on to 
-#' `autographr()`/`ggraph()`/`ggplot()`/`gganimate()`.
 #' @details Creates a dynamic layout for a network in time with
 #' ´{graphlayouts}´ and plots an animation of the network with ´{gganimate}´.
 #' @importFrom igraph as_data_frame get.edgelist union gsize
@@ -122,27 +120,21 @@ autographs <- function(netlist, ...) {
 #' scale_alpha_manual theme_void
 #' @importFrom gganimate transition_states ease_aes
 #' @importFrom graphlayouts layout_as_dynamic
+#' @importFrom ggraph create_layout
 #' @importFrom dplyr mutate select distinct left_join
 #' @source http://blog.schochastics.net/post/animating-network-evolutions-with-gganimate/
 #' @examples
 #' ison_adolescents %>%
 #'   activate(edges) %>%
 #'   mutate(year = sample(1995:1998, 10, replace = TRUE)) %>%
-#'   to_waves(attribute = "year") %>%
+#'   to_waves(attribute = "year")
 #'   autographd()
-#' ison_adolescents %>%
-#'   activate(edges) %>%
-#'   mutate(beg = sample(1:3, 10, replace = TRUE),
-#'   end = sample(4:6, 10, replace = TRUE)) %>%
-#'   to_slices(attribute = c("beg", "end"), slice = c("1:6", "2:5", "3:4")) %>%
-#'   autographd(delete.vertices = TRUE)
 #' @export
-autographd <- function(tlist, delete.vertices = FALSE, ...) {
+autographd <- function(tlist, delete.vertices = FALSE, layout = "dynamic", ...) {
 
   # Todo: make code more concise and setup helper functions
   # Todo: make plot defaults similar to ´autographr()´
   # Todo: add extra (...) arguments passed on to `ggraph()`/`ggplot()`/`gganimate()`
-  # Todo: make function work with different layouts?
 
   # Check if object is a list of lists
   if (!is.list(tlist[[1]])) {
@@ -158,13 +150,18 @@ autographd <- function(tlist, delete.vertices = FALSE, ...) {
   if (length(unique(unlist(unname(lapply(tlist, length))))) != 1) {
     tlist <- to_waves(do.call("rbind", edges_lst), attribute = "frame")
   }
-  # Add separate dynamic layouts for each time point
-  require(igraph, quietly = TRUE) # Issue if igraph is not loaded...
-  layout <- graphlayouts::layout_as_dynamic(tlist, alpha = 0.2)
+  # Add separate layouts for each time point
+  if (layout == "dynamic") {
+    require(igraph, quietly = TRUE) # Issue if igraph is not loaded...
+    lay <- graphlayouts::layout_as_dynamic(tlist, alpha = 0.2)
+  } else {
+    lay <- lapply(1:length(tlist), function(i)
+      ggraph::create_layout(tlist[[i]], layout))
+  }
   # Create a node list for each time point
   nodes_lst <- lapply(1:length(tlist), function(i) {
     cbind(igraph::as_data_frame(tlist[[i]], "vertices"),
-          x = layout[[i]][, 1], y = layout[[i]][, 2], frame = i)
+          x = lay[[i]][, 1], y = lay[[i]][, 2], frame = i)
   })
   # Create an edge list for each time point
   edges_lst <- lapply(1:length(tlist), function(i) {
@@ -259,7 +256,6 @@ autographd <- function(tlist, delete.vertices = FALSE, ...) {
     } 
   }
   p <- ggraph::ggraph(lo) + ggplot2::theme_void()
-  
   if (labels & is_labelled(g)){
     if(layout %in% c("concentric", "circle")){
       # https://stackoverflow.com/questions/57000414/ggraph-node-labels-truncated?rq=1
