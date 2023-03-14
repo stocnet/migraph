@@ -22,7 +22,7 @@ LazyData: true
 RoxygenNote: 7.2.3
 Imports: 
     BiocManager,
-    dplyr,
+    dplyr (>= 1.1.0),
     generics,
     ggforce,
     ggplot2,
