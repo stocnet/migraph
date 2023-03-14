@@ -59,3 +59,12 @@ test_that("mutate_ties and filter_ties works", {
   expect_equal(1:10, tie_attribute(orig, "year"))
   expect_equal(tie_attribute(filt, "year"), tie_attribute(filt1, "year"))
 })
+
+test_that("summarise_ties works", {
+  set.seed(1234)
+  orig <- ison_adolescents %>%
+    tidygraph::graph_join(ison_adolescents) %>%
+    mutate_ties(year = sample(1:3, 20, replace = TRUE))
+  sum <- summarise_ties(orig, mean = mean(year))
+  expect_length(tie_attribute(sum, "weight"), 10)
+})
