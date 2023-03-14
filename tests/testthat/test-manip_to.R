@@ -106,10 +106,14 @@ test_that("to, and from, waves work", {
   expect_equal(length(from_wave), length(as.igraph(orig)))
 })
 
-test_that("to slices work", {
+test_that("to and from slices work", {
   orig <- ison_adolescents %>%
       mutate_ties(time = 1:10, increment = 1) %>%
       add_ties(c(1,2), list(time = 3, increment = -1))
   slice <- to_slices(orig, slice = 7)
   expect_length(slice, length(orig))
+  slices <- ison_adolescents %>%
+    mutate_ties(time = 1:10, increment = 1) %>%
+    to_slices(slice = c(5,8))
+  expect_length(slices, 2)
 })
