@@ -5,9 +5,29 @@
 \alias{ison_networkers}
 \title{One-mode EIES dataset (Freeman and Freeman 1979)}
 \format{
-```{r, echo = FALSE}
-  ison_networkers
-  ```
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 32 nodes and 440 edges
+#> #
+#> # A directed simple graph with 1 component
+#> #
+#> # A tibble: 32 x 3
+#>   name               Discipline   Citations
+#>   <chr>              <chr>            <dbl>
+#> 1 LIN FREEMAN        Sociology           19
+#> 2 DOUG WHITE         Anthropology         3
+#> 3 EV ROGERS          Other              170
+#> 4 RICHARD ALBA       Sociology           23
+#> 5 PHIPPS ARABIE      Other               16
+#> 6 CAROL BARNER-BARRY Other                6
+#> # ... with 26 more rows
+#> #
+#> # A tibble: 440 x 3
+#>    from    to weight
+#>   <int> <int>  <dbl>
+#> 1     1     2    488
+#> 2     1     3     28
+#> 3     1     4     65
+#> # ... with 437 more rows
+}\if{html}{\out{</div>}}
 }
 \source{
 networkdata package

@@ -6,13 +6,44 @@
 \alias{ison_brandes2}
 \title{One-mode and two-mode centrality demonstration networks}
 \format{
-```{r, echo = FALSE}
-  ison_brandes
-  ```
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 11 nodes and 12 edges
+#> #
+#> # An undirected simple graph with 1 component
+#> #
+#> # A tibble: 11 x 0
+#> #
+#> # A tibble: 12 x 2
+#>    from    to
+#>   <int> <int>
+#> 1     1     3
+#> 2     2     3
+#> 3     3     4
+#> # ... with 9 more rows
+}\if{html}{\out{</div>}}
 
-```{r, echo = FALSE}
-  ison_brandes2
-  ```
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 11 nodes and 12 edges
+#> #
+#> # A bipartite simple graph with 1 component
+#> #
+#> # A tibble: 11 x 1
+#>   type 
+#>   <lgl>
+#> 1 FALSE
+#> 2 FALSE
+#> 3 TRUE 
+#> 4 FALSE
+#> 5 TRUE 
+#> 6 TRUE 
+#> # ... with 5 more rows
+#> #
+#> # A tibble: 12 x 2
+#>    from    to
+#>   <int> <int>
+#> 1     1     3
+#> 2     2     3
+#> 3     3     4
+#> # ... with 9 more rows
+}\if{html}{\out{</div>}}
 }
 \usage{
 data(ison_brandes)

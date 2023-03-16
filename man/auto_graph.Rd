@@ -26,7 +26,17 @@ autographr(
 
 autographs(netlist, ...)
 
-autographd(tlist, delete.vertices = FALSE, layout = "dynamic", ...)
+autographd(
+  tlist,
+  keep_isolates = TRUE,
+  layout = "dynamic",
+  label = TRUE,
+  node_color = NULL,
+  node_shape = NULL,
+  node_size = NULL,
+  edge_color = NULL,
+  ...
+)
 }
 \arguments{
 \item{object}{A migraph-consistent object.}
@@ -69,10 +79,10 @@ to the graph before plotting.}
 \item{tlist}{The same migraph-compatible network listed according to
 a time attribute, waves, or slices.}
 
-\item{delete.vertices}{Would you like to remove vertices that do not have
+\item{keep_isolates}{Would you like to remove vertices that do not have
 any adjacent edges in each frame?
-FALSE by default.
-If TRUE, delete isolated vertices in each frame.}
+TRUE by default.
+If FALSE, deletes isolated vertices in each frame.}
 }
 \description{
 The aim of this function is to provide users with a quick and easy
@@ -82,8 +92,10 @@ preferences regarding node size, colour, and shape. The function also supports
 visualisation of network measures such as centrality.
 }
 \details{
-Creates a dynamic layout for a network in time with
-´{graphlayouts}´ and plots an animation of the network with ´{gganimate}´.
+If layout is "dynamic", the function reates a dynamic layout for a
+network in time with ´{graphlayouts}´. Not all \code{{ggraph}} layouts work,
+some options here are "stress", "circle", "kk", and "drl".
+Plots are animated with the help of ´{gganimate}´.
 }
 \section{Functions}{
 \itemize{
@@ -112,8 +124,18 @@ autographr(mpn_elite_usa_advice, "concentric")
 ison_adolescents \%>\%
   activate(edges) \%>\%
   mutate(year = sample(1995:1998, 10, replace = TRUE)) \%>\%
-  to_waves(attribute = "year")
+  to_waves(attribute = "year") \%>\%
   autographd()
+ison_adolescents \%>\%
+  mutate(shape = rep(c("circle", "square"), times = 4),
+         color = rep(c("blue", "red"), times = 4),
+         size = sample(4:8, 8, replace = TRUE)) \%>\%
+  activate(edges) \%>\%
+  mutate(year = sample(1995:1998, 10, replace = TRUE),
+         e_color = sample(c("orange", "green"), 10, replace = TRUE)) \%>\%
+  to_waves(attribute = "year") \%>\%
+  autographd(keep_isolates = FALSE, layout = "kk", node_shape = "shape",
+             node_color = "color", node_size =  "size", edge_color = "e_color")
 }
 \seealso{
 Other mapping: 

@@ -109,13 +109,15 @@ autographs <- function(netlist, ...) {
 #'   with sensible defaults
 #' @param tlist The same migraph-compatible network listed according to
 #'   a time attribute, waves, or slices.
-#' @param delete.vertices Would you like to remove vertices that do not have
+#' @param keep_isolates Would you like to remove vertices that do not have
 #'   any adjacent edges in each frame?
-#'   FALSE by default.
-#'   If TRUE, delete isolated vertices in each frame.
-#' @details Creates a dynamic layout for a network in time with
-#' ´{graphlayouts}´ and plots an animation of the network with ´{gganimate}´.
-#' @importFrom igraph as_data_frame get.edgelist union gsize
+#'   TRUE by default.
+#'   If FALSE, deletes isolated vertices in each frame.
+#' @details If layout is "dynamic", the function reates a dynamic layout for a
+#' network in time with ´{graphlayouts}´. Not all `{ggraph}` layouts work,
+#' some options here are "stress", "circle", "kk", and "drl".
+#' Plots are animated with the help of ´{gganimate}´.
+#' @import igraph
 #' @importFrom ggplot2 ggplot geom_segment geom_point geom_text
 #' scale_alpha_manual theme_void
 #' @importFrom gganimate transition_states ease_aes
@@ -127,13 +129,24 @@ autographs <- function(netlist, ...) {
 #' ison_adolescents %>%
 #'   activate(edges) %>%
 #'   mutate(year = sample(1995:1998, 10, replace = TRUE)) %>%
-#'   to_waves(attribute = "year")
+#'   to_waves(attribute = "year") %>%
 #'   autographd()
+#' ison_adolescents %>%
+#'   mutate(shape = rep(c("circle", "square"), times = 4),
+#'          color = rep(c("blue", "red"), times = 4),
+#'          size = sample(4:8, 8, replace = TRUE)) %>%
+#'   activate(edges) %>%
+#'   mutate(year = sample(1995:1998, 10, replace = TRUE),
+#'          e_color = sample(c("orange", "green"), 10, replace = TRUE)) %>%
+#'   to_waves(attribute = "year") %>%
+#'   autographd(keep_isolates = FALSE, layout = "kk", node_shape = "shape",
+#'              node_color = "color", node_size =  "size", edge_color = "e_color")
 #' @export
-autographd <- function(tlist, delete.vertices = FALSE, layout = "dynamic", ...) {
+autographd <- function(tlist, keep_isolates = TRUE, layout = "dynamic",
+                       label = TRUE, node_color = NULL, node_shape = NULL,
+                       node_size = NULL, edge_color = NULL, ...) {
 
   # Todo: make code more concise and setup helper functions
-  # Todo: make plot defaults similar to ´autographr()´
   # Todo: add extra (...) arguments passed on to `ggraph()`/`ggplot()`/`gganimate()`
 
   # Check if object is a list of lists
@@ -152,7 +165,6 @@ autographd <- function(tlist, delete.vertices = FALSE, layout = "dynamic", ...) 
   }
   # Add separate layouts for each time point
   if (layout == "dynamic") {
-    require(igraph, quietly = TRUE) # Issue if igraph is not loaded...
     lay <- graphlayouts::layout_as_dynamic(tlist, alpha = 0.2)
   } else {
     lay <- lapply(1:length(tlist), function(i)
@@ -177,14 +189,14 @@ autographd <- function(tlist, delete.vertices = FALSE, layout = "dynamic", ...) 
     edges_lst[[i]]$status <- TRUE
     edges_lst[[i]]
   })
-  # Keep only necessary columns
-  edges_lst <- lapply(edges_lst, function (x) x[,c("from", "to", "frame", "x",
-                                                   "y", "xend", "yend", "id",
-                                                   "status")])
   # Get edge IDs for all edges
   all_edges <- do.call("rbind", lapply(tlist, igraph::get.edgelist))
   all_edges <- all_edges[!duplicated(all_edges), ]
   all_edges <- cbind(all_edges, paste0(all_edges[, 1], "-", all_edges[, 2]))
+  # Keep only necessary columns
+  edges_lst <- lapply(edges_lst, function (x) x[,c("from", "to", "frame", "x",
+                                                   "y", "xend", "yend", "id",
+                                                   "status", edge_color)])
   # Add edges level information for edge transitions
   edges_lst <- lapply(1:length(tlist), function(i) {
     idx <- which(!all_edges[, 3] %in% edges_lst[[i]]$id)
@@ -197,50 +209,106 @@ autographd <- function(tlist, delete.vertices = FALSE, layout = "dynamic", ...) 
       tmp$yend <- nodes_lst[[i]]$y[match(tmp$to, nodes_lst[[i]]$name)]
       tmp$frame <- i
       tmp$status <- FALSE
-      edges_lst[[i]] <- rbind(edges_lst[[i]], tmp)
+      edges_lst[[i]] <- dplyr::bind_rows(edges_lst[[i]], tmp)
     }
     edges_lst[[i]]
   })
-  # Bind nodes and edges list
+  # Bind edges list
   edges_out <- do.call("rbind", edges_lst)
+  # Remove NAs in edge color column, if declared
+  if (!is.null(edge_color)) {
+    which(colnames(df)==edge_color)
+    edges_out[edge_color] <- ifelse(is.na(edges_out[[edge_color]]), "black",
+                                    edges_out[[edge_color]])
+  }
+  # Bind nodes list
   nodes_out <- do.call("rbind", nodes_lst)
   # Delete nodes for each frame if isolate
-  if (isTRUE(delete.vertices)) {
+  if (isFALSE(keep_isolates)) {
     # Create node metadata for node presence in certain frame
     meta <- edges_out %>%
+      dplyr::filter(status == TRUE) %>%
       dplyr::mutate(meta = ifelse(frame > 1, paste0(from, (frame - 1)), from)) %>%
       dplyr::select(meta, status) %>%
       dplyr::distinct()
     metab <- edges_out %>%
+      dplyr::filter(status == TRUE) %>%
       dplyr::mutate(meta = ifelse(frame > 1, paste0(to, (frame - 1)), to)) %>%
       dplyr::select(meta, status) %>%
-      dplyr::distinct() %>%
-      rbind(meta)
+      rbind(meta) %>%
+      dplyr::distinct()
     # Mark nodes that are isolates
     nodes_out$meta <- rownames(nodes_out)
+    # Join data
     nodes_out <- dplyr::left_join(nodes_out, metab, by = "meta") %>%
-      na.omit() %>%
+      dplyr::mutate(status = ifelse(is.na(status), FALSE, TRUE)) %>%
       dplyr::distinct()
   } else {
+    if(nrow(nodes_out)/length(unique(nodes_out$frame)) > 20) {
+      message("Please considering deleting ")
+    } 
     nodes_out$status <- TRUE
   }
   # Plot with ggplot2 and gganimate
-  ggplot2::ggplot() +
-    ggplot2::geom_segment(data = edges_out,
-                          aes(x = x, xend = xend, y = y, yend = yend,
-                              group = id, alpha = status),
-                          show.legend = FALSE) +
-    ggplot2::geom_point(data = nodes_out, aes(x, y, group = name,
-                                              alpha = status),
-                        shape = 21, size = 4, show.legend = FALSE) +
-    ggplot2::geom_text(data = nodes_out, aes(x, y, label = name,
-                                             alpha = status),
-                       hjust = -0.2, vjust = -0.2, show.legend = FALSE) +
-    ggplot2::scale_alpha_manual(values = c(0, 1)) +
+  p <- ggplot2::ggplot()
+  # Plot edges
+  if (!is.null(edge_color)) {
+    edge_color <- as.factor(edges_out[[edge_color]])
+    color <- colors()
+    if(!any(grepl(paste(color, collapse = "|"), edge_color)) |
+            any(grepl("#", edge_color))) {
+      for(i in unique(edge_color)) {
+        edge_color[edge_color == i] <- sample(color, 1)
+      }
+    }
+  } else {
+    edge_color <- rep("black", nrow(edges_out))
+  }
+  p <- p + ggplot2::geom_segment(data = edges_out,
+                                 aes(x = x, xend = xend, y = y, yend = yend,
+                                     group = id, alpha = status),
+                                 color = edge_color,
+                                 show.legend = FALSE)
+  # Set node shape, color, and size
+  if (!is.null(node_shape)) {
+    node_shape <- as.factor(nodes_out[[node_shape]])
+    node_shape <- c("circle","square","triangle")[node_shape]
+  } else {
+    node_shape <- rep("circle", nrow(nodes_out))
+  }
+  if (!is.null(node_color)) {
+    node_color <- as.factor(nodes_out[[node_color]])
+    color <- colors()
+    if(!any(grepl(paste(color, collapse = "|"), node_color)) |
+       any(grepl("#", node_color))) {
+      for(i in unique(node_color)) {
+        node_color[node_color == i] <- sample(color, 1)
+      }
+    }
+  } else {
+    node_color <- rep("darkgray", nrow(nodes_out))
+  }
+  if (!is.null(node_size)) {
+    node_size <- as.factor(as.numeric(nodes_out[[node_size]]))
+  } else {
+    node_size <- rep(nrow(nodes_out)/length(unique(nodes_out$frame)),
+                     nrow(nodes_out))
+  }
+  # Plot nodes
+  p <- p + ggplot2::geom_point(data = nodes_out,
+                               aes(x, y, group = name, alpha = status),
+                               size = node_size, color = node_color,
+                               shape = node_shape, show.legend = FALSE)
+  if (isTRUE(label)) {
+    p <- p +  ggplot2::geom_text(data = nodes_out,
+                                 aes(x, y, label =  name, alpha = status),
+                                 hjust = -0.2, vjust = -0.2, show.legend = FALSE)
+  }
+  p + ggplot2::scale_alpha_manual(values = c(0, 1)) +
     gganimate::transition_states(frame, state_length = 1) +
     ggplot2::labs(title = "{closest_state}") +
     ggplot2::theme_void()
-  }
+}
 
 #' @importFrom ggraph create_layout ggraph
 #' @importFrom igraph get.vertex.attribute

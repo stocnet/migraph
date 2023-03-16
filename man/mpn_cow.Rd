@@ -7,13 +7,53 @@
 \alias{mpn_cow_igo}
 \title{One-mode interstate trade relations and two-mode state membership in IGOs (COW)}
 \format{
-```{r, echo = FALSE}
-  mpn_cow_trade
-  ```
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 116 nodes and 11489 edges
+#> #
+#> # A directed simple graph with 1 component
+#> #
+#> # A tibble: 116 x 1
+#>   name                    
+#>   <chr>                   
+#> 1 United States of America
+#> 2 Canada                  
+#> 3 Cuba                    
+#> 4 Dominican Republic      
+#> 5 Jamaica                 
+#> 6 Trinidad and Tobago     
+#> # ... with 110 more rows
+#> #
+#> # A tibble: 11,489 x 3
+#>    from    to  weight
+#>   <int> <int>   <dbl>
+#> 1     1     2 180387 
+#> 2     1     3    587.
+#> 3     1     4   5511.
+#> # ... with 11,486 more rows
+}\if{html}{\out{</div>}}
 
-```{r, echo = FALSE}
-  mpn_cow_igo
-  ```
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 152 nodes and 839 edges
+#> #
+#> # A directed acyclic simple graph with 1 component
+#> #
+#> # A tibble: 152 x 3
+#>   name        type  polity2
+#>   <chr>       <lgl>   <dbl>
+#> 1 Afghanistan FALSE      -7
+#> 2 Albania     FALSE       5
+#> 3 Algeria     FALSE      -3
+#> 4 Angola      FALSE      -6
+#> 5 Argentina   FALSE       8
+#> 6 Australia   FALSE      10
+#> # ... with 146 more rows
+#> #
+#> # A tibble: 839 x 3
+#>    from    to weight
+#>   <int> <int>  <dbl>
+#> 1     1   113      1
+#> 2     1   114      1
+#> 3     1   115      0
+#> # ... with 836 more rows
+}\if{html}{\out{</div>}}
 }
 \source{
 The Correlates of War Project. 2012. \emph{Trade}.

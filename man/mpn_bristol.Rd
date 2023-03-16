@@ -5,9 +5,29 @@
 \alias{mpn_bristol}
 \title{Multimodal (3) Bristol protest events, 1990-2002 (Diani and Bison 2004)}
 \format{
-```{r, echo = FALSE}
-  mpn_bristol
-  ```
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 264 nodes and 1496 edges
+#> #
+#> # A bipartite simple graph with 3 components
+#> #
+#> # A tibble: 264 x 3
+#>   name  type    lvl
+#>   <chr> <lgl> <dbl>
+#> 1 101   FALSE     1
+#> 2 102   FALSE     1
+#> 3 103   FALSE     1
+#> 4 104   FALSE     1
+#> 5 105   FALSE     1
+#> 6 106   FALSE     1
+#> # ... with 258 more rows
+#> #
+#> # A tibble: 1,496 x 2
+#>    from    to
+#>   <int> <int>
+#> 1    36   151
+#> 2    40   151
+#> 3    73   151
+#> # ... with 1,493 more rows
+}\if{html}{\out{</div>}}
 }
 \source{
 Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
