@@ -117,7 +117,7 @@ autographs <- function(netlist, ...) {
 #' network in time with ´{graphlayouts}´. Not all `{ggraph}` layouts work,
 #' some options here are "stress", "circle", "kk", and "drl".
 #' Plots are animated with the help of ´{gganimate}´.
-#' @importFrom igraph gsize as_data_frame get.edgelist %u%
+#' @importFrom igraph gsize as_data_frame get.edgelist
 #' @importFrom ggplot2 ggplot geom_segment geom_point geom_text
 #' scale_alpha_manual theme_void
 #' @importFrom gganimate transition_states ease_aes
@@ -165,6 +165,7 @@ autographd <- function(tlist, keep_isolates = TRUE, layout = "dynamic",
   }
   # Add separate layouts for each time point
   if (layout == "dynamic") {
+    require(igraph, quietly = TRUE)
     lay <- graphlayouts::layout_as_dynamic(tlist, alpha = 0.2)
   } else {
     lay <- lapply(1:length(tlist), function(i)
