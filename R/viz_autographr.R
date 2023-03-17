@@ -117,7 +117,7 @@ autographs <- function(netlist, ...) {
 #' network in time with ´{graphlayouts}´. Not all `{ggraph}` layouts work,
 #' some options here are "stress", "circle", "kk", and "drl".
 #' Plots are animated with the help of ´{gganimate}´.
-#' @import igraph
+#' @importFrom igraph gsize as_data_frame get.edgelist %u%
 #' @importFrom ggplot2 ggplot geom_segment geom_point geom_text
 #' scale_alpha_manual theme_void
 #' @importFrom gganimate transition_states ease_aes
@@ -245,7 +245,7 @@ autographd <- function(tlist, keep_isolates = TRUE, layout = "dynamic",
       dplyr::distinct()
   } else {
     if(nrow(nodes_out)/length(unique(nodes_out$frame)) > 20) {
-      message("Please considering deleting ")
+      message("Please considering deleting isolates to improve visualisation.")
     } 
     nodes_out$status <- TRUE
   }
