@@ -121,7 +121,6 @@ autographs <- function(netlist, ...) {
 #' @importFrom ggplot2 ggplot geom_segment geom_point geom_text
 #' scale_alpha_manual theme_void
 #' @importFrom gganimate transition_states ease_aes
-#' @importFrom graphlayouts layout_as_dynamic
 #' @importFrom ggraph create_layout
 #' @importFrom dplyr mutate select distinct left_join
 #' @source http://blog.schochastics.net/post/animating-network-evolutions-with-gganimate/
@@ -134,15 +133,15 @@ autographs <- function(netlist, ...) {
 #' ison_adolescents %>%
 #'   mutate(shape = rep(c("circle", "square"), times = 4),
 #'          color = rep(c("blue", "red"), times = 4),
-#'          size = sample(4:8, 8, replace = TRUE)) %>%
+#'          size = sample(4:16, 8, replace = TRUE)) %>%
 #'   activate(edges) %>%
 #'   mutate(year = sample(1995:1998, 10, replace = TRUE),
-#'          e_color = sample(c("orange", "green"), 10, replace = TRUE)) %>%
-#'   to_waves(attribute = "year") %>%
+#'          e_color = sample(c("yellow", "green"), 10, replace = TRUE)) %>%
+#'   to_waves(attribute = "year") %>% 
 #'   autographd(keep_isolates = FALSE, layout = "kk", node_shape = "shape",
 #'              node_color = "color", node_size =  "size", edge_color = "e_color")
 #' @export
-autographd <- function(tlist, keep_isolates = TRUE, layout = "dynamic",
+autographd <- function(tlist, keep_isolates = TRUE, layout = "kk",
                        label = TRUE, node_color = NULL, node_shape = NULL,
                        node_size = NULL, edge_color = NULL, ...) {
 
@@ -164,13 +163,8 @@ autographd <- function(tlist, keep_isolates = TRUE, layout = "dynamic",
     tlist <- to_waves(do.call("rbind", edges_lst), attribute = "frame")
   }
   # Add separate layouts for each time point
-  if (layout == "dynamic") {
-    require(igraph, quietly = TRUE)
-    lay <- graphlayouts::layout_as_dynamic(tlist, alpha = 0.2)
-  } else {
-    lay <- lapply(1:length(tlist), function(i)
-      ggraph::create_layout(tlist[[i]], layout))
-  }
+  lay <- lapply(1:length(tlist), function(i)
+    ggraph::create_layout(tlist[[i]], layout))
   # Create a node list for each time point
   nodes_lst <- lapply(1:length(tlist), function(i) {
     cbind(igraph::as_data_frame(tlist[[i]], "vertices"),
@@ -216,12 +210,6 @@ autographd <- function(tlist, keep_isolates = TRUE, layout = "dynamic",
   })
   # Bind edges list
   edges_out <- do.call("rbind", edges_lst)
-  # Remove NAs in edge color column, if declared
-  if (!is.null(edge_color)) {
-    which(colnames(df)==edge_color)
-    edges_out[edge_color] <- ifelse(is.na(edges_out[[edge_color]]), "black",
-                                    edges_out[[edge_color]])
-  }
   # Bind nodes list
   nodes_out <- do.call("rbind", nodes_lst)
   # Delete nodes for each frame if isolate
@@ -229,7 +217,8 @@ autographd <- function(tlist, keep_isolates = TRUE, layout = "dynamic",
     # Create node metadata for node presence in certain frame
     meta <- edges_out %>%
       dplyr::filter(status == TRUE) %>%
-      dplyr::mutate(meta = ifelse(frame > 1, paste0(from, (frame - 1)), from)) %>%
+      dplyr::mutate(meta = ifelse(frame > 1,
+                                  paste0(from, (frame - 1)), from)) %>%
       dplyr::select(meta, status) %>%
       dplyr::distinct()
     metab <- edges_out %>%
@@ -254,12 +243,17 @@ autographd <- function(tlist, keep_isolates = TRUE, layout = "dynamic",
   p <- ggplot2::ggplot()
   # Plot edges
   if (!is.null(edge_color)) {
-    edge_color <- as.factor(edges_out[[edge_color]])
+    # Remove NAs in edge color, if declared
+    edge_color <- ifelse(is.na(edges_out[[edge_color]]), "black",
+                         edges_out[[edge_color]])
     color <- colors()
+    color <- color[!color %in% "black"]
     if(!any(grepl(paste(color, collapse = "|"), edge_color)) |
             any(grepl("#", edge_color))) {
       for(i in unique(edge_color)) {
-        edge_color[edge_color == i] <- sample(color, 1)
+        if (i != "black") {
+          edge_color[edge_color == i] <- sample(color, 1)
+        }
       }
     }
   } else {
@@ -268,8 +262,7 @@ autographd <- function(tlist, keep_isolates = TRUE, layout = "dynamic",
   p <- p + ggplot2::geom_segment(data = edges_out,
                                  aes(x = x, xend = xend, y = y, yend = yend,
                                      group = id, alpha = status),
-                                 color = edge_color,
-                                 show.legend = FALSE)
+                                 color = edge_color, show.legend = FALSE)
   # Set node shape, color, and size
   if (!is.null(node_shape)) {
     node_shape <- as.factor(nodes_out[[node_shape]])
@@ -278,19 +271,22 @@ autographd <- function(tlist, keep_isolates = TRUE, layout = "dynamic",
     node_shape <- rep("circle", nrow(nodes_out))
   }
   if (!is.null(node_color)) {
-    node_color <- as.factor(nodes_out[[node_color]])
+    node_color <- nodes_out[[node_color]]
     color <- colors()
+    color <- color[!color %in% "black"]
     if(!any(grepl(paste(color, collapse = "|"), node_color)) |
        any(grepl("#", node_color))) {
       for(i in unique(node_color)) {
-        node_color[node_color == i] <- sample(color, 1)
+        if (i != "black") {
+          node_color[node_color == i] <- sample(color, 1)
+        }
       }
     }
   } else {
-    node_color <- rep("darkgray", nrow(nodes_out))
+    node_color <- rep("gray", nrow(nodes_out))
   }
   if (!is.null(node_size)) {
-    node_size <- as.factor(as.numeric(nodes_out[[node_size]]))
+    node_size <- as.numeric(nodes_out[[node_size]])
   } else {
     node_size <- rep(nrow(nodes_out)/length(unique(nodes_out$frame)),
                      nrow(nodes_out))
@@ -303,7 +299,8 @@ autographd <- function(tlist, keep_isolates = TRUE, layout = "dynamic",
   if (isTRUE(label)) {
     p <- p +  ggplot2::geom_text(data = nodes_out,
                                  aes(x, y, label =  name, alpha = status),
-                                 hjust = -0.2, vjust = -0.2, show.legend = FALSE)
+                                 hjust = -0.2, vjust = -0.2,
+                                 show.legend = FALSE)
   }
   p + ggplot2::scale_alpha_manual(values = c(0, 1)) +
     gganimate::transition_states(frame, state_length = 1) +

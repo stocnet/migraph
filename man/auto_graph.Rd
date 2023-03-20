@@ -29,7 +29,7 @@ autographs(netlist, ...)
 autographd(
   tlist,
   keep_isolates = TRUE,
-  layout = "dynamic",
+  layout = "kk",
   label = TRUE,
   node_color = NULL,
   node_shape = NULL,
@@ -129,11 +129,11 @@ ison_adolescents \%>\%
 ison_adolescents \%>\%
   mutate(shape = rep(c("circle", "square"), times = 4),
          color = rep(c("blue", "red"), times = 4),
-         size = sample(4:8, 8, replace = TRUE)) \%>\%
+         size = sample(4:16, 8, replace = TRUE)) \%>\%
   activate(edges) \%>\%
   mutate(year = sample(1995:1998, 10, replace = TRUE),
-         e_color = sample(c("orange", "green"), 10, replace = TRUE)) \%>\%
-  to_waves(attribute = "year") \%>\%
+         e_color = sample(c("yellow", "green"), 10, replace = TRUE)) \%>\%
+  to_waves(attribute = "year") \%>\% 
   autographd(keep_isolates = FALSE, layout = "kk", node_shape = "shape",
              node_color = "color", node_size =  "size", edge_color = "e_color")
 }
