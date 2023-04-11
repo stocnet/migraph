@@ -103,7 +103,7 @@ test_that("to, and from, waves work", {
   waves <- to_waves(orig, attribute = "wave")
   from_wave <- from_waves(waves)
   expect_length(waves, length(unique(tie_attribute(orig, "wave"))))
-  expect_equal(length(from_wave), length(as.igraph(orig)))
+  expect_equal(length(from_wave), length(as_igraph(orig)))
 })
 
 test_that("to and from slices work", {
@@ -112,6 +112,8 @@ test_that("to and from slices work", {
       add_ties(c(1,2), list(time = 3, increment = -1))
   slice <- to_slices(orig, slice = 7)
   expect_length(slice, length(orig))
+  #expect_false(is.null(tie_attribute(slice, "time")))
+  ##should attribute names change?
   slices <- ison_adolescents %>%
     mutate_ties(time = 1:10, increment = 1) %>%
     to_slices(slice = c(5,8))
