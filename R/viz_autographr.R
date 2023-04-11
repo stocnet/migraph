@@ -113,18 +113,15 @@ autographs <- function(netlist, ...) {
 #'   any adjacent edges in each frame?
 #'   TRUE by default.
 #'   If FALSE, deletes isolated vertices in each frame.
-#' @details If layout is "dynamic", the function reates a dynamic layout for a
-#' network in time with ´{graphlayouts}´. Not all `{ggraph}` layouts work,
-#' some options here are "stress", "circle", "kk", and "drl".
-#' Plots are animated with the help of ´{gganimate}´.
 #' @importFrom igraph gsize as_data_frame get.edgelist
 #' @importFrom ggplot2 ggplot geom_segment geom_point geom_text
 #' scale_alpha_manual theme_void
 #' @importFrom gganimate transition_states ease_aes
 #' @importFrom ggraph create_layout
-#' @importFrom dplyr mutate select distinct left_join
+#' @importFrom dplyr mutate select distinct left_join %>%
 #' @source http://blog.schochastics.net/post/animating-network-evolutions-with-gganimate/
 #' @examples
+#' \donttest{
 #' ison_adolescents %>%
 #'   activate(edges) %>%
 #'   mutate(year = sample(1995:1998, 10, replace = TRUE)) %>%
@@ -138,16 +135,15 @@ autographs <- function(netlist, ...) {
 #'   mutate(year = sample(1995:1998, 10, replace = TRUE),
 #'          e_color = sample(c("yellow", "green"), 10, replace = TRUE)) %>%
 #'   to_waves(attribute = "year") %>% 
-#'   autographd(keep_isolates = FALSE, layout = "kk", node_shape = "shape",
-#'              node_color = "color", node_size =  "size", edge_color = "e_color")
+#'   autographd(keep_isolates = FALSE, layout = "circle", node_shape = "shape",
+#'              node_color = "color", node_size =  "size",
+#'              edge_color = "e_color")
+#' }
 #' @export
-autographd <- function(tlist, keep_isolates = TRUE, layout = "kk",
+autographd <- function(tlist, keep_isolates = TRUE, layout = "stress",
                        label = TRUE, node_color = NULL, node_shape = NULL,
-                       node_size = NULL, edge_color = NULL, ...) {
-
-  # Todo: make code more concise and setup helper functions
-  # Todo: add extra (...) arguments passed on to `ggraph()`/`ggplot()`/`gganimate()`
-
+                       node_size = NULL, edge_color = NULL) {
+  # Todo: add (...) arguments passed on to `ggraph()`/`ggplot()`/`gganimate()`
   # Check if object is a list of lists
   if (!is.list(tlist[[1]])) {
     stop("Please declare a migraph-compatible network listed according
@@ -171,68 +167,19 @@ autographd <- function(tlist, keep_isolates = TRUE, layout = "kk",
           x = lay[[i]][, 1], y = lay[[i]][, 2], frame = i)
   })
   # Create an edge list for each time point
-  edges_lst <- lapply(1:length(tlist), function(i) {
-    edges_lst[[i]]$x <- nodes_lst[[i]]$x[match(edges_lst[[i]]$from,
-                                               nodes_lst[[i]]$name)]
-    edges_lst[[i]]$y <- nodes_lst[[i]]$y[match(edges_lst[[i]]$from,
-                                               nodes_lst[[i]]$name)]
-    edges_lst[[i]]$xend <- nodes_lst[[i]]$x[match(edges_lst[[i]]$to,
-                                                  nodes_lst[[i]]$name)]
-    edges_lst[[i]]$yend <- nodes_lst[[i]]$y[match(edges_lst[[i]]$to,
-                                                  nodes_lst[[i]]$name)]
-    edges_lst[[i]]$id <- paste0(edges_lst[[i]]$from, "-", edges_lst[[i]]$to)
-    edges_lst[[i]]$status <- TRUE
-    edges_lst[[i]]
-  })
+  edges_lst <- time_edges_lst(tlist, edges_lst, nodes_lst, edge_color)
   # Get edge IDs for all edges
   all_edges <- do.call("rbind", lapply(tlist, igraph::get.edgelist))
   all_edges <- all_edges[!duplicated(all_edges), ]
   all_edges <- cbind(all_edges, paste0(all_edges[, 1], "-", all_edges[, 2]))
-  # Keep only necessary columns
-  edges_lst <- lapply(edges_lst, function (x) x[,c("from", "to", "frame", "x",
-                                                   "y", "xend", "yend", "id",
-                                                   "status", edge_color)])
   # Add edges level information for edge transitions
-  edges_lst <- lapply(1:length(tlist), function(i) {
-    idx <- which(!all_edges[, 3] %in% edges_lst[[i]]$id)
-    if (length(idx != 0)) {
-      tmp <- data.frame(from = all_edges[idx, 1], to = all_edges[idx, 2],
-                        id = all_edges[idx, 3])
-      tmp$x <- nodes_lst[[i]]$x[match(tmp$from, nodes_lst[[i]]$name)]
-      tmp$y <- nodes_lst[[i]]$y[match(tmp$from, nodes_lst[[i]]$name)]
-      tmp$xend <- nodes_lst[[i]]$x[match(tmp$to, nodes_lst[[i]]$name)]
-      tmp$yend <- nodes_lst[[i]]$y[match(tmp$to, nodes_lst[[i]]$name)]
-      tmp$frame <- i
-      tmp$status <- FALSE
-      edges_lst[[i]] <- dplyr::bind_rows(edges_lst[[i]], tmp)
-    }
-    edges_lst[[i]]
-  })
-  # Bind edges list
+  edges_lst <- transition_edge_lst(tlist, edges_lst, nodes_lst, all_edges)
+  # Bind nodes and edges list
   edges_out <- do.call("rbind", edges_lst)
-  # Bind nodes list
   nodes_out <- do.call("rbind", nodes_lst)
   # Delete nodes for each frame if isolate
   if (isFALSE(keep_isolates)) {
-    # Create node metadata for node presence in certain frame
-    meta <- edges_out %>%
-      dplyr::filter(status == TRUE) %>%
-      dplyr::mutate(meta = ifelse(frame > 1,
-                                  paste0(from, (frame - 1)), from)) %>%
-      dplyr::select(meta, status) %>%
-      dplyr::distinct()
-    metab <- edges_out %>%
-      dplyr::filter(status == TRUE) %>%
-      dplyr::mutate(meta = ifelse(frame > 1, paste0(to, (frame - 1)), to)) %>%
-      dplyr::select(meta, status) %>%
-      rbind(meta) %>%
-      dplyr::distinct()
-    # Mark nodes that are isolates
-    nodes_out$meta <- rownames(nodes_out)
-    # Join data
-    nodes_out <- dplyr::left_join(nodes_out, metab, by = "meta") %>%
-      dplyr::mutate(status = ifelse(is.na(status), FALSE, TRUE)) %>%
-      dplyr::distinct()
+    nodes_out <- remove_isolates(edges_out, nodes_out)
   } else {
     if(nrow(nodes_out)/length(unique(nodes_out$frame)) > 20) {
       message("Please considering deleting isolates to improve visualisation.")
@@ -240,68 +187,16 @@ autographd <- function(tlist, keep_isolates = TRUE, layout = "kk",
     nodes_out$status <- TRUE
   }
   # Plot with ggplot2 and gganimate
-  p <- ggplot2::ggplot()
-  # Plot edges
-  if (!is.null(edge_color)) {
-    # Remove NAs in edge color, if declared
-    edge_color <- ifelse(is.na(edges_out[[edge_color]]), "black",
-                         edges_out[[edge_color]])
-    color <- colors()
-    color <- color[!color %in% "black"]
-    if(!any(grepl(paste(color, collapse = "|"), edge_color)) |
-            any(grepl("#", edge_color))) {
-      for(i in unique(edge_color)) {
-        if (i != "black") {
-          edge_color[edge_color == i] <- sample(color, 1)
-        }
-      }
-    }
-  } else {
-    edge_color <- rep("black", nrow(edges_out))
-  }
-  p <- p + ggplot2::geom_segment(data = edges_out,
-                                 aes(x = x, xend = xend, y = y, yend = yend,
-                                     group = id, alpha = status),
-                                 color = edge_color, show.legend = FALSE)
-  # Set node shape, color, and size
-  if (!is.null(node_shape)) {
-    node_shape <- as.factor(nodes_out[[node_shape]])
-    node_shape <- c("circle","square","triangle")[node_shape]
-  } else {
-    node_shape <- rep("circle", nrow(nodes_out))
-  }
-  if (!is.null(node_color)) {
-    node_color <- nodes_out[[node_color]]
-    color <- colors()
-    color <- color[!color %in% "black"]
-    if(!any(grepl(paste(color, collapse = "|"), node_color)) |
-       any(grepl("#", node_color))) {
-      for(i in unique(node_color)) {
-        if (i != "black") {
-          node_color[node_color == i] <- sample(color, 1)
-        }
-      }
-    }
-  } else {
-    node_color <- rep("gray", nrow(nodes_out))
-  }
-  if (!is.null(node_size)) {
-    node_size <- as.numeric(nodes_out[[node_size]])
-  } else {
-    node_size <- rep(nrow(nodes_out)/length(unique(nodes_out$frame)),
-                     nrow(nodes_out))
-  }
-  # Plot nodes
-  p <- p + ggplot2::geom_point(data = nodes_out,
-                               aes(x, y, group = name, alpha = status),
-                               size = node_size, color = node_color,
-                               shape = node_shape, show.legend = FALSE)
+  p <- map_dynamic(edges_out, nodes_out, edge_color, node_shape,
+                   node_color, node_size)
+  # Add labels, if declared
   if (isTRUE(label)) {
     p <- p +  ggplot2::geom_text(data = nodes_out,
                                  aes(x, y, label =  name, alpha = status),
                                  hjust = -0.2, vjust = -0.2,
                                  show.legend = FALSE)
   }
+  # Animate
   p + ggplot2::scale_alpha_manual(values = c(0, 1)) +
     gganimate::transition_states(frame, state_length = 1) +
     ggplot2::labs(title = "{closest_state}") +
@@ -642,4 +537,123 @@ hypot <- function (x, y) {
   m <- pmin(x, y)
   M <- pmax(x, y)
   ifelse(M == 0, 0, M * sqrt(1 + (m/M)^2))
+}
+
+time_edges_lst <- function(tlist, edges_lst, nodes_lst, edge_color) {
+  edg <- lapply(1:length(tlist), function(i) {
+    edges_lst[[i]]$x <- nodes_lst[[i]]$x[match(edges_lst[[i]]$from,
+                                               nodes_lst[[i]]$name)]
+    edges_lst[[i]]$y <- nodes_lst[[i]]$y[match(edges_lst[[i]]$from,
+                                               nodes_lst[[i]]$name)]
+    edges_lst[[i]]$xend <- nodes_lst[[i]]$x[match(edges_lst[[i]]$to,
+                                                  nodes_lst[[i]]$name)]
+    edges_lst[[i]]$yend <- nodes_lst[[i]]$y[match(edges_lst[[i]]$to,
+                                                  nodes_lst[[i]]$name)]
+    edges_lst[[i]]$id <- paste0(edges_lst[[i]]$from, "-", edges_lst[[i]]$to)
+    edges_lst[[i]]$status <- TRUE
+    edges_lst[[i]]
+  })
+  # Keep only necessary columns
+  edg <- lapply(edg, function (x) x[,c("from", "to", "frame", "x", "y", "xend",
+                                       "yend", "id", "status", edge_color)])
+}
+
+transition_edge_lst <- function(tlist, edges_lst, nodes_lst, all_edges) {
+  x <- lapply(1:length(tlist), function(i) {
+    idx <- which(!all_edges[, 3] %in% edges_lst[[i]]$id)
+    if (length(idx != 0)) {
+      tmp <- data.frame(from = all_edges[idx, 1], to = all_edges[idx, 2],
+                        id = all_edges[idx, 3])
+      tmp$x <- nodes_lst[[i]]$x[match(tmp$from, nodes_lst[[i]]$name)]
+      tmp$y <- nodes_lst[[i]]$y[match(tmp$from, nodes_lst[[i]]$name)]
+      tmp$xend <- nodes_lst[[i]]$x[match(tmp$to, nodes_lst[[i]]$name)]
+      tmp$yend <- nodes_lst[[i]]$y[match(tmp$to, nodes_lst[[i]]$name)]
+      tmp$frame <- i
+      tmp$status <- FALSE
+      edges_lst[[i]] <- dplyr::bind_rows(edges_lst[[i]], tmp)
+    }
+    edges_lst[[i]]
+  })
+}
+
+remove_isolates <- function(edges_out, nodes_out) {
+  # Create node metadata for node presence in certain frame
+  meta <- edges_out %>%
+    dplyr::filter(status == TRUE) %>%
+    dplyr::mutate(meta = ifelse(frame > 1,
+                                paste0(from, (frame - 1)), from)) %>%
+    dplyr::select(meta, status) %>%
+    dplyr::distinct()
+  metab <- edges_out %>%
+    dplyr::filter(status == TRUE) %>%
+    dplyr::mutate(meta = ifelse(frame > 1, paste0(to, (frame - 1)), to)) %>%
+    dplyr::select(meta, status) %>%
+    rbind(meta) %>%
+    dplyr::distinct()
+  # Mark nodes that are isolates
+  nodes_out$meta <- rownames(nodes_out)
+  # Join data
+  nodes_out <- dplyr::left_join(nodes_out, metab, by = "meta") %>%
+    dplyr::mutate(status = ifelse(is.na(status), FALSE, TRUE)) %>%
+    dplyr::distinct()
+}
+
+map_dynamic <- function(edges_out, nodes_out, edge_color, node_shape,
+                        node_color, node_size) {
+  p <- ggplot2::ggplot()
+  # Plot edges
+  if (!is.null(edge_color)) {
+    # Remove NAs in edge color, if declared
+    edge_color <- ifelse(is.na(edges_out[[edge_color]]), "black",
+                         edges_out[[edge_color]])
+    color <- colors()
+    color <- color[!color %in% "black"]
+    if(!any(grepl(paste(color, collapse = "|"), edge_color)) |
+       any(grepl("#", edge_color))) {
+      for(i in unique(edge_color)) {
+        if (i != "black") {
+          edge_color[edge_color == i] <- sample(color, 1)
+        }
+      }
+    }
+  } else {
+    edge_color <- rep("black", nrow(edges_out))
+  }
+  p <- p + ggplot2::geom_segment(data = edges_out,
+                                 aes(x = x, xend = xend, y = y, yend = yend,
+                                     group = id, alpha = status),
+                                 color = edge_color, show.legend = FALSE)
+  # Set node shape, color, and size
+  if (!is.null(node_shape)) {
+    node_shape <- as.factor(nodes_out[[node_shape]])
+    node_shape <- c("circle","square","triangle")[node_shape]
+  } else {
+    node_shape <- rep("circle", nrow(nodes_out))
+  }
+  if (!is.null(node_color)) {
+    node_color <- nodes_out[[node_color]]
+    color <- colors()
+    color <- color[!color %in% "black"]
+    if(!any(grepl(paste(color, collapse = "|"), node_color)) |
+       any(grepl("#", node_color))) {
+      for(i in unique(node_color)) {
+        if (i != "black") {
+          node_color[node_color == i] <- sample(color, 1)
+        }
+      }
+    }
+  } else {
+    node_color <- rep("gray", nrow(nodes_out))
+  }
+  if (!is.null(node_size)) {
+    node_size <- as.numeric(nodes_out[[node_size]])
+  } else {
+    node_size <- rep(nrow(nodes_out)/length(unique(nodes_out$frame)),
+                     nrow(nodes_out))
+  }
+  # Plot nodes
+  p <- p + ggplot2::geom_point(data = nodes_out,
+                               aes(x, y, group = name, alpha = status),
+                               size = node_size, color = node_color,
+                               shape = node_shape, show.legend = FALSE)
 }
