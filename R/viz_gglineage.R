@@ -18,13 +18,17 @@
 #' "ERECHA_1991O", "AI07EM_1998A", "CNEWNH_1979A"))
 #' gglineage(cites)
 #' @export
-gglineage <- function(object, labels = TRUE){
+gglineage <- function(object, labels = TRUE) {
   nodes <- NULL # Avoid R CMD check note
   object <- as_tidygraph(object)
   if (all(grepl("\\d{4}", node_names(object)))) {
     object <- object %>%
       activate(nodes) %>%
-      mutate(year = as.numeric(sub(".*_([0-9]{4}).*", "\\1", node_names(object))))
+      mutate(year = as.numeric(ifelse(grepl("\\:", node_names(object)),
+                                      sub(".*_([0-9]{4}).*", "\\1",
+                                          sub("\\:.*", "", node_names(object))),
+                                      sub(".*_([0-9]{4}).*", "\\1",
+                                          node_names(object)))))
   }
   lo <- ggraph::create_layout(object, layout = "alluvial")
   if (!is.null(lo$year)) lo$x = lo$year else 

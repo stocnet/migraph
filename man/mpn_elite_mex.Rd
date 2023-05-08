@@ -10,15 +10,15 @@
 #> # An undirected simple graph with 1 component
 #> #
 #> # A tibble: 35 x 8
-#>   name     full_name            entry_year military in_mpn PlaceO~1 state region
-#>   <chr>    <chr>                     <dbl>    <dbl>  <dbl> <chr>    <chr>  <dbl>
-#> 1 Trevino  Trevino, Jacinto B.        1910        1      0 Guerrero Coah~      1
-#> 2 Madero   Madero, Francisco          1911        0      0 Parras ~ Coah~      1
-#> 3 Carranza Carranza, Venustiano       1913        1      0 Cuatro ~ Coah~      1
-#> 4 Aguilar  Aguilar, Candido           1918        1      0 Cordoba  Vera~      3
-#> 5 Obregon  Obregon, Alvaro            1920        1      0 Siquisi~ Sono~      1
-#> 6 Calles   Calles, Plutarco E.        1924        1      0 Guaymas  Sono~      1
-#> # ... with 29 more rows, and abbreviated variable name 1: PlaceOfBirth
+#>   name     full_name        entry_year military in_mpn PlaceOfBirth state region
+#>   <chr>    <chr>                 <dbl>    <dbl>  <dbl> <chr>        <chr>  <dbl>
+#> 1 Trevino  Trevino, Jacint~       1910        1      0 Guerrero     Coah~      1
+#> 2 Madero   Madero, Francis~       1911        0      0 Parras de l~ Coah~      1
+#> 3 Carranza Carranza, Venus~       1913        1      0 Cuatro Cien~ Coah~      1
+#> 4 Aguilar  Aguilar, Candido       1918        1      0 Cordoba      Vera~      3
+#> 5 Obregon  Obregon, Alvaro        1920        1      0 Siquisiva, ~ Sono~      1
+#> 6 Calles   Calles, Plutarc~       1924        1      0 Guaymas      Sono~      1
+#> # i 29 more rows
 #> #
 #> # A tibble: 117 x 2
 #>    from    to
@@ -26,7 +26,7 @@
 #> 1     2     3
 #> 2     2     5
 #> 3     2     6
-#> # ... with 114 more rows
+#> # i 114 more rows
 }\if{html}{\out{</div>}}
 }
 \source{

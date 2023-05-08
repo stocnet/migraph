@@ -18,7 +18,7 @@
 #> 4 104   FALSE     1
 #> 5 105   FALSE     1
 #> 6 106   FALSE     1
-#> # ... with 258 more rows
+#> # i 258 more rows
 #> #
 #> # A tibble: 1,496 x 2
 #>    from    to
@@ -26,7 +26,7 @@
 #> 1    36   151
 #> 2    40   151
 #> 3    73   151
-#> # ... with 1,493 more rows
+#> # i 1,493 more rows
 }\if{html}{\out{</div>}}
 }
 \source{

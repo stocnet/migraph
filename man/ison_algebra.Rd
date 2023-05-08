@@ -18,7 +18,7 @@
 #> 4 Veronica
 #> 5 Rylan   
 #> 6 Lindsey 
-#> # ... with 10 more rows
+#> # i 10 more rows
 #> #
 #> # A tibble: 144 x 5
 #>    from    to friends social tasks
@@ -26,7 +26,7 @@
 #> 1     1     5       0   1.2    0.3
 #> 2     1     8       0   0.15   0  
 #> 3     1     9       0   2.85   0.3
-#> # ... with 141 more rows
+#> # i 141 more rows
 }\if{html}{\out{</div>}}
 }
 \source{

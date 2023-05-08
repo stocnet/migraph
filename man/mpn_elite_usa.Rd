@@ -20,7 +20,7 @@
 #> 4 FALSE Curry   
 #> 5 FALSE Fukuyama
 #> 6 FALSE Gray    
-#> # ... with 28 more rows
+#> # i 28 more rows
 #> #
 #> # A tibble: 46 x 2
 #>    from    to
@@ -28,7 +28,7 @@
 #> 1     1    17
 #> 2     1    19
 #> 3     1    21
-#> # ... with 43 more rows
+#> # i 43 more rows
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 38 nodes and 103 edges
@@ -44,7 +44,7 @@
 #> 4 FALSE Boyce   
 #> 5 FALSE Britt   
 #> 6 FALSE Cannon  
-#> # ... with 32 more rows
+#> # i 32 more rows
 #> #
 #> # A tibble: 103 x 2
 #>    from    to
@@ -52,7 +52,7 @@
 #> 1     1    27
 #> 2     1    28
 #> 3     1    34
-#> # ... with 100 more rows
+#> # i 100 more rows
 }\if{html}{\out{</div>}}
 }
 \usage{

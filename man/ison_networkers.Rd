@@ -18,7 +18,7 @@
 #> 4 RICHARD ALBA       Sociology           23
 #> 5 PHIPPS ARABIE      Other               16
 #> 6 CAROL BARNER-BARRY Other                6
-#> # ... with 26 more rows
+#> # i 26 more rows
 #> #
 #> # A tibble: 440 x 3
 #>    from    to weight
@@ -26,7 +26,7 @@
 #> 1     1     2    488
 #> 2     1     3     28
 #> 3     1     4     65
-#> # ... with 437 more rows
+#> # i 437 more rows
 }\if{html}{\out{</div>}}
 }
 \source{

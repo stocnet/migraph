@@ -18,7 +18,7 @@
 #> 4 Jane 
 #> 5 Dale 
 #> 6 Pam  
-#> # ... with 2 more rows
+#> # i 2 more rows
 #> #
 #> # A tibble: 10 x 2
 #>    from    to
@@ -26,7 +26,7 @@
 #> 1     1     2
 #> 2     2     3
 #> 3     3     4
-#> # ... with 7 more rows
+#> # i 7 more rows
 }\if{html}{\out{</div>}}
 }
 \usage{

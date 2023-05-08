@@ -29,13 +29,12 @@ autographs(netlist, ...)
 autographd(
   tlist,
   keep_isolates = TRUE,
-  layout = "kk",
+  layout = "stress",
   label = TRUE,
   node_color = NULL,
   node_shape = NULL,
   node_size = NULL,
-  edge_color = NULL,
-  ...
+  edge_color = NULL
 )
 }
 \arguments{
@@ -91,12 +90,6 @@ whatever its composition. Users can also tailor the plot according to their
 preferences regarding node size, colour, and shape. The function also supports
 visualisation of network measures such as centrality.
 }
-\details{
-If layout is "dynamic", the function reates a dynamic layout for a
-network in time with ´{graphlayouts}´. Not all \code{{ggraph}} layouts work,
-some options here are "stress", "circle", "kk", and "drl".
-Plots are animated with the help of ´{gganimate}´.
-}
 \section{Functions}{
 \itemize{
 \item \code{autographr()}: Graphs a network with sensible defaults
@@ -121,6 +114,7 @@ ison_adolescents \%>\%
   autographr(node_color = "high_degree", edge_color = "high_betweenness")
 autographr(mpn_elite_usa_advice, "concentric")
   autographs(to_egos(ison_adolescents))
+\donttest{
 ison_adolescents \%>\%
   activate(edges) \%>\%
   mutate(year = sample(1995:1998, 10, replace = TRUE)) \%>\%
@@ -134,8 +128,10 @@ ison_adolescents \%>\%
   mutate(year = sample(1995:1998, 10, replace = TRUE),
          e_color = sample(c("yellow", "green"), 10, replace = TRUE)) \%>\%
   to_waves(attribute = "year") \%>\% 
-  autographd(keep_isolates = FALSE, layout = "kk", node_shape = "shape",
-             node_color = "color", node_size =  "size", edge_color = "e_color")
+  autographd(keep_isolates = FALSE, layout = "circle", node_shape = "shape",
+             node_color = "color", node_size =  "size",
+             edge_color = "e_color")
+}
 }
 \seealso{
 Other mapping: 

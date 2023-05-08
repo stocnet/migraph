@@ -18,7 +18,7 @@
 #> 4 7 RYANAIR     
 #> 5 8 DG TRANSPORT
 #> 6 9 COR         
-#> # ... with 14 more rows
+#> # i 14 more rows
 #> #
 #> # A tibble: 177 x 3
 #>    from    to weight
@@ -26,7 +26,7 @@
 #> 1     1     2      1
 #> 2     1     3      1
 #> 3     1     4      1
-#> # ... with 174 more rows
+#> # i 174 more rows
 }\if{html}{\out{</div>}}
 }
 \source{
