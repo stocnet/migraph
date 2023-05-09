@@ -36,7 +36,7 @@
 #' @importFrom ggraph geom_edge_link geom_node_text geom_conn_bundle
 #' get_con geom_node_point scale_edge_width_continuous geom_node_label
 #' @importFrom ggplot2 aes arrow unit scale_color_brewer scale_fill_brewer
-#' @importFrom ggforce geom_mark_hull
+#' @importFrom ggforce geom_mark_ellipse
 #' @name auto_graph
 NULL
 
@@ -69,19 +69,19 @@ autographr <- function(object,
   if(!is.null(node_group)) {
     node_group <- as.factor(node_attribute(g, node_group))
     g <- as_tidygraph(g) %>% 
-      tidygraph::activate(nodes) %>%
-      dplyr::mutate(node_group = node_group)
+      activate(nodes) %>%
+      mutate(node_group = node_group)
   }
-  
+
   # Add layout ----
   p <- .graph_layout(g, layout, labels, node_group)
-  
+
   # Add edges ----
   p <- .graph_edges(p, g, edge_color)
-  
+
   # Add nodes ----
   p <- .graph_nodes(p, g, node_color, node_shape, node_size)
-  
+
   p
 }
 
@@ -468,10 +468,11 @@ autographd <- function(tlist, keep_isolates = TRUE, layout = "stress",
   if (!("concaveman" %in% rownames(utils::installed.packages()))) {
     message("Please install package `{concaveman}`.")
   } else {
-    p <- p + ggforce::geom_mark_hull(ggplot2::aes(x = lo$x, y = lo$y,
-                                                  fill = node_group,
-                                                  label = node_group),
-                                     concavity = 2) +
+    p <- p +
+      ggforce::geom_mark_ellipse(ggplot2::aes(x, y,
+                                              fill = node_group,
+                                              label = node_group),
+                                 data = lo) +
       ggplot2::scale_fill_brewer(palette = "Set1", guide = "none")
   }
 }
