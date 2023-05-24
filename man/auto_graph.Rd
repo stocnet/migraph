@@ -17,7 +17,6 @@ autographr(
   layout = "stress",
   labels = TRUE,
   node_color = NULL,
-  node_group = NULL,
   node_shape = NULL,
   node_size = NULL,
   edge_color = NULL,
@@ -49,10 +48,6 @@ as labels if present.}
 \item{node_color}{Node variable in quotation marks to be used for
 coloring the nodes. It is easiest if this is added as a node attribute to
 the graph before plotting.}
-
-\item{node_group}{Node variable in quotation marks to be used for
-drawing convex but also concave hulls around clusters of nodes.
-These groupings will be labelled with the categories of the variable passed.}
 
 \item{node_shape}{Character string in quotation marks referring to the name
 of a node attribute already present in the graph to be used for the shapes

@@ -29,9 +29,6 @@
 #' @param edge_color Tie variable in quotation marks to be used for 
 #'   coloring the nodes. It is easiest if this is added as an edge or tie attribute 
 #'   to the graph before plotting.
-#' @param node_group Node variable in quotation marks to be used for
-#'   drawing convex but also concave hulls around clusters of nodes.
-#'   These groupings will be labelled with the categories of the variable passed.
 #' @param ... Extra arguments to pass on to `autographr()`/`ggraph()`/`ggplot()`.
 #' @importFrom ggraph geom_edge_link geom_node_text geom_conn_bundle
 #' get_con geom_node_point scale_edge_width_continuous geom_node_label
@@ -58,7 +55,6 @@ autographr <- function(object,
                        layout = "stress",
                        labels = TRUE,
                        node_color = NULL,
-                       node_group = NULL,
                        node_shape = NULL,
                        node_size = NULL,
                        edge_color = NULL,
@@ -66,22 +62,18 @@ autographr <- function(object,
   
   name <- weight <- nodes <- NULL #initialize variables to avoid CMD check notes
   g <- as_tidygraph(object)
-  if(!is.null(node_group)) {
-    node_group <- as.factor(node_attribute(g, node_group))
-    g <- as_tidygraph(g) %>% 
-      activate(nodes) %>%
-      mutate(node_group = node_group)
-  }
-
+  # if(!is.null(node_group)) {
+  #   node_group <- as.factor(node_attribute(g, node_group))
+  #   g <- as_tidygraph(g) %>% 
+  #     activate(nodes) %>%
+  #     mutate(node_group = node_group)
+  # }
   # Add layout ----
-  p <- .graph_layout(g, layout, labels, node_group)
-
+  p <- .graph_layout(g, layout, labels)
   # Add edges ----
   p <- .graph_edges(p, g, edge_color)
-
   # Add nodes ----
   p <- .graph_nodes(p, g, node_color, node_shape, node_size)
-
   p
 }
 
@@ -144,6 +136,7 @@ autographd <- function(tlist, keep_isolates = TRUE, layout = "stress",
                        label = TRUE, node_color = NULL, node_shape = NULL,
                        node_size = NULL, edge_color = NULL) {
   # Todo: add (...) arguments passed on to `ggraph()`/`ggplot()`/`gganimate()`
+  x <- y <- name <- status <- frame <- NULL
   # Check if object is a list of lists
   if (!is.list(tlist[[1]])) {
     stop("Please declare a migraph-compatible network listed according
@@ -206,7 +199,7 @@ autographd <- function(tlist, keep_isolates = TRUE, layout = "stress",
 #' @importFrom ggraph create_layout ggraph
 #' @importFrom igraph get.vertex.attribute
 #' @importFrom ggplot2 theme_void
-.graph_layout <- function(g, layout, labels, node_group){
+.graph_layout <- function(g, layout, labels){
   name <- NULL
   lo <- ggraph::create_layout(g, layout)
   if ("graph" %in% names(attributes(lo))) {
@@ -256,9 +249,7 @@ autographd <- function(tlist, keep_isolates = TRUE, layout = "stress",
                                       seed = 1234)
     }
   }
-  
-  if (!is.null(node_group)) p <- .graph_groups(p, g, node_group, lo)
-  
+  # if (!is.null(node_group)) p <- .graph_groups(p, g, node_group, lo)
   p
 }
 
@@ -464,18 +455,18 @@ autographd <- function(tlist, keep_isolates = TRUE, layout = "stress",
   p
 }
 
-.graph_groups <- function(p, g, node_group, lo){
-  if (!("concaveman" %in% rownames(utils::installed.packages()))) {
-    message("Please install package `{concaveman}`.")
-  } else {
-    p <- p +
-      ggforce::geom_mark_ellipse(ggplot2::aes(x, y,
-                                              fill = node_group,
-                                              label = node_group),
-                                 data = lo) +
-      ggplot2::scale_fill_brewer(palette = "Set1", guide = "none")
-  }
-}
+# .graph_groups <- function(p, g, node_group, lo){
+#   if (!("concaveman" %in% rownames(utils::installed.packages()))) {
+#     message("Please install package `{concaveman}`.")
+#   } else {
+#     p <- p +
+#       ggforce::geom_mark_ellipse(ggplot2::aes(x, y,
+#                                               fill = node_group,
+#                                               label = node_group),
+#                                  data = lo) +
+#       ggplot2::scale_fill_brewer(palette = "Set1", guide = "none")
+#   }
+# }
 
 cart2pol <- function(xyz){
   stopifnot(is.numeric(xyz))
@@ -578,6 +569,7 @@ transition_edge_lst <- function(tlist, edges_lst, nodes_lst, all_edges) {
 }
 
 remove_isolates <- function(edges_out, nodes_out) {
+  status <- frame <- from <- to <- NULL
   # Create node metadata for node presence in certain frame
   meta <- edges_out %>%
     dplyr::filter(status == TRUE) %>%
@@ -601,6 +593,7 @@ remove_isolates <- function(edges_out, nodes_out) {
 
 map_dynamic <- function(edges_out, nodes_out, edge_color, node_shape,
                         node_color, node_size) {
+  x <- xend <- y <- yend <- id <- status <- name <- NULL
   p <- ggplot2::ggplot()
   # Plot edges
   if (!is.null(edge_color)) {
