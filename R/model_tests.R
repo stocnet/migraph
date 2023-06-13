@@ -38,7 +38,7 @@ test_random <- function(object, FUN, ...,
                              .options = furrr::furrr_options(seed = T))
   if (length(args) > 0) {
     rands <- furrr::future_map(rands, 
-                               copy_node_attributes, object2 = object, 
+                               manynet::bind_node_attributes, object2 = object, 
                                .progress = verbose, 
                                .options = furrr::furrr_options(seed = T))
   }
@@ -52,8 +52,8 @@ test_random <- function(object, FUN, ...,
   out <- list(test = "CUG",
               testval = obsd,
               testdist = simd,
-              mode = is_directed(object),
-              diag = is_complex(object),
+              mode = manynet::is_directed(object),
+              diag = manynet::is_complex(object),
               cmode = "csize",
               plteobs = mean(simd <= obsd),
               pgteobs = mean(simd >= obsd),
