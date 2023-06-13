@@ -93,11 +93,16 @@ network_equivalency <- function(.data) {
 
 #' @describeIn closure Calculate congruency across two two-mode networks
 #' @export
-network_congruency <- function(object, object2){
-  if(missing(object) | missing(object2)) stop("This function expects two two-mode networks")
-  mat1 <- as_matrix(object)
-  mat2 <- as_matrix(object2)
-  c <- ncol(mat1)
+network_congruency <- function(.data, object2){
+  if(missing(.data) | missing(object2)) stop("This function expects two two-mode networks")
+  if(!manynet::is_twomode(.data) | !manynet::is_twomode(object2)) stop("This function expects two two-mode networks")
+  if(manynet::network_dims(.data)[2] != manynet::network_dims(object2)[1]) 
+    stop(paste("This function expects the number of nodes",
+    "in the second mode of the first network", "to be the same as the number of nodes",
+    "in the first mode of the second network."))
+  mat1 <- manynet::as_matrix(.data)
+  mat2 <- manynet::as_matrix(object2)
+  connects <- ncol(mat1)
   twopaths1 <- crossprod(mat1)
   indegrees <- diag(twopaths1)
   diag(twopaths1) <- 0
@@ -109,7 +114,7 @@ network_congruency <- function(object, object2){
   output <- sum(twopaths * (twopaths - 1)) /
     (sum(twopaths * (twopaths - 1)) +
        sum(twopaths *
-             (matrix(degrees, c, c) - twopaths)))
+             (matrix(degrees, connects, connects) - twopaths)))
   if (is.nan(output)) output <- 1
-  make_network_measure(output, object)
+  make_network_measure(output, .data)
 }
