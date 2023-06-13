@@ -8,7 +8,7 @@
 \usage{
 cluster_hierarchical(census, distance)
 
-cluster_concor(object, census)
+cluster_concor(.data, census)
 }
 \arguments{
 \item{census}{A matrix returned by a \verb{node_*_census()} function.}

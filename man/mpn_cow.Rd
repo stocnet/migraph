@@ -7,10 +7,7 @@
 \alias{mpn_cow_igo}
 \title{One-mode interstate trade relations and two-mode state membership in IGOs (COW)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 116 nodes and 11489 edges
-#> #
-#> # A directed simple graph with 1 component
-#> #
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, directed tbl_graph with 116 nodes and 11489 arcs
 #> # A tibble: 116 x 1
 #>   name                    
 #>   <chr>                   
@@ -21,20 +18,19 @@
 #> 5 Jamaica                 
 #> 6 Trinidad and Tobago     
 #> # i 110 more rows
-#> #
 #> # A tibble: 11,489 x 3
 #>    from    to  weight
 #>   <int> <int>   <dbl>
 #> 1     1     2 180387 
 #> 2     1     3    587.
 #> 3     1     4   5511.
-#> # i 11,486 more rows
+#> 4     1     5   1896.
+#> 5     1     6   2188.
+#> 6     1     7 123677 
+#> # i 11,483 more rows
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 152 nodes and 839 edges
-#> #
-#> # A directed acyclic simple graph with 1 component
-#> #
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode tbl_graph with 152 nodes and 839 ties
 #> # A tibble: 152 x 3
 #>   name        type  polity2
 #>   <chr>       <lgl>   <dbl>
@@ -45,14 +41,16 @@
 #> 5 Argentina   FALSE       8
 #> 6 Australia   FALSE      10
 #> # i 146 more rows
-#> #
 #> # A tibble: 839 x 3
 #>    from    to weight
 #>   <int> <int>  <dbl>
 #> 1     1   113      1
 #> 2     1   114      1
 #> 3     1   115      0
-#> # i 836 more rows
+#> 4     1   116      0
+#> 5     1   117      1
+#> 6     1   118      0
+#> # i 833 more rows
 }\if{html}{\out{</div>}}
 }
 \source{

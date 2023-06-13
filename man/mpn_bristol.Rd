@@ -5,10 +5,7 @@
 \alias{mpn_bristol}
 \title{Multimodal (3) Bristol protest events, 1990-2002 (Diani and Bison 2004)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 264 nodes and 1496 edges
-#> #
-#> # A bipartite simple graph with 3 components
-#> #
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, two-mode tbl_graph with 264 nodes and 1496 ties
 #> # A tibble: 264 x 3
 #>   name  type    lvl
 #>   <chr> <lgl> <dbl>
@@ -19,14 +16,16 @@
 #> 5 105   FALSE     1
 #> 6 106   FALSE     1
 #> # i 258 more rows
-#> #
 #> # A tibble: 1,496 x 2
 #>    from    to
 #>   <int> <int>
 #> 1    36   151
 #> 2    40   151
 #> 3    73   151
-#> # i 1,493 more rows
+#> 4    94   151
+#> 5   138   151
+#> 6   145   151
+#> # i 1,490 more rows
 }\if{html}{\out{</div>}}
 }
 \source{

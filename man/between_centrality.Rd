@@ -18,15 +18,6 @@ network_betweenness(
 )
 }
 \arguments{
-\item{.data}{An object of a migraph-consistent class:
-\itemize{
-\item matrix (adjacency or incidence) from \code{{base}} R
-\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
-\item igraph, from the \code{{igraph}} package
-\item network, from the \code{{network}} package
-\item tbl_graph, from the \code{{tidygraph}} package
-}}
-
 \item{normalized}{Logical scalar, whether the centrality scores are normalized.
 Different denominators are used depending on whether the object is one-mode or two-mode,
 the type of centrality, and other arguments.}
@@ -50,9 +41,9 @@ Measures of betweenness-like centrality and centralisation
 \itemize{
 \item \code{node_betweenness()}: Calculate the betweenness centralities of nodes in a network
 
-\item \code{tie_betweenness()}: Calculate number of shortest paths going through an edge
+\item \code{tie_betweenness()}: Calculate number of shortest paths going through a tie
 
-\item \code{network_betweenness()}: Calculate the betweenness centralization for a graph
+\item \code{network_betweenness()}: Calculate the betweenness centralization for a network
 
 }}
 \examples{
@@ -60,8 +51,7 @@ node_betweenness(mpn_elite_mex)
 node_betweenness(ison_southern_women)
 (tb <- tie_betweenness(ison_adolescents))
 plot(tb)
-ison_adolescents \%>\% 
-  activate(edges) \%>\% mutate(weight = tb) \%>\% 
+ison_adolescents \%>\% mutate_ties(weight = tb) \%>\% 
   autographr()
 network_betweenness(ison_southern_women, direction = "in")
 }

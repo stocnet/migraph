@@ -78,7 +78,6 @@ node_is_min(node_degree(ison_brandes))
 }
 \seealso{
 Other marks: 
-\code{\link{is}()},
 \code{\link{mark_ties}}
 }
 \concept{marks}

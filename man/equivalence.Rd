@@ -12,7 +12,7 @@
 }
 \usage{
 node_equivalence(
-  object,
+  .data,
   census,
   k = c("silhouette", "elbow", "strict"),
   cluster = c("hierarchical", "concor"),
@@ -21,7 +21,7 @@ node_equivalence(
 )
 
 node_structural_equivalence(
-  object,
+  .data,
   k = c("silhouette", "elbow", "strict"),
   cluster = c("hierarchical", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
@@ -29,7 +29,7 @@ node_structural_equivalence(
 )
 
 node_regular_equivalence(
-  object,
+  .data,
   k = c("silhouette", "elbow", "strict"),
   cluster = c("hierarchical", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
@@ -37,7 +37,7 @@ node_regular_equivalence(
 )
 
 node_automorphic_equivalence(
-  object,
+  .data,
   k = c("silhouette", "elbow", "strict"),
   cluster = c("hierarchical", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),

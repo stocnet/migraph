@@ -8,10 +8,7 @@
 \alias{mpn_OverSxP}
 \title{Two-mode 112th Congress Senate Voting (Knoke et al. 2021)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 114 nodes and 2791 edges
-#> #
-#> # A directed acyclic simple graph with 1 component
-#> #
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode tbl_graph with 114 nodes and 2791 ties
 #> # A tibble: 114 x 2
 #>   type  name      
 #>   <lgl> <chr>     
@@ -22,20 +19,19 @@
 #> 5 FALSE Boxer     
 #> 6 FALSE BrownSh   
 #> # i 108 more rows
-#> #
 #> # A tibble: 2,791 x 3
 #>    from    to weight
 #>   <int> <int>  <dbl>
 #> 1     1    52      1
 #> 2     1    53      1
 #> 3     1    54      1
-#> # i 2,788 more rows
+#> 4     1    55      1
+#> 5     1    56      1
+#> 6     1    57      1
+#> # i 2,785 more rows
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 134 nodes and 3675 edges
-#> #
-#> # A directed acyclic simple graph with 1 component
-#> #
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode tbl_graph with 134 nodes and 3675 ties
 #> # A tibble: 134 x 2
 #>   type  name     
 #>   <lgl> <chr>    
@@ -46,20 +42,19 @@
 #> 5 FALSE Blunt    
 #> 6 FALSE Boozman  
 #> # i 128 more rows
-#> #
 #> # A tibble: 3,675 x 3
 #>    from    to weight
 #>   <int> <int>  <dbl>
 #> 1     1    64      1
 #> 2     1    66      1
 #> 3     1    67      1
-#> # i 3,672 more rows
+#> 4     1    70      1
+#> 5     1    71      1
+#> 6     1    72      1
+#> # i 3,669 more rows
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 52 nodes and 614 edges
-#> #
-#> # A directed acyclic simple graph with 1 component
-#> #
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode tbl_graph with 52 nodes and 614 ties
 #> # A tibble: 52 x 2
 #>   type  name     
 #>   <lgl> <chr>    
@@ -70,14 +65,16 @@
 #> 5 FALSE Collins  
 #> 6 FALSE Feinstein
 #> # i 46 more rows
-#> #
 #> # A tibble: 614 x 3
 #>    from    to weight
 #>   <int> <int>  <dbl>
 #> 1     1    21      1
 #> 2     1    22      1
 #> 3     1    23      1
-#> # i 611 more rows
+#> 4     1    24      1
+#> 5     1    25      1
+#> 6     1    26      1
+#> # i 608 more rows
 }\if{html}{\out{</div>}}
 }
 \usage{

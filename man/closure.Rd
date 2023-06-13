@@ -20,15 +20,15 @@ node_transitivity(.data)
 
 network_equivalency(.data)
 
-network_congruency(object, object2)
+network_congruency(.data, object2)
 }
 \arguments{
 \item{method}{For reciprocity, either \code{default} or \code{ratio}.
 See \code{?igraph::reciprocity}}
 
-\item{object}{A one-mode or two-mode matrix, igraph, or tidygraph}
-
 \item{object2}{Optionally, a second (two-mode) matrix, igraph, or tidygraph}
+
+\item{object}{A one-mode or two-mode matrix, igraph, or tidygraph}
 }
 \description{
 These functions offer methods for summarising the closure in configurations
