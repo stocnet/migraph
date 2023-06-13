@@ -79,13 +79,13 @@ node_degree <- function (.data, normalized = TRUE, alpha = 0,
                          direction = c("all","out","in")){
   
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  graph <- as_igraph(.data)
-  weights <- `if`(is_weighted(.data), 
-                    tie_weights(.data), NA)
+  graph <- manynet::as_igraph(.data)
+  weights <- `if`(manynet::is_weighted(.data), 
+                  manynet::tie_weights(.data), NA)
   direction <- match.arg(direction)
   
   # Do the calculations
-  if (is_twomode(graph) & normalized){
+  if (manynet::is_twomode(graph) & normalized){
     degrees <- igraph::degree(graph = graph, 
                               v = igraph::V(graph), 
                               mode = direction, 
@@ -98,16 +98,16 @@ node_degree <- function (.data, normalized = TRUE, alpha = 0,
     if (all(is.na(weights))) {
       out <- igraph::degree(graph = graph, v = igraph::V(graph), 
                      mode = direction, 
-                     loops = is_complex(.data),
+                     loops = manynet::is_complex(.data),
                      normalized = normalized)
     }
     else {
       ki <- igraph::degree(graph = graph, v = igraph::V(graph), 
                      mode = direction, 
-                     loops = is_complex(.data))
+                     loops = manynet::is_complex(.data))
       si <- igraph::strength(graph = graph, vids = igraph::V(graph), 
                        mode = direction,
-                       loops = is_complex(.data), weights = weights)
+                       loops = manynet::is_complex(.data), weights = weights)
       out <- ki * (si/ki)^alpha
     }
   }
@@ -121,7 +121,7 @@ node_degree <- function (.data, normalized = TRUE, alpha = 0,
 #' @export
 tie_degree <- function(.data, normalized = TRUE){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  edge_adj <- to_ties(.data)
+  edge_adj <- manynet::to_ties(.data)
   out <- node_degree(edge_adj, normalized = normalized)
   class(out) <- "numeric"
   out <- make_tie_measure(out, .data)
@@ -138,8 +138,8 @@ network_degree <- function(.data, normalized = TRUE,
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   direction <- match.arg(direction)
   
-  if (is_twomode(.data)) {
-    mat <- as_matrix(.data)
+  if (manynet::is_twomode(.data)) {
+    mat <- manynet::as_matrix(.data)
     mode <- c(rep(FALSE, nrow(mat)), rep(TRUE, ncol(mat)))
     
     out <- list()
@@ -186,14 +186,14 @@ node_betweenness <- function(.data, normalized = TRUE,
                              cutoff = NULL){
   
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  weights <- `if`(is_weighted(.data), 
-                  tie_weights(.data), NA)
-  graph <- as_igraph(.data)
+  weights <- `if`(manynet::is_weighted(.data), 
+                  manynet::tie_weights(.data), NA)
+  graph <- manynet::as_igraph(.data)
   
   # Do the calculations
-  if (is_twomode(graph) & normalized){
+  if (manynet::is_twomode(graph) & normalized){
     betw_scores <- igraph::betweenness(graph = graph, v = igraph::V(graph), 
-                                       directed = is_directed(graph))
+                                       directed = manynet::is_directed(graph))
     other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
     set_size <- ifelse(igraph::V(graph)$type, sum(igraph::V(graph)$type), sum(!igraph::V(graph)$type))
     out <- ifelse(set_size > other_set_size, 
@@ -202,11 +202,11 @@ node_betweenness <- function(.data, normalized = TRUE,
   } else {
     if (is.null(cutoff)) {
       out <- igraph::betweenness(graph = graph, v = igraph::V(graph), 
-                                 directed = is_directed(graph), weights = weights, 
+                                 directed = manynet::is_directed(graph), weights = weights, 
                                  normalized = normalized)
     } else {
       out <- igraph::estimate_betweenness(graph = graph, vids = igraph::V(graph), 
-                                          directed = is_directed(graph), cutoff = cutoff, 
+                                          directed = manynet::is_directed(graph), cutoff = cutoff, 
                                           weights = weights)
     }
   }
@@ -214,27 +214,26 @@ node_betweenness <- function(.data, normalized = TRUE,
   out
 }
 
-#' @describeIn between_centrality Calculate number of shortest paths going through an edge
+#' @describeIn between_centrality Calculate number of shortest paths going through a tie
 #' @importFrom igraph edge_betweenness
 #' @examples
 #' (tb <- tie_betweenness(ison_adolescents))
 #' plot(tb)
-#' ison_adolescents %>% 
-#'   activate(edges) %>% mutate(weight = tb) %>% 
+#' ison_adolescents %>% mutate_ties(weight = tb) %>% 
 #'   autographr()
 #' @export
 tie_betweenness <- function(.data, normalized = TRUE){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  .data <- as_igraph(.data)
-  edges <- as_edgelist(.data)
-  edges <- paste(edges$from, edges$to, sep = "-")
+  .data <- manynet::as_igraph(.data)
+  eddies <- manynet::as_edgelist(.data)
+  eddies <- paste(eddies[["from"]], eddies[["to"]], sep = "-")
   out <- igraph::edge_betweenness(.data)
-  names(out) <- edges
+  names(out) <- eddies
   out <- make_tie_measure(out, .data)
   out
 }
 
-#' @describeIn between_centrality Calculate the betweenness centralization for a graph
+#' @describeIn between_centrality Calculate the betweenness centralization for a network
 #' @examples
 #' network_betweenness(ison_southern_women, direction = "in")
 #' @export
@@ -243,9 +242,9 @@ network_betweenness <- function(.data, normalized = TRUE,
   
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   direction <- match.arg(direction)
-  graph <- as_igraph(.data)
+  graph <- manynet::as_igraph(.data)
   
-  if (is_twomode(.data)) {
+  if (manynet::is_twomode(.data)) {
     becent <- node_betweenness(graph, normalized = FALSE)
     mode <- igraph::V(graph)$type
     mode1 <- length(mode) - sum(mode)
@@ -311,9 +310,9 @@ node_closeness <- function(.data, normalized = TRUE,
                            direction = "out", cutoff = NULL){
   
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  weights <- `if`(is_weighted(.data), 
-                  tie_weights(.data), NA)
-  graph <- as_igraph(.data)
+  weights <- `if`(manynet::is_weighted(.data), 
+                  manynet::tie_weights(.data), NA)
+  graph <- manynet::as_igraph(.data)
   
   # Do the calculations
   if (is_twomode(graph) & normalized){
@@ -344,7 +343,7 @@ node_closeness <- function(.data, normalized = TRUE,
 node_reach <- function(.data, normalized = TRUE, k = 2){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- rowSums(node_path_census(.data)==k)
-  if(normalized) out <- out/(network_nodes(.data)-1)
+  if(normalized) out <- out/(manynet::network_nodes(.data)-1)
   out <- make_node_measure(out, .data)
   out
 }
@@ -360,7 +359,7 @@ node_reach <- function(.data, normalized = TRUE, k = 2){
 #' @export
 tie_closeness <- function(.data, normalized = TRUE){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  edge_adj <- to_ties(.data)
+  edge_adj <- manynet::to_ties(.data)
   out <- node_closeness(edge_adj, normalized = normalized)
   class(out) <- "numeric"
   out <- make_tie_measure(out, .data)
@@ -376,9 +375,9 @@ network_closeness <- function(.data, normalized = TRUE,
   
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   direction <- match.arg(direction)
-  graph <- as_igraph(.data)
+  graph <- manynet::as_igraph(.data)
   
-  if (is_twomode(.data)) {
+  if (manynet::is_twomode(.data)) {
     clcent <- node_closeness(graph, normalized = TRUE)
     mode <- igraph::V(graph)$type
     mode1 <- length(mode) - sum(mode)
@@ -465,29 +464,29 @@ NULL
 node_eigenvector <- function(.data, normalized = TRUE, scale = FALSE){
   
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  weights <- `if`(is_weighted(.data), 
-                  tie_weights(.data), NA)
-  graph <- as_igraph(.data)
+  weights <- `if`(manynet::is_weighted(.data), 
+                  manynet::tie_weights(.data), NA)
+  graph <- manynet::as_igraph(.data)
   
   # Do the calculations
-  if (!is_twomode(graph)){
+  if (!manynet::is_twomode(graph)){
     out <- igraph::eigen_centrality(graph = graph, 
-                                    directed = is_directed(graph), scale = scale, 
+                                    directed = manynet::is_directed(graph), scale = scale, 
                                     options = igraph::arpack_defaults)$vector
-    # if (normalized) out <- out / sqrt(1/2)
-    # if(scale) out <- out / max(out)
+    if (normalized) out <- out / sqrt(1/2)
+    if(scale) out <- out / max(out)
   } else {
     eigen1 <- to_mode1(graph)
     eigen1 <- igraph::eigen_centrality(graph = eigen1, 
-                                       directed = is_directed(eigen1), scale = scale, 
+                                       directed = manynet::is_directed(eigen1), scale = scale, 
                                        options = igraph::arpack_defaults)$vector
     eigen2 <- to_mode2(graph)
     eigen2 <- igraph::eigen_centrality(graph = eigen2, 
-                                       directed = is_directed(eigen2), scale = scale, 
+                                       directed = manynet::is_directed(eigen2), scale = scale, 
                                        options = igraph::arpack_defaults)$vector
     out <- c(eigen1, eigen2)
-    # if (normalized) out <- out / sqrt(1/2)
-    # if(scale) out <- out / max(out)
+    if (normalized) out <- out / sqrt(1/2)
+    if(scale) out <- out / max(out)
   }
   out <- make_node_measure(out, .data)
   out
@@ -510,22 +509,22 @@ node_eigenvector <- function(.data, normalized = TRUE, scale = FALSE){
 node_power <- function(.data, normalized = TRUE, scale = FALSE, exponent = 1){
   
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  weights <- `if`(is_weighted(.data), 
-                  tie_weights(.data), NA)
-  graph <- as_igraph(.data)
+  weights <- `if`(manynet::is_weighted(.data), 
+                  manynet::tie_weights(.data), NA)
+  graph <- manynet::as_igraph(.data)
   
   # Do the calculations
-  if (!is_twomode(graph)){
+  if (!manynet::is_twomode(graph)){
     out <- igraph::power_centrality(graph = graph, 
                                     exponent = exponent,
                                     rescale = scale)
     if (normalized) out <- out / sqrt(1/2)
   } else {
-    eigen1 <- to_mode1(graph)
+    eigen1 <- manynet::to_mode1(graph)
     eigen1 <- igraph::power_centrality(graph = eigen1, 
                                        exponent = exponent,
                                        rescale = scale)
-    eigen2 <- to_mode2(graph)
+    eigen2 <- manynet::to_mode2(graph)
     eigen2 <- igraph::power_centrality(graph = eigen2, 
                                        exponent = exponent,
                                        rescale = scale)
@@ -572,7 +571,7 @@ node_power <- function(.data, normalized = TRUE, scale = FALSE, exponent = 1){
 #' @export 
 node_alpha <- function(.data, alpha = 0.85){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  make_node_measure(igraph::alpha_centrality(as_igraph(.data), 
+  make_node_measure(igraph::alpha_centrality(manynet::as_igraph(.data), 
                                              alpha = alpha),
                     .data)
 }
@@ -585,12 +584,12 @@ node_alpha <- function(.data, alpha = 0.85){
 network_eigenvector <- function(.data, normalized = TRUE){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   if (is_twomode(.data)) {
-    out <- c(igraph::centr_eigen(as_igraph(to_mode1(.data)), 
+    out <- c(igraph::centr_eigen(manynet::as_igraph(to_mode1(.data)), 
                                  normalized = normalized)$centralization,
-             igraph::centr_eigen(as_igraph(to_mode2(.data)), 
+             igraph::centr_eigen(manynet::as_igraph(to_mode2(.data)), 
                                  normalized = normalized)$centralization)
   } else {
-    out <- igraph::centr_eigen(as_igraph(.data), 
+    out <- igraph::centr_eigen(manynet::as_igraph(.data), 
                                normalized = normalized)$centralization
   }
   out <- make_network_measure(out, .data)
@@ -603,7 +602,7 @@ network_eigenvector <- function(.data, normalized = TRUE){
 #' @export
 tie_eigenvector <- function(.data, normalized = TRUE){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  edge_adj <- to_ties(.data)
+  edge_adj <- manynet::to_ties(.data)
   out <- node_eigenvector(edge_adj, normalized = normalized)
   class(out) <- "numeric"
   out <- make_tie_measure(out, .data)
