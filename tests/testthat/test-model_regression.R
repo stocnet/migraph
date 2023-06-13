@@ -1,25 +1,25 @@
 set.seed(123)
-networkers <- ison_networkers %>% to_subgraph(Discipline == "Sociology") %>% 
-  activate(edges) %>% mutate(messaged = 1) %>% activate(nodes)
+networkers <- manynet::ison_networkers %>% manynet::to_subgraph(Discipline == "Sociology") %>%
+  manynet::mutate_ties(messaged = 1)
 
-test <- network_reg(weight ~ alter(Citations) + sim(Citations), 
+test <- network_reg(weight ~ alter(Citations) + sim(Citations),
                      networkers, times = 60)
-test_logit <- network_reg(messaged ~ alter(Citations) + sim(Citations), 
+test_logit <- network_reg(messaged ~ alter(Citations) + sim(Citations),
                           networkers, times = 60)
 
 test_that("network_reg estimates correctly",{
   expect_s3_class(test, "netlm")
-  expect_equal(round(unname(test$coefficients),3), 
+  expect_equal(top3(test$coefficients,3),
                c(-8.470, -0.125, 44.871))
   expect_s3_class(test_logit, "netlogit")
-  expect_equal(round(unname(test_logit$coefficients),3), 
+  expect_equal(top3(test_logit$coefficients,3),
                c(-2.179, 0.000, 2.632))
 })
 
 test_that("network_reg tests correctly",{
-  expect_equal(test$pgreqabs, 
+  expect_equal(test$pgreqabs,
                c(0.65, 0.57, 0.05), tolerance = 0.1)
-  expect_equal(test_logit$pgreqabs, 
+  expect_equal(test_logit$pgreqabs,
                c(0.00, 0.98, 0.00), tolerance = 0.1)
 })
 
