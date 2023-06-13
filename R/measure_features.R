@@ -16,27 +16,31 @@ NULL
 #' _Social Networks_ 21(4):375–95.
 #' \doi{10.1016/S0378-8733(99)00019-2}
 #' @export
-network_core <- function(object,
+network_core <- function(.data,
                        membership = NULL){
-  if(is.null(membership)) membership <- node_core(object)
-  out <- stats::cor(c(as_matrix(object)), 
-                    c(as_matrix(create_core(object,
+  if(is.null(membership)) membership <- node_core(.data)
+  out <- stats::cor(c(manynet::as_matrix(.data)), 
+                    c(manynet::as_matrix(manynet::create_core(.data,
                                             membership = membership))))
-  make_network_measure(out, object)
+  make_network_measure(out, .data)
 }
 
 #' @describeIn features Returns correlation between a given network
 #'   and a component model with the same dimensions.
+#'   If no 'membership' vector is given for the data, 
+#'   `node_kernaghinlin()` is used to obtain a partition into two groups.
 #' @examples 
-#' network_factions(ison_adolescents)
-#' network_factions(ison_southern_women)
+#'   network_factions(mpn_elite_mex)
+#'   network_factions(ison_southern_women)
 #' @export
-network_factions <- function(object,
+network_factions <- function(.data,
                        membership = NULL){
-  out <- stats::cor(c(as_matrix(object)), 
-                    c(as_matrix(create_components(object,
+  if(is.null(membership))
+    membership <- node_kernighanlin(.data)
+  out <- stats::cor(c(manynet::as_matrix(.data)), 
+                    c(manynet::as_matrix(manynet::create_components(.data,
                                                   membership = membership))))
-  make_network_measure(out, object)
+  make_network_measure(out, .data)
 }
 
 #' @describeIn features Returns modularity based on nodes' membership 
@@ -71,18 +75,18 @@ network_factions <- function(object,
 #' Springer, Boston, MA. 
 #' \doi{10.1007/978-1-4419-6287-4_7}
 #' @export
-network_modularity <- function(object, 
+network_modularity <- function(.data, 
                              membership = NULL, 
                              resolution = 1){
-  if(!is_graph(object)) object <- as_igraph(object)
-  if(is_twomode(object)){
-    make_network_measure(igraph::modularity(to_multilevel(object), 
+  if(!manynet::is_graph(.data)) .data <- manynet::as_igraph(.data)
+  if(manynet::is_twomode(.data)){
+    make_network_measure(igraph::modularity(manynet::to_multilevel(.data), 
                                           membership = membership,
-                                          resolution = resolution), object)
-  } else make_network_measure(igraph::modularity(object, 
+                                          resolution = resolution), .data)
+  } else make_network_measure(igraph::modularity(.data, 
                                                membership = membership,
                                                resolution = resolution),
-                            object)
+                              .data)
 }
 
 #' @describeIn features Returns small-world metrics for one- and 
@@ -132,36 +136,36 @@ network_modularity <- function(object,
 #' network_smallworld(ison_brandes)
 #' network_smallworld(ison_southern_women)
 #' @export
-network_smallworld <- function(object, 
+network_smallworld <- function(.data, 
                                method = c("omega", "sigma", "SWI"),
                                times = 100) {
   
   method <- match.arg(method)
   
-  if(is_twomode(object)){
-    co <- network_equivalency(object)
+  if(manynet::is_twomode(.data)){
+    co <- network_equivalency(.data)
     cr <- mean(vapply(1:times, 
-                      function(x) network_equivalency(generate_random(object)),
+                      function(x) network_equivalency(manynet::generate_random(.data)),
                       FUN.VALUE = numeric(1)))
     if(method %in% c("omega", "SWI")){
-      cl <- network_equivalency(create_ring(object))
+      cl <- network_equivalency(manynet::create_ring(.data))
     }
   } else {
-    co <- network_transitivity(object)
+    co <- network_transitivity(.data)
     cr <- mean(vapply(1:times, 
-                            function(x) network_transitivity(generate_random(object)),
+                            function(x) network_transitivity(manynet::generate_random(.data)),
                             FUN.VALUE = numeric(1)))
     if(method %in% c("omega", "SWI")){
-      cl <- network_transitivity(create_lattice(object))
+      cl <- network_transitivity(manynet::create_lattice(.data))
     }
   }
   
-  lo <- network_length(object)
+  lo <- network_length(.data)
   lr <- mean(vapply(1:times, 
-                         function(x) network_length(generate_random(object)),
+                         function(x) network_length(manynet::generate_random(.data)),
                          FUN.VALUE = numeric(1)))
   if(method == "SWI"){
-    ll <- network_length(create_ring(object))
+    ll <- network_length(manynet::create_ring(.data))
   }
   
   out <- switch(method,
@@ -169,7 +173,7 @@ network_smallworld <- function(object,
                 "sigma" = (co/cr)/(lo/lr),
                 "SWI" = ((lo - ll)/(lr - ll))*((co - cr)/(cl - cr)))
   make_network_measure(out,
-                     object)
+                       .data)
 }
 
 #' @describeIn features Returns the exponent of the fitted
@@ -182,14 +186,14 @@ network_smallworld <- function(object,
 #' network_scalefree(generate_scalefree(50, 1.5))
 #' network_scalefree(create_lattice(100))
 #' @export
-network_scalefree <- function(object){
-  out <- igraph::fit_power_law(node_degree(object, 
+network_scalefree <- function(.data){
+  out <- igraph::fit_power_law(node_degree(.data, 
                                     normalized = FALSE))
   if(out$KS.p < 0.05) 
     cat(paste("Note: Kolgomorov-Smirnov test that data",
               "could have been drawn from a power-law", 
               "distribution rejected.\n"))
-  make_network_measure(out$alpha, object)
+  make_network_measure(out$alpha, .data)
 }
 
 #' @describeIn features Returns the structural balance index on 
@@ -200,10 +204,10 @@ network_scalefree <- function(object){
 #' @examples
 #' network_balance(ison_marvel_relationships)
 #' @export
-network_balance <- function(object) {
+network_balance <- function(.data) {
   
-  count_signed_triangles <- function(object){
-    g <- as_igraph(object)
+  count_signed_triangles <- function(.data){
+    g <- manynet::as_igraph(.data)
     if (!"sign" %in% igraph::edge_attr_names(g)) {
       stop("network does not have a sign edge attribute")
     }
@@ -243,18 +247,18 @@ network_balance <- function(object) {
     tri_counts
   }
   
-  if (!is_signed(object)) {
+  if (!manynet::is_signed(.data)) {
     stop("network does not have a sign edge attribute")
   }
-  if (is_directed(object)) {
+  if (manynet::is_directed(.data)) {
     stop("object must be undirected")
   }
-  g <- as_igraph(object)
+  g <- manynet::as_igraph(.data)
   eattrV <- igraph::get.edge.attribute(g, "sign")
   if (!all(eattrV %in% c(-1, 1))) {
     stop("sign may only contain -1 and 1")
   }
   tria_count <- count_signed_triangles(g)
   make_network_measure(unname((tria_count["+++"] + tria_count["+--"])/sum(tria_count)),
-                     object)
+                       .data)
 }
