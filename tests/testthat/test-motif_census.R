@@ -1,4 +1,4 @@
-# Census function family tests
+# # Census function family tests
 set.seed(123)
 task_eg <- to_named(to_uniplex(ison_algebra, "task_tie"))
 
@@ -43,7 +43,7 @@ test_that("node quad census works", {
 
 test_that("network_mixed census works", {
   marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
-  test <- network_mixed_census(marvel_friends, ison_marvel_teams)  
+  test <- network_mixed_census(marvel_friends, ison_marvel_teams)
   expect_s3_class(test, "network_motif")
   expect_equal(unname(test[1]), 1137)
   expect_equal(names(test[1]), "22")

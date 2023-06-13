@@ -1,83 +1,81 @@
-test_tbl <- as_tidygraph(ison_southern_women)
-test_igr <- ison_southern_women
-test_mat <- as_matrix(ison_southern_women)
+test_tbl <- manynet::as_tidygraph(manynet::ison_southern_women)
+test_igr <- manynet::ison_southern_women
+test_mat <- manynet::as_matrix(manynet::ison_southern_women)
 
 test_that("one mode degree centrality calculated correctly",{
-  expect_equal(unname(node_degree(mpn_elite_mex, normalized = FALSE)[1:5]), c(3,6,8,6,6))
+  expect_equal(top5(node_degree(mpn_elite_mex, normalized = FALSE)), c(3,6,8,6,6))
 })
 test_that("one mode strength centrality calculated correctly",{
-  expect_equal(unname(node_degree(to_unweighted(ison_networkers), direction = "in", normalized = FALSE)[1:5]), 
+  expect_equal(top5(node_degree(to_unweighted(ison_networkers), direction = "in", normalized = FALSE)), 
                c(29, 24, 11, 18, 8))
-  expect_equal(unname(node_degree(ison_networkers, direction = "in", normalized = FALSE, alpha = 1)[1:5]), 
+  expect_equal(top5(node_degree(ison_networkers, direction = "in", normalized = FALSE, alpha = 1)), 
                c(2495, 1212, 101, 322, 89))
 })
 
 test_that("two mode degree centrality calculated correctly",{
-  expect_equal(unname(node_degree(test_mat, normalized = FALSE)[1:5]), c(8,7,8,7,4))
-  expect_equal(unname(node_degree(test_igr, normalized = FALSE)[1:5]), c(8,7,8,7,4))
-  expect_equal(unname(with_graph(test_tbl, node_degree(normalized = FALSE))[1:5]), c(8,7,8,7,4))
-  expect_equal(unname(node_degree(test_mat, normalized = FALSE)[28:32]), c(6,4,7,4,4))
-  expect_equal(unname(node_degree(test_igr, normalized = FALSE)[28:32]), c(6,4,7,4,4))
-  expect_equal(unname(with_graph(test_tbl, node_degree(normalized = FALSE))[28:32]), c(6,4,7,4,4))
-  expect_equal(unname(round(node_degree(test_mat, normalized = TRUE)[1:5],4)), c(0.5714, .5, .5714, .5, .2857))
-  expect_equal(unname(round(node_degree(test_igr, normalized = TRUE)[1:5],4)), c(0.5714, .5, .5714, .5, .2857))
-  expect_equal(unname(round(with_graph(test_tbl, node_degree(normalized = TRUE))[1:5],4)), c(0.5714, .5, .5714, .5, .2857))
-  expect_equal(unname(round(node_degree(test_mat, normalized = TRUE)[28:32],4)), c(0.3333, .2222, .3889, .2222, .2222))
-  expect_equal(unname(round(node_degree(test_igr, normalized = TRUE)[28:32],4)), c(0.3333, .2222, .3889, .2222, .2222))
-  expect_equal(unname(round(with_graph(test_tbl, node_degree(normalized = TRUE))[28:32],4)), c(0.3333, .2222, .3889, .2222, .2222))
+  expect_equal(top5(node_degree(test_mat, normalized = FALSE)), c(8,7,8,7,4))
+  expect_equal(top5(node_degree(test_igr, normalized = FALSE)), c(8,7,8,7,4))
+  expect_equal(top5(with_graph(test_tbl, node_degree(normalized = FALSE))), c(8,7,8,7,4))
+  expect_equal(bot5(node_degree(test_mat, normalized = FALSE)), c(6,4,7,4,4))
+  expect_equal(bot5(node_degree(test_igr, normalized = FALSE)), c(6,4,7,4,4))
+  expect_equal(bot5(with_graph(test_tbl, node_degree(normalized = FALSE))), c(6,4,7,4,4))
+  expect_equal(top5(node_degree(test_mat, normalized = TRUE)), c(0.5714, .5, .5714, .5, .2857))
+  expect_equal(top5(node_degree(test_igr, normalized = TRUE)), c(0.5714, .5, .5714, .5, .2857))
+  expect_equal(top5(with_graph(test_tbl, node_degree(normalized = TRUE))), c(0.5714, .5, .5714, .5, .2857))
+  expect_equal(bot5(node_degree(test_mat, normalized = TRUE)), c(0.3333, .2222, .3889, .2222, .2222))
+  expect_equal(bot5(node_degree(test_igr, normalized = TRUE)), c(0.3333, .2222, .3889, .2222, .2222))
+  expect_equal(bot5(with_graph(test_tbl, node_degree(normalized = TRUE))), c(0.3333, .2222, .3889, .2222, .2222))
 })
 
 test_that("one mode closeness centrality calculated correctly",{
-  expect_equal(round(unname(node_closeness(mpn_elite_mex, normalized = FALSE)[1:3]),2), c(0.01, 0.01, 0.01))
+  expect_equal(top3(node_closeness(mpn_elite_mex, normalized = FALSE)), c(0.0118, 0.0119, 0.0137))
 })
 
 test_that("two mode closeness centrality calculated correctly",{
-  expect_equal(unname(round(node_closeness(test_mat, normalized = FALSE)[1:5], 4)), c(0.0167, 0.0152, 0.0167, 0.0152, 0.0125))
-  expect_equal(unname(round(node_closeness(test_igr, normalized = FALSE)[1:5], 4)), c(0.0167, 0.0152, 0.0167, 0.0152, 0.0125))
-  expect_equal(unname(round(with_graph(test_tbl, node_closeness(normalized = FALSE))[1:5], 4)), c(0.0167, 0.0152, 0.0167, 0.0152, 0.0125))
-  expect_equal(unname(round(node_closeness(test_mat, normalized = FALSE)[28:32], 4)), c(0.0128, 0.0122, 0.0132, 0.0122, 0.0122))
-  expect_equal(unname(round(node_closeness(test_igr, normalized = FALSE)[28:32], 4)), c(0.0128, 0.0122, 0.0132, 0.0122, 0.0122))
-  expect_equal(unname(round(with_graph(test_tbl, node_closeness(normalized = FALSE))[28:32], 4)), c(0.0128, 0.0122, 0.0132, 0.0122, 0.0122))
-  expect_equal(unname(round(node_closeness(test_mat, normalized = TRUE)[1:5],4)), c(0.8000, 0.7273, 0.8000, 0.7273, 0.6000))
-  expect_equal(unname(round(node_closeness(test_igr, normalized = TRUE)[1:5],4)), c(0.8000, 0.7273, 0.8000, 0.7273, 0.6000))
-  expect_equal(unname(round(with_graph(test_tbl, node_closeness(normalized = TRUE))[1:5],4)), c(0.8000, 0.7273, 0.8000, 0.7273, 0.6000))
-  expect_equal(unname(round(node_closeness(test_mat, normalized = TRUE)[28:32],4)), c(0.5641, 0.5366, 0.5789, 0.5366, 0.5366))
-  expect_equal(unname(round(node_closeness(test_igr, normalized = TRUE)[28:32],4)), c(0.5641, 0.5366, 0.5789, 0.5366, 0.5366))
-  expect_equal(unname(round(with_graph(test_tbl, node_closeness(normalized = TRUE))[28:32],4)), c(0.5641, 0.5366, 0.5789, 0.5366, 0.5366))
+  expect_equal(top5(node_closeness(test_mat, normalized = FALSE)), c(0.0167, 0.0152, 0.0167, 0.0152, 0.0125))
+  expect_equal(top5(node_closeness(test_igr, normalized = FALSE)), c(0.0167, 0.0152, 0.0167, 0.0152, 0.0125))
+  expect_equal(top5(with_graph(test_tbl, node_closeness(normalized = FALSE))), c(0.0167, 0.0152, 0.0167, 0.0152, 0.0125))
+  expect_equal(bot5(node_closeness(test_mat, normalized = FALSE)), c(0.0128, 0.0122, 0.0132, 0.0122, 0.0122))
+  expect_equal(bot5(node_closeness(test_igr, normalized = FALSE)), c(0.0128, 0.0122, 0.0132, 0.0122, 0.0122))
+  expect_equal(bot5(with_graph(test_tbl, node_closeness(normalized = FALSE))), c(0.0128, 0.0122, 0.0132, 0.0122, 0.0122))
+  expect_equal(top5(node_closeness(test_mat, normalized = TRUE)), c(0.8000, 0.7273, 0.8000, 0.7273, 0.6000))
+  expect_equal(top5(node_closeness(test_igr, normalized = TRUE)), c(0.8000, 0.7273, 0.8000, 0.7273, 0.6000))
+  expect_equal(top5(with_graph(test_tbl, node_closeness(normalized = TRUE))), c(0.8000, 0.7273, 0.8000, 0.7273, 0.6000))
+  expect_equal(bot5(node_closeness(test_mat, normalized = TRUE)), c(0.5641, 0.5366, 0.5789, 0.5366, 0.5366))
+  expect_equal(bot5(node_closeness(test_igr, normalized = TRUE)), c(0.5641, 0.5366, 0.5789, 0.5366, 0.5366))
+  expect_equal(bot5(with_graph(test_tbl, node_closeness(normalized = TRUE))), c(0.5641, 0.5366, 0.5789, 0.5366, 0.5366))
 })
 
 test_that("one mode betweenness centrality calculated correctly",{
-  expect_equal(round(unname(node_betweenness(mpn_elite_mex, normalized = FALSE)[1:3]),2), c(2.83, 4.59, 17.36))
+  expect_equal(top3(node_betweenness(mpn_elite_mex, normalized = FALSE)), c(2.8345, 4.5922, 17.3583))
 })
 
 test_that("two mode betweenness centrality calculated correctly",{
-  expect_equal(unname(node_betweenness(test_mat, normalized = FALSE)[1:5]), c(42.759998, 22.856540, 38.739264, 22.011910, 4.727942))
-  expect_equal(unname(node_betweenness(test_igr, normalized = FALSE)[1:5]), c(42.759998, 22.856540, 38.739264, 22.011910, 4.727942))
-  expect_equal(unname(with_graph(test_tbl, node_betweenness(normalized = FALSE))[1:5]), c(42.759998, 22.856540, 38.739264, 22.011910, 4.727942))
-  expect_equal(unname(round(node_betweenness(test_mat, normalized = FALSE)[28:32],2)), c(6.82, 9.02, 10.24, 1.89, 1.89))
-  expect_equal(unname(round(node_betweenness(test_igr, normalized = FALSE)[28:32],2)), c(6.82, 9.02, 10.24, 1.89, 1.89))
-  expect_equal(unname(round(with_graph(test_tbl, node_betweenness(normalized = FALSE))[28:32],2)), c(6.82, 9.02, 10.24, 1.89, 1.89))
-  expect_equal(unname(round(node_betweenness(test_mat, normalized = TRUE)[1:5],4)), c(0.0967, 0.0517, 0.0876, 0.0498, 0.0107))
-  expect_equal(unname(round(node_betweenness(test_igr, normalized = TRUE)[1:5],4)), c(0.0967, 0.0517, 0.0876, 0.0498, 0.0107))
-  expect_equal(unname(round(with_graph(test_tbl, node_betweenness(normalized = TRUE))[1:5],4)), c(0.0967, 0.0517, 0.0876, 0.0498, 0.0107))
-  expect_equal(unname(round(node_betweenness(test_mat, normalized = TRUE)[28:32],4)), c(0.0151, 0.02, 0.0226, 0.0042, 0.0042))
-  expect_equal(unname(round(node_betweenness(test_igr, normalized = TRUE)[28:32],4)), c(0.0151, 0.02, 0.0226, 0.0042, 0.0042))
-  expect_equal(unname(round(with_graph(test_tbl, node_betweenness(normalized = TRUE))[28:32],4)), c(0.0151, 0.02, 0.0226, 0.0042, 0.0042))
+  expect_equal(top5(node_betweenness(test_mat, normalized = FALSE)), c(42.7600, 22.8565, 38.7393, 22.0119, 4.7279))
+  expect_equal(top5(node_betweenness(test_igr, normalized = FALSE)), c(42.7600, 22.8565, 38.7393, 22.0119, 4.7279))
+  expect_equal(top5(with_graph(test_tbl, node_betweenness(normalized = FALSE))), c(42.7600, 22.8565, 38.7393, 22.0119, 4.7279))
+  expect_equal(bot5(node_betweenness(test_mat, normalized = FALSE)), c(6.8186, 9.0194, 10.2354, 1.8892, 1.8892))
+  expect_equal(bot5(node_betweenness(test_igr, normalized = FALSE)), c(6.8186, 9.0194, 10.2354, 1.8892, 1.8892))
+  expect_equal(bot5(with_graph(test_tbl, node_betweenness(normalized = FALSE))), c(6.8186, 9.0194, 10.2354, 1.8892, 1.8892))
+  expect_equal(top5(node_betweenness(test_mat, normalized = TRUE),4), c(0.0967, 0.0517, 0.0876, 0.0498, 0.0107))
+  expect_equal(top5(node_betweenness(test_igr, normalized = TRUE),4), c(0.0967, 0.0517, 0.0876, 0.0498, 0.0107))
+  expect_equal(top5(with_graph(test_tbl, node_betweenness(normalized = TRUE)),4), c(0.0967, 0.0517, 0.0876, 0.0498, 0.0107))
+  expect_equal(bot5(node_betweenness(test_mat, normalized = TRUE),4), c(0.0151, 0.02, 0.0226, 0.0042, 0.0042))
+  expect_equal(bot5(node_betweenness(test_igr, normalized = TRUE),4), c(0.0151, 0.02, 0.0226, 0.0042, 0.0042))
+  expect_equal(bot5(with_graph(test_tbl, node_betweenness(normalized = TRUE)),4), c(0.0151, 0.02, 0.0226, 0.0042, 0.0042))
 })
 
-
 test_that("one mode eigenvector centrality calculated correctly",{
-  expect_equal(round(unname(node_eigenvector(mpn_elite_mex, normalized = FALSE)[1:3]),2), c(0.06, 0.08, 0.12))
-  expect_equal(round(unname(node_eigenvector(mpn_elite_mex, normalized = TRUE)[1:3]),2), 
-               c(0.08, 0.11, 0.17))
+  expect_equal(top3(node_eigenvector(mpn_elite_mex, normalized = FALSE)), c(0.0571, 0.0771, 0.1176))
+  expect_equal(top3(node_eigenvector(mpn_elite_mex, normalized = TRUE)), c(0.0808, 0.1090, 0.1663))
 })
 
 test_that("two mode eigenvector centrality calculated correctly",{
-  expect_equal(unname(round(node_eigenvector(test_mat, normalized = FALSE)[1:3], 2)), c(0.30, 0.28, 0.33))
-  expect_equal(unname(round(node_eigenvector(test_igr, normalized = FALSE)[1:3], 2)), c(0.30, 0.28, 0.33))
-  expect_equal(unname(round(node_eigenvector(test_mat, normalized = FALSE)[30:32], 2)), c(0.26, 0.18, 0.18))
-  expect_equal(unname(round(node_eigenvector(test_igr, normalized = FALSE)[30:32], 2)), c(0.26, 0.18, 0.18))
-  expect_equal(unname(round(node_eigenvector(test_igr, normalized = TRUE)[1:3], 2)), c(0.42, 0.40, 0.47))
+  expect_equal(top3(node_eigenvector(test_mat, normalized = FALSE)), c(0.2991, 0.2809, 0.3338))
+  expect_equal(top3(node_eigenvector(test_igr, normalized = FALSE)), c(0.2991, 0.2809, 0.3338))
+  expect_equal(bot3(node_eigenvector(test_mat, normalized = FALSE)), c(0.2551, 0.1774, 0.1774))
+  expect_equal(bot3(node_eigenvector(test_igr, normalized = FALSE)), c(0.2551, 0.1774, 0.1774))
+  expect_equal(top3(node_eigenvector(test_igr, normalized = TRUE)), c(0.423, 0.3973, 0.4721))
 })
 
 test_that("node measure class works", {
@@ -91,7 +89,7 @@ test_that("node measure class works", {
   expect_equal(testplot$labels$y, "Frequency")
 })
 
-####### Centralization
+# ####### Centralization
 
 test_that("one-mode centralisation is calculated correctly", {
   expect_equal(as.numeric(network_degree(mpn_elite_mex)), 0.303, tolerance = 0.001)
@@ -124,35 +122,35 @@ test_that("network_measure class works", {
   expect_output(print(network_degree(ison_algebra)))
 })
 
-####### Edge centrality
+# ####### Edge centrality
 test_that("tie_degree works", {
-  expect_s3_class(tie_degree(ison_adolescents), 
+  expect_s3_class(tie_degree(ison_adolescents),
                   "tie_measure")
-  expect_length(tie_degree(ison_adolescents), 
-                network_ties(ison_adolescents))
+  expect_length(tie_degree(ison_adolescents),
+                manynet::network_ties(ison_adolescents))
 })
 
 test_that("tie_betweenness works", {
-  expect_s3_class(tie_betweenness(ison_adolescents), 
+  expect_s3_class(tie_betweenness(ison_adolescents),
                   "tie_measure")
-  expect_length(tie_betweenness(ison_adolescents), 
-                network_ties(ison_adolescents))
-  expect_equal(unname(tie_betweenness(ison_adolescents)[1:3]), 
+  expect_length(tie_betweenness(ison_adolescents),
+                manynet::network_ties(ison_adolescents))
+  expect_equal(top3(tie_betweenness(ison_adolescents)),
                c(7,3,5), tolerance = 0.001)
 })
 
 test_that("tie_closeness works", {
-  expect_s3_class(tie_closeness(ison_adolescents), 
+  expect_s3_class(tie_closeness(ison_adolescents),
                   "tie_measure")
-  expect_length(tie_closeness(ison_adolescents), 
-                network_ties(ison_adolescents))
-  expect_equal(unname(tie_closeness(ison_adolescents)[1:3]), 
+  expect_length(tie_closeness(ison_adolescents),
+                manynet::network_ties(ison_adolescents))
+  expect_equal(top3(tie_closeness(ison_adolescents)),
                c(0.562,0.692,0.600), tolerance = 0.001)
 })
 
 test_that("tie_eigenvector works", {
-  expect_s3_class(tie_eigenvector(ison_southern_women), 
+  expect_s3_class(tie_eigenvector(ison_southern_women),
                   "tie_measure")
-  expect_length(tie_eigenvector(ison_southern_women), 
-                network_ties(ison_southern_women))
+  expect_length(tie_eigenvector(ison_southern_women),
+                manynet::network_ties(ison_southern_women))
 })

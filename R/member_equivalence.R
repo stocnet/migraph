@@ -51,7 +51,7 @@ NULL
 #' @describeIn equivalence Returns nodes' membership in 
 #'   according to their equivalence with respective to some census/class
 #' @export
-node_equivalence <- function(object, census,
+node_equivalence <- function(.data, census,
                              k = c("silhouette", "elbow", "strict"),
                              cluster = c("hierarchical", "concor"),
                              distance = c("euclidean", "maximum", "manhattan", 
@@ -59,15 +59,15 @@ node_equivalence <- function(object, census,
                              range = 8L){
   hc <- switch(match.arg(cluster),
                hierarchical = cluster_hierarchical(census, match.arg(distance)),
-               concor = cluster_concor(object, census))
+               concor = cluster_concor(.data, census))
   
   if(!is.numeric(k))
     k <- switch(match.arg(k),
-                strict = k_strict(hc, object),
-                elbow = k_elbow(hc, object, census, range),
-                silhouette = k_silhouette(hc, object, range))
+                strict = k_strict(hc, .data),
+                elbow = k_elbow(hc, .data, census, range),
+                silhouette = k_silhouette(hc, .data, range))
   
-  out <- make_node_member(stats::cutree(hc, k), object)
+  out <- make_node_member(stats::cutree(hc, k), .data)
   attr(out, "hc") <- hc
   attr(out, "k") <- k
   out
@@ -81,17 +81,17 @@ node_equivalence <- function(object, census,
 #' plot(nse)
 #' }
 #' @export
-node_structural_equivalence <- function(object,
+node_structural_equivalence <- function(.data,
                                         k = c("silhouette", "elbow", "strict"),
                                         cluster = c("hierarchical", "concor"),
                                         distance = c("euclidean", "maximum", "manhattan", 
                                                      "canberra", "binary", "minkowski"),
                                         range = 8L){
-  mat <- node_tie_census(object)
+  mat <- node_tie_census(.data)
   if(any(colSums(t(mat))==0)){
     mat <- cbind(mat, (colSums(t(mat))==0))
   } 
-  node_equivalence(object, mat, 
+  node_equivalence(.data, mat, 
                    k = k, cluster = cluster, distance = distance, range = range)
 }
 
@@ -104,19 +104,19 @@ node_structural_equivalence <- function(object,
 #' plot(nre)
 #' }
 #' @export
-node_regular_equivalence <- function(object, 
+node_regular_equivalence <- function(.data, 
                                      k = c("silhouette", "elbow", "strict"),
                                      cluster = c("hierarchical", "concor"),
                                      distance = c("euclidean", "maximum", "manhattan", 
                                                   "canberra", "binary", "minkowski"),
                                      range = 8L){
-  if(is_twomode(object)){
-    mat <- as.matrix(node_quad_census(object))
+  if(is_twomode(.data)){
+    mat <- as.matrix(node_quad_census(.data))
   } else {
-    mat <- node_triad_census(object)
+    mat <- node_triad_census(.data)
   }
   if(any(colSums(mat) == 0)) mat <- mat[,-which(colSums(mat) == 0)]
-  node_equivalence(object, mat, 
+  node_equivalence(.data, mat, 
                    k = k, cluster = cluster, distance = distance, range = range)
 }
 
@@ -129,14 +129,14 @@ node_regular_equivalence <- function(object,
 #' plot(nae)
 #' }
 #' @export
-node_automorphic_equivalence <- function(object,
+node_automorphic_equivalence <- function(.data,
                                          k = c("silhouette", "elbow", "strict"),
                                          cluster = c("hierarchical", "concor"),
                                          distance = c("euclidean", "maximum", "manhattan", 
                                                       "canberra", "binary", "minkowski"),
                                          range = 8L){
-  mat <- node_path_census(object)
-  node_equivalence(object, mat, 
+  mat <- node_path_census(.data)
+  node_equivalence(.data, mat, 
                    k = k, cluster = cluster, distance = distance, range = range)
 }
 
