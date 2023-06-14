@@ -97,10 +97,9 @@ node_walktrap <- function(.data, times = 50){
 #' node_edge_betweenness(ison_adolescents)
 #' @export
 node_edge_betweenness <- function(.data){
-  out <- igraph::cluster_edge_betweenness(manynet::as_igraph(.data)
-                                          )$membership
+  out <- suppressWarnings(igraph::cluster_edge_betweenness(
+    manynet::as_igraph(.data))$membership)
   make_node_member(out, .data)
-  
 }
 
 #' @describeIn community A hierarchical, agglomerative algorithm, 
@@ -120,5 +119,4 @@ node_fast_greedy <- function(.data){
   out <- igraph::cluster_fast_greedy(manynet::as_igraph(.data)
   )$membership
   make_node_member(out, .data)
-  
 }
