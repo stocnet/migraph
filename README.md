@@ -53,75 +53,6 @@ and Manipulating network data, Marking and Measuring nodes, ties, and
 networks, calculating Motifs and identifying Memberships, as well as
 Modelling and Mapping.
 
-### Making network data
-
-#### Including network data
-
-`{migraph}` includes a number of prominent network datasets, especially
-multimodal and multiplex examples for demonstrating more advanced
-methods.
-
-- `mpn_bristol`, `mpn_cow_igo`, `mpn_cow_trade`, `mpn_DE_1990`,
-  `mpn_DE_2008`, `mpn_DemSxP`, `mpn_elite_mex`, `mpn_elite_usa_advice`,
-  `mpn_elite_usa_money`, `mpn_IT_1990`, `mpn_IT_2008`, `mpn_OverSxP`,
-  `mpn_RepSxP`, `mpn_ryanair`, `mpn_UK_1990`, `mpn_UK_2008`
-- `ison_adolescents`, `ison_algebra`, `ison_bb`, `ison_bm`,
-  `ison_brandes`, `ison_brandes2`, `ison_karateka`, `ison_lotr`,
-  `ison_marvel_relationships`, `ison_marvel_teams`, `ison_mb`,
-  `ison_mm`, `ison_networkers`, `ison_southern_women`
-
-#### Importing network data
-
-If that’s not enough, `{migraph}` offers a number of options for
-importing network data found in other repositories. `{migraph}` can
-import and export to Excel edgelists and nodelists,
-[UCINET](http://www.analytictech.com/archive/ucinet.htm),
-[Pajek](http://mrvar.fdv.uni-lj.si/pajek/), and
-[DynetML](http://casos.cs.cmu.edu/projects/dynetml/) files, e.g.:
-
-<img src="man/figures/README-import-graph-1.png" width="100%" />
-
-- `read_dynetml()`, `read_edgelist()`, `read_matrix()`,
-  `read_nodelist()`, `read_pajek()`, `read_ucinet()`
-- `write_edgelist()`, `write_nodelist()`, `write_pajek()`,
-  `write_ucinet()`
-
-#### Inventing network data
-
-`{migraph}` includes algorithms for making networks with particular
-properties. The `create_*` group of functions create networks with a
-particular structure, e.g.:
-
-- `create_complete()`, `create_components()`, `create_core()`,
-  `create_empty()`, `create_lattice()`, `create_ring()`,
-  `create_star()`, `create_tree()`
-
-The `generate_*` group of functions generate networks from particular
-generative mechanisms, e.g.:
-
-- `generate_permutation()`, `generate_random()`, `generate_scalefree()`,
-  `generate_smallworld()`
-
-Note that all these functions work to create two-mode networks as well
-as one-mode versions.
-
-### Manipulating network data
-
-In addition to functions that help add elements to or extract elements
-from a network, `{migraph}` also includes functions for coercing and
-changing network data.
-
-#### Coercing network data
-
-Once network data is in R, `{migraph}`’s `as_*()` functions can be used
-to translate objects from one of the above classes into any other, and
-include:
-
-<img src="man/figures/README-coercion-graph-1.png" width="100%" />
-
-These functions are designed to be as intuitive and lossless as
-possible, outperforming many other class-coercion packages.
-
 We use these functions internally in every `{migraph}` function to (1)
 allow them to be run on any compatible network format and (2) use the
 most efficient algorithm available. This makes `{migraph}` compatible
@@ -130,28 +61,6 @@ edgelists as data frames, [`{igraph}`](https://igraph.org/r/),
 [`{network}`](https://statnet.org), or
 [`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html), and
 extensible by developments in those other packages too.
-
-#### Changing network data
-
-`{migraph}`’s `to_*()` functions can be used on any class object to
-reformat, transform, or split networks into networks with other
-properties, e.g.:
-
-- `to_anti()`, `to_blocks()`, `to_components()`, `to_edges()`,
-  `to_egos()`, `to_giant()`, `to_main_component()`, `to_matching()`,
-  `to_mode1()`, `to_mode2()`, `to_multilevel()`, `to_named()`,
-  `to_onemode()`, `to_redirected()`, `to_simplex()`, `to_subgraph()`,
-  `to_subgraphs()`, `to_ties()`, `to_twomode()`, `to_undirected()`,
-  `to_uniplex()`, `to_unnamed()`, `to_unsigned()`, `to_unweighted()`
-
-Reformatting means changing the format of the network, e.g. from
-directed to undirected via `to_undirected()`. Transforming means
-changing the dimensions of the network, e.g. from a two-mode network to
-a one-mode projection via `to_mode1()`. Splitting means separating a
-network, e.g. from a whole network to the various ego networks via
-`to_egos()`. Those functions that split a network into a list of
-networks are distinguishable as those `to_*()` functions that are named
-in the plural.
 
 ### Marks and Measures
 
@@ -170,11 +79,8 @@ network, `node_is_*()` returns a logical vector the length of the number
 of nodes in the network, and `tie_is_*()` returns a logical vector the
 length of the number of ties in the network.
 
-- `is_acyclic()`, `is_aperiodic()`, `is_bipartite()`, `is_complex()`,
-  `is_connected()`, `is_directed()`, `is_edgelist()`, `is_eulerian()`,
-  `is_graph()`, `is_labelled()`, `is_migraph()`, `is_multiplex()`,
-  `is_perfect_matching()`, `is_signed()`, `is_twomode()`,
-  `is_uniplex()`, `is_weighted()`
+- `is_acyclic()`, `is_aperiodic()`, `is_bipartite()`, `is_connected()`,
+  `is_eulerian()`, `is_perfect_matching()`
 - `node_is_core()`, `node_is_cutpoint()`, `node_is_isolate()`,
   `node_is_max()`, `node_is_min()`, `node_is_random()`
 - `tie_is_bridge()`, `tie_is_loop()`, `tie_is_max()`, `tie_is_min()`,
@@ -260,22 +166,6 @@ SIS, SIR, SIRS, SIER, and SIERS.
 
 Plot methods for all outputs assist with interpretation and
 communication.
-
-### Mapping
-
-Besides intuitive `plot()` methods for most of the above outputs,
-`{migraph}` also includes `autographr()` for one-line plotting graphs
-with sensible defaults based on their properties. `{migraph}` uses the
-excellent `{ggraph}` package (and thus `{ggplot2}`) as a plotting
-engine. This also makes extending and theming default output easy, and
-`{patchwork}` is used to help arrange individual plots together.
-
-In addition, `{migraph}` offers some additional layout algorithms for
-snapping layouts to a grid or visualising partitions horizontally,
-vertically, or concentrically. The following figures illustrate the
-difference in results over `{igraph}`:
-
-<img src="man/figures/README-layout-comparison-1.png" width="100%" />
 
 ## Installation
 
