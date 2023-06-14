@@ -9,7 +9,9 @@ runtime: shiny_prerendered
 
 ```{r setup, include = FALSE}
 library(learnr)
+library(manynet)
 library(migraph)
+library(patchwork)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -19,7 +21,7 @@ In this tutorial, we're going to look at several diffusion processes
 and how they operate across various networks.
 Let's start off with creating and visualising a few networks 
 that we might be interested in here.
-Let's take the `ison_networkers` dataset from `{migraph}`,
+Let's take the `ison_networkers` dataset from `{manynet}`,
 and create or generate ring, lattice, random, scale-free, and small-world
 versions with the same number of nodes.
 
