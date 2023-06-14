@@ -36,7 +36,7 @@ NULL
 #' network_reciprocity(ison_southern_women)
 #' @export
 network_reciprocity <- function(.data, method = "default") {
-  make_network_measure(igraph::reciprocity(as_igraph(.data), mode = method), 
+  make_network_measure(igraph::reciprocity(manynet::as_igraph(.data), mode = method), 
                        .data)
 }
 
@@ -45,7 +45,7 @@ network_reciprocity <- function(.data, method = "default") {
 #' node_reciprocity(to_unweighted(ison_networkers))
 #' @export
 node_reciprocity <- function(.data) {
-  out <- as_matrix(.data)
+  out <- manynet::as_matrix(.data)
   make_node_measure(rowSums(out * t(out))/rowSums(out), 
                     .data)
 }
@@ -56,7 +56,7 @@ node_reciprocity <- function(.data) {
 #' network_transitivity(ison_adolescents)
 #' @export
 network_transitivity <- function(.data) {
-  make_network_measure(igraph::transitivity(as_igraph(.data)), 
+  make_network_measure(igraph::transitivity(manynet::as_igraph(.data)), 
                        .data)
 }
 
@@ -65,7 +65,7 @@ network_transitivity <- function(.data) {
 #' node_transitivity(ison_adolescents)
 #' @export
 node_transitivity <- function(.data) {
-  make_node_measure(igraph::transitivity(as_igraph(.data), 
+  make_node_measure(igraph::transitivity(manynet::as_igraph(.data), 
                                          type = "local"), 
                     .data)
 }
@@ -76,8 +76,8 @@ node_transitivity <- function(.data) {
 #' network_equivalency(ison_southern_women)
 #' @export
 network_equivalency <- function(.data) {
-  if (is_twomode(.data)) {
-    mat <- as_matrix(.data)
+  if (manynet::is_twomode(.data)) {
+    mat <- manynet::as_matrix(.data)
     c <- ncol(mat)
     indegrees <- colSums(mat)
     twopaths <- crossprod(mat)
