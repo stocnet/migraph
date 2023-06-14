@@ -43,6 +43,7 @@ cluster_hierarchical <- function(census, distance){
 #' Then a distance matrix is constructed from records of in which partition phase
 #' nodes were separated, 
 #' and this is given to `stats::hclust()` so that dendrograms etc can be returned.
+#' @importFrom stats complete.cases
 #' @references 
 #' Breiger, Ronald L., Scott A. Boorman, and Phipps Arabie. 1975.  
 #'   "An Algorithm for Clustering Relational Data with Applications to 
@@ -90,7 +91,7 @@ cluster_concor <- function(.data, census){
   merged <- merged[!duplicated(merged[,1:2]),]
   merged[,3] <- abs(merged[,3] - max(merged[,3]))
   merged[merged == 0] <- NA
-  merged <- merged[complete.cases(merged),]
+  merged <- merged[stats::complete.cases(merged),]
   merged <- as.data.frame(merged)
   names(merged) <- c("from","to","weight")
   

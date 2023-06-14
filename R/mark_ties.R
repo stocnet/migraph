@@ -16,7 +16,7 @@ NULL
 #' tie_is_multiple(ison_marvel_relationships)
 #' @export
 tie_is_multiple <- function(.data){
-  object <- as_igraph(.data)
+  object <- manynet::as_igraph(.data)
   make_tie_mark(igraph::which_multiple(.data), .data)
 }
 
@@ -26,7 +26,7 @@ tie_is_multiple <- function(.data){
 #' tie_is_loop(ison_marvel_relationships)
 #' @export
 tie_is_loop <- function(.data){
-  .data <- as_igraph(.data)
+  .data <- manynet::as_igraph(.data)
   make_tie_mark(igraph::which_loop(.data), .data)
 }
 
@@ -37,7 +37,7 @@ tie_is_loop <- function(.data){
 #' tie_is_reciprocated(ison_algebra)
 #' @export
 tie_is_reciprocated <- function(.data){
-  .data <- as_igraph(.data) # allow for custom edge selection
+  .data <- manynet::as_igraph(.data) # allow for custom edge selection
   make_tie_mark(igraph::which_mutual(.data), .data)
 }
 
@@ -48,11 +48,11 @@ tie_is_reciprocated <- function(.data){
 #' tie_is_bridge(ison_brandes)
 #' @export
 tie_is_bridge <- function(.data){
-  num_comp <- length( igraph::decompose(as_igraph(.data)) )
-  out <- vapply(seq_len(network_ties(.data)), function(x){
+  num_comp <- length( igraph::decompose(manynet::as_igraph(.data)) )
+  out <- vapply(seq_len(manynet::network_ties(.data)), function(x){
     length( igraph::decompose(igraph::delete.edges(.data, x)) ) > num_comp
   }, FUN.VALUE = logical(1))
-  if(is_labelled(.data)) 
+  if(manynet::is_labelled(.data)) 
     names(out) <- attr(igraph::E(.data), "vnames")
   make_tie_mark(out, .data)
 }

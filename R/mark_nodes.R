@@ -24,17 +24,17 @@ NULL
 #' @examples 
 #' node_is_cutpoint(ison_brandes)
 #' @export
-node_is_cutpoint <- function(object){
-  if(is_labelled(object)){
-    out <- node_names(object) %in% 
-      attr(igraph::articulation_points(as_igraph(object)), 
+node_is_cutpoint <- function(.data){
+  if(manynet::is_labelled(.data)){
+    out <- manynet::node_names(.data) %in% 
+      attr(igraph::articulation_points(manynet::as_igraph(.data)), 
            "names")
-    names(out) <- node_names(object)
+    names(out) <- manynet::node_names(.data)
   } else {
-    out <- 1:network_nodes(object) %in% 
-      igraph::articulation_points(as_igraph(object))
+    out <- 1:manynet::network_nodes(.data) %in% 
+      igraph::articulation_points(manynet::as_igraph(.data))
   }
-  make_node_mark(out, object)
+  make_node_mark(out, .data)
 }
 
 #' @describeIn mark_nodes Returns logical of which nodes are isolates,
@@ -42,15 +42,15 @@ node_is_cutpoint <- function(object){
 #' @examples 
 #' node_is_isolate(ison_brandes)
 #' @export
-node_is_isolate <- function(object){
-  mat <- as_matrix(object)
-  if(is_twomode(object)){
+node_is_isolate <- function(.data){
+  mat <- manynet::as_matrix(.data)
+  if(manynet::is_twomode(.data)){
     out <- c(rowSums(mat)==0, colSums(mat)==0)
   } else {
     out <- rowSums(mat)==0 & colSums(mat)==0
   }
-  names(out) <- node_names(object)
-  make_node_mark(out, object)
+  names(out) <- manynet::node_names(.data)
+  make_node_mark(out, .data)
 }
 
 #' @describeIn mark_nodes Returns logical of which nodes are members
@@ -58,9 +58,9 @@ node_is_isolate <- function(object){
 #' @examples 
 #' node_is_core(ison_brandes)
 #' @export
-node_is_core <- function(object){
-  out <- node_core(object)==1
-  make_node_mark(out, object)
+node_is_core <- function(.data){
+  out <- node_core(.data)==1
+  make_node_mark(out, .data)
 }
 
 #' @describeIn mark_nodes Returns a logical vector
@@ -69,11 +69,11 @@ node_is_core <- function(object){
 #' @examples 
 #' node_is_random(ison_brandes, 2)
 #' @export
-node_is_random <- function(object, size = 1){
-  n <- network_nodes(object)
+node_is_random <- function(.data, size = 1){
+  n <- manynet::network_nodes(.data)
   out <- rep(FALSE, n)
   out[sample.int(n, size)] <- TRUE
-  make_node_mark(out, object)
+  make_node_mark(out, .data)
 }
 
 #' @describeIn mark_nodes Returns logical of which nodes 

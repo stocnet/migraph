@@ -92,14 +92,14 @@
 #' glance(model1)
 #' plot(model1)
 #' @export
-network_reg <- function(formula, object,
+network_reg <- function(formula, .data,
                         method = c("qap","qapy"),
                         times = 1000,
                         strategy = "sequential",
                         verbose = FALSE) {
   
   # Setup ####
-  matrixList <- convertToMatrixList(formula, object)
+  matrixList <- convertToMatrixList(formula, .data)
   convForm <- convertFormula(formula, matrixList)
   
   method <- match.arg(method)

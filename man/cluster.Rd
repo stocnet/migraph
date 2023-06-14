@@ -18,6 +18,15 @@ to pass on to \code{stats::dist}.
 By default \code{"euclidean"}, but other options include
 \code{"maximum"}, \code{"manhattan"}, \code{"canberra"}, \code{"binary"}, and \code{"minkowski"}.
 Fewer, identifiable letters, e.g. \code{"e"} for Euclidean, is sufficient.}
+
+\item{.data}{An object of a \code{{manynet}}-consistent class:
+\itemize{
+\item matrix (adjacency or incidence) from \code{{base}} R
+\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
+\item igraph, from the \code{{igraph}} package
+\item network, from the \code{{network}} package
+\item tbl_graph, from the \code{{tidygraph}} package
+}}
 }
 \description{
 These functions are used to cluster some census object.

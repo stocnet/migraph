@@ -47,6 +47,15 @@ play_segregation(
 )
 }
 \arguments{
+\item{.data}{An object of a \code{{manynet}}-consistent class:
+\itemize{
+\item matrix (adjacency or incidence) from \code{{base}} R
+\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
+\item igraph, from the \code{{igraph}} package
+\item network, from the \code{{network}} package
+\item tbl_graph, from the \code{{tidygraph}} package
+}}
+
 \item{seeds}{A valid mark vector the length of the
 number of nodes in the network.}
 

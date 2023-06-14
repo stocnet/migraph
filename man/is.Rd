@@ -2,19 +2,6 @@
 % Please edit documentation in R/mark_is.R
 \name{is}
 \alias{is}
-\alias{is_migraph}
-\alias{is_graph}
-\alias{is_edgelist}
-\alias{is_twomode}
-\alias{is_weighted}
-\alias{is_directed}
-\alias{is_labelled}
-\alias{is_signed}
-\alias{is_complex}
-\alias{is_multiplex}
-\alias{is_uniplex}
-\alias{is_longitudinal}
-\alias{is_dynamic}
 \alias{is_connected}
 \alias{is_perfect_matching}
 \alias{is_eulerian}
@@ -25,32 +12,6 @@
 https://stackoverflow.com/questions/55091438/r-igraph-find-all-cycles
 }
 \usage{
-is_migraph(.data)
-
-is_graph(.data)
-
-is_edgelist(.data)
-
-is_twomode(.data)
-
-is_weighted(.data)
-
-is_directed(.data)
-
-is_labelled(.data)
-
-is_signed(.data)
-
-is_complex(.data)
-
-is_multiplex(.data)
-
-is_uniplex(.data)
-
-is_longitudinal(.data)
-
-is_dynamic(.data)
-
 is_connected(.data)
 
 is_perfect_matching(.data, mark = "type")
@@ -62,7 +23,7 @@ is_acyclic(.data)
 is_aperiodic(.data, max_path_length = 4)
 }
 \arguments{
-\item{.data}{An object of a migraph-consistent class:
+\item{.data}{An object of a \code{{manynet}}-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
@@ -87,38 +48,10 @@ properties.
 }
 \section{Functions}{
 \itemize{
-\item \code{is_migraph()}: Tests whether network is migraph-compatible
-
-\item \code{is_graph()}: Tests whether network contains graph-level information
-
-\item \code{is_edgelist()}: Tests whether data frame is an edgelist
-
-\item \code{is_twomode()}: Tests whether network is a two-mode network
-
-\item \code{is_weighted()}: Tests whether network is weighted
-
-\item \code{is_directed()}: Tests whether network is directed
-
-\item \code{is_labelled()}: Tests whether network includes names for the nodes
-
-\item \code{is_signed()}: Tests whether network is signed positive/negative
-
-\item \code{is_complex()}: Tests whether network contains any loops
-
-\item \code{is_multiplex()}: Tests whether network is multiplex,
-either from multiple rows with the same sender and receiver,
-or multiple columns to the edgelist.
-
-\item \code{is_uniplex()}: Tests whether network is simple (both uniplex and simplex)
-
-\item \code{is_longitudinal()}: Tests whether network is longitudinal, panel data
-
-\item \code{is_dynamic()}: Tests whether network is dynamic, time-stamped data
-
 \item \code{is_connected()}: Tests whether network is weakly connected if
 the network is undirected or strongly connected if directed.
 To test weak connection on a directed network,
-please see \code{to_undirected()}.
+please see \code{manynet::to_undirected()}.
 
 \item \code{is_perfect_matching()}: Tests whether there is a matching for a network
 that covers every node in the network
@@ -133,15 +66,6 @@ where that path passes through every tie exactly once
 
 }}
 \examples{
-is_twomode(ison_southern_women)
-is_weighted(ison_southern_women)
-is_directed(ison_algebra)
-is_labelled(ison_southern_women)
-is_signed(ison_southern_women)
-is_complex(ison_southern_women)
-is_uniplex(ison_algebra)
-is_longitudinal(ison_algebra)
-is_dynamic(ison_algebra)
 is_connected(ison_southern_women)
 is_perfect_matching(ison_southern_women)
 is_eulerian(ison_brandes)
