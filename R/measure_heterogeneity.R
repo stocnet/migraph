@@ -13,20 +13,24 @@ NULL
 
 #' @describeIn heterogeneity Calculates the number of unique categories 
 #'   in a network attribute.
+#' @examples
+#' network_richness(mpn_bristol)
 #' @export
-network_richness <- function(object, attribute){
-  make_network_measure(length(unique(node_attribute(object, attribute))),
-                       object)
+network_richness <- function(.data, attribute){
+  make_network_measure(length(unique(manynet::node_attribute(.data, attribute))),
+                       .data)
 }
 
 #' @describeIn heterogeneity Calculates the number of unique categories 
 #'   of an attribute to which each node is connected.
+#' @examples
+#' node_richness(mpn_bristol, "type")
 #' @export
-node_richness <- function(object, attribute){
-  out <- vapply(to_egos(object, min_dist = 1), 
-         function(x) length(unique(node_attribute(x, attribute))),
+node_richness <- function(.data, attribute){
+  out <- vapply(manynet::to_egos(.data, min_dist = 1), 
+         function(x) length(unique(manynet::node_attribute(x, attribute))),
          FUN.VALUE = numeric(1))
-  make_node_measure(out, object)
+  make_node_measure(out, .data)
 }
 
 #' @describeIn heterogeneity Calculates the heterogeneity of ties across a network or 
@@ -50,14 +54,14 @@ node_richness <- function(object, attribute){
 #'   _Inequality and heterogeneity_. 
 #'   New York: Free Press.
 #' @examples
-#' marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
+#' marvel_friends <- manynet::to_unsigned(manynet::ison_marvel_relationships, "positive")
 #' network_diversity(marvel_friends, "Gender")
 #' network_diversity(marvel_friends, "Attractive")
 #' network_diversity(marvel_friends, "Gender", "Rich")
 #' @export
-network_diversity <- function(object, attribute, clusters = NULL){
+network_diversity <- function(.data, attribute, clusters = NULL){
   blau <- function(features) { 1 - sum((table(features)/length(features))^2) }
-  attr <- node_attribute(object, attribute)
+  attr <- manynet::node_attribute(.data, attribute)
   if (is.null(clusters)) {
     blauout <- blau(attr)
   } else if (is.numeric(clusters) && is.vector(clusters)) {
@@ -66,14 +70,14 @@ network_diversity <- function(object, attribute, clusters = NULL){
                       numeric(1))
     names(blauout) <- paste0("Cluster ", unique(clusters))
   } else if (is.character(clusters)) {
-    clu <- node_attribute(object, clusters)
+    clu <- manynet::node_attribute(.data, clusters)
     blauout <- vapply(unique(clu), 
                       function(i) blau(attr[clu == i]),
                       numeric(1))
     names(blauout) <- paste0("Cluster ", unique(clu))
     blauout <- blauout[order(names(blauout))]
   } else stop("`clusters` must be the name of a nodal variable in the object.")
-  make_network_measure(blauout, object)
+  make_network_measure(blauout, .data)
 }
 
 #' @describeIn heterogeneity Calculates the heterogeneity of each node's
@@ -82,13 +86,13 @@ network_diversity <- function(object, attribute, clusters = NULL){
 #' node_diversity(marvel_friends, "Gender")
 #' node_diversity(marvel_friends, "Attractive")
 #' @export
-node_diversity <- function(object, attribute){
-  out <- vapply(igraph::ego(as_igraph(object)),
+node_diversity <- function(.data, attribute){
+  out <- vapply(igraph::ego(manynet::as_igraph(.data)),
                 function(x) network_diversity(
-                  igraph::induced_subgraph(as_igraph(object), x),
+                  igraph::induced_subgraph(manynet::as_igraph(.data), x),
                   attribute),
                 FUN.VALUE = numeric(1))
-  make_node_measure(out, object)
+  make_node_measure(out, .data)
 }
 
 #' @describeIn heterogeneity Calculates how embedded nodes in the network
@@ -109,10 +113,10 @@ node_diversity <- function(object, attribute){
 #' network_heterophily(marvel_friends, "Gender")
 #' network_heterophily(marvel_friends, "Attractive")
 #' @export
-network_heterophily <- function(object, attribute){
-  m <- as_matrix(object)
+network_heterophily <- function(.data, attribute){
+  m <- manynet::as_matrix(.data)
   if (length(attribute) == 1 && is.character(attribute)) {
-    attribute <- node_attribute(object, attribute)
+    attribute <- manynet::node_attribute(.data, attribute)
   }
   if (is.character(attribute) | is.numeric(attribute)) {
     attribute <- as.factor(attribute)
@@ -121,7 +125,7 @@ network_heterophily <- function(object, attribute){
   nInternal <- sum(m * same, na.rm = TRUE)
   nExternal <- sum(m, na.rm = TRUE) - nInternal
   ei <- (nExternal - nInternal) / sum(m, na.rm = TRUE)
-  make_network_measure(ei, object)
+  make_network_measure(ei, .data)
 }
 
 #' @describeIn heterogeneity Calculates each node's embeddedness within groups
@@ -130,10 +134,10 @@ network_heterophily <- function(object, attribute){
 #' node_heterophily(marvel_friends, "Gender")
 #' node_heterophily(marvel_friends, "Attractive")
 #' @export
-node_heterophily <- function(object, attribute){
-  m <- as_matrix(object)
+node_heterophily <- function(.data, attribute){
+  m <- manynet::as_matrix(.data)
   if (length(attribute) == 1 && is.character(attribute)) {
-    attribute <- node_attribute(object, attribute)
+    attribute <- manynet::node_attribute(.data, attribute)
   }
   if (is.character(attribute) | is.numeric(attribute)) {
     attribute <- as.factor(attribute)
@@ -147,7 +151,7 @@ node_heterophily <- function(object, attribute){
   nInternal[is.na(attribute)] <- NA
   nExternal <- rowSums(m, na.rm = TRUE) - nInternal
   ei <- (nExternal - nInternal) / rowSums(m, na.rm = TRUE)
-  make_node_measure(ei, object)
+  make_node_measure(ei, .data)
 }
 
 #' @describeIn heterogeneity Calculates the degree assortativity in a graph.
@@ -155,8 +159,8 @@ node_heterophily <- function(object, attribute){
 #' @examples 
 #' network_assortativity(mpn_elite_mex)
 #' @export
-network_assortativity <- function(object){
-  make_network_measure(igraph::assortativity_degree(as_igraph(object), 
-                               directed = is_directed(object)),
-                     object)
+network_assortativity <- function(.data){
+  make_network_measure(igraph::assortativity_degree(manynet::as_igraph(.data), 
+                               directed = manynet::is_directed(.data)),
+                     .data)
 }

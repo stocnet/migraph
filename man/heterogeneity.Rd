@@ -11,19 +11,19 @@
 \alias{network_assortativity}
 \title{Measures of network diversity}
 \usage{
-network_richness(object, attribute)
+network_richness(.data, attribute)
 
-node_richness(object, attribute)
+node_richness(.data, attribute)
 
-network_diversity(object, attribute, clusters = NULL)
+network_diversity(.data, attribute, clusters = NULL)
 
-node_diversity(object, attribute)
+node_diversity(.data, attribute)
 
-network_heterophily(object, attribute)
+network_heterophily(.data, attribute)
 
-node_heterophily(object, attribute)
+node_heterophily(.data, attribute)
 
-network_assortativity(object)
+network_assortativity(.data)
 }
 \arguments{
 \item{attribute}{Name of a nodal attribute or membership vector
@@ -88,7 +88,9 @@ where 1 indicates ties only between categories/groups and -1 ties only within ca
 }
 
 \examples{
-marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
+network_richness(mpn_bristol)
+node_richness(mpn_bristol, "type")
+marvel_friends <- manynet::to_unsigned(manynet::ison_marvel_relationships, "positive")
 network_diversity(marvel_friends, "Gender")
 network_diversity(marvel_friends, "Attractive")
 network_diversity(marvel_friends, "Gender", "Rich")
