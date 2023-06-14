@@ -28,23 +28,23 @@
 #'   autographr(node_color = "corep")
 #' network_core(mpn_elite_usa_advice)
 #' @export
-node_core <- function(object){
-  if(is_directed(object)) warning("Asymmetric core-periphery not yet implemented.")
-  if(is_weighted(object)) warning("Weighted core-periphery not yet implemented.")
-  degi <- node_degree(object, normalized = FALSE)
+node_core <- function(.data){
+  if(manynet::is_directed(.data)) warning("Asymmetric core-periphery not yet implemented.")
+  if(manynet::is_weighted(.data)) warning("Weighted core-periphery not yet implemented.")
+  degi <- node_degree(.data, normalized = FALSE)
   nord <- order(degi, decreasing = TRUE)
-  zbest <- network_nodes(object)*3
+  zbest <- manynet::network_nodes(.data)*3
   kbest <- 0
   z <- 1/2*sum(degi)
-  for(k in 1:(network_nodes(object)-1)){
+  for(k in 1:(manynet::network_nodes(.data)-1)){
     z <- z + k - 1 - degi[nord][k]
     if(z < zbest){
       zbest <- z
       kbest <- k
     }
   }
-  out <- ifelse(seq_len(network_nodes(object)) %in% nord[seq_len(kbest)],
+  out <- ifelse(seq_len(manynet::network_nodes(.data)) %in% nord[seq_len(kbest)],
          1,2)
-  if(is_labelled(object)) names(out) <- node_names(object)
-  make_node_member(out, object)
+  if(manynet::is_labelled(.data)) names(out) <- manynet::node_names(.data)
+  make_node_member(out, .data)
 }

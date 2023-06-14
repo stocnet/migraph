@@ -173,6 +173,8 @@ network_degree <- function(.data, normalized = TRUE,
 #' @family measures
 #' @family centrality
 #' @inheritParams degree_centrality
+#' @param cutoff The maximum path length to consider when calculating betweenness.
+#'   If negative or NULL (the default), there's no limit to the path lengths considered.
 NULL
 
 #' @describeIn between_centrality Calculate the betweenness centralities of nodes in a network
@@ -206,7 +208,8 @@ node_betweenness <- function(.data, normalized = TRUE,
                                  normalized = normalized)
     } else {
       out <- igraph::estimate_betweenness(graph = graph, vids = igraph::V(graph), 
-                                          directed = manynet::is_directed(graph), cutoff = cutoff, 
+                                          directed = manynet::is_directed(graph), 
+                                          cutoff = cutoff, 
                                           weights = weights)
     }
   }

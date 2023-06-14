@@ -3,7 +3,7 @@
 #' These functions offer ways to summarise the heterogeneity of an attribute
 #' across a network, within groups of a network, or the distribution of ties
 #' across this attribute.
-#' @inheritParams as
+#' @inheritParams is
 #' @param attribute Name of a nodal attribute or membership vector
 #'   to use as categories for the diversity measure.
 #' @param clusters A nodal cluster membership vector or name of a vertex attribute.

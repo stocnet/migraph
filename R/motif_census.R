@@ -274,7 +274,7 @@ network_mixed_census <- function (.data, object2) {
     stop("First object should be a one-mode network")
   if(!manynet::is_twomode(object2))
     stop("Second object should be a two-mode network")
-  if(network_dims(.data)[1]!=network_dims(object2)[1])
+  if(manynet::network_dims(.data)[1] != manynet::network_dims(object2)[1])
     stop("Non-conformable arrays")
   m1 <- manynet::as_matrix(.data)
   m2 <- manynet::as_matrix(object2)

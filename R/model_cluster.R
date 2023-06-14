@@ -98,7 +98,7 @@ cluster_concor <- function(.data, census){
   distances <- manynet::as_matrix(manynet::as_igraph(merged))
   distances <- distances + t(distances)
   # distances <- distances[-which(rownames(distances)==0),-which(colnames(distances)==0)]
-  if(is_labelled(.data))
+  if(manynet::is_labelled(.data))
     rownames(distances) <- colnames(distances) <- manynet::node_names(.data)
   hc <- hclust(d = as.dist(distances))
   hc$method <- "concor"
