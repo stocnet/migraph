@@ -9,16 +9,18 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(manynet)
 library(migraph)
+library(patchwork)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ## Calculating different centrality measures
 
-For this exercise, we'll use the `ison_brandes` and `ison_brandes2` datasets.
+For this exercise, we'll use the `ison_brandes` and `ison_brandes2` datasets in `{manynet}`.
 The `ison_brandes2` is a two-mode version of the `ison_brandes` dataset.
 This dataset is in a 'tidygraph' format, 
-but migraph makes it easy to coerce this into other forms
+but `manynet` makes it easy to coerce this into other forms
 to be compatible with other packages.
 
 ```{r coercion, exercise = TRUE}
@@ -47,7 +49,7 @@ autographr(ison_brandes2)
 
 The network is anonymous, but I think it would be nice to add some names,
 even if it's just pretend. 
-Luckily, `{migraph}` has a function for this.
+Luckily, `{manynet}` has a function for this.
 This makes plotting the network just a wee bit more accessible and interpretable:
 
 ```{r addingnames, exercise = TRUE}
@@ -281,10 +283,14 @@ but fortunately the `{patchwork}` package is here to help.
 
 ```{r multiplot-solution}
 ison_brandes <- ison_brandes %>%
-  add_node_attribute("degree", node_is_max(node_degree(ison_brandes))) %>%
-  add_node_attribute("betweenness", node_is_max(node_betweenness(ison_brandes))) %>%
-  add_node_attribute("closeness", node_is_max(node_closeness(ison_brandes))) %>%
-  add_node_attribute("eigenvector", node_is_max(node_eigenvector(ison_brandes)))
+  add_node_attribute("degree",
+                              node_is_max(node_degree(ison_brandes))) %>%
+  add_node_attribute("betweenness",
+                              node_is_max(node_betweenness(ison_brandes))) %>%
+  add_node_attribute("closeness",
+                              node_is_max(node_closeness(ison_brandes))) %>%
+  add_node_attribute("eigenvector",
+                              node_is_max(node_eigenvector(ison_brandes)))
 gd <- autographr(ison_brandes, node_color = "degree") + 
   ggtitle("Degree", subtitle = round(network_degree(ison_brandes), 2))
 gc <- autographr(ison_brandes, node_color = "closeness") + 
