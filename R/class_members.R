@@ -105,7 +105,7 @@ plot.matrix <- function(x, ..., membership = NULL) {
     )
 
   # Color for signed networks
-  if (is_signed(x)) {
+  if (manynet::is_signed(x)) {
     g <- g +
       ggplot2::scale_fill_gradient2(high = "#003049",
         mid = "white",
@@ -119,7 +119,7 @@ plot.matrix <- function(x, ..., membership = NULL) {
   }
 
   # Structure for multimodal networks
-  if (!is_twomode(x)) {
+  if (!manynet::is_twomode(x)) {
     g <- g +
       ggplot2::scale_x_discrete(expand = c(0, 0), position = "top",
                                 limits = colnames(blocked_data)

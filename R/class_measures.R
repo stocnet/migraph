@@ -1,6 +1,6 @@
 make_node_measure <- function(out, .data) {
   class(out) <- c("node_measure", class(out))
-  attr(out, "mode") <- node_mode(.data)
+  attr(out, "mode") <- manynet::node_mode(.data)
   out
 }
 
@@ -11,40 +11,18 @@ make_tie_measure <- function(out, .data) {
 
 make_network_measure <- function(out, .data) {
   class(out) <- c("network_measure", class(out))
-  attr(out, "mode") <- network_dims(.data)
+  attr(out, "mode") <- manynet::network_dims(.data)
   out
 }
 
 make_network_measures <- function(out, .data) {
+  time <- value <- NULL
   out <- dplyr::as_tibble(out) %>% 
     dplyr::mutate(time = as.numeric(names(out))) %>% 
     dplyr::select(time, value)
   class(out) <- c("network_measures", class(out))
-  attr(out, "mode") <- network_dims(.data)
+  attr(out, "mode") <- manynet::network_dims(.data)
   out
-}
-
-#' @inheritParams regression
-#' @export
-over_waves <- function(.data, FUN, ..., attribute = "wave",
-                       strategy = "sequential",
-                       verbose = FALSE){
-  future::plan(strategy)
-  furrr::future_map_dbl(to_waves(.data, attribute), function(j) FUN(j, ...), 
-                        .progress = verbose, .options = furrr::furrr_options(seed = T))
-}
-
-#' @export
-over_time <- function(.data, FUN, ..., attribute = "time",
-                      slice = NULL,
-                      strategy = "sequential",
-                      verbose = FALSE){
-  future::plan(strategy)
-  out <- furrr::future_map_dbl(to_slices(.data, attribute, slice), 
-                               function(j) FUN(j, ...), 
-                        .progress = verbose, 
-                        .options = furrr::furrr_options(seed = T))
-  make_network_measures(out, .data)
 }
 
 # Printing ####
