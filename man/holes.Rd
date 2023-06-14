@@ -10,17 +10,27 @@
 \alias{node_hierarchy}
 \title{Measures of structural holes}
 \usage{
-node_bridges(object)
+node_bridges(.data)
 
-node_redundancy(object)
+node_redundancy(.data)
 
-node_effsize(object)
+node_effsize(.data)
 
-node_efficiency(object)
+node_efficiency(.data)
 
-node_constraint(object)
+node_constraint(.data)
 
-node_hierarchy(object)
+node_hierarchy(.data)
+}
+\arguments{
+\item{.data}{An object of a \code{{manynet}}-consistent class:
+\itemize{
+\item matrix (adjacency or incidence) from \code{{base}} R
+\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
+\item igraph, from the \code{{igraph}} package
+\item network, from the \code{{network}} package
+\item tbl_graph, from the \code{{tidygraph}} package
+}}
 }
 \description{
 These function provide different measures of the degree to which nodes

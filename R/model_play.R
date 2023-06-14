@@ -53,7 +53,6 @@ NULL
 #' @examples 
 #'   smeg <- manynet::generate_smallworld(15, 0.025)
 #'   plot(play_diffusion(smeg))
-#'   plot(play_diffusion(smeg, thresholds = 0.4))
 #'   plot(play_diffusion(smeg, recovery = 0.4))
 #' @export
 play_diffusion <- function(.data, 

@@ -152,7 +152,6 @@ Functions to play games on networks
 \examples{
   smeg <- manynet::generate_smallworld(15, 0.025)
   plot(play_diffusion(smeg))
-  plot(play_diffusion(smeg, thresholds = 0.4))
   plot(play_diffusion(smeg, recovery = 0.4))
   plot(play_diffusions(smeg, times = 20))
   play_learning(ison_networkers, 
