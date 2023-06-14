@@ -9,13 +9,14 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(patchwork)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
 ## Setting up
 
-The data we're going to use here is included in the `{migraph}` package.
+The data we're going to use here is included in the `{manynet}` package.
 This dataset is multiplex, meaning that it contains 
 several different types of ties: 
 friendship, social and task interactions.
@@ -25,21 +26,23 @@ friendship, social and task interactions.
 ```
 
 ```{r data-hint-1}
-# first, let's load the migraph package
+# first, let's load the manynet and migraph packages
+library(manynet)
 library(migraph)
 ```
 
 ```{r data-hint-2}
 # next, let's call and load the 'ison_algebra' dataset
-data("ison_algebra", package = "migraph")
+data("ison_algebra", package = "manynet")
 
 # if you want to learn more about the 'ison_algebra' dataset, use the following function (below)
-?migraph::ison_algebra
+?manynet::ison_algebra
 ```
 
 ```{r data-solution}
+library(manynet)
 library(migraph)
-data("ison_algebra", package = "migraph")
+data("ison_algebra", package = "manynet")
 ```
 
 Note that you do not need to load the package using `library()` to get the data.
@@ -50,7 +53,7 @@ saved .RData files, and data from packages!
 
 The network is anonymous, but I think it would be nice to add some names,
 even if it's just pretend. 
-Luckily, `{migraph}` has a function for this.
+Luckily, `{manynet}` has a function for this.
 This makes plotting the network just a wee bit more accessible and interpretable:
 
 ```{r addingnames, exercise=TRUE, exercise.setup = "data"}
@@ -557,7 +560,7 @@ https://arxiv.org/abs/cond-mat/0408187
 
 ## Two-mode network: Southern women
 
-The next dataset is also available in migraph.
+The next dataset is also available in manynet.
 Let's take a look at the loaded objects.
 
 ```{r setup-women, exercise=TRUE, exercise.setup = "data"}
@@ -579,7 +582,6 @@ autographr(ison_southern_women, "railway", node_color = "type")
 data("ison_southern_women")
 ison_southern_women
 autographr(ison_southern_women, node_color = "type")
-autographr(ison_southern_women, "railway", node_color = "type")
 ```
 
 ### Project two-mode network into two one-mode networks
@@ -632,7 +634,7 @@ event_graph <- to_mode2(ison_southern_women)
 autographr(event_graph)
 ```
 
-`{migraph}` also includes several other options for how to construct the projection.
+`{manynet}` also includes several other options for how to construct the projection.
 Please see the help file for more details.
 
 ```{r otherway, exercise=TRUE, exercise.setup = "setup-women"}
