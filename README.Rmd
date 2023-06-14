@@ -37,12 +37,28 @@ list_data <- function(string){
 
 ## About the package
 
-`{manynet}` provides a common set of tools and a standard syntax for analysing many different types of networks.
-It offers a broad range of functions to make, manipulate, map, measure, and model:
+The most commonly used R packages available for network analysis,
+such as `{igraph}` or `{sna}`,
+are mainly oriented around directed or undirected one-mode networks.
+But researchers are increasingly interested in analysing multimodal (one-, two-, or three-mode), multilevel (connected multimodal networks), or multilayer (multiplex or signed) networks.
+Existing procedures typically involve 'projecting' them into one-mode networks so that they can be used with those tools,
+but thereby potentially losing important structural information,
+or require one or more other specific packages.
+Translating between packages various syntaxes and expectations can introduce significant transaction costs though,
+driving confusion, inefficiencies, and errors.
 
-- one-, two-, and sometimes three-mode networks
-- undirected, directed, and sometimes complex networks
-- unweighted, weighted, and sometimes signed networks
+`{migraph}` builds upon `{manynet}` to offer smart solutions to these problems.
+It includes functions for marking and measuring networks and their nodes and ties,
+identifying motifs and memberships in them, 
+and modelling these networks or simulating processes such as diffusion upon them.
+Based on `{manynet}`, every function works for any compatible network format
+- from base R matrices or edgelists as data frames, 
+[`{igraph}`](https://igraph.org/r/),
+[`{network}`](https://statnet.org), or 
+[`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html) objects.
+This means it is compatible with your existing workflow, 
+is extensible by other packages, 
+and uses the most efficient algorithm available for each task.
 
 <img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="125"/>
 
@@ -58,7 +74,17 @@ if you like the package please check out the book, and vice versa.
 
 ## How does migraph help?
 
-`{migraph}` can help with many network analytic tasks,
+`{migraph}` uses a common syntax to help new and experienced network analysts
+find the right function and use it correctly.
+All `network_*()` functions return a value for the network/graph or for each mode in the network.
+All `node_*()` functions return values for each node or vertex in the network.
+And all `tie_*()` functions return values for each tie or edge in the network.
+
+`{migraph}` includes five special groups of functions, 
+each with their own `print()` and `plot()` methods:
+marks, measures, memberships, motifs, and models.
+
+can help with many network analytic tasks,
 including Making and Manipulating network data,
 Marking and Measuring nodes, ties, and networks,
 calculating Motifs and identifying Memberships,

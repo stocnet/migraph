@@ -24,9 +24,6 @@ navbar:
     reference:
       text: Function Overview
       href: reference/index.html
-    articles:
-      text: Practical Lessons
-      href: articles/index.html
     news:
       text: News
       href: news/index.html

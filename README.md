@@ -24,13 +24,23 @@ Practices](https://bestpractices.coreinfrastructure.org/projects/4559/badge)](ht
 
 ## About the package
 
-`{manynet}` provides a common set of tools and a standard syntax for
-analysing many different types of networks. It offers a broad range of
-functions to make, manipulate, map, measure, and model:
+The most commonly used R packages available for network analysis, such
+as `{igraph}` or `{sna}`, are mainly oriented around directed or
+undirected one-mode networks. But researchers are increasingly
+interested in analysing multimodal (one-, two-, or three-mode),
+multilevel (connected multimodal networks), or multilayer (multiplex or
+signed) networks. Existing procedures typically involve ‘projecting’
+them into one-mode networks so that they can be used with those tools,
+but thereby potentially losing important structural information, or
+require one or more other specific packages. Translating between
+packages various syntaxes and expectations can introduce significant
+transaction costs though, driving confusion, inefficiencies, and errors.
 
-- one-, two-, and sometimes three-mode networks
-- undirected, directed, and sometimes complex networks
-- unweighted, weighted, and sometimes signed networks
+`{migraph}` builds upon `{manynet}` to offer smart solutions to these
+problems. It includes functions for marking and measuring networks and
+their nodes and ties, identifying motifs and memberships in them, and
+modelling these networks or simulating processes such as diffusion upon
+them.
 
 <img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="125"/>
 
