@@ -5,10 +5,11 @@
 \alias{play_diffusion}
 \alias{play_diffusions}
 \alias{play_learning}
+\alias{play_segregation}
 \title{Functions to play games on networks}
 \usage{
 play_diffusion(
-  object,
+  .data,
   seeds = 1,
   thresholds = 1,
   transmissibility = 1,
@@ -20,7 +21,7 @@ play_diffusion(
 )
 
 play_diffusions(
-  object,
+  .data,
   seeds = 1,
   thresholds = 1,
   transmissibility = 1,
@@ -34,10 +35,19 @@ play_diffusions(
   verbose = FALSE
 )
 
-play_learning(object, beliefs, steps, epsilon = 5e-04)
+play_learning(.data, beliefs, steps, epsilon = 5e-04)
+
+play_segregation(
+  .data,
+  attribute,
+  heterophily = 0,
+  who_moves = c("ordered", "random", "most_dissatisfied"),
+  choice_function = c("satisficing", "optimising"),
+  steps
+)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
+\item{.data}{An object of a \code{{manynet}}-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
@@ -124,6 +134,28 @@ put on some outcome being 'true'.}
 
 \item{epsilon}{The maximum difference in beliefs accepted
 for convergence to a consensus.}
+
+\item{attribute}{A string naming some nodal attribute in the network.
+Currently only tested for binary attributes.}
+
+\item{heterophily}{A score ranging between -1 and 1 as a threshold for
+how heterophilous nodes will accept their neighbours to be.
+A single proportion means this threshold is shared by all nodes,
+but it can also be a vector the same length of the nodes in the network
+for issuing different thresholds to different nodes.
+By default this is 0, meaning nodes will be dissatisfied if more than half
+of their neighbours differ on the given attribute.}
+
+\item{who_moves}{One of the following options:
+"ordered" (the default) checks each node in turn for whether they are
+dissatisfied and there is an available space that they can move to,
+"random" will check a node at random,
+and "most_dissatisfied" will check (one of) the most dissatisfied nodes first.}
+
+\item{choice_function}{One of the following options:
+"satisficing" (the default) will move the node to any coordinates that satisfy
+their heterophily threshold,
+whereas "optimising" will move the node to coordinates that are most homophilous.}
 }
 \description{
 Functions to play games on networks
@@ -136,14 +168,23 @@ Functions to play games on networks
 
 \item \code{play_learning()}: Playing DeGroot learning on networks.
 
+\item \code{play_segregation()}: Playing Schelling segregation on networks.
+
 }}
 \examples{
-plot(play_diffusion(generate_smallworld(15, 0.025)))
-plot(play_diffusion(generate_smallworld(15, 0.025), thresholds = 0.4))
-plot(play_diffusion(generate_smallworld(15, 0.025), recovery = 0.4))
-plot(play_diffusions(generate_smallworld(15, 0.025), times = 20))
-play_learning(ison_networkers, 
-      rbinom(network_nodes(ison_networkers),1,prob = 0.25))
+  smeg <- manynet::generate_smallworld(15, 0.025)
+  plot(play_diffusion(smeg))
+  plot(play_diffusion(smeg, recovery = 0.4))
+  plot(play_diffusions(smeg, times = 20))
+  play_learning(ison_networkers, 
+      rbinom(manynet::network_nodes(ison_networkers),1,prob = 0.25))
+  startValues <- rbinom(100,1,prob = 0.5)
+  startValues[sample(seq_len(100), round(100*0.2))] <- NA
+  latticeEg <- manynet::create_lattice(100)
+  latticeEg <- manynet::add_node_attribute(latticeEg, "startValues", startValues)
+  manynet::autographr(latticeEg, node_color = "startValues", node_size = 5)
+  manynet::autographr(play_segregation(latticeEg, "startValues", 0.5), 
+             node_color = "startValues", node_size = 5)
 }
 \seealso{
 Other models: 

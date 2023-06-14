@@ -30,13 +30,13 @@ NULL
 #' node_bridges(ison_adolescents)
 #' node_bridges(ison_southern_women)
 #' @export
-node_bridges <- function(object){
-  g <- as_igraph(object)
+node_bridges <- function(.data){
+  g <- manynet::as_igraph(.data)
   .inc <- NULL
   out <- vapply(igraph::V(g), function(ego){
     length(igraph::E(g)[.inc(ego) & tie_is_bridge(g)==1])
   }, FUN.VALUE = numeric(1))
-  make_node_measure(out, object)
+  make_node_measure(out, .data)
 }
 
 #' @describeIn holes Returns a measure of the redundancy of each nodes'
@@ -49,8 +49,8 @@ node_bridges <- function(object){
 #' node_redundancy(ison_adolescents)
 #' node_redundancy(ison_southern_women)
 #' @export
-node_redundancy <- function(object){
-  g <- as_igraph(object)
+node_redundancy <- function(.data){
+  g <- manynet::as_igraph(.data)
   .inc <- NULL
   out <- vapply(igraph::V(g), function(ego){
     n = igraph::neighbors(g, ego)
@@ -58,7 +58,7 @@ node_redundancy <- function(object){
     n = length(n)
     2 * t / n
   }, FUN.VALUE = numeric(1))
-  make_node_measure(out, object)
+  make_node_measure(out, .data)
 }
 
 #' @describeIn holes Returns nodes' effective size
@@ -66,8 +66,8 @@ node_redundancy <- function(object){
 #' node_effsize(ison_adolescents)
 #' node_effsize(ison_southern_women)
 #' @export
-node_effsize <- function(object){
-  g <- as_igraph(object)
+node_effsize <- function(.data){
+  g <- manynet::as_igraph(.data)
   .inc <- NULL
   out <- vapply(igraph::V(g), function(ego){
     n = igraph::neighbors(g, ego)
@@ -75,7 +75,7 @@ node_effsize <- function(object){
     n = length(n)
     n - 2 * t / n
   }, FUN.VALUE = numeric(1))
-  make_node_measure(out, object)
+  make_node_measure(out, .data)
 }
 
 #' @describeIn holes Returns nodes' efficiency
@@ -83,9 +83,9 @@ node_effsize <- function(object){
 #' node_efficiency(ison_adolescents)
 #' node_efficiency(ison_southern_women)
 #' @export
-node_efficiency <- function(object){
-  out <- node_effsize(object) / node_degree(object, normalized = FALSE)
-  make_node_measure(as.numeric(out), object)
+node_efficiency <- function(.data){
+  out <- node_effsize(.data) / node_degree(.data, normalized = FALSE)
+  make_node_measure(as.numeric(out), .data)
 }
 
 #' @describeIn holes Returns nodes' constraint scores for one-mode networks
@@ -98,8 +98,8 @@ node_efficiency <- function(object){
 #' @examples
 #' node_constraint(ison_southern_women)
 #' @export 
-node_constraint <- function(object) {
-  if (is_twomode(object)) {
+node_constraint <- function(.data) {
+  if (manynet::is_twomode(.data)) {
     get_constraint_scores <- function(mat) {
       inst <- colnames(mat)
       rowp <- mat * matrix(1 / rowSums(mat), nrow(mat), ncol(mat))
@@ -129,15 +129,15 @@ node_constraint <- function(object) {
       names(res) <- inst
       res
     }
-    inst.res <- get_constraint_scores(as_matrix(object))
-    actr.res <- get_constraint_scores(t(as_matrix(object)))
+    inst.res <- get_constraint_scores(manynet::as_matrix(.data))
+    actr.res <- get_constraint_scores(t(manynet::as_matrix(.data)))
     res <- c(actr.res, inst.res)
   } else {
-    res <- igraph::constraint(as_igraph(object), 
-                              nodes = igraph::V(object), 
+    res <- igraph::constraint(manynet::as_igraph(.data), 
+                              nodes = igraph::V(.data), 
                               weights = NULL)
   }
-  res <- make_node_measure(res, object)
+  res <- make_node_measure(res, .data)
   res
 }
 
@@ -147,10 +147,10 @@ node_constraint <- function(object) {
 #' node_hierarchy(ison_adolescents)
 #' node_hierarchy(ison_southern_women)
 #' @export
-node_hierarchy <- function(object){
-  cs <- node_constraint(object)
-  g <- as_igraph(object)
-  out <- vapply(igraph::V(object), function(ego){
+node_hierarchy <- function(.data){
+  cs <- node_constraint(.data)
+  g <- manynet::as_igraph(.data)
+  out <- vapply(igraph::V(g), function(ego){
     n = igraph::neighbors(g, ego)
     N <- length(n)
     css <- cs[n]
@@ -159,5 +159,5 @@ node_hierarchy <- function(object){
     sum(rj*log(rj)) / (N * log(N))
   }, FUN.VALUE = numeric(1))
   out[is.nan(out)] <- 0
-  make_node_measure(out, object)
+  make_node_measure(out, .data)
 }

@@ -43,6 +43,7 @@ cluster_hierarchical <- function(census, distance){
 #' Then a distance matrix is constructed from records of in which partition phase
 #' nodes were separated, 
 #' and this is given to `stats::hclust()` so that dendrograms etc can be returned.
+#' @importFrom stats complete.cases
 #' @references 
 #' Breiger, Ronald L., Scott A. Boorman, and Phipps Arabie. 1975.  
 #'   "An Algorithm for Clustering Relational Data with Applications to 
@@ -50,7 +51,7 @@ cluster_hierarchical <- function(census, distance){
 #'   _Journal of Mathematical Psychology_, 12: 328-83.
 #'   \doi{10.1016/0022-2496(75)90028-0}.
 #' @export
-cluster_concor <- function(object, census){
+cluster_concor <- function(.data, census){
   split_cor <- function(m0, cutoff = 1) {
     if (ncol(m0) < 2 | all(stats::cor(m0)==1)) list(m0)
     else {
@@ -79,21 +80,26 @@ cluster_concor <- function(object, census){
   merges <- sapply(rev(1:(i-1)), 
                    function(p) lapply(p_group[[p]], 
                                       function(s){
-                                        g <- match(s, node_names(object))
+                                        g <- match(s, manynet::node_names(.data))
                                         if(length(g)==1) c(g, 0, p) else 
                                           if(length(g)==2) c(g, p) else
                                             c(t(cbind(t(utils::combn(g, 2)), p)))
                                       } ))
   merges <- c(merges, 
-              list(c(t(cbind(t(utils::combn(seq_len(network_nodes(object)), 2)), 0)))))
+              list(c(t(cbind(t(utils::combn(seq_len(manynet::network_nodes(.data)), 2)), 0)))))
   merged <- matrix(unlist(merges), ncol = 3, byrow = TRUE)
   merged <- merged[!duplicated(merged[,1:2]),]
   merged[,3] <- abs(merged[,3] - max(merged[,3]))
+  merged[merged == 0] <- NA
+  merged <- merged[stats::complete.cases(merged),]
+  merged <- as.data.frame(merged)
+  names(merged) <- c("from","to","weight")
   
-  distances <- as_matrix(as_igraph(as.data.frame(merged)))
+  distances <- manynet::as_matrix(manynet::as_igraph(merged))
   distances <- distances + t(distances)
-  distances <- distances[-which(rownames(distances)==0),-which(colnames(distances)==0)]
-  rownames(distances) <- colnames(distances) <- node_names(object)[as.numeric(colnames(distances))]
+  # distances <- distances[-which(rownames(distances)==0),-which(colnames(distances)==0)]
+  if(manynet::is_labelled(.data))
+    rownames(distances) <- colnames(distances) <- manynet::node_names(.data)
   hc <- hclust(d = as.dist(distances))
   hc$method <- "concor"
   hc$distances <- distances

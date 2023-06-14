@@ -24,9 +24,6 @@ navbar:
     reference:
       text: Function Overview
       href: reference/index.html
-    articles:
-      text: Practical Lessons
-      href: articles/index.html
     news:
       text: News
       href: news/index.html
@@ -34,25 +31,6 @@ navbar:
       icon: "fab fa-github fa-lg"
       href: https://github.com/snlab-ch/migraph
 reference:
-  - title: "Making"
-    desc: |
-      Functions for constructing, simulating, and importing
-      one-mode and two-mode networks:
-    contents:
-      - starts_with("create_")
-      - starts_with("generate_")
-      - starts_with("read")
-      - starts_with("write")
-  - title: "Manipulation"
-    desc: |
-      Functions for coercing objects between different classes, 
-      reformatting or transforming the type of network,
-      or adding information to or retrieving information from the network.
-    contents:
-      - starts_with("as_")
-      - starts_with("to_")
-      - add
-      - grab
   - title: "Marks"
     desc: |
       Functions for identifying properties of graphs, nodes or ties,
@@ -73,13 +51,12 @@ reference:
       two values.
     contents:
       - cohesion
-      - centrality
-      - tie_centrality
-      - centralisation
+      - ends_with("_centrality")
       - closure
       - holes
-      - diversity
+      - heterogeneity
       - features
+      - over
   - title: "Motifs"
     desc: |
       Functions for calculating subgraphs in multimodal networks.
@@ -104,18 +81,10 @@ reference:
       - regression
       - starts_with("play")
       - cluster
-  - title: "Mapping"
-    desc: "Functions for plotting and visualising graphs of different types:"
-    contents:
-      - auto_graph
-      - starts_with("layout_")
-      - gglineage
-      - ggevolution
+      - kselect
   - title: "Data"
     desc: |
-      The package contains two collections of multimodal, multilevel, and multiplex network data,
-      including data used in the book _Multimodal Political Networks_ (prefixed with `mpn_`)
-      and for the course 'Social Networks Theories and Methods' (`ison_`).
+      The package contains multimodal, multilevel, and multiplex network data,
+      used in the book _Multimodal Political Networks_ (prefixed with `mpn_`).
     contents:
       - starts_with("mpn_")
-      - starts_with("ison_")

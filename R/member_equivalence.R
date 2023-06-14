@@ -36,22 +36,12 @@
 #' @importFrom stats as.dist hclust cutree coef cor median
 #' @importFrom sna gcor
 #' @source \url{https://github.com/aslez/concoR}
-#' @references 
-#'  Thorndike, Robert L. 1953. 
-#'    "Who Belongs in the Family?". 
-#'    _Psychometrika_, 18(4): 267–76. 
-#'    \doi{10.1007/BF02289263}.
-#'
-#' Rousseeuw, Peter J. 1987. 
-#'   “Silhouettes: A Graphical Aid to the Interpretation and Validation of Cluster Analysis.” 
-#'   _Journal of Computational and Applied Mathematics_, 20: 53–65. 
-#'   \doi{10.1016/0377-0427(87)90125-7}.
 NULL
 
 #' @describeIn equivalence Returns nodes' membership in 
 #'   according to their equivalence with respective to some census/class
 #' @export
-node_equivalence <- function(object, census,
+node_equivalence <- function(.data, census,
                              k = c("silhouette", "elbow", "strict"),
                              cluster = c("hierarchical", "concor"),
                              distance = c("euclidean", "maximum", "manhattan", 
@@ -59,15 +49,15 @@ node_equivalence <- function(object, census,
                              range = 8L){
   hc <- switch(match.arg(cluster),
                hierarchical = cluster_hierarchical(census, match.arg(distance)),
-               concor = cluster_concor(object, census))
+               concor = cluster_concor(.data, census))
   
   if(!is.numeric(k))
     k <- switch(match.arg(k),
-                strict = k_strict(hc, object),
-                elbow = k_elbow(hc, object, census, range),
-                silhouette = k_silhouette(hc, object, range))
+                strict = k_strict(hc, .data),
+                elbow = k_elbow(hc, .data, census, range),
+                silhouette = k_silhouette(hc, .data, range))
   
-  out <- make_node_member(stats::cutree(hc, k), object)
+  out <- make_node_member(stats::cutree(hc, k), .data)
   attr(out, "hc") <- hc
   attr(out, "k") <- k
   out
@@ -81,17 +71,17 @@ node_equivalence <- function(object, census,
 #' plot(nse)
 #' }
 #' @export
-node_structural_equivalence <- function(object,
+node_structural_equivalence <- function(.data,
                                         k = c("silhouette", "elbow", "strict"),
                                         cluster = c("hierarchical", "concor"),
                                         distance = c("euclidean", "maximum", "manhattan", 
                                                      "canberra", "binary", "minkowski"),
                                         range = 8L){
-  mat <- node_tie_census(object)
+  mat <- node_tie_census(.data)
   if(any(colSums(t(mat))==0)){
     mat <- cbind(mat, (colSums(t(mat))==0))
   } 
-  node_equivalence(object, mat, 
+  node_equivalence(.data, mat, 
                    k = k, cluster = cluster, distance = distance, range = range)
 }
 
@@ -104,19 +94,19 @@ node_structural_equivalence <- function(object,
 #' plot(nre)
 #' }
 #' @export
-node_regular_equivalence <- function(object, 
+node_regular_equivalence <- function(.data, 
                                      k = c("silhouette", "elbow", "strict"),
                                      cluster = c("hierarchical", "concor"),
                                      distance = c("euclidean", "maximum", "manhattan", 
                                                   "canberra", "binary", "minkowski"),
                                      range = 8L){
-  if(is_twomode(object)){
-    mat <- as.matrix(node_quad_census(object))
+  if(manynet::is_twomode(.data)){
+    mat <- as.matrix(node_quad_census(.data))
   } else {
-    mat <- node_triad_census(object)
+    mat <- node_triad_census(.data)
   }
   if(any(colSums(mat) == 0)) mat <- mat[,-which(colSums(mat) == 0)]
-  node_equivalence(object, mat, 
+  node_equivalence(.data, mat, 
                    k = k, cluster = cluster, distance = distance, range = range)
 }
 
@@ -129,115 +119,13 @@ node_regular_equivalence <- function(object,
 #' plot(nae)
 #' }
 #' @export
-node_automorphic_equivalence <- function(object,
+node_automorphic_equivalence <- function(.data,
                                          k = c("silhouette", "elbow", "strict"),
                                          cluster = c("hierarchical", "concor"),
                                          distance = c("euclidean", "maximum", "manhattan", 
                                                       "canberra", "binary", "minkowski"),
                                          range = 8L){
-  mat <- node_path_census(object)
-  node_equivalence(object, mat, 
+  mat <- node_path_census(.data)
+  node_equivalence(.data, mat, 
                    k = k, cluster = cluster, distance = distance, range = range)
-}
-
-k_strict <- function(hc, object){
-  zero_merged <- hc$merge[round(hc$height,4) == 0,]
-  k <- nrow(zero_merged) + network_nodes(object) - sum(zero_merged < 0) + sum(zero_merged > 0)
-  k
-}
-
-k_elbow <- function(hc, object, census, range){
-  
-  clusterCorr <- function(observed_cor_matrix, cluster_vector) {
-    num_vertices = nrow(observed_cor_matrix)
-    cluster_cor_mat <- observed_cor_matrix
-    
-    obycor <- function(i, j) 
-      mean(observed_cor_matrix[which(cluster_vector[row(observed_cor_matrix)] ==
-                                       cluster_vector[i] &
-                                       cluster_vector[col(observed_cor_matrix)] ==
-                                       cluster_vector[j])])
-    obycor_v <- Vectorize(obycor)
-    cluster_cor_mat <- outer(1:num_vertices,
-                             1:num_vertices,
-                             obycor_v)
-    dimnames(cluster_cor_mat) <- dimnames(observed_cor_matrix)
-    cluster_cor_mat
-  }
-  
-  elbow_finder <- function(x_values, y_values) {
-    # Max values to create line
-    if(min(x_values)==1) x_values <- x_values[2:length(x_values)]
-    if(min(y_values)==0) y_values <- y_values[2:length(y_values)]
-    max_df <- data.frame(x = c(min(x_values), max(x_values)), 
-                         y = c(min(y_values), max(y_values)))
-    # Creating straight line between the max values
-    fit <- stats::lm(max_df$y ~ max_df$x)
-    # Distance from point to line
-    distances <- vector()
-    for (i in seq_len(length(x_values))) {
-      distances <- c(distances,
-                     abs(stats::coef(fit)[2]*x_values[i] -
-                           y_values[i] +
-                           coef(fit)[1]) /
-                       sqrt(stats::coef(fit)[2]^2 + 1^2))
-    }
-    # Max distance point
-    x_max_dist <- x_values[which.max(distances)]
-    x_max_dist
-  }
-  
-  vertices <- network_nodes(object)
-  observedcorrelation <- cor(t(census))
-
-  resultlist <- list()
-  correlations <- vector()
-  for (i in 2:min(range, vertices)) {
-    cluster_result <- list(label = NA, clusters = NA, correlation = NA)
-    cluster_result$label <- paste("number of clusters: ", 
-                                  i)
-    clusters <- stats::cutree(hc, k = i)
-    cluster_result$clusters <- clusters
-    cluster_cor_mat <- clusterCorr(observedcorrelation, clusters)
-    clustered_observed_cors <- sna::gcor(cluster_cor_mat, observedcorrelation)
-    cluster_result$correlation <- (clustered_observed_cors)
-    resultlist <- c(resultlist, cluster_result)
-    correlations <- c(correlations, clustered_observed_cors)
-  }
-  
-  resultlist$correlations <- c(correlations)
-  dafr <- data.frame(clusters = 2:min(range, vertices), 
-                     correlations = c(correlations))
-  correct <- NULL # to satisfy the error god
-  
-  # k identification method
-  elbow_finder(dafr$clusters, dafr$correlations)
-}
-
-k_silhouette <- function(hc, object, range){
-  kcs <- 2:min(range, network_nodes(object))
-  ns <- seq_len(network_nodes(object))
-  distances <- hc$distances
-  ks <- vector()
-  for(kc in kcs){
-    cand <- stats::cutree(hc, kc)
-    ai <- vector()
-    bi <- vector()
-    for(i in ns){
-      wig <- which(cand == cand[i])
-      wig <- wig[wig != i]
-      ai <- c(ai, 
-              ifelse(length(wig)==0,
-                     0, mean(as.matrix(distances)[i, wig])))
-      wog <- which(cand != cand[i])
-      bi <- c(bi, min(vapply(unique(cand[wog]), function(b){
-        mean(as.matrix(distances)[i, wog[cand[wog]==b]])
-      }, FUN.VALUE = numeric(1))))
-    }
-    si <- (bi - ai)/
-      apply(data.frame(ai, bi), 1, max)
-    ks <- c(ks, mean(si))
-  }
-  k <- which(ks == max(ks)) + 1
-  k
 }

@@ -7,7 +7,7 @@
 \usage{
 network_reg(
   formula,
-  object,
+  .data,
   method = c("qap", "qapy"),
   times = 1000,
   strategy = "sequential",
@@ -39,7 +39,7 @@ See Haunss and Hollway (2023) for more on this effect.
 \item dyadic covariates (other networks) can just be named
 }}
 
-\item{object}{An object of a migraph-consistent class:
+\item{.data}{An object of a \code{{manynet}}-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}

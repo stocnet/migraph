@@ -1,17 +1,27 @@
-make_node_measure <- function(out, object) {
+make_node_measure <- function(out, .data) {
   class(out) <- c("node_measure", class(out))
-  attr(out, "mode") <- node_mode(object)
+  attr(out, "mode") <- manynet::node_mode(.data)
   out
 }
 
-make_tie_measure <- function(out, object) {
+make_tie_measure <- function(out, .data) {
   class(out) <- c("tie_measure", class(out))
   out
 }
 
-make_network_measure <- function(out, object) {
+make_network_measure <- function(out, .data) {
   class(out) <- c("network_measure", class(out))
-  attr(out, "mode") <- network_dims(object)
+  attr(out, "mode") <- manynet::network_dims(.data)
+  out
+}
+
+make_network_measures <- function(out, .data) {
+  time <- value <- NULL
+  out <- dplyr::as_tibble(out) %>% 
+    dplyr::mutate(time = as.numeric(names(out))) %>% 
+    dplyr::select(time, value)
+  class(out) <- c("network_measures", class(out))
+  attr(out, "mode") <- manynet::network_dims(.data)
   out
 }
 
@@ -133,6 +143,16 @@ plot.tie_measure <- function(x, type = c("h", "d"), ...) {
   p + ggplot2::theme_classic() +
     ggplot2::theme(panel.grid.major = ggplot2::element_line(colour = "grey90"))
 }
+
+#' @export
+plot.network_measures <- function(x, ...) {
+  ggplot2::ggplot(data = x, ggplot2::aes(x = .data$time, y = .data$value)) +
+    ggplot2::geom_line() +
+    ggplot2::theme_minimal() +
+    ggplot2::xlab("Time") +
+    ggplot2::ylab("Value")
+}
+  
 
 # make tblvec ####
 print_tblvec <- function(y, names){

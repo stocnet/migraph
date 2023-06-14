@@ -7,7 +7,7 @@
 \title{Conditional uniform graph and permutation tests}
 \usage{
 test_random(
-  object,
+  .data,
   FUN,
   ...,
   times = 1000,
@@ -16,7 +16,7 @@ test_random(
 )
 
 test_permutation(
-  object,
+  .data,
   FUN,
   ...,
   times = 1000,
@@ -25,7 +25,7 @@ test_permutation(
 )
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
+\item{.data}{An object of a \code{{manynet}}-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
@@ -76,11 +76,11 @@ against a distribution of measures on permutations of the original network
 marvel_friends <- to_unsigned(ison_marvel_relationships)
 marvel_friends <- to_giant(marvel_friends) \%>\% 
   to_subgraph(PowerOrigin == "Human")
-(cugtest <- test_random(marvel_friends, network_homophily, attribute = "Attractive",
+(cugtest <- test_random(marvel_friends, network_heterophily, attribute = "Attractive",
   times = 200))
 plot(cugtest)
 (qaptest <- test_permutation(marvel_friends, 
-                network_homophily, attribute = "Attractive",
+                network_heterophily, attribute = "Attractive",
                 times = 200))
 plot(qaptest)
 }

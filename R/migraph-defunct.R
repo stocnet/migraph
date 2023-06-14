@@ -13,38 +13,6 @@ NULL
 
 #' @describeIn defunct Deprecated on 2022-06-28.
 #' @export
-add_edge_attribute <- function(object, attr_name, vector){
-  .Deprecated("add_tie_attribute", package = "migraph",
-              old = "add_edge_attribute")
-  add_tie_attribute(object, attr_name, vector)
-}
-
-#' @describeIn defunct Deprecated on 2022-06-28.
-#' @export
-edge_attribute <- function(object, attribute){
-  .Deprecated("tie_attribute", package = "migraph",
-              old = "edge_attribute")
-  tie_attribute(object, attribute)
-}
-
-#' @describeIn defunct Deprecated on 2022-06-28.
-#' @export
-edge_signs <- function(object){
-  .Deprecated("tie_signs", package = "migraph",
-              old = "edge_signs")
-  tie_signs(object)
-}
-
-#' @describeIn defunct Deprecated on 2022-06-28.
-#' @export
-edge_weights <- function(object){
-  .Deprecated("tie_weights", package = "migraph",
-              old = "edge_weights")
-  tie_weights(object)
-}
-
-#' @describeIn defunct Deprecated on 2022-06-28.
-#' @export
 edge_betweenness <- function(object, normalized = TRUE){
   .Deprecated("tie_betweenness", package = "migraph",
               old = "edge_betweenness")
@@ -107,68 +75,12 @@ edge_reciprocal <- function(object){
   tie_is_reciprocated(object)
 }
 
-#' @describeIn defunct Deprecated on 2022-06-28.
-#' @export
-graph_edge_attributes <- function(object){
-  .Deprecated("network_tie_attributes", package = "migraph",
-              old = "graph_edge_attributes")
-  network_tie_attributes(object)
-}
-
-#' @describeIn defunct Deprecated on 2022-09-25.
-#' @export
-graph_tie_attributes <- function(object){
-  .Deprecated("network_tie_attributes", package = "migraph",
-              old = "graph_tie_attributes")
-  network_tie_attributes(object)
-}
-
-#' @describeIn defunct Deprecated on 2022-06-28.
-#' @export
-graph_edges <- function(object){
-  .Deprecated("network_ties", package = "migraph",
-              old = "graph_edges")
-  network_ties(object)
-}
-
-#' @describeIn defunct Deprecated on 2022-09-25.
-#' @export
-graph_ties <- function(object){
-  .Deprecated("network_ties", package = "migraph",
-              old = "graph_ties")
-  network_ties(object)
-}
-
 #' @describeIn defunct Deprecated on 2022-06-30.
 #' @export
 node_cuts <- function(object){
   .Deprecated("node_is_cutpoint", package = "migraph",
               old = "node_cuts")
   node_is_cutpoint(object)
-}
-
-#' @describeIn defunct Deprecated on 2022-06-28.
-#' @export
-to_edges <- function(object){
-  .Deprecated("to_ties", package = "migraph",
-              old = "to_edges")
-  to_ties(object)
-}
-
-#' @describeIn defunct Deprecated on 2022-07-03.
-#' @export
-join_edges <- function(object, object2, attr_name){
-  .Deprecated("join_ties", package = "migraph",
-              old = "join_edges")
-  join_ties(object, object2, attr_name)
-}
-
-#' @describeIn defunct Deprecated on 2022-09-07.
-#' @export
-to_main_component <- function(object) {
-  .Deprecated("to_giant", package = "migraph",
-              old = "to_main_component")
-  to_giant(object)
 }
 
 #' @describeIn defunct Deprecated on 2022-09-10.
@@ -397,22 +309,6 @@ graph_length <- function(object) {
 
 #' @describeIn defunct Deprecated on 2022-09-25.
 #' @export
-graph_dims <- function(object) {
-  .Deprecated("network_dims", package = "migraph",
-              old = "graph_dims")
-  network_dims(object)
-}
-
-#' @describeIn defunct Deprecated on 2022-09-25.
-#' @export
-graph_nodes <- function(object) {
-  .Deprecated("network_nodes", package = "migraph",
-              old = "graph_nodes")
-  network_nodes(object)
-}
-
-#' @describeIn defunct Deprecated on 2022-09-25.
-#' @export
 graph_dyad_census <- function(object) {
   .Deprecated("network_dyad_census", package = "migraph",
               old = "graph_dyad_census")
@@ -446,17 +342,25 @@ graph_modularity <- function(object, membership = NULL, resolution = 1) {
 
 #' @describeIn defunct Deprecated on 2022-09-25.
 #' @export
-graph_node_attributes <- function(object) {
-  .Deprecated("network_node_attributes", package = "migraph",
-              old = "graph_node_attributes")
-  network_node_attributes(object)
-}
-
-#' @describeIn defunct Deprecated on 2022-09-25.
-#' @export
 graph_smallworld <- function(object, times = 100) {
   .Deprecated("network_smallworld", package = "migraph",
               old = "graph_smallworld")
   network_smallworld(object, times = times)
+}
+
+#' @describeIn defunct Deprecated on 2022-09-25.
+#' @export
+network_homophily <- function(object, attribute) {
+  .Deprecated("network_heterophily", package = "migraph",
+              old = "network_homophily")
+  network_heterophily(object, attribute)
+}
+
+#' @describeIn defunct Deprecated on 2022-09-25.
+#' @export
+node_homophily <- function(object, attribute) {
+  .Deprecated("node_heterophily", package = "migraph",
+              old = "node_homophily")
+  node_heterophily(object, attribute)
 }
 

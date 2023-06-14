@@ -92,14 +92,14 @@
 #' glance(model1)
 #' plot(model1)
 #' @export
-network_reg <- function(formula, object,
+network_reg <- function(formula, .data,
                         method = c("qap","qapy"),
                         times = 1000,
                         strategy = "sequential",
                         verbose = FALSE) {
   
   # Setup ####
-  matrixList <- convertToMatrixList(formula, object)
+  matrixList <- convertToMatrixList(formula, .data)
   convForm <- convertFormula(formula, matrixList)
   
   method <- match.arg(method)
@@ -108,9 +108,9 @@ network_reg <- function(formula, object,
   nx <- length(matrixList) - 1
   n <- dim(matrixList[[1]])
   
-  directed <- ifelse(is_directed(matrixList[[1]]), "digraph", "graph")
-  valued <- is_weighted(matrixList[[1]])
-  diag <- is_complex(matrixList[[1]])
+  directed <- ifelse(manynet::is_directed(matrixList[[1]]), "digraph", "graph")
+  valued <- manynet::is_weighted(matrixList[[1]])
+  diag <- manynet::is_complex(matrixList[[1]])
   
   if (any(vapply(lapply(g, is.na), any, 
                  FUN.VALUE = logical(1)))) 
@@ -169,14 +169,14 @@ network_reg <- function(formula, object,
     future::plan(strategy)
     if(valued){
       repdist <- furrr::future_map_dfr(1:times, function(j){
-        nlmfit(c(list(generate_permutation(g[[1]], with_attr = FALSE)),
+        nlmfit(c(list(manynet::generate_permutation(g[[1]], with_attr = FALSE)),
                  g[2:(nx+1)]),
                directed = directed, diag = diag,
                rety = FALSE)
       }, .progress = verbose, .options = furrr::furrr_options(seed = T))
     } else {
       repdist <- furrr::future_map_dfr(1:times, function(j){
-        repfit <- nlgfit(c(list(generate_permutation(g[[1]], with_attr = FALSE)),
+        repfit <- nlgfit(c(list(manynet::generate_permutation(g[[1]], with_attr = FALSE)),
                            g[2:(nx+1)]),
                          directed = directed, diag = diag)
         repfit$coef/sqrt(diag(chol2inv(repfit$qr$qr)))
@@ -204,14 +204,14 @@ network_reg <- function(formula, object,
       if(valued){
         repdist[,i] <- furrr::future_map_dbl(1:times, function(j){
           nlmfit(c(g[-(1 + i)],
-                   list(generate_permutation(xres, with_attr = FALSE))),
+                   list(manynet::generate_permutation(xres, with_attr = FALSE))),
                  directed = directed, diag = diag,
                  rety = FALSE)[nx]
         }, .progress = verbose, .options = furrr::furrr_options(seed = T))
       } else {
         repdist[,i] <- furrr::future_map_dbl(1:times, function(j){
           repfit <- nlgfit(c(g[-(1 + i)],
-                             list(generate_permutation(xres, with_attr = FALSE))),
+                             list(manynet::generate_permutation(xres, with_attr = FALSE))),
                            directed = directed, diag = diag)
           repfit$coef[nx]/sqrt(diag(chol2inv(repfit$qr$qr)))[nx]
         }, .progress = verbose, .options = furrr::furrr_options(seed = T))
@@ -274,8 +274,8 @@ nlgfit <- function(glist, directed, diag) {
 }
 
 vectorise_list <- function(glist, simplex, directed){
-  if(missing(simplex)) simplex <- !is_complex(glist[[1]])
-  if(missing(directed)) directed <- is_directed(glist[[1]])
+  if(missing(simplex)) simplex <- !manynet::is_complex(glist[[1]])
+  if(missing(directed)) directed <- manynet::is_directed(glist[[1]])
   if(simplex)
     diag(glist[[1]]) <- NA
   if(!directed)
@@ -285,16 +285,16 @@ vectorise_list <- function(glist, simplex, directed){
 }
 
 convertToMatrixList <- function(formula, data){
-  data <- as_tidygraph(data)
-  DV <- as_matrix(to_uniplex(data, 
+  data <- manynet::as_tidygraph(data)
+  DV <- manynet::as_matrix(manynet::to_uniplex(data, 
                              edge = getDependentName(formula)))
   IVnames <- getRHSNames(formula)
   IVs <- lapply(IVnames, function(IV){
     out <- lapply(seq_along(IV), function(elem){
       # ego ####
       if(IV[[elem]][1] == "ego"){
-        vct <- node_attribute(data, IV[[elem]][2])
-        if(is_twomode(data)) vct <- vct[!node_attribute(data, "type")]
+        vct <- manynet::node_attribute(data, IV[[elem]][2])
+        if(manynet::is_twomode(data)) vct <- vct[!manynet::node_attribute(data, "type")]
         if(is.character(vct) | is.factor(vct)){
           fct <- factor(vct)
           if(length(levels(fct)) == 2){
@@ -319,8 +319,8 @@ convertToMatrixList <- function(formula, data){
         }
         # alter ####
       } else if (IV[[elem]][1] == "alter"){
-          vct <- node_attribute(data, IV[[elem]][2])
-          if(is_twomode(data)) vct <- vct[node_attribute(data, "type")]
+          vct <- manynet::node_attribute(data, IV[[elem]][2])
+          if(manynet::is_twomode(data)) vct <- vct[manynet::node_attribute(data, "type")]
           if(is.character(vct) | is.factor(vct)){
             fct <- factor(vct)
             if(length(levels(fct)) == 2){
@@ -345,9 +345,9 @@ convertToMatrixList <- function(formula, data){
           }
           # same ####
       } else if (IV[[elem]][1] == "same"){
-        rows <- matrix(node_attribute(data, IV[[elem]][2]),
+        rows <- matrix(manynet::node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV))
-        cols <- matrix(node_attribute(data, IV[[elem]][2]),
+        cols <- matrix(manynet::node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV), byrow = TRUE)
         out <- (rows==cols)*1
         out <- list(out)
@@ -355,11 +355,11 @@ convertToMatrixList <- function(formula, data){
         out <- out
         # dist ####
       } else if (IV[[elem]][1] == "dist"){
-        if(is.character(node_attribute(data, IV[[elem]][2])))
+        if(is.character(manynet::node_attribute(data, IV[[elem]][2])))
           stop("Distance undefined for factors.")
-        rows <- matrix(node_attribute(data, IV[[elem]][2]),
+        rows <- matrix(manynet::node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV))
-        cols <- matrix(node_attribute(data, IV[[elem]][2]),
+        cols <- matrix(manynet::node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV), byrow = TRUE)
         out <- abs(rows - cols)
         out <- list(out)
@@ -367,11 +367,11 @@ convertToMatrixList <- function(formula, data){
         out <- out
         # sim ####
       } else if (IV[[elem]][1] == "sim"){
-        if(is.character(node_attribute(data, IV[[elem]][2])))
+        if(is.character(manynet::node_attribute(data, IV[[elem]][2])))
           stop("Similarity undefined for factors.")
-        rows <- matrix(node_attribute(data, IV[[elem]][2]),
+        rows <- matrix(manynet::node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV))
-        cols <- matrix(node_attribute(data, IV[[elem]][2]),
+        cols <- matrix(manynet::node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV), byrow = TRUE)
         out <- abs(1- abs(rows - cols)/max(abs(rows - cols)))
         out <- list(out)
@@ -379,8 +379,8 @@ convertToMatrixList <- function(formula, data){
         out <- out
         # tertius ####
       } else if (IV[[elem]][1] == "tertius"){
-        vct <- node_attribute(data, IV[[elem]][2])
-        if(is_twomode(data)) vct <- vct[!node_attribute(data, "type")]
+        vct <- manynet::node_attribute(data, IV[[elem]][2])
+        if(manynet::is_twomode(data)) vct <- vct[!manynet::node_attribute(data, "type")]
         val <- matrix(vct, nrow(DV), ncol(DV)) * DV
         if(is.na(IV[[elem]][3])) IV[[elem]][3] <- "mean"
         out <- t(vapply(seq_len(nrow(DV)), 
@@ -395,8 +395,8 @@ convertToMatrixList <- function(formula, data){
         names(out) <- paste(IV[[elem]], collapse = " ")
         out <- out
       } else {
-        if (IV[[elem]][1] %in% network_tie_attributes(data)){
-          out <- as_matrix(to_uniplex(data, 
+        if (IV[[elem]][1] %in% manynet::network_tie_attributes(data)){
+          out <- manynet::as_matrix(manynet::to_uniplex(data, 
                                       edge = IV[[elem]][1]))
           out <- list(out)
           names(out) <- IV[[elem]][1]

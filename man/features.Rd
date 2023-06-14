@@ -13,20 +13,20 @@
 \code{{signnet}} by David Schoch
 }
 \usage{
-network_core(object, membership = NULL)
+network_core(.data, membership = NULL)
 
-network_factions(object, membership = NULL)
+network_factions(.data, membership = NULL)
 
-network_modularity(object, membership = NULL, resolution = 1)
+network_modularity(.data, membership = NULL, resolution = 1)
 
-network_smallworld(object, method = c("omega", "sigma", "SWI"), times = 100)
+network_smallworld(.data, method = c("omega", "sigma", "SWI"), times = 100)
 
-network_scalefree(object)
+network_scalefree(.data)
 
-network_balance(object)
+network_balance(.data)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
+\item{.data}{An object of a \code{{manynet}}-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
@@ -76,6 +76,8 @@ and a core-periphery model with the same dimensions.
 
 \item \code{network_factions()}: Returns correlation between a given network
 and a component model with the same dimensions.
+If no 'membership' vector is given for the data,
+\code{node_kernaghinlin()} is used to obtain a partition into two groups.
 
 \item \code{network_modularity()}: Returns modularity based on nodes' membership
 in pre-defined clusters.
@@ -118,8 +120,8 @@ to the rest of the network through a single tie.
 \examples{
 network_core(ison_adolescents)
 network_core(ison_southern_women)
-network_factions(ison_adolescents)
-network_factions(ison_southern_women)
+  network_factions(mpn_elite_mex)
+  network_factions(ison_southern_women)
 network_modularity(ison_adolescents, 
   node_kernighanlin(ison_adolescents))
 network_modularity(ison_southern_women, 
@@ -163,12 +165,13 @@ Neal Zachary P. 2017.
 for how clustering is calculated
 
 Other measures: 
-\code{\link{centralisation}},
-\code{\link{centrality}},
+\code{\link{between_centrality}},
+\code{\link{close_centrality}},
 \code{\link{closure}},
 \code{\link{cohesion}()},
-\code{\link{diversity}},
-\code{\link{holes}},
-\code{\link{tie_centrality}}
+\code{\link{degree_centrality}},
+\code{\link{eigenv_centrality}},
+\code{\link{heterogeneity}},
+\code{\link{holes}}
 }
 \concept{measures}

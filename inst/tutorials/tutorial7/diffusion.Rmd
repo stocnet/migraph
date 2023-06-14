@@ -9,7 +9,9 @@ runtime: shiny_prerendered
 
 ```{r setup, include = FALSE}
 library(learnr)
+library(manynet)
 library(migraph)
+library(patchwork)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -19,7 +21,7 @@ In this tutorial, we're going to look at several diffusion processes
 and how they operate across various networks.
 Let's start off with creating and visualising a few networks 
 that we might be interested in here.
-Let's take the `ison_networkers` dataset from `{migraph}`,
+Let's take the `ison_networkers` dataset from `{manynet}`,
 and create or generate ring, lattice, random, scale-free, and small-world
 versions with the same number of nodes.
 
@@ -286,14 +288,15 @@ plot(play_diffusion(sf, seeds = node_is_max(node_degree(sf)), steps = 10)) /
 plot(play_diffusion(sf, seeds = node_is_min(node_degree(sf)), steps = 10))
 ```
 
-```{r scale-interp, echo = FALSE}
-question("Do you see any differences?",
-         answer("Yes", correct = TRUE),
-         answer("No"),
-        allow_retry = TRUE)
+```{r mindeg-interp, echo = FALSE}
+question("Which of these four led to the fastest diffusion process?",
+         answer("Minimum degree node(s), because there are many more nodes with the minimum degree.", correct = TRUE),
+         answer("Node 10 as seed, because it is the most influential."),
+         answer("Maximum degree node(s), because these nodes are the most influential."),
+         answer("A random node, because this time it selected a good seed."),
+        allow_retry = TRUE,
+        random_answer_order = TRUE)
 ```
-
-Why is choosing the _minimum_ degree nodes so much faster?
 
 ### Varying thresholds
 

@@ -5,10 +5,10 @@
 \alias{node_core}
 \title{Core-periphery clustering algorithms}
 \usage{
-node_core(object)
+node_core(.data)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
+\item{.data}{An object of a \code{{manynet}}-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}

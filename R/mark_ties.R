@@ -15,9 +15,9 @@ NULL
 #' @examples 
 #' tie_is_multiple(ison_marvel_relationships)
 #' @export
-tie_is_multiple <- function(object){
-  object <- as_igraph(object)
-  make_tie_mark(igraph::which_multiple(object), object)
+tie_is_multiple <- function(.data){
+  object <- manynet::as_igraph(.data)
+  make_tie_mark(igraph::which_multiple(.data), .data)
 }
 
 #' @describeIn mark_ties Returns logical of which ties are loops
@@ -25,9 +25,9 @@ tie_is_multiple <- function(object){
 #' @examples 
 #' tie_is_loop(ison_marvel_relationships)
 #' @export
-tie_is_loop <- function(object){
-  object <- as_igraph(object)
-  make_tie_mark(igraph::which_loop(object), object)
+tie_is_loop <- function(.data){
+  .data <- manynet::as_igraph(.data)
+  make_tie_mark(igraph::which_loop(.data), .data)
 }
 
 #' @describeIn mark_ties Returns logical of which ties 
@@ -36,9 +36,9 @@ tie_is_loop <- function(object){
 #' @examples 
 #' tie_is_reciprocated(ison_algebra)
 #' @export
-tie_is_reciprocated <- function(object){
-  object <- as_igraph(object) # allow for custom edge selection
-  make_tie_mark(igraph::which_mutual(object), object)
+tie_is_reciprocated <- function(.data){
+  .data <- manynet::as_igraph(.data) # allow for custom edge selection
+  make_tie_mark(igraph::which_mutual(.data), .data)
 }
 
 #' @describeIn mark_ties Returns logical of which ties cut
@@ -47,14 +47,14 @@ tie_is_reciprocated <- function(object){
 #' @examples 
 #' tie_is_bridge(ison_brandes)
 #' @export
-tie_is_bridge <- function(object){
-  num_comp <- length( igraph::decompose(as_igraph(object)) )
-  out <- vapply(seq_len(network_ties(object)), function(x){
-    length( igraph::decompose(igraph::delete.edges(object, x)) ) > num_comp
+tie_is_bridge <- function(.data){
+  num_comp <- length( igraph::decompose(manynet::as_igraph(.data)) )
+  out <- vapply(seq_len(manynet::network_ties(.data)), function(x){
+    length( igraph::decompose(igraph::delete.edges(.data, x)) ) > num_comp
   }, FUN.VALUE = logical(1))
-  if(is_labelled(object)) 
-    names(out) <- attr(igraph::E(object), "vnames")
-  make_tie_mark(out, object)
+  if(manynet::is_labelled(.data)) 
+    names(out) <- attr(igraph::E(.data), "vnames")
+  make_tie_mark(out, .data)
 }
 
 #' @describeIn mark_ties Returns logical of which ties 

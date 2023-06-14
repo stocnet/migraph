@@ -10,20 +10,20 @@
 \alias{node_hierarchy}
 \title{Measures of structural holes}
 \usage{
-node_bridges(object)
+node_bridges(.data)
 
-node_redundancy(object)
+node_redundancy(.data)
 
-node_effsize(object)
+node_effsize(.data)
 
-node_efficiency(object)
+node_efficiency(.data)
 
-node_constraint(object)
+node_constraint(.data)
 
-node_hierarchy(object)
+node_hierarchy(.data)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
+\item{.data}{An object of a \code{{manynet}}-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
@@ -97,12 +97,13 @@ Hollway, James, Jean-Frédéric Morin, and Joost Pauwelyn. 2020.
 }
 \seealso{
 Other measures: 
-\code{\link{centralisation}},
-\code{\link{centrality}},
+\code{\link{between_centrality}},
+\code{\link{close_centrality}},
 \code{\link{closure}},
 \code{\link{cohesion}()},
-\code{\link{diversity}},
+\code{\link{degree_centrality}},
+\code{\link{eigenv_centrality}},
 \code{\link{features}},
-\code{\link{tie_centrality}}
+\code{\link{heterogeneity}}
 }
 \concept{measures}

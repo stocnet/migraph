@@ -1,8 +1,10 @@
+# Features ####
+
 #' Marking networks based on their properties
 #' 
 #' These functions implement logical tests for various network
 #' properties.
-#' @param object An object of a migraph-consistent class:
+#' @param .data An object of a `{manynet}`-consistent class:
 #'   \itemize{
 #'   \item matrix (adjacency or incidence) from `{base}` R
 #'   \item edgelist, a data frame from `{base}` R or tibble from `{tibble}`
@@ -11,344 +13,45 @@
 #'   \item tbl_graph, from the `{tidygraph}` package
 #'   }
 #' @return TRUE if the condition is met, or FALSE otherwise.
+#' @importFrom manynet as_igraph is_directed is_twomode to_matching
 #' @family marks
 #' @name is
 NULL
 
-#' @describeIn is Tests whether network is migraph-compatible
-#' @importFrom igraph is.igraph
-#' @importFrom tidygraph is.tbl_graph
-#' @importFrom network is.network
-#' @export
-is_migraph <- function(object){
-  tidygraph::is.tbl_graph(object) |
-    network::is.network(object) |
-    igraph::is.igraph(object) |
-    (is.data.frame(object) & 
-       "from" %in% names(object) & "to" %in% names(object)) |
-    (is.matrix(object) & is.numeric(object))
-}
-
-#' @describeIn is Tests whether network contains graph-level information
-#' @importFrom igraph is.igraph
-#' @importFrom tidygraph is.tbl_graph
-#' @importFrom network is.network
-#' @export
-is_graph <- function(object) UseMethod("is_graph")
-
-#' @export
-is_graph.data.frame <- function(object){
-  FALSE
-}
-
-#' @export
-is_graph.matrix <- function(object){
-  FALSE
-}
-
-#' @export
-is_graph.tbl_graph <- function(object){
-  tidygraph::is.tbl_graph(object)
-}
-
-#' @export
-is_graph.igraph <- function(object){
-  igraph::is.igraph(object)
-}
-
-#' @export
-is_graph.network <- function(object){
-  FALSE
-}
-
-#' @describeIn is Tests whether data frame is an edgelist
-#' @export
-is_edgelist <- function(object) UseMethod("is_edgelist")
-  
-#' @export
-is_edgelist.data.frame <- function(object){
-  ncol(object) >= 2 & "from" %in% names(object) & "to" %in% names(object)
-}
-
-#' @export
-is_edgelist.matrix <- function(object){
-  FALSE
-}
-
-#' @export
-is_edgelist.network <- function(object){
-  FALSE
-}
-
-#' @export
-is_edgelist.igraph <- function(object){
-  FALSE
-}
-
-#' @export
-is_edgelist.tbl_graph <- function(object){
-  FALSE
-}
-
-#' @describeIn is Tests whether network is a two-mode network
-#' @importFrom igraph is.bipartite
-#' @examples
-#' is_twomode(ison_southern_women)
-#' @export
-is_twomode <- function(object) UseMethod("is_twomode")
-
-#' @export
-is_twomode.igraph <- function(object) {
-  igraph::is.bipartite(object)
-}
-
-#' @export
-is_twomode.tbl_graph <- function(object) {
-  igraph::is.bipartite(object)
-}
-
-#' @export
-is_twomode.matrix <- function(object) {
-  out <- dim(object)[1] != dim(object)[2]
-  if(!out & is_labelled(object))
-    out <- !all(rownames(object)==colnames(object))
-  out
-}
-
-#' @export
-is_twomode.network <- function(object) {
-  object <- as_matrix(object)
-  dim(object)[1] != dim(object)[2]
-}
-
-#' @export
-is_twomode.data.frame <- function(object) {
-  is_edgelist(object) && 
-    length(intersect(object[,1], object[,2])) == 0
-}
-
-#' @describeIn is Tests whether network is weighted
-#' @importFrom igraph is.weighted
-#' @examples
-#' is_weighted(ison_southern_women)
-#' @export
-is_weighted <- function(object) UseMethod("is_weighted")
-
-#' @export
-is_weighted.igraph <- function(object) {
-  igraph::is.weighted(object)
-}
-
-#' @export
-is_weighted.tbl_graph <- function(object) {
-  igraph::is.weighted(object)
-}
-
-#' @export
-is_weighted.matrix <- function(object) {
-  !all(object == 0 | object == 1)
-}
-
-#' @export
-is_weighted.network <- function(object) {
-  "weight" %in% network::list.edge.attributes(object)
-}
-
-#' @export
-is_weighted.data.frame <- function(object) {
-  ncol(object)>=3 && 
-    ("weight" %in% names(object) | is.numeric(object[,3]))
-}
-
-#' @describeIn is Tests whether network is directed
-#' @importFrom igraph is.directed
-#' @examples
-#' is_directed(ison_algebra)
-#' @export
-is_directed <- function(object) UseMethod("is_directed")
-
-#' @export
-is_directed.data.frame <- function(object) {
-  !(network_reciprocity(object) == 0 |
-    network_reciprocity(object) == 1)
-}
-
-#' @export
-is_directed.igraph <- function(object) {
-  if(is_twomode(object)) FALSE else igraph::is.directed(object)
-}
-
-#' @export
-is_directed.tbl_graph <- function(object) {
-  if(is_twomode(object)) FALSE else igraph::is.directed(object)
-}
-
-#' @export
-is_directed.network <- function(object) {
-    object$gal$directed
-}
-
-#' @export
-is_directed.matrix <- function(object) {
-  if(is_twomode(object)) FALSE else !isSymmetric(object)
-}
-
-#' @describeIn is Tests whether network includes names for the nodes
-#' @importFrom igraph is.named
-#' @examples
-#' is_labelled(ison_southern_women)
-#' @export
-is_labelled <- function(object) UseMethod("is_labelled")
-
-#' @export
-is_labelled.igraph <- function(object) {
-  igraph::is.named(object)
-}
-
-#' @export
-is_labelled.tbl_graph <- function(object) {
-  igraph::is.named(object)
-}
-
-#' @export
-is_labelled.matrix <- function(object) {
-  !is.null(dimnames(object))
-}
-
-#' @export
-is_labelled.network <- function(object) {
-  object <- as_matrix(object)
-  !is.null(dimnames(object))
-}
-
-#' @export
-is_labelled.data.frame <- function(object) {
-  is.character(object[,1]) & is.character(object[,2])
-}
-
-#' @describeIn is Tests whether network is signed positive/negative
-#' @importFrom igraph edge_attr_names
-#' @examples
-#' is_signed(ison_southern_women)
-#' @export
-is_signed <- function(object) UseMethod("is_signed")
-
-is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  
-  abs(x - round(x)) < tol
-
-#' @export
-is_signed.data.frame <- function(object) {
-  all(is.wholenumber(object[,3])) && any(object[,3] < 0)
-}
-
-#' @export
-is_signed.matrix <- function(object) {
-  all(is.wholenumber(c(object))) && any(object < 0)
-}
-
-#' @export
-is_signed.igraph <- function(object) {
-  "sign" %in% igraph::edge_attr_names(object)
-}
-
-#' @export
-is_signed.tbl_graph <- function(object) {
-  "sign" %in% igraph::edge_attr_names(object)
-}
-
-#' @export
-is_signed.network <- function(object) {
-  "sign" %in% network::list.edge.attributes(object)
-}
-
 #' @describeIn is Tests whether network is weakly connected if
 #'   the network is undirected or strongly connected if directed.
 #'   To test weak connection on a directed network,
-#'   please see `to_undirected()`.
+#'   please see `manynet::to_undirected()`.
 #' @importFrom igraph is.connected
 #' @examples
 #' is_connected(ison_southern_women)
 #' @export
-is_connected <- function(object) {
-  igraph::is.connected(as_igraph(object), 
-                       mode = ifelse(is_directed(object),
+is_connected <- function(.data) {
+  igraph::is.connected(manynet::as_igraph(.data), 
+                       mode = ifelse(manynet::is_directed(.data),
                                      "strong", "weak"))
 }
 
-#' @describeIn is Tests whether network contains any loops
-#' @importFrom igraph is.loop
+#' @describeIn is Tests whether there is a matching for a network
+#'   that covers every node in the network
+#' @param mark A logical vector marking two types or modes.
+#'   By default "type".
 #' @examples
-#' is_complex(ison_southern_women)
+#' is_perfect_matching(ison_southern_women)
 #' @export
-is_complex <- function(object) UseMethod("is_complex")
-
-#' @export
-is_complex.igraph <- function(object) {
-  any(igraph::which_loop(object))
+is_perfect_matching <- function(.data, mark = "type"){
+  matches <- manynet::to_matching(.data, mark = mark)
+  manynet::network_ties(matches)*2 == manynet::network_nodes(matches)
 }
 
+#' @describeIn is Tests whether there is a Eulerian path for a network
+#'   where that path passes through every tie exactly once
+#'   @importFrom igraph has_eulerian_path
+#' @examples
+#' is_eulerian(ison_brandes)
 #' @export
-is_complex.tbl_graph <- function(object) {
-  any(igraph::which_loop(object))
-}
-
-#' @export
-is_complex.matrix <- function(object) {
-  !(is_twomode(object) || all(is.na(diag(object))) || all(diag(object) == 0))
-}
-
-#' @export
-is_complex.data.frame <- function(object) {
-  any(object[,1] == object[,2])
-}
-
-#' @export
-is_complex.network <- function(object) {
-  network::has.loops(object)
-}
-
-#' @describeIn is Tests whether network is multiplex,
-#'   either from multiple rows with the same sender and receiver,
-#'   or multiple columns to the edgelist.
-#' @importFrom igraph any_multiple
-#' @export
-is_multiplex <- function(object) UseMethod("is_multiplex")
-
-#' @export
-is_multiplex.matrix <- function(object){
-  FALSE
-}
-
-#' @export
-is_multiplex.tbl_graph <- function(object){
-  igraph::any_multiple(object) |
-    length(network_tie_attributes(object)) > 1
-}
-
-#' @export
-is_multiplex.igraph <- function(object){
-  igraph::any_multiple(object) |
-    length(network_tie_attributes(object)) > 1
-}
-
-#' @export
-is_multiplex.network <- function(object){
-  network::is.multiplex(object)
-}
-
-#' @export
-is_multiplex.data.frame <- function(object){
-  ncol(object) > 3
-}
-
-#' @describeIn is Tests whether network is simple (both uniplex and simplex)
-#' @importFrom igraph is.simple
-#' @examples 
-#' is_uniplex(ison_algebra)
-#' @export
-is_uniplex <- function(object){
-  object <- as_igraph(object)
-  igraph::is.simple(object)
+is_eulerian <- function(.data){
+  igraph::has_eulerian_path(manynet::as_igraph(.data))
 }
 
 #' @describeIn is Tests whether network is a directed acyclic graph
@@ -356,9 +59,9 @@ is_uniplex <- function(object){
 #' @examples 
 #' is_acyclic(ison_algebra)
 #' @export
-is_acyclic <- function(object){
-  object <- as_igraph(object)
-  igraph::is_dag(object)
+is_acyclic <- function(.data){
+  obj <- manynet::as_igraph(.data)
+  igraph::is_dag(obj)
 }
 
 #' @describeIn is Tests whether network is aperiodic
@@ -369,8 +72,8 @@ is_acyclic <- function(object){
 #' @examples 
 #' is_aperiodic(ison_algebra)
 #' @export
-is_aperiodic <- function(object, max_path_length = 4){
-  g <- as_igraph(object)
+is_aperiodic <- function(.data, max_path_length = 4){
+  g <- manynet::as_igraph(.data)
   out <- NULL
   for(v1 in igraph::V(g)) {
     if(igraph::degree(g, v1, mode="in") == 0) {next}
@@ -378,34 +81,12 @@ is_aperiodic <- function(object, max_path_length = 4){
     goodNeighbors <- goodNeighbors[goodNeighbors > v1]
     out <- c(out, unlist(lapply(goodNeighbors, function(v2){
       vapply(igraph::all_simple_paths(g, v2, v1, mode="out", 
-                     cutoff = max_path_length), length, FUN.VALUE = numeric(1))
+                                      cutoff = max_path_length), length, FUN.VALUE = numeric(1))
     })))
   }
   if (!("minMSE" %in% rownames(utils::installed.packages()))) {
     message("Please install package `{minMSE}` from CRAN.")
   } else {
-  minMSE::vector_gcd(out)==1
+    minMSE::vector_gcd(out)==1
   }
-}
-
-#' @describeIn is Tests whether there is a matching for a network
-#'   that covers every node in the network
-#' @param mark A logical vector marking two types or modes.
-#'   By default "type".
-#' @examples
-#' is_perfect_matching(ison_southern_women)
-#' @export
-is_perfect_matching <- function(object, mark = "type"){
-  matches <- to_matching(object, mark = mark)
-  network_ties(matches)*2 == network_nodes(matches)
-}
-
-#' @describeIn is Tests whether there is a Eulerian path for a network
-#'   where that path passes through every tie exactly once
-#'   @importFrom igraph has_eulerian_path
-#' @examples
-#' is_eulerian(ison_brandes)
-#' @export
-is_eulerian <- function(object){
-  igraph::has_eulerian_path(as_igraph(object))
 }

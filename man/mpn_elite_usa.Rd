@@ -7,11 +7,8 @@
 \alias{mpn_elite_usa_money}
 \title{Two-mode and three-mode American power elite database (Domhoff 2016)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 34 nodes and 46 edges
-#> #
-#> # A bipartite simple graph with 1 component
-#> #
-#> # Node Data: 34 x 2 (active)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, two-mode tbl_graph with 34 nodes and 46 ties
+#> # A tibble: 34 x 2
 #>   type  name    
 #>   <lgl> <chr>   
 #> 1 FALSE Albright
@@ -20,22 +17,21 @@
 #> 4 FALSE Curry   
 #> 5 FALSE Fukuyama
 #> 6 FALSE Gray    
-#> # ... with 28 more rows
-#> #
-#> # Edge Data: 46 x 2
+#> # i 28 more rows
+#> # A tibble: 46 x 2
 #>    from    to
 #>   <int> <int>
 #> 1     1    17
 #> 2     1    19
 #> 3     1    21
-#> # ... with 43 more rows
+#> 4     2    22
+#> 5     2    23
+#> 6     2    27
+#> # i 40 more rows
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A tbl_graph: 38 nodes and 103 edges
-#> #
-#> # A bipartite simple graph with 1 component
-#> #
-#> # Node Data: 38 x 2 (active)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, two-mode tbl_graph with 38 nodes and 103 ties
+#> # A tibble: 38 x 2
 #>   type  name    
 #>   <lgl> <chr>   
 #> 1 FALSE Adkerson
@@ -44,15 +40,17 @@
 #> 4 FALSE Boyce   
 #> 5 FALSE Britt   
 #> 6 FALSE Cannon  
-#> # ... with 32 more rows
-#> #
-#> # Edge Data: 103 x 2
+#> # i 32 more rows
+#> # A tibble: 103 x 2
 #>    from    to
 #>   <int> <int>
 #> 1     1    27
 #> 2     1    28
 #> 3     1    34
-#> # ... with 100 more rows
+#> 4     1    36
+#> 5     2    28
+#> 6     2    32
+#> # i 97 more rows
 }\if{html}{\out{</div>}}
 }
 \usage{

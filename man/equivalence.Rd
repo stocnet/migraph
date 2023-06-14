@@ -12,7 +12,7 @@
 }
 \usage{
 node_equivalence(
-  object,
+  .data,
   census,
   k = c("silhouette", "elbow", "strict"),
   cluster = c("hierarchical", "concor"),
@@ -21,7 +21,7 @@ node_equivalence(
 )
 
 node_structural_equivalence(
-  object,
+  .data,
   k = c("silhouette", "elbow", "strict"),
   cluster = c("hierarchical", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
@@ -29,7 +29,7 @@ node_structural_equivalence(
 )
 
 node_regular_equivalence(
-  object,
+  .data,
   k = c("silhouette", "elbow", "strict"),
   cluster = c("hierarchical", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
@@ -37,7 +37,7 @@ node_regular_equivalence(
 )
 
 node_automorphic_equivalence(
-  object,
+  .data,
   k = c("silhouette", "elbow", "strict"),
   cluster = c("hierarchical", "concor"),
   distance = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski"),
@@ -45,7 +45,7 @@ node_automorphic_equivalence(
 )
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
+\item{.data}{An object of a \code{{manynet}}-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
@@ -120,17 +120,6 @@ plot(nre)
   k = "elbow"))
 plot(nae)
 }
-}
-\references{
-Thorndike, Robert L. 1953.
-"Who Belongs in the Family?".
-\emph{Psychometrika}, 18(4): 267–76.
-\doi{10.1007/BF02289263}.
-
-Rousseeuw, Peter J. 1987.
-“Silhouettes: A Graphical Aid to the Interpretation and Validation of Cluster Analysis.”
-\emph{Journal of Computational and Applied Mathematics}, 20: 53–65.
-\doi{10.1016/0377-0427(87)90125-7}.
 }
 \seealso{
 Other memberships: 

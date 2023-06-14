@@ -8,16 +8,16 @@
 \alias{node_coreness}
 \title{Component partitioning algorithms}
 \usage{
-node_components(object)
+node_components(.data)
 
-node_weak_components(object)
+node_weak_components(.data)
 
-node_strong_components(object)
+node_strong_components(.data)
 
-node_coreness(object)
+node_coreness(.data)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
+\item{.data}{An object of a \code{{manynet}}-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}

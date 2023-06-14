@@ -16,13 +16,13 @@ NULL
 #' node_kernighanlin(ison_adolescents)
 #' node_kernighanlin(ison_southern_women)
 #' @export
-node_kernighanlin <- function(object){
+node_kernighanlin <- function(.data){
   # assign groups arbitrarily
-  n <- network_nodes(object)
+  n <- manynet::network_nodes(.data)
   group_size <- ifelse(n %% 2 == 0, n/2, (n+1)/2)
   
   # count internal and external costs of each vertex
-  g <- as_matrix(to_multilevel(object))
+  g <- manynet::as_matrix(manynet::to_multilevel(.data))
   g1 <- g[1:group_size, 1:group_size]
   g2 <- g[(group_size+1):n, (group_size+1):n]
   intergroup <- g[1:group_size, (group_size+1):n]
@@ -57,9 +57,9 @@ node_kernighanlin <- function(object){
   }
   
   # extract names of vertices in each group after swaps
-  out <- ifelse(node_names(object) %in% g1.newnames, 1, 2)
-  if(is_labelled(object)) names(out) <- node_names(object)
-  make_node_member(out, object)
+  out <- ifelse(manynet::node_names(.data) %in% g1.newnames, 1, 2)
+  if(manynet::is_labelled(.data)) names(out) <- manynet::node_names(.data)
+  make_node_member(out, .data)
 }
 
 #' @describeIn community A hierarchical, agglomerative algorithm based on random walks.
@@ -73,10 +73,10 @@ node_kernighanlin <- function(object){
 #' @examples
 #' node_walktrap(ison_adolescents)
 #' @export
-node_walktrap <- function(object, times = 50){
-  out <- igraph::cluster_walktrap(as_igraph(object), 
+node_walktrap <- function(.data, times = 50){
+  out <- igraph::cluster_walktrap(manynet::as_igraph(.data), 
                            steps=times)$membership
-  make_node_member(out, object)
+  make_node_member(out, .data)
   
 }
 
@@ -96,11 +96,10 @@ node_walktrap <- function(object, times = 50){
 #' @examples
 #' node_edge_betweenness(ison_adolescents)
 #' @export
-node_edge_betweenness <- function(object){
-  out <- igraph::cluster_edge_betweenness(as_igraph(object)
-                                          )$membership
-  make_node_member(out, object)
-  
+node_edge_betweenness <- function(.data){
+  out <- suppressWarnings(igraph::cluster_edge_betweenness(
+    manynet::as_igraph(.data))$membership)
+  make_node_member(out, .data)
 }
 
 #' @describeIn community A hierarchical, agglomerative algorithm, 
@@ -116,9 +115,8 @@ node_edge_betweenness <- function(object){
 #' @examples
 #' node_fast_greedy(ison_adolescents)
 #' @export
-node_fast_greedy <- function(object){
-  out <- igraph::cluster_fast_greedy(as_igraph(object)
+node_fast_greedy <- function(.data){
+  out <- igraph::cluster_fast_greedy(manynet::as_igraph(.data)
   )$membership
-  make_node_member(out, object)
-  
+  make_node_member(out, .data)
 }

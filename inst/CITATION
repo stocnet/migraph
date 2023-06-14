@@ -1,9 +1,13 @@
 citHeader("To cite migraph in publications use:")
 
-citEntry(
-  entry    = "manual",
-  title    = "migraph: Tools for multimodal network analysis",
-  author   = "James Hollway",
-  year     = 2021,
-  textVersion = "J. Hollway. migraph: Tools for multimodal network analysis. 2021."
-)
+bibentry(
+     bibtype = "Manual",
+     title = "migraph: Multimodal Network Analysis and More",
+     author = c(
+       person("James", "Hollway", 
+       role = c("cre", "aut", "ctb"),
+       email = "james.hollway@graduateinstitute.ch")
+     ),
+     year = "2021",
+     url = "https://github.com/snlab-ch/migraph"
+   )

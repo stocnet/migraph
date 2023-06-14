@@ -10,20 +10,27 @@
 \alias{network_congruency}
 \title{Measures of network closure}
 \usage{
-network_reciprocity(object, method = "default")
+network_reciprocity(.data, method = "default")
 
-node_reciprocity(object)
+node_reciprocity(.data)
 
-network_transitivity(object)
+network_transitivity(.data)
 
-node_transitivity(object)
+node_transitivity(.data)
 
-network_equivalency(object)
+network_equivalency(.data)
 
-network_congruency(object, object2)
+network_congruency(.data, object2)
 }
 \arguments{
-\item{object}{A one-mode or two-mode matrix, igraph, or tidygraph}
+\item{.data}{An object of a \code{{manynet}}-consistent class:
+\itemize{
+\item matrix (adjacency or incidence) from \code{{base}} R
+\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
+\item igraph, from the \code{{igraph}} package
+\item network, from the \code{{network}} package
+\item tbl_graph, from the \code{{tidygraph}} package
+}}
 
 \item{method}{For reciprocity, either \code{default} or \code{ratio}.
 See \code{?igraph::reciprocity}}
@@ -81,12 +88,13 @@ Cambridge University Press. Cambridge University Press.
 }
 \seealso{
 Other measures: 
-\code{\link{centralisation}},
-\code{\link{centrality}},
+\code{\link{between_centrality}},
+\code{\link{close_centrality}},
 \code{\link{cohesion}()},
-\code{\link{diversity}},
+\code{\link{degree_centrality}},
+\code{\link{eigenv_centrality}},
 \code{\link{features}},
-\code{\link{holes}},
-\code{\link{tie_centrality}}
+\code{\link{heterogeneity}},
+\code{\link{holes}}
 }
 \concept{measures}

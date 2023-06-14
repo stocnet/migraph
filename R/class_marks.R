@@ -1,12 +1,12 @@
-make_node_mark <- function(out, object) {
+make_node_mark <- function(out, .data) {
   class(out) <- c("node_mark", class(out))
-  if (is.null(names(out)) && is_labelled(object))
-    names(out) <- node_names(object)
-  attr(out, "mode") <- node_mode(object)
+  if (is.null(names(out)) && manynet::is_labelled(.data))
+    names(out) <- manynet::node_names(.data)
+  attr(out, "mode") <- manynet::node_mode(.data)
   out
 }
 
-make_tie_mark <- function(out, object) {
+make_tie_mark <- function(out, .data) {
   class(out) <- c("tie_mark", class(out))
   out
 }

@@ -16,29 +16,29 @@ NULL
 #' marvel_friends <- to_unsigned(ison_marvel_relationships)
 #' marvel_friends <- to_giant(marvel_friends) %>% 
 #'   to_subgraph(PowerOrigin == "Human")
-#' (cugtest <- test_random(marvel_friends, network_homophily, attribute = "Attractive",
+#' (cugtest <- test_random(marvel_friends, network_heterophily, attribute = "Attractive",
 #'   times = 200))
 #' plot(cugtest)
 #' @export
-test_random <- function(object, FUN, ..., 
+test_random <- function(.data, FUN, ..., 
                         times = 1000, 
                         strategy = "sequential", 
                         verbose = FALSE){
   args <- unlist(list(...))
   if (!is.null(args)) {
-    obsd <- FUN(object, args)
+    obsd <- FUN(.data, args)
   } else {
-    obsd <- FUN(object)
+    obsd <- FUN(.data)
   }
-  n <- network_nodes(object)
-  d <- network_density(object)
+  n <- manynet::network_nodes(.data)
+  d <- network_density(.data)
   future::plan(strategy)
-  rands <- furrr::future_map(1:times, generate_random, n = n, p = d, 
+  rands <- furrr::future_map(1:times, manynet::generate_random, n = n, p = d, 
                              .progress = verbose, 
                              .options = furrr::furrr_options(seed = T))
   if (length(args) > 0) {
     rands <- furrr::future_map(rands, 
-                               copy_node_attributes, object2 = object, 
+                               manynet::bind_node_attributes, object2 = .data, 
                                .progress = verbose, 
                                .options = furrr::furrr_options(seed = T))
   }
@@ -52,8 +52,8 @@ test_random <- function(object, FUN, ...,
   out <- list(test = "CUG",
               testval = obsd,
               testdist = simd,
-              mode = is_directed(object),
-              diag = is_complex(object),
+              mode = manynet::is_directed(.data),
+              diag = manynet::is_complex(.data),
               cmode = "csize",
               plteobs = mean(simd <= obsd),
               pgteobs = mean(simd >= obsd),
@@ -65,25 +65,25 @@ test_random <- function(object, FUN, ...,
 #'   against a distribution of measures on permutations of the original network
 #' @examples 
 #' (qaptest <- test_permutation(marvel_friends, 
-#'                 network_homophily, attribute = "Attractive",
+#'                 network_heterophily, attribute = "Attractive",
 #'                 times = 200))
 #' plot(qaptest)
 #' @export
-test_permutation <- function(object, FUN, ..., 
+test_permutation <- function(.data, FUN, ..., 
                              times = 1000, 
                              strategy = "sequential", 
                              verbose = FALSE){
   args <- unlist(list(...))
   if (!is.null(args)) {
-    obsd <- FUN(object, args)
+    obsd <- FUN(.data, args)
   } else {
-    obsd <- FUN(object)
+    obsd <- FUN(.data)
   }
-  n <- network_nodes(object)
-  d <- network_density(object)
+  n <- manynet::network_nodes(.data)
+  d <- network_density(.data)
   future::plan(strategy)
   rands <- furrr::future_map(1:times, 
-                  function(x) as_igraph(generate_permutation(object)), 
+                  function(x) manynet::as_igraph(manynet::generate_permutation(.data)), 
                   .progress = verbose, 
                   .options = furrr::furrr_options(seed = T))
   if (!is.null(args)) {
@@ -100,8 +100,8 @@ test_permutation <- function(object, FUN, ...,
   out <- list(test = "QAP",
               testval = obsd,
               testdist = simd,
-              mode = is_directed(object),
-              diag = is_complex(object),
+              mode = manynet::is_directed(.data),
+              diag = manynet::is_complex(.data),
               plteobs = mean(simd <= obsd),
               pgteobs = mean(simd >= obsd),
               reps = times)

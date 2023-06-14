@@ -8,16 +8,16 @@
 \alias{node_fast_greedy}
 \title{Community graph partitioning algorithms}
 \usage{
-node_kernighanlin(object)
+node_kernighanlin(.data)
 
-node_walktrap(object, times = 50)
+node_walktrap(.data, times = 50)
 
-node_edge_betweenness(object)
+node_edge_betweenness(.data)
 
-node_fast_greedy(object)
+node_fast_greedy(.data)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
+\item{.data}{An object of a \code{{manynet}}-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}

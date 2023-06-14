@@ -10,14 +10,14 @@
 Alejandro Espinosa 'netmem'
 }
 \usage{
-network_dyad_census(object)
+network_dyad_census(.data)
 
-network_triad_census(object)
+network_triad_census(.data)
 
-network_mixed_census(object, object2)
+network_mixed_census(.data, object2)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
+\item{.data}{An object of a \code{{manynet}}-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
@@ -42,10 +42,10 @@ a one-mode and a two-mode network
 
 }}
 \examples{
-network_dyad_census(ison_algebra)
-network_triad_census(ison_adolescents)
-marvel_friends <- to_unsigned(ison_marvel_relationships, "positive")
-(mixed_cen <- network_mixed_census(marvel_friends, ison_marvel_teams))
+network_dyad_census(manynet::ison_algebra)
+network_triad_census(manynet::ison_adolescents)
+marvel_friends <- manynet::to_unsigned(manynet::ison_marvel_relationships, "positive")
+(mixed_cen <- network_mixed_census(marvel_friends, manynet::ison_marvel_teams))
 }
 \references{
 Davis, James A., and Samuel Leinhardt. 1967.

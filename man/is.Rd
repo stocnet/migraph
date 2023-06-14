@@ -2,61 +2,28 @@
 % Please edit documentation in R/mark_is.R
 \name{is}
 \alias{is}
-\alias{is_migraph}
-\alias{is_graph}
-\alias{is_edgelist}
-\alias{is_twomode}
-\alias{is_weighted}
-\alias{is_directed}
-\alias{is_labelled}
-\alias{is_signed}
 \alias{is_connected}
-\alias{is_complex}
-\alias{is_multiplex}
-\alias{is_uniplex}
-\alias{is_acyclic}
-\alias{is_aperiodic}
 \alias{is_perfect_matching}
 \alias{is_eulerian}
+\alias{is_acyclic}
+\alias{is_aperiodic}
 \title{Marking networks based on their properties}
 \source{
 https://stackoverflow.com/questions/55091438/r-igraph-find-all-cycles
 }
 \usage{
-is_migraph(object)
+is_connected(.data)
 
-is_graph(object)
+is_perfect_matching(.data, mark = "type")
 
-is_edgelist(object)
+is_eulerian(.data)
 
-is_twomode(object)
+is_acyclic(.data)
 
-is_weighted(object)
-
-is_directed(object)
-
-is_labelled(object)
-
-is_signed(object)
-
-is_connected(object)
-
-is_complex(object)
-
-is_multiplex(object)
-
-is_uniplex(object)
-
-is_acyclic(object)
-
-is_aperiodic(object, max_path_length = 4)
-
-is_perfect_matching(object, mark = "type")
-
-is_eulerian(object)
+is_aperiodic(.data, max_path_length = 4)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
+\item{.data}{An object of a \code{{manynet}}-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
@@ -65,12 +32,12 @@ is_eulerian(object)
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
 
+\item{mark}{A logical vector marking two types or modes.
+By default "type".}
+
 \item{max_path_length}{Maximum path length considered.
 If negative, paths of all lengths are considered.
 By default 4, to avoid potentially very long computation times.}
-
-\item{mark}{A logical vector marking two types or modes.
-By default "type".}
 }
 \value{
 TRUE if the condition is met, or FALSE otherwise.
@@ -81,38 +48,10 @@ properties.
 }
 \section{Functions}{
 \itemize{
-\item \code{is_migraph()}: Tests whether network is migraph-compatible
-
-\item \code{is_graph()}: Tests whether network contains graph-level information
-
-\item \code{is_edgelist()}: Tests whether data frame is an edgelist
-
-\item \code{is_twomode()}: Tests whether network is a two-mode network
-
-\item \code{is_weighted()}: Tests whether network is weighted
-
-\item \code{is_directed()}: Tests whether network is directed
-
-\item \code{is_labelled()}: Tests whether network includes names for the nodes
-
-\item \code{is_signed()}: Tests whether network is signed positive/negative
-
 \item \code{is_connected()}: Tests whether network is weakly connected if
 the network is undirected or strongly connected if directed.
 To test weak connection on a directed network,
-please see \code{to_undirected()}.
-
-\item \code{is_complex()}: Tests whether network contains any loops
-
-\item \code{is_multiplex()}: Tests whether network is multiplex,
-either from multiple rows with the same sender and receiver,
-or multiple columns to the edgelist.
-
-\item \code{is_uniplex()}: Tests whether network is simple (both uniplex and simplex)
-
-\item \code{is_acyclic()}: Tests whether network is a directed acyclic graph
-
-\item \code{is_aperiodic()}: Tests whether network is aperiodic
+please see \code{manynet::to_undirected()}.
 
 \item \code{is_perfect_matching()}: Tests whether there is a matching for a network
 that covers every node in the network
@@ -121,20 +60,17 @@ that covers every node in the network
 where that path passes through every tie exactly once
 @importFrom igraph has_eulerian_path
 
+\item \code{is_acyclic()}: Tests whether network is a directed acyclic graph
+
+\item \code{is_aperiodic()}: Tests whether network is aperiodic
+
 }}
 \examples{
-is_twomode(ison_southern_women)
-is_weighted(ison_southern_women)
-is_directed(ison_algebra)
-is_labelled(ison_southern_women)
-is_signed(ison_southern_women)
 is_connected(ison_southern_women)
-is_complex(ison_southern_women)
-is_uniplex(ison_algebra)
-is_acyclic(ison_algebra)
-is_aperiodic(ison_algebra)
 is_perfect_matching(ison_southern_women)
 is_eulerian(ison_brandes)
+is_acyclic(ison_algebra)
+is_aperiodic(ison_algebra)
 }
 \seealso{
 Other marks: 

@@ -10,20 +10,20 @@
 \alias{network_length}
 \title{Measures of network cohesion or connectedness}
 \usage{
-network_density(object)
+network_density(.data)
 
-network_components(object)
+network_components(.data)
 
-network_cohesion(object)
+network_cohesion(.data)
 
-network_adhesion(object)
+network_adhesion(.data)
 
-network_diameter(object)
+network_diameter(.data)
 
-network_length(object)
+network_length(.data)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
+\item{.data}{An object of a \code{{manynet}}-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
@@ -38,12 +38,12 @@ and the number of nodes or edges to remove that would increase fragmentation.
 }
 \section{Functions}{
 \itemize{
-\item \code{network_density()}: summarises the ratio of ties
+\item \code{network_density()}: Summarises the ratio of ties
 to the number of possible ties.
 
 \item \code{network_components()}: Returns number of (strong) components in the network.
 To get the 'weak' components of a directed graph,
-please use \code{to_undirected()} first.
+please use \code{manynet::to_undirected()} first.
 
 \item \code{network_cohesion()}: Returns the minimum number of nodes to remove
 from the network needed to increase the number of components.
@@ -59,14 +59,16 @@ to remove from the network to increase the number of components.
 \examples{
 network_density(mpn_elite_mex)
 network_density(mpn_elite_usa_advice)
-network_cohesion(ison_marvel_relationships)
-network_cohesion(to_giant(ison_marvel_relationships))
-network_adhesion(ison_marvel_relationships)
-network_adhesion(to_giant(ison_marvel_relationships))
-network_diameter(ison_marvel_relationships)
-network_diameter(to_giant(ison_marvel_relationships))
-network_length(ison_marvel_relationships)
-network_length(to_giant(ison_marvel_relationships))
+network_components(mpn_ryanair)
+network_components(manynet::to_undirected(mpn_ryanair))
+network_cohesion(manynet::ison_marvel_relationships)
+network_cohesion(manynet::to_giant(manynet::ison_marvel_relationships))
+network_adhesion(manynet::ison_marvel_relationships)
+network_adhesion(manynet::to_giant(manynet::ison_marvel_relationships))
+network_diameter(manynet::ison_marvel_relationships)
+network_diameter(manynet::to_giant(manynet::ison_marvel_relationships))
+network_length(manynet::ison_marvel_relationships)
+network_length(manynet::to_giant(manynet::ison_marvel_relationships))
 }
 \references{
 White, Douglas R and Frank Harary. 2001.
@@ -75,12 +77,13 @@ White, Douglas R and Frank Harary. 2001.
 }
 \seealso{
 Other measures: 
-\code{\link{centralisation}},
-\code{\link{centrality}},
+\code{\link{between_centrality}},
+\code{\link{close_centrality}},
 \code{\link{closure}},
-\code{\link{diversity}},
+\code{\link{degree_centrality}},
+\code{\link{eigenv_centrality}},
 \code{\link{features}},
-\code{\link{holes}},
-\code{\link{tie_centrality}}
+\code{\link{heterogeneity}},
+\code{\link{holes}}
 }
 \concept{measures}

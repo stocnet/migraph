@@ -9,7 +9,9 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(manynet)
 library(migraph)
+library(patchwork)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -30,12 +32,12 @@ and then look at how the introduction of some randomness can _generate_ a variet
 ## Deterministic graphs
 
 To begin with, let's create a few 'empty' and full or 'complete' graphs.
-You will want to use some of the `create_*()` group of functions,
+You will want to use some of the `create_*()` group of functions from `{manynet}`,
 because they create graphs following some strict rule(s).
-The two functions you will want to use here are `create_empty()` and `create_complete()`.
+The two functions you will want to use here are `create_empty()` and `create_filled()`.
 `create_empty()` creates an empty graph with the given number of nodes, 
 in this case 50 nodes.
-For `create_complete()` we're creating a full graph,
+For `create_filled()` we're creating a full graph,
 where all of the nodes are connected to all of the other nodes.
 
 Let's say that we want to explore networks of fifty nodes in this script.
@@ -50,8 +52,8 @@ Add that too.
 
 ```{r empty-solution}
 (autographr(create_empty(50), "circle") + ggtitle("Empty graph"))
-(autographr(to_undirected(create_complete(50))) + ggtitle("Complete graph"))
-(autographr(to_undirected(create_complete(50/2))) + ggtitle("Complete graph (smaller)"))
+(autographr(to_undirected(create_filled(50))) + ggtitle("Complete graph"))
+(autographr(to_undirected(create_filled(50/2))) + ggtitle("Complete graph (smaller)"))
 ```
 
 ### Stars
@@ -108,7 +110,7 @@ where there is a high likelihood that interaction partners also interact.
 They are used to show how clustering facilitates or limits diffusion
 or makes pockets of behaviour stable.
 
-Note that `create_lattice()` in `{migraph}` works a little differently
+Note that `create_lattice()` in `{manynet}` works a little differently
 to how it works in `{igraph}`.
 In `{igraph}` the number or vector passed to the function indicates
 the length of each dimension.
@@ -123,7 +125,7 @@ _But_ this doesn't help us when we want to see what a lattice representation
 with the same order (number of nodes) as a given network would be.
 For example, perhaps we just want to know what a lattice with 50 nodes
 would look like.
-So `{migraph}` instead tries to find the most even or balanced 
+So `{manynet}` instead tries to find the most even or balanced 
 two-dimensional representation with a given number of nodes.
 
 Graph two lattices, one with 50 nodes, 
@@ -164,7 +166,7 @@ Graph three ring networks:
 Next we are going to take a look at some probabilistic graphs.
 These involve some random element, perhaps in addition to specific rules,
 to stochastically 'generate' networks of certain types of topologies.
-As such, we'll be using the `generate_*()` group of functions here.
+As such, we'll be using the `generate_*()` group of functions from `{manynet}`.
 
 ### Random graphs
 
@@ -318,7 +320,7 @@ will be split evenly between core and periphery partitions).
 
 Let's consider identifying the core and peripheral nodes
 in a network.
-Let's use the `ison_brandes` dataset,
+Let's use the `ison_brandes` dataset from `{manynet}`,
 and identify the core/periphery assignment of the _nodes_.
 Graph the data with the core/periphery assignment.
 

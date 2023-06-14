@@ -173,16 +173,16 @@ plot.netlogit <- function(x, ...){
 }
 
 # diff_model ####
-make_diff_model <- function(events, report, object) {
+make_diff_model <- function(events, report, .data) {
   class(report) <- c("diff_model", class(report))
   attr(report, "events") <- events
-  attr(report, "mode") <- node_mode(object)
+  attr(report, "mode") <- manynet::node_mode(.data)
   report
 }
 
-make_diffs_model <- function(report, object) {
+make_diffs_model <- function(report, .data) {
   class(report) <- c("diffs_model", class(report))
-  attr(report, "mode") <- node_mode(object)
+  attr(report, "mode") <- manynet::node_mode(.data)
   report
 }
 
@@ -209,7 +209,7 @@ summary.diff_model <- function(object, ...){
 summary.diffs_model <- function(object, ...){
   sim <- fin <- NULL
   object %>% dplyr::mutate(fin = (I!=n)*1) %>% 
-    group_by(sim) %>% summarise(toa = sum(fin)+1)
+    dplyr::group_by(sim) %>% dplyr::summarise(toa = sum(fin)+1)
 }
 
 #' @importFrom dplyr left_join
@@ -220,19 +220,23 @@ plot.diff_model <- function(x, ...){
     S <- E <- I <- I_new <- R <- NULL # initialize variables to avoid CMD check notes
     data <- x
     p <- ggplot2::ggplot(data) + 
-      ggplot2::geom_line(ggplot2::aes(x = t, y = S/n), color = "blue") +
-      ggplot2::geom_line(ggplot2::aes(x = t, y = I/n), color = "red") +
+      ggplot2::geom_line(ggplot2::aes(x = t, y = S/n, color = "A"),size = 1.25) +
+      ggplot2::geom_line(ggplot2::aes(x = t, y = I/n, color = "C"),size = 1.25) +
       ggplot2::geom_col(ggplot2::aes(x = t, y = I_new/n), 
                         alpha = 0.4) +
       ggplot2::theme_minimal() + ggplot2::ylim(0,1) +
       ggplot2::ylab("Proportion") + ggplot2::xlab("Steps")
     if(any(data$E>0))
       p <- p +
-      ggplot2::geom_line(ggplot2::aes(x = t, y = E/n), color = "orange")
+      ggplot2::geom_line(ggplot2::aes(x = t, y = E/n, color = "B"),size = 1.25)
     if(any(data$R>0))
       p <- p +
-      ggplot2::geom_line(ggplot2::aes(x = t, y = R/n), color = "darkgreen")
-    p
+      ggplot2::geom_line(ggplot2::aes(x = t, y = R/n, color = "D"),size = 1.25)
+    p + ggplot2::scale_color_manual("Legend", 
+                            labels = c("Susceptible", "Exposed", "Infected", "Recovered"),
+                            values = c(A = "blue", B = "orange", 
+                                       C = "red", D = "darkgreen"),
+                            guide = "legend")
   }
 }
 
@@ -244,30 +248,34 @@ plot.diffs_model <- function(x, ...){
     
     p <- ggplot2::ggplot(data) + 
       # ggplot2::geom_point(ggplot2::aes(x = t, y = S/n))
-      ggplot2::geom_smooth(ggplot2::aes(x = t, y = S/n), color = "blue", 
+      ggplot2::geom_smooth(ggplot2::aes(x = t, y = S/n, color = "A"), 
                            method = "loess", se=TRUE, level = .95, formula = 'y~x') +
-      ggplot2::geom_smooth(ggplot2::aes(x = t, y = I/n), color = "red", 
+      ggplot2::geom_smooth(ggplot2::aes(x = t, y = I/n, color = "C"), 
                            method = "loess", se=TRUE, level = .95, formula = 'y~x') +
       ggplot2::theme_minimal() + ggplot2::ylim(0,1) +
       ggplot2::ylab("Proportion") + ggplot2::xlab("Steps")
     if(any(data$E>0))
       p <- p +
-      ggplot2::geom_smooth(ggplot2::aes(x = t, y = E/n), color = "orange", 
+      ggplot2::geom_smooth(ggplot2::aes(x = t, y = E/n, color = "B"), 
                            method = "loess", se=TRUE, level = .95, formula = 'y~x')
     if(any(data$R>0))
       p <- p +
-      ggplot2::geom_smooth(ggplot2::aes(x = t, y = R/n), color = "darkgreen", 
+      ggplot2::geom_smooth(ggplot2::aes(x = t, y = R/n, color = "D"), 
                            method = "loess", se=TRUE, level = .95, formula = 'y~x')
-    p
+    p + ggplot2::scale_color_manual("Legend", 
+                                    labels = c("Susceptible", "Exposed", "Infected", "Recovered"),
+                                    values = c(A = "blue", B = "orange", 
+                                               C = "red", D = "darkgreen"),
+                                    guide = "legend")
 }
 
 # learn_model ####
-make_learn_model <- function(out, object) {
+make_learn_model <- function(out, .data) {
   out <- as.data.frame(out)
-  if(is_labelled(object))
-    names(out) <- node_names(object)
+  if(manynet::is_labelled(.data))
+    names(out) <- manynet::node_names(.data)
   class(out) <- c("learn_model", class(out))
-  attr(out, "mode") <- node_mode(object)
+  attr(out, "mode") <- manynet::node_mode(.data)
   out
 }
 

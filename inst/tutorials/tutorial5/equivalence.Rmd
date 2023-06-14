@@ -9,14 +9,16 @@ runtime: shiny_prerendered
 
 ```{r setup, include = FALSE}
 library(learnr)
+library(manynet)
 library(migraph)
+library(patchwork)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
 ## Setting up
 
-The data we're going to use here is included in the `{migraph}` package.
+The data we're going to use here is included in the `{manynet}` package.
 This dataset is multiplex, meaning that it contains 
 several different types of ties: 
 friendship, social and task interactions.
@@ -27,14 +29,14 @@ friendship, social and task interactions.
 
 ```{r data-hint}
 # Let's call and load the 'ison_algebra' dataset
-data("ison_algebra", package = "migraph")
+data("ison_algebra", package = "manynet")
 
 # If you want to learn more about the 'ison_algebra' dataset, use the following function (below)
-?migraph::ison_algebra
+?manynet::ison_algebra
 ```
 
 ```{r data-solution}
-data("ison_algebra", package = "migraph")
+data("ison_algebra", package = "manynet")
 ```
 
 Note that you do not need to load the package using `library()` to get the data.

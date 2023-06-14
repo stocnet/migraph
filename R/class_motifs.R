@@ -1,12 +1,12 @@
-make_node_motif <- function(out, object) {
+make_node_motif <- function(out, .data) {
   class(out) <- c("node_motif", class(out))
-  attr(out, "mode") <- node_mode(object)
+  attr(out, "mode") <- manynet::node_mode(.data)
   out
 }
 
-make_network_motif <- function(out, object) {
+make_network_motif <- function(out, .data) {
   class(out) <- c("network_motif", class(out))
-  attr(out, "mode") <- network_dims(object)
+  attr(out, "mode") <- manynet::network_dims(.data)
   out
 }
 

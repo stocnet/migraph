@@ -10,20 +10,20 @@
 \alias{tie_is_min}
 \title{Marking ties based on their properties}
 \usage{
-tie_is_multiple(object)
+tie_is_multiple(.data)
 
-tie_is_loop(object)
+tie_is_loop(.data)
 
-tie_is_reciprocated(object)
+tie_is_reciprocated(.data)
 
-tie_is_bridge(object)
+tie_is_bridge(.data)
 
 tie_is_max(tie_measure)
 
 tie_is_min(tie_measure)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
+\item{.data}{An object of a \code{{manynet}}-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}

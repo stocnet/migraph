@@ -9,7 +9,9 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(manynet)
 library(migraph)
+library(patchwork)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -17,16 +19,16 @@ knitr::opts_chunk$set(echo = FALSE)
 
 For this session, we'll explore a couple of different datasets.
 
-First, let's examine homogeneity/heterogeneity in the Marvel relationships dataset,
+First, let's examine homogeneity/heterogeneity in the Marvel relationships dataset from `{manynet}`,
 `ison_marvel_relationships`.
-The dataset included in the package is quite complicated,
+The dataset is quite complicated,
 so to make this simpler, let's concentrate on:
 
 - just the positive (friendship) ties and not the negative (enmity) ties
 - the main (giant) component without any isolates
 - just those characters that appear in the comics more than average
 
-Fortunately, all these data cleaning moves are easy to do in `{migraph}`,
+Fortunately, all these data cleaning moves are easy to do in `{manynet}`,
 and can be seen in the following chunk in order:
 
 ```{r friends, exercise=TRUE}
@@ -188,9 +190,9 @@ network_homophily(____, ____)
 ```
 
 ```{r ei-solution}
-(obs.gender <- network_homophily(marvel_friends, "Gender"))
-(obs.powers <- network_homophily(marvel_friends, "PowerOrigin")) 
-(obs.attract <- network_homophily(marvel_friends, "Attractive")) 
+(obs.gender <- network_heterophily(marvel_friends, "Gender"))
+(obs.powers <- network_heterophily(marvel_friends, "PowerOrigin")) 
+(obs.attract <- network_heterophily(marvel_friends, "Attractive")) 
 ```
 
 ```{r homophily-present, echo=FALSE}
@@ -320,10 +322,10 @@ test_permutation(____, FUN = ____, attribute = ____,
 
 ```{r testpermute-solution}
 perm.gender <- test_permutation(marvel_friends, 
-                                network_homophily, attribute = "Gender",
+                                network_heterophily, attribute = "Gender",
                                 times = 1000)
 perm.power <- test_permutation(marvel_friends, 
-                               network_homophily, attribute = "PowerOrigin",
+                               network_heterophily, attribute = "PowerOrigin",
                                 times = 1000)
 ```
 

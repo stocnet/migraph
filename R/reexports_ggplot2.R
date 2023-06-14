@@ -6,6 +6,10 @@ ggplot2::ggplot
 #' @export
 ggplot2::ggtitle
 
+#' @importFrom ggplot2 guides
+#' @export
+ggplot2::guides
+
 #' @importFrom ggplot2 labs
 #' @export
 ggplot2::labs

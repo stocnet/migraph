@@ -22,6 +22,7 @@
 \alias{bind_edges}
 \alias{ggplot}
 \alias{ggtitle}
+\alias{guides}
 \alias{labs}
 \alias{xlab}
 \alias{ylab}
@@ -38,9 +39,9 @@ below to see their documentation.
 
   \item{generics}{\code{\link[generics]{glance}}, \code{\link[generics]{tidy}}}
 
-  \item{ggplot2}{\code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2:labs]{ggtitle}}, \code{\link[ggplot2]{labs}}, \code{\link[ggplot2:labs]{xlab}}, \code{\link[ggplot2:labs]{ylab}}}
+  \item{ggplot2}{\code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2:labs]{ggtitle}}, \code{\link[ggplot2]{guides}}, \code{\link[ggplot2]{labs}}, \code{\link[ggplot2:labs]{xlab}}, \code{\link[ggplot2:labs]{ylab}}}
 
-  \item{igraph}{\code{\link[igraph:is_igraph]{is.igraph}}, \code{\link[igraph:make_bipartite_graph]{is_bipartite}}}
+  \item{igraph}{\code{\link[igraph:make_bipartite_graph]{is_bipartite}}, \code{\link[igraph:is_igraph]{is.igraph}}}
 
   \item{network}{\code{\link[network:network]{as.network}}, \code{\link[network:network]{is.network}}}
 

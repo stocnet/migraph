@@ -8,16 +8,16 @@
 \alias{node_path_census}
 \title{Censuses of nodes' motifs}
 \usage{
-node_tie_census(object)
+node_tie_census(.data)
 
-node_triad_census(object)
+node_triad_census(.data)
 
-node_quad_census(object)
+node_quad_census(.data)
 
-node_path_census(object)
+node_path_census(.data)
 }
 \arguments{
-\item{object}{An object of a migraph-consistent class:
+\item{.data}{An object of a \code{{manynet}}-consistent class:
 \itemize{
 \item matrix (adjacency or incidence) from \code{{base}} R
 \item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
@@ -34,10 +34,10 @@ of nodes. Included also are group census functions for summarising
 the profiles of clusters of nodes in a network.
 
 #' @export
-node_igraph_census <- function(object, normalized = FALSE){
-out <- igraph::motifs(as_igraph(object), 4)
-if(is_labelled(object))
-rownames(out) <- node_names(object)
+node_igraph_census <- function(.data, normalized = FALSE){
+out <- igraph::motifs(manynet::as_igraph(.data), 4)
+if(manynet::is_labelled(.data))
+rownames(out) <- manynet::node_names(.data)
 colnames(out) <- c("co-K4",
 "co-diamond",
 "co-C4",
@@ -49,7 +49,7 @@ colnames(out) <- c("co-K4",
 "C4",
 "diamond",
 "K4")
-make_node_motif(out, object)
+make_node_motif(out, .data)
 }
 }
 \details{
@@ -95,12 +95,12 @@ of each node to every other node in the network.
 
 }}
 \examples{
-task_eg <- to_named(to_uniplex(ison_algebra, "task_tie"))
+task_eg <- manynet::to_named(manynet::to_uniplex(manynet::ison_algebra, "task_tie"))
 (tie_cen <- node_tie_census(task_eg))
 (triad_cen <- node_triad_census(task_eg))
-node_quad_census(ison_southern_women)
-node_path_census(ison_adolescents)
-node_path_census(ison_southern_women)
+node_quad_census(manynet::ison_southern_women)
+node_path_census(manynet::ison_adolescents)
+node_path_census(manynet::ison_southern_women)
 }
 \references{
 Davis, James A., and Samuel Leinhardt. 1967.

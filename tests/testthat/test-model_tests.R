@@ -1,8 +1,8 @@
-# Making sure the tests family of functions works as intended.
-marvel_friends <- to_giant(to_unsigned(ison_marvel_relationships)) %>%
-  to_subgraph(PowerOrigin == "Human")
+# # Making sure the tests family of functions works as intended.
+marvel_friends <- manynet::to_giant(manynet::to_unsigned(manynet::ison_marvel_relationships)) %>%
+  manynet::to_subgraph(PowerOrigin == "Human")
 cugtest <- test_random(marvel_friends,
-                       network_homophily,
+                       network_heterophily,
                        attribute = "Attractive",
                        times = 200)
 cugtest2 <- test_random(marvel_friends,
@@ -34,11 +34,11 @@ test_that("test_random works", {
 })
 
 # Set the qaptest up
-marvel_friends <- to_unsigned(ison_marvel_relationships)
-marvel_friends <- to_giant(marvel_friends)
-marvel_friends <- to_subgraph(marvel_friends, PowerOrigin == "Human")
+marvel_friends <- manynet::to_unsigned(manynet::ison_marvel_relationships)
+marvel_friends <- manynet::to_giant(marvel_friends)
+marvel_friends <- manynet::to_subgraph(marvel_friends, PowerOrigin == "Human")
 qaptest <- test_permutation(marvel_friends,
-                            network_homophily,
+                            network_heterophily,
                             attribute = "Attractive",
                             times = 200)
 test_that("test_permutation works", {
