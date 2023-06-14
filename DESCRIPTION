@@ -1,5 +1,5 @@
 Package: migraph
-Title: Tools for Multimodal Network Analysis
+Title: Multimodal Network Analysis and More
 Version: 1.0.0
 Date: 2023-06-13
 Description: A set of tools for analysing multimodal networks.
@@ -42,8 +42,6 @@ Suggests:
     ggdendro,
     minMSE,
     oaqc,
-    Rgraphviz,
-    RSiena,
     roxygen2,
     rsconnect,
     testthat,
