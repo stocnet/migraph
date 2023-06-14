@@ -345,9 +345,9 @@ convertToMatrixList <- function(formula, data){
           }
           # same ####
       } else if (IV[[elem]][1] == "same"){
-        rows <- matrix(node_attribute(data, IV[[elem]][2]),
+        rows <- matrix(manynet::node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV))
-        cols <- matrix(node_attribute(data, IV[[elem]][2]),
+        cols <- matrix(manynet::node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV), byrow = TRUE)
         out <- (rows==cols)*1
         out <- list(out)

@@ -221,6 +221,24 @@ play_learning <- function(.data,
 
 
 #' @describeIn play Playing Schelling segregation on networks.
+#' @param attribute A string naming some nodal attribute in the network.
+#'   Currently only tested for binary attributes.
+#' @param heterophily A score ranging between -1 and 1 as a threshold for 
+#'   how heterophilous nodes will accept their neighbours to be.
+#'   A single proportion means this threshold is shared by all nodes,
+#'   but it can also be a vector the same length of the nodes in the network
+#'   for issuing different thresholds to different nodes.
+#'   By default this is 0, meaning nodes will be dissatisfied if more than half
+#'   of their neighbours differ on the given attribute.
+#' @param who_moves One of the following options:
+#'   "ordered" (the default) checks each node in turn for whether they are
+#'   dissatisfied and there is an available space that they can move to,
+#'   "random" will check a node at random, 
+#'   and "most_dissatisfied" will check (one of) the most dissatisfied nodes first.
+#' @param choice_function One of the following options:
+#'   "satisficing" (the default) will move the node to any coordinates that satisfy
+#'   their heterophily threshold,
+#'   whereas "optimising" will move the node to coordinates that are most homophilous.
 #' @examples 
 #'   startValues <- rbinom(100,1,prob = 0.5)
 #'   startValues[sample(seq_len(100), round(100*0.2))] <- NA

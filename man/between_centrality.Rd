@@ -31,6 +31,9 @@ network_betweenness(
 Different denominators are used depending on whether the object is one-mode or two-mode,
 the type of centrality, and other arguments.}
 
+\item{cutoff}{The maximum path length to consider when calculating betweenness.
+If negative or NULL (the default), there's no limit to the path lengths considered.}
+
 \item{direction}{Character string, “out” bases the measure on outgoing ties,
 “in” on incoming ties, and "all" on either/the sum of the two.
 For two-mode networks, "all" uses as numerator the sum of differences
