@@ -1,3 +1,46 @@
+# migraph 1.0.0
+
+## Package
+
+- Breaking changes by moving the making, manipulating, and mapping functions to `{manynet}`
+  - All `create_*()` and `generate_*()` functions are now in `{manynet}`
+  - All `read_*()` and `write_*()` functions are now in `{manynet}`
+  - All `as_*()` and `to_*()` functions are now in `{manynet}`
+  - Most `is_*()` functions are now in `{manynet}`
+  - All `add_*()` and `join_*()` functions are now in `{manynet}`
+  - Functions that grab metadata from network objects, 
+  e.g. `network_nodes()`, `node_names()`, and `tie_weights()`, are now in `{manynet}`
+  - All `autograph*()` functions are now in `{manynet}`
+  - `{manynet}` is now a Depends, but many dependencies removed or moved to `{manynet}`
+- Most functions now expect `.data` as their first argument; previously it was `object`
+- Moved data vignette (now a tutorial) and visualisation tutorial to `{manynet}`
+- Updated README and pkgdown structure accordingly
+
+## Measures
+
+- Added `over_time()` and `over_waves()` to measure (potentially parallelised) over split graphs
+  - Added class construction and a plot method for resulting `network_measures` object
+- Each of the four main types of centrality now get their own page of documentation
+- Added `node_alpha()` for calculating alpha centrality, mostly just a wrapper for `igraph::alpha_centrality()`
+- Added `node_power()` for calculating beta or Bonacich centrality, mostly just a wrapper for `igraph::power_centrality()`, though also correctly accounts for two-mode networks
+- Renamed `node_homophily()` to `node_heterophily()`, which is more accurate and in line with the scale's direction
+  - `node_heterophily()` now calculates EI indices in a faster, vectorised form, 
+  instead of the older, slower solution that calculated `network_homophily()` over all ego networks
+- Renamed `network_homophily()` to `network_heterophily()`
+  - `network_heterophily()` now ignores missing values
+- `network_congruency()` is now more explicit about its data expectations
+
+## Models
+
+- `k_strict()`, `k_elbow()` and `k_silhouette()` are now exported and documented
+- Added `play_segregation()` for playing Schelling segregation models with various parameters
+- Fixed some `diff_model` and `diffs_model` plotting irregularities
+- Fixed bug in how merges were constructed as a distance matrix in `cluster_concor()`
+
+## Data
+
+- Moved `ison_` data to `{manynet}`
+
 # migraph 0.13.2
 
 ## Package
