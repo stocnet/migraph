@@ -8,15 +8,24 @@
 \alias{node_fast_greedy}
 \title{Community graph partitioning algorithms}
 \usage{
-node_kernighanlin(object)
+node_kernighanlin(.data)
 
-node_walktrap(object, times = 50)
+node_walktrap(.data, times = 50)
 
-node_edge_betweenness(object)
+node_edge_betweenness(.data)
 
-node_fast_greedy(object)
+node_fast_greedy(.data)
 }
 \arguments{
+\item{.data}{An object of a \code{{manynet}}-consistent class:
+\itemize{
+\item matrix (adjacency or incidence) from \code{{base}} R
+\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
+\item igraph, from the \code{{igraph}} package
+\item network, from the \code{{network}} package
+\item tbl_graph, from the \code{{tidygraph}} package
+}}
+
 \item{times}{Integer indicating number of simulations/walks used.
 By default, \code{times=50}.}
 }
