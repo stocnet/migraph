@@ -42,7 +42,6 @@ Suggests:
     ggdendro,
     minMSE,
     oaqc,
-    readxl,
     Rgraphviz,
     RSiena,
     roxygen2,
@@ -71,4 +70,3 @@ Authors@R:
            comment = c(ORCID = "0000-0001-5943-9059"))
     )
 Roxygen: list(markdown = TRUE, roclets = c("namespace", "rd"))
-VignetteBuilder: knitr

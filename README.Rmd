@@ -74,41 +74,20 @@ if you like the package please check out the book, and vice versa.
 
 ## How does migraph help?
 
+`{migraph}` includes five special groups of functions, 
+each with their own pretty `print()` and `plot()` methods:
+marks, measures, memberships, motifs, and models.
+
 `{migraph}` uses a common syntax to help new and experienced network analysts
 find the right function and use it correctly.
 All `network_*()` functions return a value for the network/graph or for each mode in the network.
 All `node_*()` functions return values for each node or vertex in the network.
 And all `tie_*()` functions return values for each tie or edge in the network.
-
-`{migraph}` includes five special groups of functions, 
-each with their own `print()` and `plot()` methods:
-marks, measures, memberships, motifs, and models.
-
-can help with many network analytic tasks,
-including Making and Manipulating network data,
-Marking and Measuring nodes, ties, and networks,
-calculating Motifs and identifying Memberships,
-as well as Modelling and Mapping.
-
-We use these functions internally in every `{migraph}` function to 
-(1) allow them to be run on any compatible network format
-and (2) use the most efficient algorithm available.
-This makes `{migraph}` compatible with your existing workflow,
-whether you use base R matrices or edgelists as data frames, 
-[`{igraph}`](https://igraph.org/r/),
-[`{network}`](https://statnet.org), or 
-[`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html),
-and extensible by developments in those other packages too.
-
-### Marks and Measures
-
-`{migraph}` offers a range of measures and models with sensible defaults.
-Many wrap existing functions in common packages for use with one-mode networks,
-but extend these to treat and/or normalise for two-mode (and sometimes three-mode) networks correctly.
 Functions are given intuitive and succinct names that avoid conflicts 
 with existing function names wherever possible.
+All results are normalised by default, facilitating comparison.
 
-#### Marking networks
+### Marks and Measures
 
 `{migraph}`'s `*is_*()` functions offer fast logical tests of various properties.
 Whereas `is_*()` returns a single logical value for the network,
@@ -122,9 +101,7 @@ and `tie_is_*()` returns a logical vector the length of the number of ties in th
 The `*is_max()` and `*is_min()` functions are used to identify
 the maximum or minimum, respectively, node or tie according to some measure (see below).
 
-#### Measuring networks
-
-`{migraph}` offers a large and growing smorgasbord of measures that
+`{migraph}` also offers a large and growing smorgasbord of measures that
 can be used at the node, tie, and network level.
 Each recognises whether the network is directed or undirected,
 weighted or unweighted, one-mode or two-mode.
@@ -183,8 +160,6 @@ or learning processes over a given network:
 
 The diffusion models include not only SI and threshold models,
 but also SIS, SIR, SIRS, SIER, and SIERS.
-
-Plot methods for all outputs assist with interpretation and communication.
 
 ## Installation
 
@@ -255,12 +230,11 @@ It draws together, updates, and builds upon many functions currently available i
 other excellent R packages such as 
 [`{bipartite}`](https://github.com/biometry/bipartite), 
 [`{multinet}`](https://CRAN.R-project.org/package=multinet), 
-and [`{tnet}`](https://toreopsahl.com/tnet/),
-and implements many additional features currently only available outside the R ecosystem
-in packages such as [**UCINET**](https://sites.google.com/site/ucinetsoftware/download?authuser=0).
+[`{tnet}`](https://toreopsahl.com/tnet/),
+and [`{xUCINET}`](https://sites.google.com/view/asnr-2022/xucinet?authuser=0).
 
 ## Funding details
 
-Subsequent work on this package has been funded by the Swiss National Science Foundation (SNSF)
+Most work on this package has been funded by the Swiss National Science Foundation (SNSF)
 [Grant Number 188976](https://data.snf.ch/grants/grant/188976): 
 "Power and Networks and the Rate of Change in Institutional Complexes" (PANARCHIC).

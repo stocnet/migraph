@@ -40,7 +40,13 @@ transaction costs though, driving confusion, inefficiencies, and errors.
 problems. It includes functions for marking and measuring networks and
 their nodes and ties, identifying motifs and memberships in them, and
 modelling these networks or simulating processes such as diffusion upon
-them.
+them. Based on `{manynet}`, every function works for any compatible
+network format - from base R matrices or edgelists as data frames,
+[`{igraph}`](https://igraph.org/r/), [`{network}`](https://statnet.org),
+or [`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html)
+objects. This means it is compatible with your existing workflow, is
+extensible by other packages, and uses the most efficient algorithm
+available for each task.
 
 <img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="125"/>
 
@@ -58,30 +64,20 @@ you like the package please check out the book, and vice versa.
 
 ## How does migraph help?
 
-`{migraph}` can help with many network analytic tasks, including Making
-and Manipulating network data, Marking and Measuring nodes, ties, and
-networks, calculating Motifs and identifying Memberships, as well as
-Modelling and Mapping.
+`{migraph}` includes five special groups of functions, each with their
+own pretty `print()` and `plot()` methods: marks, measures, memberships,
+motifs, and models.
 
-We use these functions internally in every `{migraph}` function to (1)
-allow them to be run on any compatible network format and (2) use the
-most efficient algorithm available. This makes `{migraph}` compatible
-with your existing workflow, whether you use base R matrices or
-edgelists as data frames, [`{igraph}`](https://igraph.org/r/),
-[`{network}`](https://statnet.org), or
-[`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html), and
-extensible by developments in those other packages too.
+`{migraph}` uses a common syntax to help new and experienced network
+analysts find the right function and use it correctly. All `network_*()`
+functions return a value for the network/graph or for each mode in the
+network. All `node_*()` functions return values for each node or vertex
+in the network. And all `tie_*()` functions return values for each tie
+or edge in the network. Functions are given intuitive and succinct names
+that avoid conflicts with existing function names wherever possible. All
+results are normalised by default, facilitating comparison.
 
 ### Marks and Measures
-
-`{migraph}` offers a range of measures and models with sensible
-defaults. Many wrap existing functions in common packages for use with
-one-mode networks, but extend these to treat and/or normalise for
-two-mode (and sometimes three-mode) networks correctly. Functions are
-given intuitive and succinct names that avoid conflicts with existing
-function names wherever possible.
-
-#### Marking networks
 
 `{migraph}`’s `*is_*()` functions offer fast logical tests of various
 properties. Whereas `is_*()` returns a single logical value for the
@@ -100,12 +96,10 @@ The `*is_max()` and `*is_min()` functions are used to identify the
 maximum or minimum, respectively, node or tie according to some measure
 (see below).
 
-#### Measuring networks
-
-`{migraph}` offers a large and growing smorgasbord of measures that can
-be used at the node, tie, and network level. Each recognises whether the
-network is directed or undirected, weighted or unweighted, one-mode or
-two-mode. All return normalized values wherever possible, though this
+`{migraph}` also offers a large and growing smorgasbord of measures that
+can be used at the node, tie, and network level. Each recognises whether
+the network is directed or undirected, weighted or unweighted, one-mode
+or two-mode. All return normalized values wherever possible, though this
 can be overrided. Here are some examples:
 
 - *Centrality*: `node_degree()`, `node_closeness()`,
@@ -173,9 +167,6 @@ learning processes over a given network:
 
 The diffusion models include not only SI and threshold models, but also
 SIS, SIR, SIRS, SIER, and SIERS.
-
-Plot methods for all outputs assist with interpretation and
-communication.
 
 ## Installation
 
@@ -258,15 +249,13 @@ the `{learnr}` package, see [here](https://rstudio.github.io/learnr/).
 It draws together, updates, and builds upon many functions currently
 available in other excellent R packages such as
 [`{bipartite}`](https://github.com/biometry/bipartite),
-[`{multinet}`](https://CRAN.R-project.org/package=multinet), and
-[`{tnet}`](https://toreopsahl.com/tnet/), and implements many additional
-features currently only available outside the R ecosystem in packages
-such as
-[**UCINET**](https://sites.google.com/site/ucinetsoftware/download?authuser=0).
+[`{multinet}`](https://CRAN.R-project.org/package=multinet),
+[`{tnet}`](https://toreopsahl.com/tnet/), and
+[`{xUCINET}`](https://sites.google.com/view/asnr-2022/xucinet?authuser=0).
 
 ## Funding details
 
-Subsequent work on this package has been funded by the Swiss National
-Science Foundation (SNSF) [Grant Number
+Most work on this package has been funded by the Swiss National Science
+Foundation (SNSF) [Grant Number
 188976](https://data.snf.ch/grants/grant/188976): “Power and Networks
 and the Rate of Change in Institutional Complexes” (PANARCHIC).
