@@ -1,6 +1,6 @@
 make_node_member <- function(out, .data) {
   class(out) <- c("node_member", class(out))
-  attr(out, "mode") <- node_mode(.data)
+  attr(out, "mode") <- manynet::node_mode(.data)
   out
 }
 
@@ -67,17 +67,18 @@ plot.node_member <- function(x, ...) {
 #' @export
 plot.matrix <- function(x, ..., membership = NULL) {
 
-  if (!is_twomode(x)) {
-    blocked_data <- as_matrix(x)
+  if (!manynet::is_twomode(x)) {
+    blocked_data <- manynet::as_matrix(x)
     if (!is.null(membership)) blocked_data <- blocked_data[order(membership),
                                                           order(membership)]
-  } else if (is_twomode(x) &&
-     length(intersect(membership[!node_mode(x)], membership[!node_mode(x)])) > 0) {
-    blocked_data <- as_matrix(to_multilevel(x))
+  } else if (manynet::is_twomode(x) &&
+     length(intersect(membership[!manynet::node_mode(x)], 
+                      membership[!manynet::node_mode(x)])) > 0) {
+    blocked_data <- manynet::as_matrix(manynet::to_multilevel(x))
     if (!is.null(membership)) blocked_data <- blocked_data[order(membership),
                                                           order(membership)]
   } else {
-    blocked_data <- as_matrix(x)
+    blocked_data <- manynet::as_matrix(x)
   }
 
   plot_data <- as.data.frame(blocked_data) %>%

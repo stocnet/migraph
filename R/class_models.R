@@ -209,7 +209,7 @@ summary.diff_model <- function(object, ...){
 summary.diffs_model <- function(object, ...){
   sim <- fin <- NULL
   object %>% dplyr::mutate(fin = (I!=n)*1) %>% 
-    group_by(sim) %>% summarise(toa = sum(fin)+1)
+    dplyr::group_by(sim) %>% dplyr::summarise(toa = sum(fin)+1)
 }
 
 #' @importFrom dplyr left_join
@@ -272,7 +272,7 @@ plot.diffs_model <- function(x, ...){
 # learn_model ####
 make_learn_model <- function(out, .data) {
   out <- as.data.frame(out)
-  if(manynet::is_labelled(object))
+  if(manynet::is_labelled(.data))
     names(out) <- manynet::node_names(.data)
   class(out) <- c("learn_model", class(out))
   attr(out, "mode") <- manynet::node_mode(.data)

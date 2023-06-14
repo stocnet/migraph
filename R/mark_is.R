@@ -13,6 +13,7 @@
 #'   \item tbl_graph, from the `{tidygraph}` package
 #'   }
 #' @return TRUE if the condition is met, or FALSE otherwise.
+#' @importFrom manynet as_igraph is_directed is_twomode to_matching
 #' @family marks
 #' @name is
 NULL
