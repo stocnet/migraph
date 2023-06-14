@@ -18,7 +18,7 @@ properties."><meta property="og:image" content="https://snlab-ch.github.io/migra
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -31,9 +31,6 @@ properties."><meta property="og:image" content="https://snlab-ch.github.io/migra
 </li>
 <li>
   <a href="../reference/index.html">Function Overview</a>
-</li>
-<li>
-  <a href="../articles/index.html">Practical Lessons</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -64,37 +61,15 @@ properties.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">is_migraph</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">is_connected</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">is_graph</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span><span class="fu">is_perfect_matching</span><span class="op">(</span><span class="va">.data</span>, mark <span class="op">=</span> <span class="st">"type"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">is_edgelist</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span><span class="fu">is_eulerian</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">is_twomode</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span><span class="fu">is_acyclic</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">is_weighted</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is_directed</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is_labelled</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is_signed</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is_connected</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is_complex</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is_multiplex</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is_uniplex</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is_acyclic</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is_aperiodic</span><span class="op">(</span><span class="va">object</span>, max_path_length <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is_perfect_matching</span><span class="op">(</span><span class="va">object</span>, mark <span class="op">=</span> <span class="st">"type"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is_eulerian</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">is_aperiodic</span><span class="op">(</span><span class="va">.data</span>, max_path_length <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="source">
@@ -103,8 +78,8 @@ properties.</p>
     </div>
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>object</dt>
-<dd><p>An object of a migraph-consistent class:</p><ul><li><p>matrix (adjacency or incidence) from <code>{base}</code> R</p></li>
+    <dl><dt>.data</dt>
+<dd><p>An object of a <code>{manynet}</code>-consistent class:</p><ul><li><p>matrix (adjacency or incidence) from <code>{base}</code> R</p></li>
 <li><p>edgelist, a data frame from <code>{base}</code> R or tibble from <code>{tibble}</code></p></li>
 <li><p>igraph, from the <code>{igraph}</code> package</p></li>
 <li><p>network, from the <code>{network}</code> package</p></li>
@@ -112,15 +87,15 @@ properties.</p>
 </ul></dd>
 
 
+<dt>mark</dt>
+<dd><p>A logical vector marking two types or modes.
+By default "type".</p></dd>
+
+
 <dt>max_path_length</dt>
 <dd><p>Maximum path length considered.
 If negative, paths of all lengths are considered.
 By default 4, to avoid potentially very long computation times.</p></dd>
-
-
-<dt>mark</dt>
-<dd><p>A logical vector marking two types or modes.
-By default "type".</p></dd>
 
 </dl></div>
     <div id="value">
@@ -132,30 +107,17 @@ By default "type".</p></dd>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>is_migraph()</code>: Tests whether network is migraph-compatible</p></li>
-<li><p><code>is_graph()</code>: Tests whether network contains graph-level information</p></li>
-<li><p><code>is_edgelist()</code>: Tests whether data frame is an edgelist</p></li>
-<li><p><code>is_twomode()</code>: Tests whether network is a two-mode network</p></li>
-<li><p><code>is_weighted()</code>: Tests whether network is weighted</p></li>
-<li><p><code>is_directed()</code>: Tests whether network is directed</p></li>
-<li><p><code>is_labelled()</code>: Tests whether network includes names for the nodes</p></li>
-<li><p><code>is_signed()</code>: Tests whether network is signed positive/negative</p></li>
-<li><p><code>is_connected()</code>: Tests whether network is weakly connected if
+<ul><li><p><code>is_connected()</code>: Tests whether network is weakly connected if
 the network is undirected or strongly connected if directed.
 To test weak connection on a directed network,
-please see <code><a href="reformat.html">to_undirected()</a></code>.</p></li>
-<li><p><code>is_complex()</code>: Tests whether network contains any loops</p></li>
-<li><p><code>is_multiplex()</code>: Tests whether network is multiplex,
-either from multiple rows with the same sender and receiver,
-or multiple columns to the edgelist.</p></li>
-<li><p><code>is_uniplex()</code>: Tests whether network is simple (both uniplex and simplex)</p></li>
-<li><p><code>is_acyclic()</code>: Tests whether network is a directed acyclic graph</p></li>
-<li><p><code>is_aperiodic()</code>: Tests whether network is aperiodic</p></li>
+please see <code><a href="https://rdrr.io/pkg/manynet/man/reformat.html" class="external-link">manynet::to_undirected()</a></code>.</p></li>
 <li><p><code>is_perfect_matching()</code>: Tests whether there is a matching for a network
 that covers every node in the network</p></li>
 <li><p><code>is_eulerian()</code>: Tests whether there is a Eulerian path for a network
 where that path passes through every tie exactly once
 @importFrom igraph has_eulerian_path</p></li>
+<li><p><code>is_acyclic()</code>: Tests whether network is a directed acyclic graph</p></li>
+<li><p><code>is_aperiodic()</code>: Tests whether network is aperiodic</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -166,30 +128,16 @@ where that path passes through every tie exactly once
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">is_twomode</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span><span class="fu">is_weighted</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"><span><span class="fu">is_directed</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span><span class="fu">is_labelled</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span><span class="fu">is_signed</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"><span><span class="fu">is_connected</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span><span class="fu">is_complex</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"><span><span class="fu">is_uniplex</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span><span class="fu">is_acyclic</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"><span><span class="fu">is_aperiodic</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">is_connected</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span><span class="fu">is_perfect_matching</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-in"><span><span class="fu">is_eulerian</span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-in"><span><span class="fu">is_acyclic</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-in"><span><span class="fu">is_aperiodic</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 </code></pre></div>
     </div>
   </div>

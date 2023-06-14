@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -30,9 +30,6 @@
 </li>
 <li>
   <a href="../reference/index.html">Function Overview</a>
-</li>
-<li>
-  <a href="../articles/index.html">Practical Lessons</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -63,7 +60,7 @@
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">play_diffusion</span><span class="op">(</span></span>
-<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">.data</span>,</span>
 <span>  seeds <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  thresholds <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  transmissibility <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -75,7 +72,7 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">play_diffusions</span><span class="op">(</span></span>
-<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">.data</span>,</span>
 <span>  seeds <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  thresholds <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  transmissibility <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -89,13 +86,22 @@
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">play_learning</span><span class="op">(</span><span class="va">object</span>, <span class="va">beliefs</span>, <span class="va">steps</span>, epsilon <span class="op">=</span> <span class="fl">5e-04</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">play_learning</span><span class="op">(</span><span class="va">.data</span>, <span class="va">beliefs</span>, <span class="va">steps</span>, epsilon <span class="op">=</span> <span class="fl">5e-04</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">play_segregation</span><span class="op">(</span></span>
+<span>  <span class="va">.data</span>,</span>
+<span>  <span class="va">attribute</span>,</span>
+<span>  heterophily <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  who_moves <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ordered"</span>, <span class="st">"random"</span>, <span class="st">"most_dissatisfied"</span><span class="op">)</span>,</span>
+<span>  choice_function <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"satisficing"</span>, <span class="st">"optimising"</span><span class="op">)</span>,</span>
+<span>  <span class="va">steps</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>object</dt>
-<dd><p>An object of a migraph-consistent class:</p><ul><li><p>matrix (adjacency or incidence) from <code>{base}</code> R</p></li>
+    <dl><dt>.data</dt>
+<dd><p>An object of a <code>{manynet}</code>-consistent class:</p><ul><li><p>matrix (adjacency or incidence) from <code>{base}</code> R</p></li>
 <li><p>edgelist, a data frame from <code>{base}</code> R or tibble from <code>{tibble}</code></p></li>
 <li><p>igraph, from the <code>{igraph}</code> package</p></li>
 <li><p>network, from the <code>{network}</code> package</p></li>
@@ -207,6 +213,36 @@ put on some outcome being 'true'.</p></dd>
 <dd><p>The maximum difference in beliefs accepted
 for convergence to a consensus.</p></dd>
 
+
+<dt>attribute</dt>
+<dd><p>A string naming some nodal attribute in the network.
+Currently only tested for binary attributes.</p></dd>
+
+
+<dt>heterophily</dt>
+<dd><p>A score ranging between -1 and 1 as a threshold for
+how heterophilous nodes will accept their neighbours to be.
+A single proportion means this threshold is shared by all nodes,
+but it can also be a vector the same length of the nodes in the network
+for issuing different thresholds to different nodes.
+By default this is 0, meaning nodes will be dissatisfied if more than half
+of their neighbours differ on the given attribute.</p></dd>
+
+
+<dt>who_moves</dt>
+<dd><p>One of the following options:
+"ordered" (the default) checks each node in turn for whether they are
+dissatisfied and there is an available space that they can move to,
+"random" will check a node at random,
+and "most_dissatisfied" will check (one of) the most dissatisfied nodes first.</p></dd>
+
+
+<dt>choice_function</dt>
+<dd><p>One of the following options:
+"satisficing" (the default) will move the node to any coordinates that satisfy
+their heterophily threshold,
+whereas "optimising" will move the node to coordinates that are most homophilous.</p></dd>
+
 </dl></div>
     <div id="functions">
     <h2>Functions</h2>
@@ -214,6 +250,7 @@ for convergence to a consensus.</p></dd>
 <ul><li><p><code>play_diffusion()</code>: Playing compartmental diffusion on networks.</p></li>
 <li><p><code>play_diffusions()</code>: Playing multiple compartmental diffusions on networks.</p></li>
 <li><p><code>play_learning()</code>: Playing DeGroot learning on networks.</p></li>
+<li><p><code>play_segregation()</code>: Playing Schelling segregation on networks.</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -224,37 +261,58 @@ for convergence to a consensus.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">play_diffusion</span><span class="op">(</span><span class="fu"><a href="generate.html">generate_smallworld</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">0.025</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span>  <span class="va">smeg</span> <span class="op">&lt;-</span> <span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/manynet/man/generate.html" class="external-link">generate_smallworld</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">0.025</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">play_diffusion</span><span class="op">(</span><span class="va">smeg</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="play-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">play_diffusion</span><span class="op">(</span><span class="fu"><a href="generate.html">generate_smallworld</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">0.025</span><span class="op">)</span>, thresholds <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">play_diffusion</span><span class="op">(</span><span class="va">smeg</span>, recovery <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="play-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">play_diffusion</span><span class="op">(</span><span class="fu"><a href="generate.html">generate_smallworld</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">0.025</span><span class="op">)</span>, recovery <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="play-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">play_diffusions</span><span class="op">(</span><span class="fu"><a href="generate.html">generate_smallworld</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">0.025</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">play_diffusions</span><span class="op">(</span><span class="va">smeg</span>, times <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 24 rows containing missing values (`geom_smooth()`).</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 48 rows containing missing values (`geom_smooth()`).</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 51 rows containing missing values (`geom_smooth()`).</span>
+<span class="r-plt img"><img src="play-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span>  <span class="fu">play_learning</span><span class="op">(</span><span class="va">ison_networkers</span>, </span></span>
+<span class="r-in"><span>      <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">rbinom</a></span><span class="op">(</span><span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/manynet/man/properties.html" class="external-link">network_nodes</a></span><span class="op">(</span><span class="va">ison_networkers</span><span class="op">)</span>,<span class="fl">1</span>,prob <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 32</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   `LIN FREEMAN` `DOUG WHITE` `EV ROGERS` `RICHARD ALBA` `PHIPPS ARABIE`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         1            1           0              1               0    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         0.331        0.446       0.643          0.308           0.297</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>         0.433        0.405       0.371          0.399           0.441</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>         0.394        0.410       0.406          0.395           0.394</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>         0.404        0.400       0.398          0.401           0.405</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>         0.401        0.402       0.402          0.401           0.401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>         0.402        0.401       0.401          0.401           0.402</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>         0.401        0.402       0.402          0.401           0.401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 27 more variables: `CAROL BARNER-BARRY` &lt;dbl&gt;, `GARY COOMBS` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `RUSS BERNARD` &lt;dbl&gt;, `JOHN BOYD` &lt;dbl&gt;, `RON BURT` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `PAT DOREIAN` &lt;dbl&gt;, `CLAUDE FISCHER` &lt;dbl&gt;, `BRIAN FOSTER` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `MARK GRANOVETTER` &lt;dbl&gt;, `MAUREEN HALLINAN` &lt;dbl&gt;, `PAUL HOLLAND` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `JACK HUNTER` &lt;dbl&gt;, `DAVOR JEDLICKA` &lt;dbl&gt;, `CHARLES KADUSHIN` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `ED LAUMANN` &lt;dbl&gt;, `SAM LEINHARDT` &lt;dbl&gt;, `JOEL LEVINE` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `NAN LIN` &lt;dbl&gt;, `NICK MULLINS` &lt;dbl&gt;, `DON PLOCH` &lt;dbl&gt;, …</span></span>
+<span class="r-in"><span>  <span class="va">startValues</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">rbinom</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">1</span>,prob <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">startValues</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">100</span><span class="op">*</span><span class="fl">0.2</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></span>
+<span class="r-in"><span>  <span class="va">latticeEg</span> <span class="op">&lt;-</span> <span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/manynet/man/create.html" class="external-link">create_lattice</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">latticeEg</span> <span class="op">&lt;-</span> <span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/manynet/man/add.html" class="external-link">add_node_attribute</a></span><span class="op">(</span><span class="va">latticeEg</span>, <span class="st">"startValues"</span>, <span class="va">startValues</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/manynet/man/auto_graph.html" class="external-link">autographr</a></span><span class="op">(</span><span class="va">latticeEg</span>, node_color <span class="op">=</span> <span class="st">"startValues"</span>, node_size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 20 rows containing missing values (`geom_point()`).</span>
 <span class="r-plt img"><img src="play-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">play_learning</span><span class="op">(</span><span class="va">ison_networkers</span>, </span></span>
-<span class="r-in"><span>      <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">rbinom</a></span><span class="op">(</span><span class="fu"><a href="grab.html">network_nodes</a></span><span class="op">(</span><span class="va">ison_networkers</span><span class="op">)</span>,<span class="fl">1</span>,prob <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 32</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   `LIN FREEMAN` DOUG W…¹ EV RO…² RICHA…³ PHIPP…⁴ CAROL…⁵ GARY …⁶ RUSS …⁷ JOHN …⁸</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         1        0       0       0       1       0       1       0       0    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         0.273    0.634   0.286   0.299   0.452   0.531   1       0.357   0.447</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>         0.469    0.382   0.432   0.383   0.418   0.401   0.299   0.392   0.446</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>         0.393    0.426   0.411   0.405   0.402   0.420   0.465   0.404   0.413</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>         0.416    0.406   0.408   0.409   0.412   0.407   0.393   0.412   0.413</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>         0.408    0.411   0.411   0.409   0.408   0.411   0.416   0.408   0.409</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>         0.410    0.409   0.409   0.410   0.410   0.409   0.408   0.410   0.410</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>         0.409    0.410   0.410   0.410   0.410   0.410   0.410   0.409   0.410</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span>         0.410    0.410   0.410   0.410   0.410   0.410   0.409   0.410   0.410</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 23 more variables: `RON BURT` &lt;dbl&gt;, `PAT DOREIAN` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `CLAUDE FISCHER` &lt;dbl&gt;, `BRIAN FOSTER` &lt;dbl&gt;, `MARK GRANOVETTER` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `MAUREEN HALLINAN` &lt;dbl&gt;, `PAUL HOLLAND` &lt;dbl&gt;, `JACK HUNTER` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `DAVOR JEDLICKA` &lt;dbl&gt;, `CHARLES KADUSHIN` &lt;dbl&gt;, `ED LAUMANN` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `SAM LEINHARDT` &lt;dbl&gt;, `JOEL LEVINE` &lt;dbl&gt;, `NAN LIN` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `NICK MULLINS` &lt;dbl&gt;, `DON PLOCH` &lt;dbl&gt;, `NICK POUSHINSKY` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `STEVE SEIDMAN` &lt;dbl&gt;, `JOHN SONQUIST` &lt;dbl&gt;, `BARRY WELLMAN` &lt;dbl&gt;, …</span></span>
+<span class="r-in"><span>  <span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/manynet/man/auto_graph.html" class="external-link">autographr</a></span><span class="op">(</span><span class="fu">play_segregation</span><span class="op">(</span><span class="va">latticeEg</span>, <span class="st">"startValues"</span>, <span class="fl">0.5</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>             node_color <span class="op">=</span> <span class="st">"startValues"</span>, node_size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 20 to node 1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 22 to node 8"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 54 to node 9"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 8 to node 13"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 61 to node 8"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 64 to node 10"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 66 to node 16"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 68 to node 20"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 79 to node 22"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 80 to node 30"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 82 to node 31"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 100 to node 40"</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 20 rows containing missing values (`geom_point()`).</span>
+<span class="r-plt img"><img src="play-5.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

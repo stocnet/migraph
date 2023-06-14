@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -30,9 +30,6 @@
 </li>
 <li>
   <a href="../reference/index.html">Function Overview</a>
-</li>
-<li>
-  <a href="../articles/index.html">Practical Lessons</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -56,55 +53,11 @@
     </div>
 
     <table class="ref-index"><colgroup><col class="alias"><col class="title"></colgroup><tbody><tr><th colspan="2">
-          <h2 id="making">Making <a href="#making" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions for constructing, simulating, and importing one-mode and two-mode networks:</p>
-        </th>
-      </tr></tbody><tbody><tr><td>
-          <p><code><a href="create.html">create_empty()</a></code> <code><a href="create.html">create_complete()</a></code> <code><a href="create.html">create_ring()</a></code> <code><a href="create.html">create_star()</a></code> <code><a href="create.html">create_tree()</a></code> <code><a href="create.html">create_lattice()</a></code> <code><a href="create.html">create_components()</a></code> <code><a href="create.html">create_core()</a></code> </p>
-        </td>
-        <td><p>Make networks with defined structures</p></td>
-      </tr><tr><td>
-          <p><code><a href="generate.html">generate_random()</a></code> <code><a href="generate.html">generate_smallworld()</a></code> <code><a href="generate.html">generate_scalefree()</a></code> <code><a href="generate.html">generate_permutation()</a></code> </p>
-        </td>
-        <td><p>Make networks with a stochastic element</p></td>
-      </tr><tr><td>
-          <p><code><a href="read.html">read_matrix()</a></code> <code><a href="read.html">read_edgelist()</a></code> <code><a href="read.html">write_edgelist()</a></code> <code><a href="read.html">read_nodelist()</a></code> <code><a href="read.html">write_nodelist()</a></code> <code><a href="read.html">read_pajek()</a></code> <code><a href="read.html">write_pajek()</a></code> <code><a href="read.html">read_ucinet()</a></code> <code><a href="read.html">write_ucinet()</a></code> <code><a href="read.html">read_dynetml()</a></code> </p>
-        </td>
-        <td><p>Make networks from/to external formats</p></td>
-      </tr></tbody><tbody><tr><th colspan="2">
-          <h2 id="manipulation">Manipulation <a href="#manipulation" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions for coercing objects between different classes, reformatting or transforming the type of network, or adding information to or retrieving information from the network.</p>
-        </th>
-      </tr></tbody><tbody><tr><td>
-          <p><code><a href="as.html">as_edgelist()</a></code> <code><a href="as.html">as_matrix()</a></code> <code><a href="as.html">as_igraph()</a></code> <code><a href="as.html">as_tidygraph()</a></code> <code><a href="as.html">as_network()</a></code> <code><a href="as.html">as_siena()</a></code> <code><a href="as.html">as_graphAM()</a></code> </p>
-        </td>
-        <td><p>Coercion between migraph-compatible object classes</p></td>
-      </tr><tr><td>
-          <p><code><a href="reformat.html">to_uniplex()</a></code> <code><a href="reformat.html">to_undirected()</a></code> <code><a href="reformat.html">to_redirected()</a></code> <code><a href="reformat.html">to_unweighted()</a></code> <code><a href="reformat.html">to_unsigned()</a></code> <code><a href="reformat.html">to_unnamed()</a></code> <code><a href="reformat.html">to_named()</a></code> <code><a href="reformat.html">to_simplex()</a></code> <code><a href="reformat.html">to_onemode()</a></code> <code><a href="reformat.html">to_multilevel()</a></code> <code><a href="reformat.html">to_twomode()</a></code> </p>
-        </td>
-        <td><p>Tools for reformatting networks, graphs, and matrices</p></td>
-      </tr><tr><td>
-          <p><code><a href="split.html">to_egos()</a></code> <code><a href="split.html">to_subgraphs()</a></code> <code><a href="split.html">to_components()</a></code> </p>
-        </td>
-        <td><p>Tools for splitting networks, graphs, and matrices</p></td>
-      </tr><tr><td>
-          <p><code><a href="transform.html">to_mode1()</a></code> <code><a href="transform.html">to_mode2()</a></code> <code><a href="transform.html">to_giant()</a></code> <code><a href="transform.html">to_subgraph()</a></code> <code><a href="transform.html">to_ties()</a></code> <code><a href="transform.html">to_blocks()</a></code> <code><a href="transform.html">to_matching()</a></code> <code><a href="transform.html">to_anti()</a></code> </p>
-        </td>
-        <td><p>Tools for transforming networks, graphs, and matrices</p></td>
-      </tr><tr><td>
-          <p><code><a href="add.html">add_node_attribute()</a></code> <code><a href="add.html">add_tie_attribute()</a></code> <code><a href="add.html">copy_node_attributes()</a></code> <code><a href="add.html">join_ties()</a></code> </p>
-        </td>
-        <td><p>Adding and copying attributes from one graph to another</p></td>
-      </tr><tr><td>
-          <p><code><a href="grab.html">node_names()</a></code> <code><a href="grab.html">node_mode()</a></code> <code><a href="grab.html">node_attribute()</a></code> <code><a href="grab.html">tie_attribute()</a></code> <code><a href="grab.html">tie_weights()</a></code> <code><a href="grab.html">tie_signs()</a></code> <code><a href="grab.html">network_nodes()</a></code> <code><a href="grab.html">network_ties()</a></code> <code><a href="grab.html">network_dims()</a></code> <code><a href="grab.html">network_node_attributes()</a></code> <code><a href="grab.html">network_tie_attributes()</a></code> </p>
-        </td>
-        <td><p>Grab various node or edge attributes from a network</p></td>
-      </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="marks">Marks <a href="#marks" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Functions for identifying properties of graphs, nodes or ties, all returning logical scalars or vectors. Note that all <code>node_</code> and <code>tie_</code> measures return a single vector so that they can be added directly to graph objects. <code>network_</code> measures return one or, in some cases of two-mode measures, two values.</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="is.html">is_migraph()</a></code> <code><a href="is.html">is_graph()</a></code> <code><a href="is.html">is_edgelist()</a></code> <code><a href="is.html">is_twomode()</a></code> <code><a href="is.html">is_weighted()</a></code> <code><a href="is.html">is_directed()</a></code> <code><a href="is.html">is_labelled()</a></code> <code><a href="is.html">is_signed()</a></code> <code><a href="is.html">is_connected()</a></code> <code><a href="is.html">is_complex()</a></code> <code><a href="is.html">is_multiplex()</a></code> <code><a href="is.html">is_uniplex()</a></code> <code><a href="is.html">is_acyclic()</a></code> <code><a href="is.html">is_aperiodic()</a></code> <code><a href="is.html">is_perfect_matching()</a></code> <code><a href="is.html">is_eulerian()</a></code> </p>
+          <p><code><a href="is.html">is_connected()</a></code> <code><a href="is.html">is_perfect_matching()</a></code> <code><a href="is.html">is_eulerian()</a></code> <code><a href="is.html">is_acyclic()</a></code> <code><a href="is.html">is_aperiodic()</a></code> </p>
         </td>
         <td><p>Marking networks based on their properties</p></td>
       </tr><tr><td>
@@ -124,17 +77,21 @@
         </td>
         <td><p>Measures of network cohesion or connectedness</p></td>
       </tr><tr><td>
-          <p><code><a href="centrality.html">node_degree()</a></code> <code><a href="centrality.html">node_closeness()</a></code> <code><a href="centrality.html">node_betweenness()</a></code> <code><a href="centrality.html">node_eigenvector()</a></code> <code><a href="centrality.html">node_reach()</a></code> <code><a href="centrality.html">node_power()</a></code> </p>
+          <p><code><a href="between_centrality.html">node_betweenness()</a></code> <code><a href="between_centrality.html">tie_betweenness()</a></code> <code><a href="between_centrality.html">network_betweenness()</a></code> </p>
         </td>
-        <td><p>Measures of node centrality</p></td>
+        <td><p>Measures of betweenness-like centrality and centralisation</p></td>
       </tr><tr><td>
-          <p><code><a href="tie_centrality.html">tie_degree()</a></code> <code><a href="tie_centrality.html">tie_closeness()</a></code> <code><a href="tie_centrality.html">tie_betweenness()</a></code> <code><a href="tie_centrality.html">tie_eigenvector()</a></code> </p>
+          <p><code><a href="close_centrality.html">node_closeness()</a></code> <code><a href="close_centrality.html">node_reach()</a></code> <code><a href="close_centrality.html">tie_closeness()</a></code> <code><a href="close_centrality.html">network_closeness()</a></code> </p>
         </td>
-        <td><p>Measures of tie centrality</p></td>
+        <td><p>Measures of closeness-like centrality and centralisation</p></td>
       </tr><tr><td>
-          <p><code><a href="centralisation.html">network_degree()</a></code> <code><a href="centralisation.html">network_closeness()</a></code> <code><a href="centralisation.html">network_betweenness()</a></code> <code><a href="centralisation.html">network_eigenvector()</a></code> </p>
+          <p><code><a href="degree_centrality.html">node_degree()</a></code> <code><a href="degree_centrality.html">tie_degree()</a></code> <code><a href="degree_centrality.html">network_degree()</a></code> </p>
         </td>
-        <td><p>Measures of network centralisation</p></td>
+        <td><p>Measures of degree-like centrality and centralisation</p></td>
+      </tr><tr><td>
+          <p><code><a href="eigenv_centrality.html">node_eigenvector()</a></code> <code><a href="eigenv_centrality.html">node_power()</a></code> <code><a href="eigenv_centrality.html">node_alpha()</a></code> <code><a href="eigenv_centrality.html">network_eigenvector()</a></code> <code><a href="eigenv_centrality.html">tie_eigenvector()</a></code> </p>
+        </td>
+        <td><p>Measures of eigenvector-like centrality and centralisation</p></td>
       </tr><tr><td>
           <p><code><a href="closure.html">network_reciprocity()</a></code> <code><a href="closure.html">node_reciprocity()</a></code> <code><a href="closure.html">network_transitivity()</a></code> <code><a href="closure.html">node_transitivity()</a></code> <code><a href="closure.html">network_equivalency()</a></code> <code><a href="closure.html">network_congruency()</a></code> </p>
         </td>
@@ -144,13 +101,17 @@
         </td>
         <td><p>Measures of structural holes</p></td>
       </tr><tr><td>
-          <p><code><a href="diversity.html">network_richness()</a></code> <code><a href="diversity.html">node_richness()</a></code> <code><a href="diversity.html">network_diversity()</a></code> <code><a href="diversity.html">node_diversity()</a></code> <code><a href="diversity.html">network_homophily()</a></code> <code><a href="diversity.html">node_homophily()</a></code> <code><a href="diversity.html">network_assortativity()</a></code> </p>
+          <p><code><a href="heterogeneity.html">network_richness()</a></code> <code><a href="heterogeneity.html">node_richness()</a></code> <code><a href="heterogeneity.html">network_diversity()</a></code> <code><a href="heterogeneity.html">node_diversity()</a></code> <code><a href="heterogeneity.html">network_heterophily()</a></code> <code><a href="heterogeneity.html">node_heterophily()</a></code> <code><a href="heterogeneity.html">network_assortativity()</a></code> </p>
         </td>
         <td><p>Measures of network diversity</p></td>
       </tr><tr><td>
           <p><code><a href="features.html">network_core()</a></code> <code><a href="features.html">network_factions()</a></code> <code><a href="features.html">network_modularity()</a></code> <code><a href="features.html">network_smallworld()</a></code> <code><a href="features.html">network_scalefree()</a></code> <code><a href="features.html">network_balance()</a></code> </p>
         </td>
         <td><p>Measures of network topological features</p></td>
+      </tr><tr><td>
+          <p><code><a href="over.html">over_waves()</a></code> <code><a href="over.html">over_time()</a></code> </p>
+        </td>
+        <td><p>Helper functions for measuring over splits of networks</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="motifs">Motifs <a href="#motifs" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Functions for calculating subgraphs in multimodal networks. These functions have an additional dimension than <code>node_</code> and <code>network_</code> measures and marks that capture the different motifs surveyed.</p>
@@ -200,40 +161,20 @@
         </td>
         <td><p>Linear and logistic regression for network data</p></td>
       </tr><tr><td>
-          <p><code><a href="play.html">play_diffusion()</a></code> <code><a href="play.html">play_diffusions()</a></code> <code><a href="play.html">play_learning()</a></code> </p>
+          <p><code><a href="play.html">play_diffusion()</a></code> <code><a href="play.html">play_diffusions()</a></code> <code><a href="play.html">play_learning()</a></code> <code><a href="play.html">play_segregation()</a></code> </p>
         </td>
         <td><p>Functions to play games on networks</p></td>
       </tr><tr><td>
           <p><code><a href="cluster.html">cluster_hierarchical()</a></code> <code><a href="cluster.html">cluster_concor()</a></code> </p>
         </td>
         <td><p>Methods for equivalence clustering</p></td>
-      </tr></tbody><tbody><tr><th colspan="2">
-          <h2 id="mapping">Mapping <a href="#mapping" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions for plotting and visualising graphs of different types:</p>
-        </th>
-      </tr></tbody><tbody><tr><td>
-          <p><code><a href="auto_graph.html">autographr()</a></code> <code><a href="auto_graph.html">autographs()</a></code> </p>
-        </td>
-        <td><p>Quickly graph networks with sensible defaults</p></td>
       </tr><tr><td>
-          <p><code><a href="grid_layouts.html">layout_tbl_graph_frgrid()</a></code> <code><a href="grid_layouts.html">layout_tbl_graph_kkgrid()</a></code> <code><a href="grid_layouts.html">layout_tbl_graph_gogrid()</a></code> <code><a href="grid_layouts.html">layout_tbl_graph_stressgrid()</a></code> </p>
+          <p><code><a href="kselect.html">k_strict()</a></code> <code><a href="kselect.html">k_elbow()</a></code> <code><a href="kselect.html">k_silhouette()</a></code> </p>
         </td>
-        <td><p>Layouts for snapping layouts to a grid</p></td>
-      </tr><tr><td>
-          <p><code><a href="partition_layouts.html">layout_tbl_graph_hierarchy()</a></code> <code><a href="partition_layouts.html">layout_tbl_graph_alluvial()</a></code> <code><a href="partition_layouts.html">layout_tbl_graph_railway()</a></code> <code><a href="partition_layouts.html">layout_tbl_graph_ladder()</a></code> <code><a href="partition_layouts.html">layout_tbl_graph_concentric()</a></code> </p>
-        </td>
-        <td><p>Layout algorithms based on bi- or other partitions</p></td>
-      </tr><tr><td>
-          <p><code><a href="gglineage.html">gglineage()</a></code> </p>
-        </td>
-        <td><p>Plot lineage graph</p></td>
-      </tr><tr><td>
-          <p><code><a href="ggevolution.html">ggevolution()</a></code> </p>
-        </td>
-        <td><p>Plot the evolution of a network</p></td>
+        <td><p>Methods for selecting clusters</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="data">Data <a href="#data" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>The package contains two collections of multimodal, multilevel, and multiplex network data, including data used in the book <em>Multimodal Political Networks</em> (prefixed with <code>mpn_</code>) and for the course ‘Social Networks Theories and Methods’ (<code>ison_</code>).</p>
+          <p class="section-desc"></p><p>The package contains multimodal, multilevel, and multiplex network data, used in the book <em>Multimodal Political Networks</em> (prefixed with <code>mpn_</code>).</p>
         </th>
       </tr></tbody><tbody><tr><td>
           <p><code><a href="mpn_bristol.html">mpn_bristol</a></code> </p>
@@ -263,43 +204,6 @@
           <p><code><a href="mpn_senate112.html">mpn_DemSxP</a></code> <code><a href="mpn_senate112.html">mpn_RepSxP</a></code> <code><a href="mpn_senate112.html">mpn_OverSxP</a></code> </p>
         </td>
         <td><p>Two-mode 112th Congress Senate Voting (Knoke et al. 2021)</p></td>
-      </tr><tr><td>
-          <p><code><a href="ison_adolescents.html">ison_adolescents</a></code> </p>
-        </td>
-        <td><p>One-mode subset (8 individuals) of the adolescent society (Coleman 1961).</p></td>
-      </tr><tr><td>
-          <p><code><a href="ison_algebra.html">ison_algebra</a></code> </p>
-        </td>
-        <td><p>Multiplex graph object of friends, social, and task ties (McFarland 2001)</p></td>
-      </tr><tr><td>
-          <p><code><a href="ison_brandes.html">ison_brandes</a></code> <code><a href="ison_brandes.html">ison_brandes2</a></code> </p>
-        </td>
-        <td><p>One-mode and two-mode centrality demonstration networks</p></td>
-      </tr><tr><td>
-          <p><code><a href="ison_karateka.html">ison_karateka</a></code> </p>
-        </td>
-        <td><p>One-mode karateka network (Zachary 1977)</p></td>
-      </tr><tr><td>
-          <p><code><a href="ison_lotr.html">ison_lotr</a></code> </p>
-        </td>
-        <td><p>One-mode interaction network of Lord of the Rings (book) character interactions</p></td>
-      </tr><tr><td>
-          <p><code><a href="ison_marvel.html">ison_marvel_teams</a></code> <code><a href="ison_marvel.html">ison_marvel_relationships</a></code> </p>
-        </td>
-        <td><p>Multilevel two-mode affiliation, signed one-mode networks of Marvel comic
-book characters (Yüksel 2017)</p></td>
-      </tr><tr><td>
-          <p><code><a href="ison_networkers.html">ison_networkers</a></code> </p>
-        </td>
-        <td><p>One-mode EIES dataset (Freeman and Freeman 1979)</p></td>
-      </tr><tr><td>
-          <p><code><a href="ison_projection.html">ison_mm</a></code> <code><a href="ison_projection.html">ison_bm</a></code> <code><a href="ison_projection.html">ison_mb</a></code> <code><a href="ison_projection.html">ison_bb</a></code> </p>
-        </td>
-        <td><p>Two-mode projection examples (Hollway 2021)</p></td>
-      </tr><tr><td>
-          <p><code><a href="ison_southern_women.html">ison_southern_women</a></code> </p>
-        </td>
-        <td><p>Two-mode southern women (Davis, Gardner and Gardner 1941)</p></td>
       </tr></tbody></table></div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

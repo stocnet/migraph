@@ -22,7 +22,7 @@ assignment."><meta property="og:image" content="https://snlab-ch.github.io/migra
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -35,9 +35,6 @@ assignment."><meta property="og:image" content="https://snlab-ch.github.io/migra
 </li>
 <li>
   <a href="../reference/index.html">Function Overview</a>
-</li>
-<li>
-  <a href="../articles/index.html">Practical Lessons</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -73,7 +70,7 @@ assignment.</p>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">node_equivalence</span><span class="op">(</span></span>
-<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">.data</span>,</span>
 <span>  <span class="va">census</span>,</span>
 <span>  k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"silhouette"</span>, <span class="st">"elbow"</span>, <span class="st">"strict"</span><span class="op">)</span>,</span>
 <span>  cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hierarchical"</span>, <span class="st">"concor"</span><span class="op">)</span>,</span>
@@ -82,7 +79,7 @@ assignment.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">node_structural_equivalence</span><span class="op">(</span></span>
-<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">.data</span>,</span>
 <span>  k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"silhouette"</span>, <span class="st">"elbow"</span>, <span class="st">"strict"</span><span class="op">)</span>,</span>
 <span>  cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hierarchical"</span>, <span class="st">"concor"</span><span class="op">)</span>,</span>
 <span>  distance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"euclidean"</span>, <span class="st">"maximum"</span>, <span class="st">"manhattan"</span>, <span class="st">"canberra"</span>, <span class="st">"binary"</span>, <span class="st">"minkowski"</span><span class="op">)</span>,</span>
@@ -90,7 +87,7 @@ assignment.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">node_regular_equivalence</span><span class="op">(</span></span>
-<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">.data</span>,</span>
 <span>  k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"silhouette"</span>, <span class="st">"elbow"</span>, <span class="st">"strict"</span><span class="op">)</span>,</span>
 <span>  cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hierarchical"</span>, <span class="st">"concor"</span><span class="op">)</span>,</span>
 <span>  distance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"euclidean"</span>, <span class="st">"maximum"</span>, <span class="st">"manhattan"</span>, <span class="st">"canberra"</span>, <span class="st">"binary"</span>, <span class="st">"minkowski"</span><span class="op">)</span>,</span>
@@ -98,7 +95,7 @@ assignment.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">node_automorphic_equivalence</span><span class="op">(</span></span>
-<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">.data</span>,</span>
 <span>  k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"silhouette"</span>, <span class="st">"elbow"</span>, <span class="st">"strict"</span><span class="op">)</span>,</span>
 <span>  cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hierarchical"</span>, <span class="st">"concor"</span><span class="op">)</span>,</span>
 <span>  distance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"euclidean"</span>, <span class="st">"maximum"</span>, <span class="st">"manhattan"</span>, <span class="st">"canberra"</span>, <span class="st">"binary"</span>, <span class="st">"minkowski"</span><span class="op">)</span>,</span>
@@ -112,8 +109,8 @@ assignment.</p>
     </div>
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>object</dt>
-<dd><p>An object of a migraph-consistent class:</p><ul><li><p>matrix (adjacency or incidence) from <code>{base}</code> R</p></li>
+    <dl><dt>.data</dt>
+<dd><p>An object of a <code>{manynet}</code>-consistent class:</p><ul><li><p>matrix (adjacency or incidence) from <code>{base}</code> R</p></li>
 <li><p>edgelist, a data frame from <code>{base}</code> R or tibble from <code>{tibble}</code></p></li>
 <li><p>igraph, from the <code>{igraph}</code> package</p></li>
 <li><p>network, from the <code>{network}</code> package</p></li>
@@ -170,19 +167,6 @@ regularly equivalent classes</p></li>
 <li><p><code>node_automorphic_equivalence()</code>: Returns nodes' membership in
 automorphically equivalent classes</p></li>
 </ul></div>
-    <div id="references">
-    <h2>References</h2>
-    <p>Thorndike, Robert L. 1953.
-"Who Belongs in the Family?".
-<em>Psychometrika</em>, 18(4): 267–76.
-<a href="https://doi.org/10.1007/BF02289263" class="external-link">doi:10.1007/BF02289263</a>
-.</p>
-<p>Rousseeuw, Peter J. 1987.
-“Silhouettes: A Graphical Aid to the Interpretation and Validation of Cluster Analysis.”
-<em>Journal of Computational and Applied Mathematics</em>, 20: 53–65.
-<a href="https://doi.org/10.1016/0377-0427%2887%2990125-7" class="external-link">doi:10.1016/0377-0427(87)90125-7</a>
-.</p>
-    </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other memberships: 
@@ -223,25 +207,25 @@ automorphically equivalent classes</p></li>
 <span class="r-in"><span><span class="op">(</span><span class="va">nre</span> <span class="op">&lt;-</span> <span class="fu">node_regular_equivalence</span><span class="op">(</span><span class="va">mpn_elite_usa_advice</span>,</span></span>
 <span class="r-in"><span>  cluster <span class="op">=</span> <span class="st">"concor"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Albright, Curry, Fukuyama, Wald, CFR, NAF, IIE, Greenberg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    CFR, IIE, NAF </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Albright, Curry, Fukuyama, Greenberg, Wald</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Scowcroft </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Argyros, Peterson, Armitage, West, Zakheim, Kissinger</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Argyros, Armitage, Kissinger, Peterson, Scowcroft, West, Zakheim</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    AEI, ASPEN, EWI, FPRI, GMFUS, HOOVER, CATO, CGD, RF, RAND, RFF </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Gray</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    CNAS, MI, IAD </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Hills</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Gray </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ACUS, CNI </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Hills </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    AEI, ASPEN, CATO, CGD, EWI, FPRI, GMFUS, HOOVER, RAND, RF, RFF </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  7 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ACUS, CNI </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    CNAS, IAD, MI </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  8 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    CSIS </span>

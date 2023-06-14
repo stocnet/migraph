@@ -33,7 +33,7 @@ all three electoral cycles, then dichotomized the sums into no contribution
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -46,9 +46,6 @@ all three electoral cycles, then dichotomized the sums into no contribution
 </li>
 <li>
   <a href="../reference/index.html">Function Overview</a>
-</li>
-<li>
-  <a href="../articles/index.html">Practical Lessons</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -103,72 +100,69 @@ all three electoral cycles, then dichotomized the sums into no contribution
 
     <div id="format">
     <h2>Format</h2>
-    <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#&gt; # A tbl_graph: 114 nodes and 2791 edges</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#&gt; #</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&gt; # A directed acyclic simple graph with 1 component</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&gt; #</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#&gt; # Node Data: 114 x 2 (active)</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt;   type  name      </span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt;   &lt;lgl&gt; &lt;chr&gt;     </span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co">#&gt; 1 FALSE Baucus    </span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="co">#&gt; 2 FALSE Begich    </span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="co">#&gt; 3 FALSE Bennet    </span></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="co">#&gt; 4 FALSE Blumenthal</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="co">#&gt; 5 FALSE Boxer     </span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="co">#&gt; 6 FALSE BrownSh   </span></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="co">#&gt; # ... with 108 more rows</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="co">#&gt; #</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="co">#&gt; # Edge Data: 2,791 x 3</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="co">#&gt;    from    to weight</span></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="co">#&gt; 1     1    52      1</span></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="co">#&gt; 2     1    53      1</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a><span class="co">#&gt; 3     1    54      1</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a><span class="co">#&gt; # ... with 2,788 more rows</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#&gt; # A tbl_graph: 134 nodes and 3675 edges</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#&gt; #</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&gt; # A directed acyclic simple graph with 1 component</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&gt; #</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#&gt; # Node Data: 134 x 2 (active)</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt;   type  name     </span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt;   &lt;lgl&gt; &lt;chr&gt;    </span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co">#&gt; 1 FALSE Alexander</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="co">#&gt; 2 FALSE Ayotte   </span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="co">#&gt; 3 FALSE Barrasso </span></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="co">#&gt; 4 FALSE Baucus   </span></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="co">#&gt; 5 FALSE Blunt    </span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="co">#&gt; 6 FALSE Boozman  </span></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="co">#&gt; # ... with 128 more rows</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="co">#&gt; #</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="co">#&gt; # Edge Data: 3,675 x 3</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="co">#&gt;    from    to weight</span></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="co">#&gt; 1     1    64      1</span></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="co">#&gt; 2     1    66      1</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a><span class="co">#&gt; 3     1    67      1</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a><span class="co">#&gt; # ... with 3,672 more rows</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#&gt; # A tbl_graph: 52 nodes and 614 edges</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#&gt; #</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&gt; # A directed acyclic simple graph with 1 component</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&gt; #</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#&gt; # Node Data: 52 x 2 (active)</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt;   type  name     </span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt;   &lt;lgl&gt; &lt;chr&gt;    </span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co">#&gt; 1 FALSE Baucus   </span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="co">#&gt; 2 FALSE Cardin   </span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="co">#&gt; 3 FALSE Carper   </span></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="co">#&gt; 4 FALSE Casey    </span></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="co">#&gt; 5 FALSE Collins  </span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="co">#&gt; 6 FALSE Feinstein</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="co">#&gt; # ... with 46 more rows</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="co">#&gt; #</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="co">#&gt; # Edge Data: 614 x 3</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="co">#&gt;    from    to weight</span></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="co">#&gt; 1     1    21      1</span></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="co">#&gt; 2     1    22      1</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a><span class="co">#&gt; 3     1    23      1</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a><span class="co">#&gt; # ... with 611 more rows</span></span></code></pre><p></p></div>
+    <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#&gt; # A labelled, weighted, two-mode tbl_graph with 114 nodes and 2791 ties</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#&gt; # A tibble: 114 x 2</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&gt;   type  name      </span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&gt;   &lt;lgl&gt; &lt;chr&gt;     </span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#&gt; 1 FALSE Baucus    </span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt; 2 FALSE Begich    </span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt; 3 FALSE Bennet    </span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">#&gt; 4 FALSE Blumenthal</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">#&gt; 5 FALSE Boxer     </span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co">#&gt; 6 FALSE BrownSh   </span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co">#&gt; # i 108 more rows</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co">#&gt; # A tibble: 2,791 x 3</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co">#&gt;    from    to weight</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co">#&gt; 1     1    52      1</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co">#&gt; 2     1    53      1</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co">#&gt; 3     1    54      1</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co">#&gt; 4     1    55      1</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co">#&gt; 5     1    56      1</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="co">#&gt; 6     1    57      1</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="co">#&gt; # i 2,785 more rows</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#&gt; # A labelled, weighted, two-mode tbl_graph with 134 nodes and 3675 ties</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#&gt; # A tibble: 134 x 2</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&gt;   type  name     </span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&gt;   &lt;lgl&gt; &lt;chr&gt;    </span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#&gt; 1 FALSE Alexander</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt; 2 FALSE Ayotte   </span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt; 3 FALSE Barrasso </span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">#&gt; 4 FALSE Baucus   </span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">#&gt; 5 FALSE Blunt    </span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co">#&gt; 6 FALSE Boozman  </span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co">#&gt; # i 128 more rows</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co">#&gt; # A tibble: 3,675 x 3</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co">#&gt;    from    to weight</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co">#&gt; 1     1    64      1</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co">#&gt; 2     1    66      1</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co">#&gt; 3     1    67      1</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co">#&gt; 4     1    70      1</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co">#&gt; 5     1    71      1</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="co">#&gt; 6     1    72      1</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="co">#&gt; # i 3,669 more rows</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#&gt; # A labelled, weighted, two-mode tbl_graph with 52 nodes and 614 ties</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#&gt; # A tibble: 52 x 2</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&gt;   type  name     </span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&gt;   &lt;lgl&gt; &lt;chr&gt;    </span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#&gt; 1 FALSE Baucus   </span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt; 2 FALSE Cardin   </span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt; 3 FALSE Carper   </span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">#&gt; 4 FALSE Casey    </span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">#&gt; 5 FALSE Collins  </span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co">#&gt; 6 FALSE Feinstein</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co">#&gt; # i 46 more rows</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co">#&gt; # A tibble: 614 x 3</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co">#&gt;    from    to weight</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co">#&gt; 1     1    21      1</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co">#&gt; 2     1    22      1</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co">#&gt; 3     1    23      1</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co">#&gt; 4     1    24      1</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co">#&gt; 5     1    25      1</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="co">#&gt; 6     1    26      1</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="co">#&gt; # i 608 more rows</span></span></code></pre><p></p></div>
     </div>
     <div id="references">
     <h2>References</h2>

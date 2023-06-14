@@ -20,7 +20,7 @@ are particularly well- or poorly-connected."><meta property="og:image" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -33,9 +33,6 @@ are particularly well- or poorly-connected."><meta property="og:image" content="
 </li>
 <li>
   <a href="../reference/index.html">Function Overview</a>
-</li>
-<li>
-  <a href="../articles/index.html">Practical Lessons</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -68,13 +65,13 @@ are particularly well- or poorly-connected.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tie_is_multiple</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tie_is_multiple</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">tie_is_loop</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span><span class="fu">tie_is_loop</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">tie_is_reciprocated</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span><span class="fu">tie_is_reciprocated</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">tie_is_bridge</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span><span class="fu">tie_is_bridge</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">tie_is_max</span><span class="op">(</span><span class="va">tie_measure</span><span class="op">)</span></span>
 <span></span>
@@ -83,8 +80,8 @@ are particularly well- or poorly-connected.</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>object</dt>
-<dd><p>An object of a migraph-consistent class:</p><ul><li><p>matrix (adjacency or incidence) from <code>{base}</code> R</p></li>
+    <dl><dt>.data</dt>
+<dd><p>An object of a <code>{manynet}</code>-consistent class:</p><ul><li><p>matrix (adjacency or incidence) from <code>{base}</code> R</p></li>
 <li><p>edgelist, a data frame from <code>{base}</code> R or tibble from <code>{tibble}</code></p></li>
 <li><p>igraph, from the <code>{igraph}</code> package</p></li>
 <li><p>network, from the <code>{network}</code> package</p></li>
@@ -134,10 +131,10 @@ hold the minimum of some measure</p></li>
 <span class="r-in"><span><span class="fu">tie_is_bridge</span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   V1    V2    V3    V4    V5    V6    V7    V8    V9    V10   V11   V12  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> TRUE  TRUE  TRUE  FALSE FALSE FALSE FALSE FALSE FALSE FALSE TRUE  TRUE </span>
-<span class="r-in"><span><span class="fu">tie_is_max</span><span class="op">(</span><span class="fu"><a href="tie_centrality.html">tie_betweenness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">tie_is_max</span><span class="op">(</span><span class="fu"><a href="between_centrality.html">tie_betweenness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   V1    V2    V3    V4    V5    V6    V7    V8    V9    V10   V11   V12  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FALSE FALSE TRUE  FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="r-in"><span><span class="fu">tie_is_min</span><span class="op">(</span><span class="fu"><a href="tie_centrality.html">tie_betweenness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">tie_is_min</span><span class="op">(</span><span class="fu"><a href="between_centrality.html">tie_betweenness</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   V1    V2    V3    V4    V5    V6    V7    V8    V9    V10   V11   V12  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE TRUE  FALSE FALSE</span>
 </code></pre></div>

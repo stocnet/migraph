@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tools for Multimodal Network Analysis • migraph</title>
+<title>Multimodal Network Analysis and More • migraph</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Tools for Multimodal Network Analysis">
+<script src="pkgdown.js"></script><meta property="og:title" content="Multimodal Network Analysis and More">
 <meta property="og:description" content="A set of tools for analysing multimodal networks.
    All functions operate with matrices, edge lists, 
    and igraph, network, and tidygraph objects,
@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -63,9 +63,6 @@
 </li>
 <li>
   <a href="reference/index.html">Function Overview</a>
-</li>
-<li>
-  <a href="articles/index.html">Practical Lessons</a>
 </li>
 <li>
   <a href="news/index.html">News</a>
@@ -97,7 +94,8 @@
 <div class="section level2">
 <h2 id="about-the-package">About the package<a class="anchor" aria-label="anchor" href="#about-the-package"></a>
 </h2>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> works with and extends existing network analysis packages for analysing multimodal networks. It provides a common, standard syntax for working with and analysing both one-mode and two-mode networks.</p>
+<p>The most commonly used R packages available for network analysis, such as <a href="https://r.igraph.org/" class="external-link">igraph</a> or <a href="https://statnet.org" class="external-link">sna</a>, are mainly oriented around directed or undirected one-mode networks. But researchers are increasingly interested in analysing multimodal (one-, two-, or three-mode), multilevel (connected multimodal networks), or multilayer (multiplex or signed) networks. Existing procedures typically involve ‘projecting’ them into one-mode networks so that they can be used with those tools, but thereby potentially losing important structural information, or require one or more other specific packages. Translating between packages various syntaxes and expectations can introduce significant transaction costs though, driving confusion, inefficiencies, and errors.</p>
+<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> builds upon <a href="https://github.com/snlab-ch/manynet" class="external-link">manynet</a> to offer smart solutions to these problems. It includes functions for marking and measuring networks and their nodes and ties, identifying motifs and memberships in them, and modelling these networks or simulating processes such as diffusion upon them. Based on <a href="https://github.com/snlab-ch/manynet" class="external-link">manynet</a>, every function works for any compatible network format - from base R matrices or edgelists as data frames, <a href="https://igraph.org/r/" class="external-link"><code>{igraph}</code></a>, <a href="https://statnet.org" class="external-link"><code>{network}</code></a>, or <a href="https://tidygraph.data-imaginist.com/index.html" class="external-link"><code>{tidygraph}</code></a> objects. This means it is compatible with your existing workflow, is extensible by other packages, and uses the most efficient algorithm available for each task.</p>
 <p><img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="125"></p>
 <p>The package is intended as a software companion to the book:</p>
 <blockquote><p>David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos (2021) <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128" class="external-link"><em>Multimodal Political Networks</em></a>. Cambridge University Press: Cambridge.</p></blockquote>
@@ -106,84 +104,15 @@
 <div class="section level2">
 <h2 id="how-does-migraph-help">How does migraph help?<a class="anchor" aria-label="anchor" href="#how-does-migraph-help"></a>
 </h2>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> can help with many network analytic tasks, including Making and Manipulating network data, Marking and Measuring nodes, ties, and networks, calculating Motifs and identifying Memberships, as well as Modelling and Mapping.</p>
-<div class="section level3">
-<h3 id="making-network-data">Making network data<a class="anchor" aria-label="anchor" href="#making-network-data"></a>
-</h3>
-<div class="section level4">
-<h4 id="including-network-data">Including network data<a class="anchor" aria-label="anchor" href="#including-network-data"></a>
-</h4>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> includes a number of prominent network datasets, especially multimodal and multiplex examples for demonstrating more advanced methods.</p>
-<ul>
-<li>
-<code>mpn_bristol</code>, <code>mpn_cow_igo</code>, <code>mpn_cow_trade</code>, <code>mpn_DE_1990</code>, <code>mpn_DE_2008</code>, <code>mpn_DemSxP</code>, <code>mpn_elite_mex</code>, <code>mpn_elite_usa_advice</code>, <code>mpn_elite_usa_money</code>, <code>mpn_IT_1990</code>, <code>mpn_IT_2008</code>, <code>mpn_OverSxP</code>, <code>mpn_RepSxP</code>, <code>mpn_ryanair</code>, <code>mpn_UK_1990</code>, <code>mpn_UK_2008</code>
-</li>
-<li>
-<code>ison_adolescents</code>, <code>ison_algebra</code>, <code>ison_bb</code>, <code>ison_bm</code>, <code>ison_brandes</code>, <code>ison_brandes2</code>, <code>ison_karateka</code>, <code>ison_lotr</code>, <code>ison_marvel_relationships</code>, <code>ison_marvel_teams</code>, <code>ison_mb</code>, <code>ison_mm</code>, <code>ison_networkers</code>, <code>ison_southern_women</code>
-</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="importing-network-data">Importing network data<a class="anchor" aria-label="anchor" href="#importing-network-data"></a>
-</h4>
-<p>If that’s not enough, <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> offers a number of options for importing network data found in other repositories. <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> can import and export to Excel edgelists and nodelists, <a href="http://www.analytictech.com/archive/ucinet.htm" class="external-link">UCINET</a>, <a href="http://mrvar.fdv.uni-lj.si/pajek/" class="external-link">Pajek</a>, and <a href="http://casos.cs.cmu.edu/projects/dynetml/" class="external-link">DynetML</a> files, e.g.:</p>
-<p><img src="reference/figures/README-import-graph-1.png" width="100%"></p>
-<ul>
-<li>
-<code><a href="reference/read.html">read_dynetml()</a></code>, <code><a href="reference/read.html">read_edgelist()</a></code>, <code><a href="reference/read.html">read_matrix()</a></code>, <code><a href="reference/read.html">read_nodelist()</a></code>, <code><a href="reference/read.html">read_pajek()</a></code>, <code><a href="reference/read.html">read_ucinet()</a></code>
-</li>
-<li>
-<code><a href="reference/read.html">write_edgelist()</a></code>, <code><a href="reference/read.html">write_nodelist()</a></code>, <code><a href="reference/read.html">write_pajek()</a></code>, <code><a href="reference/read.html">write_ucinet()</a></code>
-</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="inventing-network-data">Inventing network data<a class="anchor" aria-label="anchor" href="#inventing-network-data"></a>
-</h4>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> includes algorithms for making networks with particular properties. The <code>create_*</code> group of functions create networks with a particular structure, e.g.:</p>
-<ul><li>
-<code><a href="reference/create.html">create_complete()</a></code>, <code><a href="reference/create.html">create_components()</a></code>, <code><a href="reference/create.html">create_core()</a></code>, <code><a href="reference/create.html">create_empty()</a></code>, <code><a href="reference/create.html">create_lattice()</a></code>, <code><a href="reference/create.html">create_ring()</a></code>, <code><a href="reference/create.html">create_star()</a></code>, <code><a href="reference/create.html">create_tree()</a></code>
-</li></ul>
-<p>The <code>generate_*</code> group of functions generate networks from particular generative mechanisms, e.g.:</p>
-<ul><li>
-<code><a href="reference/generate.html">generate_permutation()</a></code>, <code><a href="reference/generate.html">generate_random()</a></code>, <code><a href="reference/generate.html">generate_scalefree()</a></code>, <code><a href="reference/generate.html">generate_smallworld()</a></code>
-</li></ul>
-<p>Note that all these functions work to create two-mode networks as well as one-mode versions.</p>
-</div>
-</div>
-<div class="section level3">
-<h3 id="manipulating-network-data">Manipulating network data<a class="anchor" aria-label="anchor" href="#manipulating-network-data"></a>
-</h3>
-<p>In addition to functions that help add elements to or extract elements from a network, <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> also includes functions for coercing and changing network data.</p>
-<div class="section level4">
-<h4 id="coercing-network-data">Coercing network data<a class="anchor" aria-label="anchor" href="#coercing-network-data"></a>
-</h4>
-<p>Once network data is in R, <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code>as_*()</code> functions can be used to translate objects from one of the above classes into any other, and include:</p>
-<p><img src="reference/figures/README-coercion-graph-1.png" width="100%"></p>
-<p>These functions are designed to be as intuitive and lossless as possible, outperforming many other class-coercion packages.</p>
-<p>We use these functions internally in every <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> function to (1) allow them to be run on any compatible network format and (2) use the most efficient algorithm available. This makes <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> compatible with your existing workflow, whether you use base R matrices or edgelists as data frames, <a href="https://igraph.org/r/" class="external-link"><code>{igraph}</code></a>, <a href="https://statnet.org" class="external-link"><code>{network}</code></a>, or <a href="https://tidygraph.data-imaginist.com/index.html" class="external-link"><code>{tidygraph}</code></a>, and extensible by developments in those other packages too.</p>
-</div>
-<div class="section level4">
-<h4 id="changing-network-data">Changing network data<a class="anchor" aria-label="anchor" href="#changing-network-data"></a>
-</h4>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code>to_*()</code> functions can be used on any class object to reformat, transform, or split networks into networks with other properties, e.g.:</p>
-<ul><li>
-<code><a href="reference/transform.html">to_anti()</a></code>, <code><a href="reference/transform.html">to_blocks()</a></code>, <code><a href="reference/split.html">to_components()</a></code>, <code><a href="reference/defunct.html">to_edges()</a></code>, <code><a href="reference/split.html">to_egos()</a></code>, <code><a href="reference/transform.html">to_giant()</a></code>, <code><a href="reference/defunct.html">to_main_component()</a></code>, <code><a href="reference/transform.html">to_matching()</a></code>, <code><a href="reference/transform.html">to_mode1()</a></code>, <code><a href="reference/transform.html">to_mode2()</a></code>, <code><a href="reference/reformat.html">to_multilevel()</a></code>, <code><a href="reference/reformat.html">to_named()</a></code>, <code><a href="reference/reformat.html">to_onemode()</a></code>, <code><a href="reference/reformat.html">to_redirected()</a></code>, <code><a href="reference/reformat.html">to_simplex()</a></code>, <code><a href="reference/transform.html">to_subgraph()</a></code>, <code><a href="reference/split.html">to_subgraphs()</a></code>, <code><a href="reference/transform.html">to_ties()</a></code>, <code><a href="reference/reformat.html">to_twomode()</a></code>, <code><a href="reference/reformat.html">to_undirected()</a></code>, <code><a href="reference/reformat.html">to_uniplex()</a></code>, <code><a href="reference/reformat.html">to_unnamed()</a></code>, <code><a href="reference/reformat.html">to_unsigned()</a></code>, <code><a href="reference/reformat.html">to_unweighted()</a></code>
-</li></ul>
-<p>Reformatting means changing the format of the network, e.g. from directed to undirected via <code><a href="reference/reformat.html">to_undirected()</a></code>. Transforming means changing the dimensions of the network, e.g. from a two-mode network to a one-mode projection via <code><a href="reference/transform.html">to_mode1()</a></code>. Splitting means separating a network, e.g. from a whole network to the various ego networks via <code><a href="reference/split.html">to_egos()</a></code>. Those functions that split a network into a list of networks are distinguishable as those <code>to_*()</code> functions that are named in the plural.</p>
-</div>
-</div>
+<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> includes five special groups of functions, each with their own pretty <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods: marks, measures, memberships, motifs, and models.</p>
+<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> uses a common syntax to help new and experienced network analysts find the right function and use it correctly. All <code>network_*()</code> functions return a value for the network/graph or for each mode in the network. All <code>node_*()</code> functions return values for each node or vertex in the network. And all <code>tie_*()</code> functions return values for each tie or edge in the network. Functions are given intuitive and succinct names that avoid conflicts with existing function names wherever possible. All results are normalised by default, facilitating comparison.</p>
 <div class="section level3">
 <h3 id="marks-and-measures">Marks and Measures<a class="anchor" aria-label="anchor" href="#marks-and-measures"></a>
 </h3>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> offers a range of measures and models with sensible defaults. Many wrap existing functions in common packages for use with one-mode networks, but extend these to treat and/or normalise for two-mode (and sometimes three-mode) networks correctly. Functions are given intuitive and succinct names that avoid conflicts with existing function names wherever possible.</p>
-<div class="section level4">
-<h4 id="marking-networks">Marking networks<a class="anchor" aria-label="anchor" href="#marking-networks"></a>
-</h4>
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code>*is_*()</code> functions offer fast logical tests of various properties. Whereas <code>is_*()</code> returns a single logical value for the network, <code>node_is_*()</code> returns a logical vector the length of the number of nodes in the network, and <code>tie_is_*()</code> returns a logical vector the length of the number of ties in the network.</p>
 <ul>
 <li>
-<code><a href="reference/is.html">is_acyclic()</a></code>, <code><a href="reference/is.html">is_aperiodic()</a></code>, <code><a href="https://rdrr.io/pkg/igraph/man/make_bipartite_graph.html" class="external-link">is_bipartite()</a></code>, <code><a href="reference/is.html">is_complex()</a></code>, <code><a href="reference/is.html">is_connected()</a></code>, <code><a href="reference/is.html">is_directed()</a></code>, <code><a href="reference/is.html">is_edgelist()</a></code>, <code><a href="reference/is.html">is_eulerian()</a></code>, <code><a href="reference/is.html">is_graph()</a></code>, <code><a href="reference/is.html">is_labelled()</a></code>, <code><a href="reference/is.html">is_migraph()</a></code>, <code><a href="reference/is.html">is_multiplex()</a></code>, <code><a href="reference/is.html">is_perfect_matching()</a></code>, <code><a href="reference/is.html">is_signed()</a></code>, <code><a href="reference/is.html">is_twomode()</a></code>, <code><a href="reference/is.html">is_uniplex()</a></code>, <code><a href="reference/is.html">is_weighted()</a></code>
+<code><a href="reference/is.html">is_acyclic()</a></code>, <code><a href="reference/is.html">is_aperiodic()</a></code>, <code><a href="https://r.igraph.org/reference/make_bipartite_graph.html" class="external-link">is_bipartite()</a></code>, <code><a href="reference/is.html">is_connected()</a></code>, <code><a href="reference/is.html">is_eulerian()</a></code>, <code><a href="reference/is.html">is_perfect_matching()</a></code>
 </li>
 <li>
 <code><a href="reference/mark_nodes.html">node_is_core()</a></code>, <code><a href="reference/mark_nodes.html">node_is_cutpoint()</a></code>, <code><a href="reference/mark_nodes.html">node_is_isolate()</a></code>, <code><a href="reference/mark_nodes.html">node_is_max()</a></code>, <code><a href="reference/mark_nodes.html">node_is_min()</a></code>, <code><a href="reference/mark_nodes.html">node_is_random()</a></code>
@@ -193,17 +122,13 @@
 </li>
 </ul>
 <p>The <code>*is_max()</code> and <code>*is_min()</code> functions are used to identify the maximum or minimum, respectively, node or tie according to some measure (see below).</p>
-</div>
-<div class="section level4">
-<h4 id="measuring-networks">Measuring networks<a class="anchor" aria-label="anchor" href="#measuring-networks"></a>
-</h4>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> offers a large and growing smorgasbord of measures that can be used at the node, tie, and network level. Each recognises whether the network is directed or undirected, weighted or unweighted, one-mode or two-mode. All return normalized values wherever possible, though this can be overrided. Here are some examples:</p>
+<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> also offers a large and growing smorgasbord of measures that can be used at the node, tie, and network level. Each recognises whether the network is directed or undirected, weighted or unweighted, one-mode or two-mode. All return normalized values wherever possible, though this can be overrided. Here are some examples:</p>
 <ul>
 <li>
-<em>Centrality</em>: <code><a href="reference/centrality.html">node_degree()</a></code>, <code><a href="reference/centrality.html">node_closeness()</a></code>, <code><a href="reference/centrality.html">node_betweenness()</a></code>, and <code><a href="reference/centrality.html">node_eigenvector()</a></code>
+<em>Centrality</em>: <code><a href="reference/degree_centrality.html">node_degree()</a></code>, <code><a href="reference/close_centrality.html">node_closeness()</a></code>, <code><a href="reference/between_centrality.html">node_betweenness()</a></code>, and <code><a href="reference/eigenv_centrality.html">node_eigenvector()</a></code>
 </li>
 <li>
-<em>Centralization</em>: <code><a href="reference/centralisation.html">network_degree()</a></code>, <code><a href="reference/centralisation.html">network_closeness()</a></code>, <code><a href="reference/centralisation.html">network_betweenness()</a></code>, and <code><a href="reference/centralisation.html">network_eigenvector()</a></code>
+<em>Centralization</em>: <code><a href="reference/degree_centrality.html">network_degree()</a></code>, <code><a href="reference/close_centrality.html">network_closeness()</a></code>, <code><a href="reference/between_centrality.html">network_betweenness()</a></code>, and <code><a href="reference/eigenv_centrality.html">network_eigenvector()</a></code>
 </li>
 <li>
 <em>Cohesion</em>: <code><a href="reference/cohesion.html">network_density()</a></code>, <code><a href="reference/closure.html">network_reciprocity()</a></code>, <code><a href="reference/closure.html">network_transitivity()</a></code>, <code><a href="reference/closure.html">network_equivalency()</a></code>, and <code><a href="reference/closure.html">network_congruency()</a></code>
@@ -212,7 +137,7 @@
 <em>Connectedness</em>: <code><a href="reference/cohesion.html">network_components()</a></code>, <code><a href="reference/cohesion.html">network_cohesion()</a></code>, <code><a href="reference/cohesion.html">network_adhesion()</a></code>, <code><a href="reference/cohesion.html">network_diameter()</a></code>, <code><a href="reference/cohesion.html">network_length()</a></code>
 </li>
 <li>
-<em>Diversity</em>: <code><a href="reference/diversity.html">network_diversity()</a></code>, <code><a href="reference/diversity.html">network_homophily()</a></code>, <code><a href="reference/diversity.html">network_assortativity()</a></code>, <code><a href="reference/diversity.html">node_diversity()</a></code>, <code><a href="reference/diversity.html">node_homophily()</a></code>, <code>node_assortativity()</code>, <code><a href="reference/diversity.html">node_richness()</a></code>
+<em>Diversity</em>: <code><a href="reference/heterogeneity.html">network_diversity()</a></code>, <code><a href="reference/defunct.html">network_homophily()</a></code>, <code><a href="reference/heterogeneity.html">network_assortativity()</a></code>, <code><a href="reference/heterogeneity.html">node_diversity()</a></code>, <code><a href="reference/defunct.html">node_homophily()</a></code>, <code>node_assortativity()</code>, <code><a href="reference/heterogeneity.html">node_richness()</a></code>
 </li>
 <li>
 <em>Innovation</em>: e.g. <code><a href="reference/holes.html">node_redundancy()</a></code>, <code><a href="reference/holes.html">node_effsize()</a></code>, <code><a href="reference/holes.html">node_efficiency()</a></code>, <code><a href="reference/holes.html">node_constraint()</a></code>, <code><a href="reference/holes.html">node_hierarchy()</a></code>
@@ -222,7 +147,6 @@
 </li>
 </ul>
 <p>Please explore <a href="https://snlab-ch.github.io/migraph/reference/index.html">the list of functions</a> to find out more.</p>
-</div>
 </div>
 <div class="section level3">
 <h3 id="motifs-and-memberships">Motifs and Memberships<a class="anchor" aria-label="anchor" href="#motifs-and-memberships"></a>
@@ -254,17 +178,9 @@
 <p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> is the only package that offers these testing frameworks for two-mode networks as well as one-mode networks.</p>
 <p>Lastly, <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> also includes functions for simulating diffusion or learning processes over a given network:</p>
 <ul><li>
-<code><a href="reference/play.html">play_diffusion()</a></code>, <code><a href="reference/play.html">play_diffusions()</a></code>, <code><a href="reference/play.html">play_learning()</a></code>
+<code><a href="reference/play.html">play_diffusion()</a></code>, <code><a href="reference/play.html">play_diffusions()</a></code>, <code><a href="reference/play.html">play_learning()</a></code>, <code><a href="reference/play.html">play_segregation()</a></code>
 </li></ul>
 <p>The diffusion models include not only SI and threshold models, but also SIS, SIR, SIRS, SIER, and SIERS.</p>
-<p>Plot methods for all outputs assist with interpretation and communication.</p>
-</div>
-<div class="section level3">
-<h3 id="mapping">Mapping<a class="anchor" aria-label="anchor" href="#mapping"></a>
-</h3>
-<p>Besides intuitive <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods for most of the above outputs, <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> also includes <code><a href="reference/auto_graph.html">autographr()</a></code> for one-line plotting graphs with sensible defaults based on their properties. <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> uses the excellent <a href="https://ggraph.data-imaginist.com" class="external-link">ggraph</a> package (and thus <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>) as a plotting engine. This also makes extending and theming default output easy, and <a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a> is used to help arrange individual plots together.</p>
-<p>In addition, <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> offers some additional layout algorithms for snapping layouts to a grid or visualising partitions horizontally, vertically, or concentrically. The following figures illustrate the difference in results over <a href="https://igraph.org" class="external-link">igraph</a>:</p>
-<p><img src="reference/figures/README-layout-comparison-1.png" width="100%"></p>
 </div>
 </div>
 <div class="section level2">
@@ -323,12 +239,12 @@
 <div class="section level2">
 <h2 id="relationship-to-other-packages">Relationship to other packages<a class="anchor" aria-label="anchor" href="#relationship-to-other-packages"></a>
 </h2>
-<p>It draws together, updates, and builds upon many functions currently available in other excellent R packages such as <a href="https://github.com/biometry/bipartite" class="external-link"><code>{bipartite}</code></a>, <a href="https://CRAN.R-project.org/package=multinet" class="external-link"><code>{multinet}</code></a>, and <a href="https://toreopsahl.com/tnet/" class="external-link"><code>{tnet}</code></a>, and implements many additional features currently only available outside the R ecosystem in packages such as <a href="https://sites.google.com/site/ucinetsoftware/download?authuser=0" class="external-link"><strong>UCINET</strong></a>.</p>
+<p>It draws together, updates, and builds upon many functions currently available in other excellent R packages such as <a href="https://github.com/biometry/bipartite" class="external-link"><code>{bipartite}</code></a>, <a href="https://CRAN.R-project.org/package=multinet" class="external-link"><code>{multinet}</code></a>, <a href="https://toreopsahl.com/tnet/" class="external-link"><code>{tnet}</code></a>, and <a href="https://sites.google.com/view/asnr-2022/xucinet?authuser=0" class="external-link"><code>{xUCINET}</code></a>.</p>
 </div>
 <div class="section level2">
 <h2 id="funding-details">Funding details<a class="anchor" aria-label="anchor" href="#funding-details"></a>
 </h2>
-<p>Subsequent work on this package has been funded by the Swiss National Science Foundation (SNSF) <a href="https://data.snf.ch/grants/grant/188976" class="external-link">Grant Number 188976</a>: “Power and Networks and the Rate of Change in Institutional Complexes” (PANARCHIC).</p>
+<p>Most work on this package has been funded by the Swiss National Science Foundation (SNSF) <a href="https://data.snf.ch/grants/grant/188976" class="external-link">Grant Number 188976</a>: “Power and Networks and the Rate of Change in Institutional Complexes” (PANARCHIC).</p>
 </div>
 </div>
   </div>

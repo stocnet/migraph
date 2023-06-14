@@ -39,7 +39,7 @@ will always be respected in permutations and analysis.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -52,9 +52,6 @@ will always be respected in permutations and analysis.
 </li>
 <li>
   <a href="../reference/index.html">Function Overview</a>
-</li>
-<li>
-  <a href="../articles/index.html">Practical Lessons</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -105,7 +102,7 @@ will always be respected in permutations and analysis.</p></li>
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">network_reg</span><span class="op">(</span></span>
 <span>  <span class="va">formula</span>,</span>
-<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">.data</span>,</span>
 <span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"qap"</span>, <span class="st">"qapy"</span><span class="op">)</span>,</span>
 <span>  times <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>  strategy <span class="op">=</span> <span class="st">"sequential"</span>,</span>
@@ -139,8 +136,8 @@ See Haunss and Hollway (2023) for more on this effect.</p></li>
 </ul></dd>
 
 
-<dt>object</dt>
-<dd><p>An object of a migraph-consistent class:</p><ul><li><p>matrix (adjacency or incidence) from <code>{base}</code> R</p></li>
+<dt>.data</dt>
+<dd><p>An object of a <code>{manynet}</code>-consistent class:</p><ul><li><p>matrix (adjacency or incidence) from <code>{base}</code> R</p></li>
 <li><p>edgelist, a data frame from <code>{base}</code> R or tibble from <code>{tibble}</code></p></li>
 <li><p>igraph, from the <code>{igraph}</code> package</p></li>
 <li><p>network, from the <code>{network}</code> package</p></li>
@@ -204,7 +201,7 @@ See <a href="https://progressr.futureverse.org" class="external-link"><code>{pro
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">networkers</span> <span class="op">&lt;-</span> <span class="va">ison_networkers</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="transform.html">to_subgraph</a></span><span class="op">(</span><span class="va">Discipline</span> <span class="op">==</span> <span class="st">"Sociology"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">networkers</span> <span class="op">&lt;-</span> <span class="va">ison_networkers</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">to_subgraph</span><span class="op">(</span><span class="va">Discipline</span> <span class="op">==</span> <span class="st">"Sociology"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">model1</span> <span class="op">&lt;-</span> <span class="fu">network_reg</span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="fu">alter</span><span class="op">(</span><span class="va">Citations</span><span class="op">)</span> <span class="op">+</span> <span class="fu">sim</span><span class="op">(</span><span class="va">Citations</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>                      <span class="va">networkers</span>, times <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Should be run many more `times` for publication-ready results</span></span></span>
@@ -212,9 +209,9 @@ See <a href="https://progressr.futureverse.org" class="external-link"><code>{pro
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   term            estimate statistic p.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (intercept)       -<span style="color: #BB0000;">8.47</span>     -<span style="color: #BB0000;">0.839</span>    0.5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (intercept)       -<span style="color: #BB0000;">8.47</span>     -<span style="color: #BB0000;">0.839</span>    0.75</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> alter Citations   -<span style="color: #BB0000;">0.125</span>    -<span style="color: #BB0000;">0.791</span>    0.55</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> sim Citations     44.9       3.68     0   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> sim Citations     44.9       3.68     0.05</span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance</a></span><span class="op">(</span><span class="va">model1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 8</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   r.squared adj.r.squared sigma statistic  p.value    df df.residual  nobs</span>

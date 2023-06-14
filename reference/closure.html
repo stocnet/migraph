@@ -18,7 +18,7 @@ in one-, two-, and three-mode networks."><meta property="og:image" content="http
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -31,9 +31,6 @@ in one-, two-, and three-mode networks."><meta property="og:image" content="http
 </li>
 <li>
   <a href="../reference/index.html">Function Overview</a>
-</li>
-<li>
-  <a href="../articles/index.html">Practical Lessons</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -64,28 +61,33 @@ in one-, two-, and three-mode networks.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">network_reciprocity</span><span class="op">(</span><span class="va">object</span>, method <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">network_reciprocity</span><span class="op">(</span><span class="va">.data</span>, method <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">node_reciprocity</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span><span class="fu">node_reciprocity</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">network_transitivity</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span><span class="fu">network_transitivity</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">node_transitivity</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span><span class="fu">node_transitivity</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">network_equivalency</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span><span class="fu">network_equivalency</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">network_congruency</span><span class="op">(</span><span class="va">object</span>, <span class="va">object2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">network_congruency</span><span class="op">(</span><span class="va">.data</span>, <span class="va">object2</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>object</dt>
-<dd><p>A one-mode or two-mode matrix, igraph, or tidygraph</p></dd>
+    <dl><dt>.data</dt>
+<dd><p>An object of a <code>{manynet}</code>-consistent class:</p><ul><li><p>matrix (adjacency or incidence) from <code>{base}</code> R</p></li>
+<li><p>edgelist, a data frame from <code>{base}</code> R or tibble from <code>{tibble}</code></p></li>
+<li><p>igraph, from the <code>{igraph}</code> package</p></li>
+<li><p>network, from the <code>{network}</code> package</p></li>
+<li><p>tbl_graph, from the <code>{tidygraph}</code> package</p></li>
+</ul></dd>
 
 
 <dt>method</dt>
 <dd><p>For reciprocity, either <code>default</code> or <code>ratio</code>.
-See <code><a href="https://rdrr.io/pkg/igraph/man/reciprocity.html" class="external-link">?igraph::reciprocity</a></code></p></dd>
+See <code><a href="https://r.igraph.org/reference/reciprocity.html" class="external-link">?igraph::reciprocity</a></code></p></dd>
 
 
 <dt>object2</dt>
@@ -128,23 +130,24 @@ Cambridge University Press. Cambridge University Press.
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other measures: 
-<code><a href="centralisation.html">centralisation</a></code>,
-<code><a href="centrality.html">centrality</a></code>,
+<code><a href="between_centrality.html">between_centrality</a></code>,
+<code><a href="close_centrality.html">close_centrality</a></code>,
 <code><a href="cohesion.html">cohesion</a>()</code>,
-<code><a href="diversity.html">diversity</a></code>,
+<code><a href="degree_centrality.html">degree_centrality</a></code>,
+<code><a href="eigenv_centrality.html">eigenv_centrality</a></code>,
 <code><a href="features.html">features</a></code>,
-<code><a href="holes.html">holes</a></code>,
-<code><a href="tie_centrality.html">tie_centrality</a></code></p></div>
+<code><a href="heterogeneity.html">heterogeneity</a></code>,
+<code><a href="holes.html">holes</a></code></p></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">network_reciprocity</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
-<span class="r-in"><span><span class="fu">node_reciprocity</span><span class="op">(</span><span class="fu"><a href="reformat.html">to_unweighted</a></span><span class="op">(</span><span class="va">ison_networkers</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   `LIN FREEMAN` DOUG W…¹ EV RO…² RICHA…³ PHIPP…⁴ CAROL…⁵ GARY …⁶ RUSS …⁷ JOHN …⁸</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         0.935     0.75       1   0.944   0.286     0.8       1     0.8   0.818</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 23 more from this nodeset in the vector.</span></span>
+<span class="r-in"><span><span class="fu">node_reciprocity</span><span class="op">(</span><span class="fu">to_unweighted</span><span class="op">(</span><span class="va">ison_networkers</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   `LIN FREEMAN` `DOUG WHITE` `EV ROGERS` `RICHARD ALBA` `PHIPPS ARABIE`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         0.935         0.75           1          0.944           0.286</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 27 more from this nodeset in the vector.</span></span>
 <span class="r-in"><span><span class="fu">network_transitivity</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.45</span>
 <span class="r-in"><span><span class="fu">node_transitivity</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>

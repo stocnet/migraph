@@ -32,7 +32,7 @@ but not to the (k+1)-core."><meta property="og:image" content="https://snlab-ch.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -45,9 +45,6 @@ but not to the (k+1)-core."><meta property="og:image" content="https://snlab-ch.
 </li>
 <li>
   <a href="../reference/index.html">Function Overview</a>
-</li>
-<li>
-  <a href="../articles/index.html">Practical Lessons</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -86,25 +83,25 @@ Weakly connected components consist of subgraphs where there is a path
 in either direction between member nodes.</p>
 <p>Coreness captures the maximal subgraphs in which each vertex has at least
 degree <em>k</em>, where <em>k</em> is also the order of the subgraph.
-As described in <code><a href="https://rdrr.io/pkg/igraph/man/coreness.html" class="external-link">igraph::coreness</a></code>,
+As described in <code><a href="https://r.igraph.org/reference/coreness.html" class="external-link">igraph::coreness</a></code>,
 a node's coreness is <em>k</em> if it belongs to the <em>k</em>-core
 but not to the (<em>k</em>+1)-core.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">node_components</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">node_components</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">node_weak_components</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span><span class="fu">node_weak_components</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">node_strong_components</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span><span class="fu">node_strong_components</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">node_coreness</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">node_coreness</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>object</dt>
-<dd><p>An object of a migraph-consistent class:</p><ul><li><p>matrix (adjacency or incidence) from <code>{base}</code> R</p></li>
+    <dl><dt>.data</dt>
+<dd><p>An object of a <code>{manynet}</code>-consistent class:</p><ul><li><p>matrix (adjacency or incidence) from <code>{base}</code> R</p></li>
 <li><p>edgelist, a data frame from <code>{base}</code> R or tibble from <code>{tibble}</code></p></li>
 <li><p>igraph, from the <code>{igraph}</code> package</p></li>
 <li><p>network, from the <code>{network}</code> package</p></li>

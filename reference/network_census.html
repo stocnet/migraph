@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.13.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -30,9 +30,6 @@
 </li>
 <li>
   <a href="../reference/index.html">Function Overview</a>
-</li>
-<li>
-  <a href="../articles/index.html">Practical Lessons</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -62,11 +59,11 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">network_dyad_census</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">network_dyad_census</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">network_triad_census</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span><span class="fu">network_triad_census</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">network_mixed_census</span><span class="op">(</span><span class="va">object</span>, <span class="va">object2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">network_mixed_census</span><span class="op">(</span><span class="va">.data</span>, <span class="va">object2</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="source">
@@ -75,8 +72,8 @@
     </div>
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>object</dt>
-<dd><p>An object of a migraph-consistent class:</p><ul><li><p>matrix (adjacency or incidence) from <code>{base}</code> R</p></li>
+    <dl><dt>.data</dt>
+<dd><p>An object of a <code>{manynet}</code>-consistent class:</p><ul><li><p>matrix (adjacency or incidence) from <code>{base}</code> R</p></li>
 <li><p>edgelist, a data frame from <code>{base}</code> R or tibble from <code>{tibble}</code></p></li>
 <li><p>igraph, from the <code>{igraph}</code> package</p></li>
 <li><p>network, from the <code>{network}</code> package</p></li>
@@ -114,18 +111,18 @@ a one-mode and a two-mode network</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">network_dyad_census</span><span class="op">(</span><span class="va">ison_algebra</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">network_dyad_census</span><span class="op">(</span><span class="fu">manynet</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/manynet/man/ison_algebra.html" class="external-link">ison_algebra</a></span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Mutual Asymmetric  Null</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     68          8    44</span>
-<span class="r-in"><span><span class="fu">network_triad_census</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">network_triad_census</span><span class="op">(</span><span class="fu">manynet</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/manynet/man/ison_adolescents.html" class="external-link">ison_adolescents</a></span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   `003` `012` `102` `201` `210` `300`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    13     0    29    11     0     3</span>
-<span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="reformat.html">to_unsigned</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span>, <span class="st">"positive"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">(</span><span class="va">mixed_cen</span> <span class="op">&lt;-</span> <span class="fu">network_mixed_census</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="va">ison_marvel_teams</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/manynet/man/reformat.html" class="external-link">to_unsigned</a></span><span class="op">(</span><span class="fu">manynet</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/manynet/man/ison_marvel.html" class="external-link">ison_marvel_relationships</a></span>, <span class="st">"positive"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">mixed_cen</span> <span class="op">&lt;-</span> <span class="fu">network_mixed_census</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="fu">manynet</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/manynet/man/ison_marvel.html" class="external-link">ison_marvel_teams</a></span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 10</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    `22`  `21`  `20`  `12` `11D` `11U`  `10`  `02`  `01`   `00`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>

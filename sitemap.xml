@@ -16,12 +16,6 @@
     <loc>https://snlab-ch.github.io/migraph/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/articles/p1data.html</loc>
-  </url>
-  <url>
     <loc>https://snlab-ch.github.io/migraph/authors.html</loc>
   </url>
   <url>
@@ -34,22 +28,13 @@
     <loc>https://snlab-ch.github.io/migraph/pull_request_template.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/add.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/as.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/auto_graph.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/between_centrality.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/brokerage_census.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/centralisation.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/centrality.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/close_centrality.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/closure.html</loc>
@@ -70,13 +55,13 @@
     <loc>https://snlab-ch.github.io/migraph/reference/core-periphery.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/create.html</loc>
-  </url>
-  <url>
     <loc>https://snlab-ch.github.io/migraph/reference/defunct.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/diversity.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/degree_centrality.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/eigenv_centrality.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/equivalence.html</loc>
@@ -85,19 +70,7 @@
     <loc>https://snlab-ch.github.io/migraph/reference/features.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/generate.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/ggevolution.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/gglineage.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/grab.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/grid_layouts.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/heterogeneity.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/holes.html</loc>
@@ -109,31 +82,7 @@
     <loc>https://snlab-ch.github.io/migraph/reference/is.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/ison_adolescents.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/ison_algebra.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/ison_brandes.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/ison_karateka.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/ison_lotr.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/ison_marvel.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/ison_networkers.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/ison_projection.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/ison_southern_women.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/kselect.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/mark_nodes.html</loc>
@@ -169,33 +118,18 @@
     <loc>https://snlab-ch.github.io/migraph/reference/node_census.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/partition_layouts.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/over.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/play.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/read.html</loc>
-  </url>
-  <url>
     <loc>https://snlab-ch.github.io/migraph/reference/reexports.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/reformat.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/regression.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/split.html</loc>
-  </url>
-  <url>
     <loc>https://snlab-ch.github.io/migraph/reference/tests.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/tie_centrality.html</loc>
-  </url>
-  <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/transform.html</loc>
   </url>
 </urlset>
