@@ -13,17 +13,17 @@
 \code{{signnet}} by David Schoch
 }
 \usage{
-network_core(object, membership = NULL)
+network_core(.data, membership = NULL)
 
-network_factions(object, membership = NULL)
+network_factions(.data, membership = NULL)
 
-network_modularity(object, membership = NULL, resolution = 1)
+network_modularity(.data, membership = NULL, resolution = 1)
 
-network_smallworld(object, method = c("omega", "sigma", "SWI"), times = 100)
+network_smallworld(.data, method = c("omega", "sigma", "SWI"), times = 100)
 
-network_scalefree(object)
+network_scalefree(.data)
 
-network_balance(object)
+network_balance(.data)
 }
 \arguments{
 \item{membership}{A vector of partition membership.}
@@ -67,6 +67,8 @@ and a core-periphery model with the same dimensions.
 
 \item \code{network_factions()}: Returns correlation between a given network
 and a component model with the same dimensions.
+If no 'membership' vector is given for the data,
+\code{node_kernaghinlin()} is used to obtain a partition into two groups.
 
 \item \code{network_modularity()}: Returns modularity based on nodes' membership
 in pre-defined clusters.
@@ -109,8 +111,8 @@ to the rest of the network through a single tie.
 \examples{
 network_core(ison_adolescents)
 network_core(ison_southern_women)
-network_factions(ison_adolescents)
-network_factions(ison_southern_women)
+  network_factions(mpn_elite_mex)
+  network_factions(ison_southern_women)
 network_modularity(ison_adolescents, 
   node_kernighanlin(ison_adolescents))
 network_modularity(ison_southern_women, 

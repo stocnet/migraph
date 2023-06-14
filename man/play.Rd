@@ -9,7 +9,7 @@
 \title{Functions to play games on networks}
 \usage{
 play_diffusion(
-  object,
+  .data,
   seeds = 1,
   thresholds = 1,
   transmissibility = 1,
@@ -21,7 +21,7 @@ play_diffusion(
 )
 
 play_diffusions(
-  object,
+  .data,
   seeds = 1,
   thresholds = 1,
   transmissibility = 1,
@@ -35,10 +35,10 @@ play_diffusions(
   verbose = FALSE
 )
 
-play_learning(object, beliefs, steps, epsilon = 5e-04)
+play_learning(.data, beliefs, steps, epsilon = 5e-04)
 
 play_segregation(
-  object,
+  .data,
   attribute,
   heterophily = 0,
   who_moves = c("ordered", "random", "most_dissatisfied"),
@@ -141,18 +141,21 @@ Functions to play games on networks
 
 }}
 \examples{
-plot(play_diffusion(generate_smallworld(15, 0.025)))
-plot(play_diffusion(generate_smallworld(15, 0.025), thresholds = 0.4))
-plot(play_diffusion(generate_smallworld(15, 0.025), recovery = 0.4))
-plot(play_diffusions(generate_smallworld(15, 0.025), times = 20))
-play_learning(ison_networkers, 
-      rbinom(network_nodes(ison_networkers),1,prob = 0.25))
-startValues <- rbinom(100,1,prob = 0.5)
-startValues[sample(seq_len(100), round(100*0.2))] <- NA
-latticeEg <- add_node_attribute(create_lattice(100), "startValues", startValues)
-latticeEg <- add_node_attribute(latticeEg, "name", seq_len(100))
-autographr(latticeEg, node_color = "startValues", node_size = 5) +
-autographr(play_segregation(latticeEg, "startValues", 0.5), node_color = "startValues", node_size = 5)
+  smeg <- manynet::generate_smallworld(15, 0.025)
+  plot(play_diffusion(smeg))
+  plot(play_diffusion(smeg, thresholds = 0.4))
+  plot(play_diffusion(smeg, recovery = 0.4))
+  plot(play_diffusions(smeg, times = 20))
+  play_learning(ison_networkers, 
+      rbinom(manynet::network_nodes(ison_networkers),1,prob = 0.25))
+  startValues <- rbinom(100,1,prob = 0.5)
+  startValues[sample(seq_len(100), round(100*0.2))] <- NA
+  latticeEg <- manynet::create_lattice(100)
+  latticeEg <- manynet::add_node_attribute(latticeEg, "startValues", startValues)
+  latticeEg <- manynet::add_node_attribute(latticeEg, "name", seq_len(100))
+  autographr(latticeEg, node_color = "startValues", node_size = 5) +
+  autographr(play_segregation(latticeEg, "startValues", 0.5), 
+             node_color = "startValues", node_size = 5)
 }
 \seealso{
 Other models: 

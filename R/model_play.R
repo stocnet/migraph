@@ -51,11 +51,12 @@ NULL
 
 #' @describeIn play Playing compartmental diffusion on networks.
 #' @examples 
-#' plot(play_diffusion(generate_smallworld(15, 0.025)))
-#' plot(play_diffusion(generate_smallworld(15, 0.025), thresholds = 0.4))
-#' plot(play_diffusion(generate_smallworld(15, 0.025), recovery = 0.4))
+#'   smeg <- manynet::generate_smallworld(15, 0.025)
+#'   plot(play_diffusion(smeg))
+#'   plot(play_diffusion(smeg, thresholds = 0.4))
+#'   plot(play_diffusion(smeg, recovery = 0.4))
 #' @export
-play_diffusion <- function(object, 
+play_diffusion <- function(.data, 
                            seeds = 1,
                            thresholds = 1,
                            transmissibility = 1,
@@ -64,14 +65,14 @@ play_diffusion <- function(object,
                            waning = 0,
                            immune = NULL,
                            steps){
-  n <- network_nodes(object)
+  n <- manynet::network_nodes(.data)
   exposed <- NULL
   recovered <- NULL
   if(missing(steps)) steps <- n
   if(length(thresholds)==1) thresholds <- rep(thresholds, n)
   if(all(thresholds <= 1) & !all(thresholds == 1)) 
     thresholds <- thresholds * 
-      node_degree(object, normalized = FALSE)
+      node_degree(.data, normalized = FALSE)
   if(is.logical(seeds)) seeds <- which(seeds)
   if(!is.null(immune)){
     if(is.logical(immune)) immune <- which(immune)
@@ -102,7 +103,7 @@ play_diffusion <- function(object,
     recovered <- setdiff(recovered, waned)
     
     # at main infection stage, get currently exposed to infection:
-    contacts <- unlist(sapply(igraph::neighborhood(object, nodes = infected),
+    contacts <- unlist(sapply(igraph::neighborhood(.data, nodes = infected),
                              function(x) setdiff(x, infected)))
     # count exposures for each node:
     tabcontact <- table(contacts)
@@ -149,15 +150,15 @@ play_diffusion <- function(object,
     if(is.infinite(steps) & length(infected)==n) break
     if(t==steps) break
   }
-  make_diff_model(events, report, object)
+  make_diff_model(events, report, .data)
 }
 
 #' @describeIn play Playing multiple compartmental diffusions on networks.
 #' @inheritParams regression
 #' @examples 
-#' plot(play_diffusions(generate_smallworld(15, 0.025), times = 20))
+#'   plot(play_diffusions(smeg, times = 20))
 #' @export
-play_diffusions <- function(object,
+play_diffusions <- function(.data,
                             seeds = 1,
                             thresholds = 1,
                             transmissibility = 1,
@@ -169,17 +170,17 @@ play_diffusions <- function(object,
                             times = 5,
                             strategy = "sequential",
                             verbose = FALSE){
-  if(missing(steps)) steps <- network_nodes(object)
+  if(missing(steps)) steps <- manynet::network_nodes(.data)
   future::plan(strategy)
   out <- furrr::future_map_dfr(1:times, function(j){
       data.frame(sim = j,
-                 play_diffusion(object, 
+                 play_diffusion(.data, 
                      seeds = seeds, thresholds = thresholds,
                      transmissibility = transmissibility,
                      latency = latency, recovery = recovery, waning = waning,
                      immune = immune, steps = steps))
     }, .progress = verbose, .options = furrr::furrr_options(seed = T))
-  make_diffs_model(out, object)
+  make_diffs_model(out, .data)
 }
 
 #' @describeIn play Playing DeGroot learning on networks.
@@ -188,14 +189,14 @@ play_diffusions <- function(object,
 #' @param epsilon The maximum difference in beliefs accepted
 #'   for convergence to a consensus.
 #' @examples 
-#' play_learning(ison_networkers, 
-#'       rbinom(network_nodes(ison_networkers),1,prob = 0.25))
+#'   play_learning(ison_networkers, 
+#'       rbinom(manynet::network_nodes(ison_networkers),1,prob = 0.25))
 #' @export
-play_learning <- function(object, 
+play_learning <- function(.data, 
                            beliefs,
                            steps,
                           epsilon = 0.0005){
-  n <- network_nodes(object)
+  n <- manynet::network_nodes(.data)
   if(length(beliefs)!=n) 
     stop("'beliefs' must be a vector the same length as the number of nodes in the network.")
   if(is.logical(beliefs)) beliefs <- beliefs*1
@@ -204,7 +205,7 @@ play_learning <- function(object,
   t = 0
   out <- matrix(NA,steps+1,length(beliefs))
   out[1,] <- beliefs
-  trust_mat <- as_matrix(object)/rowSums(as_matrix(object))
+  trust_mat <- as_matrix(.data)/rowSums(as_matrix(.data))
   
   repeat{
     old_beliefs <- beliefs
@@ -216,26 +217,28 @@ play_learning <- function(object,
   }
   out <- stats::na.omit(out)
   
-  make_learn_model(out, object)
+  make_learn_model(out, .data)
 }
 
 
 #' @describeIn play Playing Schelling segregation on networks.
 #' @examples 
-#' startValues <- rbinom(100,1,prob = 0.5)
-#' startValues[sample(seq_len(100), round(100*0.2))] <- NA
-#' latticeEg <- add_node_attribute(create_lattice(100), "startValues", startValues)
-#' latticeEg <- add_node_attribute(latticeEg, "name", seq_len(100))
-#' autographr(latticeEg, node_color = "startValues", node_size = 5) +
-#' autographr(play_segregation(latticeEg, "startValues", 0.5), node_color = "startValues", node_size = 5)
+#'   startValues <- rbinom(100,1,prob = 0.5)
+#'   startValues[sample(seq_len(100), round(100*0.2))] <- NA
+#'   latticeEg <- manynet::create_lattice(100)
+#'   latticeEg <- manynet::add_node_attribute(latticeEg, "startValues", startValues)
+#'   latticeEg <- manynet::add_node_attribute(latticeEg, "name", seq_len(100))
+#'   autographr(latticeEg, node_color = "startValues", node_size = 5) +
+#'   autographr(play_segregation(latticeEg, "startValues", 0.5), 
+#'              node_color = "startValues", node_size = 5)
 #' @export
-play_segregation <- function(object, 
+play_segregation <- function(.data, 
                              attribute,
                              heterophily = 0,
                              who_moves = c("ordered","random","most_dissatisfied"),
                              choice_function = c("satisficing","optimising"),
                              steps){
-  n <- network_nodes(object)
+  n <- manynet::network_nodes(.data)
   if(missing(steps)) steps <- n
   who_moves <- match.arg(who_moves)
   choice_function <- match.arg(choice_function)
@@ -244,11 +247,11 @@ play_segregation <- function(object,
   swtch <- function(x,i,j) {x[c(i,j)] <- x[c(j,i)]; x} 
 
   t = 0
-  temp <- object
+  temp <- .data
   moved <- NULL
   while(steps > t){
     t <- t+1
-    current <- node_attribute(temp, attribute)
+    current <- manynet::node_attribute(temp, attribute)
     heterophily_scores <- node_heterophily(temp, attribute)
     dissatisfied <- which(heterophily_scores > heterophily)
     unoccupied <- which(is.na(current))
@@ -262,7 +265,7 @@ play_segregation <- function(object,
                              which(heterophily_scores[dissatisfied] == 
                                      max(heterophily_scores[dissatisfied]))[1]])
     options <- vapply(unoccupied, function(u){
-      test <- add_node_attribute(temp, "test", 
+      test <- manynet::add_node_attribute(temp, "test", 
                                  swtch(current, dissatisfied, u))
       node_heterophily(test, "test")[u]
     }, FUN.VALUE = numeric(1))
@@ -272,7 +275,7 @@ play_segregation <- function(object,
                       optimising = unoccupied[which(options == min(options))[1]])
     if(is.na(move_to)) next
     print(paste("Moving node", dissatisfied, "to node", move_to))
-    temp <- add_node_attribute(temp, attribute, 
+    temp <- manynet::add_node_attribute(temp, attribute, 
                                swtch(current, dissatisfied, move_to))
     moved <- c(dissatisfied, moved)
   }

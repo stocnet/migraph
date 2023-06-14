@@ -7,7 +7,7 @@
 \title{Conditional uniform graph and permutation tests}
 \usage{
 test_random(
-  object,
+  .data,
   FUN,
   ...,
   times = 1000,
@@ -16,7 +16,7 @@ test_random(
 )
 
 test_permutation(
-  object,
+  .data,
   FUN,
   ...,
   times = 1000,
