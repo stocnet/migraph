@@ -204,7 +204,7 @@ play_learning <- function(.data,
   t = 0
   out <- matrix(NA,steps+1,length(beliefs))
   out[1,] <- beliefs
-  trust_mat <- as_matrix(.data)/rowSums(as_matrix(.data))
+  trust_mat <- manynet::as_matrix(.data)/rowSums(manynet::as_matrix(.data))
   
   repeat{
     old_beliefs <- beliefs

@@ -89,7 +89,7 @@ node_degree <- function (.data, normalized = TRUE, alpha = 0,
     degrees <- igraph::degree(graph = graph, 
                               v = igraph::V(graph), 
                               mode = direction, 
-                              loops = is_complex(.data))
+                              loops = manynet::is_complex(.data))
     other_set_size <- ifelse(igraph::V(graph)$type, 
                              sum(!igraph::V(graph)$type), 
                              sum(igraph::V(graph)$type))
