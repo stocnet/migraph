@@ -23,10 +23,8 @@ Depends:
     R (>= 3.6.0),
     manynet
 Imports: 
-    BiocManager,
     dplyr (>= 1.1.0),
     generics,
-    ggforce,
     ggplot2,
     ggraph,
     igraph,
@@ -34,7 +32,6 @@ Imports:
     network,
     future,
     furrr,
-    patchwork,
     pillar,
     purrr,
     rlang,
