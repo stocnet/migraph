@@ -221,7 +221,7 @@ learnr::available_tutorials("migraph")
 ```
 
 You can then choose to begin a tutorial using the following command: e.g.
-`learnr::run_tutorial("tutorial2", "migraph")`.
+`learnr::run_tutorial("tutorial3", "migraph")`.
 For more details on the `{learnr}` package, see [here](https://rstudio.github.io/learnr/).
 
 ## Relationship to other packages
