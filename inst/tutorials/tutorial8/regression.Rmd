@@ -312,7 +312,7 @@ attributes, but it is just a single permutation.
 Let's try a test that runs this over a succession of permutations,
 just as we did with random graphs.
 
-```{r testpermute, exercise=TRUE, exercise.setup = "friends-solution"}
+```{r testpermute, exercise=TRUE, exercise.setup = "rando-solution"}
 
 ```
 
@@ -334,7 +334,7 @@ Again, we see that there is perhaps nothing so surprising that we got the homoph
 for gender that we did, but the lack of power origin heterophily is surprising.
 Plot the results for gender and power according to the random and permutation baselines.
 
-```{r cugqap, exercise=TRUE, exercise.setup = "friends-solution"}
+```{r cugqap, exercise=TRUE, exercise.setup = "testpermute-solution"}
 
 ```
 
