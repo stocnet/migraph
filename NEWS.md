@@ -1,3 +1,17 @@
+# migraph 1.0.1
+
+## Measures
+
+- Fixed backends in `node_closeness()` and `node_betweenness()` in preparation for an `{igraph}` deprecation (merci @maelle)
+
+## Models
+
+- Fixed #272 by making `test_random()` and `test_permutation()` rely on graph dimensions rather than graph order (thank you finding this @rabenton)
+
+## Tutorials
+
+- Fixed some defunct function names
+
 # migraph 1.0.0
 
 ## Package
