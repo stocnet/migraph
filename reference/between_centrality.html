@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -136,10 +136,16 @@ against only the centrality scores of the other nodes in that mode.</p></dd>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">node_betweenness</span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> This graph was created by an old(er) igraph version.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   Call upgrade_graph() on it to use with the current igraph version</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   For now we convert it on the fly...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Trevino  Madero Carranza Aguilar Obregon Calles `Aleman Gonzalez` `Portes Gil`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.005<span style="text-decoration: underline;">05</span> 0.008<span style="text-decoration: underline;">19</span>   0.030<span style="text-decoration: underline;">9</span>  0.020<span style="text-decoration: underline;">6</span> 0.008<span style="text-decoration: underline;">06</span> 0.024<span style="text-decoration: underline;">9</span>           0.009<span style="text-decoration: underline;">44</span>       0.038<span style="text-decoration: underline;">9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 27 more from this nodeset in the vector.</span></span>
 <span class="r-in"><span><span class="fu">node_betweenness</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> This graph was created by an old(er) igraph version.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   Call upgrade_graph() on it to use with the current igraph version</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   For now we convert it on the fly...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       V1     V2     V3     V4     V5     V6      V7      V8     V9    V10    V11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.096<span style="text-decoration: underline;">7</span> 0.051<span style="text-decoration: underline;">7</span> 0.087<span style="text-decoration: underline;">6</span> 0.049<span style="text-decoration: underline;">8</span> 0.010<span style="text-decoration: underline;">7</span> 0.010<span style="text-decoration: underline;">8</span> 0.009<span style="text-decoration: underline;">36</span> 0.006<span style="text-decoration: underline;">73</span> 0.016<span style="text-decoration: underline;">7</span> 0.014<span style="text-decoration: underline;">4</span> 0.013<span style="text-decoration: underline;">4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more from this nodeset in the vector.</span></span>
@@ -147,6 +153,9 @@ against only the centrality scores of the other nodes in that mode.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.002<span style="text-decoration: underline;">15</span> 0.002<span style="text-decoration: underline;">09</span> 0.018<span style="text-decoration: underline;">1</span> 0.007<span style="text-decoration: underline;">64</span> 0.037<span style="text-decoration: underline;">6</span> 0.062<span style="text-decoration: underline;">0</span> 0.129 0.240 0.213 0.015<span style="text-decoration: underline;">1</span> 0.020<span style="text-decoration: underline;">0</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 3 more from this nodeset in the vector.</span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">tb</span> <span class="op">&lt;-</span> <span class="fu">tie_betweenness</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> This graph was created by an old(er) igraph version.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   Call upgrade_graph() on it to use with the current igraph version</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   For now we convert it on the fly...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   `Betty-Sue` `Sue-Alice` `Alice-Jane` `Sue-Dale` `Alice-Dale` `Jane-Dale`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>           7           3            5        4.5          2.5           2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 4 more from this nodeset in the vector.</span></span>
