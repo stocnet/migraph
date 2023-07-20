@@ -177,6 +177,7 @@ $$\frac{E-I}{E+I}$$
 where $E$ is the number of ties present between a variable's categories (i.e. external),
 and $I$ is the number of ties present within a variable's categories (i.e. internal).
 As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1 suggests perfect heterophily.
+(This is why the function is called `network_heterophily()`).
 
 Check how homophilic three variables in the network are,
 "Gender", "PowerOrigin", and "Attractive".
@@ -186,7 +187,7 @@ Check how homophilic three variables in the network are,
 ```
 
 ```{r ei-hint}
-network_homophily(____, ____)
+network_heterophily(____, ____)
 ```
 
 ```{r ei-solution}
@@ -244,13 +245,13 @@ plot(rand.____)
 
 ```{r rando-solution}
 rand.gender <- test_random(marvel_friends, 
-                            network_homophily, attribute = "Gender", 
+                            network_heterophily, attribute = "Gender", 
                            times = 1000)
 rand.power <- test_random(marvel_friends, 
-                           network_homophily, attribute = "PowerOrigin", 
+                           network_heterophily, attribute = "PowerOrigin", 
                            times = 1000)
 rand.attract <- test_random(marvel_friends, 
-                             network_homophily, attribute = "Attractive", 
+                             network_heterophily, attribute = "Attractive", 
                            times = 1000)
 plot(rand.gender)
 plot(rand.power)
@@ -311,7 +312,7 @@ attributes, but it is just a single permutation.
 Let's try a test that runs this over a succession of permutations,
 just as we did with random graphs.
 
-```{r testpermute, exercise=TRUE, exercise.setup = "friends-solution"}
+```{r testpermute, exercise=TRUE, exercise.setup = "rando-solution"}
 
 ```
 
@@ -333,7 +334,7 @@ Again, we see that there is perhaps nothing so surprising that we got the homoph
 for gender that we did, but the lack of power origin heterophily is surprising.
 Plot the results for gender and power according to the random and permutation baselines.
 
-```{r cugqap, exercise=TRUE, exercise.setup = "friends-solution"}
+```{r cugqap, exercise=TRUE, exercise.setup = "testpermute-solution"}
 
 ```
 

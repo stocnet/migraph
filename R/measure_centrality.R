@@ -207,10 +207,10 @@ node_betweenness <- function(.data, normalized = TRUE,
                                  directed = manynet::is_directed(graph), weights = weights, 
                                  normalized = normalized)
     } else {
-      out <- igraph::estimate_betweenness(graph = graph, vids = igraph::V(graph), 
-                                          directed = manynet::is_directed(graph), 
-                                          cutoff = cutoff, 
-                                          weights = weights)
+      out <- igraph::betweenness(graph = graph, v = igraph::V(graph), 
+                                 directed = manynet::is_directed(graph), 
+                                 cutoff = cutoff, 
+                                 weights = weights)
     }
   }
   out <- make_node_measure(out, .data)
@@ -325,13 +325,9 @@ node_closeness <- function(.data, normalized = TRUE,
     set_size <- ifelse(igraph::V(graph)$type, sum(igraph::V(graph)$type), sum(!igraph::V(graph)$type))
     out <- closeness/(1/(other_set_size+2*set_size-2))
     } else {
-      if (is.null(cutoff)) {
-        out <- igraph::closeness(graph = graph, vids = igraph::V(graph), mode = direction,
-                  weights = weights, normalized = normalized)
-      } else {
-        out <- igraph::estimate_closeness(graph = graph, vids = igraph::V(graph), mode = direction, 
-                           cutoff = cutoff, weights = weights, normalized = normalized)
-      }
+      cutoff <- cutoff %||% -1
+      out <- igraph::closeness(graph = graph, vids = igraph::V(graph), mode = direction, 
+                               cutoff = cutoff, weights = weights, normalized = normalized)
     }
   out <- make_node_measure(out, .data)
   out

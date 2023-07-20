@@ -8,6 +8,9 @@ cugtest <- test_random(marvel_friends,
 cugtest2 <- test_random(marvel_friends,
                         network_betweenness,
                         times = 200)
+cugtest3 <- test_random(ison_southern_women, 
+                        network_equivalency, 
+                        times = 200)
 
 test_that("test_random works", {
   # Set the cugtest up
@@ -23,6 +26,7 @@ test_that("test_random works", {
   expect_s3_class(cugtest, "network_test")
   # Test stuff cug2
   expect_equal(as.numeric(cugtest2$testval), 0.238, tolerance = 0.001)
+  expect_equal(mean(cugtest3$testdist), 0.361, tolerance = 0.003)
   expect_equal(length(cugtest2$testdist), 200) # NB: Stochastic
   expect_false(cugtest2$mode)
   expect_false(cugtest2$diag)

@@ -231,7 +231,6 @@ suggest that you check to see which vignettes are currently available:
 learnr::available_tutorials("migraph")
 #> Available tutorials:
 #> * migraph
-#>   - tutorial2 : "Visualisation"
 #>   - tutorial3 : "Centrality"
 #>   - tutorial4 : "Community"
 #>   - tutorial5 : "Equivalence"
@@ -241,7 +240,7 @@ learnr::available_tutorials("migraph")
 ```
 
 You can then choose to begin a tutorial using the following command:
-e.g. `learnr::run_tutorial("tutorial2", "migraph")`. For more details on
+e.g. `learnr::run_tutorial("tutorial3", "migraph")`. For more details on
 the `{learnr}` package, see [here](https://rstudio.github.io/learnr/).
 
 ## Relationship to other packages
