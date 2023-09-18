@@ -166,7 +166,7 @@ but also SIS, SIR, SIRS, SIER, and SIERS.
 ### Stable
 
 The easiest way to install the latest stable version of `{migraph}` is via CRAN.
-Simply open the R console and enter:
+Simply open the R console and enter:^[Macs with Macports installed may also install from the command line [using Macports](https://ports.macports.org/port/R-migraph/).]
 
 `install.packages('migraph')`
 
@@ -175,10 +175,6 @@ You can then begin to use `{migraph}` by loading the package:
 `library(migraph)`
 
 This will load any required packages and make the data contained within the package available.
-The version from CRAN also has all the vignettes built and included.
-You can check them out with:
-
-`vignettes(package = "migraph")`
 
 ### Development
 
