@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-A set of tools for analysing multimodal networks. All functions operate with matrices, edge lists, and 'igraph', 'network', and 'tidygraph' objects, and on one-mode, two-mode (bipartite), and sometimes three-mode networks. It includes functions for measuring centrality, centralization, cohesion, closure, and constraint, as well as for network block-modelling, regression, and diffusion models. The package is released as a complement to 'Multimodal Political Networks' (2021, ISBN:9781108985000), and includes various datasets used in the book in addition to other network data.
+A set of tools for analysing multimodal networks. It includes functions for measuring centrality, centralization, cohesion, closure, constraint and diversity, as well as for network block-modelling, regression, and diffusion models. The package is released as a complement to 'Multimodal Political Networks' (2021, ISBN:9781108985000), and includes various datasets used in the book. Built on the 'manynet' package, all functions operate with matrices, edge lists, and 'igraph', 'network', and 'tidygraph' objects, and on one-mode, two-mode (bipartite), and sometimes three-mode networks.
 }
 \seealso{
 Useful links:

@@ -222,8 +222,8 @@ node_betweenness <- function(.data, normalized = TRUE,
 #' @examples
 #' (tb <- tie_betweenness(ison_adolescents))
 #' plot(tb)
-#' ison_adolescents %>% mutate_ties(weight = tb) %>% 
-#'   autographr()
+#' #ison_adolescents %>% mutate_ties(weight = tb) %>% 
+#' #   autographr()
 #' @export
 tie_betweenness <- function(.data, normalized = TRUE){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
@@ -352,9 +352,9 @@ node_reach <- function(.data, normalized = TRUE, k = 2){
 #' @examples
 #' (ec <- tie_closeness(ison_adolescents))
 #' plot(ec)
-#' ison_adolescents %>% 
-#'   activate(edges) %>% mutate(weight = ec) %>% 
-#'   autographr()
+#' #ison_adolescents %>% 
+#' #   activate(edges) %>% mutate(weight = ec) %>% 
+#' #   autographr()
 #' @export
 tie_closeness <- function(.data, normalized = TRUE){
   if(missing(.data)) {expect_nodes(); .data <- .G()}

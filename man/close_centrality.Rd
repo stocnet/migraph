@@ -65,9 +65,9 @@ node_closeness(ison_southern_women)
 node_reach(ison_adolescents)
 (ec <- tie_closeness(ison_adolescents))
 plot(ec)
-ison_adolescents \%>\% 
-  activate(edges) \%>\% mutate(weight = ec) \%>\% 
-  autographr()
+#ison_adolescents \%>\% 
+#   activate(edges) \%>\% mutate(weight = ec) \%>\% 
+#   autographr()
 network_closeness(ison_southern_women, direction = "in")
 }
 \seealso{

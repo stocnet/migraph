@@ -182,9 +182,11 @@ Functions to play games on networks
   startValues[sample(seq_len(100), round(100*0.2))] <- NA
   latticeEg <- manynet::create_lattice(100)
   latticeEg <- manynet::add_node_attribute(latticeEg, "startValues", startValues)
-  manynet::autographr(latticeEg, node_color = "startValues", node_size = 5)
-  manynet::autographr(play_segregation(latticeEg, "startValues", 0.5), 
-             node_color = "startValues", node_size = 5)
+  latticeEg
+  play_segregation(latticeEg, "startValues", 0.5)
+  #manynet::autographr(latticeEg, node_color = "startValues", node_size = 5)
+  #manynet::autographr(play_segregation(latticeEg, "startValues", 0.5), 
+  #                    node_color = "startValues", node_size = 5)
 }
 \seealso{
 Other models: 

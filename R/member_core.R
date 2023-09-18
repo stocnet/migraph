@@ -23,9 +23,9 @@
 #' “A Fast Algorithm for the Discrete Core/Periphery Bipartitioning Problem.”
 #' \doi{10.48550/arXiv.1102.5511}
 #' @examples 
-#' mpn_elite_usa_advice %>% as_tidygraph %>% 
-#'   mutate(corep = node_core(mpn_elite_usa_advice)) %>% 
-#'   autographr(node_color = "corep")
+#' #mpn_elite_usa_advice %>% as_tidygraph %>% 
+#' #   mutate(corep = node_core(mpn_elite_usa_advice)) %>% 
+#' #   autographr(node_color = "corep")
 #' network_core(mpn_elite_usa_advice)
 #' @export
 node_core <- function(.data){
