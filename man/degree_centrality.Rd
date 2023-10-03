@@ -3,8 +3,12 @@
 \name{degree_centrality}
 \alias{degree_centrality}
 \alias{node_degree}
+\alias{node_outdegree}
+\alias{node_indegree}
 \alias{tie_degree}
 \alias{network_degree}
+\alias{network_outdegree}
+\alias{network_indegree}
 \title{Measures of degree-like centrality and centralisation}
 \usage{
 node_degree(
@@ -14,9 +18,17 @@ node_degree(
   direction = c("all", "out", "in")
 )
 
+node_outdegree(.data, normalized = TRUE, alpha = 0)
+
+node_indegree(.data, normalized = TRUE, alpha = 0)
+
 tie_degree(.data, normalized = TRUE)
 
 network_degree(.data, normalized = TRUE, direction = c("all", "out", "in"))
+
+network_outdegree(.data, normalized = TRUE)
+
+network_indegree(.data, normalized = TRUE)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -75,9 +87,17 @@ including for two-mode networks.
 \item \code{node_degree()}: Calculates the degree centrality of nodes in an unweighted network,
 or weighted degree/strength of nodes in a weighted network.
 
+\item \code{node_outdegree()}: Wraps node_degree(..., direction = "out")
+
+\item \code{node_indegree()}: Wraps node_degree(..., direction = "in")
+
 \item \code{tie_degree()}: Calculate the degree centrality of edges in a network
 
 \item \code{network_degree()}: Calculate the degree centralization for a graph
+
+\item \code{network_outdegree()}: Wraps network_degree(..., direction = "out")
+
+\item \code{network_indegree()}: Wraps network_degree(..., direction = "out")
 
 }}
 \examples{

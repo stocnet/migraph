@@ -115,6 +115,18 @@ node_degree <- function (.data, normalized = TRUE, alpha = 0,
   out
 }
 
+#' @describeIn degree_centrality Wraps node_degree(..., direction = "out")
+#' @export
+node_outdegree <- function (.data, normalized = TRUE, alpha = 0){
+  node_degree(.data, normalized = normalized, alpha = alpha, direction = "out")
+}
+
+#' @describeIn degree_centrality Wraps node_degree(..., direction = "in")
+#' @export
+node_indegree <- function (.data, normalized = TRUE, alpha = 0){
+  node_degree(.data, normalized = normalized, alpha = alpha, direction = "in")
+}
+
 #' @describeIn degree_centrality Calculate the degree centrality of edges in a network
 #' @examples 
 #' tie_degree(ison_adolescents)
@@ -164,6 +176,18 @@ network_degree <- function(.data, normalized = TRUE,
   }
   out <- make_network_measure(out, .data)
   out
+}
+
+#' @describeIn degree_centrality Wraps network_degree(..., direction = "out")
+#' @export
+network_outdegree <- function(.data, normalized = TRUE){
+  network_degree(.data, normalized = normalized, direction = "out")
+}
+
+#' @describeIn degree_centrality Wraps network_degree(..., direction = "out")
+#' @export
+network_indegree <- function(.data, normalized = TRUE){
+  network_degree(.data, normalized = normalized, direction = "in")
 }
 
 # Betweenness-like centralities ####
