@@ -365,7 +365,7 @@ node_closeness <- function(.data, normalized = TRUE,
 #' @export
 node_reach <- function(.data, normalized = TRUE, k = 2){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  out <- rowSums(node_path_census(.data)==k)
+  out <- rowSums(node_path_census(.data)<=k)
   if(normalized) out <- out/(manynet::network_nodes(.data)-1)
   out <- make_node_measure(out, .data)
   out
@@ -389,7 +389,7 @@ tie_closeness <- function(.data, normalized = TRUE){
   out
 }
 
-#' @describeIn close_centrality Calculate the closeness centralization for a graph
+#' @describeIn close_centrality Calculate a network's closeness centralization
 #' @examples
 #' network_closeness(ison_southern_women, direction = "in")
 #' @export
@@ -452,6 +452,16 @@ network_closeness <- function(.data, normalized = TRUE,
   }
   out <- make_network_measure(out, .data)
   out
+}
+
+#' @describeIn close_centrality Calculate a network's reach centralization
+#' @export
+network_reach <- function(.data, normalized = TRUE, k = 2){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
+  reaches <- node_reach(.data, normalized = FALSE, k = k)
+  out <- sum(max(reaches) - reaches)
+  if(normalized) out <- out / sum(network_nodes(.data) - reaches)
+  make_network_measure(out, .data)
 }
 
 # Eigenvector-like centralities ####
