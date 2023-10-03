@@ -50,6 +50,10 @@ A numeric vector giving each node's power centrality measure.
 \description{
 Measures of eigenvector-like centrality and centralisation
 }
+\details{
+We use \code{{igraph}} routines behind the scenes here for consistency and because they are often faster.
+For example, \code{igraph::eigencentrality()} is approximately 25\% faster than \code{sna::evcent()}.
+}
 \section{Functions}{
 \itemize{
 \item \code{node_eigenvector()}: Calculate the eigenvector centrality of nodes in a network

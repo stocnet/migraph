@@ -371,6 +371,25 @@ node_reach <- function(.data, normalized = TRUE, k = 2){
   out
 }
 
+#' @describeIn close_centrality Calculate nodes' harmonic centrality or valued centrality.
+#'   This is thought to behave better than reach centrality for disconnected networks.
+#' @references
+#'   Marchiori, M, and V Latora. 2000. 
+#'   "Harmony in the small-world".
+#'   _Physica A_ 285: 539-546.
+#'   
+#'   Dekker, Anthony. 2005.
+#'   "Conceptual distance in social network analysis".
+#'   _Journal of Social Structure_ 6(3).
+#' @export
+node_harmonic <- function(.data, normalized = TRUE, k = -1){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
+  out <- igraph::harmonic_centrality(as_igraph(.data), # weighted if present
+                                     normalized = normalized, cutoff = k)
+  out <- make_node_measure(out, .data)
+  out
+}
+
 #' @describeIn close_centrality Calculate the closeness of each edge to each other edge
 #' in the network.
 #' @examples
@@ -464,6 +483,16 @@ network_reach <- function(.data, normalized = TRUE, k = 2){
   make_network_measure(out, .data)
 }
 
+#' @describeIn close_centrality Calculate a network's harmonic centralization
+#' @export
+network_harmonic <- function(.data, normalized = TRUE, k = 2){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
+  harm <- node_harmonic(.data, normalized = FALSE, k = k)
+  out <- sum(max(harm) - harm)
+  if(normalized) out <- out / sum(network_nodes(.data) - harm)
+  make_network_measure(out, .data)
+}
+
 # Eigenvector-like centralities ####
 
 #' Measures of eigenvector-like centrality and centralisation
@@ -484,6 +513,9 @@ NULL
 #'   Rather than performing this iteration,
 #'   most routines solve the eigenvector equation \eqn{Ax = \lambda x}.
 #' @param scale Logical scalar, whether to rescale the vector so the maximum score is 1. 
+#' @details
+#'   We use `{igraph}` routines behind the scenes here for consistency and because they are often faster.
+#'   For example, `igraph::eigencentrality()` is approximately 25% faster than `sna::evcent()`.
 #' @references 
 #'   Bonacich, Phillip. 1991. 
 #'   “Simultaneous Group and Individual Centralities.” 
@@ -500,6 +532,9 @@ node_eigenvector <- function(.data, normalized = TRUE, scale = FALSE){
   weights <- `if`(manynet::is_weighted(.data), 
                   manynet::tie_weights(.data), NA)
   graph <- manynet::as_igraph(.data)
+  
+  if(!manynet::is_connected(.data)) 
+    warning("Unconnected networks will only allow nodes from one component have non-zero eigenvector scores.")
   
   # Do the calculations
   if (!manynet::is_twomode(graph)){
@@ -641,6 +676,5 @@ tie_eigenvector <- function(.data, normalized = TRUE){
   out <- make_tie_measure(out, .data)
   out
 }
-
 
 

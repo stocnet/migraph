@@ -26,7 +26,7 @@ Imports:
     dplyr (>= 1.1.0),
     generics,
     ggplot2,
-    igraph,
+    igraph (>= 1.5.0),
     network,
     future,
     furrr,
