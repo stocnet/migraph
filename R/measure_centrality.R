@@ -479,7 +479,7 @@ network_reach <- function(.data, normalized = TRUE, k = 2){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   reaches <- node_reach(.data, normalized = FALSE, k = k)
   out <- sum(max(reaches) - reaches)
-  if(normalized) out <- out / sum(network_nodes(.data) - reaches)
+  if(normalized) out <- out / sum(manynet::network_nodes(.data) - reaches)
   make_network_measure(out, .data)
 }
 
@@ -489,7 +489,7 @@ network_harmonic <- function(.data, normalized = TRUE, k = 2){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   harm <- node_harmonic(.data, normalized = FALSE, k = k)
   out <- sum(max(harm) - harm)
-  if(normalized) out <- out / sum(network_nodes(.data) - harm)
+  if(normalized) out <- out / sum(manynet::network_nodes(.data) - harm)
   make_network_measure(out, .data)
 }
 
