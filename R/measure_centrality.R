@@ -115,6 +115,18 @@ node_degree <- function (.data, normalized = TRUE, alpha = 0,
   out
 }
 
+#' @describeIn degree_centrality Wraps node_degree(..., direction = "out")
+#' @export
+node_outdegree <- function (.data, normalized = TRUE, alpha = 0){
+  node_degree(.data, normalized = normalized, alpha = alpha, direction = "out")
+}
+
+#' @describeIn degree_centrality Wraps node_degree(..., direction = "in")
+#' @export
+node_indegree <- function (.data, normalized = TRUE, alpha = 0){
+  node_degree(.data, normalized = normalized, alpha = alpha, direction = "in")
+}
+
 #' @describeIn degree_centrality Calculate the degree centrality of edges in a network
 #' @examples 
 #' tie_degree(ison_adolescents)
@@ -164,6 +176,18 @@ network_degree <- function(.data, normalized = TRUE,
   }
   out <- make_network_measure(out, .data)
   out
+}
+
+#' @describeIn degree_centrality Wraps network_degree(..., direction = "out")
+#' @export
+network_outdegree <- function(.data, normalized = TRUE){
+  network_degree(.data, normalized = normalized, direction = "out")
+}
+
+#' @describeIn degree_centrality Wraps network_degree(..., direction = "out")
+#' @export
+network_indegree <- function(.data, normalized = TRUE){
+  network_degree(.data, normalized = normalized, direction = "in")
 }
 
 # Betweenness-like centralities ####
@@ -222,8 +246,8 @@ node_betweenness <- function(.data, normalized = TRUE,
 #' @examples
 #' (tb <- tie_betweenness(ison_adolescents))
 #' plot(tb)
-#' ison_adolescents %>% mutate_ties(weight = tb) %>% 
-#'   autographr()
+#' #ison_adolescents %>% mutate_ties(weight = tb) %>% 
+#' #   autographr()
 #' @export
 tie_betweenness <- function(.data, normalized = TRUE){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
@@ -341,8 +365,27 @@ node_closeness <- function(.data, normalized = TRUE,
 #' @export
 node_reach <- function(.data, normalized = TRUE, k = 2){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  out <- rowSums(node_path_census(.data)==k)
+  out <- rowSums(node_path_census(.data)<=k)
   if(normalized) out <- out/(manynet::network_nodes(.data)-1)
+  out <- make_node_measure(out, .data)
+  out
+}
+
+#' @describeIn close_centrality Calculate nodes' harmonic centrality or valued centrality.
+#'   This is thought to behave better than reach centrality for disconnected networks.
+#' @references
+#'   Marchiori, M, and V Latora. 2000. 
+#'   "Harmony in the small-world".
+#'   _Physica A_ 285: 539-546.
+#'   
+#'   Dekker, Anthony. 2005.
+#'   "Conceptual distance in social network analysis".
+#'   _Journal of Social Structure_ 6(3).
+#' @export
+node_harmonic <- function(.data, normalized = TRUE, k = -1){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
+  out <- igraph::harmonic_centrality(as_igraph(.data), # weighted if present
+                                     normalized = normalized, cutoff = k)
   out <- make_node_measure(out, .data)
   out
 }
@@ -352,9 +395,9 @@ node_reach <- function(.data, normalized = TRUE, k = 2){
 #' @examples
 #' (ec <- tie_closeness(ison_adolescents))
 #' plot(ec)
-#' ison_adolescents %>% 
-#'   activate(edges) %>% mutate(weight = ec) %>% 
-#'   autographr()
+#' #ison_adolescents %>% 
+#' #   activate(edges) %>% mutate(weight = ec) %>% 
+#' #   autographr()
 #' @export
 tie_closeness <- function(.data, normalized = TRUE){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
@@ -365,7 +408,7 @@ tie_closeness <- function(.data, normalized = TRUE){
   out
 }
 
-#' @describeIn close_centrality Calculate the closeness centralization for a graph
+#' @describeIn close_centrality Calculate a network's closeness centralization
 #' @examples
 #' network_closeness(ison_southern_women, direction = "in")
 #' @export
@@ -430,6 +473,26 @@ network_closeness <- function(.data, normalized = TRUE,
   out
 }
 
+#' @describeIn close_centrality Calculate a network's reach centralization
+#' @export
+network_reach <- function(.data, normalized = TRUE, k = 2){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
+  reaches <- node_reach(.data, normalized = FALSE, k = k)
+  out <- sum(max(reaches) - reaches)
+  if(normalized) out <- out / sum(manynet::network_nodes(.data) - reaches)
+  make_network_measure(out, .data)
+}
+
+#' @describeIn close_centrality Calculate a network's harmonic centralization
+#' @export
+network_harmonic <- function(.data, normalized = TRUE, k = 2){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
+  harm <- node_harmonic(.data, normalized = FALSE, k = k)
+  out <- sum(max(harm) - harm)
+  if(normalized) out <- out / sum(manynet::network_nodes(.data) - harm)
+  make_network_measure(out, .data)
+}
+
 # Eigenvector-like centralities ####
 
 #' Measures of eigenvector-like centrality and centralisation
@@ -450,6 +513,9 @@ NULL
 #'   Rather than performing this iteration,
 #'   most routines solve the eigenvector equation \eqn{Ax = \lambda x}.
 #' @param scale Logical scalar, whether to rescale the vector so the maximum score is 1. 
+#' @details
+#'   We use `{igraph}` routines behind the scenes here for consistency and because they are often faster.
+#'   For example, `igraph::eigencentrality()` is approximately 25% faster than `sna::evcent()`.
 #' @references 
 #'   Bonacich, Phillip. 1991. 
 #'   “Simultaneous Group and Individual Centralities.” 
@@ -466,6 +532,9 @@ node_eigenvector <- function(.data, normalized = TRUE, scale = FALSE){
   weights <- `if`(manynet::is_weighted(.data), 
                   manynet::tie_weights(.data), NA)
   graph <- manynet::as_igraph(.data)
+  
+  if(!manynet::is_connected(.data)) 
+    warning("Unconnected networks will only allow nodes from one component have non-zero eigenvector scores.")
   
   # Do the calculations
   if (!manynet::is_twomode(graph)){
@@ -491,7 +560,7 @@ node_eigenvector <- function(.data, normalized = TRUE, scale = FALSE){
   out
 }
 
-#' @describeIn eigenv_centrality Calculate the power centrality of nodes in a network
+#' @describeIn eigenv_centrality Calculate the Bonacich, beta, or power centrality of nodes in a network
 #' @param exponent Decay rate for the Bonacich power centrality score.
 #' @section Power centrality:
 #'   Power or beta (or Bonacich) centrality 
@@ -574,6 +643,18 @@ node_alpha <- function(.data, alpha = 0.85){
                                              alpha = alpha),
                     .data)
 }
+
+#' @describeIn eigenv_centrality Calculate the pagerank centrality of nodes in a network
+#' @references 
+#'   Brin, Sergey and Page, Larry. 1998.
+#'   "The anatomy of a large-scale hypertextual web search engine".
+#'   _Proceedings of the 7th World-Wide Web Conference_. Brisbane, Australia.
+#' @export 
+node_pagerank <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
+  make_node_measure(igraph::page_rank(manynet::as_igraph(.data)),
+                    .data)
+}
   
 #' @describeIn eigenv_centrality Calculate the eigenvector centralization for a network
 #' @examples
@@ -581,7 +662,6 @@ node_alpha <- function(.data, alpha = 0.85){
 #' network_eigenvector(ison_southern_women)
 #' @export
 network_eigenvector <- function(.data, normalized = TRUE){
-  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if (is_twomode(.data)) {
     out <- c(igraph::centr_eigen(manynet::as_igraph(manynet::to_mode1(.data)), 
                                  normalized = normalized)$centralization,
@@ -607,6 +687,5 @@ tie_eigenvector <- function(.data, normalized = TRUE){
   out <- make_tie_measure(out, .data)
   out
 }
-
 
 

@@ -105,19 +105,20 @@ plot.node_measure <- function(x, type = c("h", "d"), ...) {
                                   start = 0.7, end = 0.4)
     }
   } else {
-    if (type == "h") {
+    # if (type == "h") {
       p <- ggplot2::ggplot(data = data) +
         ggplot2::geom_histogram(ggplot2::aes(x = .data$Score),
                                 binwidth = ifelse(max(data$Score) > 1, 1,
                                                   ifelse(max(data$Score) > .1,
                                                          .1,
                                                          .01))) +
-        ggplot2::ylab("Frequency")
-    } else {
-      p <- ggplot2::ggplot(data = data) +
-        ggplot2::geom_density(ggplot2::aes(x = .data$Score)) +
-        ggplot2::ylab("Density")
-    }
+    #     ggplot2::ylab("Frequency")
+    # } else {
+    #   p <- ggplot2::ggplot(data = data) +
+        ggplot2::geom_density(ggplot2::aes(x = .data$Score), col = 2) +
+        ggplot2::scale_y_continuous("Frequency", 
+                                    sec.axis = ggplot2::sec_axis(~ ., breaks = c(0,1), name = "Density"))
+    # }
   }
   p + ggplot2::theme_classic() +
     ggplot2::theme(panel.grid.major = ggplot2::element_line(colour = "grey90"))

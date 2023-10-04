@@ -63,8 +63,8 @@ node_betweenness(mpn_elite_mex)
 node_betweenness(ison_southern_women)
 (tb <- tie_betweenness(ison_adolescents))
 plot(tb)
-ison_adolescents \%>\% mutate_ties(weight = tb) \%>\% 
-  autographr()
+#ison_adolescents \%>\% mutate_ties(weight = tb) \%>\% 
+#   autographr()
 network_betweenness(ison_southern_women, direction = "in")
 }
 \seealso{

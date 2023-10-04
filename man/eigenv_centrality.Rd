@@ -5,6 +5,7 @@
 \alias{node_eigenvector}
 \alias{node_power}
 \alias{node_alpha}
+\alias{node_pagerank}
 \alias{network_eigenvector}
 \alias{tie_eigenvector}
 \title{Measures of eigenvector-like centrality and centralisation}
@@ -14,6 +15,8 @@ node_eigenvector(.data, normalized = TRUE, scale = FALSE)
 node_power(.data, normalized = TRUE, scale = FALSE, exponent = 1)
 
 node_alpha(.data, alpha = 0.85)
+
+node_pagerank(.data)
 
 network_eigenvector(.data, normalized = TRUE)
 
@@ -50,13 +53,19 @@ A numeric vector giving each node's power centrality measure.
 \description{
 Measures of eigenvector-like centrality and centralisation
 }
+\details{
+We use \code{{igraph}} routines behind the scenes here for consistency and because they are often faster.
+For example, \code{igraph::eigencentrality()} is approximately 25\% faster than \code{sna::evcent()}.
+}
 \section{Functions}{
 \itemize{
 \item \code{node_eigenvector()}: Calculate the eigenvector centrality of nodes in a network
 
-\item \code{node_power()}: Calculate the power centrality of nodes in a network
+\item \code{node_power()}: Calculate the Bonacich, beta, or power centrality of nodes in a network
 
 \item \code{node_alpha()}: Calculate the alpha or Katz centrality of nodes in a network
+
+\item \code{node_pagerank()}: Calculate the pagerank centrality of nodes in a network
 
 \item \code{network_eigenvector()}: Calculate the eigenvector centralization for a network
 
@@ -128,6 +137,10 @@ Katz, Leo 1953.
 Bonacich, P. and Lloyd, P. 2001.
 “Eigenvector-like measures of centrality for asymmetric relations”
 \emph{Social Networks}. 23(3):191-201.
+
+Brin, Sergey and Page, Larry. 1998.
+"The anatomy of a large-scale hypertextual web search engine".
+\emph{Proceedings of the 7th World-Wide Web Conference}. Brisbane, Australia.
 }
 \seealso{
 Other measures: 

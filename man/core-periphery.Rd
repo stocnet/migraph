@@ -30,9 +30,9 @@ and minimises density in the periphery block;
 it ignores ties between these blocks.
 }
 \examples{
-mpn_elite_usa_advice \%>\% as_tidygraph \%>\% 
-  mutate(corep = node_core(mpn_elite_usa_advice)) \%>\% 
-  autographr(node_color = "corep")
+#mpn_elite_usa_advice \%>\% as_tidygraph \%>\% 
+#   mutate(corep = node_core(mpn_elite_usa_advice)) \%>\% 
+#   autographr(node_color = "corep")
 network_core(mpn_elite_usa_advice)
 }
 \references{

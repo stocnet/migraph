@@ -1,3 +1,22 @@
+# migraph 1.1.0
+
+## Package
+
+- Added Macports option to the README (closes #274, thank you @barracuda156)
+- Updates to the Centrality tutorial
+
+## Measures
+
+- Added `node_outdegree()`, `node_indegree()`, `network_outdegee()`, and `network_indegree()` wrappers
+- Added `network_reach()`
+- Added `node_harmonic()` and `network_harmonic()`
+- Added `node_pagerank()`
+- `plot.node_measure()` now returns a single plot for one-mode networks with a frequency histogram and a density overlay
+
+## Data
+
+- Upgraded all old igraph data to work with most recent version
+
 # migraph 1.0.1
 
 ## Measures

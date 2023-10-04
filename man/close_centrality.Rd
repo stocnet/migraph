@@ -4,17 +4,26 @@
 \alias{close_centrality}
 \alias{node_closeness}
 \alias{node_reach}
+\alias{node_harmonic}
 \alias{tie_closeness}
 \alias{network_closeness}
+\alias{network_reach}
+\alias{network_harmonic}
 \title{Measures of closeness-like centrality and centralisation}
 \usage{
 node_closeness(.data, normalized = TRUE, direction = "out", cutoff = NULL)
 
 node_reach(.data, normalized = TRUE, k = 2)
 
+node_harmonic(.data, normalized = TRUE, k = -1)
+
 tie_closeness(.data, normalized = TRUE)
 
 network_closeness(.data, normalized = TRUE, direction = c("all", "out", "in"))
+
+network_reach(.data, normalized = TRUE, k = 2)
+
+network_harmonic(.data, normalized = TRUE, k = 2)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -53,10 +62,17 @@ Measures of closeness-like centrality and centralisation
 \item \code{node_reach()}: Calculate nodes' reach centrality
 or how many nodes they can reach within \emph{k} steps
 
+\item \code{node_harmonic()}: Calculate nodes' harmonic centrality or valued centrality.
+This is thought to behave better than reach centrality for disconnected networks.
+
 \item \code{tie_closeness()}: Calculate the closeness of each edge to each other edge
 in the network.
 
-\item \code{network_closeness()}: Calculate the closeness centralization for a graph
+\item \code{network_closeness()}: Calculate a network's closeness centralization
+
+\item \code{network_reach()}: Calculate a network's reach centralization
+
+\item \code{network_harmonic()}: Calculate a network's harmonic centralization
 
 }}
 \examples{
@@ -65,10 +81,19 @@ node_closeness(ison_southern_women)
 node_reach(ison_adolescents)
 (ec <- tie_closeness(ison_adolescents))
 plot(ec)
-ison_adolescents \%>\% 
-  activate(edges) \%>\% mutate(weight = ec) \%>\% 
-  autographr()
+#ison_adolescents \%>\% 
+#   activate(edges) \%>\% mutate(weight = ec) \%>\% 
+#   autographr()
 network_closeness(ison_southern_women, direction = "in")
+}
+\references{
+Marchiori, M, and V Latora. 2000.
+"Harmony in the small-world".
+\emph{Physica A} 285: 539-546.
+
+Dekker, Anthony. 2005.
+"Conceptual distance in social network analysis".
+\emph{Journal of Social Structure} 6(3).
 }
 \seealso{
 Other measures: 
