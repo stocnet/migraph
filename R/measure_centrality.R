@@ -560,7 +560,7 @@ node_eigenvector <- function(.data, normalized = TRUE, scale = FALSE){
   out
 }
 
-#' @describeIn eigenv_centrality Calculate the power centrality of nodes in a network
+#' @describeIn eigenv_centrality Calculate the Bonacich, beta, or power centrality of nodes in a network
 #' @param exponent Decay rate for the Bonacich power centrality score.
 #' @section Power centrality:
 #'   Power or beta (or Bonacich) centrality 
@@ -643,6 +643,18 @@ node_alpha <- function(.data, alpha = 0.85){
                                              alpha = alpha),
                     .data)
 }
+
+#' @describeIn eigenv_centrality Calculate the pagerank centrality of nodes in a network
+#' @references 
+#'   Brin, Sergey and Page, Larry. 1998.
+#'   "The anatomy of a large-scale hypertextual web search engine".
+#'   _Proceedings of the 7th World-Wide Web Conference_. Brisbane, Australia.
+#' @export 
+node_pagerank <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
+  make_node_measure(igraph::page_rank(manynet::as_igraph(.data)),
+                    .data)
+}
   
 #' @describeIn eigenv_centrality Calculate the eigenvector centralization for a network
 #' @examples
@@ -650,7 +662,6 @@ node_alpha <- function(.data, alpha = 0.85){
 #' network_eigenvector(ison_southern_women)
 #' @export
 network_eigenvector <- function(.data, normalized = TRUE){
-  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if (is_twomode(.data)) {
     out <- c(igraph::centr_eigen(manynet::as_igraph(manynet::to_mode1(.data)), 
                                  normalized = normalized)$centralization,
