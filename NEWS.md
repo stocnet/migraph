@@ -1,4 +1,4 @@
-# migraph 1.0.1
+# migraph 1.1.0
 
 ## Package
 
