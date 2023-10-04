@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -54,7 +54,30 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.0.1" id="migraph-101">migraph 1.0.1<a class="anchor" aria-label="anchor" href="#migraph-101"></a></h2>
+<h2 class="page-header" data-toc-text="1.1.0" id="migraph-110">migraph 1.1.0<a class="anchor" aria-label="anchor" href="#migraph-110"></a></h2>
+<div class="section level3">
+<h3 id="package-1-1-0">Package<a class="anchor" aria-label="anchor" href="#package-1-1-0"></a></h3>
+<ul><li>Added Macports option to the README (closes <a href="https://github.com/snlab-ch/migraph/issues/274" class="external-link">#274</a>, thank you <a href="https://github.com/barracuda156" class="external-link">@barracuda156</a>)</li>
+<li>Updates to the Centrality tutorial</li>
+</ul></div>
+<div class="section level3">
+<h3 id="measures-1-1-0">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-0"></a></h3>
+<ul><li>Added <code><a href="../reference/degree_centrality.html">node_outdegree()</a></code>, <code><a href="../reference/degree_centrality.html">node_indegree()</a></code>, <code>network_outdegee()</code>, and <code><a href="../reference/degree_centrality.html">network_indegree()</a></code> wrappers</li>
+<li>Added <code><a href="../reference/close_centrality.html">network_reach()</a></code>
+</li>
+<li>Added <code><a href="../reference/close_centrality.html">node_harmonic()</a></code> and <code><a href="../reference/close_centrality.html">network_harmonic()</a></code>
+</li>
+<li>Added <code><a href="../reference/eigenv_centrality.html">node_pagerank()</a></code>
+</li>
+<li>
+<code>plot.node_measure()</code> now returns a single plot for one-mode networks with a frequency histogram and a density overlay</li>
+</ul></div>
+<div class="section level3">
+<h3 id="data-1-1-0">Data<a class="anchor" aria-label="anchor" href="#data-1-1-0"></a></h3>
+<ul><li>Upgraded all old igraph data to work with most recent version</li></ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.0.1" id="migraph-101">migraph 1.0.1<small>2023-07-20</small><a class="anchor" aria-label="anchor" href="#migraph-101"></a></h2>
 <div class="section level3">
 <h3 id="measures-1-0-1">Measures<a class="anchor" aria-label="anchor" href="#measures-1-0-1"></a></h3>
 <ul><li>Fixed backends in <code><a href="../reference/close_centrality.html">node_closeness()</a></code> and <code><a href="../reference/between_centrality.html">node_betweenness()</a></code> in preparation for an <a href="https://r.igraph.org/" class="external-link">igraph</a> deprecation (merci <a href="https://github.com/maelle" class="external-link">@maelle</a>)</li></ul></div>
@@ -69,27 +92,27 @@
 <h2 class="page-header" data-toc-text="1.0.0" id="migraph-100">migraph 1.0.0<small>2023-06-15</small><a class="anchor" aria-label="anchor" href="#migraph-100"></a></h2>
 <div class="section level3">
 <h3 id="package-1-0-0">Package<a class="anchor" aria-label="anchor" href="#package-1-0-0"></a></h3>
-<ul><li>Breaking changes by moving the making, manipulating, and mapping functions to <a href="https://github.com/snlab-ch/manynet" class="external-link">manynet</a><ul><li>All <code>create_*()</code> and <code>generate_*()</code> functions are now in <a href="https://github.com/snlab-ch/manynet" class="external-link">manynet</a>
+<ul><li>Breaking changes by moving the making, manipulating, and mapping functions to <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a><ul><li>All <code>create_*()</code> and <code>generate_*()</code> functions are now in <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>
 </li>
-<li>All <code>read_*()</code> and <code>write_*()</code> functions are now in <a href="https://github.com/snlab-ch/manynet" class="external-link">manynet</a>
+<li>All <code>read_*()</code> and <code>write_*()</code> functions are now in <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>
 </li>
-<li>All <code>as_*()</code> and <code>to_*()</code> functions are now in <a href="https://github.com/snlab-ch/manynet" class="external-link">manynet</a>
+<li>All <code>as_*()</code> and <code>to_*()</code> functions are now in <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>
 </li>
-<li>Most <code>is_*()</code> functions are now in <a href="https://github.com/snlab-ch/manynet" class="external-link">manynet</a>
+<li>Most <code>is_*()</code> functions are now in <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>
 </li>
-<li>All <code>add_*()</code> and <code>join_*()</code> functions are now in <a href="https://github.com/snlab-ch/manynet" class="external-link">manynet</a>
+<li>All <code>add_*()</code> and <code>join_*()</code> functions are now in <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>
 </li>
-<li>Functions that grab metadata from network objects, e.g. <code>network_nodes()</code>, <code>node_names()</code>, and <code>tie_weights()</code>, are now in <a href="https://github.com/snlab-ch/manynet" class="external-link">manynet</a>
+<li>Functions that grab metadata from network objects, e.g. <code>network_nodes()</code>, <code>node_names()</code>, and <code>tie_weights()</code>, are now in <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>
 </li>
-<li>All <code>autograph*()</code> functions are now in <a href="https://github.com/snlab-ch/manynet" class="external-link">manynet</a>
+<li>All <code>autograph*()</code> functions are now in <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>
 </li>
 <li>
-<a href="https://github.com/snlab-ch/manynet" class="external-link">manynet</a> is now a Depends, but many dependencies removed or moved to <a href="https://github.com/snlab-ch/manynet" class="external-link">manynet</a>
+<a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a> is now a Depends, but many dependencies removed or moved to <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>
 </li>
 </ul></li>
 <li>Most functions now expect <code>.data</code> as their first argument; previously it was <code>object</code>
 </li>
-<li>Moved data vignette (now a tutorial) and visualisation tutorial to <a href="https://github.com/snlab-ch/manynet" class="external-link">manynet</a>
+<li>Moved data vignette (now a tutorial) and visualisation tutorial to <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>
 </li>
 <li>Updated README and pkgdown structure accordingly</li>
 </ul></div>
@@ -118,7 +141,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="data-1-0-0">Data<a class="anchor" aria-label="anchor" href="#data-1-0-0"></a></h3>
-<ul><li>Moved <code>ison_</code> data to <a href="https://github.com/snlab-ch/manynet" class="external-link">manynet</a>
+<ul><li>Moved <code>ison_</code> data to <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>
 </li></ul></div>
 </div>
     <div class="section level2">

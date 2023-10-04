@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -87,6 +87,7 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
+
 <div class="section level1">
 <div class="page-header"><h1 id="migraph-">migraph <img src="reference/figures/logo.png" align="right" width="150"><a class="anchor" aria-label="anchor" href="#migraph-"></a>
 </h1></div>
@@ -95,7 +96,7 @@
 <h2 id="about-the-package">About the package<a class="anchor" aria-label="anchor" href="#about-the-package"></a>
 </h2>
 <p>The most commonly used R packages available for network analysis, such as <a href="https://r.igraph.org/" class="external-link">igraph</a> or <a href="https://statnet.org" class="external-link">sna</a>, are mainly oriented around directed or undirected one-mode networks. But researchers are increasingly interested in analysing multimodal (one-, two-, or three-mode), multilevel (connected multimodal networks), or multilayer (multiplex or signed) networks. Existing procedures typically involve ‘projecting’ them into one-mode networks so that they can be used with those tools, but thereby potentially losing important structural information, or require one or more other specific packages. Translating between packages various syntaxes and expectations can introduce significant transaction costs though, driving confusion, inefficiencies, and errors.</p>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> builds upon <a href="https://github.com/snlab-ch/manynet" class="external-link">manynet</a> to offer smart solutions to these problems. It includes functions for marking and measuring networks and their nodes and ties, identifying motifs and memberships in them, and modelling these networks or simulating processes such as diffusion upon them. Based on <a href="https://github.com/snlab-ch/manynet" class="external-link">manynet</a>, every function works for any compatible network format - from base R matrices or edgelists as data frames, <a href="https://igraph.org/r/" class="external-link"><code>{igraph}</code></a>, <a href="https://statnet.org" class="external-link"><code>{network}</code></a>, or <a href="https://tidygraph.data-imaginist.com/index.html" class="external-link"><code>{tidygraph}</code></a> objects. This means it is compatible with your existing workflow, is extensible by other packages, and uses the most efficient algorithm available for each task.</p>
+<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> builds upon <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a> to offer smart solutions to these problems. It includes functions for marking and measuring networks and their nodes and ties, identifying motifs and memberships in them, and modelling these networks or simulating processes such as diffusion upon them. Based on <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>, every function works for any compatible network format - from base R matrices or edgelists as data frames, <a href="https://igraph.org/r/" class="external-link"><code>{igraph}</code></a>, <a href="https://statnet.org" class="external-link"><code>{network}</code></a>, or <a href="https://tidygraph.data-imaginist.com/index.html" class="external-link"><code>{tidygraph}</code></a> objects. This means it is compatible with your existing workflow, is extensible by other packages, and uses the most efficient algorithm available for each task.</p>
 <p><img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="125"></p>
 <p>The package is intended as a software companion to the book:</p>
 <blockquote><p>David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos (2021) <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128" class="external-link"><em>Multimodal Political Networks</em></a>. Cambridge University Press: Cambridge.</p></blockquote>
@@ -189,12 +190,11 @@
 <div class="section level3">
 <h3 id="stable">Stable<a class="anchor" aria-label="anchor" href="#stable"></a>
 </h3>
-<p>The easiest way to install the latest stable version of <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> is via CRAN. Simply open the R console and enter:</p>
+<p>The easiest way to install the latest stable version of <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> is via CRAN. Simply open the R console and enter:<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <p><code>install.packages('migraph')</code></p>
 <p>You can then begin to use <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> by loading the package:</p>
 <p><code><a href="https://github.com/snlab-ch/migraph" class="external-link">library(migraph)</a></code></p>
-<p>This will load any required packages and make the data contained within the package available. The version from CRAN also has all the vignettes built and included. You can check them out with:</p>
-<p><code>vignettes(package = "migraph")</code></p>
+<p>This will load any required packages and make the data contained within the package available.</p>
 </div>
 <div class="section level3">
 <h3 id="development">Development<a class="anchor" aria-label="anchor" href="#development"></a>
@@ -246,6 +246,11 @@
 <p>Most work on this package has been funded by the Swiss National Science Foundation (SNSF) <a href="https://data.snf.ch/grants/grant/188976" class="external-link">Grant Number 188976</a>: “Power and Networks and the Rate of Change in Institutional Complexes” (PANARCHIC).</p>
 </div>
 </div>
+<div class="footnotes">
+<hr>
+<ol><li id="fn1"><p>Macs with Macports installed may also install from the command line <a href="https://ports.macports.org/port/R-migraph/" class="external-link">using Macports</a>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li></ol>
+</div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
