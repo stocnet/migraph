@@ -3,18 +3,30 @@
 \name{community}
 \alias{community}
 \alias{node_kernighanlin}
-\alias{node_walktrap}
 \alias{node_edge_betweenness}
 \alias{node_fast_greedy}
-\title{Community graph partitioning algorithms}
+\alias{node_spinglass}
+\alias{node_leading_eigen}
+\alias{node_walktrap}
+\alias{node_infomap}
+\alias{node_optimal}
+\title{Community partitioning algorithms}
 \usage{
 node_kernighanlin(.data)
-
-node_walktrap(.data, times = 50)
 
 node_edge_betweenness(.data)
 
 node_fast_greedy(.data)
+
+node_spinglass(.data, max_k = 200)
+
+node_leading_eigen(.data)
+
+node_walktrap(.data, times = 50)
+
+node_infomap(.data)
+
+node_optimal(.data)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -26,19 +38,24 @@ node_fast_greedy(.data)
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
 
+\item{max_k}{Integer constant, the number of spins to use as an upper limit
+of communities to be found. Some sets can be empty at the end.}
+
 \item{times}{Integer indicating number of simulations/walks used.
 By default, \code{times=50}.}
 }
 \description{
-Community graph partitioning algorithms
+These functions offer different algorithms useful for partitioning
+networks into sets of communities.
+The different algorithms offer various advantages in terms of computation time,
+availability on different types of networks, ability to maximise modularity,
+and their logic or domain of inspiration.
 }
 \section{Functions}{
 \itemize{
-\item \code{node_kernighanlin()}: A greedy, iterative, deterministic graph
+\item \code{node_kernighanlin()}: A greedy, iterative, deterministic
 partitioning algorithm that results in a graph with two
 equally-sized communities
-
-\item \code{node_walktrap()}: A hierarchical, agglomerative algorithm based on random walks.
 
 \item \code{node_edge_betweenness()}: A hierarchical, decomposition algorithm
 where edges are removed in decreasing order of the number of
@@ -48,15 +65,18 @@ resulting in a hierarchical representation of group membership.
 \item \code{node_fast_greedy()}: A hierarchical, agglomerative algorithm,
 that tries to optimize modularity in a greedy manner.
 
+\item \code{node_spinglass()}: A greedy, iterative, probabilistic algorithm,
+based on analogy to model from statistical physics.
+
+\item \code{node_leading_eigen()}: A top-down, hierarchical algorithm.
+
+\item \code{node_walktrap()}: A hierarchical, agglomerative algorithm based on random walks.
+
+\item \code{node_infomap()}: A hierarchical algorithm based on the information in random walks.
+
+\item \code{node_optimal()}: A problem-solving algorithm that seeks to maximise modularity over all possible partitions.
+
 }}
-\section{Walktrap}{
-
-The general idea is that random walks on a network are more likely to stay
-within the same community because few edges lead outside a community.
-By repeating random walks of 4 steps many times,
-information about the hierarchical merging of communities is collected.
-}
-
 \section{Edge-betweenness}{
 
 This is motivated by the idea that edges connecting different groups
@@ -80,18 +100,102 @@ because it has no parameters to tune.
 However, it is known to suffer from a resolution limit.
 }
 
+\section{Spin-glass}{
+
+This is motivated by analogy to the Potts model in statistical physics.
+Each node can be in one of \emph{k} "spin states",
+and ties (particle interactions) provide information about which pairs of nodes
+want similar or different spin states.
+The final community definitions are represented by the nodes' spin states
+after a number of updates.
+A different implementation than the default is used in the case of signed networks,
+such that nodes connected by negative ties will be more likely found in separate communities.
+}
+
+\section{Leading eigenvector}{
+
+In each step, the network is bifurcated such that modularity increases most.
+The splits are determined according to the leading eigenvector of the modularity matrix.
+A stopping condition prevents tightly connected groups from being split further.
+Note that due to the eigenvector calculations involved,
+this algorithm will perform poorly on degenerate networks,
+but will likely obtain a higher modularity than fast-greedy (at some cost of speed).
+}
+
+\section{Walktrap}{
+
+The general idea is that random walks on a network are more likely to stay
+within the same community because few edges lead outside a community.
+By repeating random walks of 4 steps many times,
+information about the hierarchical merging of communities is collected.
+}
+
+\section{Infomap}{
+
+Motivated by information theoretic principles, this algorithm tries to build
+a grouping that provides the shortest description length for a random walk,
+where the description length is measured by the expected number of bits per node required to encode the path.
+}
+
+\section{Optimal}{
+
+The general idea is to calculate the modularity of all possible partitions,
+and choose the community structure that maximises this modularity measure.
+Note that this is an NP-complete problem with exponential time complexity.
+The guidance in the igraph package is networks of <50-200 nodes is probably fine.
+}
+
 \examples{
 node_kernighanlin(ison_adolescents)
 node_kernighanlin(ison_southern_women)
-node_walktrap(ison_adolescents)
 node_edge_betweenness(ison_adolescents)
 node_fast_greedy(ison_adolescents)
+node_spinglass(ison_adolescents)
+node_leading_eigen(ison_adolescents)
+node_walktrap(ison_adolescents)
+node_infomap(ison_adolescents)
+node_optimal(ison_adolescents)
 }
 \references{
 Kernighan, Brian W., and Shen Lin. 1970.
 "An efficient heuristic procedure for partitioning graphs."
 \emph{The Bell System Technical Journal} 49(2): 291-307.
 \doi{10.1002/j.1538-7305.1970.tb01770.x}
+
+Newman, M, and M Girvan. 2004.
+"Finding and evaluating community structure in networks."
+\emph{Physical Review E} 69: 026113.
+
+Clauset, A, MEJ Newman, MEJ and C Moore.
+"Finding community structure in very large networks."
+
+Reichardt, J. and S. Bornholdt. 2006.
+"Statistical Mechanics of Community Detection"
+\emph{Physical Review E}, 74:016110.
+
+Traag, VA, and Jeroen Bruggeman. 2008.
+"Community detection in networks with positive and negative links".
+
+Newman, MEJ. 2006.
+"Finding community structure using the eigenvectors of matrices"
+\emph{Physical Review E} 74:036104.
+
+Pons, Pascal, and Matthieu Latapy
+"Computing communities in large networks using random walks".
+
+Rosvall, M, and C. T. Bergstrom. 2008.
+"Maps of information flow reveal community structure in complex networks",
+\emph{PNAS} 105:1118.
+\doi{10.1073/pnas.0706851105}
+
+Rosvall, M., D. Axelsson, and C. T. Bergstrom. 2009.
+"The map equation",
+\emph{Eur. Phys. J. Special Topics} 178: 13.
+\doi{10.1140/epjst/e2010-01179-1}
+
+Brandes, Ulrik, Daniel Delling, Marco Gaertler, Robert Gorke, Martin Hoefer, Zoran Nikoloski, Dorothea Wagner. 2008.
+"On Modularity Clustering",
+\emph{IEEE Transactions on Knowledge and Data Engineering} 20(2):172-188.
 }
 \seealso{
 Other memberships: 

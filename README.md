@@ -208,9 +208,9 @@ Github, please install the `{remotes}` or `{devtools}` package from CRAN
 and then:
 
 - For latest stable version:
-  `remotes::install_github("snlab-ch/migraph", build_vignettes = TRUE)`
+  `remotes::install_github("snlab-ch/migraph")`
 - For latest development version:
-  `remotes::install_github("snlab-ch/migraph@develop", build_vignettes = TRUE)`
+  `remotes::install_github("snlab-ch/migraph@develop")`
 
 ### Tutorials
 

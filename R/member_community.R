@@ -1,10 +1,17 @@
-#' Community graph partitioning algorithms
+#' Community partitioning algorithms
+#' 
+#' @description
+#' These functions offer different algorithms useful for partitioning
+#' networks into sets of communities.
+#' The different algorithms offer various advantages in terms of computation time,
+#' availability on different types of networks, ability to maximise modularity,
+#' and their logic or domain of inspiration.
 #' @inheritParams is
 #' @name community
 #' @family memberships
 NULL
 
-#' @describeIn community A greedy, iterative, deterministic graph
+#' @describeIn community A greedy, iterative, deterministic
 #'   partitioning algorithm that results in a graph with two 
 #'   equally-sized communities
 #' @references
@@ -62,24 +69,6 @@ node_kernighanlin <- function(.data){
   make_node_member(out, .data)
 }
 
-#' @describeIn community A hierarchical, agglomerative algorithm based on random walks.
-#' @section Walktrap:
-#'   The general idea is that random walks on a network are more likely to stay 
-#'   within the same community because few edges lead outside a community.
-#'   By repeating random walks of 4 steps many times,
-#'   information about the hierarchical merging of communities is collected.
-#' @param times Integer indicating number of simulations/walks used.
-#'   By default, `times=50`.
-#' @examples
-#' node_walktrap(ison_adolescents)
-#' @export
-node_walktrap <- function(.data, times = 50){
-  out <- igraph::cluster_walktrap(manynet::as_igraph(.data), 
-                           steps=times)$membership
-  make_node_member(out, .data)
-  
-}
-
 #' @describeIn community A hierarchical, decomposition algorithm
 #'   where edges are removed in decreasing order of the number of
 #'   shortest paths passing through the edge,
@@ -93,6 +82,10 @@ node_walktrap <- function(.data, times = 50){
 #'   the betweenness scores have to be re-calculated after every edge removal. 
 #'   Networks of ~700 nodes and ~3500 ties are around the upper size limit 
 #'   that are feasible with this approach. 
+#' @references
+#' Newman, M, and M Girvan. 2004.
+#' "Finding and evaluating community structure in networks." 
+#' _Physical Review E_ 69: 026113.
 #' @examples
 #' node_edge_betweenness(ison_adolescents)
 #' @export
@@ -112,11 +105,130 @@ node_edge_betweenness <- function(.data){
 #'   The method is fast and recommended as a first approximation 
 #'   because it has no parameters to tune. 
 #'   However, it is known to suffer from a resolution limit.
+#' @references
+#' Clauset, A, MEJ Newman, MEJ and C Moore. 
+#' "Finding community structure in very large networks."
 #' @examples
 #' node_fast_greedy(ison_adolescents)
 #' @export
 node_fast_greedy <- function(.data){
   out <- igraph::cluster_fast_greedy(manynet::as_igraph(.data)
+  )$membership
+  make_node_member(out, .data)
+}
+
+#' @describeIn community A greedy, iterative, probabilistic algorithm, 
+#'   based on analogy to model from statistical physics.
+#' @param max_k Integer constant, the number of spins to use as an upper limit
+#'   of communities to be found. Some sets can be empty at the end.
+#' @section Spin-glass:
+#'   This is motivated by analogy to the Potts model in statistical physics.
+#'   Each node can be in one of _k_ "spin states",
+#'   and ties (particle interactions) provide information about which pairs of nodes 
+#'   want similar or different spin states.
+#'   The final community definitions are represented by the nodes' spin states
+#'   after a number of updates.
+#'   A different implementation than the default is used in the case of signed networks,
+#'   such that nodes connected by negative ties will be more likely found in separate communities.
+#' @references
+#' Reichardt, J. and S. Bornholdt. 2006.
+#' "Statistical Mechanics of Community Detection"
+#' _Physical Review E_, 74:016110.
+#' 
+#' Traag, VA, and Jeroen Bruggeman. 2008.
+#' "Community detection in networks with positive and negative links".
+#' @examples
+#' node_spinglass(ison_adolescents)
+#' @export
+node_spinglass <- function(.data, max_k = 200){
+  out <- igraph::cluster_spinglass(manynet::as_igraph(.data), 
+                                   spins = max_k,
+                                   implementation = ifelse(manynet::is_signed(.data), "neg", "orig")
+  )$membership
+  make_node_member(out, .data)
+}
+
+#' @describeIn community A top-down, hierarchical algorithm.
+#' @section Leading eigenvector:
+#'   In each step, the network is bifurcated such that modularity increases most.
+#'   The splits are determined according to the leading eigenvector of the modularity matrix.
+#'   A stopping condition prevents tightly connected groups from being split further.
+#'   Note that due to the eigenvector calculations involved,
+#'   this algorithm will perform poorly on degenerate networks,
+#'   but will likely obtain a higher modularity than fast-greedy (at some cost of speed).
+#' @references
+#' Newman, MEJ. 2006.
+#' "Finding community structure using the eigenvectors of matrices"
+#' _Physical Review E_ 74:036104.
+#' @examples
+#' node_leading_eigen(ison_adolescents)
+#' @export
+node_leading_eigen <- function(.data){
+  out <- igraph::cluster_leading_eigen(manynet::as_igraph(.data)
+                                       )$membership
+  make_node_member(out, .data)
+}
+
+#' @describeIn community A hierarchical, agglomerative algorithm based on random walks.
+#' @section Walktrap:
+#'   The general idea is that random walks on a network are more likely to stay 
+#'   within the same community because few edges lead outside a community.
+#'   By repeating random walks of 4 steps many times,
+#'   information about the hierarchical merging of communities is collected.
+#' @param times Integer indicating number of simulations/walks used.
+#'   By default, `times=50`.
+#' @references
+#' Pons, Pascal, and Matthieu Latapy
+#' "Computing communities in large networks using random walks".
+#' @examples
+#' node_walktrap(ison_adolescents)
+#' @export
+node_walktrap <- function(.data, times = 50){
+  out <- igraph::cluster_walktrap(manynet::as_igraph(.data), 
+                                  steps=times)$membership
+  make_node_member(out, .data)
+  
+}
+
+#' @describeIn community A hierarchical algorithm based on the information in random walks.
+#' @section Infomap:
+#'   Motivated by information theoretic principles, this algorithm tries to build 
+#'   a grouping that provides the shortest description length for a random walk,
+#'   where the description length is measured by the expected number of bits per node required to encode the path.
+#' @references
+#' Rosvall, M, and C. T. Bergstrom. 2008.
+#' "Maps of information flow reveal community structure in complex networks", 
+#' _PNAS_ 105:1118.
+#' \doi{10.1073/pnas.0706851105}
+#' 
+#' Rosvall, M., D. Axelsson, and C. T. Bergstrom. 2009.
+#' "The map equation", 
+#' _Eur. Phys. J. Special Topics_ 178: 13. 
+#' \doi{10.1140/epjst/e2010-01179-1}
+#' @examples
+#' node_infomap(ison_adolescents)
+#' @export
+node_infomap <- function(.data){
+  out <- igraph::cluster_infomap(manynet::as_igraph(.data)
+  )$membership
+  make_node_member(out, .data)
+}
+
+#' @describeIn community A problem-solving algorithm that seeks to maximise modularity over all possible partitions.
+#' @section Optimal:
+#'   The general idea is to calculate the modularity of all possible partitions,
+#'   and choose the community structure that maximises this modularity measure.
+#'   Note that this is an NP-complete problem with exponential time complexity.
+#'   The guidance in the igraph package is networks of <50-200 nodes is probably fine.
+#' @references
+#' Brandes, Ulrik, Daniel Delling, Marco Gaertler, Robert Gorke, Martin Hoefer, Zoran Nikoloski, Dorothea Wagner. 2008.
+#' "On Modularity Clustering", 
+#' _IEEE Transactions on Knowledge and Data Engineering_ 20(2):172-188.
+#' @examples
+#' node_optimal(ison_adolescents)
+#' @export
+node_optimal <- function(.data){
+  out <- igraph::cluster_infomap(manynet::as_igraph(.data)
   )$membership
   make_node_member(out, .data)
 }

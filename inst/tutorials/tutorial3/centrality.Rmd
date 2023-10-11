@@ -160,6 +160,17 @@ node_eigenvector(ison_brandes)
 # TASK: Can you create degree distributions for each of these?
 ```
 
+What is returned here are vectors of betweenness, closeness, and eigenvector scores
+for the nodes in the network.
+But what do they mean?
+Try to answer the following questions for yourself:
+
+- in what ways is a higher degree actor more 'central'?
+- can you explain why a node that has the smallest sum of geodesic distances to all other nodes is said to be 'central'?
+- why would an actor lying 'between' two other actors be 'central'?
+- what does Bonacich mean when he says that power and influence are not the same thing?
+- can you think of a real-world example when an actor might be central but not powerful, or powerful but not central?
+
 Note that all centrality measures in `{migraph}` return normalized
 scores by default -- 
 for the raw scores, include `normalized = FALSE` in the function as an extra argument.
@@ -304,6 +315,18 @@ question("How centralized is the ison_brandes network? Select all that apply.",
                 message = "That's right, eigenvector centralisation is at 0.48 for this network whereas betweenness centralisation is at 0.32. In other words, the network is better characterised as having a core (or cores) of well-connected nodes rather than a wide network with only 1 or 2 nodes lying on the shortest paths between others."),
          random_answer_order = TRUE, 
          allow_retry = TRUE)
+```
+
+```{r centvcent, echo=FALSE}
+question("What is the difference between centrality and centralisation according to the literature?",
+  answer("Centrality is for nodes and centralisation is for networks",
+         correct = TRUE),
+  answer("Centrality is a state and centralisation is a process"),
+  answer("Centrality is a ity and centralisation is a sation"),
+  answer("Centrality is to centralisation what polarity is to polarisation"),
+  allow_retry = FALSE,
+  random_answer_order = TRUE
+)
 ```
 
 ## Tasks
