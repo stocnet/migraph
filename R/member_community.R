@@ -143,7 +143,7 @@ node_fast_greedy <- function(.data){
 node_spinglass <- function(.data, max_k = 200){
   out <- igraph::cluster_spinglass(manynet::as_igraph(.data), 
                                    spins = max_k,
-                                   implementation = ifelse(is_signed(.data), "neg", "orig")
+                                   implementation = ifelse(manynet::is_signed(.data), "neg", "orig")
   )$membership
   make_node_member(out, .data)
 }
