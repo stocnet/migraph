@@ -15,10 +15,6 @@
 
 - Added `node_optimal()`, `node_infomap()`, `node_spinglass()`, and `node_leading_eigen()` to extend the community detection options available in the package
 
-## Data
-
-- `ison_algebra` now an anonymised network (again)
-
 # migraph 1.1.0
 
 ## Package
