@@ -1,3 +1,24 @@
+# migraph 1.1.1
+
+2023-10-11
+
+## Package
+
+- Added more questions to the Centrality tutorial (3)
+- Added more instruction and more questions to the Community tutorial (4)
+
+## Measures
+
+- Fixed scale, labelling, and other issues in `plot.node_measure()`
+
+## Members
+
+- Added `node_optimal()`, `node_infomap()`, `node_spinglass()`, and `node_leading_eigen()` to extend the community detection options available in the package
+
+## Data
+
+- `ison_algebra` now an anonymised network (again)
+
 # migraph 1.1.0
 
 ## Package
