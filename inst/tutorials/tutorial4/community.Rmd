@@ -41,11 +41,15 @@ ison_algebra <- manynet::ison_algebra
 ```{r data-solution}
 data("ison_algebra", package = "manynet")
 ?manynet::ison_algebra
+# If you want to see the network object, you can run the name of the object
+ison_algebra
+# or print the code with brackets at the front and end of the code
+(ison_algebra <- manynet::ison_algebra)
 ```
 
-This dataset is multiplex, meaning that it contains 
-several different types of ties: 
-friendship, social and task interactions.
+We can see after printing the object that the dataset is multiplex,
+meaning that it contains several different types of ties: 
+friendship (friends), social (social) and task interactions (tasks).
 
 ### Adding names
 
@@ -78,7 +82,8 @@ as they are assigned randomly from a pool of (American) first names.
 ### Separating multiplex networks
 
 As a multiplex network, 
-there are actually three different types of tie in this network.
+there are actually three different types of ties (friends, social, and tasks)
+in this network.
 We can extract them and graph them separately using `to_uniplex()`:
 
 ```{r separatingnets, exercise=TRUE, exercise.setup = "data"}
@@ -86,25 +91,26 @@ We can extract them and graph them separately using `to_uniplex()`:
 ```
 
 ```{r separatingnets-hint-1}
-# let's focus on the 'friends' attribute
+# to_uniplex extracts ties of a single type,
+# focusing on the 'friends' tie attribute here
 friends <- to_uniplex(ison_algebra, "friends")
 gfriend <- autographr(friends) + ggtitle("Friendship")
 ```
 
 ```{r separatingnets-hint-2}
-# let's focus on the 'social' attribute
+# now let's focus on the 'social' tie attribute
 social <- to_uniplex(ison_algebra, "social")
 gsocial <- autographr(social) + ggtitle("Social")
 ```
 
 ```{r separatingnets-hint-3}
-# let's focus on the 'tasks' attribute
+# and the 'tasks' tie attribute
 tasks <- to_uniplex(ison_algebra, "tasks")
 gtask <- autographr(tasks) + ggtitle("Task")
 ```
 
 ```{r separatingnets-hint-4}
-# now, let's compare the each attribute's graph, side-by-side
+# now, let's compare each attribute's graph, side-by-side
 gfriend + gsocial + gtask
 # if you get an error here, you may need to install and load
 # the package 'patchwork'.
@@ -122,6 +128,7 @@ gsocial <- autographr(social) + ggtitle("Social")
 tasks <- to_uniplex(ison_algebra, "tasks")
 gtask <- autographr(tasks) + ggtitle("Task")
 
+# We now have three separate networks depicting each type of tie from the ison_algebra network:
 gfriend + gsocial + gtask
 ```
 
@@ -186,6 +193,7 @@ Can you guess the correct name of the function?
 
 ```{r recip-solution}
 network_reciprocity(tasks)
+# this function calculates the amount of reciprocity in the whole network
 ```
 
 And let's calculate _transitivity_ in the task network.
@@ -197,6 +205,7 @@ Again, can you guess the correct name of this function?
 
 ```{r trans-solution}
 network_transitivity(tasks)
+# this function calculates the amount of transitivity in the whole network
 ```
 
 We have collected measures of the task network's reciprocity
@@ -244,6 +253,9 @@ question("Weak components...",
 
 ```{r comp-no-hint-1}
 network_components(friends)
+# note that friends is a directed network
+# you can see this by calling the object 'friends'
+# or by running `manynet::is_directed(friends)`
 ```
 
 ```{r comp-no-hint-2}
@@ -288,11 +300,17 @@ that can be used to color nodes in `autographr()`:
 friends <- friends %>% 
   mutate(weak_comp = node_components(to_undirected(friends)),
          strong_comp = node_components(friends))
+# node_components returns a vector of nodes' memberships to components in the network
+# here, we are adding the nodes' membership to components as an attribute in the network
+# alternatively, we can also use the function `add_node_attribute()`
+# eg. `add_node_attribute(friends, "weak_comp", node_components(to_undirected(friends)))`
 ```
 
 ```{r comp-memb-hint-2}
 autographr(friends, node_color = "weak_comp") + ggtitle("Weak components") +
 autographr(friends, node_color = "strong_comp") + ggtitle("Strong components")
+# by using the 'node_color' argument, we are telling autographr to colour 
+# the nodes in the graph according to the values of the 'weak_comp' attribute in the network 
 ```
 
 ```{r comp-memb-solution}
@@ -455,7 +473,7 @@ autographr(friends, node_color = "walk_comm")
 ```{r walkplot-hint-2}
 #plot 2: groups by borders
 
-# to be fancy, we could even draw the group borders around the nodes
+# to be fancy, we could even draw the group borders around the nodes using the node_group argument
 autographr(friends, node_group = "walk_comm")
 ```
 
@@ -468,13 +486,16 @@ autographr(friends,
            node_group = "walk_comm") +
   ggtitle("Walktrap",
     subtitle = round(network_modularity(friends, friend_wt), 3))
+# the function `round()` rounds the values to a specified number of decimal places
+# here, we are telling it to round the network_modularity score to 3 decimal places,
+# but the score is exactly 0.27 so only two decimal places are printed.
 ```
 
 ```{r walkplot-solution}
 friends <- friends %>% 
   mutate(walk_comm = friend_wt)
 autographr(friends, node_color = "walk_comm")
-# to be fancy, we could even draw the group borders around the nodes
+# to be fancy, we could even draw the group borders around the nodes using the node_group argument
 autographr(friends, node_group = "walk_comm")
 # or both!
 autographr(friends, 
@@ -581,6 +602,7 @@ autographr(friends,
            node_group = "fg_comm") +
   ggtitle("Fast-greedy",
     subtitle = round(network_modularity(friends, friend_fg), 3))
+# 
 ```
 
 ```{r fg-solution}
@@ -668,6 +690,9 @@ Or the easy way:
 
 women_graph <- to_mode1(ison_southern_women)
 autographr(women_graph)
+
+# note that projection `to_mode1` involves keeping one type of nodes
+# this is different from to_uniplex above, which keeps one type of ties in the network
 ```
 
 ```{r easyway-hint-2}
