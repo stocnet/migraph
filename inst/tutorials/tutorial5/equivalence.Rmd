@@ -578,7 +578,7 @@ Of course, this means that there can be self-ties or loops,
 because even if the original network was simple (not complex), 
 any within-class ties will end up becoming loops and thus the network will be complex.
 
-```{r structblock, exercise = TRUE, exercise.setup = "data"}
+```{r structblock, exercise = TRUE, exercise.setup = "data", warning=FALSE}
 str_clu <- node_structural_equivalence(ison_algebra)
 (bm <- to_blocks(ison_algebra, str_clu))
 

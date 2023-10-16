@@ -1139,10 +1139,10 @@ learnr:::store_exercise_cache(structure(list(label = "varyclust", global_setup =
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "scale-interp", 
     question = structure("Do you see any differences?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_6276d88", 
+    "character")), answers = list(structure(list(id = "lnr_ans_2b28154", 
         option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_12030a0", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_9fd6fc4", 
         option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1153,7 +1153,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "scale-interp-answer", question = "scale-interp"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1038385706.51646, options = list()), class = c("learnr_radio", 
+    seed = 428138314.800633, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
 
@@ -1436,9 +1436,9 @@ learnr:::store_exercise_cache(structure(list(label = "structblock", global_setup
     code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
     engine = "r"), list(label = "structblock", code = "str_clu <- node_structural_equivalence(ison_algebra)\n(bm <- to_blocks(ison_algebra, str_clu))\n\nbm <- bm %>% as_tidygraph %>% mutate(name = c(\"Freaks\", \"Squares\", \"Nerds\", \"Geek\"))\nautographr(bm)", 
     opts = list(label = "\"structblock\"", exercise = "TRUE", 
-        exercise.setup = "\"data\""), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = NULL, solution = NULL, tests = NULL, 
-    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        exercise.setup = "\"data\"", warning = "FALSE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
+    tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
         comment = NA, highlight = FALSE, size = "normalsize", 
         background = "#F7F7F7", strip.white = TRUE, cache = 0, 
@@ -1451,14 +1451,14 @@ learnr:::store_exercise_cache(structure(list(label = "structblock", global_setup
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
         fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
-        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        aniopts = "controls,loop", warning = FALSE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "structblock", exercise = TRUE, 
         exercise.setup = "data", code = c("str_clu <- node_structural_equivalence(ison_algebra)", 
         "(bm <- to_blocks(ison_algebra, str_clu))", "", "bm <- bm %>% as_tidygraph %>% mutate(name = c(\"Freaks\", \"Squares\", \"Nerds\", \"Geek\"))", 
         "autographr(bm)"), out.width.px = 624, out.height.px = 384, 
-        params.src = "structblock, exercise = TRUE, exercise.setup = \"data\"", 
+        params.src = "structblock, exercise = TRUE, exercise.setup = \"data\", warning=FALSE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
