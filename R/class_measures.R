@@ -1,4 +1,5 @@
 make_node_measure <- function(out, .data) {
+  if(manynet::is_labelled(.data)) names(out) <- manynet::node_names(.data)
   class(out) <- c("node_measure", class(out))
   attr(out, "mode") <- manynet::node_mode(.data)
   out
