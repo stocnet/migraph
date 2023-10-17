@@ -1,5 +1,5 @@
 ---
-title: "Equivalence"
+title: "Position"
 author: "by James Hollway"
 output: 
   learnr::tutorial:
@@ -18,30 +18,38 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Setting up
 
-The data we're going to use here is included in the `{manynet}` package.
-This dataset is multiplex, meaning that it contains 
-several different types of ties: 
-friendship, social and task interactions.
+The data we're going to use here, "ison_algebra", is included in the `{manynet}` package.
+Do you remember how to call the data?
+Can you find out some more information about it?
 
 ```{r data, exercise = TRUE}
 
 ```
 
-```{r data-hint}
+```{r data-hint-1}
 # Let's call and load the 'ison_algebra' dataset
 data("ison_algebra", package = "manynet")
+# Or you can retrieve like this:
+ison_algebra <- manynet::ison_algebra
+```
 
+```{r data-hint-2}
 # If you want to learn more about the 'ison_algebra' dataset, use the following function (below)
 ?manynet::ison_algebra
 ```
 
 ```{r data-solution}
 data("ison_algebra", package = "manynet")
+?manynet::ison_algebra
+# If you want to see the network object, you can run the name of the object
+ison_algebra
+# or print the code with brackets at the front and end of the code
+(ison_algebra <- manynet::ison_algebra)
 ```
 
-Note that you do not need to load the package using `library()` to get the data.
-Now you know how to create new matrices in R, load .csv files, 
-saved .RData files, and data from packages!
+We can see after printing the object that the dataset is multiplex,
+meaning that it contains several different types of ties: 
+friendship (friends), social (social) and task interactions (tasks).
 
 ### Separating multiplex networks
 
@@ -107,9 +115,10 @@ by their position in the *task* network to begin with.
 `{migraph}` makes this easy enough with the `node_constraint()` function.
 
 ```{r objects-setup}
-friends <- to_uniplex(ison_algebra, "friends")
-social <- to_uniplex(ison_algebra, "social")
-tasks <- to_uniplex(ison_algebra, "tasks")
+alge <- to_named(ison_algebra)
+friends <- to_uniplex(alge, "friends")
+social <- to_uniplex(alge, "social")
+tasks <- to_uniplex(alge, "tasks")
 ```
 
 ```{r constraint, exercise = TRUE, exercise.setup = "objects-setup"}
@@ -165,15 +174,30 @@ tasks <- tasks %>% mutate(low_constraint = node_is_min(node_constraint(tasks)))
 autographr(tasks, node_color = "low_constraint")
 ```
 
-Why minimum? And what can we learn from this plot
+Why minimum? Because constraint measures how well connected each node's partners are,
+with the implication that having few partners that are already connected to each other puts a node in an advantageous position to identify and share novel solutions to problems.
+So what can we learn from this plot
 about where innovation might occur within this network?
 
 ## Structural Equivalence
 
 Now we are going to identify and interpret the roles
 or relations between a set of structurally equivalent positions.
+We want to know who plays what role in this algebra class.
 We're going to identify structurally equivalent positions
 across all the data that we have, including 'task', 'social', and 'friend' ties.
+
+```{r equiv-qa, echo=FALSE}
+question("Structural equivalence means identifying classes of nodes with...",
+         answer("same/similar tie partners.",
+                correct = TRUE,
+                message = learnr::random_praise()),
+         answer("same/similar pattern of ties.",
+                message = "This is the definition for regular equivalence."),
+         answer("same/similar distance from all others.",
+                message = "This is the definition for automorphic equivalence.")
+)
+```
 
 ### Finding structurally equivalent classes
 
