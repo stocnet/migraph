@@ -154,6 +154,6 @@ print_tblvec <- function(y, names){
         print(body)
     cat(pillar::style_subtle(paste("# ... with",
                                    setup$extra_cols_total,
-                                   "more from this nodeset in the vector.")))
+                                   "more values from this nodeset not printed but in the vector.")))
       } else print(body)
 }

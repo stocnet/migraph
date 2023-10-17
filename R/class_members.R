@@ -24,13 +24,14 @@ print.node_member <- function(x, ...,
     }
   } else {
     for (i in names(table(x))) {
-      if (i == names(table(x))[1]) cat(i, "\n")
-      else cat("\n", i, "\n")
+      if (i == names(table(x))[1]) cat("Group ", i, ":", sep = "")
+      else cat("Group ", i, ":", sep = "")
       if (!is.null(names(x)))
         y <- paste(names(x[x == i]), collapse = ", ")
       else
         y <- paste(which(x == i), collapse = ", ")
-      cat("  ", y)
+      cat(" ", y)
+      if (i != names(table(x))[length(table(x))]) cat("\n")
     }
   }
 }
