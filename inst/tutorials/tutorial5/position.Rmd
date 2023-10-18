@@ -122,8 +122,7 @@ question("Which network concepts are associated with innovation?",
                 correct = TRUE,
                 message = learnr::random_praise()),
          answer("Structural folds",
-                correct = TRUE,
-                message = learnr::random_praise()),
+                correct = TRUE),
          answer("Structural balance",
                 message = learnr::random_encouragement()),
          answer("Structural equivalence",
@@ -137,28 +136,21 @@ question("Which network concepts are associated with innovation?",
 
 ### Measuring structural holes
 
-
-
 ```{r shmeasures-qa, echo=FALSE, purl = FALSE}
 question("There are a number of measures that might be used to approximate the concept of structural holes. Select all that apply.",
          answer("Constraint",
                 correct = TRUE,
                 message = learnr::random_praise()),
          answer("Effective size",
-                correct = TRUE,
-                message = learnr::random_praise()),
+                correct = TRUE),
          answer("Bridges",
-                correct = TRUE,
-                message = learnr::random_praise()),
+                correct = TRUE),
          answer("Redundancy",
-                correct = TRUE,
-                message = learnr::random_praise()),
+                correct = TRUE),
          answer("Efficiency",
-                correct = TRUE,
-                message = learnr::random_praise()),
+                correct = TRUE),
          answer("Hierarchy",
-                correct = TRUE,
-                message = learnr::random_praise()),
+                correct = TRUE),
   random_answer_order = TRUE,
   allow_retry = TRUE
 )
@@ -230,11 +222,9 @@ about where innovation might occur within this network?
 
 ## Structural Equivalence
 
-Now we are going to identify and interpret the roles
-or relations between a set of structurally equivalent positions.
+Next we might ask ourselves what (other) roles there are in the network?
 We want to know who plays what role in this algebra class.
-We're going to identify structurally equivalent positions
-across all the data that we have, including 'task', 'social', and 'friend' ties.
+Let us begin with structural equivalence.
 
 ```{r equiv-qa, echo=FALSE, purl = FALSE}
 question("Structural equivalence means identifying classes of nodes with...",
@@ -248,10 +238,15 @@ question("Structural equivalence means identifying classes of nodes with...",
 )
 ```
 
+We're going to identify structurally equivalent positions
+across all the data that we have, including 'task', 'social', and 'friend' ties.
+So that is, we are using the multiplex `ison_algebra` dataset again and not
+a uniplex subgraph thereof.
+
 ### Finding structurally equivalent classes
 
 In `{migraph}`, finding how the nodes of a network can be partitioned
-into structurally equivalent classes is as easy as:
+into structurally equivalent classes can be as easy as:
 
 ```{r find-se, exercise = TRUE, exercise.setup = "data"}
 node_structural_equivalence(ison_algebra)
@@ -262,6 +257,8 @@ ison_algebra %>%
 ```
 
 But actually, a lot is going on behind the scenes here that we can unpack.
+Understanding what is going on behind the scenes is important for understanding
+how these classes are identified and how to interpret them.
 
 ### Step one: starting with a census
 
@@ -269,7 +266,7 @@ All equivalence classes are based on nodes' similarity across some profile of mo
 In `{migraph}`, we call these motif *censuses*.
 Any kind of census can be used, and `{migraph}` includes a few options,
 but `node_structural_equivalence()` is based off of the census of all the nodes' ties,
-both outgoing and incoming ties, to reveal their relationships to tie partners.
+both outgoing and incoming ties, to characterise their relationships to tie partners.
 
 ```{r construct-cor, exercise = TRUE, exercise.setup = "data", purl = FALSE}
 
@@ -279,7 +276,6 @@ both outgoing and incoming ties, to reveal their relationships to tie partners.
 # Let's use the node_tie_census() function
 # The function accepts an object such as a dataset
 # Hint: Which dataset are we using in this tutorial?
-
 node_tie_census(____)
 ```
 
@@ -289,13 +285,10 @@ node_tie_census(ison_algebra)
 
 ```{r construct-cor-hint-3, purl = FALSE}
 # Now, let's get the dimensions of an object via the dim() function
-
 dim(node_tie_census(ison_algebra))
 ```
 
 ```{r construct-cor-solution}
-# Your code should look like this:
-
 node_tie_census(ison_algebra)
 dim(node_tie_census(ison_algebra))
 ```
@@ -311,35 +304,36 @@ what would you do if you wanted it to be binary?
 
 ```
 
-```{r construct-binary-solution}
-node_tie_census(ison_algebra)
-
+```{r construct-binary-hint, purl = FALSE}
 # we could convert the result using as.matrix, returning the ties 
 as.matrix((node_tie_census(ison_algebra)>0)+0)
 
-# we could simplify the network by removing the classfication into different types of ties
-# note that this also reduces the total number of possible paths between nodes
+```
+
+```{r construct-binary-solution}
+# But it's easier to simplify the network by removing the classification into different types of ties.
+# Note that this also reduces the total number of possible paths between nodes
 ison_algebra %>%
-activate(edges) %>%
-dplyr::select(-c(friends, social, tasks)) %>%
-node_tie_census()
+  select_ties(-c(friends, social, tasks)) %>%
+  node_tie_census()
 ```
 
 Note that `node_tie_census()` does not need to be passed to `node_structural_equivalence()` ---
-this is done automatically --- 
-but the more generic `node_equivalence()` can be used with whichever tie census is desired.
+this is done automatically!
+However, the more generic `node_equivalence()` is available and can be used with whichever tie census is desired.
 Feel free to explore using some of the other censuses available in `{migraph}`,
 though some common ones are already used in the other equivalence convenience functions,
-`node_regular_equivalence()` and `node_automorphic_equivalence()`.
+e.g. `node_triad_census()` in `node_regular_equivalence()` 
+and `node_path_census()` in `node_automorphic_equivalence()`.
 
 ### Step two: growing a tree of similarity
 
-The next part is all done internally,
-though there are several important parameters that can be set to obtain different results.
+The next part takes this census and creates a dendrogram based on distance or dissimilarity among the nodes' census profiles.
+This is all done internally within e.g. `node_structural_equivalence()`,
+though there are two important parameters that can be set to obtain different results.
 
-There are two main parameters that can be set here.
 First, users can set the type of distance measure used.
-This is passed on to `stats::dist()`, 
+For enthusiasts, this is passed on to `stats::dist()`, 
 so that help page should be consulted for more details.
 By default `"euclidean"` is used.
 
@@ -351,23 +345,23 @@ which implements a CONCOR (CONvergence of CORrelations) algorithm.
 We can see the difference from varying the clustering algorithm and/or distance
 by plotting the dendrograms (hidden) in the output from `node_structural_equivalence()`:
 
-```{r varyclust, exercise = TRUE, exercise.setup = "data", purl = FALSE}
+```{r varyclust, exercise = TRUE, exercise.setup = "data"}
+alge <- to_named(ison_algebra) # fake names to make comparison clearer
+plot(node_structural_equivalence(alge, 
+                                 cluster = "hier", distance = "euclidean"))
 
-```
-
-```{r varyclust-solution}
-plot(node_structural_equivalence(ison_algebra, cluster = "hier", distance = "euclidean"))
-
-# changing the type of distance
-plot(node_structural_equivalence(ison_algebra, cluster = "hier", distance = "manhattan"))
+# changing the type of distance used
+plot(node_structural_equivalence(alge, 
+                                 cluster = "hier", distance = "manhattan"))
 
 # changing the clustering algorithm
-plot(node_structural_equivalence(to_named(ison_karateka), cluster = "concor"))
+plot(node_structural_equivalence(alge, 
+                                 cluster = "concor", distance = "euclidean"))
 ```
 
 ```{r scale-interp, echo = FALSE, purl = FALSE}
 question("Do you see any differences?",
-         answer("Yes", correct = TRUE),
+         answer("Yes", correct = TRUE, message = learnr::random_praise()),
          answer("No"),
         allow_retry = TRUE)
 ```
@@ -380,14 +374,14 @@ Basically, as we move to the right, we're allowing for
 more and more dissimilarity among those we cluster together.
 A fork or branching point indicates the level of dissimilarity
 at which those two or more nodes would be said to be equivalent.
-Where two nodes' branches join/fork is the distance between them,
+Where two nodes' branches join/fork represents the maximum distance among all their leaves,
 so more similar nodes' branches fork closer to the tree's canopy,
-and less similar (groups of) nodes don't join until basically they form a trunk.
+and less similar (groups of) nodes don't join until they form basically the trunk.
 
 Note that with the results using the hierarchical clustering algorithm,
 the distance directly affects the structure of the tree (and the results).
 
-The CONCOR dendrogram is a bit different though.
+The CONCOR dendrogram operates a bit differently to hierarchical clustering though.
 Instead it represents how converging correlations repeatedly bifurcate 
 the nodes into one of two partitions.
 As such the 'distance' is really just the (inverse) number of steps
@@ -410,36 +404,22 @@ Remember, the further to the right the red line is
 the more dissimilar we're allowing nodes in the same cluster to be.
 We could set this ourselves by just passing `k` an integer.
 
-```{r k-discrete, exercise = TRUE, exercise.setup = "data", purl = FALSE}
-
-```
-
-```{r k-discrete-hint-1, purl = FALSE}
-# Let's use the node_structural_equivalence() function and set 'k' to 2
-
-node_structural_equivalence(____, k = ____)
-```
-
-```{r k-discrete-hint-2, purl = FALSE}
-# Don't forget to plot the dendrogram using the plot() function
-
-node_structural_equivalence(ison_algebra, k = 2)
-```
-
-```{r k-discrete-solution}
-plot(node_structural_equivalence(ison_algebra, k = 2))
+```{r k-discrete, exercise = TRUE, exercise.setup = "varyclust"}
+plot(node_structural_equivalence(alge, k = 2))
 ```
 
 But we're really just guessing. Maybe 2 is not the best `k`?
-To establish that, we need to iterate through a number of potential `k`,
+To establish what the best `k` is for this clustering exercise, 
+we need to iterate through a number of potential `k`
 and consider their fitness by some metric.
 There are a couple of options here.
 
-One is to consider, for each `k`, how correlated this partition 
-is with the observed network.
-When there is one cluster for each vertex in the network, cell values will be
-identical to the observed correlation matrix, and when there is one cluster 
-for the whole network, the values will all be equal to the average correlation 
+One is to consider, for each `k`, 
+how correlated this partition is with the observed network.
+When there is one cluster for each vertex in the network, 
+cell values will be identical to the observed correlation matrix, 
+and when there is one cluster for the whole network, 
+the values will all be equal to the average correlation 
 across the observed matrix.
 So the correlations in each by-cluster matrix are correlated with the observed 
 correlation matrix to see how well each by-cluster matrix fits the data.
@@ -468,32 +448,11 @@ which is what `k = "silhouette"` does,
 can return a somewhat different result to the elbow method.
 See what we have here, with all other arguments held the same:
 
-```{r elbowsil, exercise = TRUE, exercise.setup = "data", purl = FALSE}
-
-```
-
-```{r elbowsil-hint-1, purl = FALSE}
-# Let's recall the node_structural_equivalence() function we used in the previous example
-
-plot(node_structural_equivalence(____, k = "____"))
-
-```
-
-```{r elbowsil-hint-2, purl = FALSE}
-# Now, instead of looking at 2 clusters, let's look at 'elbow'
-
-plot(node_structural_equivalence(ison_algebra, k = "elbow"))
-```
-
-```{r elbowsil-hint-3, purl = FALSE}
-# Now, let's look at 'silhouette'
-
-plot(node_structural_equivalence(ison_algebra, k = "____"))
-```
-
-```{r elbowsil-solution}
-plot(node_structural_equivalence(ison_algebra, k = "elbow"))
-plot(node_structural_equivalence(ison_algebra, k = "silhouette"))
+```{r elbowsil, exercise = TRUE, exercise.setup = "varyclust"}
+plot(node_structural_equivalence(alge, 
+                                 k = "elbow"))
+plot(node_structural_equivalence(alge, 
+                                 k = "silhouette"))
 ```
 
 Ok, so it looks like the elbow method returns `k == 3` as a good trade-off
@@ -501,8 +460,8 @@ between fit and parsimony.
 The silhouette method, by contrast, sees `k == 4` as maximising cluster similarity
 and dissimilarity.
 Either is probably fine here, 
-and there is much debate around how to select the number of clusters anyway,
-but the silhouette method seems to do a better job of identifying how unique
+and there is much debate around how to select the number of clusters anyway.
+However, the silhouette method seems to do a better job of identifying how unique
 the 16th node is.
 The silhouette method is also the default in `{migraph}`.
 
@@ -514,23 +473,13 @@ This however can be modified to be higher or lower, e.g. `range = 16`.
 
 Finally, one last option is `k = "strict"`,
 which only assigns nodes to the same partition 
-if there is a distance of zero between them.
+if there is zero distance between them.
 This is quick and rigorous solution,
 however oftentimes this misses the point in finding clusters of nodes that, 
 despite some variation, can be considered as similar on some dimension.
 
-```{r strict, exercise = TRUE, exercise.setup = "data", purl = FALSE}
-
-```
-
-```{r strict-hint, purl = FALSE}
-# Again, let's use the same function as those used above and change 'k'
-
-plot(node_structural_equivalence(ison_algebra, k = "____"))
-```
-
-```{r strict-solution}
-plot(node_structural_equivalence(ison_algebra, k = "strict"))
+```{r strict, exercise = TRUE, exercise.setup = "varyclust"}
+plot(node_structural_equivalence(alge, k = "strict"))
 ```
 
 Here for example, no two nodes have precisely the same tie-profile,
@@ -547,22 +496,20 @@ but here it essentially just reports nodes' identity.
 Ok, so now we have a result from establishing nodes' membership in structurally equivalent classes.
 We can graph this of course, as above:
 
-```{r strplot, exercise = TRUE, exercise.setup = "data"}
-str_clu <- node_structural_equivalence(ison_algebra)
-
-ison_algebra %>% 
-  mutate(se = str_clu) %>% 
+```{r strplot, exercise = TRUE, exercise.setup = "varyclust"}
+alge %>% 
+  mutate(se = node_structural_equivalence(alge)) %>% 
   autographr(node_color = "se")
 ```
 
-While this plot enters the class information in to our earlier graph,
-it doesn't always help us understand how the classes vary.
+While this plot adds the structurally equivalent classes information to our earlier graph,
+it doesn't really help us understand how the classes relate.
+That is, we might be less interested in how the individuals in the different classes relate, and more interested in how the different classes relate in aggregate.
 
 One option that can be useful for characterising what
 the profile of ties (partners) is for each position/equivalence class
 is to use `summary()`.
-Used on a `node_motif` object, it also expects some membership vector,
-and then it summarises the census by the partition assignment.
+It summarises some census result by a partition (equivalence/membership) assignment.
 By default it takes the average of ties (values),
 but this can be tweaked by assigning some other summary statistic as `FUN = `.
 
@@ -570,36 +517,23 @@ but this can be tweaked by assigning some other summary statistic as `FUN = `.
 
 ```
 
-```{r summ-hint-1, purl = FALSE}
-#Let's bring the node_tie_census() function from Step 1
-
-node_tie_census(ison_algebra)
-```
-
-```{r summ-hint-2, purl = FALSE}
-# Now, let's put it inside the summary() function
-# For a description of summary(), use ?summary()
-
-summary(node_tie_census(ison_algebra))
-```
-
-```{r summ-hint-3, purl = FALSE}
-# Great, but we are interested in looking at the structural membership of clusters
-# Let's call the object we created a few steps ago: str_clu
-
-summary(node_tie_census(ison_algebra),
+```{r summ-hint, purl = FALSE}
+# Let's wrap node_tie_census inside the summary() function
+# and pass it a membership result
+summary(node_tie_census(____),
         membership = ____)
 ```
 
 ```{r summ-solution}
-summary(node_tie_census(ison_algebra),
-        membership = str_clu)
+summary(node_tie_census(alge),
+        membership = node_structural_equivalence(alge))
 ```
 
-Since this node census produces 96 columns, 
+This node census produces 96 columns, 
 $16 \text{nodes} * 2 \text{directions} * 3 \text{edge types}$,
 it takes a bit to look through what varies between the different classes
 as 'blocked'.
+But only four rows (the four structurally equivalent classes, according to the default).
 
 Another way to do this is to plot the blockmodel as a whole.
 Passing the `plot()` function an adjacency/incidence matrix
@@ -619,11 +553,14 @@ plot(as_matrix(____),
 ```
 
 ```{r block-solution}
-plot(as_matrix(ison_algebra),
-     membership = str_clu)
+plot(as_matrix(alge),
+     membership = node_structural_equivalence(alge))
 ```
 
-So, with this information, we might characterise them like so:
+By passing the membership argument our structural equivalence results,
+the matrix is re-sorted to cluster or 'block' nodes from the same class together.
+This can help us interpret the general relationships between classes.
+For example, we might characterise them like so:
 
 - The first group work together only in reciprocal pairs on tasks,
 preferring to approach the nerd but also those of the other two roles.
@@ -651,33 +588,10 @@ Of course, this means that there can be self-ties or loops,
 because even if the original network was simple (not complex), 
 any within-class ties will end up becoming loops and thus the network will be complex.
 
-```{r structblock, exercise = TRUE, exercise.setup = "data", warning=FALSE}
-str_clu <- node_structural_equivalence(ison_algebra)
-(bm <- to_blocks(ison_algebra, str_clu))
+```{r structblock, exercise = TRUE, exercise.setup = "varyclust", warning=FALSE}
+(bm <- to_blocks(alge, node_structural_equivalence(alge)))
 
-bm <- bm %>% as_tidygraph %>% mutate(name = c("Freaks", "Squares", "Nerds", "Geek"))
+bm <- bm %>% as_tidygraph %>% 
+  mutate(name = c("Freaks", "Squares", "Nerds", "Geek"))
 autographr(bm)
-```
-
-## Unit Test
-
-1. Plot labelled, reduced graph of STRUCTURALLY equivalent classes 
-on the `mpn_elite_usa_advice` network and interpret
-
-```{r struct-elites, exercise = TRUE, purl = FALSE}
-
-```
-
-2. Plot labelled, reduced graph of REGULARLY equivalent classes 
-on the `mpn_elite_usa_advice` network and interpret
-
-```{r reg-elites, exercise = TRUE, purl = FALSE}
-
-```
-
-3. Plot labelled, reduced graph of AUTOMORPHICALLY equivalent classes 
-on the `mpn_elite_usa_advice` network only and interpret
-
-```{r auto-elites, exercise = TRUE, purl = FALSE}
-
 ```

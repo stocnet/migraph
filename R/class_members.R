@@ -25,8 +25,8 @@ print.node_member <- function(x, ...,
     }
   } else {
     for (i in names(table(x))) {
-      if (i == names(table(x))[1]) cat("Group ", i, ":", sep = "")
-      else cat("Group ", i, ":", sep = "")
+      if (i == names(table(x))[1]) cat("Class ", i, ":", sep = "")
+      else cat("Class ", i, ":", sep = "")
       if (!is.null(names(x)))
         y <- paste(names(x[x == i]), collapse = ", ")
       else
