@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
       </span>
     </div>
 
@@ -96,7 +96,7 @@
 <h2 id="about-the-package">About the package<a class="anchor" aria-label="anchor" href="#about-the-package"></a>
 </h2>
 <p>The most commonly used R packages available for network analysis, such as <a href="https://r.igraph.org/" class="external-link">igraph</a> or <a href="https://statnet.org" class="external-link">sna</a>, are mainly oriented around directed or undirected one-mode networks. But researchers are increasingly interested in analysing multimodal (one-, two-, or three-mode), multilevel (connected multimodal networks), or multilayer (multiplex or signed) networks. Existing procedures typically involve ‘projecting’ them into one-mode networks so that they can be used with those tools, but thereby potentially losing important structural information, or require one or more other specific packages. Translating between packages various syntaxes and expectations can introduce significant transaction costs though, driving confusion, inefficiencies, and errors.</p>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> builds upon <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a> to offer smart solutions to these problems. It includes functions for marking and measuring networks and their nodes and ties, identifying motifs and memberships in them, and modelling these networks or simulating processes such as diffusion upon them. Based on <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>, every function works for any compatible network format - from base R matrices or edgelists as data frames, <a href="https://igraph.org/r/" class="external-link"><code>{igraph}</code></a>, <a href="https://statnet.org" class="external-link"><code>{network}</code></a>, or <a href="https://tidygraph.data-imaginist.com/index.html" class="external-link"><code>{tidygraph}</code></a> objects. This means it is compatible with your existing workflow, is extensible by other packages, and uses the most efficient algorithm available for each task.</p>
+<p><a href="https://snlab-ch.github.io/migraph/">migraph</a> builds upon <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a> to offer smart solutions to these problems. It includes functions for marking and measuring networks and their nodes and ties, identifying motifs and memberships in them, and modelling these networks or simulating processes such as diffusion upon them. Based on <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>, every function works for any compatible network format - from base R matrices or edgelists as data frames, <a href="https://igraph.org/r/" class="external-link"><code>{igraph}</code></a>, <a href="https://statnet.org" class="external-link"><code>{network}</code></a>, or <a href="https://tidygraph.data-imaginist.com/index.html" class="external-link"><code>{tidygraph}</code></a> objects. This means it is compatible with your existing workflow, is extensible by other packages, and uses the most efficient algorithm available for each task.</p>
 <p><img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="125"></p>
 <p>The package is intended as a software companion to the book:</p>
 <blockquote><p>David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos (2021) <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128" class="external-link"><em>Multimodal Political Networks</em></a>. Cambridge University Press: Cambridge.</p></blockquote>
@@ -105,12 +105,12 @@
 <div class="section level2">
 <h2 id="how-does-migraph-help">How does migraph help?<a class="anchor" aria-label="anchor" href="#how-does-migraph-help"></a>
 </h2>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> includes five special groups of functions, each with their own pretty <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods: marks, measures, memberships, motifs, and models.</p>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> uses a common syntax to help new and experienced network analysts find the right function and use it correctly. All <code>network_*()</code> functions return a value for the network/graph or for each mode in the network. All <code>node_*()</code> functions return values for each node or vertex in the network. And all <code>tie_*()</code> functions return values for each tie or edge in the network. Functions are given intuitive and succinct names that avoid conflicts with existing function names wherever possible. All results are normalised by default, facilitating comparison.</p>
+<p><a href="https://snlab-ch.github.io/migraph/">migraph</a> includes five special groups of functions, each with their own pretty <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods: marks, measures, memberships, motifs, and models.</p>
+<p><a href="https://snlab-ch.github.io/migraph/">migraph</a> uses a common syntax to help new and experienced network analysts find the right function and use it correctly. All <code>network_*()</code> functions return a value for the network/graph or for each mode in the network. All <code>node_*()</code> functions return values for each node or vertex in the network. And all <code>tie_*()</code> functions return values for each tie or edge in the network. Functions are given intuitive and succinct names that avoid conflicts with existing function names wherever possible. All results are normalised by default, facilitating comparison.</p>
 <div class="section level3">
 <h3 id="marks-and-measures">Marks and Measures<a class="anchor" aria-label="anchor" href="#marks-and-measures"></a>
 </h3>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a>’s <code>*is_*()</code> functions offer fast logical tests of various properties. Whereas <code>is_*()</code> returns a single logical value for the network, <code>node_is_*()</code> returns a logical vector the length of the number of nodes in the network, and <code>tie_is_*()</code> returns a logical vector the length of the number of ties in the network.</p>
+<p><a href="https://snlab-ch.github.io/migraph/">migraph</a>’s <code>*is_*()</code> functions offer fast logical tests of various properties. Whereas <code>is_*()</code> returns a single logical value for the network, <code>node_is_*()</code> returns a logical vector the length of the number of nodes in the network, and <code>tie_is_*()</code> returns a logical vector the length of the number of ties in the network.</p>
 <ul>
 <li>
 <code><a href="reference/is.html">is_acyclic()</a></code>, <code><a href="reference/is.html">is_aperiodic()</a></code>, <code><a href="https://r.igraph.org/reference/make_bipartite_graph.html" class="external-link">is_bipartite()</a></code>, <code><a href="reference/is.html">is_connected()</a></code>, <code><a href="reference/is.html">is_eulerian()</a></code>, <code><a href="reference/is.html">is_perfect_matching()</a></code>
@@ -123,7 +123,7 @@
 </li>
 </ul>
 <p>The <code>*is_max()</code> and <code>*is_min()</code> functions are used to identify the maximum or minimum, respectively, node or tie according to some measure (see below).</p>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> also offers a large and growing smorgasbord of measures that can be used at the node, tie, and network level. Each recognises whether the network is directed or undirected, weighted or unweighted, one-mode or two-mode. All return normalized values wherever possible, though this can be overrided. Here are some examples:</p>
+<p><a href="https://snlab-ch.github.io/migraph/">migraph</a> also offers a large and growing smorgasbord of measures that can be used at the node, tie, and network level. Each recognises whether the network is directed or undirected, weighted or unweighted, one-mode or two-mode. All return normalized values wherever possible, though this can be overrided. Here are some examples:</p>
 <ul>
 <li>
 <em>Centrality</em>: <code><a href="reference/degree_centrality.html">node_degree()</a></code>, <code><a href="reference/close_centrality.html">node_closeness()</a></code>, <code><a href="reference/between_centrality.html">node_betweenness()</a></code>, and <code><a href="reference/eigenv_centrality.html">node_eigenvector()</a></code>
@@ -161,11 +161,11 @@
 <code><a href="reference/brokerage_census.html">node_brokerage_census()</a></code>, <code><a href="reference/node_census.html">node_path_census()</a></code>, <code><a href="reference/node_census.html">node_quad_census()</a></code>, <code><a href="reference/node_census.html">node_tie_census()</a></code>, <code><a href="reference/node_census.html">node_triad_census()</a></code>
 </li>
 </ul>
-<p>These can be analysed alone, or used as a profile for establishing equivalence. <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> offers both HCA and CONCOR algorithms, as well as elbow, silhouette, and strict methods for <em>k</em>-cluster selection.</p>
+<p>These can be analysed alone, or used as a profile for establishing equivalence. <a href="https://snlab-ch.github.io/migraph/">migraph</a> offers both HCA and CONCOR algorithms, as well as elbow, silhouette, and strict methods for <em>k</em>-cluster selection.</p>
 <ul><li>
 <code><a href="reference/equivalence.html">node_automorphic_equivalence()</a></code>, <code><a href="reference/equivalence.html">node_equivalence()</a></code>, <code><a href="reference/equivalence.html">node_regular_equivalence()</a></code>, <code><a href="reference/equivalence.html">node_structural_equivalence()</a></code>
 </li></ul>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> also includes functions for establishing membership on other bases, such as typical community detection algorithms, as well as component and core-periphery partitioning algorithms.</p>
+<p><a href="https://snlab-ch.github.io/migraph/">migraph</a> also includes functions for establishing membership on other bases, such as typical community detection algorithms, as well as component and core-periphery partitioning algorithms.</p>
 </div>
 <div class="section level3">
 <h3 id="models">Models<a class="anchor" aria-label="anchor" href="#models"></a>
@@ -176,8 +176,8 @@
 </li></ul>
 <p>Hypotheses can also be tested within multivariate models via multiple (linear or logistic) regression QAP:</p>
 <ul><li><code><a href="reference/regression.html">network_reg()</a></code></li></ul>
-<p><a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> is the only package that offers these testing frameworks for two-mode networks as well as one-mode networks.</p>
-<p>Lastly, <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> also includes functions for simulating diffusion or learning processes over a given network:</p>
+<p><a href="https://snlab-ch.github.io/migraph/">migraph</a> is the only package that offers these testing frameworks for two-mode networks as well as one-mode networks.</p>
+<p>Lastly, <a href="https://snlab-ch.github.io/migraph/">migraph</a> also includes functions for simulating diffusion or learning processes over a given network:</p>
 <ul><li>
 <code><a href="reference/play.html">play_diffusion()</a></code>, <code><a href="reference/play.html">play_diffusions()</a></code>, <code><a href="reference/play.html">play_learning()</a></code>, <code><a href="reference/play.html">play_segregation()</a></code>
 </li></ul>
@@ -190,10 +190,10 @@
 <div class="section level3">
 <h3 id="stable">Stable<a class="anchor" aria-label="anchor" href="#stable"></a>
 </h3>
-<p>The easiest way to install the latest stable version of <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> is via CRAN. Simply open the R console and enter:<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>The easiest way to install the latest stable version of <a href="https://snlab-ch.github.io/migraph/">migraph</a> is via CRAN. Simply open the R console and enter:<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <p><code>install.packages('migraph')</code></p>
-<p>You can then begin to use <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> by loading the package:</p>
-<p><code><a href="https://github.com/snlab-ch/migraph" class="external-link">library(migraph)</a></code></p>
+<p>You can then begin to use <a href="https://snlab-ch.github.io/migraph/">migraph</a> by loading the package:</p>
+<p><code><a href="https://snlab-ch.github.io/migraph/">library(migraph)</a></code></p>
 <p>This will load any required packages and make the data contained within the package available.</p>
 </div>
 <div class="section level3">
@@ -209,7 +209,7 @@
 <li>For Unix: <code>install.packages("~/Downloads/migraph_linuxOS.tar.gz", repos = NULL)</code>
 </li>
 </ul>
-<p>To install from source the latest main version of <a href="https://github.com/snlab-ch/migraph" class="external-link">migraph</a> from Github, please install the <a href="https://remotes.r-lib.org" class="external-link">remotes</a> or <a href="https://devtools.r-lib.org/" class="external-link">devtools</a> package from CRAN and then:</p>
+<p>To install from source the latest main version of <a href="https://snlab-ch.github.io/migraph/">migraph</a> from Github, please install the <a href="https://remotes.r-lib.org" class="external-link">remotes</a> or <a href="https://devtools.r-lib.org/" class="external-link">devtools</a> package from CRAN and then:</p>
 <ul>
 <li>For latest stable version: <code>remotes::install_github("snlab-ch/migraph")</code>
 </li>

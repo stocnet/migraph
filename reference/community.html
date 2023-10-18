@@ -21,7 +21,7 @@ and their logic or domain of inspiration."><meta property="og:image" content="ht
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
       </span>
     </div>
 
@@ -243,10 +243,8 @@ The guidance in the igraph package is networks of &lt;50-200 nodes is probably f
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">node_kernighanlin</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Betty, Jane, Dale, Pam</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Sue, Alice, Carol, Tina</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 1:  Betty, Jane, Dale, Pam</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 2:  Sue, Alice, Carol, Tina</span>
 <span class="r-in"><span><span class="fu">node_kernighanlin</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14 </span>
@@ -255,44 +253,28 @@ The guidance in the igraph package is networks of &lt;50-200 nodes is probably f
 <span class="r-out co"><span class="r-pr">#&gt;</span>     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    EVELYN, LAURA, THERESA, BRENDA, CHARLOTTE, FRANCES, ELEANOR, PEARL, RUTH, VERNE, MYRA, KATHERINE, SYLVIA, NORA, HELEN, DOROTHY</span>
 <span class="r-in"><span><span class="fu">node_edge_betweenness</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1, 2, 3, 4, 5, 6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    7, 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 1:  Betty, Sue, Alice, Jane, Dale, Pam</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 2:  Carol, Tina</span>
 <span class="r-in"><span><span class="fu">node_fast_greedy</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    6, 7, 8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3, 4, 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1, 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 1:  Pam, Carol, Tina</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 2:  Alice, Jane, Dale</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 3:  Betty, Sue</span>
 <span class="r-in"><span><span class="fu">node_spinglass</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3, 4, 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1, 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    6, 7, 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 1:  Betty, Sue</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 2:  Pam, Carol, Tina</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 3:  Alice, Jane, Dale</span>
 <span class="r-in"><span><span class="fu">node_leading_eigen</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1, 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    6, 7, 8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3, 4, 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 1:  Betty, Sue</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 2:  Pam, Carol, Tina</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 3:  Alice, Jane, Dale</span>
 <span class="r-in"><span><span class="fu">node_walktrap</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    7, 8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1, 2, 3, 4, 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 1:  Carol, Tina</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 2:  Betty, Sue, Alice, Jane, Dale</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 3:  Pam</span>
 <span class="r-in"><span><span class="fu">node_infomap</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1, 2, 3, 4, 5, 6, 7, 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 1:  Betty, Sue, Alice, Jane, Dale, Pam, Carol, Tina</span>
 <span class="r-in"><span><span class="fu">node_optimal</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1, 2, 3, 4, 5, 6, 7, 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Class 1:  Betty, Sue, Alice, Jane, Dale, Pam, Carol, Tina</span>
 </code></pre></div>
     </div>
   </div>
