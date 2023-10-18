@@ -46,7 +46,7 @@ give them an informative title, and plot the graphs together.
 What would a complete network with half the nodes look like?
 Add that too.
 
-```{r empty, exercise=TRUE}
+```{r empty, exercise=TRUE, purl = FALSE}
 
 ```
 
@@ -71,7 +71,7 @@ Use the `create_star()` function to graph three star networks:
 - a out-directed star network
 - and an in-directed star network
 
-```{r star, exercise = TRUE}
+```{r star, exercise = TRUE, purl = FALSE}
 
 ```
 
@@ -91,7 +91,7 @@ Again graph three networks:
 - a directed network with 2 branches per node
 - the same as above, but graphed using the "tree" layout
 
-```{r tree, exercise = TRUE}
+```{r tree, exercise = TRUE, purl = FALSE}
 
 ```
 
@@ -131,7 +131,7 @@ two-dimensional representation with a given number of nodes.
 Graph two lattices, one with 50 nodes, 
 and another with half the number of nodes.
 
-```{r lattices, exercise = TRUE}
+```{r lattices, exercise = TRUE, purl = FALSE}
 
 ```
 
@@ -151,7 +151,7 @@ Graph three ring networks:
   on a "circle" layout
 - the same as above, but on a "stress" layout
 
-```{r rings, exercise = TRUE}
+```{r rings, exercise = TRUE, purl = FALSE}
 
 ```
 
@@ -178,7 +178,7 @@ which connects each pair of nodes ${i,j}$ with probability $p$, independent.
 Note that for a “sparse” ER graphs, $p$ must decrease as $N$ goes up.
 Generate three random networks of 50 nodes and a density of 0.08:
 
-```{r random, exercise = TRUE}
+```{r random, exercise = TRUE, purl = FALSE}
 
 ```
 
@@ -193,7 +193,7 @@ Note that you can also pass the second argument an integer,
 in which case the function will interpret that as the number of ties/edges rather than the probability that a tie is present.
 Try generating a random graph with 200 edges/ties now:
 
-```{r randomno, exercise = TRUE}
+```{r randomno, exercise = TRUE, purl = FALSE}
 
 ```
 
@@ -208,7 +208,7 @@ What if we rewire (change) some of the edges at a certain probability?
 This is how small-world networks are generated.
 Graph three small-world networks, all with 50 nodes and a rewiring probability of 0.025.
 
-```{r smallw, exercise = TRUE}
+```{r smallw, exercise = TRUE, purl = FALSE}
 
 ```
 
@@ -234,7 +234,7 @@ where 1 is as close to a small-world as possible.
 Try it now on a small-world generated network,
 but with a rewiring probability of 0.25:
 
-```{r smallwtest, exercise = TRUE}
+```{r smallwtest, exercise = TRUE, purl = FALSE}
 
 ```
 
@@ -263,7 +263,7 @@ connect to already well-connected nodes rather than poorly connected ones.
 Generate and graph three scale-free networks,
 with alpha parameters of 0.5, 1, and 1.5.
 
-```{r scalef, exercise = TRUE}
+```{r scalef, exercise = TRUE, purl = FALSE}
 
 ```
 
@@ -285,7 +285,7 @@ With an alpha/power-law exponent between 2 and 3,
 one generally cannot reject the hypothesis that the observed data 
 comes from a power-law distribution.
 
-```{r scaleftest, exercise = TRUE}
+```{r scaleftest, exercise = TRUE, purl = FALSE}
 
 ```
 
@@ -310,7 +310,7 @@ Graph a core-periphery network of 50 nodes
 (which, unless a core-periphery membership assignment is given,
 will be split evenly between core and periphery partitions).
 
-```{r core, exercise=TRUE}
+```{r core, exercise=TRUE, purl = FALSE}
 
 ```
 
@@ -324,7 +324,7 @@ Let's use the `ison_brandes` dataset from `{manynet}`,
 and identify the core/periphery assignment of the _nodes_.
 Graph the data with the core/periphery assignment.
 
-```{r nodecore, exercise=TRUE}
+```{r nodecore, exercise=TRUE, purl = FALSE}
 
 ```
 
@@ -340,7 +340,7 @@ In `{migraph}`, we can return nodes _k_-coreness
 with `node_coreness()` instead of 
 the `node_core()` used for core-periphery.
 
-```{r nodecoren, exercise=TRUE}
+```{r nodecoren, exercise=TRUE, purl = FALSE}
 
 ```
 

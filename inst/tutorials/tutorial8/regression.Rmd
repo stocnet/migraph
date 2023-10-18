@@ -31,32 +31,32 @@ so to make this simpler, let's concentrate on:
 Fortunately, all these data cleaning moves are easy to do in `{manynet}`,
 and can be seen in the following chunk in order:
 
-```{r friends, exercise=TRUE}
+```{r friends, exercise=TRUE, purl = FALSE}
 
 ```
 
-```{r friends-hint-1}
+```{r friends-hint-1, purl = FALSE}
 # since the dataset is a 'signed' graph, we want to get just the
 # positively signed ties to get the friendship graph 
 # (and lose the enmity relations)
 to_unsigned(____, keep = "positive")
 ```
 
-```{r friends-hint-2}
+```{r friends-hint-2, purl = FALSE}
 # to_giant() is a quick easy way to get the giant/main component
 to_giant(____)
 ```
 
-```{r friends-hint-3}
+```{r friends-hint-3, purl = FALSE}
 to_subgraph(____, Appearances >= mean(Appearances))
 ```
 
-```{r friends-hint-4}
+```{r friends-hint-4, purl = FALSE}
 # don't forget to assign the results!
 marvel_friends <- ____
 ```
 
-```{r friends-hint-5}
+```{r friends-hint-5, purl = FALSE}
 marvel_friends <- to_unsigned(ison_marvel_relationships, keep = "positive")
 marvel_friends <- to_giant(marvel_friends)
 marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances))
@@ -75,11 +75,11 @@ Recall that this data has several nodal attributes.
 Explore a couple of these attributes, "Gender" and "PowerOrigin" visually
 using `autographr()`.
 
-```{r plotfriends, exercise=TRUE, exercise.setup = "friends-solution"}
+```{r plotfriends, exercise=TRUE, exercise.setup = "friends-solution", purl = FALSE}
 
 ```
 
-```{r plotfriends-hint}
+```{r plotfriends-hint, purl = FALSE}
 # Since both Gender and PowerOrigin are categorical variables
 # you will need to use two different aesthetic dimensions to
 # represent them together.
@@ -117,11 +117,11 @@ A perfectly homogeneous group would receive a score of 0,
 while a perfectly heterogeneous group (with members spread evenly over the maximum categories)
 would receive a score of 1.
 
-```{r blau, exercise=TRUE, exercise.setup = "friends-solution"}
+```{r blau, exercise=TRUE, exercise.setup = "friends-solution", purl = FALSE}
 
 ```
 
-```{r blau-hint}
+```{r blau-hint, purl = FALSE}
 network_diversity(____, ____)
 ```
 
@@ -142,11 +142,11 @@ For example, we might be interested in whether our comic book heroes
 are equally gender diverse across their (power) origin stories,
 or equally intellectually diverse across gender.^[Note that this works for calculated categorical variables too, such as cluster/group assignment from community detection or equivalence classes.]
 
-```{r crossref, exercise=TRUE, exercise.setup = "friends-solution"}
+```{r crossref, exercise=TRUE, exercise.setup = "friends-solution", purl = FALSE}
 
 ```
 
-```{r crossref-hint}
+```{r crossref-hint, purl = FALSE}
 network_diversity(____, ____, ____)
 ```
 
@@ -182,11 +182,11 @@ As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1
 Check how homophilic three variables in the network are,
 "Gender", "PowerOrigin", and "Attractive".
 
-```{r ei, exercise=TRUE, exercise.setup = "friends-solution"}
+```{r ei, exercise=TRUE, exercise.setup = "friends-solution", purl = FALSE}
 
 ```
 
-```{r ei-hint}
+```{r ei-hint, purl = FALSE}
 network_heterophily(____, ____)
 ```
 
@@ -196,7 +196,7 @@ network_heterophily(____, ____)
 (obs.attract <- network_heterophily(marvel_friends, "Attractive")) 
 ```
 
-```{r homophily-present, echo=FALSE}
+```{r homophily-present, echo=FALSE, purl = FALSE}
 question("For which variables is there a signal of homophily according to the EI index? (Choose all that apply)",
   answer("Gender", 
          correct = TRUE, 
@@ -231,15 +231,15 @@ such as `test_random()`.
 Plot the results of running this function with respect to the EI index
 on each of the three variables used above one thousand times.
 
-```{r rando, exercise=TRUE, exercise.setup = "friends-solution"}
+```{r rando, exercise=TRUE, exercise.setup = "friends-solution", purl = FALSE}
 
 ```
 
-```{r rando-hint-1}
+```{r rando-hint-1, purl = FALSE}
 rand.____ <- test_random(____, FUN = ____, attribute = ____, times = ___)
 ```
 
-```{r rando-hint-2}
+```{r rando-hint-2, purl = FALSE}
 plot(rand.____)
 ```
 
@@ -287,11 +287,11 @@ Permuting the network retains the structure of the network,
 but reassigns any labels (variables) randomly.
 Let's first plot the observed data and some permuted data next to each other.
 
-```{r perm, exercise=TRUE, exercise.setup = "friends-solution"}
+```{r perm, exercise=TRUE, exercise.setup = "friends-solution", purl = FALSE}
 
 ```
 
-```{r perm-hint}
+```{r perm-hint, purl = FALSE}
 autographr(generate_permutation(____, with_attr = TRUE), ____)
 ```
 
@@ -312,11 +312,11 @@ attributes, but it is just a single permutation.
 Let's try a test that runs this over a succession of permutations,
 just as we did with random graphs.
 
-```{r testpermute, exercise=TRUE, exercise.setup = "rando-solution"}
+```{r testpermute, exercise=TRUE, exercise.setup = "rando-solution", purl = FALSE}
 
 ```
 
-```{r testpermute-hint}
+```{r testpermute-hint, purl = FALSE}
 test_permutation(____, FUN = ____, attribute = ____,
                                 times = ____)
 ```
@@ -334,7 +334,7 @@ Again, we see that there is perhaps nothing so surprising that we got the homoph
 for gender that we did, but the lack of power origin heterophily is surprising.
 Plot the results for gender and power according to the random and permutation baselines.
 
-```{r cugqap, exercise=TRUE, exercise.setup = "testpermute-solution"}
+```{r cugqap, exercise=TRUE, exercise.setup = "testpermute-solution", purl = FALSE}
 
 ```
 
@@ -356,7 +356,7 @@ You may recognise some of the names.
 The main network consists of 32 scholars with directed ties weighted by the total number of messages sent from $i$ to $j$ over the period of the study.
 Nodal attributes collected include the primary discipline and number of citations in the social science citation index at the start of the study.
 
-```{r introeies, exercise=TRUE}
+```{r introeies, exercise=TRUE, purl = FALSE}
 ison_networkers
 autographr(ison_networkers,
            node_color = "Discipline")
@@ -371,20 +371,20 @@ and come up with a couple of key hypotheses:
 Let's start with a pretty maximally specified model 
 (note that it doesn't make sense to include both ego and alter effects because these are undirected).
 
-```{r qapmax, exercise=TRUE, exercise.timelimit = 240}
+```{r qapmax, exercise=TRUE, exercise.timelimit = 240, purl = FALSE}
 
 ```
 
-```{r qapmax-hint-1}
+```{r qapmax-hint-1, purl = FALSE}
 network_reg(____, ison_networkers, times = 200)
 ```
 
-```{r qapmax-hint-2}
+```{r qapmax-hint-2, purl = FALSE}
 weight ~ alter(Citations) + sim(Citations) + 
                       alter(Discipline) + same(Discipline)
 ```
 
-```{r qapmax-hint-3}
+```{r qapmax-hint-3, purl = FALSE}
 model1 <- network_reg(weight ~ alter(Citations) + sim(Citations) + 
                       alter(Discipline) + same(Discipline), 
                       ison_networkers, times = 200)
@@ -400,7 +400,7 @@ We can use tidy methods to get the salient information from this model,
 and `{migraph}` includes also a plot method for these results to
 facilitate the quick interpretation of these results.
 
-```{r qapinterp, exercise=TRUE, exercise.setup = "qapmax-solution"}
+```{r qapinterp, exercise=TRUE, exercise.setup = "qapmax-solution", purl = FALSE}
 
 ```
 
@@ -415,7 +415,7 @@ with the fitted coefficient from the data as a red dot.
 Subtle lines are used to indicate 95%,
 but here the distributions are rendered so wide that they are often not seen.
 
-```{r qap-interp, echo=FALSE}
+```{r qap-interp, echo=FALSE, purl = FALSE}
 question("What can we say from these results?",
   answer("Researchers send more messages to those who are cited more", 
          message = "Looks like alter Citations is not significant."),
