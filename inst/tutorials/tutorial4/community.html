@@ -265,7 +265,8 @@ data-lines="0" data-pipe="|&gt;">
 data-label="dens-explicit-solution" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
-<pre class="text"><code>network_ties(tasks)/(network_nodes(tasks)*(network_nodes(tasks)-1))</code></pre>
+<pre class="text"><code># calculating network density manually according to equation
+network_ties(tasks)/(network_nodes(tasks)*(network_nodes(tasks)-1))</code></pre>
 </div>
 <p>but we can also just use the <code>{migraph}</code> function…</p>
 <div class="tutorial-exercise" data-label="dens" data-completion="1"
@@ -373,7 +374,8 @@ network_components(to_undirected(friends))</code></pre>
 <div class="tutorial-exercise-support" data-label="comp-no-solution"
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0" data-pipe="|&gt;">
-<pre class="text"><code>network_components(friends)
+<pre class="text"><code># note that friends is a directed network
+network_components(friends)
 network_components(to_undirected(friends))</code></pre>
 </div>
 <div class="panel panel-default tutorial-question-container">
@@ -938,9 +940,9 @@ learnr:::store_exercise_cache(structure(list(label = "data", global_setup = stru
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = NULL, chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
-    solution = structure(c("data(\"ison_algebra\", package = \"manynet\")", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure(c("data(\"ison_algebra\", package = \"manynet\")", 
     "?manynet::ison_algebra", "# If you want to see the network object, you can run the name of the object", 
     "ison_algebra", "# or print the code with brackets at the front and end of the code", 
     "(ison_algebra <- manynet::ison_algebra)"), chunk_opts = list(
@@ -959,12 +961,13 @@ learnr:::store_exercise_cache(structure(list(label = "data", global_setup = stru
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "data", exercise = TRUE, code = "", 
         context = "data", out.width.px = 624, out.height.px = 384, 
-        params.src = "data, exercise = TRUE", fig.num = 0L, exercise.df_print = "paged", 
-        exercise.checker = "NULL"), engine = "r", version = "4"), class = c("r", 
-"tutorial_exercise")))
+        params.src = "data, exercise = TRUE, purl = FALSE", fig.num = 0L, 
+        exercise.df_print = "paged", exercise.checker = "NULL"), 
+    engine = "r", version = "4"), class = c("r", "tutorial_exercise"
+)))
 </script>
 
 
@@ -980,11 +983,11 @@ learnr:::store_exercise_cache(structure(list(label = "addingnames", global_setup
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "addingnames", code = "", opts = list(
-    label = "\"addingnames\"", exercise = "TRUE", exercise.setup = "\"data\""), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
-    solution = structure(c("ison_algebra <- to_named(ison_algebra)", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "addingnames", 
+    code = "", opts = list(label = "\"addingnames\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("ison_algebra <- to_named(ison_algebra)", 
     "autographr(ison_algebra)"), chunk_opts = list(label = "addingnames-solution")), 
     tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
@@ -1001,10 +1004,10 @@ learnr:::store_exercise_cache(structure(list(label = "addingnames", global_setup
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "addingnames", exercise = TRUE, 
         exercise.setup = "data", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "addingnames, exercise=TRUE, exercise.setup = \"data\"", 
+        out.height.px = 384, params.src = "addingnames, exercise=TRUE, exercise.setup = \"data\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1023,11 +1026,11 @@ learnr:::store_exercise_cache(structure(list(label = "separatingnets", global_se
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "separatingnets", code = "", 
-    opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
-        exercise.setup = "\"data\""), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = NULL, solution = structure(c("friends <- to_uniplex(ison_algebra, \"friends\")", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "separatingnets", 
+    code = "", opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("friends <- to_uniplex(ison_algebra, \"friends\")", 
     "gfriend <- autographr(friends) + ggtitle(\"Friendship\")", 
     "", "social <- to_uniplex(ison_algebra, \"social\")", "gsocial <- autographr(social) + ggtitle(\"Social\")", 
     "", "tasks <- to_uniplex(ison_algebra, \"tasks\")", "gtask <- autographr(tasks) + ggtitle(\"Task\")", 
@@ -1048,10 +1051,10 @@ learnr:::store_exercise_cache(structure(list(label = "separatingnets", global_se
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "separatingnets", exercise = TRUE, 
         exercise.setup = "data", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "separatingnets, exercise=TRUE, exercise.setup = \"data\"", 
+        out.height.px = 384, params.src = "separatingnets, exercise=TRUE, exercise.setup = \"data\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1070,21 +1073,24 @@ learnr:::store_exercise_cache(structure(list(label = "dens-explicit", global_set
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\n", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "separatingnets", code = "", 
-    opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
-        exercise.setup = "\"data\""), engine = "r"), list(label = "dens-explicit", 
-    code = "", opts = list(label = "\"dens-explicit\"", exercise = "TRUE", 
-        exercise.setup = "\"separatingnets\""), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = structure("network_ties(tasks)/(network_nodes(tasks)*(network_nodes(tasks)-1))", chunk_opts = list(
-        label = "dens-explicit-solution")), tests = NULL, options = list(
-        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
-        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
-        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "community_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "community_files/figure-html/", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "separatingnets", 
+    code = "", opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r"), 
+    list(label = "dens-explicit", code = "", opts = list(label = "\"dens-explicit\"", 
+        exercise = "TRUE", exercise.setup = "\"separatingnets\"", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure(c("# calculating network density manually according to equation", 
+    "network_ties(tasks)/(network_nodes(tasks)*(network_nodes(tasks)-1))"
+    ), chunk_opts = list(label = "dens-explicit-solution")), 
+    tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "community_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "community_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1092,10 +1098,10 @@ learnr:::store_exercise_cache(structure(list(label = "dens-explicit", global_set
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "dens-explicit", exercise = TRUE, 
         exercise.setup = "separatingnets", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "dens-explicit, exercise=TRUE, exercise.setup = \"separatingnets\"", 
+        out.height.px = 384, params.src = "dens-explicit, exercise=TRUE, exercise.setup = \"separatingnets\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1114,13 +1120,14 @@ learnr:::store_exercise_cache(structure(list(label = "dens", global_setup = stru
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\n", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "separatingnets", code = "", 
-    opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
-        exercise.setup = "\"data\""), engine = "r"), list(label = "dens", 
-    code = "", opts = list(label = "\"dens\"", exercise = "TRUE", 
-        exercise.setup = "\"separatingnets\""), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = structure("network_density(tasks)", chunk_opts = list(
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "separatingnets", 
+    code = "", opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r"), 
+    list(label = "dens", code = "", opts = list(label = "\"dens\"", 
+        exercise = "TRUE", exercise.setup = "\"separatingnets\"", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure("network_density(tasks)", chunk_opts = list(
         label = "dens-solution")), tests = NULL, options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
         tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
@@ -1136,9 +1143,9 @@ learnr:::store_exercise_cache(structure(list(label = "dens", global_setup = stru
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "dens", exercise = TRUE, exercise.setup = "separatingnets", 
-        code = "", out.width.px = 624, out.height.px = 384, params.src = "dens, exercise=TRUE, exercise.setup = \"separatingnets\"", 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "dens, exercise=TRUE, exercise.setup = \"separatingnets\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1147,11 +1154,11 @@ learnr:::store_exercise_cache(structure(list(label = "dens", global_setup = stru
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "dens-qa", question = structure("Is this network’s density high or low?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_d9f4933", 
+"character")), answers = list(structure(list(id = "lnr_ans_629fead", 
     option = "High", value = "High", label = structure("High", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("The closer the value is to 1, the more dense the network and the more cohesive the network is as a whole.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_90c55b7", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f3197b1", 
     option = "Low", value = "Low", label = structure("Low", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = structure("The closer the value is to 0, the sparser the network and the less cohesive the network is as a whole.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
@@ -1162,7 +1169,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "dens-qa-answer", question = "dens-qa"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = FALSE, seed = 277256839.370892, 
+    random_answer_order = FALSE, allow_retry = FALSE, seed = 804496402.625377, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -1180,13 +1187,14 @@ learnr:::store_exercise_cache(structure(list(label = "recip", global_setup = str
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\n", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "separatingnets", code = "", 
-    opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
-        exercise.setup = "\"data\""), engine = "r"), list(label = "recip", 
-    code = "", opts = list(label = "\"recip\"", exercise = "TRUE", 
-        exercise.setup = "\"separatingnets\""), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("network_reciprocity(tasks)", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "separatingnets", 
+    code = "", opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r"), 
+    list(label = "recip", code = "", opts = list(label = "\"recip\"", 
+        exercise = "TRUE", exercise.setup = "\"separatingnets\"", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure(c("network_reciprocity(tasks)", 
     "# this function calculates the amount of reciprocity in the whole network"
     ), chunk_opts = list(label = "recip-solution")), tests = NULL, 
     options = list(eval = FALSE, echo = TRUE, results = "markup", 
@@ -1204,9 +1212,9 @@ learnr:::store_exercise_cache(structure(list(label = "recip", global_setup = str
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "recip", exercise = TRUE, exercise.setup = "separatingnets", 
-        code = "", out.width.px = 624, out.height.px = 384, params.src = "recip, exercise=TRUE, exercise.setup = \"separatingnets\"", 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "recip, exercise=TRUE, exercise.setup = \"separatingnets\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1225,13 +1233,14 @@ learnr:::store_exercise_cache(structure(list(label = "trans", global_setup = str
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\n", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "separatingnets", code = "", 
-    opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
-        exercise.setup = "\"data\""), engine = "r"), list(label = "trans", 
-    code = "", opts = list(label = "\"trans\"", exercise = "TRUE", 
-        exercise.setup = "\"separatingnets\""), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("network_transitivity(tasks)", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "separatingnets", 
+    code = "", opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r"), 
+    list(label = "trans", code = "", opts = list(label = "\"trans\"", 
+        exercise = "TRUE", exercise.setup = "\"separatingnets\"", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure(c("network_transitivity(tasks)", 
     "# this function calculates the amount of transitivity in the whole network"
     ), chunk_opts = list(label = "trans-solution")), tests = NULL, 
     options = list(eval = FALSE, echo = TRUE, results = "markup", 
@@ -1249,9 +1258,9 @@ learnr:::store_exercise_cache(structure(list(label = "trans", global_setup = str
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "trans", exercise = TRUE, exercise.setup = "separatingnets", 
-        code = "", out.width.px = 624, out.height.px = 384, params.src = "trans, exercise=TRUE, exercise.setup = \"separatingnets\"", 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "trans, exercise=TRUE, exercise.setup = \"separatingnets\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1260,29 +1269,29 @@ learnr:::store_exercise_cache(structure(list(label = "trans", global_setup = str
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "trans-interp", 
     question = structure("What can we say about task closure in this network? Choose all that apply.", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_dca6524", 
+    "character")), answers = list(structure(list(id = "lnr_ans_57f9568", 
         option = "Transitivity for the task network is 0.568", 
         value = "Transitivity for the task network is 0.568", 
         label = structure("Transitivity for the task network is 0.568", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_241d403", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2617da8", 
         option = "Transitivity for the task network is -0.568", 
         value = "Transitivity for the task network is -0.568", 
         label = structure("Transitivity for the task network is -0.568", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = structure("Transivitity must be between 0 and 1.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ec2f42f", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e55cfd2", 
         option = "Transitivity is quite low in this network", 
         value = "Transitivity is quite low in this network", 
         label = structure("Transitivity is quite low in this network", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = structure("Transitivity is usually around 0.3 in most social networks.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3220777", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_cbd0940", 
         option = "Transitivity is quite high in this network", 
         value = "Transitivity is quite high in this network", 
         label = structure("Transitivity is quite high in this network", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_871790c", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2588382", 
         option = "Transitivity is likely higher in the task network than the friendship network", 
         value = "Transitivity is likely higher in the task network than the friendship network", 
         label = structure("Transitivity is likely higher in the task network than the friendship network", html = TRUE, class = c("html", 
@@ -1295,7 +1304,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "trans-interp-answer", question = "trans-interp"), 
     loading = NULL, random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 20221290.4905837, options = list()), class = c("learnr_checkbox", 
+    seed = 633171660.705156, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
 
@@ -1303,12 +1312,12 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "weak-strong", 
     question = structure("Weak components…", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_423b886", 
+    "character")), answers = list(structure(list(id = "lnr_ans_8aa1665", 
         option = "don't care about tie direction when establishing components.", 
         value = "don't care about tie direction when establishing components.", 
         label = structure("don’t care about tie direction when establishing components.", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_fcb150b", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d10a23c", 
         option = "care about tie direction when establishing components.", 
         value = "care about tie direction when establishing components.", 
         label = structure("care about tie direction when establishing components.", html = TRUE, class = c("html", 
@@ -1321,7 +1330,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "weak-strong-answer", question = "weak-strong"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 2115063127.0151, options = list()), class = c("learnr_radio", 
+    seed = 1924035826.10405, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -1338,22 +1347,24 @@ learnr:::store_exercise_cache(structure(list(label = "comp-no", global_setup = s
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\n", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "separatingnets", code = "", 
-    opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
-        exercise.setup = "\"data\""), engine = "r"), list(label = "comp-no", 
-    code = "", opts = list(label = "\"comp-no\"", exercise = "TRUE", 
-        exercise.setup = "\"separatingnets\""), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("network_components(friends)", 
-    "network_components(to_undirected(friends))"), chunk_opts = list(
-        label = "comp-no-solution")), tests = NULL, options = list(
-        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
-        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
-        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "community_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "community_files/figure-html/", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "separatingnets", 
+    code = "", opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r"), 
+    list(label = "comp-no", code = "", opts = list(label = "\"comp-no\"", 
+        exercise = "TRUE", exercise.setup = "\"separatingnets\"", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure(c("# note that friends is a directed network", 
+    "network_components(friends)", "network_components(to_undirected(friends))"
+    ), chunk_opts = list(label = "comp-no-solution")), tests = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "community_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "community_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1361,10 +1372,10 @@ learnr:::store_exercise_cache(structure(list(label = "comp-no", global_setup = s
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "comp-no", exercise = TRUE, 
         exercise.setup = "separatingnets", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "comp-no, exercise=TRUE, exercise.setup = \"separatingnets\"", 
+        out.height.px = 384, params.src = "comp-no, exercise=TRUE, exercise.setup = \"separatingnets\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1373,19 +1384,19 @@ learnr:::store_exercise_cache(structure(list(label = "comp-no", global_setup = s
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "comp-interp", 
     question = structure("How many components are there?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_4841a09", 
+    "character")), answers = list(structure(list(id = "lnr_ans_e99671f", 
         option = "2", value = "2", label = structure("2", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = structure("There are more than 2 components.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_214c599", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5c4de1e", 
         option = "3", value = "3", label = structure("3", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = structure("There are 3 <em>weak<\u002fem> components.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4fc637f", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b7e5ae8", 
         option = "4", value = "4", label = structure("4", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = structure("There are 4 <em>strong<\u002fem> components.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d984033", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d62d0cd", 
         option = "5", value = "5", label = structure("5", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = structure("There are fewer than 5 components.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
@@ -1397,7 +1408,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "comp-interp-answer", question = "comp-interp"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1244976904.92026, options = list()), class = c("learnr_checkbox", 
+    seed = 1136877248.4706, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
 
@@ -1414,13 +1425,14 @@ learnr:::store_exercise_cache(structure(list(label = "comp-memb", global_setup =
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\n", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "separatingnets", code = "", 
-    opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
-        exercise.setup = "\"data\""), engine = "r"), list(label = "comp-memb", 
-    code = "", opts = list(label = "\"comp-memb\"", exercise = "TRUE", 
-        exercise.setup = "\"separatingnets\""), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("friends <- friends %>% ", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "separatingnets", 
+    code = "", opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r"), 
+    list(label = "comp-memb", code = "", opts = list(label = "\"comp-memb\"", 
+        exercise = "TRUE", exercise.setup = "\"separatingnets\"", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure(c("friends <- friends %>% ", 
     "  mutate(weak_comp = node_components(to_undirected(friends)),", 
     "         strong_comp = node_components(friends))", "autographr(friends, node_color = \"weak_comp\") + ggtitle(\"Weak components\") +", 
     "autographr(friends, node_color = \"strong_comp\") + ggtitle(\"Strong components\")"
@@ -1440,10 +1452,10 @@ learnr:::store_exercise_cache(structure(list(label = "comp-memb", global_setup =
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "comp-memb", exercise = TRUE, 
         exercise.setup = "separatingnets", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "comp-memb, exercise=TRUE, exercise.setup = \"separatingnets\"", 
+        out.height.px = 384, params.src = "comp-memb, exercise=TRUE, exercise.setup = \"separatingnets\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1453,20 +1465,20 @@ learnr:::store_exercise_cache(structure(list(label = "comp-memb", global_setup =
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "node-comp-interp", 
     question = structure("Why is there a difference between the weak and strong components results?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_1f5dcfd", 
+    "character")), answers = list(structure(list(id = "lnr_ans_a73777f", 
         option = "Because one node has only incoming ties.", 
         value = "Because one node has only incoming ties.", label = structure("Because one node has only incoming ties.", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f9a4e21", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_54ed399", 
         option = "Because three nodes cannot reach any other nodes.", 
         value = "Because three nodes cannot reach any other nodes.", 
         label = structure("Because three nodes cannot reach any other nodes.", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c7edf7b", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3d13baf", 
         option = "Because there is an extra isolate.", value = "Because there is an extra isolate.", 
         label = structure("Because there is an extra isolate.", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8e8a519", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_85b1718", 
         option = "Because the tie strength matters.", value = "Because the tie strength matters.", 
         label = structure("Because the tie strength matters.", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
@@ -1478,7 +1490,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "node-comp-interp-answer", question = "node-comp-interp"), 
     loading = NULL, random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 685368642.68085, options = list()), class = c("learnr_checkbox", 
+    seed = 908280347.577049, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -1495,13 +1507,14 @@ learnr:::store_exercise_cache(structure(list(label = "manip-fri", global_setup =
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\n", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "separatingnets", code = "", 
-    opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
-        exercise.setup = "\"data\""), engine = "r"), list(label = "manip-fri", 
-    code = "", opts = list(label = "\"manip-fri\"", exercise = "TRUE", 
-        exercise.setup = "\"separatingnets\""), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("(friends <- to_giant(friends))", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "separatingnets", 
+    code = "", opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r"), 
+    list(label = "manip-fri", code = "", opts = list(label = "\"manip-fri\"", 
+        exercise = "TRUE", exercise.setup = "\"separatingnets\"", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure(c("(friends <- to_giant(friends))", 
     "(friends <- to_undirected(friends))", "autographr(friends)"
     ), chunk_opts = list(label = "manip-fri-solution")), tests = NULL, 
     options = list(eval = FALSE, echo = TRUE, results = "markup", 
@@ -1519,10 +1532,10 @@ learnr:::store_exercise_cache(structure(list(label = "manip-fri", global_setup =
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "manip-fri", exercise = TRUE, 
         exercise.setup = "separatingnets", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "manip-fri, exercise=TRUE, exercise.setup = \"separatingnets\"", 
+        out.height.px = 384, params.src = "manip-fri, exercise=TRUE, exercise.setup = \"separatingnets\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1541,13 +1554,14 @@ learnr:::store_exercise_cache(structure(list(label = "walk", global_setup = stru
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\n", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "separatingnets", code = "", 
-    opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
-        exercise.setup = "\"data\""), engine = "r"), list(label = "walk", 
-    code = "", opts = list(label = "\"walk\"", exercise = "TRUE", 
-        exercise.setup = "\"separatingnets\""), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("friend_wt <- node_walktrap(friends, times=50)", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "separatingnets", 
+    code = "", opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r"), 
+    list(label = "walk", code = "", opts = list(label = "\"walk\"", 
+        exercise = "TRUE", exercise.setup = "\"separatingnets\"", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure(c("friend_wt <- node_walktrap(friends, times=50)", 
     "friend_wt # note that it prints pretty, but underlying it is just a vector:", 
     "# c(friend_wt)", "", "# This says that dividing the graph into 2 communities maximises modularity,", 
     "# one with the nodes ", "which(friend_wt == 1)", "# and the other ", 
@@ -1568,9 +1582,9 @@ learnr:::store_exercise_cache(structure(list(label = "walk", global_setup = stru
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "walk", exercise = TRUE, exercise.setup = "separatingnets", 
-        code = "", out.width.px = 624, out.height.px = 384, params.src = "walk, exercise=TRUE, exercise.setup = \"separatingnets\"", 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "walk, exercise=TRUE, exercise.setup = \"separatingnets\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1589,14 +1603,15 @@ learnr:::store_exercise_cache(structure(list(label = "walkplot", global_setup = 
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\n\n", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "separatingnets", code = "", 
-    opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
-        exercise.setup = "\"data\""), engine = "r"), list(label = "walk", 
-    code = "", opts = list(label = "\"walk\"", exercise = "TRUE", 
-        exercise.setup = "\"separatingnets\""), engine = "r"), 
-    list(label = "walkplot", code = "\n\n", opts = list(label = "\"walkplot\"", 
-        exercise = "TRUE", exercise.setup = "\"walk\""), engine = "r")), 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "separatingnets", 
+    code = "", opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r"), 
+    list(label = "walk", code = "", opts = list(label = "\"walk\"", 
+        exercise = "TRUE", exercise.setup = "\"separatingnets\"", 
+        purl = "FALSE"), engine = "r"), list(label = "walkplot", 
+        code = "\n\n", opts = list(label = "\"walkplot\"", exercise = "TRUE", 
+            exercise.setup = "\"walk\"", purl = "FALSE"), engine = "r")), 
     code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("friends <- friends %>% ", 
     "  mutate(walk_comm = friend_wt)", "autographr(friends, node_color = \"walk_comm\")", 
     "# to be fancy, we could even draw the group borders around the nodes using the node_group argument", 
@@ -1620,10 +1635,10 @@ learnr:::store_exercise_cache(structure(list(label = "walkplot", global_setup = 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "walkplot", exercise = TRUE, 
         exercise.setup = "walk", out.width.px = 624, out.height.px = 384, 
-        params.src = "walkplot, exercise=TRUE, exercise.setup = \"walk\"", 
+        params.src = "walkplot, exercise=TRUE, exercise.setup = \"walk\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1642,13 +1657,14 @@ learnr:::store_exercise_cache(structure(list(label = "eb", global_setup = struct
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\n", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "separatingnets", code = "", 
-    opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
-        exercise.setup = "\"data\""), engine = "r"), list(label = "eb", 
-    code = "\n\n", opts = list(label = "\"eb\"", exercise = "TRUE", 
-        exercise.setup = "\"separatingnets\""), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("friend_eb <- node_edge_betweenness(friends)", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "separatingnets", 
+    code = "", opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r"), 
+    list(label = "eb", code = "\n\n", opts = list(label = "\"eb\"", 
+        exercise = "TRUE", exercise.setup = "\"separatingnets\"", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure(c("friend_eb <- node_edge_betweenness(friends)", 
     "friend_eb"), chunk_opts = list(label = "eb-solution")), 
     tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
@@ -1665,9 +1681,9 @@ learnr:::store_exercise_cache(structure(list(label = "eb", global_setup = struct
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "eb", exercise = TRUE, exercise.setup = "separatingnets", 
-        out.width.px = 624, out.height.px = 384, params.src = "eb, exercise=TRUE, exercise.setup = \"separatingnets\"", 
+        out.width.px = 624, out.height.px = 384, params.src = "eb, exercise=TRUE, exercise.setup = \"separatingnets\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1687,14 +1703,15 @@ learnr:::store_exercise_cache(structure(list(label = "ebplot", global_setup = st
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\n\n\n\n", chunks = list(list(
     label = "data", code = "", opts = list(label = "\"data\"", 
-        exercise = "TRUE"), engine = "r"), list(label = "separatingnets", 
-    code = "", opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
-        exercise.setup = "\"data\""), engine = "r"), list(label = "eb", 
-    code = "\n\n", opts = list(label = "\"eb\"", exercise = "TRUE", 
-        exercise.setup = "\"separatingnets\""), engine = "r"), 
-    list(label = "ebplot", code = "", opts = list(label = "\"ebplot\"", 
-        exercise = "TRUE", exercise.setup = "\"eb\""), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("friends <- friends %>% ", 
+        exercise = "TRUE", purl = "FALSE"), engine = "r"), list(
+    label = "separatingnets", code = "", opts = list(label = "\"separatingnets\"", 
+        exercise = "TRUE", exercise.setup = "\"data\"", purl = "FALSE"), 
+    engine = "r"), list(label = "eb", code = "\n\n", opts = list(
+    label = "\"eb\"", exercise = "TRUE", exercise.setup = "\"separatingnets\"", 
+    purl = "FALSE"), engine = "r"), list(label = "ebplot", code = "", 
+    opts = list(label = "\"ebplot\"", exercise = "TRUE", exercise.setup = "\"eb\"", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure(c("friends <- friends %>% ", 
     "  mutate(eb_comm = friend_eb)", "autographr(friends, ", 
     "           node_color = \"eb_comm\", ", "           node_group = \"eb_comm\") +", 
     "  ggtitle(\"Edge-betweenness\",", "    subtitle = round(network_modularity(friends, friend_eb), 3))"
@@ -1714,10 +1731,10 @@ learnr:::store_exercise_cache(structure(list(label = "ebplot", global_setup = st
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "ebplot", exercise = TRUE, 
         exercise.setup = "eb", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "ebplot, exercise=TRUE, exercise.setup = \"eb\"", 
+        out.height.px = 384, params.src = "ebplot, exercise=TRUE, exercise.setup = \"eb\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1736,13 +1753,14 @@ learnr:::store_exercise_cache(structure(list(label = "fg", global_setup = struct
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\n", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "separatingnets", code = "", 
-    opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
-        exercise.setup = "\"data\""), engine = "r"), list(label = "fg", 
-    code = "", opts = list(label = "\"fg\"", exercise = "TRUE", 
-        exercise.setup = "\"separatingnets\""), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("friend_fg <- node_fast_greedy(friends)", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "separatingnets", 
+    code = "", opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r"), 
+    list(label = "fg", code = "", opts = list(label = "\"fg\"", 
+        exercise = "TRUE", exercise.setup = "\"separatingnets\"", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure(c("friend_fg <- node_fast_greedy(friends)", 
     "friend_fg # Does this result in a different community partition?", 
     "network_modularity(friends, friend_fg) # Compare this to the edge betweenness procedure", 
     "", "# Again, we can visualise these communities in different ways:", 
@@ -1766,9 +1784,9 @@ learnr:::store_exercise_cache(structure(list(label = "fg", global_setup = struct
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "fg", exercise = TRUE, exercise.setup = "separatingnets", 
-        code = "", out.width.px = 624, out.height.px = 384, params.src = "fg, exercise=TRUE, exercise.setup = \"separatingnets\"", 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "fg, exercise=TRUE, exercise.setup = \"separatingnets\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1776,16 +1794,16 @@ learnr:::store_exercise_cache(structure(list(label = "fg", global_setup = struct
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "comm-comp", question = structure("What is the difference between communities and components?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_35c407d", 
+"character")), answers = list(structure(list(id = "lnr_ans_81a0883", 
     option = "Communities and components are just different terms for the same thing", 
     value = "Communities and components are just different terms for the same thing", 
     label = structure("Communities and components are just different terms for the same thing", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_767fd9f", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b955f2c", 
     option = "Communities are a stricter form of component", 
     value = "Communities are a stricter form of component", label = structure("Communities are a stricter form of component", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_59c6a4a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b6c3997", 
     option = "Components are about paths whereas communities are about the relationship between within-group and between-group ties", 
     value = "Components are about paths whereas communities are about the relationship between within-group and between-group ties", 
     label = structure("Components are about paths whereas communities are about the relationship between within-group and between-group ties", html = TRUE, class = c("html", 
@@ -1797,7 +1815,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "comm-comp-answer", question = "comm-comp"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 784105991.134872, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 1038087661.0166, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -1815,20 +1833,21 @@ learnr:::store_exercise_cache(structure(list(label = "setup-women", global_setup
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "setup-women", code = "", opts = list(
-    label = "\"setup-women\"", exercise = "TRUE", exercise.setup = "\"data\""), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
-    solution = structure(c("data(\"ison_southern_women\")", "ison_southern_women", 
-    "autographr(ison_southern_women, node_color = \"type\")"), chunk_opts = list(
-        label = "setup-women-solution")), tests = NULL, options = list(
-        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
-        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
-        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "community_cache/html/", 
-        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
-        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "community_files/figure-html/", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "setup-women", 
+    code = "", opts = list(label = "\"setup-women\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("data(\"ison_southern_women\")", 
+    "ison_southern_women", "autographr(ison_southern_women, node_color = \"type\")"
+    ), chunk_opts = list(label = "setup-women-solution")), tests = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "community_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "community_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1836,10 +1855,10 @@ learnr:::store_exercise_cache(structure(list(label = "setup-women", global_setup
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "setup-women", exercise = TRUE, 
         exercise.setup = "data", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "setup-women, exercise=TRUE, exercise.setup = \"data\"", 
+        out.height.px = 384, params.src = "setup-women, exercise=TRUE, exercise.setup = \"data\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1858,13 +1877,14 @@ learnr:::store_exercise_cache(structure(list(label = "hardway", global_setup = s
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\n", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "setup-women", code = "", opts = list(
-    label = "\"setup-women\"", exercise = "TRUE", exercise.setup = "\"data\""), 
-    engine = "r"), list(label = "hardway", code = "", opts = list(
-    label = "\"hardway\"", exercise = "TRUE", exercise.setup = "\"setup-women\""), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
-    solution = structure(c("twomode_matrix <- as_matrix(ison_southern_women)", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "setup-women", 
+    code = "", opts = list(label = "\"setup-women\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r"), 
+    list(label = "hardway", code = "", opts = list(label = "\"hardway\"", 
+        exercise = "TRUE", exercise.setup = "\"setup-women\"", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure(c("twomode_matrix <- as_matrix(ison_southern_women)", 
     "women_matrix <- twomode_matrix %*% t(twomode_matrix)", "event_matrix <- t(twomode_matrix) %*% twomode_matrix"
     ), chunk_opts = list(label = "hardway-solution")), tests = NULL, 
     options = list(eval = FALSE, echo = TRUE, results = "markup", 
@@ -1882,10 +1902,10 @@ learnr:::store_exercise_cache(structure(list(label = "hardway", global_setup = s
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "hardway", exercise = TRUE, 
         exercise.setup = "setup-women", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "hardway, exercise=TRUE, exercise.setup = \"setup-women\"", 
+        out.height.px = 384, params.src = "hardway, exercise=TRUE, exercise.setup = \"setup-women\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1904,13 +1924,14 @@ learnr:::store_exercise_cache(structure(list(label = "easyway", global_setup = s
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\n", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "setup-women", code = "", opts = list(
-    label = "\"setup-women\"", exercise = "TRUE", exercise.setup = "\"data\""), 
-    engine = "r"), list(label = "easyway", code = "", opts = list(
-    label = "\"easyway\"", exercise = "TRUE", exercise.setup = "\"setup-women\""), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
-    solution = structure(c("women_graph <- to_mode1(ison_southern_women)", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "setup-women", 
+    code = "", opts = list(label = "\"setup-women\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r"), 
+    list(label = "easyway", code = "", opts = list(label = "\"easyway\"", 
+        exercise = "TRUE", exercise.setup = "\"setup-women\"", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure(c("women_graph <- to_mode1(ison_southern_women)", 
     "autographr(women_graph)", "event_graph <- to_mode2(ison_southern_women)", 
     "autographr(event_graph)"), chunk_opts = list(label = "easyway-solution")), 
     tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
@@ -1928,10 +1949,10 @@ learnr:::store_exercise_cache(structure(list(label = "easyway", global_setup = s
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "easyway", exercise = TRUE, 
         exercise.setup = "setup-women", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "easyway, exercise=TRUE, exercise.setup = \"setup-women\"", 
+        out.height.px = 384, params.src = "easyway, exercise=TRUE, exercise.setup = \"setup-women\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1950,13 +1971,14 @@ learnr:::store_exercise_cache(structure(list(label = "otherway", global_setup = 
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\n", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "setup-women", code = "", opts = list(
-    label = "\"setup-women\"", exercise = "TRUE", exercise.setup = "\"data\""), 
-    engine = "r"), list(label = "otherway", code = "", opts = list(
-    label = "\"otherway\"", exercise = "TRUE", exercise.setup = "\"setup-women\""), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
-    solution = structure(c("autographr(to_mode2(ison_southern_women, similarity = \"jaccard\")) + ggtitle(\"Jaccard\") +", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "setup-women", 
+    code = "", opts = list(label = "\"setup-women\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r"), 
+    list(label = "otherway", code = "", opts = list(label = "\"otherway\"", 
+        exercise = "TRUE", exercise.setup = "\"setup-women\"", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure(c("autographr(to_mode2(ison_southern_women, similarity = \"jaccard\")) + ggtitle(\"Jaccard\") +", 
     "autographr(to_mode2(ison_southern_women, similarity = \"rand\")) + ggtitle(\"Rand\") +", 
     "autographr(to_mode2(ison_southern_women, similarity = \"pearson\")) + ggtitle(\"Pearson\") +", 
     "autographr(to_mode2(ison_southern_women, similarity = \"yule\")) + ggtitle(\"Yule's Q\")"
@@ -1976,10 +1998,10 @@ learnr:::store_exercise_cache(structure(list(label = "otherway", global_setup = 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "otherway", exercise = TRUE, 
         exercise.setup = "setup-women", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "otherway, exercise=TRUE, exercise.setup = \"setup-women\"", 
+        out.height.px = 384, params.src = "otherway, exercise=TRUE, exercise.setup = \"setup-women\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1998,13 +2020,14 @@ learnr:::store_exercise_cache(structure(list(label = "twomode-cohesion", global_
 "library(patchwork)", "library(manynet)", "library(migraph)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\n", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "setup-women", code = "", opts = list(
-    label = "\"setup-women\"", exercise = "TRUE", exercise.setup = "\"data\""), 
-    engine = "r"), list(label = "twomode-cohesion", code = "", 
-    opts = list(label = "\"twomode-cohesion\"", exercise = "TRUE", 
-        exercise.setup = "\"setup-women\""), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("network_equivalency(ison_southern_women)", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "setup-women", 
+    code = "", opts = list(label = "\"setup-women\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r"), 
+    list(label = "twomode-cohesion", code = "", opts = list(label = "\"twomode-cohesion\"", 
+        exercise = "TRUE", exercise.setup = "\"setup-women\"", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure(c("network_equivalency(ison_southern_women)", 
     "network_transitivity(women_graph)", "network_transitivity(event_graph)"
     ), chunk_opts = list(label = "twomode-cohesion-solution")), 
     tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
@@ -2022,10 +2045,10 @@ learnr:::store_exercise_cache(structure(list(label = "twomode-cohesion", global_
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "twomode-cohesion", exercise = TRUE, 
         exercise.setup = "setup-women", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "twomode-cohesion, exercise=TRUE, exercise.setup = \"setup-women\"", 
+        out.height.px = 384, params.src = "twomode-cohesion, exercise=TRUE, exercise.setup = \"setup-women\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -2039,7 +2062,7 @@ learnr:::store_exercise_cache(structure(list(label = "twomode-cohesion", global_
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91]}},"value":[{"type":"character","attributes":{},"value":["backports","base","bslib","cachem","checkmate","cli","coda","codetools","colorspace","commonmark","compiler","datasets","digest","dplyr","ellipsis","evaluate","fansi","farver","fastmap","fontawesome","furrr","future","generics","ggforce","ggplot2","ggraph","ggrepel","globals","glue","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","htmltools","htmlwidgets","httpuv","igraph","jquerylib","jsonlite","knitr","later","lattice","learnr","lifecycle","listenv","magrittr","manynet","markdown","MASS","methods","migraph","mime","munsell","network","parallel","parallelly","patchwork","pillar","pkgconfig","polyclip","promises","purrr","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","scales","shiny","sna","statnet.common","stats","tibble","tidygraph","tidyr","tidyselect","tools","tweenr","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.4.1","4.3.1","0.5.1","1.0.8","2.2.0","3.6.1","0.19-4","0.2-19","2.1-0","1.9.0","4.3.1","4.3.1","0.6.33","1.1.3","0.3.2","0.22","1.0.5","2.1.1","1.1.1","0.5.2","0.3.1","1.33.0","0.1.3","0.4.1","3.4.3","2.1.0","0.9.3","0.16.2","1.6.2","4.3.1","1.0.1","4.3.1","4.3.1","2.3","0.3.4","0.5.6.1","1.6.2","1.6.11","1.5.1","0.1.4","1.8.7","1.44","1.3.1","0.21-9","0.11.5","1.0.3","0.9.0","2.0.3","0.2.4","1.10","7.3-60","4.3.1","1.1.1","0.12","0.5.0","1.18.1","4.3.1","1.36.0","1.1.3","1.9.0","2.0.3","1.10-6","1.2.1","1.0.2","2.5.1","1.0.11","1.1.1","2.25","2.0.3","0.15.0","0.4.7","1.2.1","1.7.5","2.7-1","4.9.0","4.3.1","3.2.1","1.2.3","1.3.0","1.2.0","4.3.1","2.0.2","1.2.3","4.3.1","0.6.3","0.6.4","0.4.2","2.5.1","0.40","1.8-4","2.3.7"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91]}},"value":[{"type":"character","attributes":{},"value":["backports","base","bslib","cachem","checkmate","cli","coda","codetools","colorspace","commonmark","compiler","datasets","digest","dplyr","ellipsis","evaluate","fansi","farver","fastmap","fontawesome","furrr","future","generics","ggforce","ggplot2","ggraph","ggrepel","globals","glue","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","htmltools","htmlwidgets","httpuv","igraph","jquerylib","jsonlite","knitr","later","lattice","learnr","lifecycle","listenv","magrittr","manynet","markdown","MASS","methods","migraph","mime","munsell","network","parallel","parallelly","patchwork","pillar","pkgconfig","polyclip","promises","purrr","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","scales","shiny","sna","statnet.common","stats","tibble","tidygraph","tidyr","tidyselect","tools","tweenr","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.4.1","4.3.1","0.5.1","1.0.8","2.2.0","3.6.1","0.19-4","0.2-19","2.1-0","1.9.0","4.3.1","4.3.1","0.6.33","1.1.3","0.3.2","0.22","1.0.5","2.1.1","1.1.1","0.5.2","0.3.1","1.33.0","0.1.3","0.4.1","3.4.4","2.1.0","0.9.4","0.16.2","1.6.2","4.3.1","1.0.1","4.3.1","4.3.1","2.3","0.3.4","0.5.6.1","1.6.2","1.6.11","1.5.1","0.1.4","1.8.7","1.44","1.3.1","0.21-9","0.11.5","1.0.3","0.9.0","2.0.3","0.2.4","1.10","7.3-60","4.3.1","1.1.2","0.12","0.5.0","1.18.1","4.3.1","1.36.0","1.1.3","1.9.0","2.0.3","1.10-6","1.2.1","1.0.2","2.5.1","1.0.11","1.1.1","2.25","2.0.3","0.15.0","0.4.7","1.2.1","1.7.5.1","2.7-1","4.9.0","4.3.1","3.2.1","1.2.3","1.3.0","1.2.0","4.3.1","2.0.2","1.2.3","4.3.1","0.6.4","0.6.4","0.4.2","2.5.1","0.40","1.8-4","2.3.7"]}]}]}
 </script>
 <!--/html_preserve-->
 </div>

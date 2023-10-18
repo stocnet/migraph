@@ -15,7 +15,7 @@
 <meta name="allow-skip" content="false" />
 <meta name="learnr-version-prerender" content="0.11.5" />
 
-<title>Equivalence</title>
+<title>Position</title>
 
 <!-- header-includes START -->
 <!-- HEAD_CONTENT -->
@@ -112,33 +112,41 @@ if (window.hljs) {
 
 <div id="section-setting-up" class="section level2">
 <h2>Setting up</h2>
-<p>The data we’re going to use here is included in the
-<code>{manynet}</code> package. This dataset is multiplex, meaning that
-it contains several different types of ties: friendship, social and task
-interactions.</p>
+<p>The data we’re going to use here, “ison_algebra”, is included in the
+<code>{manynet}</code> package. Do you remember how to call the data?
+Can you find out some more information about it?</p>
 <div class="tutorial-exercise" data-label="data" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
-<div class="tutorial-exercise-support" data-label="data-hint"
+<div class="tutorial-exercise-support" data-label="data-hint-1"
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0" data-pipe="|&gt;">
 <pre class="text"><code># Let&#39;s call and load the &#39;ison_algebra&#39; dataset
 data(&quot;ison_algebra&quot;, package = &quot;manynet&quot;)
-
-# If you want to learn more about the &#39;ison_algebra&#39; dataset, use the following function (below)
+# Or you can retrieve like this:
+ison_algebra &lt;- manynet::ison_algebra</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="data-hint-2"
+data-completion="1" data-diagnostics="1" data-startover="1"
+data-lines="0" data-pipe="|&gt;">
+<pre class="text"><code># If you want to learn more about the &#39;ison_algebra&#39; dataset, use the following function (below)
 ?manynet::ison_algebra</code></pre>
 </div>
 <div class="tutorial-exercise-support" data-label="data-solution"
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0" data-pipe="|&gt;">
-<pre class="text"><code>data(&quot;ison_algebra&quot;, package = &quot;manynet&quot;)</code></pre>
+<pre class="text"><code>data(&quot;ison_algebra&quot;, package = &quot;manynet&quot;)
+?manynet::ison_algebra
+# If you want to see the network object, you can run the name of the object
+ison_algebra
+# or print the code with brackets at the front and end of the code
+(ison_algebra &lt;- manynet::ison_algebra)</code></pre>
 </div>
-<p>Note that you do not need to load the package using
-<code>library()</code> to get the data. Now you know how to create new
-matrices in R, load .csv files, saved .RData files, and data from
-packages!</p>
+<p>We can see after printing the object that the dataset is multiplex,
+meaning that it contains several different types of ties: friendship
+(friends), social (social) and task interactions (tasks).</p>
 <div id="section-separating-multiplex-networks" class="section level3">
 <h3>Separating multiplex networks</h3>
 <p>As a multiplex network, there are actually three different types of
@@ -279,15 +287,28 @@ data-pipe="|&gt;">
 tasks &lt;- tasks %&gt;% mutate(low_constraint = node_is_min(node_constraint(tasks)))
 autographr(tasks, node_color = &quot;low_constraint&quot;)</code></pre>
 </div>
-<p>Why minimum? And what can we learn from this plot about where
-innovation might occur within this network?</p>
+<p>Why minimum? Because constraint measures how well connected each
+node’s partners are, with the implication that having few partners that
+are already connected to each other puts a node in an advantageous
+position to identify and share novel solutions to problems. So what can
+we learn from this plot about where innovation might occur within this
+network?</p>
 </div>
 <div id="section-structural-equivalence" class="section level2">
 <h2>Structural Equivalence</h2>
 <p>Now we are going to identify and interpret the roles or relations
-between a set of structurally equivalent positions. We’re going to
-identify structurally equivalent positions across all the data that we
-have, including ‘task’, ‘social’, and ‘friend’ ties.</p>
+between a set of structurally equivalent positions. We want to know who
+plays what role in this algebra class. We’re going to identify
+structurally equivalent positions across all the data that we have,
+including ‘task’, ‘social’, and ‘friend’ ties.</p>
+<div class="panel panel-default tutorial-question-container">
+<div data-label="equiv-qa" class="tutorial-question panel-body">
+<div id="equiv-qa-answer_container" class="shiny-html-output"></div>
+<div id="equiv-qa-message_container" class="shiny-html-output"></div>
+<div id="equiv-qa-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
 <div id="section-finding-structurally-equivalent-classes"
 class="section level3">
 <h3>Finding structurally equivalent classes</h3>
@@ -797,17 +818,20 @@ learnr:::store_exercise_cache(structure(list(label = "data", global_setup = stru
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = NULL, chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
-    solution = structure("data(\"ison_algebra\", package = \"manynet\")", chunk_opts = list(
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure(c("data(\"ison_algebra\", package = \"manynet\")", 
+    "?manynet::ison_algebra", "# If you want to see the network object, you can run the name of the object", 
+    "ison_algebra", "# or print the code with brackets at the front and end of the code", 
+    "(ison_algebra <- manynet::ison_algebra)"), chunk_opts = list(
         label = "data-solution")), tests = NULL, options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
         tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
         highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "equivalence_cache/html/", 
+        strip.white = TRUE, cache = 0, cache.path = "position_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+        fig.show = "asis", fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -815,12 +839,13 @@ learnr:::store_exercise_cache(structure(list(label = "data", global_setup = stru
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "data", exercise = TRUE, code = "", 
         context = "data", out.width.px = 624, out.height.px = 384, 
-        params.src = "data, exercise = TRUE", fig.num = 0L, exercise.df_print = "paged", 
-        exercise.checker = "NULL"), engine = "r", version = "4"), class = c("r", 
-"tutorial_exercise")))
+        params.src = "data, exercise = TRUE, purl = FALSE", fig.num = 0L, 
+        exercise.df_print = "paged", exercise.checker = "NULL"), 
+    engine = "r", version = "4"), class = c("r", "tutorial_exercise"
+)))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -836,11 +861,11 @@ learnr:::store_exercise_cache(structure(list(label = "separatingnets", global_se
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "separatingnets", code = "", 
-    opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
-        exercise.setup = "\"data\""), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = NULL, solution = structure(c("# Your code should look like this:", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "separatingnets", 
+    code = "", opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("# Your code should look like this:", 
     "", "friends <- to_uniplex(ison_algebra, \"friends\")", "gfriend <- autographr(friends) + ggtitle(\"Friendship\")", 
     "", "social <- to_uniplex(ison_algebra, \"social\")", "gsocial <- autographr(social) + ggtitle(\"Social\")", 
     "", "tasks <- to_uniplex(ison_algebra, \"tasks\")", "gtask <- autographr(tasks) + ggtitle(\"Task\")", 
@@ -849,10 +874,10 @@ learnr:::store_exercise_cache(structure(list(label = "separatingnets", global_se
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
         comment = NA, highlight = FALSE, size = "normalsize", 
         background = "#F7F7F7", strip.white = TRUE, cache = 0, 
-        cache.path = "equivalence_cache/html/", cache.vars = NULL, 
+        cache.path = "position_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+        fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -860,10 +885,10 @@ learnr:::store_exercise_cache(structure(list(label = "separatingnets", global_se
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "separatingnets", exercise = TRUE, 
         exercise.setup = "data", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "separatingnets, exercise=TRUE, exercise.setup = \"data\"", 
+        out.height.px = 384, params.src = "separatingnets, exercise=TRUE, exercise.setup = \"data\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -881,21 +906,21 @@ output$`tutorial-exercise-constraint-output` <- renderUI({
 learnr:::store_exercise_cache(structure(list(label = "constraint", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = "friends <- to_uniplex(ison_algebra, \"friends\")\nsocial <- to_uniplex(ison_algebra, \"social\")\ntasks <- to_uniplex(ison_algebra, \"tasks\")", 
-    chunks = list(list(label = "objects-setup", code = "friends <- to_uniplex(ison_algebra, \"friends\")\nsocial <- to_uniplex(ison_algebra, \"social\")\ntasks <- to_uniplex(ison_algebra, \"tasks\")", 
+    include = FALSE)), setup = "alge <- to_named(ison_algebra)\nfriends <- to_uniplex(alge, \"friends\")\nsocial <- to_uniplex(alge, \"social\")\ntasks <- to_uniplex(alge, \"tasks\")", 
+    chunks = list(list(label = "objects-setup", code = "alge <- to_named(ison_algebra)\nfriends <- to_uniplex(alge, \"friends\")\nsocial <- to_uniplex(alge, \"social\")\ntasks <- to_uniplex(alge, \"tasks\")", 
         opts = list(label = "\"objects-setup\""), engine = "r"), 
         list(label = "constraint", code = "", opts = list(label = "\"constraint\"", 
-            exercise = "TRUE", exercise.setup = "\"objects-setup\""), 
-            engine = "r")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = structure("node_constraint(tasks)", chunk_opts = list(
+            exercise = "TRUE", exercise.setup = "\"objects-setup\"", 
+            purl = "FALSE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = structure("node_constraint(tasks)", chunk_opts = list(
         label = "constraint-solution")), tests = NULL, options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
         tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
         highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "equivalence_cache/html/", 
+        strip.white = TRUE, cache = 0, cache.path = "position_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+        fig.show = "asis", fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -903,10 +928,10 @@ learnr:::store_exercise_cache(structure(list(label = "constraint", global_setup 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "constraint", exercise = TRUE, 
         exercise.setup = "objects-setup", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "constraint, exercise = TRUE, exercise.setup = \"objects-setup\"", 
+        out.height.px = 384, params.src = "constraint, exercise = TRUE, exercise.setup = \"objects-setup\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -924,23 +949,24 @@ output$`tutorial-exercise-constraintplot-output` <- renderUI({
 learnr:::store_exercise_cache(structure(list(label = "constraintplot", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = "friends <- to_uniplex(ison_algebra, \"friends\")\nsocial <- to_uniplex(ison_algebra, \"social\")\ntasks <- to_uniplex(ison_algebra, \"tasks\")", 
-    chunks = list(list(label = "objects-setup", code = "friends <- to_uniplex(ison_algebra, \"friends\")\nsocial <- to_uniplex(ison_algebra, \"social\")\ntasks <- to_uniplex(ison_algebra, \"tasks\")", 
+    include = FALSE)), setup = "alge <- to_named(ison_algebra)\nfriends <- to_uniplex(alge, \"friends\")\nsocial <- to_uniplex(alge, \"social\")\ntasks <- to_uniplex(alge, \"tasks\")", 
+    chunks = list(list(label = "objects-setup", code = "alge <- to_named(ison_algebra)\nfriends <- to_uniplex(alge, \"friends\")\nsocial <- to_uniplex(alge, \"social\")\ntasks <- to_uniplex(alge, \"tasks\")", 
         opts = list(label = "\"objects-setup\""), engine = "r"), 
         list(label = "constraintplot", code = "", opts = list(
             label = "\"constraintplot\"", exercise = "TRUE", 
-            exercise.setup = "\"objects-setup\""), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("# Your code should look like this:", 
+            exercise.setup = "\"objects-setup\"", purl = "FALSE"), 
+            engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = structure(c("# Your code should look like this:", 
     "", "tasks <- tasks %>% mutate(low_constraint = node_is_min(node_constraint(tasks)))", 
     "autographr(tasks, node_color = \"low_constraint\")"), chunk_opts = list(
         label = "constraintplot-solution")), tests = NULL, options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
         tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
         highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "equivalence_cache/html/", 
+        strip.white = TRUE, cache = 0, cache.path = "position_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+        fig.show = "asis", fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -948,40 +974,70 @@ learnr:::store_exercise_cache(structure(list(label = "constraintplot", global_se
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "constraintplot", exercise = TRUE, 
         exercise.setup = "objects-setup", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "constraintplot, exercise=TRUE, exercise.setup = \"objects-setup\"", 
+        out.height.px = 384, params.src = "constraintplot, exercise=TRUE, exercise.setup = \"objects-setup\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "equiv-qa", question = structure("Structural equivalence means identifying classes of nodes with…", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_222b7c1", 
+    option = "same/similar tie partners.", value = "same/similar tie partners.", 
+    label = structure("same/similar tie partners.", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = structure("Excellent!", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4d2cd83", 
+    option = "same/similar pattern of ties.", value = "same/similar pattern of ties.", 
+    label = structure("same/similar pattern of ties.", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("This is the definition for regular equivalence.", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d932fc8", 
+    option = "same/similar distance from all others.", value = "same/similar distance from all others.", 
+    label = structure("same/similar distance from all others.", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("This is the definition for automorphic equivalence.", html = TRUE, class = c("html", 
+    "character")), type = "literal"), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Correct!", html = TRUE, class = c("html", 
+"character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "equiv-qa-answer", question = "equiv-qa"), loading = NULL, 
+    random_answer_order = FALSE, allow_retry = FALSE, seed = 232386984.891786, 
+    options = list()), class = c("learnr_radio", "tutorial_question"
+)), session = session)
+</script>
+
+
+<script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-find-se-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-find-se-code-editor`)), session)
 output$`tutorial-exercise-find-se-output` <- renderUI({
   `tutorial-exercise-find-se-result`()
 })
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "find-se", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "find-se", code = "node_structural_equivalence(ison_algebra)\n\nison_algebra %>% \n  mutate(se = node_structural_equivalence(ison_algebra)) %>% \n  autographr(node_color = \"se\")", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "find-se", 
+    code = "node_structural_equivalence(ison_algebra)\n\nison_algebra %>% \n  mutate(se = node_structural_equivalence(ison_algebra)) %>% \n  autographr(node_color = \"se\")", 
     opts = list(label = "\"find-se\"", exercise = "TRUE", exercise.setup = "\"data\""), 
     engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
     solution = NULL, tests = NULL, options = list(eval = FALSE, 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
         size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "equivalence_cache/html/", cache.vars = NULL, 
+        cache = 0, cache.path = "position_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+        fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -999,35 +1055,35 @@ learnr:::store_exercise_cache(structure(list(label = "find-se", global_setup = s
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-construct-cor-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-construct-cor-code-editor`)), session)
 output$`tutorial-exercise-construct-cor-output` <- renderUI({
   `tutorial-exercise-construct-cor-result`()
 })
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "construct-cor", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "construct-cor", code = "", opts = list(
-    label = "\"construct-cor\"", exercise = "TRUE", exercise.setup = "\"data\""), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
-    solution = structure(c("# Your code should look like this:", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "construct-cor", 
+    code = "", opts = list(label = "\"construct-cor\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("# Your code should look like this:", 
     "", "node_tie_census(ison_algebra)", "dim(node_tie_census(ison_algebra))"
     ), chunk_opts = list(label = "construct-cor-solution")), 
     tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
         comment = NA, highlight = FALSE, size = "normalsize", 
         background = "#F7F7F7", strip.white = TRUE, cache = 0, 
-        cache.path = "equivalence_cache/html/", cache.vars = NULL, 
+        cache.path = "position_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+        fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1035,33 +1091,33 @@ learnr:::store_exercise_cache(structure(list(label = "construct-cor", global_set
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "construct-cor", exercise = TRUE, 
         exercise.setup = "data", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "construct-cor, exercise = TRUE, exercise.setup = \"data\"", 
+        out.height.px = 384, params.src = "construct-cor, exercise = TRUE, exercise.setup = \"data\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-construct-binary-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-construct-binary-code-editor`)), session)
 output$`tutorial-exercise-construct-binary-output` <- renderUI({
   `tutorial-exercise-construct-binary-result`()
 })
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "construct-binary", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "construct-binary", code = "", 
-    opts = list(label = "\"construct-binary\"", exercise = "TRUE", 
-        exercise.setup = "\"data\""), engine = "r")), code_check = NULL, 
-    error_check = NULL, check = NULL, solution = structure(c("node_tie_census(ison_algebra)", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "construct-binary", 
+    code = "", opts = list(label = "\"construct-binary\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("node_tie_census(ison_algebra)", 
     "", "# we could convert the result using as.matrix, returning the ties ", 
     "as.matrix((node_tie_census(ison_algebra)>0)+0)", "", "# we could simplify the network by removing the classfication into different types of ties", 
     "# note that this also reduces the total number of possible paths between nodes", 
@@ -1071,10 +1127,10 @@ learnr:::store_exercise_cache(structure(list(label = "construct-binary", global_
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
         comment = NA, highlight = FALSE, size = "normalsize", 
         background = "#F7F7F7", strip.white = TRUE, cache = 0, 
-        cache.path = "equivalence_cache/html/", cache.vars = NULL, 
+        cache.path = "position_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+        fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1082,33 +1138,33 @@ learnr:::store_exercise_cache(structure(list(label = "construct-binary", global_
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "construct-binary", exercise = TRUE, 
         exercise.setup = "data", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "construct-binary, exercise = TRUE, exercise.setup = \"data\"", 
+        out.height.px = 384, params.src = "construct-binary, exercise = TRUE, exercise.setup = \"data\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-varyclust-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-varyclust-code-editor`)), session)
 output$`tutorial-exercise-varyclust-output` <- renderUI({
   `tutorial-exercise-varyclust-result`()
 })
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "varyclust", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "varyclust", code = "", opts = list(
-    label = "\"varyclust\"", exercise = "TRUE", exercise.setup = "\"data\""), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
-    solution = structure(c("plot(node_structural_equivalence(ison_algebra, cluster = \"hier\", distance = \"euclidean\"))", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "varyclust", 
+    code = "", opts = list(label = "\"varyclust\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("plot(node_structural_equivalence(ison_algebra, cluster = \"hier\", distance = \"euclidean\"))", 
     "", "# changing the type of distance", "plot(node_structural_equivalence(ison_algebra, cluster = \"hier\", distance = \"manhattan\"))", 
     "", "# changing the clustering algorithm", "plot(node_structural_equivalence(to_named(ison_karateka), cluster = \"concor\"))"
     ), chunk_opts = list(label = "varyclust-solution")), tests = NULL, 
@@ -1116,10 +1172,10 @@ learnr:::store_exercise_cache(structure(list(label = "varyclust", global_setup =
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
         comment = NA, highlight = FALSE, size = "normalsize", 
         background = "#F7F7F7", strip.white = TRUE, cache = 0, 
-        cache.path = "equivalence_cache/html/", cache.vars = NULL, 
+        cache.path = "position_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+        fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1127,22 +1183,23 @@ learnr:::store_exercise_cache(structure(list(label = "varyclust", global_setup =
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "varyclust", exercise = TRUE, 
         exercise.setup = "data", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "varyclust, exercise = TRUE, exercise.setup = \"data\"", 
+        out.height.px = 384, params.src = "varyclust, exercise = TRUE, exercise.setup = \"data\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "scale-interp", 
     question = structure("Do you see any differences?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_2b28154", 
+    "character")), answers = list(structure(list(id = "lnr_ans_81d5976", 
         option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_9fd6fc4", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b2af15", 
         option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1153,36 +1210,36 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "scale-interp-answer", question = "scale-interp"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 428138314.800633, options = list()), class = c("learnr_radio", 
+    seed = 1117645113.97956, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-k-discrete-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-k-discrete-code-editor`)), session)
 output$`tutorial-exercise-k-discrete-output` <- renderUI({
   `tutorial-exercise-k-discrete-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "k-discrete", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "k-discrete", code = "", opts = list(
-    label = "\"k-discrete\"", exercise = "TRUE", exercise.setup = "\"data\""), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
-    solution = structure("plot(node_structural_equivalence(ison_algebra, k = 2))", chunk_opts = list(
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "k-discrete", 
+    code = "", opts = list(label = "\"k-discrete\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = structure("plot(node_structural_equivalence(ison_algebra, k = 2))", chunk_opts = list(
         label = "k-discrete-solution")), tests = NULL, options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
         tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
         highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "equivalence_cache/html/", 
+        strip.white = TRUE, cache = 0, cache.path = "position_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+        fig.show = "asis", fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1190,43 +1247,43 @@ learnr:::store_exercise_cache(structure(list(label = "k-discrete", global_setup 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "k-discrete", exercise = TRUE, 
         exercise.setup = "data", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "k-discrete, exercise = TRUE, exercise.setup = \"data\"", 
+        out.height.px = 384, params.src = "k-discrete, exercise = TRUE, exercise.setup = \"data\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-elbowsil-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-elbowsil-code-editor`)), session)
 output$`tutorial-exercise-elbowsil-output` <- renderUI({
   `tutorial-exercise-elbowsil-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "elbowsil", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "elbowsil", code = "", opts = list(
-    label = "\"elbowsil\"", exercise = "TRUE", exercise.setup = "\"data\""), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
-    solution = structure(c("plot(node_structural_equivalence(ison_algebra, k = \"elbow\"))", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "elbowsil", 
+    code = "", opts = list(label = "\"elbowsil\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("plot(node_structural_equivalence(ison_algebra, k = \"elbow\"))", 
     "plot(node_structural_equivalence(ison_algebra, k = \"silhouette\"))"
     ), chunk_opts = list(label = "elbowsil-solution")), tests = NULL, 
     options = list(eval = FALSE, echo = TRUE, results = "markup", 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
         comment = NA, highlight = FALSE, size = "normalsize", 
         background = "#F7F7F7", strip.white = TRUE, cache = 0, 
-        cache.path = "equivalence_cache/html/", cache.vars = NULL, 
+        cache.path = "position_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+        fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1234,41 +1291,41 @@ learnr:::store_exercise_cache(structure(list(label = "elbowsil", global_setup = 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "elbowsil", exercise = TRUE, 
         exercise.setup = "data", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "elbowsil, exercise = TRUE, exercise.setup = \"data\"", 
+        out.height.px = 384, params.src = "elbowsil, exercise = TRUE, exercise.setup = \"data\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-strict-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-strict-code-editor`)), session)
 output$`tutorial-exercise-strict-output` <- renderUI({
   `tutorial-exercise-strict-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "strict", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "strict", code = "", opts = list(
-    label = "\"strict\"", exercise = "TRUE", exercise.setup = "\"data\""), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
-    solution = structure("plot(node_structural_equivalence(ison_algebra, k = \"strict\"))", chunk_opts = list(
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "strict", 
+    code = "", opts = list(label = "\"strict\"", exercise = "TRUE", 
+        exercise.setup = "\"data\"", purl = "FALSE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = structure("plot(node_structural_equivalence(ison_algebra, k = \"strict\"))", chunk_opts = list(
         label = "strict-solution")), tests = NULL, options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
         tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
         highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
-        strip.white = TRUE, cache = 0, cache.path = "equivalence_cache/html/", 
+        strip.white = TRUE, cache = 0, cache.path = "position_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
-        fig.show = "asis", fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+        fig.show = "asis", fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1276,40 +1333,41 @@ learnr:::store_exercise_cache(structure(list(label = "strict", global_setup = st
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "strict", exercise = TRUE, 
         exercise.setup = "data", code = "", out.width.px = 624, 
-        out.height.px = 384, params.src = "strict, exercise = TRUE, exercise.setup = \"data\"", 
+        out.height.px = 384, params.src = "strict, exercise = TRUE, exercise.setup = \"data\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-strplot-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-strplot-code-editor`)), session)
 output$`tutorial-exercise-strplot-output` <- renderUI({
   `tutorial-exercise-strplot-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "strplot", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "strplot", code = "str_clu <- node_structural_equivalence(ison_algebra)\n\nison_algebra %>% \n  mutate(se = str_clu) %>% \n  autographr(node_color = \"se\")", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "strplot", 
+    code = "str_clu <- node_structural_equivalence(ison_algebra)\n\nison_algebra %>% \n  mutate(se = str_clu) %>% \n  autographr(node_color = \"se\")", 
     opts = list(label = "\"strplot\"", exercise = "TRUE", exercise.setup = "\"data\""), 
     engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
     solution = NULL, tests = NULL, options = list(eval = FALSE, 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
         size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "equivalence_cache/html/", cache.vars = NULL, 
+        cache = 0, cache.path = "position_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+        fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1327,38 +1385,38 @@ learnr:::store_exercise_cache(structure(list(label = "strplot", global_setup = s
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-summ-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-summ-code-editor`)), session)
 output$`tutorial-exercise-summ-output` <- renderUI({
   `tutorial-exercise-summ-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "summ", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\nstr_clu <- node_structural_equivalence(ison_algebra)\n\nison_algebra %>% \n  mutate(se = str_clu) %>% \n  autographr(node_color = \"se\")", 
     chunks = list(list(label = "data", code = "", opts = list(
-        label = "\"data\"", exercise = "TRUE"), engine = "r"), 
-        list(label = "strplot", code = "str_clu <- node_structural_equivalence(ison_algebra)\n\nison_algebra %>% \n  mutate(se = str_clu) %>% \n  autographr(node_color = \"se\")", 
-            opts = list(label = "\"strplot\"", exercise = "TRUE", 
-                exercise.setup = "\"data\""), engine = "r"), 
-        list(label = "summ", code = "", opts = list(label = "\"summ\"", 
-            exercise = "TRUE", exercise.setup = "\"strplot\""), 
-            engine = "r")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = structure(c("summary(node_tie_census(ison_algebra),", 
+        label = "\"data\"", exercise = "TRUE", purl = "FALSE"), 
+        engine = "r"), list(label = "strplot", code = "str_clu <- node_structural_equivalence(ison_algebra)\n\nison_algebra %>% \n  mutate(se = str_clu) %>% \n  autographr(node_color = \"se\")", 
+        opts = list(label = "\"strplot\"", exercise = "TRUE", 
+            exercise.setup = "\"data\""), engine = "r"), list(
+        label = "summ", code = "", opts = list(label = "\"summ\"", 
+            exercise = "TRUE", exercise.setup = "\"strplot\"", 
+            purl = "FALSE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = structure(c("summary(node_tie_census(ison_algebra),", 
     "        membership = str_clu)"), chunk_opts = list(label = "summ-solution")), 
     tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
         comment = NA, highlight = FALSE, size = "normalsize", 
         background = "#F7F7F7", strip.white = TRUE, cache = 0, 
-        cache.path = "equivalence_cache/html/", cache.vars = NULL, 
+        cache.path = "position_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+        fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1366,45 +1424,45 @@ learnr:::store_exercise_cache(structure(list(label = "summ", global_setup = stru
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "summ", exercise = TRUE, exercise.setup = "strplot", 
-        code = "", out.width.px = 624, out.height.px = 384, params.src = "summ, exercise = TRUE, exercise.setup = \"strplot\"", 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "summ, exercise = TRUE, exercise.setup = \"strplot\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-block-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-block-code-editor`)), session)
 output$`tutorial-exercise-block-output` <- renderUI({
   `tutorial-exercise-block-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "block", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "\nstr_clu <- node_structural_equivalence(ison_algebra)\n\nison_algebra %>% \n  mutate(se = str_clu) %>% \n  autographr(node_color = \"se\")", 
     chunks = list(list(label = "data", code = "", opts = list(
-        label = "\"data\"", exercise = "TRUE"), engine = "r"), 
-        list(label = "strplot", code = "str_clu <- node_structural_equivalence(ison_algebra)\n\nison_algebra %>% \n  mutate(se = str_clu) %>% \n  autographr(node_color = \"se\")", 
-            opts = list(label = "\"strplot\"", exercise = "TRUE", 
-                exercise.setup = "\"data\""), engine = "r"), 
-        list(label = "block", code = "", opts = list(label = "\"block\"", 
-            exercise = "TRUE", exercise.setup = "\"strplot\""), 
-            engine = "r")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = structure(c("plot(as_matrix(ison_algebra),", 
+        label = "\"data\"", exercise = "TRUE", purl = "FALSE"), 
+        engine = "r"), list(label = "strplot", code = "str_clu <- node_structural_equivalence(ison_algebra)\n\nison_algebra %>% \n  mutate(se = str_clu) %>% \n  autographr(node_color = \"se\")", 
+        opts = list(label = "\"strplot\"", exercise = "TRUE", 
+            exercise.setup = "\"data\""), engine = "r"), list(
+        label = "block", code = "", opts = list(label = "\"block\"", 
+            exercise = "TRUE", exercise.setup = "\"strplot\"", 
+            purl = "FALSE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = structure(c("plot(as_matrix(ison_algebra),", 
     "     membership = str_clu)"), chunk_opts = list(label = "block-solution")), 
     tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
         comment = NA, highlight = FALSE, size = "normalsize", 
         background = "#F7F7F7", strip.white = TRUE, cache = 0, 
-        cache.path = "equivalence_cache/html/", cache.vars = NULL, 
+        cache.path = "position_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+        fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1412,29 +1470,30 @@ learnr:::store_exercise_cache(structure(list(label = "block", global_setup = str
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "block", exercise = TRUE, exercise.setup = "strplot", 
-        code = "", out.width.px = 624, out.height.px = 384, params.src = "block, exercise = TRUE, exercise.setup = \"strplot\"", 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "block, exercise = TRUE, exercise.setup = \"strplot\", purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-structblock-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-structblock-code-editor`)), session)
 output$`tutorial-exercise-structblock-output` <- renderUI({
   `tutorial-exercise-structblock-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "structblock", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = "", chunks = list(list(label = "data", 
-    code = "", opts = list(label = "\"data\"", exercise = "TRUE"), 
-    engine = "r"), list(label = "structblock", code = "str_clu <- node_structural_equivalence(ison_algebra)\n(bm <- to_blocks(ison_algebra, str_clu))\n\nbm <- bm %>% as_tidygraph %>% mutate(name = c(\"Freaks\", \"Squares\", \"Nerds\", \"Geek\"))\nautographr(bm)", 
+    code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r"), list(label = "structblock", 
+    code = "str_clu <- node_structural_equivalence(ison_algebra)\n(bm <- to_blocks(ison_algebra, str_clu))\n\nbm <- bm %>% as_tidygraph %>% mutate(name = c(\"Freaks\", \"Squares\", \"Nerds\", \"Geek\"))\nautographr(bm)", 
     opts = list(label = "\"structblock\"", exercise = "TRUE", 
         exercise.setup = "\"data\"", warning = "FALSE"), engine = "r")), 
     code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
@@ -1442,10 +1501,10 @@ learnr:::store_exercise_cache(structure(list(label = "structblock", global_setup
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
         comment = NA, highlight = FALSE, size = "normalsize", 
         background = "#F7F7F7", strip.white = TRUE, cache = 0, 
-        cache.path = "equivalence_cache/html/", cache.vars = NULL, 
+        cache.path = "position_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+        fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1463,30 +1522,30 @@ learnr:::store_exercise_cache(structure(list(label = "structblock", global_setup
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-struct-elites-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-struct-elites-code-editor`)), session)
 output$`tutorial-exercise-struct-elites-output` <- renderUI({
   `tutorial-exercise-struct-elites-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "struct-elites", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = NULL, chunks = list(list(label = "struct-elites", 
-    code = "", opts = list(label = "\"struct-elites\"", exercise = "TRUE"), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
-    solution = NULL, tests = NULL, options = list(eval = FALSE, 
-        echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
-        collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
-        size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "equivalence_cache/html/", cache.vars = NULL, 
-        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
-        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+    code = "", opts = list(label = "\"struct-elites\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "position_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1494,37 +1553,37 @@ learnr:::store_exercise_cache(structure(list(label = "struct-elites", global_set
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "struct-elites", exercise = TRUE, 
-        code = "", out.width.px = 624, out.height.px = 384, params.src = "struct-elites, exercise = TRUE", 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "struct-elites, exercise = TRUE, purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-reg-elites-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-reg-elites-code-editor`)), session)
 output$`tutorial-exercise-reg-elites-output` <- renderUI({
   `tutorial-exercise-reg-elites-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "reg-elites", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = NULL, chunks = list(list(label = "reg-elites", 
-    code = "", opts = list(label = "\"reg-elites\"", exercise = "TRUE"), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
-    solution = NULL, tests = NULL, options = list(eval = FALSE, 
-        echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
-        collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
-        size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "equivalence_cache/html/", cache.vars = NULL, 
-        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
-        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+    code = "", opts = list(label = "\"reg-elites\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "position_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1532,37 +1591,37 @@ learnr:::store_exercise_cache(structure(list(label = "reg-elites", global_setup 
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "reg-elites", exercise = TRUE, 
-        code = "", out.width.px = 624, out.height.px = 384, params.src = "reg-elites, exercise = TRUE", 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "reg-elites, exercise = TRUE, purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
 </script>
-
-
+ 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-auto-elites-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-auto-elites-code-editor`)), session)
 output$`tutorial-exercise-auto-elites-output` <- renderUI({
   `tutorial-exercise-auto-elites-result`()
 })
 </script>
- 
+
+
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_cache(structure(list(label = "auto-elites", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = NULL, chunks = list(list(label = "auto-elites", 
-    code = "", opts = list(label = "\"auto-elites\"", exercise = "TRUE"), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
-    solution = NULL, tests = NULL, options = list(eval = FALSE, 
-        echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
-        collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
-        size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "equivalence_cache/html/", cache.vars = NULL, 
-        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
-        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "equivalence_files/figure-html/", 
+    code = "", opts = list(label = "\"auto-elites\"", exercise = "TRUE", 
+        purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "position_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1570,9 +1629,9 @@ learnr:::store_exercise_cache(structure(list(label = "auto-elites", global_setup
         fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
         aniopts = "controls,loop", warning = TRUE, error = FALSE, 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
-        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        engine = "r", split = FALSE, include = TRUE, purl = FALSE, 
         max.print = 1000, label = "auto-elites", exercise = TRUE, 
-        code = "", out.width.px = 624, out.height.px = 384, params.src = "auto-elites, exercise = TRUE", 
+        code = "", out.width.px = 624, out.height.px = 384, params.src = "auto-elites, exercise = TRUE, purl = FALSE", 
         fig.num = 0L, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1585,7 +1644,7 @@ learnr:::store_exercise_cache(structure(list(label = "auto-elites", global_setup
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91]}},"value":[{"type":"character","attributes":{},"value":["backports","base","bslib","cachem","checkmate","cli","coda","codetools","colorspace","commonmark","compiler","datasets","digest","dplyr","ellipsis","evaluate","fansi","farver","fastmap","fontawesome","furrr","future","generics","ggforce","ggplot2","ggraph","ggrepel","globals","glue","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","htmltools","htmlwidgets","httpuv","igraph","jquerylib","jsonlite","knitr","later","lattice","learnr","lifecycle","listenv","magrittr","manynet","markdown","MASS","methods","migraph","mime","munsell","network","parallel","parallelly","patchwork","pillar","pkgconfig","polyclip","promises","purrr","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","scales","shiny","sna","statnet.common","stats","tibble","tidygraph","tidyr","tidyselect","tools","tweenr","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.4.1","4.3.1","0.5.1","1.0.8","2.2.0","3.6.1","0.19-4","0.2-19","2.1-0","1.9.0","4.3.1","4.3.1","0.6.33","1.1.3","0.3.2","0.22","1.0.5","2.1.1","1.1.1","0.5.2","0.3.1","1.33.0","0.1.3","0.4.1","3.4.3","2.1.0","0.9.3","0.16.2","1.6.2","4.3.1","1.0.1","4.3.1","4.3.1","2.3","0.3.4","0.5.6.1","1.6.2","1.6.11","1.5.1","0.1.4","1.8.7","1.44","1.3.1","0.21-9","0.11.5","1.0.3","0.9.0","2.0.3","0.2.4","1.10","7.3-60","4.3.1","1.1.1","0.12","0.5.0","1.18.1","4.3.1","1.36.0","1.1.3","1.9.0","2.0.3","1.10-6","1.2.1","1.0.2","2.5.1","1.0.11","1.1.1","2.25","2.0.3","0.15.0","0.4.7","1.2.1","1.7.5","2.7-1","4.9.0","4.3.1","3.2.1","1.2.3","1.3.0","1.2.0","4.3.1","2.0.2","1.2.3","4.3.1","0.6.3","0.6.4","0.4.2","2.5.1","0.40","1.8-4","2.3.7"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91]}},"value":[{"type":"character","attributes":{},"value":["backports","base","bslib","cachem","checkmate","cli","coda","codetools","colorspace","commonmark","compiler","datasets","digest","dplyr","ellipsis","evaluate","fansi","farver","fastmap","fontawesome","furrr","future","generics","ggforce","ggplot2","ggraph","ggrepel","globals","glue","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","htmltools","htmlwidgets","httpuv","igraph","jquerylib","jsonlite","knitr","later","lattice","learnr","lifecycle","listenv","magrittr","manynet","markdown","MASS","methods","migraph","mime","munsell","network","parallel","parallelly","patchwork","pillar","pkgconfig","polyclip","promises","purrr","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","scales","shiny","sna","statnet.common","stats","tibble","tidygraph","tidyr","tidyselect","tools","tweenr","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.4.1","4.3.1","0.5.1","1.0.8","2.2.0","3.6.1","0.19-4","0.2-19","2.1-0","1.9.0","4.3.1","4.3.1","0.6.33","1.1.3","0.3.2","0.22","1.0.5","2.1.1","1.1.1","0.5.2","0.3.1","1.33.0","0.1.3","0.4.1","3.4.4","2.1.0","0.9.4","0.16.2","1.6.2","4.3.1","1.0.1","4.3.1","4.3.1","2.3","0.3.4","0.5.6.1","1.6.2","1.6.11","1.5.1","0.1.4","1.8.7","1.44","1.3.1","0.21-9","0.11.5","1.0.3","0.9.0","2.0.3","0.2.4","1.10","7.3-60","4.3.1","1.1.2","0.12","0.5.0","1.18.1","4.3.1","1.36.0","1.1.3","1.9.0","2.0.3","1.10-6","1.2.1","1.0.2","2.5.1","1.0.11","1.1.1","2.25","2.0.3","0.15.0","0.4.7","1.2.1","1.7.5.1","2.7-1","4.9.0","4.3.1","3.2.1","1.2.3","1.3.0","1.2.0","4.3.1","2.0.2","1.2.3","4.3.1","0.6.4","0.6.4","0.4.2","2.5.1","0.40","1.8-4","2.3.7"]}]}]}
 </script>
 <!--/html_preserve-->
 </div>
@@ -1599,7 +1658,7 @@ learnr:::store_exercise_cache(structure(list(label = "auto-elites", global_setup
 
 <!-- begin doc-metadata -->
 <div id="doc-metadata">
-<h1 class="title toc-ignore" style="display:none;">Equivalence</h1>
+<h1 class="title toc-ignore" style="display:none;">Position</h1>
 <h4 class="author"><em>by James Hollway</em></h4>
 </div>
 <!-- end doc-metadata -->
