@@ -65,7 +65,6 @@ node_kernighanlin <- function(.data){
   
   # extract names of vertices in each group after swaps
   out <- ifelse(manynet::node_names(.data) %in% g1.newnames, 1, 2)
-  if(manynet::is_labelled(.data)) names(out) <- manynet::node_names(.data)
   make_node_member(out, .data)
 }
 

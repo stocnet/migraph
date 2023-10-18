@@ -1,3 +1,17 @@
+# migraph 1.1.2
+
+2023-10-11
+
+## Package
+
+- Added more code annotations in 'tutorial4' (Community)
+- Elaborated 'tutorial5' (was named Equivalence, now Position)
+- Chunks in tutorials that are incremental now hidden upon extraction using `purl = FALSE` argument
+
+## Members
+
+- Improved printing of node_members and node_measures objects
+
 # migraph 1.1.1
 
 2023-10-11

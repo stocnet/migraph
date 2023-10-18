@@ -1,4 +1,5 @@
 make_node_member <- function(out, .data) {
+  if(manynet::is_labelled(.data)) names(out) <- manynet::node_names(.data)
   class(out) <- c("node_member", class(out))
   attr(out, "mode") <- manynet::node_mode(.data)
   out
@@ -24,13 +25,14 @@ print.node_member <- function(x, ...,
     }
   } else {
     for (i in names(table(x))) {
-      if (i == names(table(x))[1]) cat(i, "\n")
-      else cat("\n", i, "\n")
+      if (i == names(table(x))[1]) cat("Class ", i, ":", sep = "")
+      else cat("Class ", i, ":", sep = "")
       if (!is.null(names(x)))
         y <- paste(names(x[x == i]), collapse = ", ")
       else
         y <- paste(which(x == i), collapse = ", ")
-      cat("  ", y)
+      cat(" ", y)
+      if (i != names(table(x))[length(table(x))]) cat("\n")
     }
   }
 }

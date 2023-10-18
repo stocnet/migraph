@@ -13,7 +13,7 @@ A set of tools for analysing multimodal networks. It includes functions for meas
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/snlab-ch/migraph}
+  \item \url{https://snlab-ch.github.io/migraph/}
   \item Report bugs at \url{https://github.com/snlab-ch/migraph/issues}
 }
 

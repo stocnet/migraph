@@ -26,24 +26,26 @@ We can create a two-mode version of the dataset
 by renaming the nodal attribute "twomode_type" to just "type".
 Let's begin by graphing these datasets using `manynet::autographr()`.
 
-```{r coercion, exercise = TRUE}
+```{r coercion, exercise = TRUE, purl = FALSE}
 
 ```
 
-```{r coercion-hint-1}
+```{r coercion-hint-1, purl = FALSE}
 # Let's graph the one-mode version
 autographr(____)
 ```
 
-```{r coercion-hint-2}
+```{r coercion-hint-2, purl = FALSE}
 # Now, let's create a two-mode version 'ison_brandes2' and graph it.
 ison_brandes2 <- ison_brandes %>% rename(type = twomode_type)
 autographr(____)
 ```
 
-```{r coercion-solution}
+```{r coercion-solution, purl = FALSE}
+# plot the one-mode version
 autographr(ison_brandes)
 ison_brandes2 <- ison_brandes %>% rename(type = twomode_type)
+# plot the two-mode version
 autographr(ison_brandes2)
 ```
 
@@ -52,17 +54,18 @@ even if it's just pretend.
 Luckily, `{manynet}` has a function for this.
 This makes plotting the network just a wee bit more accessible and interpretable:
 
-```{r addingnames, exercise = TRUE}
+```{r addingnames, exercise = TRUE, purl = FALSE}
 ison_brandes <- to_named(ison_brandes)
 ```
 
-```{r addingnames-hint-1}
+```{r addingnames-hint-1, purl = FALSE}
 # Now, let's graph using the object names: "ison_brandes"
 autographr(____)
 ```
 
 ```{r addingnames-solution}
 ison_brandes <- to_named(ison_brandes)
+# plot network with names
 autographr(ison_brandes)
 ```
 
@@ -74,23 +77,24 @@ as they are assigned randomly from a pool of (American) first names.
 Let's start with calculating degree, as it is easy to calculate yourself.
 Just sum the rows or columns of the matrix!
 
-```{r degreesum, exercise = TRUE, exercise.setup = "addingnames"}
+```{r degreesum, exercise = TRUE, exercise.setup = "addingnames", purl = FALSE}
 
 ```
 
-```{r degreesum-hint-1}
+```{r degreesum-hint-1, purl = FALSE}
 # We can calculate degree centrality like this:
 (mat <- as_matrix(ison_brandes))
 (degrees <- rowSums(mat))
 rowSums(mat) == colSums(mat)
 ```
 
-```{r degreesum-hint-2}
+```{r degreesum-hint-2, purl = FALSE}
 # Or by using a built in command in migraph like this:
 node_degree(ison_brandes, normalized = FALSE)
 ```
 
 ```{r degreesum-solution}
+# manually calculate degree centrality
 mat <- as_matrix(ison_brandes)
 degrees <- rowSums(mat)
 rowSums(mat) == colSums(mat)
@@ -98,7 +102,7 @@ rowSums(mat) == colSums(mat)
 node_degree(ison_brandes, normalized = FALSE)
 ```
 
-```{r degreesum-Q, echo=FALSE}
+```{r degreesum-Q, echo=FALSE, purl = FALSE}
 question("Are the row sums the same as the column sums?",
   answer("Yes",
          correct = TRUE,
@@ -112,11 +116,12 @@ Often we are interested in the distribution of (degree) centrality in a network.
 `{migraph}` offers a way to get a pretty good first look at this distribution,
 though there are more elaborate ways to do this in base and grid graphics.
 
-```{r distrib, exercise = TRUE, exercise.setup = "addingnames"}
+```{r distrib, exercise = TRUE, exercise.setup = "addingnames", purl = FALSE}
 
 ```
 
 ```{r distrib-solution}
+# distribution of degree centrality scores of nodes
 plot(node_degree(ison_brandes))
 ```
 
@@ -131,23 +136,23 @@ Fortunately, we can use functions from `{migraph}` to help calculate the
 betweenness, closeness, and eigenvector centralities for each node in the network.
 Let's collect the vectors of these centralities for the `ison_brandes` dataset:
 
-```{r micent, exercise = TRUE, exercise.setup = "addingnames"}
+```{r micent, exercise = TRUE, exercise.setup = "addingnames", purl = FALSE}
 
 ```
 
-```{r micent-hint-1}
+```{r micent-hint-1, purl = FALSE}
 # Use the node_betweenness() function to calculate the
 # betweenness centralities of nodes in a network
 node_betweenness(ison_brandes)
 ```
 
-```{r micent-hint-2}
+```{r micent-hint-2, purl = FALSE}
 # Use the node_closeness() function to calculate the 
 # closeness centrality of nodes in a network
 node_closeness(ison_brandes)
 ```
 
-```{r micent-hint-3}
+```{r micent-hint-3, purl = FALSE}
 # Use the node_eigenvector() function to calculate 
 # the eigenvector centrality of nodes in a network
 node_eigenvector(ison_brandes)
@@ -186,11 +191,12 @@ e.g. `node_is_max()` or `tie_is_min()`.
 By passing this attribute to the `autographr()` argument "node_color"
 we can highlight which node or nodes hold the maximum score in red.
 
-```{r ggid, exercise = TRUE, exercise.setup = "addingnames"}
+```{r ggid, exercise = TRUE, exercise.setup = "addingnames", purl = FALSE}
 
 ```
 
 ```{r ggid-solution}
+# plot the network, highlighting the node with the highest centrality score with a different colour
 ison_brandes %>%
   add_node_attribute("color", node_is_max(node_degree(ison_brandes))) %>%
   autographr(node_color = "color")
@@ -211,7 +217,7 @@ ison_brandes %>%
 How neat! Try it with the two-mode version.
 What can you see?
 
-```{r ggid_twomode, exercise = TRUE}
+```{r ggid_twomode, exercise = TRUE, purl = FALSE}
 # Instead of "ison_brandes", use "ison_brandes2"
 
 ```
@@ -234,7 +240,7 @@ ison_brandes2 %>%
   autographr(node_color = "color")
 ```
 
-```{r brandes2quiz}
+```{r brandes2quiz, purl = FALSE}
 question("Select all that are true for the two-mode Brandes network.",
          answer("Only one node is selected in each plot."),
          answer("The maximum degree square has a higher degree than the maximum degree circle(s).",
@@ -251,7 +257,7 @@ Here we are no longer interested in the level of the node,
 but in the level of the whole network, 
 so the syntax replaces `node_` with `network_`:
 
-```{r centzn, exercise = TRUE, exercise.setup = "addingnames"}
+```{r centzn, exercise = TRUE, exercise.setup = "addingnames", purl = FALSE}
 
 ```
 
@@ -277,7 +283,7 @@ What if we want to have a single image/figure with multiple plots?
 This can be a little tricky with gg-based plots,
 but fortunately the `{patchwork}` package is here to help.
 
-```{r multiplot, exercise = TRUE, exercise.setup = "addingnames"}
+```{r multiplot, exercise = TRUE, exercise.setup = "addingnames", purl = FALSE}
 
 ```
 
@@ -304,7 +310,7 @@ ge <- autographr(ison_brandes, node_color = "eigenvector") +
 ```
 
 
-```{r centzdq}
+```{r centzdq, purl = FALSE}
 question("How centralized is the ison_brandes network? Select all that apply.",
          answer("It is more degree centralised than betweenness centralised.",
                 message = "Degree centralisation is at 0.18 for this network whereas betweenness centralisation is at 0.32. In other words, the network is better characterised as having 1 or 2 nodes lying on the shortest paths between others than one where 1 or 2 nodes have many more ties than the others."),
@@ -317,7 +323,7 @@ question("How centralized is the ison_brandes network? Select all that apply.",
          allow_retry = TRUE)
 ```
 
-```{r centvcent, echo=FALSE}
+```{r centvcent, echo=FALSE, purl = FALSE}
 question("What is the difference between centrality and centralisation according to the literature?",
   answer("Centrality is for nodes and centralisation is for networks",
          correct = TRUE),

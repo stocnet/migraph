@@ -1,4 +1,5 @@
 make_node_measure <- function(out, .data) {
+  if(manynet::is_labelled(.data)) names(out) <- manynet::node_names(.data)
   class(out) <- c("node_measure", class(out))
   attr(out, "mode") <- manynet::node_mode(.data)
   out
@@ -154,6 +155,6 @@ print_tblvec <- function(y, names){
         print(body)
     cat(pillar::style_subtle(paste("# ... with",
                                    setup$extra_cols_total,
-                                   "more from this nodeset in the vector.")))
+                                   "more values from this nodeset not printed but in the vector.")))
       } else print(body)
 }

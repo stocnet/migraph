@@ -22,18 +22,18 @@ The data we're going to use here, "ison_algebra", is included in the `{manynet}`
 Do you remember how to call the data?
 Can you find out some more information about it?
 
-```{r data, exercise = TRUE}
+```{r data, exercise = TRUE, purl = FALSE}
 
 ```
 
-```{r data-hint-1}
+```{r data-hint-1, purl = FALSE}
 # Let's call and load the 'ison_algebra' dataset
 data("ison_algebra", package = "manynet")
 # Or you can retrieve like this:
 ison_algebra <- manynet::ison_algebra
 ```
 
-```{r data-hint-2}
+```{r data-hint-2, purl = FALSE}
 # If you want to learn more about the 'ison_algebra' dataset, use the following function (below)
 ?manynet::ison_algebra
 ```
@@ -41,11 +41,15 @@ ison_algebra <- manynet::ison_algebra
 ```{r data-solution}
 data("ison_algebra", package = "manynet")
 ?manynet::ison_algebra
+# If you want to see the network object, you can run the name of the object
+ison_algebra
+# or print the code with brackets at the front and end of the code
+(ison_algebra <- manynet::ison_algebra)
 ```
 
-This dataset is multiplex, meaning that it contains 
-several different types of ties: 
-friendship, social and task interactions.
+We can see after printing the object that the dataset is multiplex,
+meaning that it contains several different types of ties: 
+friendship (friends), social (social) and task interactions (tasks).
 
 ### Adding names
 
@@ -55,15 +59,15 @@ Luckily, `{manynet}` has a function for this, `to_named()`.
 This makes plotting the network just a wee bit more accessible and interpretable.
 Let's try adding names and graphing the network now:
 
-```{r addingnames, exercise=TRUE, exercise.setup = "data"}
+```{r addingnames, exercise=TRUE, exercise.setup = "data", purl = FALSE}
 
 ```
 
-```{r addingnames-hint-1}
+```{r addingnames-hint-1, purl = FALSE}
 ison_algebra <- to_named(ison_algebra)
 ```
 
-```{r addingnames-hint-2}
+```{r addingnames-hint-2, purl = FALSE}
 autographr(ison_algebra)
 ```
 
@@ -78,33 +82,35 @@ as they are assigned randomly from a pool of (American) first names.
 ### Separating multiplex networks
 
 As a multiplex network, 
-there are actually three different types of tie in this network.
+there are actually three different types of ties (friends, social, and tasks)
+in this network.
 We can extract them and graph them separately using `to_uniplex()`:
 
-```{r separatingnets, exercise=TRUE, exercise.setup = "data"}
+```{r separatingnets, exercise=TRUE, exercise.setup = "data", purl = FALSE}
 
 ```
 
-```{r separatingnets-hint-1}
-# let's focus on the 'friends' attribute
+```{r separatingnets-hint-1, purl = FALSE}
+# to_uniplex extracts ties of a single type,
+# focusing on the 'friends' tie attribute here
 friends <- to_uniplex(ison_algebra, "friends")
 gfriend <- autographr(friends) + ggtitle("Friendship")
 ```
 
-```{r separatingnets-hint-2}
-# let's focus on the 'social' attribute
+```{r separatingnets-hint-2, purl = FALSE}
+# now let's focus on the 'social' tie attribute
 social <- to_uniplex(ison_algebra, "social")
 gsocial <- autographr(social) + ggtitle("Social")
 ```
 
-```{r separatingnets-hint-3}
-# let's focus on the 'tasks' attribute
+```{r separatingnets-hint-3, purl = FALSE}
+# and the 'tasks' tie attribute
 tasks <- to_uniplex(ison_algebra, "tasks")
 gtask <- autographr(tasks) + ggtitle("Task")
 ```
 
-```{r separatingnets-hint-4}
-# now, let's compare the each attribute's graph, side-by-side
+```{r separatingnets-hint-4, purl = FALSE}
+# now, let's compare each attribute's graph, side-by-side
 gfriend + gsocial + gtask
 # if you get an error here, you may need to install and load
 # the package 'patchwork'.
@@ -122,6 +128,7 @@ gsocial <- autographr(social) + ggtitle("Social")
 tasks <- to_uniplex(ison_algebra, "tasks")
 gtask <- autographr(tasks) + ggtitle("Task")
 
+# We now have three separate networks depicting each type of tie from the ison_algebra network:
 gfriend + gsocial + gtask
 ```
 
@@ -141,17 +148,18 @@ density, reciprocity, transitivity, and components.
 
 Because this is a directed network, we can calculate the density as:
 
-```{r dens-explicit, exercise=TRUE, exercise.setup = "separatingnets"}
+```{r dens-explicit, exercise=TRUE, exercise.setup = "separatingnets", purl = FALSE}
 
 ```
 
 ```{r dens-explicit-solution}
+# calculating network density manually according to equation
 network_ties(tasks)/(network_nodes(tasks)*(network_nodes(tasks)-1))
 ```
 
 but we can also just use the `{migraph}` function...
 
-```{r dens, exercise=TRUE, exercise.setup = "separatingnets"}
+```{r dens, exercise=TRUE, exercise.setup = "separatingnets", purl = FALSE}
 
 ```
 
@@ -163,7 +171,7 @@ Note that the various measures in `{migraph}` print results to three decimal poi
 by default, but the underlying result retains the same recurrence.
 So same result...
 
-```{r dens-qa, echo=FALSE}
+```{r dens-qa, echo=FALSE, purl = FALSE}
 question("Is this network's density high or low?",
          answer("High",
                 message = "The closer the value is to 1, the more dense the network and the more cohesive the network is as a whole."),
@@ -180,30 +188,32 @@ While one could do this by hand,
 it's more efficient to do this using the `{migraph}` package.
 Can you guess the correct name of the function?
 
-```{r recip, exercise=TRUE, exercise.setup = "separatingnets"}
+```{r recip, exercise=TRUE, exercise.setup = "separatingnets", purl = FALSE}
 
 ```
 
 ```{r recip-solution}
 network_reciprocity(tasks)
+# this function calculates the amount of reciprocity in the whole network
 ```
 
 And let's calculate _transitivity_ in the task network.
 Again, can you guess the correct name of this function?
 
-```{r trans, exercise=TRUE, exercise.setup = "separatingnets"}
+```{r trans, exercise=TRUE, exercise.setup = "separatingnets", purl = FALSE}
 
 ```
 
 ```{r trans-solution}
 network_transitivity(tasks)
+# this function calculates the amount of transitivity in the whole network
 ```
 
 We have collected measures of the task network's reciprocity
 and transitivity, but we still need to interpret these measures.
 These measures do not speak for themselves.
 
-```{r trans-interp, echo=FALSE}
+```{r trans-interp, echo=FALSE, purl = FALSE}
 question("What can we say about task closure in this network? Choose all that apply.",
   answer("Transitivity for the task network is 0.568",
          correct = TRUE),
@@ -229,7 +239,7 @@ return the number of _strong_ components for directed networks.
 For _weak_ components, you will need to first make the network undirected.
 Remember the difference between weak and strong components?
 
-```{r weak-strong, echo = FALSE}
+```{r weak-strong, echo = FALSE, purl = FALSE}
 question("Weak components...",
   answer("don't care about tie direction when establishing components.", 
          correct = TRUE),
@@ -238,15 +248,18 @@ question("Weak components...",
 )
 ```
 
-```{r comp-no, exercise=TRUE, exercise.setup = "separatingnets"}
+```{r comp-no, exercise=TRUE, exercise.setup = "separatingnets", purl = FALSE}
 
 ```
 
-```{r comp-no-hint-1}
+```{r comp-no-hint-1, purl = FALSE}
 network_components(friends)
+# note that friends is a directed network
+# you can see this by calling the object 'friends'
+# or by running `manynet::is_directed(friends)`
 ```
 
-```{r comp-no-hint-2}
+```{r comp-no-hint-2, purl = FALSE}
 # Now let's look at the number of components for objects connected by an undirected edge
 # Note: to_undirected() returns an object with all tie direction removed, 
 # so any pair of nodes with at least one directed edge 
@@ -255,11 +268,12 @@ network_components(to_undirected(friends))
 ```
 
 ```{r comp-no-solution}
+# note that friends is a directed network
 network_components(friends)
 network_components(to_undirected(friends))
 ```
 
-```{r comp-interp, echo = FALSE}
+```{r comp-interp, echo = FALSE, purl = FALSE}
 question("How many components are there?",
   answer("2", 
          message = "There are more than 2 components."),
@@ -280,19 +294,25 @@ but maybe we're also interested in which nodes are members of which components?
 `node_components()` returns a membership vector
 that can be used to color nodes in `autographr()`:
 
-```{r comp-memb, exercise=TRUE, exercise.setup = "separatingnets"}
+```{r comp-memb, exercise=TRUE, exercise.setup = "separatingnets", purl = FALSE}
 
 ```
 
-```{r comp-memb-hint-1}
+```{r comp-memb-hint-1, purl = FALSE}
 friends <- friends %>% 
   mutate(weak_comp = node_components(to_undirected(friends)),
          strong_comp = node_components(friends))
+# node_components returns a vector of nodes' memberships to components in the network
+# here, we are adding the nodes' membership to components as an attribute in the network
+# alternatively, we can also use the function `add_node_attribute()`
+# eg. `add_node_attribute(friends, "weak_comp", node_components(to_undirected(friends)))`
 ```
 
-```{r comp-memb-hint-2}
+```{r comp-memb-hint-2, purl = FALSE}
 autographr(friends, node_color = "weak_comp") + ggtitle("Weak components") +
 autographr(friends, node_color = "strong_comp") + ggtitle("Strong components")
+# by using the 'node_color' argument, we are telling autographr to colour 
+# the nodes in the graph according to the values of the 'weak_comp' attribute in the network 
 ```
 
 ```{r comp-memb-solution}
@@ -303,7 +323,7 @@ autographr(friends, node_color = "weak_comp") + ggtitle("Weak components") +
 autographr(friends, node_color = "strong_comp") + ggtitle("Strong components")
 ```
 
-```{r node-comp-interp, echo = FALSE}
+```{r node-comp-interp, echo = FALSE, purl = FALSE}
 question("Why is there a difference between the weak and strong components results?",
   answer("Because one node has only incoming ties.",
          correct = TRUE),
@@ -327,20 +347,20 @@ we will concentrate on the main component (the so-called 'giant' component)
 and consider friendship undirected.
 Can you guess how to make these changes to the 'friends' network?
 
-```{r manip-fri, exercise=TRUE, exercise.setup = "separatingnets"}
+```{r manip-fri, exercise=TRUE, exercise.setup = "separatingnets", purl = FALSE}
 
 ```
 
-```{r manip-fri-hint-1}
+```{r manip-fri-hint-1, purl = FALSE}
 # to_giant() returns an object that includes only the main component without any smaller components or isolates
 (friends <- to_giant(friends))
 ```
 
-```{r manip-fri-hint-2}
+```{r manip-fri-hint-2, purl = FALSE}
 (friends <- to_undirected(friends))
 ```
 
-```{r manip-fri-hint-3}
+```{r manip-fri-hint-3, purl = FALSE}
 # now, let's graph the new network
 autographr(friends)
 ```
@@ -396,11 +416,11 @@ computationally-prohibitive exhaustive enumeration (Brandes et al. 2008))."
 So let's try and get a community classification using the walktrap algorithm
 with path lengths of the random walks specified to be 50.
 
-```{r walk, exercise=TRUE, exercise.setup = "separatingnets"}
+```{r walk, exercise=TRUE, exercise.setup = "separatingnets", purl = FALSE}
 
 ```
 
-```{r walk-hint-1}
+```{r walk-hint-1, purl = FALSE}
 # let's use the node_walktrap()function to create a hierarchical, 
 # agglomerative algorithm based on random walks, and assign it to
 # an object
@@ -409,7 +429,7 @@ friend_wt <- node_walktrap(friends, times=50)
 friend_wt # note that it prints pretty, but underlying its just a vector:
 ```
 
-```{r walk-hint-2}
+```{r walk-hint-2, purl = FALSE}
 c(friend_wt)
 
 # This says that dividing the graph into 2 communities maximises modularity,
@@ -419,7 +439,7 @@ which(friend_wt == 1)
 which(friend_wt == 2)
 ```
 
-```{r walk-hint-3}
+```{r walk-hint-3, purl = FALSE}
 # resulting in a modularity of 
 network_modularity(friends, friend_wt)
 ```
@@ -441,10 +461,10 @@ network_modularity(friends, friend_wt)
 We can also visualise the clusters on the original network
 How does the following look? Plausible?
 
-```{r walkplot, exercise=TRUE, exercise.setup = "walk"}
+```{r walkplot, exercise=TRUE, exercise.setup = "walk", purl = FALSE}
 ```
 
-```{r walkplot-hint-1}
+```{r walkplot-hint-1, purl = FALSE}
 # plot 1: groups by node color
 
 friends <- friends %>% 
@@ -452,14 +472,14 @@ friends <- friends %>%
 autographr(friends, node_color = "walk_comm")
 ```
 
-```{r walkplot-hint-2}
+```{r walkplot-hint-2, purl = FALSE}
 #plot 2: groups by borders
 
-# to be fancy, we could even draw the group borders around the nodes
+# to be fancy, we could even draw the group borders around the nodes using the node_group argument
 autographr(friends, node_group = "walk_comm")
 ```
 
-```{r walkplot-hint-3}
+```{r walkplot-hint-3, purl = FALSE}
 # plot 3: group and node colors
 
 # or both!
@@ -468,13 +488,16 @@ autographr(friends,
            node_group = "walk_comm") +
   ggtitle("Walktrap",
     subtitle = round(network_modularity(friends, friend_wt), 3))
+# the function `round()` rounds the values to a specified number of decimal places
+# here, we are telling it to round the network_modularity score to 3 decimal places,
+# but the score is exactly 0.27 so only two decimal places are printed.
 ```
 
 ```{r walkplot-solution}
 friends <- friends %>% 
   mutate(walk_comm = friend_wt)
 autographr(friends, node_color = "walk_comm")
-# to be fancy, we could even draw the group borders around the nodes
+# to be fancy, we could even draw the group borders around the nodes using the node_group argument
 autographr(friends, node_group = "walk_comm")
 # or both!
 autographr(friends, 
@@ -501,7 +524,7 @@ we will get a hierarchical map (dendrogram) of the communities in the graph.
 
 The following works similarly to walktrap, but no need to set a step length. 
 
-```{r eb, exercise=TRUE, exercise.setup = "separatingnets"}
+```{r eb, exercise=TRUE, exercise.setup = "separatingnets", purl = FALSE}
 ```
 
 ```{r eb-solution}
@@ -516,18 +539,18 @@ here: http://jfaganuk.github.io/2015/01/24/basic-network-analysis/
 
 To visualise the result:
 
-```{r ebplot, exercise=TRUE, exercise.setup = "eb"}
+```{r ebplot, exercise=TRUE, exercise.setup = "eb", purl = FALSE}
 
 ```
 
-```{r ebplot-hint-1}
+```{r ebplot-hint-1, purl = FALSE}
 # create an object
 
 friends <- friends %>% 
   mutate(eb_comm = friend_eb)
 ```
 
-```{r ebplot-hint-2}
+```{r ebplot-hint-2, purl = FALSE}
 # create a graph with a title and subtitle returning the modularity score
 
 autographr(friends, 
@@ -562,17 +585,17 @@ This is very fast, but has the disadvantage of being a greedy algorithm,
 so it might not produce the best overall community partitioning, 
 although I personally find it both useful and in many cases quite "accurate". 
 
-```{r fg, exercise=TRUE, exercise.setup = "separatingnets"}
+```{r fg, exercise=TRUE, exercise.setup = "separatingnets", purl = FALSE}
 
 ```
 
-```{r fg-hint-1}
+```{r fg-hint-1, purl = FALSE}
 friend_fg <- node_fast_greedy(friends)
 friend_fg # Does this result in a different community partition?
 network_modularity(friends, friend_fg) # Compare this to the edge betweenness procedure
 ```
 
-```{r fg-hint-2}
+```{r fg-hint-2, purl = FALSE}
 # Again, we can visualise these communities in different ways:
 friends <- friends %>% 
   mutate(fg_comm = friend_fg)
@@ -581,6 +604,7 @@ autographr(friends,
            node_group = "fg_comm") +
   ggtitle("Fast-greedy",
     subtitle = round(network_modularity(friends, friend_fg), 3))
+# 
 ```
 
 ```{r fg-solution}
@@ -602,7 +626,7 @@ See A Clauset, MEJ Newman, C Moore:
 Finding community structure in very large networks, 
 https://arxiv.org/abs/cond-mat/0408187
 
-```{r comm-comp, echo=FALSE}
+```{r comm-comp, echo=FALSE, purl = FALSE}
 question("What is the difference between communities and components?",
          answer("Communities and components are just different terms for the same thing"),
          answer("Communities are a stricter form of component"),
@@ -616,17 +640,17 @@ question("What is the difference between communities and components?",
 The next dataset, 'ison_southern_women', is also available in `{manynet}`.
 Let's load and graph the data.
 
-```{r setup-women, exercise=TRUE, exercise.setup = "data"}
+```{r setup-women, exercise=TRUE, exercise.setup = "data", purl = FALSE}
 
 ```
 
-```{r setup-women-hint-1}
+```{r setup-women-hint-1, purl = FALSE}
 # let's load the data and analyze it
 data("ison_southern_women")
 ison_southern_women
 ```
 
-```{r setup-women-hint-2}
+```{r setup-women-hint-2, purl = FALSE}
 autographr(ison_southern_women, node_color = "type")
 autographr(ison_southern_women, "railway", node_color = "type")
 ```
@@ -644,7 +668,7 @@ For that, we can obtain a 'projection' of the two-mode network.
 There are two ways of doing this.
 The hard way...
 
-```{r hardway, exercise=TRUE, exercise.setup = "setup-women"}
+```{r hardway, exercise=TRUE, exercise.setup = "setup-women", purl = FALSE}
 
 ```
 
@@ -656,11 +680,11 @@ event_matrix <- t(twomode_matrix) %*% twomode_matrix
 
 Or the easy way:
 
-```{r easyway, exercise=TRUE, exercise.setup = "setup-women"}
+```{r easyway, exercise=TRUE, exercise.setup = "setup-women", purl = FALSE}
 
 ```
 
-```{r easyway-hint-1}
+```{r easyway-hint-1, purl = FALSE}
 # women-graph
 # to_mode1(): Results in a weighted one-mode object that retains the row nodes from
 # a two-mode object, and weights the ties between them on the basis of their joint
@@ -668,9 +692,12 @@ Or the easy way:
 
 women_graph <- to_mode1(ison_southern_women)
 autographr(women_graph)
+
+# note that projection `to_mode1` involves keeping one type of nodes
+# this is different from to_uniplex above, which keeps one type of ties in the network
 ```
 
-```{r easyway-hint-2}
+```{r easyway-hint-2, purl = FALSE}
 # event-graph
 # to_mode2(): Results in a weighted one-mode object that retains the column nodes from
 # a two-mode object, and weights the ties between them on the basis of their joint ties
@@ -690,7 +717,7 @@ autographr(event_graph)
 `{manynet}` also includes several other options for how to construct the projection.
 Please see the help file for more details.
 
-```{r otherway, exercise=TRUE, exercise.setup = "setup-women"}
+```{r otherway, exercise=TRUE, exercise.setup = "setup-women", purl = FALSE}
 
 ```
 
@@ -704,17 +731,17 @@ autographr(to_mode2(ison_southern_women, similarity = "yule")) + ggtitle("Yule's
 Which women/events 'bind' which events/women?
 Let's return to the question of cohesion.
 
-```{r twomode-cohesion, exercise=TRUE, exercise.setup = "setup-women"}
+```{r twomode-cohesion, exercise=TRUE, exercise.setup = "setup-women", purl = FALSE}
 
 ```
 
-```{r twomode-cohesion-hint-1}
+```{r twomode-cohesion-hint-1, purl = FALSE}
 # network_equivalency(): Calculate equivalence or reinforcement in a (usually two-mode) network
 
 network_equivalency(ison_southern_women)
 ```
 
-```{r twomode-cohesion-hint-2}
+```{r twomode-cohesion-hint-2, purl = FALSE}
 # network_transitivity(): Calculate transitivity in a network
 
 network_transitivity(women_graph)

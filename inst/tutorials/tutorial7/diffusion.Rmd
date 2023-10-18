@@ -25,18 +25,18 @@ Let's take the `ison_networkers` dataset from `{manynet}`,
 and create or generate ring, lattice, random, scale-free, and small-world
 versions with the same number of nodes.
 
-```{r create, echo = TRUE, exercise = TRUE}
+```{r create, echo = TRUE, exercise = TRUE, purl = FALSE}
 
 ```
 
-```{r create-hint-1}
+```{r create-hint-1, purl = FALSE}
 # Let's create a new object, "nw", the removes the names of all vertex names
 # Hint: We want to use two functions used for reformatting networks, graphs, and matrices
 
 nw <- ____(____(ison_networkers))
 ```
 
-```{r create-hint-2}
+```{r create-hint-2, purl = FALSE}
 # We also want to remove edge direction, so that any pair of nodes with at least
 # one directed edge will be connected by an undirected edge in the new network.
 
@@ -57,45 +57,45 @@ Now, using the "nw" network from the last section, let's create or generate ring
 + `generate_scalefree()`: Generates a small-world structure following the lattice rewiring model.
 + `generate_smallworld()`: Generates a scale-free structure following the preferential attachment model.
 
-```{r create-nwstructure, echo = TRUE, exercise = TRUE}
+```{r create-nwstructure, echo = TRUE, exercise = TRUE, purl = FALSE}
 
 ```
 
-```{r create-nwstructure-hint-1}
+```{r create-nwstructure-hint-1, purl = FALSE}
 # Let's generate a ring structure, "rg", with a width of 2, using the appropriate
 # function above
 
 rg <- ____(____, ____)
 ```
 
-```{r create-nwstructure-hint-2}
+```{r create-nwstructure-hint-2, purl = FALSE}
 
 rg <- create_ring(nw, width = 2)
 ```
 
-```{r create-nwstructure-hint-3}
+```{r create-nwstructure-hint-3, purl = FALSE}
 # Let's generate a lattice structure, "la", using the appropriate function above
 
 la <- ____(____)
 ```
 
-```{r create-nwstructure-hint-4}
+```{r create-nwstructure-hint-4, purl = FALSE}
 
 la <- create_lattice(nw)
 ```
 
-```{r create-nwstructure-hint-5}
+```{r create-nwstructure-hint-5, purl = FALSE}
 # Let's generate a random structure, "rd", without attributes
 
 rd <- ____(____, ____)
 ```
 
-```{r create-nwstructure-hint-6}
+```{r create-nwstructure-hint-6, purl = FALSE}
 
 rd <- generate_random(nw, with_attr = FALSE)
 ```
 
-```{r create-nwstructure-hint-7}
+```{r create-nwstructure-hint-7, purl = FALSE}
 # The last two will look similar. For the smallworld structure we call the object "sw" 
 # and for scalefree, "sf". We will also set the proportion of possible ties to 0.025.
 
@@ -103,13 +103,13 @@ sf <- ____(nw, ____)
 sw <- ____(nw, ____)
 ```
 
-```{r create-nwstructure-hint-8}
+```{r create-nwstructure-hint-8, purl = FALSE}
 
 sf <- generate_scalefree(nw, 0.025)
 sw <- generate_smallworld(nw, 0.025)
 ```
 
-```{r create-nwstructure-hint-9}
+```{r create-nwstructure-hint-9, purl = FALSE}
 # Finally, let's plot the respective graphs:
 
 autographr(____) + ggtitle("Networkers") +
@@ -144,11 +144,11 @@ that of the ring network.
 To run a basic diffusion model across this network,
 simply pass it to `play_diffusion()` and (save and) plot the result.
 
-```{r ring, exercise = TRUE, exercise.setup = "create"}
+```{r ring, exercise = TRUE, exercise.setup = "create", purl = FALSE}
 
 ```
 
-```{r ring-hint}
+```{r ring-hint, purl = FALSE}
 # Let's call the ring structure from the previous section, "rg", and create a new object
 # "rg1" with a seed of 1. Don't forget to plot it!
 
@@ -180,7 +180,7 @@ To see whether this is true,
 try choosing the sixteenth (middle) node 
 and see whether the result is any different.
 
-```{r ring2, exercise = TRUE, exercise.setup = "create"}
+```{r ring2, exercise = TRUE, exercise.setup = "create", purl = FALSE}
 
 ```
 
@@ -189,7 +189,7 @@ rg2 <- play_diffusion(rg, seeds = 16)
 plot(rg2)
 ```
 
-```{r ring2-interp, echo = FALSE}
+```{r ring2-interp, echo = FALSE, purl = FALSE}
 question("Do you see any differences?",
          answer("Yes"),
          answer("No", correct = TRUE),
@@ -200,11 +200,11 @@ Now what if we seed the network with more than one infected node?
 Choosing the first four nodes we can see that the process is jump-started,
 but doesn't really conclude that much faster.
 
-```{r ring3, exercise = TRUE, exercise.setup = "create"}
+```{r ring3, exercise = TRUE, exercise.setup = "create", purl = FALSE}
 
 ```
 
-```{r ring3-hint}
+```{r ring3-hint, purl = FALSE}
 # Remember we want to see the first four nodes.
 
 plot(play_diffusion(rg, seeds = ____))
@@ -218,11 +218,11 @@ But what if we seed the network at three different places?
 Here we can use `node_is_random()` to randomly select some nodes to seed.
 Try it with four randomly-selected nodes and see what you get.
 
-```{r ring4, exercise = TRUE, exercise.setup = "create"}
+```{r ring4, exercise = TRUE, exercise.setup = "create", purl = FALSE}
 
 ```
 
-```{r ring4-hint}
+```{r ring4-hint, purl = FALSE}
 # We will be using the node_is_random() within the seed argument to random select 
 # 4 nodes
 
@@ -233,7 +233,7 @@ plot(play_diffusion(rg, seeds = ____(rg, ____)))
 plot(play_diffusion(rg, seeds = node_is_random(rg, 4)))
 ```
 
-```{r ring4-interp, echo = FALSE}
+```{r ring4-interp, echo = FALSE, purl = FALSE}
 question("Do you see any differences?",
          answer("Yes", correct = TRUE),
          answer("No"),
@@ -251,7 +251,7 @@ when the network has a different structure.
 Here let's play and plot two diffusion on the lattice network,
 one with the first node as seed and again one on the last.
 
-```{r lattice, exercise = TRUE, exercise.setup = "create"}
+```{r lattice, exercise = TRUE, exercise.setup = "create", purl = FALSE}
 
 ```
 
@@ -260,7 +260,7 @@ plot(play_diffusion(la, seeds = 1))/
 plot(play_diffusion(la, seeds = 16))
 ```
 
-```{r lattice-interp, echo = FALSE}
+```{r lattice-interp, echo = FALSE, purl = FALSE}
 question("Do you see any differences?",
          answer("Yes", correct = TRUE),
          answer("No"),
@@ -277,7 +277,7 @@ Similar to the previous examples, we will be using the following functions withi
 + `node_is_max()`: Returns logical of which nodes hold the maximum of some measure.
 + `node_is_min()`: Returns logical of which nodes hold the minimum of some measure.
 
-```{r scale, exercise = TRUE, exercise.setup = "create"}
+```{r scale, exercise = TRUE, exercise.setup = "create", purl = FALSE}
 
 ```
 
@@ -288,7 +288,7 @@ plot(play_diffusion(sf, seeds = node_is_max(node_degree(sf)), steps = 10)) /
 plot(play_diffusion(sf, seeds = node_is_min(node_degree(sf)), steps = 10))
 ```
 
-```{r mindeg-interp, echo = FALSE}
+```{r mindeg-interp, echo = FALSE, purl = FALSE}
 question("Which of these four led to the fastest diffusion process?",
          answer("Minimum degree node(s), because there are many more nodes with the minimum degree.", correct = TRUE),
          answer("Node 10 as seed, because it is the most influential."),
@@ -309,7 +309,7 @@ Show that whereas a threshold of one will result in complete infection,
 a threshold of two will not lead to any diffusion process unless
 there are two seeds and that they are in another nodes neighbourhood.
 
-```{r complex, exercise = TRUE, exercise.setup = "create"}
+```{r complex, exercise = TRUE, exercise.setup = "create", purl = FALSE}
 
 ```
 
@@ -320,7 +320,7 @@ plot(play_diffusion(rg, seeds = 1:2, thresholds = 2))/
 plot(play_diffusion(rg, seeds = c(1,16), thresholds = 2))
 ```
 
-```{r complex-interp, echo = FALSE}
+```{r complex-interp, echo = FALSE, purl = FALSE}
 question("For which seed/threshold combinations was there complete infection?",
          answer("seeds = 1 and thresholds = 1", correct = TRUE),
          answer("seeds = 1 and thresholds = 2"),
@@ -335,7 +335,7 @@ A threshold of 2 would be easy to surpass for particularly well connected nodes,
 but impossible for pendants.
 Let's see what happens when we use this threshold on a scale-free network.
 
-```{r sfcomplex, exercise = TRUE, exercise.setup = "create"}
+```{r sfcomplex, exercise = TRUE, exercise.setup = "create", purl = FALSE}
 
 ```
 
@@ -343,7 +343,7 @@ Let's see what happens when we use this threshold on a scale-free network.
 plot(play_diffusion(sf, seeds = 1, thresholds = 2))
 ```
 
-```{r sfcomplex-interp, echo=FALSE}
+```{r sfcomplex-interp, echo=FALSE, purl = FALSE}
 question("Does it matter how many seeds are used?",
          answer("Yes"),
          answer("No", correct = TRUE),
@@ -356,11 +356,11 @@ as a proportion of contacts that should be infected before the node
 will become infected.
 Try thresholds of 0.1, 0.25, and 0.5 on two seeds and 10 steps.
 
-```{r sfprop, exercise = TRUE, exercise.setup = "create"}
+```{r sfprop, exercise = TRUE, exercise.setup = "create", purl = FALSE}
 
 ```
 
-```{r sfprop-hint}
+```{r sfprop-hint, purl = FALSE}
 plot(play_diffusion(sf, seeds = 1:2, thresholds = ____, steps = ____))/
 plot(play_diffusion(sf, seeds = 1:2, thresholds = ____, steps = ____))/
 plot(play_diffusion(sf, seeds = 1:2, thresholds = ____, steps = ____))
@@ -372,7 +372,7 @@ plot(play_diffusion(sf, seeds = 1:2, thresholds = 0.25, steps = 10))/
 plot(play_diffusion(sf, seeds = 1:2, thresholds = 0.5, steps = 10))
 ```
 
-```{r sfprop-interp, echo = FALSE}
+```{r sfprop-interp, echo = FALSE, purl = FALSE}
 question("Does the threshold proportion matter?",
          answer("Yes", correct = TRUE),
          answer("No"),
@@ -389,11 +389,11 @@ Try two diffusion models, one where the threshold is 0.1 for the first 10
 and 0.25 for the latter group of 22 nodes,
 and another diffusion where the threshold levels are reversed.
 
-```{r rand, exercise = TRUE, exercise.setup = "create"}
+```{r rand, exercise = TRUE, exercise.setup = "create", purl = FALSE}
 
 ```
 
-```{r rand-hint}
+```{r rand-hint, purl = FALSE}
 plot(play_diffusion(sf, thresholds = c(rep(____,____), rep(____,____))))/
 plot(play_diffusion(sf, thresholds = c(rep(____,____), rep(____,____))))
 ```
@@ -435,11 +435,11 @@ Try this out with our well-mixed random network, 10 steps, 5 times,
 and with a `transmissibility` parameter set to 0.5
 to indicate that in only 1/2 cases is contagion successful.
 
-```{r diffusions, exercise = TRUE, exercise.setup = "create"}
+```{r diffusions, exercise = TRUE, exercise.setup = "create", purl = FALSE}
 
 ```
 
-```{r diffusions-hint}
+```{r diffusions-hint, purl = FALSE}
 # Remember, we are looking at the random network from before, "rd", with 
 # a transmissibility parameter of 0.5, 5 times, and 10 steps.
 
@@ -466,11 +466,11 @@ Let's try a rate of recovery of 0.20,
 which means that it'll take an infected node on average
 5 steps (days?) to recover.
 
-```{r sir, exercise = TRUE}
+```{r sir, exercise = TRUE, purl = FALSE}
 
 ```
 
-```{r sir-hint}
+```{r sir-hint, purl = FALSE}
 # Remember, we are still looking at the random network, "rd", with a 
 # recovery rate of 20 percent.
 
@@ -492,7 +492,7 @@ from the contagion doesn't last forever.
 In this kind of model, add an additional waning parameter of 0.05.
 Play a single diffusion so that you can see what's going on in a particular run.
 
-```{r sirs, exercise = TRUE}
+```{r sirs, exercise = TRUE, purl = FALSE}
 
 ```
 
@@ -500,7 +500,7 @@ Play a single diffusion so that you can see what's going on in a particular run.
 plot(play_diffusion(rd, recovery = 0.25, waning = 0.05))
 ```
 
-```{r sirs-interp, echo = FALSE}
+```{r sirs-interp, echo = FALSE, purl = FALSE}
 question("Does the process reach a stable state?",
          answer("Yes", correct = TRUE),
          answer("No"),
@@ -516,7 +516,7 @@ Again, this should be specified as a proportion
 (try 0.25, approx four days).
 Play a single diffusion so that you can see what's going on in a particular run.
 
-```{r seir, exercise = TRUE, exercise.setup = "create"}
+```{r seir, exercise = TRUE, exercise.setup = "create", purl = FALSE}
 
 ```
 
@@ -539,11 +539,11 @@ First of all, check whether the network is _connected_ and _aperiodic_ via the f
 + `is_connected()`: Tests whether network is weakly connected if the network is *undirected* or strongly connected if directed.
 + `is_aperiodic()`: Tests whether network is aperiodic.
 
-```{r aperiod, exercise = TRUE}
+```{r aperiod, exercise = TRUE, purl = FALSE}
 
 ```
 
-```{r aperiod-hint}
+```{r aperiod-hint, purl = FALSE}
 # By default is_connected() will check whether a directed network
 # is strongly connected.
 ```
@@ -553,7 +553,7 @@ is_connected(ison_networkers)
 is_aperiodic(ison_networkers)
 ```
 
-```{r aperiod-interp, echo = FALSE}
+```{r aperiod-interp, echo = FALSE, purl = FALSE}
 question("Based on these results, would you expect this network to converge to a consensus?",
   answer("No"),
   answer("Yes", correct = TRUE),
@@ -575,11 +575,11 @@ Create the distribution of **beliefs** and graph the network
 to show where they have been distributed.
 Then play the learning model with these beliefs, and plot the result.
 
-```{r degroot, exercise = TRUE}
+```{r degroot, exercise = TRUE, purl = FALSE}
 
 ```
 
-```{r degroot-hint}
+```{r degroot-hint, purl = FALSE}
 beliefs <- rbinom(network_nodes(____), 1, prob = 0.25)
 ____ %>% mutate(____ = beliefs) %>% autographr(node_color = "____")
 netlearn <- play_learning(____, ____)
@@ -601,7 +601,7 @@ Then we can see how responsive these nodes are to the random distribution
 of beliefs across the network.
 Some revise their beliefs more significantly than others.
 
-```{r degroot-interp, echo = FALSE}
+```{r degroot-interp, echo = FALSE, purl = FALSE}
 question("What are some true statements about these results?",
   answer("Some nodes revise their beliefs more than others.",
          correct = TRUE),
