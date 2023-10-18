@@ -18,9 +18,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Setting up
 
-The data we're going to use here, "ison_algebra", is included in the `{manynet}` package.
+For this session, we're going to use the "ison_algebra" dataset included in the `{manynet}` package.
 Do you remember how to call the data?
-Can you find out some more information about it?
+Can you find out some more information about it via its help file?
 
 ```{r data, exercise = TRUE, purl = FALSE}
 
@@ -42,12 +42,12 @@ ison_algebra <- manynet::ison_algebra
 data("ison_algebra", package = "manynet")
 ?manynet::ison_algebra
 # If you want to see the network object, you can run the name of the object
-ison_algebra
+# ison_algebra
 # or print the code with brackets at the front and end of the code
-(ison_algebra <- manynet::ison_algebra)
+# (ison_algebra <- manynet::ison_algebra)
 ```
 
-We can see after printing the object that the dataset is multiplex,
+We can see that the dataset is multiplex,
 meaning that it contains several different types of ties: 
 friendship (friends), social (social) and task interactions (tasks).
 
@@ -55,43 +55,31 @@ friendship (friends), social (social) and task interactions (tasks).
 
 As a multiplex network, 
 there are actually three different types of ties in this network.
-We can extract them and investigate them separately using `to_uniplex()`:
+We can extract them and investigate them separately using `to_uniplex()`.
+Within the parentheses, put the multiplex object's name,
+and then as a second argument put the name of the tie attribute in quotation marks.
+Once you have extracted all three networks,
+graph them and add a descriptive title.
 
 ```{r separatingnets, exercise=TRUE, exercise.setup = "data", purl = FALSE}
 
 ```
 
 ```{r separatingnets-hint-1, purl = FALSE}
-# Let's focus on the 'friends' attribute
-
-friends <- to_uniplex(ison_algebra, "friends")
-gfriend <- autographr(friends) + ggtitle("Friendship")
-```
-
-```{r separatingnets-hint-2, purl = FALSE}
-# Let's focus on the 'social' attribute
-
-social <- to_uniplex(ison_algebra, "social")
-gsocial <- autographr(social) + ggtitle("Social")
-```
-
-```{r separatingnets-hint-3, purl = FALSE}
-# Let's focus on the 'tasks' attribute
-
-tasks <- to_uniplex(ison_algebra, "tasks")
-gtask <- autographr(tasks) + ggtitle("Task")
+# Here's the basic idea/code syntax you will need to extract each type of network
+# You will want to replace
+____ <- to_uniplex(ison_algebra, _____)
 ```
 
 ```{r separatingnets-hint-4, purl = FALSE}
 # Now, let's compare the each attribute's graph, side-by-side by using "+"
 # Note: using "/" after each graph will order them vertically; however, it might not be best way
-
+# See for example:
+gfriend <- autographr(friends) + ggtitle("Friendship")
 gfriend + gsocial + gtask
 ```
 
 ```{r separatingnets-solution}
-# Your code should look like this:
-
 friends <- to_uniplex(ison_algebra, "friends")
 gfriend <- autographr(friends) + ggtitle("Friendship")
 
@@ -105,16 +93,82 @@ gfriend + gsocial + gtask
 ```
 
 Note also that these are weighted networks.
-`autographr()` automatically registers these different weights and plots them.
+`autographr()` automatically recognises these different weights and plots them.
+
+```{r strongties-qa, echo=FALSE, purl = FALSE}
+question("If we interpret ties with higher weights as strong ties, and lesser weights as weak ties, then, according to network theory, where would we expect novel information to come from?",
+         answer("Weak ties",
+                correct = TRUE,
+                message = learnr::random_praise()),
+         answer("Strong ties",
+                message = learnr::random_encouragement()),
+         answer("Isolates",
+                message = learnr::random_encouragement()),
+         answer("Highest degree nodes",
+                message = learnr::random_encouragement()),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+)
+```
 
 ## Structural Holes and Constraint
 
-Where might innovation be most likely to occur in these networks?
-Let's take a look at which actors are least constrained 
+Our first question for this network, is where innovation and creative ideas
+might be expected to appear.
+
+```{r structinnov-qa, echo=FALSE, purl = FALSE}
+question("Which network concepts are associated with innovation?",
+         answer("Structural holes",
+                correct = TRUE,
+                message = learnr::random_praise()),
+         answer("Structural folds",
+                correct = TRUE,
+                message = learnr::random_praise()),
+         answer("Structural balance",
+                message = learnr::random_encouragement()),
+         answer("Structural equivalence",
+                message = learnr::random_encouragement()),
+         answer("Structuralism",
+                message = learnr::random_encouragement()),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+)
+```
+
+### Measuring structural holes
+
+
+
+```{r shmeasures-qa, echo=FALSE, purl = FALSE}
+question("There are a number of measures that might be used to approximate the concept of structural holes. Select all that apply.",
+         answer("Constraint",
+                correct = TRUE,
+                message = learnr::random_praise()),
+         answer("Effective size",
+                correct = TRUE,
+                message = learnr::random_praise()),
+         answer("Bridges",
+                correct = TRUE,
+                message = learnr::random_praise()),
+         answer("Redundancy",
+                correct = TRUE,
+                message = learnr::random_praise()),
+         answer("Efficiency",
+                correct = TRUE,
+                message = learnr::random_praise()),
+         answer("Hierarchy",
+                correct = TRUE,
+                message = learnr::random_praise()),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+)
+```
+
+Let's take a look at which actors are least _constrained_ 
 by their position in the *task* network to begin with.
 `{migraph}` makes this easy enough with the `node_constraint()` function.
 
-```{r objects-setup}
+```{r objects-setup, purl=FALSE}
 alge <- to_named(ison_algebra)
 friends <- to_uniplex(alge, "friends")
 social <- to_uniplex(alge, "social")
@@ -127,32 +181,27 @@ tasks <- to_uniplex(alge, "tasks")
 
 ```{r constraint-hint, purl = FALSE}
 node_constraint(____)
-
-# Don't forget we want to look at which actors are least constrained by their position 
-# in the 'tasks' network
+# Don't forget we want to look at which actors are least constrained by their position in the 'tasks' network
 ```
 
 ```{r constraint-solution}
 node_constraint(tasks)
 ```
 
-We see that this function returns a vector of 
-constraint scores that can range between 0 and 1.
-Let's size the nodes according to this score,
-and identify the node with the minimum constraint score.
+This function returns a vector of constraint scores that can range between 0 and 1.
+Let's graph the network again, sizing the nodes according to this score.
+We can also identify the node with the minimum constraint score using `node_is_min()`.
 
 ```{r constraintplot, exercise=TRUE, exercise.setup = "objects-setup", purl = FALSE}
 
 ```
 
 ```{r constraintplot-hint-1, purl = FALSE}
-tasks <- tasks %>% mutate(low_constraint = node_is_min(node_constraint(____)))
+tasks <- tasks %>% 
+  mutate(constraint = node_constraint(____),
+         low_constraint = node_is_min(node_constraint(____)))
 
 # Don't forget, we are still looking at the 'tasks' network
-```
-
-```{r constraintplot-hint-2, purl = FALSE}
-tasks <- tasks %>% mutate(low_constraint = node_is_min(node_constraint(tasks)))
 ```
 
 ```{r constraintplot-hint-3, purl = FALSE}
@@ -164,14 +213,14 @@ autographr(____, node_color = "____")
 ```
 
 ```{r constraintplot-hint-4, purl = FALSE}
-autographr(tasks, node_color = "low_constraint")
+autographr(tasks, node_size = "constraint", node_color = "low_constraint")
 ```
 
 ```{r constraintplot-solution}
-# Your code should look like this:
-
-tasks <- tasks %>% mutate(low_constraint = node_is_min(node_constraint(tasks)))
-autographr(tasks, node_color = "low_constraint")
+tasks <- tasks %>% 
+  mutate(constraint = node_constraint(tasks), 
+         low_constraint = node_is_min(node_constraint(tasks)))
+autographr(tasks, node_size = "constraint", node_color = "low_constraint")
 ```
 
 Why minimum? Because constraint measures how well connected each node's partners are,
