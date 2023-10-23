@@ -200,7 +200,7 @@ Brandes, Ulrik, Daniel Delling, Marco Gaertler, Robert Gorke, Martin Hoefer, Zor
 \seealso{
 Other memberships: 
 \code{\link{components}()},
-\code{\link{core-periphery}},
+\code{\link{core}},
 \code{\link{equivalence}}
 }
 \concept{memberships}

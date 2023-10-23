@@ -56,14 +56,3 @@ node_strong_components <- function(.data){
   make_node_member(igraph::components(.data, mode = "strong")$membership,
                  .data)
 }
-
-#' @describeIn components Returns k-cores
-#' @examples
-#' node_coreness(ison_adolescents)
-#' @export
-node_coreness <- function(.data){
-  if(!manynet::is_graph(.data)) .data <- manynet::as_igraph(.data)
-  out <- igraph::coreness(.data)
-  make_node_member(out, .data)
-}
-

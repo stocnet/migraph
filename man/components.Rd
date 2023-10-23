@@ -5,7 +5,6 @@
 \alias{node_components}
 \alias{node_weak_components}
 \alias{node_strong_components}
-\alias{node_coreness}
 \title{Component partitioning algorithms}
 \usage{
 node_components(.data)
@@ -13,8 +12,6 @@ node_components(.data)
 node_weak_components(.data)
 
 node_strong_components(.data)
-
-node_coreness(.data)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -58,17 +55,14 @@ ignoring edge direction.
 \item \code{node_strong_components()}: Returns nodes' component membership
 based on edge direction.
 
-\item \code{node_coreness()}: Returns k-cores
-
 }}
 \examples{
 node_components(mpn_bristol)
-node_coreness(ison_adolescents)
 }
 \seealso{
 Other memberships: 
 \code{\link{community}},
-\code{\link{core-periphery}},
+\code{\link{core}},
 \code{\link{equivalence}}
 }
 \concept{memberships}

@@ -11,7 +11,7 @@
 #'   and minimises density in the periphery block;
 #'   it ignores ties between these blocks.
 #' @inheritParams is
-#' @name core-periphery
+#' @name core
 #' @family memberships
 #' @references
 #' Borgatti, Stephen P., & Everett, Martin G. 1999. 
@@ -28,10 +28,15 @@
 #' #   autographr(node_color = "corep")
 #' network_core(mpn_elite_usa_advice)
 #' @export
-node_core <- function(.data){
+node_core <- function(.data, method = c("degree", "eigenvector", "genetic")){
+  method <- match.arg(method)
   if(manynet::is_directed(.data)) warning("Asymmetric core-periphery not yet implemented.")
-  if(manynet::is_weighted(.data)) warning("Weighted core-periphery not yet implemented.")
-  degi <- node_degree(.data, normalized = FALSE)
+  if(method == "degree"){
+    degi <- node_degree(.data, normalized = FALSE, 
+                        alpha = ifelse(manynet::is_weighted(.data), 1, 0))
+  } else if (method == "eigenvector") {
+    degi <- node_eigenvector(.data, normalized = FALSE)
+  } else stop("This function expects either 'degree' or 'eigenvector' method to be specified.")
   nord <- order(degi, decreasing = TRUE)
   zbest <- manynet::network_nodes(.data)*3
   kbest <- 0
@@ -45,6 +50,16 @@ node_core <- function(.data){
   }
   out <- ifelse(seq_len(manynet::network_nodes(.data)) %in% nord[seq_len(kbest)],
          1,2)
-  if(manynet::is_labelled(.data)) names(out) <- manynet::node_names(.data)
   make_node_member(out, .data)
 }
+
+#' @describeIn core Returns k-cores
+#' @examples
+#' node_coreness(ison_adolescents)
+#' @export
+node_coreness <- function(.data){
+  if(!manynet::is_graph(.data)) .data <- manynet::as_igraph(.data)
+  out <- igraph::coreness(.data)
+  make_node_member(out, .data)
+}
+
