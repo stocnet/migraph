@@ -569,7 +569,8 @@ plot(as_matrix(social),
 By passing the membership argument our structural equivalence results,
 the matrix is re-sorted to cluster or 'block' nodes from the same class together.
 This can help us interpret the general relationships between classes.
-For example, we might characterise them like so:
+For example, when we plot the friends, tasks, and social networks using the structural equivalence results,
+we might characterise them like so:
 
 - The first group work together only in reciprocal pairs on tasks,
 preferring to approach the nerd but also those of the other two roles.
