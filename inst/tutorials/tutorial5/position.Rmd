@@ -553,6 +553,11 @@ plot(as_matrix(____),
 ```
 
 ```{r block-solution}
+# plot the blockmodel for the whole network
+plot(as_matrix(alge),
+     membership = node_structural_equivalence(alge))
+
+# plot the blockmodel for the friends, tasks, and social networks separately
 plot(as_matrix(friends),
      membership = node_structural_equivalence(alge)) +
 plot(as_matrix(tasks),
