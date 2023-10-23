@@ -553,7 +553,11 @@ plot(as_matrix(____),
 ```
 
 ```{r block-solution}
-plot(as_matrix(alge),
+plot(as_matrix(friends),
+     membership = node_structural_equivalence(alge)) +
+plot(as_matrix(tasks),
+     membership = node_structural_equivalence(alge)) +
+plot(as_matrix(social),
      membership = node_structural_equivalence(alge))
 ```
 

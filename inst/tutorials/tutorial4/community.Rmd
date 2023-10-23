@@ -13,6 +13,10 @@ library(patchwork)
 library(manynet)
 library(migraph)
 knitr::opts_chunk$set(echo = FALSE)
+
+friends <- to_uniplex(ison_algebra, "friends")
+social <- to_uniplex(ison_algebra, "social")
+tasks <- to_uniplex(ison_algebra, "tasks")
 ```
 
 
