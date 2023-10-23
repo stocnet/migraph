@@ -8,6 +8,7 @@
 \alias{network_adhesion}
 \alias{network_diameter}
 \alias{network_length}
+\alias{network_connectedness}
 \title{Measures of network cohesion or connectedness}
 \usage{
 network_density(.data)
@@ -21,6 +22,8 @@ network_adhesion(.data)
 network_diameter(.data)
 
 network_length(.data)
+
+network_connectedness(.data)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -54,6 +57,9 @@ to remove from the network to increase the number of components.
 \item \code{network_diameter()}: Returns the maximum path length in the network.
 
 \item \code{network_length()}: Returns the average path length in the network.
+
+\item \code{network_connectedness()}: Returns the proportion of dyads in the network
+that are reachable, otherwise degree to which network is a single component
 
 }}
 \examples{

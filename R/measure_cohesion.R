@@ -88,3 +88,12 @@ network_length <- function(.data){
                                              directed = is_directed(object)),
                        object)
 }
+
+#' @describeIn cohesion Returns the proportion of dyads in the network
+#'   that are reachable, otherwise degree to which network is a single component
+#' @export
+network_connectedness <- function(.data){
+  dists <- igraph::distances(manynet::as_igraph(.data))
+  make_network_measure(1 - sum(dists==Inf)/sum(dists!=0),
+                       .data)
+}
