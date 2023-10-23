@@ -25,6 +25,50 @@ network_core <- function(.data,
   make_network_measure(out, .data)
 }
 
+#' @describeIn features Returns rich-club coefficient
+#' @examples
+#' network_richclub(ison_adolescents)
+#' @export
+network_richclub <- function(.data){
+  coefs <- vector()
+  temp <- .data
+  for(k in seq_len(max(node_degree(temp, normalized = FALSE)))){
+    richclub <- manynet::to_subgraph(temp, node_degree(temp, normalized = FALSE) >= k)
+    nk <- manynet::network_nodes(richclub)
+    ek <- ifelse(manynet::is_directed(temp),
+                 manynet::network_ties(richclub), 
+                 2*manynet::network_ties(richclub))
+    coefs <- c(coefs, (ek)/(nk*(nk-1)))
+  }
+  
+  elbow_finder <- function(x_values, y_values) {
+    # Max values to create line
+    # if(min(x_values)==1) x_values <- x_values[2:length(x_values)]
+    # if(min(y_values)==0) y_values <- y_values[2:length(y_values)]
+    max_df <- data.frame(x = c(1, min(which(y_values == 1))), 
+                         y = c(min(y_values), max(y_values)))
+    # Creating straight line between the max values
+    fit <- stats::lm(max_df$y ~ max_df$x)
+    # Distance from point to line
+    distances <- vector()
+    for (i in seq_len(length(x_values))) {
+      distances <- c(distances,
+                     abs(stats::coef(fit)[2]*x_values[i] -
+                           y_values[i] +
+                           coef(fit)[1]) /
+                       sqrt(stats::coef(fit)[2]^2 + 1^2))
+    }
+    # Max distance point
+    x_max_dist <- x_values[which.max(distances)]
+    x_max_dist
+  }
+  
+  coefs[is.nan(coefs)] <- 1
+  out <- coefs[elbow_finder(seq_along(coefs), coefs)]
+    # max(coefs, na.rm = TRUE)
+  make_network_measure(out, .data)
+}
+
 #' @describeIn features Returns correlation between a given network
 #'   and a component model with the same dimensions.
 #'   If no 'membership' vector is given for the data, 
