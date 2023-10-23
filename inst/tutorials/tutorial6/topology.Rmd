@@ -31,7 +31,7 @@ and then look at how the introduction of some randomness can _generate_ a variet
 
 ## Deterministic graphs
 
-To begin with, let's create a few 'empty' and full or 'complete' graphs.
+To begin with, let's create a few 'empty' and full/'complete' graphs.
 You will want to use some of the `create_*()` group of functions from `{manynet}`,
 because they create graphs following some strict rule(s).
 The two functions you will want to use here are `create_empty()` and `create_filled()`.
@@ -52,8 +52,8 @@ Add that too.
 
 ```{r empty-solution}
 (autographr(create_empty(50), "circle") + ggtitle("Empty graph"))
-(autographr(to_undirected(create_filled(50))) + ggtitle("Complete graph"))
-(autographr(to_undirected(create_filled(50/2))) + ggtitle("Complete graph (smaller)"))
+(autographr(create_filled(50)) + ggtitle("Complete graph"))
+(autographr(create_filled(50/2)) + ggtitle("Complete graph (smaller)"))
 ```
 
 ### Stars
@@ -173,7 +173,7 @@ As such, we'll be using the `generate_*()` group of functions from `{manynet}`.
 An Erdös-Renyi graph is simply a random graph.
 You will need to specify the probability of a tie
 in addition to the number of nodes.
-An An Erdos-Renyi  graph on the vertex set $V$ is a random graph
+An Erdos-Renyi graph on the vertex set $V$ is a random graph
 which connects each pair of nodes ${i,j}$ with probability $p$, independent.
 Note that for a “sparse” ER graphs, $p$ must decrease as $N$ goes up.
 Generate three random networks of 50 nodes and a density of 0.08:
@@ -302,7 +302,7 @@ such that one group of nodes (the core) has
 dense interactions among themselves,
 moderately dense interactions with the second group,
 and the second group (the periphery) has
-verse sparse interactions among themselves.
+sparse interactions among themselves.
 
 We can visualise extreme versions of such a network
 using the `create_core()` function.

@@ -126,9 +126,9 @@ structures, and then look at how the introduction of some randomness can
 </div>
 <div id="section-deterministic-graphs" class="section level2">
 <h2>Deterministic graphs</h2>
-<p>To begin with, let’s create a few ‘empty’ and full or ‘complete’
-graphs. You will want to use some of the <code>create_*()</code> group
-of functions from <code>{manynet}</code>, because they create graphs
+<p>To begin with, let’s create a few ‘empty’ and full/‘complete’ graphs.
+You will want to use some of the <code>create_*()</code> group of
+functions from <code>{manynet}</code>, because they create graphs
 following some strict rule(s). The two functions you will want to use
 here are <code>create_empty()</code> and <code>create_filled()</code>.
 <code>create_empty()</code> creates an empty graph with the given number
@@ -148,8 +148,8 @@ data-pipe="|&gt;">
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0" data-pipe="|&gt;">
 <pre class="text"><code>(autographr(create_empty(50), &quot;circle&quot;) + ggtitle(&quot;Empty graph&quot;))
-(autographr(to_undirected(create_filled(50))) + ggtitle(&quot;Complete graph&quot;))
-(autographr(to_undirected(create_filled(50/2))) + ggtitle(&quot;Complete graph (smaller)&quot;))</code></pre>
+(autographr(create_filled(50)) + ggtitle(&quot;Complete graph&quot;))
+(autographr(create_filled(50/2)) + ggtitle(&quot;Complete graph (smaller)&quot;))</code></pre>
 </div>
 <div id="section-stars" class="section level3">
 <h3>Stars</h3>
@@ -272,7 +272,7 @@ from <code>{manynet}</code>.</p>
 <h3>Random graphs</h3>
 <p>An Erdös-Renyi graph is simply a random graph. You will need to
 specify the probability of a tie in addition to the number of nodes. An
-An Erdos-Renyi graph on the vertex set <span
+Erdos-Renyi graph on the vertex set <span
 class="math inline">\(V\)</span> is a random graph which connects each
 pair of nodes <span class="math inline">\({i,j}\)</span> with
 probability <span class="math inline">\(p\)</span>, independent. Note
@@ -406,7 +406,7 @@ common definition of a core-periphery network is one in which the
 network can be partitioned into two groups such that one group of nodes
 (the core) has dense interactions among themselves, moderately dense
 interactions with the second group, and the second group (the periphery)
-has verse sparse interactions among themselves.</p>
+has sparse interactions among themselves.</p>
 <p>We can visualise extreme versions of such a network using the
 <code>create_core()</code> function. Graph a core-periphery network of
 50 nodes (which, unless a core-periphery membership assignment is given,
@@ -499,8 +499,8 @@ learnr:::store_exercise_cache(structure(list(label = "empty", global_setup = str
     code = "", opts = list(label = "\"empty\"", exercise = "TRUE", 
         purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure(c("(autographr(create_empty(50), \"circle\") + ggtitle(\"Empty graph\"))", 
-    "(autographr(to_undirected(create_filled(50))) + ggtitle(\"Complete graph\"))", 
-    "(autographr(to_undirected(create_filled(50/2))) + ggtitle(\"Complete graph (smaller)\"))"
+    "(autographr(create_filled(50)) + ggtitle(\"Complete graph\"))", 
+    "(autographr(create_filled(50/2)) + ggtitle(\"Complete graph (smaller)\"))"
     ), chunk_opts = list(label = "empty-solution")), tests = NULL, 
     options = list(eval = FALSE, echo = TRUE, results = "markup", 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
@@ -1064,7 +1064,7 @@ learnr:::store_exercise_cache(structure(list(label = "nodecoren", global_setup =
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89]}},"value":[{"type":"character","attributes":{},"value":["backports","base","bslib","cachem","checkmate","cli","coda","codetools","colorspace","compiler","datasets","digest","dplyr","ellipsis","evaluate","fansi","farver","fastmap","fontawesome","furrr","future","generics","ggforce","ggplot2","ggraph","ggrepel","globals","glue","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","htmltools","htmlwidgets","httpuv","igraph","jquerylib","jsonlite","knitr","later","lattice","learnr","lifecycle","listenv","magrittr","manynet","MASS","methods","migraph","mime","munsell","network","parallel","parallelly","patchwork","pillar","pkgconfig","polyclip","promises","purrr","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","scales","shiny","sna","statnet.common","stats","tibble","tidygraph","tidyr","tidyselect","tools","tweenr","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.4.1","4.3.1","0.5.1","1.0.8","2.2.0","3.6.1","0.19-4","0.2-19","2.1-0","4.3.1","4.3.1","0.6.33","1.1.3","0.3.2","0.22","1.0.5","2.1.1","1.1.1","0.5.2","0.3.1","1.33.0","0.1.3","0.4.1","3.4.4","2.1.0","0.9.4","0.16.2","1.6.2","4.3.1","1.0.1","4.3.1","4.3.1","2.3","0.3.4","0.5.6.1","1.6.2","1.6.11","1.5.1","0.1.4","1.8.7","1.44","1.3.1","0.21-9","0.11.5","1.0.3","0.9.0","2.0.3","0.2.4","7.3-60","4.3.1","1.1.2","0.12","0.5.0","1.18.1","4.3.1","1.36.0","1.1.3","1.9.0","2.0.3","1.10-6","1.2.1","1.0.2","2.5.1","1.0.11","1.1.1","2.25","2.0.3","0.15.0","0.4.7","1.2.1","1.7.5.1","2.7-1","4.9.0","4.3.1","3.2.1","1.2.3","1.3.0","1.2.0","4.3.1","2.0.2","1.2.3","4.3.1","0.6.4","0.6.4","0.4.2","2.5.1","0.40","1.8-4","2.3.7"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89]}},"value":[{"type":"character","attributes":{},"value":["backports","base","bslib","cachem","checkmate","cli","coda","codetools","colorspace","compiler","datasets","digest","dplyr","ellipsis","evaluate","fansi","farver","fastmap","fontawesome","furrr","future","generics","ggforce","ggplot2","ggraph","ggrepel","globals","glue","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","htmltools","htmlwidgets","httpuv","igraph","jquerylib","jsonlite","knitr","later","lattice","learnr","lifecycle","listenv","magrittr","manynet","MASS","methods","migraph","mime","munsell","network","parallel","parallelly","patchwork","pillar","pkgconfig","polyclip","promises","purrr","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","scales","shiny","sna","statnet.common","stats","tibble","tidygraph","tidyr","tidyselect","tools","tweenr","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.4.1","4.3.1","0.5.1","1.0.8","2.2.0","3.6.1","0.19-4","0.2-19","2.1-0","4.3.1","4.3.1","0.6.33","1.1.3","0.3.2","0.22","1.0.5","2.1.1","1.1.1","0.5.2","0.3.1","1.33.0","0.1.3","0.4.1","3.4.4","2.1.0","0.9.4","0.16.2","1.6.2","4.3.1","1.0.1","4.3.1","4.3.1","2.3","0.3.4","0.5.6.1","1.6.2","1.6.11","1.5.1","0.1.4","1.8.7","1.44","1.3.1","0.21-9","0.11.5","1.0.3","0.9.0","2.0.3","0.2.5","7.3-60","4.3.1","1.1.2","0.12","0.5.0","1.18.1","4.3.1","1.36.0","1.1.3","1.9.0","2.0.3","1.10-6","1.2.1","1.0.2","2.5.1","1.0.11","1.1.1","2.25","2.0.3","0.15.0","0.4.7","1.2.1","1.7.5.1","2.7-1","4.9.0","4.3.1","3.2.1","1.2.3","1.3.0","1.2.0","4.3.1","2.0.2","1.2.3","4.3.1","0.6.4","0.6.4","0.4.2","2.5.1","0.40","1.8-4","2.3.7"]}]}]}
 </script>
 <!--/html_preserve-->
 </div>
