@@ -11,6 +11,12 @@
 #'   and minimises density in the periphery block;
 #'   it ignores ties between these blocks.
 #' @inheritParams is
+#' @param method Which method to use to identify cores and periphery.
+#'   By default this is "degree", 
+#'   which relies on the heuristic that high degree nodes are more likely to be in the core.
+#'   An alternative is "eigenvector", which instead begins with high eigenvector nodes.
+#'   Other methods, such as a genetic algorithm, CONCOR, and Rombach-Porter,
+#'   can be added if there is interest.
 #' @name core
 #' @family memberships
 #' @references
@@ -28,7 +34,7 @@
 #' #   autographr(node_color = "corep")
 #' network_core(mpn_elite_usa_advice)
 #' @export
-node_core <- function(.data, method = c("degree", "eigenvector", "genetic")){
+node_core <- function(.data, method = c("degree", "eigenvector")){
   method <- match.arg(method)
   if(manynet::is_directed(.data)) warning("Asymmetric core-periphery not yet implemented.")
   if(method == "degree"){

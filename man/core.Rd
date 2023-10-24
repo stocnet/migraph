@@ -6,7 +6,7 @@
 \alias{node_coreness}
 \title{Core-periphery clustering algorithms}
 \usage{
-node_core(.data, method = c("degree", "eigenvector", "genetic"))
+node_core(.data, method = c("degree", "eigenvector"))
 
 node_coreness(.data)
 }
@@ -19,6 +19,13 @@ node_coreness(.data)
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
+
+\item{method}{Which method to use to identify cores and periphery.
+By default this is "degree",
+which relies on the heuristic that high degree nodes are more likely to be in the core.
+An alternative is "eigenvector", which instead begins with high eigenvector nodes.
+Other methods, such as a genetic algorithm, CONCOR, and Rombach-Porter,
+can be added if there is interest.}
 }
 \description{
 This function is used to identify which nodes should belong to the core,
