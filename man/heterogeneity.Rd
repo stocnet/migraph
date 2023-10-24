@@ -129,6 +129,7 @@ Other measures:
 \code{\link{degree_centrality}},
 \code{\link{eigenv_centrality}},
 \code{\link{features}},
+\code{\link{hierarchy}},
 \code{\link{holes}}
 }
 \concept{measures}

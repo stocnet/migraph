@@ -306,21 +306,3 @@ network_balance <- function(.data) {
   make_network_measure(unname((tria_count["+++"] + tria_count["+--"])/sum(tria_count)),
                        .data)
 }
-
-#' @describeIn features Returns the Krackhardt efficiency score
-#' @export
-network_efficiency <- function(.data) {
-  degs <- node_indegree(.data, normalized = FALSE)
-  out <- (manynet::network_nodes(.data)-1)/sum(degs)
-  make_network_measure(out, .data)
-}
-
-#' @describeIn features Returns the Krackhardt (least) upper bound score
-#' @export
-network_upperbound <- function(.data) {
-  dists <- igraph::distances(.data, mode = "in")
-  dists[is.infinite(dists)] <- 0
-  dists <- dists[order(rowSums(dists)), order(rowSums(dists))]
-  out <- max(colSums(dists > 0)) / (manynet::network_nodes(.data)-1)
-  make_network_measure(out, .data)
-}

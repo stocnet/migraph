@@ -151,6 +151,7 @@ Other measures:
 \code{\link{degree_centrality}},
 \code{\link{features}},
 \code{\link{heterogeneity}},
+\code{\link{hierarchy}},
 \code{\link{holes}}
 
 Other centrality: 

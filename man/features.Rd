@@ -9,8 +9,6 @@
 \alias{network_smallworld}
 \alias{network_scalefree}
 \alias{network_balance}
-\alias{network_efficiency}
-\alias{network_upperbound}
 \title{Measures of network topological features}
 \source{
 \code{{signnet}} by David Schoch
@@ -29,10 +27,6 @@ network_smallworld(.data, method = c("omega", "sigma", "SWI"), times = 100)
 network_scalefree(.data)
 
 network_balance(.data)
-
-network_efficiency(.data)
-
-network_upperbound(.data)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -107,10 +101,6 @@ distribution.
 the proportion of balanced triangles,
 ranging between \code{0} if all triangles are imbalanced and
 \code{1} if all triangles are balanced.
-
-\item \code{network_efficiency()}: Returns the Krackhardt efficiency score
-
-\item \code{network_upperbound()}: Returns the Krackhardt (least) upper bound score
 
 }}
 \section{Modularity}{
@@ -188,6 +178,7 @@ Other measures:
 \code{\link{degree_centrality}},
 \code{\link{eigenv_centrality}},
 \code{\link{heterogeneity}},
+\code{\link{hierarchy}},
 \code{\link{holes}}
 }
 \concept{measures}
