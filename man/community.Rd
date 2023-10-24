@@ -2,31 +2,37 @@
 % Please edit documentation in R/member_community.R
 \name{community}
 \alias{community}
+\alias{node_optimal}
 \alias{node_kernighanlin}
 \alias{node_edge_betweenness}
 \alias{node_fast_greedy}
-\alias{node_spinglass}
 \alias{node_leading_eigen}
 \alias{node_walktrap}
 \alias{node_infomap}
-\alias{node_optimal}
+\alias{node_spinglass}
+\alias{node_louvain}
+\alias{node_leiden}
 \title{Community partitioning algorithms}
 \usage{
+node_optimal(.data)
+
 node_kernighanlin(.data)
 
 node_edge_betweenness(.data)
 
 node_fast_greedy(.data)
 
-node_spinglass(.data, max_k = 200)
-
 node_leading_eigen(.data)
 
 node_walktrap(.data, times = 50)
 
-node_infomap(.data)
+node_infomap(.data, times = 50)
 
-node_optimal(.data)
+node_spinglass(.data, max_k = 200, resolution = 1)
+
+node_louvain(.data, resolution = 1)
+
+node_leiden(.data, resolution = 1)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -38,11 +44,16 @@ node_optimal(.data)
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
 
+\item{times}{Integer indicating number of simulations/walks used.
+By default, \code{times=50}.}
+
 \item{max_k}{Integer constant, the number of spins to use as an upper limit
 of communities to be found. Some sets can be empty at the end.}
 
-\item{times}{Integer indicating number of simulations/walks used.
-By default, \code{times=50}.}
+\item{resolution}{The Reichardt-Bornholdt “gamma” resolution parameter for modularity.
+By default 1, making existing and non-existing ties equally important.
+Smaller values make existing ties more important,
+and larger values make missing ties more important.}
 }
 \description{
 These functions offer different algorithms useful for partitioning
@@ -53,6 +64,8 @@ and their logic or domain of inspiration.
 }
 \section{Functions}{
 \itemize{
+\item \code{node_optimal()}: A problem-solving algorithm that seeks to maximise modularity over all possible partitions.
+
 \item \code{node_kernighanlin()}: A greedy, iterative, deterministic
 partitioning algorithm that results in a graph with two
 equally-sized communities
@@ -65,18 +78,28 @@ resulting in a hierarchical representation of group membership.
 \item \code{node_fast_greedy()}: A hierarchical, agglomerative algorithm,
 that tries to optimize modularity in a greedy manner.
 
-\item \code{node_spinglass()}: A greedy, iterative, probabilistic algorithm,
-based on analogy to model from statistical physics.
-
 \item \code{node_leading_eigen()}: A top-down, hierarchical algorithm.
 
 \item \code{node_walktrap()}: A hierarchical, agglomerative algorithm based on random walks.
 
 \item \code{node_infomap()}: A hierarchical algorithm based on the information in random walks.
 
-\item \code{node_optimal()}: A problem-solving algorithm that seeks to maximise modularity over all possible partitions.
+\item \code{node_spinglass()}: A greedy, iterative, probabilistic algorithm,
+based on analogy to model from statistical physics.
+
+\item \code{node_louvain()}: An agglomerative multilevel algorithm that seeks to maximise modularity over all possible partitions.
+
+\item \code{node_leiden()}: An agglomerative multilevel algorithm that seeks to maximise the Constant Potts Model over all possible partitions.
 
 }}
+\section{Optimal}{
+
+The general idea is to calculate the modularity of all possible partitions,
+and choose the community structure that maximises this modularity measure.
+Note that this is an NP-complete problem with exponential time complexity.
+The guidance in the igraph package is networks of <50-200 nodes is probably fine.
+}
+
 \section{Edge-betweenness}{
 
 This is motivated by the idea that edges connecting different groups
@@ -98,18 +121,6 @@ until no further increases to the modularity are possible.
 The method is fast and recommended as a first approximation
 because it has no parameters to tune.
 However, it is known to suffer from a resolution limit.
-}
-
-\section{Spin-glass}{
-
-This is motivated by analogy to the Potts model in statistical physics.
-Each node can be in one of \emph{k} "spin states",
-and ties (particle interactions) provide information about which pairs of nodes
-want similar or different spin states.
-The final community definitions are represented by the nodes' spin states
-after a number of updates.
-A different implementation than the default is used in the case of signed networks,
-such that nodes connected by negative ties will be more likely found in separate communities.
 }
 
 \section{Leading eigenvector}{
@@ -137,26 +148,63 @@ a grouping that provides the shortest description length for a random walk,
 where the description length is measured by the expected number of bits per node required to encode the path.
 }
 
-\section{Optimal}{
+\section{Spin-glass}{
 
-The general idea is to calculate the modularity of all possible partitions,
-and choose the community structure that maximises this modularity measure.
-Note that this is an NP-complete problem with exponential time complexity.
-The guidance in the igraph package is networks of <50-200 nodes is probably fine.
+This is motivated by analogy to the Potts model in statistical physics.
+Each node can be in one of \emph{k} "spin states",
+and ties (particle interactions) provide information about which pairs of nodes
+want similar or different spin states.
+The final community definitions are represented by the nodes' spin states
+after a number of updates.
+A different implementation than the default is used in the case of signed networks,
+such that nodes connected by negative ties will be more likely found in separate communities.
+}
+
+\section{Louvain}{
+
+The general idea is to take a hierarchical approach to optimising the modularity criterion.
+Nodes begin in their own communities and are re-assigned in a local, greedy way:
+each node is moved to the community where it achieves the highest contribution to modularity.
+When no further modularity-increasing reassignments are possible,
+the resulting communities are considered nodes (like a reduced graph),
+and the process continues.
+}
+
+\section{Leiden}{
+
+The general idea is to optimise the Constant Potts Model,
+which does not suffer from the resolution limit, instead of modularity.
+As outlined in the \code{{igraph}} package,
+the Constant Potts Model object function is:
+
+\deqn{\frac{1}{2m} \sum_{ij}(A_{ij}-\gamma n_i n_j)\delta(\sigma_i, \sigma_j)}
+
+where \emph{m} is the total tie weight,
+\eqn{A_{ij}} is the tie weight between \emph{i} and \emph{j},
+\eqn{\gamma} is the so-called resolution parameter,
+\eqn{n_i} is the node weight of node \emph{i},
+and \eqn{\delta(\sigma_i, \sigma_j) = 1} if and only if
+\emph{i} and \emph{j} are in the same communities and 0 otherwise.
 }
 
 \examples{
+node_optimal(ison_adolescents)
 node_kernighanlin(ison_adolescents)
 node_kernighanlin(ison_southern_women)
 node_edge_betweenness(ison_adolescents)
 node_fast_greedy(ison_adolescents)
-node_spinglass(ison_adolescents)
 node_leading_eigen(ison_adolescents)
 node_walktrap(ison_adolescents)
 node_infomap(ison_adolescents)
-node_optimal(ison_adolescents)
+node_spinglass(ison_adolescents)
+node_louvain(ison_adolescents)
+node_leiden(ison_adolescents)
 }
 \references{
+Brandes, Ulrik, Daniel Delling, Marco Gaertler, Robert Gorke, Martin Hoefer, Zoran Nikoloski, Dorothea Wagner. 2008.
+"On Modularity Clustering",
+\emph{IEEE Transactions on Knowledge and Data Engineering} 20(2):172-188.
+
 Kernighan, Brian W., and Shen Lin. 1970.
 "An efficient heuristic procedure for partitioning graphs."
 \emph{The Bell System Technical Journal} 49(2): 291-307.
@@ -168,13 +216,6 @@ Newman, M, and M Girvan. 2004.
 
 Clauset, A, MEJ Newman, MEJ and C Moore.
 "Finding community structure in very large networks."
-
-Reichardt, J. and S. Bornholdt. 2006.
-"Statistical Mechanics of Community Detection"
-\emph{Physical Review E}, 74:016110.
-
-Traag, VA, and Jeroen Bruggeman. 2008.
-"Community detection in networks with positive and negative links".
 
 Newman, MEJ. 2006.
 "Finding community structure using the eigenvectors of matrices"
@@ -193,9 +234,22 @@ Rosvall, M., D. Axelsson, and C. T. Bergstrom. 2009.
 \emph{Eur. Phys. J. Special Topics} 178: 13.
 \doi{10.1140/epjst/e2010-01179-1}
 
-Brandes, Ulrik, Daniel Delling, Marco Gaertler, Robert Gorke, Martin Hoefer, Zoran Nikoloski, Dorothea Wagner. 2008.
-"On Modularity Clustering",
-\emph{IEEE Transactions on Knowledge and Data Engineering} 20(2):172-188.
+Reichardt, Jorg, and Stefan Bornholdt. 2006.
+"Statistical Mechanics of Community Detection"
+\emph{Physical Review E}, 74(1): 016110–14.
+\doi{10.1073/pnas.0605965104}
+
+Traag, VA, and Jeroen Bruggeman. 2008.
+"Community detection in networks with positive and negative links".
+
+Blondel, Vincent, Jean-Loup Guillaume, Renaud Lambiotte, Etienne Lefebvre. 2008.
+"Fast unfolding of communities in large networks",
+\emph{J. Stat. Mech.} P10008.
+
+Traag, V. A., L Waltman, and NJ van Eck. 2019.
+"From Louvain to Leiden: guaranteeing well-connected communities",
+\emph{Scientific Reports}, 9(1):5233.
+\doi{10.1038/s41598-019-41695-z}
 }
 \seealso{
 Other memberships: 
