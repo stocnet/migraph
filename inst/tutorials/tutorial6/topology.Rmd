@@ -143,6 +143,21 @@ where there is a high likelihood that interaction partners also interact.
 They are used to show how clustering facilitates or limits diffusion
 or makes pockets of behaviour stable.
 
+```{r lat-qa, echo=FALSE, purl = FALSE}
+question("Why are lattices considered highly clustered and how do they limit diffusion?",
+         answer("Each node is only directly connected to its neighbours",
+                message = learnr::random_praise(),
+                correct = TRUE),
+         answer("Nodes are locally connected",
+                message = learnr::random_praise(),
+                correct = TRUE),
+         answer("The graph is highly ordered",
+                message = learnr::random_praise(),
+                correct = TRUE),
+         random_answer_order = TRUE,
+         allow_retry = TRUE)
+```
+
 Note that `create_lattice()` in `{manynet}` works a little differently
 to how it works in `{igraph}`.
 In `{igraph}` the number or vector passed to the function indicates
