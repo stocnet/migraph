@@ -145,12 +145,15 @@ or makes pockets of behaviour stable.
 
 ```{r lat-qa, echo=FALSE, purl = FALSE}
 question("Why are lattices considered highly clustered?",
-         answer("Each node is only directly connected to its neighbours",
+         answer("Because neighbours are likely also neighbours of each other",
                 message = learnr::random_praise(),
                 correct = TRUE),
-         answer("Neighbours are likely also neighbours of each other",
-                message = learnr::random_praise(),
-                correct = TRUE),
+         answer("Because all nodes are directly connected to each other",
+                message = learnr::random_encouragement()),
+         answer("Because there is a single component",
+                message = learnr::random_encouragement()),
+         answer("Because there is a single community",
+                message = learnr::random_encouragement()),
          random_answer_order = TRUE,
          allow_retry = TRUE)
 ```
