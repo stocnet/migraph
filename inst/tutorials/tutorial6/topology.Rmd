@@ -128,6 +128,7 @@ Again graph three networks:
 ```
 
 ```{r tree-solution}
+# width argument specifies the breadth of the branches
 (autographr(create_tree(50, width = 2)) + ggtitle("Tree graph"))
 (autographr(create_tree(50, width = 2, directed = TRUE)) + ggtitle("Tree out"))
 (autographr(create_tree(50, width = 2, directed = TRUE), "tree") + ggtitle("Tree layout"))
@@ -189,6 +190,7 @@ Graph three ring networks:
 
 ```{r rings-solution}
 (autographr(create_ring(50)) + ggtitle("Ring graph", subtitle = "Starring Naomi Watts"))
+# width argument specifies the width of the ring
 (autographr(create_ring(50, width = 2), "circle") + ggtitle("The Ring Two", subtitle = "No different?"))
 (autographr(create_ring(50, width = 2), "stress") + ggtitle("The Ring Two v2.0"))
 ```
@@ -285,7 +287,7 @@ a small fraction of hubs are many times better connected than average (2004, p. 
 
 The following generates a scale-free graph according to the Barabasi-Albert (BA) model
 that rests upon the mechanism of preferential attachment.
-More on this on the Watts paper (2005, p.51) and Merton (1968)
+More on this in the Watts paper (2005, p.51) and Merton (1968).
 The BA model rests on two mechanisms: 
 population growth and preferential attachment.
 Population growth: real networks grow in time as new members join the population.
@@ -530,6 +532,17 @@ question("The result of this function represents...",
                 message = learnr::random_encouragement()),
          answer("the minimum number of ties necessary to remove from the network to increase the number of components.",
                 message = "This is actually the definition of `node_adhesion()`."),
+         random_answer_order = TRUE,
+         allow_retry = TRUE
+)
+```
+
+```{r res-qa, echo=FALSE, purl = FALSE}
+question("The higher the minimum number of nodes to remove...",
+         answer("the more resilient is the network.", correct = TRUE,
+                message = learnr::random_praise()),
+         answer("the less resilient the network.",
+                message = learnr::random_encouragement()),
          random_answer_order = TRUE,
          allow_retry = TRUE
 )
