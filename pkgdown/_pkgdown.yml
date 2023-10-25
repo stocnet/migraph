@@ -57,6 +57,7 @@ reference:
       - heterogeneity
       - features
       - over
+      - hierarchy
   - title: "Motifs"
     desc: |
       Functions for calculating subgraphs in multimodal networks.
@@ -73,7 +74,7 @@ reference:
       - community
       - components
       - equivalence
-      - core-periphery
+      - core
   - title: "Models"
     desc: "Functions for modelling multimodal networks:"
     contents:
