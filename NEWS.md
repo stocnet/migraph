@@ -1,8 +1,38 @@
+# migraph 1.1.3
+
+2023-10-25
+
+## Tutorials
+
+- Fixed bug in network setup in 'tutorial4' (Community)
+- Fixed bug in blockmodelling interpretation in 'tutorial5' (Position)
+- Added more to core-periphery section to 'tutorial6' (Topology)
+- Added network resilience section to 'tutorial6' (Topology)
+
+## Measures
+
+- Added `network_richclub()` to return a network's rich-club coefficient
+- `node_core()` now offers eigenvector centrality-based rank selection in addition to degree-centrality
+  - This can be selected with the argument `method = "eigenvector"`
+- Added Krackhardt's graph theoretic dimensions of hierarchy measures, including
+  - `network_connectedness()`
+  - `network_efficiency()`
+  - `network_upperbound()`
+- Added `node_eccentricity()`, which wraps `igraph::eccentricity()`
+- Added `node_neighbours_degree()`, which wraps `igraph::knn()`
+- Added `tie_cohesion()` to measure how embedded ties are
+  
+## Members
+
+- Added `node_louvain()` community detection algorithm
+- Added `node_leiden()` community detection algorithm
+  - Note that this function optimises the Constant Potts Model rather than modularity
+
 # migraph 1.1.2
 
 2023-10-18
 
-## Package
+## Tutorials
 
 - Added more code annotations in 'tutorial4' (Community)
 - Elaborated 'tutorial5' (was named Equivalence, now Position)
