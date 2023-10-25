@@ -8,6 +8,9 @@
 \alias{node_efficiency}
 \alias{node_constraint}
 \alias{node_hierarchy}
+\alias{node_eccentricity}
+\alias{node_neighbours_degree}
+\alias{tie_cohesion}
 \title{Measures of structural holes}
 \usage{
 node_bridges(.data)
@@ -21,6 +24,12 @@ node_efficiency(.data)
 node_constraint(.data)
 
 node_hierarchy(.data)
+
+node_eccentricity(.data)
+
+node_neighbours_degree(.data)
+
+tie_cohesion(.data)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -67,6 +76,18 @@ according to Burt (1992) and for two-mode networks according to Hollway et al (2
 \item \code{node_hierarchy()}: Returns nodes' exposure to hierarchy,
 where only one or two contacts are the source of closure
 
+\item \code{node_eccentricity()}: Returns nodes' eccentricity or Koenig number,
+a measure of farness based on number of links needed to reach
+most distant node in the network
+
+\item \code{node_neighbours_degree()}: Returns nodes' average nearest neighbors degree,
+or knn,
+a measure of the type of local environment a node finds itself in
+
+\item \code{tie_cohesion()}: Returns the ratio between common neighbors to ties'
+adjacent nodes and the total number of adjacent nodes,
+where high values indicate ties' embeddedness in dense local environments
+
 }}
 \examples{
 node_bridges(ison_adolescents)
@@ -94,6 +115,10 @@ Hollway, James, Jean-Frédéric Morin, and Joost Pauwelyn. 2020.
 "Structural conditions for novelty: the introduction of new environmental clauses to the trade regime complex."
 \emph{International Environmental Agreements: Politics, Law and Economics} 20 (1): 61–83.
 \doi{10.1007/s10784-019-09464-5}.
+
+Barrat, Alain, Marc Barthelemy, Romualdo Pastor-Satorras, and Alessandro Vespignani. 2004.
+"The architecture of complex weighted networks",
+\emph{Proc. Natl. Acad. Sci.} 101: 3747.
 }
 \seealso{
 Other measures: 
@@ -104,6 +129,7 @@ Other measures:
 \code{\link{degree_centrality}},
 \code{\link{eigenv_centrality}},
 \code{\link{features}},
-\code{\link{heterogeneity}}
+\code{\link{heterogeneity}},
+\code{\link{hierarchy}}
 }
 \concept{measures}

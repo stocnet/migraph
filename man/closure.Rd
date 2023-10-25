@@ -95,6 +95,7 @@ Other measures:
 \code{\link{eigenv_centrality}},
 \code{\link{features}},
 \code{\link{heterogeneity}},
+\code{\link{hierarchy}},
 \code{\link{holes}}
 }
 \concept{measures}

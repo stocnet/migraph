@@ -1,7 +1,7 @@
 Package: migraph
 Title: Multimodal Network Analysis and More
-Version: 1.1.2
-Date: 2023-10-18
+Version: 1.1.3
+Date: 2023-10-25
 Description: A set of tools for analysing multimodal networks.
    It includes functions for measuring 
    centrality, centralization, cohesion, closure, constraint and diversity,

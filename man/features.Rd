@@ -3,6 +3,7 @@
 \name{features}
 \alias{features}
 \alias{network_core}
+\alias{network_richclub}
 \alias{network_factions}
 \alias{network_modularity}
 \alias{network_smallworld}
@@ -14,6 +15,8 @@
 }
 \usage{
 network_core(.data, membership = NULL)
+
+network_richclub(.data)
 
 network_factions(.data, membership = NULL)
 
@@ -74,6 +77,8 @@ Measures of network topological features
 \item \code{network_core()}: Returns correlation between a given network
 and a core-periphery model with the same dimensions.
 
+\item \code{network_richclub()}: Returns rich-club coefficient
+
 \item \code{network_factions()}: Returns correlation between a given network
 and a component model with the same dimensions.
 If no 'membership' vector is given for the data,
@@ -120,6 +125,7 @@ to the rest of the network through a single tie.
 \examples{
 network_core(ison_adolescents)
 network_core(ison_southern_women)
+network_richclub(ison_adolescents)
   network_factions(mpn_elite_mex)
   network_factions(ison_southern_women)
 network_modularity(ison_adolescents, 
@@ -172,6 +178,7 @@ Other measures:
 \code{\link{degree_centrality}},
 \code{\link{eigenv_centrality}},
 \code{\link{heterogeneity}},
+\code{\link{hierarchy}},
 \code{\link{holes}}
 }
 \concept{measures}

@@ -125,6 +125,6 @@ plot(nae)
 Other memberships: 
 \code{\link{community}},
 \code{\link{components}()},
-\code{\link{core-periphery}}
+\code{\link{core}}
 }
 \concept{memberships}

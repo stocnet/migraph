@@ -5,7 +5,7 @@
 \alias{mpn_bristol}
 \title{Multimodal (3) Bristol protest events, 1990-2002 (Diani and Bison 2004)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, two-mode tbl_graph with 264 nodes and 1496 ties
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, two-mode network with 264 nodes and 1496 ties
 #> # A tibble: 264 x 3
 #>   name  type    lvl
 #>   <chr> <lgl> <dbl>
