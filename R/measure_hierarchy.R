@@ -45,7 +45,7 @@ network_upperbound <- function(.data) {
   if (max(colSums(dists > 0)) / (manynet::network_nodes(.data)-1) == 1){
     out <- 1
   } else {
-    out <- apply(combn(2:nrow(dists), 2), 2, 
+    out <- apply(utils::combn(2:nrow(dists), 2), 2, 
                  function(x){
                    ubs <- dists[x,]>0
                    any(ubs[1,]*ubs[2,]==1)

@@ -11,7 +11,7 @@
 
 ## Measures
 
-- Added `network_richclub()` to return a network's rich-club coefficient
+- Added `network_richclub()` to return a network's rich-club coefficient (closed #223)
 - `node_core()` now offers eigenvector centrality-based rank selection in addition to degree-centrality
   - This can be selected with the argument `method = "eigenvector"`
 - Added Krackhardt's graph theoretic dimensions of hierarchy measures, including
