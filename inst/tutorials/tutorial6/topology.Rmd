@@ -144,14 +144,11 @@ They are used to show how clustering facilitates or limits diffusion
 or makes pockets of behaviour stable.
 
 ```{r lat-qa, echo=FALSE, purl = FALSE}
-question("Why are lattices considered highly clustered and how do they limit diffusion?",
+question("Why are lattices considered highly clustered?",
          answer("Each node is only directly connected to its neighbours",
                 message = learnr::random_praise(),
                 correct = TRUE),
-         answer("Nodes are locally connected",
-                message = learnr::random_praise(),
-                correct = TRUE),
-         answer("The graph is highly ordered",
+         answer("Neighbours are likely also neighbours of each other",
                 message = learnr::random_praise(),
                 correct = TRUE),
          random_answer_order = TRUE,
