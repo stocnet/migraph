@@ -5,7 +5,7 @@
 \alias{mpn_elite_mex}
 \title{One-mode Mexican power elite database (Knoke 1990)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, undirected tbl_graph with 35 nodes and 117 ties
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, undirected network with 35 nodes and 117 ties
 #> # A tibble: 35 x 8
 #>   name     full_name        entry_year military in_mpn PlaceOfBirth state region
 #>   <chr>    <chr>                 <dbl>    <dbl>  <dbl> <chr>        <chr>  <dbl>

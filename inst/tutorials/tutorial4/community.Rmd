@@ -636,6 +636,7 @@ question("What is the difference between communities and components?",
          answer("Communities are a stricter form of component"),
          answer("Components are about paths whereas communities are about the relationship between within-group and between-group ties",
                 correct = TRUE),
+  random_answer_order = TRUE,
          allow_retry = TRUE)
 ```
 

@@ -8,7 +8,7 @@
 \alias{mpn_OverSxP}
 \title{Two-mode 112th Congress Senate Voting (Knoke et al. 2021)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode tbl_graph with 114 nodes and 2791 ties
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network with 114 nodes and 2791 ties
 #> # A tibble: 114 x 2
 #>   type  name      
 #>   <lgl> <chr>     
@@ -31,7 +31,7 @@
 #> # i 2,785 more rows
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode tbl_graph with 134 nodes and 3675 ties
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network with 134 nodes and 3675 ties
 #> # A tibble: 134 x 2
 #>   type  name     
 #>   <lgl> <chr>    
@@ -54,7 +54,7 @@
 #> # i 3,669 more rows
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode tbl_graph with 52 nodes and 614 ties
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network with 52 nodes and 614 ties
 #> # A tibble: 52 x 2
 #>   type  name     
 #>   <lgl> <chr>    

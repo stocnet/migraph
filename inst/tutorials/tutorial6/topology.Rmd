@@ -7,13 +7,45 @@ output:
 runtime: shiny_prerendered
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE}
 library(learnr)
 library(manynet)
 library(migraph)
 library(patchwork)
 knitr::opts_chunk$set(echo = FALSE)
+learnr::random_phrases_add(language = "fr",
+                           praise = c("C'est génial!",
+                                      "Beau travail",
+                                      "Excellent travail!",
+                                      "Bravo!",
+                                      "Super!",
+                                      "Bien fait",
+                                      "Bien joué",
+                                      "Tu l'as fait!",
+                                      "Je savais que tu pouvais le faire.",
+                                      "Ça a l'air facile!",
+                                      "C'était un travail de première classe.",
+                                      "C'est ce que j'appelle un bon travail!"),
+                          encouragement = c("Bon effort",
+                                            "Vous l'avez presque maîtrisé!",
+                                            "Ça avance bien.",
+                                            "Continuez comme ça.",
+                                            "Continuez à travailler dur!",
+                                            "Vous apprenez vite!",
+                                            "Vous faites un excellent travail aujourd'hui."))
+learnr::random_phrases_add(language = "en", 
+                           praise = c("C'est génial!",
+                                      "Beau travail!",
+                                      "Bravo!",
+                                      "Super!"),
+                           encouragement = c("Bon effort"))
 ```
+
+In this tutorial, we'll explore:
+
+- how to create or generate different network topologies
+- the core-periphery structure of a network
+- features of a network related to its resilience
 
 ## Generate networks of different structures
 
@@ -29,7 +61,7 @@ We'll first look at some deterministic algorithms for _creating_ networks
 of different structures, 
 and then look at how the introduction of some randomness can _generate_ a variety of network structures.
 
-## Deterministic graphs
+### Deterministic graphs
 
 To begin with, let's create a few 'empty' and full/'complete' graphs.
 You will want to use some of the `create_*()` group of functions from `{manynet}`,
@@ -56,7 +88,7 @@ Add that too.
 (autographr(create_filled(50/2)) + ggtitle("Complete graph (smaller)"))
 ```
 
-### Stars
+#### Stars
 
 In a star network, there is one node to which all other nodes are connected.
 There is no transitivity.
@@ -81,7 +113,7 @@ Use the `create_star()` function to graph three star networks:
 (autographr(to_redirected(create_star(50, directed = TRUE))) + ggtitle("Star in"))
 ```
 
-### Trees
+#### Trees
 
 Trees, or regular trees, are networks with branching nodes.
 They can be directed or undirected, and tend to indicate strong hierarchy.
@@ -103,7 +135,7 @@ Again graph three networks:
 
 Try varying the `width` argument to see the result.
 
-### Lattices
+#### Lattices
 
 Lattices reflect highly clustered networks
 where there is a high likelihood that interaction partners also interact.
@@ -140,7 +172,7 @@ and another with half the number of nodes.
 (autographr(create_lattice(50/2)) + ggtitle("Smaller lattice graph"))
 ```
 
-### Rings
+#### Rings
 
 This creates a graph where each node has two separate neighbours
 which creates a ring graph.
@@ -161,14 +193,14 @@ Graph three ring networks:
 (autographr(create_ring(50, width = 2), "stress") + ggtitle("The Ring Two v2.0"))
 ```
 
-## Probabilistic graphs
+### Probabilistic graphs
 
 Next we are going to take a look at some probabilistic graphs.
 These involve some random element, perhaps in addition to specific rules,
 to stochastically 'generate' networks of certain types of topologies.
 As such, we'll be using the `generate_*()` group of functions from `{manynet}`.
 
-### Random graphs
+#### Random graphs
 
 An Erdös-Renyi graph is simply a random graph.
 You will need to specify the probability of a tie
@@ -201,7 +233,7 @@ Try generating a random graph with 200 edges/ties now:
 (erdren4 <- autographr(generate_random(50, 200)) + ggtitle("Random 1 graph"))
 ```
 
-### Small-world graphs
+#### Small-world graphs
 
 Remember the ring graph from above?
 What if we rewire (change) some of the edges at a certain probability?
@@ -242,7 +274,7 @@ but with a rewiring probability of 0.25:
 network_smallworld(generate_smallworld(50, 0.25))
 ```
 
-### Scale-free graphs
+#### Scale-free graphs
 
 There is another famous model in network science: the scale-free model.
 Remember:
@@ -293,6 +325,8 @@ comes from a power-law distribution.
 network_scalefree(generate_scalefree(50, 2))
 ```
 
+## Core-Periphery
+
 ### Core-periphery graphs
 
 Lastly, we'll take a look at some core-periphery graphs.
@@ -303,6 +337,16 @@ dense interactions among themselves,
 moderately dense interactions with the second group,
 and the second group (the periphery) has
 sparse interactions among themselves.
+
+```{r corevcomm-qa, echo=FALSE, purl = FALSE}
+question("Can a single network have both a community structure and a core-periphery structure?",
+         answer("No", message = learnr::random_encouragement()),
+         answer("Yes",
+                message = learnr::random_praise(),
+                correct = TRUE),
+         random_answer_order = TRUE,
+         allow_retry = TRUE)
+```
 
 We can visualise extreme versions of such a network
 using the `create_core()` function.
@@ -318,21 +362,107 @@ will be split evenly between core and periphery partitions).
 (autographr(create_core(50)) + ggtitle("Core"))
 ```
 
-Let's consider identifying the core and peripheral nodes
-in a network.
-Let's use the `ison_brandes` dataset from `{manynet}`,
-and identify the core/periphery assignment of the _nodes_.
-Graph the data with the core/periphery assignment.
+### Core-periphery assignment
+
+Let's consider identifying the core and peripheral nodes in a network.
+Let's use the `ison_lawfirm` dataset from `{manynet}`.
+This dataset involves relations between partners in a corporate law firm in New England.
+First of all, graph the data and see whether you can guess which nodes
+might be part of the core and which are part of the periphery.
+Color the nodes by Gender, Office, Practice, and School.
+Any you might think correlate with core status?
+
+```{r gnet, exercise=TRUE, purl = FALSE}
+
+```
+
+```{r gnet-solution}
+autographr(ison_lawfirm, node_color = "School")
+```
+
+Next, let's assign nodes to the core and periphery blocks
+using the `node_core()` function from `{migraph}`.
+It works pretty straightforwardly.
+By default it runs down the rank order of nodes by their degree,
+at each step working out whether including the next highest degree node
+in the core will maximise the core-periphery structure of the network.
 
 ```{r nodecore, exercise=TRUE, purl = FALSE}
 
 ```
 
 ```{r nodecore-solution}
-ison_brandes %>% 
-  mutate(nc = node_core(ison_brandes)) %>% 
+ison_lawfirm %>% 
+  mutate(nc = node_core(ison_lawfirm)) %>% 
   autographr(node_color = "nc")
 ```
+
+This graph suggests that there might even be two cores here,
+one on the left and one on the right.
+
+But is it really all that much of a core-periphery structure?
+We can establish how correlated our network is compared to
+a core-periphery model of the same dimension using `network_core()`.
+
+```{r netcore, exercise=TRUE, purl = FALSE}
+
+```
+
+```{r netcore-solution}
+network_core(ison_lawfirm, node_core(ison_lawfirm))
+```
+
+```{r corecorr-qa, echo=FALSE, purl = FALSE}
+question("What can we say about this correlation.",
+         answer("It is a perfect positive relationship",
+                message = learnr::random_encouragement()),
+         answer("It is fairly strong",
+                message = learnr::random_encouragement()),
+         answer("It is negative",
+                message = learnr::random_encouragement()),
+         answer("There is absolutely no correlation",
+                message = learnr::random_encouragement()),
+         answer("None of the above", correct = TRUE,
+                message = learnr::random_praise()),
+         allow_retry = TRUE
+)
+```
+
+Note that `node_core()` also includes a method that descends through
+the rank order of nodes' eigenvector centralities instead of degree centralities.
+Why might that not be such a good choice here?
+
+Now let's see whether our core-periphery membership vector correlates with any of the three
+categorical attributes we looked at before.
+Since we're doing this on categorical variables, we'll use the Chi-squared test in base R.
+Take a look and see whether there is a statistically significant association
+between gender and core (or periphery) status.
+
+```{r chisq, exercise=TRUE, purl=FALSE}
+
+```
+
+```{r chisq-solution}
+chisq.test(node_core(ison_lawfirm), node_attribute(ison_lawfirm, "Gender"))
+```
+
+```{r chisq-qa, echo=FALSE, purl = FALSE}
+question("There a statistically significant association between the core assignment and...",
+         answer("gender.",
+                message = learnr::random_encouragement()),
+         answer("office.",
+                message = learnr::random_encouragement()),
+         answer("school.",
+                message = learnr::random_encouragement()),
+         answer("practice.",
+                message = learnr::random_encouragement()),
+         answer("none of the above variables.", correct = TRUE,
+                message = learnr::random_praise()),
+         allow_retry = TRUE
+)
+```
+
+### Coreness values
 
 An alternative route is to identify 'core' nodes
 depending on their _k_-coreness.
@@ -345,7 +475,106 @@ the `node_core()` used for core-periphery.
 ```
 
 ```{r nodecoren-solution}
-ison_brandes %>% 
-  mutate(ncn = node_coreness(ison_brandes)) %>% 
+ison_lawfirm %>% 
+  mutate(ncn = node_coreness(ison_lawfirm)) %>% 
   autographr(node_color = "ncn")
 ```
+
+```{r dich-qa, echo=FALSE, purl = FALSE}
+question("Which has more than two classes/groups.",
+         answer("node_coreness()", correct = TRUE,
+                message = learnr::random_praise()),
+         answer("node_core()",
+                message = learnr::random_encouragement()),
+         random_answer_order = TRUE,
+         allow_retry = TRUE
+)
+```
+
+```{r ness-qa, echo=FALSE, purl = FALSE}
+question("Select the correct definitions:",
+         answer("The k-core of a network is a maximal subgraph in which each vertex has at least degree k.", correct = TRUE,
+                message = learnr::random_praise()),
+         answer("The coreness of a node is k if it belongs to the k-core but not to the (k+1)-core.", correct = TRUE),
+         answer("The coreness of a node is equal to its degree.",
+                message = learnr::random_encouragement()),
+         random_answer_order = TRUE,
+         allow_retry = TRUE
+)
+```
+
+## Network Resilience
+
+### How cohesive is the network?
+
+When investigating a network's resilience,
+we might think of whether the network will remain connected despite some nodes or ties dropping out.
+A dropped tie can have severe consequences to the topology of a network
+if it is a bridge, say.
+But a dropped node can be even more consequential, as it will take any ties it has with it.
+Let's explore how resilient a (core) network of adolescents (`ison_adolescents`) might be.
+
+```{r cohesion, exercise=TRUE, purl = FALSE}
+
+```
+
+```{r cohesion-solution}
+network_cohesion(ison_adolescents)
+```
+
+```{r cohesion-qa, echo=FALSE, purl = FALSE}
+question("The result of this function represents...",
+         answer("the minimum number of nodes necessary to remove from the network to increase the number of components.", correct = TRUE,
+                message = learnr::random_praise()),
+         answer("the number of strong components in the network.",
+                message = learnr::random_encouragement()),
+         answer("the minimum number of ties necessary to remove from the network to increase the number of components.",
+                message = "This is actually the definition of `node_adhesion()`."),
+         random_answer_order = TRUE,
+         allow_retry = TRUE
+)
+```
+
+### Identifying cutpoints
+
+But which are these nodes? Is there more than one? 
+Nodes that endanger fragmentation of the network are called cutpoints.
+Find and use a function to identify which, if any, of the nodes in the `ison_adolescents`
+network are cutpoints.
+
+```{r idcuts, exercise = TRUE, purl=FALSE}
+
+```
+
+```{r idcuts-solution}
+node_is_cutpoint(ison_adolescents)
+```
+
+Ok, so this results in a vector identifying which nodes are cutpoints (TRUE) or not (FALSE).
+Somewhat more useful though would be to highlight these nodes on the network.
+Can you add a node attribute that highlights which nodes are cutpoints?
+
+```{r closerlook, exercise = TRUE, purl=FALSE}
+
+```
+
+```{r closerlook-solution}
+ison_adolescents |> mutate(cut = node_is_cutpoint(ison_adolescents)) |> 
+  autographr(node_color = "cut")
+```
+
+### Identifying bridges
+
+Let's do something similar now, but with respect to ties rather than nodes.
+
+```{r tieside, exercise = TRUE, purl=FALSE}
+
+```
+
+```{r tieside-solution}
+network_adhesion(ison_adolescents)
+ison_adolescents |> mutate_ties(cut = tie_is_bridge(ison_adolescents)) |> 
+  autographr(edge_color = "cut")
+```
+
+Where would you target your efforts if you wanted to fragment this network?
