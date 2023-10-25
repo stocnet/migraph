@@ -161,3 +161,49 @@ node_hierarchy <- function(.data){
   out[is.nan(out)] <- 0
   make_node_measure(out, .data)
 }
+
+#' @describeIn holes Returns nodes' eccentricity or Koenig number,
+#'   a measure of farness based on number of links needed to reach 
+#'   most distant node in the network
+#' @importFrom igraph eccentricity
+#' @export
+node_eccentricity <- function(.data){
+  out <- igraph::eccentricity(manynet::as_igraph(.data),
+                              mode = "out")
+  make_node_measure(out, .data)
+}
+
+#' @describeIn holes Returns nodes' average nearest neighbors degree,
+#'   or knn,
+#'   a measure of the type of local environment a node finds itself in
+#' @importFrom igraph knn
+#' @references
+#' Barrat, Alain, Marc Barthelemy, Romualdo Pastor-Satorras, and Alessandro Vespignani. 2004.
+#' "The architecture of complex weighted networks",
+#' _Proc. Natl. Acad. Sci._ 101: 3747.
+#' @export
+node_neighbours_degree <- function(.data){
+  out <- igraph::knn(manynet::as_igraph(.data),
+                              mode = "out")$knn
+  make_node_measure(out, .data)
+}
+
+#' @describeIn holes Returns the ratio between common neighbors to ties'
+#'   adjacent nodes and the total number of adjacent nodes,
+#'   where high values indicate ties' embeddedness in dense local environments
+#' @export
+tie_cohesion <- function(.data){
+  ties <- igraph::E(.data)
+  coins <- data.frame(heads = igraph::head_of(.data, ties),
+                      tails = igraph::tail_of(.data, ties))
+  out <- apply(coins, 1, 
+        function(x){
+          neigh1 <- igraph::neighbors(.data, x[1])
+          neigh2 <- igraph::neighbors(.data, x[2])
+          shared_nodes <- sum(c(neigh1 %in% neigh2, 
+                                neigh2 %in% neigh1))/2
+          neigh_nodes <- length(unique(c(neigh1, neigh2)))-2
+          shared_nodes / neigh_nodes
+        } )
+  make_node_measure(out, .data)
+}
