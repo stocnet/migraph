@@ -509,10 +509,37 @@ question("Select the correct definitions:",
 
 When investigating a network's resilience,
 we might think of whether the network will remain connected despite some nodes or ties dropping out.
+Let's explore how resilient a (core) network of adolescents (`ison_adolescents`) might be.
+First, we might be interested in whether the network is connected at all.
+
+```{r connected, exercise=TRUE, purl = FALSE}
+
+```
+
+```{r connected-solution}
+network_connectedness(ison_adolescents)
+```
+
+This measure gets at the proportion of dyads that can reach each other in the network.
+Another way to get at this would be to see how many components there are in the network.
+
+```{r connect-qa, echo=FALSE, purl=FALSE}
+question("But counting the number of components instead of connectedness can overemphasise:",
+         answer("Isolates", correct = TRUE,
+                message = learnr::random_praise()),
+         answer("Small components", correct = TRUE,
+                message = learnr::random_encouragement()),
+         answer("Density",
+                message = learnr::random_encouragement()),
+         random_answer_order = TRUE,
+         allow_retry = TRUE
+)
+```
+
 A dropped tie can have severe consequences to the topology of a network
 if it is a bridge, say.
 But a dropped node can be even more consequential, as it will take any ties it has with it.
-Let's explore how resilient a (core) network of adolescents (`ison_adolescents`) might be.
+Find out how many dropped nodes it would take to (further) fragment the network.
 
 ```{r cohesion, exercise=TRUE, purl = FALSE}
 
@@ -575,6 +602,19 @@ Let's do something similar now, but with respect to ties rather than nodes.
 network_adhesion(ison_adolescents)
 ison_adolescents |> mutate_ties(cut = tie_is_bridge(ison_adolescents)) |> 
   autographr(edge_color = "cut")
+```
+
+We could also investigate the opposite of a bridge,
+the degree to which ties are deeply embedded in triangles.
+This is called (rather confusingly) tie cohesion.
+
+```{r tiecoh, exercise = TRUE, purl=FALSE}
+
+```
+
+```{r tiecoh-solution}
+ison_adolescents |> mutate_ties(coh = tie_cohesion(ison_adolescents)) |> 
+  autographr(edge_color = "coh")
 ```
 
 Where would you target your efforts if you wanted to fragment this network?
