@@ -22,7 +22,7 @@ print.node_member <- function(x, ..., n = NULL) {
 }
 
 #' @export
-summary.node_member <- function(x, ...,
+summary.node_member <- function(object, ...,
                                n = 6,
                                digits = 3) {
   if (any(attr(x, "mode"))) {

@@ -12,26 +12,24 @@ make_tie_mark <- function(out, .data) {
 }
 
 #' @export
-print.node_mark <- function(x, ...,
-                            max.length = 6,
-                            digits = 3) {
+print.node_mark <- function(x, ..., n = NULL) {
   if (any(attr(x, "mode"))) {
     for(m in c(FALSE, TRUE)){
       print_tblvec(y = as.logical(x)[attr(x, "mode") == m],
-                   names = list(names(x)[attr(x, "mode") == m]))
+                   names = list(names(x)[attr(x, "mode") == m]),
+                   n = n)
       if (!m) cat("\n")
     }
   } else {
     print_tblvec(y = as.logical(x),
-                 names = list(names(x)))
+                 names = list(names(x)), n = n)
   }
 }
 
 #' @export
-print.tie_mark <- function(x, ...,
-                           max.length = 6,
-                           digits = 3) {
+print.tie_mark <- function(x, ..., n = NULL) {
   print_tblvec(y = as.logical(x),
-               names = list(names(x)))
+               names = list(names(x)),
+               n = n)
 }
 
