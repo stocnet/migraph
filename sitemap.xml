@@ -52,7 +52,7 @@
     <loc>https://snlab-ch.github.io/migraph/reference/components.html</loc>
   </url>
   <url>
-    <loc>https://snlab-ch.github.io/migraph/reference/core-periphery.html</loc>
+    <loc>https://snlab-ch.github.io/migraph/reference/core.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/defunct.html</loc>
@@ -71,6 +71,9 @@
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/heterogeneity.html</loc>
+  </url>
+  <url>
+    <loc>https://snlab-ch.github.io/migraph/reference/hierarchy.html</loc>
   </url>
   <url>
     <loc>https://snlab-ch.github.io/migraph/reference/holes.html</loc>

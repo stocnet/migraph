@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
       </span>
     </div>
 
@@ -97,7 +97,7 @@
         </td>
         <td><p>Measures of network closure</p></td>
       </tr><tr><td>
-          <p><code><a href="holes.html">node_bridges()</a></code> <code><a href="holes.html">node_redundancy()</a></code> <code><a href="holes.html">node_effsize()</a></code> <code><a href="holes.html">node_efficiency()</a></code> <code><a href="holes.html">node_constraint()</a></code> <code><a href="holes.html">node_hierarchy()</a></code> </p>
+          <p><code><a href="holes.html">node_bridges()</a></code> <code><a href="holes.html">node_redundancy()</a></code> <code><a href="holes.html">node_effsize()</a></code> <code><a href="holes.html">node_efficiency()</a></code> <code><a href="holes.html">node_constraint()</a></code> <code><a href="holes.html">node_hierarchy()</a></code> <code><a href="holes.html">node_eccentricity()</a></code> <code><a href="holes.html">node_neighbours_degree()</a></code> <code><a href="holes.html">tie_cohesion()</a></code> </p>
         </td>
         <td><p>Measures of structural holes</p></td>
       </tr><tr><td>
@@ -105,13 +105,17 @@
         </td>
         <td><p>Measures of network diversity</p></td>
       </tr><tr><td>
-          <p><code><a href="features.html">network_core()</a></code> <code><a href="features.html">network_factions()</a></code> <code><a href="features.html">network_modularity()</a></code> <code><a href="features.html">network_smallworld()</a></code> <code><a href="features.html">network_scalefree()</a></code> <code><a href="features.html">network_balance()</a></code> </p>
+          <p><code><a href="features.html">network_core()</a></code> <code><a href="features.html">network_richclub()</a></code> <code><a href="features.html">network_factions()</a></code> <code><a href="features.html">network_modularity()</a></code> <code><a href="features.html">network_smallworld()</a></code> <code><a href="features.html">network_scalefree()</a></code> <code><a href="features.html">network_balance()</a></code> </p>
         </td>
         <td><p>Measures of network topological features</p></td>
       </tr><tr><td>
           <p><code><a href="over.html">over_waves()</a></code> <code><a href="over.html">over_time()</a></code> </p>
         </td>
         <td><p>Helper functions for measuring over splits of networks</p></td>
+      </tr><tr><td>
+          <p><code><a href="hierarchy.html">network_connectedness()</a></code> <code><a href="hierarchy.html">network_efficiency()</a></code> <code><a href="hierarchy.html">network_upperbound()</a></code> </p>
+        </td>
+        <td><p>Graph theoretic dimensions of hierarchy</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="motifs">Motifs <a href="#motifs" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Functions for calculating subgraphs in multimodal networks. These functions have an additional dimension than <code>node_</code> and <code>network_</code> measures and marks that capture the different motifs surveyed.</p>
@@ -133,11 +137,11 @@
           <p class="section-desc"></p><p>Functions for identifying community, cluster, or class memberships in partitions within multimodal networks. They return integer vectors the length of the nodes in the network.</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="community.html">node_kernighanlin()</a></code> <code><a href="community.html">node_edge_betweenness()</a></code> <code><a href="community.html">node_fast_greedy()</a></code> <code><a href="community.html">node_spinglass()</a></code> <code><a href="community.html">node_leading_eigen()</a></code> <code><a href="community.html">node_walktrap()</a></code> <code><a href="community.html">node_infomap()</a></code> <code><a href="community.html">node_optimal()</a></code> </p>
+          <p><code><a href="community.html">node_optimal()</a></code> <code><a href="community.html">node_kernighanlin()</a></code> <code><a href="community.html">node_edge_betweenness()</a></code> <code><a href="community.html">node_fast_greedy()</a></code> <code><a href="community.html">node_leading_eigen()</a></code> <code><a href="community.html">node_walktrap()</a></code> <code><a href="community.html">node_infomap()</a></code> <code><a href="community.html">node_spinglass()</a></code> <code><a href="community.html">node_louvain()</a></code> <code><a href="community.html">node_leiden()</a></code> </p>
         </td>
         <td><p>Community partitioning algorithms</p></td>
       </tr><tr><td>
-          <p><code><a href="components.html">node_components()</a></code> <code><a href="components.html">node_weak_components()</a></code> <code><a href="components.html">node_strong_components()</a></code> <code><a href="components.html">node_coreness()</a></code> </p>
+          <p><code><a href="components.html">node_components()</a></code> <code><a href="components.html">node_weak_components()</a></code> <code><a href="components.html">node_strong_components()</a></code> </p>
         </td>
         <td><p>Component partitioning algorithms</p></td>
       </tr><tr><td>
@@ -145,7 +149,7 @@
         </td>
         <td><p>Equivalence clustering algorithms</p></td>
       </tr><tr><td>
-          <p><code><a href="core-periphery.html">node_core()</a></code> </p>
+          <p><code><a href="core.html">node_core()</a></code> <code><a href="core.html">node_coreness()</a></code> </p>
         </td>
         <td><p>Core-periphery clustering algorithms</p></td>
       </tr></tbody><tbody><tr><th colspan="2">

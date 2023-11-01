@@ -23,7 +23,7 @@ including for two-mode networks."><meta property="og:image" content="https://snl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
       </span>
     </div>
 
@@ -193,6 +193,7 @@ and <code>to_unweighted()</code> for removing weights from a graph.</p>
 <code><a href="eigenv_centrality.html">eigenv_centrality</a></code>,
 <code><a href="features.html">features</a></code>,
 <code><a href="heterogeneity.html">heterogeneity</a></code>,
+<code><a href="hierarchy.html">hierarchy</a></code>,
 <code><a href="holes.html">holes</a></code></p>
 <p>Other centrality: 
 <code><a href="between_centrality.html">between_centrality</a></code>,
@@ -204,19 +205,19 @@ and <code>to_unweighted()</code> for removing weights from a graph.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">node_degree</span><span class="op">(</span><span class="va">mpn_elite_mex</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Trevino Madero Carranza Aguilar Obregon Calles `Aleman Gonzalez` `Portes Gil`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  0.088<span style="text-decoration: underline;">2</span>  0.176    0.235   0.176   0.176  0.176             0.147        0.235</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 27 more values from this nodeset not printed but in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>   0.088  0.176    0.235   0.176   0.176  0.176             0.147        0.235</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 27 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span><span class="fu">node_degree</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  0.571   0.5   0.571    0.5     0.286   0.286   0.286 0.214 0.286 0.286 0.286</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset not printed but in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.167 0.167 0.333 0.222 0.444 0.444 0.556 0.778 0.667 0.333 0.222 0.389 0.222</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more values from this nodeset not printed but in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span><span class="fu">tie_degree</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   `Betty-Sue` `Sue-Alice` `Alice-Jane` `Sue-Dale` `Alice-Dale` `Jane-Dale`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>       0.333       0.667        0.444      0.556        0.556       0.333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 4 more values from this nodeset not printed but in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 4 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span><span class="fu">network_degree</span><span class="op">(</span><span class="va">ison_southern_women</span>, direction <span class="op">=</span> <span class="st">"in"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mode 1 Mode 2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  0.231  0.466 </span>

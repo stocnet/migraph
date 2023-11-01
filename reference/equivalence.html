@@ -22,7 +22,7 @@ assignment."><meta property="og:image" content="https://snlab-ch.github.io/migra
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
       </span>
     </div>
 
@@ -172,82 +172,43 @@ automorphically equivalent classes</p></li>
     <div class="dont-index"><p>Other memberships: 
 <code><a href="community.html">community</a></code>,
 <code><a href="components.html">components</a>()</code>,
-<code><a href="core-periphery.html">core-periphery</a></code></p></div>
+<code><a href="core.html">core</a></code></p></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">nse</span> <span class="op">&lt;-</span> <span class="fu">node_structural_equivalence</span><span class="op">(</span><span class="va">mpn_elite_usa_advice</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Albright, Curry, Fukuyama, Gray, Wald</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Argyros, Armitage, Greenberg, Hills, Kissinger, Peterson, Scowcroft, West, Zakheim</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ACUS, CNI, CSIS, FPRI, GMFUS, HOOVER </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    AEI, EWI, MI </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ASPEN, CFR, CNAS, IIE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    CATO, CGD, RF, RFF </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    IAD, NAF, RAND </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Albright Argyros Armitage Curry Fukuyama  Gray Greenberg Hills Kissinger</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>        1       2        2     1        1     1         2     2         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 5 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ACUS   AEI ASPEN  CATO   CFR   CGD  CNAS   CNI  CSIS   EWI  FPRI GMFUS HOOVER</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     3     4     5     6     5     6     5     3     3     4     3     3      3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nse</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="equivalence-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">nre</span> <span class="op">&lt;-</span> <span class="fu">node_regular_equivalence</span><span class="op">(</span><span class="va">mpn_elite_usa_advice</span>,</span></span>
 <span class="r-in"><span>  cluster <span class="op">=</span> <span class="st">"concor"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    CFR, IIE, NAF </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Albright, Curry, Fukuyama, Greenberg, Wald</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Argyros, Armitage, Kissinger, Peterson, Scowcroft, West, Zakheim</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Gray</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Hills</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ACUS, CNI </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    AEI, ASPEN, CATO, CGD, EWI, FPRI, GMFUS, HOOVER, RAND, RF, RFF </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    CNAS, IAD, MI </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    CSIS </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Albright Argyros Armitage Curry Fukuyama  Gray Greenberg Hills Kissinger</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>        1       2        2     1        1     3         1     4         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 5 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ACUS   AEI ASPEN  CATO   CFR   CGD  CNAS   CNI  CSIS   EWI  FPRI GMFUS HOOVER</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     5     6     6     6     1     6     7     5     8     6     6     6      6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nre</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="equivalence-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">nae</span> <span class="op">&lt;-</span> <span class="fu">node_automorphic_equivalence</span><span class="op">(</span><span class="va">mpn_elite_usa_advice</span>,</span></span>
 <span class="r-in"><span>  k <span class="op">=</span> <span class="st">"elbow"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ASPEN, CFR, CNI, CSIS, HOOVER </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Albright, Argyros, Hills, Peterson</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    CNAS, FPRI, GMFUS </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Armitage, Kissinger, Scowcroft, West, Zakheim</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    AEI, IAD, IIE, NAF, RAND </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Curry, Fukuyama, Greenberg</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ACUS, CATO, CGD, EWI, MI, RF, RFF </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Gray, Wald</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Albright Argyros Armitage Curry Fukuyama  Gray Greenberg Hills Kissinger</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>        1       1        2     3        3     4         3     1         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 5 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ACUS   AEI ASPEN  CATO   CFR   CGD  CNAS   CNI  CSIS   EWI  FPRI GMFUS HOOVER</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     4     3     1     4     1     4     2     1     1     4     2     2      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nae</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="equivalence-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>

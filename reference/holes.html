@@ -22,7 +22,7 @@ can gain some comparative advantage from that position."><meta property="og:imag
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
       </span>
     </div>
 
@@ -79,7 +79,13 @@ can gain some comparative advantage from that position.</p>
 <span></span>
 <span><span class="fu">node_constraint</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">node_hierarchy</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">node_hierarchy</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">node_eccentricity</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">node_neighbours_degree</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">tie_cohesion</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -116,6 +122,15 @@ contacts.</p></li>
 according to Burt (1992) and for two-mode networks according to Hollway et al (2020).</p></li>
 <li><p><code>node_hierarchy()</code>: Returns nodes' exposure to hierarchy,
 where only one or two contacts are the source of closure</p></li>
+<li><p><code>node_eccentricity()</code>: Returns nodes' eccentricity or Koenig number,
+a measure of farness based on number of links needed to reach
+most distant node in the network</p></li>
+<li><p><code>node_neighbours_degree()</code>: Returns nodes' average nearest neighbors degree,
+or knn,
+a measure of the type of local environment a node finds itself in</p></li>
+<li><p><code>tie_cohesion()</code>: Returns the ratio between common neighbors to ties'
+adjacent nodes and the total number of adjacent nodes,
+where high values indicate ties' embeddedness in dense local environments</p></li>
 </ul></div>
     <div id="references">
     <h2>References</h2>
@@ -130,6 +145,9 @@ Cambridge, MA: Harvard University Press.</p>
 <em>International Environmental Agreements: Politics, Law and Economics</em> 20 (1): 61–83.
 <a href="https://doi.org/10.1007/s10784-019-09464-5" class="external-link">doi:10.1007/s10784-019-09464-5</a>
 .</p>
+<p>Barrat, Alain, Marc Barthelemy, Romualdo Pastor-Satorras, and Alessandro Vespignani. 2004.
+"The architecture of complex weighted networks",
+<em>Proc. Natl. Acad. Sci.</em> 101: 3747.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -141,7 +159,8 @@ Cambridge, MA: Harvard University Press.</p>
 <code><a href="degree_centrality.html">degree_centrality</a></code>,
 <code><a href="eigenv_centrality.html">eigenv_centrality</a></code>,
 <code><a href="features.html">features</a></code>,
-<code><a href="heterogeneity.html">heterogeneity</a></code></p></div>
+<code><a href="heterogeneity.html">heterogeneity</a></code>,
+<code><a href="hierarchy.html">hierarchy</a></code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -152,57 +171,57 @@ Cambridge, MA: Harvard University Press.</p>
 <span class="r-in"><span><span class="fu">node_bridges</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      0     0       0      0         0       0       0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset not printed but in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0     0     0     0     0     0     0     0     0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more values from this nodeset not printed but in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span><span class="fu">node_redundancy</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Betty   Sue Alice  Jane  Dale   Pam Carol  Tina</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     6   2.5   2.5     4  3.33     4     2     2</span>
 <span class="r-in"><span><span class="fu">node_redundancy</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>   12.5  12.9    14.2   13.1        12      16      18  20.7    20  19.5  17.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset not printed but in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  12.7  13.3  10.7  11.5   9.5  10.2    10     9     8    10   7.5  9.43    12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more values from this nodeset not printed but in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span><span class="fu">node_effsize</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Betty   Sue Alice  Jane   Dale   Pam Carol  Tina</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    -<span style="color: #BB0000;">5</span>   1.5   1.5    -<span style="color: #BB0000;">2</span> -<span style="color: #BB0000;">0.333</span>    -<span style="color: #BB0000;">1</span>     0    -<span style="color: #BB0000;">1</span></span>
 <span class="r-in"><span><span class="fu">node_effsize</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>   -<span style="color: #BB0000;">4.5</span> -<span style="color: #BB0000;">5.86</span>   -<span style="color: #BB0000;">6.25</span>  -<span style="color: #BB0000;">6.14</span>        -<span style="color: #BB0000;">8</span>     -<span style="color: #BB0000;">12</span>     -<span style="color: #BB0000;">14</span> -<span style="color: #BB0000;">17.7</span>   -<span style="color: #BB0000;">16</span> -<span style="color: #BB0000;">15.5</span> -<span style="color: #BB0000;">13.5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset not printed but in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> -<span style="color: #BB0000;">9.67</span> -<span style="color: #BB0000;">10.3</span> -<span style="color: #BB0000;">4.67</span>  -<span style="color: #BB0000;">7.5</span>  -<span style="color: #BB0000;">1.5</span> -<span style="color: #BB0000;">2.25</span>     0     5     4    -<span style="color: #BB0000;">4</span>  -<span style="color: #BB0000;">3.5</span> -<span style="color: #BB0000;">2.43</span>    -<span style="color: #BB0000;">8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more values from this nodeset not printed but in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span><span class="fu">node_efficiency</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Betty   Sue Alice  Jane   Dale    Pam Carol  Tina</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    -<span style="color: #BB0000;">5</span> 0.375 0.375    -<span style="color: #BB0000;">1</span> -<span style="color: #BB0000;">0.111</span> -<span style="color: #BB0000;">0.333</span>     0    -<span style="color: #BB0000;">1</span></span>
 <span class="r-in"><span><span class="fu">node_efficiency</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN  LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> -<span style="color: #BB0000;">0.562</span> -<span style="color: #BB0000;">0.837</span>  -<span style="color: #BB0000;">0.781</span> -<span style="color: #BB0000;">0.878</span>        -<span style="color: #BB0000;">2</span>      -<span style="color: #BB0000;">3</span>    -<span style="color: #BB0000;">3.5</span> -<span style="color: #BB0000;">5.89</span>    -<span style="color: #BB0000;">4</span> -<span style="color: #BB0000;">3.88</span> -<span style="color: #BB0000;">3.38</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset not printed but in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2     E3    E4     E5     E6    E7    E8    E9    E10    E11    E12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> -<span style="color: #BB0000;">3.22</span> -<span style="color: #BB0000;">3.44</span> -<span style="color: #BB0000;">0.778</span> -<span style="color: #BB0000;">1.88</span> -<span style="color: #BB0000;">0.188</span> -<span style="color: #BB0000;">0.281</span>     0 0.357 0.333 -<span style="color: #BB0000;">0.667</span> -<span style="color: #BB0000;">0.875</span> -<span style="color: #BB0000;">0.347</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 2 more values from this nodeset not printed but in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 2 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span><span class="fu">node_constraint</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  0.276 0.306   0.294  0.317     0.384   0.412   0.415 0.461 0.398 0.407 0.434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset not printed but in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.476 0.476 0.338 0.394 0.275 0.241 0.192 0.170 0.161 0.327 0.308 0.292 0.432</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more values from this nodeset not printed but in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.476 0.476 0.338 0.394 0.275 0.241 0.192  0.17 0.161 0.327 0.308 0.292 0.432</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span><span class="fu">node_hierarchy</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Betty    Sue  Alice    Jane   Dale     Pam Carol  Tina</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0 0.030<span style="text-decoration: underline;">6</span> 0.027<span style="text-decoration: underline;">4</span> 0.005<span style="text-decoration: underline;">87</span> 0.033<span style="text-decoration: underline;">3</span> 0.006<span style="text-decoration: underline;">12</span> 0.102     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Betty   Sue Alice  Jane  Dale   Pam Carol  Tina</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0 0.031 0.027 0.006 0.033 0.006 0.102     0</span>
 <span class="r-in"><span><span class="fu">node_hierarchy</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN  LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR  PEARL   RUTH  VERNE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.034<span style="text-decoration: underline;">1</span> 0.035<span style="text-decoration: underline;">9</span>  0.033<span style="text-decoration: underline;">4</span> 0.030<span style="text-decoration: underline;">1</span>    0.023<span style="text-decoration: underline;">4</span>  0.020<span style="text-decoration: underline;">7</span>  0.012<span style="text-decoration: underline;">4</span> 0.015<span style="text-decoration: underline;">4</span> 0.017<span style="text-decoration: underline;">2</span> 0.022<span style="text-decoration: underline;">1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 8 more values from this nodeset not printed but in the vector.</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        E1       E2      E3      E4      E5     E6      E7      E8     E9    E10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.001<span style="text-decoration: underline;">50</span> 0.000<span style="text-decoration: underline;">819</span> 0.006<span style="text-decoration: underline;">02</span> 0.005<span style="text-decoration: underline;">76</span> 0.005<span style="text-decoration: underline;">72</span> 0.010<span style="text-decoration: underline;">1</span> 0.005<span style="text-decoration: underline;">73</span> 0.005<span style="text-decoration: underline;">65</span> 0.015<span style="text-decoration: underline;">0</span> 0.011<span style="text-decoration: underline;">1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 4 more values from this nodeset not printed but in the vector.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  0.034 0.036   0.033   0.03     0.023   0.021   0.012 0.015 0.017 0.022 0.034</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.002 0.001 0.006 0.006 0.006  0.01 0.006 0.006 0.015 0.011 0.057 0.009 0.005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 </code></pre></div>
     </div>
   </div>

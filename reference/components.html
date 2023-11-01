@@ -32,7 +32,7 @@ but not to the (k+1)-core."><meta property="og:image" content="https://snlab-ch.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
       </span>
     </div>
 
@@ -93,9 +93,7 @@ but not to the (<em>k</em>+1)-core.</p>
 <span></span>
 <span><span class="fu">node_weak_components</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">node_strong_components</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">node_coreness</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">node_strong_components</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -118,31 +116,24 @@ using edge direction where available.</p></li>
 ignoring edge direction.</p></li>
 <li><p><code>node_strong_components()</code>: Returns nodes' component membership
 based on edge direction.</p></li>
-<li><p><code>node_coreness()</code>: Returns k-cores</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other memberships: 
 <code><a href="community.html">community</a></code>,
-<code><a href="core-periphery.html">core-periphery</a></code>,
+<code><a href="core.html">core</a></code>,
 <code><a href="equivalence.html">equivalence</a></code></p></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">node_components</span><span class="op">(</span><span class="va">mpn_bristol</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    AddReAg, AfrInit, OrganicCoop, Wildlife, BACEN, BangladAss, Barnardos, BartonHill, BigIssue, BREAD, Stroke, CivicSoc, CyclingCamp, DialRide, Foyer, BHAM, InterFaith, JamiaMosque, MuslimCulSoc, BVEG, WestIndianParents, CareForum, CEED, DeafPeople, CentrSustEnergy, CityFarms, CND, CoopParty, COGB, RecyclNet, CSV, CycleWest, AsylumSeekers, DhekBhal, Disabled, DundryHill, EBYHousAss, EastonAsianWom, ECA, FoE, SevernRai, FullCircle, Greens, Greenleaf, Greenpeace, H&amp;WTeenageParents, HartcliffeClubYoung, HartCommCampus, HHEAG, ISIS-MP, Kebele, KHAAS, KWDrugs, KWMedia, KWYouth, LawCentre, LGBForum, LivingEaston, Malago, Maternity, Mede, Mind, NextLink, NextStep, Nigerian, NSForum, CommonFuture, Oxfam, PakistaniWomen, Permaculture, PinkParents, PIPA, PrincessCarers, PriorYouthHousing, RailwayDevelop, RecConsort, SARI, Schumacher, SecondStep, SERA, SikhRes, SocialistParty, SOFA, Soil, SBCC, SPAdvice, StWerbergh, StopOldbury, Sustrans, Transform, UnityGroup, WECIL, Wellwomen, Womankind, WWF, CommunityFest, EastonFest, H&amp;WCarnival, LA21, Respect, SortItFest, StPaulCarnival, WomensDay, AshtonQuarry, AsylumCampaign, Babymilk, Claimants, GlobalResist, Ikea, Jubilee2000, M32Reclaim, STAR </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 193, 194, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    LocalFood </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    131</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    AvonBat </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    192</span>
-<span class="r-in"><span><span class="fu">node_coreness</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Class 1:  Betty, Carol, Tina</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Class 2:  Sue, Alice, Jane, Dale, Pam</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   `101` `102` `103` `104` `105` `106` `107` `108` `109` `110` `111` `112` `113`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     1     1     1     1     1     1     1     1     1     1     1     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 137 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   AddReAg AfrInit AvonBat OrganicCoop Wildlife BACEN BangladAss Barnardos</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>       1       1       3           1        1     1          1         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 106 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 </code></pre></div>
     </div>
   </div>
