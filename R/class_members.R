@@ -6,8 +6,24 @@ make_node_member <- function(out, .data) {
 }
 
 #' @export
-print.node_member <- function(x, ...,
-                               max.length = 6,
+print.node_member <- function(x, ..., n = NULL) {
+  if (any(attr(x, "mode"))) {
+    for(m in c(FALSE, TRUE)){
+      print_tblvec(y = as.numeric(x)[attr(x, "mode") == m], 
+                   names = list(names(x)[attr(x, "mode") == m]),
+                   n = n)
+      if(!m) cat("\n")
+    }
+  } else {
+    print_tblvec(y = as.numeric(x), 
+                 names = list(names(x)),
+                 n = n)
+  }
+}
+
+#' @export
+summary.node_member <- function(object, ...,
+                               n = 6,
                                digits = 3) {
   if (any(attr(x, "mode"))) {
     for (i in names(table(x))) {
@@ -25,8 +41,9 @@ print.node_member <- function(x, ...,
     }
   } else {
     for (i in names(table(x))) {
-      if (i == names(table(x))[1]) cat("Class ", i, ":", sep = "")
-      else cat("Class ", i, ":", sep = "")
+      cat(pillar::style_subtle(paste0("Class ", i, ":")))
+      # if (i == names(table(x))[1]) cat("Class ", i, ":", sep = "")
+      # else cat("Class ", i, ":", sep = "")
       if (!is.null(names(x)))
         y <- paste(names(x[x == i]), collapse = ", ")
       else

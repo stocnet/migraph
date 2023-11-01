@@ -1,3 +1,21 @@
+# migraph 1.1.4
+
+2023-11-01
+
+## Marks
+
+- `print.node_mark()` and `print.tie_mark()` now allow infinite 'n' width
+
+## Measures
+
+- `print.node_measure()` and `print.tie_measure()` now allow infinite 'n' width
+  - Digit rounding is now fixed in print and summary methods
+
+## Members
+
+- `print.node_member()` now prints the vector
+  - Previous functionality is now available in `summary.node_member()`
+
 # migraph 1.1.3
 
 2023-10-25
