@@ -1,3 +1,15 @@
+# migraph 1.1.5
+
+2023-11-02
+
+## Members
+
+- Fixed documentation issue with `summary.node_member()`
+
+## Motifs
+
+- Fixed documentation issue with `node_census()`
+
 # migraph 1.1.4
 
 2023-11-01

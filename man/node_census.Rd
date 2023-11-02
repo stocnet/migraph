@@ -32,25 +32,6 @@ in a network. These include a triad census based on the triad profile
 of nodes, but also a tie census based on the particular tie partners
 of nodes. Included also are group census functions for summarising
 the profiles of clusters of nodes in a network.
-
-#' @export
-node_igraph_census <- function(.data, normalized = FALSE){
-out <- igraph::motifs(manynet::as_igraph(.data), 4)
-if(manynet::is_labelled(.data))
-rownames(out) <- manynet::node_names(.data)
-colnames(out) <- c("co-K4",
-"co-diamond",
-"co-C4",
-"co-paw",
-"co-claw",
-"P4",
-"claw",
-"paw",
-"C4",
-"diamond",
-"K4")
-make_node_motif(out, .data)
-}
 }
 \details{
 The quad census uses the \code{{oaqc}} package to do

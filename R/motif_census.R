@@ -154,37 +154,37 @@ node_quad_census <- function(.data){
   }
 }
 
-#' #' @export
-#' node_bmotif_census <- function(.data, normalized = FALSE){
-#'   if (!("bmotif" %in% rownames(utils::installed.packages()))) {
-#'     message("Please install package `{bmotif}`.")
-#'     out <- bmotif::node_positions(manynet::as_matrix(.data), 
-#'                                   weights_method = ifelse(manynet::is_weighted(.data),
-#'                                                           'mean_motifweights', 'none'),
-#'                                   normalisation = ifelse(normalized, 
-#'                                                          'levelsize_NAzero', 'none'))
-#'     make_node_motif(out, .data)
-#'   }
-#' }
-#' 
-#' #' @export
-#' node_igraph_census <- function(.data, normalized = FALSE){
-#'     out <- igraph::motifs(manynet::as_igraph(.data), 4)
-#'     if(manynet::is_labelled(.data))
-#'       rownames(out) <- manynet::node_names(.data)
-#'     colnames(out) <- c("co-K4",
-#'                        "co-diamond",
-#'                        "co-C4",
-#'                        "co-paw",
-#'                        "co-claw",
-#'                        "P4",
-#'                        "claw",
-#'                        "paw",
-#'                        "C4",
-#'                        "diamond",
-#'                        "K4")
-#'     make_node_motif(out, .data)
-#' }
+# #' @export
+# node_bmotif_census <- function(.data, normalized = FALSE){
+#   if (!("bmotif" %in% rownames(utils::installed.packages()))) {
+#     message("Please install package `{bmotif}`.")
+#     out <- bmotif::node_positions(manynet::as_matrix(.data), 
+#                                   weights_method = ifelse(manynet::is_weighted(.data),
+#                                                           'mean_motifweights', 'none'),
+#                                   normalisation = ifelse(normalized, 
+#                                                          'levelsize_NAzero', 'none'))
+#     make_node_motif(out, .data)
+#   }
+# }
+# 
+# #' @export
+# node_igraph_census <- function(.data, normalized = FALSE){
+#     out <- igraph::motifs(manynet::as_igraph(.data), 4)
+#     if(manynet::is_labelled(.data))
+#       rownames(out) <- manynet::node_names(.data)
+#     colnames(out) <- c("co-K4",
+#                        "co-diamond",
+#                        "co-C4",
+#                        "co-paw",
+#                        "co-claw",
+#                        "P4",
+#                        "claw",
+#                        "paw",
+#                        "C4",
+#                        "diamond",
+#                        "K4")
+#     make_node_motif(out, .data)
+# }
 
 #' @describeIn node_census Returns the shortest path lengths
 #'   of each node to every other node in the network.
