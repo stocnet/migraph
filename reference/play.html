@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.5</span>
       </span>
     </div>
 
@@ -267,23 +267,21 @@ whereas "optimising" will move the node to coordinates that are most homophilous
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">play_diffusion</span><span class="op">(</span><span class="va">smeg</span>, recovery <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="play-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">play_diffusions</span><span class="op">(</span><span class="va">smeg</span>, times <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 22 rows containing missing values (`geom_smooth()`).</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 49 rows containing missing values (`geom_smooth()`).</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 24 rows containing missing values (`geom_smooth()`).</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 51 rows containing missing values (`geom_smooth()`).</span>
 <span class="r-plt img"><img src="play-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>  <span class="fu">play_learning</span><span class="op">(</span><span class="va">ison_networkers</span>, </span></span>
 <span class="r-in"><span>      <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">rbinom</a></span><span class="op">(</span><span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/properties.html" class="external-link">network_nodes</a></span><span class="op">(</span><span class="va">ison_networkers</span><span class="op">)</span>,<span class="fl">1</span>,prob <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 32</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 7 × 32</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   `LIN FREEMAN` `DOUG WHITE` `EV ROGERS` `RICHARD ALBA` `PHIPPS ARABIE`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         0            0           0              0               1    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         0.337        0.161       0.357          0.366           0.206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>         0.246        0.287       0.272          0.307           0.250</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>         0.290        0.270       0.289          0.284           0.282</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>         0.277        0.282       0.282          0.284           0.277</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>         0.282        0.280       0.281          0.281           0.281</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>         0.280        0.281       0.281          0.281           0.280</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>         0.281        0.281       0.281          0.281           0.281</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span>         0.281        0.281       0.281          0.281           0.281</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         0            0           1             0                0    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         0.177        0.236       0             0.075<span style="text-decoration: underline;">5</span>           0.181</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>         0.157        0.150       0.178         0.164            0.154</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>         0.150        0.155       0.150         0.150            0.150</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>         0.153        0.151       0.151         0.152            0.152</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>         0.151        0.152       0.152         0.152            0.151</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>         0.152        0.151       0.151         0.152            0.152</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 27 more variables: `CAROL BARNER-BARRY` &lt;dbl&gt;, `GARY COOMBS` &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `RUSS BERNARD` &lt;dbl&gt;, `JOHN BOYD` &lt;dbl&gt;, `RON BURT` &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `PAT DOREIAN` &lt;dbl&gt;, `CLAUDE FISCHER` &lt;dbl&gt;, `BRIAN FOSTER` &lt;dbl&gt;,</span></span>
@@ -300,12 +298,12 @@ whereas "optimising" will move the node to coordinates that are most homophilous
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 100 × 1</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   startValues</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>          <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>          <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>           0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 94 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 342 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    from    to</span>
@@ -318,28 +316,26 @@ whereas "optimising" will move the node to coordinates that are most homophilous
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>     2    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 336 more rows</span></span>
 <span class="r-in"><span>  <span class="fu">play_segregation</span><span class="op">(</span><span class="va">latticeEg</span>, <span class="st">"startValues"</span>, <span class="fl">0.5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 2 to node 21"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 5 to node 29"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 55 to node 2"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 11 to node 38"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 63 to node 27"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 64 to node 41"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 71 to node 54"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 75 to node 55"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 89 to node 5"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 90 to node 7"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 91 to node 64"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 94 to node 63"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 5 to node 2"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 8 to node 3"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 46 to node 5"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 35 to node 8"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 54 to node 11"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 53 to node 20"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 70 to node 39"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 72 to node 50"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 40 to node 35"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 86 to node 37"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # A undirected tbl_graph with 100 nodes and 342 ties</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 100 × 1</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   startValues</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>           0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>           1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>           0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 94 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 342 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    from    to</span>
