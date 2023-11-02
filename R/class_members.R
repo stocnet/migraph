@@ -25,31 +25,29 @@ print.node_member <- function(x, ..., n = NULL) {
 summary.node_member <- function(object, ...,
                                n = 6,
                                digits = 3) {
-  if (any(attr(x, "mode"))) {
-    for (i in names(table(x))) {
-      if (i == names(table(x))[1]) cat(i, "\n")
+  if (any(attr(object, "mode"))) {
+    for (i in names(table(object))) {
+      if (i == names(table(object))[1]) cat(i, "\n")
       else cat("\n", i, "\n")
-      if (!is.null(names(x))) {
-        y <- paste(names(x[x == i & attr(x, "mode")]), collapse = ", ")
-        z <- paste(names(x[x == i & !attr(x, "mode")]), collapse = ", ")
+      if (!is.null(names(object))) {
+        y <- paste(names(object[object == i & attr(object, "mode")]), collapse = ", ")
+        z <- paste(names(object[object == i & !attr(object, "mode")]), collapse = ", ")
       } else {
-        y <- paste(which(x == i & attr(x, "mode")), collapse = ", ")
-        z <- paste(which(x == i & !attr(x, "mode")), collapse = ", ")
+        y <- paste(which(object == i & attr(object, "mode")), collapse = ", ")
+        z <- paste(which(object == i & !attr(object, "mode")), collapse = ", ")
       }
       cat("  ", y, "\n")
       cat("  ", z)
     }
   } else {
-    for (i in names(table(x))) {
+    for (i in names(table(object))) {
       cat(pillar::style_subtle(paste0("Class ", i, ":")))
-      # if (i == names(table(x))[1]) cat("Class ", i, ":", sep = "")
-      # else cat("Class ", i, ":", sep = "")
-      if (!is.null(names(x)))
-        y <- paste(names(x[x == i]), collapse = ", ")
+      if (!is.null(names(object)))
+        y <- paste(names(object[object == i]), collapse = ", ")
       else
-        y <- paste(which(x == i), collapse = ", ")
+        y <- paste(which(object == i), collapse = ", ")
       cat(" ", y)
-      if (i != names(table(x))[length(table(x))]) cat("\n")
+      if (i != names(table(object))[length(table(object))]) cat("\n")
     }
   }
 }
