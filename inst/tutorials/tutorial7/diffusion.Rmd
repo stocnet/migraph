@@ -13,6 +13,12 @@ library(manynet)
 library(migraph)
 library(patchwork)
 knitr::opts_chunk$set(echo = FALSE)
+nw <- to_undirected(to_unnamed(manynet::ison_networkers))
+rg <- create_ring(nw, width = 2)
+la <- create_lattice(nw)
+rd <- generate_random(nw, with_attr = FALSE)
+sf <- generate_scalefree(nw, 0.025)
+sw <- generate_smallworld(nw, 0.025)
 ```
 
 ## Investigate diffusion through simulation
@@ -186,7 +192,7 @@ The result object, when printed, lists how many of the nodes in the network,
 `n`, are 'infected' (`I`) or not (`S`) at each step `t`.
 The plot visualises this, with the proportion of `S` in blue and `I` in red.
 The bar plot behind shows how many nodes are newly 'infected' at each
-time point.
+time point, or the so-called 'force of infection' ($F = \beta I$).
 
 We can see that there is a pretty constant diffusion across this network,
 with 2-3 nodes being newly infected at each time-point.
@@ -503,7 +509,7 @@ along with a couple of additional parameters
 to indicate how many simulations it should run, e.g. `times = 50`,
 whether it should use `strategy = "multisession"` 
 to run the simulations across multiple cores
-instead of the default `strategy = "sequential`,
+instead of the default `strategy = "sequential"`,
 and `verbose = TRUE` if it should inform you of computational progress.
 Try this out with our well-mixed random network, 10 steps, 5 times,
 and with a `transmissibility` parameter set to 0.5
@@ -524,8 +530,10 @@ plot(play_diffusions(____, transmissibility = ____, times = ____, steps = ____))
 plot(play_diffusions(rd, transmissibility = 0.5, times = 5, steps = 10))
 ```
 
-Note that in this plot the number of new infections is not plotted,
-and the loess line smooths over the varying trajectories.
+Note that in this plot the number of new infections is not plotted
+because this might vary a bit each time the simulation is run.
+Instead, the loess line smooths over the varying trajectories
+and a (hardly distinguishable for this call) grey border to the line represents the standard error.
 The blue line is the proportion of nodes in the Susceptible compartment,
 and the red line is the proportion of nodes in the Infected compartment.
 
@@ -558,12 +566,25 @@ plot(play_diffusions(rd, recovery = 0.2))
 What we see in these kinds of models is typically a spike in infections
 towards the start, but as these early infections recover and become immune,
 then they can provide some herd immunity to those who remain susceptible.
+If you get moderately different results each time,
+try increasing the number of `times` the simulation is run,
+which should average out these differences and make the results more reliable.
+
+```{r sirtimes, exercise = TRUE, purl = FALSE}
+
+```
+
+```{r sirtimes-solution}
+plot(play_diffusions(rd, recovery = 0.2, times = 100))
+```
 
 ### SIRS models
 
 That's great, but maybe the immunity conferred from having recovered
 from the contagion doesn't last forever.
-In this kind of model, add an additional waning parameter of 0.05.
+In this kind of model, add an additional `waning` parameter of 0.05.
+This means that after twenty steps (on average), 
+a recovered node may lose its recovered status and become susceptible again.
 Play a single diffusion so that you can see what's going on in a particular run.
 
 ```{r sirs, exercise = TRUE, purl = FALSE}
@@ -571,8 +592,7 @@ Play a single diffusion so that you can see what's going on in a particular run.
 ```
 
 ```{r sirs-solution}
-plot(play_diffusion(rd, recovery = 0.25, waning = 0.05))
-plot(play_diffusions(rd, recovery = 0.25, waning = 0.05))
+plot(play_diffusion(rd, recovery = 0.2, waning = 0.05))
 ```
 
 ```{r sirs-interp, echo = FALSE, purl = FALSE}
@@ -582,14 +602,32 @@ question("Does the process reach a stable state?",
         allow_retry = TRUE)
 ```
 
+Depending on your particular simulation,
+there might be some variation,
+so let's run this same diffusion but multiple (100?) times.
+
+```{r sirstimes-solution, exercise = TRUE}
+plot(play_diffusions(rd, recovery = 0.2, waning = 0.05, times = 100))
+```
+
+```{r sirstimes-interp, echo = FALSE, purl = FALSE}
+question("Select the true statements",
+         answer("There are always some infected nodes.", correct = TRUE),
+         answer("We never get to the stage where everyone has recovered.", correct = TRUE),
+         answer("There are always some susceptible nodes.", correct = TRUE),
+         random_answer_order = TRUE,
+        allow_retry = TRUE)
+```
+
 ### SEIR models
 
 Lastly, we'll consider a compartment for nodes that have been Exposed
 but are not yet infectious.
-This kind of an incubation period is due to some `latency`.
-Again, this should be specified as a proportion 
-(0 indicates an exposed individual is immediately infected,
-and 0.25 is approx four days).
+This kind of an incubation period is due to some `latency` ($\sigma$).
+This should also be specified as a proportion,
+but note that this is inverted internally.
+This means that a latency of 0 means that exposure immediately renders the node infectious.
+A latency of 0.75 means that it will take the node approximately 4 days (1/1-0.75 = 1/0.25 = 4) to become infectious.
 Play a single diffusion so that you can see what's going on in a particular run.
 
 ```{r seir, exercise = TRUE, exercise.setup = "create", purl = FALSE}
@@ -597,9 +635,29 @@ Play a single diffusion so that you can see what's going on in a particular run.
 ```
 
 ```{r seir-solution}
-plot(play_diffusion(rd, latency = 0.5))  /
-plot(play_diffusion(rd, latency = 0.25)) /
-plot(play_diffusion(rd, latency = 0.1))
+plot(play_diffusion(rd, latency = 0.25, recovery = 0.2))
+```
+
+### R-nought
+
+So how can we establish the $R_0$ here?
+Well, recall that $R_0 = \frac{\beta}{\gamma}$.
+For a network such as ours, the expected number of contacts per node $\beta$
+is the average degree of all nodes,
+and the average number of days a node remains contagious is 1 divided by the `recovery` parameter.
+
+```{r r0, exercise = TRUE, exercise.setup = "create"}
+recovery <- 0.2
+mean(node_degree(rd, normalized = FALSE))/(1/recovery)
+```
+
+```{r r0-interp, echo = FALSE, purl = FALSE}
+question("Select any true statements you can make about this R-nought result:",
+         answer("There will probably be an epidemic.", correct = TRUE),
+         answer("There are not enough seed nodes to start an epidemic."),
+         answer("If the recovery rate was instead a mortality rate, it would make no difference.", correct = TRUE),
+        allow_retry = TRUE,
+        random_answer_order = TRUE)
 ```
 
 ## Investigate learning through simulation
@@ -631,10 +689,21 @@ is_connected(ison_networkers)
 is_aperiodic(ison_networkers)
 ```
 
-```{r aperiod-interp, echo = FALSE, purl = FALSE}
+```{r consens-interp, echo = FALSE, purl = FALSE}
 question("Based on these results, would you expect this network to converge to a consensus?",
   answer("No"),
-  answer("Yes", correct = TRUE),
+  answer("Yes", correct = TRUE, message = "Only with a strongly connected, aperiodic network will there be convergence to a single consensus."),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+)
+```
+
+```{r aperiod-interp, echo = FALSE, purl = FALSE}
+question("If there were aperiodicity but two or more strongly connected components, what would happen?",
+  answer("There would be no convergence"),
+  answer("There would be convergence to a single consensus"),
+  answer("There would be convergence", correct = TRUE),
+  answer("There would probably be as many separate values as there are components", correct = TRUE),
   random_answer_order = TRUE,
   allow_retry = TRUE
 )
