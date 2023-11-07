@@ -51,7 +51,7 @@ nw <- to_undirected(to_unnamed(ison_networkers))
 
 Now, using the "nw" network from the last section, let's create or generate ring, lattice, random, scale-free, and small-world versions with the same number of nodes using functions like:
 
-+ `create_ring()`: Creates a ring or chord graph of the given dimensions that loops around is of a certain width or thickness.
++ `create_ring()`: Creates a ring or chord graph of the given dimensions that loops around and is of a specified width or thickness.
 + `create_lattice()`: Creates a graph of the given dimensions with ties to all neighbouring nodes
 + `generate_random()`: Generates a random network with a particular probability.
 + `generate_scalefree()`: Generates a small-world structure following the lattice rewiring model.
@@ -157,8 +157,29 @@ ____(____)
 ```
 
 ```{r ring-solution}
-rg1 <- play_diffusion(rg, seeds = 1)
-plot(rg1)
+rg_d <- play_diffusion(rg, seeds = 1)
+plot(rg_d)
+
+# visualise the diffusion in the network within first 5 steps of infection
+rg <- rg %>%
+  add_node_attribute("Infected", rep("0", network_nodes(rg))) # original graph
+rg1 <- rg %>%
+  add_node_attribute("Infected", c(rep("1", rg_d$I[1]),
+                                   rep("0", rg_d$S[1]))) # t = 0
+rg2 <- rg %>%
+  add_node_attribute("Infected", c(rep("1", rg_d$I[2]),
+                                   rep("0", rg_d$S[2]))) # t = 1
+rg3 <- rg %>%
+  add_node_attribute("Infected", c(rep("1", rg_d$I[3]),
+                                   rep("0", rg_d$S[3]))) # t = 2
+rg4 <- rg %>%
+  add_node_attribute("Infected", c(rep("1", rg_d$I[4]),
+                                   rep("0", rg_d$S[4]))) # t = 3
+rg5 <- rg %>%
+  add_node_attribute("Infected", c(rep("1", rg_d$I[5]),
+                                   rep("0", rg_d$S[5]))) # t = 4
+rg_set <- list(rg, rg1, rg2, rg3, rg4, rg5)
+autographs(rg_set, node_color = "Infected")
 ```
 
 The result object, when printed, lists how many of the nodes in the network,
@@ -185,8 +206,8 @@ and see whether the result is any different.
 ```
 
 ```{r ring2-solution}
-rg2 <- play_diffusion(rg, seeds = 16)
-plot(rg2)
+rg_d2 <- play_diffusion(rg, seeds = 16)
+plot(rg_d2)
 ```
 
 ```{r ring2-interp, echo = FALSE, purl = FALSE}
@@ -211,7 +232,29 @@ plot(play_diffusion(rg, seeds = ____))
 ```
 
 ```{r ring3-solution}
-plot(play_diffusion(rg, seeds = 1:4))
+rg_d3 <- play_diffusion(rg, seeds = 1:4)
+plot(rg_d3)
+
+# visualise the diffusion in the network within first 5 steps of infection
+rg <- rg %>%
+  add_node_attribute("Infected", rep("0", network_nodes(rg))) # original graph
+rg1 <- rg %>%
+  add_node_attribute("Infected", c(rep("1", rg_d3$I[1]),
+                                   rep("0", rg_d3$S[1]))) # t = 0
+rg2 <- rg %>%
+  add_node_attribute("Infected", c(rep("1", rg_d3$I[2]),
+                                   rep("0", rg_d3$S[2]))) # t = 1
+rg3 <- rg %>%
+  add_node_attribute("Infected", c(rep("1", rg_d3$I[3]),
+                                   rep("0", rg_d3$S[3]))) # t = 2
+rg4 <- rg %>%
+  add_node_attribute("Infected", c(rep("1", rg_d3$I[4]),
+                                   rep("0", rg_d3$S[4]))) # t = 3
+rg5 <- rg %>%
+  add_node_attribute("Infected", c(rep("1", rg_d3$I[5]),
+                                   rep("0", rg_d3$S[5]))) # t = 4
+rg_set <- list(rg, rg1, rg2, rg3, rg4, rg5)
+autographs(rg_set, node_color = "Infected")
 ```
 
 But what if we seed the network at three different places?
@@ -258,6 +301,9 @@ one with the first node as seed and again one on the last.
 ```{r lattice-solution}
 plot(play_diffusion(la, seeds = 1))/
 plot(play_diffusion(la, seeds = 16))
+la %>%
+  add_node_attribute("color", c(1, rep(0, 14), 2, rep(0, 16))) %>%
+  autographr(node_color = "color")
 ```
 
 ```{r lattice-interp, echo = FALSE, purl = FALSE}
@@ -282,6 +328,12 @@ Similar to the previous examples, we will be using the following functions withi
 ```
 
 ```{r scale-solution}
+sf %>%
+  as_tidygraph() %>%
+  activate(nodes) %>%
+  mutate(degree = ifelse(node_is_max(node_degree(sf)), "max",
+                      ifelse(node_is_min(node_degree(sf)), "min", "others"))) %>%
+  autographr(node_color = "degree") + guides(color = "legend") + labs(color = "degree")
 plot(play_diffusion(sf, seeds = 10, steps = 10)) / 
 plot(play_diffusion(sf, seeds = node_is_random(sf), steps = 10)) /
 plot(play_diffusion(sf, seeds = node_is_max(node_degree(sf)), steps = 10)) /
@@ -401,6 +453,28 @@ plot(play_diffusion(sf, thresholds = c(rep(____,____), rep(____,____))))
 ```{r rand-solution}
 plot(play_diffusion(sf, thresholds = c(rep(0.1,10), rep(0.25,22))))/
 plot(play_diffusion(sf, thresholds = c(rep(0.25,10), rep(0.1,22))))
+
+# visualise the diffusion in the network from steps 1 to 5
+sf_d <- play_diffusion(sf, thresholds = c(rep(0.1,10), rep(0.25,22)))
+sf <- sf %>%
+  add_node_attribute("Infected", rep("0", network_nodes(sf))) # before diffusion
+sf1 <- sf %>%
+  add_node_attribute("Infected", c(rep("1", sf_d$I[1]),
+                                   rep("0", sf_d$S[1]))) # t = 0
+sf2 <- sf %>%
+  add_node_attribute("Infected", c(rep("1", sf_d$I[2]),
+                                   rep("0", sf_d$S[2]))) # t = 1
+sf3 <- sf %>%
+  add_node_attribute("Infected", c(rep("1", sf_d$I[3]),
+                                   rep("0", sf_d$S[3]))) # t = 2
+sf4 <- sf %>%
+  add_node_attribute("Infected", c(rep("1", sf_d$I[4]),
+                                   rep("0", sf_d$S[4]))) # t = 3
+sf5 <- sf %>%
+  add_node_attribute("Infected", c(rep("1", sf_d$I[5]),
+                                   rep("0", sf_d$S[5]))) # t = 4
+sf_set <- list(sf, sf1, sf2, sf3, sf4, sf5)
+autographs(sf_set, node_color = "Infected")
 ```
 
 Since the first ten nodes are the first to join the scale-free network
@@ -498,6 +572,7 @@ Play a single diffusion so that you can see what's going on in a particular run.
 
 ```{r sirs-solution}
 plot(play_diffusion(rd, recovery = 0.25, waning = 0.05))
+plot(play_diffusions(rd, recovery = 0.25, waning = 0.05))
 ```
 
 ```{r sirs-interp, echo = FALSE, purl = FALSE}
@@ -513,7 +588,8 @@ Lastly, we'll consider a compartment for nodes that have been Exposed
 but are not yet infectious.
 This kind of an incubation period is due to some `latency`.
 Again, this should be specified as a proportion 
-(try 0.25, approx four days).
+(0 indicates an exposed individual is immediately infected,
+and 0.25 is approx four days).
 Play a single diffusion so that you can see what's going on in a particular run.
 
 ```{r seir, exercise = TRUE, exercise.setup = "create", purl = FALSE}
@@ -521,7 +597,9 @@ Play a single diffusion so that you can see what's going on in a particular run.
 ```
 
 ```{r seir-solution}
-plot(play_diffusion(rd, latency = 0.25, recovery = 0.25))
+plot(play_diffusion(rd, latency = 0.5))  /
+plot(play_diffusion(rd, latency = 0.25)) /
+plot(play_diffusion(rd, latency = 0.1))
 ```
 
 ## Investigate learning through simulation
@@ -537,7 +615,7 @@ Let's try this out on the `ison_networkers` dataset included in the package.
 First of all, check whether the network is _connected_ and _aperiodic_ via the following functions:
 
 + `is_connected()`: Tests whether network is weakly connected if the network is *undirected* or strongly connected if directed.
-+ `is_aperiodic()`: Tests whether network is aperiodic.
++ `is_aperiodic()`: Tests whether network is aperiodic, meaning there is no integer k > 1 that divides the length of every cycle of the graph.
 
 ```{r aperiod, exercise = TRUE, purl = FALSE}
 
