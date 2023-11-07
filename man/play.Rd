@@ -69,29 +69,29 @@ of the number of contacts/exposures sufficient for infection.
 If less than 1, the threshold is interpreted as complex,
 where the threshold concerns the proportion of contacts.}
 
-\item{transmissibility}{A proportion indicating the transmission rate,
+\item{transmissibility}{The transmission rate probability,
 \eqn{\beta}.
 By default 1, which means any node for which the threshold is met
 or exceeded will become infected.
 Anything lower means a correspondingly lower probability of adoption,
 even when the threshold is met or exceeded.}
 
-\item{latency}{A proportion indicating the rate at which those exposed
+\item{latency}{The inverse probability those who have been exposed
 become infectious (infected), \eqn{\sigma}.
 For example, if exposed individuals take, on average,
-four days to become infectious, then \eqn{\sigma = 0.25}.
+four days to become infectious, then \eqn{\sigma = 0.75} (1/1-0.75 = 1/0.25 = 4).
 By default 0, which means those exposed become immediately infectious (i.e. an SI model).
 Anything higher results in e.g. a SEI model.}
 
-\item{recovery}{A proportion indicating the rate of recovery,
-\eqn{\gamma}.
+\item{recovery}{The probability those who are infected
+recover, \eqn{\gamma}.
 For example, if infected individuals take, on average,
 four days to recover, then \eqn{\gamma = 0.25}.
 By default 0, which means there is no recovery (i.e. an SI model).
 Anything higher results in an SIR model.}
 
-\item{waning}{A proportion indicating the rate at which those who are
-recovered become susceptible again, \eqn{\xi}.
+\item{waning}{The probability those who are recovered
+become susceptible again, \eqn{\xi}.
 For example, if recovered individuals take, on average,
 four days to lose their immunity, then \eqn{\xi = 0.25}.
 By default 0, which means any recovered individuals retain lifelong immunity (i.e. an SIR model).

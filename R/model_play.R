@@ -11,26 +11,26 @@
 #'   of the number of contacts/exposures sufficient for infection.
 #'   If less than 1, the threshold is interpreted as complex,
 #'   where the threshold concerns the proportion of contacts.
-#' @param transmissibility A proportion indicating the transmission rate,
+#' @param transmissibility The transmission rate probability,
 #'   \eqn{\beta}.
 #'   By default 1, which means any node for which the threshold is met
 #'   or exceeded will become infected.
 #'   Anything lower means a correspondingly lower probability of adoption,
 #'   even when the threshold is met or exceeded.
-#' @param recovery A proportion indicating the rate of recovery, 
-#'   \eqn{\gamma}.
+#' @param recovery The probability those who are infected
+#'   recover, \eqn{\gamma}.
 #'   For example, if infected individuals take, on average, 
 #'   four days to recover, then \eqn{\gamma = 0.25}.
 #'   By default 0, which means there is no recovery (i.e. an SI model).
 #'   Anything higher results in an SIR model.
-#' @param latency A proportion indicating the rate at which those exposed 
+#' @param latency The inverse probability those who have been exposed
 #'   become infectious (infected), \eqn{\sigma}.
 #'   For example, if exposed individuals take, on average, 
-#'   four days to become infectious, then \eqn{\sigma = 0.25}.
+#'   four days to become infectious, then \eqn{\sigma = 0.75} (1/1-0.75 = 1/0.25 = 4).
 #'   By default 0, which means those exposed become immediately infectious (i.e. an SI model).
 #'   Anything higher results in e.g. a SEI model.
-#' @param waning A proportion indicating the rate at which those who are
-#'   recovered become susceptible again, \eqn{\xi}.
+#' @param waning The probability those who are recovered 
+#'   become susceptible again, \eqn{\xi}.
 #'   For example, if recovered individuals take, on average,
 #'   four days to lose their immunity, then \eqn{\xi = 0.25}.
 #'   By default 0, which means any recovered individuals retain lifelong immunity (i.e. an SIR model).
@@ -107,14 +107,14 @@ play_diffusion <- function(.data,
     # count exposures for each node:
     tabcontact <- table(contacts)
     # identify those nodes who are exposed at or above their threshold
-    new <- as.numeric(names(which(tabcontact >= thresholds[as.numeric(names(tabcontact))])))
-    new <- new[stats::rbinom(length(new), 1, transmissibility)==1]
+    newinf <- as.numeric(names(which(tabcontact >= thresholds[as.numeric(names(tabcontact))])))
+    newinf <- newinf[stats::rbinom(length(newinf), 1, transmissibility)==1]
     if(!is.null(recovery) & length(recovered)>0) 
-      new <- setdiff(new, recovered) # recovered can't be reinfected
+      newinf <- setdiff(newinf, recovered) # recovered can't be reinfected
     if(!is.null(exposed) & length(exposed)>0) 
-      new <- setdiff(new, exposed) # exposed already infected
-    if(is.infinite(steps) & length(new)==0 & length(exposed)==0) break # if no new infections we can stop
-    exposed <- c(exposed, new)
+      newinf <- setdiff(newinf, exposed) # exposed already infected
+    if(is.infinite(steps) & length(newinf)==0 & length(exposed)==0) break # if no new infections we can stop
+    exposed <- c(exposed, newinf)
 
     # new list of infected 
     infectious <- exposed[stats::rbinom(length(exposed), 1, latency)==0]
@@ -123,9 +123,9 @@ play_diffusion <- function(.data,
     # tick time
     t <- t+1
     # record new infections
-    if(!is.null(new) & length(new)>0)
+    if(!is.null(newinf) & length(newinf)>0)
       events <- rbind(events, 
-                    data.frame(t = t, nodes = new, event = "I"))
+                    data.frame(t = t, nodes = newinf, event = "I"))
     # record recoveries
     if(!is.null(exposed) & length(exposed)>0)
       events <- rbind(events,
@@ -143,7 +143,7 @@ play_diffusion <- function(.data,
                                n = n,
                          S = n - (length(exposed) + length(infected) + length(recovered)),
                          E = length(exposed),
-                         I_new = length(new),
+                         I_new = length(newinf),
                          I = length(infected),
                          R = length(recovered)))
     if(is.infinite(steps) & length(infected)==n) break
