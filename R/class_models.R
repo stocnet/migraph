@@ -220,20 +220,27 @@ plot.diff_model <- function(x, ...){
     S <- E <- I <- I_new <- R <- NULL # initialize variables to avoid CMD check notes
     data <- x
     p <- ggplot2::ggplot(data) + 
-      ggplot2::geom_line(ggplot2::aes(x = t, y = S/n, color = "A"),size = 1.25) +
-      ggplot2::geom_line(ggplot2::aes(x = t, y = I/n, color = "C"),size = 1.25) +
+      ggplot2::geom_line(ggplot2::aes(x = t, y = S/n, color = "A"), linewidth = 1.25) +
+      ggplot2::geom_line(ggplot2::aes(x = t, y = I/n, color = "C"), linewidth = 1.25) +
       ggplot2::geom_col(ggplot2::aes(x = t, y = I_new/n), 
                         alpha = 0.4) +
-      ggplot2::theme_minimal() + ggplot2::ylim(0,1) +
+      ggplot2::theme_minimal() + 
+      ggplot2::coord_cartesian(ylim = c(0,1)) + # using coord_cartesion to avoid printing warnings
       ggplot2::ylab("Proportion") + ggplot2::xlab("Steps")
-    if(any(data$E>0))
+    labs <- c("Susceptible", "Infected")
+    if(any(data$E>0)){
       p <- p +
-      ggplot2::geom_line(ggplot2::aes(x = t, y = E/n, color = "B"),size = 1.25)
-    if(any(data$R>0))
+        ggplot2::geom_line(ggplot2::aes(x = t, y = E/n, color = "B"),size = 1.25)
+      labs <- c("Susceptible", "Exposed", "Infected")
+    }
+    if(any(data$R>0)){
       p <- p +
-      ggplot2::geom_line(ggplot2::aes(x = t, y = R/n, color = "D"),size = 1.25)
+        ggplot2::geom_line(ggplot2::aes(x = t, y = R/n, color = "D"),size = 1.25)
+      labs <- c(labs, "Recovered")
+    }
+      
     p + ggplot2::scale_color_manual("Legend", 
-                            labels = c("Susceptible", "Exposed", "Infected", "Recovered"),
+                            labels = labs,
                             values = c(A = "blue", B = "orange", 
                                        C = "red", D = "darkgreen"),
                             guide = "legend")
@@ -252,18 +259,25 @@ plot.diffs_model <- function(x, ...){
                            method = "loess", se=TRUE, level = .95, formula = 'y~x') +
       ggplot2::geom_smooth(ggplot2::aes(x = t, y = I/n, color = "C"), 
                            method = "loess", se=TRUE, level = .95, formula = 'y~x') +
-      ggplot2::theme_minimal() + ggplot2::ylim(0,1) +
+      ggplot2::theme_minimal() + 
+      ggplot2::coord_cartesian(ylim = c(0,1)) + # using coord_cartesion to avoid printing warnings
       ggplot2::ylab("Proportion") + ggplot2::xlab("Steps")
-    if(any(data$E>0))
+    labs <- c("Susceptible", "Infected")
+    if(any(data$E>0)){
       p <- p +
-      ggplot2::geom_smooth(ggplot2::aes(x = t, y = E/n, color = "B"), 
-                           method = "loess", se=TRUE, level = .95, formula = 'y~x')
-    if(any(data$R>0))
+        ggplot2::geom_smooth(ggplot2::aes(x = t, y = E/n, color = "B"), 
+                             method = "loess", se=TRUE, level = .95, formula = 'y~x')
+      labs <- c("Susceptible", "Exposed", "Infected")
+    }
+    if(any(data$R>0)){
       p <- p +
-      ggplot2::geom_smooth(ggplot2::aes(x = t, y = R/n, color = "D"), 
-                           method = "loess", se=TRUE, level = .95, formula = 'y~x')
+        ggplot2::geom_smooth(ggplot2::aes(x = t, y = R/n, color = "D"), 
+                             method = "loess", se=TRUE, level = .95, formula = 'y~x')
+      labs <- c(labs, "Recovered")
+    }
+      
     p + ggplot2::scale_color_manual("Legend", 
-                                    labels = c("Susceptible", "Exposed", "Infected", "Recovered"),
+                                    labels = labs,
                                     values = c(A = "blue", B = "orange", 
                                                C = "red", D = "darkgreen"),
                                     guide = "legend")
