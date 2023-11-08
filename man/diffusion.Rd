@@ -56,6 +56,9 @@ of exposure they had when they became infected
 
 }}
 \references{
+Kermack, W. and McKendrick, A., 1927. "A contribution to the mathematical theory of epidemics".
+\emph{Proc. R. Soc. London A} 115: 700-721.
+
 Valente, Tom W. (1995). \emph{Network models of the diffusion of innovations}
 (2nd ed.). Cresskill N.J.: Hampton Press.
 }

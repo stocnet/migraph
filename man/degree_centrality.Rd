@@ -138,6 +138,7 @@ Other measures:
 \code{\link{close_centrality}},
 \code{\link{closure}},
 \code{\link{cohesion}()},
+\code{\link{diffusion}},
 \code{\link{eigenv_centrality}},
 \code{\link{features}},
 \code{\link{heterogeneity}},

@@ -3,6 +3,9 @@
 #' @family measures
 #' @name diffusion
 #' @references
+#'   Kermack, W. and McKendrick, A., 1927. "A contribution to the mathematical theory of epidemics". 
+#'   _Proc. R. Soc. London A_ 115: 700-721.
+#'   
 #'   Valente, Tom W. (1995). _Network models of the diffusion of innovations_
 #'   (2nd ed.). Cresskill N.J.: Hampton Press.
 NULL
