@@ -1,3 +1,20 @@
+# migraph 1.1.6
+
+2023-11-08
+
+## Measures
+
+- Added first drafts of various diffusion measures: `network_transmissability()`, `node_infection_length()`, `network_infection_length()`, `network_reproduction()`, `node_adoption_time()`, `node_adopter()`, `node_thresholds()`.
+
+## Models
+
+- Fixed documentation for `play_diffusion()`.
+- Fixed bug in labelling in plot results for SIR models.
+
+## Tutorials
+
+- Added plots using `autographs()` and elaboration for tutorial 7.
+
 # migraph 1.1.5
 
 2023-11-02
