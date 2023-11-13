@@ -72,7 +72,7 @@ network_richclub <- function(.data){
 #' @describeIn features Returns correlation between a given network
 #'   and a component model with the same dimensions.
 #'   If no 'membership' vector is given for the data, 
-#'   `node_kernaghinlin()` is used to obtain a partition into two groups.
+#'   `node_kernighanlin()` is used to obtain a partition into two groups.
 #' @examples 
 #'   network_factions(mpn_elite_mex)
 #'   network_factions(ison_southern_women)
