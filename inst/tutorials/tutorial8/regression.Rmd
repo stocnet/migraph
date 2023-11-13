@@ -152,6 +152,7 @@ network_diversity(____, ____, ____)
 
 ```{r crossref-solution}
 network_diversity(marvel_friends, "Gender", "PowerOrigin")
+as.factor(node_attribute(marvel_friends, "PowerOrigin")) # view categories in PowerOrigin
 network_diversity(marvel_friends, "Intellect", "Gender")
 ```
 
@@ -307,6 +308,23 @@ new <- autographr(generate_permutation(marvel_friends, with_attr = TRUE),
 old + new
 ```
 
+```{r cupqap-qn, echo=FALSE, purl = FALSE}
+question("Select statements that are true",
+  answer("Random networks retain the structure of the original network",
+         message = learnr::random_encouragement()),
+  answer("Permutated networks retain the structure of the original network",
+         message = learnr::random_praise(),
+         correct = TRUE),
+  answer("Random networks retain the distribution of attributes in the original network",
+         message = learnr::random_praise(),
+         correct = TRUE),
+  answer("Permutated networks retain the position of nodes in the original network", 
+         message = "Permutated networks randomly reassign any variables and change positions of nodes by swapping the rows and columns of an adjacency matrix"),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+)
+```
+
 This single permutation suggests there might otherwise be some more even mixing of these
 attributes, but it is just a single permutation.
 Let's try a test that runs this over a succession of permutations,
@@ -322,12 +340,12 @@ test_permutation(____, FUN = ____, attribute = ____,
 ```
 
 ```{r testpermute-solution}
-perm.gender <- test_permutation(marvel_friends, 
+(perm.gender <- test_permutation(marvel_friends, 
                                 network_heterophily, attribute = "Gender",
-                                times = 1000)
-perm.power <- test_permutation(marvel_friends, 
+                                times = 1000))
+(perm.power <- test_permutation(marvel_friends, 
                                network_heterophily, attribute = "PowerOrigin",
-                                times = 1000)
+                                times = 1000))
 ```
 
 Again, we see that there is perhaps nothing so surprising that we got the homophily score
@@ -341,6 +359,22 @@ Plot the results for gender and power according to the random and permutation ba
 ```{r cugqap-solution}
 (plot(rand.gender) | plot(rand.power)) /
 (plot(perm.gender) | plot(perm.power))
+```
+
+```{r cupqap-results, echo=FALSE, purl = FALSE}
+question("What can we say from these results?",
+  answer("We can reject the null hypothesis that there is no homophily for gender in the comparison with random networks",
+         message = "The red line is not in the grey shaded zone"),
+  answer("We can reject the null hypothesis that there is no homophily for power origin in the comparison with random networks", 
+         correct = TRUE),
+  answer("We can reject the null hypothesis that there is no homophily for power origin in both CUG and QAP tests",
+         correct = TRUE),
+  answer("We can reject the null hypothesis that there is no homophily for gender in both CUG and QAP tests", 
+         message = "The red lines in both plots are not in the grey shaded zone"),
+  answer("We cannot reject the null hypothesis that there is no homophily for gender in both CUG and QAP tests",
+         correct = TRUE),
+  allow_retry = TRUE
+)
 ```
 
 Note how the distributions are generally wider when permuting the observed network 
