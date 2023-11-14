@@ -76,6 +76,18 @@ node_is_random <- function(.data, size = 1){
   make_node_mark(out, .data)
 }
 
+#' @describeIn mark_nodes Returns a logical vector
+#'   indicating mentor (high indegree) nodes as TRUE.
+#' @export
+node_is_mentor <- function(.data, elites = 0.1){
+  indegs <- colSums(manynet::as_matrix(.data)) # get rank order of indegrees
+  out <- indegs == max(indegs)
+  if(sum(out) < length(indegs)*elites){
+    out <- indegs %in% unique(sort(indegs, decreasing=TRUE)[seq_len(length(indegs)*elites)])
+  }
+  make_node_mark(out, .data)
+}
+
 #' @describeIn mark_nodes Returns logical of which nodes 
 #'   hold the maximum of some measure
 #' @param node_measure An object created by a `node_` measure.

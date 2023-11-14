@@ -6,6 +6,7 @@
 \alias{node_is_isolate}
 \alias{node_is_core}
 \alias{node_is_random}
+\alias{node_is_mentor}
 \alias{node_is_max}
 \alias{node_is_min}
 \title{Marking nodes based on their properties}
@@ -17,6 +18,8 @@ node_is_isolate(.data)
 node_is_core(.data)
 
 node_is_random(.data, size = 1)
+
+node_is_mentor(.data, elites = 0.1)
 
 node_is_max(node_measure, ranks = 1)
 
@@ -69,6 +72,9 @@ of the core of the network.
 
 \item \code{node_is_random()}: Returns a logical vector
 indicating a random selection of nodes as TRUE.
+
+\item \code{node_is_mentor()}: Returns a logical vector
+indicating mentor (high indegree) nodes as TRUE.
 
 \item \code{node_is_max()}: Returns logical of which nodes
 hold the maximum of some measure
