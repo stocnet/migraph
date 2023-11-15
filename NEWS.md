@@ -14,6 +14,10 @@
 
 - Added `node_is_mentor()` for indicating nodes with high indegree.
 
+## Models
+
+- Added minimising distance option for segregation model choice.
+
 ## Tutorials
 
 - Added multi-choice questions to tutorial 8.
