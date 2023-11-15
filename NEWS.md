@@ -1,3 +1,23 @@
+# migraph 1.1.7
+
+2023-11-15
+
+## Package
+
+- Added diffusion measures to website.
+
+## Measures
+
+- Fixed documentation issues for diffusion measures.
+
+## Marks
+
+- Added `node_is_mentor()` for indicating nodes with high indegree.
+
+## Tutorials
+
+- Added multi-choice questions to tutorial 8.
+
 # migraph 1.1.6
 
 2023-11-08
