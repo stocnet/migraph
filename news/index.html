@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.7</span>
       </span>
     </div>
 
@@ -54,7 +54,43 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.1.5" id="migraph-115">migraph 1.1.5<a class="anchor" aria-label="anchor" href="#migraph-115"></a></h2>
+<h2 class="page-header" data-toc-text="1.1.7" id="migraph-117">migraph 1.1.7<a class="anchor" aria-label="anchor" href="#migraph-117"></a></h2>
+<p>2023-11-15</p>
+<div class="section level3">
+<h3 id="package-1-1-7">Package<a class="anchor" aria-label="anchor" href="#package-1-1-7"></a></h3>
+<ul><li>Added diffusion measures to website.</li></ul></div>
+<div class="section level3">
+<h3 id="measures-1-1-7">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-7"></a></h3>
+<ul><li>Fixed documentation issues for diffusion measures.</li></ul></div>
+<div class="section level3">
+<h3 id="marks-1-1-7">Marks<a class="anchor" aria-label="anchor" href="#marks-1-1-7"></a></h3>
+<ul><li>Added <code><a href="../reference/mark_nodes.html">node_is_mentor()</a></code> for indicating nodes with high indegree.</li></ul></div>
+<div class="section level3">
+<h3 id="models-1-1-7">Models<a class="anchor" aria-label="anchor" href="#models-1-1-7"></a></h3>
+<ul><li>Added ‘minimising’ distance option for segregation model choice.</li>
+<li>Changed ‘satisficing’ option in <code><a href="../reference/play.html">play_segregation()</a></code> to sample randomly from those unoccupied options less than the desired threshold.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="tutorials-1-1-7">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-1-7"></a></h3>
+<ul><li>Added multi-choice questions to tutorial 8.</li></ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.1.6" id="migraph-116">migraph 1.1.6<a class="anchor" aria-label="anchor" href="#migraph-116"></a></h2>
+<p>2023-11-08</p>
+<div class="section level3">
+<h3 id="measures-1-1-6">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-6"></a></h3>
+<ul><li>Added first drafts of various diffusion measures: <code>network_transmissability()</code>, <code><a href="../reference/diffusion.html">node_infection_length()</a></code>, <code><a href="../reference/diffusion.html">network_infection_length()</a></code>, <code><a href="../reference/diffusion.html">network_reproduction()</a></code>, <code><a href="../reference/diffusion.html">node_adoption_time()</a></code>, <code><a href="../reference/diffusion.html">node_adopter()</a></code>, <code><a href="../reference/diffusion.html">node_thresholds()</a></code>.</li></ul></div>
+<div class="section level3">
+<h3 id="models-1-1-6">Models<a class="anchor" aria-label="anchor" href="#models-1-1-6"></a></h3>
+<ul><li>Fixed documentation for <code><a href="../reference/play.html">play_diffusion()</a></code>.</li>
+<li>Fixed bug in labelling in plot results for SIR models.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="tutorials-1-1-6">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-1-6"></a></h3>
+<ul><li>Added plots using <code>autographs()</code> and elaboration for tutorial 7.</li></ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.1.5" id="migraph-115">migraph 1.1.5<small>2023-11-02</small><a class="anchor" aria-label="anchor" href="#migraph-115"></a></h2>
 <p>2023-11-02</p>
 <div class="section level3">
 <h3 id="members-1-1-5">Members<a class="anchor" aria-label="anchor" href="#members-1-1-5"></a></h3>
@@ -515,7 +551,7 @@
 <div class="section level3">
 <h3 id="manipulation-0-11-0">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-11-0"></a></h3>
 <ul><li>Added <code>as_graphAM()</code> methods for all migraph-consistent object classes so <code>{Rgraphviz}</code> can be used effectively</li>
-<li>Added <code>as_igraph()</code>, <code>as_tidygraph()</code>, and <code>as_network()</code> methods for <a href="http://www.stats.ox.ac.uk/~snijders/siena/" class="external-link">RSiena</a> sienaData objects (thanks <a href="https://github.com/JaelTan" class="external-link">@JaelTan</a>, closed <a href="https://github.com/snlab-ch/migraph/issues/94" class="external-link">#94</a>)</li>
+<li>Added <code>as_igraph()</code>, <code>as_tidygraph()</code>, and <code>as_network()</code> methods for <a href="https://www.stats.ox.ac.uk/~snijders/siena/" class="external-link">RSiena</a> sienaData objects (thanks <a href="https://github.com/JaelTan" class="external-link">@JaelTan</a>, closed <a href="https://github.com/snlab-ch/migraph/issues/94" class="external-link">#94</a>)</li>
 <li>Added <code>as_edgelist()</code> and <code>as_matrix()</code> methods for <code>network.goldfish</code> class objects</li>
 <li>The <code>"twomode"</code> argument in <code>as_matrix()</code> is now <code>NULL</code> by default, allowing both one-mode and two-mode coercion</li>
 <li>

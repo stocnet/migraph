@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.7</span>
       </span>
     </div>
 
@@ -93,7 +93,7 @@
 <span>  <span class="va">attribute</span>,</span>
 <span>  heterophily <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  who_moves <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ordered"</span>, <span class="st">"random"</span>, <span class="st">"most_dissatisfied"</span><span class="op">)</span>,</span>
-<span>  choice_function <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"satisficing"</span>, <span class="st">"optimising"</span><span class="op">)</span>,</span>
+<span>  choice_function <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"satisficing"</span>, <span class="st">"optimising"</span>, <span class="st">"minimising"</span><span class="op">)</span>,</span>
 <span>  <span class="va">steps</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -127,7 +127,7 @@ where the threshold concerns the proportion of contacts.</p></dd>
 
 
 <dt>transmissibility</dt>
-<dd><p>A proportion indicating the transmission rate,
+<dd><p>The transmission rate probability,
 \(\beta\).
 By default 1, which means any node for which the threshold is met
 or exceeded will become infected.
@@ -136,17 +136,17 @@ even when the threshold is met or exceeded.</p></dd>
 
 
 <dt>latency</dt>
-<dd><p>A proportion indicating the rate at which those exposed
-become infectious (infected), \(\sigma\).
+<dd><p>The inverse probability those who have been exposed
+become infectious (infected), \(\sigma\) or \(\kappa\).
 For example, if exposed individuals take, on average,
-four days to become infectious, then \(\sigma = 0.25\).
+four days to become infectious, then \(\sigma = 0.75\) (1/1-0.75 = 1/0.25 = 4).
 By default 0, which means those exposed become immediately infectious (i.e. an SI model).
 Anything higher results in e.g. a SEI model.</p></dd>
 
 
 <dt>recovery</dt>
-<dd><p>A proportion indicating the rate of recovery,
-\(\gamma\).
+<dd><p>The probability those who are infected
+recover, \(\gamma\).
 For example, if infected individuals take, on average,
 four days to recover, then \(\gamma = 0.25\).
 By default 0, which means there is no recovery (i.e. an SI model).
@@ -154,8 +154,8 @@ Anything higher results in an SIR model.</p></dd>
 
 
 <dt>waning</dt>
-<dd><p>A proportion indicating the rate at which those who are
-recovered become susceptible again, \(\xi\).
+<dd><p>The probability those who are recovered
+become susceptible again, \(\xi\).
 For example, if recovered individuals take, on average,
 four days to lose their immunity, then \(\xi = 0.25\).
 By default 0, which means any recovered individuals retain lifelong immunity (i.e. an SIR model).
@@ -241,7 +241,8 @@ and "most_dissatisfied" will check (one of) the most dissatisfied nodes first.</
 <dd><p>One of the following options:
 "satisficing" (the default) will move the node to any coordinates that satisfy
 their heterophily threshold,
-whereas "optimising" will move the node to coordinates that are most homophilous.</p></dd>
+"optimising" will move the node to coordinates that are most homophilous,
+and "minimising" distance will move the node to the next nearest unoccupied coordinates.</p></dd>
 
 </dl></div>
     <div id="functions">
@@ -267,43 +268,42 @@ whereas "optimising" will move the node to coordinates that are most homophilous
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">play_diffusion</span><span class="op">(</span><span class="va">smeg</span>, recovery <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="play-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">play_diffusions</span><span class="op">(</span><span class="va">smeg</span>, times <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 24 rows containing missing values (`geom_smooth()`).</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 51 rows containing missing values (`geom_smooth()`).</span>
 <span class="r-plt img"><img src="play-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>  <span class="fu">play_learning</span><span class="op">(</span><span class="va">ison_networkers</span>, </span></span>
 <span class="r-in"><span>      <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">rbinom</a></span><span class="op">(</span><span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/properties.html" class="external-link">network_nodes</a></span><span class="op">(</span><span class="va">ison_networkers</span><span class="op">)</span>,<span class="fl">1</span>,prob <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 7 × 32</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   `LIN FREEMAN` `DOUG WHITE` `EV ROGERS` `RICHARD ALBA` `PHIPPS ARABIE`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 32</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   `Lin Freeman` `Doug White` `Ev Rogers` `Richard Alba` `Phipps Arabie`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         0            0           1             0                0    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         0.177        0.236       0             0.075<span style="text-decoration: underline;">5</span>           0.181</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>         0.157        0.150       0.178         0.164            0.154</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>         0.150        0.155       0.150         0.150            0.150</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>         0.153        0.151       0.151         0.152            0.152</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>         0.151        0.152       0.152         0.152            0.151</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>         0.152        0.151       0.151         0.152            0.152</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 27 more variables: `CAROL BARNER-BARRY` &lt;dbl&gt;, `GARY COOMBS` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `RUSS BERNARD` &lt;dbl&gt;, `JOHN BOYD` &lt;dbl&gt;, `RON BURT` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `PAT DOREIAN` &lt;dbl&gt;, `CLAUDE FISCHER` &lt;dbl&gt;, `BRIAN FOSTER` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `MARK GRANOVETTER` &lt;dbl&gt;, `MAUREEN HALLINAN` &lt;dbl&gt;, `PAUL HOLLAND` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `JACK HUNTER` &lt;dbl&gt;, `DAVOR JEDLICKA` &lt;dbl&gt;, `CHARLES KADUSHIN` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `ED LAUMANN` &lt;dbl&gt;, `SAM LEINHARDT` &lt;dbl&gt;, `JOEL LEVINE` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `NAN LIN` &lt;dbl&gt;, `NICK MULLINS` &lt;dbl&gt;, `DON PLOCH` &lt;dbl&gt;, …</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         0            0           1              0               0    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         0.198        0.181       0              0.263           0.258</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>         0.165        0.179       0.186          0.165           0.156</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>         0.182        0.177       0.167          0.183           0.184</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>         0.176        0.179       0.181          0.178           0.176</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>         0.178        0.178       0.177          0.178           0.179</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>         0.178        0.178       0.178          0.178           0.178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>         0.178        0.178       0.178          0.178           0.178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 27 more variables: `Carol Barner-Barry` &lt;dbl&gt;, `Gary Coombs` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Russ Bernard` &lt;dbl&gt;, `John Boyd` &lt;dbl&gt;, `Ron Burt` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Pat Doreian` &lt;dbl&gt;, `Claude Fischer` &lt;dbl&gt;, `Brian Foster` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Mark Granovetter` &lt;dbl&gt;, `Maureen Hallinan` &lt;dbl&gt;, `Paul Holland` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Jack Hunter` &lt;dbl&gt;, `Davor Jedlicka` &lt;dbl&gt;, `Charles Kadushin` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Ed Laumann` &lt;dbl&gt;, `Sam Leinhardt` &lt;dbl&gt;, `Joel Levine` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Nan Lin` &lt;dbl&gt;, `Nick Mullins` &lt;dbl&gt;, `Don Ploch` &lt;dbl&gt;, …</span></span>
 <span class="r-in"><span>  <span class="va">startValues</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">rbinom</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">1</span>,prob <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">startValues</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">100</span><span class="op">*</span><span class="fl">0.2</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></span>
 <span class="r-in"><span>  <span class="va">latticeEg</span> <span class="op">&lt;-</span> <span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/create.html" class="external-link">create_lattice</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">latticeEg</span> <span class="op">&lt;-</span> <span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/add.html" class="external-link">add_node_attribute</a></span><span class="op">(</span><span class="va">latticeEg</span>, <span class="st">"startValues"</span>, <span class="va">startValues</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">latticeEg</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # A undirected tbl_graph with 100 nodes and 342 ties</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # A undirected network with 100 nodes and 342 ties</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 100 × 1</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   startValues</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>          <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>          <span style="color: #BB0000;">NA</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>          <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>           0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>           0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>          <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 94 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 342 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    from    to</span>
@@ -316,26 +316,21 @@ whereas "optimising" will move the node to coordinates that are most homophilous
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>     2    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 336 more rows</span></span>
 <span class="r-in"><span>  <span class="fu">play_segregation</span><span class="op">(</span><span class="va">latticeEg</span>, <span class="st">"startValues"</span>, <span class="fl">0.5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 5 to node 2"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 8 to node 3"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 46 to node 5"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 35 to node 8"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 54 to node 11"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 53 to node 20"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 70 to node 39"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 72 to node 50"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 40 to node 35"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 86 to node 37"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # A undirected tbl_graph with 100 nodes and 342 ties</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 20 to node 57"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 23 to node 98"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 74 to node 48"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 81 to node 64"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 96 to node 41"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # A undirected network with 100 nodes and 342 ties</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 100 × 1</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   startValues</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>          <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>          <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>           0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>          <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 94 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 342 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    from    to</span>
@@ -347,9 +342,9 @@ whereas "optimising" will move the node to coordinates that are most homophilous
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>     2    11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>     2    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 336 more rows</span></span>
-<span class="r-in"><span>  <span class="co">#manynet::autographr(latticeEg, node_color = "startValues", node_size = 5)</span></span></span>
-<span class="r-in"><span>  <span class="co">#manynet::autographr(play_segregation(latticeEg, "startValues", 0.5), </span></span></span>
-<span class="r-in"><span>  <span class="co">#                    node_color = "startValues", node_size = 5)</span></span></span>
+<span class="r-in"><span>  <span class="co"># manynet::autographr(latticeEg, node_color = "startValues", node_size = 5) + </span></span></span>
+<span class="r-in"><span>  <span class="co"># manynet::autographr(play_segregation(latticeEg, "startValues", 0.2), </span></span></span>
+<span class="r-in"><span>  <span class="co">#                     node_color = "startValues", node_size = 5)</span></span></span>
 </code></pre></div>
     </div>
   </div>

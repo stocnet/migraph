@@ -25,7 +25,7 @@ are key because they minimise or, more often, maximise some measure."><meta prop
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.7</span>
       </span>
     </div>
 
@@ -83,6 +83,8 @@ are key because they minimise or, more often, maximise some measure.</p>
 <span></span>
 <span><span class="fu">node_is_random</span><span class="op">(</span><span class="va">.data</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">node_is_mentor</span><span class="op">(</span><span class="va">.data</span>, elites <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">node_is_max</span><span class="op">(</span><span class="va">node_measure</span>, ranks <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">node_is_min</span><span class="op">(</span><span class="va">node_measure</span>, ranks <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
@@ -101,6 +103,21 @@ are key because they minimise or, more often, maximise some measure.</p>
 
 <dt>size</dt>
 <dd><p>The number of nodes to select (as TRUE).</p></dd>
+
+
+<dt>elites</dt>
+<dd><p>The proportion of nodes to be selected as mentors.
+By default this is set at 0.1.
+This means that the top 10% of nodes in terms of degree,
+or those equal to the highest rank degree in the network,
+whichever is the higher, will be used to select the mentors.</p>
+<p>Note that if nodes are equidistant from two mentors,
+they will choose one at random.
+If a node is without a path to a mentor,
+for example because they are an isolate,
+a tie to themselves (a loop) will be created instead.
+Note that this is a different default behaviour than that
+described in Valente and Davis (1999).</p></dd>
 
 
 <dt>node_measure</dt>
@@ -127,11 +144,19 @@ with neither incoming nor outgoing ties.</p></li>
 of the core of the network.</p></li>
 <li><p><code>node_is_random()</code>: Returns a logical vector
 indicating a random selection of nodes as TRUE.</p></li>
+<li><p><code>node_is_mentor()</code>: Returns a logical vector
+indicating mentor (high indegree) nodes as TRUE.</p></li>
 <li><p><code>node_is_max()</code>: Returns logical of which nodes
 hold the maximum of some measure</p></li>
 <li><p><code>node_is_min()</code>: Returns logical of which nodes
 hold the minimum of some measure</p></li>
 </ul></div>
+    <div id="references">
+    <h2>References</h2>
+    <p>Valente, Thomas, and Rebecca Davis. 1999.
+"Accelerating the Diffusion of Innovations Using Opinion Leaders",
+<em>Annals of the American Academy of Political and Social Science</em> 566: 56-67.</p>
+    </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other marks: 
@@ -152,7 +177,7 @@ hold the minimum of some measure</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FALSE FALSE TRUE  TRUE  FALSE FALSE FALSE FALSE TRUE  FALSE FALSE</span>
 <span class="r-in"><span><span class="fu">node_is_random</span><span class="op">(</span><span class="va">ison_brandes</span>, <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   V1    V2    V3    V4    V5    V6    V7    V8    V9    V10   V11  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FALSE FALSE FALSE TRUE  TRUE  FALSE FALSE FALSE FALSE FALSE FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FALSE FALSE FALSE FALSE FALSE FALSE TRUE  FALSE FALSE TRUE  FALSE</span>
 <span class="r-in"><span><span class="fu">node_is_max</span><span class="op">(</span><span class="fu"><a href="degree_centrality.html">node_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   V1    V2    V3    V4    V5    V6    V7    V8    V9    V10   V11  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE TRUE  FALSE FALSE</span>
