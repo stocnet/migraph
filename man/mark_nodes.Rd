@@ -6,6 +6,7 @@
 \alias{node_is_isolate}
 \alias{node_is_core}
 \alias{node_is_random}
+\alias{node_is_mentor}
 \alias{node_is_max}
 \alias{node_is_min}
 \title{Marking nodes based on their properties}
@@ -17,6 +18,8 @@ node_is_isolate(.data)
 node_is_core(.data)
 
 node_is_random(.data, size = 1)
+
+node_is_mentor(.data, elites = 0.1)
 
 node_is_max(node_measure, ranks = 1)
 
@@ -33,6 +36,20 @@ node_is_min(node_measure, ranks = 1)
 }}
 
 \item{size}{The number of nodes to select (as TRUE).}
+
+\item{elites}{The proportion of nodes to be selected as mentors.
+By default this is set at 0.1.
+This means that the top 10\% of nodes in terms of degree,
+or those equal to the highest rank degree in the network,
+whichever is the higher, will be used to select the mentors.
+
+Note that if nodes are equidistant from two mentors,
+they will choose one at random.
+If a node is without a path to a mentor,
+for example because they are an isolate,
+a tie to themselves (a loop) will be created instead.
+Note that this is a different default behaviour than that
+described in Valente and Davis (1999).}
 
 \item{node_measure}{An object created by a \code{node_} measure.}
 
@@ -70,6 +87,9 @@ of the core of the network.
 \item \code{node_is_random()}: Returns a logical vector
 indicating a random selection of nodes as TRUE.
 
+\item \code{node_is_mentor()}: Returns a logical vector
+indicating mentor (high indegree) nodes as TRUE.
+
 \item \code{node_is_max()}: Returns logical of which nodes
 hold the maximum of some measure
 
@@ -84,6 +104,11 @@ node_is_core(ison_brandes)
 node_is_random(ison_brandes, 2)
 node_is_max(node_degree(ison_brandes))
 node_is_min(node_degree(ison_brandes))
+}
+\references{
+Valente, Thomas, and Rebecca Davis. 1999.
+"Accelerating the Diffusion of Innovations Using Opinion Leaders",
+\emph{Annals of the American Academy of Political and Social Science} 566: 56-67.
 }
 \seealso{
 Other marks: 

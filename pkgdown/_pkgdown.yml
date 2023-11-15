@@ -58,6 +58,7 @@ reference:
       - features
       - over
       - hierarchy
+      - diffusion
   - title: "Motifs"
     desc: |
       Functions for calculating subgraphs in multimodal networks.

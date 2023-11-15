@@ -154,7 +154,7 @@ node_heterophily <- function(.data, attribute){
   make_node_measure(ei, .data)
 }
 
-#' @describeIn heterogeneity Calculates the degree assortativity in a graph.
+#' @describeIn heterogeneity Calculates the degree assortativity in a network.
 #' @importFrom igraph assortativity_degree
 #' @examples 
 #' network_assortativity(mpn_elite_mex)

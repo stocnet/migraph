@@ -42,7 +42,7 @@ play_segregation(
   attribute,
   heterophily = 0,
   who_moves = c("ordered", "random", "most_dissatisfied"),
-  choice_function = c("satisficing", "optimising"),
+  choice_function = c("satisficing", "optimising", "minimising"),
   steps
 )
 }
@@ -77,7 +77,7 @@ Anything lower means a correspondingly lower probability of adoption,
 even when the threshold is met or exceeded.}
 
 \item{latency}{The inverse probability those who have been exposed
-become infectious (infected), \eqn{\sigma}.
+become infectious (infected), \eqn{\sigma} or \eqn{\kappa}.
 For example, if exposed individuals take, on average,
 four days to become infectious, then \eqn{\sigma = 0.75} (1/1-0.75 = 1/0.25 = 4).
 By default 0, which means those exposed become immediately infectious (i.e. an SI model).
@@ -155,7 +155,8 @@ and "most_dissatisfied" will check (one of) the most dissatisfied nodes first.}
 \item{choice_function}{One of the following options:
 "satisficing" (the default) will move the node to any coordinates that satisfy
 their heterophily threshold,
-whereas "optimising" will move the node to coordinates that are most homophilous.}
+"optimising" will move the node to coordinates that are most homophilous,
+and "minimising" distance will move the node to the next nearest unoccupied coordinates.}
 }
 \description{
 Functions to play games on networks
@@ -184,9 +185,9 @@ Functions to play games on networks
   latticeEg <- manynet::add_node_attribute(latticeEg, "startValues", startValues)
   latticeEg
   play_segregation(latticeEg, "startValues", 0.5)
-  #manynet::autographr(latticeEg, node_color = "startValues", node_size = 5)
-  #manynet::autographr(play_segregation(latticeEg, "startValues", 0.5), 
-  #                    node_color = "startValues", node_size = 5)
+  # manynet::autographr(latticeEg, node_color = "startValues", node_size = 5) + 
+  # manynet::autographr(play_segregation(latticeEg, "startValues", 0.2), 
+  #                     node_color = "startValues", node_size = 5)
 }
 \seealso{
 Other models: 

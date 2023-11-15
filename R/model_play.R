@@ -24,7 +24,7 @@
 #'   By default 0, which means there is no recovery (i.e. an SI model).
 #'   Anything higher results in an SIR model.
 #' @param latency The inverse probability those who have been exposed
-#'   become infectious (infected), \eqn{\sigma}.
+#'   become infectious (infected), \eqn{\sigma} or \eqn{\kappa}.
 #'   For example, if exposed individuals take, on average, 
 #'   four days to become infectious, then \eqn{\sigma = 0.75} (1/1-0.75 = 1/0.25 = 4).
 #'   By default 0, which means those exposed become immediately infectious (i.e. an SI model).
@@ -238,7 +238,8 @@ play_learning <- function(.data,
 #' @param choice_function One of the following options:
 #'   "satisficing" (the default) will move the node to any coordinates that satisfy
 #'   their heterophily threshold,
-#'   whereas "optimising" will move the node to coordinates that are most homophilous.
+#'   "optimising" will move the node to coordinates that are most homophilous,
+#'   and "minimising" distance will move the node to the next nearest unoccupied coordinates.
 #' @examples 
 #'   startValues <- rbinom(100,1,prob = 0.5)
 #'   startValues[sample(seq_len(100), round(100*0.2))] <- NA
@@ -246,15 +247,15 @@ play_learning <- function(.data,
 #'   latticeEg <- manynet::add_node_attribute(latticeEg, "startValues", startValues)
 #'   latticeEg
 #'   play_segregation(latticeEg, "startValues", 0.5)
-#'   #manynet::autographr(latticeEg, node_color = "startValues", node_size = 5)
-#'   #manynet::autographr(play_segregation(latticeEg, "startValues", 0.5), 
-#'   #                    node_color = "startValues", node_size = 5)
+#'   # manynet::autographr(latticeEg, node_color = "startValues", node_size = 5) + 
+#'   # manynet::autographr(play_segregation(latticeEg, "startValues", 0.2), 
+#'   #                     node_color = "startValues", node_size = 5)
 #' @export
 play_segregation <- function(.data, 
                              attribute,
                              heterophily = 0,
                              who_moves = c("ordered","random","most_dissatisfied"),
-                             choice_function = c("satisficing","optimising"),
+                             choice_function = c("satisficing","optimising", "minimising"),
                              steps){
   n <- manynet::network_nodes(.data)
   if(missing(steps)) steps <- n
@@ -289,8 +290,11 @@ play_segregation <- function(.data,
     }, FUN.VALUE = numeric(1))
     if(length(options)==0) next
     move_to <- switch(choice_function,
-                      satisficing = unoccupied[which(options <= heterophily)[1]],
-                      optimising = unoccupied[which(options == min(options))[1]])
+                      satisficing = unoccupied[sample(which(options <= heterophily[unoccupied]), 1)],
+                      optimising = unoccupied[which.min(options)[1]],
+                      minimising = unoccupied[which.min(igraph::distances(temp, 
+                                                                          igraph::V(temp)[dissatisfied], 
+                                                                          igraph::V(temp)[unoccupied]))])
     if(is.na(move_to)) next
     print(paste("Moving node", dissatisfied, "to node", move_to))
     temp <- manynet::add_node_attribute(temp, attribute, 

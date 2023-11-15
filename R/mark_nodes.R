@@ -76,6 +76,35 @@ node_is_random <- function(.data, size = 1){
   make_node_mark(out, .data)
 }
 
+#' @describeIn mark_nodes Returns a logical vector
+#'   indicating mentor (high indegree) nodes as TRUE.
+#' @param elites The proportion of nodes to be selected as mentors.
+#'   By default this is set at 0.1.
+#'   This means that the top 10% of nodes in terms of degree,
+#'   or those equal to the highest rank degree in the network,
+#'   whichever is the higher, will be used to select the mentors.
+#'   
+#'   Note that if nodes are equidistant from two mentors,
+#'   they will choose one at random.
+#'   If a node is without a path to a mentor,
+#'   for example because they are an isolate,
+#'   a tie to themselves (a loop) will be created instead.
+#'   Note that this is a different default behaviour than that
+#'   described in Valente and Davis (1999).
+#' @references
+#' Valente, Thomas, and Rebecca Davis. 1999.
+#' "Accelerating the Diffusion of Innovations Using Opinion Leaders",
+#' _Annals of the American Academy of Political and Social Science_ 566: 56-67.
+#' @export
+node_is_mentor <- function(.data, elites = 0.1){
+  indegs <- colSums(manynet::as_matrix(.data)) # get rank order of indegrees
+  out <- indegs == max(indegs)
+  if(sum(out) < length(indegs)*elites){
+    out <- indegs %in% unique(sort(indegs, decreasing=TRUE)[seq_len(length(indegs)*elites)])
+  }
+  make_node_mark(out, .data)
+}
+
 #' @describeIn mark_nodes Returns logical of which nodes 
 #'   hold the maximum of some measure
 #' @param node_measure An object created by a `node_` measure.
