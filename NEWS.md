@@ -16,7 +16,9 @@
 
 ## Models
 
-- Added minimising distance option for segregation model choice.
+- Added 'minimising' distance option for segregation model choice.
+- Changed 'satisficing' option in `play_segregation()` to sample randomly from
+those unoccupied options less than the desired threshold.
 
 ## Tutorials
 
