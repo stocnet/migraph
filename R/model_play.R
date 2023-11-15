@@ -290,7 +290,7 @@ play_segregation <- function(.data,
     }, FUN.VALUE = numeric(1))
     if(length(options)==0) next
     move_to <- switch(choice_function,
-                      satisficing = unoccupied[which(options <= heterophily)[1]],
+                      satisficing = unoccupied[sample(which(options <= heterophily[unoccupied]), 1)],
                       optimising = unoccupied[which.min(options)[1]],
                       minimising = unoccupied[which.min(igraph::distances(temp, 
                                                                           igraph::V(temp)[dissatisfied], 
