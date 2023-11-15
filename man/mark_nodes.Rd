@@ -37,6 +37,20 @@ node_is_min(node_measure, ranks = 1)
 
 \item{size}{The number of nodes to select (as TRUE).}
 
+\item{elites}{The proportion of nodes to be selected as mentors.
+By default this is set at 0.1.
+This means that the top 10\% of nodes in terms of degree,
+or those equal to the highest rank degree in the network,
+whichever is the higher, will be used to select the mentors.
+
+Note that if nodes are equidistant from two mentors,
+they will choose one at random.
+If a node is without a path to a mentor,
+for example because they are an isolate,
+a tie to themselves (a loop) will be created instead.
+Note that this is a different default behaviour than that
+described in Valente and Davis (1999).}
+
 \item{node_measure}{An object created by a \code{node_} measure.}
 
 \item{ranks}{The number of ranks of max or min to return.
@@ -90,6 +104,11 @@ node_is_core(ison_brandes)
 node_is_random(ison_brandes, 2)
 node_is_max(node_degree(ison_brandes))
 node_is_min(node_degree(ison_brandes))
+}
+\references{
+Valente, Thomas, and Rebecca Davis. 1999.
+"Accelerating the Diffusion of Innovations Using Opinion Leaders",
+\emph{Annals of the American Academy of Political and Social Science} 566: 56-67.
 }
 \seealso{
 Other marks: 
