@@ -65,7 +65,7 @@ are within groups of nodes with the same attribute
 \item \code{node_heterophily()}: Calculates each node's embeddedness within groups
 of nodes with the same attribute
 
-\item \code{network_assortativity()}: Calculates the degree assortativity in a graph.
+\item \code{network_assortativity()}: Calculates the degree assortativity in a network.
 
 }}
 \section{network_diversity}{
