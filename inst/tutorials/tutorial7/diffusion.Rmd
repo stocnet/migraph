@@ -12,6 +12,7 @@ library(learnr)
 library(manynet)
 library(migraph)
 library(patchwork)
+library(ggplot2)
 knitr::opts_chunk$set(echo = FALSE)
 nw <- to_undirected(to_unnamed(manynet::ison_networkers))
 rg <- create_ring(nw, width = 2)
@@ -166,37 +167,9 @@ ____(____)
 rg_d <- play_diffusion(rg, seeds = 1)
 plot(rg_d)
 
-# visualise the diffusion within the network in first 5 steps of infection
-rg1 <- rg %>%
-  add_node_attribute("Infected", c(rep("Infected", rg_d$I[1]),
-                                   rep("Susceptible", rg_d$S[1])
-                                   )) # t = 0
-rg2 <- rg %>%
-  add_node_attribute("Infected", c(rep("Infected", rg_d$I[2]),
-                                   rep("Susceptible", rg_d$S[2])
-                                   )) # t = 1
-rg3 <- rg %>%
-  add_node_attribute("Infected", c(rep("Infected", rg_d$I[3]),
-                                   rep("Susceptible", rg_d$S[3])
-                                   )) # t = 2
-rg4 <- rg %>%
-  add_node_attribute("Infected", c(rep("Infected", rg_d$I[4]),
-                                   rep("Susceptible", rg_d$S[4])
-                                   )) # t = 3
-rg5 <- rg %>%
-  add_node_attribute("Infected", c(rep("Infected", rg_d$I[5]),
-                                   rep("Susceptible", rg_d$S[5])
-                                   )) # t = 4
-rg6 <- rg %>%
-  add_node_attribute("Infected", c(rep("Infected", rg_d$I[6]),
-                                   rep("Susceptible", rg_d$S[6])
-                                   )) # t = 4
-rg_set <- list(rg1, rg2, rg3, rg4, rg5, rg6)
-plots <- autographs(rg_set, node_color = "Infected")
-for (i in 1:length(plots)) {
-  plots[[i]] <- plots[[i]] + ggplot2::scale_colour_manual(values = c("red", "blue"))
-}
-plots
+# visualise the diffusion within the network
+autographs(play_diffusion(rg, seeds = 1), node_color = "Infected", layout = "circle") +
+  ggplot2::guides(colour = guide_legend(""))
 ```
 
 The result object, when printed, lists how many of the nodes in the network,
@@ -252,31 +225,9 @@ plot(play_diffusion(rg, seeds = ____))
 rg_d3 <- play_diffusion(rg, seeds = 1:4)
 plot(rg_d3)
 
-# visualise the diffusion within the network in first 5 steps of infection
-rg1 <- rg %>%
-  add_node_attribute("Infected", c(rep("Infected", rg_d3$I[1]),
-                                   rep("Susceptible", rg_d3$S[1]))) # t = 0
-rg2 <- rg %>%
-  add_node_attribute("Infected", c(rep("Infected", rg_d3$I[2]),
-                                   rep("Susceptible", rg_d3$S[2]))) # t = 1
-rg3 <- rg %>%
-  add_node_attribute("Infected", c(rep("Infected", rg_d3$I[3]),
-                                   rep("Susceptible", rg_d3$S[3]))) # t = 2
-rg4 <- rg %>%
-  add_node_attribute("Infected", c(rep("Infected", rg_d3$I[4]),
-                                   rep("Susceptible", rg_d3$S[4]))) # t = 3
-rg5 <- rg %>%
-  add_node_attribute("Infected", c(rep("Infected", rg_d3$I[5]),
-                                   rep("Susceptible", rg_d3$S[5]))) # t = 4
-rg6 <- rg %>%
-  add_node_attribute("Infected", c(rep("Infected", rg_d3$I[6]),
-                                   rep("Susceptible", rg_d3$S[6]))) # t = 5
-rg_set <- list(rg1, rg2, rg3, rg4, rg5, rg6)
-plots <- autographs(rg_set, node_color = "Infected")
-for (i in 1:length(plots)) {
-  plots[[i]] <- plots[[i]] + ggplot2::scale_colour_manual(values = c("red", "blue"))
-}
-plots
+# visualise the diffusion within the network
+autographs(play_diffusion(rg, seeds = 1:4), node_color = "Infected", layout = "circle") +
+  ggplot2::guides(colour = guide_legend(""))
 ```
 
 But what if we seed the network at three different places?
@@ -326,6 +277,9 @@ plot(play_diffusion(la, seeds = 16))
 la %>%
   add_node_attribute("color", c(1, rep(0, 14), 2, rep(0, 16))) %>%
   autographr(node_color = "color")
+
+# visualise diffusion in lattice graph
+autographd(play_diffusion(la, seeds = 16), layout = "grid")
 ```
 
 ```{r lattice-interp, echo = FALSE, purl = FALSE}
@@ -360,6 +314,12 @@ plot(play_diffusion(sf, seeds = 10, steps = 10)) /
 plot(play_diffusion(sf, seeds = node_is_random(sf), steps = 10)) /
 plot(play_diffusion(sf, seeds = node_is_max(node_degree(sf)), steps = 10)) /
 plot(play_diffusion(sf, seeds = node_is_min(node_degree(sf)), steps = 10))
+
+# visualise diffusion in scalefree network
+autographs(play_diffusion(sf, seeds = node_is_min(node_degree(sf)), steps = 10),
+           node_color = "Infected", layout = "circle") +
+  ggplot2::guides(colour = guide_legend(""))
+autographd(play_diffusion(sf, seeds = 16, steps = 10), layout = "circle")
 ```
 
 ```{r mindeg-interp, echo = FALSE, purl = FALSE}
@@ -476,32 +436,9 @@ plot(play_diffusion(sf, thresholds = c(rep(____,____), rep(____,____))))
 plot(play_diffusion(sf, thresholds = c(rep(0.1,10), rep(0.25,22))))/
 plot(play_diffusion(sf, thresholds = c(rep(0.25,10), rep(0.1,22))))
 
-# visualise the diffusion within the network in the first 5 steps of infection
-sf_d <- play_diffusion(sf, thresholds = c(rep(0.1,10), rep(0.25,22)))
-sf1 <- sf %>%
-  add_node_attribute("Infected", c(rep("Infected", sf_d$I[1]),
-                                   rep("Susceptible", sf_d$S[1]))) # t = 0
-sf2 <- sf %>%
-  add_node_attribute("Infected", c(rep("Infected", sf_d$I[2]),
-                                   rep("Susceptible", sf_d$S[2]))) # t = 1
-sf3 <- sf %>%
-  add_node_attribute("Infected", c(rep("Infected", sf_d$I[3]),
-                                   rep("Susceptible", sf_d$S[3]))) # t = 2
-sf4 <- sf %>%
-  add_node_attribute("Infected", c(rep("Infected", sf_d$I[4]),
-                                   rep("Susceptible", sf_d$S[4]))) # t = 3
-sf5 <- sf %>%
-  add_node_attribute("Infected", c(rep("Infected", sf_d$I[5]),
-                                   rep("Susceptible", sf_d$S[5]))) # t = 4
-sf6 <- sf %>%
-  add_node_attribute("Infected", c(rep("Infected", sf_d$I[6]),
-                                   rep("Susceptible", sf_d$S[6]))) # t = 5
-sf_set <- list(sf1, sf2, sf3, sf4, sf5, sf6)
-plots <- autographs(sf_set, node_color = "Infected")
-for (i in 1:length(plots)) {
-  plots[[i]] <- plots[[i]] + ggplot2::scale_colour_manual(values = c("red", "blue"))
-}
-plots
+# visualise the diffusion within the network
+autographd(play_diffusion(sf, thresholds = c(rep(0.1,10), rep(0.25,22))),
+           layout = "circle")
 ```
 
 Since the first ten nodes are the first to join the scale-free network
@@ -614,6 +551,10 @@ Play a single diffusion so that you can see what's going on in a particular run.
 
 ```{r sirs-solution}
 plot(play_diffusion(rd, recovery = 0.2, waning = 0.05))
+
+# visualise diffusion within random graph
+autographd(play_diffusion(rd, seeds = c(1,10), recovery = 0.2, waning = 0.05),
+           layout = "grid")
 ```
 
 ```{r sirs-interp, echo = FALSE, purl = FALSE}
@@ -656,7 +597,11 @@ Play a single diffusion so that you can see what's going on in a particular run.
 ```
 
 ```{r seir-solution}
-plot(play_diffusion(rd, latency = 0.25, recovery = 0.2))
+plot(play_diffusion(rd, seeds = 10, latency = 0.25, recovery = 0.2))
+
+# visualise diffusion with latency and recovery
+autographd(play_diffusion(rd, seeds = 10, latency = 0.25, recovery = 0.2),
+           layout = "grid")
 ```
 
 ### R-nought
