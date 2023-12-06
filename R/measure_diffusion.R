@@ -6,6 +6,8 @@
 #'   smeg <- manynet::generate_smallworld(15, 0.025)
 #'   smeg_diff <- play_diffusion(smeg, recovery = 0.2)
 #'   plot(smeg_diff)
+#'   autographs(smeg_diff)
+#'   # autographd(smeg_diff)
 #'   (adopts <- node_adopter(smeg_diff))
 #'   summary(adopts)
 #'   summary(node_adoption_time(smeg_diff), membership = adopts)
