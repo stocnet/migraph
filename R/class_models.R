@@ -177,6 +177,7 @@ make_diff_model <- function(events, report, .data) {
   class(report) <- c("diff_model", class(report))
   attr(report, "events") <- events
   attr(report, "mode") <- manynet::node_mode(.data)
+  attr(report, "network") <- .data
   report
 }
 
