@@ -279,7 +279,7 @@ la %>%
   autographr(node_color = "color")
 
 # visualise diffusion in lattice graph
-autographd(play_diffusion(la, seeds = 16), layout = "grid")
+autographd(play_diffusion(la, seeds = 16), layout = "grid", keep_isolates = FALSE)
 ```
 
 ```{r lattice-interp, echo = FALSE, purl = FALSE}
@@ -317,9 +317,9 @@ plot(play_diffusion(sf, seeds = node_is_min(node_degree(sf)), steps = 10))
 
 # visualise diffusion in scalefree network
 autographs(play_diffusion(sf, seeds = node_is_min(node_degree(sf)), steps = 10),
-           node_color = "Infected", layout = "circle") +
+           node_color = "Infected", layout = "star") +
   ggplot2::guides(colour = guide_legend(""))
-autographd(play_diffusion(sf, seeds = 16, steps = 10), layout = "circle")
+autographd(play_diffusion(sf, seeds = 16, steps = 10))
 ```
 
 ```{r mindeg-interp, echo = FALSE, purl = FALSE}
@@ -437,8 +437,7 @@ plot(play_diffusion(sf, thresholds = c(rep(0.1,10), rep(0.25,22))))/
 plot(play_diffusion(sf, thresholds = c(rep(0.25,10), rep(0.1,22))))
 
 # visualise the diffusion within the network
-autographd(play_diffusion(sf, thresholds = c(rep(0.1,10), rep(0.25,22))),
-           layout = "circle")
+autographd(play_diffusion(sf, thresholds = c(rep(0.1,10), rep(0.25,22))))
 ```
 
 Since the first ten nodes are the first to join the scale-free network
@@ -553,8 +552,7 @@ Play a single diffusion so that you can see what's going on in a particular run.
 plot(play_diffusion(rd, recovery = 0.2, waning = 0.05))
 
 # visualise diffusion within random graph
-autographd(play_diffusion(rd, seeds = c(1,10), recovery = 0.2, waning = 0.05),
-           layout = "grid")
+autographd(play_diffusion(rd, seeds = c(1,10), recovery = 0.2, waning = 0.05))
 ```
 
 ```{r sirs-interp, echo = FALSE, purl = FALSE}
