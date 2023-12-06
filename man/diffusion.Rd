@@ -9,7 +9,7 @@
 \alias{node_adoption_time}
 \alias{node_adopter}
 \alias{node_thresholds}
-\title{Functions to play games on networks}
+\title{Functions to measure diffusion processes on networks}
 \usage{
 network_transmissibility(diff_model)
 
@@ -29,7 +29,7 @@ node_thresholds(diff_model)
 \item{diff_model}{A valid network diffusion model.}
 }
 \description{
-Functions to play games on networks
+Functions to measure diffusion processes on networks
 }
 \section{Functions}{
 \itemize{
@@ -47,14 +47,21 @@ infected in a compartmental model with recovery for the network as a whole
 in a diffusion simulation as the network's transmissibility over
 the network's average infection length
 
-\item \code{node_adoption_time()}: Returns nodes' time of adoption/infection
+\item \code{node_adoption_time()}: Measures nodes' time of adoption/infection
 
-\item \code{node_adopter()}: Returns nodes' time of adoption/infection
+\item \code{node_adopter()}: Classifies membership of nodes into diffusion categories
 
 \item \code{node_thresholds()}: Infers nodes' thresholds from the amount
 of exposure they had when they became infected
 
 }}
+\examples{
+  smeg <- manynet::generate_smallworld(15, 0.025)
+  smeg_diff <- play_diffusion(smeg, recovery = 0.05)
+  plot(smeg_diff)
+  (adopts <- node_adopter(smeg_diff))
+  summary(adopts)
+}
 \references{
 Kermack, W. and McKendrick, A., 1927. "A contribution to the mathematical theory of epidemics".
 \emph{Proc. R. Soc. London A} 115: 700-721.

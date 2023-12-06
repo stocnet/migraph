@@ -1,7 +1,14 @@
-#' Functions to play games on networks
+#' Functions to measure diffusion processes on networks
 #' @param diff_model A valid network diffusion model.
 #' @family measures
 #' @name diffusion
+#' @examples
+#'   smeg <- manynet::generate_smallworld(15, 0.025)
+#'   smeg_diff <- play_diffusion(smeg, recovery = 0.05)
+#'   plot(smeg_diff)
+#'   (adopts <- node_adopter(smeg_diff))
+#'   summary(adopts)
+#'   summary(node_adoption_time(smeg_diff), membership = adopts)
 #' @references
 #'   Kermack, W. and McKendrick, A., 1927. "A contribution to the mathematical theory of epidemics". 
 #'   _Proc. R. Soc. London A_ 115: 700-721.
@@ -50,24 +57,26 @@ network_reproduction <- function(diff_model){
     network_infection_length(diff_model)
 }
 
-#' @describeIn diffusion Returns nodes' time of adoption/infection
+#' @describeIn diffusion Measures nodes' time of adoption/infection
 #' @export
 node_adoption_time <- function(diff_model){
-  summary(diff_model) |> dplyr::filter(event == "I") |> 
+  out <- summary(diff_model) |> dplyr::filter(event == "I") |> 
     dplyr::distinct(nodes, .keep_all = TRUE) |> 
     dplyr::select(t) |> c() |> unname() |> unlist()
+  make_node_measure(out, attr(diff_model, "network"))
 }
 
-#' @describeIn diffusion Returns nodes' time of adoption/infection
+#' @describeIn diffusion Classifies membership of nodes into diffusion categories
 #' @export
 node_adopter <- function(diff_model){
   toa <- node_adoption_time(diff_model)
   avg <- mean(toa)
   sdv <- sd(toa)
-  ifelse(toa < (avg - sdv), "Early Adopter", 
+  out <- ifelse(toa < (avg - sdv), "Early Adopter", 
          ifelse(toa > (avg + sdv), "Laggard",
                 ifelse((avg - sdv) < toa & toa <= avg, "Early Majority", 
                        ifelse(avg < toa & toa <= avg + sdv, "Late Majority", "Non-Adopter"))))
+  make_node_member(out, attr(diff_model, "network"))
 }
 
 #' @describeIn diffusion Infers nodes' thresholds from the amount
