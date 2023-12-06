@@ -68,16 +68,25 @@ print.network_measure <- function(x, ...,
 }
 
 # @param FUN A function by which the values should be aggregated
-# or summarised. By default `mean`.
+# or summarised when a membership vector is given. By default `mean()`.
 # summary(node_degree(mpn_elite_mex),
 #         membership = node_structural_equivalence(mpn_elite_mex, k = "elbow"))
 #' @export
 summary.node_measure <- function(object, ...,
                                  membership,
                                  FUN = mean) {
-  out <- vapply(unique(membership),
-                function(x) FUN(object[membership == x]), FUN.VALUE = 1)
-  names(out) <- unique(membership)
+  if(missing(membership)){
+    out <- c(Minimum = min(object, na.rm = TRUE), 
+             Maximum = max(object, na.rm = TRUE), 
+             Mean = mean(object, na.rm = TRUE), 
+             StdDev = sd(object, na.rm = TRUE),
+             Missing = sum(is.na(object))
+    )
+  } else {
+    out <- vapply(unique(membership),
+                  function(x) FUN(object[membership == x]), FUN.VALUE = 1)
+    names(out) <- unique(membership)
+  }
   out
 }
 
