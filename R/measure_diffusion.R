@@ -12,6 +12,7 @@
 #'   summary(node_thresholds(smeg_diff), membership = adopts)
 #'   summary(node_infection_length(smeg_diff))
 #'   network_infection_length(smeg_diff)
+#'   network_transmissibility(smeg_diff)
 #' @references
 #'   Kermack, W. and McKendrick, A., 1927. "A contribution to the mathematical theory of epidemics". 
 #'   _Proc. R. Soc. London A_ 115: 700-721.
@@ -20,17 +21,17 @@
 #'   (2nd ed.). Cresskill N.J.: Hampton Press.
 NULL
 
-#' @describeIn diffusion Calculates the average transmissibility observed
+#' @describeIn diffusion Measures the average transmissibility observed
 #'   in a diffusion simulation, or the number of new infections over
-#'   the number of susceptible, over the number of infected 
+#'   the number of susceptible nodes
 #' @export
 network_transmissibility <- function(diff_model){
-  out <- diff_model |> 
-    mutate(transmissibility = (I - dplyr::lag(I)/dplyr::lag(S))/
-             dplyr::lag(I))
-  out <- out$transmissibility
+  out <- diff_model$I_new/diff_model$s
+  out <- out[-1]
   out <- out[!is.infinite(out)]
-  mean(out, na.rm = TRUE)
+  out <- out[!is.nan(out)]
+  make_network_measure(mean(out, na.rm = TRUE),
+                       attr(diff_model, "network"))
 }
 
 #' @describeIn diffusion Measures the average length nodes remain

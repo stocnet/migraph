@@ -33,11 +33,11 @@ Functions to measure diffusion processes on networks
 }
 \section{Functions}{
 \itemize{
-\item \code{network_transmissibility()}: Calculates the average transmissibility observed
+\item \code{network_transmissibility()}: Measures the average transmissibility observed
 in a diffusion simulation, or the number of new infections over
-the number of susceptible, over the number of infected
+the number of susceptible nodes
 
-\item \code{network_infection_length()}: Calculates the average length nodes remain
+\item \code{network_infection_length()}: Measures the average length nodes remain
 infected in a compartmental model with recovery for the network as a whole
 
 \item \code{network_reproduction()}: Calculates the observed reproductive number
@@ -64,6 +64,8 @@ infected remain infected in a compartmental model with recovery
   summary(node_adoption_time(smeg_diff), membership = adopts)
   summary(node_thresholds(smeg_diff), membership = adopts)
   summary(node_infection_length(smeg_diff))
+  network_infection_length(smeg_diff)
+  network_transmissibility(smeg_diff)
 }
 \references{
 Kermack, W. and McKendrick, A., 1927. "A contribution to the mathematical theory of epidemics".
