@@ -80,7 +80,7 @@ play_diffusion <- function(.data,
   
   infected <- seeds
   t = 0
-  events <- data.frame(t = t, nodes = seeds, event = "I")
+  events <- data.frame(t = t, nodes = seeds, event = "I", exposure = NA)
   report <- data.frame(t = t,
                        n = n,
                        S = n - (length(exposed) + length(infected) + length(recovered)),
@@ -125,19 +125,21 @@ play_diffusion <- function(.data,
     # record new infections
     if(!is.null(newinf) & length(newinf)>0)
       events <- rbind(events, 
-                    data.frame(t = t, nodes = newinf, event = "I"))
-    # record recoveries
+                    data.frame(t = t, nodes = newinf, event = "I", 
+                               exposure = c(tabcontact[names(tabcontact) %in% newinf])))
+    # record exposures
     if(!is.null(exposed) & length(exposed)>0)
       events <- rbind(events,
-                      data.frame(t = t, nodes = exposed, event = "E"))
+                      data.frame(t = t, nodes = exposed, event = "E", 
+                                 exposure = c(tabcontact[names(tabcontact) %in% exposed])))
     # record recoveries
     if(!is.null(recovers) & length(recovers)>0)
       events <- rbind(events,
-                      data.frame(t = t, nodes = recovers, event = "R"))
+                      data.frame(t = t, nodes = recovers, event = "R", exposure = NA))
     # record wanings
     if(!is.null(waned) & length(waned)>0)
       events <- rbind(events,
-                      data.frame(t = t, nodes = waned, event = "S"))
+                      data.frame(t = t, nodes = waned, event = "S", exposure = NA))
     report <- rbind(report,
                     data.frame(t = t,
                                n = n,
