@@ -417,7 +417,7 @@ and come up with a couple of key hypotheses:
 Let's start with a pretty maximally specified model 
 (note that it doesn't make sense to include both ego and alter effects because these are undirected).
 
-```{r qapmax, exercise=TRUE, exercise.timelimit = 240, purl = FALSE}
+```{r qapmax, exercise=TRUE, exercise.timelimit = 3600, purl = FALSE}
 
 ```
 
@@ -434,6 +434,7 @@ weight ~ alter(Citations) + sim(Citations) +
 model1 <- network_reg(weight ~ alter(Citations) + sim(Citations) + 
                       alter(Discipline) + same(Discipline), 
                       ison_networkers, times = 200)
+# If the model runs into a timeout error, please reduce the number of 'times' in the function above.
 ```
 
 ```{r qapmax-solution}

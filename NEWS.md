@@ -1,3 +1,28 @@
+# migraph 1.1.8
+
+2023-12-06
+
+## Measures
+
+- Fixed bugs in diffusion measures.
+  - Fixed `node_thresholds()` so that it infers nodes' thresholds from the amount of exposure they had when they became infected or exposed.
+  - Updated `node_adoption_time()` and `node_adopter()` to return `node_member` and `node_measure` objects, which makes printing and summarising better.
+  - Updated node_infection_length() and network_infection_length() which measures the average length nodes remain infected.
+
+## Members
+
+- Added printing of membership class names if available in print method for `node_member` class.
+- Added distributional statistics of the vector if no membership vector is assigned in summary method for `node_member` class.
+
+## Models
+
+- Updated `diff_model` object to carry original network data for plotting.
+- Updated `play_diffusion()` to forward exposure/contact information to the events table.
+
+## Tutorials
+
+- Added plots for diffusion models in tutorial 7 using `autographs()` and `autographd()`.
+
 # migraph 1.1.7
 
 2023-11-15

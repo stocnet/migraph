@@ -15,7 +15,7 @@ print.node_member <- function(x, ..., n = NULL) {
       if(!m) cat("\n")
     }
   } else {
-    print_tblvec(y = as.numeric(x), 
+    print_tblvec(y = `if`(all(is.na(as.numeric(x))), x, as.numeric(x)), 
                  names = list(names(x)),
                  n = n)
   }
