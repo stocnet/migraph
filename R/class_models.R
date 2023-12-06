@@ -188,9 +188,13 @@ make_diffs_model <- function(report, .data) {
 }
 
 #' @export
-print.diff_model <- function(x, ...){
+print.diff_model <- function(x, ..., verbose = FALSE){
   x <- x[,colSums(x, na.rm=TRUE) != 0]
-  x$I_new <- NULL
+  if(!verbose){
+    x$n <- NULL
+    x$s <- NULL
+    x$I_new <- NULL
+  }
   print(dplyr::tibble(x, ...))
 }
 
