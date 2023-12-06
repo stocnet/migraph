@@ -7,6 +7,7 @@
 - Fixed bugs in diffusion measures.
   - Fixed `node_thresholds()` so that it infers nodes' thresholds from the amount of exposure they had when they became infected or exposed.
   - Updated `node_adoption_time()` and `node_adopter()` to return `node_member` and `node_measure` objects, which makes printing and summarising better.
+  - Updated `node_infection_length()` and `network_infection_length()` which measures the average length nodes remain infected.
 
 ## Members
 
