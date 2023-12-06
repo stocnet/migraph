@@ -9,6 +9,7 @@
 #'   (adopts <- node_adopter(smeg_diff))
 #'   summary(adopts)
 #'   summary(node_adoption_time(smeg_diff), membership = adopts)
+#'   summary(node_thresholds(smeg_diff), membership = adopts)
 #' @references
 #'   Kermack, W. and McKendrick, A., 1927. "A contribution to the mathematical theory of epidemics". 
 #'   _Proc. R. Soc. London A_ 115: 700-721.
@@ -79,11 +80,16 @@ node_adopter <- function(diff_model){
   make_node_member(out, attr(diff_model, "network"))
 }
 
-#' @describeIn diffusion Infers nodes' thresholds from the amount
+#' @describeIn diffusion Measures nodes' thresholds from the amount
 #'   of exposure they had when they became infected
 #' @export
 node_thresholds <- function(diff_model){
-  summary(diff_model) |> dplyr::filter(event == "I") |> 
-    dplyr::distinct(nodes, .keep_all = TRUE) |> 
+  exposure <- NULL
+  out <- summary(diff_model)
+  if(any(out$event == "E")) 
+    out <- out |> dplyr::filter(event == "E") else 
+      out <- out |> dplyr::filter(event == "I")
+  out <- out |> dplyr::distinct(nodes, .keep_all = TRUE) |> 
     dplyr::select(exposure) |> c() |> unname() |> unlist()
+  make_node_measure(out, attr(diff_model, "network"))
 }

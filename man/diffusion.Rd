@@ -51,7 +51,7 @@ the network's average infection length
 
 \item \code{node_adopter()}: Classifies membership of nodes into diffusion categories
 
-\item \code{node_thresholds()}: Infers nodes' thresholds from the amount
+\item \code{node_thresholds()}: Measures nodes' thresholds from the amount
 of exposure they had when they became infected
 
 }}
@@ -61,6 +61,8 @@ of exposure they had when they became infected
   plot(smeg_diff)
   (adopts <- node_adopter(smeg_diff))
   summary(adopts)
+  summary(node_adoption_time(smeg_diff), membership = adopts)
+  node_thresholds(smeg_diff)
 }
 \references{
 Kermack, W. and McKendrick, A., 1927. "A contribution to the mathematical theory of epidemics".
