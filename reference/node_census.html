@@ -21,7 +21,7 @@ the profiles of clusters of nodes in a network."><meta property="og:image" conte
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.8</span>
       </span>
     </div>
 
@@ -143,51 +143,51 @@ of each node to every other node in the network.</p></li>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">task_eg</span> <span class="op">&lt;-</span> <span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_named</a></span><span class="op">(</span><span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_uniplex</a></span><span class="op">(</span><span class="fu">manynet</span><span class="fu">::</span><span class="va"><a href="https://snlab-ch.github.io/manynet/reference/ison_algebra.html" class="external-link">ison_algebra</a></span>, <span class="st">"task_tie"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">tie_cen</span> <span class="op">&lt;-</span> <span class="fu">node_tie_census</span><span class="op">(</span><span class="va">task_eg</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 16 × 33</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    names fromJose fromGeraldine fromMarissa fromColton fromHeidi fromChristopher</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Jose         0             1           0          0         1               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Gera…        0             0           1          0         0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Mari…        0             1           0          0         1               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Colt…        0             0           0          0         0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Heidi        1             0           1          0         0               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Chri…        0             0           1          0         1               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Flos…        0             1           1          0         0               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Rosa         1             1           1          0         1               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Etta         1             0           0          0         0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Mere…        1             0           1          1         1               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Darl…        1             0           1          0         1               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Cole         1             1           0          0         0               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> Alexa        1             1           0          0         1               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Micah        0             1           1          0         0               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Xand…        1             1           1          0         1               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> Alice        1             1           1          1         1               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 26 more variables: fromFlossie &lt;dbl&gt;, fromRosa &lt;dbl&gt;, fromEtta &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fromMeredith &lt;dbl&gt;, fromDarlene &lt;dbl&gt;, fromCole &lt;dbl&gt;, fromAlexa &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fromMicah &lt;dbl&gt;, fromXander &lt;dbl&gt;, fromAlice &lt;dbl&gt;, toJose &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toGeraldine &lt;dbl&gt;, toMarissa &lt;dbl&gt;, toColton &lt;dbl&gt;, toHeidi &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toChristopher &lt;dbl&gt;, toFlossie &lt;dbl&gt;, toRosa &lt;dbl&gt;, toEtta &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toMeredith &lt;dbl&gt;, toDarlene &lt;dbl&gt;, toCole &lt;dbl&gt;, toAlexa &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toMicah &lt;dbl&gt;, toXander &lt;dbl&gt;, toAlice &lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    names fromWinnie fromAnnette fromRoxanne fromEliana fromEstella fromSebastian</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Winn…          0           1           0          0           1             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Anne…          0           0           1          0           0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Roxa…          0           1           0          0           1             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Elia…          0           0           0          0           0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Este…          1           0           1          0           0             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Seba…          0           0           1          0           1             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Sier…          0           1           1          0           0             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Kait…          1           1           1          0           1             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Lynn           1           0           0          0           0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Lulu           1           0           1          1           1             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Mala…          1           0           1          0           1             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Emma…          1           1           0          0           0             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> Cand…          1           1           0          0           1             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Haley          0           1           1          0           0             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Ty             1           1           1          0           1             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> Dest…          1           1           1          1           1             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 26 more variables: fromSierra &lt;dbl&gt;, fromKaitlyn &lt;dbl&gt;, fromLynn &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fromLulu &lt;dbl&gt;, fromMalachi &lt;dbl&gt;, fromEmmanuel &lt;dbl&gt;, fromCandace &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fromHaley &lt;dbl&gt;, fromTy &lt;dbl&gt;, fromDestiny &lt;dbl&gt;, toWinnie &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toAnnette &lt;dbl&gt;, toRoxanne &lt;dbl&gt;, toEliana &lt;dbl&gt;, toEstella &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toSebastian &lt;dbl&gt;, toSierra &lt;dbl&gt;, toKaitlyn &lt;dbl&gt;, toLynn &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toLulu &lt;dbl&gt;, toMalachi &lt;dbl&gt;, toEmmanuel &lt;dbl&gt;, toCandace &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toHaley &lt;dbl&gt;, toTy &lt;dbl&gt;, toDestiny &lt;dbl&gt;</span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">triad_cen</span> <span class="op">&lt;-</span> <span class="fu">node_triad_census</span><span class="op">(</span><span class="va">task_eg</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 16 × 17</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    names  X003  X012  X102 X021D X021U X021C X111D X111U X030T X030C  X201 X120D</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Jose      6    12    32     0     1     0     7     3     0     0     8     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Gera…    15    12    42     0     0     0     0     5     0     0     4     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Mari…    20     5    37     0     0     0     3     3     0     0    12     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Colt…   102     0     3     0     0     0     0     0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Heidi    15     5    41     0     0     0     2     1     0     0    13     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Chri…    20     5    41     0     0     0     3     2     0     0    11     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Flos…    28     0    51     0     0     0     0     2     0     0     6     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Rosa     18     0    42     0     0     0     2     1     0     0    18     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Etta     86     2    17     0     0     0     0     0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Mere…    25     6    35     0     0     0     3     3     0     0    15     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Darl…    65     4    36     0     0     0     0     0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Cole     72     3    30     0     0     0     0     0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> Alexa    76     3    26     0     0     0     0     0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Micah    56     2    47     0     0     0     0     0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Xand…    58     5    42     0     0     0     0     0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> Alice     0     0     0     0     0     0     0     0     0     0    44     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Winn…     6    12    32     0     1     0     7     3     0     0     8     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Anne…    15    12    42     0     0     0     0     5     0     0     4     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Roxa…    20     5    37     0     0     0     3     3     0     0    12     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Elia…   102     0     3     0     0     0     0     0     0     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Este…    15     5    41     0     0     0     2     1     0     0    13     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Seba…    20     5    41     0     0     0     3     2     0     0    11     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Sier…    28     0    51     0     0     0     0     2     0     0     6     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Kait…    18     0    42     0     0     0     2     1     0     0    18     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Lynn     86     2    17     0     0     0     0     0     0     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Lulu     25     6    35     0     0     0     3     3     0     0    15     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Mala…    65     4    36     0     0     0     0     0     0     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Emma…    72     3    30     0     0     0     0     0     0     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> Cand…    76     3    26     0     0     0     0     0     0     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Haley    56     2    47     0     0     0     0     0     0     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Ty       58     5    42     0     0     0     0     0     0     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> Dest…     0     0     0     0     0     0     0     0     0     0    44     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4 more variables: X120U &lt;dbl&gt;, X120C &lt;dbl&gt;, X210 &lt;dbl&gt;, X300 &lt;dbl&gt;</span></span>
 <span class="r-in"><span><span class="fu">node_quad_census</span><span class="op">(</span><span class="fu">manynet</span><span class="fu">::</span><span class="va"><a href="https://snlab-ch.github.io/manynet/reference/ison_southern_women.html" class="external-link">ison_southern_women</a></span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 32 × 13</span></span>

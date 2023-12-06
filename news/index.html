@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.8</span>
       </span>
     </div>
 
@@ -53,6 +53,29 @@
       <small>Source: <a href="https://github.com/snlab-ch/migraph/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.1.8" id="migraph-118">migraph 1.1.8<a class="anchor" aria-label="anchor" href="#migraph-118"></a></h2>
+<p>2023-12-06</p>
+<div class="section level3">
+<h3 id="measures-1-1-8">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-8"></a></h3>
+<ul><li>Fixed bugs in diffusion measures.<ul><li>Fixed <code><a href="../reference/diffusion.html">node_thresholds()</a></code> so that it infers nodes’ thresholds from the amount of exposure they had when they became infected or exposed.</li>
+<li>Updated <code><a href="../reference/diffusion.html">node_adoption_time()</a></code> and <code><a href="../reference/diffusion.html">node_adopter()</a></code> to return <code>node_member</code> and <code>node_measure</code> objects, which makes printing and summarising better.</li>
+<li>Updated node_infection_length() and network_infection_length() which measures the average length nodes remain infected.</li>
+</ul></li></ul></div>
+<div class="section level3">
+<h3 id="members-1-1-8">Members<a class="anchor" aria-label="anchor" href="#members-1-1-8"></a></h3>
+<ul><li>Added printing of membership class names if available in print method for <code>node_member</code> class.</li>
+<li>Added distributional statistics of the vector if no membership vector is assigned in summary method for <code>node_member</code> class.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="models-1-1-8">Models<a class="anchor" aria-label="anchor" href="#models-1-1-8"></a></h3>
+<ul><li>Updated <code>diff_model</code> object to carry original network data for plotting.</li>
+<li>Updated <code><a href="../reference/play.html">play_diffusion()</a></code> to forward exposure/contact information to the events table.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="tutorials-1-1-8">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-1-8"></a></h3>
+<ul><li>Added plots for diffusion models in tutorial 7 using <code>autographs()</code> and <code>autographd()</code>.</li></ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.7" id="migraph-117">migraph 1.1.7<a class="anchor" aria-label="anchor" href="#migraph-117"></a></h2>
 <p>2023-11-15</p>
