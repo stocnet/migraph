@@ -4,13 +4,14 @@
 #' @name diffusion
 #' @examples
 #'   smeg <- manynet::generate_smallworld(15, 0.025)
-#'   smeg_diff <- play_diffusion(smeg, recovery = 0.05)
+#'   smeg_diff <- play_diffusion(smeg, recovery = 0.2)
 #'   plot(smeg_diff)
 #'   (adopts <- node_adopter(smeg_diff))
 #'   summary(adopts)
 #'   summary(node_adoption_time(smeg_diff), membership = adopts)
 #'   summary(node_thresholds(smeg_diff), membership = adopts)
 #'   summary(node_infection_length(smeg_diff))
+#'   network_infection_length(smeg_diff)
 #' @references
 #'   Kermack, W. and McKendrick, A., 1927. "A contribution to the mathematical theory of epidemics". 
 #'   _Proc. R. Soc. London A_ 115: 700-721.
@@ -32,7 +33,7 @@ network_transmissibility <- function(diff_model){
   mean(out, na.rm = TRUE)
 }
 
-#' @describeIn diffusion Calculates the average length nodes remain
+#' @describeIn diffusion Measures the average length nodes remain
 #'   infected in a compartmental model with recovery for the network as a whole
 #' @export
 network_infection_length <- function(diff_model){
@@ -90,8 +91,6 @@ node_thresholds <- function(diff_model){
 #' @export
 node_infection_length <- function(diff_model){
   events <- attr(diff_model, "events")
-  if(!"R" %in% events$event) 
-    stop("Infection length only calculable if there is recovery or removal.")
   out <- vapply(seq_len(diff_model$n[1]), 
          function(x) ifelse("I" %in% dplyr::filter(events, nodes == x)$event,
                           ifelse("R" %in% dplyr::filter(events, nodes == x)$event,
