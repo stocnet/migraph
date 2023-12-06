@@ -3,17 +3,15 @@
 \name{diffusion}
 \alias{diffusion}
 \alias{network_transmissibility}
-\alias{node_infection_length}
 \alias{network_infection_length}
 \alias{network_reproduction}
 \alias{node_adoption_time}
 \alias{node_adopter}
 \alias{node_thresholds}
+\alias{node_infection_length}
 \title{Functions to measure diffusion processes on networks}
 \usage{
 network_transmissibility(diff_model)
-
-node_infection_length(diff_model)
 
 network_infection_length(diff_model)
 
@@ -24,6 +22,8 @@ node_adoption_time(diff_model)
 node_adopter(diff_model)
 
 node_thresholds(diff_model)
+
+node_infection_length(diff_model)
 }
 \arguments{
 \item{diff_model}{A valid network diffusion model.}
@@ -36,9 +36,6 @@ Functions to measure diffusion processes on networks
 \item \code{network_transmissibility()}: Calculates the average transmissibility observed
 in a diffusion simulation, or the number of new infections over
 the number of susceptible, over the number of infected
-
-\item \code{node_infection_length()}: Calculates the average length nodes remain
-infected in a compartmental model with recovery
 
 \item \code{network_infection_length()}: Calculates the average length nodes remain
 infected in a compartmental model with recovery for the network as a whole
@@ -54,6 +51,9 @@ the network's average infection length
 \item \code{node_thresholds()}: Measures nodes' thresholds from the amount
 of exposure they had when they became infected
 
+\item \code{node_infection_length()}: Measures the average length nodes that become
+infected remain infected in a compartmental model with recovery
+
 }}
 \examples{
   smeg <- manynet::generate_smallworld(15, 0.025)
@@ -62,7 +62,8 @@ of exposure they had when they became infected
   (adopts <- node_adopter(smeg_diff))
   summary(adopts)
   summary(node_adoption_time(smeg_diff), membership = adopts)
-  node_thresholds(smeg_diff)
+  summary(node_thresholds(smeg_diff), membership = adopts)
+  summary(node_infection_length(smeg_diff))
 }
 \references{
 Kermack, W. and McKendrick, A., 1927. "A contribution to the mathematical theory of epidemics".
