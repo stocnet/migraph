@@ -13,6 +13,7 @@
 #'   summary(node_infection_length(smeg_diff))
 #'   network_infection_length(smeg_diff)
 #'   network_transmissibility(smeg_diff)
+#'   network_reproduction(smeg_diff)
 #' @references
 #'   Kermack, W. and McKendrick, A., 1927. "A contribution to the mathematical theory of epidemics". 
 #'   _Proc. R. Soc. London A_ 115: 700-721.
@@ -42,13 +43,16 @@ network_infection_length <- function(diff_model){
                        attr(diff_model, "network"))
 }
 
-#' @describeIn diffusion Calculates the observed reproductive number
+#' @describeIn diffusion Measures the observed reproductive number
 #'   in a diffusion simulation as the network's transmissibility over
 #'   the network's average infection length
 #' @export
 network_reproduction <- function(diff_model){
-  network_transmissibility(diff_model)/
-    network_infection_length(diff_model)
+  net <- attr(diff_model, "network")
+  out <- network_transmissibility(diff_model)/
+    (1/network_infection_length(diff_model))
+  out <- min(out, mean(node_degree(net, normalized = FALSE)))
+  make_network_measure(out, net)
 }
 
 #' @describeIn diffusion Measures nodes' time of adoption/infection

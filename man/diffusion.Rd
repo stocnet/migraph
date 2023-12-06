@@ -40,7 +40,7 @@ the number of susceptible nodes
 \item \code{network_infection_length()}: Measures the average length nodes remain
 infected in a compartmental model with recovery for the network as a whole
 
-\item \code{network_reproduction()}: Calculates the observed reproductive number
+\item \code{network_reproduction()}: Measures the observed reproductive number
 in a diffusion simulation as the network's transmissibility over
 the network's average infection length
 
@@ -66,6 +66,7 @@ infected remain infected in a compartmental model with recovery
   summary(node_infection_length(smeg_diff))
   network_infection_length(smeg_diff)
   network_transmissibility(smeg_diff)
+  network_reproduction(smeg_diff)
 }
 \references{
 Kermack, W. and McKendrick, A., 1927. "A contribution to the mathematical theory of epidemics".
