@@ -60,6 +60,7 @@ network_reproduction <- function(diff_model){
 #' @describeIn diffusion Measures nodes' time of adoption/infection
 #' @export
 node_adoption_time <- function(diff_model){
+  event <- nodes <- NULL
   out <- summary(diff_model) |> dplyr::filter(event == "I") |> 
     dplyr::distinct(nodes, .keep_all = TRUE) |> 
     dplyr::select(t) |> c() |> unname() |> unlist()
@@ -71,7 +72,7 @@ node_adoption_time <- function(diff_model){
 node_adopter <- function(diff_model){
   toa <- node_adoption_time(diff_model)
   avg <- mean(toa)
-  sdv <- sd(toa)
+  sdv <- stats::sd(toa)
   out <- ifelse(toa < (avg - sdv), "Early Adopter", 
          ifelse(toa > (avg + sdv), "Laggard",
                 ifelse((avg - sdv) < toa & toa <= avg, "Early Majority", 
@@ -83,6 +84,7 @@ node_adopter <- function(diff_model){
 #'   of exposure they had when they became infected
 #' @export
 node_thresholds <- function(diff_model){
+  event <- nodes <- NULL
   exposure <- NULL
   out <- summary(diff_model)
   if(any(out$event == "E")) 
@@ -97,6 +99,7 @@ node_thresholds <- function(diff_model){
 #'   infected remain infected in a compartmental model with recovery
 #' @export
 node_infection_length <- function(diff_model){
+  nodes <- NULL
   events <- attr(diff_model, "events")
   out <- vapply(seq_len(diff_model$n[1]), 
          function(x) ifelse("I" %in% dplyr::filter(events, nodes == x)$event,

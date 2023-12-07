@@ -79,7 +79,7 @@ summary.node_measure <- function(object, ...,
     out <- c(Minimum = min(object, na.rm = TRUE), 
              Maximum = max(object, na.rm = TRUE), 
              Mean = mean(object, na.rm = TRUE), 
-             StdDev = sd(object, na.rm = TRUE),
+             StdDev = stats::sd(object, na.rm = TRUE),
              Missing = sum(is.na(object))
     )
   } else {
