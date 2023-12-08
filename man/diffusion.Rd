@@ -9,6 +9,9 @@
 \alias{node_adopter}
 \alias{node_thresholds}
 \alias{node_infection_length}
+\alias{node_exposure}
+\alias{node_is_exposed}
+\alias{as_diffusion}
 \title{Functions to measure diffusion processes on networks}
 \usage{
 network_transmissibility(diff_model)
@@ -24,6 +27,12 @@ node_adopter(diff_model)
 node_thresholds(diff_model)
 
 node_infection_length(diff_model)
+
+node_exposure(.data, mark)
+
+node_is_exposed(.data, mark)
+
+as_diffusion(events, .data)
 }
 \arguments{
 \item{diff_model}{A valid network diffusion model.}
@@ -53,6 +62,15 @@ of exposure they had when they became infected
 
 \item \code{node_infection_length()}: Measures the average length nodes that become
 infected remain infected in a compartmental model with recovery
+
+\item \code{node_exposure()}: Measures how many exposures nodes have
+to a given mark
+
+\item \code{node_is_exposed()}: Marks the nodes that are susceptible,
+i.e. are in the immediate neighbourhood of given mark vector
+
+\item \code{as_diffusion()}: Coerces a table of diffusion events into
+a \code{diff_model} object similar to the output of \code{play_diffusion()}
 
 }}
 \examples{

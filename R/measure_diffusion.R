@@ -136,3 +136,40 @@ node_is_exposed <- function(.data, mark){
   make_node_mark(out, .data)
 }
 
+#' @describeIn diffusion Coerces a table of diffusion events into
+#'   a `diff_model` object similar to the output of `play_diffusion()`
+#' @export
+as_diffusion <- function(events, .data){
+  net <- .data
+  event <- NULL
+  sumchanges <- events |> dplyr::group_by(t) |> 
+    dplyr::reframe(I_new = sum(event == "I"),
+                   E_new = sum(event == "E"),
+                   R_new = sum(event == "R"))
+  report <- tibble::tibble(t = seq_len(max(events$t)),
+                           n = manynet::network_nodes(net))
+  report <- dplyr::left_join(report, sumchanges, by = dplyr::join_by(t))
+  report[is.na(report)] <- 0
+  report$I <- cumsum(report$I_new)
+  report$S <- report$n - report$I
+  report$s <- vapply(report$t, function(time){
+    twin <- dplyr::filter(events, events$t <= time)
+    infected <- dplyr::filter(twin, twin$event == "I")$nodes
+    recovered <- dplyr::filter(twin, twin$event == "R")$nodes
+    infected <- setdiff(infected, recovered)
+    expos <- node_is_exposed(net, infected)
+    expos[recovered] <- F
+    sum(expos)
+  }, numeric(1) )
+  if(any(report$R_new > 0)){
+    report$R <- cumsum(report$R_new)
+    report$I <- report$I - report$R
+  } else report$R_new <- NULL
+  # if(any(report$E_new > 0)){
+  report$E <- cumsum(report$E_new) - report$I
+  report$E[report$E < 0] <- 0
+  report$S <- report$n - (report$E + report$I)
+  # } else report$E_new <- NULL
+  report <- dplyr::relocate(report, dplyr::any_of(c("t", "n", "S", "E", "I", "R")))
+  make_diff_model(events, report, .data)
+}
