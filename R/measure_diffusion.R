@@ -139,37 +139,29 @@ node_is_exposed <- function(.data, mark){
 #' @describeIn diffusion Coerces a table of diffusion events into
 #'   a `diff_model` object similar to the output of `play_diffusion()`
 #' @export
-as_diffusion <- function(events, .data){
+as_diffusion <- function(events, .data) {
   net <- .data
   event <- NULL
   sumchanges <- events |> dplyr::group_by(t) |> 
     dplyr::reframe(I_new = sum(event == "I"),
                    E_new = sum(event == "E"),
                    R_new = sum(event == "R"))
-  report <- tibble::tibble(t = seq_len(max(events$t)),
-                           n = manynet::network_nodes(net))
-  report <- dplyr::left_join(report, sumchanges, by = dplyr::join_by(t))
+  report <- dplyr::tibble(t = seq_len(max(events$t)) - 1,
+                           n = manynet::network_nodes(net)) %>% 
+    dplyr::left_join(sumchanges, by = dplyr::join_by(t))
   report[is.na(report)] <- 0
-  report$I <- cumsum(report$I_new)
-  report$S <- report$n - report$I
-  report$s <- vapply(report$t, function(time){
-    twin <- dplyr::filter(events, events$t <= time)
-    infected <- dplyr::filter(twin, twin$event == "I")$nodes
-    recovered <- dplyr::filter(twin, twin$event == "R")$nodes
-    infected <- setdiff(infected, recovered)
-    expos <- node_is_exposed(net, infected)
-    expos[recovered] <- F
-    sum(expos)
-  }, numeric(1) )
-  if(any(report$R_new > 0)){
-    report$R <- cumsum(report$R_new)
-    report$I <- report$I - report$R
-  } else report$R_new <- NULL
-  # if(any(report$E_new > 0)){
-  report$E <- cumsum(report$E_new) - report$I
-  report$E[report$E < 0] <- 0
-  report$S <- report$n - (report$E + report$I)
-  # } else report$E_new <- NULL
-  report <- dplyr::relocate(report, dplyr::any_of(c("t", "n", "S", "E", "I", "R")))
+  report$R <- cumsum(report$R_new)
+  report$I <- cumsum(report$I_new) - report$R
+  report$E <- ifelse(report$E_new == 0 & 
+                       cumsum(report$E_new) == max(cumsum(report$E_new)),
+                     report$E_new, cumsum(report$E_new))
+  report$E <- ifelse(report$R + report$I + report$E > report$n,
+                     report$n - (report$R + report$I),
+                     report$E)
+  report$S <- report$n - report$R - report$I - report$E
+  if (any(report$R + report$I + report$E + report$S != report$n)) {
+    stop("Ops, something is wrong")
+  }
+  report <- dplyr::select(report, dplyr::any_of(c("t", "n", "S", "E", "I", "R")))
   make_diff_model(events, report, .data)
 }
