@@ -111,3 +111,28 @@ node_infection_length <- function(diff_model){
   make_node_measure(out, attr(diff_model, "network"))
 }
 
+#' @describeIn diffusion Measures how many exposures nodes have
+#'   to a given mark
+#' @export
+node_exposure <- function(.data, mark){
+  if(is.logical(mark)) mark <- which(mark)
+  contacts <- unlist(lapply(igraph::neighborhood(.data, nodes = mark),
+                            function(x) setdiff(x, mark)))
+  # count exposures for each node:
+  tabcontact <- table(contacts)
+  out <- rep(0, manynet::network_nodes(.data))
+  out[as.numeric(names(tabcontact))] <- unname(tabcontact)
+  make_node_measure(out, .data)
+}
+
+#' @describeIn diffusion Marks the nodes that are susceptible,
+#'   i.e. are in the immediate neighbourhood of given mark vector
+#' @export
+node_is_exposed <- function(.data, mark){
+  if(is.logical(mark)) mark <- which(mark)
+  out <- rep(F, manynet::network_nodes(.data))
+  out[unique(setdiff(unlist(igraph::neighborhood(.data, nodes = mark)),
+                     mark))] <- TRUE
+  make_node_mark(out, .data)
+}
+

@@ -308,3 +308,4 @@ play_segregation <- function(.data,
   }
   temp
 }
+
