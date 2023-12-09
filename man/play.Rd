@@ -6,6 +6,7 @@
 \alias{play_diffusions}
 \alias{play_learning}
 \alias{play_segregation}
+\alias{as_diffusion}
 \title{Functions to play games on networks}
 \usage{
 play_diffusion(
@@ -45,6 +46,8 @@ play_segregation(
   choice_function = c("satisficing", "optimising", "minimising"),
   steps
 )
+
+as_diffusion(events, .data)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -170,6 +173,9 @@ Functions to play games on networks
 \item \code{play_learning()}: Playing DeGroot learning on networks.
 
 \item \code{play_segregation()}: Playing Schelling segregation on networks.
+
+\item \code{as_diffusion()}: Coerces a table of diffusion events into
+a \code{diff_model} object similar to the output of \code{play_diffusion()}
 
 }}
 \examples{

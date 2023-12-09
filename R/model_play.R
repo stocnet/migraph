@@ -309,3 +309,42 @@ play_segregation <- function(.data,
   temp
 }
 
+#' @describeIn play Coerces a table of diffusion events into
+#'   a `diff_model` object similar to the output of `play_diffusion()`
+#' @export
+as_diffusion <- function(events, .data) {
+  net <- .data
+  event <- NULL
+  sumchanges <- events |> dplyr::group_by(t) |> 
+    dplyr::reframe(I_new = sum(event == "I"),
+                   E_new = sum(event == "E"),
+                   R_new = sum(event == "R"))
+  report <- dplyr::tibble(t = seq_len(max(events$t)) - 1,
+                          n = manynet::network_nodes(net)) %>% 
+    dplyr::left_join(sumchanges, by = dplyr::join_by(t))
+  report[is.na(report)] <- 0
+  report$R <- cumsum(report$R_new)
+  report$I <- cumsum(report$I_new) - report$R
+  report$E <- ifelse(report$E_new == 0 & 
+                       cumsum(report$E_new) == max(cumsum(report$E_new)),
+                     report$E_new, cumsum(report$E_new))
+  report$E <- ifelse(report$R + report$I + report$E > report$n,
+                     report$n - (report$R + report$I),
+                     report$E)
+  report$S <- report$n - report$R - report$I - report$E
+  report$s <- vapply(report$t, function(time){
+    twin <- dplyr::filter(events, events$t <= time)
+    infected <- dplyr::filter(twin, twin$event == "I")$nodes
+    recovered <- dplyr::filter(twin, twin$event == "R")$nodes
+    infected <- setdiff(infected, recovered)
+    expos <- node_is_exposed(net, infected)
+    expos[recovered] <- F
+    sum(expos)
+  }, numeric(1) )
+  if (any(report$R + report$I + report$E + report$S != report$n)) {
+    stop("Oops, something is wrong")
+  }
+  report <- dplyr::select(report, dplyr::any_of(c("t", "n", "S", "s", "E", "E_new", "I", "I_new", "R", "R_new")))
+  make_diff_model(events, report, .data)
+}
+
