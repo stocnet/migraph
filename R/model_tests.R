@@ -166,6 +166,14 @@ plot.network_test <- function(x, ...,
 #'   a single empirical or simulated diffusion.
 #' @param diff_models A diff_models object is returned by
 #'   `play_diffusions()` and contains a series of diffusion simulations.
+#' @section Mahalanobis distance: 
+#'   `test_gof()` takes a single diff_model object,
+#'   which may be a single empirical or simulated diffusion,
+#'   and a diff_models object containing many simulations.
+#'   It returns a `glance()` object that includes
+#'   the Mahalanobis distance between the observed and simulated distributions,
+#'   a p-value summarising a chi-squared test,
+#'   and the degrees of freedom and number of observations.
 #' @examples
 #'   smeg <- manynet::generate_smallworld(15, 0.025)
 #'   x <- play_diffusion(smeg, transmissibility = 0.3)

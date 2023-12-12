@@ -85,6 +85,17 @@ against a distribution of measures on permutations of the original network
 and chi-squared results for diff_model and diff_models objects
 
 }}
+\section{Mahalanobis distance}{
+
+\code{test_gof()} takes a single diff_model object,
+which may be a single empirical or simulated diffusion,
+and a diff_models object containing many simulations.
+It returns a \code{glance()} object that includes
+the Mahalanobis distance between the observed and simulated distributions,
+a p-value summarising a chi-squared test,
+and the degrees of freedom and number of observations.
+}
+
 \examples{
 marvel_friends <- to_unsigned(ison_marvel_relationships)
 marvel_friends <- to_giant(marvel_friends) \%>\% 
