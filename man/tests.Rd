@@ -4,6 +4,7 @@
 \alias{tests}
 \alias{test_random}
 \alias{test_permutation}
+\alias{test_gof}
 \title{Conditional uniform graph and permutation tests}
 \usage{
 test_random(
@@ -23,6 +24,8 @@ test_permutation(
   strategy = "sequential",
   verbose = FALSE
 )
+
+test_gof(diff_model, diff_models)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -58,6 +61,13 @@ See \href{https://furrr.futureverse.org}{\code{{furrr}}} for more.}
 \item{verbose}{Whether the function should report on its progress.
 By default FALSE.
 See \href{https://progressr.futureverse.org}{\code{{progressr}}} for more.}
+
+\item{diff_model}{A diff_model object is returned by
+\code{play_diffusion()} or \code{as_diffusion()} and contains
+a single empirical or simulated diffusion.}
+
+\item{diff_models}{A diff_models object is returned by
+\code{play_diffusions()} and contains a series of diffusion simulations.}
 }
 \description{
 These functions conduct conditional uniform graph (CUG)
@@ -71,6 +81,9 @@ against a distribution of measures on random networks of the same dimensions
 \item \code{test_permutation()}: Returns test results for some measure on an object
 against a distribution of measures on permutations of the original network
 
+\item \code{test_gof()}: Returns the squared Mahalanobis distance
+and chi-squared results for diff_model and diff_models objects
+
 }}
 \examples{
 marvel_friends <- to_unsigned(ison_marvel_relationships)
@@ -83,6 +96,10 @@ plot(cugtest)
                 network_heterophily, attribute = "Attractive",
                 times = 200))
 plot(qaptest)
+  smeg <- manynet::generate_smallworld(15, 0.025)
+  x <- play_diffusion(smeg, transmissibility = 0.3)
+  y <- play_diffusions(smeg, transmissibility = 0.1, times = 40)
+  test_gof(x, y)
 }
 \seealso{
 Other models: 
