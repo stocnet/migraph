@@ -149,11 +149,12 @@ Other measures:
 \code{\link{closure}},
 \code{\link{cohesion}()},
 \code{\link{degree_centrality}},
-\code{\link{diffusion}},
 \code{\link{features}},
 \code{\link{heterogeneity}},
 \code{\link{hierarchy}},
-\code{\link{holes}}
+\code{\link{holes}},
+\code{\link{net_diffusion}},
+\code{\link{node_diffusion}}
 
 Other centrality: 
 \code{\link{between_centrality}},

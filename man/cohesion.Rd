@@ -81,11 +81,12 @@ Other measures:
 \code{\link{close_centrality}},
 \code{\link{closure}},
 \code{\link{degree_centrality}},
-\code{\link{diffusion}},
 \code{\link{eigenv_centrality}},
 \code{\link{features}},
 \code{\link{heterogeneity}},
 \code{\link{hierarchy}},
-\code{\link{holes}}
+\code{\link{holes}},
+\code{\link{net_diffusion}},
+\code{\link{node_diffusion}}
 }
 \concept{measures}

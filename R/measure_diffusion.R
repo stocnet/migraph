@@ -107,6 +107,53 @@ network_reproduction <- function(diff_model){
 }
 
 #' @describeIn diffusion Measures nodes' time of adoption/infection
+
+# node_diffusion ####
+
+#' Diffusion metrics for nodes
+#' @description
+#'   These functions allow measurement of various features of
+#'   a diffusion process:
+#'   
+#'   - `node_adoption_time()`: Measures nodes' time of adoption/infection
+#'   - `node_adopter()`: Classifies membership of nodes into diffusion categories
+#'   - `node_thresholds()`: Measures nodes' thresholds from the amount
+#'   of exposure they had when they became infected
+#'   - `node_infection_length()`: Measures the average length nodes that become
+#'   infected remain infected in a compartmental model with recovery
+#'   - `node_exposure()`: Measures how many exposures nodes have to 
+#'   a given mark
+#'   - `node_is_exposed()`: Marks the nodes that are susceptible,
+#'   i.e. are in the immediate neighbourhood of given mark vector
+#' @inheritParams net_diffusion
+#' @family measures
+#' @name node_diffusion
+#' @examples
+#'   smeg <- manynet::generate_smallworld(15, 0.025)
+#'   smeg_diff <- play_diffusion(smeg, recovery = 0.2)
+#'   plot(smeg_diff)
+#'   autographs(smeg_diff)
+#'   # autographd(smeg_diff)
+#'   (adopts <- node_adopter(smeg_diff))
+#'   summary(adopts)
+#'   summary(node_adoption_time(smeg_diff), membership = adopts)
+#'   summary(node_thresholds(smeg_diff), membership = adopts)
+#'   summary(node_infection_length(smeg_diff))
+#'   network_infection_length(smeg_diff)
+#'   network_transmissibility(smeg_diff)
+#'   network_reproduction(smeg_diff)
+#' @references
+#'   Valente, Tom W. (1995). _Network models of the diffusion of innovations_
+#'   (2nd ed.). Cresskill N.J.: Hampton Press.
+NULL
+
+#' @rdname node_diffusion 
+#' @examples
+#' # example code
+#'   smeg <- manynet::generate_smallworld(15, 0.025)
+#'   smeg_diff <- play_diffusion(smeg, recovery = 0.2)
+#'   (adopts <- node_adopter(smeg_diff))
+#'   summary(adopts)
 #' @export
 node_adoption_time <- function(diff_model){
   event <- nodes <- NULL
@@ -116,7 +163,7 @@ node_adoption_time <- function(diff_model){
   make_node_measure(out, attr(diff_model, "network"))
 }
 
-#' @describeIn diffusion Classifies membership of nodes into diffusion categories
+#' @rdname node_diffusion 
 #' @export
 node_adopter <- function(diff_model){
   toa <- node_adoption_time(diff_model)
@@ -129,8 +176,7 @@ node_adopter <- function(diff_model){
   make_node_member(out, attr(diff_model, "network"))
 }
 
-#' @describeIn diffusion Measures nodes' thresholds from the amount
-#'   of exposure they had when they became infected
+#' @rdname node_diffusion 
 #' @export
 node_thresholds <- function(diff_model){
   event <- nodes <- NULL
@@ -144,8 +190,7 @@ node_thresholds <- function(diff_model){
   make_node_measure(out, attr(diff_model, "network"))
 }
 
-#' @describeIn diffusion Measures the average length nodes that become
-#'   infected remain infected in a compartmental model with recovery
+#' @rdname node_diffusion 
 #' @export
 node_infection_length <- function(diff_model){
   nodes <- NULL
@@ -160,8 +205,7 @@ node_infection_length <- function(diff_model){
   make_node_measure(out, attr(diff_model, "network"))
 }
 
-#' @describeIn diffusion Measures how many exposures nodes have
-#'   to a given mark
+#' @rdname node_diffusion 
 #' @export
 node_exposure <- function(.data, mark){
   if(is.logical(mark)) mark <- which(mark)
@@ -174,8 +218,7 @@ node_exposure <- function(.data, mark){
   make_node_measure(out, .data)
 }
 
-#' @describeIn diffusion Marks the nodes that are susceptible,
-#'   i.e. are in the immediate neighbourhood of given mark vector
+#' @rdname node_diffusion 
 #' @export
 node_is_exposed <- function(.data, mark){
   if(is.logical(mark)) mark <- which(mark)
