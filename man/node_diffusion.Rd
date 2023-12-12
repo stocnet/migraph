@@ -42,28 +42,90 @@ a given mark
 i.e. are in the immediate neighbourhood of given mark vector
 }
 }
+\section{Adoption time}{
+
+\code{node_adoption_time()} measures the time units it took
+until each node became infected.
+Note that an adoption time of 0 indicates that this was a seed node.
+}
+
+\section{Adopter class}{
+
+\code{node_adopter()} classifies the nodes involved in a diffusion
+by where on the distribution of adopters they fell.
+Valente (1995) defines five memberships:
+\itemize{
+\item \emph{Early adopter}: those with an adoption time less than
+the average adoption time minus one standard deviation of adoptions times
+\item \emph{Early majority}: those with an adoption time between
+the average adoption time and
+the average adoption time minus one standard deviation of adoptions times
+\item \emph{Late majority}: those with an adoption time between
+the average adoption time and
+the average adoption time plus one standard deviation of adoptions times
+\item \emph{Laggard}: those with an adoption time greater than
+the average adoption time plus one standard deviation of adoptions times
+\item \emph{Non-adopter}: those without an adoption time,
+i.e. never adopted
+}
+}
+
+\section{Thresholds}{
+
+\code{node_thresholds()} infers nodes' thresholds based on how much
+exposure they had when they were infected.
+This inference is of course imperfect,
+especially where there is a sudden increase in exposure,
+but it can be used heuristically.
+}
+
+\section{Infection length}{
+
+\code{node_infection_length()} measures the average length of time that nodes
+that become infected remain infected in a compartmental model with recovery.
+Infections that are not concluded by the end of the study period are
+calculated as infinite.
+}
+
+\section{Exposure}{
+
+\code{node_exposure()} calculates the number of infected/adopting nodes
+to which each susceptible node is exposed.
+It usually expects network data and
+an index or mark (TRUE/FALSE) vector of those who are currently infected,
+but if a diff_model is supplied instead it will return
+nodes exposure at \eqn{t = 0}.
+}
+
+\section{Exposed}{
+
+\code{node_is_exposed()} is similar to \code{node_exposure()},
+but returns a mark (TRUE/FALSE) vector indicating which nodes
+are currently exposed to the diffusion content.
+}
+
 \examples{
   smeg <- manynet::generate_smallworld(15, 0.025)
   smeg_diff <- play_diffusion(smeg, recovery = 0.2)
   plot(smeg_diff)
-  autographs(smeg_diff)
-  # autographd(smeg_diff)
+  # To measure when nodes adopted a diffusion/were infected
+  (times <- node_adoption_time(smeg_diff))
+  # To classify nodes by their position in the adoption curve
   (adopts <- node_adopter(smeg_diff))
   summary(adopts)
-  summary(node_adoption_time(smeg_diff), membership = adopts)
-  summary(node_thresholds(smeg_diff), membership = adopts)
-  summary(node_infection_length(smeg_diff))
-  network_infection_length(smeg_diff)
-  network_transmissibility(smeg_diff)
-  network_reproduction(smeg_diff)
-# example code
-  smeg <- manynet::generate_smallworld(15, 0.025)
-  smeg_diff <- play_diffusion(smeg, recovery = 0.2)
-  (adopts <- node_adopter(smeg_diff))
-  summary(adopts)
+  summary(times, membership = adopts)
+  # To infer nodes' thresholds
+  node_thresholds(smeg_diff)
+  # To measure how long each node remains infected for
+  node_infection_length(smeg_diff)
+  # To measure how much exposure nodes had when they adopted
+  node_exposure(smeg, mark = c(1,3))
+  node_exposure(smeg_diff)
+  # To mark which nodes are currently exposed
+  node_is_exposed(smeg, mark = c(1,3))
 }
 \references{
-Valente, Tom W. (1995). \emph{Network models of the diffusion of innovations}
+Valente, Tom W. 1995. \emph{Network models of the diffusion of innovations}
 (2nd ed.). Cresskill N.J.: Hampton Press.
 }
 \seealso{
@@ -79,5 +141,10 @@ Other measures:
 \code{\link{hierarchy}},
 \code{\link{holes}},
 \code{\link{net_diffusion}}
+
+Other diffusion: 
+\code{\link{net_diffusion}},
+\code{\link{play}}
 }
+\concept{diffusion}
 \concept{measures}

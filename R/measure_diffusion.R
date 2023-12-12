@@ -157,33 +157,25 @@ network_immunity <- function(diff_model){
 #'   i.e. are in the immediate neighbourhood of given mark vector
 #' @inheritParams net_diffusion
 #' @family measures
+#' @family diffusion
 #' @name node_diffusion
 #' @examples
 #'   smeg <- manynet::generate_smallworld(15, 0.025)
 #'   smeg_diff <- play_diffusion(smeg, recovery = 0.2)
 #'   plot(smeg_diff)
-#'   autographs(smeg_diff)
-#'   # autographd(smeg_diff)
-#'   (adopts <- node_adopter(smeg_diff))
-#'   summary(adopts)
-#'   summary(node_adoption_time(smeg_diff), membership = adopts)
-#'   summary(node_thresholds(smeg_diff), membership = adopts)
-#'   summary(node_infection_length(smeg_diff))
-#'   network_infection_length(smeg_diff)
-#'   network_transmissibility(smeg_diff)
-#'   network_reproduction(smeg_diff)
 #' @references
-#'   Valente, Tom W. (1995). _Network models of the diffusion of innovations_
+#'   Valente, Tom W. 1995. _Network models of the diffusion of innovations_
 #'   (2nd ed.). Cresskill N.J.: Hampton Press.
 NULL
 
 #' @rdname node_diffusion 
+#' @section Adoption time: 
+#'   `node_adoption_time()` measures the time units it took 
+#'   until each node became infected.
+#'   Note that an adoption time of 0 indicates that this was a seed node.
 #' @examples
-#' # example code
-#'   smeg <- manynet::generate_smallworld(15, 0.025)
-#'   smeg_diff <- play_diffusion(smeg, recovery = 0.2)
-#'   (adopts <- node_adopter(smeg_diff))
-#'   summary(adopts)
+#'   # To measure when nodes adopted a diffusion/were infected
+#'   (times <- node_adoption_time(smeg_diff))
 #' @export
 node_adoption_time <- function(diff_model){
   event <- nodes <- NULL
@@ -193,20 +185,51 @@ node_adoption_time <- function(diff_model){
   make_node_measure(out, attr(diff_model, "network"))
 }
 
-#' @rdname node_diffusion 
+#' @rdname node_diffusion
+#' @section Adopter class: 
+#'   `node_adopter()` classifies the nodes involved in a diffusion
+#'   by where on the distribution of adopters they fell.
+#'   Valente (1995) defines five memberships:
+#'   
+#'   - _Early adopter_: those with an adoption time less than 
+#'   the average adoption time minus one standard deviation of adoptions times
+#'   - _Early majority_: those with an adoption time between
+#'   the average adoption time and 
+#'   the average adoption time minus one standard deviation of adoptions times
+#'   - _Late majority_: those with an adoption time between
+#'   the average adoption time and 
+#'   the average adoption time plus one standard deviation of adoptions times
+#'   - _Laggard_: those with an adoption time greater than 
+#'   the average adoption time plus one standard deviation of adoptions times
+#'   - _Non-adopter_: those without an adoption time,
+#'   i.e. never adopted
+#' @examples
+#'   # To classify nodes by their position in the adoption curve
+#'   (adopts <- node_adopter(smeg_diff))
+#'   summary(adopts)
+#'   summary(times, membership = adopts)
 #' @export
 node_adopter <- function(diff_model){
   toa <- node_adoption_time(diff_model)
   avg <- mean(toa)
   sdv <- stats::sd(toa)
   out <- ifelse(toa < (avg - sdv), "Early Adopter", 
-         ifelse(toa > (avg + sdv), "Laggard",
-                ifelse((avg - sdv) < toa & toa <= avg, "Early Majority", 
-                       ifelse(avg < toa & toa <= avg + sdv, "Late Majority", "Non-Adopter"))))
+                ifelse(toa > (avg + sdv), "Laggard",
+                       ifelse((avg - sdv) < toa & toa <= avg, "Early Majority", 
+                              ifelse(avg < toa & toa <= avg + sdv, "Late Majority", "Non-Adopter"))))
   make_node_member(out, attr(diff_model, "network"))
 }
 
 #' @rdname node_diffusion 
+#' @section Thresholds:
+#'   `node_thresholds()` infers nodes' thresholds based on how much
+#'   exposure they had when they were infected.
+#'   This inference is of course imperfect,
+#'   especially where there is a sudden increase in exposure,
+#'   but it can be used heuristically.
+#' @examples
+#'   # To infer nodes' thresholds
+#'   node_thresholds(smeg_diff)
 #' @export
 node_thresholds <- function(diff_model){
   event <- nodes <- NULL
@@ -221,6 +244,14 @@ node_thresholds <- function(diff_model){
 }
 
 #' @rdname node_diffusion 
+#' @section Infection length:
+#'   `node_infection_length()` measures the average length of time that nodes 
+#'   that become infected remain infected in a compartmental model with recovery.
+#'   Infections that are not concluded by the end of the study period are
+#'   calculated as infinite.
+#' @examples
+#'   # To measure how long each node remains infected for
+#'   node_infection_length(smeg_diff)
 #' @export
 node_infection_length <- function(diff_model){
   nodes <- NULL
@@ -235,9 +266,26 @@ node_infection_length <- function(diff_model){
   make_node_measure(out, attr(diff_model, "network"))
 }
 
-#' @rdname node_diffusion 
+#' @rdname node_diffusion
+#' @section Exposure:
+#'   `node_exposure()` calculates the number of infected/adopting nodes
+#'   to which each susceptible node is exposed.
+#'   It usually expects network data and 
+#'   an index or mark (TRUE/FALSE) vector of those who are currently infected,
+#'   but if a diff_model is supplied instead it will return
+#'   nodes exposure at \eqn{t = 0}.
+#' @examples
+#'   # To measure how much exposure nodes had when they adopted
+#'   node_exposure(smeg, mark = c(1,3))
+#'   node_exposure(smeg_diff)
 #' @export
 node_exposure <- function(.data, mark){
+  if(missing(mark) && inherits(.data, "diff_model")){
+    mark <- summary(.data) |> 
+      dplyr::filter(t == 0 & event == "I") |> 
+      dplyr::select(nodes) |> unlist()
+    .data <- attr(.data, "network")
+  }
   if(is.logical(mark)) mark <- which(mark)
   contacts <- unlist(lapply(igraph::neighborhood(.data, nodes = mark),
                             function(x) setdiff(x, mark)))
@@ -249,8 +297,21 @@ node_exposure <- function(.data, mark){
 }
 
 #' @rdname node_diffusion 
+#' @section Exposed:
+#'   `node_is_exposed()` is similar to `node_exposure()`,
+#'   but returns a mark (TRUE/FALSE) vector indicating which nodes
+#'   are currently exposed to the diffusion content.
+#' @examples
+#'   # To mark which nodes are currently exposed
+#'   node_is_exposed(smeg, mark = c(1,3))
 #' @export
 node_is_exposed <- function(.data, mark){
+  if(missing(mark) && inherits(.data, "diff_model")){
+    mark <- summary(.data) |> 
+      dplyr::filter(t == 0 & event == "I") |> 
+      dplyr::select(nodes) |> unlist()
+    .data <- attr(.data, "network")
+  }
   if(is.logical(mark)) mark <- which(mark)
   out <- rep(F, manynet::network_nodes(.data))
   out[unique(setdiff(unlist(igraph::neighborhood(.data, nodes = mark)),
