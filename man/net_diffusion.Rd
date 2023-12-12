@@ -36,6 +36,20 @@ the network's average infection length
 to be protected through vaccination, isolation, or recovery for herd immunity to be reached
 }
 }
+\section{Transmissibility}{
+
+\code{network_transmissibility()} measures how many directly susceptible nodes
+each infected node will infect in each time period, on average.
+That is:
+\deqn{T = \frac{1}{n}\sum_{j=1}^n \frac{i_{j}}{s_{j}}}
+where \eqn{i} is the number of new infections in each time period, \eqn{j \in n},
+and \eqn{s} is the number of nodes that could have been infected in that time period
+(note that \eqn{s \neq S}, or
+the number of nodes that are susceptible in the population).
+\eqn{T} can be interpreted as the proportion of susceptible nodes that are
+infected at each time period.
+}
+
 \section{Infection length}{
 
 \code{network_infection_length()} measures the average length of time that
@@ -43,6 +57,7 @@ nodes in a network remain infected.
 Note that in a diffusion model without recovery, average infection length
 will be infinite.
 This will also be the case where there is right censoring.
+The longer nodes remain infected, the longer they can infect others.
 }
 
 \section{Reproduction number}{
@@ -96,12 +111,7 @@ of nodes in the network.
   smeg <- manynet::generate_smallworld(15, 0.025)
   smeg_diff <- play_diffusion(smeg, recovery = 0.2)
   plot(smeg_diff)
-  autographs(smeg_diff)
-  # autographd(smeg_diff)
-  summary(node_adoption_time(smeg_diff), membership = adopts)
-  summary(node_thresholds(smeg_diff), membership = adopts)
-  summary(node_infection_length(smeg_diff))
-  network_infection_length(smeg_diff)
+  # To calculate the average transmissibility for a given diffusion model
   network_transmissibility(smeg_diff)
   # To calculate the average infection length for a given diffusion model
   network_infection_length(smeg_diff)
@@ -129,5 +139,10 @@ Other measures:
 \code{\link{hierarchy}},
 \code{\link{holes}},
 \code{\link{node_diffusion}}
+
+Other diffusion: 
+\code{\link{node_diffusion}},
+\code{\link{play}}
 }
+\concept{diffusion}
 \concept{measures}

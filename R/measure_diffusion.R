@@ -18,17 +18,12 @@
 #' @param diff_model A valid network diffusion model,
 #'   as created by `as_diffusion()` or `play_diffusion()`.
 #' @family measures
+#' @family diffusion
 #' @name net_diffusion
 #' @examples
 #'   smeg <- manynet::generate_smallworld(15, 0.025)
 #'   smeg_diff <- play_diffusion(smeg, recovery = 0.2)
 #'   plot(smeg_diff)
-#'   autographs(smeg_diff)
-#'   # autographd(smeg_diff)
-#'   summary(node_adoption_time(smeg_diff), membership = adopts)
-#'   summary(node_thresholds(smeg_diff), membership = adopts)
-#'   summary(node_infection_length(smeg_diff))
-#'   network_transmissibility(smeg_diff)
 #' @references
 #'   Kermack, W. and McKendrick, A., 1927. "A contribution to the mathematical theory of epidemics". 
 #'   _Proc. R. Soc. London A_ 115: 700-721.
@@ -36,15 +31,16 @@ NULL
 
 #' @rdname net_diffusion 
 #' @section Transmissibility: 
-#'   `network_transmissibility()` measures the average proportion of new infections
-#'   over those that are directly susceptible or exposed to infection during
-#'   a diffusion's infectious period (the period during which there are new infections).
+#'   `network_transmissibility()` measures how many directly susceptible nodes
+#'   each infected node will infect in each time period, on average.
 #'   That is:
-#'   \deqn{T = \frac{\sum_i\frac{I_new}{s}}{t}}
-#'   where \eqn{I_new} is the number of new infections in each time period, \eqn{i \in t},
-#'   \eqn{s} is the number of nodes that could have been infected in that time period
-#'   (note that this is not the same as \eqn{S}, 
-#'   the number of nodes that are still susceptible in the population).
+#'   \deqn{T = \frac{1}{n}\sum_{j=1}^n \frac{i_{j}}{s_{j}}}
+#'   where \eqn{i} is the number of new infections in each time period, \eqn{j \in n},
+#'   and \eqn{s} is the number of nodes that could have been infected in that time period
+#'   (note that \eqn{s \neq S}, or 
+#'   the number of nodes that are susceptible in the population).
+#'   \eqn{T} can be interpreted as the proportion of susceptible nodes that are
+#'   infected at each time period.
 #' @examples
 #'   # To calculate the average transmissibility for a given diffusion model
 #'   network_transmissibility(smeg_diff)
@@ -108,7 +104,6 @@ network_reproduction <- function(diff_model){
   make_network_measure(out, net)
 }
 
-#' @describeIn diffusion Measures nodes' time of adoption/infection
 #' @rdname net_diffusion 
 #' @section Herd immunity: 
 #'   `network_immunity()` estimates the proportion of a network
