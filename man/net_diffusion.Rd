@@ -5,6 +5,7 @@
 \alias{network_transmissibility}
 \alias{network_infection_length}
 \alias{network_reproduction}
+\alias{network_immunity}
 \title{Diffusion metrics for networks}
 \usage{
 network_transmissibility(diff_model)
@@ -13,6 +14,7 @@ network_infection_length(diff_model)
 
 network_reproduction(diff_model)
 
+network_immunity(diff_model)
 }
 \arguments{
 \item{diff_model}{A valid network diffusion model,
@@ -30,6 +32,8 @@ infected in a compartmental model with recovery for the network as a whole
 \item \code{network_reproduction()}: Measures the observed reproductive number
 in a diffusion simulation as the network's transmissibility over
 the network's average infection length
+\item \code{network_immunity}: Measures the proportion of nodes that would need
+to be protected through vaccination, isolation, or recovery for herd immunity to be reached
 }
 }
 \section{Infection length}{
@@ -64,6 +68,29 @@ Where \eqn{R = 1}, the 'disease' will continue as endemic,
 if conditions allow.
 }
 
+\section{Herd immunity}{
+
+\code{network_immunity()} estimates the proportion of a network
+that need to be protected from infection for herd immunity
+to be achieved.
+This is known as the Herd Immunity Threshold or HIT:
+\deqn{1 - \frac{1}{R}}
+where \eqn{R} is the reproduction number from \code{network_reproduction()}.
+The HIT indicates the threshold at which
+the reduction of susceptible members of the network means
+that infections will no longer keep increasing.
+Note that there may still be more infections after this threshold has been reached,
+but there should be fewer and fewer.
+These excess infections are called the \emph{overshoot}.
+This function does \emph{not} take into account the structure
+of the network, instead using the average degree.
+
+Interpretation is quite straightforward.
+A HIT or immunity score of 0.75 would mean that 75\% of the nodes in the network
+would need to be vaccinated or otherwise protected to achieve her immunity.
+To identify how many nodes this would be, multiply this proportion with the number
+of nodes in the network.
+}
 
 \examples{
   smeg <- manynet::generate_smallworld(15, 0.025)
@@ -80,6 +107,10 @@ if conditions allow.
   network_infection_length(smeg_diff)
   # To calculate the reproduction number for a given diffusion model
   network_reproduction(smeg_diff)
+  # Calculating the proportion required to achieve herd immunity
+  network_immunity(smeg_diff)
+  # To find the number of nodes to be vaccinated
+  ceiling(network_immunity(smeg_diff) * manynet::network_nodes(smeg))
 }
 \references{
 Kermack, W. and McKendrick, A., 1927. "A contribution to the mathematical theory of epidemics".

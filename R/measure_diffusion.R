@@ -13,6 +13,8 @@
 #'   - `network_reproduction()`: Measures the observed reproductive number
 #'   in a diffusion simulation as the network's transmissibility over
 #'   the network's average infection length
+#'   - `network_immunity`: Measures the proportion of nodes that would need
+#'   to be protected through vaccination, isolation, or recovery for herd immunity to be reached 
 #' @param diff_model A valid network diffusion model,
 #'   as created by `as_diffusion()` or `play_diffusion()`.
 #' @family measures
@@ -107,6 +109,39 @@ network_reproduction <- function(diff_model){
 }
 
 #' @describeIn diffusion Measures nodes' time of adoption/infection
+#' @rdname net_diffusion 
+#' @section Herd immunity: 
+#'   `network_immunity()` estimates the proportion of a network
+#'   that need to be protected from infection for herd immunity
+#'   to be achieved.
+#'   This is known as the Herd Immunity Threshold or HIT:
+#'   \deqn{1 - \frac{1}{R}}
+#'   where \eqn{R} is the reproduction number from `network_reproduction()`.
+#'   The HIT indicates the threshold at which
+#'   the reduction of susceptible members of the network means
+#'   that infections will no longer keep increasing.
+#'   Note that there may still be more infections after this threshold has been reached,
+#'   but there should be fewer and fewer.
+#'   These excess infections are called the _overshoot_.
+#'   This function does _not_ take into account the structure
+#'   of the network, instead using the average degree.
+#'   
+#'   Interpretation is quite straightforward.
+#'   A HIT or immunity score of 0.75 would mean that 75% of the nodes in the network
+#'   would need to be vaccinated or otherwise protected to achieve her immunity.
+#'   To identify how many nodes this would be, multiply this proportion with the number
+#'   of nodes in the network. 
+#' @examples
+#'   # Calculating the proportion required to achieve herd immunity
+#'   network_immunity(smeg_diff)
+#'   # To find the number of nodes to be vaccinated
+#'   ceiling(network_immunity(smeg_diff) * manynet::network_nodes(smeg))
+#' @export
+network_immunity <- function(diff_model){
+  net <- attr(diff_model, "network")
+  out <- 1 - 1/network_reproduction(diff_model)
+  make_network_measure(out, net)
+}
 
 # node_diffusion ####
 
