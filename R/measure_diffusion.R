@@ -269,6 +269,9 @@ node_infection_length <- function(diff_model){
 }
 
 #' @rdname node_diffusion
+#' @param mark A valid 'node_mark' object or
+#'   logical vector (TRUE/FALSE) of length equal to 
+#'   the number of nodes in the network.
 #' @section Exposure:
 #'   `node_exposure()` calculates the number of infected/adopting nodes
 #'   to which each susceptible node is exposed.

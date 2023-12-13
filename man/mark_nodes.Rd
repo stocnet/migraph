@@ -54,7 +54,9 @@ a tie to themselves (a loop) will be created instead.
 Note that this is a different default behaviour than that
 described in Valente and Davis (1999).}
 
-\item{mark}{vector denoting which nodes are infected}
+\item{mark}{A valid 'node_mark' object or
+logical vector (TRUE/FALSE) of length equal to
+the number of nodes in the network.}
 
 \item{node_measure}{An object created by a \code{node_} measure.}
 

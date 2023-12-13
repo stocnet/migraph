@@ -32,7 +32,9 @@ as created by \code{as_diffusion()} or \code{play_diffusion()}.}
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
 
-\item{mark}{logical vector denoting nodes that are infected}
+\item{mark}{A valid 'node_mark' object or
+logical vector (TRUE/FALSE) of length equal to
+the number of nodes in the network.}
 }
 \description{
 These functions allow measurement of various features of

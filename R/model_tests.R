@@ -192,6 +192,7 @@ plot.network_test <- function(x, ...,
 test_gof <- function(diff_model, diff_models){ # make into method?
   x <- diff_model
   y <- diff_models
+  sim <- `0` <- NULL
   sims <- y |> dplyr::select(sim, t, I) |> 
     tidyr::pivot_wider(names_from = t, values_from = I) |> 
     dplyr::select(-c(sim, `0`))

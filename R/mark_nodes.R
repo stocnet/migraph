@@ -106,6 +106,9 @@ node_is_mentor <- function(.data, elites = 0.1){
 }
 
 #' @rdname mark_nodes 
+#' @param mark A valid 'node_mark' object or
+#'   logical vector (TRUE/FALSE) of length equal to 
+#'   the number of nodes in the network.
 #' @section Exposed:
 #'   `node_is_exposed()` is similar to `node_exposure()`,
 #'   but returns a mark (TRUE/FALSE) vector indicating which nodes

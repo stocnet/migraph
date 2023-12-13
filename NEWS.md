@@ -2,16 +2,16 @@
 
 2023-12-13
 
+## Marks
+
+- Added `node_is_exposed()` function to mark nodes (logical) that are currently exposed to diffusion content in a network.
+
 ## Measures
 
 - Fixed bugs for `network_reproduction()` function that calculates the R-nought value.
 - Added `network_immunity()` function to calculate the Herd Immunity Threshold for the network.
 - Added `node_exposure()` function to calculate the number of infected/adopting nodes to which each susceptible node is exposed.
 - Added documentation for diffusion measures, separating documentation for `node_*()` and `network_*()` measures.
-
-## Marks
-
-- Added `node_is_exposed()` function to mark nodes (logical) that are currently exposed to diffusion content in a network.
 
 ## Models
 
