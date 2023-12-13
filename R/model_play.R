@@ -282,6 +282,15 @@ play_segregation <- function(.data,
 #'   `nodes` indicating the number or name of the node involved in the event,
 #'   and `event`, which can take on the values "I" for an infection event,
 #'   "E" for an exposure event, or "R" for a recovery event.
+#' @returns 
+#'   `as_diffusion()` and `play_diffusion()` return a 'diff_model' object
+#'   that contains two different tibbles (tables) --
+#'   a table of diffusion events and 
+#'   a table of the number of nodes in each relevant component (S, E, I, or R) --
+#'   as well as a copy of the network upon which the diffusion ran.
+#'   By default, a compact version of the component table is printed
+#'   (to print all the changes at each time point, use `print(..., verbose = T)`).
+#'   To retriece the diffusion events table, use `summary(...)`.
 #' @examples
 #'   # How to create a diff_model object from (basic) observed data
 #'   events <- data.frame(t = c(0,1,1,2,3), nodes = c(1,2,3,2,4), event = c("I","I","I","R","I"))
