@@ -306,7 +306,7 @@ Similar to the previous examples, we will be using the following functions withi
 ```{r scale-solution}
 sf %>%
   as_tidygraph() %>%
-  activate(nodes) %>%
+  tidygraph::activate(nodes) %>%
   mutate(degree = ifelse(node_is_max(node_degree(sf)), "max",
                       ifelse(node_is_min(node_degree(sf)), "min", "others"))) %>%
   autographr(node_color = "degree") + guides(color = "legend") + labs(color = "degree")
@@ -317,7 +317,7 @@ plot(play_diffusion(sf, seeds = node_is_min(node_degree(sf)), steps = 10))
 
 # visualise diffusion in scalefree network
 autographs(play_diffusion(sf, seeds = node_is_min(node_degree(sf)), steps = 10),
-           node_color = "Infected", layout = "star") +
+           node_color = "Infected") +
   ggplot2::guides(colour = guide_legend(""))
 autographd(play_diffusion(sf, seeds = 16, steps = 10))
 ```
@@ -598,26 +598,37 @@ Play a single diffusion so that you can see what's going on in a particular run.
 plot(play_diffusion(rd, seeds = 10, latency = 0.25, recovery = 0.2))
 
 # visualise diffusion with latency and recovery
-autographd(play_diffusion(rd, seeds = 10, latency = 0.25, recovery = 0.2),
-           layout = "grid")
+autographd(play_diffusion(rd, seeds = 10, latency = 0.25, recovery = 0.2))
 ```
 
-### R-nought
+### R-nought and herd immunity
 
 So how can we establish the $R_0$ here?
-Well, recall that $R_0 = \frac{\beta}{\gamma}$.
-For a network such as ours, the expected number of contacts per node $\beta$
-is the average degree of all nodes,
-and the average number of days a node remains contagious is 1 divided by the `recovery` parameter.
+
+$R_0$, or the diffusion's reproductive number, is calculated as: $R_0 = \min\left(\frac{T}{1/IL}, \bar{k}\right)$
+It is measured as the network's transmissibility (proportion of susceptible nodes that are infected at each time period) over the network's average infection length (average length of time nodes remain infected).  
+- Where $R_0$ > 1, the 'disease' will 'infect' more and more nodes in the network.  
+- Where $R_0$ < 1, the 'disease' will not sustain itself and eventually die out.  
+- Where $R_0$ = 1, the 'disease' will continue as endemic, if conditions allow.  
 
 ```{r r0, exercise = TRUE, exercise.setup = "create"}
-recovery <- 0.2
-mean(node_degree(rd, normalized = FALSE))/(1/recovery)
+set.seed(123)
+rd_diff <- play_diffusion(rd, seeds = 10, recovery = 0.1)
+plot(rd_diff)
+# R-nought
+network_reproduction(rd_diff)
+# Herd Immunity Threshold
+network_immunity(rd_diff)
+ceiling(network_immunity(rd_diff) * manynet::network_nodes(rd))
 ```
+
+The Herd Immunity Threshold or HIT indicates the threshold at which the reduction of susceptible members of the network means that infections will no longer keep increasing, allowing herd immunity to be achieved.
+In this model, the HIT score of 0.94 indicates that 94% of nodes in the network would need to be vaccinated or otherwise protected to achieve herd immunity.
+Multiplying the HIT score with the number of nodes in the network (32 in this example) gives the number of nodes that would need to be vaccinated: 31 nodes.
 
 ```{r r0-interp, echo = FALSE, purl = FALSE}
 question("Select any true statements you can make about this R-nought result:",
-         answer("There will probably be an epidemic.", correct = TRUE),
+         answer("An epidemic is likely to occur.", correct = TRUE),
          answer("There are not enough seed nodes to start an epidemic."),
          answer("If the recovery rate was instead a mortality rate, it would make no difference.", correct = TRUE),
         allow_retry = TRUE,
