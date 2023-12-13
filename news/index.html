@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.9</span>
       </span>
     </div>
 
@@ -54,12 +54,36 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="1.1.9" id="migraph-119">migraph 1.1.9<a class="anchor" aria-label="anchor" href="#migraph-119"></a></h2>
+<p>2023-12-13</p>
+<div class="section level3">
+<h3 id="marks-1-1-9">Marks<a class="anchor" aria-label="anchor" href="#marks-1-1-9"></a></h3>
+<ul><li>Added <code><a href="../reference/mark_nodes.html">node_is_exposed()</a></code> function to mark nodes (logical) that are currently exposed to diffusion content in a network.</li></ul></div>
+<div class="section level3">
+<h3 id="measures-1-1-9">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-9"></a></h3>
+<ul><li>Fixed bugs for <code><a href="../reference/net_diffusion.html">network_reproduction()</a></code> function that calculates the R-nought value.</li>
+<li>Added <code><a href="../reference/net_diffusion.html">network_immunity()</a></code> function to calculate the Herd Immunity Threshold for the network.</li>
+<li>Added <code><a href="../reference/node_diffusion.html">node_exposure()</a></code> function to calculate the number of infected/adopting nodes to which each susceptible node is exposed.</li>
+<li>Added documentation for diffusion measures, separating documentation for <code>node_*()</code> and <code>network_*()</code> measures.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="models-1-1-9">Models<a class="anchor" aria-label="anchor" href="#models-1-1-9"></a></h3>
+<ul><li>Added <code><a href="../reference/play.html">as_diffusion()</a></code> function to convert a diffusion event table into a <code>diff_model</code> object.</li>
+<li>Added <code><a href="../reference/tests.html">test_gof()</a></code> function for testing goodness-of-fit in diffusion models.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="tutorials-1-1-9">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-1-9"></a></h3>
+<ul><li>Updates to tutorial 7 (diffusion):<ul><li>Added section on R-nought and Herd Immunity.</li>
+<li>Fixed layouts for plots using <code>autographs()</code> and <code>autographd()</code> for <code>diff_model</code> objects.</li>
+</ul></li></ul></div>
+</div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.8" id="migraph-118">migraph 1.1.8<a class="anchor" aria-label="anchor" href="#migraph-118"></a></h2>
 <p>2023-12-06</p>
 <div class="section level3">
 <h3 id="measures-1-1-8">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-8"></a></h3>
-<ul><li>Fixed bugs in diffusion measures.<ul><li>Fixed <code><a href="../reference/diffusion.html">node_thresholds()</a></code> so that it infers nodes’ thresholds from the amount of exposure they had when they became infected or exposed.</li>
-<li>Updated <code><a href="../reference/diffusion.html">node_adoption_time()</a></code> and <code><a href="../reference/diffusion.html">node_adopter()</a></code> to return <code>node_member</code> and <code>node_measure</code> objects, which makes printing and summarising better.</li>
+<ul><li>Fixed bugs in diffusion measures.<ul><li>Fixed <code><a href="../reference/node_diffusion.html">node_thresholds()</a></code> so that it infers nodes’ thresholds from the amount of exposure they had when they became infected or exposed.</li>
+<li>Updated <code><a href="../reference/node_diffusion.html">node_adoption_time()</a></code> and <code><a href="../reference/node_diffusion.html">node_adopter()</a></code> to return <code>node_member</code> and <code>node_measure</code> objects, which makes printing and summarising better.</li>
 <li>Updated node_infection_length() and network_infection_length() which measures the average length nodes remain infected.</li>
 </ul></li></ul></div>
 <div class="section level3">
@@ -102,7 +126,7 @@
 <p>2023-11-08</p>
 <div class="section level3">
 <h3 id="measures-1-1-6">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-6"></a></h3>
-<ul><li>Added first drafts of various diffusion measures: <code>network_transmissability()</code>, <code><a href="../reference/diffusion.html">node_infection_length()</a></code>, <code><a href="../reference/diffusion.html">network_infection_length()</a></code>, <code><a href="../reference/diffusion.html">network_reproduction()</a></code>, <code><a href="../reference/diffusion.html">node_adoption_time()</a></code>, <code><a href="../reference/diffusion.html">node_adopter()</a></code>, <code><a href="../reference/diffusion.html">node_thresholds()</a></code>.</li></ul></div>
+<ul><li>Added first drafts of various diffusion measures: <code>network_transmissability()</code>, <code><a href="../reference/node_diffusion.html">node_infection_length()</a></code>, <code><a href="../reference/net_diffusion.html">network_infection_length()</a></code>, <code><a href="../reference/net_diffusion.html">network_reproduction()</a></code>, <code><a href="../reference/node_diffusion.html">node_adoption_time()</a></code>, <code><a href="../reference/node_diffusion.html">node_adopter()</a></code>, <code><a href="../reference/node_diffusion.html">node_thresholds()</a></code>.</li></ul></div>
 <div class="section level3">
 <h3 id="models-1-1-6">Models<a class="anchor" aria-label="anchor" href="#models-1-1-6"></a></h3>
 <ul><li>Fixed documentation for <code><a href="../reference/play.html">play_diffusion()</a></code>.</li>
@@ -1423,7 +1447,7 @@
 <ul><li>Added <code>is_signed()</code> to logically test whether the network is a signed network</li>
 <li>Added <code>to_unsigned()</code> for extracting networks of either “positive” or “negative” ties from a signed network</li>
 <li>Added <code>tbl_graph</code> methods for all other <code>to_</code> functions</li>
-<li>Reexported <code><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate()</a></code> from <a href="https://tidygraph.data-imaginist.com" class="external-link">tidygraph</a>
+<li>Reexported <code>activate()</code> from <a href="https://tidygraph.data-imaginist.com" class="external-link">tidygraph</a>
 </li>
 </ul></div>
 <div class="section level3">

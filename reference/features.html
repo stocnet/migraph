@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.9</span>
       </span>
     </div>
 
@@ -207,11 +207,12 @@ for how clustering is calculated</p>
 <code><a href="closure.html">closure</a></code>,
 <code><a href="cohesion.html">cohesion</a>()</code>,
 <code><a href="degree_centrality.html">degree_centrality</a></code>,
-<code><a href="diffusion.html">diffusion</a></code>,
 <code><a href="eigenv_centrality.html">eigenv_centrality</a></code>,
 <code><a href="heterogeneity.html">heterogeneity</a></code>,
 <code><a href="hierarchy.html">hierarchy</a></code>,
-<code><a href="holes.html">holes</a></code></p></div>
+<code><a href="holes.html">holes</a></code>,
+<code><a href="net_diffusion.html">net_diffusion</a></code>,
+<code><a href="node_diffusion.html">node_diffusion</a></code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -235,11 +236,11 @@ for how clustering is calculated</p>
 <span class="r-in"><span><span class="fu">network_smallworld</span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NaN</span>
 <span class="r-in"><span><span class="fu">network_smallworld</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.04</span>
 <span class="r-in"><span><span class="fu">network_scalefree</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.69</span>
 <span class="r-in"><span><span class="fu">network_scalefree</span><span class="op">(</span><span class="fu">generate_scalefree</span><span class="op">(</span><span class="fl">50</span>, <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.77</span>
 <span class="r-in"><span><span class="fu">network_scalefree</span><span class="op">(</span><span class="fu">create_lattice</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Note: Kolgomorov-Smirnov test that data could have been drawn from a power-law distribution rejected.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.46</span>

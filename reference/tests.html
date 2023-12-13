@@ -18,7 +18,7 @@ or permutation (QAP) tests of any graph-level statistic."><meta property="og:ima
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.9</span>
       </span>
     </div>
 
@@ -77,7 +77,9 @@ or permutation (QAP) tests of any graph-level statistic.</p>
 <span>  times <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>  strategy <span class="op">=</span> <span class="st">"sequential"</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">test_gof</span><span class="op">(</span><span class="va">diff_model</span>, <span class="va">diff_models</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -125,6 +127,17 @@ See <a href="https://furrr.futureverse.org" class="external-link"><code>{furrr}<
 By default FALSE.
 See <a href="https://progressr.futureverse.org" class="external-link"><code>{progressr}</code></a> for more.</p></dd>
 
+
+<dt>diff_model</dt>
+<dd><p>A diff_model object is returned by
+<code><a href="play.html">play_diffusion()</a></code> or <code><a href="play.html">as_diffusion()</a></code> and contains
+a single empirical or simulated diffusion.</p></dd>
+
+
+<dt>diff_models</dt>
+<dd><p>A diff_models object is returned by
+<code><a href="play.html">play_diffusions()</a></code> and contains a series of diffusion simulations.</p></dd>
+
 </dl></div>
     <div id="functions">
     <h2>Functions</h2>
@@ -133,7 +146,25 @@ See <a href="https://progressr.futureverse.org" class="external-link"><code>{pro
 against a distribution of measures on random networks of the same dimensions</p></li>
 <li><p><code>test_permutation()</code>: Returns test results for some measure on an object
 against a distribution of measures on permutations of the original network</p></li>
+<li><p><code>test_gof()</code>: Returns the squared Mahalanobis distance
+and chi-squared results for diff_model and diff_models objects</p></li>
 </ul></div>
+    <div id="mahalanobis-distance">
+    <h2>Mahalanobis distance</h2>
+    
+
+<p><code>test_gof()</code> takes a single diff_model object,
+which may be a single empirical or simulated diffusion,
+and a diff_models object containing many simulations.
+Note that currently only the goodness of fit of the</p>
+<p>It returns a tibble (compatible with <code>broom::glance()</code>) that includes
+the Mahalanobis distance statistic
+between the observed and simulated distributions.
+It also includes a p-value summarising a chi-squared test on this statistic,
+listing also the degrees of freedom and number of observations.
+If the p-value is less than the convention 0.05,
+then one can argue that the first diffusion is not well captured by</p>
+    </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other models: 
@@ -164,11 +195,24 @@ against a distribution of measures on permutations of the original network</p></
 <span class="r-out co"><span class="r-pr">#&gt;</span>  QAP Test Results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Observed Value: -0.8571429 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&gt;=Obs): 0.985 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&lt;=Obs): 0.09 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&gt;=Obs): 0.965 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&lt;=Obs): 0.1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">qaptest</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tests-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span>  <span class="co"># Playing a reasonably quick diffusion</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="play.html">play_diffusion</a></span><span class="op">(</span><span class="fu">generate_random</span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>, transmissibility <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="co"># Playing a slower diffusion</span></span></span>
+<span class="r-in"><span>  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="play.html">play_diffusions</a></span><span class="op">(</span><span class="fu">generate_random</span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>, transmissibility <span class="op">=</span> <span class="fl">0.1</span>, times <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="tests-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="tests-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span>  <span class="fu">test_gof</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   statistic  p.value    df  nobs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      149. 3.19<span style="color: #949494;">e</span><span style="color: #BB0000;">-24</span>    15    40</span>
 </code></pre></div>
     </div>
   </div>

@@ -25,7 +25,7 @@ are key because they minimise or, more often, maximise some measure."><meta prop
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.9</span>
       </span>
     </div>
 
@@ -85,6 +85,8 @@ are key because they minimise or, more often, maximise some measure.</p>
 <span></span>
 <span><span class="fu">node_is_mentor</span><span class="op">(</span><span class="va">.data</span>, elites <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">node_is_exposed</span><span class="op">(</span><span class="va">.data</span>, <span class="va">mark</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">node_is_max</span><span class="op">(</span><span class="va">node_measure</span>, ranks <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">node_is_min</span><span class="op">(</span><span class="va">node_measure</span>, ranks <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
@@ -120,6 +122,12 @@ Note that this is a different default behaviour than that
 described in Valente and Davis (1999).</p></dd>
 
 
+<dt>mark</dt>
+<dd><p>A valid 'node_mark' object or
+logical vector (TRUE/FALSE) of length equal to
+the number of nodes in the network.</p></dd>
+
+
 <dt>node_measure</dt>
 <dd><p>An object created by a <code>node_</code> measure.</p></dd>
 
@@ -151,6 +159,19 @@ hold the maximum of some measure</p></li>
 <li><p><code>node_is_min()</code>: Returns logical of which nodes
 hold the minimum of some measure</p></li>
 </ul></div>
+    <div id="exposed">
+    <h2>Exposed</h2>
+    
+
+<p><code>node_is_exposed()</code> is similar to <code><a href="node_diffusion.html">node_exposure()</a></code>,
+but returns a mark (TRUE/FALSE) vector indicating which nodes
+are currently exposed to the diffusion content.
+This diffusion content can be expressed in the 'mark' argument.
+If no 'mark' argument is provided,
+and '.data' is a diff_model object,
+then the function will return nodes exposure to the seed nodes
+in that diffusion.</p>
+    </div>
     <div id="references">
     <h2>References</h2>
     <p>Valente, Thomas, and Rebecca Davis. 1999.
@@ -177,7 +198,14 @@ hold the minimum of some measure</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FALSE FALSE TRUE  TRUE  FALSE FALSE FALSE FALSE TRUE  FALSE FALSE</span>
 <span class="r-in"><span><span class="fu">node_is_random</span><span class="op">(</span><span class="va">ison_brandes</span>, <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   V1    V2    V3    V4    V5    V6    V7    V8    V9    V10   V11  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FALSE FALSE FALSE FALSE FALSE FALSE TRUE  FALSE FALSE TRUE  FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> TRUE  FALSE FALSE FALSE FALSE FALSE FALSE TRUE  FALSE FALSE FALSE</span>
+<span class="r-in"><span>  <span class="co"># To mark which nodes are currently exposed</span></span></span>
+<span class="r-in"><span>  <span class="op">(</span><span class="va">expos</span> <span class="op">&lt;-</span> <span class="fu">node_is_exposed</span><span class="op">(</span><span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/create.html" class="external-link">create_tree</a></span><span class="op">(</span><span class="fl">14</span><span class="op">)</span>, mark <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   V1    V2    V3    V4    V5    V6    V7    V8    V9    V10   V11   V12   V13  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FALSE TRUE  FALSE FALSE FALSE TRUE  TRUE  FALSE FALSE FALSE FALSE FALSE FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">expos</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 6 7</span>
 <span class="r-in"><span><span class="fu">node_is_max</span><span class="op">(</span><span class="fu"><a href="degree_centrality.html">node_degree</a></span><span class="op">(</span><span class="va">ison_brandes</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   V1    V2    V3    V4    V5    V6    V7    V8    V9    V10   V11  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE TRUE  FALSE FALSE</span>

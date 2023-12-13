@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.9</span>
       </span>
     </div>
 
@@ -61,7 +61,7 @@
         </td>
         <td><p>Marking networks based on their properties</p></td>
       </tr><tr><td>
-          <p><code><a href="mark_nodes.html">node_is_cutpoint()</a></code> <code><a href="mark_nodes.html">node_is_isolate()</a></code> <code><a href="mark_nodes.html">node_is_core()</a></code> <code><a href="mark_nodes.html">node_is_random()</a></code> <code><a href="mark_nodes.html">node_is_mentor()</a></code> <code><a href="mark_nodes.html">node_is_max()</a></code> <code><a href="mark_nodes.html">node_is_min()</a></code> </p>
+          <p><code><a href="mark_nodes.html">node_is_cutpoint()</a></code> <code><a href="mark_nodes.html">node_is_isolate()</a></code> <code><a href="mark_nodes.html">node_is_core()</a></code> <code><a href="mark_nodes.html">node_is_random()</a></code> <code><a href="mark_nodes.html">node_is_mentor()</a></code> <code><a href="mark_nodes.html">node_is_exposed()</a></code> <code><a href="mark_nodes.html">node_is_max()</a></code> <code><a href="mark_nodes.html">node_is_min()</a></code> </p>
         </td>
         <td><p>Marking nodes based on their properties</p></td>
       </tr><tr><td>
@@ -117,9 +117,17 @@
         </td>
         <td><p>Graph theoretic dimensions of hierarchy</p></td>
       </tr><tr><td>
-          <p><code><a href="diffusion.html">network_transmissibility()</a></code> <code><a href="diffusion.html">network_infection_length()</a></code> <code><a href="diffusion.html">network_reproduction()</a></code> <code><a href="diffusion.html">node_adoption_time()</a></code> <code><a href="diffusion.html">node_adopter()</a></code> <code><a href="diffusion.html">node_thresholds()</a></code> <code><a href="diffusion.html">node_infection_length()</a></code> </p>
+          <p><code><a href="net_diffusion.html">network_transmissibility()</a></code> <code><a href="net_diffusion.html">network_infection_length()</a></code> <code><a href="net_diffusion.html">network_reproduction()</a></code> <code><a href="net_diffusion.html">network_immunity()</a></code> </p>
         </td>
-        <td><p>Functions to measure diffusion processes on networks</p></td>
+        <td><p>Diffusion metrics for networks</p></td>
+      </tr><tr><td>
+          <p><code><a href="node_diffusion.html">node_adoption_time()</a></code> <code><a href="node_diffusion.html">node_adopter()</a></code> <code><a href="node_diffusion.html">node_thresholds()</a></code> <code><a href="node_diffusion.html">node_infection_length()</a></code> <code><a href="node_diffusion.html">node_exposure()</a></code> </p>
+        </td>
+        <td><p>Diffusion metrics for nodes</p></td>
+      </tr><tr><td>
+          <p><code><a href="play.html">play_diffusion()</a></code> <code><a href="play.html">play_diffusions()</a></code> <code><a href="play.html">play_segregation()</a></code> <code><a href="play.html">as_diffusion()</a></code> <code><a href="play.html">play_learning()</a></code> </p>
+        </td>
+        <td><p>Functions to play games on networks</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="motifs">Motifs <a href="#motifs" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Functions for calculating subgraphs in multimodal networks. These functions have an additional dimension than <code>node_</code> and <code>network_</code> measures and marks that capture the different motifs surveyed.</p>
@@ -161,7 +169,7 @@
           <p class="section-desc"></p><p>Functions for modelling multimodal networks:</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="tests.html">test_random()</a></code> <code><a href="tests.html">test_permutation()</a></code> </p>
+          <p><code><a href="tests.html">test_random()</a></code> <code><a href="tests.html">test_permutation()</a></code> <code><a href="tests.html">test_gof()</a></code> </p>
         </td>
         <td><p>Conditional uniform graph and permutation tests</p></td>
       </tr><tr><td>
@@ -169,7 +177,7 @@
         </td>
         <td><p>Linear and logistic regression for network data</p></td>
       </tr><tr><td>
-          <p><code><a href="play.html">play_diffusion()</a></code> <code><a href="play.html">play_diffusions()</a></code> <code><a href="play.html">play_learning()</a></code> <code><a href="play.html">play_segregation()</a></code> </p>
+          <p><code><a href="play.html">play_diffusion()</a></code> <code><a href="play.html">play_diffusions()</a></code> <code><a href="play.html">play_segregation()</a></code> <code><a href="play.html">as_diffusion()</a></code> <code><a href="play.html">play_learning()</a></code> </p>
         </td>
         <td><p>Functions to play games on networks</p></td>
       </tr><tr><td>

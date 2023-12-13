@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.9</span>
       </span>
     </div>
 
@@ -86,8 +86,6 @@
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">play_learning</span><span class="op">(</span><span class="va">.data</span>, <span class="va">beliefs</span>, <span class="va">steps</span>, epsilon <span class="op">=</span> <span class="fl">5e-04</span><span class="op">)</span></span>
-<span></span>
 <span><span class="fu">play_segregation</span><span class="op">(</span></span>
 <span>  <span class="va">.data</span>,</span>
 <span>  <span class="va">attribute</span>,</span>
@@ -95,7 +93,11 @@
 <span>  who_moves <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ordered"</span>, <span class="st">"random"</span>, <span class="st">"most_dissatisfied"</span><span class="op">)</span>,</span>
 <span>  choice_function <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"satisficing"</span>, <span class="st">"optimising"</span>, <span class="st">"minimising"</span><span class="op">)</span>,</span>
 <span>  <span class="va">steps</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">as_diffusion</span><span class="op">(</span><span class="va">events</span>, <span class="va">.data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">play_learning</span><span class="op">(</span><span class="va">.data</span>, <span class="va">beliefs</span>, <span class="va">steps</span>, epsilon <span class="op">=</span> <span class="fl">5e-04</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -204,16 +206,6 @@ By default FALSE.
 See <a href="https://progressr.futureverse.org" class="external-link"><code>{progressr}</code></a> for more.</p></dd>
 
 
-<dt>beliefs</dt>
-<dd><p>A vector indicating the probabilities nodes
-put on some outcome being 'true'.</p></dd>
-
-
-<dt>epsilon</dt>
-<dd><p>The maximum difference in beliefs accepted
-for convergence to a consensus.</p></dd>
-
-
 <dt>attribute</dt>
 <dd><p>A string naming some nodal attribute in the network.
 Currently only tested for binary attributes.</p></dd>
@@ -244,20 +236,56 @@ their heterophily threshold,
 "optimising" will move the node to coordinates that are most homophilous,
 and "minimising" distance will move the node to the next nearest unoccupied coordinates.</p></dd>
 
+
+<dt>events</dt>
+<dd><p>A table (data frame or tibble) of diffusion events
+with columns <code>t</code> indicating the time (typically an integer) of the event,
+<code>nodes</code> indicating the number or name of the node involved in the event,
+and <code>event</code>, which can take on the values "I" for an infection event,
+"E" for an exposure event, or "R" for a recovery event.</p></dd>
+
+
+<dt>beliefs</dt>
+<dd><p>A vector indicating the probabilities nodes
+put on some outcome being 'true'.</p></dd>
+
+
+<dt>epsilon</dt>
+<dd><p>The maximum difference in beliefs accepted
+for convergence to a consensus.</p></dd>
+
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p><code>as_diffusion()</code> and <code>play_diffusion()</code> return a 'diff_model' object
+that contains two different tibbles (tables) --
+a table of diffusion events and
+a table of the number of nodes in each relevant component (S, E, I, or R) --
+as well as a copy of the network upon which the diffusion ran.
+By default, a compact version of the component table is printed
+(to print all the changes at each time point, use <code>print(..., verbose = T)</code>).
+To retrieve the diffusion events table, use <code>summary(...)</code>.</p>
+    </div>
     <div id="functions">
     <h2>Functions</h2>
     
 <ul><li><p><code>play_diffusion()</code>: Playing compartmental diffusion on networks.</p></li>
 <li><p><code>play_diffusions()</code>: Playing multiple compartmental diffusions on networks.</p></li>
-<li><p><code>play_learning()</code>: Playing DeGroot learning on networks.</p></li>
 <li><p><code>play_segregation()</code>: Playing Schelling segregation on networks.</p></li>
+<li><p><code>as_diffusion()</code>: Coerces a table of diffusion events into
+a <code>diff_model</code> object similar to the output of <code>play_diffusion()</code></p></li>
+<li><p><code>play_learning()</code>: Playing DeGroot learning on networks.</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other models: 
 <code><a href="regression.html">regression</a></code>,
-<code><a href="tests.html">tests</a></code></p></div>
+<code><a href="tests.html">tests</a></code></p>
+<p>Other diffusion: 
+<code><a href="net_diffusion.html">net_diffusion</a></code>,
+<code><a href="node_diffusion.html">node_diffusion</a></code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -269,26 +297,6 @@ and "minimising" distance will move the node to the next nearest unoccupied coor
 <span class="r-plt img"><img src="play-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">play_diffusions</span><span class="op">(</span><span class="va">smeg</span>, times <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="play-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span>  <span class="fu">play_learning</span><span class="op">(</span><span class="va">ison_networkers</span>, </span></span>
-<span class="r-in"><span>      <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">rbinom</a></span><span class="op">(</span><span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/properties.html" class="external-link">network_nodes</a></span><span class="op">(</span><span class="va">ison_networkers</span><span class="op">)</span>,<span class="fl">1</span>,prob <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 32</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   `Lin Freeman` `Doug White` `Ev Rogers` `Richard Alba` `Phipps Arabie`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         0            1           1              0               1    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         0.375        0.236       0.357          0.347           0.181</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>         0.255        0.307       0.262          0.245           0.291</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>         0.290        0.276       0.279          0.287           0.281</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>         0.277        0.282       0.278          0.276           0.280</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>         0.281        0.279       0.279          0.280           0.280</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>         0.279        0.280       0.280          0.279           0.280</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>         0.280        0.280       0.280          0.280           0.280</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 27 more variables: `Carol Barner-Barry` &lt;dbl&gt;, `Gary Coombs` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Russ Bernard` &lt;dbl&gt;, `John Boyd` &lt;dbl&gt;, `Ron Burt` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Pat Doreian` &lt;dbl&gt;, `Claude Fischer` &lt;dbl&gt;, `Brian Foster` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Mark Granovetter` &lt;dbl&gt;, `Maureen Hallinan` &lt;dbl&gt;, `Paul Holland` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Jack Hunter` &lt;dbl&gt;, `Davor Jedlicka` &lt;dbl&gt;, `Charles Kadushin` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Ed Laumann` &lt;dbl&gt;, `Sam Leinhardt` &lt;dbl&gt;, `Joel Levine` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Nan Lin` &lt;dbl&gt;, `Nick Mullins` &lt;dbl&gt;, `Don Ploch` &lt;dbl&gt;, …</span></span>
 <span class="r-in"><span>  <span class="va">startValues</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">rbinom</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">1</span>,prob <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">startValues</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">100</span><span class="op">*</span><span class="fl">0.2</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></span>
 <span class="r-in"><span>  <span class="va">latticeEg</span> <span class="op">&lt;-</span> <span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/create.html" class="external-link">create_lattice</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span></span>
@@ -300,10 +308,10 @@ and "minimising" distance will move the node to the next nearest unoccupied coor
 <span class="r-out co"><span class="r-pr">#&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>           0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>          <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>          <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>          <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 94 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 342 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    from    to</span>
@@ -316,31 +324,22 @@ and "minimising" distance will move the node to the next nearest unoccupied coor
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>     2    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 336 more rows</span></span>
 <span class="r-in"><span>  <span class="fu">play_segregation</span><span class="op">(</span><span class="va">latticeEg</span>, <span class="st">"startValues"</span>, <span class="fl">0.5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 6 to node 56"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 8 to node 23"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 19 to node 64"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 22 to node 37"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 12 to node 40"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 34 to node 49"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 35 to node 93"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 38 to node 26"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 41 to node 98"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 52 to node 8"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 54 to node 19"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 69 to node 20"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 68 to node 87"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 82 to node 92"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 91 to node 41"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 95 to node 60"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 14 to node 47"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 26 to node 74"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 56 to node 7"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 46 to node 68"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 60 to node 88"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 99 to node 62"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moving node 90 to node 72"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # A undirected network with 100 nodes and 342 ties</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 100 × 1</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   startValues</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>           0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>          <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>          <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>          <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 94 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 342 × 2</span></span>
@@ -356,6 +355,36 @@ and "minimising" distance will move the node to the next nearest unoccupied coor
 <span class="r-in"><span>  <span class="co"># manynet::autographr(latticeEg, node_color = "startValues", node_size = 5) + </span></span></span>
 <span class="r-in"><span>  <span class="co"># manynet::autographr(play_segregation(latticeEg, "startValues", 0.2), </span></span></span>
 <span class="r-in"><span>  <span class="co">#                     node_color = "startValues", node_size = 5)</span></span></span>
+<span class="r-in"><span>  <span class="co"># How to create a diff_model object from (basic) observed data</span></span></span>
+<span class="r-in"><span>  <span class="va">events</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, nodes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span>, event <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"I"</span>,<span class="st">"I"</span>,<span class="st">"I"</span>,<span class="st">"R"</span>,<span class="st">"I"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">as_diffusion</span><span class="op">(</span><span class="va">events</span>, <span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/create.html" class="external-link">create_filled</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       t     S     I     R</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0     3     1     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     1     1     3     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     2     1     2     1</span>
+<span class="r-in"><span>  <span class="fu">play_learning</span><span class="op">(</span><span class="va">ison_networkers</span>, </span></span>
+<span class="r-in"><span>      <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">rbinom</a></span><span class="op">(</span><span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/properties.html" class="external-link">network_nodes</a></span><span class="op">(</span><span class="va">ison_networkers</span><span class="op">)</span>,<span class="fl">1</span>,prob <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 32</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   `Lin Freeman` `Doug White` `Ev Rogers` `Richard Alba` `Phipps Arabie`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         1            0           0              0               0    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         0.422        0.544       0.643          0.462           0.484</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>         0.557        0.506       0.529          0.485           0.560</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>         0.518        0.532       0.535          0.522           0.518</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>         0.531        0.526       0.526          0.524           0.531</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>         0.526        0.528       0.528          0.527           0.527</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>         0.528        0.527       0.527          0.527           0.528</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>         0.527        0.528       0.528          0.527           0.527</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span>         0.528        0.527       0.527          0.527           0.528</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 27 more variables: `Carol Barner-Barry` &lt;dbl&gt;, `Gary Coombs` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Russ Bernard` &lt;dbl&gt;, `John Boyd` &lt;dbl&gt;, `Ron Burt` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Pat Doreian` &lt;dbl&gt;, `Claude Fischer` &lt;dbl&gt;, `Brian Foster` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Mark Granovetter` &lt;dbl&gt;, `Maureen Hallinan` &lt;dbl&gt;, `Paul Holland` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Jack Hunter` &lt;dbl&gt;, `Davor Jedlicka` &lt;dbl&gt;, `Charles Kadushin` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Ed Laumann` &lt;dbl&gt;, `Sam Leinhardt` &lt;dbl&gt;, `Joel Levine` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Nan Lin` &lt;dbl&gt;, `Nick Mullins` &lt;dbl&gt;, `Don Ploch` &lt;dbl&gt;, …</span></span>
 </code></pre></div>
     </div>
   </div>
