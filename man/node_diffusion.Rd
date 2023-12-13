@@ -31,6 +31,8 @@ as created by \code{as_diffusion()} or \code{play_diffusion()}.}
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
+
+\item{mark}{logical vector denoting nodes that are infected}
 }
 \description{
 These functions allow measurement of various features of

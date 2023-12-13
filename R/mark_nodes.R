@@ -115,6 +115,7 @@ node_is_mentor <- function(.data, elites = 0.1){
 #'   and '.data' is a diff_model object,
 #'   then the function will return nodes exposure to the seed nodes
 #'   in that diffusion.
+#' @param mark vector denoting which nodes are infected
 #' @examples
 #'   # To mark which nodes are currently exposed
 #'   (expos <- node_is_exposed(manynet::create_tree(14), mark = c(1,3)))
