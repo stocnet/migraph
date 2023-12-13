@@ -290,7 +290,7 @@ play_segregation <- function(.data,
 #'   as well as a copy of the network upon which the diffusion ran.
 #'   By default, a compact version of the component table is printed
 #'   (to print all the changes at each time point, use `print(..., verbose = T)`).
-#'   To retriece the diffusion events table, use `summary(...)`.
+#'   To retrieve the diffusion events table, use `summary(...)`.
 #' @examples
 #'   # How to create a diff_model object from (basic) observed data
 #'   events <- data.frame(t = c(0,1,1,2,3), nodes = c(1,2,3,2,4), event = c("I","I","I","R","I"))
