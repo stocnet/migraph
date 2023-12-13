@@ -16,6 +16,7 @@
 ## Models
 
 - Added `as_diffusion()` function to convert a diffusion event table into a `diff_model` object.
+- Added `test_gof()` function for testing goodness-of-fit in diffusion models.
 
 ## Tutorials
 
