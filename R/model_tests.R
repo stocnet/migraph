@@ -197,7 +197,7 @@ test_gof <- function(diff_model, diff_models){ # make into method?
     dplyr::select(-c(sim, `0`))
   mah <- stats::mahalanobis(x$I[-1], colMeans(sims), stats::cov(sims))
   pval <- pchisq(mah, df=length(x$I[-1]), lower.tail=FALSE)
-  tibble::tibble(statistic = mah, p.value = pval, 
+  dplyr::tibble(statistic = mah, p.value = pval, 
                  df = length(x$I[-1]), nobs = nrow(sims))
 }
 

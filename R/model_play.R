@@ -1,7 +1,7 @@
 # Diffusions ####
 
 #' Functions to play games on networks
-#' @inheritParams is
+#' @inheritParams cohesion
 #' @param seeds A valid mark vector the length of the
 #'   number of nodes in the network.
 #' @param thresholds A numeric vector indicating the thresholds

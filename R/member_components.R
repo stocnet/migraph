@@ -20,7 +20,7 @@
 #'   As described in `igraph::coreness`,
 #'   a node's coreness is _k_ if it belongs to the _k_-core
 #'   but not to the (_k_+1)-core.
-#' @inheritParams is
+#' @inheritParams cohesion
 #' @name components
 #' @family memberships
 NULL

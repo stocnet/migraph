@@ -12,7 +12,7 @@
 #'   for converting the results from some node measure into a mark-class object.
 #'   They can be particularly useful for highlighting which node or nodes
 #'   are key because they minimise or, more often, maximise some measure.
-#' @inheritParams is
+#' @inheritParams cohesion
 #' @family marks
 #' @name mark_nodes
 NULL

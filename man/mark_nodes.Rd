@@ -54,9 +54,6 @@ a tie to themselves (a loop) will be created instead.
 Note that this is a different default behaviour than that
 described in Valente and Davis (1999).}
 
-\item{mark}{A logical vector marking two types or modes.
-By default "type".}
-
 \item{node_measure}{An object created by a \code{node_} measure.}
 
 \item{ranks}{The number of ranks of max or min to return.

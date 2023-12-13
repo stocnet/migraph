@@ -10,7 +10,7 @@
 #'   Note that minimising this quantity maximises density in the core block
 #'   and minimises density in the periphery block;
 #'   it ignores ties between these blocks.
-#' @inheritParams is
+#' @inheritParams cohesion
 #' @param method Which method to use to identify cores and periphery.
 #'   By default this is "degree", 
 #'   which relies on the heuristic that high degree nodes are more likely to be in the core.

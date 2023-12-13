@@ -3,7 +3,7 @@
 #' These functions are generally not user-facing but used internally
 #' in e.g. the `*_equivalence()` functions.
 #' They are documented here.
-#' @inheritParams is
+#' @inheritParams cohesion
 #' @param hc A hierarchical clustering object.
 #' @references 
 #'  Thorndike, Robert L. 1953. 

@@ -21,7 +21,7 @@
 #' Burt, Ronald S. 1992. 
 #' _Structural Holes: The Social Structure of Competition_. 
 #' Cambridge, MA: Harvard University Press.
-#' @inheritParams is
+#' @inheritParams cohesion
 NULL
 
 #' @describeIn holes Returns the sum of bridges to which each node

@@ -12,7 +12,7 @@
 #' For three-mode networks, `network_congruency` calculates the proportion of three-paths 
 #' spanning two two-mode networks that are closed by a fourth tie to establish a 
 #' "congruent four-cycle" structure.
-#' @inheritParams is
+#' @inheritParams cohesion
 #' @param object2 Optionally, a second (two-mode) matrix, igraph, or tidygraph
 #' @param method For reciprocity, either `default` or `ratio`.
 #' See `?igraph::reciprocity`
