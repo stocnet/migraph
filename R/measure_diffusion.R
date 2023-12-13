@@ -123,7 +123,7 @@ network_reproduction <- function(diff_model){
 #'   
 #'   Interpretation is quite straightforward.
 #'   A HIT or immunity score of 0.75 would mean that 75% of the nodes in the network
-#'   would need to be vaccinated or otherwise protected to achieve her immunity.
+#'   would need to be vaccinated or otherwise protected to achieve herd immunity.
 #'   To identify how many nodes this would be, multiply this proportion with the number
 #'   of nodes in the network. 
 #' @examples
