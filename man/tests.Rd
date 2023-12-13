@@ -90,10 +90,15 @@ and chi-squared results for diff_model and diff_models objects
 \code{test_gof()} takes a single diff_model object,
 which may be a single empirical or simulated diffusion,
 and a diff_models object containing many simulations.
-It returns a \code{glance()} object that includes
-the Mahalanobis distance between the observed and simulated distributions,
-a p-value summarising a chi-squared test,
-and the degrees of freedom and number of observations.
+Note that currently only the goodness of fit of the
+
+It returns a tibble (compatible with \code{broom::glance()}) that includes
+the Mahalanobis distance statistic
+between the observed and simulated distributions.
+It also includes a p-value summarising a chi-squared test on this statistic,
+listing also the degrees of freedom and number of observations.
+If the p-value is less than the convention 0.05,
+then one can argue that the first diffusion is not well captured by
 }
 
 \examples{
@@ -107,9 +112,12 @@ plot(cugtest)
                 network_heterophily, attribute = "Attractive",
                 times = 200))
 plot(qaptest)
-  smeg <- manynet::generate_smallworld(15, 0.025)
-  x <- play_diffusion(smeg, transmissibility = 0.3)
-  y <- play_diffusions(smeg, transmissibility = 0.1, times = 40)
+  # Playing a reasonably quick diffusion
+  x <- play_diffusion(generate_random(15), transmissibility = 0.7)
+  # Playing a slower diffusion
+  y <- play_diffusions(generate_random(15), transmissibility = 0.1, times = 40)
+  plot(x)
+  plot(y)
   test_gof(x, y)
 }
 \seealso{
