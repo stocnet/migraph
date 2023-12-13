@@ -7,7 +7,6 @@
 \alias{node_thresholds}
 \alias{node_infection_length}
 \alias{node_exposure}
-\alias{node_is_exposed}
 \title{Diffusion metrics for nodes}
 \usage{
 node_adoption_time(diff_model)
@@ -19,18 +18,26 @@ node_thresholds(diff_model)
 node_infection_length(diff_model)
 
 node_exposure(.data, mark)
-
-node_is_exposed(.data, mark)
 }
 \arguments{
 \item{diff_model}{A valid network diffusion model,
 as created by \code{as_diffusion()} or \code{play_diffusion()}.}
+
+\item{.data}{An object of a \code{{manynet}}-consistent class:
+\itemize{
+\item matrix (adjacency or incidence) from \code{{base}} R
+\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
+\item igraph, from the \code{{igraph}} package
+\item network, from the \code{{network}} package
+\item tbl_graph, from the \code{{tidygraph}} package
+}}
 }
 \description{
 These functions allow measurement of various features of
 a diffusion process:
 \itemize{
-\item \code{node_adoption_time()}: Measures nodes' time of adoption/infection
+\item \code{node_adoption_time()}: Measures the number of time steps until
+nodes adopt/become infected
 \item \code{node_adopter()}: Classifies membership of nodes into diffusion categories
 \item \code{node_thresholds()}: Measures nodes' thresholds from the amount
 of exposure they had when they became infected
@@ -97,13 +104,6 @@ but if a diff_model is supplied instead it will return
 nodes exposure at \eqn{t = 0}.
 }
 
-\section{Exposed}{
-
-\code{node_is_exposed()} is similar to \code{node_exposure()},
-but returns a mark (TRUE/FALSE) vector indicating which nodes
-are currently exposed to the diffusion content.
-}
-
 \examples{
   smeg <- manynet::generate_smallworld(15, 0.025)
   smeg_diff <- play_diffusion(smeg, recovery = 0.2)
@@ -121,8 +121,6 @@ are currently exposed to the diffusion content.
   # To measure how much exposure nodes had when they adopted
   node_exposure(smeg, mark = c(1,3))
   node_exposure(smeg_diff)
-  # To mark which nodes are currently exposed
-  node_is_exposed(smeg, mark = c(1,3))
 }
 \references{
 Valente, Tom W. 1995. \emph{Network models of the diffusion of innovations}

@@ -27,8 +27,8 @@ a diffusion process:
 \item \code{network_transmissibility()}: Measures the average transmissibility observed
 in a diffusion simulation, or the number of new infections over
 the number of susceptible nodes
-\item \code{network_infection_length()}: Measures the average length nodes remain
-infected in a compartmental model with recovery for the network as a whole
+\item \code{network_infection_length()}: Measures the average number of time steps
+nodes remain infected once they become infected
 \item \code{network_reproduction()}: Measures the observed reproductive number
 in a diffusion simulation as the network's transmissibility over
 the network's average infection length
@@ -52,7 +52,7 @@ infected at each time period.
 
 \section{Infection length}{
 
-\code{network_infection_length()} measures the average length of time that
+\code{network_infection_length()} measures the average number of time steps that
 nodes in a network remain infected.
 Note that in a diffusion model without recovery, average infection length
 will be infinite.

@@ -8,8 +8,8 @@
 #'   - `network_transmissibility()`: Measures the average transmissibility observed
 #'   in a diffusion simulation, or the number of new infections over
 #'   the number of susceptible nodes
-#'   - `network_infection_length()`: Measures the average length nodes remain
-#'   infected in a compartmental model with recovery for the network as a whole
+#'   - `network_infection_length()`: Measures the average number of time steps 
+#'   nodes remain infected once they become infected
 #'   - `network_reproduction()`: Measures the observed reproductive number
 #'   in a diffusion simulation as the network's transmissibility over
 #'   the network's average infection length
@@ -56,7 +56,7 @@ network_transmissibility <- function(diff_model){
 
 #' @rdname net_diffusion 
 #' @section Infection length: 
-#'   `network_infection_length()` measures the average length of time that
+#'   `network_infection_length()` measures the average number of time steps that
 #'   nodes in a network remain infected.
 #'   Note that in a diffusion model without recovery, average infection length
 #'   will be infinite.
@@ -145,7 +145,8 @@ network_immunity <- function(diff_model){
 #'   These functions allow measurement of various features of
 #'   a diffusion process:
 #'   
-#'   - `node_adoption_time()`: Measures nodes' time of adoption/infection
+#'   - `node_adoption_time()`: Measures the number of time steps until
+#'   nodes adopt/become infected
 #'   - `node_adopter()`: Classifies membership of nodes into diffusion categories
 #'   - `node_thresholds()`: Measures nodes' thresholds from the amount
 #'   of exposure they had when they became infected
@@ -155,6 +156,7 @@ network_immunity <- function(diff_model){
 #'   a given mark
 #'   - `node_is_exposed()`: Marks the nodes that are susceptible,
 #'   i.e. are in the immediate neighbourhood of given mark vector
+#' @inheritParams cohesion
 #' @inheritParams net_diffusion
 #' @family measures
 #' @family diffusion
@@ -280,6 +282,7 @@ node_infection_length <- function(diff_model){
 #'   node_exposure(smeg_diff)
 #' @export
 node_exposure <- function(.data, mark){
+  event <- nodes <- NULL
   if(missing(mark) && inherits(.data, "diff_model")){
     mark <- summary(.data) |> 
       dplyr::filter(t == 0 & event == "I") |> 
@@ -296,25 +299,3 @@ node_exposure <- function(.data, mark){
   make_node_measure(out, .data)
 }
 
-#' @rdname node_diffusion 
-#' @section Exposed:
-#'   `node_is_exposed()` is similar to `node_exposure()`,
-#'   but returns a mark (TRUE/FALSE) vector indicating which nodes
-#'   are currently exposed to the diffusion content.
-#' @examples
-#'   # To mark which nodes are currently exposed
-#'   node_is_exposed(smeg, mark = c(1,3))
-#' @export
-node_is_exposed <- function(.data, mark){
-  if(missing(mark) && inherits(.data, "diff_model")){
-    mark <- summary(.data) |> 
-      dplyr::filter(t == 0 & event == "I") |> 
-      dplyr::select(nodes) |> unlist()
-    .data <- attr(.data, "network")
-  }
-  if(is.logical(mark)) mark <- which(mark)
-  out <- rep(F, manynet::network_nodes(.data))
-  out[unique(setdiff(unlist(igraph::neighborhood(.data, nodes = mark)),
-                     mark))] <- TRUE
-  make_node_mark(out, .data)
-}

@@ -105,6 +105,36 @@ node_is_mentor <- function(.data, elites = 0.1){
   make_node_mark(out, .data)
 }
 
+#' @rdname mark_nodes 
+#' @section Exposed:
+#'   `node_is_exposed()` is similar to `node_exposure()`,
+#'   but returns a mark (TRUE/FALSE) vector indicating which nodes
+#'   are currently exposed to the diffusion content.
+#'   This diffusion content can be expressed in the 'mark' argument.
+#'   If no 'mark' argument is provided,
+#'   and '.data' is a diff_model object,
+#'   then the function will return nodes exposure to the seed nodes
+#'   in that diffusion.
+#' @examples
+#'   # To mark which nodes are currently exposed
+#'   (expos <- node_is_exposed(manynet::create_tree(14), mark = c(1,3)))
+#'   which(expos)
+#' @export
+node_is_exposed <- function(.data, mark){
+  event <- nodes <- NULL
+  if(missing(mark) && inherits(.data, "diff_model")){
+    mark <- summary(.data) |> 
+      dplyr::filter(t == 0 & event == "I") |> 
+      dplyr::select(nodes) |> unlist()
+    .data <- attr(.data, "network")
+  }
+  if(is.logical(mark)) mark <- which(mark)
+  out <- rep(F, manynet::network_nodes(.data))
+  out[unique(setdiff(unlist(igraph::neighborhood(.data, nodes = mark)),
+                     mark))] <- TRUE
+  make_node_mark(out, .data)
+}
+
 #' @describeIn mark_nodes Returns logical of which nodes 
 #'   hold the maximum of some measure
 #' @param node_measure An object created by a `node_` measure.
