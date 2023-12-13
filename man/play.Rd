@@ -175,7 +175,7 @@ a table of the number of nodes in each relevant component (S, E, I, or R) --
 as well as a copy of the network upon which the diffusion ran.
 By default, a compact version of the component table is printed
 (to print all the changes at each time point, use \code{print(..., verbose = T)}).
-To retriece the diffusion events table, use \code{summary(...)}.
+To retrieve the diffusion events table, use \code{summary(...)}.
 }
 \description{
 Functions to play games on networks
