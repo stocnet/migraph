@@ -306,7 +306,6 @@ Similar to the previous examples, we will be using the following functions withi
 ```{r scale-solution}
 sf %>%
   as_tidygraph() %>%
-  tidygraph::activate(nodes) %>%
   mutate(degree = ifelse(node_is_max(node_degree(sf)), "max",
                       ifelse(node_is_min(node_degree(sf)), "min", "others"))) %>%
   autographr(node_color = "degree") + guides(color = "legend") + labs(color = "degree")
