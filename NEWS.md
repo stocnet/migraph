@@ -1,3 +1,29 @@
+# migraph 1.1.9
+
+2023-12-13
+
+## Marks
+
+- Added `node_is_exposed()` function to mark nodes (logical) that are currently exposed to diffusion content in a network.
+
+## Measures
+
+- Fixed bugs for `network_reproduction()` function that calculates the R-nought value.
+- Added `network_immunity()` function to calculate the Herd Immunity Threshold for the network.
+- Added `node_exposure()` function to calculate the number of infected/adopting nodes to which each susceptible node is exposed.
+- Added documentation for diffusion measures, separating documentation for `node_*()` and `network_*()` measures.
+
+## Models
+
+- Added `as_diffusion()` function to convert a diffusion event table into a `diff_model` object.
+- Added `test_gof()` function for testing goodness-of-fit in diffusion models.
+
+## Tutorials
+
+- Updates to tutorial 7 (diffusion):
+  - Added section on R-nought and Herd Immunity.
+  - Fixed layouts for plots using `autographs()` and `autographd()` for `diff_model` objects.
+
 # migraph 1.1.8
 
 2023-12-06

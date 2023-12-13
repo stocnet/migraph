@@ -1,5 +1,5 @@
 #' Measures of network topological features
-#' @inheritParams is
+#' @inheritParams cohesion
 #' @param membership A vector of partition membership.
 #' @name features
 #' @family measures

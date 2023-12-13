@@ -44,7 +44,7 @@
 #'   'ego' is excluded from these calculations.
 #'   See Haunss and Hollway (2023) for more on this effect.
 #'   - dyadic covariates (other networks) can just be named
-#' @inheritParams is
+#' @inheritParams cohesion
 #' @param method A method for establishing the null hypothesis.
 #'   Note that "qap" uses Dekker et al's (2007) double semi-partialling technique,
 #'   whereas "qapy" permutes only the $y$ variable.

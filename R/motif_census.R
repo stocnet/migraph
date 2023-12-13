@@ -8,7 +8,7 @@
 #' the profiles of clusters of nodes in a network.
 #' @name node_census
 #' @family motifs
-#' @inheritParams is
+#' @inheritParams cohesion
 #' @importFrom igraph vcount graph.neighborhood delete_vertices triad_census
 NULL
 

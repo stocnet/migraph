@@ -10,7 +10,7 @@
 #'   assignment.
 #' @name equivalence
 #' @family memberships
-#' @inheritParams is
+#' @inheritParams cohesion
 #' @param census A matrix returned by a `node_*_census()` function.
 #' @param k Typically a character string indicating which method
 #'   should be used to select the number of clusters to return.

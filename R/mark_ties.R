@@ -5,7 +5,7 @@
 #'   in a network, identifying which hold some property.
 #'   They are most useful in highlighting parts of the network that
 #'   are particularly well- or poorly-connected.
-#' @inheritParams is
+#' @inheritParams cohesion
 #' @family marks
 #' @name mark_ties
 NULL

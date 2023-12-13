@@ -1,5 +1,5 @@
 #' Graph theoretic dimensions of hierarchy
-#' @inheritParams is
+#' @inheritParams cohesion
 #' @name hierarchy
 #' @family measures
 #' @references

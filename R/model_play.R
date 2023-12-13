@@ -1,5 +1,7 @@
+# Diffusions ####
+
 #' Functions to play games on networks
-#' @inheritParams is
+#' @inheritParams cohesion
 #' @param seeds A valid mark vector the length of the
 #'   number of nodes in the network.
 #' @param thresholds A numeric vector indicating the thresholds
@@ -46,6 +48,7 @@
 #'   If `steps = Inf` then the diffusion process will continue until
 #'   there are no new infections or all nodes are infected.
 #' @family models
+#' @family diffusion
 #' @name play
 NULL
 
@@ -84,6 +87,8 @@ play_diffusion <- function(.data,
   report <- data.frame(t = t,
                        n = n,
                        S = n - (length(exposed) + length(infected) + length(recovered)),
+                       s = length(unique(unlist(sapply(igraph::neighborhood(.data, nodes = infected),
+                                         function(x) setdiff(x, infected))))),
                        E = length(exposed),
                        I_new = length(seeds),
                        I = length(infected),
@@ -144,6 +149,7 @@ play_diffusion <- function(.data,
                     data.frame(t = t,
                                n = n,
                          S = n - (length(exposed) + length(infected) + length(recovered)),
+                         s = length(unique(contacts)),
                          E = length(exposed),
                          I_new = length(newinf),
                          I = length(infected),
@@ -182,43 +188,6 @@ play_diffusions <- function(.data,
                      immune = immune, steps = steps))
     }, .progress = verbose, .options = furrr::furrr_options(seed = T))
   make_diffs_model(out, .data)
-}
-
-#' @describeIn play Playing DeGroot learning on networks.
-#' @param beliefs A vector indicating the probabilities nodes
-#'   put on some outcome being 'true'.
-#' @param epsilon The maximum difference in beliefs accepted
-#'   for convergence to a consensus.
-#' @examples 
-#'   play_learning(ison_networkers, 
-#'       rbinom(manynet::network_nodes(ison_networkers),1,prob = 0.25))
-#' @export
-play_learning <- function(.data, 
-                           beliefs,
-                           steps,
-                          epsilon = 0.0005){
-  n <- manynet::network_nodes(.data)
-  if(length(beliefs)!=n) 
-    stop("'beliefs' must be a vector the same length as the number of nodes in the network.")
-  if(is.logical(beliefs)) beliefs <- beliefs*1
-  if(missing(steps)) steps <- n
-
-  t = 0
-  out <- matrix(NA,steps+1,length(beliefs))
-  out[1,] <- beliefs
-  trust_mat <- manynet::as_matrix(.data)/rowSums(manynet::as_matrix(.data))
-  
-  repeat{
-    old_beliefs <- beliefs
-    beliefs <- trust_mat %*% beliefs
-    if(all(abs(old_beliefs - beliefs) < epsilon)) break
-    t = t+1
-    out[t+1,] <- beliefs
-    if(t==steps) break
-  }
-  out <- stats::na.omit(out)
-  
-  make_learn_model(out, .data)
 }
 
 
@@ -304,4 +273,101 @@ play_segregation <- function(.data,
     moved <- c(dissatisfied, moved)
   }
   temp
+}
+
+#' @describeIn play Coerces a table of diffusion events into
+#'   a `diff_model` object similar to the output of `play_diffusion()`
+#' @param events A table (data frame or tibble) of diffusion events
+#'   with columns `t` indicating the time (typically an integer) of the event, 
+#'   `nodes` indicating the number or name of the node involved in the event,
+#'   and `event`, which can take on the values "I" for an infection event,
+#'   "E" for an exposure event, or "R" for a recovery event.
+#' @returns 
+#'   `as_diffusion()` and `play_diffusion()` return a 'diff_model' object
+#'   that contains two different tibbles (tables) --
+#'   a table of diffusion events and 
+#'   a table of the number of nodes in each relevant component (S, E, I, or R) --
+#'   as well as a copy of the network upon which the diffusion ran.
+#'   By default, a compact version of the component table is printed
+#'   (to print all the changes at each time point, use `print(..., verbose = T)`).
+#'   To retrieve the diffusion events table, use `summary(...)`.
+#' @importFrom dplyr tibble
+#' @examples
+#'   # How to create a diff_model object from (basic) observed data
+#'   events <- data.frame(t = c(0,1,1,2,3), nodes = c(1,2,3,2,4), event = c("I","I","I","R","I"))
+#'   as_diffusion(events, manynet::create_filled(4))
+#' @export
+as_diffusion <- function(events, .data) {
+  net <- .data
+  event <- NULL
+  sumchanges <- events |> dplyr::group_by(t) |> 
+    dplyr::reframe(I_new = sum(event == "I"),
+                   E_new = sum(event == "E"),
+                   R_new = sum(event == "R"))
+  report <- dplyr::tibble(t = seq_len(max(events$t)) - 1,
+                          n = manynet::network_nodes(net)) %>% 
+    dplyr::left_join(sumchanges, by = dplyr::join_by(t))
+  report[is.na(report)] <- 0
+  report$R <- cumsum(report$R_new)
+  report$I <- cumsum(report$I_new) - report$R
+  report$E <- ifelse(report$E_new == 0 & 
+                       cumsum(report$E_new) == max(cumsum(report$E_new)),
+                     report$E_new, cumsum(report$E_new))
+  report$E <- ifelse(report$R + report$I + report$E > report$n,
+                     report$n - (report$R + report$I),
+                     report$E)
+  report$S <- report$n - report$R - report$I - report$E
+  report$s <- vapply(report$t, function(time){
+    twin <- dplyr::filter(events, events$t <= time)
+    infected <- dplyr::filter(twin, twin$event == "I")$nodes
+    recovered <- dplyr::filter(twin, twin$event == "R")$nodes
+    infected <- setdiff(infected, recovered)
+    expos <- node_is_exposed(net, infected)
+    expos[recovered] <- F
+    sum(expos)
+  }, numeric(1) )
+  if (any(report$R + report$I + report$E + report$S != report$n)) {
+    stop("Oops, something is wrong")
+  }
+  report <- dplyr::select(report, dplyr::any_of(c("t", "n", "S", "s", "E", "E_new", "I", "I_new", "R", "R_new")))
+  make_diff_model(events, report, .data)
+}
+
+# Learning ####
+
+#' @describeIn play Playing DeGroot learning on networks.
+#' @param beliefs A vector indicating the probabilities nodes
+#'   put on some outcome being 'true'.
+#' @param epsilon The maximum difference in beliefs accepted
+#'   for convergence to a consensus.
+#' @examples 
+#'   play_learning(ison_networkers, 
+#'       rbinom(manynet::network_nodes(ison_networkers),1,prob = 0.25))
+#' @export
+play_learning <- function(.data, 
+                          beliefs,
+                          steps,
+                          epsilon = 0.0005){
+  n <- manynet::network_nodes(.data)
+  if(length(beliefs)!=n) 
+    stop("'beliefs' must be a vector the same length as the number of nodes in the network.")
+  if(is.logical(beliefs)) beliefs <- beliefs*1
+  if(missing(steps)) steps <- n
+  
+  t = 0
+  out <- matrix(NA,steps+1,length(beliefs))
+  out[1,] <- beliefs
+  trust_mat <- manynet::as_matrix(.data)/rowSums(manynet::as_matrix(.data))
+  
+  repeat{
+    old_beliefs <- beliefs
+    beliefs <- trust_mat %*% beliefs
+    if(all(abs(old_beliefs - beliefs) < epsilon)) break
+    t = t+1
+    out[t+1,] <- beliefs
+    if(t==steps) break
+  }
+  out <- stats::na.omit(out)
+  
+  make_learn_model(out, .data)
 }

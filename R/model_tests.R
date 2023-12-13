@@ -158,3 +158,47 @@ plot.network_test <- function(x, ...,
     ggplot2::geom_vline(ggplot2::aes(xintercept = x$testval),
                         color="red", linewidth=1.2) + ggplot2::ylab("Density")
 }
+
+#' @describeIn tests Returns the squared Mahalanobis distance 
+#'   and chi-squared results for diff_model and diff_models objects
+#' @param diff_model A diff_model object is returned by
+#'   `play_diffusion()` or `as_diffusion()` and contains
+#'   a single empirical or simulated diffusion.
+#' @param diff_models A diff_models object is returned by
+#'   `play_diffusions()` and contains a series of diffusion simulations.
+#' @section Mahalanobis distance: 
+#'   `test_gof()` takes a single diff_model object,
+#'   which may be a single empirical or simulated diffusion,
+#'   and a diff_models object containing many simulations.
+#'   Note that currently only the goodness of fit of the 
+#'   
+#'   It returns a tibble (compatible with `broom::glance()`) that includes
+#'   the Mahalanobis distance statistic 
+#'   between the observed and simulated distributions.
+#'   It also includes a p-value summarising a chi-squared test on this statistic,
+#'   listing also the degrees of freedom and number of observations.
+#'   If the p-value is less than the convention 0.05,
+#'   then one can argue that the first diffusion is not well captured by
+#    the set of simulated diffusions (and thus that the model is not a good fit).
+#' @examples
+#'   # Playing a reasonably quick diffusion
+#'   x <- play_diffusion(generate_random(15), transmissibility = 0.7)
+#'   # Playing a slower diffusion
+#'   y <- play_diffusions(generate_random(15), transmissibility = 0.1, times = 40)
+#'   plot(x)
+#'   plot(y)
+#'   test_gof(x, y)
+#' @export
+test_gof <- function(diff_model, diff_models){ # make into method?
+  x <- diff_model
+  y <- diff_models
+  sim <- `0` <- NULL
+  sims <- y |> dplyr::select(sim, t, I) |> 
+    tidyr::pivot_wider(names_from = t, values_from = I) |> 
+    dplyr::select(-c(sim, `0`))
+  mah <- stats::mahalanobis(x$I[-1], colMeans(sims), stats::cov(sims))
+  pval <- pchisq(mah, df=length(x$I[-1]), lower.tail=FALSE)
+  dplyr::tibble(statistic = mah, p.value = pval, 
+                 df = length(x$I[-1]), nobs = nrow(sims))
+}
+

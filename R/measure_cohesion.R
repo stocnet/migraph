@@ -1,14 +1,26 @@
 #' Measures of network cohesion or connectedness
 #' 
-#' These functions return values or vectors relating to how connected a network is
-#' and the number of nodes or edges to remove that would increase fragmentation.
-#' @inheritParams is
+#' @description
+#'   These functions return values or vectors relating to how connected a network is
+#'   and the number of nodes or edges to remove that would increase fragmentation.
+#'   
+#'   - `network_density()`: Measures the ratio of ties to the number
+#'   of possible ties
+#'   - `network_components()`: Measures the number of (strong) components 
+#'   in the network.
+#' @param .data An object of a `{manynet}`-consistent class:
+#'   \itemize{
+#'   \item matrix (adjacency or incidence) from `{base}` R
+#'   \item edgelist, a data frame from `{base}` R or tibble from `{tibble}`
+#'   \item igraph, from the `{igraph}` package
+#'   \item network, from the `{network}` package
+#'   \item tbl_graph, from the `{tidygraph}` package
+#'   }
 #' @name cohesion
 #' @family measures
 NULL
 
-#' @describeIn cohesion Summarises the ratio of ties
-#' to the number of possible ties.
+#' @rdname cohesion
 #' @importFrom igraph edge_density
 #' @examples 
 #' network_density(mpn_elite_mex)
@@ -24,13 +36,14 @@ network_density <- function(.data) {
   make_network_measure(out, .data)
 }
 
-#' @describeIn cohesion Returns number of (strong) components in the network.
+#' @rdname cohesion
+#' @section Cohesion: 
 #'   To get the 'weak' components of a directed graph, 
 #'   please use `manynet::to_undirected()` first.
 #' @importFrom igraph components
 #' @examples
-#' network_components(mpn_ryanair)
-#' network_components(manynet::to_undirected(mpn_ryanair))
+#'   network_components(mpn_ryanair)
+#'   network_components(manynet::to_undirected(mpn_ryanair))
 #' @export
 network_components <- function(.data){
   object <- manynet::as_igraph(.data)

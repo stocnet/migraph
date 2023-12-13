@@ -2,10 +2,6 @@
 #' @export
 igraph::is.igraph
 
-#' @importFrom igraph is_bipartite
-#' @export
-igraph::is_bipartite
-
 #' @importFrom network is.network
 #' @export
 network::is.network
@@ -45,10 +41,6 @@ tidygraph::mutate
 #' @importFrom tidygraph rename
 #' @export
 tidygraph::rename
-
-#' @importFrom tidygraph activate
-#' @export
-tidygraph::activate
 
 #' @importFrom tidygraph bind_edges
 #' @export

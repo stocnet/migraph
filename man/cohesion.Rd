@@ -35,16 +35,15 @@ network_length(.data)
 \description{
 These functions return values or vectors relating to how connected a network is
 and the number of nodes or edges to remove that would increase fragmentation.
+\itemize{
+\item \code{network_density()}: Measures the ratio of ties to the number
+of possible ties
+\item \code{network_components()}: Measures the number of (strong) components
+in the network.
+}
 }
 \section{Functions}{
 \itemize{
-\item \code{network_density()}: Summarises the ratio of ties
-to the number of possible ties.
-
-\item \code{network_components()}: Returns number of (strong) components in the network.
-To get the 'weak' components of a directed graph,
-please use \code{manynet::to_undirected()} first.
-
 \item \code{network_cohesion()}: Returns the minimum number of nodes to remove
 from the network needed to increase the number of components.
 
@@ -56,11 +55,17 @@ to remove from the network to increase the number of components.
 \item \code{network_length()}: Returns the average path length in the network.
 
 }}
+\section{Cohesion}{
+
+To get the 'weak' components of a directed graph,
+please use \code{manynet::to_undirected()} first.
+}
+
 \examples{
 network_density(mpn_elite_mex)
 network_density(mpn_elite_usa_advice)
-network_components(mpn_ryanair)
-network_components(manynet::to_undirected(mpn_ryanair))
+  network_components(mpn_ryanair)
+  network_components(manynet::to_undirected(mpn_ryanair))
 network_cohesion(manynet::ison_marvel_relationships)
 network_cohesion(manynet::to_giant(manynet::ison_marvel_relationships))
 network_adhesion(manynet::ison_marvel_relationships)
@@ -81,11 +86,12 @@ Other measures:
 \code{\link{close_centrality}},
 \code{\link{closure}},
 \code{\link{degree_centrality}},
-\code{\link{diffusion}},
 \code{\link{eigenv_centrality}},
 \code{\link{features}},
 \code{\link{heterogeneity}},
 \code{\link{hierarchy}},
-\code{\link{holes}}
+\code{\link{holes}},
+\code{\link{net_diffusion}},
+\code{\link{node_diffusion}}
 }
 \concept{measures}

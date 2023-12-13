@@ -6,7 +6,7 @@
 #' The different algorithms offer various advantages in terms of computation time,
 #' availability on different types of networks, ability to maximise modularity,
 #' and their logic or domain of inspiration.
-#' @inheritParams is
+#' @inheritParams cohesion
 #' @name community
 #' @family memberships
 NULL

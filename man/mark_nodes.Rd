@@ -7,6 +7,7 @@
 \alias{node_is_core}
 \alias{node_is_random}
 \alias{node_is_mentor}
+\alias{node_is_exposed}
 \alias{node_is_max}
 \alias{node_is_min}
 \title{Marking nodes based on their properties}
@@ -20,6 +21,8 @@ node_is_core(.data)
 node_is_random(.data, size = 1)
 
 node_is_mentor(.data, elites = 0.1)
+
+node_is_exposed(.data, mark)
 
 node_is_max(node_measure, ranks = 1)
 
@@ -50,6 +53,10 @@ for example because they are an isolate,
 a tie to themselves (a loop) will be created instead.
 Note that this is a different default behaviour than that
 described in Valente and Davis (1999).}
+
+\item{mark}{A valid 'node_mark' object or
+logical vector (TRUE/FALSE) of length equal to
+the number of nodes in the network.}
 
 \item{node_measure}{An object created by a \code{node_} measure.}
 
@@ -97,11 +104,26 @@ hold the maximum of some measure
 hold the minimum of some measure
 
 }}
+\section{Exposed}{
+
+\code{node_is_exposed()} is similar to \code{node_exposure()},
+but returns a mark (TRUE/FALSE) vector indicating which nodes
+are currently exposed to the diffusion content.
+This diffusion content can be expressed in the 'mark' argument.
+If no 'mark' argument is provided,
+and '.data' is a diff_model object,
+then the function will return nodes exposure to the seed nodes
+in that diffusion.
+}
+
 \examples{
 node_is_cutpoint(ison_brandes)
 node_is_isolate(ison_brandes)
 node_is_core(ison_brandes)
 node_is_random(ison_brandes, 2)
+  # To mark which nodes are currently exposed
+  (expos <- node_is_exposed(manynet::create_tree(14), mark = c(1,3)))
+  which(expos)
 node_is_max(node_degree(ison_brandes))
 node_is_min(node_degree(ison_brandes))
 }

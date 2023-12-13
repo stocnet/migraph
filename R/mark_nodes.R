@@ -12,7 +12,7 @@
 #'   for converting the results from some node measure into a mark-class object.
 #'   They can be particularly useful for highlighting which node or nodes
 #'   are key because they minimise or, more often, maximise some measure.
-#' @inheritParams is
+#' @inheritParams cohesion
 #' @family marks
 #' @name mark_nodes
 NULL
@@ -102,6 +102,40 @@ node_is_mentor <- function(.data, elites = 0.1){
   if(sum(out) < length(indegs)*elites){
     out <- indegs %in% unique(sort(indegs, decreasing=TRUE)[seq_len(length(indegs)*elites)])
   }
+  make_node_mark(out, .data)
+}
+
+#' @rdname mark_nodes 
+#' @param mark A valid 'node_mark' object or
+#'   logical vector (TRUE/FALSE) of length equal to 
+#'   the number of nodes in the network.
+#' @section Exposed:
+#'   `node_is_exposed()` is similar to `node_exposure()`,
+#'   but returns a mark (TRUE/FALSE) vector indicating which nodes
+#'   are currently exposed to the diffusion content.
+#'   This diffusion content can be expressed in the 'mark' argument.
+#'   If no 'mark' argument is provided,
+#'   and '.data' is a diff_model object,
+#'   then the function will return nodes exposure to the seed nodes
+#'   in that diffusion.
+#' @param mark vector denoting which nodes are infected
+#' @examples
+#'   # To mark which nodes are currently exposed
+#'   (expos <- node_is_exposed(manynet::create_tree(14), mark = c(1,3)))
+#'   which(expos)
+#' @export
+node_is_exposed <- function(.data, mark){
+  event <- nodes <- NULL
+  if(missing(mark) && inherits(.data, "diff_model")){
+    mark <- summary(.data) |> 
+      dplyr::filter(t == 0 & event == "I") |> 
+      dplyr::select(nodes) |> unlist()
+    .data <- attr(.data, "network")
+  }
+  if(is.logical(mark)) mark <- which(mark)
+  out <- rep(F, manynet::network_nodes(.data))
+  out[unique(setdiff(unlist(igraph::neighborhood(.data, nodes = mark)),
+                     mark))] <- TRUE
   make_node_mark(out, .data)
 }
 
