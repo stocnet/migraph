@@ -134,7 +134,6 @@ Valente, Thomas, and Rebecca Davis. 1999.
 }
 \seealso{
 Other marks: 
-\code{\link{is}()},
 \code{\link{mark_ties}}
 }
 \concept{marks}

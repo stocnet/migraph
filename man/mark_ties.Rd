@@ -69,7 +69,6 @@ tie_is_min(tie_betweenness(ison_brandes))
 }
 \seealso{
 Other marks: 
-\code{\link{is}()},
 \code{\link{mark_nodes}}
 }
 \concept{marks}
