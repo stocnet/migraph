@@ -2,13 +2,18 @@
 #' 
 #' @description 
 #'   These functions return logical vectors the length of the 
-#'   nodes in a network identifying which hold certain properties.
+#'   nodes in a network identifying which hold certain properties or positions in the network.
 #'   
-#'   `node_is_cutpoint()` and `node_is_isolate()` are useful for identifying
-#'   nodes that are in particular positions in the network.
-#'   More can be added here.
-#'   
-#'   `node_is_max()` and `node_is_min()` are more generally useful
+#'   - `node_is_cutpoint()` marks nodes that cut or act as articulation points in a network,
+#'   increasing the number of connected components when removed.
+#'   - `node_is_isolate()` marks nodes that are isolates,
+#'   with neither incoming nor outgoing ties.
+#'   - `node_is_core()` marks nodes that are members of the network's core.
+#'   - `node_is_mentor()` marks a proportion of high indegree nodes as 'mentors' (see details)
+#'   - `node_is_infected()` and `node_is_exposed()` marks nodes that are infected
+#'   by a particular time point or exposed to a given (other) mark
+#'   - `node_is_random()` marks one or more nodes at random.
+#'   - `node_is_max()` and `node_is_min()` are more generally useful
 #'   for converting the results from some node measure into a mark-class object.
 #'   They can be particularly useful for highlighting which node or nodes
 #'   are key because they minimise or, more often, maximise some measure.
@@ -17,9 +22,22 @@
 #' @name mark_nodes
 NULL
 
-#' @describeIn mark_nodes Returns logical of which nodes cut
-#'   or act as articulation points in a network,
-#'   increasing the number of connected components in a graph when removed.
+#' @rdname mark_nodes
+#' @examples 
+#' node_is_isolate(ison_brandes)
+#' @export
+node_is_isolate <- function(.data){
+  mat <- manynet::as_matrix(.data)
+  if(manynet::is_twomode(.data)){
+    out <- c(rowSums(mat)==0, colSums(mat)==0)
+  } else {
+    out <- rowSums(mat)==0 & colSums(mat)==0
+  }
+  names(out) <- manynet::node_names(.data)
+  make_node_mark(out, .data)
+}
+
+#' @rdname mark_nodes
 #' @importFrom igraph articulation_points
 #' @examples 
 #' node_is_cutpoint(ison_brandes)
@@ -37,24 +55,7 @@ node_is_cutpoint <- function(.data){
   make_node_mark(out, .data)
 }
 
-#' @describeIn mark_nodes Returns logical of which nodes are isolates,
-#'   with neither incoming nor outgoing ties.
-#' @examples 
-#' node_is_isolate(ison_brandes)
-#' @export
-node_is_isolate <- function(.data){
-  mat <- manynet::as_matrix(.data)
-  if(manynet::is_twomode(.data)){
-    out <- c(rowSums(mat)==0, colSums(mat)==0)
-  } else {
-    out <- rowSums(mat)==0 & colSums(mat)==0
-  }
-  names(out) <- manynet::node_names(.data)
-  make_node_mark(out, .data)
-}
-
-#' @describeIn mark_nodes Returns logical of which nodes are members
-#'   of the core of the network.
+#' @rdname mark_nodes
 #' @examples 
 #' node_is_core(ison_brandes)
 #' @export
@@ -63,21 +64,8 @@ node_is_core <- function(.data){
   make_node_mark(out, .data)
 }
 
-#' @describeIn mark_nodes Returns a logical vector
-#'   indicating a random selection of nodes as TRUE.
-#' @param size The number of nodes to select (as TRUE).
-#' @examples 
-#' node_is_random(ison_brandes, 2)
-#' @export
-node_is_random <- function(.data, size = 1){
-  n <- manynet::network_nodes(.data)
-  out <- rep(FALSE, n)
-  out[sample.int(n, size)] <- TRUE
-  make_node_mark(out, .data)
-}
 
-#' @describeIn mark_nodes Returns a logical vector
-#'   indicating mentor (high indegree) nodes as TRUE.
+#' @rdname mark_nodes
 #' @param elites The proportion of nodes to be selected as mentors.
 #'   By default this is set at 0.1.
 #'   This means that the top 10% of nodes in terms of degree,
@@ -103,6 +91,28 @@ node_is_mentor <- function(.data, elites = 0.1){
     out <- indegs %in% unique(sort(indegs, decreasing=TRUE)[seq_len(length(indegs)*elites)])
   }
   make_node_mark(out, .data)
+}
+
+#' @rdname mark_nodes 
+#' @param time A time point until which infections/adoptions should be
+#'   identified. By default `time = 0`.
+#' @examples
+#'   # To mark nodes that are infected by a particular time point
+#'   node_is_infected(smeg, time = 5)
+#' @export
+node_is_infected <- function(diff_model, time = 0){
+  infected <- summary(diff_model) |> 
+      dplyr::filter(t <= time & event == "I") |> 
+      dplyr::select(nodes)
+  net <- attr(diff_model, "network")
+  if(manynet::is_labelled(net)){
+    nnames <- node_names(net)
+    out <- setNames(nnames %in% infected$nodes, nnames)
+  } else {
+    seq_len(network_nodes(net))
+    out <- seq_len(network_nodes(net)) %in% infected$nodes
+  }
+  make_node_mark(out, attr(diff_model, "network"))
 }
 
 #' @rdname mark_nodes 
@@ -139,8 +149,19 @@ node_is_exposed <- function(.data, mark){
   make_node_mark(out, .data)
 }
 
-#' @describeIn mark_nodes Returns logical of which nodes 
-#'   hold the maximum of some measure
+#' @rdname mark_nodes
+#' @param size The number of nodes to select (as TRUE).
+#' @examples 
+#' node_is_random(ison_brandes, 2)
+#' @export
+node_is_random <- function(.data, size = 1){
+  n <- manynet::network_nodes(.data)
+  out <- rep(FALSE, n)
+  out[sample.int(n, size)] <- TRUE
+  make_node_mark(out, .data)
+}
+
+#' @rdname mark_nodes
 #' @param node_measure An object created by a `node_` measure.
 #' @param ranks The number of ranks of max or min to return.
 #'   For example, `ranks = 3` will return TRUE for nodes with
@@ -172,8 +193,7 @@ node_is_max <- function(node_measure, ranks = 1){
   out
 }
 
-#' @describeIn mark_nodes Returns logical of which nodes 
-#'   hold the minimum of some measure
+#' @rdname mark_nodes
 #' @examples 
 #' node_is_min(node_degree(ison_brandes))
 #' @export

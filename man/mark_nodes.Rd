@@ -2,27 +2,30 @@
 % Please edit documentation in R/mark_nodes.R
 \name{mark_nodes}
 \alias{mark_nodes}
-\alias{node_is_cutpoint}
 \alias{node_is_isolate}
+\alias{node_is_cutpoint}
 \alias{node_is_core}
-\alias{node_is_random}
 \alias{node_is_mentor}
+\alias{node_is_infected}
 \alias{node_is_exposed}
+\alias{node_is_random}
 \alias{node_is_max}
 \alias{node_is_min}
 \title{Marking nodes based on their properties}
 \usage{
-node_is_cutpoint(.data)
-
 node_is_isolate(.data)
+
+node_is_cutpoint(.data)
 
 node_is_core(.data)
 
-node_is_random(.data, size = 1)
-
 node_is_mentor(.data, elites = 0.1)
 
+node_is_infected(diff_model, time = 0)
+
 node_is_exposed(.data, mark)
+
+node_is_random(.data, size = 1)
 
 node_is_max(node_measure, ranks = 1)
 
@@ -38,8 +41,6 @@ node_is_min(node_measure, ranks = 1)
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
 
-\item{size}{The number of nodes to select (as TRUE).}
-
 \item{elites}{The proportion of nodes to be selected as mentors.
 By default this is set at 0.1.
 This means that the top 10\% of nodes in terms of degree,
@@ -54,9 +55,12 @@ a tie to themselves (a loop) will be created instead.
 Note that this is a different default behaviour than that
 described in Valente and Davis (1999).}
 
-\item{mark}{A valid 'node_mark' object or
-logical vector (TRUE/FALSE) of length equal to
-the number of nodes in the network.}
+\item{time}{A time point until which infections/adoptions should be
+identified. By default \code{time = 0}.}
+
+\item{mark}{vector denoting which nodes are infected}
+
+\item{size}{The number of nodes to select (as TRUE).}
 
 \item{node_measure}{An object created by a \code{node_} measure.}
 
@@ -68,42 +72,23 @@ By default, \code{ranks = 1}.}
 }
 \description{
 These functions return logical vectors the length of the
-nodes in a network identifying which hold certain properties.
-
-\code{node_is_cutpoint()} and \code{node_is_isolate()} are useful for identifying
-nodes that are in particular positions in the network.
-More can be added here.
-
-\code{node_is_max()} and \code{node_is_min()} are more generally useful
+nodes in a network identifying which hold certain properties or positions in the network.
+\itemize{
+\item \code{node_is_cutpoint()} marks nodes that cut or act as articulation points in a network,
+increasing the number of connected components when removed.
+\item \code{node_is_isolate()} marks nodes that are isolates,
+with neither incoming nor outgoing ties.
+\item \code{node_is_core()} marks nodes that are members of the network's core.
+\item \code{node_is_mentor()} marks a proportion of high indegree nodes as 'mentors' (see details)
+\item \code{node_is_infected()} and \code{node_is_exposed()} marks nodes that are infected
+by a particular time point or exposed to a given (other) mark
+\item \code{node_is_random()} marks one or more nodes at random.
+\item \code{node_is_max()} and \code{node_is_min()} are more generally useful
 for converting the results from some node measure into a mark-class object.
 They can be particularly useful for highlighting which node or nodes
 are key because they minimise or, more often, maximise some measure.
 }
-\section{Functions}{
-\itemize{
-\item \code{node_is_cutpoint()}: Returns logical of which nodes cut
-or act as articulation points in a network,
-increasing the number of connected components in a graph when removed.
-
-\item \code{node_is_isolate()}: Returns logical of which nodes are isolates,
-with neither incoming nor outgoing ties.
-
-\item \code{node_is_core()}: Returns logical of which nodes are members
-of the core of the network.
-
-\item \code{node_is_random()}: Returns a logical vector
-indicating a random selection of nodes as TRUE.
-
-\item \code{node_is_mentor()}: Returns a logical vector
-indicating mentor (high indegree) nodes as TRUE.
-
-\item \code{node_is_max()}: Returns logical of which nodes
-hold the maximum of some measure
-
-\item \code{node_is_min()}: Returns logical of which nodes
-hold the minimum of some measure
-
-}}
+}
 \section{Exposed}{
 
 \code{node_is_exposed()} is similar to \code{node_exposure()},
@@ -117,13 +102,15 @@ in that diffusion.
 }
 
 \examples{
-node_is_cutpoint(ison_brandes)
 node_is_isolate(ison_brandes)
+node_is_cutpoint(ison_brandes)
 node_is_core(ison_brandes)
-node_is_random(ison_brandes, 2)
+  # To mark nodes that are infected by a particular time point
+  node_is_infected(smeg, time = 5)
   # To mark which nodes are currently exposed
   (expos <- node_is_exposed(manynet::create_tree(14), mark = c(1,3)))
   which(expos)
+node_is_random(ison_brandes, 2)
 node_is_max(node_degree(ison_brandes))
 node_is_min(node_degree(ison_brandes))
 }
