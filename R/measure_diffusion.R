@@ -213,12 +213,15 @@ node_adoption_time <- function(diff_model){
 #' @export
 node_adopter <- function(diff_model){
   toa <- node_adoption_time(diff_model)
-  avg <- mean(toa)
-  sdv <- stats::sd(toa)
-  out <- ifelse(toa < (avg - sdv), "Early Adopter", 
+  toa[is.infinite(toa)] <- NA
+  avg <- mean(toa, na.rm = TRUE)
+  sdv <- stats::sd(toa, na.rm = TRUE)
+  out <- ifelse(toa < (avg - sdv) | toa == 0, "Early Adopter", 
                 ifelse(toa > (avg + sdv), "Laggard",
                        ifelse((avg - sdv) < toa & toa <= avg, "Early Majority", 
-                              ifelse(avg < toa & toa <= avg + sdv, "Late Majority", "Non-Adopter"))))
+                              ifelse(avg < toa & toa <= avg + sdv, "Late Majority", 
+                                     "Non-Adopter"))))
+  out[is.na(out)] <- "Non-Adopter"
   make_node_member(out, attr(diff_model, "network"))
 }
 
