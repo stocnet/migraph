@@ -248,12 +248,26 @@ node_thresholds <- function(diff_model){
   event <- nodes <- NULL
   exposure <- NULL
   out <- summary(diff_model)
+  net <- attr(diff_model, "network")
+  if(!"exposure" %in% names(out)){
+    out[,'exposure'] <- NA_integer_
+    for(v in unique(out$t)){
+      out$exposure[out$t == v] <- node_exposure(diff_model, time = v)[out$nodes[out$t == v]]
+    }
+  }
   if(any(out$event == "E")) 
     out <- out |> dplyr::filter(event == "E") else 
       out <- out |> dplyr::filter(event == "I")
   out <- out |> dplyr::distinct(nodes, .keep_all = TRUE) |> 
-    dplyr::select(exposure) |> c() |> unname() |> unlist()
-  make_node_measure(out, attr(diff_model, "network"))
+    dplyr::select(nodes, exposure)
+  out <- setNames(out$exposure, out$nodes)
+  if(length(out) != manynet::network_nodes(net)){
+    full <- setNames(rep(Inf, manynet::network_nodes(net)), 
+                     manynet::node_names(net))
+    full[match(names(out), names(full))] <- out
+    out <- full
+  }
+  make_node_measure(out, net)
 }
 
 #' @rdname node_diffusion 
