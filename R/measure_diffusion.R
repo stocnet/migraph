@@ -183,8 +183,16 @@ node_adoption_time <- function(diff_model){
   event <- nodes <- NULL
   out <- summary(diff_model) |> dplyr::filter(event == "I") |> 
     dplyr::distinct(nodes, .keep_all = TRUE) |> 
-    dplyr::select(t) |> c() |> unname() |> unlist()
-  make_node_measure(out, attr(diff_model, "network"))
+    dplyr::select(nodes,t)
+  out <- setNames(out$t, out$nodes)
+  net <- attr(diff_model, "network")
+  if(length(out) != manynet::network_nodes(net)){
+    full <- setNames(rep(Inf, manynet::network_nodes(net)), 
+                     manynet::node_names(net))
+    full[match(names(out), names(full))] <- out
+    out <- full
+  }
+  make_node_measure(out, net)
 }
 
 #' @rdname node_diffusion
@@ -279,21 +287,18 @@ node_infection_length <- function(diff_model){
 #'   `node_exposure()` calculates the number of infected/adopting nodes
 #'   to which each susceptible node is exposed.
 #'   It usually expects network data and 
-#'   an index or mark (TRUE/FALSE) vector of those who are currently infected,
+#'   an index or mark (TRUE/FALSE) vector of those nodes which are currently infected,
 #'   but if a diff_model is supplied instead it will return
 #'   nodes exposure at \eqn{t = 0}.
 #' @param mark logical vector denoting nodes that are infected
 #' @examples
-#'   # To measure how much exposure nodes had when they adopted
+#'   # To measure how much exposure nodes have to a given mark
 #'   node_exposure(smeg, mark = c(1,3))
 #'   node_exposure(smeg_diff)
 #' @export
-node_exposure <- function(.data, mark){
-  event <- nodes <- NULL
+node_exposure <- function(.data, mark, time = 0){
   if(missing(mark) && inherits(.data, "diff_model")){
-    mark <- summary(.data) |> 
-      dplyr::filter(t == 0 & event == "I") |> 
-      dplyr::select(nodes) |> unlist()
+    mark <- node_is_infected(.data, time = time)
     .data <- attr(.data, "network")
   }
   if(is.logical(mark)) mark <- which(mark)
@@ -305,4 +310,3 @@ node_exposure <- function(.data, mark){
   out[as.numeric(names(tabcontact))] <- unname(tabcontact)
   make_node_measure(out, .data)
 }
-
