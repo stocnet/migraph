@@ -540,18 +540,18 @@ node_eigenvector <- function(.data, normalized = TRUE, scale = FALSE){
   if (!manynet::is_twomode(graph)){
     out <- igraph::eigen_centrality(graph = graph, 
                                     directed = manynet::is_directed(graph), scale = scale, 
-                                    options = igraph::arpack_defaults)$vector
+                                    options = igraph::arpack_defaults())$vector
     if (normalized) out <- out / sqrt(1/2)
     if(scale) out <- out / max(out)
   } else {
     eigen1 <- manynet::to_mode1(graph)
     eigen1 <- igraph::eigen_centrality(graph = eigen1, 
                                        directed = manynet::is_directed(eigen1), scale = scale, 
-                                       options = igraph::arpack_defaults)$vector
+                                       options = igraph::arpack_defaults())$vector
     eigen2 <- manynet::to_mode2(graph)
     eigen2 <- igraph::eigen_centrality(graph = eigen2, 
                                        directed = manynet::is_directed(eigen2), scale = scale, 
-                                       options = igraph::arpack_defaults)$vector
+                                       options = igraph::arpack_defaults())$vector
     out <- c(eigen1, eigen2)
     if (normalized) out <- out / sqrt(1/2)
     if(scale) out <- out / max(out)
