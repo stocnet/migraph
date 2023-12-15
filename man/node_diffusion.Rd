@@ -35,6 +35,9 @@ as created by \code{as_diffusion()} or \code{play_diffusion()}.}
 \item{mark}{A valid 'node_mark' object or
 logical vector (TRUE/FALSE) of length equal to
 the number of nodes in the network.}
+
+\item{time}{A time point until which infections/adoptions should be
+identified. By default \code{time = 0}.}
 }
 \description{
 These functions allow measurement of various features of

@@ -58,6 +58,9 @@ a tie to themselves (a loop) will be created instead.
 Note that this is a different default behaviour than that
 described in Valente and Davis (1999).}
 
+\item{diff_model}{A valid network diffusion model,
+as created by \code{as_diffusion()} or \code{play_diffusion()}.}
+
 \item{time}{A time point until which infections/adoptions should be
 identified. By default \code{time = 0}.}
 
@@ -112,7 +115,7 @@ node_is_cutpoint(ison_brandes)
 node_is_core(ison_brandes)
 node_is_fold(create_explicit(A-B, B-C, A-C, C-D, C-E, D-E))
   # To mark nodes that are infected by a particular time point
-  node_is_infected(smeg, time = 5)
+  node_is_infected(play_diffusion(create_tree(6)), time = 1)
   # To mark which nodes are currently exposed
   (expos <- node_is_exposed(manynet::create_tree(14), mark = c(1,3)))
   which(expos)

@@ -74,6 +74,7 @@ NULL
 
 #' @describeIn degree_centrality Calculates the degree centrality of nodes in an unweighted network,
 #'   or weighted degree/strength of nodes in a weighted network.
+#' @importFrom manynet as_igraph
 #' @export
 node_degree <- function (.data, normalized = TRUE, alpha = 0,
                          direction = c("all","out","in")){
@@ -342,7 +343,7 @@ node_closeness <- function(.data, normalized = TRUE,
   graph <- manynet::as_igraph(.data)
   
   # Do the calculations
-  if (is_twomode(graph) & normalized){
+  if (manynet::is_twomode(graph) & normalized){
     # farness <- rowSums(igraph::distances(graph = graph))
     closeness <- igraph::closeness(graph = graph, vids = igraph::V(graph), mode = direction)
     other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
@@ -662,7 +663,7 @@ node_pagerank <- function(.data){
 #' network_eigenvector(ison_southern_women)
 #' @export
 network_eigenvector <- function(.data, normalized = TRUE){
-  if (is_twomode(.data)) {
+  if (manynet::is_twomode(.data)) {
     out <- c(igraph::centr_eigen(manynet::as_igraph(manynet::to_mode1(.data)), 
                                  normalized = normalized)$centralization,
              igraph::centr_eigen(manynet::as_igraph(manynet::to_mode2(.data)), 

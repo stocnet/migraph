@@ -20,6 +20,7 @@
 #'   They can be particularly useful for highlighting which node or nodes
 #'   are key because they minimise or, more often, maximise some measure.
 #' @inheritParams cohesion
+#' @inheritParams node_diffusion
 #' @family marks
 #' @name mark_nodes
 NULL
@@ -113,23 +114,22 @@ node_is_mentor <- function(.data, elites = 0.1){
 }
 
 #' @rdname mark_nodes 
-#' @param time A time point until which infections/adoptions should be
-#'   identified. By default `time = 0`.
 #' @examples
 #'   # To mark nodes that are infected by a particular time point
-#'   node_is_infected(smeg, time = 5)
+#'   node_is_infected(play_diffusion(create_tree(6)), time = 1)
 #' @export
 node_is_infected <- function(diff_model, time = 0){
+  event <- nodes <- NULL
   infected <- summary(diff_model) |> 
       dplyr::filter(t <= time & event == "I") |> 
       dplyr::select(nodes)
   net <- attr(diff_model, "network")
   if(manynet::is_labelled(net)){
-    nnames <- node_names(net)
-    out <- setNames(nnames %in% infected$nodes, nnames)
+    nnames <- manynet::node_names(net)
+    out <- stats::setNames(nnames %in% infected$nodes, nnames)
   } else {
-    seq_len(network_nodes(net))
-    out <- seq_len(network_nodes(net)) %in% infected$nodes
+    seq_len(manynet::network_nodes(net))
+    out <- seq_len(manynet::network_nodes(net)) %in% infected$nodes
   }
   make_node_mark(out, attr(diff_model, "network"))
 }

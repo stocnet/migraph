@@ -243,10 +243,10 @@ node_adoption_time <- function(diff_model){
   out <- summary(diff_model) |> dplyr::filter(event == "I") |> 
     dplyr::distinct(nodes, .keep_all = TRUE) |> 
     dplyr::select(nodes,t)
-  out <- setNames(out$t, out$nodes)
+  out <- stats::setNames(out$t, out$nodes)
   net <- attr(diff_model, "network")
   if(length(out) != manynet::network_nodes(net)){
-    full <- setNames(rep(Inf, manynet::network_nodes(net)), 
+    full <- stats::setNames(rep(Inf, manynet::network_nodes(net)), 
                      manynet::node_names(net))
     full[match(names(out), names(full))] <- out
     out <- full
@@ -319,9 +319,9 @@ node_thresholds <- function(diff_model){
       out <- out |> dplyr::filter(event == "I")
   out <- out |> dplyr::distinct(nodes, .keep_all = TRUE) |> 
     dplyr::select(nodes, exposure)
-  out <- setNames(out$exposure, out$nodes)
+  out <- stats::setNames(out$exposure, out$nodes)
   if(length(out) != manynet::network_nodes(net)){
-    full <- setNames(rep(Inf, manynet::network_nodes(net)), 
+    full <- stats::setNames(rep(Inf, manynet::network_nodes(net)), 
                      manynet::node_names(net))
     full[match(names(out), names(full))] <- out
     out <- full
@@ -356,6 +356,8 @@ node_infection_length <- function(diff_model){
 #' @param mark A valid 'node_mark' object or
 #'   logical vector (TRUE/FALSE) of length equal to 
 #'   the number of nodes in the network.
+#' @param time A time point until which infections/adoptions should be
+#'   identified. By default `time = 0`.
 #' @section Exposure:
 #'   `node_exposure()` calculates the number of infected/adopting nodes
 #'   to which each susceptible node is exposed.
