@@ -5,16 +5,18 @@
 #'   These functions allow measurement of various features of
 #'   a diffusion process:
 #'   
-#'   - `network_transmissibility()`: Measures the average transmissibility observed
+#'   - `network_transmissibility()` measures the average transmissibility observed
 #'   in a diffusion simulation, or the number of new infections over
-#'   the number of susceptible nodes
-#'   - `network_infection_length()`: Measures the average number of time steps 
-#'   nodes remain infected once they become infected
-#'   - `network_reproduction()`: Measures the observed reproductive number
+#'   the number of susceptible nodes.
+#'   - `network_infection_length()` measures the average number of time steps 
+#'   nodes remain infected once they become infected.
+#'   - `network_reproduction()` measures the observed reproductive number
 #'   in a diffusion simulation as the network's transmissibility over
-#'   the network's average infection length
-#'   - `network_immunity`: Measures the proportion of nodes that would need
-#'   to be protected through vaccination, isolation, or recovery for herd immunity to be reached 
+#'   the network's average infection length.
+#'   - `network_immunity()` measures the proportion of nodes that would need
+#'   to be protected through vaccination, isolation, or recovery for herd immunity to be reached.
+#'   - `network_hazard()` measures the hazard rate or instantaneous probability that
+#'   nodes will adopt/become infected at that time
 #' @param diff_model A valid network diffusion model,
 #'   as created by `as_diffusion()` or `play_diffusion()`.
 #' @family measures
@@ -136,6 +138,63 @@ network_immunity <- function(diff_model){
   net <- attr(diff_model, "network")
   out <- 1 - 1/network_reproduction(diff_model)
   make_network_measure(out, net)
+}
+
+#' @rdname net_diffusion
+#' @section Hazard rate: 
+#' The hazard rate is the instantaneous probability of adoption/infection at each time point (Allison 1984).
+#' In survival analysis, hazard rate is formally defined as:
+#'
+#' \deqn{%
+#' \lambda(t)=\lim_{h\to +0}\frac{F(t+h)-F(t)}{h}\frac{1}{1-F(t)} %
+#' }{%
+#' \lambda(t-1)= lim (t -> +0) [F(t+h)-F(t)]/h * 1/[1-F(t)] %
+#' }
+#'
+#' By approximating \eqn{h=1}, we can rewrite the equation as
+#'
+#' \deqn{%
+#' \lambda(t)=\frac{F(t+1)-F(t)}{1-F(t)} %
+#' }{%
+#' \lambda(t-1)= [F(t+1)-F(t)]/[1-F(t)] %
+#' }
+#'
+#' If we estimate \eqn{F(t)}, 
+#' the probability of not having adopted the innovation in time \eqn{t}, 
+#' from the proportion of adopters in that time, 
+#' such that \eqn{F(t) \sim q_t/n}{F(t) ~ q(t)/n}, we now have (ultimately for \eqn{t>1}):
+#'
+#' \deqn{%
+#' \lambda(t)=\frac{q_{t+1}/n-q_t/n}{1-q_t/n} = \frac{q_{t+1} - q_t}{n - q_t} = \frac{q_t - q_{t-1}}{n - q_{t-1}} %
+#' }{%
+#' \lambda(t-1)= [q(t+1)/n-q(t)/n]/[1-q(t)/n] = [q(t+1) - q(t)]/[n - q(t)] = [q(t) - q(t-1)]/[n - q(t-1)] %
+#' }
+#' 
+#' where \eqn{q_i}{q(i)} is the number of adopters in time \eqn{t}, 
+#' and \eqn{n} is the number of vertices in the graph.
+#'
+#' The shape of the hazard rate indicates the pattern of new adopters over time.
+#' Rapid diffusion with convex cumulative adoption curves will have 
+#' hazard functions that peak early and decay over time. 
+#' Slow concave cumulative adoption curves will have 
+#' hazard functions that are low early and rise over time.
+#' Smooth hazard curves indicate constant adoption whereas 
+#' those that oscillate indicate variability in adoption behavior over time.
+#' @source `{netdiffuseR}`
+#' @references
+#' Allison, P. 1984. _Event history analysis regression for longitudinal event data_. 
+#' London: Sage Publications.
+#'
+#' Wooldridge, J. M. 2010. _Econometric Analysis of Cross Section and Panel Data_ (2nd ed.). 
+#' Cambridge: MIT Press.
+#' @examples
+#' # To calculate the hazard rates at each time point
+#' network_hazard(play_diffusion(smeg, transmissibility = 0.3))
+#' @export
+network_hazard <- function(diff_model){
+  out <- (diff_model$I - dplyr::lag(diff_model$I)) / 
+    (diff_model$n - dplyr::lag(diff_model$I))
+  out
 }
 
 # node_diffusion ####

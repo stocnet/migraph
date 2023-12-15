@@ -6,7 +6,11 @@
 \alias{network_infection_length}
 \alias{network_reproduction}
 \alias{network_immunity}
+\alias{network_hazard}
 \title{Diffusion metrics for networks}
+\source{
+\code{{netdiffuseR}}
+}
 \usage{
 network_transmissibility(diff_model)
 
@@ -15,6 +19,8 @@ network_infection_length(diff_model)
 network_reproduction(diff_model)
 
 network_immunity(diff_model)
+
+network_hazard(diff_model)
 }
 \arguments{
 \item{diff_model}{A valid network diffusion model,
@@ -24,16 +30,18 @@ as created by \code{as_diffusion()} or \code{play_diffusion()}.}
 These functions allow measurement of various features of
 a diffusion process:
 \itemize{
-\item \code{network_transmissibility()}: Measures the average transmissibility observed
+\item \code{network_transmissibility()} measures the average transmissibility observed
 in a diffusion simulation, or the number of new infections over
-the number of susceptible nodes
-\item \code{network_infection_length()}: Measures the average number of time steps
-nodes remain infected once they become infected
-\item \code{network_reproduction()}: Measures the observed reproductive number
+the number of susceptible nodes.
+\item \code{network_infection_length()} measures the average number of time steps
+nodes remain infected once they become infected.
+\item \code{network_reproduction()} measures the observed reproductive number
 in a diffusion simulation as the network's transmissibility over
-the network's average infection length
-\item \code{network_immunity}: Measures the proportion of nodes that would need
-to be protected through vaccination, isolation, or recovery for herd immunity to be reached
+the network's average infection length.
+\item \code{network_immunity()} measures the proportion of nodes that would need
+to be protected through vaccination, isolation, or recovery for herd immunity to be reached.
+\item \code{network_hazard()} measures the hazard rate or instantaneous probability that
+nodes will adopt/become infected at that time
 }
 }
 \section{Transmissibility}{
@@ -107,6 +115,48 @@ To identify how many nodes this would be, multiply this proportion with the numb
 of nodes in the network.
 }
 
+\section{Hazard rate}{
+
+The hazard rate is the instantaneous probability of adoption/infection at each time point (Allison 1984).
+In survival analysis, hazard rate is formally defined as:
+
+\deqn{%
+\lambda(t)=\lim_{h\to +0}\frac{F(t+h)-F(t)}{h}\frac{1}{1-F(t)} %
+}{%
+\lambda(t-1)= lim (t -> +0) [F(t+h)-F(t)]/h * 1/[1-F(t)] %
+}
+
+By approximating \eqn{h=1}, we can rewrite the equation as
+
+\deqn{%
+\lambda(t)=\frac{F(t+1)-F(t)}{1-F(t)} %
+}{%
+\lambda(t-1)= [F(t+1)-F(t)]/[1-F(t)] %
+}
+
+If we estimate \eqn{F(t)},
+the probability of not having adopted the innovation in time \eqn{t},
+from the proportion of adopters in that time,
+such that \eqn{F(t) \sim q_t/n}{F(t) ~ q(t)/n}, we now have (ultimately for \eqn{t>1}):
+
+\deqn{%
+\lambda(t)=\frac{q_{t+1}/n-q_t/n}{1-q_t/n} = \frac{q_{t+1} - q_t}{n - q_t} = \frac{q_t - q_{t-1}}{n - q_{t-1}} %
+}{%
+\lambda(t-1)= [q(t+1)/n-q(t)/n]/[1-q(t)/n] = [q(t+1) - q(t)]/[n - q(t)] = [q(t) - q(t-1)]/[n - q(t-1)] %
+}
+
+where \eqn{q_i}{q(i)} is the number of adopters in time \eqn{t},
+and \eqn{n} is the number of vertices in the graph.
+
+The shape of the hazard rate indicates the pattern of new adopters over time.
+Rapid diffusion with convex cumulative adoption curves will have
+hazard functions that peak early and decay over time.
+Slow concave cumulative adoption curves will have
+hazard functions that are low early and rise over time.
+Smooth hazard curves indicate constant adoption whereas
+those that oscillate indicate variability in adoption behavior over time.
+}
+
 \examples{
   smeg <- manynet::generate_smallworld(15, 0.025)
   smeg_diff <- play_diffusion(smeg, recovery = 0.2)
@@ -121,10 +171,18 @@ of nodes in the network.
   network_immunity(smeg_diff)
   # To find the number of nodes to be vaccinated
   ceiling(network_immunity(smeg_diff) * manynet::network_nodes(smeg))
+# To calculate the hazard rates at each time point
+network_hazard(play_diffusion(smeg, transmissibility = 0.3))
 }
 \references{
 Kermack, W. and McKendrick, A., 1927. "A contribution to the mathematical theory of epidemics".
 \emph{Proc. R. Soc. London A} 115: 700-721.
+
+Allison, P. 1984. \emph{Event history analysis regression for longitudinal event data}.
+London: Sage Publications.
+
+Wooldridge, J. M. 2010. \emph{Econometric Analysis of Cross Section and Panel Data} (2nd ed.).
+Cambridge: MIT Press.
 }
 \seealso{
 Other measures: 
