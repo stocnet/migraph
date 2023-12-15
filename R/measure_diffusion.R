@@ -304,7 +304,6 @@ node_infection_length <- function(diff_model){
 #'   an index or mark (TRUE/FALSE) vector of those nodes which are currently infected,
 #'   but if a diff_model is supplied instead it will return
 #'   nodes exposure at \eqn{t = 0}.
-#' @param mark logical vector denoting nodes that are infected
 #' @examples
 #'   # To measure how much exposure nodes have to a given mark
 #'   node_exposure(smeg, mark = c(1,3))

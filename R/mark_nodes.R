@@ -9,6 +9,8 @@
 #'   - `node_is_isolate()` marks nodes that are isolates,
 #'   with neither incoming nor outgoing ties.
 #'   - `node_is_core()` marks nodes that are members of the network's core.
+#'   - `node_is_fold()` marks nodes that are in a structural fold between two or more
+#'   triangles that are only connected by that node.
 #'   - `node_is_mentor()` marks a proportion of high indegree nodes as 'mentors' (see details)
 #'   - `node_is_infected()` and `node_is_exposed()` marks nodes that are infected
 #'   by a particular time point or exposed to a given (other) mark
@@ -64,6 +66,23 @@ node_is_core <- function(.data){
   make_node_mark(out, .data)
 }
 
+#' @rdname mark_nodes
+#' @examples
+#' node_is_fold(create_explicit(A-B, B-C, A-C, C-D, C-E, D-E))
+#' @export
+node_is_fold <- function(.data){
+  mult_tri <- igraph::count_triangles(.data)>1
+  tris <- igraph::triangles(.data)
+  tris <- matrix(tris, length(tris)/3, 3, byrow = TRUE)
+  out <- vapply(seq_along(mult_tri), function(x){
+    if(!mult_tri[x]) FALSE else {
+     tri_neigh <- unique(c(tris[apply(tris, 1, function(r) any(x %in% r)),] ))
+     tri_neigh <- tri_neigh[tri_neigh != x]
+     all(rowSums(igraph::distances(.data, tri_neigh, tri_neigh)==2)>=2)
+    }
+  }, FUN.VALUE = logical(1) )
+  make_node_mark(out, .data)
+}
 
 #' @rdname mark_nodes
 #' @param elites The proportion of nodes to be selected as mentors.

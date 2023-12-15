@@ -5,6 +5,7 @@
 \alias{node_is_isolate}
 \alias{node_is_cutpoint}
 \alias{node_is_core}
+\alias{node_is_fold}
 \alias{node_is_mentor}
 \alias{node_is_infected}
 \alias{node_is_exposed}
@@ -18,6 +19,8 @@ node_is_isolate(.data)
 node_is_cutpoint(.data)
 
 node_is_core(.data)
+
+node_is_fold(.data)
 
 node_is_mentor(.data, elites = 0.1)
 
@@ -79,6 +82,8 @@ increasing the number of connected components when removed.
 \item \code{node_is_isolate()} marks nodes that are isolates,
 with neither incoming nor outgoing ties.
 \item \code{node_is_core()} marks nodes that are members of the network's core.
+\item \code{node_is_fold()} marks nodes that are in a structural fold between two or more
+triangles that are only connected by that node.
 \item \code{node_is_mentor()} marks a proportion of high indegree nodes as 'mentors' (see details)
 \item \code{node_is_infected()} and \code{node_is_exposed()} marks nodes that are infected
 by a particular time point or exposed to a given (other) mark
@@ -105,6 +110,7 @@ in that diffusion.
 node_is_isolate(ison_brandes)
 node_is_cutpoint(ison_brandes)
 node_is_core(ison_brandes)
+node_is_fold(create_explicit(A-B, B-C, A-C, C-D, C-E, D-E))
   # To mark nodes that are infected by a particular time point
   node_is_infected(smeg, time = 5)
   # To mark which nodes are currently exposed
