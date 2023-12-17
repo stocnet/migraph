@@ -94,7 +94,6 @@ Whereas `is_*()` returns a single logical value for the network,
 `node_is_*()` returns a logical vector the length of the number of nodes in the network,
 and `tie_is_*()` returns a logical vector the length of the number of ties in the network.
 
-- `r list_functions("^is_")`
 - `r list_functions("^node_is_")`
 - `r list_functions("^tie_is_")`
 
@@ -159,7 +158,7 @@ or learning processes over a given network:
 - `r list_functions("^play_")`
 
 The diffusion models include not only SI and threshold models,
-but also SIS, SIR, SIRS, SIER, and SIERS.
+but also SIS, SIR, SIRS, SEIR, and SEIRS.
 
 ## Installation
 
@@ -202,27 +201,22 @@ please install the `{remotes}` or `{devtools}` package from CRAN and then:
 
 ### Tutorials
 
-This package has recently moved away from the use of vignettes,
-in favour of smaller and more interactive `{learnr}` tutorials.
-Since version 0.12.3, many of the previous vignettes are instead
-available as tutorials, more will be converted soon,
-and those that have been converted will continue to be updated and enriched.
-
-To access the tutorials, you will need to have the additional package `{learnr}` installed:
-`install.packages("learnr")`.
-Then we would first suggest that you check to see which vignettes are currently available:
+Together with `{manynet}`, this package makes available interactive `{learnr}` tutorials.
+The easiest way to access the tutorials is via `run_tute()`.
+If no tutorial name is provided, the function will return a list of tutorials
+currently available in either package:
 
 ```{r learnr-tutes}
-learnr::available_tutorials("migraph")
+library(migraph)
+run_tute()
+# run_tute("tutorial5")
 ```
 
-You can then choose to begin a tutorial using the following command: e.g.
-`learnr::run_tutorial("tutorial3", "migraph")`.
 For more details on the `{learnr}` package, see [here](https://rstudio.github.io/learnr/).
 
 ## Relationship to other packages
 
-It draws together, updates, and builds upon many functions currently available in
+`{migraph}` draws together, updates, and builds upon many functions currently available in
 other excellent R packages such as 
 [`{bipartite}`](https://github.com/biometry/bipartite), 
 [`{multinet}`](https://CRAN.R-project.org/package=multinet), 
