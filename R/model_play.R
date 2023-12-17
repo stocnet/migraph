@@ -128,6 +128,7 @@ play_diffusion <- function(.data,
     latent <- c(latent, newinf)
     infectious <- latent[stats::rbinom(length(latent), 1, latency)==0]
     latent <- setdiff(latent, infectious)
+    newinf <- setdiff(newinf, infectious)
     infected <- c(infected, infectious)
     # tick time
     t <- t+1
@@ -139,10 +140,10 @@ play_diffusion <- function(.data,
                     data.frame(t = t, nodes = infectious, event = "I", 
                                exposure = exposure[infectious]))
     # record exposures
-    if(!is.null(latent) & length(latent)>0)
+    if(!is.null(newinf) & length(newinf)>0)
       events <- rbind(events,
-                      data.frame(t = t, nodes = latent, event = "E", 
-                                 exposure = exposure[latent]))
+                      data.frame(t = t, nodes = newinf, event = "E", 
+                                 exposure = exposure[newinf]))
     # record recoveries
     if(!is.null(recovers) & length(recovers)>0)
       events <- rbind(events,
