@@ -135,6 +135,29 @@ node_is_infected <- function(diff_model, time = 0){
 }
 
 #' @rdname mark_nodes 
+#' @examples
+#'   # To mark nodes that are latent by a particular time point
+#'   node_is_latent(play_diffusion(create_tree(6), latency = 1), time = 1)
+#' @export
+node_is_latent <- function(diff_model, time = 0){
+  event <- nodes <- NULL
+  latent <- summary(diff_model) |> 
+    dplyr::filter(t <= time & event %in% c("E","I")) |> 
+    dplyr::filter(!duplicated(nodes, fromLast = TRUE)) |> 
+    dplyr::filter(event == "E") |> 
+    dplyr::select(nodes)
+  net <- attr(diff_model, "network")
+  if(manynet::is_labelled(net)){
+    nnames <- manynet::node_names(net)
+    out <- stats::setNames(nnames %in% latent$nodes, nnames)
+  } else {
+    seq_len(manynet::network_nodes(net))
+    out <- seq_len(manynet::network_nodes(net)) %in% latent$nodes
+  }
+  make_node_mark(out, attr(diff_model, "network"))
+}
+
+#' @rdname mark_nodes 
 #' @param mark A valid 'node_mark' object or
 #'   logical vector (TRUE/FALSE) of length equal to 
 #'   the number of nodes in the network.
