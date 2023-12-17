@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -54,6 +54,42 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="1.2.0" id="migraph-120">migraph 1.2.0<a class="anchor" aria-label="anchor" href="#migraph-120"></a></h2>
+<p>2023-12-17</p>
+<div class="section level3">
+<h3 id="marks-1-2-0">Marks<a class="anchor" aria-label="anchor" href="#marks-1-2-0"></a></h3>
+<ul><li>Added <code><a href="../reference/mark_nodes.html">node_is_infected()</a></code> to identify infected nodes at given time</li>
+<li>Added <code><a href="../reference/mark_nodes.html">node_is_latent()</a></code> to identify infected nodes at given time</li>
+<li>Added <code><a href="../reference/mark_nodes.html">node_is_recovered()</a></code> to identify infected nodes at given time</li>
+<li>Added <code><a href="../reference/mark_nodes.html">node_is_fold()</a></code> for identifying nodes that are occupying structural folds</li>
+<li>Dropped last <code>is_*()</code> functions from migraph to avoid unnecessary conflicts with manynet at startup</li>
+<li>Improved ‘mark_nodes’ documentation</li>
+</ul></div>
+<div class="section level3">
+<h3 id="measures-1-2-0">Measures<a class="anchor" aria-label="anchor" href="#measures-1-2-0"></a></h3>
+<ul><li>Added <code><a href="../reference/net_diffusion.html">network_hazard()</a></code> for calculating the hazard rate for each time point of a diff_model object</li>
+<li>
+<code><a href="../reference/node_diffusion.html">node_adoption_time()</a></code> now works with incomplete diffusions<ul><li>Fixed bug with named vectors</li></ul></li>
+<li>
+<code><a href="../reference/node_diffusion.html">node_exposure()</a></code> now uses <code><a href="../reference/mark_nodes.html">node_is_infected()</a></code> for more flexibility</li>
+<li>
+<code><a href="../reference/node_diffusion.html">node_thresholds()</a></code> now works with incomplete diffusions<ul><li>Adds exposure data where not provided</li></ul></li>
+</ul></div>
+<div class="section level3">
+<h3 id="members-1-2-0">Members<a class="anchor" aria-label="anchor" href="#members-1-2-0"></a></h3>
+<ul><li>
+<code><a href="../reference/node_diffusion.html">node_adopter()</a></code> now correctly identifies non-adopters</li></ul></div>
+<div class="section level3">
+<h3 id="models-1-2-0">Models<a class="anchor" aria-label="anchor" href="#models-1-2-0"></a></h3>
+<ul><li>
+<code><a href="../reference/play.html">play_diffusion()</a></code><ul><li>Now records only the first exposure event until susceptible again</li>
+<li>Now uses <code><a href="../reference/mark_nodes.html">node_is_exposed()</a></code> and <code><a href="../reference/node_diffusion.html">node_exposure()</a></code> internally</li>
+<li>Made play_diffusion() code easier to understand and debug</li>
+<li>Added some tests for <code><a href="../reference/play.html">play_diffusion()</a></code>
+</li>
+</ul></li></ul></div>
+</div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.9" id="migraph-119">migraph 1.1.9<a class="anchor" aria-label="anchor" href="#migraph-119"></a></h2>
 <p>2023-12-13</p>
 <div class="section level3">
@@ -74,7 +110,7 @@
 <div class="section level3">
 <h3 id="tutorials-1-1-9">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-1-9"></a></h3>
 <ul><li>Updates to tutorial 7 (diffusion):<ul><li>Added section on R-nought and Herd Immunity.</li>
-<li>Fixed layouts for plots using <code>autographs()</code> and <code>autographd()</code> for <code>diff_model</code> objects.</li>
+<li>Fixed layouts for plots using <code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographs()</a></code> and <code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographd()</a></code> for <code>diff_model</code> objects.</li>
 </ul></li></ul></div>
 </div>
     <div class="section level2">
@@ -98,7 +134,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="tutorials-1-1-8">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-1-8"></a></h3>
-<ul><li>Added plots for diffusion models in tutorial 7 using <code>autographs()</code> and <code>autographd()</code>.</li></ul></div>
+<ul><li>Added plots for diffusion models in tutorial 7 using <code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographs()</a></code> and <code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographd()</a></code>.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.7" id="migraph-117">migraph 1.1.7<a class="anchor" aria-label="anchor" href="#migraph-117"></a></h2>
@@ -134,7 +170,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="tutorials-1-1-6">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-1-6"></a></h3>
-<ul><li>Added plots using <code>autographs()</code> and elaboration for tutorial 7.</li></ul></div>
+<ul><li>Added plots using <code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographs()</a></code> and elaboration for tutorial 7.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.5" id="migraph-115">migraph 1.1.5<small>2023-11-02</small><a class="anchor" aria-label="anchor" href="#migraph-115"></a></h2>
@@ -275,7 +311,7 @@
 </li>
 <li>All <code>add_*()</code> and <code>join_*()</code> functions are now in <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>
 </li>
-<li>Functions that grab metadata from network objects, e.g. <code>network_nodes()</code>, <code>node_names()</code>, and <code>tie_weights()</code>, are now in <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>
+<li>Functions that grab metadata from network objects, e.g. <code><a href="https://snlab-ch.github.io/manynet/reference/properties.html" class="external-link">network_nodes()</a></code>, <code><a href="https://snlab-ch.github.io/manynet/reference/attributes.html" class="external-link">node_names()</a></code>, and <code><a href="https://snlab-ch.github.io/manynet/reference/attributes.html" class="external-link">tie_weights()</a></code>, are now in <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>
 </li>
 <li>All <code>autograph*()</code> functions are now in <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>
 </li>
@@ -324,13 +360,13 @@
 <ul><li>Updated README with better structuring and explanation<ul><li>Also improved figure quality</li></ul></li></ul></div>
 <div class="section level3">
 <h3 id="makes-0-13-2">Makes<a class="anchor" aria-label="anchor" href="#makes-0-13-2"></a></h3>
-<ul><li>Added <code>read_matrix()</code> for importing CSVs of adjacency/incidence matrices</li>
-<li>Added <code>read_dynetml()</code> for importing DynetML .xml files (closed <a href="https://github.com/snlab-ch/migraph/issues/261" class="external-link">#261</a>)</li>
+<ul><li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">read_matrix()</a></code> for importing CSVs of adjacency/incidence matrices</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">read_dynetml()</a></code> for importing DynetML .xml files (closed <a href="https://github.com/snlab-ch/migraph/issues/261" class="external-link">#261</a>)</li>
 </ul></div>
 <div class="section level3">
 <h3 id="manipulations-0-13-2">Manipulations<a class="anchor" aria-label="anchor" href="#manipulations-0-13-2"></a></h3>
-<ul><li>Added list method for <code>as_tidygraph()</code> for merging nodelists and edgelists<ul><li>Note that a named list is expected, with names “nodes” and “ties”</li></ul></li>
-<li>Added igraph method for <code>as_siena()</code><ul><li>Note that this is a WIP proof of concept, and will currently only create the DV</li></ul></li>
+<ul><li>Added list method for <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_tidygraph()</a></code> for merging nodelists and edgelists<ul><li>Note that a named list is expected, with names “nodes” and “ties”</li></ul></li>
+<li>Added igraph method for <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_siena()</a></code><ul><li>Note that this is a WIP proof of concept, and will currently only create the DV</li></ul></li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -342,7 +378,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="makes-0-13-1">Makes<a class="anchor" aria-label="anchor" href="#makes-0-13-1"></a></h3>
-<ul><li>Fixed bug in <code>read_pajek()</code> where multiple networks/ties were causing an issue for partition assignment</li></ul></div>
+<ul><li>Fixed bug in <code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">read_pajek()</a></code> where multiple networks/ties were causing an issue for partition assignment</li></ul></div>
 <div class="section level3">
 <h3 id="models-0-13-1">Models<a class="anchor" aria-label="anchor" href="#models-0-13-1"></a></h3>
 <ul><li>Fixed bug in <code><a href="../reference/play.html">play_diffusion()</a></code> relating to latency inversion</li></ul></div>
@@ -356,15 +392,15 @@
 </ul></div>
 <div class="section level3">
 <h3 id="marks-0-13-0">Marks<a class="anchor" aria-label="anchor" href="#marks-0-13-0"></a></h3>
-<ul><li>Added <code><a href="../reference/is.html">is_aperiodic()</a></code> for testing whether a network is aperiodic (the greatest common divisor for all cycles in the network is 1)<ul><li>Note that for computational efficiency, this will check only up to a specified path length (by default 4)</li></ul></li>
+<ul><li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_aperiodic()</a></code> for testing whether a network is aperiodic (the greatest common divisor for all cycles in the network is 1)<ul><li>Note that for computational efficiency, this will check only up to a specified path length (by default 4)</li></ul></li>
 <li>
 <code><a href="../reference/mark_nodes.html">node_is_max()</a></code> and <code><a href="../reference/mark_nodes.html">node_is_min()</a></code> now take a “rank” argument for selecting more than the first ranked maxima or minima</li>
 </ul></div>
 <div class="section level3">
 <h3 id="manipulations-0-13-0">Manipulations<a class="anchor" aria-label="anchor" href="#manipulations-0-13-0"></a></h3>
-<ul><li>Added several new functions for splitting networks into a list of networks<ul><li>Added <code>to_components()</code> to return the components of a network as a list of networks</li>
-<li>Added <code>to_egos()</code> to return the ego networks of a network as a list of networks</li>
-<li>Added <code>to_subgraphs()</code> to return attribute-based subgraphs as a list of networks</li>
+<ul><li>Added several new functions for splitting networks into a list of networks<ul><li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/split.html" class="external-link">to_components()</a></code> to return the components of a network as a list of networks</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/split.html" class="external-link">to_egos()</a></code> to return the ego networks of a network as a list of networks</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/split.html" class="external-link">to_subgraphs()</a></code> to return attribute-based subgraphs as a list of networks</li>
 </ul></li></ul></div>
 <div class="section level3">
 <h3 id="measures-0-13-0">Measures<a class="anchor" aria-label="anchor" href="#measures-0-13-0"></a></h3>
@@ -400,7 +436,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="mapping-0-13-0">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-13-0"></a></h3>
-<ul><li>Added <code>autographs()</code> for autoplotting lists of networks</li></ul></div>
+<ul><li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographs()</a></code> for autoplotting lists of networks</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.12.6" id="migraph-0126">migraph 0.12.6<a class="anchor" aria-label="anchor" href="#migraph-0126"></a></h2>
@@ -432,11 +468,11 @@
 <ul><li>Added topology tutorial</li></ul></div>
 <div class="section level3">
 <h3 id="makes-0-12-5">Makes<a class="anchor" aria-label="anchor" href="#makes-0-12-5"></a></h3>
-<ul><li>Fixed integer recognition bug in <code>generate_random()</code>
+<ul><li>Fixed integer recognition bug in <code><a href="https://snlab-ch.github.io/manynet/reference/generate.html" class="external-link">generate_random()</a></code>
 </li></ul></div>
 <div class="section level3">
 <h3 id="manipulating-0-12-5">Manipulating<a class="anchor" aria-label="anchor" href="#manipulating-0-12-5"></a></h3>
-<ul><li>Added more similarity options for projection (<code>to_mode1()</code> and <code>to_mode2()</code>)</li>
+<ul><li>Added more similarity options for projection (<code><a href="https://snlab-ch.github.io/manynet/reference/transform.html" class="external-link">to_mode1()</a></code> and <code><a href="https://snlab-ch.github.io/manynet/reference/transform.html" class="external-link">to_mode2()</a></code>)</li>
 <li>Fixed bug in <code>to_redirected.igraph()</code> where routing through an edgelist caused problems</li>
 </ul></div>
 <div class="section level3">
@@ -480,12 +516,12 @@
 <div class="section level3">
 <h3 id="make-0-12-2">Make<a class="anchor" aria-label="anchor" href="#make-0-12-2"></a></h3>
 <ul><li>
-<code>create_lattice()</code> now conforms to other <code>create_*()</code> functions in how it interprets <code>"n"</code><ul><li>from an inferred <code>"n"</code> for a one-mode network, it will create a transitive lattice of as even dimensions as possible</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/create.html" class="external-link">create_lattice()</a></code> now conforms to other <code>create_*()</code> functions in how it interprets <code>"n"</code><ul><li>from an inferred <code>"n"</code> for a one-mode network, it will create a transitive lattice of as even dimensions as possible</li>
 <li>for a two-mode network, this depends on how balanced the two modes are, and is still a work in progress… (WIP)</li>
 </ul></li></ul></div>
 <div class="section level3">
 <h3 id="marks-0-12-2">Marks<a class="anchor" aria-label="anchor" href="#marks-0-12-2"></a></h3>
-<ul><li>Added <code><a href="../reference/is.html">is_eulerian()</a></code> for a logical expression of whether the network has an Eulerian path</li></ul></div>
+<ul><li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_eulerian()</a></code> for a logical expression of whether the network has an Eulerian path</li></ul></div>
 <div class="section level3">
 <h3 id="measures-0-12-2">Measures<a class="anchor" aria-label="anchor" href="#measures-0-12-2"></a></h3>
 <ul><li>
@@ -515,12 +551,12 @@
 <div class="section level3">
 <h3 id="manipulations-0-12-1">Manipulations<a class="anchor" aria-label="anchor" href="#manipulations-0-12-1"></a></h3>
 <ul><li>
-<code>to_twomode()</code> now returns an undirected network</li>
-<li>Added <code>to_anti()</code> for obtaining the complement of the given network<ul><li>Note that unlike the implementation in <a href="https://r.igraph.org/" class="external-link">igraph</a>, this respects two-mode constructions</li></ul></li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_twomode()</a></code> now returns an undirected network</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/transform.html" class="external-link">to_anti()</a></code> for obtaining the complement of the given network<ul><li>Note that unlike the implementation in <a href="https://r.igraph.org/" class="external-link">igraph</a>, this respects two-mode constructions</li></ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="marks-0-12-1">Marks<a class="anchor" aria-label="anchor" href="#marks-0-12-1"></a></h3>
-<ul><li>Added <code><a href="../reference/is.html">is_perfect_matching()</a></code> for a logical expression of whether the maximum matching of a network is also perfect</li>
+<ul><li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_perfect_matching()</a></code> for a logical expression of whether the maximum matching of a network is also perfect</li>
 <li>Added <code><a href="../reference/mark_nodes.html">node_is_core()</a></code> for a logical vector of which nodes are members of the core</li>
 </ul></div>
 <div class="section level3">
@@ -532,7 +568,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="mapping-0-12-1">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-12-1"></a></h3>
-<ul><li>Fixed <code>autographr()</code> tests to work with new version of <a href="https://ggraph.data-imaginist.com" class="external-link">ggraph</a> (closed <a href="https://github.com/snlab-ch/migraph/issues/247" class="external-link">#247</a>, thanks <a href="https://github.com/henriquesposito" class="external-link">@henriquesposito</a>)</li></ul></div>
+<ul><li>Fixed <code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographr()</a></code> tests to work with new version of <a href="https://ggraph.data-imaginist.com" class="external-link">ggraph</a> (closed <a href="https://github.com/snlab-ch/migraph/issues/247" class="external-link">#247</a>, thanks <a href="https://github.com/henriquesposito" class="external-link">@henriquesposito</a>)</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.12.0" id="migraph-0120">migraph 0.12.0<small>2022-09-27</small><a class="anchor" aria-label="anchor" href="#migraph-0120"></a></h2>
@@ -579,7 +615,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="mapping-0-11-2">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-11-2"></a></h3>
-<ul><li>Fixed bug with <code>autographr()</code>’s “node_group” argument</li></ul></div>
+<ul><li>Fixed bug with <code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographr()</a></code>’s “node_group” argument</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.11.1" id="migraph-0111">migraph 0.11.1<a class="anchor" aria-label="anchor" href="#migraph-0111"></a></h2>
@@ -597,38 +633,38 @@
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-11-0">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-11-0"></a></h3>
-<ul><li>Added <code>as_graphAM()</code> methods for all migraph-consistent object classes so <code>{Rgraphviz}</code> can be used effectively</li>
-<li>Added <code>as_igraph()</code>, <code>as_tidygraph()</code>, and <code>as_network()</code> methods for <a href="https://www.stats.ox.ac.uk/~snijders/siena/" class="external-link">RSiena</a> sienaData objects (thanks <a href="https://github.com/JaelTan" class="external-link">@JaelTan</a>, closed <a href="https://github.com/snlab-ch/migraph/issues/94" class="external-link">#94</a>)</li>
-<li>Added <code>as_edgelist()</code> and <code>as_matrix()</code> methods for <code>network.goldfish</code> class objects</li>
-<li>The <code>"twomode"</code> argument in <code>as_matrix()</code> is now <code>NULL</code> by default, allowing both one-mode and two-mode coercion</li>
+<ul><li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_graphAM()</a></code> methods for all migraph-consistent object classes so <code>{Rgraphviz}</code> can be used effectively</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_igraph()</a></code>, <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_tidygraph()</a></code>, and <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_network()</a></code> methods for <a href="https://www.stats.ox.ac.uk/~snijders/siena/" class="external-link">RSiena</a> sienaData objects (thanks <a href="https://github.com/JaelTan" class="external-link">@JaelTan</a>, closed <a href="https://github.com/snlab-ch/migraph/issues/94" class="external-link">#94</a>)</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_edgelist()</a></code> and <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_matrix()</a></code> methods for <code>network.goldfish</code> class objects</li>
+<li>The <code>"twomode"</code> argument in <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_matrix()</a></code> is now <code>NULL</code> by default, allowing both one-mode and two-mode coercion</li>
 <li>
-<code>to_mode1()</code> and <code>to_mode2()</code> now take an extra argument to produce weighted projections by different “similarity” measures<ul><li>“count” (the default) returns a raw count of the coincidence of nodes in the specified mode with nodes of the other mode</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/transform.html" class="external-link">to_mode1()</a></code> and <code><a href="https://snlab-ch.github.io/manynet/reference/transform.html" class="external-link">to_mode2()</a></code> now take an extra argument to produce weighted projections by different “similarity” measures<ul><li>“count” (the default) returns a raw count of the coincidence of nodes in the specified mode with nodes of the other mode</li>
 <li>“jaccard” (Jaccard index) offers a measure of opportunity weighted by participation</li>
 <li>“rand” (Simple Matching Coefficient) offers a measure of behavioral mirroring</li>
 <li>“pearson” (Pearson’s correlation) and “yule” (Yule’s Q) offer correlation coefficients for valued and binary data, respectively</li>
 <li>These options work for edgelists, matrices, igraph and tidygraph, and network objects</li>
 </ul></li>
-<li>Added <code>to_matching()</code> methods to transform a two-mode network or network with some other (binary) “mark” attribute into a network of matching ties</li>
-<li>Renamed <code>to_main_component()</code> to <code>to_giant()</code> to be more space efficient<ul><li>Added methods for edgelists and matrices</li></ul></li>
-<li>Added two-mode application for <code>to_blocks()</code> (closed <a href="https://github.com/snlab-ch/migraph/issues/242" class="external-link">#242</a>)<ul><li>Fixed bug in <code>to_blocks()</code> where NA blocks couldn’t be subsequently coerced</li></ul></li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/transform.html" class="external-link">to_matching()</a></code> methods to transform a two-mode network or network with some other (binary) “mark” attribute into a network of matching ties</li>
+<li>Renamed <code>to_main_component()</code> to <code><a href="https://snlab-ch.github.io/manynet/reference/transform.html" class="external-link">to_giant()</a></code> to be more space efficient<ul><li>Added methods for edgelists and matrices</li></ul></li>
+<li>Added two-mode application for <code><a href="https://snlab-ch.github.io/manynet/reference/transform.html" class="external-link">to_blocks()</a></code> (closed <a href="https://github.com/snlab-ch/migraph/issues/242" class="external-link">#242</a>)<ul><li>Fixed bug in <code><a href="https://snlab-ch.github.io/manynet/reference/transform.html" class="external-link">to_blocks()</a></code> where NA blocks couldn’t be subsequently coerced</li></ul></li>
 <li>Filled in a number of S3 methods<ul><li>
-<code>to_blocks()</code>, <code>to_subgraph()</code>, and <code>to_ties()</code> are now S3 methods, returning objects of the same class as given</li>
-<li>Added <code>to_onemode()</code> method for matrices</li>
-<li>Added <code>to_twomode()</code> methods for igraph, tidygraph, and network</li>
-<li>Added network methods for <code>to_named()</code>, <code>to_redirected()</code>, <code>to_uniplex()</code>, and <code>to_unsigned()</code>
+<code><a href="https://snlab-ch.github.io/manynet/reference/transform.html" class="external-link">to_blocks()</a></code>, <code>to_subgraph()</code>, and <code><a href="https://snlab-ch.github.io/manynet/reference/transform.html" class="external-link">to_ties()</a></code> are now S3 methods, returning objects of the same class as given</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_onemode()</a></code> method for matrices</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_twomode()</a></code> methods for igraph, tidygraph, and network</li>
+<li>Added network methods for <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_named()</a></code>, <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_redirected()</a></code>, <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_uniplex()</a></code>, and <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_unsigned()</a></code>
 </li>
-<li>Added edgelist methods for <code>to_undirected()</code> and <code>to_uniplex()</code>
+<li>Added edgelist methods for <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_undirected()</a></code> and <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_uniplex()</a></code>
 </li>
-<li>Added matrix method for <code>to_uniplex()</code>
+<li>Added matrix method for <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_uniplex()</a></code>
 </li>
 </ul></li>
-<li>Fixed bug where <code>to_unweighted()</code> didn’t respect the “threshold” specified</li>
+<li>Fixed bug where <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_unweighted()</a></code> didn’t respect the “threshold” specified</li>
 </ul></div>
 <div class="section level3">
 <h3 id="marks-0-11-0">Marks<a class="anchor" aria-label="anchor" href="#marks-0-11-0"></a></h3>
-<ul><li>Fixed eternal loop bug where <code>node_mode()</code> couldn’t produce a “mark” class object</li>
+<ul><li>Fixed eternal loop bug where <code><a href="https://snlab-ch.github.io/manynet/reference/attributes.html" class="external-link">node_mode()</a></code> couldn’t produce a “mark” class object</li>
 <li>Fixed bug where node names/labels were not being added to mark objects</li>
-<li>Fixed bug in <code>is_twomode()</code> where labelling information was being ignored</li>
+<li>Fixed bug in <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_twomode()</a></code> where labelling information was being ignored</li>
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-11-0">Measures<a class="anchor" aria-label="anchor" href="#measures-0-11-0"></a></h3>
@@ -652,9 +688,9 @@
 <ul><li>Added “hierarchy” and “alluvial” layout methods</li>
 <li>Added “railway” and “ladder” layout methods (closed <a href="https://github.com/snlab-ch/migraph/issues/125" class="external-link">#125</a>)</li>
 <li>Added “concentric” layout method</li>
-<li>Restructured <code>autographr()</code> to improve future debugging and development</li>
+<li>Restructured <code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographr()</a></code> to improve future debugging and development</li>
 <li>
-<code>autographr()</code> now rotates labels for partitioning layouts, including “concentric”, so that they are readable and overlap less</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographr()</a></code> now rotates labels for partitioning layouts, including “concentric”, so that they are readable and overlap less</li>
 <li>Fixed <code>gglineage()</code> to use “alluvial” layout and better position nodes on the <em>x</em>-axis</li>
 </ul></div>
 <div class="section level3">
@@ -698,7 +734,7 @@
 <div class="section level3">
 <h3 id="manipulation-0-10-3">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-10-3"></a></h3>
 <ul><li>Added methods for converting <code>network.goldfish</code> objects (and linked events and nodelists) to migraph-compatible objects (closed <a href="https://github.com/snlab-ch/migraph/issues/96" class="external-link">#96</a>)</li>
-<li>Renamed <code>add_node_attributes()</code> to <code>add_node_attribute()</code> and <code>add_edge_attributes()</code> to <code>add_tie_attribute()</code>
+<li>Renamed <code>add_node_attributes()</code> to <code><a href="https://snlab-ch.github.io/manynet/reference/add.html" class="external-link">add_node_attribute()</a></code> and <code>add_edge_attributes()</code> to <code><a href="https://snlab-ch.github.io/manynet/reference/add.html" class="external-link">add_tie_attribute()</a></code>
 </li>
 </ul></div>
 <div class="section level3">
@@ -725,7 +761,7 @@
 <div class="section level3">
 <h3 id="mapping-0-10-3">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-10-3"></a></h3>
 <ul><li>
-<code>autographr()</code> no longer requires “highlight_measure” and “identify_function” arguments as users can now convert ‘measures’ to ‘marks’ and use these for “node_color” or “edge_color”</li></ul></div>
+<code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographr()</a></code> no longer requires “highlight_measure” and “identify_function” arguments as users can now convert ‘measures’ to ‘marks’ and use these for “node_color” or “edge_color”</li></ul></div>
 <div class="section level3">
 <h3 id="data-0-10-3">Data<a class="anchor" aria-label="anchor" href="#data-0-10-3"></a></h3>
 <ul><li>Added prints of each data object to <code>@format</code> for more consistent documentation</li>
@@ -757,7 +793,7 @@
 <div class="section level3">
 <h3 id="package-0-10-0">Package<a class="anchor" aria-label="anchor" href="#package-0-10-0"></a></h3>
 <ul><li>Reduced package dependencies by 5<ul><li>
-<a href="https://joelgombin.github.io/concaveman/" class="external-link">concaveman</a>, <a href="https://github.com/andrie/ggdendro" class="external-link">ggdendro</a>, <code>{oaqc}</code> are now Suggests; the user is prompted to install them when required in <code>autographr()</code>, <code>plot.member()</code>, and <code><a href="../reference/node_census.html">node_quad_census()</a></code> respectively</li>
+<a href="https://joelgombin.github.io/concaveman/" class="external-link">concaveman</a>, <a href="https://github.com/andrie/ggdendro" class="external-link">ggdendro</a>, <code>{oaqc}</code> are now Suggests; the user is prompted to install them when required in <code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographr()</a></code>, <code>plot.member()</code>, and <code><a href="../reference/node_census.html">node_quad_census()</a></code> respectively</li>
 <li>
 <a href="https://stringr.tidyverse.org" class="external-link">stringr</a> and <a href="https://tibble.tidyverse.org/" class="external-link">tibble</a> replaced with base or other code and therefore no longer necessary</li>
 </ul></li>
@@ -770,21 +806,21 @@
 <div class="section level3">
 <h3 id="making-0-10-0">Making<a class="anchor" aria-label="anchor" href="#making-0-10-0"></a></h3>
 <ul><li>All <code>create_</code> and <code>generate_</code> functions now:<ul><li>work when <code>n</code> passed an existing network</li>
-<li>work with two-mode networks, including <code>create_tree()</code>, <code>generate_smallworld()</code>, <code>generate_scalefree()</code>
+<li>work with two-mode networks, including <code><a href="https://snlab-ch.github.io/manynet/reference/create.html" class="external-link">create_tree()</a></code>, <code><a href="https://snlab-ch.github.io/manynet/reference/generate.html" class="external-link">generate_smallworld()</a></code>, <code><a href="https://snlab-ch.github.io/manynet/reference/generate.html" class="external-link">generate_scalefree()</a></code>
 </li>
 <li>return undirected network by default</li>
 </ul></li>
 <li>Some <code>create_</code> functions can now take a membership vector or split into equal partitions by default<ul><li>
-<code>create_components()</code> no longer accepts a number of components, instead relying on the membership vector</li>
-<li>Added <code>create_core()</code> for creating core-periphery graphs</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/create.html" class="external-link">create_components()</a></code> no longer accepts a number of components, instead relying on the membership vector</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/create.html" class="external-link">create_core()</a></code> for creating core-periphery graphs</li>
 </ul></li>
 <li>
-<code>generate_random()</code> now inherits attributes from any network</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/generate.html" class="external-link">generate_random()</a></code> now inherits attributes from any network</li>
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-10-0">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-10-0"></a></h3>
-<ul><li>Added a couple of <code>to_</code> functions useful for working with networks of different types<ul><li>Added <code>to_redirected()</code> for adding or swapping direction to networks (closed <a href="https://github.com/snlab-ch/migraph/issues/219" class="external-link">#219</a>)</li>
-<li>Added <code>to_blocks()</code> for reducing a network down by a membership vector; <code>blockmodel()</code> and <code>reduce_graph()</code> are now deprecated</li>
+<ul><li>Added a couple of <code>to_</code> functions useful for working with networks of different types<ul><li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_redirected()</a></code> for adding or swapping direction to networks (closed <a href="https://github.com/snlab-ch/migraph/issues/219" class="external-link">#219</a>)</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/transform.html" class="external-link">to_blocks()</a></code> for reducing a network down by a membership vector; <code>blockmodel()</code> and <code>reduce_graph()</code> are now deprecated</li>
 <li>
 <code>to_multilevel.igraph()</code> now only works on two-mode networks; returns the original network if passed a one-mode network</li>
 </ul></li>
@@ -794,7 +830,7 @@
 <li>
 <code>is_directed.igraph()</code> and <code>is_directed.matrix()</code> now return FALSE for two-mode networks</li>
 <li>
-<code><a href="../reference/is.html">is_connected()</a></code> now returns result for strong components if directed and weak components if undirected</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_connected()</a></code> now returns result for strong components if directed and weak components if undirected</li>
 </ul></li>
 <li>
 <code>as_igraph.data.frame()</code> now infers third column as weight</li>
@@ -875,7 +911,7 @@
 <div class="section level3">
 <h3 id="mapping-0-10-0">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-10-0"></a></h3>
 <ul><li>
-<code>autographr()</code> can highlight nodes that max (by default) some measure (thank you, <a href="https://github.com/BBieri" class="external-link">@BBieri</a>, closed <a href="https://github.com/snlab-ch/migraph/issues/224" class="external-link">#224</a>)</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographr()</a></code> can highlight nodes that max (by default) some measure (thank you, <a href="https://github.com/BBieri" class="external-link">@BBieri</a>, closed <a href="https://github.com/snlab-ch/migraph/issues/224" class="external-link">#224</a>)</li>
 <li>Added <code>layout_tbl_graph_stressgrid()</code> as an extra option</li>
 <li>
 <code>ggatyear()</code> is deprecated</li>
@@ -899,7 +935,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="making-0-9-3">Making<a class="anchor" aria-label="anchor" href="#making-0-9-3"></a></h3>
-<ul><li>Folded <code>m</code> argument into <code>p</code> for <code>generate_random()</code>, <code>p</code> can now be passed an integer to indicate the number of ties the network should have</li></ul></div>
+<ul><li>Folded <code>m</code> argument into <code>p</code> for <code><a href="https://snlab-ch.github.io/manynet/reference/generate.html" class="external-link">generate_random()</a></code>, <code>p</code> can now be passed an integer to indicate the number of ties the network should have</li></ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-9-3">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-9-3"></a></h3>
 <ul><li>Refactored <code>to_edges()</code> to be ~26 times faster on average</li>
@@ -991,12 +1027,12 @@
 <ul><li>Moved to <a href="https://github.com/describeIn" class="external-link">@describeIn</a> documentation (closed <a href="https://github.com/snlab-ch/migraph/issues/215" class="external-link">#215</a>)</li>
 <li>Distinguished <code>directed</code> and <code>direction</code> arguments in some functions; whereas <code>directed</code> is always logical (TRUE/FALSE), <code>direction</code> expects a character string, e.g. “in”, “out”, or “undirected”</li>
 <li>
-<code>generate_permutation()</code> now has an additional logical argument, <code>with_attr</code>, that indicates whether any attributes from the original data should be passed to the permuted object</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/generate.html" class="external-link">generate_permutation()</a></code> now has an additional logical argument, <code>with_attr</code>, that indicates whether any attributes from the original data should be passed to the permuted object</li>
 <li>All <code>create_*()</code> functions now accept existing objects as their first argument and will create networks with the same dimensions</li>
 <li>
-<code>read_pajek()</code> now imports nodal attributes alongside the main edges</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">read_pajek()</a></code> now imports nodal attributes alongside the main edges</li>
 <li>
-<code>read_ucinet()</code> now enjoys clearer documentation</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">read_ucinet()</a></code> now enjoys clearer documentation</li>
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-9-0">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-9-0"></a></h3>
@@ -1005,23 +1041,23 @@
 <li>
 <code>as_matrix.igraph()</code> now better handles edge signs</li>
 </ul></li>
-<li>Pivoted to S3 methods for most manipulation functions for better dispatching and performance<ul><li>Added matrix, data.frame, network, igraph, and tbl_graph methods for <code>is_twomode()</code>, <code>is_directed()</code>, <code>is_weighted()</code>, <code>is_labelled()</code>, <code>is_signed()</code>, <code>is_multiplex()</code>, <code>is_complex()</code>, and <code>is_graph()</code>
+<li>Pivoted to S3 methods for most manipulation functions for better dispatching and performance<ul><li>Added matrix, data.frame, network, igraph, and tbl_graph methods for <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_twomode()</a></code>, <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_directed()</a></code>, <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_weighted()</a></code>, <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_labelled()</a></code>, <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_signed()</a></code>, <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_multiplex()</a></code>, <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_complex()</a></code>, and <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_graph()</a></code>
 </li>
-<li>Added data.frame methods for <code>as_edgelist()</code>, and <code>to_unweighted()</code>, and improved the data.frame method for <code>as_matrix()</code>
+<li>Added data.frame methods for <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_edgelist()</a></code>, and <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_unweighted()</a></code>, and improved the data.frame method for <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_matrix()</a></code>
 </li>
-<li>Added data.frame and matrix methods for <code>to_named()</code> and <code>to_unsigned()</code>
+<li>Added data.frame and matrix methods for <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_named()</a></code> and <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_unsigned()</a></code>
 </li>
 </ul></li>
 <li>Added <code>to_edges()</code> for creating adjacency matrices using a network’s edges as nodes</li>
-<li>Renamed <code>project_rows()</code> and <code>project_cols()</code> functions to <code>to_mode1()</code> and <code>to_mode2()</code>, which is both more consistent with other functions naming conventions and more generic by avoiding the matrix-based row/column distinction</li>
-<li>Added <code>node_mode()</code>, which returns a vector of the mode assignments of the nodes in a network</li>
+<li>Renamed <code>project_rows()</code> and <code>project_cols()</code> functions to <code><a href="https://snlab-ch.github.io/manynet/reference/transform.html" class="external-link">to_mode1()</a></code> and <code><a href="https://snlab-ch.github.io/manynet/reference/transform.html" class="external-link">to_mode2()</a></code>, which is both more consistent with other functions naming conventions and more generic by avoiding the matrix-based row/column distinction</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/attributes.html" class="external-link">node_mode()</a></code>, which returns a vector of the mode assignments of the nodes in a network</li>
 <li>Added <code>edge_signs()</code>, which returns a vector of the sign assignments of the edges in a network</li>
 </ul></div>
 <div class="section level3">
 <h3 id="mapping-0-9-0">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-9-0"></a></h3>
-<ul><li>Added ‘visualization’ vignette that starts to introduce how <code>autographr()</code> works and how <a href="https://ggraph.data-imaginist.com" class="external-link">ggraph</a> extends this</li>
+<ul><li>Added ‘visualization’ vignette that starts to introduce how <code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographr()</a></code> works and how <a href="https://ggraph.data-imaginist.com" class="external-link">ggraph</a> extends this</li>
 <li>
-<code>autographr()</code> now incorporates <code>ggidentify()</code> functionality (closed <a href="https://github.com/snlab-ch/migraph/issues/150" class="external-link">#150</a>)</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographr()</a></code> now incorporates <code>ggidentify()</code> functionality (closed <a href="https://github.com/snlab-ch/migraph/issues/150" class="external-link">#150</a>)</li>
 <li>
 <a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a> is now used to assemble multiple plots together</li>
 <li>Fixed <a href="https://github.com/snlab-ch/migraph/issues/204" class="external-link">#204</a> layout issues with <code>ggatyear()</code>
@@ -1136,7 +1172,7 @@
 <li>Closed <a href="https://github.com/snlab-ch/migraph/issues/179" class="external-link">#179</a> by inferring an attribute vector is for one of the two modes where possible in <code>add_node_attributes()</code>
 </li>
 </ul></li>
-<li>Added <code>is_</code> methods: <code>is_multiplex()</code>, <code>is_uniplex()</code>, <code><a href="../reference/is.html">is_acyclic()</a></code>
+<li>Added <code>is_</code> methods: <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_multiplex()</a></code>, <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_uniplex()</a></code>, <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_acyclic()</a></code>
 </li>
 <li>Added <code>edge_</code> functions to identify edges by properties: <code>edge_mutual()</code>, <code><a href="../reference/defunct.html">edge_multiple()</a></code>, <code><a href="../reference/defunct.html">edge_loop()</a></code>
 </li>
@@ -1146,11 +1182,11 @@
 <h2 class="page-header" data-toc-text="0.8.11" id="migraph-0811">migraph 0.8.11<a class="anchor" aria-label="anchor" href="#migraph-0811"></a></h2>
 <div class="section level3">
 <h3 id="import-and-export-0-8-11">Import and export<a class="anchor" aria-label="anchor" href="#import-and-export-0-8-11"></a></h3>
-<ul><li>Fixed <a href="https://github.com/snlab-ch/migraph/issues/172" class="external-link">#172</a> by removing redundant header argument in <code>read_nodelist()</code> and <code>read_edgelist()</code>
+<ul><li>Fixed <a href="https://github.com/snlab-ch/migraph/issues/172" class="external-link">#172</a> by removing redundant header argument in <code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">read_nodelist()</a></code> and <code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">read_edgelist()</a></code>
 </li></ul></div>
 <div class="section level3">
 <h3 id="package-0-8-11">Package<a class="anchor" aria-label="anchor" href="#package-0-8-11"></a></h3>
-<ul><li>Fixed <a href="https://github.com/snlab-ch/migraph/issues/173" class="external-link">#173</a> by extending <code>as_network()</code> method to convert correctly form an <a href="https://r.igraph.org/" class="external-link">igraph</a> to a <a href="https://statnet.org/" class="external-link">network</a> object.</li>
+<ul><li>Fixed <a href="https://github.com/snlab-ch/migraph/issues/173" class="external-link">#173</a> by extending <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_network()</a></code> method to convert correctly form an <a href="https://r.igraph.org/" class="external-link">igraph</a> to a <a href="https://statnet.org/" class="external-link">network</a> object.</li>
 <li>Removed <code>ggraphgrid()</code> documentation</li>
 </ul></div>
 </div>
@@ -1158,12 +1194,12 @@
 <h2 class="page-header" data-toc-text="0.8.10" id="migraph-0810">migraph 0.8.10<a class="anchor" aria-label="anchor" href="#migraph-0810"></a></h2>
 <div class="section level3">
 <h3 id="import-and-export-0-8-10">Import and export<a class="anchor" aria-label="anchor" href="#import-and-export-0-8-10"></a></h3>
-<ul><li>Replaced xlsx dependency in <code>read_edgelist()</code> and <code>read_nodelist()</code> to readxl to avoid Java dependency</li>
-<li>Replaced xlsx dependency in <code>write_edgelist()</code> and <code>write_nodelist()</code> to avoid Java dependency<ul><li>Note that these functions will now export to .csv rather than .xlsx</li></ul></li>
+<ul><li>Replaced xlsx dependency in <code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">read_edgelist()</a></code> and <code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">read_nodelist()</a></code> to readxl to avoid Java dependency</li>
+<li>Replaced xlsx dependency in <code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">write_edgelist()</a></code> and <code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">write_nodelist()</a></code> to avoid Java dependency<ul><li>Note that these functions will now export to .csv rather than .xlsx</li></ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-10">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-10"></a></h3>
-<ul><li>Fixed direction recognition bug in <code>as_network()</code>, <code>as_igraph()</code>, and <code>is_directed()</code>
+<ul><li>Fixed direction recognition bug in <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_network()</a></code>, <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_igraph()</a></code>, and <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_directed()</a></code>
 </li></ul></div>
 </div>
     <div class="section level2">
@@ -1173,22 +1209,22 @@
 <ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/139" class="external-link">#139</a> by adding vignette on importing and connecting data</li></ul></div>
 <div class="section level3">
 <h3 id="import-and-export-0-8-9">Import and export<a class="anchor" aria-label="anchor" href="#import-and-export-0-8-9"></a></h3>
-<ul><li>Added <code>read_</code> and <code>write_</code> functions and updated documentation<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/137" class="external-link">#137</a> by adding <code>read_edgelist()</code> for importing edgelists from Excel and csv files</li>
-<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/170" class="external-link">#170</a> by adding <code>read_pajek()</code> for importing .net and .paj files</li>
-<li>Added <code>write_edgelist()</code>, <code>write_nodelist</code>, <code>write_pajek()</code>, and <code>write_ucinet()</code> for exporting into various file formats (Excel, csv, Pajek, and UCINET)</li>
+<ul><li>Added <code>read_</code> and <code>write_</code> functions and updated documentation<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/137" class="external-link">#137</a> by adding <code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">read_edgelist()</a></code> for importing edgelists from Excel and csv files</li>
+<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/170" class="external-link">#170</a> by adding <code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">read_pajek()</a></code> for importing .net and .paj files</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">write_edgelist()</a></code>, <code>write_nodelist</code>, <code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">write_pajek()</a></code>, and <code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">write_ucinet()</a></code> for exporting into various file formats (Excel, csv, Pajek, and UCINET)</li>
 <li>Closed <a href="https://github.com/snlab-ch/migraph/issues/140" class="external-link">#140</a> by adding links to further data resources</li>
 </ul></li></ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-9">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-9"></a></h3>
-<ul><li>Added <code>is_graph()</code> to check if an object is a graph or not</li>
-<li>Extended <code>as_network()</code> to retain attributes</li>
+<ul><li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_graph()</a></code> to check if an object is a graph or not</li>
+<li>Extended <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_network()</a></code> to retain attributes</li>
 <li>Fixed bugs in <code>as_</code> and <code>to_</code> functions<ul><li>Fixed bug in <code>as_</code> functions to convert from dataframes instead of tibbles</li>
-<li>Fixed bug in conversion from network to igraph object in <code>as_igraph()</code> function</li>
-<li>Fixed bug in <code>to_undirected()</code> function to work with network objects</li>
+<li>Fixed bug in conversion from network to igraph object in <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_igraph()</a></code> function</li>
+<li>Fixed bug in <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_undirected()</a></code> function to work with network objects</li>
 <li>Fixed bug in <code>to_main_component()</code> function so that it retains vertex attributes in network objects</li>
 </ul></li>
 <li>Added <code>edge_attribute()</code> to grab a named edge attribute from a graph/network</li>
-<li>Updated <code>to_unweighted()</code> to prevent conversion of network object into igraph object when deleting weights</li>
+<li>Updated <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_unweighted()</a></code> to prevent conversion of network object into igraph object when deleting weights</li>
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-9">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-9"></a></h3>
@@ -1199,7 +1235,7 @@
 <ul><li>Fixed <code><a href="../reference/regression.html">network_reg()</a></code> example</li></ul></div>
 <div class="section level3">
 <h3 id="visualisation-0-8-9">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation-0-8-9"></a></h3>
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/117" class="external-link">#117</a> by updating the node/edge/arrow size limits in <code>autographr()</code>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/117" class="external-link">#117</a> by updating the node/edge/arrow size limits in <code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographr()</a></code>
 </li></ul></div>
 </div>
     <div class="section level2">
@@ -1214,15 +1250,15 @@
 <ul><li>Added <code>ison_eies</code> dataset for use in practical 7 vignette</li></ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-8">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-8"></a></h3>
-<ul><li>The <code>as_matrix()</code> method for networks now works with two-mode and weighted networks</li>
-<li>The <code>as_igraph()</code> method for matrices now checks for weights independently of coercion</li>
-<li>The <code>as_igraph()</code> method for networks now works with two-mode and weighted networks</li>
-<li>The <code>as_network()</code> method for matrices now works with two-mode and weighted networks</li>
-<li>The <code>as_network()</code> method for edgelists, igraph, and tidygraphs now works with weighted networks</li>
-<li>Added <code>to_unnamed()</code> method for edge lists</li>
-<li>Added <code>to_simplex()</code> method for matrices</li>
+<ul><li>The <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_matrix()</a></code> method for networks now works with two-mode and weighted networks</li>
+<li>The <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_igraph()</a></code> method for matrices now checks for weights independently of coercion</li>
+<li>The <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_igraph()</a></code> method for networks now works with two-mode and weighted networks</li>
+<li>The <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_network()</a></code> method for matrices now works with two-mode and weighted networks</li>
+<li>The <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_network()</a></code> method for edgelists, igraph, and tidygraphs now works with weighted networks</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_unnamed()</a></code> method for edge lists</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_simplex()</a></code> method for matrices</li>
 <li>Added <code>to_main_component()</code> method for networks</li>
-<li>Added <code>to_multilevel()</code> method for matrices</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_multilevel()</a></code> method for matrices</li>
 <li>
 <code>mutate_edges()</code> now coalesces rows of edges</li>
 </ul></div>
@@ -1232,7 +1268,7 @@
 </li></ul></div>
 <div class="section level3">
 <h3 id="modelling-0-8-8">Modelling<a class="anchor" aria-label="anchor" href="#modelling-0-8-8"></a></h3>
-<ul><li>Fixed one-mode bug with <code>generate_permutation()</code> and thus <code><a href="../reference/tests.html">test_permutation()</a></code>
+<ul><li>Fixed one-mode bug with <code><a href="https://snlab-ch.github.io/manynet/reference/generate.html" class="external-link">generate_permutation()</a></code> and thus <code><a href="../reference/tests.html">test_permutation()</a></code>
 </li>
 <li>Renamed <code>netlm()</code> to <code><a href="../reference/regression.html">network_reg()</a></code> to avoid frustrating conflicts<ul><li>
 <code><a href="../reference/regression.html">network_reg()</a></code> now accepts migraph-consistent objects</li>
@@ -1252,8 +1288,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-8-7">Data<a class="anchor" aria-label="anchor" href="#data-0-8-7"></a></h3>
-<ul><li>Added <code>generate_permutation()</code> which takes an object and returns an object with the edges permuted, but retaining all nodal attributes</li>
-<li>Made <code>generate_random()</code> also work with an existing object as input, in which it will return a random graph with the same dimensions and density</li>
+<ul><li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/generate.html" class="external-link">generate_permutation()</a></code> which takes an object and returns an object with the edges permuted, but retaining all nodal attributes</li>
+<li>Made <code><a href="https://snlab-ch.github.io/manynet/reference/generate.html" class="external-link">generate_random()</a></code> also work with an existing object as input, in which it will return a random graph with the same dimensions and density</li>
 <li>Consolidated data scripts</li>
 </ul></div>
 <div class="section level3">
@@ -1269,7 +1305,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="visualisation-0-8-7">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation-0-8-7"></a></h3>
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/148" class="external-link">#148</a> and <a href="https://github.com/snlab-ch/migraph/issues/153" class="external-link">#153</a> by making all <code>autographr()</code> arguments take variable names in quotation marks</li></ul></div>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/148" class="external-link">#148</a> and <a href="https://github.com/snlab-ch/migraph/issues/153" class="external-link">#153</a> by making all <code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographr()</a></code> arguments take variable names in quotation marks</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.6" id="migraph-086">migraph 0.8.6<a class="anchor" aria-label="anchor" href="#migraph-086"></a></h2>
@@ -1279,9 +1315,9 @@
 <div class="section level3">
 <h3 id="manipulation-0-8-6">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-6"></a></h3>
 <ul><li>Added some functions for grabbing key information from objects<ul><li>
-<code>node_names()</code> for quickly accessing node labels</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/attributes.html" class="external-link">node_names()</a></code> for quickly accessing node labels</li>
 <li>
-<code>node_attribute()</code> for quickly accessing a certain nodal attribute</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/attributes.html" class="external-link">node_attribute()</a></code> for quickly accessing a certain nodal attribute</li>
 <li>
 <code>edge_weights()</code> for quickly accessing edge weights</li>
 <li>
@@ -1323,7 +1359,7 @@
 <h3 id="visualization-0-8-6">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-8-6"></a></h3>
 <ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/135" class="external-link">#135</a> by reexporting <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code> from <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>
 </li>
-<li>Added <code>node_shape</code> option to <code>autographr()</code>
+<li>Added <code>node_shape</code> option to <code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographr()</a></code>
 </li>
 </ul></div>
 </div>
@@ -1339,17 +1375,17 @@
 <h2 class="page-header" data-toc-text="0.8.4" id="migraph-084">migraph 0.8.4<a class="anchor" aria-label="anchor" href="#migraph-084"></a></h2>
 <div class="section level3">
 <h3 id="classes-0-8-4">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-4"></a></h3>
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/128" class="external-link">#128</a> by adding <code>as_edgelist()</code> methods for converting other objects into edgelists<ul><li>Note that this currently returns a tibble</li></ul></li>
-<li>Using <code>to_unnamed()</code> on ‘network’ objects now operates on them directly</li>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/128" class="external-link">#128</a> by adding <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_edgelist()</a></code> methods for converting other objects into edgelists<ul><li>Note that this currently returns a tibble</li></ul></li>
+<li>Using <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_unnamed()</a></code> on ‘network’ objects now operates on them directly</li>
 <li>Elaborated <code>to_</code> documentation significantly</li>
-<li>Fixed bug in <code>to_onemode()</code> that was tripping <code>blockmodel()</code> on networks that are already one-mode</li>
-<li>Added <code><a href="../reference/is.html">is_connected()</a></code> to test whether network is connected, <code>method =</code> argument can be specified as <code>weak</code> or <code>strong</code>
+<li>Fixed bug in <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_onemode()</a></code> that was tripping <code>blockmodel()</code> on networks that are already one-mode</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_connected()</a></code> to test whether network is connected, <code>method =</code> argument can be specified as <code>weak</code> or <code>strong</code>
 </li>
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-8-4">Data<a class="anchor" aria-label="anchor" href="#data-0-8-4"></a></h3>
-<ul><li>Added <code>create_tree()</code> and <code>create_lattice()</code>, and made <code>create_star()</code> a bit faster for one-mode networks</li>
-<li>Added <code>generate_smallworld()</code> and <code>generate_scalefree()</code>, though only for one-mode networks currently</li>
+<ul><li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/create.html" class="external-link">create_tree()</a></code> and <code><a href="https://snlab-ch.github.io/manynet/reference/create.html" class="external-link">create_lattice()</a></code>, and made <code><a href="https://snlab-ch.github.io/manynet/reference/create.html" class="external-link">create_star()</a></code> a bit faster for one-mode networks</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/generate.html" class="external-link">generate_smallworld()</a></code> and <code><a href="https://snlab-ch.github.io/manynet/reference/generate.html" class="external-link">generate_scalefree()</a></code>, though only for one-mode networks currently</li>
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-4">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-4"></a></h3>
@@ -1378,7 +1414,7 @@
 <ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/108" class="external-link">#108</a> by adding cohesion and community vignette</li></ul></div>
 <div class="section level3">
 <h3 id="classes-0-8-3">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-3"></a></h3>
-<ul><li>Fixed <a href="https://github.com/snlab-ch/migraph/issues/122" class="external-link">#122</a> by retaining edge weights from igraph in <code>as_matrix()</code> where available</li></ul></div>
+<ul><li>Fixed <a href="https://github.com/snlab-ch/migraph/issues/122" class="external-link">#122</a> by retaining edge weights from igraph in <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_matrix()</a></code> where available</li></ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-3">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-3"></a></h3>
 <ul><li>Split <code><a href="../reference/defunct.html">graph_equivalency()</a></code> into the same for two-mode networks and <code><a href="../reference/defunct.html">graph_congruency()</a></code>for three-mode (two two-mode) networks</li>
@@ -1397,7 +1433,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="visualization-0-8-3">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-8-3"></a></h3>
-<ul><li>Added option to <code>autographr()</code> for plotting convex/concave hulls</li>
+<ul><li>Added option to <code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographr()</a></code> for plotting convex/concave hulls</li>
 <li>Closed <a href="https://github.com/snlab-ch/migraph/issues/124" class="external-link">#124</a> by making <code>ggraphgrid()</code> a set of layout functions:<ul><li>
 <code>layout_tbl_graph_frgrid()</code> or <code>autographr(object, "frgrid")</code> for snapping Fruchterman-Reingold to a grid</li>
 <li>
@@ -1419,9 +1455,9 @@
 <ul><li>Fixed CRAN package check dependencies bug where ‘knitr’ and ‘rmarkdown’ were listed as Imports without being used in the package</li></ul></div>
 <div class="section level3">
 <h3 id="classes-0-8-2">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-2"></a></h3>
-<ul><li>Fixed bug where bipartite edge lists were not being recognised as a twomode network by <code>as_igraph()</code>
+<ul><li>Fixed bug where bipartite edge lists were not being recognised as a twomode network by <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_igraph()</a></code>
 </li>
-<li>Fixed bug where <code>to_uniplex()</code> was not returning a weighted graph</li>
+<li>Fixed bug where <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_uniplex()</a></code> was not returning a weighted graph</li>
 </ul></div>
 <div class="section level3">
 <h3 id="models-0-8-2">Models<a class="anchor" aria-label="anchor" href="#models-0-8-2"></a></h3>
@@ -1444,15 +1480,15 @@
 </ul></div>
 <div class="section level3">
 <h3 id="classes-0-8-1">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-1"></a></h3>
-<ul><li>Added <code>is_signed()</code> to logically test whether the network is a signed network</li>
-<li>Added <code>to_unsigned()</code> for extracting networks of either “positive” or “negative” ties from a signed network</li>
+<ul><li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_signed()</a></code> to logically test whether the network is a signed network</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_unsigned()</a></code> for extracting networks of either “positive” or “negative” ties from a signed network</li>
 <li>Added <code>tbl_graph</code> methods for all other <code>to_</code> functions</li>
 <li>Reexported <code>activate()</code> from <a href="https://tidygraph.data-imaginist.com" class="external-link">tidygraph</a>
 </li>
 </ul></div>
 <div class="section level3">
 <h3 id="visualisation-0-8-1">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation-0-8-1"></a></h3>
-<ul><li>Added sensible plotting defaults for signed networks in <code>autographr()</code>
+<ul><li>Added sensible plotting defaults for signed networks in <code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographr()</a></code>
 </li>
 <li>Removed <code>plot_releases()</code> from this package</li>
 </ul></div>
@@ -1470,10 +1506,10 @@
 <h3 id="classes-0-8-0">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-0"></a></h3>
 <ul><li>Fixed coercion to <a href="https://r.igraph.org/" class="external-link">igraph</a> from data frames and updated read script</li>
 <li>Added <code>to_main_component()</code> to extract the main component of a network</li>
-<li>Added <code>to_onemode()</code> for moving to multimodal igraph objects</li>
-<li>Added <code>to_uniplex()</code> method to delete edge types and their edges from multiplex networks</li>
-<li>Added <code>to_simplex()</code> method to delete loops from a network</li>
-<li>Added <code>to_named()</code> method for randomly naming unlabeled networks</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_onemode()</a></code> for moving to multimodal igraph objects</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_uniplex()</a></code> method to delete edge types and their edges from multiplex networks</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_simplex()</a></code> method to delete loops from a network</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_named()</a></code> method for randomly naming unlabeled networks</li>
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-8-0">Data<a class="anchor" aria-label="anchor" href="#data-0-8-0"></a></h3>
@@ -1503,7 +1539,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="visualization-0-8-0">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-8-0"></a></h3>
-<ul><li>Added <code>autographr()</code> for plotting graphs with sensible defaults<ul><li>Uses a more contrastive discrete palette when some nodal attribute is given</li>
+<ul><li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/autographing.html" class="external-link">autographr()</a></code> for plotting graphs with sensible defaults<ul><li>Uses a more contrastive discrete palette when some nodal attribute is given</li>
 <li>Uses an alpha for edges, and edges will now be sized by edge weight, where available</li>
 <li>Uses node labels, sans borders, where available</li>
 <li>Uses different shaped nodes, and different fonts, for different node sets</li>
@@ -1525,7 +1561,7 @@
 <h3 id="data-0-7-2">Data<a class="anchor" aria-label="anchor" href="#data-0-7-2"></a></h3>
 <ul><li>Added <code>brandes</code> dataset for teaching centrality measures</li>
 <li>Added <code>adolescent_society</code> dataset for teaching friendship paradox</li>
-<li>Added <code>read_edgelist()</code> for importing Excel-created edgelists directly</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">read_edgelist()</a></code> for importing Excel-created edgelists directly</li>
 </ul></div>
 <div class="section level3">
 <h3 id="visualization-0-7-2">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-7-2"></a></h3>
@@ -1536,7 +1572,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-7-2">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-7-2"></a></h3>
-<ul><li>Added <code>to_undirected()</code> for symmetrising networks of all types</li>
+<ul><li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_undirected()</a></code> for symmetrising networks of all types</li>
 <li>Made existing <code>to_</code> functions S3 methods</li>
 </ul></div>
 </div>
@@ -1553,8 +1589,8 @@
 <ul><li>
 <p>Closed <a href="https://github.com/snlab-ch/migraph/issues/100" class="external-link">#100</a> by converting <code>as_</code> coercion functions to S3 methods</p>
 <ul><li>Added a little more readable documentation</li>
-<li>Fixed bug with <code>as_matrix()</code> weighting</li>
-<li>Fixed bug with <code>as_tidygraph()</code>
+<li>Fixed bug with <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_matrix()</a></code> weighting</li>
+<li>Fixed bug with <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_tidygraph()</a></code>
 </li>
 </ul></li></ul></div>
 <div class="section level3">
@@ -1573,7 +1609,7 @@
 <div class="section level3">
 <h3 id="classes-0-6-6">Classes<a class="anchor" aria-label="anchor" href="#classes-0-6-6"></a></h3>
 <ul><li>
-<p>Fixed bug in <code>as_matrix()</code> with frame matrix by dropping (rarely necessary) functionality</p>
+<p>Fixed bug in <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_matrix()</a></code> with frame matrix by dropping (rarely necessary) functionality</p>
 <ul><li>Improved handling of weights column in three-column edgelists</li>
 <li>Improved documentation of <code>as_</code> functions</li>
 </ul></li></ul></div>
@@ -1595,9 +1631,9 @@
 </ul></div>
 <div class="section level3">
 <h3 id="classes-0-6-5">Classes<a class="anchor" aria-label="anchor" href="#classes-0-6-5"></a></h3>
-<ul><li>Renamed <code>binarise()</code> to <code>to_unweighted()</code>
+<ul><li>Renamed <code>binarise()</code> to <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_unweighted()</a></code>
 </li>
-<li>Added <code>to_unnamed()</code> for unlabelling networks</li>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_unnamed()</a></code> for unlabelling networks</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -1608,7 +1644,7 @@
 <div class="section level3">
 <h3 id="classes-0-6-4">Classes<a class="anchor" aria-label="anchor" href="#classes-0-6-4"></a></h3>
 <ul><li>Added <code>binarise()</code> for unweighting networks</li>
-<li>Fixed bug in <code>as_tidygraph()</code> when passed a tbl_graph directly</li>
+<li>Fixed bug in <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_tidygraph()</a></code> when passed a tbl_graph directly</li>
 </ul></div>
 <div class="section level3">
 <h3 id="visualization-0-6-4">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-6-4"></a></h3>
@@ -1631,37 +1667,37 @@
 <h3 id="classes-0-6-3">Classes<a class="anchor" aria-label="anchor" href="#classes-0-6-3"></a></h3>
 <ul><li><p>Separated coercion (previously conversion) and manipulation</p></li>
 <li><p>Added some more inter-class coercion tests</p></li>
-<li><p>Fixed bug in how <code>as_network()</code> sometimes coerced two-mode networks into much larger dimension matrices</p></li>
+<li><p>Fixed bug in how <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_network()</a></code> sometimes coerced two-mode networks into much larger dimension matrices</p></li>
 <li>
 <p>Added more <code>is_</code> tests for class-independent property tests</p>
-<ul><li>Added <code>is_weighted()</code>
+<ul><li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_weighted()</a></code>
 </li>
-<li>Added <code>is_directed()</code>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_directed()</a></code>
 </li>
-<li>Added <code>is_labelled()</code>
+<li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_labelled()</a></code>
 </li>
 </ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-6-3">Data<a class="anchor" aria-label="anchor" href="#data-0-6-3"></a></h3>
 <ul><li>
-<p>Added <a href="https://github.com/csteglich" class="external-link">@csteglich</a> ’s <code>read_ucinet()</code> and <code>write_ucinet()</code> functions</p>
+<p>Added <a href="https://github.com/csteglich" class="external-link">@csteglich</a> ’s <code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">read_ucinet()</a></code> and <code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">write_ucinet()</a></code> functions</p>
 <ul><li>
-<code>read_ucinet()</code> offers a file-picker when file path unknown</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">read_ucinet()</a></code> offers a file-picker when file path unknown</li>
 <li>
-<code>read_ucinet()</code> now imports to an igraph-class object by default, with an argument to allow other alternatives</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">read_ucinet()</a></code> now imports to an igraph-class object by default, with an argument to allow other alternatives</li>
 <li>
-<code>write_ucinet()</code> works with all migraph-compatible objects</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/read.html" class="external-link">write_ucinet()</a></code> works with all migraph-compatible objects</li>
 </ul></li>
 <li><p>Updated <code>mpn_bristol</code> documentation</p></li>
 <li>
-<p>Added <code>create_star()</code> function</p>
+<p>Added <code><a href="https://snlab-ch.github.io/manynet/reference/create.html" class="external-link">create_star()</a></code> function</p>
 <ul><li>Added in-star/out-star option via <code>directed =</code> argument</li>
 <li>Updated <code>create_</code> documentation</li>
 </ul></li>
 <li>
-<p>Renamed <code>sample_affiliation()</code> to <code>generate_random()</code></p>
-<ul><li>Rewrote <code>generate_random()</code> to be able to generate random one- or two-mode networks</li>
+<p>Renamed <code>sample_affiliation()</code> to <code><a href="https://snlab-ch.github.io/manynet/reference/generate.html" class="external-link">generate_random()</a></code></p>
+<ul><li>Rewrote <code><a href="https://snlab-ch.github.io/manynet/reference/generate.html" class="external-link">generate_random()</a></code> to be able to generate random one- or two-mode networks</li>
 <li>Updated documentation</li>
 </ul></li>
 </ul></div>
@@ -1690,7 +1726,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="classes-0-6-1">Classes<a class="anchor" aria-label="anchor" href="#classes-0-6-1"></a></h3>
-<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/85" class="external-link">#85</a> by adding <code>as_network()</code> to coerce objects into network class</li>
+<ul><li>Closed <a href="https://github.com/snlab-ch/migraph/issues/85" class="external-link">#85</a> by adding <code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_network()</a></code> to coerce objects into network class</li>
 <li>Modified other coercion functions to also work with network class objects</li>
 </ul></div>
 </div>
@@ -1730,12 +1766,12 @@
 <h3 id="classes-0-5-0">Classes<a class="anchor" aria-label="anchor" href="#classes-0-5-0"></a></h3>
 <ul><li>Added functions for class conversion between migraph-consistent graph formats</li>
 <li>
-<code>as_matrix()</code> function to coerce objects into an adjacency or incidence matrix class</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_matrix()</a></code> function to coerce objects into an adjacency or incidence matrix class</li>
 <li>
-<code>as_igraph()</code> function to coerce objects into an <a href="https://r.igraph.org/" class="external-link">igraph</a> graph class</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_igraph()</a></code> function to coerce objects into an <a href="https://r.igraph.org/" class="external-link">igraph</a> graph class</li>
 <li>
-<code>as_tidygraph()</code> function to coerce objects into an <a href="https://tidygraph.data-imaginist.com" class="external-link">tidygraph</a> tbl_graph class</li>
-<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/79" class="external-link">#79</a> by adding <code>is_twomode()</code> function to check whether network is two-mode on all object types</li>
+<code><a href="https://snlab-ch.github.io/manynet/reference/as.html" class="external-link">as_tidygraph()</a></code> function to coerce objects into an <a href="https://tidygraph.data-imaginist.com" class="external-link">tidygraph</a> tbl_graph class</li>
+<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/79" class="external-link">#79</a> by adding <code><a href="https://snlab-ch.github.io/manynet/reference/is.html" class="external-link">is_twomode()</a></code> function to check whether network is two-mode on all object types</li>
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-5-0">Data<a class="anchor" aria-label="anchor" href="#data-0-5-0"></a></h3>
@@ -1753,12 +1789,12 @@
 </ul></li>
 <li>
 <p>Reconstructed several creation functions to take universal (one-mode/two-mode) input: specifying <code>n = 5</code> creates a one-mode network, while specifying <code>n = c(5, 5)</code> creates a two-mode network</p>
-<ul><li>Added <code>create_empty()</code>
+<ul><li>Added <code><a href="https://snlab-ch.github.io/manynet/reference/create.html" class="external-link">create_empty()</a></code>
 </li>
 <li>Added <code>create_complete()</code>
 </li>
-<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/65" class="external-link">#65</a> by extending <code>create_ring()</code> to create rings of varying breadth</li>
-<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/66" class="external-link">#66</a> by extending <code>create_components()</code> (renamed from <code>create_silos()</code>) to create networks with varying numbers of components</li>
+<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/65" class="external-link">#65</a> by extending <code><a href="https://snlab-ch.github.io/manynet/reference/create.html" class="external-link">create_ring()</a></code> to create rings of varying breadth</li>
+<li>Closed <a href="https://github.com/snlab-ch/migraph/issues/66" class="external-link">#66</a> by extending <code><a href="https://snlab-ch.github.io/manynet/reference/create.html" class="external-link">create_components()</a></code> (renamed from <code>create_silos()</code>) to create networks with varying numbers of components</li>
 <li>Added <code>sample_affiliation()</code> for random two-mode networks</li>
 <li>Removed <code>create_match()</code> and <code>create_nest()</code>
 </li>

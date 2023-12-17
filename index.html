@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -113,10 +113,7 @@
 <p><a href="https://snlab-ch.github.io/migraph/">migraph</a>’s <code>*is_*()</code> functions offer fast logical tests of various properties. Whereas <code>is_*()</code> returns a single logical value for the network, <code>node_is_*()</code> returns a logical vector the length of the number of nodes in the network, and <code>tie_is_*()</code> returns a logical vector the length of the number of ties in the network.</p>
 <ul>
 <li>
-<code><a href="reference/is.html">is_acyclic()</a></code>, <code><a href="reference/is.html">is_aperiodic()</a></code>, <code>is_bipartite()</code>, <code><a href="reference/is.html">is_connected()</a></code>, <code><a href="reference/is.html">is_eulerian()</a></code>, <code><a href="reference/is.html">is_perfect_matching()</a></code>
-</li>
-<li>
-<code><a href="reference/mark_nodes.html">node_is_core()</a></code>, <code><a href="reference/mark_nodes.html">node_is_cutpoint()</a></code>, <code><a href="reference/mark_nodes.html">node_is_isolate()</a></code>, <code><a href="reference/mark_nodes.html">node_is_max()</a></code>, <code><a href="reference/mark_nodes.html">node_is_min()</a></code>, <code><a href="reference/mark_nodes.html">node_is_random()</a></code>
+<code><a href="reference/mark_nodes.html">node_is_core()</a></code>, <code><a href="reference/mark_nodes.html">node_is_cutpoint()</a></code>, <code><a href="reference/mark_nodes.html">node_is_exposed()</a></code>, <code><a href="reference/mark_nodes.html">node_is_fold()</a></code>, <code><a href="reference/mark_nodes.html">node_is_infected()</a></code>, <code><a href="reference/mark_nodes.html">node_is_isolate()</a></code>, <code><a href="reference/mark_nodes.html">node_is_latent()</a></code>, <code><a href="reference/mark_nodes.html">node_is_max()</a></code>, <code><a href="reference/mark_nodes.html">node_is_mentor()</a></code>, <code><a href="reference/mark_nodes.html">node_is_min()</a></code>, <code><a href="reference/mark_nodes.html">node_is_random()</a></code>, <code><a href="reference/mark_nodes.html">node_is_recovered()</a></code>
 </li>
 <li>
 <code><a href="reference/mark_ties.html">tie_is_bridge()</a></code>, <code><a href="reference/mark_ties.html">tie_is_loop()</a></code>, <code><a href="reference/mark_ties.html">tie_is_max()</a></code>, <code><a href="reference/mark_ties.html">tie_is_min()</a></code>, <code><a href="reference/mark_ties.html">tie_is_multiple()</a></code>, <code><a href="reference/mark_ties.html">tie_is_reciprocated()</a></code>
@@ -172,7 +169,7 @@
 </h3>
 <p>All measures can be tested against conditional uniform graph (CUG) or quadratic assignment procedure (QAP) distributions using:</p>
 <ul><li>
-<code><a href="reference/tests.html">test_permutation()</a></code>, <code><a href="reference/tests.html">test_random()</a></code>
+<code><a href="reference/tests.html">test_gof()</a></code>, <code><a href="reference/tests.html">test_permutation()</a></code>, <code><a href="reference/tests.html">test_random()</a></code>
 </li></ul>
 <p>Hypotheses can also be tested within multivariate models via multiple (linear or logistic) regression QAP:</p>
 <ul><li><code><a href="reference/regression.html">network_reg()</a></code></li></ul>
@@ -181,7 +178,7 @@
 <ul><li>
 <code><a href="reference/play.html">play_diffusion()</a></code>, <code><a href="reference/play.html">play_diffusions()</a></code>, <code><a href="reference/play.html">play_learning()</a></code>, <code><a href="reference/play.html">play_segregation()</a></code>
 </li></ul>
-<p>The diffusion models include not only SI and threshold models, but also SIS, SIR, SIRS, SIER, and SIERS.</p>
+<p>The diffusion models include not only SI and threshold models, but also SIS, SIR, SIRS, SEIR, and SEIRS.</p>
 </div>
 </div>
 <div class="section level2">
@@ -220,25 +217,30 @@
 <div class="section level3">
 <h3 id="tutorials">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials"></a>
 </h3>
-<p>This package has recently moved away from the use of vignettes, in favour of smaller and more interactive <a href="https://rstudio.github.io/learnr/" class="external-link">learnr</a> tutorials. Since version 0.12.3, many of the previous vignettes are instead available as tutorials, more will be converted soon, and those that have been converted will continue to be updated and enriched.</p>
-<p>To access the tutorials, you will need to have the additional package <a href="https://rstudio.github.io/learnr/" class="external-link">learnr</a> installed: <code>install.packages("learnr")</code>. Then we would first suggest that you check to see which vignettes are currently available:</p>
+<p>Together with <a href="https://snlab-ch.github.io/manynet/" class="external-link">manynet</a>, this package makes available interactive <a href="https://rstudio.github.io/learnr/" class="external-link">learnr</a> tutorials. The easiest way to access the tutorials is via <code><a href="https://snlab-ch.github.io/manynet/reference/tutorials.html" class="external-link">run_tute()</a></code>. If no tutorial name is provided, the function will return a list of tutorials currently available in either package:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">learnr</span><span class="fu">::</span><span class="fu">available_tutorials</span><span class="op">(</span><span class="st">"migraph"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Available tutorials:</span></span>
-<span><span class="co">#&gt; * migraph</span></span>
-<span><span class="co">#&gt;   - tutorial3 : "Centrality"</span></span>
-<span><span class="co">#&gt;   - tutorial4 : "Community"</span></span>
-<span><span class="co">#&gt;   - tutorial5 : "Equivalence"</span></span>
-<span><span class="co">#&gt;   - tutorial6 : "Topology"</span></span>
-<span><span class="co">#&gt;   - tutorial7 : "Diffusion"</span></span>
-<span><span class="co">#&gt;   - tutorial8 : "Regression"</span></span></code></pre></div>
-<p>You can then choose to begin a tutorial using the following command: e.g. <code>learnr::run_tutorial("tutorial3", "migraph")</code>. For more details on the <a href="https://rstudio.github.io/learnr/" class="external-link">learnr</a> package, see <a href="https://rstudio.github.io/learnr/" class="external-link">here</a>.</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://snlab-ch.github.io/migraph/">migraph</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/tutorials.html" class="external-link">run_tute</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 9 × 3</span></span>
+<span><span class="co">#&gt;   package name      title        </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;        </span></span>
+<span><span class="co">#&gt; 1 manynet tutorial0 Intro to R   </span></span>
+<span><span class="co">#&gt; 2 manynet tutorial1 Data         </span></span>
+<span><span class="co">#&gt; 3 manynet tutorial2 Visualisation</span></span>
+<span><span class="co">#&gt; 4 migraph tutorial3 Centrality   </span></span>
+<span><span class="co">#&gt; 5 migraph tutorial4 Community    </span></span>
+<span><span class="co">#&gt; 6 migraph tutorial5 Position     </span></span>
+<span><span class="co">#&gt; 7 migraph tutorial6 Topology     </span></span>
+<span><span class="co">#&gt; 8 migraph tutorial7 Diffusion    </span></span>
+<span><span class="co">#&gt; 9 migraph tutorial8 Regression</span></span>
+<span><span class="co"># run_tute("tutorial5")</span></span></code></pre></div>
+<p>For more details on the <a href="https://rstudio.github.io/learnr/" class="external-link">learnr</a> package, see <a href="https://rstudio.github.io/learnr/" class="external-link">here</a>.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="relationship-to-other-packages">Relationship to other packages<a class="anchor" aria-label="anchor" href="#relationship-to-other-packages"></a>
 </h2>
-<p>It draws together, updates, and builds upon many functions currently available in other excellent R packages such as <a href="https://github.com/biometry/bipartite" class="external-link"><code>{bipartite}</code></a>, <a href="https://CRAN.R-project.org/package=multinet" class="external-link"><code>{multinet}</code></a>, <a href="https://toreopsahl.com/tnet/" class="external-link"><code>{tnet}</code></a>, and <a href="https://sites.google.com/view/asnr-2022/xucinet?authuser=0" class="external-link"><code>{xUCINET}</code></a>.</p>
+<p><a href="https://snlab-ch.github.io/migraph/">migraph</a> draws together, updates, and builds upon many functions currently available in other excellent R packages such as <a href="https://github.com/biometry/bipartite" class="external-link"><code>{bipartite}</code></a>, <a href="https://CRAN.R-project.org/package=multinet" class="external-link"><code>{multinet}</code></a>, <a href="https://toreopsahl.com/tnet/" class="external-link"><code>{tnet}</code></a>, and <a href="https://sites.google.com/view/asnr-2022/xucinet?authuser=0" class="external-link"><code>{xUCINET}</code></a>.</p>
 </div>
 <div class="section level2">
 <h2 id="funding-details">Funding details<a class="anchor" aria-label="anchor" href="#funding-details"></a>

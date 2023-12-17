@@ -18,7 +18,7 @@ or permutation (QAP) tests of any graph-level statistic."><meta property="og:ima
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -174,8 +174,8 @@ then one can argue that the first diffusion is not well captured by</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu">to_unsigned</span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu">to_giant</span><span class="op">(</span><span class="va">marvel_friends</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_unsigned</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/transform.html" class="external-link">to_giant</a></span><span class="op">(</span><span class="va">marvel_friends</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu">to_subgraph</span><span class="op">(</span><span class="va">PowerOrigin</span> <span class="op">==</span> <span class="st">"Human"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">cugtest</span> <span class="op">&lt;-</span> <span class="fu">test_random</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="va">network_heterophily</span>, attribute <span class="op">=</span> <span class="st">"Attractive"</span>,</span></span>
 <span class="r-in"><span>  times <span class="op">=</span> <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -195,15 +195,15 @@ then one can argue that the first diffusion is not well captured by</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  QAP Test Results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Observed Value: -0.8571429 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&gt;=Obs): 0.965 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&lt;=Obs): 0.1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&gt;=Obs): 0.98 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&lt;=Obs): 0.065 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">qaptest</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tests-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>  <span class="co"># Playing a reasonably quick diffusion</span></span></span>
-<span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="play.html">play_diffusion</a></span><span class="op">(</span><span class="fu">generate_random</span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>, transmissibility <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="play.html">play_diffusion</a></span><span class="op">(</span><span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/generate.html" class="external-link">generate_random</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>, transmissibility <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="co"># Playing a slower diffusion</span></span></span>
-<span class="r-in"><span>  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="play.html">play_diffusions</a></span><span class="op">(</span><span class="fu">generate_random</span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>, transmissibility <span class="op">=</span> <span class="fl">0.1</span>, times <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="play.html">play_diffusions</a></span><span class="op">(</span><span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/generate.html" class="external-link">generate_random</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>, transmissibility <span class="op">=</span> <span class="fl">0.1</span>, times <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tests-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></span>
@@ -212,7 +212,7 @@ then one can argue that the first diffusion is not well captured by</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   statistic  p.value    df  nobs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      149. 3.19<span style="color: #949494;">e</span><span style="color: #BB0000;">-24</span>    15    40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      86.7 4.08<span style="color: #949494;">e</span><span style="color: #BB0000;">-12</span>    15    40</span>
 </code></pre></div>
     </div>
   </div>

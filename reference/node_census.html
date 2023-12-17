@@ -21,7 +21,7 @@ the profiles of clusters of nodes in a network."><meta property="og:image" conte
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -143,51 +143,51 @@ of each node to every other node in the network.</p></li>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">task_eg</span> <span class="op">&lt;-</span> <span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_named</a></span><span class="op">(</span><span class="fu">manynet</span><span class="fu">::</span><span class="fu"><a href="https://snlab-ch.github.io/manynet/reference/reformat.html" class="external-link">to_uniplex</a></span><span class="op">(</span><span class="fu">manynet</span><span class="fu">::</span><span class="va"><a href="https://snlab-ch.github.io/manynet/reference/ison_algebra.html" class="external-link">ison_algebra</a></span>, <span class="st">"task_tie"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">tie_cen</span> <span class="op">&lt;-</span> <span class="fu">node_tie_census</span><span class="op">(</span><span class="va">task_eg</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 16 × 33</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    names    fromConnor fromBennett fromBailey fromRickey fromMorris fromCharlie</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Connor            0           1          0          0          1           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Bennett           0           0          1          0          0           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Bailey            0           1          0          0          1           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Rickey            0           0          0          0          0           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Morris            1           0          1          0          0           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Charlie           0           0          1          0          1           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ronald            0           1          1          0          0           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Cheyenne          1           1          1          0          1           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Lena              1           0          0          0          0           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Kristi            1           0          1          1          1           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Joann             1           0          1          0          1           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Tyrone            1           1          0          0          0           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> Lottie            1           1          0          0          1           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Hailey            0           1          1          0          0           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Belle             1           1          1          0          1           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> Aidan             1           1          1          1          1           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 26 more variables: fromRonald &lt;dbl&gt;, fromCheyenne &lt;dbl&gt;, fromLena &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fromKristi &lt;dbl&gt;, fromJoann &lt;dbl&gt;, fromTyrone &lt;dbl&gt;, fromLottie &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fromHailey &lt;dbl&gt;, fromBelle &lt;dbl&gt;, fromAidan &lt;dbl&gt;, toConnor &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toBennett &lt;dbl&gt;, toBailey &lt;dbl&gt;, toRickey &lt;dbl&gt;, toMorris &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toCharlie &lt;dbl&gt;, toRonald &lt;dbl&gt;, toCheyenne &lt;dbl&gt;, toLena &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toKristi &lt;dbl&gt;, toJoann &lt;dbl&gt;, toTyrone &lt;dbl&gt;, toLottie &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toHailey &lt;dbl&gt;, toBelle &lt;dbl&gt;, toAidan &lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    names fromWillie fromStacie fromNora fromOtis fromSam fromStephen fromKenneth</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Will…          0          1        0        0       1           1           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Stac…          0          0        1        0       0           0           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Nora           0          1        0        0       1           1           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Otis           0          0        0        0       0           0           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Sam            1          0        1        0       0           1           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Step…          0          0        1        0       1           0           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Kenn…          0          1        1        0       0           1           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Jean           1          1        1        0       1           1           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Bonn…          1          0        0        0       0           0           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> James          1          0        1        1       1           1           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Kath…          1          0        1        0       1           1           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Ramo…          1          1        0        0       0           1           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> Dale           1          1        0        0       1           0           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Seba…          0          1        1        0       0           1           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Pais…          1          1        1        0       1           0           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> Adel…          1          1        1        1       1           1           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 25 more variables: fromJean &lt;dbl&gt;, fromBonnie &lt;dbl&gt;, fromJames &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fromKathryn &lt;dbl&gt;, fromRamona &lt;dbl&gt;, fromDale &lt;dbl&gt;, fromSebastian &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fromPaisley &lt;dbl&gt;, fromAdeline &lt;dbl&gt;, toWillie &lt;dbl&gt;, toStacie &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toNora &lt;dbl&gt;, toOtis &lt;dbl&gt;, toSam &lt;dbl&gt;, toStephen &lt;dbl&gt;, toKenneth &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toJean &lt;dbl&gt;, toBonnie &lt;dbl&gt;, toJames &lt;dbl&gt;, toKathryn &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toRamona &lt;dbl&gt;, toDale &lt;dbl&gt;, toSebastian &lt;dbl&gt;, toPaisley &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   toAdeline &lt;dbl&gt;</span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">triad_cen</span> <span class="op">&lt;-</span> <span class="fu">node_triad_census</span><span class="op">(</span><span class="va">task_eg</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 16 × 17</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    names  X003  X012  X102 X021D X021U X021C X111D X111U X030T X030C  X201 X120D</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Conn…     6    12    32     0     1     0     7     3     0     0     8     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Benn…    15    12    42     0     0     0     0     5     0     0     4     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Bail…    20     5    37     0     0     0     3     3     0     0    12     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Rick…   102     0     3     0     0     0     0     0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Morr…    15     5    41     0     0     0     2     1     0     0    13     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Char…    20     5    41     0     0     0     3     2     0     0    11     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Rona…    28     0    51     0     0     0     0     2     0     0     6     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Chey…    18     0    42     0     0     0     2     1     0     0    18     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Lena     86     2    17     0     0     0     0     0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Kris…    25     6    35     0     0     0     3     3     0     0    15     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Joann    65     4    36     0     0     0     0     0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Tyro…    72     3    30     0     0     0     0     0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> Lott…    76     3    26     0     0     0     0     0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Hail…    56     2    47     0     0     0     0     0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Belle    58     5    42     0     0     0     0     0     0     0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> Aidan     0     0     0     0     0     0     0     0     0     0    44     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Will…     6    12    32     0     1     0     7     3     0     0     8     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Stac…    15    12    42     0     0     0     0     5     0     0     4     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Nora     20     5    37     0     0     0     3     3     0     0    12     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Otis    102     0     3     0     0     0     0     0     0     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Sam      15     5    41     0     0     0     2     1     0     0    13     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Step…    20     5    41     0     0     0     3     2     0     0    11     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Kenn…    28     0    51     0     0     0     0     2     0     0     6     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Jean     18     0    42     0     0     0     2     1     0     0    18     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Bonn…    86     2    17     0     0     0     0     0     0     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> James    25     6    35     0     0     0     3     3     0     0    15     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Kath…    65     4    36     0     0     0     0     0     0     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Ramo…    72     3    30     0     0     0     0     0     0     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> Dale     76     3    26     0     0     0     0     0     0     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Seba…    56     2    47     0     0     0     0     0     0     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Pais…    58     5    42     0     0     0     0     0     0     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> Adel…     0     0     0     0     0     0     0     0     0     0    44     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4 more variables: X120U &lt;dbl&gt;, X120C &lt;dbl&gt;, X210 &lt;dbl&gt;, X300 &lt;dbl&gt;</span></span>
 <span class="r-in"><span><span class="fu">node_quad_census</span><span class="op">(</span><span class="fu">manynet</span><span class="fu">::</span><span class="va"><a href="https://snlab-ch.github.io/manynet/reference/ison_southern_women.html" class="external-link">ison_southern_women</a></span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 32 × 13</span></span>
