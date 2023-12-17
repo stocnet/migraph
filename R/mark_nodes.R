@@ -147,6 +147,9 @@ node_is_latent <- function(diff_model, time = 0){
     dplyr::filter(event == "E") |> 
     dplyr::select(nodes)
   net <- attr(diff_model, "network")
+  if(!manynet::is_labelled(net))
+    latent <- dplyr::arrange(latent, nodes) else if (is.numeric(latent$nodes))
+      latent$nodes <- manynet::node_names(net)[latent$nodes]
   if(manynet::is_labelled(net)){
     nnames <- manynet::node_names(net)
     out <- stats::setNames(nnames %in% latent$nodes, nnames)
