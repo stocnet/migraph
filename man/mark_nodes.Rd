@@ -7,8 +7,9 @@
 \alias{node_is_core}
 \alias{node_is_fold}
 \alias{node_is_mentor}
-\alias{node_is_infected}
 \alias{node_is_latent}
+\alias{node_is_infected}
+\alias{node_is_recovered}
 \alias{node_is_exposed}
 \alias{node_is_random}
 \alias{node_is_max}
@@ -25,9 +26,11 @@ node_is_fold(.data)
 
 node_is_mentor(.data, elites = 0.1)
 
+node_is_latent(diff_model, time = 0)
+
 node_is_infected(diff_model, time = 0)
 
-node_is_latent(diff_model, time = 0)
+node_is_recovered(diff_model, time = 0)
 
 node_is_exposed(.data, mark)
 
@@ -117,10 +120,12 @@ node_is_isolate(ison_brandes)
 node_is_cutpoint(ison_brandes)
 node_is_core(ison_brandes)
 node_is_fold(create_explicit(A-B, B-C, A-C, C-D, C-E, D-E))
-  # To mark nodes that are infected by a particular time point
-  node_is_infected(play_diffusion(create_tree(6)), time = 1)
   # To mark nodes that are latent by a particular time point
   node_is_latent(play_diffusion(create_tree(6), latency = 1), time = 1)
+  # To mark nodes that are infected by a particular time point
+  node_is_infected(play_diffusion(create_tree(6)), time = 1)
+  # To mark nodes that are recovered by a particular time point
+  node_is_recovered(play_diffusion(create_tree(6), recovery = 0.5), time = 3)
   # To mark which nodes are currently exposed
   (expos <- node_is_exposed(manynet::create_tree(14), mark = c(1,3)))
   which(expos)

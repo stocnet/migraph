@@ -115,27 +115,6 @@ node_is_mentor <- function(.data, elites = 0.1){
 
 #' @rdname mark_nodes 
 #' @examples
-#'   # To mark nodes that are infected by a particular time point
-#'   node_is_infected(play_diffusion(create_tree(6)), time = 1)
-#' @export
-node_is_infected <- function(diff_model, time = 0){
-  event <- nodes <- NULL
-  infected <- summary(diff_model) |> 
-      dplyr::filter(t <= time & event == "I") |> 
-      dplyr::select(nodes)
-  net <- attr(diff_model, "network")
-  if(manynet::is_labelled(net)){
-    nnames <- manynet::node_names(net)
-    out <- stats::setNames(nnames %in% infected$nodes, nnames)
-  } else {
-    seq_len(manynet::network_nodes(net))
-    out <- seq_len(manynet::network_nodes(net)) %in% infected$nodes
-  }
-  make_node_mark(out, attr(diff_model, "network"))
-}
-
-#' @rdname mark_nodes 
-#' @examples
 #'   # To mark nodes that are latent by a particular time point
 #'   node_is_latent(play_diffusion(create_tree(6), latency = 1), time = 1)
 #' @export
@@ -157,7 +136,56 @@ node_is_latent <- function(diff_model, time = 0){
     seq_len(manynet::network_nodes(net))
     out <- seq_len(manynet::network_nodes(net)) %in% latent$nodes
   }
-  make_node_mark(out, attr(diff_model, "network"))
+  make_node_mark(out, net)
+}
+
+#' @rdname mark_nodes 
+#' @examples
+#'   # To mark nodes that are infected by a particular time point
+#'   node_is_infected(play_diffusion(create_tree(6)), time = 1)
+#' @export
+node_is_infected <- function(diff_model, time = 0){
+  event <- nodes <- NULL
+  infected <- summary(diff_model) |> 
+    dplyr::filter(t <= time & event %in% c("I","R")) |> 
+    dplyr::filter(!duplicated(nodes, fromLast = TRUE)) |> 
+    dplyr::filter(event == "I") |> 
+    dplyr::select(nodes)
+  net <- attr(diff_model, "network")
+  if(manynet::is_labelled(net)){
+    nnames <- manynet::node_names(net)
+    out <- stats::setNames(nnames %in% infected$nodes, nnames)
+  } else {
+    seq_len(manynet::network_nodes(net))
+    out <- seq_len(manynet::network_nodes(net)) %in% infected$nodes
+  }
+  make_node_mark(out, net)
+}
+
+#' @rdname mark_nodes 
+#' @examples
+#'   # To mark nodes that are recovered by a particular time point
+#'   node_is_recovered(play_diffusion(create_tree(6), recovery = 0.5), time = 3)
+#' @export
+node_is_recovered <- function(diff_model, time = 0){
+  event <- nodes <- NULL
+  recovered <- summary(diff_model) |> 
+    dplyr::filter(t <= time & event %in% c("R","S")) |> 
+    dplyr::filter(!duplicated(nodes, fromLast = TRUE)) |> 
+    dplyr::filter(event == "R") |> 
+    dplyr::select(nodes)
+  net <- attr(diff_model, "network")
+  if(!manynet::is_labelled(net))
+    recovered <- dplyr::arrange(recovered, nodes) else if (is.numeric(recovered$nodes))
+      recovered$nodes <- manynet::node_names(net)[recovered$nodes]
+  if(manynet::is_labelled(net)){
+    nnames <- manynet::node_names(net)
+    out <- stats::setNames(nnames %in% recovered$nodes, nnames)
+  } else {
+    seq_len(manynet::network_nodes(net))
+    out <- seq_len(manynet::network_nodes(net)) %in% recovered$nodes
+  }
+  make_node_mark(out, net)
 }
 
 #' @rdname mark_nodes 
