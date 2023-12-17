@@ -1,3 +1,37 @@
+# migraph 1.2.0
+
+2023-12-17
+
+## Marks
+
+- Added `node_is_infected()` to identify infected nodes at given time
+- Added `node_is_latent()` to identify infected nodes at given time
+- Added `node_is_recovered()` to identify infected nodes at given time
+- Added `node_is_fold()` for identifying nodes that are occupying structural folds
+- Dropped last `is_*()` functions from migraph to avoid unnecessary conflicts with manynet at startup
+- Improved 'mark_nodes' documentation
+
+## Measures
+
+- Added `network_hazard()` for calculating the hazard rate for each time point of a diff_model object
+- `node_adoption_time()` now works with incomplete diffusions
+  - Fixed bug with named vectors
+- `node_exposure()` now uses `node_is_infected()` for more flexibility
+- `node_thresholds()` now works with incomplete diffusions
+  - Adds exposure data where not provided
+
+## Members
+
+- `node_adopter()` now correctly identifies non-adopters
+
+## Models
+
+- `play_diffusion()` 
+  - Now records only the first exposure event until susceptible again
+  - Now uses `node_is_exposed()` and `node_exposure()` internally
+  - Made play_diffusion() code easier to understand and debug
+  - Added some tests for `play_diffusion()`
+
 # migraph 1.1.9
 
 2023-12-13
