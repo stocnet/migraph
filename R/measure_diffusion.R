@@ -243,14 +243,20 @@ node_adoption_time <- function(diff_model){
   out <- summary(diff_model) |> dplyr::filter(event == "I") |> 
     dplyr::distinct(nodes, .keep_all = TRUE) |> 
     dplyr::select(nodes,t)
-  out <- stats::setNames(out$t, out$nodes)
   net <- attr(diff_model, "network")
-  if(length(out) != manynet::network_nodes(net)){
-    full <- stats::setNames(rep(Inf, manynet::network_nodes(net)), 
-                     manynet::node_names(net))
+  if(!is_labelled(net))
+    out <- dplyr::arrange(out, nodes) else if (is.numeric(out$nodes))
+      out$nodes <- node_names(net)[out$nodes]
+  out <- stats::setNames(out$t, out$nodes)
+  if(length(out) != network_nodes(net)){
+    full <- rep(Inf, network_nodes(net))
+    names(full) <- `if`(is_labelled(net), 
+                        node_names(net), 
+                        as.character(seq_len(network_nodes(net))))
     full[match(names(out), names(full))] <- out
-    out <- full
+    out <- `if`(is_labelled(net), full, unname(full))
   }
+  if(!manynet::is_labelled(net)) out <- unname(out)
   make_node_measure(out, net)
 }
 
