@@ -68,7 +68,6 @@ play_diffusion <- function(.data,
                            immune = NULL,
                            steps){
   n <- manynet::network_nodes(.data)
-  exposed <- NULL
   recovered <- NULL
   if(missing(steps)) steps <- n
   if(length(thresholds)==1) thresholds <- rep(thresholds, n)
@@ -81,15 +80,17 @@ play_diffusion <- function(.data,
     recovered <- immune
   }
   
-  infected <- seeds
-  t = 0
+  infected <- seeds # seeds are initial infected
+  latent <- NULL # latent compartment starts empty
+  t = 0 # starting at 0
+  # initialise events table
   events <- data.frame(t = t, nodes = seeds, event = "I", exposure = NA)
+  # initialise report table
   report <- data.frame(t = t,
                        n = n,
-                       S = n - (length(exposed) + length(infected) + length(recovered)),
-                       s = length(unique(unlist(sapply(igraph::neighborhood(.data, nodes = infected),
-                                         function(x) setdiff(x, infected))))),
-                       E = length(exposed),
+                       S = n - (length(latent) + length(infected) + length(recovered)),
+                       s = sum(node_is_exposed(.data, infected)),
+                       E = length(latent),
                        I_new = length(seeds),
                        I = length(infected),
                        R = length(recovered))
@@ -107,36 +108,41 @@ play_diffusion <- function(.data,
     recovered <- setdiff(recovered, waned)
     
     # at main infection stage, get currently exposed to infection:
-    contacts <- unlist(sapply(igraph::neighborhood(.data, nodes = infected),
-                             function(x) setdiff(x, infected)))
+    # contacts <- unlist(sapply(igraph::neighborhood(.data, nodes = infected),
+    #                          function(x) setdiff(x, infected)))
+    exposed <- node_is_exposed(.data, infected)
     # count exposures for each node:
-    tabcontact <- table(contacts)
+    # tabcontact <- table(contacts)
+    exposure <- node_exposure(.data, infected)
     # identify those nodes who are exposed at or above their threshold
-    newinf <- as.numeric(names(which(tabcontact >= thresholds[as.numeric(names(tabcontact))])))
-    newinf <- newinf[stats::rbinom(length(newinf), 1, transmissibility)==1]
+    # newinf <- as.numeric(names(which(tabcontact >= thresholds[as.numeric(names(tabcontact))])))
+    open_to_it <- which(exposure >= thresholds)
+    newinf <- open_to_it[stats::rbinom(length(open_to_it), 1, transmissibility)==1]
     if(!is.null(recovery) & length(recovered)>0) 
       newinf <- setdiff(newinf, recovered) # recovered can't be reinfected
-    if(!is.null(exposed) & length(exposed)>0) 
-      newinf <- setdiff(newinf, exposed) # exposed already infected
-    if(is.infinite(steps) & length(newinf)==0 & length(exposed)==0) break # if no new infections we can stop
-    exposed <- c(exposed, newinf)
-
+    if(!is.null(latent) & length(latent)>0) 
+      newinf <- setdiff(newinf, latent) # latent already infected
+    if(is.infinite(steps) & length(newinf)==0 & length(latent)==0) break # if no new infections we can stop
+    
     # new list of infected 
-    infectious <- exposed[stats::rbinom(length(exposed), 1, latency)==0]
-    exposed <- setdiff(exposed, infectious)
+    latent <- c(latent, newinf)
+    infectious <- latent[stats::rbinom(length(latent), 1, latency)==0]
+    latent <- setdiff(latent, infectious)
     infected <- c(infected, infectious)
     # tick time
     t <- t+1
+    
+    # Update events table ####
     # record new infections
-    if(!is.null(newinf) & length(newinf)>0)
+    if(!is.null(infectious) & length(infectious)>0)
       events <- rbind(events, 
-                    data.frame(t = t, nodes = newinf, event = "I", 
-                               exposure = c(tabcontact[names(tabcontact) %in% newinf])))
+                    data.frame(t = t, nodes = infectious, event = "I", 
+                               exposure = exposure[infectious]))
     # record exposures
-    if(!is.null(exposed) & length(exposed)>0)
+    if(!is.null(latent) & length(latent)>0)
       events <- rbind(events,
-                      data.frame(t = t, nodes = exposed, event = "E", 
-                                 exposure = c(tabcontact[names(tabcontact) %in% exposed])))
+                      data.frame(t = t, nodes = latent, event = "E", 
+                                 exposure = exposure[latent]))
     # record recoveries
     if(!is.null(recovers) & length(recovers)>0)
       events <- rbind(events,
@@ -145,13 +151,14 @@ play_diffusion <- function(.data,
     if(!is.null(waned) & length(waned)>0)
       events <- rbind(events,
                       data.frame(t = t, nodes = waned, event = "S", exposure = NA))
+    # Update report table ####
     report <- rbind(report,
                     data.frame(t = t,
                                n = n,
-                         S = n - (length(exposed) + length(infected) + length(recovered)),
-                         s = length(unique(contacts)),
-                         E = length(exposed),
-                         I_new = length(newinf),
+                         S = n - (length(latent) + length(infected) + length(recovered)),
+                         s = sum(exposed),
+                         E = length(latent),
+                         I_new = length(infectious),
                          I = length(infected),
                          R = length(recovered)))
     if(is.infinite(steps) & length(infected)==n) break
