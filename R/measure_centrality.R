@@ -74,6 +74,7 @@ NULL
 
 #' @describeIn degree_centrality Calculates the degree centrality of nodes in an unweighted network,
 #'   or weighted degree/strength of nodes in a weighted network.
+#' @importFrom manynet as_igraph
 #' @export
 node_degree <- function (.data, normalized = TRUE, alpha = 0,
                          direction = c("all","out","in")){
@@ -342,7 +343,7 @@ node_closeness <- function(.data, normalized = TRUE,
   graph <- manynet::as_igraph(.data)
   
   # Do the calculations
-  if (is_twomode(graph) & normalized){
+  if (manynet::is_twomode(graph) & normalized){
     # farness <- rowSums(igraph::distances(graph = graph))
     closeness <- igraph::closeness(graph = graph, vids = igraph::V(graph), mode = direction)
     other_set_size <- ifelse(igraph::V(graph)$type, sum(!igraph::V(graph)$type), sum(igraph::V(graph)$type))
@@ -540,18 +541,18 @@ node_eigenvector <- function(.data, normalized = TRUE, scale = FALSE){
   if (!manynet::is_twomode(graph)){
     out <- igraph::eigen_centrality(graph = graph, 
                                     directed = manynet::is_directed(graph), scale = scale, 
-                                    options = igraph::arpack_defaults)$vector
+                                    options = igraph::arpack_defaults())$vector
     if (normalized) out <- out / sqrt(1/2)
     if(scale) out <- out / max(out)
   } else {
     eigen1 <- manynet::to_mode1(graph)
     eigen1 <- igraph::eigen_centrality(graph = eigen1, 
                                        directed = manynet::is_directed(eigen1), scale = scale, 
-                                       options = igraph::arpack_defaults)$vector
+                                       options = igraph::arpack_defaults())$vector
     eigen2 <- manynet::to_mode2(graph)
     eigen2 <- igraph::eigen_centrality(graph = eigen2, 
                                        directed = manynet::is_directed(eigen2), scale = scale, 
-                                       options = igraph::arpack_defaults)$vector
+                                       options = igraph::arpack_defaults())$vector
     out <- c(eigen1, eigen2)
     if (normalized) out <- out / sqrt(1/2)
     if(scale) out <- out / max(out)
@@ -662,7 +663,7 @@ node_pagerank <- function(.data){
 #' network_eigenvector(ison_southern_women)
 #' @export
 network_eigenvector <- function(.data, normalized = TRUE){
-  if (is_twomode(.data)) {
+  if (manynet::is_twomode(.data)) {
     out <- c(igraph::centr_eigen(manynet::as_igraph(manynet::to_mode1(.data)), 
                                  normalized = normalized)$centralization,
              igraph::centr_eigen(manynet::as_igraph(manynet::to_mode2(.data)), 

@@ -27,7 +27,7 @@ NULL
 #' network_density(mpn_elite_usa_advice)
 #' @export
 network_density <- function(.data) {
-  if (is_twomode(.data)) {
+  if (manynet::is_twomode(.data)) {
     mat <- manynet::as_matrix(.data)
     out <- sum(mat) / (nrow(mat) * ncol(mat))
   } else {
@@ -85,7 +85,8 @@ network_adhesion <- function(.data){
 #' @export
 network_diameter <- function(.data){
   object <- manynet::as_igraph(.data)
-  make_network_measure(igraph::diameter(object, directed = is_directed(object)),
+  make_network_measure(igraph::diameter(object, 
+                                        directed = manynet::is_directed(object)),
                        object)
 }
 
@@ -98,6 +99,6 @@ network_diameter <- function(.data){
 network_length <- function(.data){
   object <- manynet::as_igraph(.data)
   make_network_measure(igraph::mean_distance(object,
-                                             directed = is_directed(object)),
+                                             directed = manynet::is_directed(object)),
                        object)
 }

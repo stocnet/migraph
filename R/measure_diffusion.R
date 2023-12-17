@@ -5,16 +5,18 @@
 #'   These functions allow measurement of various features of
 #'   a diffusion process:
 #'   
-#'   - `network_transmissibility()`: Measures the average transmissibility observed
+#'   - `network_transmissibility()` measures the average transmissibility observed
 #'   in a diffusion simulation, or the number of new infections over
-#'   the number of susceptible nodes
-#'   - `network_infection_length()`: Measures the average number of time steps 
-#'   nodes remain infected once they become infected
-#'   - `network_reproduction()`: Measures the observed reproductive number
+#'   the number of susceptible nodes.
+#'   - `network_infection_length()` measures the average number of time steps 
+#'   nodes remain infected once they become infected.
+#'   - `network_reproduction()` measures the observed reproductive number
 #'   in a diffusion simulation as the network's transmissibility over
-#'   the network's average infection length
-#'   - `network_immunity`: Measures the proportion of nodes that would need
-#'   to be protected through vaccination, isolation, or recovery for herd immunity to be reached 
+#'   the network's average infection length.
+#'   - `network_immunity()` measures the proportion of nodes that would need
+#'   to be protected through vaccination, isolation, or recovery for herd immunity to be reached.
+#'   - `network_hazard()` measures the hazard rate or instantaneous probability that
+#'   nodes will adopt/become infected at that time
 #' @param diff_model A valid network diffusion model,
 #'   as created by `as_diffusion()` or `play_diffusion()`.
 #' @family measures
@@ -138,6 +140,63 @@ network_immunity <- function(diff_model){
   make_network_measure(out, net)
 }
 
+#' @rdname net_diffusion
+#' @section Hazard rate: 
+#' The hazard rate is the instantaneous probability of adoption/infection at each time point (Allison 1984).
+#' In survival analysis, hazard rate is formally defined as:
+#'
+#' \deqn{%
+#' \lambda(t)=\lim_{h\to +0}\frac{F(t+h)-F(t)}{h}\frac{1}{1-F(t)} %
+#' }{%
+#' \lambda(t-1)= lim (t -> +0) [F(t+h)-F(t)]/h * 1/[1-F(t)] %
+#' }
+#'
+#' By approximating \eqn{h=1}, we can rewrite the equation as
+#'
+#' \deqn{%
+#' \lambda(t)=\frac{F(t+1)-F(t)}{1-F(t)} %
+#' }{%
+#' \lambda(t-1)= [F(t+1)-F(t)]/[1-F(t)] %
+#' }
+#'
+#' If we estimate \eqn{F(t)}, 
+#' the probability of not having adopted the innovation in time \eqn{t}, 
+#' from the proportion of adopters in that time, 
+#' such that \eqn{F(t) \sim q_t/n}{F(t) ~ q(t)/n}, we now have (ultimately for \eqn{t>1}):
+#'
+#' \deqn{%
+#' \lambda(t)=\frac{q_{t+1}/n-q_t/n}{1-q_t/n} = \frac{q_{t+1} - q_t}{n - q_t} = \frac{q_t - q_{t-1}}{n - q_{t-1}} %
+#' }{%
+#' \lambda(t-1)= [q(t+1)/n-q(t)/n]/[1-q(t)/n] = [q(t+1) - q(t)]/[n - q(t)] = [q(t) - q(t-1)]/[n - q(t-1)] %
+#' }
+#' 
+#' where \eqn{q_i}{q(i)} is the number of adopters in time \eqn{t}, 
+#' and \eqn{n} is the number of vertices in the graph.
+#'
+#' The shape of the hazard rate indicates the pattern of new adopters over time.
+#' Rapid diffusion with convex cumulative adoption curves will have 
+#' hazard functions that peak early and decay over time. 
+#' Slow concave cumulative adoption curves will have 
+#' hazard functions that are low early and rise over time.
+#' Smooth hazard curves indicate constant adoption whereas 
+#' those that oscillate indicate variability in adoption behavior over time.
+#' @source `{netdiffuseR}`
+#' @references
+#' Allison, P. 1984. _Event history analysis regression for longitudinal event data_. 
+#' London: Sage Publications.
+#'
+#' Wooldridge, J. M. 2010. _Econometric Analysis of Cross Section and Panel Data_ (2nd ed.). 
+#' Cambridge: MIT Press.
+#' @examples
+#' # To calculate the hazard rates at each time point
+#' network_hazard(play_diffusion(smeg, transmissibility = 0.3))
+#' @export
+network_hazard <- function(diff_model){
+  out <- (diff_model$I - dplyr::lag(diff_model$I)) / 
+    (diff_model$n - dplyr::lag(diff_model$I))
+  out
+}
+
 # node_diffusion ####
 
 #' Diffusion metrics for nodes
@@ -183,8 +242,22 @@ node_adoption_time <- function(diff_model){
   event <- nodes <- NULL
   out <- summary(diff_model) |> dplyr::filter(event == "I") |> 
     dplyr::distinct(nodes, .keep_all = TRUE) |> 
-    dplyr::select(t) |> c() |> unname() |> unlist()
-  make_node_measure(out, attr(diff_model, "network"))
+    dplyr::select(nodes,t)
+  net <- attr(diff_model, "network")
+  if(!is_labelled(net))
+    out <- dplyr::arrange(out, nodes) else if (is.numeric(out$nodes))
+      out$nodes <- node_names(net)[out$nodes]
+  out <- stats::setNames(out$t, out$nodes)
+  if(length(out) != network_nodes(net)){
+    full <- rep(Inf, network_nodes(net))
+    names(full) <- `if`(is_labelled(net), 
+                        node_names(net), 
+                        as.character(seq_len(network_nodes(net))))
+    full[match(names(out), names(full))] <- out
+    out <- `if`(is_labelled(net), full, unname(full))
+  }
+  if(!manynet::is_labelled(net)) out <- unname(out)
+  make_node_measure(out, net)
 }
 
 #' @rdname node_diffusion
@@ -213,12 +286,15 @@ node_adoption_time <- function(diff_model){
 #' @export
 node_adopter <- function(diff_model){
   toa <- node_adoption_time(diff_model)
-  avg <- mean(toa)
-  sdv <- stats::sd(toa)
-  out <- ifelse(toa < (avg - sdv), "Early Adopter", 
+  toa[is.infinite(toa)] <- NA
+  avg <- mean(toa, na.rm = TRUE)
+  sdv <- stats::sd(toa, na.rm = TRUE)
+  out <- ifelse(toa < (avg - sdv) | toa == 0, "Early Adopter", 
                 ifelse(toa > (avg + sdv), "Laggard",
                        ifelse((avg - sdv) < toa & toa <= avg, "Early Majority", 
-                              ifelse(avg < toa & toa <= avg + sdv, "Late Majority", "Non-Adopter"))))
+                              ifelse(avg < toa & toa <= avg + sdv, "Late Majority", 
+                                     "Non-Adopter"))))
+  out[is.na(out)] <- "Non-Adopter"
   make_node_member(out, attr(diff_model, "network"))
 }
 
@@ -237,12 +313,26 @@ node_thresholds <- function(diff_model){
   event <- nodes <- NULL
   exposure <- NULL
   out <- summary(diff_model)
+  net <- attr(diff_model, "network")
+  if(!"exposure" %in% names(out)){
+    out[,'exposure'] <- NA_integer_
+    for(v in unique(out$t)){
+      out$exposure[out$t == v] <- node_exposure(diff_model, time = v)[out$nodes[out$t == v]]
+    }
+  }
   if(any(out$event == "E")) 
     out <- out |> dplyr::filter(event == "E") else 
       out <- out |> dplyr::filter(event == "I")
   out <- out |> dplyr::distinct(nodes, .keep_all = TRUE) |> 
-    dplyr::select(exposure) |> c() |> unname() |> unlist()
-  make_node_measure(out, attr(diff_model, "network"))
+    dplyr::select(nodes, exposure)
+  out <- stats::setNames(out$exposure, out$nodes)
+  if(length(out) != manynet::network_nodes(net)){
+    full <- stats::setNames(rep(Inf, manynet::network_nodes(net)), 
+                     manynet::node_names(net))
+    full[match(names(out), names(full))] <- out
+    out <- full
+  }
+  make_node_measure(out, net)
 }
 
 #' @rdname node_diffusion 
@@ -272,25 +362,23 @@ node_infection_length <- function(diff_model){
 #' @param mark A valid 'node_mark' object or
 #'   logical vector (TRUE/FALSE) of length equal to 
 #'   the number of nodes in the network.
+#' @param time A time point until which infections/adoptions should be
+#'   identified. By default `time = 0`.
 #' @section Exposure:
 #'   `node_exposure()` calculates the number of infected/adopting nodes
 #'   to which each susceptible node is exposed.
 #'   It usually expects network data and 
-#'   an index or mark (TRUE/FALSE) vector of those who are currently infected,
+#'   an index or mark (TRUE/FALSE) vector of those nodes which are currently infected,
 #'   but if a diff_model is supplied instead it will return
 #'   nodes exposure at \eqn{t = 0}.
-#' @param mark logical vector denoting nodes that are infected
 #' @examples
-#'   # To measure how much exposure nodes had when they adopted
+#'   # To measure how much exposure nodes have to a given mark
 #'   node_exposure(smeg, mark = c(1,3))
 #'   node_exposure(smeg_diff)
 #' @export
-node_exposure <- function(.data, mark){
-  event <- nodes <- NULL
+node_exposure <- function(.data, mark, time = 0){
   if(missing(mark) && inherits(.data, "diff_model")){
-    mark <- summary(.data) |> 
-      dplyr::filter(t == 0 & event == "I") |> 
-      dplyr::select(nodes) |> unlist()
+    mark <- node_is_infected(.data, time = time)
     .data <- attr(.data, "network")
   }
   if(is.logical(mark)) mark <- which(mark)
@@ -302,4 +390,3 @@ node_exposure <- function(.data, mark){
   out[as.numeric(names(tabcontact))] <- unname(tabcontact)
   make_node_measure(out, .data)
 }
-

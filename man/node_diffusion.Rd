@@ -17,7 +17,7 @@ node_thresholds(diff_model)
 
 node_infection_length(diff_model)
 
-node_exposure(.data, mark)
+node_exposure(.data, mark, time = 0)
 }
 \arguments{
 \item{diff_model}{A valid network diffusion model,
@@ -35,6 +35,9 @@ as created by \code{as_diffusion()} or \code{play_diffusion()}.}
 \item{mark}{A valid 'node_mark' object or
 logical vector (TRUE/FALSE) of length equal to
 the number of nodes in the network.}
+
+\item{time}{A time point until which infections/adoptions should be
+identified. By default \code{time = 0}.}
 }
 \description{
 These functions allow measurement of various features of
@@ -103,7 +106,7 @@ calculated as infinite.
 \code{node_exposure()} calculates the number of infected/adopting nodes
 to which each susceptible node is exposed.
 It usually expects network data and
-an index or mark (TRUE/FALSE) vector of those who are currently infected,
+an index or mark (TRUE/FALSE) vector of those nodes which are currently infected,
 but if a diff_model is supplied instead it will return
 nodes exposure at \eqn{t = 0}.
 }
@@ -122,7 +125,7 @@ nodes exposure at \eqn{t = 0}.
   node_thresholds(smeg_diff)
   # To measure how long each node remains infected for
   node_infection_length(smeg_diff)
-  # To measure how much exposure nodes had when they adopted
+  # To measure how much exposure nodes have to a given mark
   node_exposure(smeg, mark = c(1,3))
   node_exposure(smeg_diff)
 }

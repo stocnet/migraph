@@ -85,10 +85,10 @@ network, `node_is_*()` returns a logical vector the length of the number
 of nodes in the network, and `tie_is_*()` returns a logical vector the
 length of the number of ties in the network.
 
-- `is_acyclic()`, `is_aperiodic()`, `is_bipartite()`, `is_connected()`,
-  `is_eulerian()`, `is_perfect_matching()`
-- `node_is_core()`, `node_is_cutpoint()`, `node_is_isolate()`,
-  `node_is_max()`, `node_is_min()`, `node_is_random()`
+- `node_is_core()`, `node_is_cutpoint()`, `node_is_exposed()`,
+  `node_is_fold()`, `node_is_infected()`, `node_is_isolate()`,
+  `node_is_latent()`, `node_is_max()`, `node_is_mentor()`,
+  `node_is_min()`, `node_is_random()`, `node_is_recovered()`
 - `tie_is_bridge()`, `tie_is_loop()`, `tie_is_max()`, `tie_is_min()`,
   `tie_is_multiple()`, `tie_is_reciprocated()`
 
@@ -149,7 +149,7 @@ component and core-periphery partitioning algorithms.
 All measures can be tested against conditional uniform graph (CUG) or
 quadratic assignment procedure (QAP) distributions using:
 
-- `test_permutation()`, `test_random()`
+- `test_gof()`, `test_permutation()`, `test_random()`
 
 Hypotheses can also be tested within multivariate models via multiple
 (linear or logistic) regression QAP:
@@ -166,7 +166,7 @@ learning processes over a given network:
   `play_segregation()`
 
 The diffusion models include not only SI and threshold models, but also
-SIS, SIR, SIRS, SIER, and SIERS.
+SIS, SIR, SIRS, SEIR, and SEIRS.
 
 ## Installation
 
@@ -214,36 +214,36 @@ and then:
 
 ### Tutorials
 
-This package has recently moved away from the use of vignettes, in
-favour of smaller and more interactive `{learnr}` tutorials. Since
-version 0.12.3, many of the previous vignettes are instead available as
-tutorials, more will be converted soon, and those that have been
-converted will continue to be updated and enriched.
-
-To access the tutorials, you will need to have the additional package
-`{learnr}` installed: `install.packages("learnr")`. Then we would first
-suggest that you check to see which vignettes are currently available:
+Together with `{manynet}`, this package makes available interactive
+`{learnr}` tutorials. The easiest way to access the tutorials is via
+`run_tute()`. If no tutorial name is provided, the function will return
+a list of tutorials currently available in either package:
 
 ``` r
-learnr::available_tutorials("migraph")
-#> Available tutorials:
-#> * migraph
-#>   - tutorial3 : "Centrality"
-#>   - tutorial4 : "Community"
-#>   - tutorial5 : "Equivalence"
-#>   - tutorial6 : "Topology"
-#>   - tutorial7 : "Diffusion"
-#>   - tutorial8 : "Regression"
+library(migraph)
+run_tute()
+#> # A tibble: 9 × 3
+#>   package name      title        
+#>   <chr>   <chr>     <chr>        
+#> 1 manynet tutorial0 Intro to R   
+#> 2 manynet tutorial1 Data         
+#> 3 manynet tutorial2 Visualisation
+#> 4 migraph tutorial3 Centrality   
+#> 5 migraph tutorial4 Community    
+#> 6 migraph tutorial5 Position     
+#> 7 migraph tutorial6 Topology     
+#> 8 migraph tutorial7 Diffusion    
+#> 9 migraph tutorial8 Regression
+# run_tute("tutorial5")
 ```
 
-You can then choose to begin a tutorial using the following command:
-e.g. `learnr::run_tutorial("tutorial3", "migraph")`. For more details on
-the `{learnr}` package, see [here](https://rstudio.github.io/learnr/).
+For more details on the `{learnr}` package, see
+[here](https://rstudio.github.io/learnr/).
 
 ## Relationship to other packages
 
-It draws together, updates, and builds upon many functions currently
-available in other excellent R packages such as
+`{migraph}` draws together, updates, and builds upon many functions
+currently available in other excellent R packages such as
 [`{bipartite}`](https://github.com/biometry/bipartite),
 [`{multinet}`](https://CRAN.R-project.org/package=multinet),
 [`{tnet}`](https://toreopsahl.com/tnet/), and
