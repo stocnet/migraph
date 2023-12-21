@@ -1,6 +1,6 @@
 Package: migraph
 Title: Multimodal Network Analysis and More
-Version: 1.2.0
+Version: 1.2.1
 Date: 2023-12-17
 Description: A set of tools for analysing multimodal networks.
    It includes functions for measuring 
