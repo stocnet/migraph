@@ -6,6 +6,7 @@
 \alias{node_deg}
 \alias{node_outdegree}
 \alias{node_indegree}
+\alias{node_multidegree}
 \alias{tie_degree}
 \alias{network_degree}
 \alias{network_outdegree}
@@ -24,6 +25,8 @@ node_deg(.data, alpha = 0, direction = c("all", "out", "in"))
 node_outdegree(.data, normalized = TRUE, alpha = 0)
 
 node_indegree(.data, normalized = TRUE, alpha = 0)
+
+node_multidegree(.data, tie1, tie2)
 
 tie_degree(.data, normalized = TRUE)
 
@@ -95,6 +98,9 @@ or weighted degree/strength of nodes in a weighted network.
 \item \code{node_outdegree()}: Wraps node_degree(..., direction = "out")
 
 \item \code{node_indegree()}: Wraps node_degree(..., direction = "in")
+
+\item \code{node_multidegree()}: Measures the ratio of one type of tie in a multiplex network
+to another.
 
 \item \code{tie_degree()}: Calculate the degree centrality of edges in a network
 

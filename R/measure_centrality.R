@@ -134,6 +134,14 @@ node_indegree <- function (.data, normalized = TRUE, alpha = 0){
   node_degree(.data, normalized = normalized, alpha = alpha, direction = "in")
 }
 
+#' @describeIn degree_centrality Measures the ratio of one type of tie in a multiplex network
+#'   to another.
+#' @export
+node_multidegree <- function (.data, tie1, tie2){
+  stopifnot(manynet::is_multiplex(.data))
+  node_degree(manynet::to_uniplex(.data, tie1)) - node_degree(manynet::to_uniplex(.data, tie2))
+}
+
 #' @describeIn degree_centrality Calculate the degree centrality of edges in a network
 #' @examples 
 #' tie_degree(ison_adolescents)
