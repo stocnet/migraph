@@ -110,6 +110,7 @@ node_degree <- function (.data, normalized = TRUE, alpha = 0,
                        mode = direction,
                        loops = manynet::is_complex(.data), weights = weights)
       out <- ki * (si/ki)^alpha
+      if(normalized) out <- out/max(out)
     }
   }
   out <- make_node_measure(out, .data)
