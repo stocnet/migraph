@@ -3,6 +3,7 @@
 \name{degree_centrality}
 \alias{degree_centrality}
 \alias{node_degree}
+\alias{node_deg}
 \alias{node_outdegree}
 \alias{node_indegree}
 \alias{tie_degree}
@@ -17,6 +18,8 @@ node_degree(
   alpha = 0,
   direction = c("all", "out", "in")
 )
+
+node_deg(.data, alpha = 0, direction = c("all", "out", "in"))
 
 node_outdegree(.data, normalized = TRUE, alpha = 0)
 
@@ -86,6 +89,8 @@ including for two-mode networks.
 \itemize{
 \item \code{node_degree()}: Calculates the degree centrality of nodes in an unweighted network,
 or weighted degree/strength of nodes in a weighted network.
+
+\item \code{node_deg()}: Wraps node_degree(..., normalized = FALSE)
 
 \item \code{node_outdegree()}: Wraps node_degree(..., direction = "out")
 

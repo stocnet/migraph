@@ -116,6 +116,12 @@ node_degree <- function (.data, normalized = TRUE, alpha = 0,
   out
 }
 
+#' @describeIn degree_centrality Wraps node_degree(..., normalized = FALSE)
+#' @export
+node_deg <- function (.data, alpha = 0, direction = c("all","out","in")){
+  node_degree(.data, normalized = FALSE, alpha = alpha, direction = direction)
+}
+
 #' @describeIn degree_centrality Wraps node_degree(..., direction = "out")
 #' @export
 node_outdegree <- function (.data, normalized = TRUE, alpha = 0){
