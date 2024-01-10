@@ -394,7 +394,7 @@ Any you might think correlate with core status?
 ```
 
 ```{r gnet-solution}
-autographr(ison_lawfirm, node_color = "School")
+autographr(ison_lawfirm, node_color = "school")
 ```
 
 Next, let's assign nodes to the core and periphery blocks
@@ -494,7 +494,7 @@ the `node_core()` used for core-periphery.
 ```{r nodecoren-solution}
 ison_lawfirm %>% 
   mutate(ncn = node_coreness(ison_lawfirm)) %>% 
-  autographr(node_color = "ncn")
+  autographr(node_color = "ncn") + scale_colour_sdgs()
 ```
 
 ```{r dich-qa, echo=FALSE, purl = FALSE}
