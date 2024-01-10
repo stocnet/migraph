@@ -314,7 +314,7 @@ as.matrix((node_tie_census(ison_algebra)>0)+0)
 # But it's easier to simplify the network by removing the classification into different types of ties.
 # Note that this also reduces the total number of possible paths between nodes
 ison_algebra %>%
-  select_ties(-c(friends, social, tasks)) %>%
+  select_ties(-type) %>%
   node_tie_census()
 ```
 
