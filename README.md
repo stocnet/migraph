@@ -9,17 +9,17 @@
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 ![CRAN/METACRAN](https://img.shields.io/cran/v/migraph) ![GitHub release
 (latest by
-date)](https://img.shields.io/github/v/release/snlab-ch/migraph)
-![GitHub Release
-Date](https://img.shields.io/github/release-date/snlab-ch/migraph)
+date)](https://img.shields.io/github/v/release/stocnet/migraph) ![GitHub
+Release
+Date](https://img.shields.io/github/release-date/stocnet/migraph)
 [![Codecov test
-coverage](https://codecov.io/gh/snlab-ch/migraph/branch/main/graph/badge.svg)](https://app.codecov.io/gh/snlab-ch/migraph?branch=main)
-[![CodeFactor](https://www.codefactor.io/repository/github/snlab-ch/migraph/badge)](https://www.codefactor.io/repository/github/snlab-ch/migraph)
+coverage](https://codecov.io/gh/stocnet/migraph/branch/main/graph/badge.svg)](https://app.codecov.io/gh/stocnet/migraph?branch=main)
+[![CodeFactor](https://www.codefactor.io/repository/github/stocnet/migraph/badge)](https://www.codefactor.io/repository/github/stocnet/migraph)
 [![CII Best
 Practices](https://bestpractices.coreinfrastructure.org/projects/4559/badge)](https://bestpractices.coreinfrastructure.org/projects/4559)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7076396.svg)](https://doi.org/10.5281/zenodo.7076396)
 <!-- see https://zenodo.org/record/7076396 -->
-<!-- ![GitHub All Releases](https://img.shields.io/github/downloads/snlab-ch/migraph/total) -->
+<!-- ![GitHub All Releases](https://img.shields.io/github/downloads/stocnet/migraph/total) -->
 <!-- badges: end -->
 
 ## About the package
@@ -85,12 +85,8 @@ network, `node_is_*()` returns a logical vector the length of the number
 of nodes in the network, and `tie_is_*()` returns a logical vector the
 length of the number of ties in the network.
 
-- `node_is_core()`, `node_is_cutpoint()`, `node_is_exposed()`,
-  `node_is_fold()`, `node_is_infected()`, `node_is_isolate()`,
-  `node_is_latent()`, `node_is_max()`, `node_is_mentor()`,
-  `node_is_min()`, `node_is_random()`, `node_is_recovered()`
-- `tie_is_bridge()`, `tie_is_loop()`, `tie_is_max()`, `tie_is_min()`,
-  `tie_is_multiple()`, `tie_is_reciprocated()`
+- `()`
+- `()`
 
 The `*is_max()` and `*is_min()` functions are used to identify the
 maximum or minimum, respectively, node or tie according to some measure
@@ -120,7 +116,7 @@ can be overrided. Here are some examples:
   `network_modularity()`, `network_smallworld()`, `network_balance()`
 
 Please explore [the list of
-functions](https://snlab-ch.github.io/migraph/reference/index.html) to
+functions](https://stocnet.github.io/migraph/reference/index.html) to
 find out more.
 
 ### Motifs and Memberships
@@ -192,8 +188,8 @@ binaries from Github or install from source locally.
 
 The latest binary releases for all major OSes – Windows, Mac, and Linux
 – can be found
-[here](https://github.com/snlab-ch/migraph/releases/latest). Download
-the appropriate binary for your operating system, and install using an
+[here](https://github.com/stocnet/migraph/releases/latest). Download the
+appropriate binary for your operating system, and install using an
 adapted version of the following commands:
 
 - For Windows:
@@ -208,9 +204,9 @@ Github, please install the `{remotes}` or `{devtools}` package from CRAN
 and then:
 
 - For latest stable version:
-  `remotes::install_github("snlab-ch/migraph")`
+  `remotes::install_github("stocnet/migraph")`
 - For latest development version:
-  `remotes::install_github("snlab-ch/migraph@develop")`
+  `remotes::install_github("stocnet/migraph@develop")`
 
 ### Tutorials
 
