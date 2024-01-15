@@ -5,6 +5,7 @@
 \alias{node_components}
 \alias{node_weak_components}
 \alias{node_strong_components}
+\alias{node_roulette}
 \title{Component partitioning algorithms}
 \usage{
 node_components(.data)
@@ -12,6 +13,8 @@ node_components(.data)
 node_weak_components(.data)
 
 node_strong_components(.data)
+
+node_roulette(.data, num_groups, group_size)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -22,6 +25,10 @@ node_strong_components(.data)
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
+
+\item{num_groups}{An integer indicating the number of groups desired}
+
+\item{group_size}{An integer indicating the desired size of most of the groups}
 }
 \description{
 These functions create a vector of nodes' memberships in
