@@ -57,3 +57,5 @@ expect_edges <- function() {
     stop("This call requires edges to be active", call. = FALSE)
   }
 }
+
+# #' @importFrom rlang `%||%`
