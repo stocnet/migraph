@@ -287,7 +287,7 @@ vectorise_list <- function(glist, simplex, directed){
 convertToMatrixList <- function(formula, data){
   data <- manynet::as_tidygraph(data)
   DV <- manynet::as_matrix(manynet::to_uniplex(data, 
-                             edge = getDependentName(formula)))
+                                               tie = getDependentName(formula)))
   IVnames <- getRHSNames(formula)
   IVs <- lapply(IVnames, function(IV){
     out <- lapply(seq_along(IV), function(elem){
@@ -437,5 +437,5 @@ getRHSNames <- function(formula) {
 
 getDependentName <- function(formula) {
   dep <- list(formula[[2]])
-  depName <- unlist(lapply(dep, deparse))
+  unlist(lapply(dep, deparse))
 }
