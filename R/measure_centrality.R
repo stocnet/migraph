@@ -300,6 +300,20 @@ node_induced <- function(.data, normalized = TRUE,
   make_node_measure(out, .data)
 }
 
+
+#' @describeIn between_centrality Measures the flow betweenness centralities of nodes in a network,
+#'   which uses an electrical current model for information spreading in contrast to the shortest paths model
+#'   used by normal betweenness centrality
+#' @importFrom sna flowbet
+#' @export 
+node_flow <- function(.data, normalized = TRUE){
+  out <- sna::flowbet(manynet::as_network(.data),
+                      gmode = ifelse(manynet::is_directed(.data), "digraph", "graph"),
+                      diag = manynet::is_complex(.data),
+                      cmode = ifelse(normalized, "normflow", "rawflow"))
+  make_node_measure(out, .data)
+}
+
 #' @describeIn between_centrality Calculate number of shortest paths going through a tie
 #' @importFrom igraph edge_betweenness
 #' @examples

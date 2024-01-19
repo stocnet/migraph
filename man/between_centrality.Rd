@@ -4,6 +4,7 @@
 \alias{between_centrality}
 \alias{node_betweenness}
 \alias{node_induced}
+\alias{node_flow}
 \alias{tie_betweenness}
 \alias{network_betweenness}
 \title{Measures of betweenness-like centrality and centralisation}
@@ -11,6 +12,8 @@
 node_betweenness(.data, normalized = TRUE, cutoff = NULL)
 
 node_induced(.data, normalized = TRUE, cutoff = NULL)
+
+node_flow(.data, normalized = TRUE)
 
 tie_betweenness(.data, normalized = TRUE)
 
@@ -57,6 +60,10 @@ Measures of betweenness-like centrality and centralisation
 \item \code{node_betweenness()}: Calculate the betweenness centralities of nodes in a network
 
 \item \code{node_induced()}: Calculate the induced betweenness centralities of nodes in a network
+
+\item \code{node_flow()}: Measures the flow betweenness centralities of nodes in a network,
+which uses an electrical current model for information spreading in contrast to the shortest paths model
+used by normal betweenness centrality
 
 \item \code{tie_betweenness()}: Calculate number of shortest paths going through a tie
 
