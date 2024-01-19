@@ -148,8 +148,7 @@ Other measures:
 \code{\link{net_diffusion}}
 
 Other diffusion: 
-\code{\link{net_diffusion}},
-\code{\link{play}}
+\code{\link{net_diffusion}}
 }
 \concept{diffusion}
 \concept{measures}

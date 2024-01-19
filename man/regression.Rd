@@ -122,7 +122,6 @@ Dekker, David, David Krackhard, and Tom A. B. Snijders. 2007.
 \code{vignette("p7linearmodel")}
 
 Other models: 
-\code{\link{play}},
 \code{\link{tests}}
 }
 \concept{models}

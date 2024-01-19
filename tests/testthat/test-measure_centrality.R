@@ -5,6 +5,7 @@ test_mat <- manynet::as_matrix(manynet::ison_southern_women)
 test_that("one mode degree centrality calculated correctly",{
   expect_equal(top5(node_degree(mpn_elite_mex, normalized = FALSE)), c(3,6,8,6,6))
 })
+
 test_that("one mode strength centrality calculated correctly",{
   expect_equal(top5(node_degree(to_unweighted(ison_networkers), direction = "in", normalized = FALSE)), 
                c(29, 24, 11, 18, 8))

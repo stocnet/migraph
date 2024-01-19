@@ -199,8 +199,7 @@ Other measures:
 \code{\link{node_diffusion}}
 
 Other diffusion: 
-\code{\link{node_diffusion}},
-\code{\link{play}}
+\code{\link{node_diffusion}}
 }
 \concept{diffusion}
 \concept{measures}
