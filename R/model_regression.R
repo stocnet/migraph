@@ -290,6 +290,7 @@ convertToMatrixList <- function(formula, data){
     DV <- manynet::as_matrix(data) 
   } else DV <- manynet::as_matrix(manynet::to_uniplex(data, tie = getDependentName(formula)))
   IVnames <- getRHSNames(formula)
+  specificationAdvice(IVnames)
   IVs <- lapply(IVnames, function(IV){
     out <- lapply(seq_along(IV), function(elem){
       # ego ####
@@ -439,4 +440,24 @@ getRHSNames <- function(formula) {
 getDependentName <- function(formula) {
   dep <- list(formula[[2]])
   unlist(lapply(dep, deparse))
+}
+
+specificationAdvice <- function(formula){
+  formdf <- t(data.frame(formula))
+  if(any(formdf[,1] %in% c("sim","same"))){
+    vars <- formdf[formdf[,1] %in% c("sim","same"), 2]
+    suggests <- vapply(vars, function(x){
+      incl <- unname(formdf[formdf[,2]==x, 1])
+      excl <- setdiff(c("ego","alter"), incl)
+      paste0(excl, "(", x, ")", collapse = ", ")
+      # incl
+    }, FUN.VALUE = character(1))
+    if(length(suggests)>0){
+      if(length(suggests) > 1)
+        suggests <- paste0(suggests, collapse = ", ")
+      warning(paste("When testing for homophily,",
+                    "it is recommended to include also more fundamental effects such as `ego()` and `alter()`.",
+                    "Try adding", suggests, "to the model specification."))
+      }
+  }
 }
