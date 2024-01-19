@@ -345,6 +345,7 @@ NULL
 #' @describeIn close_centrality Calculate the closeness centrality of nodes in a network
 #' @param cutoff Maximum path length to use during calculations.
 #' @import tidygraph
+#' @importFrom rlang %||%
 #' @examples
 #' node_closeness(mpn_elite_mex)
 #' node_closeness(ison_southern_women)
