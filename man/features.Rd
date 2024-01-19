@@ -9,6 +9,7 @@
 \alias{network_smallworld}
 \alias{network_scalefree}
 \alias{network_balance}
+\alias{network_change}
 \title{Measures of network topological features}
 \source{
 \code{{signnet}} by David Schoch
@@ -27,6 +28,8 @@ network_smallworld(.data, method = c("omega", "sigma", "SWI"), times = 100)
 network_scalefree(.data)
 
 network_balance(.data)
+
+network_change(.data, object2)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -101,6 +104,8 @@ distribution.
 the proportion of balanced triangles,
 ranging between \code{0} if all triangles are imbalanced and
 \code{1} if all triangles are balanced.
+
+\item \code{network_change()}: Measures the Hamming distance between two or more networks.
 
 }}
 \section{Modularity}{

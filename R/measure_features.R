@@ -306,3 +306,20 @@ network_balance <- function(.data) {
   make_network_measure(unname((tria_count["+++"] + tria_count["+--"])/sum(tria_count)),
                        .data)
 }
+
+#' @describeIn features Measures the Hamming distance between two or more networks.
+#' @export
+network_change <- function(.data, object2){
+  if(manynet::is_list(.data)){
+    
+  } else if(!missing(object2)){
+    .data <- list(.data, object2)
+  } else stop("`.data` must be a list of networks or a second network must be provided.")
+  periods <- length(.data)-1
+  vapply(seq.int(periods), function(x){
+    net1 <- as_matrix(.data[[x]])
+    net2 <- as_matrix(.data[[x+1]])
+    sum(net1 != net2)
+  }, FUN.VALUE = numeric(1))
+}
+
