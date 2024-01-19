@@ -286,8 +286,9 @@ vectorise_list <- function(glist, simplex, directed){
 
 convertToMatrixList <- function(formula, data){
   data <- manynet::as_tidygraph(data)
-  DV <- manynet::as_matrix(manynet::to_uniplex(data, 
-                                               tie = getDependentName(formula)))
+  if(is_weighted(data) & getDependentName(formula)=="weight"){
+    DV <- manynet::as_matrix(data) 
+  } else DV <- manynet::as_matrix(manynet::to_uniplex(data, tie = getDependentName(formula)))
   IVnames <- getRHSNames(formula)
   IVs <- lapply(IVnames, function(IV){
     out <- lapply(seq_along(IV), function(elem){
@@ -368,7 +369,7 @@ convertToMatrixList <- function(formula, data){
         # sim ####
       } else if (IV[[elem]][1] == "sim"){
         if(is.character(manynet::node_attribute(data, IV[[elem]][2])))
-          stop("Similarity undefined for factors.")
+          stop("Similarity undefined for factors. Try `same()` instead.")
         rows <- matrix(manynet::node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV))
         cols <- matrix(manynet::node_attribute(data, IV[[elem]][2]),
