@@ -164,3 +164,25 @@ network_assortativity <- function(.data){
                                directed = manynet::is_directed(.data)),
                      .data)
 }
+
+#' @describeIn heterogeneity Measures the spatial association/autocorrelation (global Moran's I) in a network.
+#' @references
+#'   Moran, Patrick Alfred Pierce. 1950.
+#'   "Notes on Continuous Stochastic Phenomena".
+#'   _Biometrika_ 37(1): 17-23.
+#'   \doi{10.2307/2332142}
+#' @examples 
+#' network_spatial(ison_lawfirm, "age")
+#' @export
+network_spatial <- function(.data, attribute){
+  N <- manynet::network_nodes(.data)
+  x <- manynet::node_attribute(.data, attribute)
+  stopifnot(is.numeric(x))
+  x_bar <- mean(x, na.rm = TRUE)
+  w <- manynet::as_matrix(.data)
+  W <- sum(w, na.rm = TRUE)
+  I <- (N/W) * 
+    (sum(w * matrix(x - x_bar, N, N) * matrix(x - x_bar, N, N, byrow = TRUE)) / 
+    sum((x - x_bar)^2))
+  make_network_measure(I, .data)
+}

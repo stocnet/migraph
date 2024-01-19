@@ -9,6 +9,7 @@
 \alias{network_heterophily}
 \alias{node_heterophily}
 \alias{network_assortativity}
+\alias{network_spatial}
 \title{Measures of network diversity}
 \usage{
 network_richness(.data, attribute)
@@ -24,6 +25,8 @@ network_heterophily(.data, attribute)
 node_heterophily(.data, attribute)
 
 network_assortativity(.data)
+
+network_spatial(.data, attribute)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -66,6 +69,8 @@ are within groups of nodes with the same attribute
 of nodes with the same attribute
 
 \item \code{network_assortativity()}: Calculates the degree assortativity in a network.
+
+\item \code{network_spatial()}: Measures the spatial autocorrelation (Moran's I) in a network.
 
 }}
 \section{network_diversity}{
@@ -110,6 +115,7 @@ network_heterophily(marvel_friends, "Attractive")
 node_heterophily(marvel_friends, "Gender")
 node_heterophily(marvel_friends, "Attractive")
 network_assortativity(mpn_elite_mex)
+network_spatial(ison_lawfirm, "age")
 }
 \references{
 Blau, Peter M. (1977).
@@ -119,6 +125,11 @@ New York: Free Press.
 Krackhardt, David and Robert N. Stern (1988).
 Informal networks and organizational crises: an experimental simulation.
 \emph{Social Psychology Quarterly} 51(2), 123-140.
+
+Moran, Patrick Alfred Pierce. 1950.
+"Notes on Continuous Stochastic Phenomena".
+\emph{Biometrika} 37(1): 17-23.
+\doi{10.2307/2332142}
 }
 \seealso{
 Other measures: 
