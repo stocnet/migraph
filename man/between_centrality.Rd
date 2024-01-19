@@ -3,11 +3,14 @@
 \name{between_centrality}
 \alias{between_centrality}
 \alias{node_betweenness}
+\alias{node_induced}
 \alias{tie_betweenness}
 \alias{network_betweenness}
 \title{Measures of betweenness-like centrality and centralisation}
 \usage{
 node_betweenness(.data, normalized = TRUE, cutoff = NULL)
+
+node_induced(.data, normalized = TRUE, cutoff = NULL)
 
 tie_betweenness(.data, normalized = TRUE)
 
@@ -53,6 +56,8 @@ Measures of betweenness-like centrality and centralisation
 \itemize{
 \item \code{node_betweenness()}: Calculate the betweenness centralities of nodes in a network
 
+\item \code{node_induced()}: Calculate the induced betweenness centralities of nodes in a network
+
 \item \code{tie_betweenness()}: Calculate number of shortest paths going through a tie
 
 \item \code{network_betweenness()}: Calculate the betweenness centralization for a network
@@ -61,11 +66,18 @@ Measures of betweenness-like centrality and centralisation
 \examples{
 node_betweenness(mpn_elite_mex)
 node_betweenness(ison_southern_women)
+node_induced(mpn_elite_mex)
 (tb <- tie_betweenness(ison_adolescents))
 plot(tb)
 #ison_adolescents \%>\% mutate_ties(weight = tb) \%>\% 
 #   autographr()
 network_betweenness(ison_southern_women, direction = "in")
+}
+\references{
+Everett, Martin and Steve Borgatti. 2010.
+"Induced, endogenous and exogenous centrality"
+\emph{Social Networks}, 32: 339-344.
+\doi{10.1016/j.socnet.2010.06.004}
 }
 \seealso{
 Other measures: 

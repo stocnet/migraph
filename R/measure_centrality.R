@@ -257,6 +257,28 @@ node_betweenness <- function(.data, normalized = TRUE,
   out
 }
 
+#' @describeIn between_centrality Calculate the induced betweenness centralities of nodes in a network
+#' @examples
+#' node_induced(mpn_elite_mex)
+#' @references
+#' Everett, Martin and Steve Borgatti. 2010.
+#' "Induced, endogenous and exogenous centrality"
+#' _Social Networks_, 32: 339-344.
+#' \doi{10.1016/j.socnet.2010.06.004}
+#' @export 
+node_induced <- function(.data, normalized = TRUE, 
+                         cutoff = NULL){
+  endog <- sum(node_betweenness(.data, normalized = normalized, cutoff = cutoff),
+               na.rm = TRUE)
+  exog <- vapply(seq.int(manynet::network_nodes(.data)),
+                 function(x) sum(node_betweenness(manynet::delete_nodes(.data, x),
+                                              normalized = normalized, cutoff = cutoff),
+                                 na.rm = TRUE),
+                FUN.VALUE = numeric(1))
+  out <- endog - exog
+  make_node_measure(out, .data)
+}
+
 #' @describeIn between_centrality Calculate number of shortest paths going through a tie
 #' @importFrom igraph edge_betweenness
 #' @examples
