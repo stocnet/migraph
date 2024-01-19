@@ -323,3 +323,21 @@ network_change <- function(.data, object2){
   }, FUN.VALUE = numeric(1))
 }
 
+#' @describeIn features Measures the Jaccard index of stability between two or more networks.
+#' @export
+network_stability <- function(.data, object2){
+  if(manynet::is_list(.data)){
+    
+  } else if(!missing(object2)){
+    .data <- list(.data, object2)
+  } else stop("`.data` must be a list of networks or a second network must be provided.")
+  periods <- length(.data)-1
+  vapply(seq.int(periods), function(x){
+    net1 <- as_matrix(.data[[x]])
+    net2 <- as_matrix(.data[[x+1]])
+    n11 <- sum(net1 * net2)
+    n01 <- sum(net1==0 * net2)
+    n10 <- sum(net1 * net2==0)
+    n11 / (n01 + n10 + n11)
+  }, FUN.VALUE = numeric(1))
+}

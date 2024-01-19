@@ -10,6 +10,7 @@
 \alias{network_scalefree}
 \alias{network_balance}
 \alias{network_change}
+\alias{network_stability}
 \title{Measures of network topological features}
 \source{
 \code{{signnet}} by David Schoch
@@ -30,6 +31,8 @@ network_scalefree(.data)
 network_balance(.data)
 
 network_change(.data, object2)
+
+network_stability(.data, object2)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -106,6 +109,8 @@ ranging between \code{0} if all triangles are imbalanced and
 \code{1} if all triangles are balanced.
 
 \item \code{network_change()}: Measures the Hamming distance between two or more networks.
+
+\item \code{network_stability()}: Measures the Jaccard index of stability between two or more networks.
 
 }}
 \section{Modularity}{
