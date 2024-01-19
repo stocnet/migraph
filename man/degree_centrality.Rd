@@ -7,6 +7,7 @@
 \alias{node_outdegree}
 \alias{node_indegree}
 \alias{node_multidegree}
+\alias{node_posneg}
 \alias{tie_degree}
 \alias{network_degree}
 \alias{network_outdegree}
@@ -27,6 +28,8 @@ node_outdegree(.data, normalized = TRUE, alpha = 0)
 node_indegree(.data, normalized = TRUE, alpha = 0)
 
 node_multidegree(.data, tie1, tie2)
+
+node_posneg(.data)
 
 tie_degree(.data, normalized = TRUE)
 
@@ -102,6 +105,8 @@ or weighted degree/strength of nodes in a weighted network.
 \item \code{node_multidegree()}: Measures the ratio of one type of tie in a multiplex network
 to another.
 
+\item \code{node_posneg()}: Measures the PN (positive-negative) centrality of a signed network.
+
 \item \code{tie_degree()}: Calculate the degree centrality of edges in a network
 
 \item \code{network_degree()}: Calculate the degree centralization for a graph
@@ -139,6 +144,11 @@ Opsahl, Tore, Filip Agneessens, and John Skvoretz. 2010.
 "Node centrality in weighted networks: Generalizing degree and shortest paths."
 \emph{Social Networks} 32, 245-251.
 \doi{10.1016/j.socnet.2010.03.006}
+
+Everett, Martin G., and Stephen P. Borgatti. 2014.
+“Networks Containing Negative Ties.”
+\emph{Social Networks} 38:111–20.
+\doi{10.1016/j.socnet.2014.03.005}.
 }
 \seealso{
 \code{\link[=to_undirected]{to_undirected()}} for removing edge directions

@@ -140,7 +140,28 @@ node_indegree <- function (.data, normalized = TRUE, alpha = 0){
 #' @export
 node_multidegree <- function (.data, tie1, tie2){
   stopifnot(manynet::is_multiplex(.data))
-  node_degree(manynet::to_uniplex(.data, tie1)) - node_degree(manynet::to_uniplex(.data, tie2))
+  out <- node_degree(manynet::to_uniplex(.data, tie1)) - node_degree(manynet::to_uniplex(.data, tie2))
+  make_node_measure(out, .data)
+}
+
+#' @describeIn degree_centrality Measures the PN (positive-negative) centrality of a signed network.
+#' @references
+#' Everett, Martin G., and Stephen P. Borgatti. 2014. 
+#' “Networks Containing Negative Ties.” 
+#' _Social Networks_ 38:111–20. 
+#' \doi{10.1016/j.socnet.2014.03.005}.
+#' @export
+node_posneg<-function(.data){
+  stopifnot(manynet::is_signed(.data))
+  pos <- as_matrix(manynet::to_unsigned(.data, keep = "positive"))
+  neg <- -as_matrix(manynet::to_unsigned(.data, keep = "negative"))
+  nn <- manynet::network_nodes(.data)
+  pn <- pos-neg*2
+  diag(pn) <- 0
+  idmat <- diag(nn)
+  v1 <- matrix(1,nn,1)
+  out <- solve(idmat - ((pn%*%t(pn))/(4*(nn-1)^2))) %*% (idmat+( pn/(2*(nn-1)) )) %*% v1
+  make_node_measure(out, .data)
 }
 
 #' @describeIn degree_centrality Calculate the degree centrality of edges in a network
