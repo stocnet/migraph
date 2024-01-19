@@ -464,6 +464,16 @@ node_harmonic <- function(.data, normalized = TRUE, k = -1){
   out
 }
 
+#' @describeIn close_centrality Measure nodes' information centrality or current-flow closeness centrality.
+#' @importFrom sna infocent
+#' @export
+node_information <- function(.data, normalized = TRUE){
+  out <- sna::infocent(manynet::as_network(.data),
+                       gmode = ifelse(manynet::is_directed(.data), "digraph", "graph"),
+                       diag = manynet::is_complex(.data))
+  make_node_measure(out, .data)
+}
+  
 #' @describeIn close_centrality Calculate the closeness of each edge to each other edge
 #' in the network.
 #' @examples

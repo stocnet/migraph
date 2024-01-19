@@ -5,6 +5,7 @@
 \alias{node_closeness}
 \alias{node_reach}
 \alias{node_harmonic}
+\alias{node_information}
 \alias{tie_closeness}
 \alias{network_closeness}
 \alias{network_reach}
@@ -16,6 +17,8 @@ node_closeness(.data, normalized = TRUE, direction = "out", cutoff = NULL)
 node_reach(.data, normalized = TRUE, k = 2)
 
 node_harmonic(.data, normalized = TRUE, k = -1)
+
+node_information(.data, normalized = TRUE)
 
 tie_closeness(.data, normalized = TRUE)
 
@@ -64,6 +67,8 @@ or how many nodes they can reach within \emph{k} steps
 
 \item \code{node_harmonic()}: Calculate nodes' harmonic centrality or valued centrality.
 This is thought to behave better than reach centrality for disconnected networks.
+
+\item \code{node_information()}: Measure nodes' information centrality or current-flow closeness centrality.
 
 \item \code{tie_closeness()}: Calculate the closeness of each edge to each other edge
 in the network.
