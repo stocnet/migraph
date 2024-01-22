@@ -1,6 +1,6 @@
-#' @importFrom igraph is.igraph
+#' @importFrom igraph is_igraph
 #' @export
-igraph::is.igraph
+igraph::is_igraph
 
 #' @importFrom network is.network
 #' @export

@@ -9,7 +9,7 @@
 #' @name node_census
 #' @family motifs
 #' @inheritParams cohesion
-#' @importFrom igraph vcount graph.neighborhood delete_vertices triad_census
+#' @importFrom igraph vcount make_ego_graph delete_vertices triad_census
 NULL
 
 #' @describeIn node_census Returns a census of the ties in a network.
@@ -69,7 +69,7 @@ node_triad_census <- function(.data){
   x <- manynet::as_igraph(.data)
   out <- vector() # This line intialises an empty vector
   for (i in seq_len(igraph::vcount(x))) { # For each (i) in 
-    nb.wi <- igraph::graph.neighborhood(x,
+    nb.wi <- igraph::make_ego_graph(x,
                                         order = 1,
                                         V(x)[i],
                                         mode = 'all')[[1]] 

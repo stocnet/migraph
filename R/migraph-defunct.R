@@ -48,7 +48,7 @@ edge_eigenvector <- function(object, normalized = TRUE){
 edge_loop <- function(object){
   .Deprecated("tie_is_loop", package = "migraph",
               old = "edge_loop")
-  tie_is_loop(object)
+  manynet::tie_is_loop(object)
 }
 
 #' @describeIn defunct Deprecated on 2022-06-28.
@@ -56,7 +56,7 @@ edge_loop <- function(object){
 edge_multiple <- function(object){
   .Deprecated("tie_is_multiple", package = "migraph",
               old = "edge_multiple")
-  tie_is_multiple(object)
+  manynet::tie_is_multiple(object)
 }
 
 #' @describeIn defunct Deprecated on 2022-06-28.
@@ -64,7 +64,7 @@ edge_multiple <- function(object){
 edge_bridges <- function(object){
   .Deprecated("tie_is_bridge", package = "migraph",
               old = "edge_bridges")
-  tie_is_bridge(object)
+  manynet::tie_is_bridge(object)
 }
 
 #' @describeIn defunct Deprecated on 2022-06-28.
@@ -72,7 +72,7 @@ edge_bridges <- function(object){
 edge_reciprocal <- function(object){
   .Deprecated("tie_is_reciprocated", package = "migraph",
               old = "edge_reciprocal")
-  tie_is_reciprocated(object)
+  manynet::tie_is_reciprocated(object)
 }
 
 #' @describeIn defunct Deprecated on 2022-06-30.
@@ -80,7 +80,7 @@ edge_reciprocal <- function(object){
 node_cuts <- function(object){
   .Deprecated("node_is_cutpoint", package = "migraph",
               old = "node_cuts")
-  node_is_cutpoint(object)
+  manynet::node_is_cutpoint(object)
 }
 
 #' @describeIn defunct Deprecated on 2022-09-10.
@@ -363,4 +363,3 @@ node_homophily <- function(object, attribute) {
               old = "node_homophily")
   node_heterophily(object, attribute)
 }
-

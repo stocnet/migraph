@@ -70,7 +70,7 @@ of nodes with the same attribute
 
 \item \code{network_assortativity()}: Calculates the degree assortativity in a network.
 
-\item \code{network_spatial()}: Measures the spatial autocorrelation (Moran's I) in a network.
+\item \code{network_spatial()}: Measures the spatial association/autocorrelation (global Moran's I) in a network.
 
 }}
 \section{network_diversity}{

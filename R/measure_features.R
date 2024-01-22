@@ -255,10 +255,10 @@ network_balance <- function(.data) {
     if (!"sign" %in% igraph::edge_attr_names(g)) {
       stop("network does not have a sign edge attribute")
     }
-    if (igraph::is.directed(g)) {
+    if (igraph::is_directed(g)) {
       stop("g must be undirected")
     }
-    eattrV <- igraph::get.edge.attribute(g, "sign")
+    eattrV <- igraph::edge_attr(g, "sign")
     if (!all(eattrV %in% c(-1, 1))) {
       stop("sign may only contain -1 and 1")
     }
@@ -298,7 +298,7 @@ network_balance <- function(.data) {
     stop("object must be undirected")
   }
   g <- manynet::as_igraph(.data)
-  eattrV <- igraph::get.edge.attribute(g, "sign")
+  eattrV <- igraph::edge_attr(g, "sign")
   if (!all(eattrV %in% c(-1, 1))) {
     stop("sign may only contain -1 and 1")
   }

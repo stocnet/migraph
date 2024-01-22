@@ -286,7 +286,7 @@ vectorise_list <- function(glist, simplex, directed){
 
 convertToMatrixList <- function(formula, data){
   data <- manynet::as_tidygraph(data)
-  if(is_weighted(data) & getDependentName(formula)=="weight"){
+  if(manynet::is_weighted(data) & getDependentName(formula)=="weight"){
     DV <- manynet::as_matrix(data) 
   } else DV <- manynet::as_matrix(manynet::to_uniplex(data, tie = getDependentName(formula)))
   IVnames <- getRHSNames(formula)
