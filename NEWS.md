@@ -5,6 +5,7 @@
 ## Package
 
 - Migrated package repository to 'stocnet' organisation
+- Significant documentation updates
 
 ## Marks
 
