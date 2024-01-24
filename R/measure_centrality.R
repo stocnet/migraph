@@ -150,10 +150,13 @@ node_indegree <- function (.data, normalized = TRUE, alpha = 0){
 }
 
 #' @rdname degree_centrality
+#' @param tie1 Character string indicating the first uniplex network.
+#' @param tie2 Character string indicating the second uniplex network.
 #' @export
 node_multidegree <- function (.data, tie1, tie2){
   stopifnot(manynet::is_multiplex(.data))
-  out <- node_degree(manynet::to_uniplex(.data, tie1)) - node_degree(manynet::to_uniplex(.data, tie2))
+  out <- node_degree(manynet::to_uniplex(.data, tie1)) - 
+    node_degree(manynet::to_uniplex(.data, tie2))
   make_node_measure(out, .data)
 }
 

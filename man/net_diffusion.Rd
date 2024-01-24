@@ -196,7 +196,8 @@ Other measures:
 \code{\link{heterogeneity}},
 \code{\link{hierarchy}},
 \code{\link{holes}},
-\code{\link{node_diffusion}}
+\code{\link{node_diffusion}},
+\code{\link{periods}}
 
 Other diffusion: 
 \code{\link{node_diffusion}}

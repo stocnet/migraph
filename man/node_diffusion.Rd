@@ -145,7 +145,8 @@ Other measures:
 \code{\link{heterogeneity}},
 \code{\link{hierarchy}},
 \code{\link{holes}},
-\code{\link{net_diffusion}}
+\code{\link{net_diffusion}},
+\code{\link{periods}}
 
 Other diffusion: 
 \code{\link{net_diffusion}}

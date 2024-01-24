@@ -75,7 +75,9 @@ whereas "in" uses as numerator the sum of differences
 between the maximum centrality score for the mode
 against only the centrality scores of the other nodes in that mode.}
 
-\item{tie1, tie2}{Type of ties, character.}
+\item{tie1}{Character string indicating the first uniplex network.}
+
+\item{tie2}{Character string indicating the second uniplex network.}
 }
 \value{
 A single centralization score if the object was one-mode,
@@ -167,7 +169,8 @@ Other measures:
 \code{\link{hierarchy}},
 \code{\link{holes}},
 \code{\link{net_diffusion}},
-\code{\link{node_diffusion}}
+\code{\link{node_diffusion}},
+\code{\link{periods}}
 }
 \concept{centrality}
 \concept{measures}
