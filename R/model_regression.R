@@ -288,7 +288,7 @@ convertToMatrixList <- function(formula, data){
   data <- manynet::as_tidygraph(data)
   if(manynet::is_weighted(data) & getDependentName(formula)=="weight"){
     DV <- manynet::as_matrix(data) 
-  } else DV <- manynet::as_matrix(manynet::to_uniplex(data, tie = getDependentName(formula)))
+  } else DV <- manynet::as_matrix(data)
   IVnames <- getRHSNames(formula)
   specificationAdvice(IVnames)
   IVs <- lapply(IVnames, function(IV){
@@ -449,9 +449,10 @@ specificationAdvice <- function(formula){
     suggests <- vapply(vars, function(x){
       incl <- unname(formdf[formdf[,2]==x, 1])
       excl <- setdiff(c("ego","alter"), incl)
-      paste0(excl, "(", x, ")", collapse = ", ")
+      if(length(excl)>0) paste0(excl, "(", x, ")", collapse = ", ") else NA_character_
       # incl
     }, FUN.VALUE = character(1))
+    suggests <- suggests[!is.na(suggests)]
     if(length(suggests)>0){
       if(length(suggests) > 1)
         suggests <- paste0(suggests, collapse = ", ")
