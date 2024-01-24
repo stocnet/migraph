@@ -27,17 +27,15 @@ into a \emph{z}-score indicating how many standard deviations above
 or below the average the score lies.}
 }
 \description{
-Censuses of brokerage motifs
-}
-\section{Functions}{
+These functions include ways to take a census of the brokerage positions of nodes
+in a network:
 \itemize{
-\item \code{node_brokerage_census()}: Returns the Gould-Fernandez brokerage
+\item \code{node_brokerage_census()} returns the Gould-Fernandez brokerage
 roles played by nodes in a network.
-
-\item \code{network_brokerage_census()}: Returns the Gould-Fernandez brokerage
+\item \code{network_brokerage_census()} returns the Gould-Fernandez brokerage
 roles in a network.
-
-}}
+}
+}
 \examples{
 node_brokerage_census(manynet::ison_networkers, "Discipline")
 network_brokerage_census(manynet::ison_networkers, "Discipline")

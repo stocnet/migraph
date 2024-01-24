@@ -2,7 +2,26 @@
 #' 
 #' @description
 #'   These function provide different measures of the degree to which nodes
-#'   fill structural holes, as outlined in Burt (1992).
+#'   fill structural holes, as outlined in Burt (1992):
+#'   
+#'   - `node_bridges()` measures the sum of bridges to which each node
+#'   is adjacent.
+#'   - `node_redundancy()` measures the redundancy of each nodes' contacts.
+#'   - `node_effsize()` measures nodes' effective size.
+#'   - `node_efficiency()` measures nodes' efficiency.
+#'   - `node_constraint()` measures nodes' constraint scores for one-mode networks
+#'   according to Burt (1992) and for two-mode networks according to Hollway et al (2020). 
+#'   - `node_hierarchy()` measures nodes' exposure to hierarchy,
+#'   where only one or two contacts are the source of closure.
+#'   - `node_eccentricity()` measures nodes' eccentricity or Koenig number,
+#'   a measure of farness based on number of links needed to reach 
+#'   most distant node in the network.
+#'   - `node_neighbours_degree()` measures nodes' average nearest neighbors degree,
+#'   or \eqn{knn}, a measure of the type of local environment a node finds itself in
+#'   - `tie_cohesion()` measures the ratio between common neighbors to ties'
+#'   adjacent nodes and the total number of adjacent nodes,
+#'   where high values indicate ties' embeddedness in dense local environments
+#'   
 #'   Burt's theory holds that while those nodes embedded in dense clusters
 #'   of close connections are likely exposed to the same or similar ideas and information,
 #'   those who fill structural holes between two otherwise disconnected groups
@@ -24,8 +43,7 @@
 #' @inheritParams cohesion
 NULL
 
-#' @describeIn holes Returns the sum of bridges to which each node
-#'   is adjacent.
+#' @rdname holes 
 #' @examples 
 #' node_bridges(ison_adolescents)
 #' node_bridges(ison_southern_women)
@@ -34,13 +52,12 @@ node_bridges <- function(.data){
   g <- manynet::as_igraph(.data)
   .inc <- NULL
   out <- vapply(igraph::V(g), function(ego){
-    length(igraph::E(g)[.inc(ego) & tie_is_bridge(g)==1])
+    length(igraph::E(g)[.inc(ego) & manynet::tie_is_bridge(g)==1])
   }, FUN.VALUE = numeric(1))
   make_node_measure(out, .data)
 }
 
-#' @describeIn holes Returns a measure of the redundancy of each nodes'
-#'   contacts.
+#' @rdname holes 
 #' @references 
 #' Borgatti, Steven. 1997. 
 #' “\href{http://www.analytictech.com/connections/v20(1)/holes.htm}{Structural Holes: Unpacking Burt’s Redundancy Measures}” 
@@ -61,7 +78,7 @@ node_redundancy <- function(.data){
   make_node_measure(out, .data)
 }
 
-#' @describeIn holes Returns nodes' effective size
+#' @rdname holes 
 #' @examples 
 #' node_effsize(ison_adolescents)
 #' node_effsize(ison_southern_women)
@@ -78,7 +95,7 @@ node_effsize <- function(.data){
   make_node_measure(out, .data)
 }
 
-#' @describeIn holes Returns nodes' efficiency
+#' @rdname holes 
 #' @examples 
 #' node_efficiency(ison_adolescents)
 #' node_efficiency(ison_southern_women)
@@ -88,8 +105,7 @@ node_efficiency <- function(.data){
   make_node_measure(as.numeric(out), .data)
 }
 
-#' @describeIn holes Returns nodes' constraint scores for one-mode networks
-#'   according to Burt (1992) and for two-mode networks according to Hollway et al (2020). 
+#' @rdname holes 
 #' @references
 #' Hollway, James, Jean-Frédéric Morin, and Joost Pauwelyn. 2020.
 #' "Structural conditions for novelty: the introduction of new environmental clauses to the trade regime complex."
@@ -141,8 +157,7 @@ node_constraint <- function(.data) {
   res
 }
 
-#' @describeIn holes Returns nodes' exposure to hierarchy,
-#'   where only one or two contacts are the source of closure
+#' @rdname holes 
 #' @examples 
 #' node_hierarchy(ison_adolescents)
 #' node_hierarchy(ison_southern_women)
@@ -162,9 +177,7 @@ node_hierarchy <- function(.data){
   make_node_measure(out, .data)
 }
 
-#' @describeIn holes Returns nodes' eccentricity or Koenig number,
-#'   a measure of farness based on number of links needed to reach 
-#'   most distant node in the network
+#' @rdname holes 
 #' @importFrom igraph eccentricity
 #' @export
 node_eccentricity <- function(.data){
@@ -173,9 +186,7 @@ node_eccentricity <- function(.data){
   make_node_measure(out, .data)
 }
 
-#' @describeIn holes Returns nodes' average nearest neighbors degree,
-#'   or knn,
-#'   a measure of the type of local environment a node finds itself in
+#' @rdname holes 
 #' @importFrom igraph knn
 #' @references
 #' Barrat, Alain, Marc Barthelemy, Romualdo Pastor-Satorras, and Alessandro Vespignani. 2004.
@@ -188,9 +199,7 @@ node_neighbours_degree <- function(.data){
   make_node_measure(out, .data)
 }
 
-#' @describeIn holes Returns the ratio between common neighbors to ties'
-#'   adjacent nodes and the total number of adjacent nodes,
-#'   where high values indicate ties' embeddedness in dense local environments
+#' @rdname holes 
 #' @export
 tie_cohesion <- function(.data){
   ties <- igraph::E(.data)

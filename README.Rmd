@@ -25,14 +25,14 @@ list_data <- function(string){
 <!-- badges: start -->
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 ![CRAN/METACRAN](https://img.shields.io/cran/v/migraph)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/snlab-ch/migraph)
-![GitHub Release Date](https://img.shields.io/github/release-date/snlab-ch/migraph)
-[![Codecov test coverage](https://codecov.io/gh/snlab-ch/migraph/branch/main/graph/badge.svg)](https://app.codecov.io/gh/snlab-ch/migraph?branch=main)
-[![CodeFactor](https://www.codefactor.io/repository/github/snlab-ch/migraph/badge)](https://www.codefactor.io/repository/github/snlab-ch/migraph)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/stocnet/migraph)
+![GitHub Release Date](https://img.shields.io/github/release-date/stocnet/migraph)
+[![Codecov test coverage](https://codecov.io/gh/stocnet/migraph/branch/main/graph/badge.svg)](https://app.codecov.io/gh/stocnet/migraph?branch=main)
+[![CodeFactor](https://www.codefactor.io/repository/github/stocnet/migraph/badge)](https://www.codefactor.io/repository/github/stocnet/migraph)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4559/badge)](https://bestpractices.coreinfrastructure.org/projects/4559)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7076396.svg)](https://doi.org/10.5281/zenodo.7076396)
 <!-- see https://zenodo.org/record/7076396 -->
-<!-- ![GitHub All Releases](https://img.shields.io/github/downloads/snlab-ch/migraph/total) -->
+<!-- ![GitHub All Releases](https://img.shields.io/github/downloads/stocnet/migraph/total) -->
 <!-- badges: end -->
 
 ## About the package
@@ -87,18 +87,7 @@ Functions are given intuitive and succinct names that avoid conflicts
 with existing function names wherever possible.
 All results are normalised by default, facilitating comparison.
 
-### Marks and Measures
-
-`{migraph}`'s `*is_*()` functions offer fast logical tests of various properties.
-Whereas `is_*()` returns a single logical value for the network,
-`node_is_*()` returns a logical vector the length of the number of nodes in the network,
-and `tie_is_*()` returns a logical vector the length of the number of ties in the network.
-
-- `r list_functions("^node_is_")`
-- `r list_functions("^tie_is_")`
-
-The `*is_max()` and `*is_min()` functions are used to identify
-the maximum or minimum, respectively, node or tie according to some measure (see below).
+### Measures
 
 `{migraph}` also offers a large and growing smorgasbord of measures that
 can be used at the node, tie, and network level.
@@ -117,7 +106,7 @@ Here are some examples:
 - _Innovation_: e.g. `node_redundancy()`, `node_effsize()`, `node_efficiency()`, `node_constraint()`, `node_hierarchy()`
 - _Topological features_: e.g. `network_core()`, `network_factions()`, `network_modularity()`, `network_smallworld()`, `network_balance()`
 
-Please explore [the list of functions](https://snlab-ch.github.io/migraph/reference/index.html) to find out more.
+Please explore [the list of functions](https://stocnet.github.io/migraph/reference/index.html) to find out more.
 
 ### Motifs and Memberships
 
@@ -152,14 +141,6 @@ via multiple (linear or logistic) regression QAP:
 `{migraph}` is the only package that offers these testing frameworks 
 for two-mode networks as well as one-mode networks.
 
-Lastly, `{migraph}` also includes functions for simulating diffusion
-or learning processes over a given network:
-
-- `r list_functions("^play_")`
-
-The diffusion models include not only SI and threshold models,
-but also SIS, SIR, SIRS, SEIR, and SEIRS.
-
 ## Installation
 
 ### Stable
@@ -183,7 +164,7 @@ you may wish to download and install the binaries from Github
 or install from source locally.
 
 The latest binary releases for all major OSes -- Windows, Mac, and Linux -- 
-can be found [here](https://github.com/snlab-ch/migraph/releases/latest).
+can be found [here](https://github.com/stocnet/migraph/releases/latest).
 Download the appropriate binary for your operating system,
 and install using an adapted version of the following commands:
 
@@ -195,9 +176,9 @@ To install from source the latest main version of `{migraph}` from Github,
 please install the `{remotes}` or `{devtools}` package from CRAN and then:
 
 - For latest stable version: 
-`remotes::install_github("snlab-ch/migraph")`
+`remotes::install_github("stocnet/migraph")`
 - For latest development version: 
-`remotes::install_github("snlab-ch/migraph@develop")`
+`remotes::install_github("stocnet/migraph@develop")`
 
 ### Tutorials
 

@@ -1,4 +1,4 @@
-url: https://snlab-ch.github.io/migraph/
+url: https://stocnet.github.io/migraph/
 development:
     mode: auto
 template:
@@ -29,22 +29,11 @@ navbar:
       href: news/index.html
     github:
       icon: "fab fa-github fa-lg"
-      href: https://github.com/snlab-ch/migraph
+      href: https://github.com/stocnet/migraph
 reference:
-  - title: "Marks"
-    desc: |
-      Functions for identifying properties of graphs, nodes or ties,
-      all returning logical scalars or vectors.
-      Note that all `node_` and `tie_` measures return a single vector
-      so that they can be added directly to graph objects.
-      `network_` measures return one or, in some cases of two-mode measures,
-      two values.
-    contents:
-      - contains("is_")
   - title: "Measures"
     desc: |
-      Functions for measuring multimodal networks,
-      all returning numeric scalars or vectors.
+      Functions for measuring networks and returning a numeric vector or value.
       Note that all `node_` and `tie_` measures return a single vector
       so that they can be added directly to graph objects.
       `network_` measures return one or, in some cases of two-mode measures,
@@ -56,6 +45,7 @@ reference:
       - holes
       - heterogeneity
       - features
+      - periods
       - over
       - hierarchy
       - ends_with("_diffusion")

@@ -5,6 +5,16 @@
 #'   together with methods for calculating the hierarchical clusters
 #'   provided by a certain distance calculation.
 #'   
+#'   - `node_equivalence()` assigns nodes membership based on their equivalence 
+#'   with respective to some census/class.
+#'   The following functions call this function, together with an appropriate census.
+#'     - `node_structural_equivalence()` assigns nodes membership based on their
+#'     having equivalent ties to the same other nodes.
+#'     - `node_regular_equivalence()` assigns nodes membership based on their
+#'     having equivalent patterns of ties.
+#'     - `node_automorphic_equivalence()` assigns nodes membership based on their
+#'     having equivalent distances to other nodes.
+#'   
 #'   A `plot()` method exists for investigating the dendrogram
 #'   of the hierarchical cluster and showing the returned cluster
 #'   assignment.
@@ -38,8 +48,7 @@
 #' @source \url{https://github.com/aslez/concoR}
 NULL
 
-#' @describeIn equivalence Returns nodes' membership in 
-#'   according to their equivalence with respective to some census/class
+#' @rdname equivalence 
 #' @export
 node_equivalence <- function(.data, census,
                              k = c("silhouette", "elbow", "strict"),
@@ -48,7 +57,9 @@ node_equivalence <- function(.data, census,
                                           "canberra", "binary", "minkowski"),
                              range = 8L){
   hc <- switch(match.arg(cluster),
-               hierarchical = cluster_hierarchical(census, match.arg(distance)),
+               hierarchical = cluster_hierarchical(`if`(manynet::is_twomode(.data), 
+                                                        manynet::to_onemode(census), census), 
+                                                      match.arg(distance)),
                concor = cluster_concor(.data, census))
   
   if(!is.numeric(k))
@@ -63,8 +74,7 @@ node_equivalence <- function(.data, census,
   out
 }
 
-#' @describeIn equivalence Returns nodes' membership in 
-#'   structurally equivalent classes
+#' @rdname equivalence
 #' @examples
 #' \donttest{
 #' (nse <- node_structural_equivalence(mpn_elite_usa_advice))
@@ -85,8 +95,7 @@ node_structural_equivalence <- function(.data,
                    k = k, cluster = cluster, distance = distance, range = range)
 }
 
-#' @describeIn equivalence Returns nodes' membership in 
-#'   regularly equivalent classes
+#' @rdname equivalence
 #' @examples
 #' \donttest{
 #' (nre <- node_regular_equivalence(mpn_elite_usa_advice,
@@ -110,8 +119,7 @@ node_regular_equivalence <- function(.data,
                    k = k, cluster = cluster, distance = distance, range = range)
 }
 
-#' @describeIn equivalence Returns nodes' membership in 
-#'   automorphically equivalent classes
+#' @rdname equivalence
 #' @examples
 #' \donttest{
 #' (nae <- node_automorphic_equivalence(mpn_elite_usa_advice,

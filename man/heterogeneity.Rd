@@ -9,6 +9,7 @@
 \alias{network_heterophily}
 \alias{node_heterophily}
 \alias{network_assortativity}
+\alias{network_spatial}
 \title{Measures of network diversity}
 \usage{
 network_richness(.data, attribute)
@@ -24,6 +25,8 @@ network_heterophily(.data, attribute)
 node_heterophily(.data, attribute)
 
 network_assortativity(.data)
+
+network_spatial(.data, attribute)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -43,31 +46,25 @@ to use as categories for the diversity measure.}
 \description{
 These functions offer ways to summarise the heterogeneity of an attribute
 across a network, within groups of a network, or the distribution of ties
-across this attribute.
-}
-\section{Functions}{
+across this attribute:
 \itemize{
-\item \code{network_richness()}: Calculates the number of unique categories
+\item \code{network_richness()} measures the number of unique categories
 in a network attribute.
-
-\item \code{node_richness()}: Calculates the number of unique categories
+\item \code{node_richness()} measures the number of unique categories
 of an attribute to which each node is connected.
-
-\item \code{network_diversity()}: Calculates the heterogeneity of ties across a network or
-within clusters by node attributes.
-
-\item \code{node_diversity()}: Calculates the heterogeneity of each node's
+\item \code{network_diversity()} measures the heterogeneity of ties across a network
+or within clusters by node attributes.
+\item \code{node_diversity()} measures the heterogeneity of each node's
 local neighbourhood.
-
-\item \code{network_heterophily()}: Calculates how embedded nodes in the network
-are within groups of nodes with the same attribute
-
-\item \code{node_heterophily()}: Calculates each node's embeddedness within groups
-of nodes with the same attribute
-
-\item \code{network_assortativity()}: Calculates the degree assortativity in a network.
-
-}}
+\item \code{network_heterophily()} measures how embedded nodes in the network
+are within groups of nodes with the same attribute.
+\item \code{node_heterophily()} measures each node's embeddedness within groups
+of nodes with the same attribute.
+\item \code{network_assortativity()} measures the degree assortativity in a network.
+\item \code{network_spatial()} measures the spatial association/autocorrelation (
+global Moran's I) in a network.
+}
+}
 \section{network_diversity}{
 
 Blau's index (1977) uses a formula known also in other disciplines
@@ -110,6 +107,7 @@ network_heterophily(marvel_friends, "Attractive")
 node_heterophily(marvel_friends, "Gender")
 node_heterophily(marvel_friends, "Attractive")
 network_assortativity(mpn_elite_mex)
+network_spatial(ison_lawfirm, "age")
 }
 \references{
 Blau, Peter M. (1977).
@@ -119,6 +117,11 @@ New York: Free Press.
 Krackhardt, David and Robert N. Stern (1988).
 Informal networks and organizational crises: an experimental simulation.
 \emph{Social Psychology Quarterly} 51(2), 123-140.
+
+Moran, Patrick Alfred Pierce. 1950.
+"Notes on Continuous Stochastic Phenomena".
+\emph{Biometrika} 37(1): 17-23.
+\doi{10.2307/2332142}
 }
 \seealso{
 Other measures: 
@@ -132,6 +135,7 @@ Other measures:
 \code{\link{hierarchy}},
 \code{\link{holes}},
 \code{\link{net_diffusion}},
-\code{\link{node_diffusion}}
+\code{\link{node_diffusion}},
+\code{\link{periods}}
 }
 \concept{measures}

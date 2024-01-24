@@ -43,7 +43,27 @@ tie_cohesion(.data)
 }
 \description{
 These function provide different measures of the degree to which nodes
-fill structural holes, as outlined in Burt (1992).
+fill structural holes, as outlined in Burt (1992):
+\itemize{
+\item \code{node_bridges()} measures the sum of bridges to which each node
+is adjacent.
+\item \code{node_redundancy()} measures the redundancy of each nodes' contacts.
+\item \code{node_effsize()} measures nodes' effective size.
+\item \code{node_efficiency()} measures nodes' efficiency.
+\item \code{node_constraint()} measures nodes' constraint scores for one-mode networks
+according to Burt (1992) and for two-mode networks according to Hollway et al (2020).
+\item \code{node_hierarchy()} measures nodes' exposure to hierarchy,
+where only one or two contacts are the source of closure.
+\item \code{node_eccentricity()} measures nodes' eccentricity or Koenig number,
+a measure of farness based on number of links needed to reach
+most distant node in the network.
+\item \code{node_neighbours_degree()} measures nodes' average nearest neighbors degree,
+or \eqn{knn}, a measure of the type of local environment a node finds itself in
+\item \code{tie_cohesion()} measures the ratio between common neighbors to ties'
+adjacent nodes and the total number of adjacent nodes,
+where high values indicate ties' embeddedness in dense local environments
+}
+
 Burt's theory holds that while those nodes embedded in dense clusters
 of close connections are likely exposed to the same or similar ideas and information,
 those who fill structural holes between two otherwise disconnected groups
@@ -58,37 +78,6 @@ where \eqn{t} is the sum of ties and \eqn{n} the sum of nodes in each node's nei
 and effective size is calculated as \eqn{n - \frac{2t}{n}}.
 Node efficiency is the node's effective size divided by its degree.
 }
-\section{Functions}{
-\itemize{
-\item \code{node_bridges()}: Returns the sum of bridges to which each node
-is adjacent.
-
-\item \code{node_redundancy()}: Returns a measure of the redundancy of each nodes'
-contacts.
-
-\item \code{node_effsize()}: Returns nodes' effective size
-
-\item \code{node_efficiency()}: Returns nodes' efficiency
-
-\item \code{node_constraint()}: Returns nodes' constraint scores for one-mode networks
-according to Burt (1992) and for two-mode networks according to Hollway et al (2020).
-
-\item \code{node_hierarchy()}: Returns nodes' exposure to hierarchy,
-where only one or two contacts are the source of closure
-
-\item \code{node_eccentricity()}: Returns nodes' eccentricity or Koenig number,
-a measure of farness based on number of links needed to reach
-most distant node in the network
-
-\item \code{node_neighbours_degree()}: Returns nodes' average nearest neighbors degree,
-or knn,
-a measure of the type of local environment a node finds itself in
-
-\item \code{tie_cohesion()}: Returns the ratio between common neighbors to ties'
-adjacent nodes and the total number of adjacent nodes,
-where high values indicate ties' embeddedness in dense local environments
-
-}}
 \examples{
 node_bridges(ison_adolescents)
 node_bridges(ison_southern_women)
@@ -132,6 +121,7 @@ Other measures:
 \code{\link{heterogeneity}},
 \code{\link{hierarchy}},
 \code{\link{net_diffusion}},
-\code{\link{node_diffusion}}
+\code{\link{node_diffusion}},
+\code{\link{periods}}
 }
 \concept{measures}

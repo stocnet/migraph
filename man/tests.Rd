@@ -122,7 +122,6 @@ plot(qaptest)
 }
 \seealso{
 Other models: 
-\code{\link{play}},
 \code{\link{regression}}
 }
 \concept{models}

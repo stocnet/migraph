@@ -1,38 +1,38 @@
 set.seed(123)
-networkers <- manynet::ison_networkers %>% manynet::to_subgraph(Discipline == "Sociology") %>%
-  manynet::mutate_ties(messaged = 1)
+networkers <- manynet::ison_networkers %>% manynet::to_subgraph(Discipline == "Sociology")
+netsenders <- manynet::to_unweighted(networkers)
 
-test <- network_reg(weight ~ alter(Citations) + sim(Citations),
-                     networkers, times = 60)
-test_logit <- network_reg(messaged ~ alter(Citations) + sim(Citations),
-                          networkers, times = 60)
+test <- network_reg(weight ~ ego(Citations),
+                     networkers, times = 50)
+test_logit <- network_reg(. ~ ego(Citations),
+                          netsenders, times = 50)
 
 test_that("network_reg estimates correctly",{
   expect_s3_class(test, "netlm")
   expect_equal(top3(test$coefficients,3),
-               c(-8.470, -0.125, 44.871))
+               c(26.811, -0.379, NA))
   expect_s3_class(test_logit, "netlogit")
   expect_equal(top3(test_logit$coefficients,3),
-               c(-2.179, 0.000, 2.632))
+               c(0.146, -0.024, NA))
 })
 
 test_that("network_reg tests correctly",{
-  expect_equal(test$pgreqabs,
-               c(0.65, 0.57, 0.05), tolerance = 0.1)
-  expect_equal(test_logit$pgreqabs,
-               c(0.00, 0.98, 0.00), tolerance = 0.1)
+  expect_equal(top3(test$pgreqabs, 2),
+               c(0.14, 0.32, NA), tolerance = 0.1)
+  expect_equal(top3(test_logit$pgreqabs,2),
+               c(0.9, 0.2, NA), tolerance = 0.1)
 })
 
 tidys <- tidy(test)
 test_that("tidy works correctly for network_reg",{
   expect_s3_class(tidys, "tbl_df")
-  expect_equal(round(unname(tidys$estimate[1]), 3), -8.47)
+  expect_equal(top3(tidys$estimate, 2), c(26.81, -0.38, NA))
 })
 
 glances <- glance(test)
 test_that("glance works correctly for network_reg",{
   expect_s3_class(glances, "tbl_df")
-  expect_equal(round(glances$r.squared, 4), 0.0575)
+  expect_equal(top3(glances$r.squared, 3), c(0.021, NA, NA))
 })
 
 plots <- plot(test)

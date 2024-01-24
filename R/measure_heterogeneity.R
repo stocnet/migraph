@@ -1,8 +1,26 @@
 #' Measures of network diversity
 #' 
-#' These functions offer ways to summarise the heterogeneity of an attribute
-#' across a network, within groups of a network, or the distribution of ties
-#' across this attribute.
+#' @description
+#'   These functions offer ways to summarise the heterogeneity of an attribute
+#'   across a network, within groups of a network, or the distribution of ties
+#'   across this attribute:
+#'   
+#'   - `network_richness()` measures the number of unique categories 
+#'   in a network attribute.
+#'   - `node_richness()` measures the number of unique categories 
+#'   of an attribute to which each node is connected.
+#'   - `network_diversity()` measures the heterogeneity of ties across a network 
+#'   or within clusters by node attributes.
+#'   - `node_diversity()` measures the heterogeneity of each node's
+#'   local neighbourhood.
+#'   - `network_heterophily()` measures how embedded nodes in the network
+#'   are within groups of nodes with the same attribute.
+#'   - `node_heterophily()` measures each node's embeddedness within groups
+#'   of nodes with the same attribute.
+#'   - `network_assortativity()` measures the degree assortativity in a network.
+#'   - `network_spatial()` measures the spatial association/autocorrelation (
+#'   global Moran's I) in a network.
+#'   
 #' @inheritParams cohesion
 #' @param attribute Name of a nodal attribute or membership vector
 #'   to use as categories for the diversity measure.
@@ -11,8 +29,7 @@
 #' @family measures
 NULL
 
-#' @describeIn heterogeneity Calculates the number of unique categories 
-#'   in a network attribute.
+#' @rdname heterogeneity 
 #' @examples
 #' network_richness(mpn_bristol)
 #' @export
@@ -21,8 +38,7 @@ network_richness <- function(.data, attribute){
                        .data)
 }
 
-#' @describeIn heterogeneity Calculates the number of unique categories 
-#'   of an attribute to which each node is connected.
+#' @rdname heterogeneity 
 #' @examples
 #' node_richness(mpn_bristol, "type")
 #' @export
@@ -33,8 +49,7 @@ node_richness <- function(.data, attribute){
   make_node_measure(out, .data)
 }
 
-#' @describeIn heterogeneity Calculates the heterogeneity of ties across a network or 
-#'    within clusters by node attributes.
+#' @rdname heterogeneity 
 #' @section network_diversity:
 #'    Blau's index (1977) uses a formula known also in other disciplines
 #'    by other names 
@@ -80,8 +95,7 @@ network_diversity <- function(.data, attribute, clusters = NULL){
   make_network_measure(blauout, .data)
 }
 
-#' @describeIn heterogeneity Calculates the heterogeneity of each node's
-#'   local neighbourhood.
+#' @rdname heterogeneity 
 #' @examples 
 #' node_diversity(marvel_friends, "Gender")
 #' node_diversity(marvel_friends, "Attractive")
@@ -95,8 +109,7 @@ node_diversity <- function(.data, attribute){
   make_node_measure(out, .data)
 }
 
-#' @describeIn heterogeneity Calculates how embedded nodes in the network
-#'    are within groups of nodes with the same attribute
+#' @rdname heterogeneity 
 #' @section network_homophily:
 #'   Given a partition of a network into a number of mutually exclusive groups then 
 #'   The E-I index is the number of ties between (or _external_) nodes 
@@ -128,8 +141,7 @@ network_heterophily <- function(.data, attribute){
   make_network_measure(ei, .data)
 }
 
-#' @describeIn heterogeneity Calculates each node's embeddedness within groups
-#'    of nodes with the same attribute
+#' @rdname heterogeneity 
 #' @examples 
 #' node_heterophily(marvel_friends, "Gender")
 #' node_heterophily(marvel_friends, "Attractive")
@@ -154,7 +166,7 @@ node_heterophily <- function(.data, attribute){
   make_node_measure(ei, .data)
 }
 
-#' @describeIn heterogeneity Calculates the degree assortativity in a network.
+#' @rdname heterogeneity 
 #' @importFrom igraph assortativity_degree
 #' @examples 
 #' network_assortativity(mpn_elite_mex)
@@ -163,4 +175,26 @@ network_assortativity <- function(.data){
   make_network_measure(igraph::assortativity_degree(manynet::as_igraph(.data), 
                                directed = manynet::is_directed(.data)),
                      .data)
+}
+
+#' @rdname heterogeneity 
+#' @references
+#'   Moran, Patrick Alfred Pierce. 1950.
+#'   "Notes on Continuous Stochastic Phenomena".
+#'   _Biometrika_ 37(1): 17-23.
+#'   \doi{10.2307/2332142}
+#' @examples 
+#' network_spatial(ison_lawfirm, "age")
+#' @export
+network_spatial <- function(.data, attribute){
+  N <- manynet::network_nodes(.data)
+  x <- manynet::node_attribute(.data, attribute)
+  stopifnot(is.numeric(x))
+  x_bar <- mean(x, na.rm = TRUE)
+  w <- manynet::as_matrix(.data)
+  W <- sum(w, na.rm = TRUE)
+  I <- (N/W) * 
+    (sum(w * matrix(x - x_bar, N, N) * matrix(x - x_bar, N, N, byrow = TRUE)) / 
+    sum((x - x_bar)^2))
+  make_network_measure(I, .data)
 }

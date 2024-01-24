@@ -70,39 +70,33 @@ but where there may not be a network for which \eqn{SWI = 1}.
 \item{times}{Integer of number of simulations.}
 }
 \description{
-Measures of network topological features
-}
-\section{Functions}{
+These functions measure certain topological features of networks:
 \itemize{
-\item \code{network_core()}: Returns correlation between a given network
+\item \code{network_core()} measures the correlation between a network
 and a core-periphery model with the same dimensions.
-
-\item \code{network_richclub()}: Returns rich-club coefficient
-
-\item \code{network_factions()}: Returns correlation between a given network
+\item \code{network_richclub()} measures the rich-club coefficient of a network.
+\item \code{network_factions()} measures the correlation between a network
 and a component model with the same dimensions.
 If no 'membership' vector is given for the data,
-\code{node_kernighanlin()} is used to obtain a partition into two groups.
-
-\item \code{network_modularity()}: Returns modularity based on nodes' membership
-in pre-defined clusters.
-
-\item \code{network_smallworld()}: Returns small-world metrics for one- and
-two-mode networks.
-Small-world networks can be highly clustered and yet
+\code{node_kernighanlin()} is used to partition nodes into two groups.
+\item \code{network_modularity()} measures the modularity of a network
+based on nodes' membership in defined clusters.
+\item \code{network_smallworld()} measures the small-world coefficient for one- or
+two-mode networks. Small-world networks can be highly clustered and yet
 have short path lengths.
-
-\item \code{network_scalefree()}: Returns the exponent of the fitted
-power-law distribution.
-Usually an exponent between 2 and 3 indicates a power-law
-distribution.
-
-\item \code{network_balance()}: Returns the structural balance index on
+\item \code{network_scalefree()} measures the exponent of a fitted
+power-law distribution. An exponent between 2 and 3 usually indicates
+a power-law distribution.
+\item \code{network_balance()} measures the structural balance index on
 the proportion of balanced triangles,
 ranging between \code{0} if all triangles are imbalanced and
 \code{1} if all triangles are balanced.
+\item \code{network_change()} measures the Hamming distance between two or more networks.
+\item \code{network_stability()} measures the Jaccard index of stability between two or more networks.
+}
 
-}}
+These \verb{network_*()} functions return a single numeric scalar or value.
+}
 \section{Modularity}{
 
 Modularity measures the difference between the number of ties within each community
@@ -181,6 +175,7 @@ Other measures:
 \code{\link{hierarchy}},
 \code{\link{holes}},
 \code{\link{net_diffusion}},
-\code{\link{node_diffusion}}
+\code{\link{node_diffusion}},
+\code{\link{periods}}
 }
 \concept{measures}

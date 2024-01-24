@@ -39,7 +39,16 @@ See \code{?igraph::reciprocity}}
 }
 \description{
 These functions offer methods for summarising the closure in configurations
-in one-, two-, and three-mode networks.
+in one-, two-, and three-mode networks:
+\itemize{
+\item \code{network_reciprocity()} measures reciprocity in a (usually directed) network.
+\item \code{node_reciprocity()} measures nodes' reciprocity.
+\item \code{network_transitivity()} measures transitivity in a network.
+\item \code{node_transitivity()} measures nodes' transitivity.
+\item \code{network_equivalency()} measures equivalence or reinforcement
+in a (usually two-mode) network.
+\item \code{network_congruency()} measures congruency across two two-mode networks.
+}
 }
 \details{
 For one-mode networks, shallow wrappers of igraph versions exist via
@@ -52,22 +61,6 @@ For three-mode networks, \code{network_congruency} calculates the proportion of 
 spanning two two-mode networks that are closed by a fourth tie to establish a
 "congruent four-cycle" structure.
 }
-\section{Functions}{
-\itemize{
-\item \code{network_reciprocity()}: Calculate reciprocity in a (usually directed) network
-
-\item \code{node_reciprocity()}: Calculate nodes' reciprocity
-
-\item \code{network_transitivity()}: Calculate transitivity in a network
-
-\item \code{node_transitivity()}: Calculate nodes' transitivity
-
-\item \code{network_equivalency()}: Calculate equivalence or reinforcement
-in a (usually two-mode) network
-
-\item \code{network_congruency()}: Calculate congruency across two two-mode networks
-
-}}
 \examples{
 network_reciprocity(ison_southern_women)
 node_reciprocity(to_unweighted(ison_networkers))
@@ -98,6 +91,7 @@ Other measures:
 \code{\link{hierarchy}},
 \code{\link{holes}},
 \code{\link{net_diffusion}},
-\code{\link{node_diffusion}}
+\code{\link{node_diffusion}},
+\code{\link{periods}}
 }
 \concept{measures}

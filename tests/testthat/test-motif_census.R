@@ -1,7 +1,6 @@
 # # Census function family tests
 set.seed(123)
-task_eg <- manynet::to_named(manynet::to_uniplex(
-  manynet::ison_algebra, "task_tie"))
+task_eg <- manynet::to_named(manynet::to_uniplex(manynet::ison_algebra, "tasks"))
 
 test <- node_tie_census(task_eg)
 test_that("node tie census works", {
@@ -11,7 +10,7 @@ test_that("node tie census works", {
 
 test <- node_triad_census(task_eg)
 test_that("node triad census works", {
-  expect_equal(test[1:4], c(6, 15, 20, 102))
+  expect_equal(top3(test[,16]), c(7,8,6))
   expect_s3_class(test, "node_motif")
   expect_equal(colnames(test)[1:3], c("003", "012", "102"))
 })

@@ -3,11 +3,17 @@
 \name{between_centrality}
 \alias{between_centrality}
 \alias{node_betweenness}
+\alias{node_induced}
+\alias{node_flow}
 \alias{tie_betweenness}
 \alias{network_betweenness}
 \title{Measures of betweenness-like centrality and centralisation}
 \usage{
 node_betweenness(.data, normalized = TRUE, cutoff = NULL)
+
+node_induced(.data, normalized = TRUE, cutoff = NULL)
+
+node_flow(.data, normalized = TRUE)
 
 tie_betweenness(.data, normalized = TRUE)
 
@@ -47,27 +53,46 @@ against only the centrality scores of the other nodes in that mode.}
 A numeric vector giving the betweenness centrality measure of each node.
 }
 \description{
-Measures of betweenness-like centrality and centralisation
-}
-\section{Functions}{
+These functions calculate common betweenness-related centrality measures for one- and two-mode networks:
 \itemize{
-\item \code{node_betweenness()}: Calculate the betweenness centralities of nodes in a network
+\item \code{node_betweenness()} measures the betweenness centralities of nodes in a network.
+\item \code{node_induced()} measures the induced betweenness centralities of nodes in a network.
+\item \code{node_flow()} measures the flow betweenness centralities of nodes in a network,
+which uses an electrical current model for information spreading
+in contrast to the shortest paths model used by normal betweenness centrality.
+\item \code{tie_betweenness()} measures the number of shortest paths going through a tie.
+\item \code{network_betweenness()} measures the betweenness centralization for a network.
+}
 
-\item \code{tie_betweenness()}: Calculate number of shortest paths going through a tie
-
-\item \code{network_betweenness()}: Calculate the betweenness centralization for a network
-
-}}
+All measures attempt to use as much information as they are offered,
+including whether the networks are directed, weighted, or multimodal.
+If this would produce unintended results,
+first transform the salient properties using e.g. \code{\link[=to_undirected]{to_undirected()}} functions.
+All centrality and centralization measures return normalized measures by default,
+including for two-mode networks.
+}
 \examples{
 node_betweenness(mpn_elite_mex)
 node_betweenness(ison_southern_women)
+node_induced(mpn_elite_mex)
 (tb <- tie_betweenness(ison_adolescents))
 plot(tb)
 #ison_adolescents \%>\% mutate_ties(weight = tb) \%>\% 
 #   autographr()
 network_betweenness(ison_southern_women, direction = "in")
 }
+\references{
+Everett, Martin and Steve Borgatti. 2010.
+"Induced, endogenous and exogenous centrality"
+\emph{Social Networks}, 32: 339-344.
+\doi{10.1016/j.socnet.2010.06.004}
+}
 \seealso{
+Other centrality: 
+\code{\link{close_centrality}},
+\code{\link{degree_centrality}},
+\code{\link{eigenv_centrality}}
+
 Other measures: 
 \code{\link{close_centrality}},
 \code{\link{closure}},
@@ -79,12 +104,8 @@ Other measures:
 \code{\link{hierarchy}},
 \code{\link{holes}},
 \code{\link{net_diffusion}},
-\code{\link{node_diffusion}}
-
-Other centrality: 
-\code{\link{close_centrality}},
-\code{\link{degree_centrality}},
-\code{\link{eigenv_centrality}}
+\code{\link{node_diffusion}},
+\code{\link{periods}}
 }
 \concept{centrality}
 \concept{measures}

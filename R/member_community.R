@@ -31,8 +31,7 @@ node_optimal <- function(.data){
 }
 
 #' @describeIn community A greedy, iterative, deterministic
-#'   partitioning algorithm that results in a graph with two 
-#'   equally-sized communities
+#'   partitioning algorithm that results in two equally-sized communities.
 #' @references
 #' Kernighan, Brian W., and Shen Lin. 1970.
 #' "An efficient heuristic procedure for partitioning graphs."
@@ -260,7 +259,8 @@ node_louvain <- function(.data, resolution = 1){
   make_node_member(out, .data)
 }
 
-#' @describeIn community An agglomerative multilevel algorithm that seeks to maximise the Constant Potts Model over all possible partitions.
+#' @describeIn community An agglomerative multilevel algorithm that seeks to maximise 
+#'   the Constant Potts Model over all possible partitions.
 #' @section Leiden:
 #'   The general idea is to optimise the Constant Potts Model, 
 #'   which does not suffer from the resolution limit, instead of modularity.
@@ -294,4 +294,28 @@ node_leiden <- function(.data, resolution = 1){
   make_node_member(out, .data)
 }
 
-
+#' @describeIn community A propogation-based partitioning algorithm
+#' @section Fluid:
+#'   The general idea is to observe how a discrete number of fluids interact, expand and contract, 
+#'   in a non-homogenous environment, i.e. the network structure.
+#'   Unlike the `{igraph}` implementation that this function wraps,
+#'   this function iterates over all possible numbers of communities and returns the membership
+#'   associated with the highest modularity.
+#' @references
+#' Parés F, Gasulla DG, et. al. 2018. 
+#' "Fluid Communities: A Competitive, Scalable and Diverse Community Detection Algorithm". 
+#' In: _Complex Networks & Their Applications VI_
+#' Springer, 689: 229.
+#' \doi{10.1007/978-3-319-72150-7_19}
+#' @examples
+#' node_fluid(ison_adolescents)
+#' @export
+node_fluid <- function(.data){
+  .data <- as_igraph(.data)
+  mods <- vapply(seq.int(manynet::network_nodes(.data)),
+                 function(x) igraph::cluster_fluid_communities(.data, no.of.communities = x)$modularity,
+                FUN.VALUE = numeric(1))
+  out <- igraph::cluster_fluid_communities(manynet::as_igraph(.data), 
+                                no.of.communities = which.max(mods))$membership
+  make_node_member(out, .data)
+}

@@ -3,8 +3,11 @@
 \name{degree_centrality}
 \alias{degree_centrality}
 \alias{node_degree}
+\alias{node_deg}
 \alias{node_outdegree}
 \alias{node_indegree}
+\alias{node_multidegree}
+\alias{node_posneg}
 \alias{tie_degree}
 \alias{network_degree}
 \alias{network_outdegree}
@@ -18,9 +21,15 @@ node_degree(
   direction = c("all", "out", "in")
 )
 
+node_deg(.data, alpha = 0, direction = c("all", "out", "in"))
+
 node_outdegree(.data, normalized = TRUE, alpha = 0)
 
 node_indegree(.data, normalized = TRUE, alpha = 0)
+
+node_multidegree(.data, tie1, tie2)
+
+node_posneg(.data)
 
 tie_degree(.data, normalized = TRUE)
 
@@ -65,6 +74,10 @@ against all other centrality scores in the network,
 whereas "in" uses as numerator the sum of differences
 between the maximum centrality score for the mode
 against only the centrality scores of the other nodes in that mode.}
+
+\item{tie1}{Character string indicating the first uniplex network.}
+
+\item{tie2}{Character string indicating the second uniplex network.}
 }
 \value{
 A single centralization score if the object was one-mode,
@@ -74,7 +87,27 @@ Depending on how and what kind of an object is passed to the function,
 the function will return a \code{tidygraph} object where the nodes have been updated
 }
 \description{
-These functions calculate common centrality measures for one- and two-mode networks.
+These functions calculate common degree-related centrality measures for one- and two-mode networks:
+\itemize{
+\item \code{node_degree()} measures the degree centrality of nodes in an unweighted network,
+or weighted degree/strength of nodes in a weighted network;
+there are several related shortcut functions:
+\itemize{
+\item \code{node_deg()} returns the unnormalised results.
+\item \code{node_indegree()} returns the \code{direction = 'out'} results.
+\item \code{node_outdegree()} returns the \code{direction = 'out'} results.
+}
+\item \code{node_multidegree()} measures the ratio between types of ties in a multiplex network.
+\item \code{node_posneg()} measures the PN (positive-negative) centrality of a signed network.
+\item \code{tie_degree()} measures the degree centrality of ties in a network
+\item \code{network_degree()} measures a network's degree centralization;
+there are several related shortcut functions:
+\itemize{
+\item \code{network_indegree()} returns the \code{direction = 'out'} results.
+\item \code{network_outdegree()} returns the \code{direction = 'out'} results.
+}
+}
+
 All measures attempt to use as much information as they are offered,
 including whether the networks are directed, weighted, or multimodal.
 If this would produce unintended results,
@@ -82,24 +115,6 @@ first transform the salient properties using e.g. \code{\link[=to_undirected]{to
 All centrality and centralization measures return normalized measures by default,
 including for two-mode networks.
 }
-\section{Functions}{
-\itemize{
-\item \code{node_degree()}: Calculates the degree centrality of nodes in an unweighted network,
-or weighted degree/strength of nodes in a weighted network.
-
-\item \code{node_outdegree()}: Wraps node_degree(..., direction = "out")
-
-\item \code{node_indegree()}: Wraps node_degree(..., direction = "in")
-
-\item \code{tie_degree()}: Calculate the degree centrality of edges in a network
-
-\item \code{network_degree()}: Calculate the degree centralization for a graph
-
-\item \code{network_outdegree()}: Wraps network_degree(..., direction = "out")
-
-\item \code{network_indegree()}: Wraps network_degree(..., direction = "out")
-
-}}
 \examples{
 node_degree(mpn_elite_mex)
 node_degree(ison_southern_women)
@@ -128,10 +143,20 @@ Opsahl, Tore, Filip Agneessens, and John Skvoretz. 2010.
 "Node centrality in weighted networks: Generalizing degree and shortest paths."
 \emph{Social Networks} 32, 245-251.
 \doi{10.1016/j.socnet.2010.03.006}
+
+Everett, Martin G., and Stephen P. Borgatti. 2014.
+“Networks Containing Negative Ties.”
+\emph{Social Networks} 38:111–20.
+\doi{10.1016/j.socnet.2014.03.005}.
 }
 \seealso{
 \code{\link[=to_undirected]{to_undirected()}} for removing edge directions
 and \code{\link[=to_unweighted]{to_unweighted()}} for removing weights from a graph.
+
+Other centrality: 
+\code{\link{between_centrality}},
+\code{\link{close_centrality}},
+\code{\link{eigenv_centrality}}
 
 Other measures: 
 \code{\link{between_centrality}},
@@ -144,12 +169,8 @@ Other measures:
 \code{\link{hierarchy}},
 \code{\link{holes}},
 \code{\link{net_diffusion}},
-\code{\link{node_diffusion}}
-
-Other centrality: 
-\code{\link{between_centrality}},
-\code{\link{close_centrality}},
-\code{\link{eigenv_centrality}}
+\code{\link{node_diffusion}},
+\code{\link{periods}}
 }
 \concept{centrality}
 \concept{measures}

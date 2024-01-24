@@ -3,7 +3,22 @@
 #' Measures of degree-like centrality and centralisation
 #'
 #' @description
-#'   These functions calculate common centrality measures for one- and two-mode networks.
+#'   These functions calculate common degree-related centrality measures for one- and two-mode networks:
+#'   
+#'   - `node_degree()` measures the degree centrality of nodes in an unweighted network,
+#'   or weighted degree/strength of nodes in a weighted network; 
+#'   there are several related shortcut functions:
+#'     - `node_deg()` returns the unnormalised results.
+#'     - `node_indegree()` returns the `direction = 'out'` results.
+#'     - `node_outdegree()` returns the `direction = 'out'` results.
+#'   - `node_multidegree()` measures the ratio between types of ties in a multiplex network.
+#'   - `node_posneg()` measures the PN (positive-negative) centrality of a signed network.
+#'   - `tie_degree()` measures the degree centrality of ties in a network
+#'   - `network_degree()` measures a network's degree centralization; 
+#'   there are several related shortcut functions:
+#'     - `network_indegree()` returns the `direction = 'out'` results.
+#'     - `network_outdegree()` returns the `direction = 'out'` results.
+#'   
 #'   All measures attempt to use as much information as they are offered,
 #'   including whether the networks are directed, weighted, or multimodal.
 #'   If this would produce unintended results, 
@@ -11,8 +26,8 @@
 #'   All centrality and centralization measures return normalized measures by default,
 #'   including for two-mode networks.
 #' @name degree_centrality
-#' @family measures
 #' @family centrality
+#' @family measures
 #' @seealso [to_undirected()] for removing edge directions
 #'   and [to_unweighted()] for removing weights from a graph.
 #' @inheritParams cohesion
@@ -72,8 +87,7 @@
 #' the function will return a `tidygraph` object where the nodes have been updated
 NULL
 
-#' @describeIn degree_centrality Calculates the degree centrality of nodes in an unweighted network,
-#'   or weighted degree/strength of nodes in a weighted network.
+#' @rdname degree_centrality 
 #' @importFrom manynet as_igraph
 #' @export
 node_degree <- function (.data, normalized = TRUE, alpha = 0,
@@ -110,25 +124,63 @@ node_degree <- function (.data, normalized = TRUE, alpha = 0,
                        mode = direction,
                        loops = manynet::is_complex(.data), weights = weights)
       out <- ki * (si/ki)^alpha
+      if(normalized) out <- out/max(out)
     }
   }
   out <- make_node_measure(out, .data)
   out
 }
 
-#' @describeIn degree_centrality Wraps node_degree(..., direction = "out")
+#' @rdname degree_centrality
+#' @export
+node_deg <- function (.data, alpha = 0, direction = c("all","out","in")){
+  node_degree(.data, normalized = FALSE, alpha = alpha, direction = direction)
+}
+
+#' @rdname degree_centrality
 #' @export
 node_outdegree <- function (.data, normalized = TRUE, alpha = 0){
   node_degree(.data, normalized = normalized, alpha = alpha, direction = "out")
 }
 
-#' @describeIn degree_centrality Wraps node_degree(..., direction = "in")
+#' @rdname degree_centrality
 #' @export
 node_indegree <- function (.data, normalized = TRUE, alpha = 0){
   node_degree(.data, normalized = normalized, alpha = alpha, direction = "in")
 }
 
-#' @describeIn degree_centrality Calculate the degree centrality of edges in a network
+#' @rdname degree_centrality
+#' @param tie1 Character string indicating the first uniplex network.
+#' @param tie2 Character string indicating the second uniplex network.
+#' @export
+node_multidegree <- function (.data, tie1, tie2){
+  stopifnot(manynet::is_multiplex(.data))
+  out <- node_degree(manynet::to_uniplex(.data, tie1)) - 
+    node_degree(manynet::to_uniplex(.data, tie2))
+  make_node_measure(out, .data)
+}
+
+#' @rdname degree_centrality
+#' @references
+#' Everett, Martin G., and Stephen P. Borgatti. 2014. 
+#' “Networks Containing Negative Ties.” 
+#' _Social Networks_ 38:111–20. 
+#' \doi{10.1016/j.socnet.2014.03.005}.
+#' @export
+node_posneg <- function(.data){
+  stopifnot(manynet::is_signed(.data))
+  pos <- manynet::as_matrix(manynet::to_unsigned(.data, keep = "positive"))
+  neg <- manynet::as_matrix(manynet::to_unsigned(.data, keep = "negative"))
+  nn <- manynet::network_nodes(.data)
+  pn <- pos-neg*2
+  diag(pn) <- 0
+  idmat <- diag(nn)
+  v1 <- matrix(1,nn,1)
+  out <- solve(idmat - ((pn%*%t(pn))/(4*(nn-1)^2))) %*% (idmat+( pn/(2*(nn-1)) )) %*% v1
+  make_node_measure(out, .data)
+}
+
+#' @rdname degree_centrality
 #' @examples 
 #' tie_degree(ison_adolescents)
 #' @export
@@ -141,7 +193,7 @@ tie_degree <- function(.data, normalized = TRUE){
   out
 }
 
-#' @describeIn degree_centrality Calculate the degree centralization for a graph
+#' @rdname degree_centrality
 #' @examples
 #' network_degree(ison_southern_women, direction = "in")
 #' @export
@@ -179,13 +231,13 @@ network_degree <- function(.data, normalized = TRUE,
   out
 }
 
-#' @describeIn degree_centrality Wraps network_degree(..., direction = "out")
+#' @rdname degree_centrality
 #' @export
 network_outdegree <- function(.data, normalized = TRUE){
   network_degree(.data, normalized = normalized, direction = "out")
 }
 
-#' @describeIn degree_centrality Wraps network_degree(..., direction = "out")
+#' @rdname degree_centrality
 #' @export
 network_indegree <- function(.data, normalized = TRUE){
   network_degree(.data, normalized = normalized, direction = "in")
@@ -194,15 +246,32 @@ network_indegree <- function(.data, normalized = TRUE){
 # Betweenness-like centralities ####
 
 #' Measures of betweenness-like centrality and centralisation
+#' @description
+#'   These functions calculate common betweenness-related centrality measures for one- and two-mode networks:
+#'   
+#'   - `node_betweenness()` measures the betweenness centralities of nodes in a network.
+#'   - `node_induced()` measures the induced betweenness centralities of nodes in a network.
+#'   - `node_flow()` measures the flow betweenness centralities of nodes in a network,
+#'   which uses an electrical current model for information spreading 
+#'   in contrast to the shortest paths model used by normal betweenness centrality.
+#'   - `tie_betweenness()` measures the number of shortest paths going through a tie.
+#'   - `network_betweenness()` measures the betweenness centralization for a network.
+#'   
+#'   All measures attempt to use as much information as they are offered,
+#'   including whether the networks are directed, weighted, or multimodal.
+#'   If this would produce unintended results, 
+#'   first transform the salient properties using e.g. [to_undirected()] functions.
+#'   All centrality and centralization measures return normalized measures by default,
+#'   including for two-mode networks.
 #' @name between_centrality
-#' @family measures
 #' @family centrality
+#' @family measures
 #' @inheritParams degree_centrality
 #' @param cutoff The maximum path length to consider when calculating betweenness.
 #'   If negative or NULL (the default), there's no limit to the path lengths considered.
 NULL
 
-#' @describeIn between_centrality Calculate the betweenness centralities of nodes in a network
+#' @rdname between_centrality
 #' @import tidygraph
 #' @examples
 #' node_betweenness(mpn_elite_mex)
@@ -242,7 +311,41 @@ node_betweenness <- function(.data, normalized = TRUE,
   out
 }
 
-#' @describeIn between_centrality Calculate number of shortest paths going through a tie
+#' @rdname between_centrality 
+#' @examples
+#' node_induced(mpn_elite_mex)
+#' @references
+#' Everett, Martin and Steve Borgatti. 2010.
+#' "Induced, endogenous and exogenous centrality"
+#' _Social Networks_, 32: 339-344.
+#' \doi{10.1016/j.socnet.2010.06.004}
+#' @export 
+node_induced <- function(.data, normalized = TRUE, 
+                         cutoff = NULL){
+  endog <- sum(node_betweenness(.data, normalized = normalized, cutoff = cutoff),
+               na.rm = TRUE)
+  exog <- vapply(seq.int(manynet::network_nodes(.data)),
+                 function(x) sum(node_betweenness(manynet::delete_nodes(.data, x),
+                                              normalized = normalized, cutoff = cutoff),
+                                 na.rm = TRUE),
+                FUN.VALUE = numeric(1))
+  out <- endog - exog
+  make_node_measure(out, .data)
+}
+
+
+#' @rdname between_centrality 
+#' @importFrom sna flowbet
+#' @export 
+node_flow <- function(.data, normalized = TRUE){
+  out <- sna::flowbet(manynet::as_network(.data),
+                      gmode = ifelse(manynet::is_directed(.data), "digraph", "graph"),
+                      diag = manynet::is_complex(.data),
+                      cmode = ifelse(normalized, "normflow", "rawflow"))
+  make_node_measure(out, .data)
+}
+
+#' @rdname between_centrality
 #' @importFrom igraph edge_betweenness
 #' @examples
 #' (tb <- tie_betweenness(ison_adolescents))
@@ -261,7 +364,7 @@ tie_betweenness <- function(.data, normalized = TRUE){
   out
 }
 
-#' @describeIn between_centrality Calculate the betweenness centralization for a network
+#' @rdname between_centrality
 #' @examples
 #' network_betweenness(ison_southern_women, direction = "in")
 #' @export
@@ -321,15 +424,37 @@ network_betweenness <- function(.data, normalized = TRUE,
 # Closeness-like centralities ####
 
 #' Measures of closeness-like centrality and centralisation
+#' @description
+#'   These functions calculate common closeness-related centrality measures for one- and two-mode networks:
+#'   
+#'   - `node_closeness()` measures the closeness centrality of nodes in a network.
+#'   - `node_reach()` measures nodes' reach centrality,
+#'   or how many nodes they can reach within _k_ steps.
+#'   - `node_harmonic()` measures nodes' harmonic centrality or valued centrality,
+#'   which is thought to behave better than reach centrality for disconnected networks.
+#'   - `node_information()` measures nodes' information centrality or 
+#'   current-flow closeness centrality.
+#'   - `tie_closeness()` measures the closeness of each tie to other ties in the network.
+#'   - `network_closeness()` measures a network's closeness centralization.
+#'   - `network_reach()` measures a network's reach centralization.
+#'   - `network_harmonic()` measures a network's harmonic centralization.
+#'   
+#'   All measures attempt to use as much information as they are offered,
+#'   including whether the networks are directed, weighted, or multimodal.
+#'   If this would produce unintended results, 
+#'   first transform the salient properties using e.g. [to_undirected()] functions.
+#'   All centrality and centralization measures return normalized measures by default,
+#'   including for two-mode networks.
 #' @name close_centrality
-#' @family measures
 #' @family centrality
+#' @family measures
 #' @inheritParams degree_centrality
 NULL
 
-#' @describeIn close_centrality Calculate the closeness centrality of nodes in a network
+#' @rdname close_centrality
 #' @param cutoff Maximum path length to use during calculations.
 #' @import tidygraph
+#' @importFrom rlang %||%
 #' @examples
 #' node_closeness(mpn_elite_mex)
 #' node_closeness(ison_southern_women)
@@ -358,8 +483,7 @@ node_closeness <- function(.data, normalized = TRUE,
   out
 } 
 
-#' @describeIn close_centrality Calculate nodes' reach centrality
-#'   or how many nodes they can reach within _k_ steps
+#' @rdname close_centrality 
 #' @param k Integer of steps out to calculate reach
 #' @examples
 #' node_reach(ison_adolescents)
@@ -372,8 +496,7 @@ node_reach <- function(.data, normalized = TRUE, k = 2){
   out
 }
 
-#' @describeIn close_centrality Calculate nodes' harmonic centrality or valued centrality.
-#'   This is thought to behave better than reach centrality for disconnected networks.
+#' @rdname close_centrality 
 #' @references
 #'   Marchiori, M, and V Latora. 2000. 
 #'   "Harmony in the small-world".
@@ -391,8 +514,17 @@ node_harmonic <- function(.data, normalized = TRUE, k = -1){
   out
 }
 
-#' @describeIn close_centrality Calculate the closeness of each edge to each other edge
-#' in the network.
+#' @rdname close_centrality 
+#' @importFrom sna infocent
+#' @export
+node_information <- function(.data, normalized = TRUE){
+  out <- sna::infocent(manynet::as_network(.data),
+                       gmode = ifelse(manynet::is_directed(.data), "digraph", "graph"),
+                       diag = manynet::is_complex(.data))
+  make_node_measure(out, .data)
+}
+  
+#' @rdname close_centrality 
 #' @examples
 #' (ec <- tie_closeness(ison_adolescents))
 #' plot(ec)
@@ -409,7 +541,7 @@ tie_closeness <- function(.data, normalized = TRUE){
   out
 }
 
-#' @describeIn close_centrality Calculate a network's closeness centralization
+#' @rdname close_centrality 
 #' @examples
 #' network_closeness(ison_southern_women, direction = "in")
 #' @export
@@ -474,7 +606,7 @@ network_closeness <- function(.data, normalized = TRUE,
   out
 }
 
-#' @describeIn close_centrality Calculate a network's reach centralization
+#' @rdname close_centrality 
 #' @export
 network_reach <- function(.data, normalized = TRUE, k = 2){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
@@ -484,7 +616,7 @@ network_reach <- function(.data, normalized = TRUE, k = 2){
   make_network_measure(out, .data)
 }
 
-#' @describeIn close_centrality Calculate a network's harmonic centralization
+#' @rdname close_centrality
 #' @export
 network_harmonic <- function(.data, normalized = TRUE, k = 2){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
@@ -497,13 +629,29 @@ network_harmonic <- function(.data, normalized = TRUE, k = 2){
 # Eigenvector-like centralities ####
 
 #' Measures of eigenvector-like centrality and centralisation
+#' @description
+#'   These functions calculate common eigenvector-related centrality measures for one- and two-mode networks:
+#'   
+#'   - `node_eigenvector()` measures the eigenvector centrality of nodes in a network.
+#'   - `node_power()` measures the Bonacich, beta, or power centrality of nodes in a network.
+#'   - `node_alpha()` measures the alpha or Katz centrality of nodes in a network.
+#'   - `node_pagerank()` measures the pagerank centrality of nodes in a network.
+#'   - `tie_eigenvector()` measures the eigenvector centrality of ties in a network.
+#'   - `network_eigenvector()` measures the eigenvector centralization for a network.
+#'   
+#'   All measures attempt to use as much information as they are offered,
+#'   including whether the networks are directed, weighted, or multimodal.
+#'   If this would produce unintended results, 
+#'   first transform the salient properties using e.g. [to_undirected()] functions.
+#'   All centrality and centralization measures return normalized measures by default,
+#'   including for two-mode networks.
 #' @name eigenv_centrality
-#' @family measures
 #' @family centrality
+#' @family measures
 #' @inheritParams degree_centrality
 NULL
 
-#' @describeIn eigenv_centrality Calculate the eigenvector centrality of nodes in a network
+#' @rdname eigenv_centrality
 #' @section Eigenvector centrality:
 #'   Eigenvector centrality operates as a measure of a node's influence in a network.
 #'   The idea is that being connected to well-connected others results in a higher score.
@@ -561,7 +709,7 @@ node_eigenvector <- function(.data, normalized = TRUE, scale = FALSE){
   out
 }
 
-#' @describeIn eigenv_centrality Calculate the Bonacich, beta, or power centrality of nodes in a network
+#' @rdname eigenv_centrality
 #' @param exponent Decay rate for the Bonacich power centrality score.
 #' @section Power centrality:
 #'   Power or beta (or Bonacich) centrality 
@@ -604,7 +752,7 @@ node_power <- function(.data, normalized = TRUE, scale = FALSE, exponent = 1){
   out
 }
 
-#' @describeIn eigenv_centrality Calculate the alpha or Katz centrality of nodes in a network
+#' @rdname eigenv_centrality 
 #' @param alpha A constant that trades off the importance of external influence against the importance of connection.
 #'   When \eqn{\alpha = 0}, only the external influence matters.
 #'   As \eqn{\alpha} gets larger, only the connectivity matters and we reduce to eigenvector centrality.
@@ -645,7 +793,7 @@ node_alpha <- function(.data, alpha = 0.85){
                     .data)
 }
 
-#' @describeIn eigenv_centrality Calculate the pagerank centrality of nodes in a network
+#' @rdname eigenv_centrality 
 #' @references 
 #'   Brin, Sergey and Page, Larry. 1998.
 #'   "The anatomy of a large-scale hypertextual web search engine".
@@ -657,7 +805,20 @@ node_pagerank <- function(.data){
                     .data)
 }
   
-#' @describeIn eigenv_centrality Calculate the eigenvector centralization for a network
+#' @rdname eigenv_centrality
+#' @examples 
+#' tie_eigenvector(ison_adolescents)
+#' @export
+tie_eigenvector <- function(.data, normalized = TRUE){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
+  edge_adj <- manynet::to_ties(.data)
+  out <- node_eigenvector(edge_adj, normalized = normalized)
+  class(out) <- "numeric"
+  out <- make_tie_measure(out, .data)
+  out
+}
+
+#' @rdname eigenv_centrality 
 #' @examples
 #' network_eigenvector(mpn_elite_mex)
 #' network_eigenvector(ison_southern_women)
@@ -673,19 +834,6 @@ network_eigenvector <- function(.data, normalized = TRUE){
                                normalized = normalized)$centralization
   }
   out <- make_network_measure(out, .data)
-  out
-}
-
-#' @describeIn eigenv_centrality Calculate the eigenvector centrality of edges in a network
-#' @examples 
-#' tie_eigenvector(ison_adolescents)
-#' @export
-tie_eigenvector <- function(.data, normalized = TRUE){
-  if(missing(.data)) {expect_nodes(); .data <- .G()}
-  edge_adj <- manynet::to_ties(.data)
-  out <- node_eigenvector(edge_adj, normalized = normalized)
-  class(out) <- "numeric"
-  out <- make_tie_measure(out, .data)
   out
 }
 

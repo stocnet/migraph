@@ -29,18 +29,15 @@ network_mixed_census(.data, object2)
 \item{object2}{A second, two-mode migraph-consistent object.}
 }
 \description{
-Censuses of motifs at the network level
-}
-\section{Functions}{
+These functions include ways to take a census of the positions of nodes
+in a network:
 \itemize{
-\item \code{network_dyad_census()}: Returns a census of dyad motifs in a network
-
-\item \code{network_triad_census()}: Returns a census of triad motifs in a network
-
-\item \code{network_mixed_census()}: Returns a census of triad motifs that span
-a one-mode and a two-mode network
-
-}}
+\item \code{network_dyad_census()} returns a census of dyad motifs in a network.
+\item \code{network_triad_census()} returns a census of triad motifs in a network.
+\item \code{network_mixed_census()} returns a census of triad motifs that span
+a one-mode and a two-mode network.
+}
+}
 \examples{
 network_dyad_census(manynet::ison_algebra)
 network_triad_census(manynet::ison_adolescents)

@@ -244,17 +244,17 @@ node_adoption_time <- function(diff_model){
     dplyr::distinct(nodes, .keep_all = TRUE) |> 
     dplyr::select(nodes,t)
   net <- attr(diff_model, "network")
-  if(!is_labelled(net))
+  if(!manynet::is_labelled(net))
     out <- dplyr::arrange(out, nodes) else if (is.numeric(out$nodes))
-      out$nodes <- node_names(net)[out$nodes]
+      out$nodes <- manynet::node_names(net)[out$nodes]
   out <- stats::setNames(out$t, out$nodes)
-  if(length(out) != network_nodes(net)){
-    full <- rep(Inf, network_nodes(net))
-    names(full) <- `if`(is_labelled(net), 
-                        node_names(net), 
-                        as.character(seq_len(network_nodes(net))))
+  if(length(out) != manynet::network_nodes(net)){
+    full <- rep(Inf, manynet::network_nodes(net))
+    names(full) <- `if`(manynet::is_labelled(net), 
+                        manynet::node_names(net), 
+                        as.character(seq_len(manynet::network_nodes(net))))
     full[match(names(out), names(full))] <- out
-    out <- `if`(is_labelled(net), full, unname(full))
+    out <- `if`(manynet::is_labelled(net), full, unname(full))
   }
   if(!manynet::is_labelled(net)) out <- unname(out)
   make_node_measure(out, net)
@@ -378,7 +378,7 @@ node_infection_length <- function(diff_model){
 #' @export
 node_exposure <- function(.data, mark, time = 0){
   if(missing(mark) && inherits(.data, "diff_model")){
-    mark <- node_is_infected(.data, time = time)
+    mark <- manynet::node_is_infected(.data, time = time)
     .data <- attr(.data, "network")
   }
   if(is.logical(mark)) mark <- which(mark)

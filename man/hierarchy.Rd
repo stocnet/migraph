@@ -24,18 +24,16 @@ network_upperbound(.data)
 }}
 }
 \description{
-Graph theoretic dimensions of hierarchy
-}
-\section{Functions}{
+These functions, together with \code{network_reciprocity()}, are used jointly to
+measure how hierarchical a network is:
 \itemize{
-\item \code{network_connectedness()}: Returns the proportion of dyads in the network
-that are reachable, otherwise degree to which network is a single component
-
-\item \code{network_efficiency()}: Returns the Krackhardt efficiency score
-
-\item \code{network_upperbound()}: Returns the Krackhardt (least) upper bound score
-
-}}
+\item \code{network_connectedness()} measures the proportion of dyads in the network
+that are reachable to one another,
+or the degree to which network is a single component.
+\item \code{network_efficiency()} measures the Krackhardt efficiency score.
+\item \code{network_upperbound()} measures the Krackhardt (least) upper bound score.
+}
+}
 \examples{
 network_connectedness(ison_networkers)
 1 - network_reciprocity(ison_networkers)
@@ -65,6 +63,7 @@ Other measures:
 \code{\link{heterogeneity}},
 \code{\link{holes}},
 \code{\link{net_diffusion}},
-\code{\link{node_diffusion}}
+\code{\link{node_diffusion}},
+\code{\link{periods}}
 }
 \concept{measures}

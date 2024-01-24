@@ -36,25 +36,18 @@ network_length(.data)
 These functions return values or vectors relating to how connected a network is
 and the number of nodes or edges to remove that would increase fragmentation.
 \itemize{
-\item \code{network_density()}: Measures the ratio of ties to the number
-of possible ties
-\item \code{network_components()}: Measures the number of (strong) components
+\item \code{network_density()} measures the ratio of ties to the number
+of possible ties.
+\item \code{network_components()} measures the number of (strong) components
 in the network.
-}
-}
-\section{Functions}{
-\itemize{
-\item \code{network_cohesion()}: Returns the minimum number of nodes to remove
+\item \code{network_cohesion()} measures the minimum number of nodes to remove
 from the network needed to increase the number of components.
-
-\item \code{network_adhesion()}: Returns the minimum number of edges needed
-to remove from the network to increase the number of components.
-
-\item \code{network_diameter()}: Returns the maximum path length in the network.
-
-\item \code{network_length()}: Returns the average path length in the network.
-
-}}
+\item \code{network_adhesion()} measures the minimum number of ties to remove
+from the network needed to increase the number of components.
+\item \code{network_diameter()} measures the maximum path length in the network.
+\item \code{network_length()} measures the average path length in the network.
+}
+}
 \section{Cohesion}{
 
 To get the 'weak' components of a directed graph,
@@ -92,6 +85,7 @@ Other measures:
 \code{\link{hierarchy}},
 \code{\link{holes}},
 \code{\link{net_diffusion}},
-\code{\link{node_diffusion}}
+\code{\link{node_diffusion}},
+\code{\link{periods}}
 }
 \concept{measures}

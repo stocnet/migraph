@@ -1,7 +1,7 @@
 Package: migraph
-Title: Multimodal Network Analysis and More
-Version: 1.2.0
-Date: 2023-12-17
+Title: Many Network Measures, Motifs, Members, and Models
+Version: 1.3.0
+Date: 2024-01-24
 Description: A set of tools for analysing multimodal networks.
    It includes functions for measuring 
    centrality, centralization, cohesion, closure, constraint and diversity,
@@ -12,13 +12,13 @@ Description: A set of tools for analysing multimodal networks.
    Built on the 'manynet' package, all functions operate with matrices, edge lists, 
    and 'igraph', 'network', and 'tidygraph' objects,
    and on one-mode, two-mode (bipartite), and sometimes three-mode networks.
-URL: https://snlab-ch.github.io/migraph/
-BugReports: https://github.com/snlab-ch/migraph/issues
+URL: https://stocnet.github.io/migraph/
+BugReports: https://github.com/stocnet/migraph/issues
 License: MIT + file LICENSE
 Language: en-GB
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.0
 Depends:
     R (>= 3.6.0),
     manynet

@@ -1,12 +1,39 @@
+# Topological features ####
+
 #' Measures of network topological features
+#' @description
+#'   These functions measure certain topological features of networks:
+#'   
+#'   - `network_core()` measures the correlation between a network
+#'   and a core-periphery model with the same dimensions.
+#'   - `network_richclub()` measures the rich-club coefficient of a network.
+#'   - `network_factions()` measures the correlation between a network
+#'   and a component model with the same dimensions.
+#'   If no 'membership' vector is given for the data, 
+#'   `node_kernighanlin()` is used to partition nodes into two groups.
+#'   - `network_modularity()` measures the modularity of a network 
+#'   based on nodes' membership in defined clusters.
+#'   - `network_smallworld()` measures the small-world coefficient for one- or 
+#'   two-mode networks. Small-world networks can be highly clustered and yet
+#'   have short path lengths.
+#'   - `network_scalefree()` measures the exponent of a fitted
+#'   power-law distribution. An exponent between 2 and 3 usually indicates 
+#'   a power-law distribution.
+#'   - `network_balance()` measures the structural balance index on 
+#'   the proportion of balanced triangles,
+#'   ranging between `0` if all triangles are imbalanced and 
+#'   `1` if all triangles are balanced.
+#'   - `network_change()` measures the Hamming distance between two or more networks.
+#'   - `network_stability()` measures the Jaccard index of stability between two or more networks.
+#' 
+#'   These `network_*()` functions return a single numeric scalar or value.
 #' @inheritParams cohesion
 #' @param membership A vector of partition membership.
 #' @name features
 #' @family measures
 NULL
 
-#' @describeIn features Returns correlation between a given network
-#'   and a core-periphery model with the same dimensions.
+#' @rdname features
 #' @examples 
 #' network_core(ison_adolescents)
 #' network_core(ison_southern_women)
@@ -25,7 +52,7 @@ network_core <- function(.data,
   make_network_measure(out, .data)
 }
 
-#' @describeIn features Returns rich-club coefficient
+#' @rdname features
 #' @examples
 #' network_richclub(ison_adolescents)
 #' @export
@@ -69,10 +96,7 @@ network_richclub <- function(.data){
   make_network_measure(out, .data)
 }
 
-#' @describeIn features Returns correlation between a given network
-#'   and a component model with the same dimensions.
-#'   If no 'membership' vector is given for the data, 
-#'   `node_kernighanlin()` is used to obtain a partition into two groups.
+#' @rdname features 
 #' @examples 
 #'   network_factions(mpn_elite_mex)
 #'   network_factions(ison_southern_women)
@@ -87,8 +111,7 @@ network_factions <- function(.data,
   make_network_measure(out, .data)
 }
 
-#' @describeIn features Returns modularity based on nodes' membership 
-#'   in pre-defined clusters.
+#' @rdname features
 #' @section Modularity:
 #'   Modularity measures the difference between the number of ties within each community
 #'   from the number of ties expected within each community in a random graph
@@ -122,6 +145,8 @@ network_factions <- function(.data,
 network_modularity <- function(.data, 
                              membership = NULL, 
                              resolution = 1){
+  if(is.null(membership))
+    membership <- node_kernighanlin(.data)
   if(!manynet::is_graph(.data)) .data <- manynet::as_igraph(.data)
   if(manynet::is_twomode(.data)){
     make_network_measure(igraph::modularity(manynet::to_multilevel(.data), 
@@ -133,10 +158,7 @@ network_modularity <- function(.data,
                               .data)
 }
 
-#' @describeIn features Returns small-world metrics for one- and 
-#'    two-mode networks. 
-#'    Small-world networks can be highly clustered and yet
-#'    have short path lengths.
+#' @rdname features 
 #' @param times Integer of number of simulations.
 #' @param method There are three small-world measures implemented:
 #'   - "sigma" is the original equation from Watts and Strogatz (1998),
@@ -220,10 +242,7 @@ network_smallworld <- function(.data,
                        .data)
 }
 
-#' @describeIn features Returns the exponent of the fitted
-#'   power-law distribution.
-#'   Usually an exponent between 2 and 3 indicates a power-law
-#'   distribution.
+#' @rdname features 
 #' @importFrom igraph fit_power_law
 #' @examples 
 #' network_scalefree(ison_adolescents)
@@ -240,10 +259,7 @@ network_scalefree <- function(.data){
   make_network_measure(out$alpha, .data)
 }
 
-#' @describeIn features Returns the structural balance index on 
-#'   the proportion of balanced triangles,
-#'   ranging between `0` if all triangles are imbalanced and 
-#'   `1` if all triangles are balanced.
+#' @rdname features 
 #' @source `{signnet}` by David Schoch
 #' @examples
 #' network_balance(ison_marvel_relationships)
@@ -255,10 +271,10 @@ network_balance <- function(.data) {
     if (!"sign" %in% igraph::edge_attr_names(g)) {
       stop("network does not have a sign edge attribute")
     }
-    if (igraph::is.directed(g)) {
+    if (igraph::is_directed(g)) {
       stop("g must be undirected")
     }
-    eattrV <- igraph::get.edge.attribute(g, "sign")
+    eattrV <- igraph::edge_attr(g, "sign")
     if (!all(eattrV %in% c(-1, 1))) {
       stop("sign may only contain -1 and 1")
     }
@@ -298,11 +314,63 @@ network_balance <- function(.data) {
     stop("object must be undirected")
   }
   g <- manynet::as_igraph(.data)
-  eattrV <- igraph::get.edge.attribute(g, "sign")
+  eattrV <- igraph::edge_attr(g, "sign")
   if (!all(eattrV %in% c(-1, 1))) {
     stop("sign may only contain -1 and 1")
   }
   tria_count <- count_signed_triangles(g)
   make_network_measure(unname((tria_count["+++"] + tria_count["+--"])/sum(tria_count)),
                        .data)
+}
+
+# Change ####
+
+#' Measures of network change
+#' @description
+#'   These functions measure certain topological features of networks:
+#'   
+#'   - `network_change()` measures the Hamming distance between two or more networks.
+#'   - `network_stability()` measures the Jaccard index of stability between two or more networks.
+#' 
+#'   These `network_*()` functions return a numeric vector the length of the number
+#'   of networks minus one. E.g., the periods between waves.
+#' @inheritParams cohesion
+#' @name periods
+#' @family measures
+NULL
+
+#' @rdname periods 
+#' @param object2 A network object.
+#' @export
+network_change <- function(.data, object2){
+  if(manynet::is_list(.data)){
+    
+  } else if(!missing(object2)){
+    .data <- list(.data, object2)
+  } else stop("`.data` must be a list of networks or a second network must be provided.")
+  periods <- length(.data)-1
+  vapply(seq.int(periods), function(x){
+    net1 <- manynet::as_matrix(.data[[x]])
+    net2 <- manynet::as_matrix(.data[[x+1]])
+    sum(net1 != net2)
+  }, FUN.VALUE = numeric(1))
+}
+
+#' @rdname periods 
+#' @export
+network_stability <- function(.data, object2){
+  if(manynet::is_list(.data)){
+    
+  } else if(!missing(object2)){
+    .data <- list(.data, object2)
+  } else stop("`.data` must be a list of networks or a second network must be provided.")
+  periods <- length(.data)-1
+  vapply(seq.int(periods), function(x){
+    net1 <- manynet::as_matrix(.data[[x]])
+    net2 <- manynet::as_matrix(.data[[x+1]])
+    n11 <- sum(net1 * net2)
+    n01 <- sum(net1==0 * net2)
+    n10 <- sum(net1 * net2==0)
+    n11 / (n01 + n10 + n11)
+  }, FUN.VALUE = numeric(1))
 }

@@ -1,7 +1,17 @@
 #' Measures of network closure
 #'
-#' These functions offer methods for summarising the closure in configurations 
-#' in one-, two-, and three-mode networks.
+#' @description
+#'   These functions offer methods for summarising the closure in configurations 
+#'   in one-, two-, and three-mode networks:
+#'   
+#'   - `network_reciprocity()` measures reciprocity in a (usually directed) network.
+#'   - `node_reciprocity()` measures nodes' reciprocity.
+#'   - `network_transitivity()` measures transitivity in a network.
+#'   - `node_transitivity()` measures nodes' transitivity.
+#'   - `network_equivalency()` measures equivalence or reinforcement 
+#'   in a (usually two-mode) network.
+#'   - `network_congruency()` measures congruency across two two-mode networks.
+#'   
 #' @details 
 #' For one-mode networks, shallow wrappers of igraph versions exist via 
 #' `network_reciprocity` and `network_transitivity`.
@@ -15,7 +25,7 @@
 #' @inheritParams cohesion
 #' @param object2 Optionally, a second (two-mode) matrix, igraph, or tidygraph
 #' @param method For reciprocity, either `default` or `ratio`.
-#' See `?igraph::reciprocity`
+#'   See `?igraph::reciprocity`
 #' @name closure
 #' @family measures
 #' @references 
@@ -30,7 +40,7 @@
 #' \doi{10.1017/9781108985000}
 NULL
 
-#' @describeIn closure Calculate reciprocity in a (usually directed) network
+#' @rdname closure 
 #' @importFrom igraph reciprocity
 #' @examples
 #' network_reciprocity(ison_southern_women)
@@ -40,7 +50,7 @@ network_reciprocity <- function(.data, method = "default") {
                        .data)
 }
 
-#' @describeIn closure Calculate nodes' reciprocity
+#' @rdname closure 
 #' @examples
 #' node_reciprocity(to_unweighted(ison_networkers))
 #' @export
@@ -50,7 +60,7 @@ node_reciprocity <- function(.data) {
                     .data)
 }
 
-#' @describeIn closure Calculate transitivity in a network
+#' @rdname closure 
 #' @importFrom igraph transitivity
 #' @examples
 #' network_transitivity(ison_adolescents)
@@ -60,7 +70,7 @@ network_transitivity <- function(.data) {
                        .data)
 }
 
-#' @describeIn closure Calculate nodes' transitivity
+#' @rdname closure 
 #' @examples
 #' node_transitivity(ison_adolescents)
 #' @export
@@ -70,8 +80,7 @@ node_transitivity <- function(.data) {
                     .data)
 }
 
-#' @describeIn closure Calculate equivalence or reinforcement 
-#'   in a (usually two-mode) network
+#' @rdname closure 
 #' @examples
 #' network_equivalency(ison_southern_women)
 #' @export
@@ -91,7 +100,7 @@ network_equivalency <- function(.data) {
   make_network_measure(output, .data)
 }
 
-#' @describeIn closure Calculate congruency across two two-mode networks
+#' @rdname closure 
 #' @export
 network_congruency <- function(.data, object2){
   if(missing(.data) | missing(object2)) stop("This function expects two two-mode networks")

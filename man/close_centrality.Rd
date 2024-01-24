@@ -5,6 +5,7 @@
 \alias{node_closeness}
 \alias{node_reach}
 \alias{node_harmonic}
+\alias{node_information}
 \alias{tie_closeness}
 \alias{network_closeness}
 \alias{network_reach}
@@ -16,6 +17,8 @@ node_closeness(.data, normalized = TRUE, direction = "out", cutoff = NULL)
 node_reach(.data, normalized = TRUE, k = 2)
 
 node_harmonic(.data, normalized = TRUE, k = -1)
+
+node_information(.data, normalized = TRUE)
 
 tie_closeness(.data, normalized = TRUE)
 
@@ -53,28 +56,28 @@ against only the centrality scores of the other nodes in that mode.}
 \item{k}{Integer of steps out to calculate reach}
 }
 \description{
-Measures of closeness-like centrality and centralisation
-}
-\section{Functions}{
+These functions calculate common closeness-related centrality measures for one- and two-mode networks:
 \itemize{
-\item \code{node_closeness()}: Calculate the closeness centrality of nodes in a network
+\item \code{node_closeness()} measures the closeness centrality of nodes in a network.
+\item \code{node_reach()} measures nodes' reach centrality,
+or how many nodes they can reach within \emph{k} steps.
+\item \code{node_harmonic()} measures nodes' harmonic centrality or valued centrality,
+which is thought to behave better than reach centrality for disconnected networks.
+\item \code{node_information()} measures nodes' information centrality or
+current-flow closeness centrality.
+\item \code{tie_closeness()} measures the closeness of each tie to other ties in the network.
+\item \code{network_closeness()} measures a network's closeness centralization.
+\item \code{network_reach()} measures a network's reach centralization.
+\item \code{network_harmonic()} measures a network's harmonic centralization.
+}
 
-\item \code{node_reach()}: Calculate nodes' reach centrality
-or how many nodes they can reach within \emph{k} steps
-
-\item \code{node_harmonic()}: Calculate nodes' harmonic centrality or valued centrality.
-This is thought to behave better than reach centrality for disconnected networks.
-
-\item \code{tie_closeness()}: Calculate the closeness of each edge to each other edge
-in the network.
-
-\item \code{network_closeness()}: Calculate a network's closeness centralization
-
-\item \code{network_reach()}: Calculate a network's reach centralization
-
-\item \code{network_harmonic()}: Calculate a network's harmonic centralization
-
-}}
+All measures attempt to use as much information as they are offered,
+including whether the networks are directed, weighted, or multimodal.
+If this would produce unintended results,
+first transform the salient properties using e.g. \code{\link[=to_undirected]{to_undirected()}} functions.
+All centrality and centralization measures return normalized measures by default,
+including for two-mode networks.
+}
 \examples{
 node_closeness(mpn_elite_mex)
 node_closeness(ison_southern_women)
@@ -96,6 +99,11 @@ Dekker, Anthony. 2005.
 \emph{Journal of Social Structure} 6(3).
 }
 \seealso{
+Other centrality: 
+\code{\link{between_centrality}},
+\code{\link{degree_centrality}},
+\code{\link{eigenv_centrality}}
+
 Other measures: 
 \code{\link{between_centrality}},
 \code{\link{closure}},
@@ -107,12 +115,8 @@ Other measures:
 \code{\link{hierarchy}},
 \code{\link{holes}},
 \code{\link{net_diffusion}},
-\code{\link{node_diffusion}}
-
-Other centrality: 
-\code{\link{between_centrality}},
-\code{\link{degree_centrality}},
-\code{\link{eigenv_centrality}}
+\code{\link{node_diffusion}},
+\code{\link{periods}}
 }
 \concept{centrality}
 \concept{measures}

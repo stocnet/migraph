@@ -4,10 +4,16 @@
 #'   These functions return values or vectors relating to how connected a network is
 #'   and the number of nodes or edges to remove that would increase fragmentation.
 #'   
-#'   - `network_density()`: Measures the ratio of ties to the number
-#'   of possible ties
-#'   - `network_components()`: Measures the number of (strong) components 
+#'   - `network_density()` measures the ratio of ties to the number
+#'   of possible ties.
+#'   - `network_components()` measures the number of (strong) components 
 #'   in the network.
+#'   - `network_cohesion()` measures the minimum number of nodes to remove
+#'   from the network needed to increase the number of components.
+#'   - `network_adhesion()` measures the minimum number of ties to remove
+#'   from the network needed to increase the number of components.
+#'   - `network_diameter()` measures the maximum path length in the network.
+#'   - `network_length()` measures the average path length in the network.
 #' @param .data An object of a `{manynet}`-consistent class:
 #'   \itemize{
 #'   \item matrix (adjacency or incidence) from `{base}` R
@@ -51,8 +57,7 @@ network_components <- function(.data){
                        object)
 }
 
-#' @describeIn cohesion Returns the minimum number of nodes to remove
-#'   from the network needed to increase the number of components.
+#' @rdname cohesion 
 #' @importFrom igraph cohesion
 #' @references
 #' White, Douglas R and Frank Harary. 2001. 
@@ -66,8 +71,7 @@ network_cohesion <- function(.data){
   make_network_measure(igraph::cohesion(manynet::as_igraph(.data)), .data)
 }
 
-#' @describeIn cohesion Returns the minimum number of edges needed
-#'   to remove from the network to increase the number of components.
+#' @rdname cohesion 
 #' @importFrom igraph adhesion
 #' @examples 
 #' network_adhesion(manynet::ison_marvel_relationships)
@@ -77,7 +81,7 @@ network_adhesion <- function(.data){
   make_network_measure(igraph::adhesion(manynet::as_igraph(.data)), .data)
 }
 
-#' @describeIn cohesion Returns the maximum path length in the network.
+#' @rdname cohesion 
 #' @importFrom igraph diameter
 #' @examples 
 #' network_diameter(manynet::ison_marvel_relationships)
@@ -90,7 +94,7 @@ network_diameter <- function(.data){
                        object)
 }
 
-#' @describeIn cohesion Returns the average path length in the network.
+#' @rdname cohesion 
 #' @importFrom igraph mean_distance
 #' @examples 
 #' network_length(manynet::ison_marvel_relationships)

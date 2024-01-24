@@ -1,4 +1,15 @@
 #' Graph theoretic dimensions of hierarchy
+#' 
+#' @description
+#'   These functions, together with `network_reciprocity()`, are used jointly to
+#'   measure how hierarchical a network is:
+#'   
+#'   - `network_connectedness()` measures the proportion of dyads in the network
+#'   that are reachable to one another, 
+#'   or the degree to which network is a single component.
+#'   - `network_efficiency()` measures the Krackhardt efficiency score.
+#'   - `network_upperbound()` measures the Krackhardt (least) upper bound score.
+#' 
 #' @inheritParams cohesion
 #' @name hierarchy
 #' @family measures
@@ -19,8 +30,7 @@
 #' network_upperbound(ison_networkers)
 NULL
 
-#' @describeIn hierarchy Returns the proportion of dyads in the network
-#'   that are reachable, otherwise degree to which network is a single component
+#' @rdname hierarchy 
 #' @export
 network_connectedness <- function(.data){
   dists <- igraph::distances(manynet::as_igraph(.data))
@@ -28,7 +38,7 @@ network_connectedness <- function(.data){
                        .data)
 }
 
-#' @describeIn hierarchy Returns the Krackhardt efficiency score
+#' @rdname hierarchy 
 #' @export
 network_efficiency <- function(.data) {
   degs <- node_indegree(.data, normalized = FALSE)
@@ -36,7 +46,7 @@ network_efficiency <- function(.data) {
   make_network_measure(out, .data)
 }
 
-#' @describeIn hierarchy Returns the Krackhardt (least) upper bound score
+#' @rdname hierarchy 
 #' @export
 network_upperbound <- function(.data) {
   dists <- igraph::distances(.data, mode = "in")

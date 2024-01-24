@@ -1,64 +1,70 @@
+# Node censuses ####
+
 #' Censuses of nodes' motifs
 #' 
 #' @description
-#' These functions include ways to take a census of the positions of nodes
-#' in a network. These include a triad census based on the triad profile
-#' of nodes, but also a tie census based on the particular tie partners
-#' of nodes. Included also are group census functions for summarising
-#' the profiles of clusters of nodes in a network.
+#'   These functions include ways to take a census of the positions of nodes
+#'   in a network: 
+#'   
+#'   - `node_tie_census()` returns a census of the ties in a network.
+#'   For directed networks, out-ties and in-ties are bound together.
+#'   for multiplex networks, the various types of ties are bound together.
+#'   - `node_triad_census()` returns a census of the triad configurations
+#'   nodes are embedded in.
+#'   - `node_quad_census()` returns a census of nodes' positions
+#'   in motifs of four nodes.
+#'   - `node_path_census()` returns the shortest path lengths
+#'   of each node to every other node in the network.
+#'   
 #' @name node_census
 #' @family motifs
 #' @inheritParams cohesion
-#' @importFrom igraph vcount graph.neighborhood delete_vertices triad_census
+#' @importFrom igraph vcount make_ego_graph delete_vertices triad_census
 NULL
 
-#' @describeIn node_census Returns a census of the ties in a network.
-#'   For directed networks, out-ties and in-ties are bound together.
+#' @rdname node_census 
 #' @examples
-#' task_eg <- manynet::to_named(manynet::to_uniplex(manynet::ison_algebra, "task_tie"))
+#' task_eg <- manynet::to_named(manynet::to_uniplex(manynet::ison_algebra, "tasks"))
 #' (tie_cen <- node_tie_census(task_eg))
 #' @export
 node_tie_census <- function(.data){
   object <- manynet::as_igraph(.data)
-  edge_names <- igraph::edge_attr_names(object)
+  # edge_names <- manynet::network_tie_attributes(object)
   if (manynet::is_directed(object)) {
-    mat <- vector()
-    if (length(edge_names) > 0) {
-      for (e in edge_names) {
-        rc <- igraph::as_adjacency_matrix(object, attr = e, sparse = F)
-        rccr <- rbind(rc, t(rc))
-        mat <- rbind(mat, rccr)
-      }} else {
-        rc <- igraph::as_adjacency_matrix(object, sparse = F)
-        rccr <- rbind(rc, t(rc))
-        mat <- rbind(mat, rccr)
+    if (manynet::is_multiplex(.data)) {
+      mat <- do.call(rbind, lapply(unique(manynet::tie_attribute(object, "type")), 
+                                   function(x){
+                                     rc <- manynet::as_matrix(manynet::to_uniplex(object, x))
+                                     rbind(rc, t(rc))
+                                   }))
+      } else {
+        rc <- manynet::as_matrix(object)
+        mat <- rbind(rc, t(rc))
       }
   } else {
-    mat <- vector() 
-    if (length(edge_names) > 0) {
-      for (e in edge_names) {
-        rc <- igraph::as_adjacency_matrix(object, attr = e, sparse = F)
-        mat <- rbind(mat, rc)
-      }} else {
-        rc <- igraph::as_adjacency_matrix(object, sparse = F)
-        mat <- rbind(mat, rc)
-      }
+    if (manynet::is_multiplex(.data)) {
+      mat <- do.call(rbind, lapply(unique(manynet::tie_attribute(object, "type")), 
+                                   function(x){
+                                     manynet::as_matrix(manynet::to_uniplex(object, x))
+                                   }))
+    } else {
+      mat <- manynet::as_matrix(object)
+    }
   }
   if(manynet::is_labelled(object) & manynet::is_directed(object))
-    if(length(edge_names) > 0){
-      rownames(mat) <- apply(expand.grid(c(paste0("from", igraph::V(object)$name),
-                                           paste0("to", igraph::V(object)$name)),
-                                         edge_names), 
+    if(manynet::is_multiplex(.data)){
+      rownames(mat) <- apply(expand.grid(c(paste0("from", manynet::node_names(object)),
+                                           paste0("to", manynet::node_names(object))),
+                                           unique(manynet::tie_attribute(object, "type"))), 
                              1, paste, collapse = "_")
     } else {
-      rownames(mat) <- rep(c(paste0("from", igraph::V(object)$name),
-                             paste0("to", igraph::V(object)$name)))
+      rownames(mat) <- rep(c(paste0("from", manynet::node_names(object)),
+                             paste0("to", manynet::node_names(object))))
     }
   make_node_motif(t(mat), object)
 }
 
-#' @describeIn node_census Returns a census of the triad configurations
-#'   nodes are embedded in.
+#' @rdname node_census 
 #' @references 
 #' Davis, James A., and Samuel Leinhardt. 1967. 
 #' “\href{https://files.eric.ed.gov/fulltext/ED024086.pdf}{The Structure of Positive Interpersonal Relations in Small Groups}.” 55.
@@ -66,36 +72,15 @@ node_tie_census <- function(.data){
 #' (triad_cen <- node_triad_census(task_eg))
 #' @export
 node_triad_census <- function(.data){
-  x <- manynet::as_igraph(.data)
-  out <- vector() # This line intialises an empty vector
-  for (i in seq_len(igraph::vcount(x))) { # For each (i) in 
-    nb.wi <- igraph::graph.neighborhood(x,
-                                        order = 1,
-                                        V(x)[i],
-                                        mode = 'all')[[1]] 
-    # Get i's local neighbourhood. See also make_ego_graph()
-    nb.wi <- nb.wi + (igraph::vcount(x) - igraph::vcount(nb.wi)) 
-    # Add the removed vertices back in (empty) for symmetry
-    nb.wo <- igraph::delete_vertices(nb.wi, i)
-    # Make a graph without i in it
-    out <- rbind(out,
-                 suppressWarnings(igraph::triad_census(nb.wi)) - 
-                   suppressWarnings(igraph::triad_census(nb.wo)) )
-    # Get the difference in triad census between the local graph
-    # with and without i to get i's triad census
-  } # Close the for loop
-  colnames(out) <- c("003", "012", "102", "021D",
-                     "021U", "021C", "111D", "111U",
-                     "030T", "030C", "201", "120D",
-                     "120U", "120C", "210", "300")
-  if (!manynet::is_directed(.data)) out <- out[, c(1, 2, 3, 11, 15, 16)]
-  rownames(out) <- igraph::V(x)$name
+  out <- t(sapply(seq.int(manynet::network_nodes(.data)), 
+                  function(x) network_triad_census(.data) - network_triad_census(manynet::delete_nodes(.data, x))))
+  rownames(out) <- manynet::node_names(.data)
   make_node_motif(out, .data)
 }
 
-#' @describeIn node_census Returns a census of nodes' positions
-#'   in motifs of four nodes.
-#' @details The quad census uses the `{oaqc}` package to do
+#' @rdname node_census 
+#' @section Quad census: 
+#'   The quad census uses the `{oaqc}` package to do
 #'   the heavy lifting of counting the number of each orbits.
 #'   See `vignette('oaqc')`.
 #'   However, our function relabels some of the motifs
@@ -186,8 +171,7 @@ node_quad_census <- function(.data){
 #     make_node_motif(out, .data)
 # }
 
-#' @describeIn node_census Returns the shortest path lengths
-#'   of each node to every other node in the network.
+#' @rdname node_census 
 #' @importFrom igraph distances
 #' @references 
 #' Dijkstra, Edsger W. 1959. 
@@ -212,15 +196,26 @@ node_path_census <- function(.data){
   make_node_motif(out, .data)
 }
 
+# Network censuses ####
+
 #' Censuses of motifs at the network level
 #' 
+#' @description
+#'   These functions include ways to take a census of the positions of nodes
+#'   in a network: 
+#'   
+#'   - `network_dyad_census()` returns a census of dyad motifs in a network.
+#'   - `network_triad_census()` returns a census of triad motifs in a network.
+#'   - `network_mixed_census()` returns a census of triad motifs that span
+#'   a one-mode and a two-mode network.
+#'   
 #' @name network_census
 #' @family motifs
 #' @inheritParams node_census
 #' @param object2 A second, two-mode migraph-consistent object.
 NULL
 
-#' @describeIn network_census Returns a census of dyad motifs in a network
+#' @rdname network_census 
 #' @examples 
 #' network_dyad_census(manynet::ison_algebra)
 #' @export
@@ -236,7 +231,7 @@ network_dyad_census <- function(.data) {
   }
 }
 
-#' @describeIn network_census Returns a census of triad motifs in a network
+#' @rdname network_census 
 #' @references 
 #' Davis, James A., and Samuel Leinhardt. 1967. 
 #' “\href{https://files.eric.ed.gov/fulltext/ED024086.pdf}{The Structure of Positive Interpersonal Relations in Small Groups}.” 55.
@@ -257,8 +252,7 @@ network_triad_census <- function(.data) {
   }
 }
 
-#' @describeIn network_census Returns a census of triad motifs that span
-#'   a one-mode and a two-mode network
+#' @rdname network_census 
 #' @source Alejandro Espinosa 'netmem'
 #' @references 
 #' Hollway, James, Alessandro Lomi, Francesca Pallotti, and Christoph Stadtfeld. 2017.
@@ -307,8 +301,19 @@ network_mixed_census <- function (.data, object2) {
   make_network_motif(res, .data)
 }
 
+# Brokerage ####
+
 #' Censuses of brokerage motifs
 #' 
+#' @description
+#'   These functions include ways to take a census of the brokerage positions of nodes
+#'   in a network: 
+#'   
+#'   - `node_brokerage_census()` returns the Gould-Fernandez brokerage
+#'   roles played by nodes in a network.
+#'   - `network_brokerage_census()` returns the Gould-Fernandez brokerage
+#'   roles in a network.
+#'   
 #' @name brokerage_census
 #' @family motifs
 #' @inheritParams node_census
@@ -318,8 +323,7 @@ network_mixed_census <- function (.data, object2) {
 #'   or below the average the score lies.
 NULL
 
-#' @describeIn brokerage_census Returns the Gould-Fernandez brokerage
-#'   roles played by nodes in a network.
+#' @rdname brokerage_census 
 #' @importFrom sna brokerage
 #' @references 
 #' Gould, R.V. and Fernandez, R.M. 1989. 
@@ -337,8 +341,7 @@ node_brokerage_census <- function(.data, membership, standardized = FALSE){
   make_node_motif(out, .data)
 }
 
-#' @describeIn brokerage_census Returns the Gould-Fernandez brokerage
-#'   roles in a network.
+#' @rdname brokerage_census 
 #' @examples 
 #' network_brokerage_census(manynet::ison_networkers, "Discipline")
 #' @export

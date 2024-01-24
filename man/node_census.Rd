@@ -28,12 +28,21 @@ node_path_census(.data)
 }
 \description{
 These functions include ways to take a census of the positions of nodes
-in a network. These include a triad census based on the triad profile
-of nodes, but also a tie census based on the particular tie partners
-of nodes. Included also are group census functions for summarising
-the profiles of clusters of nodes in a network.
+in a network:
+\itemize{
+\item \code{node_tie_census()} returns a census of the ties in a network.
+For directed networks, out-ties and in-ties are bound together.
+for multiplex networks, the various types of ties are bound together.
+\item \code{node_triad_census()} returns a census of the triad configurations
+nodes are embedded in.
+\item \code{node_quad_census()} returns a census of nodes' positions
+in motifs of four nodes.
+\item \code{node_path_census()} returns the shortest path lengths
+of each node to every other node in the network.
 }
-\details{
+}
+\section{Quad census}{
+
 The quad census uses the \code{{oaqc}} package to do
 the heavy lifting of counting the number of each orbits.
 See \code{vignette('oaqc')}.
@@ -60,23 +69,9 @@ For now, we offer a rough translation:\tabular{ll}{
 
 See also \href{https://www.graphclasses.org/smallgraphs.html#nodes4}{this list of graph classes}.
 }
-\section{Functions}{
-\itemize{
-\item \code{node_tie_census()}: Returns a census of the ties in a network.
-For directed networks, out-ties and in-ties are bound together.
 
-\item \code{node_triad_census()}: Returns a census of the triad configurations
-nodes are embedded in.
-
-\item \code{node_quad_census()}: Returns a census of nodes' positions
-in motifs of four nodes.
-
-\item \code{node_path_census()}: Returns the shortest path lengths
-of each node to every other node in the network.
-
-}}
 \examples{
-task_eg <- manynet::to_named(manynet::to_uniplex(manynet::ison_algebra, "task_tie"))
+task_eg <- manynet::to_named(manynet::to_uniplex(manynet::ison_algebra, "tasks"))
 (tie_cen <- node_tie_census(task_eg))
 (triad_cen <- node_triad_census(task_eg))
 node_quad_census(manynet::ison_southern_women)

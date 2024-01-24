@@ -5,6 +5,7 @@ test_mat <- manynet::as_matrix(manynet::ison_southern_women)
 test_that("one mode degree centrality calculated correctly",{
   expect_equal(top5(node_degree(mpn_elite_mex, normalized = FALSE)), c(3,6,8,6,6))
 })
+
 test_that("one mode strength centrality calculated correctly",{
   expect_equal(top5(node_degree(to_unweighted(ison_networkers), direction = "in", normalized = FALSE)), 
                c(29, 24, 11, 18, 8))
@@ -79,13 +80,13 @@ test_that("two mode eigenvector centrality calculated correctly",{
 })
 
 test_that("node measure class works", {
-  expect_s3_class(node_degree(ison_algebra), "node_measure")
-  expect_s3_class(node_betweenness(ison_algebra), "node_measure")
-  expect_s3_class(node_closeness(ison_algebra), "node_measure")
-  expect_s3_class(node_eigenvector(ison_algebra), "node_measure")
-  expect_s3_class(node_reach(ison_algebra), "node_measure")
-  testplot <- plot(node_degree(ison_algebra))
-  expect_equal(testplot$data$Score, unname(node_degree(ison_algebra)))
+  expect_s3_class(node_degree(ison_adolescents), "node_measure")
+  expect_s3_class(node_betweenness(ison_adolescents), "node_measure")
+  expect_s3_class(node_closeness(ison_adolescents), "node_measure")
+  expect_s3_class(node_eigenvector(ison_adolescents), "node_measure")
+  expect_s3_class(node_reach(ison_adolescents), "node_measure")
+  testplot <- plot(node_degree(ison_adolescents))
+  expect_equal(testplot$data$Score, unname(node_degree(ison_adolescents)))
   # expect_equal(testplot$labels$y, "Frequency")
 })
 

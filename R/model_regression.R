@@ -286,9 +286,11 @@ vectorise_list <- function(glist, simplex, directed){
 
 convertToMatrixList <- function(formula, data){
   data <- manynet::as_tidygraph(data)
-  DV <- manynet::as_matrix(manynet::to_uniplex(data, 
-                             edge = getDependentName(formula)))
+  if(manynet::is_weighted(data) & getDependentName(formula)=="weight"){
+    DV <- manynet::as_matrix(data) 
+  } else DV <- manynet::as_matrix(data)
   IVnames <- getRHSNames(formula)
+  specificationAdvice(IVnames)
   IVs <- lapply(IVnames, function(IV){
     out <- lapply(seq_along(IV), function(elem){
       # ego ####
@@ -368,7 +370,7 @@ convertToMatrixList <- function(formula, data){
         # sim ####
       } else if (IV[[elem]][1] == "sim"){
         if(is.character(manynet::node_attribute(data, IV[[elem]][2])))
-          stop("Similarity undefined for factors.")
+          stop("Similarity undefined for factors. Try `same()` instead.")
         rows <- matrix(manynet::node_attribute(data, IV[[elem]][2]),
                        nrow(DV), ncol(DV))
         cols <- matrix(manynet::node_attribute(data, IV[[elem]][2]),
@@ -437,5 +439,26 @@ getRHSNames <- function(formula) {
 
 getDependentName <- function(formula) {
   dep <- list(formula[[2]])
-  depName <- unlist(lapply(dep, deparse))
+  unlist(lapply(dep, deparse))
+}
+
+specificationAdvice <- function(formula){
+  formdf <- t(data.frame(formula))
+  if(any(formdf[,1] %in% c("sim","same"))){
+    vars <- formdf[formdf[,1] %in% c("sim","same"), 2]
+    suggests <- vapply(vars, function(x){
+      incl <- unname(formdf[formdf[,2]==x, 1])
+      excl <- setdiff(c("ego","alter"), incl)
+      if(length(excl)>0) paste0(excl, "(", x, ")", collapse = ", ") else NA_character_
+      # incl
+    }, FUN.VALUE = character(1))
+    suggests <- suggests[!is.na(suggests)]
+    if(length(suggests)>0){
+      if(length(suggests) > 1)
+        suggests <- paste0(suggests, collapse = ", ")
+      warning(paste("When testing for homophily,",
+                    "it is recommended to include also more fundamental effects such as `ego()` and `alter()`.",
+                    "Try adding", suggests, "to the model specification."))
+      }
+  }
 }

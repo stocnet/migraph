@@ -1,6 +1,6 @@
-#' @importFrom igraph is.igraph
+#' @importFrom igraph is_igraph
 #' @export
-igraph::is.igraph
+igraph::is_igraph
 
 #' @importFrom network is.network
 #' @export
@@ -57,3 +57,5 @@ expect_edges <- function() {
     stop("This call requires edges to be active", call. = FALSE)
   }
 }
+
+# #' @importFrom rlang `%||%`

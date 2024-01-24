@@ -6,8 +6,8 @@
 \alias{node_power}
 \alias{node_alpha}
 \alias{node_pagerank}
-\alias{network_eigenvector}
 \alias{tie_eigenvector}
+\alias{network_eigenvector}
 \title{Measures of eigenvector-like centrality and centralisation}
 \usage{
 node_eigenvector(.data, normalized = TRUE, scale = FALSE)
@@ -18,9 +18,9 @@ node_alpha(.data, alpha = 0.85)
 
 node_pagerank(.data)
 
-network_eigenvector(.data, normalized = TRUE)
-
 tie_eigenvector(.data, normalized = TRUE)
+
+network_eigenvector(.data, normalized = TRUE)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -51,27 +51,27 @@ A numeric vector giving the eigenvector centrality measure of each node.
 A numeric vector giving each node's power centrality measure.
 }
 \description{
-Measures of eigenvector-like centrality and centralisation
+These functions calculate common eigenvector-related centrality measures for one- and two-mode networks:
+\itemize{
+\item \code{node_eigenvector()} measures the eigenvector centrality of nodes in a network.
+\item \code{node_power()} measures the Bonacich, beta, or power centrality of nodes in a network.
+\item \code{node_alpha()} measures the alpha or Katz centrality of nodes in a network.
+\item \code{node_pagerank()} measures the pagerank centrality of nodes in a network.
+\item \code{tie_eigenvector()} measures the eigenvector centrality of ties in a network.
+\item \code{network_eigenvector()} measures the eigenvector centralization for a network.
+}
+
+All measures attempt to use as much information as they are offered,
+including whether the networks are directed, weighted, or multimodal.
+If this would produce unintended results,
+first transform the salient properties using e.g. \code{\link[=to_undirected]{to_undirected()}} functions.
+All centrality and centralization measures return normalized measures by default,
+including for two-mode networks.
 }
 \details{
 We use \code{{igraph}} routines behind the scenes here for consistency and because they are often faster.
 For example, \code{igraph::eigencentrality()} is approximately 25\% faster than \code{sna::evcent()}.
 }
-\section{Functions}{
-\itemize{
-\item \code{node_eigenvector()}: Calculate the eigenvector centrality of nodes in a network
-
-\item \code{node_power()}: Calculate the Bonacich, beta, or power centrality of nodes in a network
-
-\item \code{node_alpha()}: Calculate the alpha or Katz centrality of nodes in a network
-
-\item \code{node_pagerank()}: Calculate the pagerank centrality of nodes in a network
-
-\item \code{network_eigenvector()}: Calculate the eigenvector centralization for a network
-
-\item \code{tie_eigenvector()}: Calculate the eigenvector centrality of edges in a network
-
-}}
 \section{Eigenvector centrality}{
 
 Eigenvector centrality operates as a measure of a node's influence in a network.
@@ -115,9 +115,9 @@ most routines solve the equation \eqn{x = (I - \frac{1}{\lambda} A^T)^{-1} e}.
 node_eigenvector(mpn_elite_mex)
 node_eigenvector(ison_southern_women)
 node_power(ison_southern_women, exponent = 0.5)
+tie_eigenvector(ison_adolescents)
 network_eigenvector(mpn_elite_mex)
 network_eigenvector(ison_southern_women)
-tie_eigenvector(ison_adolescents)
 }
 \references{
 Bonacich, Phillip. 1991.
@@ -143,6 +143,11 @@ Brin, Sergey and Page, Larry. 1998.
 \emph{Proceedings of the 7th World-Wide Web Conference}. Brisbane, Australia.
 }
 \seealso{
+Other centrality: 
+\code{\link{between_centrality}},
+\code{\link{close_centrality}},
+\code{\link{degree_centrality}}
+
 Other measures: 
 \code{\link{between_centrality}},
 \code{\link{close_centrality}},
@@ -154,12 +159,8 @@ Other measures:
 \code{\link{hierarchy}},
 \code{\link{holes}},
 \code{\link{net_diffusion}},
-\code{\link{node_diffusion}}
-
-Other centrality: 
-\code{\link{between_centrality}},
-\code{\link{close_centrality}},
-\code{\link{degree_centrality}}
+\code{\link{node_diffusion}},
+\code{\link{periods}}
 }
 \concept{centrality}
 \concept{measures}

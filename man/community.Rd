@@ -12,6 +12,7 @@
 \alias{node_spinglass}
 \alias{node_louvain}
 \alias{node_leiden}
+\alias{node_fluid}
 \title{Community partitioning algorithms}
 \usage{
 node_optimal(.data)
@@ -33,6 +34,8 @@ node_spinglass(.data, max_k = 200, resolution = 1)
 node_louvain(.data, resolution = 1)
 
 node_leiden(.data, resolution = 1)
+
+node_fluid(.data)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -67,8 +70,7 @@ and their logic or domain of inspiration.
 \item \code{node_optimal()}: A problem-solving algorithm that seeks to maximise modularity over all possible partitions.
 
 \item \code{node_kernighanlin()}: A greedy, iterative, deterministic
-partitioning algorithm that results in a graph with two
-equally-sized communities
+partitioning algorithm that results in two equally-sized communities.
 
 \item \code{node_edge_betweenness()}: A hierarchical, decomposition algorithm
 where edges are removed in decreasing order of the number of
@@ -89,7 +91,10 @@ based on analogy to model from statistical physics.
 
 \item \code{node_louvain()}: An agglomerative multilevel algorithm that seeks to maximise modularity over all possible partitions.
 
-\item \code{node_leiden()}: An agglomerative multilevel algorithm that seeks to maximise the Constant Potts Model over all possible partitions.
+\item \code{node_leiden()}: An agglomerative multilevel algorithm that seeks to maximise
+the Constant Potts Model over all possible partitions.
+
+\item \code{node_fluid()}: A propogation-based partitioning algorithm
 
 }}
 \section{Optimal}{
@@ -187,6 +192,15 @@ and \eqn{\delta(\sigma_i, \sigma_j) = 1} if and only if
 \emph{i} and \emph{j} are in the same communities and 0 otherwise.
 }
 
+\section{Fluid}{
+
+The general idea is to observe how a discrete number of fluids interact, expand and contract,
+in a non-homogenous environment, i.e. the network structure.
+Unlike the \code{{igraph}} implementation that this function wraps,
+this function iterates over all possible numbers of communities and returns the membership
+associated with the highest modularity.
+}
+
 \examples{
 node_optimal(ison_adolescents)
 node_kernighanlin(ison_adolescents)
@@ -199,6 +213,7 @@ node_infomap(ison_adolescents)
 node_spinglass(ison_adolescents)
 node_louvain(ison_adolescents)
 node_leiden(ison_adolescents)
+node_fluid(ison_adolescents)
 }
 \references{
 Brandes, Ulrik, Daniel Delling, Marco Gaertler, Robert Gorke, Martin Hoefer, Zoran Nikoloski, Dorothea Wagner. 2008.
@@ -250,6 +265,12 @@ Traag, V. A., L Waltman, and NJ van Eck. 2019.
 "From Louvain to Leiden: guaranteeing well-connected communities",
 \emph{Scientific Reports}, 9(1):5233.
 \doi{10.1038/s41598-019-41695-z}
+
+Parés F, Gasulla DG, et. al. 2018.
+"Fluid Communities: A Competitive, Scalable and Diverse Community Detection Algorithm".
+In: \emph{Complex Networks & Their Applications VI}
+Springer, 689: 229.
+\doi{10.1007/978-3-319-72150-7_19}
 }
 \seealso{
 Other memberships: 
