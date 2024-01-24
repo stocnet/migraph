@@ -66,9 +66,9 @@ node_tie_census <- function(.data){
 #' (triad_cen <- node_triad_census(task_eg))
 #' @export
 node_triad_census <- function(.data){
-  out <- t(sapply(seq.int(network_nodes(.data)), 
-                  function(x) network_triad_census(.data) - network_triad_census(delete_nodes(.data, x))))
-  rownames(out) <- node_names(.data)
+  out <- t(sapply(seq.int(manynet::network_nodes(.data)), 
+                  function(x) network_triad_census(.data) - network_triad_census(manynet::delete_nodes(.data, x))))
+  rownames(out) <- manynet::node_names(.data)
   make_node_motif(out, .data)
 }
 

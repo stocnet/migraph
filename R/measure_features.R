@@ -317,8 +317,8 @@ network_change <- function(.data, object2){
   } else stop("`.data` must be a list of networks or a second network must be provided.")
   periods <- length(.data)-1
   vapply(seq.int(periods), function(x){
-    net1 <- as_matrix(.data[[x]])
-    net2 <- as_matrix(.data[[x+1]])
+    net1 <- manynet::as_matrix(.data[[x]])
+    net2 <- manynet::as_matrix(.data[[x+1]])
     sum(net1 != net2)
   }, FUN.VALUE = numeric(1))
 }
@@ -333,8 +333,8 @@ network_stability <- function(.data, object2){
   } else stop("`.data` must be a list of networks or a second network must be provided.")
   periods <- length(.data)-1
   vapply(seq.int(periods), function(x){
-    net1 <- as_matrix(.data[[x]])
-    net2 <- as_matrix(.data[[x+1]])
+    net1 <- manynet::as_matrix(.data[[x]])
+    net2 <- manynet::as_matrix(.data[[x+1]])
     n11 <- sum(net1 * net2)
     n01 <- sum(net1==0 * net2)
     n10 <- sum(net1 * net2==0)

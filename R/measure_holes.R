@@ -34,7 +34,7 @@ node_bridges <- function(.data){
   g <- manynet::as_igraph(.data)
   .inc <- NULL
   out <- vapply(igraph::V(g), function(ego){
-    length(igraph::E(g)[.inc(ego) & tie_is_bridge(g)==1])
+    length(igraph::E(g)[.inc(ego) & manynet::tie_is_bridge(g)==1])
   }, FUN.VALUE = numeric(1))
   make_node_measure(out, .data)
 }

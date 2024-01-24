@@ -151,10 +151,10 @@ node_multidegree <- function (.data, tie1, tie2){
 #' _Social Networks_ 38:111–20. 
 #' \doi{10.1016/j.socnet.2014.03.005}.
 #' @export
-node_posneg<-function(.data){
+node_posneg <- function(.data){
   stopifnot(manynet::is_signed(.data))
-  pos <- as_matrix(manynet::to_unsigned(.data, keep = "positive"))
-  neg <- -as_matrix(manynet::to_unsigned(.data, keep = "negative"))
+  pos <- manynet::as_matrix(manynet::to_unsigned(.data, keep = "positive"))
+  neg <- manynet::as_matrix(manynet::to_unsigned(.data, keep = "negative"))
   nn <- manynet::network_nodes(.data)
   pn <- pos-neg*2
   diag(pn) <- 0

@@ -378,7 +378,7 @@ node_infection_length <- function(diff_model){
 #' @export
 node_exposure <- function(.data, mark, time = 0){
   if(missing(mark) && inherits(.data, "diff_model")){
-    mark <- node_is_infected(.data, time = time)
+    mark <- manynet::node_is_infected(.data, time = time)
     .data <- attr(.data, "network")
   }
   if(is.logical(mark)) mark <- which(mark)
