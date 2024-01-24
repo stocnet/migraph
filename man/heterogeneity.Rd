@@ -46,33 +46,25 @@ to use as categories for the diversity measure.}
 \description{
 These functions offer ways to summarise the heterogeneity of an attribute
 across a network, within groups of a network, or the distribution of ties
-across this attribute.
-}
-\section{Functions}{
+across this attribute:
 \itemize{
-\item \code{network_richness()}: Calculates the number of unique categories
+\item \code{network_richness()} measures the number of unique categories
 in a network attribute.
-
-\item \code{node_richness()}: Calculates the number of unique categories
+\item \code{node_richness()} measures the number of unique categories
 of an attribute to which each node is connected.
-
-\item \code{network_diversity()}: Calculates the heterogeneity of ties across a network or
-within clusters by node attributes.
-
-\item \code{node_diversity()}: Calculates the heterogeneity of each node's
+\item \code{network_diversity()} measures the heterogeneity of ties across a network
+or within clusters by node attributes.
+\item \code{node_diversity()} measures the heterogeneity of each node's
 local neighbourhood.
-
-\item \code{network_heterophily()}: Calculates how embedded nodes in the network
-are within groups of nodes with the same attribute
-
-\item \code{node_heterophily()}: Calculates each node's embeddedness within groups
-of nodes with the same attribute
-
-\item \code{network_assortativity()}: Calculates the degree assortativity in a network.
-
-\item \code{network_spatial()}: Measures the spatial association/autocorrelation (global Moran's I) in a network.
-
-}}
+\item \code{network_heterophily()} measures how embedded nodes in the network
+are within groups of nodes with the same attribute.
+\item \code{node_heterophily()} measures each node's embeddedness within groups
+of nodes with the same attribute.
+\item \code{network_assortativity()} measures the degree assortativity in a network.
+\item \code{network_spatial()} measures the spatial association/autocorrelation (
+global Moran's I) in a network.
+}
+}
 \section{network_diversity}{
 
 Blau's index (1977) uses a formula known also in other disciplines
