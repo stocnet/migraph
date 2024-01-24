@@ -1,7 +1,7 @@
 # # Census function family tests
 set.seed(123)
 task_eg <- manynet::to_named(manynet::to_uniplex(
-  manynet::ison_algebra, "task_tie"))
+  manynet::ison_algebra, "tasks"))
 
 test <- node_tie_census(task_eg)
 test_that("node tie census works", {
