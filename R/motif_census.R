@@ -1,19 +1,28 @@
+# Node censuses ####
+
 #' Censuses of nodes' motifs
 #' 
 #' @description
-#' These functions include ways to take a census of the positions of nodes
-#' in a network. These include a triad census based on the triad profile
-#' of nodes, but also a tie census based on the particular tie partners
-#' of nodes. Included also are group census functions for summarising
-#' the profiles of clusters of nodes in a network.
+#'   These functions include ways to take a census of the positions of nodes
+#'   in a network: 
+#'   
+#'   - `node_tie_census()` returns a census of the ties in a network.
+#'   For directed networks, out-ties and in-ties are bound together.
+#'   for multiplex networks, the various types of ties are bound together.
+#'   - `node_triad_census()` returns a census of the triad configurations
+#'   nodes are embedded in.
+#'   - `node_quad_census()` returns a census of nodes' positions
+#'   in motifs of four nodes.
+#'   - `node_path_census()` returns the shortest path lengths
+#'   of each node to every other node in the network.
+#'   
 #' @name node_census
 #' @family motifs
 #' @inheritParams cohesion
 #' @importFrom igraph vcount make_ego_graph delete_vertices triad_census
 NULL
 
-#' @describeIn node_census Returns a census of the ties in a network.
-#'   For directed networks, out-ties and in-ties are bound together.
+#' @rdname node_census 
 #' @examples
 #' task_eg <- manynet::to_named(manynet::to_uniplex(manynet::ison_algebra, "tasks"))
 #' (tie_cen <- node_tie_census(task_eg))
@@ -55,8 +64,7 @@ node_tie_census <- function(.data){
   make_node_motif(t(mat), object)
 }
 
-#' @describeIn node_census Returns a census of the triad configurations
-#'   nodes are embedded in.
+#' @rdname node_census 
 #' @references 
 #' Davis, James A., and Samuel Leinhardt. 1967. 
 #' “\href{https://files.eric.ed.gov/fulltext/ED024086.pdf}{The Structure of Positive Interpersonal Relations in Small Groups}.” 55.
@@ -70,9 +78,9 @@ node_triad_census <- function(.data){
   make_node_motif(out, .data)
 }
 
-#' @describeIn node_census Returns a census of nodes' positions
-#'   in motifs of four nodes.
-#' @details The quad census uses the `{oaqc}` package to do
+#' @rdname node_census 
+#' @section Quad census: 
+#'   The quad census uses the `{oaqc}` package to do
 #'   the heavy lifting of counting the number of each orbits.
 #'   See `vignette('oaqc')`.
 #'   However, our function relabels some of the motifs
@@ -163,8 +171,7 @@ node_quad_census <- function(.data){
 #     make_node_motif(out, .data)
 # }
 
-#' @describeIn node_census Returns the shortest path lengths
-#'   of each node to every other node in the network.
+#' @rdname node_census 
 #' @importFrom igraph distances
 #' @references 
 #' Dijkstra, Edsger W. 1959. 
@@ -189,15 +196,26 @@ node_path_census <- function(.data){
   make_node_motif(out, .data)
 }
 
+# Network censuses ####
+
 #' Censuses of motifs at the network level
 #' 
+#' @description
+#'   These functions include ways to take a census of the positions of nodes
+#'   in a network: 
+#'   
+#'   - `network_dyad_census()` returns a census of dyad motifs in a network.
+#'   - `network_triad_census()` returns a census of triad motifs in a network.
+#'   - `network_mixed_census()` returns a census of triad motifs that span
+#'   a one-mode and a two-mode network.
+#'   
 #' @name network_census
 #' @family motifs
 #' @inheritParams node_census
 #' @param object2 A second, two-mode migraph-consistent object.
 NULL
 
-#' @describeIn network_census Returns a census of dyad motifs in a network
+#' @rdname network_census 
 #' @examples 
 #' network_dyad_census(manynet::ison_algebra)
 #' @export
@@ -213,7 +231,7 @@ network_dyad_census <- function(.data) {
   }
 }
 
-#' @describeIn network_census Returns a census of triad motifs in a network
+#' @rdname network_census 
 #' @references 
 #' Davis, James A., and Samuel Leinhardt. 1967. 
 #' “\href{https://files.eric.ed.gov/fulltext/ED024086.pdf}{The Structure of Positive Interpersonal Relations in Small Groups}.” 55.
@@ -234,8 +252,7 @@ network_triad_census <- function(.data) {
   }
 }
 
-#' @describeIn network_census Returns a census of triad motifs that span
-#'   a one-mode and a two-mode network
+#' @rdname network_census 
 #' @source Alejandro Espinosa 'netmem'
 #' @references 
 #' Hollway, James, Alessandro Lomi, Francesca Pallotti, and Christoph Stadtfeld. 2017.
@@ -284,8 +301,19 @@ network_mixed_census <- function (.data, object2) {
   make_network_motif(res, .data)
 }
 
+# Brokerage ####
+
 #' Censuses of brokerage motifs
 #' 
+#' @description
+#'   These functions include ways to take a census of the brokerage positions of nodes
+#'   in a network: 
+#'   
+#'   - `node_brokerage_census()` returns the Gould-Fernandez brokerage
+#'   roles played by nodes in a network.
+#'   - `network_brokerage_census()` returns the Gould-Fernandez brokerage
+#'   roles in a network.
+#'   
 #' @name brokerage_census
 #' @family motifs
 #' @inheritParams node_census
@@ -295,8 +323,7 @@ network_mixed_census <- function (.data, object2) {
 #'   or below the average the score lies.
 NULL
 
-#' @describeIn brokerage_census Returns the Gould-Fernandez brokerage
-#'   roles played by nodes in a network.
+#' @rdname brokerage_census 
 #' @importFrom sna brokerage
 #' @references 
 #' Gould, R.V. and Fernandez, R.M. 1989. 
@@ -314,8 +341,7 @@ node_brokerage_census <- function(.data, membership, standardized = FALSE){
   make_node_motif(out, .data)
 }
 
-#' @describeIn brokerage_census Returns the Gould-Fernandez brokerage
-#'   roles in a network.
+#' @rdname brokerage_census 
 #' @examples 
 #' network_brokerage_census(manynet::ison_networkers, "Discipline")
 #' @export
