@@ -77,20 +77,7 @@ or edge in the network. Functions are given intuitive and succinct names
 that avoid conflicts with existing function names wherever possible. All
 results are normalised by default, facilitating comparison.
 
-### Marks and Measures
-
-`{migraph}`’s `*is_*()` functions offer fast logical tests of various
-properties. Whereas `is_*()` returns a single logical value for the
-network, `node_is_*()` returns a logical vector the length of the number
-of nodes in the network, and `tie_is_*()` returns a logical vector the
-length of the number of ties in the network.
-
-- `()`
-- `()`
-
-The `*is_max()` and `*is_min()` functions are used to identify the
-maximum or minimum, respectively, node or tie according to some measure
-(see below).
+### Measures
 
 `{migraph}` also offers a large and growing smorgasbord of measures that
 can be used at the node, tie, and network level. Each recognises whether
@@ -155,15 +142,6 @@ Hypotheses can also be tested within multivariate models via multiple
 `{migraph}` is the only package that offers these testing frameworks for
 two-mode networks as well as one-mode networks.
 
-Lastly, `{migraph}` also includes functions for simulating diffusion or
-learning processes over a given network:
-
-- `play_diffusion()`, `play_diffusions()`, `play_learning()`,
-  `play_segregation()`
-
-The diffusion models include not only SI and threshold models, but also
-SIS, SIR, SIRS, SEIR, and SEIRS.
-
 ## Installation
 
 ### Stable
@@ -218,18 +196,17 @@ a list of tutorials currently available in either package:
 ``` r
 library(migraph)
 run_tute()
-#> # A tibble: 9 × 3
+#> # A tibble: 8 × 3
 #>   package name      title        
 #>   <chr>   <chr>     <chr>        
 #> 1 manynet tutorial0 Intro to R   
 #> 2 manynet tutorial1 Data         
 #> 3 manynet tutorial2 Visualisation
-#> 4 migraph tutorial3 Centrality   
-#> 5 migraph tutorial4 Community    
-#> 6 migraph tutorial5 Position     
-#> 7 migraph tutorial6 Topology     
-#> 8 migraph tutorial7 Diffusion    
-#> 9 migraph tutorial8 Regression
+#> 4 migraph tutorial4 Centrality   
+#> 5 migraph tutorial5 Community    
+#> 6 migraph tutorial6 Position     
+#> 7 migraph tutorial7 Topology     
+#> 8 migraph tutorial8 Regression
 # run_tute("tutorial5")
 ```
 

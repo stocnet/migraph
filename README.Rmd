@@ -87,18 +87,7 @@ Functions are given intuitive and succinct names that avoid conflicts
 with existing function names wherever possible.
 All results are normalised by default, facilitating comparison.
 
-### Marks and Measures
-
-`{migraph}`'s `*is_*()` functions offer fast logical tests of various properties.
-Whereas `is_*()` returns a single logical value for the network,
-`node_is_*()` returns a logical vector the length of the number of nodes in the network,
-and `tie_is_*()` returns a logical vector the length of the number of ties in the network.
-
-- `r list_functions("^node_is_")`
-- `r list_functions("^tie_is_")`
-
-The `*is_max()` and `*is_min()` functions are used to identify
-the maximum or minimum, respectively, node or tie according to some measure (see below).
+### Measures
 
 `{migraph}` also offers a large and growing smorgasbord of measures that
 can be used at the node, tie, and network level.
@@ -151,14 +140,6 @@ via multiple (linear or logistic) regression QAP:
 
 `{migraph}` is the only package that offers these testing frameworks 
 for two-mode networks as well as one-mode networks.
-
-Lastly, `{migraph}` also includes functions for simulating diffusion
-or learning processes over a given network:
-
-- `r list_functions("^play_")`
-
-The diffusion models include not only SI and threshold models,
-but also SIS, SIR, SIRS, SEIR, and SEIRS.
 
 ## Installation
 
