@@ -85,26 +85,24 @@ Ignored when \code{k = "strict"} or a discrete number is given for \code{k}.}
 These functions combine an appropriate \verb{_census()} function
 together with methods for calculating the hierarchical clusters
 provided by a certain distance calculation.
+\itemize{
+\item \code{node_equivalence()} assigns nodes membership based on their equivalence
+with respective to some census/class.
+The following functions call this function, together with an appropriate census.
+\itemize{
+\item \code{node_structural_equivalence()} assigns nodes membership based on their
+having equivalent ties to the same other nodes.
+\item \code{node_regular_equivalence()} assigns nodes membership based on their
+having equivalent patterns of ties.
+\item \code{node_automorphic_equivalence()} assigns nodes membership based on their
+having equivalent distances to other nodes.
+}
+}
 
 A \code{plot()} method exists for investigating the dendrogram
 of the hierarchical cluster and showing the returned cluster
 assignment.
 }
-\section{Functions}{
-\itemize{
-\item \code{node_equivalence()}: Returns nodes' membership in
-according to their equivalence with respective to some census/class
-
-\item \code{node_structural_equivalence()}: Returns nodes' membership in
-structurally equivalent classes
-
-\item \code{node_regular_equivalence()}: Returns nodes' membership in
-regularly equivalent classes
-
-\item \code{node_automorphic_equivalence()}: Returns nodes' membership in
-automorphically equivalent classes
-
-}}
 \examples{
 \donttest{
 (nse <- node_structural_equivalence(mpn_elite_usa_advice))
