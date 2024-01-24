@@ -57,7 +57,8 @@ node_equivalence <- function(.data, census,
                                           "canberra", "binary", "minkowski"),
                              range = 8L){
   hc <- switch(match.arg(cluster),
-               hierarchical = cluster_hierarchical(`if`(is_twomode(.data), to_onemode(census), census), 
+               hierarchical = cluster_hierarchical(`if`(manynet::is_twomode(.data), 
+                                                        manynet::to_onemode(census), census), 
                                                       match.arg(distance)),
                concor = cluster_concor(.data, census))
   

@@ -1,17 +1,21 @@
 #' Methods for equivalence clustering
 #' 
-#' These functions are used to cluster some census object.
-#' They are not intended to be called directly,
-#' but are called within `node_equivalence()` and related
-#' functions.
-#' They are exported and listed here to provide 
-#' more detailed documentation.
+#' @description
+#'   These functions are used to cluster some census object:
+#'   
+#'   - `cluster_hierarchical()` returns a hierarchical clustering object
+#'   created by `stats::hclust()`.
+#'   - `cluster_concor()` returns a hierarchical clustering object
+#'   created from a convergence of correlations procedure (CONCOR).
+#' 
+#'   These functions are not intended to be called directly,
+#'   but are called within `node_equivalence()` and related functions.
+#'   They are exported and listed here to provide more detailed documentation.
 #' @name cluster
 #' @inheritParams equivalence
 NULL
 
-#' @describeIn cluster Returns a hierarchical clustering object
-#'   created by `stats::hclust()`
+#' @rdname cluster 
 #' @export
 cluster_hierarchical <- function(census, distance){
   correlations <- cor(t(census))
@@ -26,8 +30,7 @@ cluster_hierarchical <- function(census, distance){
 # cluster_concor(ison_southern_women)
 # https://github.com/bwlewis/hclust_in_R/blob/master/hc.R
 
-#' @describeIn cluster Returns a hierarchical clustering object
-#'   created from a convergence of correlations procedure (CONCOR)
+#' @rdname cluster 
 #' @section CONCOR:
 #' 
 #' First a matrix of Pearson correlation coefficients between each pair of nodes

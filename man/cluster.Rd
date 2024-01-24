@@ -29,22 +29,18 @@ Fewer, identifiable letters, e.g. \code{"e"} for Euclidean, is sufficient.}
 }}
 }
 \description{
-These functions are used to cluster some census object.
-They are not intended to be called directly,
-but are called within \code{node_equivalence()} and related
-functions.
-They are exported and listed here to provide
-more detailed documentation.
-}
-\section{Functions}{
+These functions are used to cluster some census object:
 \itemize{
-\item \code{cluster_hierarchical()}: Returns a hierarchical clustering object
-created by \code{stats::hclust()}
+\item \code{cluster_hierarchical()} returns a hierarchical clustering object
+created by \code{stats::hclust()}.
+\item \code{cluster_concor()} returns a hierarchical clustering object
+created from a convergence of correlations procedure (CONCOR).
+}
 
-\item \code{cluster_concor()}: Returns a hierarchical clustering object
-created from a convergence of correlations procedure (CONCOR)
-
-}}
+These functions are not intended to be called directly,
+but are called within \code{node_equivalence()} and related functions.
+They are exported and listed here to provide more detailed documentation.
+}
 \section{CONCOR}{
 
 
