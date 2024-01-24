@@ -48,7 +48,8 @@ node_equivalence <- function(.data, census,
                                           "canberra", "binary", "minkowski"),
                              range = 8L){
   hc <- switch(match.arg(cluster),
-               hierarchical = cluster_hierarchical(census, match.arg(distance)),
+               hierarchical = cluster_hierarchical(`if`(is_twomode(.data), to_onemode(census), census), 
+                                                      match.arg(distance)),
                concor = cluster_concor(.data, census))
   
   if(!is.numeric(k))
