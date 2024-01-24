@@ -74,6 +74,8 @@ but where there may not be a network for which \eqn{SWI = 1}.
 }}
 
 \item{times}{Integer of number of simulations.}
+
+\item{object2}{A network object.}
 }
 \description{
 Measures of network topological features

@@ -319,5 +319,3 @@ node_fluid <- function(.data){
                                 no.of.communities = which.max(mods))$membership
   make_node_member(out, .data)
 }
-
-

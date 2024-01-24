@@ -308,6 +308,7 @@ network_balance <- function(.data) {
 }
 
 #' @describeIn features Measures the Hamming distance between two or more networks.
+#' @param object2 A network object.
 #' @export
 network_change <- function(.data, object2){
   if(manynet::is_list(.data)){

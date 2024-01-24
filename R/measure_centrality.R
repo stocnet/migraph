@@ -137,6 +137,7 @@ node_indegree <- function (.data, normalized = TRUE, alpha = 0){
 
 #' @describeIn degree_centrality Measures the ratio of one type of tie in a multiplex network
 #'   to another.
+#' @param tie1,tie2 Type of ties, character. 
 #' @export
 node_multidegree <- function (.data, tie1, tie2){
   stopifnot(manynet::is_multiplex(.data))
@@ -771,5 +772,3 @@ tie_eigenvector <- function(.data, normalized = TRUE){
   out <- make_tie_measure(out, .data)
   out
 }
-
-

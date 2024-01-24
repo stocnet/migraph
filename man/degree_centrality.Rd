@@ -74,6 +74,8 @@ against all other centrality scores in the network,
 whereas "in" uses as numerator the sum of differences
 between the maximum centrality score for the mode
 against only the centrality scores of the other nodes in that mode.}
+
+\item{tie1, tie2}{Type of ties, character.}
 }
 \value{
 A single centralization score if the object was one-mode,
