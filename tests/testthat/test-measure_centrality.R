@@ -80,13 +80,13 @@ test_that("two mode eigenvector centrality calculated correctly",{
 })
 
 test_that("node measure class works", {
-  expect_s3_class(node_degree(ison_algebra), "node_measure")
-  expect_s3_class(node_betweenness(ison_algebra), "node_measure")
-  expect_s3_class(node_closeness(ison_algebra), "node_measure")
-  expect_s3_class(node_eigenvector(ison_algebra), "node_measure")
-  expect_s3_class(node_reach(ison_algebra), "node_measure")
-  testplot <- plot(node_degree(ison_algebra))
-  expect_equal(testplot$data$Score, unname(node_degree(ison_algebra)))
+  expect_s3_class(node_degree(ison_adolescents), "node_measure")
+  expect_s3_class(node_betweenness(ison_adolescents), "node_measure")
+  expect_s3_class(node_closeness(ison_adolescents), "node_measure")
+  expect_s3_class(node_eigenvector(ison_adolescents), "node_measure")
+  expect_s3_class(node_reach(ison_adolescents), "node_measure")
+  testplot <- plot(node_degree(ison_adolescents))
+  expect_equal(testplot$data$Score, unname(node_degree(ison_adolescents)))
   # expect_equal(testplot$labels$y, "Frequency")
 })
 

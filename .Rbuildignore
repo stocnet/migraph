@@ -15,3 +15,4 @@ vignettes/precompile\.R
 ^Meta$
 ^CRAN-SUBMISSION$
 ^README\.Rmd$
+^.mailmap$
