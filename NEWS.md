@@ -1,3 +1,43 @@
+# migraph 1.3.0
+
+2024-01-24
+
+## Package
+
+- Migrated package repository to 'stocnet' organisation
+
+## Marks
+
+- Migrated remaining marks functions to `{manynet}`
+
+## Measures
+
+- Added `network_change()` to measure the Hamming distance between two or more networks
+- Added `network_stability()` to measure the Jaccard index between two or more networks
+- Added `network_spatial()` to measure spatial association (Moran's I, closes #209)
+- Added `node_deg()` for a non-normalised version of `node_degree()`
+- `node_degree()` now normalises strength centrality
+- Added `node_induced()` to measure nodes' induced betweenness centralities
+- Added `node_flow()` to measure nodes' flow betweenness centralities (closes #195)
+- Added `node_information()` to measure nodes' information or current-flow closeness centralities (closes #194)
+- Added `node_multidegree()` to measure the ratio of one type of tie in a multiplex network to another
+- Added `node_posneg()` measures the PN centrality of signed networks
+
+## Members
+
+- Fixed #287 by making `node_tie_census()` and `node_triad_census()` work with the new multiplex format in `{manynet}` (which relies on a "type" tie attribute rather than multiple tie attributes)
+  - This restores functionality to `node_structural_equivalence()` and `node_regular_equivalence()`
+  - Incidental speed improvements
+- Added `node_fluid()` community detection algorithm
+- Added `node_roulette()` for identifying groups of nodes that haven't interacted before
+
+## Models
+
+- Migrated `play_*()` functions to `{manynet}`, including `as_diffusion()` and the diffusion tutorial
+- Added specification advice to `network_reg()` so that specifications that include a 'sim' or 'same' effect for a variable are encouraged to also include more elementary 'ego' and 'alter' effects
+- `network_reg()` now ignores the LHS of the formula for uniplex networks
+
+
 # migraph 1.2.1
 
 2023-12-17

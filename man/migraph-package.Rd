@@ -4,7 +4,7 @@
 \name{migraph-package}
 \alias{migraph}
 \alias{migraph-package}
-\title{migraph: Multimodal Network Analysis and More}
+\title{migraph: Many Network Measures, Motifs, Members, and Models}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
