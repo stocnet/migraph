@@ -76,7 +76,7 @@ of each node to every other node in the network.
 
 }}
 \examples{
-task_eg <- manynet::to_named(manynet::to_uniplex(manynet::ison_algebra, "task_tie"))
+task_eg <- manynet::to_named(manynet::to_uniplex(manynet::ison_algebra, "tasks"))
 (tie_cen <- node_tie_census(task_eg))
 (triad_cen <- node_triad_census(task_eg))
 node_quad_census(manynet::ison_southern_women)

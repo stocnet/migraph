@@ -15,44 +15,42 @@ NULL
 #' @describeIn node_census Returns a census of the ties in a network.
 #'   For directed networks, out-ties and in-ties are bound together.
 #' @examples
-#' task_eg <- manynet::to_named(manynet::to_uniplex(manynet::ison_algebra, "task_tie"))
+#' task_eg <- manynet::to_named(manynet::to_uniplex(manynet::ison_algebra, "tasks"))
 #' (tie_cen <- node_tie_census(task_eg))
 #' @export
 node_tie_census <- function(.data){
   object <- manynet::as_igraph(.data)
-  edge_names <- igraph::edge_attr_names(object)
+  # edge_names <- manynet::network_tie_attributes(object)
   if (manynet::is_directed(object)) {
-    mat <- vector()
-    if (length(edge_names) > 0) {
-      for (e in edge_names) {
-        rc <- igraph::as_adjacency_matrix(object, attr = e, sparse = F)
-        rccr <- rbind(rc, t(rc))
-        mat <- rbind(mat, rccr)
-      }} else {
-        rc <- igraph::as_adjacency_matrix(object, sparse = F)
-        rccr <- rbind(rc, t(rc))
-        mat <- rbind(mat, rccr)
+    if (manynet::is_multiplex(.data)) {
+      mat <- do.call(rbind, lapply(unique(manynet::tie_attribute(object, "type")), 
+                                   function(x){
+                                     rc <- manynet::as_matrix(manynet::to_uniplex(object, x))
+                                     rbind(rc, t(rc))
+                                   }))
+      } else {
+        rc <- manynet::as_matrix(object)
+        mat <- rbind(rc, t(rc))
       }
   } else {
-    mat <- vector() 
-    if (length(edge_names) > 0) {
-      for (e in edge_names) {
-        rc <- igraph::as_adjacency_matrix(object, attr = e, sparse = F)
-        mat <- rbind(mat, rc)
-      }} else {
-        rc <- igraph::as_adjacency_matrix(object, sparse = F)
-        mat <- rbind(mat, rc)
-      }
+    if (manynet::is_multiplex(.data)) {
+      mat <- do.call(rbind, lapply(unique(manynet::tie_attribute(object, "type")), 
+                                   function(x){
+                                     manynet::as_matrix(manynet::to_uniplex(object, x))
+                                   }))
+    } else {
+      mat <- manynet::as_matrix(object)
+    }
   }
   if(manynet::is_labelled(object) & manynet::is_directed(object))
-    if(length(edge_names) > 0){
-      rownames(mat) <- apply(expand.grid(c(paste0("from", igraph::V(object)$name),
-                                           paste0("to", igraph::V(object)$name)),
-                                         edge_names), 
+    if(manynet::is_multiplex(.data)){
+      rownames(mat) <- apply(expand.grid(c(paste0("from", manynet::node_names(object)),
+                                           paste0("to", manynet::node_names(object))),
+                                           unique(manynet::tie_attribute(object, "type"))), 
                              1, paste, collapse = "_")
     } else {
-      rownames(mat) <- rep(c(paste0("from", igraph::V(object)$name),
-                             paste0("to", igraph::V(object)$name)))
+      rownames(mat) <- rep(c(paste0("from", manynet::node_names(object)),
+                             paste0("to", manynet::node_names(object))))
     }
   make_node_motif(t(mat), object)
 }
