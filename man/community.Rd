@@ -10,9 +10,9 @@
 \alias{node_walktrap}
 \alias{node_infomap}
 \alias{node_spinglass}
+\alias{node_fluid}
 \alias{node_louvain}
 \alias{node_leiden}
-\alias{node_fluid}
 \title{Community partitioning algorithms}
 \usage{
 node_optimal(.data)
@@ -31,11 +31,11 @@ node_infomap(.data, times = 50)
 
 node_spinglass(.data, max_k = 200, resolution = 1)
 
+node_fluid(.data)
+
 node_louvain(.data, resolution = 1)
 
 node_leiden(.data, resolution = 1)
-
-node_fluid(.data)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -60,43 +60,34 @@ and larger values make missing ties more important.}
 }
 \description{
 These functions offer different algorithms useful for partitioning
-networks into sets of communities.
+networks into sets of communities:
+\itemize{
+\item \code{node_optimal()} is a problem-solving algorithm that seeks to maximise
+modularity over all possible partitions.
+\item \code{node_kernaghinlin()} is a greedy, iterative, deterministic
+partitioning algorithm that results in two equally-sized communities.
+\item \code{node_edge_betweenness()} is a hierarchical, decomposition algorithm
+where edges are removed in decreasing order of the number of
+shortest paths passing through the edge.
+\item \code{node_fast_greedy()} is a hierarchical, agglomerative algorithm,
+that tries to optimize modularity in a greedy manner.
+\item \code{node_leading_eigen()} is a top-down, hierarchical algorithm.
+\item \code{node_walktrap()} is a hierarchical, agglomerative algorithm based on random walks.
+\item \code{node_infomap()} is a hierarchical algorithm based on the information in random walks.
+\item \code{node_spinglass()} is a greedy, iterative, probabilistic algorithm,
+based on analogy to model from statistical physics.
+\item \code{node_fluid()} is a propogation-based partitioning algorithm,
+based on analogy to model from fluid dynamics.
+\item \code{node_louvain()} is an agglomerative multilevel algorithm that seeks to maximise
+modularity over all possible partitions.
+\item \code{node_leiden()} is an agglomerative multilevel algorithm that seeks to maximise
+the Constant Potts Model over all possible partitions.
+}
+
 The different algorithms offer various advantages in terms of computation time,
 availability on different types of networks, ability to maximise modularity,
 and their logic or domain of inspiration.
 }
-\section{Functions}{
-\itemize{
-\item \code{node_optimal()}: A problem-solving algorithm that seeks to maximise modularity over all possible partitions.
-
-\item \code{node_kernighanlin()}: A greedy, iterative, deterministic
-partitioning algorithm that results in two equally-sized communities.
-
-\item \code{node_edge_betweenness()}: A hierarchical, decomposition algorithm
-where edges are removed in decreasing order of the number of
-shortest paths passing through the edge,
-resulting in a hierarchical representation of group membership.
-
-\item \code{node_fast_greedy()}: A hierarchical, agglomerative algorithm,
-that tries to optimize modularity in a greedy manner.
-
-\item \code{node_leading_eigen()}: A top-down, hierarchical algorithm.
-
-\item \code{node_walktrap()}: A hierarchical, agglomerative algorithm based on random walks.
-
-\item \code{node_infomap()}: A hierarchical algorithm based on the information in random walks.
-
-\item \code{node_spinglass()}: A greedy, iterative, probabilistic algorithm,
-based on analogy to model from statistical physics.
-
-\item \code{node_louvain()}: An agglomerative multilevel algorithm that seeks to maximise modularity over all possible partitions.
-
-\item \code{node_leiden()}: An agglomerative multilevel algorithm that seeks to maximise
-the Constant Potts Model over all possible partitions.
-
-\item \code{node_fluid()}: A propogation-based partitioning algorithm
-
-}}
 \section{Optimal}{
 
 The general idea is to calculate the modularity of all possible partitions,
@@ -165,6 +156,15 @@ A different implementation than the default is used in the case of signed networ
 such that nodes connected by negative ties will be more likely found in separate communities.
 }
 
+\section{Fluid}{
+
+The general idea is to observe how a discrete number of fluids interact, expand and contract,
+in a non-homogenous environment, i.e. the network structure.
+Unlike the \code{{igraph}} implementation that this function wraps,
+this function iterates over all possible numbers of communities and returns the membership
+associated with the highest modularity.
+}
+
 \section{Louvain}{
 
 The general idea is to take a hierarchical approach to optimising the modularity criterion.
@@ -192,15 +192,6 @@ and \eqn{\delta(\sigma_i, \sigma_j) = 1} if and only if
 \emph{i} and \emph{j} are in the same communities and 0 otherwise.
 }
 
-\section{Fluid}{
-
-The general idea is to observe how a discrete number of fluids interact, expand and contract,
-in a non-homogenous environment, i.e. the network structure.
-Unlike the \code{{igraph}} implementation that this function wraps,
-this function iterates over all possible numbers of communities and returns the membership
-associated with the highest modularity.
-}
-
 \examples{
 node_optimal(ison_adolescents)
 node_kernighanlin(ison_adolescents)
@@ -211,9 +202,9 @@ node_leading_eigen(ison_adolescents)
 node_walktrap(ison_adolescents)
 node_infomap(ison_adolescents)
 node_spinglass(ison_adolescents)
+node_fluid(ison_adolescents)
 node_louvain(ison_adolescents)
 node_leiden(ison_adolescents)
-node_fluid(ison_adolescents)
 }
 \references{
 Brandes, Ulrik, Daniel Delling, Marco Gaertler, Robert Gorke, Martin Hoefer, Zoran Nikoloski, Dorothea Wagner. 2008.
@@ -257,6 +248,12 @@ Reichardt, Jorg, and Stefan Bornholdt. 2006.
 Traag, VA, and Jeroen Bruggeman. 2008.
 "Community detection in networks with positive and negative links".
 
+Parés F, Gasulla DG, et. al. 2018.
+"Fluid Communities: A Competitive, Scalable and Diverse Community Detection Algorithm".
+In: \emph{Complex Networks & Their Applications VI}
+Springer, 689: 229.
+\doi{10.1007/978-3-319-72150-7_19}
+
 Blondel, Vincent, Jean-Loup Guillaume, Renaud Lambiotte, Etienne Lefebvre. 2008.
 "Fast unfolding of communities in large networks",
 \emph{J. Stat. Mech.} P10008.
@@ -265,12 +262,6 @@ Traag, V. A., L Waltman, and NJ van Eck. 2019.
 "From Louvain to Leiden: guaranteeing well-connected communities",
 \emph{Scientific Reports}, 9(1):5233.
 \doi{10.1038/s41598-019-41695-z}
-
-Parés F, Gasulla DG, et. al. 2018.
-"Fluid Communities: A Competitive, Scalable and Diverse Community Detection Algorithm".
-In: \emph{Complex Networks & Their Applications VI}
-Springer, 689: 229.
-\doi{10.1007/978-3-319-72150-7_19}
 }
 \seealso{
 Other memberships: 
