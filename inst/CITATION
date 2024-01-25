@@ -9,5 +9,5 @@ bibentry(
        email = "james.hollway@graduateinstitute.ch")
      ),
      year = "2021",
-     url = "https://github.com/snlab-ch/migraph"
+     url = "https://github.com/stocnet/migraph"
    )
