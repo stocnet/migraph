@@ -14,7 +14,7 @@ Release
 Date](https://img.shields.io/github/release-date/stocnet/migraph)
 [![Codecov test
 coverage](https://codecov.io/gh/stocnet/migraph/branch/main/graph/badge.svg)](https://app.codecov.io/gh/stocnet/migraph?branch=main)
-[![CodeFactor](https://www.codefactor.io/repository/github/stocnet/migraph/badge)](https://www.codefactor.io/repository/github/stocnet/migraph)
+<!-- [![CodeFactor](https://www.codefactor.io/repository/github/stocnet/migraph/badge)](https://www.codefactor.io/repository/github/stocnet/migraph) -->
 [![CII Best
 Practices](https://bestpractices.coreinfrastructure.org/projects/4559/badge)](https://bestpractices.coreinfrastructure.org/projects/4559)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7076396.svg)](https://doi.org/10.5281/zenodo.7076396)
@@ -196,17 +196,18 @@ a list of tutorials currently available in either package:
 ``` r
 library(migraph)
 run_tute()
-#> # A tibble: 8 × 3
+#> # A tibble: 9 × 3
 #>   package name      title        
 #>   <chr>   <chr>     <chr>        
 #> 1 manynet tutorial0 Intro to R   
 #> 2 manynet tutorial1 Data         
 #> 3 manynet tutorial2 Visualisation
-#> 4 migraph tutorial4 Centrality   
-#> 5 migraph tutorial5 Community    
-#> 6 migraph tutorial6 Position     
-#> 7 migraph tutorial7 Topology     
-#> 8 migraph tutorial8 Regression
+#> 4 migraph tutorial3 Centrality   
+#> 5 migraph tutorial4 Community    
+#> 6 migraph tutorial5 Position     
+#> 7 migraph tutorial6 Topology     
+#> 8 manynet tutorial7 Diffusion    
+#> 9 migraph tutorial8 Regression
 # run_tute("tutorial5")
 ```
 

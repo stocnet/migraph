@@ -31,22 +31,20 @@ k_silhouette(hc, .data, range)
 The minimum of this and the number of nodes in the network is used.}
 }
 \description{
+These functions help select the number of clusters to return from \code{hc},
+some hierarchical clustering object:
+\itemize{
+\item \code{k_strict()} selects a number of clusters in which there is no
+distance between cluster members.
+\item \code{k_elbow()} selects a number of clusters in which there is
+a fair trade-off between parsimony and fit according to the elbow method.
+\item \code{k_silhouette()} selects a number of clusters that
+optimises the silhouette score.
+}
+
 These functions are generally not user-facing but used internally
 in e.g. the \verb{*_equivalence()} functions.
-They are documented here.
 }
-\section{Functions}{
-\itemize{
-\item \code{k_strict()}: Selects a number of clusters in which there is no
-distance between cluster members.
-
-\item \code{k_elbow()}: Selects a number of clusters in which there is
-a fair trade-off between parsimony and fit according to the elbow method.
-
-\item \code{k_silhouette()}: Selects a number of clusters that
-optimises the silhouette score.
-
-}}
 \references{
 Thorndike, Robert L. 1953.
 "Who Belongs in the Family?".

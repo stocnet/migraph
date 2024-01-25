@@ -14,8 +14,9 @@ NULL
 over_waves <- function(.data, FUN, ..., attribute = "wave",
                        strategy = "sequential",
                        verbose = FALSE){
-  future::plan(strategy)
-  furrr::future_map_dbl(manynet::to_waves(.data, attribute), function(j) FUN(j, ...), 
+  oplan <- future::plan(strategy)
+  on.exit(future::plan(oplan), add = TRUE)
+    furrr::future_map_dbl(manynet::to_waves(.data, attribute), function(j) FUN(j, ...), 
                         .progress = verbose, .options = furrr::furrr_options(seed = T))
 }
 
@@ -26,7 +27,8 @@ over_time <- function(.data, FUN, ..., attribute = "time",
                       slice = NULL,
                       strategy = "sequential",
                       verbose = FALSE){
-  future::plan(strategy)
+  oplan <- future::plan(strategy)
+  on.exit(future::plan(oplan), add = TRUE)
   out <- furrr::future_map_dbl(manynet::to_slices(.data, attribute, slice), 
                                function(j) FUN(j, ...), 
                                .progress = verbose, 

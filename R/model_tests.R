@@ -1,7 +1,17 @@
 #' Conditional uniform graph and permutation tests
 #' 
-#' These functions conduct conditional uniform graph (CUG) 
-#' or permutation (QAP) tests of any graph-level statistic.
+#' @description
+#'   These functions conduct tests of any network-level statistic:
+#'   
+#'   - `test_random()` performs a conditional uniform graph (CUG) test
+#'   of a measure against a distribution of measures on random networks 
+#'   of the same dimensions.
+#'   - `test_permutation()` performs a quadratic assignment procedure (QAP) test 
+#'   of a measure against a distribution of measures on permutations 
+#'   of the original network.
+#'   - `test_gof()` performs a chi-squared test on the squared Mahalanobis distance 
+#'   between a diff_model and diff_models objects.
+#'   
 #' @name tests
 #' @inheritParams regression
 #' @family models
@@ -10,8 +20,7 @@
 #'   e.g. the name of the attribute.
 NULL
 
-#' @describeIn tests Returns test results for some measure on an object
-#'   against a distribution of measures on random networks of the same dimensions
+#' @rdname tests 
 #' @examples 
 #' marvel_friends <- to_unsigned(ison_marvel_relationships)
 #' marvel_friends <- to_giant(marvel_friends) %>% 
@@ -32,7 +41,8 @@ test_random <- function(.data, FUN, ...,
   }
   n <- manynet::network_dims(.data)
   d <- network_density(.data)
-  future::plan(strategy)
+  oplan <- future::plan(strategy)
+  on.exit(future::plan(oplan), add = TRUE)
   rands <- furrr::future_map(1:times, manynet::generate_random, n = n, p = d, 
                              .progress = verbose, 
                              .options = furrr::furrr_options(seed = T))
@@ -61,8 +71,7 @@ test_random <- function(.data, FUN, ...,
   class(out) <- "network_test"
   out
 }
-#' @describeIn tests Returns test results for some measure on an object
-#'   against a distribution of measures on permutations of the original network
+#' @rdname tests 
 #' @examples 
 #' (qaptest <- test_permutation(marvel_friends, 
 #'                 network_heterophily, attribute = "Attractive",
@@ -81,7 +90,8 @@ test_permutation <- function(.data, FUN, ...,
   }
   n <- manynet::network_dims(.data)
   d <- network_density(.data)
-  future::plan(strategy)
+  oplan <- future::plan(strategy)
+  on.exit(future::plan(oplan), add = TRUE)
   rands <- furrr::future_map(1:times, 
                   function(x) manynet::generate_permutation(.data), 
                   .progress = verbose, 
@@ -159,8 +169,7 @@ plot.network_test <- function(x, ...,
                         color="red", linewidth=1.2) + ggplot2::ylab("Density")
 }
 
-#' @describeIn tests Returns the squared Mahalanobis distance 
-#'   and chi-squared results for diff_model and diff_models objects
+#' @rdname tests 
 #' @param diff_model A diff_model object is returned by
 #'   `play_diffusion()` or `as_diffusion()` and contains
 #'   a single empirical or simulated diffusion.

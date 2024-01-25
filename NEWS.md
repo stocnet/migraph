@@ -1,3 +1,25 @@
+# migraph 1.3.1
+
+2024-01-24
+
+## Package
+
+- Completed significant documentation updates
+
+## Measures
+
+- `over_*()` now reverts future plan on exit
+
+## Motifs
+
+- `node_brokerage_census()` and `network_brokerage_census()` now treat two-mode networks correctly (closed #35)
+
+## Models
+
+- `test_random()` now reverts future plan on exit
+- `test_permutation()` now reverts future plan on exit
+- `network_reg()` now reverts future plan on exit
+
 # migraph 1.3.0
 
 2024-01-24

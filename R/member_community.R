@@ -1,17 +1,40 @@
 #' Community partitioning algorithms
 #' 
 #' @description
-#' These functions offer different algorithms useful for partitioning
-#' networks into sets of communities.
-#' The different algorithms offer various advantages in terms of computation time,
-#' availability on different types of networks, ability to maximise modularity,
-#' and their logic or domain of inspiration.
+#'   These functions offer different algorithms useful for partitioning
+#'   networks into sets of communities:
+#' 
+#'   - `node_optimal()` is a problem-solving algorithm that seeks to maximise 
+#'   modularity over all possible partitions.
+#'   - `node_kernaghinlin()` is a greedy, iterative, deterministic
+#'   partitioning algorithm that results in two equally-sized communities.
+#'   - `node_edge_betweenness()` is a hierarchical, decomposition algorithm
+#'   where edges are removed in decreasing order of the number of
+#'   shortest paths passing through the edge.
+#'   - `node_fast_greedy()` is a hierarchical, agglomerative algorithm, 
+#'   that tries to optimize modularity in a greedy manner.
+#'   - `node_leading_eigen()` is a top-down, hierarchical algorithm.
+#'   - `node_walktrap()` is a hierarchical, agglomerative algorithm based on random walks.
+#'   - `node_infomap()` is a hierarchical algorithm based on the information in random walks.
+#'   - `node_spinglass()` is a greedy, iterative, probabilistic algorithm, 
+#'   based on analogy to model from statistical physics.
+#'   - `node_fluid()` is a propogation-based partitioning algorithm,
+#'   based on analogy to model from fluid dynamics.
+#'   - `node_louvain()` is an agglomerative multilevel algorithm that seeks to maximise 
+#'   modularity over all possible partitions.
+#'   - `node_leiden()` is an agglomerative multilevel algorithm that seeks to maximise 
+#'   the Constant Potts Model over all possible partitions.
+#'  
+#'   The different algorithms offer various advantages in terms of computation time,
+#'   availability on different types of networks, ability to maximise modularity,
+#'   and their logic or domain of inspiration.
+#'   
 #' @inheritParams cohesion
 #' @name community
 #' @family memberships
 NULL
 
-#' @describeIn community A problem-solving algorithm that seeks to maximise modularity over all possible partitions.
+#' @rdname community 
 #' @section Optimal:
 #'   The general idea is to calculate the modularity of all possible partitions,
 #'   and choose the community structure that maximises this modularity measure.
@@ -30,8 +53,7 @@ node_optimal <- function(.data){
   make_node_member(out, .data)
 }
 
-#' @describeIn community A greedy, iterative, deterministic
-#'   partitioning algorithm that results in two equally-sized communities.
+#' @rdname community 
 #' @references
 #' Kernighan, Brian W., and Shen Lin. 1970.
 #' "An efficient heuristic procedure for partitioning graphs."
@@ -86,10 +108,7 @@ node_kernighanlin <- function(.data){
   make_node_member(out, .data)
 }
 
-#' @describeIn community A hierarchical, decomposition algorithm
-#'   where edges are removed in decreasing order of the number of
-#'   shortest paths passing through the edge,
-#'   resulting in a hierarchical representation of group membership.
+#' @rdname community 
 #' @section Edge-betweenness:
 #'   This is motivated by the idea that edges connecting different groups 
 #'   are more likely to lie on multiple shortest paths when they are the 
@@ -112,8 +131,7 @@ node_edge_betweenness <- function(.data){
   make_node_member(out, .data)
 }
 
-#' @describeIn community A hierarchical, agglomerative algorithm, 
-#'   that tries to optimize modularity in a greedy manner.
+#' @rdname community 
 #' @section Fast-greedy:
 #'   Initially, each node is assigned a separate community.
 #'   Communities are then merged iteratively such that each merge
@@ -134,7 +152,7 @@ node_fast_greedy <- function(.data){
   make_node_member(out, .data)
 }
 
-#' @describeIn community A top-down, hierarchical algorithm.
+#' @rdname community 
 #' @section Leading eigenvector:
 #'   In each step, the network is bifurcated such that modularity increases most.
 #'   The splits are determined according to the leading eigenvector of the modularity matrix.
@@ -155,7 +173,7 @@ node_leading_eigen <- function(.data){
   make_node_member(out, .data)
 }
 
-#' @describeIn community A hierarchical, agglomerative algorithm based on random walks.
+#' @rdname community 
 #' @section Walktrap:
 #'   The general idea is that random walks on a network are more likely to stay 
 #'   within the same community because few edges lead outside a community.
@@ -176,7 +194,7 @@ node_walktrap <- function(.data, times = 50){
   
 }
 
-#' @describeIn community A hierarchical algorithm based on the information in random walks.
+#' @rdname community 
 #' @section Infomap:
 #'   Motivated by information theoretic principles, this algorithm tries to build 
 #'   a grouping that provides the shortest description length for a random walk,
@@ -201,8 +219,7 @@ node_infomap <- function(.data, times = 50){
   make_node_member(out, .data)
 }
 
-#' @describeIn community A greedy, iterative, probabilistic algorithm, 
-#'   based on analogy to model from statistical physics.
+#' @rdname community 
 #' @param max_k Integer constant, the number of spins to use as an upper limit
 #'   of communities to be found. Some sets can be empty at the end.
 #' @param resolution The Reichardt-Bornholdt “gamma” resolution parameter for modularity.
@@ -237,7 +254,33 @@ node_spinglass <- function(.data, max_k = 200, resolution = 1){
   make_node_member(out, .data)
 }
 
-#' @describeIn community An agglomerative multilevel algorithm that seeks to maximise modularity over all possible partitions.
+#' @rdname community 
+#' @section Fluid:
+#'   The general idea is to observe how a discrete number of fluids interact, expand and contract, 
+#'   in a non-homogenous environment, i.e. the network structure.
+#'   Unlike the `{igraph}` implementation that this function wraps,
+#'   this function iterates over all possible numbers of communities and returns the membership
+#'   associated with the highest modularity.
+#' @references
+#' Parés F, Gasulla DG, et. al. 2018. 
+#' "Fluid Communities: A Competitive, Scalable and Diverse Community Detection Algorithm". 
+#' In: _Complex Networks & Their Applications VI_
+#' Springer, 689: 229.
+#' \doi{10.1007/978-3-319-72150-7_19}
+#' @examples
+#' node_fluid(ison_adolescents)
+#' @export
+node_fluid <- function(.data){
+  .data <- as_igraph(.data)
+  mods <- vapply(seq.int(manynet::network_nodes(.data)),
+                 function(x) igraph::cluster_fluid_communities(.data, no.of.communities = x)$modularity,
+                 FUN.VALUE = numeric(1))
+  out <- igraph::cluster_fluid_communities(manynet::as_igraph(.data), 
+                                           no.of.communities = which.max(mods))$membership
+  make_node_member(out, .data)
+}
+
+#' @rdname community 
 #' @section Louvain:
 #'   The general idea is to take a hierarchical approach to optimising the modularity criterion.
 #'   Nodes begin in their own communities and are re-assigned in a local, greedy way:
@@ -259,8 +302,7 @@ node_louvain <- function(.data, resolution = 1){
   make_node_member(out, .data)
 }
 
-#' @describeIn community An agglomerative multilevel algorithm that seeks to maximise 
-#'   the Constant Potts Model over all possible partitions.
+#' @rdname community 
 #' @section Leiden:
 #'   The general idea is to optimise the Constant Potts Model, 
 #'   which does not suffer from the resolution limit, instead of modularity.
@@ -294,28 +336,3 @@ node_leiden <- function(.data, resolution = 1){
   make_node_member(out, .data)
 }
 
-#' @describeIn community A propogation-based partitioning algorithm
-#' @section Fluid:
-#'   The general idea is to observe how a discrete number of fluids interact, expand and contract, 
-#'   in a non-homogenous environment, i.e. the network structure.
-#'   Unlike the `{igraph}` implementation that this function wraps,
-#'   this function iterates over all possible numbers of communities and returns the membership
-#'   associated with the highest modularity.
-#' @references
-#' Parés F, Gasulla DG, et. al. 2018. 
-#' "Fluid Communities: A Competitive, Scalable and Diverse Community Detection Algorithm". 
-#' In: _Complex Networks & Their Applications VI_
-#' Springer, 689: 229.
-#' \doi{10.1007/978-3-319-72150-7_19}
-#' @examples
-#' node_fluid(ison_adolescents)
-#' @export
-node_fluid <- function(.data){
-  .data <- as_igraph(.data)
-  mods <- vapply(seq.int(manynet::network_nodes(.data)),
-                 function(x) igraph::cluster_fluid_communities(.data, no.of.communities = x)$modularity,
-                FUN.VALUE = numeric(1))
-  out <- igraph::cluster_fluid_communities(manynet::as_igraph(.data), 
-                                no.of.communities = which.max(mods))$membership
-  make_node_member(out, .data)
-}

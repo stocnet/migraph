@@ -70,21 +70,18 @@ a single empirical or simulated diffusion.}
 \code{play_diffusions()} and contains a series of diffusion simulations.}
 }
 \description{
-These functions conduct conditional uniform graph (CUG)
-or permutation (QAP) tests of any graph-level statistic.
-}
-\section{Functions}{
+These functions conduct tests of any network-level statistic:
 \itemize{
-\item \code{test_random()}: Returns test results for some measure on an object
-against a distribution of measures on random networks of the same dimensions
-
-\item \code{test_permutation()}: Returns test results for some measure on an object
-against a distribution of measures on permutations of the original network
-
-\item \code{test_gof()}: Returns the squared Mahalanobis distance
-and chi-squared results for diff_model and diff_models objects
-
-}}
+\item \code{test_random()} performs a conditional uniform graph (CUG) test
+of a measure against a distribution of measures on random networks
+of the same dimensions.
+\item \code{test_permutation()} performs a quadratic assignment procedure (QAP) test
+of a measure against a distribution of measures on permutations
+of the original network.
+\item \code{test_gof()} performs a chi-squared test on the squared Mahalanobis distance
+between a diff_model and diff_models objects.
+}
+}
 \section{Mahalanobis distance}{
 
 \code{test_gof()} takes a single diff_model object,

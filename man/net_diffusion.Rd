@@ -7,7 +7,7 @@
 \alias{network_reproduction}
 \alias{network_immunity}
 \alias{network_hazard}
-\title{Diffusion metrics for networks}
+\title{Measures of network diffusion}
 \source{
 \code{{netdiffuseR}}
 }

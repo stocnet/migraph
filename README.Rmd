@@ -28,7 +28,7 @@ list_data <- function(string){
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/stocnet/migraph)
 ![GitHub Release Date](https://img.shields.io/github/release-date/stocnet/migraph)
 [![Codecov test coverage](https://codecov.io/gh/stocnet/migraph/branch/main/graph/badge.svg)](https://app.codecov.io/gh/stocnet/migraph?branch=main)
-[![CodeFactor](https://www.codefactor.io/repository/github/stocnet/migraph/badge)](https://www.codefactor.io/repository/github/stocnet/migraph)
+<!-- [![CodeFactor](https://www.codefactor.io/repository/github/stocnet/migraph/badge)](https://www.codefactor.io/repository/github/stocnet/migraph) -->
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4559/badge)](https://bestpractices.coreinfrastructure.org/projects/4559)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7076396.svg)](https://doi.org/10.5281/zenodo.7076396)
 <!-- see https://zenodo.org/record/7076396 -->

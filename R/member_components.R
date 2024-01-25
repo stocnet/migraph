@@ -2,7 +2,15 @@
 #' 
 #' @description 
 #'   These functions create a vector of nodes' memberships in
-#'   components or degrees of coreness.
+#'   components or degrees of coreness:
+#'   
+#'   - `node_components()` assigns nodes' component membership
+#'   using edge direction where available.
+#'   - `node_weak_components()` assigns nodes' component membership
+#'   ignoring edge direction.
+#'   - `node_strong_components()` assigns nodes' component membership
+#'   based on edge direction.
+#'   - `node_roulette()`
 #'   
 #'   In graph theory, components, sometimes called connected components, 
 #'   are induced subgraphs from partitioning the nodes into disjoint sets.
@@ -25,8 +33,7 @@
 #' @family memberships
 NULL
 
-#' @describeIn components Returns nodes' component membership
-#'   using edge direction where available.
+#' @rdname components 
 #' @importFrom igraph components
 #' @examples 
 #' node_components(mpn_bristol)
@@ -37,8 +44,7 @@ node_components <- function(.data){
               .data)
 }
 
-#' @describeIn components Returns nodes' component membership
-#'   ignoring edge direction.
+#' @rdname components 
 #' @importFrom igraph components
 #' @export
 node_weak_components <- function(.data){
@@ -47,8 +53,7 @@ node_weak_components <- function(.data){
                  .data)
 }
 
-#' @describeIn components Returns nodes' component membership
-#'   based on edge direction.
+#' @rdname components 
 #' @importFrom igraph components
 #' @export
 node_strong_components <- function(.data){

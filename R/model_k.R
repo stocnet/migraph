@@ -1,8 +1,19 @@
 #' Methods for selecting clusters
 #' 
-#' These functions are generally not user-facing but used internally
-#' in e.g. the `*_equivalence()` functions.
-#' They are documented here.
+#' @description
+#'   These functions help select the number of clusters to return from `hc`,
+#'   some hierarchical clustering object:
+#'   
+#'   - `k_strict()` selects a number of clusters in which there is no
+#'   distance between cluster members.
+#'   - `k_elbow()` selects a number of clusters in which there is 
+#'   a fair trade-off between parsimony and fit according to the elbow method.
+#'   - `k_silhouette()` selects a number of clusters that
+#'   optimises the silhouette score.
+#' 
+#'   These functions are generally not user-facing but used internally
+#'   in e.g. the `*_equivalence()` functions.
+#'   
 #' @inheritParams cohesion
 #' @param hc A hierarchical clustering object.
 #' @references 
@@ -18,8 +29,7 @@
 #' @name kselect
 NULL
 
-#' @describeIn kselect Selects a number of clusters in which there is no
-#'   distance between cluster members.
+#' @rdname kselect 
 #' @export
 k_strict <- function(hc, .data){
   zero_merged <- hc$merge[round(hc$height,4) == 0,]
@@ -27,8 +37,7 @@ k_strict <- function(hc, .data){
   k
 }
 
-#' @describeIn kselect Selects a number of clusters in which there is 
-#'   a fair trade-off between parsimony and fit according to the elbow method.
+#' @rdname kselect 
 #' @param census A motif census object.
 #' @param range An integer indicating the maximum number of options to consider.
 #'   The minimum of this and the number of nodes in the network is used. 
@@ -101,8 +110,7 @@ k_elbow <- function(hc, .data, census, range){
   elbow_finder(dafr$clusters, dafr$correlations)
 }
 
-#' @describeIn kselect Selects a number of clusters that
-#'   optimises the silhouette score.
+#' @rdname kselect 
 #' @export
 k_silhouette <- function(hc, .data, range){
   kcs <- 2:min(range, manynet::network_nodes(.data))

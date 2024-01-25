@@ -44,6 +44,11 @@ network_brokerage_census(manynet::ison_networkers, "Discipline")
 Gould, R.V. and Fernandez, R.M. 1989.
 “Structures of Mediation: A Formal Approach to Brokerage in Transaction Networks.”
 \emph{Sociological Methodology}, 19: 89-126.
+
+Jasny, Lorien, and Mark Lubell. 2015.
+“Two-Mode Brokerage in Policy Networks.”
+\emph{Social Networks} 41:36–47.
+\doi{10.1016/j.socnet.2014.11.005}.
 }
 \seealso{
 Other motifs: 

@@ -1,6 +1,6 @@
 # net_diffusion ####
 
-#' Diffusion metrics for networks
+#' Measures of network diffusion
 #' @description
 #'   These functions allow measurement of various features of
 #'   a diffusion process:
@@ -17,6 +17,7 @@
 #'   to be protected through vaccination, isolation, or recovery for herd immunity to be reached.
 #'   - `network_hazard()` measures the hazard rate or instantaneous probability that
 #'   nodes will adopt/become infected at that time
+#'   
 #' @param diff_model A valid network diffusion model,
 #'   as created by `as_diffusion()` or `play_diffusion()`.
 #' @family measures
@@ -199,7 +200,7 @@ network_hazard <- function(diff_model){
 
 # node_diffusion ####
 
-#' Diffusion metrics for nodes
+#' Measures of nodes in a diffusion
 #' @description
 #'   These functions allow measurement of various features of
 #'   a diffusion process:
@@ -215,6 +216,7 @@ network_hazard <- function(diff_model){
 #'   a given mark
 #'   - `node_is_exposed()`: Marks the nodes that are susceptible,
 #'   i.e. are in the immediate neighbourhood of given mark vector
+#'   
 #' @inheritParams cohesion
 #' @inheritParams net_diffusion
 #' @family measures
