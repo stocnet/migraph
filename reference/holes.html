@@ -181,14 +181,20 @@ Cambridge, MA: Harvard University Press.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">node_bridges</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> 'tie_is_bridge' is not an exported object from 'namespace:manynet'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Betty   Sue Alice  Jane  Dale   Pam Carol  Tina</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     1     0     0     0     1     2     1</span>
 <span class="r-in"><span><span class="fu">node_bridges</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> 'tie_is_bridge' is not an exported object from 'namespace:manynet'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Evelyn Laura Theresa Brenda Charlotte Frances Eleanor Pearl  Ruth Verne  Myra</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      0     0       0      0         0       0       0     0     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0     0     0     0     0     0     0     0     0     0     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span><span class="fu">node_redundancy</span><span class="op">(</span><span class="va">ison_adolescents</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Betty   Sue Alice  Jane  Dale   Pam Carol  Tina</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     6   2.5   2.5     4  3.33     4     2     2</span>
 <span class="r-in"><span><span class="fu">node_redundancy</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Evelyn Laura Theresa Brenda Charlotte Frances Eleanor Pearl  Ruth Verne  Myra</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>   12.5  12.9    14.2   13.1        12      16      18  20.7    20  19.5  17.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
@@ -198,7 +204,7 @@ Cambridge, MA: Harvard University Press.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Betty   Sue Alice  Jane   Dale   Pam Carol  Tina</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    -<span style="color: #BB0000;">5</span>   1.5   1.5    -<span style="color: #BB0000;">2</span> -<span style="color: #BB0000;">0.333</span>    -<span style="color: #BB0000;">1</span>     0    -<span style="color: #BB0000;">1</span></span>
 <span class="r-in"><span><span class="fu">node_effsize</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Evelyn Laura Theresa Brenda Charlotte Frances Eleanor Pearl  Ruth Verne  Myra</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>   -<span style="color: #BB0000;">4.5</span> -<span style="color: #BB0000;">5.86</span>   -<span style="color: #BB0000;">6.25</span>  -<span style="color: #BB0000;">6.14</span>        -<span style="color: #BB0000;">8</span>     -<span style="color: #BB0000;">12</span>     -<span style="color: #BB0000;">14</span> -<span style="color: #BB0000;">17.7</span>   -<span style="color: #BB0000;">16</span> -<span style="color: #BB0000;">15.5</span> -<span style="color: #BB0000;">13.5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
@@ -208,14 +214,14 @@ Cambridge, MA: Harvard University Press.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Betty   Sue Alice  Jane   Dale    Pam Carol  Tina</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    -<span style="color: #BB0000;">5</span> 0.375 0.375    -<span style="color: #BB0000;">1</span> -<span style="color: #BB0000;">0.111</span> -<span style="color: #BB0000;">0.333</span>     0    -<span style="color: #BB0000;">1</span></span>
 <span class="r-in"><span><span class="fu">node_efficiency</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN  LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Evelyn  Laura Theresa Brenda Charlotte Frances Eleanor Pearl  Ruth Verne  Myra</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> -<span style="color: #BB0000;">0.562</span> -<span style="color: #BB0000;">0.837</span>  -<span style="color: #BB0000;">0.781</span> -<span style="color: #BB0000;">0.878</span>        -<span style="color: #BB0000;">2</span>      -<span style="color: #BB0000;">3</span>    -<span style="color: #BB0000;">3.5</span> -<span style="color: #BB0000;">5.89</span>    -<span style="color: #BB0000;">4</span> -<span style="color: #BB0000;">3.88</span> -<span style="color: #BB0000;">3.38</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2     E3    E4     E5     E6    E7    E8    E9    E10    E11    E12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> -<span style="color: #BB0000;">3.22</span> -<span style="color: #BB0000;">3.44</span> -<span style="color: #BB0000;">0.778</span> -<span style="color: #BB0000;">1.88</span> -<span style="color: #BB0000;">0.188</span> -<span style="color: #BB0000;">0.281</span>     0 0.357 0.333 -<span style="color: #BB0000;">0.667</span> -<span style="color: #BB0000;">0.875</span> -<span style="color: #BB0000;">0.347</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 2 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span><span class="fu">node_constraint</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Evelyn Laura Theresa Brenda Charlotte Frances Eleanor Pearl  Ruth Verne  Myra</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  0.276 0.306   0.294  0.317     0.384   0.412   0.415 0.461 0.398 0.407 0.434</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
@@ -225,7 +231,7 @@ Cambridge, MA: Harvard University Press.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Betty   Sue Alice  Jane  Dale   Pam Carol  Tina</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0 0.031 0.027 0.006 0.033 0.006 0.102     0</span>
 <span class="r-in"><span><span class="fu">node_hierarchy</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Evelyn Laura Theresa Brenda Charlotte Frances Eleanor Pearl  Ruth Verne  Myra</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  0.034 0.036   0.033   0.03     0.023   0.021   0.012 0.015 0.017 0.022 0.034</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>

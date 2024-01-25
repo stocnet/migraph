@@ -130,13 +130,13 @@ See <a href="https://progressr.futureverse.org" class="external-link"><code>{pro
 
 <dt>diff_model</dt>
 <dd><p>A diff_model object is returned by
-<code>play_diffusion()</code> or <code>as_diffusion()</code> and contains
+<code><a href="https://stocnet.github.io/manynet/reference/play.html" class="external-link">play_diffusion()</a></code> or <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_diffusion()</a></code> and contains
 a single empirical or simulated diffusion.</p></dd>
 
 
 <dt>diff_models</dt>
 <dd><p>A diff_models object is returned by
-<code>play_diffusions()</code> and contains a series of diffusion simulations.</p></dd>
+<code><a href="https://stocnet.github.io/manynet/reference/play.html" class="external-link">play_diffusions()</a></code> and contains a series of diffusion simulations.</p></dd>
 
 </dl></div>
     <div id="functions">
@@ -173,8 +173,8 @@ then one can argue that the first diffusion is not well captured by</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/manynet/man/reformat.html" class="external-link">to_unsigned</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/manynet/man/transform.html" class="external-link">to_giant</a></span><span class="op">(</span><span class="va">marvel_friends</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_unsigned</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stocnet.github.io/manynet/reference/to_scope.html" class="external-link">to_giant</a></span><span class="op">(</span><span class="va">marvel_friends</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu">to_subgraph</span><span class="op">(</span><span class="va">PowerOrigin</span> <span class="op">==</span> <span class="st">"Human"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">cugtest</span> <span class="op">&lt;-</span> <span class="fu">test_random</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="va">network_heterophily</span>, attribute <span class="op">=</span> <span class="st">"Attractive"</span>,</span></span>
 <span class="r-in"><span>  times <span class="op">=</span> <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -195,22 +195,23 @@ then one can argue that the first diffusion is not well captured by</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Observed Value: -0.8571429 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&gt;=Obs): 0.97 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&lt;=Obs): 0.075 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(X&lt;=Obs): 0.085 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">qaptest</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tests-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>  <span class="co"># Playing a reasonably quick diffusion</span></span></span>
-<span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">play_diffusion</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/manynet/man/generate.html" class="external-link">generate_random</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>, transmissibility <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in play_diffusion(generate_random(15), transmissibility = 0.7):</span> could not find function "play_diffusion"</span>
+<span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stocnet.github.io/manynet/reference/play.html" class="external-link">play_diffusion</a></span><span class="op">(</span><span class="fu"><a href="https://stocnet.github.io/manynet/reference/generate.html" class="external-link">generate_random</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>, transmissibility <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="co"># Playing a slower diffusion</span></span></span>
-<span class="r-in"><span>  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">play_diffusions</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/manynet/man/generate.html" class="external-link">generate_random</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>, transmissibility <span class="op">=</span> <span class="fl">0.1</span>, times <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in play_diffusions(generate_random(15), transmissibility = 0.1,     times = 40):</span> could not find function "play_diffusions"</span>
+<span class="r-in"><span>  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stocnet.github.io/manynet/reference/play.html" class="external-link">play_diffusions</a></span><span class="op">(</span><span class="fu"><a href="https://stocnet.github.io/manynet/reference/generate.html" class="external-link">generate_random</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>, transmissibility <span class="op">=</span> <span class="fl">0.1</span>, times <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'x' not found</span>
+<span class="r-plt img"><img src="tests-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'y' not found</span>
+<span class="r-plt img"><img src="tests-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>  <span class="fu">test_gof</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'x' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   statistic  p.value    df  nobs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      180. 2.59<span style="color: #949494;">e</span><span style="color: #BB0000;">-30</span>    15    40</span>
 </code></pre></div>
     </div>
   </div>

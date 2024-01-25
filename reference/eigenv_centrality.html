@@ -78,7 +78,7 @@ including for two-mode networks."><meta property="og:image" content="https://sto
 </ul><p>All measures attempt to use as much information as they are offered,
 including whether the networks are directed, weighted, or multimodal.
 If this would produce unintended results,
-first transform the salient properties using e.g. <code><a href="https://rdrr.io/pkg/manynet/man/reformat.html" class="external-link">to_undirected()</a></code> functions.
+first transform the salient properties using e.g. <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_undirected()</a></code> functions.
 All centrality and centralization measures return normalized measures by default,
 including for two-mode networks.</p>
     </div>
@@ -233,14 +233,14 @@ most routines solve the equation \(x = (I - \frac{1}{\lambda} A^T)^{-1} e\).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>   0.081  0.109    0.166    0.17    0.13  0.138              0.14        0.208</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 27 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span><span class="fu">node_eigenvector</span><span class="op">(</span><span class="va">ison_southern_women</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Evelyn Laura Theresa Brenda Charlotte Frances Eleanor Pearl  Ruth Verne  Myra</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  0.423 0.397   0.472  0.402     0.227   0.287   0.319 0.264 0.337 0.327 0.292</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 0.215 0.228 0.356 0.261 0.431 0.447 0.522 0.639 0.505 0.323 0.159 0.361 0.251</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 1 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span><span class="fu">node_power</span><span class="op">(</span><span class="va">ison_southern_women</span>, exponent <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   EVELYN LAURA THERESA BRENDA CHARLOTTE FRANCES ELEANOR PEARL  RUTH VERNE  MYRA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Evelyn Laura Theresa Brenda Charlotte Frances Eleanor Pearl  Ruth Verne  Myra</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  -<span style="color: #BB0000;">1.44</span> -<span style="color: #BB0000;">1.38</span>   -<span style="color: #BB0000;">1.44</span>  -<span style="color: #BB0000;">1.38</span>     -<span style="color: #BB0000;">1.00</span>   -<span style="color: #BB0000;">1.38</span>   -<span style="color: #BB0000;">1.38</span> -<span style="color: #BB0000;">1.52</span> -<span style="color: #BB0000;">1.44</span> -<span style="color: #BB0000;">1.44</span> -<span style="color: #BB0000;">1.52</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 7 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      E1    E2    E3    E4    E5    E6    E7    E8    E9   E10   E11   E12   E13</span>
