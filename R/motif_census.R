@@ -329,15 +329,29 @@ NULL
 #' Gould, R.V. and Fernandez, R.M. 1989. 
 #' “Structures of Mediation: A Formal Approach to Brokerage in Transaction Networks.” 
 #' _Sociological Methodology_, 19: 89-126.
+#' 
+#' Jasny, Lorien, and Mark Lubell. 2015. 
+#' “Two-Mode Brokerage in Policy Networks.” 
+#' _Social Networks_ 41:36–47. 
+#' \doi{10.1016/j.socnet.2014.11.005}.
 #' @examples 
 #' node_brokerage_census(manynet::ison_networkers, "Discipline")
 #' @export
 node_brokerage_census <- function(.data, membership, standardized = FALSE){
-  out <- sna::brokerage(manynet::as_network(.data),
-                        manynet::node_attribute(.data, membership))
-  out <- if(standardized) out$z.nli else out$raw.nli
-  colnames(out) <- c("Coordinator", "Itinerant", "Gatekeeper", 
-                     "Representative", "Liaison", "Total")
+  if(!manynet::is_twomode(.data)){
+    out <- sna::brokerage(manynet::as_network(.data),
+                          manynet::node_attribute(.data, membership))
+    out <- if(standardized) out$z.nli else out$raw.nli
+    colnames(out) <- c("Coordinator", "Itinerant", "Gatekeeper", 
+                       "Representative", "Liaison", "Total")
+  } else {
+    out <- suppressWarnings(sna::brokerage(manynet::as_network(manynet::to_mode1(.data)),
+                          manynet::node_attribute(.data, membership)))
+    out <- if(standardized) out$z.nli else out$raw.nli
+    out <- out[,-4]
+    colnames(out) <- c("Coordinator", "Itinerant", "Gatekeeper", 
+                       "Liaison", "Total")
+  }
   make_node_motif(out, .data)
 }
 
@@ -346,10 +360,18 @@ node_brokerage_census <- function(.data, membership, standardized = FALSE){
 #' network_brokerage_census(manynet::ison_networkers, "Discipline")
 #' @export
 network_brokerage_census <- function(.data, membership, standardized = FALSE){
-  out <- sna::brokerage(manynet::as_network(.data),
+  if(!manynet::is_twomode(.data)){
+    out <- sna::brokerage(manynet::as_network(.data),
                         manynet::node_attribute(.data, membership))
   out <- if(standardized) out$z.gli else out$raw.gli
   names(out) <- c("Coordinator", "Itinerant", "Gatekeeper", 
                      "Representative", "Liaison", "Total")
-  make_network_motif(out, .data)
+  } else {
+    out <- suppressWarnings(sna::brokerage(manynet::as_network(manynet::to_mode1(.data)),
+                          manynet::node_attribute(.data, membership)))
+    out <- if(standardized) out$z.gli else out$raw.gli
+    names(out) <- c("Coordinator", "Itinerant", "Gatekeeper", 
+                    "Representative", "Liaison", "Total")
+  }
+    make_network_motif(out, .data)
 }
