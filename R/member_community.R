@@ -270,13 +270,15 @@ node_spinglass <- function(.data, max_k = 200, resolution = 1){
 #' @examples
 #' node_fluid(ison_adolescents)
 #' @export
-node_fluid <- function(.data){
+node_fluid <- function(.data) {
   .data <- as_igraph(.data)
-  mods <- vapply(seq.int(manynet::network_nodes(.data)),
-                 function(x) igraph::cluster_fluid_communities(.data, no.of.communities = x)$modularity,
-                 FUN.VALUE = numeric(1))
-  out <- igraph::cluster_fluid_communities(manynet::as_igraph(.data), 
-                                           no.of.communities = which.max(mods))$membership
+  mods <- list()
+  for (x in seq.int(manynet::network_nodes(.data))) {
+    mods[[x]] <- igraph::modularity(.data, membership =
+                              igraph::membership(igraph::cluster_fluid_communities(.data, x)))
+  }
+  out <- igraph::membership(igraph::cluster_fluid_communities(
+    .data, no.of.communities = which.max(mods)))
   make_node_member(out, .data)
 }
 
