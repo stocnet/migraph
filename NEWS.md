@@ -1,3 +1,15 @@
+# migraph 1.3.2
+
+2024-01-25
+
+## Measures
+
+* Updated `network_scalefree()` to work even when P scores are not available
+
+## Members
+
+* Updated `node_fluid()` to work with different versions of `{igraph}`
+
 # migraph 1.3.1
 
 2024-01-24
