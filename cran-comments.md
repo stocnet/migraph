@@ -9,5 +9,4 @@
 
 0 errors | 0 warnings | 0 notes
 
-- This submission resolves reverse dependencies from igraph v2.0.0 and manynet v0.4.1
-- Note that some of the tests are not expected to pass unless manynet v0.4.1 is available
+- This submission resolves reverse dependencies from igraph v2.0.0
