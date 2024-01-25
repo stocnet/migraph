@@ -7,7 +7,7 @@
 \alias{node_thresholds}
 \alias{node_infection_length}
 \alias{node_exposure}
-\title{Diffusion metrics for nodes}
+\title{Measures of nodes in a diffusion}
 \usage{
 node_adoption_time(diff_model)
 
