@@ -1,3 +1,17 @@
+# migraph 1.3.1
+
+2024-01-24
+
+## Measures
+
+- `over_*()` now reverts future plan on exit
+
+## Models
+
+- `test_random()` now reverts future plan on exit
+- `test_permutation()` now reverts future plan on exit
+- `network_reg()` now reverts future plan on exit
+
 # migraph 1.3.0
 
 2024-01-24

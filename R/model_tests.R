@@ -32,7 +32,8 @@ test_random <- function(.data, FUN, ...,
   }
   n <- manynet::network_dims(.data)
   d <- network_density(.data)
-  future::plan(strategy)
+  oplan <- future::plan(strategy)
+  on.exit(future::plan(oplan), add = TRUE)
   rands <- furrr::future_map(1:times, manynet::generate_random, n = n, p = d, 
                              .progress = verbose, 
                              .options = furrr::furrr_options(seed = T))
@@ -81,7 +82,8 @@ test_permutation <- function(.data, FUN, ...,
   }
   n <- manynet::network_dims(.data)
   d <- network_density(.data)
-  future::plan(strategy)
+  oplan <- future::plan(strategy)
+  on.exit(future::plan(oplan), add = TRUE)
   rands <- furrr::future_map(1:times, 
                   function(x) manynet::generate_permutation(.data), 
                   .progress = verbose, 

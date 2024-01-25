@@ -166,7 +166,8 @@ network_reg <- function(formula, .data,
   # Null ####
   # qapy for univariate ####
   if (method == "qapy" | nx == 2){
-    future::plan(strategy)
+  oplan <- future::plan(strategy)
+  on.exit(future::plan(oplan), add = TRUE)
     if(valued){
       repdist <- furrr::future_map_dfr(1:times, function(j){
         nlmfit(c(list(manynet::generate_permutation(g[[1]], with_attr = FALSE)),
@@ -200,7 +201,8 @@ network_reg <- function(formula, .data,
       if (directed == "graph")
         xres[upper.tri(xres)] <- t(xres)[upper.tri(xres)]
       
-      future::plan(strategy)
+  oplan <- future::plan(strategy)
+  on.exit(future::plan(oplan), add = TRUE)
       if(valued){
         repdist[,i] <- furrr::future_map_dbl(1:times, function(j){
           nlmfit(c(g[-(1 + i)],
