@@ -1,5 +1,23 @@
 #' Core-periphery clustering algorithms
-#' @description 
+#' @description
+#'   These functions identify nodes belonging to (some level of) the core of a network:
+#'   
+#'   - `node_core()` assigns nodes to either the core or periphery.
+#'   - `node_coreness()` assigns nodes to their level of k-coreness.
+#' 
+#' @inheritParams cohesion
+#' @param method Which method to use to identify cores and periphery.
+#'   By default this is "degree", 
+#'   which relies on the heuristic that high degree nodes are more likely to be in the core.
+#'   An alternative is "eigenvector", which instead begins with high eigenvector nodes.
+#'   Other methods, such as a genetic algorithm, CONCOR, and Rombach-Porter,
+#'   can be added if there is interest.
+#' @name core
+#' @family memberships
+NULL
+
+#' @rdname core
+#' @section Core-periphery: 
 #'   This function is used to identify which nodes should belong to the core,
 #'   and which to the periphery.
 #'   It seeks to minimize the following quantity:
@@ -10,15 +28,6 @@
 #'   Note that minimising this quantity maximises density in the core block
 #'   and minimises density in the periphery block;
 #'   it ignores ties between these blocks.
-#' @inheritParams cohesion
-#' @param method Which method to use to identify cores and periphery.
-#'   By default this is "degree", 
-#'   which relies on the heuristic that high degree nodes are more likely to be in the core.
-#'   An alternative is "eigenvector", which instead begins with high eigenvector nodes.
-#'   Other methods, such as a genetic algorithm, CONCOR, and Rombach-Porter,
-#'   can be added if there is interest.
-#' @name core
-#' @family memberships
 #' @references
 #' Borgatti, Stephen P., & Everett, Martin G. 1999. 
 #' Models of core /periphery structures. 
@@ -59,7 +68,7 @@ node_core <- function(.data, method = c("degree", "eigenvector")){
   make_node_member(out, .data)
 }
 
-#' @describeIn core Returns k-cores
+#' @rdname core
 #' @examples
 #' node_coreness(ison_adolescents)
 #' @export

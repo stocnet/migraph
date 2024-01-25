@@ -28,6 +28,14 @@ Other methods, such as a genetic algorithm, CONCOR, and Rombach-Porter,
 can be added if there is interest.}
 }
 \description{
+These functions identify nodes belonging to (some level of) the core of a network:
+\itemize{
+\item \code{node_core()} assigns nodes to either the core or periphery.
+\item \code{node_coreness()} assigns nodes to their level of k-coreness.
+}
+}
+\section{Core-periphery}{
+
 This function is used to identify which nodes should belong to the core,
 and which to the periphery.
 It seeks to minimize the following quantity:
@@ -39,11 +47,7 @@ Note that minimising this quantity maximises density in the core block
 and minimises density in the periphery block;
 it ignores ties between these blocks.
 }
-\section{Functions}{
-\itemize{
-\item \code{node_coreness()}: Returns k-cores
 
-}}
 \examples{
 #mpn_elite_usa_advice \%>\% as_tidygraph \%>\% 
 #   mutate(corep = node_core(mpn_elite_usa_advice)) \%>\% 
