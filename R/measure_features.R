@@ -250,12 +250,13 @@ network_smallworld <- function(.data,
 #' network_scalefree(create_lattice(100))
 #' @export
 network_scalefree <- function(.data){
-  out <- igraph::fit_power_law(node_degree(.data, 
-                                    normalized = FALSE))
-  if(out$KS.p < 0.05) 
-    cat(paste("Note: Kolgomorov-Smirnov test that data",
-              "could have been drawn from a power-law", 
-              "distribution rejected.\n"))
+  out <- igraph::fit_power_law(node_degree(.data, normalized = FALSE))
+  if ("KS.p" %in% names(out)) {
+    if(out$KS.p < 0.05) 
+      cat(paste("Note: Kolgomorov-Smirnov test that data",
+                "could have been drawn from a power-law", 
+                "distribution rejected.\n"))
+  }
   make_network_measure(out$alpha, .data)
 }
 
