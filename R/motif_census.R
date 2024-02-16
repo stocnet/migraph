@@ -385,11 +385,7 @@ network_brokerage_census <- function(.data, membership, standardized = FALSE){
 #'   \doi{10.1016/j.socnet.2019.08.002}
 #' @export
 node_brokering_activity <- function(.data, membership){
-  el <- as_edgelist(.data)
-  twopaths <- dplyr::full_join(el, el, 
-                               by = dplyr::join_by(to == from), 
-                               relationship = "many-to-many")
-  twopaths <- dplyr::filter(twopaths, from != to.y)
+  twopaths <- .to_twopaths(.data)
   if(!missing(membership)){
     twopaths$from_memb <- node_attribute(.data, membership)[`if`(is_labelled(.data),
                                                                  match(twopaths$from, node_names(.data)),
@@ -413,11 +409,7 @@ node_brokering_activity <- function(.data, membership){
 #' node_brokering_exclusivity(ison_networkers, "Discipline")
 #' @export
 node_brokering_exclusivity <- function(.data, membership){
-  el <- as_edgelist(.data)
-  twopaths <- dplyr::full_join(el, el, 
-                               by = dplyr::join_by(to == from), 
-                               relationship = "many-to-many")
-  twopaths <- dplyr::filter(twopaths, from != to.y)
+  twopaths <- .to_twopaths(.data)
   if(!missing(membership)){
     twopaths$from_memb <- node_attribute(.data, membership)[`if`(is_labelled(.data),
                                                                  match(twopaths$from, node_names(.data)),
@@ -452,4 +444,18 @@ node_brokering <- function(.data, membership){
   make_node_member(out, .data)
 }
 
-
+.to_twopaths <- function(.data){
+  if(!manynet::is_directed(.data)){
+    el <- as_edgelist(to_reciprocated(.data)) 
+  } else el <- as_edgelist(.data)
+  twopaths <- dplyr::full_join(el, el, 
+                               by = dplyr::join_by(to == from), 
+                               relationship = "many-to-many")
+  # remove non two-paths
+  twopaths <- dplyr::filter(twopaths, !(is.na(from) | is.na(to.y)))
+  # remove reciprocated paths
+  twopaths <- dplyr::filter(twopaths, from != to.y)
+  # remove triads
+  twopaths <- dplyr::filter(twopaths, !paste(from, to.y) %in% paste(from, to))
+  twopaths
+}
