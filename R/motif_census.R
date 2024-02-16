@@ -375,3 +375,60 @@ network_brokerage_census <- function(.data, membership, standardized = FALSE){
   }
     make_network_motif(out, .data)
 }
+
+#' @rdname brokerage_census 
+#' @export
+node_brokering_activity <- function(.data, membership){
+  el <- as_edgelist(.data)
+  twopaths <- dplyr::full_join(el, el, 
+                               by = dplyr::join_by(to == from), 
+                               relationship = "many-to-many")
+  twopaths <- dplyr::filter(twopaths, from != to.y)
+  if(!missing(membership)){
+    twopaths$from_memb <- node_attribute(.data, membership)[`if`(is_labelled(.data),
+                                                                 match(twopaths$from, node_names(.data)),
+                                                                 twopaths$from)]
+    twopaths$to_memb <- node_attribute(.data, membership)[`if`(is_labelled(.data),
+                                                               match(twopaths$to.y, node_names(.data)),
+                                                               twopaths$to.y)]
+    twopaths <- dplyr::filter(twopaths, from_memb != to_memb)
+  }
+  # tabulate brokerage
+  out <- table(twopaths$to)
+  # correct ordering for named data
+  if(is_labelled(.data)) out <- out[match(node_names(.data), names(out))]
+  # missings should be none
+  out[is.na(out)] <- 0
+  make_node_measure(out, .data)
+}
+
+#' @rdname brokerage_census
+#' @examples
+#' node_brokering_exclusivity(ison_networkers, "Discipline")
+#' @export
+node_brokering_exclusivity <- function(.data, membership){
+  el <- as_edgelist(.data)
+  twopaths <- dplyr::full_join(el, el, 
+                               by = dplyr::join_by(to == from), 
+                               relationship = "many-to-many")
+  twopaths <- dplyr::filter(twopaths, from != to.y)
+  if(!missing(membership)){
+    twopaths$from_memb <- node_attribute(.data, membership)[`if`(is_labelled(.data),
+                                                                 match(twopaths$from, node_names(.data)),
+                                                                 twopaths$from)]
+    twopaths$to_memb <- node_attribute(.data, membership)[`if`(is_labelled(.data),
+                                                               match(twopaths$to.y, node_names(.data)),
+                                                               twopaths$to.y)]
+    twopaths <- dplyr::filter(twopaths, from_memb != to_memb)
+  }
+  # get only exclusive paths
+  out <- twopaths %>% dplyr::group_by(from, to.y) %>% dplyr::filter(dplyr::n()==1)
+  # tabulate brokerage
+  out <- table(out$to)
+  # correct ordering for named data
+  if(is_labelled(.data)) out <- out[match(node_names(.data), names(out))]
+  # missings should be none
+  out[is.na(out)] <- 0
+  make_node_measure(out, .data)
+}
+

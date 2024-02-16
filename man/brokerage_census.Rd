@@ -4,11 +4,18 @@
 \alias{brokerage_census}
 \alias{node_brokerage_census}
 \alias{network_brokerage_census}
+\alias{node_brokering_activity}
+\alias{node_brokering_exclusivity}
 \title{Censuses of brokerage motifs}
 \usage{
 node_brokerage_census(.data, membership, standardized = FALSE)
 
 network_brokerage_census(.data, membership, standardized = FALSE)
+
+node_brokering_activity(.data, membership)
+
+node_brokering_exclusivity(.data, membership)
+
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -39,6 +46,7 @@ roles in a network.
 \examples{
 node_brokerage_census(manynet::ison_networkers, "Discipline")
 network_brokerage_census(manynet::ison_networkers, "Discipline")
+node_brokering_exclusivity(ison_networkers, "Discipline")
 }
 \references{
 Gould, R.V. and Fernandez, R.M. 1989.
