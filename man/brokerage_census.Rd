@@ -6,6 +6,7 @@
 \alias{network_brokerage_census}
 \alias{node_brokering_activity}
 \alias{node_brokering_exclusivity}
+\alias{node_brokering}
 \title{Censuses of brokerage motifs}
 \usage{
 node_brokerage_census(.data, membership, standardized = FALSE)
@@ -16,6 +17,7 @@ node_brokering_activity(.data, membership)
 
 node_brokering_exclusivity(.data, membership)
 
+node_brokering(.data, membership)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -57,6 +59,12 @@ Jasny, Lorien, and Mark Lubell. 2015.
 “Two-Mode Brokerage in Policy Networks.”
 \emph{Social Networks} 41:36–47.
 \doi{10.1016/j.socnet.2014.11.005}.
+
+Hamilton, Matthew, Jacob Hileman, and Orjan Bodin. 2020.
+"Evaluating heterogeneous brokerage: New conceptual and methodological approaches
+and their application to multi-level environmental governance networks"
+\emph{Social Networks} 61: 1-10.
+\doi{10.1016/j.socnet.2019.08.002}
 }
 \seealso{
 Other motifs: 

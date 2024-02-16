@@ -377,6 +377,12 @@ network_brokerage_census <- function(.data, membership, standardized = FALSE){
 }
 
 #' @rdname brokerage_census 
+#' @references
+#'   Hamilton, Matthew, Jacob Hileman, and Orjan Bodin. 2020.
+#'   "Evaluating heterogeneous brokerage: New conceptual and methodological approaches
+#'   and their application to multi-level environmental governance networks"
+#'   _Social Networks_ 61: 1-10.
+#'   \doi{10.1016/j.socnet.2019.08.002}
 #' @export
 node_brokering_activity <- function(.data, membership){
   el <- as_edgelist(.data)
@@ -431,4 +437,19 @@ node_brokering_exclusivity <- function(.data, membership){
   out[is.na(out)] <- 0
   make_node_measure(out, .data)
 }
+
+#' @rdname brokerage_census 
+#' @export
+node_brokering <- function(.data, membership){
+  activ <- node_brokering_activity(.data, membership)
+  exclusiv <- node_brokering_exclusivity(.data, membership)
+  activ <- activ - mean(activ)
+  exclusiv <- exclusiv - mean(exclusiv)
+  out <- dplyr::case_when(activ > 0 & exclusiv > 0 ~ "Powerhouse",
+                          activ > 0 & exclusiv < 0 ~ "Connectors",
+                          activ < 0 & exclusiv > 0 ~ "Linchpins",
+                          activ < 0 & exclusiv < 0 ~ "Sideliners")
+  make_node_member(out, .data)
+}
+
 
