@@ -69,6 +69,14 @@ node_roulette <- function(.data, num_groups, group_size, times = NULL){
   } else {
     out <- ceiling(seq_along(my_vec) / group_size)[my_vec]
   }
+  if(is.null(times)) times <- n * max(out)
+  # Get fitness
+  mat <- manynet::as_matrix(.data)
+  fit <- sum(.to_cliques(out) * mat)
   make_node_member(out, .data)
+}
+
+.to_cliques <- function(member){
+  (member == t(matrix(member, length(member), length(member))))*1
 }
 
