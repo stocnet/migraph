@@ -81,6 +81,7 @@ node_roulette <- function(.data, num_groups, group_size, times = NULL){
       out <- soln
       fit <- new_fit
     } 
+    if(t %% 10) soln <- .strongPerturb(soln)
   }
   make_node_member(out, .data)
 }
@@ -115,4 +116,13 @@ node_roulette <- function(.data, num_groups, group_size, times = NULL){
   soln[from] <- sample(which(gsizes != max(gsizes)), 1)
   soln
 }
+
+.strongPerturb <- function(soln, strength = 1){
+  times <- ceiling(strength * length(soln)/max(soln))
+  for (t in seq.int(times)){
+    soln <- .weakPerturb(soln)
+  }
+  soln
+}
+
 
