@@ -73,10 +73,46 @@ node_roulette <- function(.data, num_groups, group_size, times = NULL){
   # Get fitness
   mat <- manynet::as_matrix(.data)
   fit <- sum(.to_cliques(out) * mat)
+  soln <- out
+  for(t in seq.int(times)){
+    soln <- .weakPerturb(soln)
+    new_fit <- sum(.to_cliques(soln) * mat)
+    if(new_fit < fit){
+      out <- soln
+      fit <- new_fit
+    } 
+  }
   make_node_member(out, .data)
 }
 
 .to_cliques <- function(member){
   (member == t(matrix(member, length(member), length(member))))*1
+}
+
+.weakPerturb <- function(soln){
+  gsizes <- table(soln)
+  evens <- all(gsizes == max(gsizes))
+  if(evens){
+    soln <- .swapMove(soln)
+  } else {
+    if(runif(1)<0.5) soln <- .swapMove(soln) else 
+      soln <- .oneMove(soln)
+  }
+  soln
+}
+
+.swapMove <- function(soln){
+  from <- sample(seq.int(length(soln)), 1)
+  to <- sample(which(soln != soln[from]), 1)
+  soln[c(to,from)] <- soln[c(from,to)]
+  soln
+}
+
+.oneMove <- function(soln){
+  gsizes <- table(soln)
+  maxg <- which(gsizes == max(gsizes))
+  from <- sample(which(soln %in% maxg), 1)
+  soln[from] <- sample(which(gsizes != max(gsizes)), 1)
+  soln
 }
 
