@@ -265,6 +265,7 @@ Traag, V. A., L Waltman, and NJ van Eck. 2019.
 }
 \seealso{
 Other memberships: 
+\code{\link{cliques}},
 \code{\link{components}()},
 \code{\link{core}},
 \code{\link{equivalence}}

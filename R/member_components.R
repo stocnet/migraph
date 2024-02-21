@@ -62,23 +62,5 @@ node_strong_components <- function(.data){
                  .data)
 }
 
-#' @rdname components
-#' @param num_groups An integer indicating the number of groups desired
-#' @param group_size An integer indicating the desired size of most of the groups
-#' @export
-node_roulette <- function(.data, num_groups, group_size){
-  if(missing(num_groups) & missing(group_size)){
-    stop(paste("Either `num_groups` must indicate number of groups desired",
-               "or `group_size` must indicate the desired average size of groups."))
-  }
-  n <- manynet::network_nodes(.data)
-  my_vec <- sample(seq.int(n))
-  if(!missing(num_groups)){
-    out <- cut(seq_along(my_vec), num_groups, labels = FALSE)[my_vec]
-  } else {
-    out <- ceiling(seq_along(my_vec) / group_size)[my_vec]
-  }
-  make_node_member(out, .data)
-}
 
 

@@ -121,6 +121,7 @@ plot(nae)
 }
 \seealso{
 Other memberships: 
+\code{\link{cliques}},
 \code{\link{community}},
 \code{\link{components}()},
 \code{\link{core}}
