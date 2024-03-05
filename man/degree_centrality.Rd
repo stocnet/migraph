@@ -17,7 +17,7 @@
 node_degree(
   .data,
   normalized = TRUE,
-  alpha = 0,
+  alpha = 1,
   direction = c("all", "out", "in")
 )
 

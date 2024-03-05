@@ -90,7 +90,7 @@ NULL
 #' @rdname degree_centrality 
 #' @importFrom manynet as_igraph
 #' @export
-node_degree <- function (.data, normalized = TRUE, alpha = 0,
+node_degree <- function (.data, normalized = TRUE, alpha = 1,
                          direction = c("all","out","in")){
   
   if(missing(.data)) {expect_nodes(); .data <- .G()}
