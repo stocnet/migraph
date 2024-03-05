@@ -67,15 +67,22 @@ node_bridges <- function(.data){
 #' node_redundancy(ison_southern_women)
 #' @export
 node_redundancy <- function(.data){
-  g <- manynet::as_igraph(.data)
-  .inc <- NULL
-  out <- vapply(igraph::V(g), function(ego){
-    n = igraph::neighbors(g, ego)
-    t = length(igraph::E(g)[.inc(n) & !.inc(ego)])
-    n = length(n)
-    2 * t / n
-  }, FUN.VALUE = numeric(1))
+  if(manynet::is_twomode(.data)){
+    out <- c(.redund(manynet::to_mode1(manynet::as_matrix(.data))),
+             .redund(manynet::to_mode2(manynet::as_matrix(.data))))
+  } else {
+    out <- .redund(manynet::as_matrix(.data))
+  }
   make_node_measure(out, .data)
+}
+
+.redund <- function(.mat){
+  n <- nrow(.mat)
+  qs <- .twopath_matrix(.mat > 0)
+  piq <- .mat/rowSums(.mat)
+  mjq <- .mat/matrix(do.call("pmax",data.frame(.mat)),n,n)
+  out <- rowSums(qs * piq * mjq)
+  out
 }
 
 #' @rdname holes 
@@ -94,6 +101,14 @@ node_effsize <- function(.data){
   }, FUN.VALUE = numeric(1))
   make_node_measure(out, .data)
 }
+
+.twopath_matrix <- function(.data){
+  .data <- manynet::as_matrix(.data)
+  qs <- .data %*% t(.data)
+  diag(qs) <- 0
+  qs
+}
+
 
 #' @rdname holes 
 #' @examples 
