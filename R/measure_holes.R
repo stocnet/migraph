@@ -91,14 +91,14 @@ node_redundancy <- function(.data){
 #' node_effsize(ison_southern_women)
 #' @export
 node_effsize <- function(.data){
-  g <- manynet::as_igraph(.data)
-  .inc <- NULL
-  out <- vapply(igraph::V(g), function(ego){
-    n = igraph::neighbors(g, ego)
-    t = length(igraph::E(g)[.inc(n) & !.inc(ego)])
-    n = length(n)
-    n - 2 * t / n
-  }, FUN.VALUE = numeric(1))
+  if(manynet::is_twomode(.data)){
+    mat <- manynet::as_matrix(.data)
+    out <- c(rowSums(manynet::to_mode1(mat)>0) - .redund(manynet::to_mode1(mat)),
+             rowSums(manynet::to_mode2(mat)>0) - .redund(manynet::to_mode2(mat)))
+  } else {
+    mat <- manynet::as_matrix(.data)
+    out <- rowSums(mat>0) - .redund(mat)
+  }
   make_node_measure(out, .data)
 }
 
