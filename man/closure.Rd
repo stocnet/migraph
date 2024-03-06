@@ -61,6 +61,13 @@ For three-mode networks, \code{network_congruency} calculates the proportion of 
 spanning two two-mode networks that are closed by a fourth tie to establish a
 "congruent four-cycle" structure.
 }
+\section{Equivalency}{
+
+The \code{network_equivalency()} function calculates the Robins and Alexander (2004)
+clustering coefficient for two-mode networks.
+Note that for weighted two-mode networks, the result is divided by the average tie weight.
+}
+
 \examples{
 network_reciprocity(ison_southern_women)
 node_reciprocity(to_unweighted(ison_networkers))
