@@ -96,7 +96,7 @@ node_roulette <- function(.data, num_groups, group_size, times = NULL){
   if(evens){
     soln <- .swapMove(soln)
   } else {
-    if(runif(1)<0.5) soln <- .swapMove(soln) else 
+    if(stats::runif(1)<0.5) soln <- .swapMove(soln) else 
       soln <- .oneMove(soln)
   }
   soln
