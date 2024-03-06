@@ -1,3 +1,24 @@
+# migraph 1.3.3
+
+2024-01-25
+
+## Measures
+
+- Added `node_brokering_activity()` and `node_brokering_exclusivity()` from Hamilton et al (2020)
+- `node_degree()` now returns strength centrality (alpha = 1) for weighted networks by default
+- `node_redundancy()` now works for weighted onemode and twomode networks
+  - Matrix operations bring an approximately sixfold speed increase compared to vapply
+- `node_effsize()` now works for weighted onemode and twomode networks
+  - Matrix operations bring an approximately sixfold speed increase compared to vapply
+- `network_equivalency()` now normalises weighted twomode networks
+
+## Members
+
+- Added `node_brokering()` for identifying brokering roles from brokering activity and exclusivity
+- `node_roulette()` now optimises group diversity based on historical interactions (Lai and Hao 2016)
+  - Added more documentation about maximally diverse grouping problem
+  - Matrix operations bring an approximately threefold speed increase compared to vapply
+
 # migraph 1.3.2
 
 2024-01-25
