@@ -100,6 +100,11 @@ Borgatti, Steven. 1997.
 “\href{http://www.analytictech.com/connections/v20(1)/holes.htm}{Structural Holes: Unpacking Burt’s Redundancy Measures}”
 \emph{Connections} 20(1):35-38.
 
+Burchard, Jake, and Benjamin Cornwell. 2018.
+“Structural Holes and Bridging in Two-Mode Networks.”
+\emph{Social Networks} 55:11–20.
+\doi{10.1016/j.socnet.2018.04.001.}
+
 Hollway, James, Jean-Frédéric Morin, and Joost Pauwelyn. 2020.
 "Structural conditions for novelty: the introduction of new environmental clauses to the trade regime complex."
 \emph{International Environmental Agreements: Politics, Law and Economics} 20 (1): 61–83.

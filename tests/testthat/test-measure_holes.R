@@ -14,7 +14,7 @@ test_that("effective size is calculated and reported correctly", {
   expect_equal(length(node_effsize(mpn_elite_usa_advice)),
                network_nodes(mpn_elite_usa_advice))
   expect_named(node_effsize(mpn_elite_usa_advice))
-  expect_equal(top5(node_effsize(ison_southern_women)), c(8.6543,5.7741,8.2556,5.7210,4.1250))
+  expect_equal(top5(node_effsize(ison_southern_women)), c(2.5,1.3778,2.4561,1.4565,1))
 })
 
 test_that("efficiency is reported correctly", {
