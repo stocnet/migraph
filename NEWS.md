@@ -1,6 +1,14 @@
+# migraph 1.3.4
+
+2024-03-07
+
+## Measures
+
+- Fixed DOI issue for Burchard/Cornwell paper
+
 # migraph 1.3.3
 
-2024-01-25
+2024-03-06
 
 ## Measures
 

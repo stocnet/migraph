@@ -66,7 +66,7 @@ node_bridges <- function(.data){
 #' Burchard, Jake, and Benjamin Cornwell. 2018. 
 #' “Structural Holes and Bridging in Two-Mode Networks.” 
 #' _Social Networks_ 55:11–20. 
-#' \doi{10.1016/j.socnet.2018.04.001.}
+#' \doi{10.1016/j.socnet.2018.04.001}
 #' @examples 
 #' node_redundancy(ison_adolescents)
 #' node_redundancy(ison_southern_women)
