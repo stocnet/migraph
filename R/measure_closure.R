@@ -80,7 +80,11 @@ node_transitivity <- function(.data) {
                     .data)
 }
 
-#' @rdname closure 
+#' @rdname closure
+#' @section Equivalency: 
+#'   The `network_equivalency()` function calculates the Robins and Alexander (2004) 
+#'   clustering coefficient for two-mode networks.
+#'   Note that for weighted two-mode networks, the result is divided by the average tie weight.
 #' @examples
 #' network_equivalency(ison_southern_women)
 #' @export
@@ -96,6 +100,7 @@ network_equivalency <- function(.data) {
          sum(twopaths *
              (matrix(indegrees, c, c) - twopaths)))
     if (is.nan(output)) output <- 1
+    if(manynet::is_weighted(.data)) output <- output / mean(mat[mat>0])
   } else stop("This function expects a two-mode network")
   make_network_measure(output, .data)
 }

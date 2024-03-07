@@ -67,6 +67,7 @@ Lip, Sean Z. W. 2011.
 }
 \seealso{
 Other memberships: 
+\code{\link{cliques}},
 \code{\link{community}},
 \code{\link{components}()},
 \code{\link{equivalence}}

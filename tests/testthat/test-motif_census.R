@@ -64,3 +64,24 @@ test_that("node path census works", {
   expect_true(nrow(node_path_census(manynet::ison_southern_women)) ==
                 ncol(node_path_census(manynet::ison_southern_women)))
 })
+
+test <- node_brokering_activity(manynet::ison_networkers, "Discipline")
+test_that("node activity works", {
+  expect_s3_class(test, "node_measure")
+  expect_equal(manynet::network_nodes(manynet::ison_networkers), length(test))
+  expect_equal(top3(test), c(333,207,3))
+})
+
+test <- node_brokering_exclusivity(manynet::ison_networkers, "Discipline")
+test_that("node exclusivity works", {
+  expect_s3_class(test, "node_measure")
+  expect_equal(manynet::network_nodes(manynet::ison_networkers), length(test))
+  expect_equal(top3(test), c(1,0,0))
+})
+
+test <- node_brokering(manynet::ison_networkers, "Discipline")
+test_that("node brokering works", {
+  expect_s3_class(test, "node_member")
+  expect_equal(manynet::network_nodes(manynet::ison_networkers), length(test))
+  expect_equal(top3(test), c("Powerhouse","Connectors","Sideliners"))
+})

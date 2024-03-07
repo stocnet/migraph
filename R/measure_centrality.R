@@ -9,7 +9,7 @@
 #'   or weighted degree/strength of nodes in a weighted network; 
 #'   there are several related shortcut functions:
 #'     - `node_deg()` returns the unnormalised results.
-#'     - `node_indegree()` returns the `direction = 'out'` results.
+#'     - `node_indegree()` returns the `direction = 'in'` results.
 #'     - `node_outdegree()` returns the `direction = 'out'` results.
 #'   - `node_multidegree()` measures the ratio between types of ties in a multiplex network.
 #'   - `node_posneg()` measures the PN (positive-negative) centrality of a signed network.
@@ -90,7 +90,7 @@ NULL
 #' @rdname degree_centrality 
 #' @importFrom manynet as_igraph
 #' @export
-node_degree <- function (.data, normalized = TRUE, alpha = 0,
+node_degree <- function (.data, normalized = TRUE, alpha = 1,
                          direction = c("all","out","in")){
   
   if(missing(.data)) {expect_nodes(); .data <- .G()}

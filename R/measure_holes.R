@@ -62,20 +62,46 @@ node_bridges <- function(.data){
 #' Borgatti, Steven. 1997. 
 #' “\href{http://www.analytictech.com/connections/v20(1)/holes.htm}{Structural Holes: Unpacking Burt’s Redundancy Measures}” 
 #' _Connections_ 20(1):35-38.
+#' 
+#' Burchard, Jake, and Benjamin Cornwell. 2018. 
+#' “Structural Holes and Bridging in Two-Mode Networks.” 
+#' _Social Networks_ 55:11–20. 
+#' \doi{10.1016/j.socnet.2018.04.001.}
 #' @examples 
 #' node_redundancy(ison_adolescents)
 #' node_redundancy(ison_southern_women)
 #' @export
 node_redundancy <- function(.data){
-  g <- manynet::as_igraph(.data)
-  .inc <- NULL
-  out <- vapply(igraph::V(g), function(ego){
-    n = igraph::neighbors(g, ego)
-    t = length(igraph::E(g)[.inc(n) & !.inc(ego)])
-    n = length(n)
-    2 * t / n
-  }, FUN.VALUE = numeric(1))
+  if(manynet::is_twomode(.data)){
+    mat <- manynet::as_matrix(.data)
+    out <- c(.redund2(mat), .redund2(t(mat)))
+  } else {
+    out <- .redund(manynet::as_matrix(.data))
+  }
   make_node_measure(out, .data)
+}
+
+.redund <- function(.mat){
+  n <- nrow(.mat)
+  qs <- .twopath_matrix(.mat > 0)
+  piq <- .mat/rowSums(.mat)
+  mjq <- .mat/matrix(do.call("pmax",data.frame(.mat)),n,n)
+  out <- rowSums(qs * piq * mjq)
+  out
+}
+
+.redund2 <- function(.mat){
+  sigi <- .mat %*% t(.mat)
+  diag(sigi) <- 0
+  vapply(seq.int(nrow(sigi)), 
+         function(x){
+           xvec <- sigi[x,] #> 0
+           if(manynet::is_weighted(.mat)){
+             wt <- colMeans((.mat[x,] > 0 * t(.mat[xvec > 0,])) * t(.mat[xvec > 0,]) + .mat[x,]) * 2  
+           } else wt <- 1
+           sum(colSums(xvec > 0 & t(sigi[xvec > 0,])) * xvec[xvec > 0] / 
+                 (sum(xvec) * wt))
+         }, FUN.VALUE = numeric(1))
 }
 
 #' @rdname holes 
@@ -84,16 +110,24 @@ node_redundancy <- function(.data){
 #' node_effsize(ison_southern_women)
 #' @export
 node_effsize <- function(.data){
-  g <- manynet::as_igraph(.data)
-  .inc <- NULL
-  out <- vapply(igraph::V(g), function(ego){
-    n = igraph::neighbors(g, ego)
-    t = length(igraph::E(g)[.inc(n) & !.inc(ego)])
-    n = length(n)
-    n - 2 * t / n
-  }, FUN.VALUE = numeric(1))
+  if(manynet::is_twomode(.data)){
+    mat <- manynet::as_matrix(.data)
+    out <- c(rowSums(manynet::as_matrix(manynet::to_mode1(.data))>0), 
+             rowSums(manynet::as_matrix(manynet::to_mode2(.data))>0)) - node_redundancy(.data)
+  } else {
+    mat <- manynet::as_matrix(.data)
+    out <- rowSums(mat>0) - .redund(mat)
+  }
   make_node_measure(out, .data)
 }
+
+.twopath_matrix <- function(.data){
+  .data <- manynet::as_matrix(.data)
+  qs <- .data %*% t(.data)
+  diag(qs) <- 0
+  qs
+}
+
 
 #' @rdname holes 
 #' @examples 

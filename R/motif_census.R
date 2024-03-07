@@ -375,3 +375,90 @@ network_brokerage_census <- function(.data, membership, standardized = FALSE){
   }
     make_network_motif(out, .data)
 }
+
+#' @rdname brokerage_census 
+#' @references
+#'   Hamilton, Matthew, Jacob Hileman, and Orjan Bodin. 2020.
+#'   "Evaluating heterogeneous brokerage: New conceptual and methodological approaches
+#'   and their application to multi-level environmental governance networks"
+#'   _Social Networks_ 61: 1-10.
+#'   \doi{10.1016/j.socnet.2019.08.002}
+#' @export
+node_brokering_activity <- function(.data, membership){
+  from <- to.y <- to_memb <- from_memb <- NULL
+  twopaths <- .to_twopaths(.data)
+  if(!missing(membership)){
+    twopaths$from_memb <- manynet::node_attribute(.data, membership)[`if`(manynet::is_labelled(.data),
+                                                                 match(twopaths$from, manynet::node_names(.data)),
+                                                                 twopaths$from)]
+    twopaths$to_memb <- manynet::node_attribute(.data, membership)[`if`(manynet::is_labelled(.data),
+                                                               match(twopaths$to.y, manynet::node_names(.data)),
+                                                               twopaths$to.y)]
+    twopaths <- dplyr::filter(twopaths, from_memb != to_memb)
+  }
+  # tabulate brokerage
+  out <- c(table(twopaths$to))
+  # correct ordering for named data
+  if(manynet::is_labelled(.data)) out <- out[match(manynet::node_names(.data), names(out))]
+  # missings should be none
+  out[is.na(out)] <- 0
+  make_node_measure(out, .data)
+}
+
+#' @rdname brokerage_census
+#' @examples
+#' node_brokering_exclusivity(ison_networkers, "Discipline")
+#' @export
+node_brokering_exclusivity <- function(.data, membership){
+  from <- to.y <- to_memb <- from_memb <- NULL
+  twopaths <- .to_twopaths(.data)
+  if(!missing(membership)){
+    twopaths$from_memb <- manynet::node_attribute(.data, membership)[`if`(manynet::is_labelled(.data),
+                                                                 match(twopaths$from, manynet::node_names(.data)),
+                                                                 twopaths$from)]
+    twopaths$to_memb <- manynet::node_attribute(.data, membership)[`if`(manynet::is_labelled(.data),
+                                                               match(twopaths$to.y, manynet::node_names(.data)),
+                                                               twopaths$to.y)]
+    twopaths <- dplyr::filter(twopaths, from_memb != to_memb)
+  }
+  # get only exclusive paths
+  out <- twopaths %>% dplyr::group_by(from, to.y) %>% dplyr::filter(dplyr::n()==1)
+  # tabulate brokerage
+  out <- c(table(out$to))
+  # correct ordering for named data
+  if(manynet::is_labelled(.data)) out <- out[match(manynet::node_names(.data), names(out))]
+  # missings should be none
+  out[is.na(out)] <- 0
+  make_node_measure(out, .data)
+}
+
+#' @rdname brokerage_census 
+#' @export
+node_brokering <- function(.data, membership){
+  activ <- node_brokering_activity(.data, membership)
+  exclusiv <- node_brokering_exclusivity(.data, membership)
+  activ <- activ - mean(activ)
+  exclusiv <- exclusiv - mean(exclusiv)
+  out <- dplyr::case_when(activ > 0 & exclusiv > 0 ~ "Powerhouse",
+                          activ > 0 & exclusiv < 0 ~ "Connectors",
+                          activ < 0 & exclusiv > 0 ~ "Linchpins",
+                          activ < 0 & exclusiv < 0 ~ "Sideliners")
+  make_node_member(out, .data)
+}
+
+.to_twopaths <- function(.data){
+  to <- from <- to.y <- NULL
+  if(!manynet::is_directed(.data)){
+    el <- manynet::as_edgelist(manynet::to_reciprocated(.data)) 
+  } else el <- manynet::as_edgelist(.data)
+  twopaths <- dplyr::full_join(el, el, 
+                               by = dplyr::join_by(to == from), 
+                               relationship = "many-to-many")
+  # remove non two-paths
+  twopaths <- dplyr::filter(twopaths, !(is.na(from) | is.na(to.y)))
+  # remove reciprocated paths
+  twopaths <- dplyr::filter(twopaths, from != to.y)
+  # remove triads
+  twopaths <- dplyr::filter(twopaths, !paste(from, to.y) %in% paste(from, to))
+  twopaths
+}

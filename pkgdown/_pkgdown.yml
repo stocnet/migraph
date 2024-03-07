@@ -66,6 +66,7 @@ reference:
       - components
       - equivalence
       - core
+      - cliques
   - title: "Models"
     desc: "Functions for modelling multimodal networks:"
     contents:

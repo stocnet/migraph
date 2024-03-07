@@ -17,7 +17,7 @@
 node_degree(
   .data,
   normalized = TRUE,
-  alpha = 0,
+  alpha = 1,
   direction = c("all", "out", "in")
 )
 
@@ -94,7 +94,7 @@ or weighted degree/strength of nodes in a weighted network;
 there are several related shortcut functions:
 \itemize{
 \item \code{node_deg()} returns the unnormalised results.
-\item \code{node_indegree()} returns the \code{direction = 'out'} results.
+\item \code{node_indegree()} returns the \code{direction = 'in'} results.
 \item \code{node_outdegree()} returns the \code{direction = 'out'} results.
 }
 \item \code{node_multidegree()} measures the ratio between types of ties in a multiplex network.
