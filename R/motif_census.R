@@ -397,7 +397,7 @@ node_brokering_activity <- function(.data, membership){
     twopaths <- dplyr::filter(twopaths, from_memb != to_memb)
   }
   # tabulate brokerage
-  out <- table(twopaths$to)
+  out <- c(table(twopaths$to))
   # correct ordering for named data
   if(manynet::is_labelled(.data)) out <- out[match(manynet::node_names(.data), names(out))]
   # missings should be none
@@ -424,7 +424,7 @@ node_brokering_exclusivity <- function(.data, membership){
   # get only exclusive paths
   out <- twopaths %>% dplyr::group_by(from, to.y) %>% dplyr::filter(dplyr::n()==1)
   # tabulate brokerage
-  out <- table(out$to)
+  out <- c(table(out$to))
   # correct ordering for named data
   if(manynet::is_labelled(.data)) out <- out[match(manynet::node_names(.data), names(out))]
   # missings should be none
