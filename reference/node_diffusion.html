@@ -31,7 +31,7 @@ i.e. are in the immediate neighbourhood of given mark vector
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.3</span>
       </span>
     </div>
 
@@ -212,39 +212,37 @@ nodes exposure at \(t = 0\).</p>
 <span class="r-in"><span>  <span class="co"># To measure when nodes adopted a diffusion/were infected</span></span></span>
 <span class="r-in"><span>  <span class="op">(</span><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu">node_adoption_time</span><span class="op">(</span><span class="va">smeg_diff</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      V1    V2    V3    V4    V5    V6    V7    V8    V9   V10   V11   V12   V13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0     1     1     2     2     3     3     2     2     1     2     2     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 2 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span>  <span class="co"># To classify nodes by their position in the adoption curve</span></span></span>
 <span class="r-in"><span>  <span class="op">(</span><span class="va">adopts</span> <span class="op">&lt;-</span> <span class="fu">node_adopter</span><span class="op">(</span><span class="va">smeg_diff</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   V1     V2    V3    V4    V5    V6    V7    V8    V9    V10   V11   V12   V13  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Early… Earl… Earl… Late… Late… Lagg… Lagg… Late… Late… Earl… Late… Late… Late…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Early… Non-… Non-… Non-… Non-… Non-… Non-… Non-… Non-… Non-… Non-… Non-… Non-…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 2 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">adopts</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">Class Early Adopter:</span>  1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">Class Early Majority:</span>  2, 3, 10, 15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">Class Laggard:</span>  6, 7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">Class Late Majority:</span>  4, 5, 8, 9, 11, 12, 13, 14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">Class Non-Adopter:</span>  2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15</span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">times</span>, membership <span class="op">=</span> <span class="va">adopts</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Early Adopter Early Majority  Late Majority        Laggard </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              0              1              2              3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Early Adopter   Non-Adopter </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             0           Inf </span>
 <span class="r-in"><span>  <span class="co"># To infer nodes' thresholds</span></span></span>
 <span class="r-in"><span>  <span class="fu">node_thresholds</span><span class="op">(</span><span class="va">smeg_diff</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     `1`   `2`   `3`  `10`  `15`   `4`   `5`   `8`   `9`  `11`  `12`  `13`  `14`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    <span style="color: #BB0000;">NA</span>     1     1     1     1     2     1     1     1     1     1     1     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      V1    V2    V3    V4    V5    V6    V7    V8    V9   V10   V11   V12   V13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span>   <span style="color: #BB0000;">Inf</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 2 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span>  <span class="co"># To measure how long each node remains infected for</span></span></span>
 <span class="r-in"><span>  <span class="fu">node_infection_length</span><span class="op">(</span><span class="va">smeg_diff</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      V1    V2    V3    V4    V5    V6    V7    V8    V9   V10   V11   V12   V13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     8     2    10     7     1     2     3     7     8     3     1    10     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 2 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span>  <span class="co"># To measure how much exposure nodes have to a given mark</span></span></span>
 <span class="r-in"><span>  <span class="fu">node_exposure</span><span class="op">(</span><span class="va">smeg</span>, mark <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      V1    V2    V3    V4    V5    V6    V7    V8    V9   V10   V11   V12   V13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0     2     0     1     1     0     0     0     0     1     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0     2     0     1     1     0     0     0     0     0     0     0     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 2 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 <span class="r-in"><span>  <span class="fu">node_exposure</span><span class="op">(</span><span class="va">smeg_diff</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      V1    V2    V3    V4    V5    V6    V7    V8    V9   V10   V11   V12   V13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0     1     1     0     0     0     0     0     0     1     0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0     1     1     0     0     0     0     0     0     0     0     0     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 2 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 </code></pre></div>
     </div>

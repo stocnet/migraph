@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.3</span>
       </span>
     </div>
 
@@ -54,7 +54,32 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.3.2" id="migraph-132">migraph 1.3.2<a class="anchor" aria-label="anchor" href="#migraph-132"></a></h2>
+<h2 class="page-header" data-toc-text="1.3.3" id="migraph-133">migraph 1.3.3<a class="anchor" aria-label="anchor" href="#migraph-133"></a></h2>
+<p>2024-01-25</p>
+<div class="section level3">
+<h3 id="measures-1-3-3">Measures<a class="anchor" aria-label="anchor" href="#measures-1-3-3"></a></h3>
+<ul><li>Added <code><a href="../reference/brokerage_census.html">node_brokering_activity()</a></code> and <code><a href="../reference/brokerage_census.html">node_brokering_exclusivity()</a></code> from Hamilton et al (2020)</li>
+<li>
+<code><a href="../reference/degree_centrality.html">node_degree()</a></code> now returns strength centrality (alpha = 1) for weighted networks by default</li>
+<li>
+<code><a href="../reference/holes.html">node_redundancy()</a></code> now works for weighted onemode and twomode networks (closed <a href="https://github.com/stocnet/migraph/issues/292" class="external-link">#292</a>)<ul><li>Matrix operations bring an approximately sixfold speed increase compared to vapply</li></ul></li>
+<li>
+<code><a href="../reference/holes.html">node_effsize()</a></code> now works for weighted onemode and twomode networks<ul><li>Matrix operations bring an approximately sixfold speed increase compared to vapply</li></ul></li>
+<li>
+<code><a href="../reference/closure.html">network_equivalency()</a></code> now normalises weighted twomode networks (closed <a href="https://github.com/stocnet/migraph/issues/291" class="external-link">#291</a>)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="members-1-3-3">Members<a class="anchor" aria-label="anchor" href="#members-1-3-3"></a></h3>
+<ul><li>Added <code><a href="../reference/brokerage_census.html">node_brokering()</a></code> for identifying brokering roles from brokering activity and exclusivity</li>
+<li>
+<code><a href="../reference/cliques.html">node_roulette()</a></code> now optimises group diversity based on historical interactions (Lai and Hao 2016)<ul><li>Added more documentation about maximally diverse grouping problem</li>
+<li>Matrix operations bring an approximately threefold speed increase compared to vapply</li>
+<li>Perturbation helpers can be used also for blockmodelling (closed <a href="https://github.com/stocnet/migraph/issues/38" class="external-link">#38</a>)</li>
+</ul></li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.3.2" id="migraph-132">migraph 1.3.2<small>2024-01-25</small><a class="anchor" aria-label="anchor" href="#migraph-132"></a></h2>
 <p>2024-01-25</p>
 <div class="section level3">
 <h3 id="measures-1-3-2">Measures<a class="anchor" aria-label="anchor" href="#measures-1-3-2"></a></h3>
@@ -122,7 +147,7 @@
 <li>Incidental speed improvements</li>
 </ul></li>
 <li>Added <code><a href="../reference/community.html">node_fluid()</a></code> community detection algorithm</li>
-<li>Added <code><a href="../reference/components.html">node_roulette()</a></code> for identifying groups of nodes that haven’t interacted before</li>
+<li>Added <code><a href="../reference/cliques.html">node_roulette()</a></code> for identifying groups of nodes that haven’t interacted before</li>
 </ul></div>
 <div class="section level3">
 <h3 id="models-1-3-0">Models<a class="anchor" aria-label="anchor" href="#models-1-3-0"></a></h3>
@@ -880,7 +905,7 @@
 <div class="section level3">
 <h3 id="package-0-10-0">Package<a class="anchor" aria-label="anchor" href="#package-0-10-0"></a></h3>
 <ul><li>Reduced package dependencies by 5<ul><li>
-<a href="https://joelgombin.github.io/concaveman/" class="external-link">concaveman</a>, <a href="https://github.com/andrie/ggdendro" class="external-link">ggdendro</a>, <code>{oaqc}</code> are now Suggests; the user is prompted to install them when required in <code><a href="https://stocnet.github.io/manynet/reference/autographing.html" class="external-link">autographr()</a></code>, <code>plot.member()</code>, and <code><a href="../reference/node_census.html">node_quad_census()</a></code> respectively</li>
+<a href="https://joelgombin.github.io/concaveman/" class="external-link">concaveman</a>, <a href="https://andrie.github.io/ggdendro/" class="external-link">ggdendro</a>, <code>{oaqc}</code> are now Suggests; the user is prompted to install them when required in <code><a href="https://stocnet.github.io/manynet/reference/autographing.html" class="external-link">autographr()</a></code>, <code>plot.member()</code>, and <code><a href="../reference/node_census.html">node_quad_census()</a></code> respectively</li>
 <li>
 <a href="https://stringr.tidyverse.org" class="external-link">stringr</a> and <a href="https://tibble.tidyverse.org/" class="external-link">tibble</a> replaced with base or other code and therefore no longer necessary</li>
 </ul></li>

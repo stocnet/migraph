@@ -24,7 +24,7 @@ roles in a network.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.3</span>
       </span>
     </div>
 
@@ -72,7 +72,13 @@ roles in a network.</p></li>
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">node_brokerage_census</span><span class="op">(</span><span class="va">.data</span>, <span class="va">membership</span>, standardized <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">network_brokerage_census</span><span class="op">(</span><span class="va">.data</span>, <span class="va">membership</span>, standardized <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">network_brokerage_census</span><span class="op">(</span><span class="va">.data</span>, <span class="va">membership</span>, standardized <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">node_brokering_activity</span><span class="op">(</span><span class="va">.data</span>, <span class="va">membership</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">node_brokering_exclusivity</span><span class="op">(</span><span class="va">.data</span>, <span class="va">membership</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">node_brokering</span><span class="op">(</span><span class="va">.data</span>, <span class="va">membership</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -106,6 +112,11 @@ or below the average the score lies.</p></dd>
 <em>Social Networks</em> 41:36–47.
 <a href="https://doi.org/10.1016/j.socnet.2014.11.005" class="external-link">doi:10.1016/j.socnet.2014.11.005</a>
 .</p>
+<p>Hamilton, Matthew, Jacob Hileman, and Orjan Bodin. 2020.
+"Evaluating heterogeneous brokerage: New conceptual and methodological approaches
+and their application to multi-level environmental governance networks"
+<em>Social Networks</em> 61: 1-10.
+<a href="https://doi.org/10.1016/j.socnet.2019.08.002" class="external-link">doi:10.1016/j.socnet.2019.08.002</a></p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -136,6 +147,10 @@ or below the average the score lies.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Coordinator Itinerant Gatekeeper Representative Liaison Total</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         385       463        498            548     703  <span style="text-decoration: underline;">2</span>597</span>
+<span class="r-in"><span><span class="fu">node_brokering_exclusivity</span><span class="op">(</span><span class="va">ison_networkers</span>, <span class="st">"Discipline"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   `Lin Freeman` `Doug White` `Ev Rogers` `Richard Alba` `Phipps Arabie`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>             1            0           0              0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ... with 27 more values from this nodeset unprinted. Use `print(..., n = Inf)` to print all values.</span></span>
 </code></pre></div>
     </div>
   </div>
