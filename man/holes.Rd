@@ -103,7 +103,7 @@ Borgatti, Steven. 1997.
 Burchard, Jake, and Benjamin Cornwell. 2018.
 “Structural Holes and Bridging in Two-Mode Networks.”
 \emph{Social Networks} 55:11–20.
-\doi{10.1016/j.socnet.2018.04.001.}
+\doi{10.1016/j.socnet.2018.04.001}
 
 Hollway, James, Jean-Frédéric Morin, and Joost Pauwelyn. 2020.
 "Structural conditions for novelty: the introduction of new environmental clauses to the trade regime complex."
