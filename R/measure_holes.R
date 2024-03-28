@@ -157,7 +157,7 @@ node_constraint <- function(.data) {
       res <- vector()
       for (i in inst) {
         ci <- 0
-        membs <- names(which(mat[, i] == 1))
+        membs <- names(which(mat[, i] > 0))
         for (a in membs) {
           pia <- colp[a, i]
           oth <- membs[membs != a]
