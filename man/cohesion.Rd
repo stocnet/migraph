@@ -8,6 +8,7 @@
 \alias{network_adhesion}
 \alias{network_diameter}
 \alias{network_length}
+\alias{network_independence}
 \title{Measures of network cohesion or connectedness}
 \usage{
 network_density(.data)
@@ -21,6 +22,8 @@ network_adhesion(.data)
 network_diameter(.data)
 
 network_length(.data)
+
+network_independence(.data)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -46,6 +49,8 @@ from the network needed to increase the number of components.
 from the network needed to increase the number of components.
 \item \code{network_diameter()} measures the maximum path length in the network.
 \item \code{network_length()} measures the average path length in the network.
+\item \code{network_independence()} measures the independence number,
+or size of the largest independent set in the network.
 }
 }
 \section{Cohesion}{
@@ -67,6 +72,7 @@ network_diameter(manynet::ison_marvel_relationships)
 network_diameter(manynet::to_giant(manynet::ison_marvel_relationships))
 network_length(manynet::ison_marvel_relationships)
 network_length(manynet::to_giant(manynet::ison_marvel_relationships))
+network_independence(manynet::ison_adolescents)
 }
 \references{
 White, Douglas R and Frank Harary. 2001.

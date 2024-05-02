@@ -14,6 +14,8 @@
 #'   from the network needed to increase the number of components.
 #'   - `network_diameter()` measures the maximum path length in the network.
 #'   - `network_length()` measures the average path length in the network.
+#'   - `network_independence()` measures the independence number, 
+#'   or size of the largest independent set in the network.
 #' @param .data An object of a `{manynet}`-consistent class:
 #'   \itemize{
 #'   \item matrix (adjacency or incidence) from `{base}` R
@@ -105,4 +107,18 @@ network_length <- function(.data){
   make_network_measure(igraph::mean_distance(object,
                                              directed = manynet::is_directed(object)),
                        object)
+}
+
+#' @rdname cohesion 
+#' @importFrom igraph ivs_size
+#' @examples 
+#' network_independence(manynet::ison_adolescents)
+#' @export
+network_independence <- function(.data){
+  if(manynet::is_twomode(.data)){
+    out <- igraph::ivs_size(manynet::to_mode1(manynet::as_igraph(.data)))
+  } else {
+    out <- igraph::ivs_size(manynet::to_undirected(manynet::as_igraph(.data)))
+  }
+  make_network_measure(out, .data)
 }
