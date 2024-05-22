@@ -56,6 +56,7 @@ node_equivalence <- function(.data, census,
                              distance = c("euclidean", "maximum", "manhattan", 
                                           "canberra", "binary", "minkowski"),
                              range = 8L){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   hc <- switch(match.arg(cluster),
                hierarchical = cluster_hierarchical(`if`(manynet::is_twomode(.data), 
                                                         manynet::to_onemode(census), census), 
@@ -87,6 +88,7 @@ node_structural_equivalence <- function(.data,
                                         distance = c("euclidean", "maximum", "manhattan", 
                                                      "canberra", "binary", "minkowski"),
                                         range = 8L){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   mat <- node_tie_census(.data)
   if(any(colSums(t(mat))==0)){
     mat <- cbind(mat, (colSums(t(mat))==0))
@@ -109,6 +111,7 @@ node_regular_equivalence <- function(.data,
                                      distance = c("euclidean", "maximum", "manhattan", 
                                                   "canberra", "binary", "minkowski"),
                                      range = 8L){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(manynet::is_twomode(.data)){
     mat <- as.matrix(node_quad_census(.data))
   } else {
@@ -133,6 +136,7 @@ node_automorphic_equivalence <- function(.data,
                                          distance = c("euclidean", "maximum", "manhattan", 
                                                       "canberra", "binary", "minkowski"),
                                          range = 8L){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   mat <- node_path_census(.data)
   node_equivalence(.data, mat, 
                    k = k, cluster = cluster, distance = distance, range = range)
