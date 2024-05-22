@@ -47,6 +47,8 @@ node_tie_census <- function(.data){
                                    function(x){
                                      manynet::as_matrix(manynet::to_uniplex(object, x))
                                    }))
+    } else if (manynet::is_twomode(.data)) {
+      mat <- manynet::as_matrix(manynet::to_multilevel(object))
     } else {
       mat <- manynet::as_matrix(object)
     }
