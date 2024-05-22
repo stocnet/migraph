@@ -69,6 +69,8 @@ cluster_concor <- function(.data, census){
     }
   }
   p_list <- list(t(census))
+  if(is.null(colnames(p_list[[1]]))) 
+    colnames(p_list[[1]]) <- paste0("V",1:ncol(p_list[[1]]))
   p_group <- list()
   i <- 1
   while(!all(vapply(p_list, function(x) ncol(x)==1, logical(1)))){
@@ -80,14 +82,25 @@ cluster_concor <- function(.data, census){
     i <- i+1
   }
   
-  merges <- sapply(rev(1:(i-1)), 
-                   function(p) lapply(p_group[[p]], 
-                                      function(s){
-                                        g <- match(s, manynet::node_names(.data))
-                                        if(length(g)==1) c(g, 0, p) else 
-                                          if(length(g)==2) c(g, p) else
-                                            c(t(cbind(t(utils::combn(g, 2)), p)))
-                                      } ))
+  if(manynet::is_labelled(.data)){
+    merges <- sapply(rev(1:(i-1)), 
+                     function(p) lapply(p_group[[p]], 
+                                        function(s){
+                                          g <- match(s, manynet::node_names(.data))
+                                          if(length(g)==1) c(g, 0, p) else 
+                                            if(length(g)==2) c(g, p) else
+                                              c(t(cbind(t(utils::combn(g, 2)), p)))
+                                        } ))
+  } else {
+    merges <- sapply(rev(1:(i-1)), 
+                     function(p) lapply(p_group[[p]], 
+                                        function(s){
+                                          g <- as.numeric(gsub("^V","",s))
+                                          if(length(g)==1) c(g, 0, p) else 
+                                            if(length(g)==2) c(g, p) else
+                                              c(t(cbind(t(utils::combn(g, 2)), p)))
+                                        } ))
+  }
   merges <- c(merges, 
               list(c(t(cbind(t(utils::combn(seq_len(manynet::network_nodes(.data)), 2)), 0)))))
   merged <- matrix(unlist(merges), ncol = 3, byrow = TRUE)
@@ -108,3 +121,4 @@ cluster_concor <- function(.data, census){
   hc$distances <- distances
   hc  
 }
+
