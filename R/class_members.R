@@ -1,9 +1,13 @@
 make_node_member <- function(out, .data) {
   if (manynet::is_labelled(.data)) names(out) <- manynet::node_names(.data)
+  if(is.numeric(out))
+    out <- MORELETTERS[out]
   class(out) <- c("node_member", class(out))
   attr(out, "mode") <- manynet::node_mode(.data)
   out
 }
+
+MORELETTERS <- c(LETTERS, sapply(LETTERS, function(x) paste0(x, LETTERS)))
 
 #' @export
 print.node_member <- function(x, ..., n = NULL) {
