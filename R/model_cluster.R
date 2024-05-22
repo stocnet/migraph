@@ -18,7 +18,7 @@ NULL
 #' @rdname cluster 
 #' @export
 cluster_hierarchical <- function(census, distance){
-  correlations <- cor(t(census))
+  correlations <- to_correlation(t(census))
   dissimilarity <- 1 - correlations
   distances <- stats::dist(dissimilarity, method = distance)
   hc <- stats::hclust(distances)
@@ -56,11 +56,11 @@ cluster_hierarchical <- function(census, distance){
 #' @export
 cluster_concor <- function(.data, census){
   split_cor <- function(m0, cutoff = 1) {
-    if (ncol(m0) < 2 | all(stats::cor(m0)==1)) list(m0)
+    if (ncol(m0) < 2 | all(to_correlation(m0)==1)) list(m0)
     else {
-      mi <- stats::cor(m0)
+      mi <- to_correlation(m0)
       while (any(abs(mi) <= cutoff)) {
-        mi <- cor(mi)
+        mi <- stats::cor(mi)
         cutoff <- cutoff - 0.0001
       }
       group <- mi[, 1] > 0
