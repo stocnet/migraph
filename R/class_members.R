@@ -55,9 +55,7 @@ summary.node_member <- function(object, ...,
 #' @importFrom stats cutree
 #' @export
 plot.node_member <- function(x, ...) {
-  if (!("ggdendro" %in% rownames(utils::installed.packages()))) {
-    message("Please install package `{ggdendro}`.")
-  } else {
+  thisRequires("ggdendro")
     hc <- attr(x, "hc")
     k <- attr(x, "k")
     memb <- x[hc$order]
@@ -71,7 +69,6 @@ plot.node_member <- function(x, ...) {
       ggplot2::theme(axis.text.x = ggplot2::element_text(colour = "#5c666f"),
                      axis.text.y = suppressWarnings(
                        ggplot2::element_text(colour = colors)))
-  }
 }
 
 # plot(as_matrix(ison_adolescents),
