@@ -64,8 +64,12 @@ cluster_concor <- function(.data, census){
         cutoff <- cutoff - 0.0001
       }
       group <- mi[, 1] > 0
-      list(m0[, group, drop = FALSE], 
+      if(all(group)){
+       list(m0) 
+      } else {
+        list(m0[, group, drop = FALSE], 
            m0[, !group, drop = FALSE])
+      }
     }
   }
   p_list <- list(t(census))
