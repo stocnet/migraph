@@ -1,3 +1,36 @@
+#' Node correlation
+#' 
+#' @description 
+#'   This function performs a Pearson pairwise correlation on a given matrix or network data.
+#'   It includes a switch: 
+#'   whereas for a two-mode network it will perform a regular correlation,
+#'   including all rows,
+#'   for an undirected network it will perform a correlation on a matrix 
+#'   with the diagonals removed,
+#'   for a reciprocated network it will include the difference
+#'   between reciprocated ties,
+#'   and for complex networks it will include also the difference 
+#'   between the self ties in each pairwise calculation.
+#'   This function runs in \eqn{O(mn^2)} complexity.
+#' @name node_correlation
+#' @inheritParams cohesion
+#' @family motifs
+#' @export
+to_correlation <- function(.data){
+  mat <- manynet::as_matrix(.data)
+  if(manynet::is_twomode(.data)){
+    # if(!any(colnames(m0) %in% rownames(m0))) 
+    #   mat <- node_tie_census(mat)
+    out <- .corTwomode(mat)
+  } else if(manynet::is_complex(.data)){
+    out <- .corComplex(mat)
+  } else if(manynet::is_directed(.data)){
+    out <- .corRecip(mat)
+  } else {
+    out <- .corDiag(mat)
+  }
+  out
+}
   
 .corTwomode <- function(m0){
   stats::cor(m0)

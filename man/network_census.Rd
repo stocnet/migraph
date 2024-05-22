@@ -56,6 +56,7 @@ Hollway, James, Alessandro Lomi, Francesca Pallotti, and Christoph Stadtfeld. 20
 \seealso{
 Other motifs: 
 \code{\link{brokerage_census}},
-\code{\link{node_census}}
+\code{\link{node_census}},
+\code{\link{node_correlation}}
 }
 \concept{motifs}

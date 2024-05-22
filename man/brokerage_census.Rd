@@ -69,6 +69,7 @@ and their application to multi-level environmental governance networks"
 \seealso{
 Other motifs: 
 \code{\link{network_census}},
-\code{\link{node_census}}
+\code{\link{node_census}},
+\code{\link{node_correlation}}
 }
 \concept{motifs}
