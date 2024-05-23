@@ -19,7 +19,9 @@ test_that("equivalence clustering works", {
   expect_equal(network_nodes(mpn_elite_mex), length(node_regular_equivalence(mpn_elite_mex, "strict")))
   expect_equal(network_nodes(mpn_elite_usa_advice), length(node_automorphic_equivalence(mpn_elite_usa_advice, "strict", distance = "binary")))
   expect_equal(network_nodes(mpn_elite_usa_advice), length(node_automorphic_equivalence(mpn_elite_usa_advice, distance = "maximum")))
-  expect_true(3 %in% node_structural_equivalence(ison_adolescents, k = 3, "concor"))
-  expect_true(2 %in% node_regular_equivalence(mpn_elite_mex, 2))
-  expect_true(3 %in% node_automorphic_equivalence(mpn_elite_usa_advice, 4))
+  expect_true("C" %in% node_structural_equivalence(ison_adolescents, k = 3, "concor"))
+  expect_true("B" %in% node_regular_equivalence(mpn_elite_mex, 2))
+  expect_true("D" %in% node_automorphic_equivalence(mpn_elite_usa_advice, 4))
+})
+
 })
