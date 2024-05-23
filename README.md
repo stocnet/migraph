@@ -36,17 +36,34 @@ require one or more other specific packages. Translating between
 packages various syntaxes and expectations can introduce significant
 transaction costs though, driving confusion, inefficiencies, and errors.
 
-`{migraph}` builds upon `{manynet}` to offer smart solutions to these
-problems. It includes functions for marking and measuring networks and
-their nodes and ties, identifying motifs and memberships in them, and
-modelling these networks or simulating processes such as diffusion upon
-them. Based on `{manynet}`, every function works for any compatible
-network format - from base R matrices or edgelists as data frames,
+`{migraph}` builds upon
+[`{manynet}`](https://stocnet.github.io/manynet/) to offer smart
+solutions to these problems. `{migraph}` includes functions for
+measuring networks and their nodes and ties, identifying motifs and
+memberships in them, and modelling these networks or simulating
+processes such as diffusion upon them. Since it is based on `{manynet}`,
+every function works for any compatible network format - from base R
+matrices or edgelists as data frames,
 [`{igraph}`](https://igraph.org/r/), [`{network}`](https://statnet.org),
 or [`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html)
 objects. This means it is compatible with your existing workflow, is
 extensible by other packages, and uses the most efficient algorithm
 available for each task.
+
+- [About the package](#about-the-package)
+  - [Package background](#package-background)
+- [How does migraph help?](#how-does-migraph-help)
+  - [Measures](#measures)
+  - [Motifs and Memberships](#motifs-and-memberships)
+  - [Models](#models)
+- [Installation](#installation)
+  - [Stable](#stable)
+  - [Development](#development)
+  - [Tutorials](#tutorials)
+- [Relationship to other packages](#relationship-to-other-packages)
+- [Funding details](#funding-details)
+
+### Package background
 
 <img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="125"/>
 
@@ -64,9 +81,10 @@ you like the package please check out the book, and vice versa.
 
 ## How does migraph help?
 
-`{migraph}` includes five special groups of functions, each with their
-own pretty `print()` and `plot()` methods: marks, measures, memberships,
-motifs, and models.
+`{migraph}` includes four special groups of functions, each with their
+own pretty `print()` and `plot()` methods: measures, memberships,
+motifs, and models. Measures are numeric scalars or vectors, memberships
+categorical, and motifs and models result in tabular outputs.
 
 `{migraph}` uses a common syntax to help new and experienced network
 analysts find the right function and use it correctly. All `network_*()`
@@ -108,13 +126,17 @@ find out more.
 
 ### Motifs and Memberships
 
-The package also include functions for returning various censuses at the
-network or node level, e.g.:
+The package also include functions for returning various censuses of
+motifs at the network or node level, e.g.:
 
 - `network_brokerage_census()`, `network_dyad_census()`,
   `network_mixed_census()`, `network_triad_census()`
 - `node_brokerage_census()`, `node_path_census()`, `node_quad_census()`,
   `node_tie_census()`, `node_triad_census()`
+
+For example `node_brokerage_census()` returns the frequency of nodes’
+participation in Gould-Fernandez brokerage roles for a one-mode network,
+and the Jasny-Lubell brokerage roles for a two-mode network.
 
 These can be analysed alone, or used as a profile for establishing
 equivalence. `{migraph}` offers both HCA and CONCOR algorithms, as well
@@ -122,6 +144,8 @@ as elbow, silhouette, and strict methods for *k*-cluster selection.
 
 - `node_automorphic_equivalence()`, `node_equivalence()`,
   `node_regular_equivalence()`, `node_structural_equivalence()`
+
+![](https://www.jameshollway.com/post/migraph/dendroPlot.png)
 
 `{migraph}` also includes functions for establishing membership on other
 bases, such as typical community detection algorithms, as well as
@@ -134,10 +158,14 @@ quadratic assignment procedure (QAP) distributions using:
 
 - `test_gof()`, `test_permutation()`, `test_random()`
 
+![](https://www.jameshollway.com/post/migraph/tests-2.png)
+
 Hypotheses can also be tested within multivariate models via multiple
 (linear or logistic) regression QAP:
 
 - `network_reg()`
+
+![](https://www.jameshollway.com/post/migraph/regression-1.png)
 
 `{migraph}` is the only package that offers these testing frameworks for
 two-mode networks as well as one-mode networks.
@@ -157,6 +185,15 @@ You can then begin to use `{migraph}` by loading the package:
 
 This will load any required packages and make the data contained within
 the package available.
+
+`{migraph}` relies on some packages only for one or two rather specific
+functions. By default these are not installed together with `{migraph}`,
+but we make it easy to install them as and when needed for the first
+time with a console prompt. If you would prefer not to encounter these
+prompts, or plan to use the package for the first time through
+tutorials, you can make sure all the dependencies are installed with:
+
+`install.packages('migraph', dependencies = TRUE)`
 
 ### Development
 
@@ -208,6 +245,9 @@ run_tute()
 #> 7 migraph tutorial6 Topology     
 #> 8 manynet tutorial7 Diffusion    
 #> 9 migraph tutorial8 Regression
+```
+
+``` r
 # run_tute("tutorial5")
 ```
 
