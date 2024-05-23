@@ -1,5 +1,47 @@
 # migraph 1.3.4
 
+2024-05-23
+
+## Package
+
+- Updated migraph logo with stocnet address, colorsafe colorway, and larger nodes and ties
+- Copied thisRequires() helper into migraph from manynet
+
+## Measures
+
+- All measure functions can now be used in e.g. `mutate()` without specifying `.data`
+
+## Members
+
+- All membership functions can now be used in e.g. `mutate()` without specifying `.data`
+- The `node_member` class is now categorical
+  - `make_node_member()` now converts numeric results to LETTER character results
+  - `print.node_member()` now works with categorical membership vectors
+  - `print.node_member()` now declares how many groups before reporting the vectors
+- Fixed `node_constraint()` to work with weighted two-mode networks, thanks to Toshitaka Izumi for spotting this
+- Added `network_independence()` for calculating the number of nodes in the largest independent set
+
+## Motifs
+
+- `node_tie_census()` now works on longitudinal network data
+- Added `to_correlation()` for calculating the Pearson correlation
+  - This takes a method argument for "all", "diag", "recip", or "complex"
+  - These are similar to functions implemented by Ron Breiger and shared by him in correspondence
+  - 
+- Fixed bug where `print.node_motif()` wasn't printing the requested number of lines
+
+## Models
+
+- Several improvements to `cluster_concor()`
+  - `cluster_concor()` now uses `to_correlation()` for initial correlation
+  - It still uses `stats::cor()` for subsequent iterations
+  - Fixed how `cluster_concor()` handles unlabelled networks
+  - Fixed how `cluster_concor()` handles two-mode networks
+  - Fixed bug where `cluster_concor()` cutoff resulted in unsplit groups
+- `cluster_hierarchical()` now also uses `to_correlation()`
+  
+# migraph 1.3.4
+
 2024-03-07
 
 ## Measures
