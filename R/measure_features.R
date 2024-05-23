@@ -45,6 +45,7 @@ NULL
 #' @export
 network_core <- function(.data,
                        membership = NULL){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(is.null(membership)) membership <- node_core(.data)
   out <- stats::cor(c(manynet::as_matrix(.data)), 
                     c(manynet::as_matrix(manynet::create_core(.data,
@@ -57,6 +58,7 @@ network_core <- function(.data,
 #' network_richclub(ison_adolescents)
 #' @export
 network_richclub <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   coefs <- vector()
   temp <- .data
   for(k in seq_len(max(node_degree(temp, normalized = FALSE)))){
@@ -103,6 +105,7 @@ network_richclub <- function(.data){
 #' @export
 network_factions <- function(.data,
                        membership = NULL){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(is.null(membership))
     membership <- node_kernighanlin(.data)
   out <- stats::cor(c(manynet::as_matrix(.data)), 
@@ -145,8 +148,10 @@ network_factions <- function(.data,
 network_modularity <- function(.data, 
                              membership = NULL, 
                              resolution = 1){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(is.null(membership))
     membership <- node_kernighanlin(.data)
+  if(!is.numeric(membership)) membership <- as.numeric(as.factor(membership))
   if(!manynet::is_graph(.data)) .data <- manynet::as_igraph(.data)
   if(manynet::is_twomode(.data)){
     make_network_measure(igraph::modularity(manynet::to_multilevel(.data), 
@@ -206,6 +211,7 @@ network_smallworld <- function(.data,
                                method = c("omega", "sigma", "SWI"),
                                times = 100) {
   
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   method <- match.arg(method)
   
   if(manynet::is_twomode(.data)){
@@ -250,6 +256,7 @@ network_smallworld <- function(.data,
 #' network_scalefree(create_lattice(100))
 #' @export
 network_scalefree <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- igraph::fit_power_law(node_degree(.data, normalized = FALSE))
   if ("KS.p" %in% names(out)) {
     if(out$KS.p < 0.05) 
@@ -267,6 +274,7 @@ network_scalefree <- function(.data){
 #' @export
 network_balance <- function(.data) {
   
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   count_signed_triangles <- function(.data){
     g <- manynet::as_igraph(.data)
     if (!"sign" %in% igraph::edge_attr_names(g)) {
@@ -344,6 +352,7 @@ NULL
 #' @param object2 A network object.
 #' @export
 network_change <- function(.data, object2){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(manynet::is_list(.data)){
     
   } else if(!missing(object2)){
@@ -360,6 +369,7 @@ network_change <- function(.data, object2){
 #' @rdname periods 
 #' @export
 network_stability <- function(.data, object2){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(manynet::is_list(.data)){
     
   } else if(!missing(object2)){

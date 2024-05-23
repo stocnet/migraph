@@ -379,6 +379,7 @@ node_infection_length <- function(diff_model){
 #'   node_exposure(smeg_diff)
 #' @export
 node_exposure <- function(.data, mark, time = 0){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(missing(mark) && inherits(.data, "diff_model")){
     mark <- manynet::node_is_infected(.data, time = time)
     .data <- attr(.data, "network")

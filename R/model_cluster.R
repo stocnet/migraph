@@ -55,6 +55,7 @@ cluster_hierarchical <- function(census, distance){
 #'   \doi{10.1016/0022-2496(75)90028-0}.
 #' @export
 cluster_concor <- function(.data, census){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   split_cor <- function(m0, cutoff = 1) {
     if (ncol(m0) < 2 | all(to_correlation(m0)==1)) list(m0)
     else {

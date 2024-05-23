@@ -48,6 +48,7 @@ NULL
 #' node_optimal(ison_adolescents)
 #' @export
 node_optimal <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- igraph::cluster_optimal(manynet::as_igraph(.data)
   )$membership
   make_node_member(out, .data)
@@ -64,6 +65,7 @@ node_optimal <- function(.data){
 #' node_kernighanlin(ison_southern_women)
 #' @export
 node_kernighanlin <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   # assign groups arbitrarily
   n <- manynet::network_nodes(.data)
   group_size <- ifelse(n %% 2 == 0, n/2, (n+1)/2)
@@ -126,6 +128,7 @@ node_kernighanlin <- function(.data){
 #' node_edge_betweenness(ison_adolescents)
 #' @export
 node_edge_betweenness <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- suppressWarnings(igraph::cluster_edge_betweenness(
     manynet::as_igraph(.data))$membership)
   make_node_member(out, .data)
@@ -147,6 +150,7 @@ node_edge_betweenness <- function(.data){
 #' node_fast_greedy(ison_adolescents)
 #' @export
 node_fast_greedy <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- igraph::cluster_fast_greedy(manynet::as_igraph(.data)
   )$membership
   make_node_member(out, .data)
@@ -168,6 +172,7 @@ node_fast_greedy <- function(.data){
 #' node_leading_eigen(ison_adolescents)
 #' @export
 node_leading_eigen <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- igraph::cluster_leading_eigen(manynet::as_igraph(.data)
                                        )$membership
   make_node_member(out, .data)
@@ -188,6 +193,7 @@ node_leading_eigen <- function(.data){
 #' node_walktrap(ison_adolescents)
 #' @export
 node_walktrap <- function(.data, times = 50){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- igraph::cluster_walktrap(manynet::as_igraph(.data), 
                                   steps=times)$membership
   make_node_member(out, .data)
@@ -213,6 +219,7 @@ node_walktrap <- function(.data, times = 50){
 #' node_infomap(ison_adolescents)
 #' @export
 node_infomap <- function(.data, times = 50){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- igraph::cluster_infomap(manynet::as_igraph(.data), 
                                  nb.trials = times
   )$membership
@@ -247,6 +254,7 @@ node_infomap <- function(.data, times = 50){
 #' node_spinglass(ison_adolescents)
 #' @export
 node_spinglass <- function(.data, max_k = 200, resolution = 1){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- igraph::cluster_spinglass(manynet::as_igraph(.data), 
                                    spins = max_k, gamma = resolution,
                                    implementation = ifelse(manynet::is_signed(.data), "neg", "orig")
@@ -271,6 +279,7 @@ node_spinglass <- function(.data, max_k = 200, resolution = 1){
 #' node_fluid(ison_adolescents)
 #' @export
 node_fluid <- function(.data) {
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   .data <- as_igraph(.data)
   mods <- vapply(seq.int(manynet::network_nodes(.data)), function(x)
     igraph::modularity(.data, membership = igraph::membership(
@@ -297,6 +306,7 @@ node_fluid <- function(.data) {
 #' node_louvain(ison_adolescents)
 #' @export
 node_louvain <- function(.data, resolution = 1){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- igraph::cluster_louvain(manynet::as_igraph(.data), 
                                 resolution = resolution
   )$membership
@@ -327,6 +337,7 @@ node_louvain <- function(.data, resolution = 1){
 #' node_leiden(ison_adolescents)
 #' @export
 node_leiden <- function(.data, resolution = 1){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(manynet::is_weighted(.data)){ # Traag resolution default
     n <- manynet::network_nodes(.data)
     resolution <- sum(manynet::tie_weights(.data))/(n*(n - 1)/2)

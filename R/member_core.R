@@ -44,6 +44,7 @@ NULL
 #' network_core(mpn_elite_usa_advice)
 #' @export
 node_core <- function(.data, method = c("degree", "eigenvector")){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   method <- match.arg(method)
   if(manynet::is_directed(.data)) warning("Asymmetric core-periphery not yet implemented.")
   if(method == "degree"){
@@ -73,6 +74,7 @@ node_core <- function(.data, method = c("degree", "eigenvector")){
 #' node_coreness(ison_adolescents)
 #' @export
 node_coreness <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(!manynet::is_graph(.data)) .data <- manynet::as_igraph(.data)
   out <- igraph::coreness(.data)
   make_node_member(out, .data)

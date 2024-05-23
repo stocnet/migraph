@@ -34,6 +34,7 @@ NULL
 #' network_richness(mpn_bristol)
 #' @export
 network_richness <- function(.data, attribute){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   make_network_measure(length(unique(manynet::node_attribute(.data, attribute))),
                        .data)
 }
@@ -43,6 +44,7 @@ network_richness <- function(.data, attribute){
 #' node_richness(mpn_bristol, "type")
 #' @export
 node_richness <- function(.data, attribute){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- vapply(manynet::to_egos(.data, min_dist = 1), 
          function(x) length(unique(manynet::node_attribute(x, attribute))),
          FUN.VALUE = numeric(1))
@@ -75,6 +77,7 @@ node_richness <- function(.data, attribute){
 #' network_diversity(marvel_friends, "Gender", "Rich")
 #' @export
 network_diversity <- function(.data, attribute, clusters = NULL){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   blau <- function(features) { 1 - sum((table(features)/length(features))^2) }
   attr <- manynet::node_attribute(.data, attribute)
   if (is.null(clusters)) {
@@ -101,6 +104,7 @@ network_diversity <- function(.data, attribute, clusters = NULL){
 #' node_diversity(marvel_friends, "Attractive")
 #' @export
 node_diversity <- function(.data, attribute){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- vapply(igraph::ego(manynet::as_igraph(.data)),
                 function(x) network_diversity(
                   igraph::induced_subgraph(manynet::as_igraph(.data), x),
@@ -127,6 +131,7 @@ node_diversity <- function(.data, attribute){
 #' network_heterophily(marvel_friends, "Attractive")
 #' @export
 network_heterophily <- function(.data, attribute){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   m <- manynet::as_matrix(.data)
   if (length(attribute) == 1 && is.character(attribute)) {
     attribute <- manynet::node_attribute(.data, attribute)
@@ -147,6 +152,7 @@ network_heterophily <- function(.data, attribute){
 #' node_heterophily(marvel_friends, "Attractive")
 #' @export
 node_heterophily <- function(.data, attribute){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   m <- manynet::as_matrix(.data)
   if (length(attribute) == 1 && is.character(attribute)) {
     attribute <- manynet::node_attribute(.data, attribute)
@@ -172,6 +178,7 @@ node_heterophily <- function(.data, attribute){
 #' network_assortativity(mpn_elite_mex)
 #' @export
 network_assortativity <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   make_network_measure(igraph::assortativity_degree(manynet::as_igraph(.data), 
                                directed = manynet::is_directed(.data)),
                      .data)
@@ -187,6 +194,7 @@ network_assortativity <- function(.data){
 #' network_spatial(ison_lawfirm, "age")
 #' @export
 network_spatial <- function(.data, attribute){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   N <- manynet::network_nodes(.data)
   x <- manynet::node_attribute(.data, attribute)
   stopifnot(is.numeric(x))

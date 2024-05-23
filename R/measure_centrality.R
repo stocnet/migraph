@@ -134,18 +134,21 @@ node_degree <- function (.data, normalized = TRUE, alpha = 1,
 #' @rdname degree_centrality
 #' @export
 node_deg <- function (.data, alpha = 0, direction = c("all","out","in")){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   node_degree(.data, normalized = FALSE, alpha = alpha, direction = direction)
 }
 
 #' @rdname degree_centrality
 #' @export
 node_outdegree <- function (.data, normalized = TRUE, alpha = 0){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   node_degree(.data, normalized = normalized, alpha = alpha, direction = "out")
 }
 
 #' @rdname degree_centrality
 #' @export
 node_indegree <- function (.data, normalized = TRUE, alpha = 0){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   node_degree(.data, normalized = normalized, alpha = alpha, direction = "in")
 }
 
@@ -154,6 +157,7 @@ node_indegree <- function (.data, normalized = TRUE, alpha = 0){
 #' @param tie2 Character string indicating the second uniplex network.
 #' @export
 node_multidegree <- function (.data, tie1, tie2){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   stopifnot(manynet::is_multiplex(.data))
   out <- node_degree(manynet::to_uniplex(.data, tie1)) - 
     node_degree(manynet::to_uniplex(.data, tie2))
@@ -168,6 +172,7 @@ node_multidegree <- function (.data, tie1, tie2){
 #' \doi{10.1016/j.socnet.2014.03.005}.
 #' @export
 node_posneg <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   stopifnot(manynet::is_signed(.data))
   pos <- manynet::as_matrix(manynet::to_unsigned(.data, keep = "positive"))
   neg <- manynet::as_matrix(manynet::to_unsigned(.data, keep = "negative"))
@@ -234,12 +239,14 @@ network_degree <- function(.data, normalized = TRUE,
 #' @rdname degree_centrality
 #' @export
 network_outdegree <- function(.data, normalized = TRUE){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   network_degree(.data, normalized = normalized, direction = "out")
 }
 
 #' @rdname degree_centrality
 #' @export
 network_indegree <- function(.data, normalized = TRUE){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   network_degree(.data, normalized = normalized, direction = "in")
 }
 
@@ -322,6 +329,7 @@ node_betweenness <- function(.data, normalized = TRUE,
 #' @export 
 node_induced <- function(.data, normalized = TRUE, 
                          cutoff = NULL){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   endog <- sum(node_betweenness(.data, normalized = normalized, cutoff = cutoff),
                na.rm = TRUE)
   exog <- vapply(seq.int(manynet::network_nodes(.data)),
@@ -338,6 +346,7 @@ node_induced <- function(.data, normalized = TRUE,
 #' @importFrom sna flowbet
 #' @export 
 node_flow <- function(.data, normalized = TRUE){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- sna::flowbet(manynet::as_network(.data),
                       gmode = ifelse(manynet::is_directed(.data), "digraph", "graph"),
                       diag = manynet::is_complex(.data),
@@ -518,6 +527,7 @@ node_harmonic <- function(.data, normalized = TRUE, k = -1){
 #' @importFrom sna infocent
 #' @export
 node_information <- function(.data, normalized = TRUE){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- sna::infocent(manynet::as_network(.data),
                        gmode = ifelse(manynet::is_directed(.data), "digraph", "graph"),
                        diag = manynet::is_complex(.data))
@@ -824,6 +834,7 @@ tie_eigenvector <- function(.data, normalized = TRUE){
 #' network_eigenvector(ison_southern_women)
 #' @export
 network_eigenvector <- function(.data, normalized = TRUE){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if (manynet::is_twomode(.data)) {
     out <- c(igraph::centr_eigen(manynet::as_igraph(manynet::to_mode1(.data)), 
                                  normalized = normalized)$centralization,

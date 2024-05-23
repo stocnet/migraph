@@ -28,6 +28,7 @@ NULL
 #' (tie_cen <- node_tie_census(task_eg))
 #' @export
 node_tie_census <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   object <- manynet::as_igraph(.data)
   # edge_names <- manynet::network_tie_attributes(object)
   if (manynet::is_directed(object)) {
@@ -91,6 +92,7 @@ node_tie_census <- function(.data){
 #' (triad_cen <- node_triad_census(task_eg))
 #' @export
 node_triad_census <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- t(sapply(seq.int(manynet::network_nodes(.data)), 
                   function(x) network_triad_census(.data) - network_triad_census(manynet::delete_nodes(.data, x))))
   rownames(out) <- manynet::node_names(.data)
@@ -134,6 +136,7 @@ node_triad_census <- function(.data){
 #' node_quad_census(manynet::ison_southern_women)
 #' @export
 node_quad_census <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if (!("oaqc" %in% rownames(utils::installed.packages()))) {
     message("Please install package `{oaqc}`.")
   } else {
@@ -207,6 +210,7 @@ node_quad_census <- function(.data){
 #' node_path_census(manynet::ison_southern_women)
 #' @export
 node_path_census <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(manynet::is_weighted(.data)){
     tore <- manynet::as_matrix(.data)/mean(manynet::as_matrix(.data))
     out <- 1/tore
@@ -239,6 +243,7 @@ NULL
 #' network_dyad_census(manynet::ison_algebra)
 #' @export
 network_dyad_census <- function(.data) {
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if (manynet::is_twomode(.data)) {
     stop("A twomode or multilevel option for a dyad census is not yet implemented.")
   } else {
@@ -258,6 +263,7 @@ network_dyad_census <- function(.data) {
 #' network_triad_census(manynet::ison_adolescents)
 #' @export
 network_triad_census <- function(.data) {
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if (manynet::is_twomode(.data)) {
     stop("A twomode or multilevel option for a triad census is not yet implemented.")
   } else {
@@ -283,6 +289,7 @@ network_triad_census <- function(.data) {
 #' (mixed_cen <- network_mixed_census(marvel_friends, manynet::ison_marvel_teams))
 #' @export
 network_mixed_census <- function (.data, object2) {
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(manynet::is_twomode(.data))
     stop("First object should be a one-mode network")
   if(!manynet::is_twomode(object2))
@@ -357,6 +364,7 @@ NULL
 #' node_brokerage_census(manynet::ison_networkers, "Discipline")
 #' @export
 node_brokerage_census <- function(.data, membership, standardized = FALSE){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(!manynet::is_twomode(.data)){
     out <- sna::brokerage(manynet::as_network(.data),
                           manynet::node_attribute(.data, membership))
@@ -379,6 +387,7 @@ node_brokerage_census <- function(.data, membership, standardized = FALSE){
 #' network_brokerage_census(manynet::ison_networkers, "Discipline")
 #' @export
 network_brokerage_census <- function(.data, membership, standardized = FALSE){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(!manynet::is_twomode(.data)){
     out <- sna::brokerage(manynet::as_network(.data),
                         manynet::node_attribute(.data, membership))
@@ -404,6 +413,7 @@ network_brokerage_census <- function(.data, membership, standardized = FALSE){
 #'   \doi{10.1016/j.socnet.2019.08.002}
 #' @export
 node_brokering_activity <- function(.data, membership){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   from <- to.y <- to_memb <- from_memb <- NULL
   twopaths <- .to_twopaths(.data)
   if(!missing(membership)){
@@ -429,6 +439,7 @@ node_brokering_activity <- function(.data, membership){
 #' node_brokering_exclusivity(ison_networkers, "Discipline")
 #' @export
 node_brokering_exclusivity <- function(.data, membership){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   from <- to.y <- to_memb <- from_memb <- NULL
   twopaths <- .to_twopaths(.data)
   if(!missing(membership)){
@@ -454,6 +465,7 @@ node_brokering_exclusivity <- function(.data, membership){
 #' @rdname brokerage_census 
 #' @export
 node_brokering <- function(.data, membership){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   activ <- node_brokering_activity(.data, membership)
   exclusiv <- node_brokering_exclusivity(.data, membership)
   activ <- activ - mean(activ)

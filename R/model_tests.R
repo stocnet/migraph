@@ -33,6 +33,7 @@ test_random <- function(.data, FUN, ...,
                         times = 1000, 
                         strategy = "sequential", 
                         verbose = FALSE){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   args <- unlist(list(...))
   if (!is.null(args)) {
     obsd <- FUN(.data, args)
@@ -82,6 +83,7 @@ test_permutation <- function(.data, FUN, ...,
                              times = 1000, 
                              strategy = "sequential", 
                              verbose = FALSE){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   args <- unlist(list(...))
   if (!is.null(args)) {
     obsd <- FUN(.data, args)

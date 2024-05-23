@@ -35,6 +35,7 @@ NULL
 #' network_density(mpn_elite_usa_advice)
 #' @export
 network_density <- function(.data) {
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if (manynet::is_twomode(.data)) {
     mat <- manynet::as_matrix(.data)
     out <- sum(mat) / (nrow(mat) * ncol(mat))
@@ -54,6 +55,7 @@ network_density <- function(.data) {
 #'   network_components(manynet::to_undirected(mpn_ryanair))
 #' @export
 network_components <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   object <- manynet::as_igraph(.data)
   make_network_measure(igraph::components(object, mode = "strong")$no,
                        object)
@@ -70,6 +72,7 @@ network_components <- function(.data){
 #' network_cohesion(manynet::to_giant(manynet::ison_marvel_relationships))
 #' @export
 network_cohesion <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   make_network_measure(igraph::cohesion(manynet::as_igraph(.data)), .data)
 }
 
@@ -80,6 +83,7 @@ network_cohesion <- function(.data){
 #' network_adhesion(manynet::to_giant(manynet::ison_marvel_relationships))
 #' @export
 network_adhesion <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   make_network_measure(igraph::adhesion(manynet::as_igraph(.data)), .data)
 }
 
@@ -90,6 +94,7 @@ network_adhesion <- function(.data){
 #' network_diameter(manynet::to_giant(manynet::ison_marvel_relationships))
 #' @export
 network_diameter <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   object <- manynet::as_igraph(.data)
   make_network_measure(igraph::diameter(object, 
                                         directed = manynet::is_directed(object)),
@@ -103,6 +108,7 @@ network_diameter <- function(.data){
 #' network_length(manynet::to_giant(manynet::ison_marvel_relationships))
 #' @export
 network_length <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   object <- manynet::as_igraph(.data)
   make_network_measure(igraph::mean_distance(object,
                                              directed = manynet::is_directed(object)),
@@ -115,6 +121,7 @@ network_length <- function(.data){
 #' network_independence(manynet::ison_adolescents)
 #' @export
 network_independence <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(manynet::is_twomode(.data)){
     out <- igraph::ivs_size(manynet::to_mode1(manynet::as_igraph(.data)))
   } else {

@@ -46,6 +46,7 @@ NULL
 #' network_reciprocity(ison_southern_women)
 #' @export
 network_reciprocity <- function(.data, method = "default") {
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   make_network_measure(igraph::reciprocity(manynet::as_igraph(.data), mode = method), 
                        .data)
 }
@@ -55,6 +56,7 @@ network_reciprocity <- function(.data, method = "default") {
 #' node_reciprocity(to_unweighted(ison_networkers))
 #' @export
 node_reciprocity <- function(.data) {
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- manynet::as_matrix(.data)
   make_node_measure(rowSums(out * t(out))/rowSums(out), 
                     .data)
@@ -66,6 +68,7 @@ node_reciprocity <- function(.data) {
 #' network_transitivity(ison_adolescents)
 #' @export
 network_transitivity <- function(.data) {
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   make_network_measure(igraph::transitivity(manynet::as_igraph(.data)), 
                        .data)
 }
@@ -75,6 +78,7 @@ network_transitivity <- function(.data) {
 #' node_transitivity(ison_adolescents)
 #' @export
 node_transitivity <- function(.data) {
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   make_node_measure(igraph::transitivity(manynet::as_igraph(.data), 
                                          type = "local"), 
                     .data)
@@ -89,6 +93,7 @@ node_transitivity <- function(.data) {
 #' network_equivalency(ison_southern_women)
 #' @export
 network_equivalency <- function(.data) {
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if (manynet::is_twomode(.data)) {
     mat <- manynet::as_matrix(.data)
     c <- ncol(mat)
@@ -108,6 +113,7 @@ network_equivalency <- function(.data) {
 #' @rdname closure 
 #' @export
 network_congruency <- function(.data, object2){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(missing(.data) | missing(object2)) stop("This function expects two two-mode networks")
   if(!manynet::is_twomode(.data) | !manynet::is_twomode(object2)) stop("This function expects two two-mode networks")
   if(manynet::network_dims(.data)[2] != manynet::network_dims(object2)[1]) 

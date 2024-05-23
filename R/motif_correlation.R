@@ -17,6 +17,7 @@
 #' @family motifs
 #' @export
 to_correlation <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   mat <- manynet::as_matrix(.data)
   if(manynet::is_twomode(.data)){
     # if(!any(colnames(m0) %in% rownames(m0))) 

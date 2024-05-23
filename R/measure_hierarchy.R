@@ -33,6 +33,7 @@ NULL
 #' @rdname hierarchy 
 #' @export
 network_connectedness <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   dists <- igraph::distances(manynet::as_igraph(.data))
   make_network_measure(1 - sum(dists==Inf)/sum(dists!=0),
                        .data)
@@ -41,6 +42,7 @@ network_connectedness <- function(.data){
 #' @rdname hierarchy 
 #' @export
 network_efficiency <- function(.data) {
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   degs <- node_indegree(.data, normalized = FALSE)
   out <- (manynet::network_nodes(.data)-1)/sum(degs)
   make_network_measure(out, .data)
@@ -49,6 +51,7 @@ network_efficiency <- function(.data) {
 #' @rdname hierarchy 
 #' @export
 network_upperbound <- function(.data) {
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   dists <- igraph::distances(.data, mode = "in")
   dists[is.infinite(dists)] <- 0
   dists <- dists[order(rowSums(dists)), order(rowSums(dists))]

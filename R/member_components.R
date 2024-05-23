@@ -39,6 +39,7 @@ NULL
 #' node_components(mpn_bristol)
 #' @export
 node_components <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(!manynet::is_graph(.data)) .data <- manynet::as_igraph(.data)
   make_node_member(igraph::components(.data, mode = "strong")$membership,
               .data)
@@ -48,6 +49,7 @@ node_components <- function(.data){
 #' @importFrom igraph components
 #' @export
 node_weak_components <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(!manynet::is_graph(.data)) .data <- manynet::as_igraph(.data)
   make_node_member(igraph::components(.data, mode = "weak")$membership,
                  .data)
@@ -57,6 +59,7 @@ node_weak_components <- function(.data){
 #' @importFrom igraph components
 #' @export
 node_strong_components <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(!manynet::is_graph(.data)) .data <- manynet::as_igraph(.data)
   make_node_member(igraph::components(.data, mode = "strong")$membership,
                  .data)

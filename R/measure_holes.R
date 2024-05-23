@@ -49,6 +49,7 @@ NULL
 #' node_bridges(ison_southern_women)
 #' @export
 node_bridges <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   g <- manynet::as_igraph(.data)
   .inc <- NULL
   out <- vapply(igraph::V(g), function(ego){
@@ -72,6 +73,7 @@ node_bridges <- function(.data){
 #' node_redundancy(ison_southern_women)
 #' @export
 node_redundancy <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(manynet::is_twomode(.data)){
     mat <- manynet::as_matrix(.data)
     out <- c(.redund2(mat), .redund2(t(mat)))
@@ -110,6 +112,7 @@ node_redundancy <- function(.data){
 #' node_effsize(ison_southern_women)
 #' @export
 node_effsize <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(manynet::is_twomode(.data)){
     mat <- manynet::as_matrix(.data)
     out <- c(rowSums(manynet::as_matrix(manynet::to_mode1(.data))>0), 
@@ -135,6 +138,7 @@ node_effsize <- function(.data){
 #' node_efficiency(ison_southern_women)
 #' @export
 node_efficiency <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- node_effsize(.data) / node_degree(.data, normalized = FALSE)
   make_node_measure(as.numeric(out), .data)
 }
@@ -149,6 +153,7 @@ node_efficiency <- function(.data){
 #' node_constraint(ison_southern_women)
 #' @export 
 node_constraint <- function(.data) {
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   if (manynet::is_twomode(.data)) {
     get_constraint_scores <- function(mat) {
       inst <- colnames(mat)
@@ -197,6 +202,7 @@ node_constraint <- function(.data) {
 #' node_hierarchy(ison_southern_women)
 #' @export
 node_hierarchy <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   cs <- node_constraint(.data)
   g <- manynet::as_igraph(.data)
   out <- vapply(igraph::V(g), function(ego){
@@ -215,6 +221,7 @@ node_hierarchy <- function(.data){
 #' @importFrom igraph eccentricity
 #' @export
 node_eccentricity <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- igraph::eccentricity(manynet::as_igraph(.data),
                               mode = "out")
   make_node_measure(out, .data)
@@ -228,6 +235,7 @@ node_eccentricity <- function(.data){
 #' _Proc. Natl. Acad. Sci._ 101: 3747.
 #' @export
 node_neighbours_degree <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- igraph::knn(manynet::as_igraph(.data),
                               mode = "out")$knn
   make_node_measure(out, .data)
@@ -236,6 +244,7 @@ node_neighbours_degree <- function(.data){
 #' @rdname holes 
 #' @export
 tie_cohesion <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   ties <- igraph::E(.data)
   coins <- data.frame(heads = igraph::head_of(.data, ties),
                       tails = igraph::tail_of(.data, ties))
