@@ -1,7 +1,7 @@
 make_node_member <- function(out, .data) {
-  if (manynet::is_labelled(.data)) names(out) <- manynet::node_names(.data)
   if(is.numeric(out))
     out <- MORELETTERS[out]
+  if (manynet::is_labelled(.data)) names(out) <- manynet::node_names(.data)
   class(out) <- c("node_member", class(out))
   attr(out, "mode") <- manynet::node_mode(.data)
   out
@@ -11,15 +11,16 @@ MORELETTERS <- c(LETTERS, sapply(LETTERS, function(x) paste0(x, LETTERS)))
 
 #' @export
 print.node_member <- function(x, ..., n = NULL) {
+  cat(pillar::style_subtle(paste(length(unique(x)), "groups\n")))
   if (any(attr(x, "mode"))) {
     for(m in c(FALSE, TRUE)){
-      suppressWarnings(print_tblvec(y = as.numeric(x)[attr(x, "mode") == m], 
+      suppressWarnings(print_tblvec(y = x[attr(x, "mode") == m], 
                    names = list(names(x)[attr(x, "mode") == m]),
                    n = n))
       if(!m) cat("\n")
     }
   } else {
-    suppressWarnings(print_tblvec(y = `if`(all(is.na(as.numeric(x))), x, as.numeric(x)), 
+    suppressWarnings(print_tblvec(y = x, 
                  names = list(names(x)),
                  n = n))
   }
