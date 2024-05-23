@@ -137,28 +137,25 @@ node_triad_census <- function(.data){
 #' @export
 node_quad_census <- function(.data){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  if (!("oaqc" %in% rownames(utils::installed.packages()))) {
-    message("Please install package `{oaqc}`.")
-  } else {
-    graph <- .data %>% manynet::as_tidygraph() %E>% 
-      as.data.frame()
-    out <- oaqc::oaqc(graph)[[1]]
-    out <- out[-1,]
-    rownames(out) <- manynet::node_names(.data)
-    colnames(out) <- c("E4", # co-K4
-                       "I41","I40", # co-diamond
-                       "H4", # co-C4
-                       "L42","L41","L40", # co-paw
-                       "D42","D40", # co-claw
-                       "U42","U41", # P4
-                       "Y43","Y41", # claw
-                       "P43","P42","P41", # paw
-                       "04", # C4
-                       "Z42","Z43", # diamond
-                       "X4") # K4
-    if(manynet::is_twomode(.data)) out <- out[,-c(8,9,14,15,16,18,19,20)]
-    make_node_motif(out, .data)
-  }
+  thisRequires("oaqc")
+  graph <- .data %>% manynet::as_tidygraph() %E>% 
+    as.data.frame()
+  out <- oaqc::oaqc(graph)[[1]]
+  out <- out[-1,]
+  rownames(out) <- manynet::node_names(.data)
+  colnames(out) <- c("E4", # co-K4
+                     "I41","I40", # co-diamond
+                     "H4", # co-C4
+                     "L42","L41","L40", # co-paw
+                     "D42","D40", # co-claw
+                     "U42","U41", # P4
+                     "Y43","Y41", # claw
+                     "P43","P42","P41", # paw
+                     "04", # C4
+                     "Z42","Z43", # diamond
+                     "X4") # K4
+  if(manynet::is_twomode(.data)) out <- out[,-c(8,9,14,15,16,18,19,20)]
+  make_node_motif(out, .data)
 }
 
 # #' @export

@@ -57,7 +57,7 @@ to_correlation <- function(.data, method = NULL){
 # Though warnings need to be suppressed,
 # this is bench::mark()ed at about 2 times faster than corrColsRecipRLB()
 .corRecip <- function(M){
-  all.pairs <- combn(1:ncol(M),2)
+  all.pairs <- utils::combn(1:ncol(M),2)
   corres <- apply(all.pairs, 2, function(i){
     x <- c(M[-i,i[1]], M[i[1],i[2]])
     y <- c(M[-i,i[2]], M[i[2],i[1]])
@@ -76,7 +76,7 @@ to_correlation <- function(.data, method = NULL){
 # Though warnings need to be suppressed,
 # this is bench::mark()ed at about 2.3 times faster than corrColsRecipUCI()
 .corComplex <- function(M){
-  all.pairs <- combn(1:ncol(M),2)
+  all.pairs <- utils::combn(1:ncol(M),2)
   corres <- apply(all.pairs, 2, function(i){
     x <- c(M[-i,i[1]], M[i[1],i[2]], M[i[1],i[1]])
     y <- c(M[-i,i[2]], M[i[2],i[1]], M[i[2],i[2]])
