@@ -5,7 +5,7 @@
 \alias{to_correlation}
 \title{Node correlation}
 \usage{
-to_correlation(.data)
+to_correlation(.data, method = NULL)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -16,6 +16,13 @@ to_correlation(.data)
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
+
+\item{method}{One of the following:
+"all" includes all information,
+"diag" excludes the diagonal (self-ties),
+"recip" excludes the diagonal but compares pairs' reciprocal ties,
+and "complex" compares pairs' reciprocal ties and their self ties.
+By default the appropriate method is chosen based on the network format.}
 }
 \description{
 This function performs a Pearson pairwise correlation on a given matrix or network data.

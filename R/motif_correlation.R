@@ -14,22 +14,28 @@
 #'   This function runs in \eqn{O(mn^2)} complexity.
 #' @name node_correlation
 #' @inheritParams cohesion
+#' @param method One of the following:
+#'   "all" includes all information,
+#'   "diag" excludes the diagonal (self-ties),
+#'   "recip" excludes the diagonal but compares pairs' reciprocal ties,
+#'   and "complex" compares pairs' reciprocal ties and their self ties.
+#'   By default the appropriate method is chosen based on the network format.
 #' @family motifs
 #' @export
-to_correlation <- function(.data){
+to_correlation <- function(.data, method = NULL){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   mat <- manynet::as_matrix(.data)
-  if(manynet::is_twomode(.data)){
-    # if(!any(colnames(m0) %in% rownames(m0))) 
-    #   mat <- node_tie_census(mat)
-    out <- .corTwomode(mat)
-  } else if(manynet::is_complex(.data)){
-    out <- .corComplex(mat)
-  } else if(manynet::is_directed(.data)){
-    out <- .corRecip(mat)
-  } else {
-    out <- .corDiag(mat)
-  }
+  if(is.null(method)) method <- ifelse(manynet::is_twomode(.data),
+                                       "all",
+                                       ifelse(manynet::is_complex(.data),
+                                              "complex",
+                                              ifelse(manynet::is_directed(.data),
+                                                     "recip", "diag")))
+  out <- switch(method,
+                all = .corTwomode(mat),
+                complex = .corComplex(mat),
+                recip = .corRecip(mat),
+                diag = .corDiag(mat))
   out
 }
   
