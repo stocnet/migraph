@@ -37,6 +37,13 @@ node_tie_census <- function(.data){
                                      rc <- manynet::as_matrix(manynet::to_uniplex(object, x))
                                      rbind(rc, t(rc))
                                    }))
+    } else if (manynet::is_longitudinal(object)){
+      mat <- do.call(rbind, lapply(unique(manynet::tie_attribute(object, "wave")), 
+                                   function(x){
+                                     rc <- manynet::as_matrix(manynet::to_waves(object)[[x]])
+                                     rbind(rc, t(rc))
+                                   }))
+      
       } else {
         rc <- manynet::as_matrix(object)
         mat <- rbind(rc, t(rc))
@@ -46,6 +53,11 @@ node_tie_census <- function(.data){
       mat <- do.call(rbind, lapply(unique(manynet::tie_attribute(object, "type")), 
                                    function(x){
                                      manynet::as_matrix(manynet::to_uniplex(object, x))
+                                   }))
+    } else if (manynet::is_longitudinal(object)){
+      mat <- do.call(rbind, lapply(unique(manynet::tie_attribute(object, "wave")), 
+                                   function(x){
+                                     manynet::as_matrix(manynet::to_waves(object)[[x]])
                                    }))
     } else if (manynet::is_twomode(.data)) {
       mat <- manynet::as_matrix(manynet::to_multilevel(object))
@@ -59,6 +71,11 @@ node_tie_census <- function(.data){
                                            paste0("to", manynet::node_names(object))),
                                            unique(manynet::tie_attribute(object, "type"))), 
                              1, paste, collapse = "_")
+    } else if (manynet::is_longitudinal(object)){
+      rownames(mat) <- apply(expand.grid(c(paste0("from", manynet::node_names(object)),
+                                           paste0("to", manynet::node_names(object))),
+                                         unique(manynet::tie_attribute(object, "wave"))), 
+                             1, paste, collapse = "_wave")
     } else {
       rownames(mat) <- rep(c(paste0("from", manynet::node_names(object)),
                              paste0("to", manynet::node_names(object))))
