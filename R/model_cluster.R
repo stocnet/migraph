@@ -77,11 +77,10 @@ cluster_concor <- function(.data, census){
   if(is.null(colnames(p_list[[1]]))) 
     colnames(p_list[[1]]) <- paste0("V",1:ncol(p_list[[1]]))
   p_group <- list()
-  i <- NULL
   if(manynet::is_twomode(.data)){
     p_list <- list(p_list[[1]][, !manynet::node_mode(.data), drop = FALSE],
                    p_list[[1]][, manynet::node_mode(.data), drop = FALSE])
-    p_group[[i]] <- lapply(p_list, function(z) colnames(z))
+    p_group[[1]] <- lapply(p_list, function(z) colnames(z))
     i <- 2
   } else i <- 1
   while(!all(vapply(p_list, function(x) ncol(x)==1, logical(1)))){
