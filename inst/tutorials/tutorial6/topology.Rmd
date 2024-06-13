@@ -5,6 +5,10 @@ output:
   learnr::tutorial:
     theme: journal
 runtime: shiny_prerendered
+description: >
+  This tutorial aims to teach you how to create deterministic networks,
+  generate probabilistic networks, identify core-periphery structures,
+  and measure network resilience.
 ---
 
 ```{r setup, include = FALSE}

@@ -5,6 +5,9 @@ output:
   learnr::tutorial:
     theme: journal
 runtime: shiny_prerendered
+description: >
+  This tutorial aims to teach you how to measure structural holes and
+  identify and interpret structurally equivalent nodes.
 ---
 
 ```{r setup, include = FALSE}

@@ -5,6 +5,9 @@ output:
   learnr::tutorial:
     theme: journal
 runtime: shiny_prerendered
+description: >
+  This tutorial aims to teach you how to calculate various cohesion measures,
+  as well as detect communities using a variety of algorithms.
 ---
 
 ```{r setup, include=FALSE}

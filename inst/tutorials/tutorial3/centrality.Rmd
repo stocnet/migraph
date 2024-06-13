@@ -5,6 +5,9 @@ output:
   learnr::tutorial:
     theme: journal
 runtime: shiny_prerendered
+description: >
+  This tutorial aims to show how to measure and map degree, betweenness,
+  closeness, eigenvector and other types of centrality and centralization.
 ---
 
 ```{r setup, include=FALSE}
