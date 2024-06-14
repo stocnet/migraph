@@ -126,12 +126,17 @@ node_kernighanlin <- function(.data){
 #' _Physical Review E_ 69: 026113.
 #' @examples
 #' node_edge_betweenness(ison_adolescents)
+#' plot(node_edge_betweenness(ison_adolescents))
 #' @export
 node_edge_betweenness <- function(.data){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  out <- suppressWarnings(igraph::cluster_edge_betweenness(
-    manynet::as_igraph(.data))$membership)
-  make_node_member(out, .data)
+  clust <- suppressWarnings(igraph::cluster_edge_betweenness(
+    manynet::as_igraph(.data)))
+  out <- clust$membership
+  out <- make_node_member(out, .data)
+  attr(out, "hc") <- as.hclust(clust, use.modularity = TRUE)
+  attr(out, "k") <- max(clust$membership)
+  out
 }
 
 #' @rdname community 
@@ -151,9 +156,13 @@ node_edge_betweenness <- function(.data){
 #' @export
 node_fast_greedy <- function(.data){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  out <- igraph::cluster_fast_greedy(manynet::as_igraph(.data)
-  )$membership
+  clust <- igraph::cluster_fast_greedy(manynet::as_igraph(.data))
+  out <- clust$membership
   make_node_member(out, .data)
+  out <- make_node_member(out, .data)
+  attr(out, "hc") <- as.hclust(clust, use.modularity = TRUE)
+  attr(out, "k") <- max(clust$membership)
+  out
 }
 
 #' @rdname community 
@@ -173,9 +182,13 @@ node_fast_greedy <- function(.data){
 #' @export
 node_leading_eigen <- function(.data){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  out <- igraph::cluster_leading_eigen(manynet::as_igraph(.data)
-                                       )$membership
+  clust <- igraph::cluster_leading_eigen(manynet::as_igraph(.data))
+  out <- clust$membership
   make_node_member(out, .data)
+  out <- make_node_member(out, .data)
+  attr(out, "hc") <- as.hclust(clust)
+  attr(out, "k") <- max(clust$membership)
+  out
 }
 
 #' @rdname community 
@@ -194,10 +207,13 @@ node_leading_eigen <- function(.data){
 #' @export
 node_walktrap <- function(.data, times = 50){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  out <- igraph::cluster_walktrap(manynet::as_igraph(.data), 
-                                  steps=times)$membership
+  clust <- igraph::cluster_walktrap(manynet::as_igraph(.data))
+  out <- clust$membership
   make_node_member(out, .data)
-  
+  out <- make_node_member(out, .data)
+  attr(out, "hc") <- as.hclust(clust, use.modularity = TRUE)
+  attr(out, "k") <- max(clust$membership)
+  out
 }
 
 #' @rdname community 
