@@ -49,6 +49,10 @@
 \alias{node_components}
 \alias{node_weak_components}
 \alias{node_strong_components}
+\alias{node_equivalence}
+\alias{node_structural_equivalence}
+\alias{node_regular_equivalence}
+\alias{node_automorphic_equivalence}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 edge_betweenness(object, normalized = TRUE)
@@ -145,6 +149,13 @@ node_weak_components(.data)
 
 node_strong_components(.data)
 
+node_equivalence(.data)
+
+node_structural_equivalence(.data)
+
+node_regular_equivalence(.data)
+
+node_automorphic_equivalence(.data)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -251,5 +262,14 @@ wherever possible and update your scripts accordingly.
 \item \code{node_weak_components()}: Deprecated on 2024-06-14.
 
 \item \code{node_strong_components()}: Deprecated on 2024-06-14.
+
+\item \code{node_equivalence()}: Deprecated on 2024-06-14.
+
+\item \code{node_structural_equivalence()}: Deprecated on 2024-06-14.
+
+\item \code{node_regular_equivalence()}: Deprecated on 2024-06-14.
+
+\item \code{node_automorphic_equivalence()}: Deprecated on 2024-06-14.
+
 }}
 \keyword{internal}

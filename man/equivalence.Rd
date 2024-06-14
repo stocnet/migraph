@@ -2,16 +2,16 @@
 % Please edit documentation in R/member_equivalence.R
 \name{equivalence}
 \alias{equivalence}
-\alias{node_equivalence}
-\alias{node_structural_equivalence}
-\alias{node_regular_equivalence}
-\alias{node_automorphic_equivalence}
+\alias{node_in_equivalence}
+\alias{node_in_structural}
+\alias{node_in_regular}
+\alias{node_in_automorphic}
 \title{Equivalence clustering algorithms}
 \source{
 \url{https://github.com/aslez/concoR}
 }
 \usage{
-node_equivalence(
+node_in_equivalence(
   .data,
   census,
   k = c("silhouette", "elbow", "strict"),
@@ -20,7 +20,7 @@ node_equivalence(
   range = 8L
 )
 
-node_structural_equivalence(
+node_in_structural(
   .data,
   k = c("silhouette", "elbow", "strict"),
   cluster = c("hierarchical", "concor"),
@@ -28,7 +28,7 @@ node_structural_equivalence(
   range = 8L
 )
 
-node_regular_equivalence(
+node_in_regular(
   .data,
   k = c("silhouette", "elbow", "strict"),
   cluster = c("hierarchical", "concor"),
@@ -36,7 +36,7 @@ node_regular_equivalence(
   range = 8L
 )
 
-node_automorphic_equivalence(
+node_in_automorphic(
   .data,
   k = c("silhouette", "elbow", "strict"),
   cluster = c("hierarchical", "concor"),
@@ -105,16 +105,16 @@ assignment.
 }
 \examples{
 \donttest{
-(nse <- node_structural_equivalence(mpn_elite_usa_advice))
+(nse <- node_in_structural(mpn_elite_usa_advice))
 plot(nse)
 }
 \donttest{
-(nre <- node_regular_equivalence(mpn_elite_usa_advice,
+(nre <- node_in_regular(mpn_elite_usa_advice,
   cluster = "concor"))
 plot(nre)
 }
 \donttest{
-(nae <- node_automorphic_equivalence(mpn_elite_usa_advice,
+(nae <- node_in_automorphic(mpn_elite_usa_advice,
   k = "elbow"))
 plot(nae)
 }
@@ -124,6 +124,7 @@ Other memberships:
 \code{\link{cliques}},
 \code{\link{community}},
 \code{\link{components}()},
-\code{\link{core}}
+\code{\link{core}},
+\code{\link{hierarchical_community}}
 }
 \concept{memberships}

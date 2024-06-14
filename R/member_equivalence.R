@@ -50,7 +50,7 @@ NULL
 
 #' @rdname equivalence 
 #' @export
-node_equivalence <- function(.data, census,
+node_in_equivalence <- function(.data, census,
                              k = c("silhouette", "elbow", "strict"),
                              cluster = c("hierarchical", "concor"),
                              distance = c("euclidean", "maximum", "manhattan", 
@@ -78,11 +78,11 @@ node_equivalence <- function(.data, census,
 #' @rdname equivalence
 #' @examples
 #' \donttest{
-#' (nse <- node_structural_equivalence(mpn_elite_usa_advice))
+#' (nse <- node_in_structural(mpn_elite_usa_advice))
 #' plot(nse)
 #' }
 #' @export
-node_structural_equivalence <- function(.data,
+node_in_structural <- function(.data,
                                         k = c("silhouette", "elbow", "strict"),
                                         cluster = c("hierarchical", "concor"),
                                         distance = c("euclidean", "maximum", "manhattan", 
@@ -100,12 +100,12 @@ node_structural_equivalence <- function(.data,
 #' @rdname equivalence
 #' @examples
 #' \donttest{
-#' (nre <- node_regular_equivalence(mpn_elite_usa_advice,
+#' (nre <- node_in_regular(mpn_elite_usa_advice,
 #'   cluster = "concor"))
 #' plot(nre)
 #' }
 #' @export
-node_regular_equivalence <- function(.data, 
+node_in_regular <- function(.data, 
                                      k = c("silhouette", "elbow", "strict"),
                                      cluster = c("hierarchical", "concor"),
                                      distance = c("euclidean", "maximum", "manhattan", 
@@ -125,12 +125,12 @@ node_regular_equivalence <- function(.data,
 #' @rdname equivalence
 #' @examples
 #' \donttest{
-#' (nae <- node_automorphic_equivalence(mpn_elite_usa_advice,
+#' (nae <- node_in_automorphic(mpn_elite_usa_advice,
 #'   k = "elbow"))
 #' plot(nae)
 #' }
 #' @export
-node_automorphic_equivalence <- function(.data,
+node_in_automorphic <- function(.data,
                                          k = c("silhouette", "elbow", "strict"),
                                          cluster = c("hierarchical", "concor"),
                                          distance = c("euclidean", "maximum", "manhattan", 
