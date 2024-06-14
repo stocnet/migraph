@@ -2,40 +2,28 @@
 % Please edit documentation in R/member_community.R
 \name{community}
 \alias{community}
-\alias{node_optimal}
-\alias{node_kernighanlin}
-\alias{node_edge_betweenness}
-\alias{node_fast_greedy}
-\alias{node_leading_eigen}
-\alias{node_walktrap}
-\alias{node_infomap}
-\alias{node_spinglass}
-\alias{node_fluid}
-\alias{node_louvain}
-\alias{node_leiden}
-\title{Community partitioning algorithms}
+\alias{node_in_optimal}
+\alias{node_in_kernighanlin}
+\alias{node_in_infomap}
+\alias{node_in_spinglass}
+\alias{node_in_fluid}
+\alias{node_in_louvain}
+\alias{node_in_leiden}
+\title{Non-hierarchical community partitioning algorithms}
 \usage{
-node_optimal(.data)
+node_in_optimal(.data)
 
-node_kernighanlin(.data)
+node_in_kernighanlin(.data)
 
-node_edge_betweenness(.data)
+node_in_infomap(.data, times = 50)
 
-node_fast_greedy(.data)
+node_in_spinglass(.data, max_k = 200, resolution = 1)
 
-node_leading_eigen(.data)
+node_in_fluid(.data)
 
-node_walktrap(.data, times = 50)
+node_in_louvain(.data, resolution = 1)
 
-node_infomap(.data, times = 50)
-
-node_spinglass(.data, max_k = 200, resolution = 1)
-
-node_fluid(.data)
-
-node_louvain(.data, resolution = 1)
-
-node_leiden(.data, resolution = 1)
+node_in_leiden(.data, resolution = 1)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -47,9 +35,6 @@ node_leiden(.data, resolution = 1)
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
 
-\item{times}{Integer indicating number of simulations/walks used.
-By default, \code{times=50}.}
-
 \item{max_k}{Integer constant, the number of spins to use as an upper limit
 of communities to be found. Some sets can be empty at the end.}
 
@@ -59,28 +44,21 @@ Smaller values make existing ties more important,
 and larger values make missing ties more important.}
 }
 \description{
-These functions offer different algorithms useful for partitioning
+These functions offer algorithms for partitioning
 networks into sets of communities:
 \itemize{
-\item \code{node_optimal()} is a problem-solving algorithm that seeks to maximise
+\item \code{node_in_optimal()} is a problem-solving algorithm that seeks to maximise
 modularity over all possible partitions.
-\item \code{node_kernaghinlin()} is a greedy, iterative, deterministic
+\item \code{node_in_kernaghinlin()} is a greedy, iterative, deterministic
 partitioning algorithm that results in two equally-sized communities.
-\item \code{node_edge_betweenness()} is a hierarchical, decomposition algorithm
-where edges are removed in decreasing order of the number of
-shortest paths passing through the edge.
-\item \code{node_fast_greedy()} is a hierarchical, agglomerative algorithm,
-that tries to optimize modularity in a greedy manner.
-\item \code{node_leading_eigen()} is a top-down, hierarchical algorithm.
-\item \code{node_walktrap()} is a hierarchical, agglomerative algorithm based on random walks.
-\item \code{node_infomap()} is a hierarchical algorithm based on the information in random walks.
-\item \code{node_spinglass()} is a greedy, iterative, probabilistic algorithm,
+\item \code{node_in_infomap()} is an algorithm based on the information in random walks.
+\item \code{node_in_spinglass()} is a greedy, iterative, probabilistic algorithm,
 based on analogy to model from statistical physics.
-\item \code{node_fluid()} is a propogation-based partitioning algorithm,
+\item \code{node_in_fluid()} is a propogation-based partitioning algorithm,
 based on analogy to model from fluid dynamics.
-\item \code{node_louvain()} is an agglomerative multilevel algorithm that seeks to maximise
+\item \code{node_in_louvain()} is an agglomerative multilevel algorithm that seeks to maximise
 modularity over all possible partitions.
-\item \code{node_leiden()} is an agglomerative multilevel algorithm that seeks to maximise
+\item \code{node_in_leiden()} is an agglomerative multilevel algorithm that seeks to maximise
 the Constant Potts Model over all possible partitions.
 }
 
@@ -94,47 +72,6 @@ The general idea is to calculate the modularity of all possible partitions,
 and choose the community structure that maximises this modularity measure.
 Note that this is an NP-complete problem with exponential time complexity.
 The guidance in the igraph package is networks of <50-200 nodes is probably fine.
-}
-
-\section{Edge-betweenness}{
-
-This is motivated by the idea that edges connecting different groups
-are more likely to lie on multiple shortest paths when they are the
-only option to go from one group to another.
-This method yields good results but is very slow because of
-the computational complexity of edge-betweenness calculations and
-the betweenness scores have to be re-calculated after every edge removal.
-Networks of ~700 nodes and ~3500 ties are around the upper size limit
-that are feasible with this approach.
-}
-
-\section{Fast-greedy}{
-
-Initially, each node is assigned a separate community.
-Communities are then merged iteratively such that each merge
-yields the largest increase in the current value of modularity,
-until no further increases to the modularity are possible.
-The method is fast and recommended as a first approximation
-because it has no parameters to tune.
-However, it is known to suffer from a resolution limit.
-}
-
-\section{Leading eigenvector}{
-
-In each step, the network is bifurcated such that modularity increases most.
-The splits are determined according to the leading eigenvector of the modularity matrix.
-A stopping condition prevents tightly connected groups from being split further.
-Note that due to the eigenvector calculations involved,
-this algorithm will perform poorly on degenerate networks,
-but will likely obtain a higher modularity than fast-greedy (at some cost of speed).
-}
-
-\section{Walktrap}{
-
-The general idea is that random walks on a network are more likely to stay
-within the same community because few edges lead outside a community.
-By repeating random walks of 4 steps many times,
-information about the hierarchical merging of communities is collected.
 }
 
 \section{Infomap}{
@@ -193,19 +130,14 @@ and \eqn{\delta(\sigma_i, \sigma_j) = 1} if and only if
 }
 
 \examples{
-node_optimal(ison_adolescents)
-node_kernighanlin(ison_adolescents)
-node_kernighanlin(ison_southern_women)
-node_edge_betweenness(ison_adolescents)
-plot(node_edge_betweenness(ison_adolescents))
-node_fast_greedy(ison_adolescents)
-node_leading_eigen(ison_adolescents)
-node_walktrap(ison_adolescents)
-node_infomap(ison_adolescents)
-node_spinglass(ison_adolescents)
-node_fluid(ison_adolescents)
-node_louvain(ison_adolescents)
-node_leiden(ison_adolescents)
+node_in_optimal(ison_adolescents)
+node_in_kernighanlin(ison_adolescents)
+node_in_kernighanlin(ison_southern_women)
+node_in_infomap(ison_adolescents)
+node_in_spinglass(ison_adolescents)
+node_in_fluid(ison_adolescents)
+node_in_louvain(ison_adolescents)
+node_in_leiden(ison_adolescents)
 }
 \references{
 Brandes, Ulrik, Daniel Delling, Marco Gaertler, Robert Gorke, Martin Hoefer, Zoran Nikoloski, Dorothea Wagner. 2008.
@@ -216,20 +148,6 @@ Kernighan, Brian W., and Shen Lin. 1970.
 "An efficient heuristic procedure for partitioning graphs."
 \emph{The Bell System Technical Journal} 49(2): 291-307.
 \doi{10.1002/j.1538-7305.1970.tb01770.x}
-
-Newman, M, and M Girvan. 2004.
-"Finding and evaluating community structure in networks."
-\emph{Physical Review E} 69: 026113.
-
-Clauset, A, MEJ Newman, MEJ and C Moore.
-"Finding community structure in very large networks."
-
-Newman, MEJ. 2006.
-"Finding community structure using the eigenvectors of matrices"
-\emph{Physical Review E} 74:036104.
-
-Pons, Pascal, and Matthieu Latapy
-"Computing communities in large networks using random walks".
 
 Rosvall, M, and C. T. Bergstrom. 2008.
 "Maps of information flow reveal community structure in complex networks",
@@ -269,6 +187,7 @@ Other memberships:
 \code{\link{cliques}},
 \code{\link{components}()},
 \code{\link{core}},
-\code{\link{equivalence}}
+\code{\link{equivalence}},
+\code{\link{hierarchical_community}}
 }
 \concept{memberships}

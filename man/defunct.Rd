@@ -44,6 +44,17 @@
 \alias{graph_smallworld}
 \alias{network_homophily}
 \alias{node_homophily}
+\alias{node_optimal}
+\alias{node_kernighanlin}
+\alias{node_edge_betweenness}
+\alias{node_fast_greedy}
+\alias{node_leading_eigen}
+\alias{node_walktrap}
+\alias{node_infomap}
+\alias{node_spinglass}
+\alias{node_fluid}
+\alias{node_leiden}
+\alias{node_louvain}
 \alias{node_core}
 \alias{node_roulette}
 \alias{node_components}
@@ -138,6 +149,28 @@ graph_smallworld(object, times = 100)
 network_homophily(object, attribute)
 
 node_homophily(object, attribute)
+
+node_optimal(.data)
+
+node_kernighanlin(.data)
+
+node_edge_betweenness(.data)
+
+node_fast_greedy(.data)
+
+node_leading_eigen(.data)
+
+node_walktrap(.data)
+
+node_infomap(.data)
+
+node_spinglass(.data)
+
+node_fluid(.data)
+
+node_leiden(.data)
+
+node_louvain(.data)
 
 node_core(.data)
 
@@ -252,6 +285,27 @@ wherever possible and update your scripts accordingly.
 
 \item \code{node_homophily()}: Deprecated on 2022-09-25.
 
+\item \code{node_optimal()}: Deprecated on 2024-06-14.
+
+\item \code{node_kernighanlin()}: Deprecated on 2024-06-14.
+
+\item \code{node_edge_betweenness()}: Deprecated on 2024-06-14.
+
+\item \code{node_fast_greedy()}: Deprecated on 2024-06-14.
+
+\item \code{node_leading_eigen()}: Deprecated on 2024-06-14.
+
+\item \code{node_walktrap()}: Deprecated on 2024-06-14.
+
+\item \code{node_infomap()}: Deprecated on 2024-06-14.
+
+\item \code{node_spinglass()}: Deprecated on 2024-06-14.
+
+\item \code{node_fluid()}: Deprecated on 2024-06-14.
+
+\item \code{node_leiden()}: Deprecated on 2024-06-14.
+
+\item \code{node_louvain()}: Deprecated on 2024-06-14.
 
 \item \code{node_core()}: Deprecated on 2024-06-14.
 

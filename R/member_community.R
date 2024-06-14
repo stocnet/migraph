@@ -1,28 +1,23 @@
-#' Community partitioning algorithms
+# Non-hierarchical community partitioning ####
+
+#' Non-hierarchical community partitioning algorithms
 #' 
 #' @description
-#'   These functions offer different algorithms useful for partitioning
+#'   These functions offer algorithms for partitioning
 #'   networks into sets of communities:
 #' 
-#'   - `node_optimal()` is a problem-solving algorithm that seeks to maximise 
+#'   - `node_in_optimal()` is a problem-solving algorithm that seeks to maximise 
 #'   modularity over all possible partitions.
-#'   - `node_kernaghinlin()` is a greedy, iterative, deterministic
+#'   - `node_in_kernaghinlin()` is a greedy, iterative, deterministic
 #'   partitioning algorithm that results in two equally-sized communities.
-#'   - `node_edge_betweenness()` is a hierarchical, decomposition algorithm
-#'   where edges are removed in decreasing order of the number of
-#'   shortest paths passing through the edge.
-#'   - `node_fast_greedy()` is a hierarchical, agglomerative algorithm, 
-#'   that tries to optimize modularity in a greedy manner.
-#'   - `node_leading_eigen()` is a top-down, hierarchical algorithm.
-#'   - `node_walktrap()` is a hierarchical, agglomerative algorithm based on random walks.
-#'   - `node_infomap()` is a hierarchical algorithm based on the information in random walks.
-#'   - `node_spinglass()` is a greedy, iterative, probabilistic algorithm, 
+#'   - `node_in_infomap()` is an algorithm based on the information in random walks.
+#'   - `node_in_spinglass()` is a greedy, iterative, probabilistic algorithm, 
 #'   based on analogy to model from statistical physics.
-#'   - `node_fluid()` is a propogation-based partitioning algorithm,
+#'   - `node_in_fluid()` is a propogation-based partitioning algorithm,
 #'   based on analogy to model from fluid dynamics.
-#'   - `node_louvain()` is an agglomerative multilevel algorithm that seeks to maximise 
+#'   - `node_in_louvain()` is an agglomerative multilevel algorithm that seeks to maximise 
 #'   modularity over all possible partitions.
-#'   - `node_leiden()` is an agglomerative multilevel algorithm that seeks to maximise 
+#'   - `node_in_leiden()` is an agglomerative multilevel algorithm that seeks to maximise 
 #'   the Constant Potts Model over all possible partitions.
 #'  
 #'   The different algorithms offer various advantages in terms of computation time,
@@ -45,9 +40,9 @@ NULL
 #' "On Modularity Clustering", 
 #' _IEEE Transactions on Knowledge and Data Engineering_ 20(2):172-188.
 #' @examples
-#' node_optimal(ison_adolescents)
+#' node_in_optimal(ison_adolescents)
 #' @export
-node_optimal <- function(.data){
+node_in_optimal <- function(.data){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- igraph::cluster_optimal(manynet::as_igraph(.data)
   )$membership
@@ -61,10 +56,10 @@ node_optimal <- function(.data){
 #' _The Bell System Technical Journal_ 49(2): 291-307.
 #' \doi{10.1002/j.1538-7305.1970.tb01770.x}
 #' @examples
-#' node_kernighanlin(ison_adolescents)
-#' node_kernighanlin(ison_southern_women)
+#' node_in_kernighanlin(ison_adolescents)
+#' node_in_kernighanlin(ison_southern_women)
 #' @export
-node_kernighanlin <- function(.data){
+node_in_kernighanlin <- function(.data){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   # assign groups arbitrarily
   n <- manynet::network_nodes(.data)
@@ -111,112 +106,6 @@ node_kernighanlin <- function(.data){
 }
 
 #' @rdname community 
-#' @section Edge-betweenness:
-#'   This is motivated by the idea that edges connecting different groups 
-#'   are more likely to lie on multiple shortest paths when they are the 
-#'   only option to go from one group to another. 
-#'   This method yields good results but is very slow because of 
-#'   the computational complexity of edge-betweenness calculations and 
-#'   the betweenness scores have to be re-calculated after every edge removal. 
-#'   Networks of ~700 nodes and ~3500 ties are around the upper size limit 
-#'   that are feasible with this approach. 
-#' @references
-#' Newman, M, and M Girvan. 2004.
-#' "Finding and evaluating community structure in networks." 
-#' _Physical Review E_ 69: 026113.
-#' @examples
-#' node_edge_betweenness(ison_adolescents)
-#' plot(node_edge_betweenness(ison_adolescents))
-#' @export
-node_edge_betweenness <- function(.data){
-  if(missing(.data)) {expect_nodes(); .data <- .G()}
-  clust <- suppressWarnings(igraph::cluster_edge_betweenness(
-    manynet::as_igraph(.data)))
-  out <- clust$membership
-  out <- make_node_member(out, .data)
-  attr(out, "hc") <- as.hclust(clust, use.modularity = TRUE)
-  attr(out, "k") <- max(clust$membership)
-  out
-}
-
-#' @rdname community 
-#' @section Fast-greedy:
-#'   Initially, each node is assigned a separate community.
-#'   Communities are then merged iteratively such that each merge
-#'   yields the largest increase in the current value of modularity,
-#'   until no further increases to the modularity are possible.
-#'   The method is fast and recommended as a first approximation 
-#'   because it has no parameters to tune. 
-#'   However, it is known to suffer from a resolution limit.
-#' @references
-#' Clauset, A, MEJ Newman, MEJ and C Moore. 
-#' "Finding community structure in very large networks."
-#' @examples
-#' node_fast_greedy(ison_adolescents)
-#' @export
-node_fast_greedy <- function(.data){
-  if(missing(.data)) {expect_nodes(); .data <- .G()}
-  clust <- igraph::cluster_fast_greedy(manynet::as_igraph(.data))
-  out <- clust$membership
-  make_node_member(out, .data)
-  out <- make_node_member(out, .data)
-  attr(out, "hc") <- as.hclust(clust, use.modularity = TRUE)
-  attr(out, "k") <- max(clust$membership)
-  out
-}
-
-#' @rdname community 
-#' @section Leading eigenvector:
-#'   In each step, the network is bifurcated such that modularity increases most.
-#'   The splits are determined according to the leading eigenvector of the modularity matrix.
-#'   A stopping condition prevents tightly connected groups from being split further.
-#'   Note that due to the eigenvector calculations involved,
-#'   this algorithm will perform poorly on degenerate networks,
-#'   but will likely obtain a higher modularity than fast-greedy (at some cost of speed).
-#' @references
-#' Newman, MEJ. 2006.
-#' "Finding community structure using the eigenvectors of matrices"
-#' _Physical Review E_ 74:036104.
-#' @examples
-#' node_leading_eigen(ison_adolescents)
-#' @export
-node_leading_eigen <- function(.data){
-  if(missing(.data)) {expect_nodes(); .data <- .G()}
-  clust <- igraph::cluster_leading_eigen(manynet::as_igraph(.data))
-  out <- clust$membership
-  make_node_member(out, .data)
-  out <- make_node_member(out, .data)
-  attr(out, "hc") <- as.hclust(clust)
-  attr(out, "k") <- max(clust$membership)
-  out
-}
-
-#' @rdname community 
-#' @section Walktrap:
-#'   The general idea is that random walks on a network are more likely to stay 
-#'   within the same community because few edges lead outside a community.
-#'   By repeating random walks of 4 steps many times,
-#'   information about the hierarchical merging of communities is collected.
-#' @param times Integer indicating number of simulations/walks used.
-#'   By default, `times=50`.
-#' @references
-#' Pons, Pascal, and Matthieu Latapy
-#' "Computing communities in large networks using random walks".
-#' @examples
-#' node_walktrap(ison_adolescents)
-#' @export
-node_walktrap <- function(.data, times = 50){
-  if(missing(.data)) {expect_nodes(); .data <- .G()}
-  clust <- igraph::cluster_walktrap(manynet::as_igraph(.data))
-  out <- clust$membership
-  make_node_member(out, .data)
-  out <- make_node_member(out, .data)
-  attr(out, "hc") <- as.hclust(clust, use.modularity = TRUE)
-  attr(out, "k") <- max(clust$membership)
-  out
-}
-
-#' @rdname community 
 #' @section Infomap:
 #'   Motivated by information theoretic principles, this algorithm tries to build 
 #'   a grouping that provides the shortest description length for a random walk,
@@ -232,9 +121,9 @@ node_walktrap <- function(.data, times = 50){
 #' _Eur. Phys. J. Special Topics_ 178: 13. 
 #' \doi{10.1140/epjst/e2010-01179-1}
 #' @examples
-#' node_infomap(ison_adolescents)
+#' node_in_infomap(ison_adolescents)
 #' @export
-node_infomap <- function(.data, times = 50){
+node_in_infomap <- function(.data, times = 50){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- igraph::cluster_infomap(manynet::as_igraph(.data), 
                                  nb.trials = times
@@ -267,9 +156,9 @@ node_infomap <- function(.data, times = 50){
 #' Traag, VA, and Jeroen Bruggeman. 2008.
 #' "Community detection in networks with positive and negative links".
 #' @examples
-#' node_spinglass(ison_adolescents)
+#' node_in_spinglass(ison_adolescents)
 #' @export
-node_spinglass <- function(.data, max_k = 200, resolution = 1){
+node_in_spinglass <- function(.data, max_k = 200, resolution = 1){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- igraph::cluster_spinglass(manynet::as_igraph(.data), 
                                    spins = max_k, gamma = resolution,
@@ -292,9 +181,9 @@ node_spinglass <- function(.data, max_k = 200, resolution = 1){
 #' Springer, 689: 229.
 #' \doi{10.1007/978-3-319-72150-7_19}
 #' @examples
-#' node_fluid(ison_adolescents)
+#' node_in_fluid(ison_adolescents)
 #' @export
-node_fluid <- function(.data) {
+node_in_fluid <- function(.data) {
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   .data <- as_igraph(.data)
   mods <- vapply(seq.int(manynet::network_nodes(.data)), function(x)
@@ -319,9 +208,9 @@ node_fluid <- function(.data) {
 #' "Fast unfolding of communities in large networks",
 #' _J. Stat. Mech._ P10008.
 #' @examples
-#' node_louvain(ison_adolescents)
+#' node_in_louvain(ison_adolescents)
 #' @export
-node_louvain <- function(.data, resolution = 1){
+node_in_louvain <- function(.data, resolution = 1){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   out <- igraph::cluster_louvain(manynet::as_igraph(.data), 
                                 resolution = resolution
@@ -350,9 +239,9 @@ node_louvain <- function(.data, resolution = 1){
 #' _Scientific Reports_, 9(1):5233. 
 #' \doi{10.1038/s41598-019-41695-z}
 #' @examples
-#' node_leiden(ison_adolescents)
+#' node_in_leiden(ison_adolescents)
 #' @export
-node_leiden <- function(.data, resolution = 1){
+node_in_leiden <- function(.data, resolution = 1){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(manynet::is_weighted(.data)){ # Traag resolution default
     n <- manynet::network_nodes(.data)
