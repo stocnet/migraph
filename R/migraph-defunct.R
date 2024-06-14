@@ -364,6 +364,38 @@ node_homophily <- function(object, attribute) {
   node_heterophily(object, attribute)
 }
 
+#' @describeIn defunct Deprecated on 2024-06-14.
+#' @export
+node_edge_betweenness <- function(.data) {
+  .Deprecated("node_in_betweenness", package = "migraph",
+              old = "node_edge_betweenness")
+  node_in_betweenness(.data)
+}
+
+#' @describeIn defunct Deprecated on 2024-06-14.
+#' @export
+node_fast_greedy <- function(.data) {
+  .Deprecated("node_in_greedy", package = "migraph",
+              old = "node_fast_greedy")
+  node_in_greedy(.data)
+}
+
+#' @describeIn defunct Deprecated on 2024-06-14.
+#' @export
+node_leading_eigen <- function(.data) {
+  .Deprecated("node_in_eigen", package = "migraph",
+              old = "node_leading_eigen")
+  node_in_eigen(.data)
+}
+
+#' @describeIn defunct Deprecated on 2024-06-14.
+#' @export
+node_walktrap <- function(.data) {
+  .Deprecated("node_in_walktrap", package = "migraph",
+              old = "node_walktrap")
+  node_in_walktrap(.data)
+}
+
 
 #' @describeIn defunct Deprecated on 2024-06-14.
 #' @export

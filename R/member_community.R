@@ -364,3 +364,135 @@ node_leiden <- function(.data, resolution = 1){
   make_node_member(out, .data)
 }
 
+# Hierarchical community partitioning ####
+
+#' Hierarchical community partitioning algorithms
+#' 
+#' @description
+#'   These functions offer algorithms for hierarchically clustering
+#'   networks into communities. Since all of the following are hierarchical,
+#'   their dendrograms can be plotted:
+#' 
+#'   - `node_in_betweenness()` is a hierarchical, decomposition algorithm
+#'   where edges are removed in decreasing order of the number of
+#'   shortest paths passing through the edge.
+#'   - `node_in_greedy()` is a hierarchical, agglomerative algorithm, 
+#'   that tries to optimize modularity in a greedy manner.
+#'   - `node_in_eigen()` is a top-down, hierarchical algorithm.
+#'   - `node_in_walktrap()` is a hierarchical, agglomerative algorithm based on random walks.
+#'  
+#'   The different algorithms offer various advantages in terms of computation time,
+#'   availability on different types of networks, ability to maximise modularity,
+#'   and their logic or domain of inspiration.
+#'   
+#' @inheritParams cohesion
+#' @name hierarchical_community
+#' @family memberships
+NULL
+
+#' @rdname hierarchical_community 
+#' @section Edge-betweenness:
+#'   This is motivated by the idea that edges connecting different groups 
+#'   are more likely to lie on multiple shortest paths when they are the 
+#'   only option to go from one group to another. 
+#'   This method yields good results but is very slow because of 
+#'   the computational complexity of edge-betweenness calculations and 
+#'   the betweenness scores have to be re-calculated after every edge removal. 
+#'   Networks of ~700 nodes and ~3500 ties are around the upper size limit 
+#'   that are feasible with this approach. 
+#' @references
+#' Newman, M, and M Girvan. 2004.
+#' "Finding and evaluating community structure in networks." 
+#' _Physical Review E_ 69: 026113.
+#' @examples
+#' node_in_betweenness(ison_adolescents)
+#' plot(node_in_betweenness(ison_adolescents))
+#' @export
+node_in_betweenness <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
+  clust <- suppressWarnings(igraph::cluster_edge_betweenness(
+    manynet::as_igraph(.data)))
+  out <- clust$membership
+  out <- make_node_member(out, .data)
+  attr(out, "hc") <- as.hclust(clust, use.modularity = TRUE)
+  attr(out, "k") <- max(clust$membership)
+  out
+}
+
+#' @rdname hierarchical_community 
+#' @section Fast-greedy:
+#'   Initially, each node is assigned a separate community.
+#'   Communities are then merged iteratively such that each merge
+#'   yields the largest increase in the current value of modularity,
+#'   until no further increases to the modularity are possible.
+#'   The method is fast and recommended as a first approximation 
+#'   because it has no parameters to tune. 
+#'   However, it is known to suffer from a resolution limit.
+#' @references
+#' Clauset, A, MEJ Newman, MEJ and C Moore. 
+#' "Finding community structure in very large networks."
+#' @examples
+#' node_in_greedy(ison_adolescents)
+#' @export
+node_in_greedy <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
+  clust <- igraph::cluster_fast_greedy(manynet::as_igraph(.data))
+  out <- clust$membership
+  make_node_member(out, .data)
+  out <- make_node_member(out, .data)
+  attr(out, "hc") <- as.hclust(clust, use.modularity = TRUE)
+  attr(out, "k") <- max(clust$membership)
+  out
+}
+
+#' @rdname hierarchical_community 
+#' @section Leading eigenvector:
+#'   In each step, the network is bifurcated such that modularity increases most.
+#'   The splits are determined according to the leading eigenvector of the modularity matrix.
+#'   A stopping condition prevents tightly connected groups from being split further.
+#'   Note that due to the eigenvector calculations involved,
+#'   this algorithm will perform poorly on degenerate networks,
+#'   but will likely obtain a higher modularity than fast-greedy (at some cost of speed).
+#' @references
+#' Newman, MEJ. 2006.
+#' "Finding community structure using the eigenvectors of matrices"
+#' _Physical Review E_ 74:036104.
+#' @examples
+#' node_in_eigen(ison_adolescents)
+#' @export
+node_in_eigen <- function(.data){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
+  clust <- igraph::cluster_leading_eigen(manynet::as_igraph(.data))
+  out <- clust$membership
+  make_node_member(out, .data)
+  out <- make_node_member(out, .data)
+  attr(out, "hc") <- as.hclust(clust)
+  attr(out, "k") <- max(clust$membership)
+  out
+}
+
+#' @rdname hierarchical_community 
+#' @section Walktrap:
+#'   The general idea is that random walks on a network are more likely to stay 
+#'   within the same community because few edges lead outside a community.
+#'   By repeating random walks of 4 steps many times,
+#'   information about the hierarchical merging of communities is collected.
+#' @param times Integer indicating number of simulations/walks used.
+#'   By default, `times=50`.
+#' @references
+#' Pons, Pascal, and Matthieu Latapy
+#' "Computing communities in large networks using random walks".
+#' @examples
+#' node_in_walktrap(ison_adolescents)
+#' @export
+node_in_walktrap <- function(.data, times = 50){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
+  clust <- igraph::cluster_walktrap(manynet::as_igraph(.data))
+  out <- clust$membership
+  make_node_member(out, .data)
+  out <- make_node_member(out, .data)
+  attr(out, "hc") <- as.hclust(clust, use.modularity = TRUE)
+  attr(out, "k") <- max(clust$membership)
+  out
+}
+

@@ -62,7 +62,7 @@ reference:
       in partitions within multimodal networks.
       They return integer vectors the length of the nodes in the network.
     contents:
-      - community
+      - contains("_in_")
       - components
       - equivalence
       - core
