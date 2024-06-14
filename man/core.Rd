@@ -2,11 +2,11 @@
 % Please edit documentation in R/member_core.R
 \name{core}
 \alias{core}
-\alias{node_core}
+\alias{node_in_core}
 \alias{node_coreness}
 \title{Core-periphery clustering algorithms}
 \usage{
-node_core(.data, method = c("degree", "eigenvector"))
+node_in_core(.data, method = c("degree", "eigenvector"))
 
 node_coreness(.data)
 }
@@ -30,7 +30,7 @@ can be added if there is interest.}
 \description{
 These functions identify nodes belonging to (some level of) the core of a network:
 \itemize{
-\item \code{node_core()} assigns nodes to either the core or periphery.
+\item \code{node_in_core()} assigns nodes to either the core or periphery.
 \item \code{node_coreness()} assigns nodes to their level of k-coreness.
 }
 }
@@ -50,9 +50,9 @@ it ignores ties between these blocks.
 
 \examples{
 #mpn_elite_usa_advice \%>\% as_tidygraph \%>\% 
-#   mutate(corep = node_core(mpn_elite_usa_advice)) \%>\% 
+#   mutate(corep = node_in_core(mpn_elite_usa_advice)) \%>\% 
 #   autographr(node_color = "corep")
-network_core(mpn_elite_usa_advice)
+network_in_core(mpn_elite_usa_advice)
 node_coreness(ison_adolescents)
 }
 \references{
@@ -70,6 +70,7 @@ Other memberships:
 \code{\link{cliques}},
 \code{\link{community}},
 \code{\link{components}()},
-\code{\link{equivalence}}
+\code{\link{equivalence}},
+\code{\link{hierarchical_community}}
 }
 \concept{memberships}

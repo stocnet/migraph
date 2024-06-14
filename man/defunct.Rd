@@ -44,6 +44,11 @@
 \alias{graph_smallworld}
 \alias{network_homophily}
 \alias{node_homophily}
+\alias{node_core}
+\alias{node_roulette}
+\alias{node_components}
+\alias{node_weak_components}
+\alias{node_strong_components}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 edge_betweenness(object, normalized = TRUE)
@@ -129,6 +134,17 @@ graph_smallworld(object, times = 100)
 network_homophily(object, attribute)
 
 node_homophily(object, attribute)
+
+node_core(.data)
+
+node_roulette(.data)
+
+node_components(.data)
+
+node_weak_components(.data)
+
+node_strong_components(.data)
+
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -225,5 +241,15 @@ wherever possible and update your scripts accordingly.
 
 \item \code{node_homophily()}: Deprecated on 2022-09-25.
 
+
+\item \code{node_core()}: Deprecated on 2024-06-14.
+
+\item \code{node_roulette()}: Deprecated on 2024-06-14.
+
+\item \code{node_components()}: Deprecated on 2024-06-14.
+
+\item \code{node_weak_components()}: Deprecated on 2024-06-14.
+
+\item \code{node_strong_components()}: Deprecated on 2024-06-14.
 }}
 \keyword{internal}

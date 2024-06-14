@@ -367,6 +367,14 @@ node_homophily <- function(object, attribute) {
 
 #' @describeIn defunct Deprecated on 2024-06-14.
 #' @export
+node_core <- function(.data) {
+  .Deprecated("node_in_core", package = "migraph",
+              old = "node_core")
+  node_in_core(.data)
+}
+
+#' @describeIn defunct Deprecated on 2024-06-14.
+#' @export
 node_roulette <- function(.data) {
   .Deprecated("node_in_roulette", package = "migraph",
               old = "node_roulette")

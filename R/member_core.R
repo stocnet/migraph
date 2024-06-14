@@ -2,7 +2,7 @@
 #' @description
 #'   These functions identify nodes belonging to (some level of) the core of a network:
 #'   
-#'   - `node_core()` assigns nodes to either the core or periphery.
+#'   - `node_in_core()` assigns nodes to either the core or periphery.
 #'   - `node_coreness()` assigns nodes to their level of k-coreness.
 #' 
 #' @inheritParams cohesion
@@ -39,11 +39,11 @@ NULL
 #' \doi{10.48550/arXiv.1102.5511}
 #' @examples 
 #' #mpn_elite_usa_advice %>% as_tidygraph %>% 
-#' #   mutate(corep = node_core(mpn_elite_usa_advice)) %>% 
+#' #   mutate(corep = node_in_core(mpn_elite_usa_advice)) %>% 
 #' #   autographr(node_color = "corep")
-#' network_core(mpn_elite_usa_advice)
+#' network_in_core(mpn_elite_usa_advice)
 #' @export
-node_core <- function(.data, method = c("degree", "eigenvector")){
+node_in_core <- function(.data, method = c("degree", "eigenvector")){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   method <- match.arg(method)
   if(manynet::is_directed(.data)) warning("Asymmetric core-periphery not yet implemented.")
@@ -77,6 +77,6 @@ node_coreness <- function(.data){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(!manynet::is_graph(.data)) .data <- manynet::as_igraph(.data)
   out <- igraph::coreness(.data)
-  make_node_member(out, .data)
+  make_node_measure(out, .data)
 }
 
