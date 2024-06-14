@@ -2,10 +2,10 @@
 % Please edit documentation in R/member_cliques.R
 \name{cliques}
 \alias{cliques}
-\alias{node_roulette}
+\alias{node_in_roulette}
 \title{Clique partitioning algorithms}
 \usage{
-node_roulette(.data, num_groups, group_size, times = NULL)
+node_in_roulette(.data, num_groups, group_size, times = NULL)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -35,7 +35,7 @@ will take place irrespective of whether it improves the objective function.}
 These functions create a vector of nodes' memberships in
 cliques:
 \itemize{
-\item \code{node_roulette()} assigns nodes to maximally diverse groups.
+\item \code{node_in_roulette()} assigns nodes to maximally diverse groups.
 }
 }
 \section{Maximally diverse grouping problem}{
@@ -79,6 +79,7 @@ Other memberships:
 \code{\link{community}},
 \code{\link{components}()},
 \code{\link{core}},
-\code{\link{equivalence}}
+\code{\link{equivalence}},
+\code{\link{hierarchical_community}}
 }
 \concept{memberships}

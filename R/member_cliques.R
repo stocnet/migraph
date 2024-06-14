@@ -4,7 +4,7 @@
 #'   These functions create a vector of nodes' memberships in
 #'   cliques:
 #'   
-#'   - `node_roulette()` assigns nodes to maximally diverse groups.
+#'   - `node_in_roulette()` assigns nodes to maximally diverse groups.
 #'   
 #' @section Maximally diverse grouping problem: 
 #'   This well known computational problem is a NP-hard problem
@@ -56,7 +56,7 @@ NULL
 #' _European Journal of Operational Research_ 289(3):1067–86. 
 #' \doi{10.1016/j.ejor.2020.07.048}.
 #' @export
-node_roulette <- function(.data, num_groups, group_size, times = NULL){
+node_in_roulette <- function(.data, num_groups, group_size, times = NULL){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(missing(num_groups) & missing(group_size)){
     stop(paste("Either `num_groups` must indicate number of groups desired",
