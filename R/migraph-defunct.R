@@ -363,3 +363,37 @@ node_homophily <- function(object, attribute) {
               old = "node_homophily")
   node_heterophily(object, attribute)
 }
+
+
+#' @describeIn defunct Deprecated on 2024-06-14.
+#' @export
+node_roulette <- function(.data) {
+  .Deprecated("node_in_roulette", package = "migraph",
+              old = "node_roulette")
+  node_in_roulette(.data)
+}
+
+#' @describeIn defunct Deprecated on 2024-06-14.
+#' @export
+node_components <- function(.data) {
+  .Deprecated("node_in_component", package = "migraph",
+              old = "node_components")
+  node_in_component(.data)
+}
+
+#' @describeIn defunct Deprecated on 2024-06-14.
+#' @export
+node_weak_components <- function(.data) {
+  .Deprecated("node_in_weak", package = "migraph",
+              old = "node_weak_components")
+  node_in_weak(.data)
+}
+
+#' @describeIn defunct Deprecated on 2024-06-14.
+#' @export
+node_strong_components <- function(.data) {
+  .Deprecated("node_in_strong", package = "migraph",
+              old = "node_strong_components")
+  node_in_strong(.data)
+}
+
