@@ -4,13 +4,12 @@
 #'   These functions create a vector of nodes' memberships in
 #'   components or degrees of coreness:
 #'   
-#'   - `node_components()` assigns nodes' component membership
+#'   - `node_in_component()` assigns nodes' component membership
 #'   using edge direction where available.
-#'   - `node_weak_components()` assigns nodes' component membership
+#'   - `node_in_weak()` assigns nodes' component membership
 #'   ignoring edge direction.
-#'   - `node_strong_components()` assigns nodes' component membership
+#'   - `node_in_strong()` assigns nodes' component membership
 #'   based on edge direction.
-#'   - `node_roulette()`
 #'   
 #'   In graph theory, components, sometimes called connected components, 
 #'   are induced subgraphs from partitioning the nodes into disjoint sets.
@@ -36,9 +35,9 @@ NULL
 #' @rdname components 
 #' @importFrom igraph components
 #' @examples 
-#' node_components(mpn_bristol)
+#' node_in_component(mpn_bristol)
 #' @export
-node_components <- function(.data){
+node_in_component <- function(.data){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(!manynet::is_graph(.data)) .data <- manynet::as_igraph(.data)
   make_node_member(igraph::components(.data, mode = "strong")$membership,
@@ -48,7 +47,7 @@ node_components <- function(.data){
 #' @rdname components 
 #' @importFrom igraph components
 #' @export
-node_weak_components <- function(.data){
+node_in_weak <- function(.data){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(!manynet::is_graph(.data)) .data <- manynet::as_igraph(.data)
   make_node_member(igraph::components(.data, mode = "weak")$membership,
@@ -58,7 +57,7 @@ node_weak_components <- function(.data){
 #' @rdname components 
 #' @importFrom igraph components
 #' @export
-node_strong_components <- function(.data){
+node_in_strong <- function(.data){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(!manynet::is_graph(.data)) .data <- manynet::as_igraph(.data)
   make_node_member(igraph::components(.data, mode = "strong")$membership,

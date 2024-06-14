@@ -2,16 +2,16 @@
 % Please edit documentation in R/member_components.R
 \name{components}
 \alias{components}
-\alias{node_components}
-\alias{node_weak_components}
-\alias{node_strong_components}
+\alias{node_in_component}
+\alias{node_in_weak}
+\alias{node_in_strong}
 \title{Component partitioning algorithms}
 \usage{
-node_components(.data)
+node_in_component(.data)
 
-node_weak_components(.data)
+node_in_weak(.data)
 
-node_strong_components(.data)
+node_in_strong(.data)
 }
 \arguments{
 \item{.data}{An object of a \code{{manynet}}-consistent class:
@@ -27,13 +27,12 @@ node_strong_components(.data)
 These functions create a vector of nodes' memberships in
 components or degrees of coreness:
 \itemize{
-\item \code{node_components()} assigns nodes' component membership
+\item \code{node_in_component()} assigns nodes' component membership
 using edge direction where available.
-\item \code{node_weak_components()} assigns nodes' component membership
+\item \code{node_in_weak()} assigns nodes' component membership
 ignoring edge direction.
-\item \code{node_strong_components()} assigns nodes' component membership
+\item \code{node_in_strong()} assigns nodes' component membership
 based on edge direction.
-\item \code{node_roulette()}
 }
 
 In graph theory, components, sometimes called connected components,
@@ -54,13 +53,14 @@ a node's coreness is \emph{k} if it belongs to the \emph{k}-core
 but not to the (\emph{k}+1)-core.
 }
 \examples{
-node_components(mpn_bristol)
+node_in_component(mpn_bristol)
 }
 \seealso{
 Other memberships: 
 \code{\link{cliques}},
 \code{\link{community}},
 \code{\link{core}},
-\code{\link{equivalence}}
+\code{\link{equivalence}},
+\code{\link{hierarchical_community}}
 }
 \concept{memberships}
