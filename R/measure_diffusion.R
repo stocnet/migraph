@@ -384,12 +384,23 @@ node_exposure <- function(.data, mark, time = 0){
     mark <- manynet::node_is_infected(.data, time = time)
     .data <- attr(.data, "network")
   }
-  if(is.logical(mark)) mark <- which(mark)
-  contacts <- unlist(lapply(igraph::neighborhood(.data, nodes = mark),
-                            function(x) setdiff(x, mark)))
-  # count exposures for each node:
-  tabcontact <- table(contacts)
-  out <- rep(0, manynet::network_nodes(.data))
-  out[as.numeric(names(tabcontact))] <- unname(tabcontact)
+  .data <- manynet::as_tidygraph(.data)
+  if(manynet::is_weighted(.data)){
+    if(is.numeric(mark)){
+      mk <- rep(FALSE, manynet::network_nodes(.data))
+      mk[mark] <- TRUE
+    }
+    out <- manynet::as_matrix(.data)
+    out <- colSums(out * matrix(mk, nrow(out), ncol(out)) * 
+                     matrix(!mk, nrow(out), ncol(out), byrow = TRUE))
+  } else {
+    if(is.logical(mark)) mark <- which(mark)
+    contacts <- unlist(lapply(igraph::neighborhood(.data, nodes = mark),
+                              function(x) setdiff(x, mark)))
+    # count exposures for each node:
+    tabcontact <- table(contacts)
+    out <- rep(0, manynet::network_nodes(.data))
+    out[as.numeric(names(tabcontact))] <- unname(tabcontact)
+  }
   make_node_measure(out, .data)
 }
