@@ -68,3 +68,7 @@ Authors@R:
            comment = c(ORCID = "0000-0001-5943-9059"))
     )
 Roxygen: list(markdown = TRUE, roclets = c("namespace", "rd"))
+Config/testthat/parallel: true
+Config/testthat/edition: 3
+Config/testthat/start-first: helper-functions 
+
