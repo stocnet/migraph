@@ -93,7 +93,7 @@ node_in_structural <- function(.data,
   if(any(colSums(t(mat))==0)){
     mat <- cbind(mat, (colSums(t(mat))==0))
   } 
-  node_equivalence(.data, mat, 
+  node_in_equivalence(.data, mat, 
                    k = k, cluster = cluster, distance = distance, range = range)
 }
 
@@ -118,7 +118,7 @@ node_in_regular <- function(.data,
     mat <- node_triad_census(.data)
   }
   if(any(colSums(mat) == 0)) mat <- mat[,-which(colSums(mat) == 0)]
-  node_equivalence(.data, mat, 
+  node_in_equivalence(.data, mat, 
                    k = k, cluster = cluster, distance = distance, range = range)
 }
 
@@ -138,6 +138,6 @@ node_in_automorphic <- function(.data,
                                          range = 8L){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   mat <- node_path_census(.data)
-  node_equivalence(.data, mat, 
+  node_in_equivalence(.data, mat, 
                    k = k, cluster = cluster, distance = distance, range = range)
 }

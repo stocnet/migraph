@@ -46,7 +46,7 @@ NULL
 network_core <- function(.data,
                        membership = NULL){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
-  if(is.null(membership)) membership <- node_core(.data)
+  if(is.null(membership)) membership <- node_in_core(.data)
   out <- stats::cor(c(manynet::as_matrix(.data)), 
                     c(manynet::as_matrix(manynet::create_core(.data,
                                             membership = membership))))

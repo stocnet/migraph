@@ -52,7 +52,7 @@ it ignores ties between these blocks.
 #mpn_elite_usa_advice \%>\% as_tidygraph \%>\% 
 #   mutate(corep = node_in_core(mpn_elite_usa_advice)) \%>\% 
 #   autographr(node_color = "corep")
-network_in_core(mpn_elite_usa_advice)
+node_in_core(mpn_elite_usa_advice)
 node_coreness(ison_adolescents)
 }
 \references{
