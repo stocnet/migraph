@@ -72,7 +72,6 @@ reference:
     contents:
       - starts_with("test")
       - regression
-      - starts_with("play")
       - cluster
       - kselect
   - title: "Data"

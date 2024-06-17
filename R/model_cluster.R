@@ -18,7 +18,7 @@ NULL
 #' @rdname cluster 
 #' @export
 cluster_hierarchical <- function(census, distance){
-  correlations <- to_correlation(t(census))
+  correlations <- manynet::to_correlation(t(census))
   dissimilarity <- 1 - correlations
   distances <- stats::dist(dissimilarity, method = distance)
   hc <- stats::hclust(distances)
@@ -57,9 +57,9 @@ cluster_hierarchical <- function(census, distance){
 cluster_concor <- function(.data, census){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   split_cor <- function(m0, cutoff = 1) {
-    if (ncol(m0) < 2 | all(to_correlation(m0)==1)) list(m0)
+    if (ncol(m0) < 2 | all(manynet::to_correlation(m0)==1)) list(m0)
     else {
-      mi <- to_correlation(m0)
+      mi <- manynet::to_correlation(m0)
       while (any(abs(mi) <= cutoff)) {
         mi <- stats::cor(mi)
         cutoff <- cutoff - 0.0001
