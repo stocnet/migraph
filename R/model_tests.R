@@ -178,6 +178,8 @@ plot.network_test <- function(x, ...,
 #' @description
 #'   These functions conduct tests of distributions:
 #'   
+#'   - `test_distribution()` performs a two-sample Kolmogorov-Smirnov test on 
+#'   whether two "diff_model" objects are drawn from the same distribution.
 #'   - `test_fit()` performs a chi-squared test on the squared Mahalanobis distance 
 #'   between a diff_model and diff_models objects.
 #'   
@@ -185,6 +187,17 @@ plot.network_test <- function(x, ...,
 #' @family models
 NULL
 
+#' @rdname test_distributions 
+#' @param diff_model1,diff_model2 diff_model objects
+#' @examples
+#'   test_distribution(play_diffusion(ison_networkers), 
+#'                     play_diffusion(ison_networkers, thresholds = 75))
+#' @export
+test_distribution <- function(diff_model1, diff_model2){
+  out <- stats::ks.test(diff_model1$I, diff_model2$I)
+  dplyr::tibble(statistic = out$statistic, p.value = out$p.value, 
+                nobs = length(diff_model1$I))
+}
 
 #' @rdname test_distributions 
 #' @param diff_model A diff_model object is returned by
