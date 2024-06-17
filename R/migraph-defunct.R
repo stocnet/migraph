@@ -375,9 +375,9 @@ node_optimal <- function(.data) {
 #' @describeIn defunct Deprecated on 2024-06-14.
 #' @export
 node_kernighanlin <- function(.data) {
-  .Deprecated("node_in_kernaghinlin", package = "migraph",
+  .Deprecated("node_in_partition", package = "migraph",
               old = "node_kernighanlin")
-  node_in_kernaghinlin(.data)
+  node_in_partition(.data)
 }
 
 #' @describeIn defunct Deprecated on 2024-06-14.

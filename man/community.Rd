@@ -3,7 +3,7 @@
 \name{community}
 \alias{community}
 \alias{node_in_optimal}
-\alias{node_in_kernighanlin}
+\alias{node_in_partition}
 \alias{node_in_infomap}
 \alias{node_in_spinglass}
 \alias{node_in_fluid}
@@ -13,7 +13,7 @@
 \usage{
 node_in_optimal(.data)
 
-node_in_kernighanlin(.data)
+node_in_partition(.data)
 
 node_in_infomap(.data, times = 50)
 
@@ -131,8 +131,8 @@ and \eqn{\delta(\sigma_i, \sigma_j) = 1} if and only if
 
 \examples{
 node_in_optimal(ison_adolescents)
-node_in_kernighanlin(ison_adolescents)
-node_in_kernighanlin(ison_southern_women)
+node_in_partition(ison_adolescents)
+node_in_partition(ison_southern_women)
 node_in_infomap(ison_adolescents)
 node_in_spinglass(ison_adolescents)
 node_in_fluid(ison_adolescents)

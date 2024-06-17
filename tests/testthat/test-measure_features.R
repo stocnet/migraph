@@ -14,9 +14,9 @@ test_that("network_balance works", {
 
 test_that("network_modularity works for two mode networks", {
   expect_s3_class(network_modularity(ison_southern_women,
-                                   node_kernighanlin(ison_southern_women)), "network_measure")
+                                     node_in_partition(ison_southern_women)), "network_measure")
   expect_length(network_modularity(ison_southern_women,
-                                 node_kernighanlin(ison_southern_women)), 1)
+                                   node_in_partition(ison_southern_women)), 1)
 })
 
 test_that("network_core works", {

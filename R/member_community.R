@@ -56,10 +56,10 @@ node_in_optimal <- function(.data){
 #' _The Bell System Technical Journal_ 49(2): 291-307.
 #' \doi{10.1002/j.1538-7305.1970.tb01770.x}
 #' @examples
-#' node_in_kernighanlin(ison_adolescents)
-#' node_in_kernighanlin(ison_southern_women)
+#' node_in_partition(ison_adolescents)
+#' node_in_partition(ison_southern_women)
 #' @export
-node_in_kernighanlin <- function(.data){
+node_in_partition <- function(.data){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   # assign groups arbitrarily
   n <- manynet::network_nodes(.data)

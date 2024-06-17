@@ -107,7 +107,7 @@ network_factions <- function(.data,
                        membership = NULL){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(is.null(membership))
-    membership <- node_kernighanlin(.data)
+    membership <- node_in_partition(.data)
   out <- stats::cor(c(manynet::as_matrix(.data)), 
                     c(manynet::as_matrix(manynet::create_components(.data,
                                                   membership = membership))))
@@ -150,7 +150,7 @@ network_modularity <- function(.data,
                              resolution = 1){
   if(missing(.data)) {expect_nodes(); .data <- .G()}
   if(is.null(membership))
-    membership <- node_kernighanlin(.data)
+    membership <- node_in_partition(.data)
   if(!is.numeric(membership)) membership <- as.numeric(as.factor(membership))
   if(!manynet::is_graph(.data)) .data <- manynet::as_igraph(.data)
   if(manynet::is_twomode(.data)){
