@@ -110,6 +110,8 @@ node_in_partition <- function(.data){
 #'   Motivated by information theoretic principles, this algorithm tries to build 
 #'   a grouping that provides the shortest description length for a random walk,
 #'   where the description length is measured by the expected number of bits per node required to encode the path.
+#' @param times Integer indicating number of simulations/walks used.
+#'   By default, `times=50`.
 #' @references
 #' Rosvall, M, and C. T. Bergstrom. 2008.
 #' "Maps of information flow reveal community structure in complex networks", 
@@ -274,7 +276,7 @@ node_in_leiden <- function(.data, resolution = 1){
 #'   availability on different types of networks, ability to maximise modularity,
 #'   and their logic or domain of inspiration.
 #'   
-#' @inheritParams cohesion
+#' @inheritParams community
 #' @name hierarchical_community
 #' @family memberships
 NULL
@@ -303,7 +305,7 @@ node_in_betweenness <- function(.data){
     manynet::as_igraph(.data)))
   out <- clust$membership
   out <- make_node_member(out, .data)
-  attr(out, "hc") <- as.hclust(clust, use.modularity = TRUE)
+  attr(out, "hc") <- stats::as.hclust(clust, use.modularity = TRUE)
   attr(out, "k") <- max(clust$membership)
   out
 }
@@ -329,7 +331,7 @@ node_in_greedy <- function(.data){
   out <- clust$membership
   make_node_member(out, .data)
   out <- make_node_member(out, .data)
-  attr(out, "hc") <- as.hclust(clust, use.modularity = TRUE)
+  attr(out, "hc") <- stats::as.hclust(clust, use.modularity = TRUE)
   attr(out, "k") <- max(clust$membership)
   out
 }
@@ -355,7 +357,7 @@ node_in_eigen <- function(.data){
   out <- clust$membership
   make_node_member(out, .data)
   out <- make_node_member(out, .data)
-  attr(out, "hc") <- as.hclust(clust)
+  attr(out, "hc") <- stats::as.hclust(clust)
   attr(out, "k") <- max(clust$membership)
   out
 }
@@ -380,7 +382,7 @@ node_in_walktrap <- function(.data, times = 50){
   out <- clust$membership
   make_node_member(out, .data)
   out <- make_node_member(out, .data)
-  attr(out, "hc") <- as.hclust(clust, use.modularity = TRUE)
+  attr(out, "hc") <- stats::as.hclust(clust, use.modularity = TRUE)
   attr(out, "k") <- max(clust$membership)
   out
 }

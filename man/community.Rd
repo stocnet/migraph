@@ -35,6 +35,9 @@ node_in_leiden(.data, resolution = 1)
 \item tbl_graph, from the \code{{tidygraph}} package
 }}
 
+\item{times}{Integer indicating number of simulations/walks used.
+By default, \code{times=50}.}
+
 \item{max_k}{Integer constant, the number of spins to use as an upper limit
 of communities to be found. Some sets can be empty at the end.}
 
