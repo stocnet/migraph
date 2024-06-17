@@ -93,10 +93,10 @@ test_that("node measure class works", {
 # ####### Centralization
 
 test_that("one-mode centralisation is calculated correctly", {
-  expect_equal(as.numeric(network_degree(mpn_elite_mex)), 0.303, tolerance = 0.001)
-  expect_equal(as.numeric(network_closeness(mpn_elite_mex)), 0.386, tolerance = 0.001)
-  expect_equal(as.numeric(network_betweenness(mpn_elite_mex)), 0.202, tolerance = 0.001)
-  expect_equal(as.numeric(network_eigenvector(mpn_elite_mex)), 0.630, tolerance = 0.001)
+  expect_equal(as.numeric(network_degree(mpn_elite_mex)), 0.3033, tolerance = 0.001)
+  expect_equal(as.numeric(network_closeness(mpn_elite_mex)), 0.3855, tolerance = 0.001)
+  expect_equal(as.numeric(network_betweenness(mpn_elite_mex)), 0.2024, tolerance = 0.001)
+  expect_equal(as.numeric(network_eigenvector(mpn_elite_mex)), 0.6300, tolerance = 0.001)
 })
 
 test_that("two mode degree centralisation calculated correctly", {
@@ -113,7 +113,7 @@ test_that("two mode closeness centralisation calculated correctly", {
 test_that("two mode betweenness centralisation calculated correctly", {
   expect_equal(as.numeric(network_betweenness(ison_southern_women, normalized = FALSE)), c(0.0580, 0.2073), tolerance = 0.001)
   expect_equal(as.numeric(network_betweenness(ison_southern_women, direction = "in")), c(0.0668, 0.1982), tolerance = 0.001)
-  expect_equal(as.numeric(network_betweenness(ison_southern_women, normalized = TRUE)), c(0.0586, 0.207), tolerance = 0.001)
+  expect_equal(as.numeric(network_betweenness(ison_southern_women, normalized = TRUE)), c(0.05858, 0.2073), tolerance = 0.001)
 })
 
 test_that("network_measure class works", {

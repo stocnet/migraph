@@ -33,7 +33,7 @@ test_that("three-mode clustering calculated correctly",{
   mat1 <- manynet::create_ring(c(10,5))
   mat2 <- manynet::create_ring(c(5,8))
   expect_equal(as.numeric(network_congruency(mat1, mat2)),
-               0.368, tolerance = 0.001)
+               0.3684, tolerance = 0.001)
   expect_s3_class(network_congruency(mat1, mat2), "network_measure")
   expect_output(print(network_congruency(mat1, mat2)))
 })

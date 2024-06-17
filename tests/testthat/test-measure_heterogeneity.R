@@ -3,7 +3,7 @@
 test_that("diversity function works", {
   expect_equal(as.numeric(network_diversity(ison_marvel_relationships, "Gender")), 0.306, tolerance = 0.001)
   expect_equal(as.numeric(network_diversity(ison_marvel_relationships, "Gender", "Rich")),
-               c(0.337,0.165), tolerance = 0.001)
+               c(0.3367,0.1653), tolerance = 0.001)
 })
 
 test_that("heterophily function works", {

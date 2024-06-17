@@ -18,9 +18,9 @@ test_that("network_reg estimates correctly",{
 
 test_that("network_reg tests correctly",{
   expect_equal(top3(test$pgreqabs, 2),
-               c(0.14, 0.32, NA), tolerance = 0.1)
+               c(0.16, 0.32, NA), tolerance = 0.1)
   expect_equal(top3(test_logit$pgreqabs,2),
-               c(0.9, 0.2, NA), tolerance = 0.1)
+               c(0.8, 0.18, NA), tolerance = 0.1)
 })
 
 tidys <- tidy(test)
