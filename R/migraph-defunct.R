@@ -523,3 +523,11 @@ node_automorphic_equivalence <- function(.data) {
               old = "node_automorphic_equivalence")
   node_in_automorphic(.data)
 }
+
+#' @describeIn defunct Deprecated on 2024-06-16.
+#' @export
+test_gof <- function(diff_model, diff_models) {
+  .Deprecated("test_fit", package = "migraph",
+              old = "test_gof")
+  test_fit(diff_model, diff_models)
+}

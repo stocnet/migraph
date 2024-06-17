@@ -64,6 +64,7 @@
 \alias{node_structural_equivalence}
 \alias{node_regular_equivalence}
 \alias{node_automorphic_equivalence}
+\alias{test_gof}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 edge_betweenness(object, normalized = TRUE)
@@ -189,6 +190,8 @@ node_structural_equivalence(.data)
 node_regular_equivalence(.data)
 
 node_automorphic_equivalence(.data)
+
+test_gof(diff_model, diff_models)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -324,6 +327,8 @@ wherever possible and update your scripts accordingly.
 \item \code{node_regular_equivalence()}: Deprecated on 2024-06-14.
 
 \item \code{node_automorphic_equivalence()}: Deprecated on 2024-06-14.
+
+\item \code{test_gof()}: Deprecated on 2024-06-16.
 
 }}
 \keyword{internal}

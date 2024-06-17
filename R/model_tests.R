@@ -1,4 +1,6 @@
-#' Conditional uniform graph and permutation tests
+# Tests of network measures ####
+
+#' Tests of network measures
 #' 
 #' @description
 #'   These functions conduct tests of any network-level statistic:
@@ -9,8 +11,6 @@
 #'   - `test_permutation()` performs a quadratic assignment procedure (QAP) test 
 #'   of a measure against a distribution of measures on permutations 
 #'   of the original network.
-#'   - `test_gof()` performs a chi-squared test on the squared Mahalanobis distance 
-#'   between a diff_model and diff_models objects.
 #'   
 #' @name tests
 #' @inheritParams regression
@@ -171,7 +171,22 @@ plot.network_test <- function(x, ...,
                         color="red", linewidth=1.2) + ggplot2::ylab("Density")
 }
 
-#' @rdname tests 
+# Tests of network distributions ####
+
+#' Tests of network distributions
+#' 
+#' @description
+#'   These functions conduct tests of distributions:
+#'   
+#'   - `test_fit()` performs a chi-squared test on the squared Mahalanobis distance 
+#'   between a diff_model and diff_models objects.
+#'   
+#' @name test_distributions
+#' @family models
+NULL
+
+
+#' @rdname test_distributions 
 #' @param diff_model A diff_model object is returned by
 #'   `play_diffusion()` or `as_diffusion()` and contains
 #'   a single empirical or simulated diffusion.
@@ -198,9 +213,9 @@ plot.network_test <- function(x, ...,
 #'   y <- play_diffusions(generate_random(15), transmissibility = 0.1, times = 40)
 #'   plot(x)
 #'   plot(y)
-#'   test_gof(x, y)
+#'   test_fit(x, y)
 #' @export
-test_gof <- function(diff_model, diff_models){ # make into method?
+test_fit <- function(diff_model, diff_models){ # make into method?
   x <- diff_model
   y <- diff_models
   sim <- `0` <- NULL
@@ -210,6 +225,6 @@ test_gof <- function(diff_model, diff_models){ # make into method?
   mah <- stats::mahalanobis(x$I[-1], colMeans(sims), stats::cov(sims))
   pval <- pchisq(mah, df=length(x$I[-1]), lower.tail=FALSE)
   dplyr::tibble(statistic = mah, p.value = pval, 
-                 df = length(x$I[-1]), nobs = nrow(sims))
+                df = length(x$I[-1]), nobs = nrow(sims))
 }
 
