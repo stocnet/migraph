@@ -81,7 +81,7 @@ marvel_friends
 This gives us a dataset of nearly twenty characters and a little more than 100 edges.
 Recall that this data has several nodal attributes.
 Explore a couple of these attributes, "Gender" and "PowerOrigin" visually
-using `autographr()`.
+using `graphr()`.
 
 ```{r plotfriends, exercise=TRUE, purl = FALSE}
 
@@ -92,13 +92,13 @@ using `autographr()`.
 # you will need to use two different aesthetic dimensions to
 # represent them together.
 # Which will you present as shapes and which as colors?
-autographr(____, 
-           node_shape = ____,
-           node_color = ____)
+graphr(____, 
+       node_shape = ____,
+       node_color = ____)
 ```
 
 ```{r plotfriends-solution}
-autographr(marvel_friends, 
+graphr(marvel_friends, 
            node_shape = "Gender",
            node_color = "PowerOrigin")
 ```
@@ -254,14 +254,14 @@ plot(rand.____)
 
 ```{r rando-hint-3, purl = FALSE}
 rand.gender <- test_random(marvel_friends, 
-                            network_heterophily, attribute = "Gender", 
+                           network_heterophily, attribute = "Gender", 
                            times = 1000)
 rand.power <- test_random(marvel_friends, 
-                           network_heterophily, attribute = "PowerOrigin", 
-                           times = 1000)
+                          network_heterophily, attribute = "PowerOrigin", 
+                          times = 1000)
 rand.attract <- test_random(marvel_friends, 
-                             network_heterophily, attribute = "Attractive", 
-                           times = 1000)
+                            network_heterophily, attribute = "Attractive", 
+                            times = 1000)
 plot(rand.gender) + ggtitle("CUG test results for 'Gender' attribute")
 plot(rand.power) + ggtitle("CUG test results for 'PowerOrigin' attribute")
 plot(rand.attract) + ggtitle("CUG test results for 'Attractive' attribute")
@@ -269,14 +269,14 @@ plot(rand.attract) + ggtitle("CUG test results for 'Attractive' attribute")
 
 ```{r rando-solution}
 rand.gender <- test_random(marvel_friends, 
-                            network_heterophily, attribute = "Gender", 
+                           network_heterophily, attribute = "Gender", 
                            times = 1000)
 rand.power <- test_random(marvel_friends, 
-                           network_heterophily, attribute = "PowerOrigin", 
-                           times = 1000)
+                          network_heterophily, attribute = "PowerOrigin", 
+                          times = 1000)
 rand.attract <- test_random(marvel_friends, 
-                             network_heterophily, attribute = "Attractive", 
-                           times = 1000)
+                            network_heterophily, attribute = "Attractive", 
+                            times = 1000)
 plot(rand.gender) + ggtitle("CUG test results for 'Gender' attribute")
 plot(rand.power) + ggtitle("CUG test results for 'PowerOrigin' attribute")
 plot(rand.attract) + ggtitle("CUG test results for 'Attractive' attribute")
@@ -316,18 +316,18 @@ Let's first plot the observed data and some permuted data next to each other.
 ```
 
 ```{r perm-hint, purl = FALSE}
-autographr(generate_permutation(____, with_attr = TRUE), ____)
+graphr(generate_permutation(____, with_attr = TRUE), ____)
 ```
 
 ```{r perm-solution}
-old <- autographr(marvel_friends, 
-                  labels = FALSE, node_size = 6, 
-                  node_color = "PowerOrigin", 
-                  node_shape = "Gender") + ggtitle("Original network")
-new <- autographr(generate_permutation(marvel_friends, with_attr = TRUE),
-                   labels = FALSE, node_size = 6,
-                  node_color = "PowerOrigin",
-                  node_shape = "Gender") + ggtitle("Permuted network")
+old <- graphr(marvel_friends,
+              labels = FALSE, node_size = 6,
+              node_color = "PowerOrigin",
+              node_shape = "Gender") + ggtitle("Original network")
+new <- graphr(generate_permutation(marvel_friends, with_attr = TRUE),
+              labels = FALSE, node_size = 6,
+              node_color = "PowerOrigin",
+              node_shape = "Gender") + ggtitle("Permuted network")
 old + new
 ```
 
@@ -368,7 +368,7 @@ test_permutation(____, FUN = ____, attribute = ____,
                                 network_heterophily, attribute = "Gender",
                                 times = 1000))
 (perm.power <- test_permutation(marvel_friends, 
-                               network_heterophily, attribute = "PowerOrigin",
+                                network_heterophily, attribute = "PowerOrigin",
                                 times = 1000))
 
 (plot(rand.gender) + ggtitle("CUG test results for 'Gender' attribute") + theme(plot.title = element_text(size=8)) | plot(rand.power) + ggtitle("CUG test results for 'PowerOrigin' attribute") + theme(plot.title = element_text(size=8))) /
@@ -408,8 +408,7 @@ Nodal attributes collected include the primary discipline and number of citation
 
 ```{r introeies, exercise=TRUE, purl = FALSE}
 ison_networkers
-autographr(ison_networkers,
-           node_color = "Discipline")
+graphr(ison_networkers, node_color = "Discipline")
 ```
 
 Let's use both the continuous `Citations` and the categorical `Discipline` variables 

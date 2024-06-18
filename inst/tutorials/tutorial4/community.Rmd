@@ -75,12 +75,12 @@ ison_algebra <- to_named(ison_algebra)
 ```
 
 ```{r addingnames-hint-2, purl = FALSE}
-autographr(ison_algebra)
+graphr(ison_algebra)
 ```
 
 ```{r addingnames-solution}
 ison_algebra <- to_named(ison_algebra)
-autographr(ison_algebra)
+graphr(ison_algebra)
 ```
 
 Note that you will likely get a different set of names,
@@ -101,19 +101,19 @@ We can extract them and graph them separately using `to_uniplex()`:
 # to_uniplex extracts ties of a single type,
 # focusing on the 'friends' tie attribute here
 friends <- to_uniplex(ison_algebra, "friends")
-gfriend <- autographr(friends) + ggtitle("Friendship")
+gfriend <- graphr(friends) + ggtitle("Friendship")
 ```
 
 ```{r separatingnets-hint-2, purl = FALSE}
 # now let's focus on the 'social' tie attribute
 social <- to_uniplex(ison_algebra, "social")
-gsocial <- autographr(social) + ggtitle("Social")
+gsocial <- graphr(social) + ggtitle("Social")
 ```
 
 ```{r separatingnets-hint-3, purl = FALSE}
 # and the 'tasks' tie attribute
 tasks <- to_uniplex(ison_algebra, "tasks")
-gtask <- autographr(tasks) + ggtitle("Task")
+gtask <- graphr(tasks) + ggtitle("Task")
 ```
 
 ```{r separatingnets-hint-4, purl = FALSE}
@@ -127,22 +127,22 @@ gfriend + gsocial + gtask
 
 ```{r separatingnets-solution}
 friends <- to_uniplex(ison_algebra, "friends")
-gfriend <- autographr(friends) + ggtitle("Friendship")
+gfriend <- graphr(friends) + ggtitle("Friendship")
 
 social <- to_uniplex(ison_algebra, "social")
-gsocial <- autographr(social) + ggtitle("Social")
+gsocial <- graphr(social) + ggtitle("Social")
 
 tasks <- to_uniplex(ison_algebra, "tasks")
-gtask <- autographr(tasks) + ggtitle("Task")
+gtask <- graphr(tasks) + ggtitle("Task")
 
 # We now have three separate networks depicting each type of tie from the ison_algebra network:
 gfriend + gsocial + gtask
 ```
 
 Note also that these are weighted networks.
-`autographr()` automatically recognises these different weights and plots them.
+`graphr()` automatically recognises these different weights and plots them.
 Where useful (less dense directed networks),
-`autographr()` also bends reciprocated arcs.
+`graphr()` also bends reciprocated arcs.
 What (else) can we say about these three networks?
 
 ## Cohesion
@@ -299,7 +299,7 @@ question("How many components are there?",
 So we know how many components there are,
 but maybe we're also interested in which nodes are members of which components?
 `node_components()` returns a membership vector
-that can be used to color nodes in `autographr()`:
+that can be used to color nodes in `graphr()`:
 
 ```{r comp-memb, exercise=TRUE, exercise.setup = "separatingnets", purl = FALSE}
 
@@ -316,9 +316,9 @@ friends <- friends %>%
 ```
 
 ```{r comp-memb-hint-2, purl = FALSE}
-autographr(friends, node_color = "weak_comp") + ggtitle("Weak components") +
-autographr(friends, node_color = "strong_comp") + ggtitle("Strong components")
-# by using the 'node_color' argument, we are telling autographr to colour 
+graphr(friends, node_color = "weak_comp") + ggtitle("Weak components") +
+graphr(friends, node_color = "strong_comp") + ggtitle("Strong components")
+# by using the 'node_color' argument, we are telling graphr to colour 
 # the nodes in the graph according to the values of the 'weak_comp' attribute in the network 
 ```
 
@@ -326,8 +326,8 @@ autographr(friends, node_color = "strong_comp") + ggtitle("Strong components")
 friends <- friends %>% 
   mutate(weak_comp = node_components(to_undirected(friends)),
          strong_comp = node_components(friends))
-autographr(friends, node_color = "weak_comp") + ggtitle("Weak components") +
-autographr(friends, node_color = "strong_comp") + ggtitle("Strong components")
+graphr(friends, node_color = "weak_comp") + ggtitle("Weak components") +
+graphr(friends, node_color = "strong_comp") + ggtitle("Strong components")
 ```
 
 ```{r node-comp-interp, echo = FALSE, purl = FALSE}
@@ -369,13 +369,13 @@ Can you guess how to make these changes to the 'friends' network?
 
 ```{r manip-fri-hint-3, purl = FALSE}
 # now, let's graph the new network
-autographr(friends)
+graphr(friends)
 ```
 
 ```{r manip-fri-solution}
 (friends <- to_giant(friends))
 (friends <- to_undirected(friends))
-autographr(friends)
+graphr(friends)
 ```
 
 Comparing `friends` before and after these operations, 
@@ -432,7 +432,7 @@ with path lengths of the random walks specified to be 50.
 # agglomerative algorithm based on random walks, and assign it to
 # an object
 
-friend_wt <- node_walktrap(friends, times=50)
+friend_wt <- node_in_walktrap(friends, times=50)
 friend_wt # note that it prints pretty, but underlying its just a vector:
 ```
 
@@ -452,7 +452,7 @@ network_modularity(friends, friend_wt)
 ```
 
 ```{r walk-solution}
-friend_wt <- node_walktrap(friends, times=50)
+friend_wt <- node_in_walktrap(friends, times=50)
 friend_wt # note that it prints pretty, but underlying it is just a vector:
 # c(friend_wt)
 
@@ -476,23 +476,23 @@ How does the following look? Plausible?
 
 friends <- friends %>% 
   mutate(walk_comm = friend_wt)
-autographr(friends, node_color = "walk_comm")
+graphr(friends, node_color = "walk_comm")
 ```
 
 ```{r walkplot-hint-2, purl = FALSE}
 #plot 2: groups by borders
 
 # to be fancy, we could even draw the group borders around the nodes using the node_group argument
-autographr(friends, node_group = "walk_comm")
+graphr(friends, node_group = "walk_comm")
 ```
 
 ```{r walkplot-hint-3, purl = FALSE}
 # plot 3: group and node colors
 
 # or both!
-autographr(friends, 
-           node_color = "walk_comm", 
-           node_group = "walk_comm") +
+graphr(friends,
+       node_color = "walk_comm",
+       node_group = "walk_comm") +
   ggtitle("Walktrap",
     subtitle = round(network_modularity(friends, friend_wt), 3))
 # the function `round()` rounds the values to a specified number of decimal places
@@ -503,13 +503,13 @@ autographr(friends,
 ```{r walkplot-solution}
 friends <- friends %>% 
   mutate(walk_comm = friend_wt)
-autographr(friends, node_color = "walk_comm")
+graphr(friends, node_color = "walk_comm")
 # to be fancy, we could even draw the group borders around the nodes using the node_group argument
-autographr(friends, node_group = "walk_comm")
+graphr(friends, node_group = "walk_comm")
 # or both!
-autographr(friends, 
-           node_color = "walk_comm", 
-           node_group = "walk_comm") +
+graphr(friends,
+       node_color = "walk_comm",
+       node_group = "walk_comm") +
   ggtitle("Walktrap",
     subtitle = round(network_modularity(friends, friend_wt), 3))
 ```
@@ -535,7 +535,7 @@ The following works similarly to walktrap, but no need to set a step length.
 ```
 
 ```{r eb-solution}
-friend_eb <- node_edge_betweenness(friends)
+friend_eb <- node_in_betweenness(friends)
 friend_eb
 ```
 
@@ -560,9 +560,9 @@ friends <- friends %>%
 ```{r ebplot-hint-2, purl = FALSE}
 # create a graph with a title and subtitle returning the modularity score
 
-autographr(friends, 
-           node_color = "eb_comm", 
-           node_group = "eb_comm") +
+graphr(friends,
+       node_color = "eb_comm",
+       node_group = "eb_comm") +
   ggtitle("Edge-betweenness",
     subtitle = round(network_modularity(friends, friend_eb), 3))
 ```
@@ -570,9 +570,9 @@ autographr(friends,
 ```{r ebplot-solution}
 friends <- friends %>% 
   mutate(eb_comm = friend_eb)
-autographr(friends, 
-           node_color = "eb_comm", 
-           node_group = "eb_comm") +
+graphr(friends,
+       node_color = "eb_comm",
+       node_group = "eb_comm") +
   ggtitle("Edge-betweenness",
     subtitle = round(network_modularity(friends, friend_eb), 3))
 ```
@@ -597,7 +597,7 @@ although I personally find it both useful and in many cases quite "accurate".
 ```
 
 ```{r fg-hint-1, purl = FALSE}
-friend_fg <- node_fast_greedy(friends)
+friend_fg <- node_in_greedy(friends)
 friend_fg # Does this result in a different community partition?
 network_modularity(friends, friend_fg) # Compare this to the edge betweenness procedure
 ```
@@ -606,25 +606,25 @@ network_modularity(friends, friend_fg) # Compare this to the edge betweenness pr
 # Again, we can visualise these communities in different ways:
 friends <- friends %>% 
   mutate(fg_comm = friend_fg)
-autographr(friends, 
-           node_color = "fg_comm", 
-           node_group = "fg_comm") +
+graphr(friends,
+       node_color = "fg_comm",
+       node_group = "fg_comm") +
   ggtitle("Fast-greedy",
     subtitle = round(network_modularity(friends, friend_fg), 3))
 # 
 ```
 
 ```{r fg-solution}
-friend_fg <- node_fast_greedy(friends)
+friend_fg <- node_in_greedy(friends)
 friend_fg # Does this result in a different community partition?
 network_modularity(friends, friend_fg) # Compare this to the edge betweenness procedure
 
 # Again, we can visualise these communities in different ways:
 friends <- friends %>% 
   mutate(fg_comm = friend_fg)
-autographr(friends, 
-           node_color = "fg_comm", 
-           node_group = "fg_comm") +
+graphr(friends,
+       node_color = "fg_comm",
+       node_group = "fg_comm") +
   ggtitle("Fast-greedy",
     subtitle = round(network_modularity(friends, friend_fg), 3))
 ```
@@ -659,14 +659,14 @@ ison_southern_women
 ```
 
 ```{r setup-women-hint-2, purl = FALSE}
-autographr(ison_southern_women, node_color = "type")
-autographr(ison_southern_women, "railway", node_color = "type")
+graphr(ison_southern_women, node_color = "type")
+graphr(ison_southern_women, "railway", node_color = "type")
 ```
 
 ```{r setup-women-solution}
 data("ison_southern_women")
 ison_southern_women
-autographr(ison_southern_women, node_color = "type")
+graphr(ison_southern_women, node_color = "type")
 ```
 
 ### Project two-mode network into two one-mode networks
@@ -699,7 +699,7 @@ Or the easy way:
 # ties to nodes in the second mode (columns)
 
 women_graph <- to_mode1(ison_southern_women)
-autographr(women_graph)
+graphr(women_graph)
 
 # note that projection `to_mode1` involves keeping one type of nodes
 # this is different from to_uniplex above, which keeps one type of ties in the network
@@ -712,14 +712,14 @@ autographr(women_graph)
 # to nodes in the first mode (rows)
 
 event_graph <- to_mode2(ison_southern_women)
-autographr(event_graph)
+graphr(event_graph)
 ```
 
 ```{r easyway-solution}
 women_graph <- to_mode1(ison_southern_women)
-autographr(women_graph)
+graphr(women_graph)
 event_graph <- to_mode2(ison_southern_women)
-autographr(event_graph)
+graphr(event_graph)
 ```
 
 `{manynet}` also includes several other options for how to construct the projection.
@@ -730,10 +730,10 @@ Please see the help file for more details.
 ```
 
 ```{r otherway-solution}
-autographr(to_mode2(ison_southern_women, similarity = "jaccard")) + ggtitle("Jaccard") +
-autographr(to_mode2(ison_southern_women, similarity = "rand")) + ggtitle("Rand") +
-autographr(to_mode2(ison_southern_women, similarity = "pearson")) + ggtitle("Pearson") +
-autographr(to_mode2(ison_southern_women, similarity = "yule")) + ggtitle("Yule's Q")
+graphr(to_mode2(ison_southern_women, similarity = "jaccard")) + ggtitle("Jaccard") +
+graphr(to_mode2(ison_southern_women, similarity = "rand")) + ggtitle("Rand") +
+graphr(to_mode2(ison_southern_women, similarity = "pearson")) + ggtitle("Pearson") +
+graphr(to_mode2(ison_southern_women, similarity = "yule")) + ggtitle("Yule's Q")
 ```
 
 Which women/events 'bind' which events/women?

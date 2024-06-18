@@ -27,7 +27,7 @@ but `manynet` makes it easy to coerce this into other forms
 to be compatible with other packages.
 We can create a two-mode version of the dataset
 by renaming the nodal attribute "twomode_type" to just "type".
-Let's begin by graphing these datasets using `manynet::autographr()`.
+Let's begin by graphing these datasets using `manynet::graphr()`.
 
 ```{r coercion, exercise = TRUE, purl = FALSE}
 
@@ -35,21 +35,21 @@ Let's begin by graphing these datasets using `manynet::autographr()`.
 
 ```{r coercion-hint-1, purl = FALSE}
 # Let's graph the one-mode version
-autographr(____)
+graphr(____)
 ```
 
 ```{r coercion-hint-2, purl = FALSE}
 # Now, let's create a two-mode version 'ison_brandes2' and graph it.
 ison_brandes2 <- ison_brandes %>% rename(type = twomode_type)
-autographr(____)
+graphr(____)
 ```
 
 ```{r coercion-solution, purl = FALSE}
 # plot the one-mode version
-autographr(ison_brandes)
+graphr(ison_brandes)
 ison_brandes2 <- ison_brandes %>% rename(type = twomode_type)
 # plot the two-mode version
-autographr(ison_brandes2)
+graphr(ison_brandes2)
 ```
 
 The network is anonymous, but I think it would be nice to add some names,
@@ -63,13 +63,13 @@ ison_brandes <- to_named(ison_brandes)
 
 ```{r addingnames-hint-1, purl = FALSE}
 # Now, let's graph using the object names: "ison_brandes"
-autographr(____)
+graphr(____)
 ```
 
 ```{r addingnames-solution}
 ison_brandes <- to_named(ison_brandes)
 # plot network with names
-autographr(ison_brandes)
+graphr(ison_brandes)
 ```
 
 Note that you will likely get a different set of names,
@@ -191,7 +191,7 @@ If the vector is numeric (i.e. a "measure"),
 then this can be easily converted into a logical vector that
 identifies the node/tie with the maximum/minimum score using
 e.g. `node_is_max()` or `tie_is_min()`.
-By passing this attribute to the `autographr()` argument "node_color"
+By passing this attribute to the `graphr()` argument "node_color"
 we can highlight which node or nodes hold the maximum score in red.
 
 ```{r ggid, exercise = TRUE, exercise.setup = "addingnames", purl = FALSE}
@@ -202,19 +202,19 @@ we can highlight which node or nodes hold the maximum score in red.
 # plot the network, highlighting the node with the highest centrality score with a different colour
 ison_brandes %>%
   add_node_attribute("color", node_is_max(node_degree(ison_brandes))) %>%
-  autographr(node_color = "color")
+  graphr(node_color = "color")
 
 ison_brandes %>%
   add_node_attribute("color", node_is_max(node_betweenness(ison_brandes))) %>%
-  autographr(node_color = "color")
+  graphr(node_color = "color")
 
 ison_brandes %>%
   add_node_attribute("color", node_is_max(node_closeness(ison_brandes))) %>%
-  autographr(node_color = "color")
+  graphr(node_color = "color")
 
 ison_brandes %>%
   add_node_attribute("color", node_is_max(node_eigenvector(ison_brandes))) %>%
-  autographr(node_color = "color")
+  graphr(node_color = "color")
 ```
 
 How neat! Try it with the two-mode version.
@@ -228,19 +228,19 @@ What can you see?
 ```{r ggid_twomode-solution}
 ison_brandes2 %>%
   add_node_attribute("color", node_is_max(node_degree(ison_brandes2))) %>%
-  autographr(node_color = "color")
+  graphr(node_color = "color")
 
 ison_brandes2 %>%
   add_node_attribute("color", node_is_max(node_betweenness(ison_brandes2))) %>%
-  autographr(node_color = "color")
+  graphr(node_color = "color")
 
 ison_brandes2 %>%
   add_node_attribute("color", node_is_max(node_closeness(ison_brandes2))) %>%
-  autographr(node_color = "color")
+  graphr(node_color = "color")
 
 ison_brandes2 %>%
   add_node_attribute("color", node_is_max(node_eigenvector(ison_brandes2))) %>%
-  autographr(node_color = "color")
+  graphr(node_color = "color")
 ```
 
 ```{r brandes2quiz, purl = FALSE}
@@ -300,13 +300,13 @@ ison_brandes <- ison_brandes %>%
                               node_is_max(node_closeness(ison_brandes))) %>%
   add_node_attribute("eigenvector",
                               node_is_max(node_eigenvector(ison_brandes)))
-gd <- autographr(ison_brandes, node_color = "degree") + 
+gd <- graphr(ison_brandes, node_color = "degree") + 
   ggtitle("Degree", subtitle = round(network_degree(ison_brandes), 2))
-gc <- autographr(ison_brandes, node_color = "closeness") + 
+gc <- graphr(ison_brandes, node_color = "closeness") + 
   ggtitle("Closeness", subtitle = round(network_closeness(ison_brandes), 2))
-gb <- autographr(ison_brandes, node_color = "betweenness") + 
+gb <- graphr(ison_brandes, node_color = "betweenness") + 
   ggtitle("Betweenness", subtitle = round(network_betweenness(ison_brandes), 2))
-ge <- autographr(ison_brandes, node_color = "eigenvector") + 
+ge <- graphr(ison_brandes, node_color = "eigenvector") + 
   ggtitle("Eigenvector", subtitle = round(network_eigenvector(ison_brandes), 2))
 (gd | gb) / (gc | ge)
 # ggsave("brandes-centralities.pdf")

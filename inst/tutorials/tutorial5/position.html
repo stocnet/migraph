@@ -176,7 +176,7 @@ data-pipe="|&gt;">
 <pre class="text"><code># Now, let&#39;s compare the each attribute&#39;s graph, side-by-side by using &quot;+&quot;
 # Note: using &quot;/&quot; after each graph will order them vertically; however, it might not be best way
 # See for example:
-gfriend &lt;- autographr(friends) + ggtitle(&quot;Friendship&quot;)
+gfriend &lt;- graphr(friends) + ggtitle(&quot;Friendship&quot;)
 gfriend + gsocial + gtask</code></pre>
 </div>
 <div class="tutorial-exercise-support"
@@ -184,17 +184,17 @@ data-label="separatingnets-solution" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
 <pre class="text"><code>friends &lt;- to_uniplex(ison_algebra, &quot;friends&quot;)
-gfriend &lt;- autographr(friends) + ggtitle(&quot;Friendship&quot;)
+gfriend &lt;- graphr(friends) + ggtitle(&quot;Friendship&quot;)
 
 social &lt;- to_uniplex(ison_algebra, &quot;social&quot;)
-gsocial &lt;- autographr(social) + ggtitle(&quot;Social&quot;)
+gsocial &lt;- graphr(social) + ggtitle(&quot;Social&quot;)
 
 tasks &lt;- to_uniplex(ison_algebra, &quot;tasks&quot;)
-gtask &lt;- autographr(tasks) + ggtitle(&quot;Task&quot;)
+gtask &lt;- graphr(tasks) + ggtitle(&quot;Task&quot;)
 
 gfriend + gsocial + gtask</code></pre>
 </div>
-<p>Note also that these are weighted networks. <code>autographr()</code>
+<p>Note also that these are weighted networks. <code>graphr()</code>
 automatically recognises these different weights and plots them.</p>
 <div class="panel panel-default tutorial-question-container">
 <div data-label="strongties-qa" class="tutorial-question panel-body">
@@ -276,13 +276,13 @@ data-pipe="|&gt;">
 # Note 1: we are looking at the &#39;tasks&#39; network
 # Note 2: we are interested in the actors &#39;least constrained&#39; by their position
 
-autographr(____, node_color = &quot;____&quot;)</code></pre>
+graphr(____, node_color = &quot;____&quot;)</code></pre>
 </div>
 <div class="tutorial-exercise-support"
 data-label="constraintplot-hint-4" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
-<pre class="text"><code>autographr(tasks, node_size = &quot;constraint&quot;, node_color = &quot;low_constraint&quot;)</code></pre>
+<pre class="text"><code>graphr(tasks, node_size = &quot;constraint&quot;, node_color = &quot;low_constraint&quot;)</code></pre>
 </div>
 <div class="tutorial-exercise-support"
 data-label="constraintplot-solution" data-completion="1"
@@ -291,7 +291,7 @@ data-pipe="|&gt;">
 <pre class="text"><code>tasks &lt;- tasks %&gt;% 
   mutate(constraint = node_constraint(tasks), 
          low_constraint = node_is_min(node_constraint(tasks)))
-autographr(tasks, node_size = &quot;constraint&quot;, node_color = &quot;low_constraint&quot;)</code></pre>
+graphr(tasks, node_size = &quot;constraint&quot;, node_color = &quot;low_constraint&quot;)</code></pre>
 </div>
 <p>Why minimum? Because constraint measures how well connected each
 node’s partners are, with the implication that having few partners that
@@ -326,11 +326,11 @@ partitioned into structurally equivalent classes can be as easy as:</p>
 <div class="tutorial-exercise" data-label="find-se" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
-<pre class="text"><code>node_structural_equivalence(ison_algebra)
+<pre class="text"><code>node_in_structural(ison_algebra)
 
 ison_algebra %&gt;% 
-  mutate(se = node_structural_equivalence(ison_algebra)) %&gt;% 
-  autographr(node_color = &quot;se&quot;)</code></pre>
+  mutate(se = node_in_structural(ison_algebra)) %&gt;% 
+  graphr(node_color = &quot;se&quot;)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <p>But actually, a lot is going on behind the scenes here that we can
@@ -345,9 +345,9 @@ class="section level3">
 profile of motifs. In <code>{migraph}</code>, we call these motif
 <em>censuses</em>. Any kind of census can be used, and
 <code>{migraph}</code> includes a few options, but
-<code>node_structural_equivalence()</code> is based off of the census of
-all the nodes’ ties, both outgoing and incoming ties, to characterise
-their relationships to tie partners.</p>
+<code>node_in_structural()</code> is based off of the census of all the
+nodes’ ties, both outgoing and incoming ties, to characterise their
+relationships to tie partners.</p>
 <div class="tutorial-exercise" data-label="construct-cor"
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0" data-pipe="|&gt;">
@@ -407,25 +407,24 @@ ison_algebra %&gt;%
   node_tie_census()</code></pre>
 </div>
 <p>Note that <code>node_tie_census()</code> does not need to be passed
-to <code>node_structural_equivalence()</code> — this is done
-automatically! However, the more generic <code>node_equivalence()</code>
-is available and can be used with whichever tie census is desired. Feel
+to <code>node_in_structural()</code> — this is done automatically!
+However, the more generic <code>node_in_equivalence()</code> is
+available and can be used with whichever tie census is desired. Feel
 free to explore using some of the other censuses available in
 <code>{migraph}</code>, though some common ones are already used in the
 other equivalence convenience functions,
-e.g. <code>node_triad_census()</code> in
-<code>node_regular_equivalence()</code> and
-<code>node_path_census()</code> in
-<code>node_automorphic_equivalence()</code>.</p>
+e.g. <code>node_triad_census()</code> in <code>node_in_regular()</code>
+and <code>node_path_census()</code> in
+<code>node_in_automorphic()</code>.</p>
 </div>
 <div id="section-step-two-growing-a-tree-of-similarity"
 class="section level3">
 <h3>Step two: growing a tree of similarity</h3>
 <p>The next part takes this census and creates a dendrogram based on
 distance or dissimilarity among the nodes’ census profiles. This is all
-done internally within e.g. <code>node_structural_equivalence()</code>,
-though there are two important parameters that can be set to obtain
-different results.</p>
+done internally within e.g. <code>node_in_structural()</code>, though
+there are two important parameters that can be set to obtain different
+results.</p>
 <p>First, users can set the type of distance measure used. For
 enthusiasts, this is passed on to <code>stats::dist()</code>, so that
 help page should be consulted for more details. By default
@@ -437,21 +436,18 @@ we also offer <code>"concor"</code>, which implements a CONCOR
 (CONvergence of CORrelations) algorithm.</p>
 <p>We can see the difference from varying the clustering algorithm
 and/or distance by plotting the dendrograms (hidden) in the output from
-<code>node_structural_equivalence()</code>:</p>
+<code>node_in_structural()</code>:</p>
 <div class="tutorial-exercise" data-label="varyclust"
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0" data-pipe="|&gt;">
 <pre class="text"><code>alge &lt;- to_named(ison_algebra) # fake names to make comparison clearer
-plot(node_structural_equivalence(alge, 
-                                 cluster = &quot;hier&quot;, distance = &quot;euclidean&quot;))
+plot(node_in_structural(alge, cluster = &quot;hier&quot;, distance = &quot;euclidean&quot;))
 
 # changing the type of distance used
-plot(node_structural_equivalence(alge, 
-                                 cluster = &quot;hier&quot;, distance = &quot;manhattan&quot;))
+plot(node_in_structural(alge, cluster = &quot;hier&quot;, distance = &quot;manhattan&quot;))
 
 # changing the clustering algorithm
-plot(node_structural_equivalence(alge, 
-                                 cluster = &quot;concor&quot;, distance = &quot;euclidean&quot;))</code></pre>
+plot(node_in_structural(alge, cluster = &quot;concor&quot;, distance = &quot;euclidean&quot;))</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div class="panel panel-default tutorial-question-container">
@@ -500,7 +496,7 @@ integer.</p>
 <div class="tutorial-exercise" data-label="k-discrete"
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0" data-pipe="|&gt;">
-<pre class="text"><code>plot(node_structural_equivalence(alge, k = 2))</code></pre>
+<pre class="text"><code>plot(node_in_structural(alge, k = 2))</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <p>But we’re really just guessing. Maybe 2 is not the best
@@ -538,10 +534,8 @@ here, with all other arguments held the same:</p>
 <div class="tutorial-exercise" data-label="elbowsil" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
-<pre class="text"><code>plot(node_structural_equivalence(alge, 
-                                 k = &quot;elbow&quot;))
-plot(node_structural_equivalence(alge, 
-                                 k = &quot;silhouette&quot;))</code></pre>
+<pre class="text"><code>plot(node_in_structural(alge, k = &quot;elbow&quot;))
+plot(node_in_structural(alge, k = &quot;silhouette&quot;))</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <p>Ok, so it looks like the elbow method returns <code>k == 3</code> as
@@ -566,7 +560,7 @@ variation, can be considered as similar on some dimension.</p>
 <div class="tutorial-exercise" data-label="strict" data-completion="1"
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
-<pre class="text"><code>plot(node_structural_equivalence(alge, k = &quot;strict&quot;))</code></pre>
+<pre class="text"><code>plot(node_in_structural(alge, k = &quot;strict&quot;))</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <p>Here for example, no two nodes have precisely the same tie-profile,
@@ -589,8 +583,8 @@ above:</p>
 data-diagnostics="1" data-startover="1" data-lines="0"
 data-pipe="|&gt;">
 <pre class="text"><code>alge %&gt;% 
-  mutate(se = node_structural_equivalence(alge)) %&gt;% 
-  autographr(node_color = &quot;se&quot;)</code></pre>
+  mutate(se = node_in_structural(alge)) %&gt;% 
+  graphr(node_color = &quot;se&quot;)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <p>While this plot adds the structurally equivalent classes information
@@ -621,7 +615,7 @@ summary(node_tie_census(____),
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0" data-pipe="|&gt;">
 <pre class="text"><code>summary(node_tie_census(alge),
-        membership = node_structural_equivalence(alge))</code></pre>
+        membership = node_in_structural(alge))</code></pre>
 </div>
 <p>This node census produces 96 columns, <span class="math inline">\(16
 \text{nodes} * 2 \text{directions} * 3 \text{edge types}\)</span>, it
@@ -652,15 +646,15 @@ data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0" data-pipe="|&gt;">
 <pre class="text"><code># plot the blockmodel for the whole network
 plot(as_matrix(alge),
-     membership = node_structural_equivalence(alge))
+     membership = node_in_structural(alge))
 
 # plot the blockmodel for the friends, tasks, and social networks separately
 plot(as_matrix(friends),
-     membership = node_structural_equivalence(alge)) +
+     membership = node_in_structural(alge)) +
 plot(as_matrix(tasks),
-     membership = node_structural_equivalence(alge)) +
+     membership = node_in_structural(alge)) +
 plot(as_matrix(social),
-     membership = node_structural_equivalence(alge))</code></pre>
+     membership = node_in_structural(alge))</code></pre>
 </div>
 <p>By passing the membership argument our structural equivalence
 results, the matrix is re-sorted to cluster or ‘block’ nodes from the
@@ -700,11 +694,11 @@ becoming loops and thus the network will be complex.</p>
 <div class="tutorial-exercise" data-label="structblock"
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0" data-pipe="|&gt;">
-<pre class="text"><code>(bm &lt;- to_blocks(alge, node_structural_equivalence(alge)))
+<pre class="text"><code>(bm &lt;- to_blocks(alge, node_in_structural(alge)))
 
 bm &lt;- bm %&gt;% as_tidygraph %&gt;% 
   mutate(name = c(&quot;Freaks&quot;, &quot;Squares&quot;, &quot;Nerds&quot;, &quot;Geek&quot;))
-autographr(bm)</code></pre>
+graphr(bm)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <p>
@@ -797,9 +791,9 @@ learnr:::store_exercise_cache(structure(list(label = "separatingnets", global_se
     code = "", opts = list(label = "\"separatingnets\"", exercise = "TRUE", 
         exercise.setup = "\"data\"", purl = "FALSE"), engine = "r")), 
     code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("friends <- to_uniplex(ison_algebra, \"friends\")", 
-    "gfriend <- autographr(friends) + ggtitle(\"Friendship\")", 
-    "", "social <- to_uniplex(ison_algebra, \"social\")", "gsocial <- autographr(social) + ggtitle(\"Social\")", 
-    "", "tasks <- to_uniplex(ison_algebra, \"tasks\")", "gtask <- autographr(tasks) + ggtitle(\"Task\")", 
+    "gfriend <- graphr(friends) + ggtitle(\"Friendship\")", "", 
+    "social <- to_uniplex(ison_algebra, \"social\")", "gsocial <- graphr(social) + ggtitle(\"Social\")", 
+    "", "tasks <- to_uniplex(ison_algebra, \"tasks\")", "gtask <- graphr(tasks) + ggtitle(\"Task\")", 
     "", "gfriend + gsocial + gtask"), chunk_opts = list(label = "separatingnets-solution")), 
     tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
@@ -828,22 +822,22 @@ learnr:::store_exercise_cache(structure(list(label = "separatingnets", global_se
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "strongties-qa", 
     question = structure("If we interpret ties with higher weights as strong ties, and lesser weights as weak ties, then, according to network theory, where would we expect novel information to come from?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_8280691", 
+    "character")), answers = list(structure(list(id = "lnr_ans_dd33d44", 
         option = "Weak ties", value = "Weak ties", label = structure("Weak ties", html = TRUE, class = c("html", 
-        "character")), correct = TRUE, message = structure("Great work!", html = TRUE, class = c("html", 
+        "character")), correct = TRUE, message = structure("Terrific!", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_70ab60f", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6943bde", 
         option = "Strong ties", value = "Strong ties", label = structure("Strong ties", html = TRUE, class = c("html", 
-        "character")), correct = FALSE, message = structure("That’s okay: you learn more from mistakes than successes. Let’s do it one more time.", html = TRUE, class = c("html", 
+        "character")), correct = FALSE, message = structure("Try it again; next time’s the charm!", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c2a6822", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_db66ff8", 
         option = "Isolates", value = "Isolates", label = structure("Isolates", html = TRUE, class = c("html", 
-        "character")), correct = FALSE, message = structure("But no need to fret, try it again.", html = TRUE, class = c("html", 
+        "character")), correct = FALSE, message = structure("Try it again. I have a good feeling about this.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c008260", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1ae8dcd", 
         option = "Highest degree nodes", value = "Highest degree nodes", 
         label = structure("Highest degree nodes", html = TRUE, class = c("html", 
-        "character")), correct = FALSE, message = structure("Let’s try it again.", html = TRUE, class = c("html", 
+        "character")), correct = FALSE, message = structure("Try it again. Perseverence is the key to success.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
     "character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
@@ -853,7 +847,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "strongties-qa-answer", question = "strongties-qa"), 
     loading = NULL, random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 1947529755.09311, options = list()), class = c("learnr_radio", 
+    seed = 1368819714.36259, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
 
@@ -861,28 +855,28 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "structinnov-qa", 
     question = structure("Which network concepts are associated with innovation?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_ba430a5", 
+    "character")), answers = list(structure(list(id = "lnr_ans_7e2bca2", 
         option = "Structural holes", value = "Structural holes", 
         label = structure("Structural holes", html = TRUE, class = c("html", 
-        "character")), correct = TRUE, message = structure("Impressive work!", html = TRUE, class = c("html", 
+        "character")), correct = TRUE, message = structure("Beautiful!", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4d62f8b", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3eaca9c", 
         option = "Structural folds", value = "Structural folds", 
         label = structure("Structural folds", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e6847e7", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f2c5952", 
         option = "Structural balance", value = "Structural balance", 
         label = structure("Structural balance", html = TRUE, class = c("html", 
-        "character")), correct = FALSE, message = structure("But no need to fret, try it again.", html = TRUE, class = c("html", 
+        "character")), correct = FALSE, message = structure("Give it another try.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a4dbdce", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6f2ea9f", 
         option = "Structural equivalence", value = "Structural equivalence", 
         label = structure("Structural equivalence", html = TRUE, class = c("html", 
-        "character")), correct = FALSE, message = structure("Try it again. Perseverence is the key to success.", html = TRUE, class = c("html", 
+        "character")), correct = FALSE, message = structure("That’s okay: you learn more from mistakes than successes. Let’s do it one more time.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4391b8a", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4237e77", 
         option = "Structuralism", value = "Structuralism", label = structure("Structuralism", html = TRUE, class = c("html", 
-        "character")), correct = FALSE, message = structure("Please try again.", html = TRUE, class = c("html", 
+        "character")), correct = FALSE, message = structure("Don’t give up now, try it one more time.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
     "character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
@@ -892,31 +886,31 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "structinnov-qa-answer", question = "structinnov-qa"), 
     loading = NULL, random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 507991067.263448, options = list()), class = c("learnr_checkbox", 
+    seed = 1381813353.85654, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "shmeasures-qa", 
     question = structure("There are a number of measures that might be used to approximate the concept of structural holes. Select all that apply.", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_8fc9668", 
+    "character")), answers = list(structure(list(id = "lnr_ans_63f560c", 
         option = "Constraint", value = "Constraint", label = structure("Constraint", html = TRUE, class = c("html", 
-        "character")), correct = TRUE, message = structure("Awesome!", html = TRUE, class = c("html", 
+        "character")), correct = TRUE, message = structure("Absolutely fabulous!", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b322d33", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_24a17c7", 
         option = "Effective size", value = "Effective size", 
         label = structure("Effective size", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_431d677", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6cd363", 
         option = "Bridges", value = "Bridges", label = structure("Bridges", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d26da34", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3980e21", 
         option = "Redundancy", value = "Redundancy", label = structure("Redundancy", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_9d81838", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e122276", 
         option = "Efficiency", value = "Efficiency", label = structure("Efficiency", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1004ac1", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_127c028", 
         option = "Hierarchy", value = "Hierarchy", label = structure("Hierarchy", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -927,7 +921,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "shmeasures-qa-answer", question = "shmeasures-qa"), 
     loading = NULL, random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 625433898.20876, options = list()), class = c("learnr_checkbox", 
+    seed = 1305397283.89213, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
 
@@ -996,7 +990,7 @@ learnr:::store_exercise_cache(structure(list(label = "constraintplot", global_se
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = structure(c("tasks <- tasks %>% ", 
     "  mutate(constraint = node_constraint(tasks), ", "         low_constraint = node_is_min(node_constraint(tasks)))", 
-    "autographr(tasks, node_size = \"constraint\", node_color = \"low_constraint\")"
+    "graphr(tasks, node_size = \"constraint\", node_color = \"low_constraint\")"
     ), chunk_opts = list(label = "constraintplot-solution")), 
     tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
@@ -1025,17 +1019,17 @@ learnr:::store_exercise_cache(structure(list(label = "constraintplot", global_se
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "equiv-qa", question = structure("Structural equivalence means identifying classes of nodes with…", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_f7704d", 
+"character")), answers = list(structure(list(id = "lnr_ans_68240cb", 
     option = "same/similar tie partners.", value = "same/similar tie partners.", 
     label = structure("same/similar tie partners.", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = structure("Bravo!", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d77dc16", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1185ed3", 
     option = "same/similar pattern of ties.", value = "same/similar pattern of ties.", 
     label = structure("same/similar pattern of ties.", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("This is the definition for regular equivalence.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_85188b9", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_93058e", 
     option = "same/similar distance from all others.", value = "same/similar distance from all others.", 
     label = structure("same/similar distance from all others.", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("This is the definition for automorphic equivalence.", html = TRUE, class = c("html", 
@@ -1047,7 +1041,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "equiv-qa-answer", question = "equiv-qa"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = FALSE, seed = 1956523998.58892, 
+    random_answer_order = FALSE, allow_retry = FALSE, seed = 2080702213.0311, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -1067,7 +1061,7 @@ learnr:::store_exercise_cache(structure(list(label = "find-se", global_setup = s
     include = FALSE)), setup = "", chunks = list(list(label = "data", 
     code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
         purl = "FALSE"), engine = "r"), list(label = "find-se", 
-    code = "node_structural_equivalence(ison_algebra)\n\nison_algebra %>% \n  mutate(se = node_structural_equivalence(ison_algebra)) %>% \n  autographr(node_color = \"se\")", 
+    code = "node_in_structural(ison_algebra)\n\nison_algebra %>% \n  mutate(se = node_in_structural(ison_algebra)) %>% \n  graphr(node_color = \"se\")", 
     opts = list(label = "\"find-se\"", exercise = "TRUE", exercise.setup = "\"data\""), 
     engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
     solution = NULL, tests = NULL, options = list(eval = FALSE, 
@@ -1087,9 +1081,9 @@ learnr:::store_exercise_cache(structure(list(label = "find-se", global_setup = s
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "find-se", exercise = TRUE, 
-        exercise.setup = "data", code = c("node_structural_equivalence(ison_algebra)", 
-        "", "ison_algebra %>% ", "  mutate(se = node_structural_equivalence(ison_algebra)) %>% ", 
-        "  autographr(node_color = \"se\")"), out.width.px = 624, 
+        exercise.setup = "data", code = c("node_in_structural(ison_algebra)", 
+        "", "ison_algebra %>% ", "  mutate(se = node_in_structural(ison_algebra)) %>% ", 
+        "  graphr(node_color = \"se\")"), out.width.px = 624, 
         out.height.px = 384, params.src = "find-se, exercise = TRUE, exercise.setup = \"data\"", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -1199,7 +1193,7 @@ learnr:::store_exercise_cache(structure(list(label = "varyclust", global_setup =
     include = FALSE)), setup = "", chunks = list(list(label = "data", 
     code = "", opts = list(label = "\"data\"", exercise = "TRUE", 
         purl = "FALSE"), engine = "r"), list(label = "varyclust", 
-    code = "alge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_structural_equivalence(alge, \n                                 cluster = \"concor\", distance = \"euclidean\"))", 
+    code = "alge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_in_structural(alge, cluster = \"concor\", distance = \"euclidean\"))", 
     opts = list(label = "\"varyclust\"", exercise = "TRUE", exercise.setup = "\"data\""), 
     engine = "r")), code_check = NULL, error_check = NULL, check = NULL, 
     solution = NULL, tests = NULL, options = list(eval = FALSE, 
@@ -1220,11 +1214,9 @@ learnr:::store_exercise_cache(structure(list(label = "varyclust", global_setup =
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "varyclust", exercise = TRUE, 
         exercise.setup = "data", code = c("alge <- to_named(ison_algebra) # fake names to make comparison clearer", 
-        "plot(node_structural_equivalence(alge, ", "                                 cluster = \"hier\", distance = \"euclidean\"))", 
-        "", "# changing the type of distance used", "plot(node_structural_equivalence(alge, ", 
-        "                                 cluster = \"hier\", distance = \"manhattan\"))", 
-        "", "# changing the clustering algorithm", "plot(node_structural_equivalence(alge, ", 
-        "                                 cluster = \"concor\", distance = \"euclidean\"))"
+        "plot(node_in_structural(alge, cluster = \"hier\", distance = \"euclidean\"))", 
+        "", "# changing the type of distance used", "plot(node_in_structural(alge, cluster = \"hier\", distance = \"manhattan\"))", 
+        "", "# changing the clustering algorithm", "plot(node_in_structural(alge, cluster = \"concor\", distance = \"euclidean\"))"
         ), out.width.px = 624, out.height.px = 384, params.src = "varyclust, exercise = TRUE, exercise.setup = \"data\"", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -1234,11 +1226,11 @@ learnr:::store_exercise_cache(structure(list(label = "varyclust", global_setup =
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "scale-interp", 
     question = structure("Do you see any differences?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_4c5f4ac", 
+    "character")), answers = list(structure(list(id = "lnr_ans_d64f323", 
         option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
-        "character")), correct = TRUE, message = structure("Nice job!", html = TRUE, class = c("html", 
+        "character")), correct = TRUE, message = structure("Beautiful!", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_422f701", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5ce614d", 
         option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1249,7 +1241,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "scale-interp-answer", question = "scale-interp"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 526126443.755003, options = list()), class = c("learnr_radio", 
+    seed = 1906213044.61235, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
 
@@ -1265,13 +1257,13 @@ output$`tutorial-exercise-k-discrete-output` <- renderUI({
 learnr:::store_exercise_cache(structure(list(label = "k-discrete", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = "\nalge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_structural_equivalence(alge, \n                                 cluster = \"concor\", distance = \"euclidean\"))", 
+    include = FALSE)), setup = "\nalge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_in_structural(alge, cluster = \"concor\", distance = \"euclidean\"))", 
     chunks = list(list(label = "data", code = "", opts = list(
         label = "\"data\"", exercise = "TRUE", purl = "FALSE"), 
-        engine = "r"), list(label = "varyclust", code = "alge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_structural_equivalence(alge, \n                                 cluster = \"concor\", distance = \"euclidean\"))", 
+        engine = "r"), list(label = "varyclust", code = "alge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_in_structural(alge, cluster = \"concor\", distance = \"euclidean\"))", 
         opts = list(label = "\"varyclust\"", exercise = "TRUE", 
             exercise.setup = "\"data\""), engine = "r"), list(
-        label = "k-discrete", code = "plot(node_structural_equivalence(alge, k = 2))", 
+        label = "k-discrete", code = "plot(node_in_structural(alge, k = 2))", 
         opts = list(label = "\"k-discrete\"", exercise = "TRUE", 
             exercise.setup = "\"varyclust\""), engine = "r")), 
     code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
@@ -1292,7 +1284,7 @@ learnr:::store_exercise_cache(structure(list(label = "k-discrete", global_setup 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "k-discrete", exercise = TRUE, 
-        exercise.setup = "varyclust", code = "plot(node_structural_equivalence(alge, k = 2))", 
+        exercise.setup = "varyclust", code = "plot(node_in_structural(alge, k = 2))", 
         out.width.px = 624, out.height.px = 384, params.src = "k-discrete, exercise = TRUE, exercise.setup = \"varyclust\"", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -1311,13 +1303,13 @@ output$`tutorial-exercise-elbowsil-output` <- renderUI({
 learnr:::store_exercise_cache(structure(list(label = "elbowsil", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = "\nalge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_structural_equivalence(alge, \n                                 cluster = \"concor\", distance = \"euclidean\"))", 
+    include = FALSE)), setup = "\nalge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_in_structural(alge, cluster = \"concor\", distance = \"euclidean\"))", 
     chunks = list(list(label = "data", code = "", opts = list(
         label = "\"data\"", exercise = "TRUE", purl = "FALSE"), 
-        engine = "r"), list(label = "varyclust", code = "alge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_structural_equivalence(alge, \n                                 cluster = \"concor\", distance = \"euclidean\"))", 
+        engine = "r"), list(label = "varyclust", code = "alge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_in_structural(alge, cluster = \"concor\", distance = \"euclidean\"))", 
         opts = list(label = "\"varyclust\"", exercise = "TRUE", 
             exercise.setup = "\"data\""), engine = "r"), list(
-        label = "elbowsil", code = "plot(node_structural_equivalence(alge, \n                                 k = \"elbow\"))\nplot(node_structural_equivalence(alge, \n                                 k = \"silhouette\"))", 
+        label = "elbowsil", code = "plot(node_in_structural(alge, k = \"elbow\"))\nplot(node_in_structural(alge, k = \"silhouette\"))", 
         opts = list(label = "\"elbowsil\"", exercise = "TRUE", 
             exercise.setup = "\"varyclust\""), engine = "r")), 
     code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
@@ -1338,10 +1330,9 @@ learnr:::store_exercise_cache(structure(list(label = "elbowsil", global_setup = 
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "elbowsil", exercise = TRUE, 
-        exercise.setup = "varyclust", code = c("plot(node_structural_equivalence(alge, ", 
-        "                                 k = \"elbow\"))", "plot(node_structural_equivalence(alge, ", 
-        "                                 k = \"silhouette\"))"
-        ), out.width.px = 624, out.height.px = 384, params.src = "elbowsil, exercise = TRUE, exercise.setup = \"varyclust\"", 
+        exercise.setup = "varyclust", code = c("plot(node_in_structural(alge, k = \"elbow\"))", 
+        "plot(node_in_structural(alge, k = \"silhouette\"))"), 
+        out.width.px = 624, out.height.px = 384, params.src = "elbowsil, exercise = TRUE, exercise.setup = \"varyclust\"", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
 )))
@@ -1359,13 +1350,13 @@ output$`tutorial-exercise-strict-output` <- renderUI({
 learnr:::store_exercise_cache(structure(list(label = "strict", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = "\nalge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_structural_equivalence(alge, \n                                 cluster = \"concor\", distance = \"euclidean\"))", 
+    include = FALSE)), setup = "\nalge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_in_structural(alge, cluster = \"concor\", distance = \"euclidean\"))", 
     chunks = list(list(label = "data", code = "", opts = list(
         label = "\"data\"", exercise = "TRUE", purl = "FALSE"), 
-        engine = "r"), list(label = "varyclust", code = "alge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_structural_equivalence(alge, \n                                 cluster = \"concor\", distance = \"euclidean\"))", 
+        engine = "r"), list(label = "varyclust", code = "alge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_in_structural(alge, cluster = \"concor\", distance = \"euclidean\"))", 
         opts = list(label = "\"varyclust\"", exercise = "TRUE", 
             exercise.setup = "\"data\""), engine = "r"), list(
-        label = "strict", code = "plot(node_structural_equivalence(alge, k = \"strict\"))", 
+        label = "strict", code = "plot(node_in_structural(alge, k = \"strict\"))", 
         opts = list(label = "\"strict\"", exercise = "TRUE", 
             exercise.setup = "\"varyclust\""), engine = "r")), 
     code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
@@ -1386,7 +1377,7 @@ learnr:::store_exercise_cache(structure(list(label = "strict", global_setup = st
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "strict", exercise = TRUE, 
-        exercise.setup = "varyclust", code = "plot(node_structural_equivalence(alge, k = \"strict\"))", 
+        exercise.setup = "varyclust", code = "plot(node_in_structural(alge, k = \"strict\"))", 
         out.width.px = 624, out.height.px = 384, params.src = "strict, exercise = TRUE, exercise.setup = \"varyclust\"", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -1405,13 +1396,13 @@ output$`tutorial-exercise-strplot-output` <- renderUI({
 learnr:::store_exercise_cache(structure(list(label = "strplot", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = "\nalge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_structural_equivalence(alge, \n                                 cluster = \"concor\", distance = \"euclidean\"))", 
+    include = FALSE)), setup = "\nalge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_in_structural(alge, cluster = \"concor\", distance = \"euclidean\"))", 
     chunks = list(list(label = "data", code = "", opts = list(
         label = "\"data\"", exercise = "TRUE", purl = "FALSE"), 
-        engine = "r"), list(label = "varyclust", code = "alge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_structural_equivalence(alge, \n                                 cluster = \"concor\", distance = \"euclidean\"))", 
+        engine = "r"), list(label = "varyclust", code = "alge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_in_structural(alge, cluster = \"concor\", distance = \"euclidean\"))", 
         opts = list(label = "\"varyclust\"", exercise = "TRUE", 
             exercise.setup = "\"data\""), engine = "r"), list(
-        label = "strplot", code = "alge %>% \n  mutate(se = node_structural_equivalence(alge)) %>% \n  autographr(node_color = \"se\")", 
+        label = "strplot", code = "alge %>% \n  mutate(se = node_in_structural(alge)) %>% \n  graphr(node_color = \"se\")", 
         opts = list(label = "\"strplot\"", exercise = "TRUE", 
             exercise.setup = "\"varyclust\""), engine = "r")), 
     code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
@@ -1432,8 +1423,8 @@ learnr:::store_exercise_cache(structure(list(label = "strplot", global_setup = s
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "strplot", exercise = TRUE, 
-        exercise.setup = "varyclust", code = c("alge %>% ", "  mutate(se = node_structural_equivalence(alge)) %>% ", 
-        "  autographr(node_color = \"se\")"), out.width.px = 624, 
+        exercise.setup = "varyclust", code = c("alge %>% ", "  mutate(se = node_in_structural(alge)) %>% ", 
+        "  graphr(node_color = \"se\")"), out.width.px = 624, 
         out.height.px = 384, params.src = "strplot, exercise = TRUE, exercise.setup = \"varyclust\"", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -1452,29 +1443,28 @@ output$`tutorial-exercise-summ-output` <- renderUI({
 learnr:::store_exercise_cache(structure(list(label = "summ", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = "\nalge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_structural_equivalence(alge, \n                                 cluster = \"concor\", distance = \"euclidean\"))\nalge %>% \n  mutate(se = node_structural_equivalence(alge)) %>% \n  autographr(node_color = \"se\")", 
+    include = FALSE)), setup = "\nalge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_in_structural(alge, cluster = \"concor\", distance = \"euclidean\"))\nalge %>% \n  mutate(se = node_in_structural(alge)) %>% \n  graphr(node_color = \"se\")", 
     chunks = list(list(label = "data", code = "", opts = list(
         label = "\"data\"", exercise = "TRUE", purl = "FALSE"), 
-        engine = "r"), list(label = "varyclust", code = "alge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_structural_equivalence(alge, \n                                 cluster = \"concor\", distance = \"euclidean\"))", 
+        engine = "r"), list(label = "varyclust", code = "alge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_in_structural(alge, cluster = \"concor\", distance = \"euclidean\"))", 
         opts = list(label = "\"varyclust\"", exercise = "TRUE", 
             exercise.setup = "\"data\""), engine = "r"), list(
-        label = "strplot", code = "alge %>% \n  mutate(se = node_structural_equivalence(alge)) %>% \n  autographr(node_color = \"se\")", 
+        label = "strplot", code = "alge %>% \n  mutate(se = node_in_structural(alge)) %>% \n  graphr(node_color = \"se\")", 
         opts = list(label = "\"strplot\"", exercise = "TRUE", 
             exercise.setup = "\"varyclust\""), engine = "r"), 
         list(label = "summ", code = "", opts = list(label = "\"summ\"", 
             exercise = "TRUE", exercise.setup = "\"strplot\"", 
             purl = "FALSE"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = NULL, solution = structure(c("summary(node_tie_census(alge),", 
-    "        membership = node_structural_equivalence(alge))"
-    ), chunk_opts = list(label = "summ-solution")), tests = NULL, 
-    options = list(eval = FALSE, echo = TRUE, results = "markup", 
-        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
-        comment = NA, highlight = FALSE, size = "normalsize", 
-        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
-        cache.path = "position_cache/html/", cache.vars = NULL, 
-        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
-        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "position_files/figure-html/", 
+    "        membership = node_in_structural(alge))"), chunk_opts = list(
+        label = "summ-solution")), tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "position_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "position_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -1502,24 +1492,24 @@ output$`tutorial-exercise-block-output` <- renderUI({
 learnr:::store_exercise_cache(structure(list(label = "block", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = "\nalge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_structural_equivalence(alge, \n                                 cluster = \"concor\", distance = \"euclidean\"))\nalge %>% \n  mutate(se = node_structural_equivalence(alge)) %>% \n  autographr(node_color = \"se\")", 
+    include = FALSE)), setup = "\nalge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_in_structural(alge, cluster = \"concor\", distance = \"euclidean\"))\nalge %>% \n  mutate(se = node_in_structural(alge)) %>% \n  graphr(node_color = \"se\")", 
     chunks = list(list(label = "data", code = "", opts = list(
         label = "\"data\"", exercise = "TRUE", purl = "FALSE"), 
-        engine = "r"), list(label = "varyclust", code = "alge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_structural_equivalence(alge, \n                                 cluster = \"concor\", distance = \"euclidean\"))", 
+        engine = "r"), list(label = "varyclust", code = "alge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_in_structural(alge, cluster = \"concor\", distance = \"euclidean\"))", 
         opts = list(label = "\"varyclust\"", exercise = "TRUE", 
             exercise.setup = "\"data\""), engine = "r"), list(
-        label = "strplot", code = "alge %>% \n  mutate(se = node_structural_equivalence(alge)) %>% \n  autographr(node_color = \"se\")", 
+        label = "strplot", code = "alge %>% \n  mutate(se = node_in_structural(alge)) %>% \n  graphr(node_color = \"se\")", 
         opts = list(label = "\"strplot\"", exercise = "TRUE", 
             exercise.setup = "\"varyclust\""), engine = "r"), 
         list(label = "block", code = "", opts = list(label = "\"block\"", 
             exercise = "TRUE", exercise.setup = "\"strplot\"", 
             purl = "FALSE"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = NULL, solution = structure(c("# plot the blockmodel for the whole network", 
-    "plot(as_matrix(alge),", "     membership = node_structural_equivalence(alge))", 
+    "plot(as_matrix(alge),", "     membership = node_in_structural(alge))", 
     "", "# plot the blockmodel for the friends, tasks, and social networks separately", 
-    "plot(as_matrix(friends),", "     membership = node_structural_equivalence(alge)) +", 
-    "plot(as_matrix(tasks),", "     membership = node_structural_equivalence(alge)) +", 
-    "plot(as_matrix(social),", "     membership = node_structural_equivalence(alge))"
+    "plot(as_matrix(friends),", "     membership = node_in_structural(alge)) +", 
+    "plot(as_matrix(tasks),", "     membership = node_in_structural(alge)) +", 
+    "plot(as_matrix(social),", "     membership = node_in_structural(alge))"
     ), chunk_opts = list(label = "block-solution")), tests = NULL, 
     options = list(eval = FALSE, echo = TRUE, results = "markup", 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
@@ -1556,13 +1546,13 @@ output$`tutorial-exercise-structblock-output` <- renderUI({
 learnr:::store_exercise_cache(structure(list(label = "structblock", global_setup = structure(c("library(learnr)", 
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "knitr::opts_chunk$set(echo = FALSE)"), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = "\nalge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_structural_equivalence(alge, \n                                 cluster = \"concor\", distance = \"euclidean\"))", 
+    include = FALSE)), setup = "\nalge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_in_structural(alge, cluster = \"concor\", distance = \"euclidean\"))", 
     chunks = list(list(label = "data", code = "", opts = list(
         label = "\"data\"", exercise = "TRUE", purl = "FALSE"), 
-        engine = "r"), list(label = "varyclust", code = "alge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_structural_equivalence(alge, \n                                 cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_structural_equivalence(alge, \n                                 cluster = \"concor\", distance = \"euclidean\"))", 
+        engine = "r"), list(label = "varyclust", code = "alge <- to_named(ison_algebra) # fake names to make comparison clearer\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"euclidean\"))\n\n# changing the type of distance used\nplot(node_in_structural(alge, cluster = \"hier\", distance = \"manhattan\"))\n\n# changing the clustering algorithm\nplot(node_in_structural(alge, cluster = \"concor\", distance = \"euclidean\"))", 
         opts = list(label = "\"varyclust\"", exercise = "TRUE", 
             exercise.setup = "\"data\""), engine = "r"), list(
-        label = "structblock", code = "(bm <- to_blocks(alge, node_structural_equivalence(alge)))\n\nbm <- bm %>% as_tidygraph %>% \n  mutate(name = c(\"Freaks\", \"Squares\", \"Nerds\", \"Geek\"))\nautographr(bm)", 
+        label = "structblock", code = "(bm <- to_blocks(alge, node_in_structural(alge)))\n\nbm <- bm %>% as_tidygraph %>% \n  mutate(name = c(\"Freaks\", \"Squares\", \"Nerds\", \"Geek\"))\ngraphr(bm)", 
         opts = list(label = "\"structblock\"", exercise = "TRUE", 
             exercise.setup = "\"varyclust\"", warning = "FALSE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
@@ -1583,9 +1573,9 @@ learnr:::store_exercise_cache(structure(list(label = "structblock", global_setup
         message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
         engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
         max.print = 1000, label = "structblock", exercise = TRUE, 
-        exercise.setup = "varyclust", code = c("(bm <- to_blocks(alge, node_structural_equivalence(alge)))", 
+        exercise.setup = "varyclust", code = c("(bm <- to_blocks(alge, node_in_structural(alge)))", 
         "", "bm <- bm %>% as_tidygraph %>% ", "  mutate(name = c(\"Freaks\", \"Squares\", \"Nerds\", \"Geek\"))", 
-        "autographr(bm)"), out.width.px = 624, out.height.px = 384, 
+        "graphr(bm)"), out.width.px = 624, out.height.px = 384, 
         params.src = "structblock, exercise = TRUE, exercise.setup = \"varyclust\", warning=FALSE", 
         fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "r", version = "4"), class = c("r", "tutorial_exercise"
@@ -1599,7 +1589,7 @@ learnr:::store_exercise_cache(structure(list(label = "structblock", global_setup
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93]}},"value":[{"type":"character","attributes":{},"value":["backports","base","bslib","cachem","checkmate","cli","coda","codetools","colorspace","commonmark","compiler","datasets","digest","dplyr","ellipsis","evaluate","fansi","farver","fastmap","fontawesome","furrr","future","generics","ggforce","ggplot2","ggraph","ggrepel","globals","glue","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","htmltools","htmlwidgets","httpuv","igraph","jquerylib","jsonlite","knitr","later","lattice","learnr","lifecycle","listenv","magrittr","manynet","markdown","MASS","memoise","methods","migraph","mime","minMSE","munsell","network","parallel","parallelly","patchwork","pillar","pkgconfig","polyclip","promises","purrr","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","scales","shiny","sna","statnet.common","stats","tibble","tidygraph","tidyr","tidyselect","tools","tweenr","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.4.1","4.4.0","0.7.0","1.1.0","2.3.1","3.6.2","0.19-4.1","0.2-20","2.1-0","1.9.1","4.4.0","4.4.0","0.6.35","1.1.4","0.3.2","0.23","1.0.6","2.1.2","1.2.0","0.5.2","0.3.1","1.33.2","0.1.3","0.4.2","3.5.1","2.2.1","0.9.5","0.16.3","1.7.0","4.4.0","1.1.1","4.4.0","4.4.0","2.3","0.3.5","0.5.8.1","1.6.4","1.6.15","2.0.3","0.1.4","1.8.8","1.46","1.3.2","0.22-6","0.11.5","1.0.4","0.9.1","2.0.3","0.5.0","1.12","7.3-60.2","2.0.1","4.4.0","1.4.0","0.12","0.5.1","0.5.1","1.18.2","4.4.0","1.37.1","1.2.0","1.9.0","2.0.3","1.10-6","1.3.0","1.0.2","2.5.1","1.0.12","1.1.3","2.27","2.0.4","0.16.0","0.4.9","1.3.0","1.8.1.1","2.7-2","4.9.0","4.4.0","3.2.1","1.3.1","1.3.1","1.2.1","4.4.0","2.0.3","1.2.4","4.4.0","0.6.5","0.6.5","0.4.2","3.0.0","0.44","1.8-4","2.3.8"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93]}},"value":[{"type":"character","attributes":{},"value":["backports","base","bslib","cachem","checkmate","cli","coda","codetools","colorspace","commonmark","compiler","datasets","digest","dplyr","ellipsis","evaluate","fansi","farver","fastmap","fontawesome","furrr","future","generics","ggforce","ggplot2","ggraph","ggrepel","globals","glue","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","htmltools","htmlwidgets","httpuv","igraph","jquerylib","jsonlite","knitr","later","lattice","learnr","lifecycle","listenv","magrittr","manynet","markdown","MASS","memoise","methods","migraph","mime","minMSE","munsell","network","parallel","parallelly","patchwork","pillar","pkgconfig","polyclip","promises","purrr","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","scales","shiny","sna","statnet.common","stats","tibble","tidygraph","tidyr","tidyselect","tools","tweenr","utf8","utils","vctrs","viridis","viridisLite","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.5.0","4.3.2","0.7.0","1.1.0","2.3.1","3.6.2","0.19-4.1","0.2-20","2.1-0","1.9.1","4.3.2","4.3.2","0.6.35","1.1.4","0.3.2","0.24.0","1.0.6","2.1.2","1.2.0","0.5.2","0.3.1","1.33.2","0.1.3","0.4.2","3.5.1","2.2.1","0.9.5","0.16.3","1.7.0","4.3.2","1.1.1","4.3.2","4.3.2","2.3","0.3.5","0.5.8.1","1.6.4","1.6.15","2.0.3","0.1.4","1.8.8","1.47","1.3.2","0.22-6","0.11.5","1.0.4","0.9.1","2.0.3","1.0.0","1.13","7.3-60.0.1","2.0.1","4.3.2","1.4.0","0.12","0.5.1","0.5.1","1.18.2","4.3.2","1.37.1","1.2.0","1.9.0","2.0.3","1.10-6","1.3.0","1.0.2","2.5.1","1.0.12","1.1.4","2.27","2.0.4","0.16.0","0.4.9","1.3.0","1.8.1.1","2.7-2","4.9.0","4.3.2","3.2.1","1.3.1","1.3.1","1.2.1","4.3.2","2.0.3","1.2.4","4.3.2","0.6.5","0.6.5","0.4.2","3.0.0","0.44","1.8-4","2.3.8"]}]}]}
 </script>
 <!--/html_preserve-->
 </div>

@@ -78,25 +78,25 @@ ____ <- to_uniplex(ison_algebra, _____)
 # Now, let's compare the each attribute's graph, side-by-side by using "+"
 # Note: using "/" after each graph will order them vertically; however, it might not be best way
 # See for example:
-gfriend <- autographr(friends) + ggtitle("Friendship")
+gfriend <- graphr(friends) + ggtitle("Friendship")
 gfriend + gsocial + gtask
 ```
 
 ```{r separatingnets-solution}
 friends <- to_uniplex(ison_algebra, "friends")
-gfriend <- autographr(friends) + ggtitle("Friendship")
+gfriend <- graphr(friends) + ggtitle("Friendship")
 
 social <- to_uniplex(ison_algebra, "social")
-gsocial <- autographr(social) + ggtitle("Social")
+gsocial <- graphr(social) + ggtitle("Social")
 
 tasks <- to_uniplex(ison_algebra, "tasks")
-gtask <- autographr(tasks) + ggtitle("Task")
+gtask <- graphr(tasks) + ggtitle("Task")
 
 gfriend + gsocial + gtask
 ```
 
 Note also that these are weighted networks.
-`autographr()` automatically recognises these different weights and plots them.
+`graphr()` automatically recognises these different weights and plots them.
 
 ```{r strongties-qa, echo=FALSE, purl = FALSE}
 question("If we interpret ties with higher weights as strong ties, and lesser weights as weak ties, then, according to network theory, where would we expect novel information to come from?",
@@ -204,18 +204,18 @@ tasks <- tasks %>%
 # Note 1: we are looking at the 'tasks' network
 # Note 2: we are interested in the actors 'least constrained' by their position
 
-autographr(____, node_color = "____")
+graphr(____, node_color = "____")
 ```
 
 ```{r constraintplot-hint-4, purl = FALSE}
-autographr(tasks, node_size = "constraint", node_color = "low_constraint")
+graphr(tasks, node_size = "constraint", node_color = "low_constraint")
 ```
 
 ```{r constraintplot-solution}
 tasks <- tasks %>% 
   mutate(constraint = node_constraint(tasks), 
          low_constraint = node_is_min(node_constraint(tasks)))
-autographr(tasks, node_size = "constraint", node_color = "low_constraint")
+graphr(tasks, node_size = "constraint", node_color = "low_constraint")
 ```
 
 Why minimum? Because constraint measures how well connected each node's partners are,
@@ -252,11 +252,11 @@ In `{migraph}`, finding how the nodes of a network can be partitioned
 into structurally equivalent classes can be as easy as:
 
 ```{r find-se, exercise = TRUE, exercise.setup = "data"}
-node_structural_equivalence(ison_algebra)
+node_in_structural(ison_algebra)
 
 ison_algebra %>% 
-  mutate(se = node_structural_equivalence(ison_algebra)) %>% 
-  autographr(node_color = "se")
+  mutate(se = node_in_structural(ison_algebra)) %>% 
+  graphr(node_color = "se")
 ```
 
 But actually, a lot is going on behind the scenes here that we can unpack.
@@ -268,7 +268,7 @@ how these classes are identified and how to interpret them.
 All equivalence classes are based on nodes' similarity across some profile of motifs.
 In `{migraph}`, we call these motif *censuses*.
 Any kind of census can be used, and `{migraph}` includes a few options,
-but `node_structural_equivalence()` is based off of the census of all the nodes' ties,
+but `node_in_structural()` is based off of the census of all the nodes' ties,
 both outgoing and incoming ties, to characterise their relationships to tie partners.
 
 ```{r construct-cor, exercise = TRUE, exercise.setup = "data", purl = FALSE}
@@ -321,18 +321,18 @@ ison_algebra %>%
   node_tie_census()
 ```
 
-Note that `node_tie_census()` does not need to be passed to `node_structural_equivalence()` ---
+Note that `node_tie_census()` does not need to be passed to `node_in_structural()` ---
 this is done automatically!
-However, the more generic `node_equivalence()` is available and can be used with whichever tie census is desired.
+However, the more generic `node_in_equivalence()` is available and can be used with whichever tie census is desired.
 Feel free to explore using some of the other censuses available in `{migraph}`,
 though some common ones are already used in the other equivalence convenience functions,
-e.g. `node_triad_census()` in `node_regular_equivalence()` 
-and `node_path_census()` in `node_automorphic_equivalence()`.
+e.g. `node_triad_census()` in `node_in_regular()` 
+and `node_path_census()` in `node_in_automorphic()`.
 
 ### Step two: growing a tree of similarity
 
 The next part takes this census and creates a dendrogram based on distance or dissimilarity among the nodes' census profiles.
-This is all done internally within e.g. `node_structural_equivalence()`,
+This is all done internally within e.g. `node_in_structural()`,
 though there are two important parameters that can be set to obtain different results.
 
 First, users can set the type of distance measure used.
@@ -346,20 +346,17 @@ but for compatibility and enthusiasts, we also offer `"concor"`,
 which implements a CONCOR (CONvergence of CORrelations) algorithm.
 
 We can see the difference from varying the clustering algorithm and/or distance
-by plotting the dendrograms (hidden) in the output from `node_structural_equivalence()`:
+by plotting the dendrograms (hidden) in the output from `node_in_structural()`:
 
 ```{r varyclust, exercise = TRUE, exercise.setup = "data"}
 alge <- to_named(ison_algebra) # fake names to make comparison clearer
-plot(node_structural_equivalence(alge, 
-                                 cluster = "hier", distance = "euclidean"))
+plot(node_in_structural(alge, cluster = "hier", distance = "euclidean"))
 
 # changing the type of distance used
-plot(node_structural_equivalence(alge, 
-                                 cluster = "hier", distance = "manhattan"))
+plot(node_in_structural(alge, cluster = "hier", distance = "manhattan"))
 
 # changing the clustering algorithm
-plot(node_structural_equivalence(alge, 
-                                 cluster = "concor", distance = "euclidean"))
+plot(node_in_structural(alge, cluster = "concor", distance = "euclidean"))
 ```
 
 ```{r scale-interp, echo = FALSE, purl = FALSE}
@@ -408,7 +405,7 @@ the more dissimilar we're allowing nodes in the same cluster to be.
 We could set this ourselves by just passing `k` an integer.
 
 ```{r k-discrete, exercise = TRUE, exercise.setup = "varyclust"}
-plot(node_structural_equivalence(alge, k = 2))
+plot(node_in_structural(alge, k = 2))
 ```
 
 But we're really just guessing. Maybe 2 is not the best `k`?
@@ -452,10 +449,8 @@ can return a somewhat different result to the elbow method.
 See what we have here, with all other arguments held the same:
 
 ```{r elbowsil, exercise = TRUE, exercise.setup = "varyclust"}
-plot(node_structural_equivalence(alge, 
-                                 k = "elbow"))
-plot(node_structural_equivalence(alge, 
-                                 k = "silhouette"))
+plot(node_in_structural(alge, k = "elbow"))
+plot(node_in_structural(alge, k = "silhouette"))
 ```
 
 Ok, so it looks like the elbow method returns `k == 3` as a good trade-off
@@ -482,7 +477,7 @@ however oftentimes this misses the point in finding clusters of nodes that,
 despite some variation, can be considered as similar on some dimension.
 
 ```{r strict, exercise = TRUE, exercise.setup = "varyclust"}
-plot(node_structural_equivalence(alge, k = "strict"))
+plot(node_in_structural(alge, k = "strict"))
 ```
 
 Here for example, no two nodes have precisely the same tie-profile,
@@ -501,8 +496,8 @@ We can graph this of course, as above:
 
 ```{r strplot, exercise = TRUE, exercise.setup = "varyclust"}
 alge %>% 
-  mutate(se = node_structural_equivalence(alge)) %>% 
-  autographr(node_color = "se")
+  mutate(se = node_in_structural(alge)) %>% 
+  graphr(node_color = "se")
 ```
 
 While this plot adds the structurally equivalent classes information to our earlier graph,
@@ -529,7 +524,7 @@ summary(node_tie_census(____),
 
 ```{r summ-solution}
 summary(node_tie_census(alge),
-        membership = node_structural_equivalence(alge))
+        membership = node_in_structural(alge))
 ```
 
 This node census produces 96 columns, 
@@ -558,15 +553,15 @@ plot(as_matrix(____),
 ```{r block-solution}
 # plot the blockmodel for the whole network
 plot(as_matrix(alge),
-     membership = node_structural_equivalence(alge))
+     membership = node_in_structural(alge))
 
 # plot the blockmodel for the friends, tasks, and social networks separately
 plot(as_matrix(friends),
-     membership = node_structural_equivalence(alge)) +
+     membership = node_in_structural(alge)) +
 plot(as_matrix(tasks),
-     membership = node_structural_equivalence(alge)) +
+     membership = node_in_structural(alge)) +
 plot(as_matrix(social),
-     membership = node_structural_equivalence(alge))
+     membership = node_in_structural(alge))
 ```
 
 By passing the membership argument our structural equivalence results,
@@ -602,9 +597,9 @@ because even if the original network was simple (not complex),
 any within-class ties will end up becoming loops and thus the network will be complex.
 
 ```{r structblock, exercise = TRUE, exercise.setup = "varyclust", warning=FALSE}
-(bm <- to_blocks(alge, node_structural_equivalence(alge)))
+(bm <- to_blocks(alge, node_in_structural(alge)))
 
 bm <- bm %>% as_tidygraph %>% 
   mutate(name = c("Freaks", "Squares", "Nerds", "Geek"))
-autographr(bm)
+graphr(bm)
 ```

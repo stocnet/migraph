@@ -87,9 +87,9 @@ Add that too.
 ```
 
 ```{r empty-solution}
-(autographr(create_empty(50), "circle") + ggtitle("Empty graph"))
-(autographr(create_filled(50)) + ggtitle("Complete graph"))
-(autographr(create_filled(50/2)) + ggtitle("Complete graph (smaller)"))
+(graphr(create_empty(50), "circle") + ggtitle("Empty graph"))
+(graphr(create_filled(50)) + ggtitle("Complete graph"))
+(graphr(create_filled(50/2)) + ggtitle("Complete graph (smaller)"))
 ```
 
 #### Stars
@@ -112,9 +112,9 @@ Use the `create_star()` function to graph three star networks:
 ```
 
 ```{r star-solution}
-(autographr(create_star(50)) + ggtitle("Star graph"))
-(autographr(create_star(50, directed = TRUE)) + ggtitle("Star out"))
-(autographr(to_redirected(create_star(50, directed = TRUE))) + ggtitle("Star in"))
+(graphr(create_star(50)) + ggtitle("Star graph"))
+(graphr(create_star(50, directed = TRUE)) + ggtitle("Star out"))
+(graphr(to_redirected(create_star(50, directed = TRUE))) + ggtitle("Star in"))
 ```
 
 #### Trees
@@ -133,9 +133,9 @@ Again graph three networks:
 
 ```{r tree-solution}
 # width argument specifies the breadth of the branches
-(autographr(create_tree(50, width = 2)) + ggtitle("Tree graph"))
-(autographr(create_tree(50, width = 2, directed = TRUE)) + ggtitle("Tree out"))
-(autographr(create_tree(50, width = 2, directed = TRUE), "tree") + ggtitle("Tree layout"))
+(graphr(create_tree(50, width = 2)) + ggtitle("Tree graph"))
+(graphr(create_tree(50, width = 2, directed = TRUE)) + ggtitle("Tree out"))
+(graphr(create_tree(50, width = 2, directed = TRUE), "tree") + ggtitle("Tree layout"))
 ```
 
 Try varying the `width` argument to see the result.
@@ -188,8 +188,8 @@ and another with half the number of nodes.
 ```
 
 ```{r lattices-solution}
-(autographr(create_lattice(50)) + ggtitle("One-mode lattice graph"))
-(autographr(create_lattice(50/2)) + ggtitle("Smaller lattice graph"))
+(graphr(create_lattice(50)) + ggtitle("One-mode lattice graph"))
+(graphr(create_lattice(50/2)) + ggtitle("Smaller lattice graph"))
 ```
 
 #### Rings
@@ -208,10 +208,10 @@ Graph three ring networks:
 ```
 
 ```{r rings-solution}
-(autographr(create_ring(50)) + ggtitle("Ring graph", subtitle = "Starring Naomi Watts"))
+(graphr(create_ring(50)) + ggtitle("Ring graph", subtitle = "Starring Naomi Watts"))
 # width argument specifies the width of the ring
-(autographr(create_ring(50, width = 2), "circle") + ggtitle("The Ring Two", subtitle = "No different?"))
-(autographr(create_ring(50, width = 2), "stress") + ggtitle("The Ring Two v2.0"))
+(graphr(create_ring(50, width = 2), "circle") + ggtitle("The Ring Two", subtitle = "No different?"))
+(graphr(create_ring(50, width = 2), "stress") + ggtitle("The Ring Two v2.0"))
 ```
 
 ### Probabilistic graphs
@@ -236,9 +236,9 @@ Generate three random networks of 50 nodes and a density of 0.08:
 ```
 
 ```{r random-solution}
-(autographr(generate_random(50, 0.08)) + ggtitle("Random 1 graph"))
-(autographr(generate_random(50, 0.08)) + ggtitle("Random 2 graph"))
-(autographr(generate_random(50, 0.08)) + ggtitle("Random 3 graph"))
+(graphr(generate_random(50, 0.08)) + ggtitle("Random 1 graph"))
+(graphr(generate_random(50, 0.08)) + ggtitle("Random 2 graph"))
+(graphr(generate_random(50, 0.08)) + ggtitle("Random 3 graph"))
 ```
 
 Keep going if you like... it will be a little different every time.
@@ -251,7 +251,7 @@ Try generating a random graph with 200 edges/ties now:
 ```
 
 ```{r randomno-solution}
-(erdren4 <- autographr(generate_random(50, 200)) + ggtitle("Random 1 graph"))
+(erdren4 <- graphr(generate_random(50, 200)) + ggtitle("Random 1 graph"))
 ```
 
 #### Small-world graphs
@@ -266,9 +266,9 @@ Graph three small-world networks, all with 50 nodes and a rewiring probability o
 ```
 
 ```{r smallw-solution}
-(autographr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 1 graph"))
-(autographr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 2 graph"))
-(autographr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 3 graph"))
+(graphr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 1 graph"))
+(graphr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 2 graph"))
+(graphr(generate_smallworld(50, 0.025)) + ggtitle("Smallworld 3 graph"))
 ```
 
 With on average 2.5 ties randomly rewired, does the structure look different?
@@ -321,11 +321,11 @@ with alpha parameters of 0.5, 1, and 1.5.
 ```
 
 ```{r scalef-solution}
-(autographr(generate_scalefree(50, 0.5)) +
+(graphr(generate_scalefree(50, 0.5)) +
     ggtitle("Scalefree 1 graph", subtitle = "Power = .5"))
-(autographr(generate_scalefree(50, 1)) +
+(graphr(generate_scalefree(50, 1)) +
     ggtitle("Scalefree 2 graph", subtitle = "Power = 1"))
-(autographr(generate_scalefree(50, 1.5)) +
+(graphr(generate_scalefree(50, 1.5)) +
     ggtitle("Scalefree 3 graph", subtitle = "Power = 1.5"))
 ```
 
@@ -380,7 +380,7 @@ will be split evenly between core and periphery partitions).
 ```
 
 ```{r core-solution}
-(autographr(create_core(50)) + ggtitle("Core"))
+(graphr(create_core(50)) + ggtitle("Core"))
 ```
 
 ### Core-periphery assignment
@@ -398,11 +398,11 @@ Any you might think correlate with core status?
 ```
 
 ```{r gnet-solution}
-autographr(ison_lawfirm, node_color = "school")
+graphr(ison_lawfirm, node_color = "school")
 ```
 
 Next, let's assign nodes to the core and periphery blocks
-using the `node_core()` function from `{migraph}`.
+using the `node_in_core()` function from `{migraph}`.
 It works pretty straightforwardly.
 By default it runs down the rank order of nodes by their degree,
 at each step working out whether including the next highest degree node
@@ -414,8 +414,8 @@ in the core will maximise the core-periphery structure of the network.
 
 ```{r nodecore-solution}
 ison_lawfirm %>% 
-  mutate(nc = node_core(ison_lawfirm)) %>% 
-  autographr(node_color = "nc")
+  mutate(nc = node_in_core(ison_lawfirm)) %>% 
+  graphr(node_color = "nc")
 ```
 
 This graph suggests that there might even be two cores here,
@@ -430,7 +430,7 @@ a core-periphery model of the same dimension using `network_core()`.
 ```
 
 ```{r netcore-solution}
-network_core(ison_lawfirm, node_core(ison_lawfirm))
+network_core(ison_lawfirm, node_in_core(ison_lawfirm))
 ```
 
 ```{r corecorr-qa, echo=FALSE, purl = FALSE}
@@ -449,7 +449,7 @@ question("What can we say about this correlation.",
 )
 ```
 
-Note that `node_core()` also includes a method that descends through
+Note that `node_in_core()` also includes a method that descends through
 the rank order of nodes' eigenvector centralities instead of degree centralities.
 Why might that not be such a good choice here?
 
@@ -464,7 +464,7 @@ between gender and core (or periphery) status.
 ```
 
 ```{r chisq-solution}
-chisq.test(node_core(ison_lawfirm), node_attribute(ison_lawfirm, "Gender"))
+chisq.test(node_in_core(ison_lawfirm), node_attribute(ison_lawfirm, "Gender"))
 ```
 
 ```{r chisq-qa, echo=FALSE, purl = FALSE}
@@ -489,7 +489,7 @@ An alternative route is to identify 'core' nodes
 depending on their _k_-coreness.
 In `{migraph}`, we can return nodes _k_-coreness
 with `node_coreness()` instead of 
-the `node_core()` used for core-periphery.
+the `node_in_core()` used for core-periphery.
 
 ```{r nodecoren, exercise=TRUE, purl = FALSE}
 
@@ -498,14 +498,14 @@ the `node_core()` used for core-periphery.
 ```{r nodecoren-solution}
 ison_lawfirm %>% 
   mutate(ncn = node_coreness(ison_lawfirm)) %>% 
-  autographr(node_color = "ncn") + scale_colour_sdgs()
+  graphr(node_color = "ncn") + scale_colour_sdgs()
 ```
 
 ```{r dich-qa, echo=FALSE, purl = FALSE}
 question("Which has more than two classes/groups.",
          answer("node_coreness()", correct = TRUE,
                 message = learnr::random_praise()),
-         answer("node_core()",
+         answer("node_in_core()",
                 message = learnr::random_encouragement()),
          random_answer_order = TRUE,
          allow_retry = TRUE
@@ -619,7 +619,7 @@ Can you add a node attribute that highlights which nodes are cutpoints?
 
 ```{r closerlook-solution}
 ison_adolescents |> mutate(cut = node_is_cutpoint(ison_adolescents)) |> 
-  autographr(node_color = "cut")
+  graphr(node_color = "cut")
 ```
 
 ### Identifying bridges
@@ -633,7 +633,7 @@ Let's do something similar now, but with respect to ties rather than nodes.
 ```{r tieside-solution}
 network_adhesion(ison_adolescents)
 ison_adolescents |> mutate_ties(cut = tie_is_bridge(ison_adolescents)) |> 
-  autographr(edge_color = "cut")
+  graphr(edge_color = "cut")
 ```
 
 We could also investigate the opposite of a bridge,
@@ -646,7 +646,7 @@ This is called (rather confusingly) tie cohesion.
 
 ```{r tiecoh-solution}
 ison_adolescents |> mutate_ties(coh = tie_cohesion(ison_adolescents)) |> 
-  autographr(edge_color = "coh")
+  graphr(edge_color = "coh")
 ```
 
 Where would you target your efforts if you wanted to fragment this network?
