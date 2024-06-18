@@ -86,15 +86,15 @@ These functions combine an appropriate \verb{_census()} function
 together with methods for calculating the hierarchical clusters
 provided by a certain distance calculation.
 \itemize{
-\item \code{node_equivalence()} assigns nodes membership based on their equivalence
+\item \code{node_in_equivalence()} assigns nodes membership based on their equivalence
 with respective to some census/class.
 The following functions call this function, together with an appropriate census.
 \itemize{
-\item \code{node_structural_equivalence()} assigns nodes membership based on their
+\item \code{node_in_structural()} assigns nodes membership based on their
 having equivalent ties to the same other nodes.
-\item \code{node_regular_equivalence()} assigns nodes membership based on their
+\item \code{node_in_regular()} assigns nodes membership based on their
 having equivalent patterns of ties.
-\item \code{node_automorphic_equivalence()} assigns nodes membership based on their
+\item \code{node_in_automorphic()} assigns nodes membership based on their
 having equivalent distances to other nodes.
 }
 }

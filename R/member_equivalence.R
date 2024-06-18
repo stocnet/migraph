@@ -5,14 +5,14 @@
 #'   together with methods for calculating the hierarchical clusters
 #'   provided by a certain distance calculation.
 #'   
-#'   - `node_equivalence()` assigns nodes membership based on their equivalence 
+#'   - `node_in_equivalence()` assigns nodes membership based on their equivalence 
 #'   with respective to some census/class.
 #'   The following functions call this function, together with an appropriate census.
-#'     - `node_structural_equivalence()` assigns nodes membership based on their
+#'     - `node_in_structural()` assigns nodes membership based on their
 #'     having equivalent ties to the same other nodes.
-#'     - `node_regular_equivalence()` assigns nodes membership based on their
+#'     - `node_in_regular()` assigns nodes membership based on their
 #'     having equivalent patterns of ties.
-#'     - `node_automorphic_equivalence()` assigns nodes membership based on their
+#'     - `node_in_automorphic()` assigns nodes membership based on their
 #'     having equivalent distances to other nodes.
 #'   
 #'   A `plot()` method exists for investigating the dendrogram
