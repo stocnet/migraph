@@ -29,3 +29,8 @@ ggplot2::aes
 #' @importFrom ggplot2 ggsave
 #' @export
 ggplot2::ggsave
+
+#' @importFrom ggplot2 scale_y_discrete
+#' @export
+ggplot2::scale_y_discrete
+
