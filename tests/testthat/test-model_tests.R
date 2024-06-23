@@ -2,14 +2,14 @@
 marvel_friends <- manynet::to_giant(manynet::to_unsigned(manynet::ison_marvel_relationships)) %>%
   manynet::to_subgraph(PowerOrigin == "Human")
 cugtest <- test_random(marvel_friends,
-                       network_heterophily,
+                       manynet::net_heterophily,
                        attribute = "Attractive",
                        times = 200)
 cugtest2 <- test_random(marvel_friends,
-                        network_betweenness,
+                        manynet::net_betweenness,
                         times = 200)
 cugtest3 <- test_random(ison_southern_women, 
-                        network_equivalency, 
+                        manynet::net_equivalency, 
                         times = 200)
 
 test_that("test_random works", {
@@ -42,7 +42,7 @@ marvel_friends <- manynet::to_unsigned(manynet::ison_marvel_relationships)
 marvel_friends <- manynet::to_giant(marvel_friends)
 marvel_friends <- manynet::to_subgraph(marvel_friends, PowerOrigin == "Human")
 qaptest <- test_permutation(marvel_friends,
-                            network_heterophily,
+                            manynet::net_heterophily,
                             attribute = "Attractive",
                             times = 200)
 test_that("test_permutation works", {
