@@ -25,6 +25,9 @@ test_permutation(
 )
 }
 \arguments{
+\item{.data}{A manynet-consistent network.
+See e.g. \code{manynet::as_tidygraph()} for more details.}
+
 \item{FUN}{A graph-level statistic function to test.}
 
 \item{...}{Additional arguments to be passed on to FUN,

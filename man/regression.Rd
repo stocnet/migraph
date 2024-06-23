@@ -39,6 +39,9 @@ See Haunss and Hollway (2023) for more on this effect.
 \item dyadic covariates (other networks) can just be named
 }}
 
+\item{.data}{A manynet-consistent network.
+See e.g. \code{manynet::as_tidygraph()} for more details.}
+
 \item{method}{A method for establishing the null hypothesis.
 Note that "qap" uses Dekker et al's (2007) double semi-partialling technique,
 whereas "qapy" permutes only the $y$ variable.
