@@ -44,27 +44,8 @@
 \alias{graph_smallworld}
 \alias{network_homophily}
 \alias{node_homophily}
-\alias{node_optimal}
-\alias{node_kernighanlin}
-\alias{node_edge_betweenness}
-\alias{node_fast_greedy}
-\alias{node_leading_eigen}
-\alias{node_walktrap}
-\alias{node_infomap}
-\alias{node_spinglass}
-\alias{node_fluid}
-\alias{node_leiden}
-\alias{node_louvain}
-\alias{node_core}
-\alias{node_roulette}
-\alias{node_components}
-\alias{node_weak_components}
-\alias{node_strong_components}
-\alias{node_equivalence}
-\alias{node_structural_equivalence}
-\alias{node_regular_equivalence}
-\alias{node_automorphic_equivalence}
 \alias{test_gof}
+\alias{node_adopter}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 edge_betweenness(object, normalized = TRUE)
@@ -151,47 +132,9 @@ network_homophily(object, attribute)
 
 node_homophily(object, attribute)
 
-node_optimal(.data)
-
-node_kernighanlin(.data)
-
-node_edge_betweenness(.data)
-
-node_fast_greedy(.data)
-
-node_leading_eigen(.data)
-
-node_walktrap(.data)
-
-node_infomap(.data)
-
-node_spinglass(.data)
-
-node_fluid(.data)
-
-node_leiden(.data)
-
-node_louvain(.data)
-
-node_core(.data)
-
-node_roulette(.data)
-
-node_components(.data)
-
-node_weak_components(.data)
-
-node_strong_components(.data)
-
-node_equivalence(.data)
-
-node_structural_equivalence(.data)
-
-node_regular_equivalence(.data)
-
-node_automorphic_equivalence(.data)
-
 test_gof(diff_model, diff_models)
+
+node_adopter(diff_model)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -288,47 +231,9 @@ wherever possible and update your scripts accordingly.
 
 \item \code{node_homophily()}: Deprecated on 2022-09-25.
 
-\item \code{node_optimal()}: Deprecated on 2024-06-14.
-
-\item \code{node_kernighanlin()}: Deprecated on 2024-06-14.
-
-\item \code{node_edge_betweenness()}: Deprecated on 2024-06-14.
-
-\item \code{node_fast_greedy()}: Deprecated on 2024-06-14.
-
-\item \code{node_leading_eigen()}: Deprecated on 2024-06-14.
-
-\item \code{node_walktrap()}: Deprecated on 2024-06-14.
-
-\item \code{node_infomap()}: Deprecated on 2024-06-14.
-
-\item \code{node_spinglass()}: Deprecated on 2024-06-14.
-
-\item \code{node_fluid()}: Deprecated on 2024-06-14.
-
-\item \code{node_leiden()}: Deprecated on 2024-06-14.
-
-\item \code{node_louvain()}: Deprecated on 2024-06-14.
-
-\item \code{node_core()}: Deprecated on 2024-06-14.
-
-\item \code{node_roulette()}: Deprecated on 2024-06-14.
-
-\item \code{node_components()}: Deprecated on 2024-06-14.
-
-\item \code{node_weak_components()}: Deprecated on 2024-06-14.
-
-\item \code{node_strong_components()}: Deprecated on 2024-06-14.
-
-\item \code{node_equivalence()}: Deprecated on 2024-06-14.
-
-\item \code{node_structural_equivalence()}: Deprecated on 2024-06-14.
-
-\item \code{node_regular_equivalence()}: Deprecated on 2024-06-14.
-
-\item \code{node_automorphic_equivalence()}: Deprecated on 2024-06-14.
-
 \item \code{test_gof()}: Deprecated on 2024-06-16.
+
+\item \code{node_adopter()}: Deprecated on 2024-06-19.
 
 }}
 \keyword{internal}
