@@ -364,170 +364,18 @@ node_homophily <- function(object, attribute) {
   node_heterophily(object, attribute)
 }
 
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_optimal <- function(.data) {
-  .Deprecated("node_in_optimal", package = "migraph",
-              old = "node_optimal")
-  node_in_optimal(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_kernighanlin <- function(.data) {
-  .Deprecated("node_in_partition", package = "migraph",
-              old = "node_kernighanlin")
-  node_in_partition(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_edge_betweenness <- function(.data) {
-  .Deprecated("node_in_betweenness", package = "migraph",
-              old = "node_edge_betweenness")
-  node_in_betweenness(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_fast_greedy <- function(.data) {
-  .Deprecated("node_in_greedy", package = "migraph",
-              old = "node_fast_greedy")
-  node_in_greedy(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_leading_eigen <- function(.data) {
-  .Deprecated("node_in_eigen", package = "migraph",
-              old = "node_leading_eigen")
-  node_in_eigen(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_walktrap <- function(.data) {
-  .Deprecated("node_in_walktrap", package = "migraph",
-              old = "node_walktrap")
-  node_in_walktrap(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_infomap <- function(.data) {
-  .Deprecated("node_in_infomap", package = "migraph",
-              old = "node_infomap")
-  node_in_infomap(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_spinglass <- function(.data) {
-  .Deprecated("node_in_spinglass", package = "migraph",
-              old = "node_spinglass")
-  node_in_spinglass(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_fluid <- function(.data) {
-  .Deprecated("node_in_fluid", package = "migraph",
-              old = "node_fluid")
-  node_in_fluid(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_leiden <- function(.data) {
-  .Deprecated("node_in_leiden", package = "migraph",
-              old = "node_leiden")
-  node_in_leiden(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_louvain <- function(.data) {
-  .Deprecated("node_in_louvain", package = "migraph",
-              old = "node_louvain")
-  node_in_louvain(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_core <- function(.data) {
-  .Deprecated("node_in_core", package = "migraph",
-              old = "node_core")
-  node_in_core(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_roulette <- function(.data) {
-  .Deprecated("node_in_roulette", package = "migraph",
-              old = "node_roulette")
-  node_in_roulette(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_components <- function(.data) {
-  .Deprecated("node_in_component", package = "migraph",
-              old = "node_components")
-  node_in_component(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_weak_components <- function(.data) {
-  .Deprecated("node_in_weak", package = "migraph",
-              old = "node_weak_components")
-  node_in_weak(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_strong_components <- function(.data) {
-  .Deprecated("node_in_strong", package = "migraph",
-              old = "node_strong_components")
-  node_in_strong(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_equivalence <- function(.data) {
-  .Deprecated("node_in_equivalence", package = "migraph",
-              old = "node_equivalence")
-  node_in_equivalence(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_structural_equivalence <- function(.data) {
-  .Deprecated("node_in_structural", package = "migraph",
-              old = "node_structural_equivalence")
-  node_in_structural(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_regular_equivalence <- function(.data) {
-  .Deprecated("node_in_regular", package = "migraph",
-              old = "node_regular_equivalence")
-  node_in_regular(.data)
-}
-
-#' @describeIn defunct Deprecated on 2024-06-14.
-#' @export
-node_automorphic_equivalence <- function(.data) {
-  .Deprecated("node_in_automorphic", package = "migraph",
-              old = "node_automorphic_equivalence")
-  node_in_automorphic(.data)
-}
-
 #' @describeIn defunct Deprecated on 2024-06-16.
 #' @export
 test_gof <- function(diff_model, diff_models) {
   .Deprecated("test_fit", package = "migraph",
               old = "test_gof")
   test_fit(diff_model, diff_models)
+}
+
+#' @describeIn defunct Deprecated on 2024-06-19.
+#' @export
+node_adopter <- function(diff_model) {
+  .Deprecated("node_in_adopter", package = "migraph",
+              old = "node_adopter")
+  node_in_adopter(diff_model)
 }
