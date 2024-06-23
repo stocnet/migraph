@@ -235,6 +235,7 @@ test_fit <- function(diff_model, diff_models){ # make into method?
   sims <- y |> dplyr::select(sim, t, I) |> 
     tidyr::pivot_wider(names_from = t, values_from = I) |> 
     dplyr::select(-c(sim, `0`))
+  sims <- sims[,colSums(stats::cov(sims))!=0]
   mah <- stats::mahalanobis(x$I[-1], colMeans(sims), stats::cov(sims))
   pval <- pchisq(mah, df=length(x$I[-1]), lower.tail=FALSE)
   dplyr::tibble(statistic = mah, p.value = pval, 

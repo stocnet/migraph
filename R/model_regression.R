@@ -72,7 +72,6 @@
 #' @importFrom future plan
 #' @importFrom furrr future_map_dfr furrr_options
 #' @importFrom stats glm.fit as.formula df.residual pchisq
-#' @seealso `vignette("p7linearmodel")`
 #' @references 
 #'   Krackhardt, David. 1988.
 #'   “Predicting with Networks: Nonparametric Multiple Regression Analysis of Dyadic Data.” 
