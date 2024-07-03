@@ -63,7 +63,7 @@ test_random <- function(.data, FUN, ...,
               testdist = simd,
               mode = manynet::is_directed(.data),
               diag = manynet::is_complex(.data),
-              cmode = "csize",
+              cmode = "edges",
               plteobs = mean(simd <= obsd),
               pgteobs = mean(simd >= obsd),
               reps = times)
