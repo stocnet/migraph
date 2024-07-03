@@ -40,11 +40,9 @@ test_random <- function(.data, FUN, ...,
   } else {
     obsd <- FUN(.data)
   }
-  n <- manynet::net_dims(.data)
-  d <- manynet::net_density(.data)
   oplan <- future::plan(strategy)
   on.exit(future::plan(oplan), add = TRUE)
-  rands <- furrr::future_map(1:times, manynet::generate_random, n = n, p = d, 
+  rands <- furrr::future_map(1:times, manynet::generate_random, n = .data, 
                              .progress = verbose, 
                              .options = furrr::furrr_options(seed = T))
   if (length(args) > 0) {
