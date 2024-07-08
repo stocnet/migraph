@@ -18,11 +18,3 @@ test_gof <- function(diff_model, diff_models) {
               old = "test_gof")
   test_fit(diff_model, diff_models)
 }
-
-#' @describeIn defunct Deprecated on 2024-06-19.
-#' @export
-node_adopter <- function(diff_model) {
-  .Deprecated("node_in_adopter", package = "migraph",
-              old = "node_adopter")
-  node_in_adopter(diff_model)
-}

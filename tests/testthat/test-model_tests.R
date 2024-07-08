@@ -19,7 +19,7 @@ test_that("test_random works", {
   expect_equal(length(cugtest$testdist), 200) # NB: Stochastic
   expect_false(cugtest$mode)
   expect_false(cugtest$diag)
-  expect_equal(cugtest$cmode, "csize")
+  expect_equal(cugtest$cmode, "edges")
   expect_equal(class(cugtest$plteobs), "numeric")
   expect_equal(class(cugtest$pgteobs), "numeric")
   expect_equal(cugtest$reps, 200)
@@ -30,7 +30,7 @@ test_that("test_random works", {
   expect_equal(length(cugtest2$testdist), 200) # NB: Stochastic
   expect_false(cugtest2$mode)
   expect_false(cugtest2$diag)
-  expect_equal(cugtest2$cmode, "csize")
+  expect_equal(cugtest2$cmode, "edges")
   expect_equal(round(cugtest2$plteobs), 1)
   expect_equal(round(cugtest2$pgteobs), 0)
   expect_equal(cugtest2$reps, 200)

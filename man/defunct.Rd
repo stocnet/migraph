@@ -3,12 +3,9 @@
 \name{defunct}
 \alias{defunct}
 \alias{test_gof}
-\alias{node_adopter}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
 test_gof(diff_model, diff_models)
-
-node_adopter(diff_model)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -22,8 +19,6 @@ wherever possible and update your scripts accordingly.
 \section{Functions}{
 \itemize{
 \item \code{test_gof()}: Deprecated on 2024-06-16.
-
-\item \code{node_adopter()}: Deprecated on 2024-06-19.
 
 }}
 \keyword{internal}
