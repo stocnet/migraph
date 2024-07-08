@@ -16,3 +16,6 @@ thisRequires <- function(pkgname){
     }
   }
 }
+
+# defining global variables more centrally
+utils::globalVariables(c(".data", ".graph_context"))
