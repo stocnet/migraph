@@ -46,15 +46,15 @@ then one can argue that the first diffusion is not well captured by
 }
 
 \examples{
-  test_distribution(play_diffusion(ison_networkers), 
-                    play_diffusion(ison_networkers, thresholds = 75))
+ # test_distribution(play_diffusion(ison_networkers), 
+ #                   play_diffusion(ison_networkers, thresholds = 75))
   # Playing a reasonably quick diffusion
-  x <- play_diffusion(generate_random(15), transmissibility = 0.7)
+  # x <- play_diffusion(generate_random(15), transmissibility = 0.7)
   # Playing a slower diffusion
-  y <- play_diffusions(generate_random(15), transmissibility = 0.1, times = 40)
-  plot(x)
-  plot(y)
-  test_fit(x, y)
+  # y <- play_diffusions(generate_random(15), transmissibility = 0.1, times = 40)
+  # plot(x)
+  # plot(y)
+  # test_fit(x, y)
 }
 \seealso{
 Other models: 

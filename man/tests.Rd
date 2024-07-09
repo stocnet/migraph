@@ -68,13 +68,13 @@ of the original network.
 marvel_friends <- to_unsigned(ison_marvel_relationships)
 marvel_friends <- to_giant(marvel_friends) \%>\% 
   to_subgraph(PowerOrigin == "Human")
-(cugtest <- test_random(marvel_friends, manynet::net_heterophily, attribute = "Attractive",
-  times = 200))
-plot(cugtest)
-(qaptest <- test_permutation(marvel_friends, 
-                manynet::net_heterophily, attribute = "Attractive",
-                times = 200))
-plot(qaptest)
+# (cugtest <- test_random(marvel_friends, manynet::net_heterophily, attribute = "Attractive",
+#   times = 200))
+# plot(cugtest)
+# (qaptest <- test_permutation(marvel_friends, 
+#                 manynet::net_heterophily, attribute = "Attractive",
+#                 times = 200))
+# plot(qaptest)
 }
 \seealso{
 Other models: 

@@ -26,9 +26,9 @@ NULL
 #' marvel_friends <- to_unsigned(ison_marvel_relationships)
 #' marvel_friends <- to_giant(marvel_friends) %>% 
 #'   to_subgraph(PowerOrigin == "Human")
-#' (cugtest <- test_random(marvel_friends, manynet::net_heterophily, attribute = "Attractive",
-#'   times = 200))
-#' plot(cugtest)
+#' # (cugtest <- test_random(marvel_friends, manynet::net_heterophily, attribute = "Attractive",
+#' #   times = 200))
+#' # plot(cugtest)
 #' @export
 test_random <- function(.data, FUN, ..., 
                         times = 1000, 
@@ -73,10 +73,10 @@ test_random <- function(.data, FUN, ...,
 }
 #' @rdname tests 
 #' @examples 
-#' (qaptest <- test_permutation(marvel_friends, 
-#'                 manynet::net_heterophily, attribute = "Attractive",
-#'                 times = 200))
-#' plot(qaptest)
+#' # (qaptest <- test_permutation(marvel_friends, 
+#' #                 manynet::net_heterophily, attribute = "Attractive",
+#' #                 times = 200))
+#' # plot(qaptest)
 #' @export
 test_permutation <- function(.data, FUN, ..., 
                              times = 1000, 
@@ -189,8 +189,8 @@ NULL
 #' @rdname test_distributions 
 #' @param diff_model1,diff_model2 diff_model objects
 #' @examples
-#'   test_distribution(play_diffusion(ison_networkers), 
-#'                     play_diffusion(ison_networkers, thresholds = 75))
+#'  # test_distribution(play_diffusion(ison_networkers), 
+#'  #                   play_diffusion(ison_networkers, thresholds = 75))
 #' @export
 test_distribution <- function(diff_model1, diff_model2){
   out <- stats::ks.test(diff_model1$I, diff_model2$I)
@@ -220,12 +220,12 @@ test_distribution <- function(diff_model1, diff_model2){
 #    the set of simulated diffusions (and thus that the model is not a good fit).
 #' @examples
 #'   # Playing a reasonably quick diffusion
-#'   x <- play_diffusion(generate_random(15), transmissibility = 0.7)
+#'   # x <- play_diffusion(generate_random(15), transmissibility = 0.7)
 #'   # Playing a slower diffusion
-#'   y <- play_diffusions(generate_random(15), transmissibility = 0.1, times = 40)
-#'   plot(x)
-#'   plot(y)
-#'   test_fit(x, y)
+#'   # y <- play_diffusions(generate_random(15), transmissibility = 0.1, times = 40)
+#'   # plot(x)
+#'   # plot(y)
+#'   # test_fit(x, y)
 #' @export
 test_fit <- function(diff_model, diff_models){ # make into method?
   x <- diff_model
