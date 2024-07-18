@@ -23,3 +23,91 @@ marvel_friends <- to_giant(marvel_friends)
 marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances))
 ```
 
+## Initial visualisation
+
+For this session, we'll explore a couple of different datasets.
+First, let's examine homogeneity/heterogeneity in the Marvel relationships dataset from `{manynet}`,
+`ison_marvel_relationships`.
+The dataset is quite complicated,
+so to make this simpler, let's concentrate on:
+
+- just the positive (friendship) ties and not the negative (enmity) ties
+- the main (giant) component without any isolates
+- just those characters that appear in the comics more than average
+
+Fortunately, all these data cleaning moves are easy to do in `{manynet}`,
+and can be seen in the following chunk in order:
+
+```{r friends, exercise=TRUE, purl = FALSE}
+
+```
+
+```{r friends-hint-1, purl = FALSE}
+# since the dataset is a 'signed' graph, we want to get just the
+# positively signed ties to get the friendship graph 
+# (and lose the enmity relations)
+to_unsigned(____, keep = "positive")
+```
+
+```{r friends-hint-2, purl = FALSE}
+# to_giant() is a quick easy way to get the giant/main component
+to_giant(____)
+```
+
+```{r friends-hint-3, purl = FALSE}
+to_subgraph(____, Appearances >= mean(Appearances))
+```
+
+```{r friends-hint-4, purl = FALSE}
+# don't forget to assign the results!
+marvel_friends <- ____
+```
+
+```{r friends-hint-5, purl = FALSE}
+marvel_friends <- to_unsigned(ison_marvel_relationships, keep = "positive")
+marvel_friends <- to_giant(marvel_friends)
+marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances))
+marvel_friends
+```
+
+```{r friends-solution}
+marvel_friends <- to_unsigned(ison_marvel_relationships, keep = "positive")
+marvel_friends <- to_giant(marvel_friends)
+marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances))
+marvel_friends
+```
+
+This gives us an undirected network of nearly twenty characters and a little more than 100 edges.
+Recall that this data has several nodal attributes.
+Let's explore a couple of these attributes, "Gender" and "PowerOrigin", visually
+using `graphr()`.
+
+```{r plotfriends, exercise=TRUE, purl = FALSE}
+
+```
+
+```{r plotfriends-hint, purl = FALSE}
+# Since both Gender and PowerOrigin are categorical variables
+# you will need to use two different aesthetic dimensions to
+# represent them together.
+# Which will you present as shapes and which as colors?
+graphr(____, 
+       node_shape = ____,
+       node_color = ____)
+```
+
+```{r plotfriends-solution}
+graphr(marvel_friends, 
+           node_shape = "Gender",
+           node_color = "PowerOrigin")
+```
+
+These variables seem to be distributed unevenly across the network.
+There seems to be some homophily -- or like choosing like --
+operating here, but it is difficult to say conclusively because there are
+clearly more male than female superheros,
+as well as clearly more superheros of mutant origin than others.
+So what might seem like homophily could just be a result of there being
+many more opportunities for ties between nodes of some categories.
+We therefore need to establish how diverse this network really is.
+
