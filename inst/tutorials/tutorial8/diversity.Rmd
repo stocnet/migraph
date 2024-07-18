@@ -111,3 +111,50 @@ So what might seem like homophily could just be a result of there being
 many more opportunities for ties between nodes of some categories.
 We therefore need to establish how diverse this network really is.
 
+## Measuring richness
+
+We can begin by measuring the number of different categories there are.
+Here we might assume that the more different categories there are,
+the more diverse the network is.
+The measure of 'richness' is inherited from the study of biodiversity,
+and calculates the number of different categories are presented in a
+dataset for a given variable.
+
+```{r rich, exercise=TRUE, purl = FALSE}
+
+```
+
+```{r rich-hint, purl = FALSE}
+net_richness(____, ____)
+```
+
+```{r rich-solution}
+net_richness(marvel_friends, "Gender")
+net_richness(marvel_friends, "PowerOrigin")
+net_richness(marvel_friends, "Attractive")
+net_richness(marvel_friends, "Rich")
+net_richness(marvel_friends, "Intellect")
+```
+
+```{r richness-question, echo=FALSE, purl = FALSE}
+question("Which variable is the most 'diverse' according to this richness measure?",
+  answer("Gender"),
+  answer("PowerOrigin", 
+         correct = TRUE,
+         message = "There are four categories available in this data for power origin, while the other variables include only two categories each."),
+  answer("Attractive"),
+  answer("Rich"),
+  answer("Intellect"),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+)
+```
+
+Note though that 'richness' as a network measure does not include 
+any sense of how distributed these categories are around the network.
+There is a measure of nodal richness available,
+which counts the number of different categories to which each node is tied,
+but this does not offer a summary of how evenly distributed the appearance
+of categories are.
+For that we would need to move on to something like the Blau index.
+
