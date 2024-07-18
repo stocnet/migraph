@@ -31,49 +31,11 @@ navbar:
       icon: "fab fa-github fa-lg"
       href: https://github.com/stocnet/migraph
 reference:
-  - title: "Measures"
-    desc: |
-      Functions for measuring networks and returning a numeric vector or value.
-      Note that all `node_` and `tie_` measures return a single vector
-      so that they can be added directly to graph objects.
-      `network_` measures return one or, in some cases of two-mode measures,
-      two values.
-    contents:
-      - cohesion
-      - ends_with("_centrality")
-      - closure
-      - holes
-      - heterogeneity
-      - features
-      - periods
-      - over
-      - hierarchy
-      - ends_with("_diffusion")
-  - title: "Motifs"
-    desc: |
-      Functions for calculating subgraphs in multimodal networks.
-      These functions have an additional dimension than `node_` and `network_`
-      measures and marks that capture the different motifs surveyed.
-    contents:
-      - ends_with("_census")
-  - title: "Memberships"
-    desc: |
-      Functions for identifying community, cluster, or class memberships
-      in partitions within multimodal networks.
-      They return integer vectors the length of the nodes in the network.
-    contents:
-      - contains("_in_")
-      - components
-      - equivalence
-      - core
-      - cliques
   - title: "Models"
     desc: "Functions for modelling multimodal networks:"
     contents:
       - starts_with("test")
       - regression
-      - cluster
-      - kselect
   - title: "Data"
     desc: |
       The package contains multimodal, multilevel, and multiplex network data,
