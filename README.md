@@ -84,24 +84,14 @@ distributions using:
 - `test_distribution()`, `test_fit()`, `test_gof()`,
   `test_permutation()`, `test_random()`
 
-<figure>
-<img src="https://www.jameshollway.com/post/migraph/tests-2.png"
-alt="A plot showing the results of a QAP test" />
-<figcaption aria-hidden="true">A plot showing the results of a QAP
-test</figcaption>
-</figure>
+<img src="https://www.jameshollway.com/post/migraph/tests-2.png" alt="Plot showing the results of a QAP test"/>
 
 Hypotheses can also be tested within multivariate models via multiple
 (linear or logistic) regression QAP:
 
 - `network_reg()`
 
-<figure>
-<img src="https://www.jameshollway.com/post/migraph/regression-1.png"
-alt="A violin plot showing the results of an MRQAP" />
-<figcaption aria-hidden="true">A violin plot showing the results of an
-MRQAP</figcaption>
-</figure>
+<img src="https://www.jameshollway.com/post/migraph/regression-1.png" alt="A violin plot showing the results of an MRQAP"/>
 
 `{migraph}` is the only package that offers these testing frameworks for
 two-mode networks as well as one-mode networks.

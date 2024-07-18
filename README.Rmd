@@ -89,14 +89,14 @@ conditional uniform graph (CUG) or quadratic assignment procedure (QAP) distribu
 
 - `r list_functions("^test_")`
 
-![A plot showing the results of a QAP test](https://www.jameshollway.com/post/migraph/tests-2.png)
+<img src="https://www.jameshollway.com/post/migraph/tests-2.png" alt="Plot showing the results of a QAP test"/>
 
 Hypotheses can also be tested within multivariate models
 via multiple (linear or logistic) regression QAP:
 
 - `network_reg()`
 
-![A violin plot showing the results of an MRQAP](https://www.jameshollway.com/post/migraph/regression-1.png)
+<img src="https://www.jameshollway.com/post/migraph/regression-1.png" alt="A violin plot showing the results of an MRQAP"/>
 
 `{migraph}` is the only package that offers these testing frameworks 
 for two-mode networks as well as one-mode networks.
