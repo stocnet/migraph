@@ -1,0 +1,25 @@
+---
+title: "Diversity and Regression"
+author: "by James Hollway"
+output: 
+  learnr::tutorial:
+    theme: journal
+runtime: shiny_prerendered
+description: >
+  This tutorial aims to teach you how to measure and test network diversity,
+  moving from univariate to multivariate tests, including 
+  network linear models (multiple regression quadratic assignment procedures).
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(manynet)
+library(migraph)
+library(patchwork)
+library(ggplot2)
+knitr::opts_chunk$set(echo = FALSE)
+marvel_friends <- to_unsigned(ison_marvel_relationships, keep = "positive")
+marvel_friends <- to_giant(marvel_friends)
+marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances))
+```
+
