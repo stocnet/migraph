@@ -158,3 +158,119 @@ but this does not offer a summary of how evenly distributed the appearance
 of categories are.
 For that we would need to move on to something like the Blau index.
 
+## Measuring diversity
+
+Another measure that reflects the diversity in the network for each attribute
+is the Blau Index.
+Recall that the Blau index for any given variable is:
+
+$$1 - \sum p_i^2$$
+
+where $p$ represents the proportion belonging to any given category,
+and $i$ indexes each of the given categories.
+A perfectly homogeneous group would receive a score of 0,
+while a perfectly heterogeneous group (with members spread evenly over the maximum categories)
+would receive a score of 1.
+Obtain the network diversity scores for our five attributes.
+
+```{r blau, exercise=TRUE, purl = FALSE}
+
+```
+
+```{r blau-hint, purl = FALSE}
+net_diversity(____, ____)
+```
+
+```{r blau-solution}
+net_diversity(marvel_friends, "Gender")
+net_diversity(marvel_friends, "PowerOrigin")
+net_diversity(marvel_friends, "Attractive")
+net_diversity(marvel_friends, "Rich")
+net_diversity(marvel_friends, "Intellect")
+```
+
+Looks like there is more diversity in terms of where these characters got
+their powers, whether they have significant intellectual powers,
+and their gender, than their attractiveness or their wealth.
+
+We can also cross-reference this diversity.
+For example, we might be interested in whether our comic book heroes
+are equally gender diverse across their (power) origin stories,
+or equally intellectually diverse across gender.^[Note that this works for calculated categorical variables too, such as cluster/group assignment from community detection or equivalence classes.]
+
+```{r crossref, exercise=TRUE, purl = FALSE}
+
+```
+
+```{r crossref-hint, purl = FALSE}
+net_diversity(____, ____, ____)
+```
+
+```{r crossref-solution}
+net_diversity(marvel_friends, "Gender", "PowerOrigin")
+as.factor(node_attribute(marvel_friends, "PowerOrigin")) # view categories in PowerOrigin
+net_diversity(marvel_friends, "Intellect", "Gender")
+```
+
+Note that the length of the vector returned as a result
+is the number of categories in the second category listed.
+It looks like some origin stories are more gender diverse than others.
+Gods (just Thor here) and humans are all men,
+whereas those with mutant or radiation origin stories are more gender diverse.
+There doesn't appear to be much difference in intellect 
+across gender categories however.
+
+Ok, this tells us about how (un)even the distribution of these variables is in this network,
+but it doesn't necessarily tell us whether ties are appearing more frequently
+between nodes of similar (or different) categories.
+For that we need to look at homophily/heterophily.
+
+## Measuring heterophily
+
+The EI (or E-I) index offers a way to measure the degree to which ties
+appear between rather than within groups of nodes of the same category.
+Recall that the EI index is calculated as:
+
+$$\frac{E-I}{E+I}$$
+
+where $E$ is the number of ties present between a variable's categories (i.e. external),
+and $I$ is the number of ties present within a variable's categories (i.e. internal).
+As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1 suggests perfect heterophily.
+(This is why the function is called `net_heterophily()`).
+
+Check how homophilic three variables in the network are,
+"Gender", "PowerOrigin", and "Attractive".
+
+```{r ei, exercise=TRUE, purl = FALSE}
+
+```
+
+```{r ei-hint, purl = FALSE}
+net_heterophily(____, ____)
+```
+
+```{r ei-solution}
+(obs.gender <- net_heterophily(marvel_friends, "Gender"))
+(obs.powers <- net_heterophily(marvel_friends, "PowerOrigin")) 
+(obs.attract <- net_heterophily(marvel_friends, "Attractive")) 
+```
+
+```{r homophily-present, echo=FALSE, purl = FALSE}
+question("For which variables is there a signal of homophily according to the EI index? (Choose all that apply)",
+  answer("Gender", 
+         correct = TRUE, 
+         message = "Yes, looks like there might be some gender homophily present."),
+  answer("PowerOrigin", 
+         message = "The score for power origin homophily is so close to 0 that it does not seem to signal much."),
+  answer("Attractive", 
+         correct = TRUE, 
+         message = "And looks like a fairly large effect for homophily on the basis of looks..."),
+  allow_retry = TRUE
+)
+```
+
+Ultimately though, these are just scores,
+and doesn't tell us whether this is any more or less than
+what we might expect the score to be by chance for a network
+of this size and density and distribution of that attribute.
+
