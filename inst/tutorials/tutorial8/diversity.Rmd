@@ -458,3 +458,89 @@ question("What can we say from these results?",
 )
 ```
 
+## Network regression
+
+Next let us examine homophily in another network.
+The data were collected as part of an early experiment on communication between social network researchers who were using an Electronic Information Exchange System (EIES).
+You may recognise some of the names.
+The main network consists of 32 scholars with directed ties weighted by the total number of messages sent from $i$ to $j$ over the period of the study.
+Nodal attributes collected include the primary discipline and number of citations in the social science citation index at the start of the study.
+
+```{r introeies, exercise=TRUE, purl = FALSE}
+ison_networkers
+graphr(ison_networkers, node_color = "Discipline")
+```
+
+Let's use both the continuous `Citations` and the categorical `Discipline` variables 
+and come up with a couple of key hypotheses:
+
+- $H_1$: researchers send more emails to those who are cited more (popularity hypothesis)
+- $H_2$: researchers send more emails to those of the same discipline (disciplinary homophily hypothesis)
+
+Let's start with a pretty maximally specified model 
+(note that it doesn't make sense to include both ego and alter effects because these networks are undirected).
+We are using `times = 200` here because of time-out limitations in the `learnr` tutorial system,
+but for publication quality results you would want to base your conclusions on 2000
+simulations or more.
+
+```{r qapmax, exercise=TRUE, exercise.timelimit = 3600, purl = FALSE}
+
+```
+
+```{r qapmax-hint-1, purl = FALSE}
+network_reg(____, ison_networkers, times = 200)
+# If the model runs into a timeout error, please reduce the number of 'times' in the function above.
+```
+
+```{r qapmax-hint-2, purl = FALSE}
+weight ~ alter(Citations) + sim(Citations) + 
+                      alter(Discipline) + same(Discipline)
+```
+
+```{r qapmax-solution}
+model1 <- network_reg(weight ~ ego(Citations) + alter(Citations) + sim(Citations) + 
+                      ego(Discipline) + alter(Discipline) + same(Discipline), 
+                      ison_networkers, times = 200)
+```
+
+We can use tidy methods (e.g. `tidy()`, `glance()`) to get the salient information from this model,
+and `{migraph}` includes also a plot method for these results to
+facilitate the quick interpretation of these results.
+
+```{r qapinterp, exercise=TRUE, exercise.setup = "qapmax-solution", purl = FALSE}
+
+```
+
+```{r qapinterp-solution}
+tidy(model1)
+glance(model1)
+plot(model1)
+```
+
+This violin plot presents the distribution of coefficients from permutations of the network,
+with the coefficient fitted from the data as a red dot.
+Lines are used to indicate 95% thresholds,
+but here the distributions are rendered so wide that they are often not visible.
+
+```{r qap-interp, echo=FALSE, purl = FALSE}
+question("What can we say from the results from model 1?",
+  answer("Researchers send more messages to those who are cited more", 
+         message = "Looks like alter Citations is not significant."),
+  answer("Researchers send more messages to those who similarly cited", 
+         message = "Looks like sim Citations is not significant."),
+  answer("Researchers send more messages to mathematicians than anthropologists", 
+         message = "Looks like alter Discipline Mathematics is not significant."),
+  answer("Researchers send more messages to sociologists than anthropologists", 
+         message = "Looks like alter Discipline Sociology is not significant."),
+  answer("Not much", 
+         correct = TRUE, 
+         message = "Yes, the fitted coefficients are, if not typical, at least unsurprising from permutations of the network and so there's no evidence for rejecting the null hypothesis on the basis of this data."),
+  allow_retry = TRUE
+)
+```
+
+While these are the conclusions from this 'play' data, 
+you may have more and more interesting data at hand.
+How would you go about specifying such a model?
+Why is such an approach more appropriate for network data than linear
+or logistic regression?

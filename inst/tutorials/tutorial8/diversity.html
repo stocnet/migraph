@@ -579,21 +579,14 @@ data-pipe="|&gt;">
 <div class="tutorial-exercise-support" data-label="qapmax-hint-1"
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0" data-pipe="|&gt;">
-<pre class="text"><code>network_reg(____, ison_networkers, times = 200)</code></pre>
+<pre class="text"><code>network_reg(____, ison_networkers, times = 200)
+# If the model runs into a timeout error, please reduce the number of &#39;times&#39; in the function above.</code></pre>
 </div>
 <div class="tutorial-exercise-support" data-label="qapmax-hint-2"
 data-completion="1" data-diagnostics="1" data-startover="1"
 data-lines="0" data-pipe="|&gt;">
 <pre class="text"><code>weight ~ alter(Citations) + sim(Citations) + 
                       alter(Discipline) + same(Discipline)</code></pre>
-</div>
-<div class="tutorial-exercise-support" data-label="qapmax-hint-3"
-data-completion="1" data-diagnostics="1" data-startover="1"
-data-lines="0" data-pipe="|&gt;">
-<pre class="text"><code>model1 &lt;- network_reg(weight ~ alter(Citations) + sim(Citations) + 
-                      alter(Discipline) + same(Discipline), 
-                      ison_networkers, times = 200)
-# If the model runs into a timeout error, please reduce the number of &#39;times&#39; in the function above.</code></pre>
 </div>
 <div class="tutorial-exercise-support" data-label="qapmax-solution"
 data-completion="1" data-diagnostics="1" data-startover="1"
@@ -798,20 +791,20 @@ learnr:::store_exercise_cache(structure(list(label = "rich", global_setup = stru
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "richness-question", 
     question = structure("Which variable is the most ‘diverse’ according to this richness measure?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_1949028", 
+    "character")), answers = list(structure(list(id = "lnr_ans_738c59a", 
         option = "Gender", value = "Gender", label = structure("Gender", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5facabd", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e95983b", 
         option = "PowerOrigin", value = "PowerOrigin", label = structure("PowerOrigin", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = structure("There are four categories available in this data for power origin, while the other variables include only two categories each.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f4f5d6c", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e173955", 
         option = "Attractive", value = "Attractive", label = structure("Attractive", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_28e6682", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_731d0bb", 
         option = "Rich", value = "Rich", label = structure("Rich", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_296533c", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f6a1b2b", 
         option = "Intellect", value = "Intellect", label = structure("Intellect", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -822,7 +815,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "richness-question-answer", question = "richness-question"), 
     loading = NULL, random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 278029209.870533, options = list()), class = c("learnr_radio", 
+    seed = 691772998.677868, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
 
@@ -961,15 +954,15 @@ learnr:::store_exercise_cache(structure(list(label = "ei", global_setup = struct
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "homophily-present", 
     question = structure("For which variables is there a signal of homophily according to the EI index? (Choose all that apply)", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_6fa553d", 
+    "character")), answers = list(structure(list(id = "lnr_ans_a147200", 
         option = "Gender", value = "Gender", label = structure("Gender", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = structure("Yes, looks like there might be some gender homophily present.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_10a55ee", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2460ce9", 
         option = "PowerOrigin", value = "PowerOrigin", label = structure("PowerOrigin", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = structure("The score for power origin homophily is so close to 0 that it does not seem to signal much.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c0dcc73", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2106644", 
         option = "Attractive", value = "Attractive", label = structure("Attractive", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = structure("And looks like a fairly large effect for homophily on the basis of looks…", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
@@ -981,7 +974,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "homophily-present-answer", question = "homophily-present"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1110265576.98299, options = list()), class = c("learnr_checkbox", 
+    seed = 1970588899.08237, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -1085,25 +1078,25 @@ learnr:::store_exercise_cache(structure(list(label = "perm", global_setup = stru
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "cupqap-qn", 
     question = structure("Which of the following is true?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_87e0edd", 
+    "character")), answers = list(structure(list(id = "lnr_ans_e8f4970", 
         option = "Random networks retain the structure of the original network.", 
         value = "Random networks retain the structure of the original network.", 
         label = structure("Random networks retain the structure of the original network.", html = TRUE, class = c("html", 
-        "character")), correct = FALSE, message = structure("Please try again.", html = TRUE, class = c("html", 
+        "character")), correct = FALSE, message = structure("Try it again. I have a good feeling about this.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f2eb99", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3a53257", 
         option = "Permuted networks retain the structure of the original network.", 
         value = "Permuted networks retain the structure of the original network.", 
         label = structure("Permuted networks retain the structure of the original network.", html = TRUE, class = c("html", 
-        "character")), correct = TRUE, message = structure("Wonderful!", html = TRUE, class = c("html", 
+        "character")), correct = TRUE, message = structure("Superb work!", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f456dd7", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b14a037", 
         option = "Both random and permuted networks retain the proportion of attributes from the original network.", 
         value = "Both random and permuted networks retain the proportion of attributes from the original network.", 
         label = structure("Both random and permuted networks retain the proportion of attributes from the original network.", html = TRUE, class = c("html", 
-        "character")), correct = TRUE, message = structure("Splendid!", html = TRUE, class = c("html", 
+        "character")), correct = TRUE, message = structure("Smashing!", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_91dd6ff", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1333f83", 
         option = "Permuted networks retain the ties among the same nodes from the original network.", 
         value = "Permuted networks retain the ties among the same nodes from the original network.", 
         label = structure("Permuted networks retain the ties among the same nodes from the original network.", html = TRUE, class = c("html", 
@@ -1117,7 +1110,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "cupqap-qn-answer", question = "cupqap-qn"), 
     loading = NULL, random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 88267986.958897, options = list()), class = c("learnr_checkbox", 
+    seed = 777716116.637848, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
 
@@ -1178,25 +1171,25 @@ learnr:::store_exercise_cache(structure(list(label = "testperm", global_setup = 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "cupqap-results", 
     question = structure("What can we say from these results?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_a1655b0", 
+    "character")), answers = list(structure(list(id = "lnr_ans_7461db3", 
         option = "We can reject the null hypothesis that there is no homophily for gender in the comparison with random networks", 
         value = "We can reject the null hypothesis that there is no homophily for gender in the comparison with random networks", 
         label = structure("We can reject the null hypothesis that there is no homophily for gender in the comparison with random networks", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = structure("We cannot reject the null hypothesis since the result is in the range of expected scores across randomised networks, indicated by the red line between the grey shaded zones.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5e08708", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_9c2b8bc", 
         option = "We can reject the null hypothesis that there is no homophily for power origin in the comparison with random networks", 
         value = "We can reject the null hypothesis that there is no homophily for power origin in the comparison with random networks", 
         label = structure("We can reject the null hypothesis that there is no homophily for power origin in the comparison with random networks", html = TRUE, class = c("html", 
-        "character")), correct = TRUE, message = structure("Cool job!", html = TRUE, class = c("html", 
+        "character")), correct = TRUE, message = structure("Great work!", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8726829", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_813068", 
         option = "We can reject the null hypothesis that there is no homophily for power origin in both CUG and QAP tests", 
         value = "We can reject the null hypothesis that there is no homophily for power origin in both CUG and QAP tests", 
         label = structure("We can reject the null hypothesis that there is no homophily for power origin in both CUG and QAP tests", html = TRUE, class = c("html", 
-        "character")), correct = TRUE, message = structure("Smashing!", html = TRUE, class = c("html", 
+        "character")), correct = TRUE, message = structure("Very good!", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_fb6ac34", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_64d5cc5", 
         option = "We can reject the null hypothesis that there is no homophily for gender in both CUG and QAP tests", 
         value = "We can reject the null hypothesis that there is no homophily for gender in both CUG and QAP tests", 
         label = structure("We can reject the null hypothesis that there is no homophily for gender in both CUG and QAP tests", html = TRUE, class = c("html", 
@@ -1210,7 +1203,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "cupqap-results-answer", question = "cupqap-results"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1407924595.84438, options = list()), class = c("learnr_checkbox", 
+    seed = 662101650.191685, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -1273,8 +1266,8 @@ learnr:::store_exercise_cache(structure(list(label = "qapmax", global_setup = st
     chunks = list(list(label = "qapmax", code = "", opts = list(
         label = "\"qapmax\"", exercise = "TRUE", exercise.timelimit = "3600", 
         purl = "FALSE"), engine = "r")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = structure(c("model1 <- network_reg(weight ~ alter(Citations) + sim(Citations) + ", 
-    "                      alter(Discipline) + same(Discipline), ", 
+    check = NULL, solution = structure(c("model1 <- network_reg(weight ~ ego(Citations) + alter(Citations) + sim(Citations) + ", 
+    "                      ego(Discipline) + alter(Discipline) + same(Discipline), ", 
     "                      ison_networkers, times = 200)"), chunk_opts = list(
         label = "qapmax-solution")), tests = NULL, options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
@@ -1313,8 +1306,8 @@ learnr:::store_exercise_cache(structure(list(label = "qapinterp", global_setup =
 "library(manynet)", "library(migraph)", "library(patchwork)", 
 "library(ggplot2)", "knitr::opts_chunk$set(echo = FALSE)", "marvel_friends <- to_unsigned(ison_marvel_relationships, keep = \"positive\")", 
 "marvel_friends <- to_giant(marvel_friends)", "marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances))"
-), chunk_opts = list(label = "setup", include = FALSE)), setup = "model1 <- network_reg(weight ~ alter(Citations) + sim(Citations) + \n                      alter(Discipline) + same(Discipline), \n                      ison_networkers, times = 200)", 
-    chunks = list(list(label = "qapmax-solution", code = "model1 <- network_reg(weight ~ alter(Citations) + sim(Citations) + \n                      alter(Discipline) + same(Discipline), \n                      ison_networkers, times = 200)", 
+), chunk_opts = list(label = "setup", include = FALSE)), setup = "model1 <- network_reg(weight ~ ego(Citations) + alter(Citations) + sim(Citations) + \n                      ego(Discipline) + alter(Discipline) + same(Discipline), \n                      ison_networkers, times = 200)", 
+    chunks = list(list(label = "qapmax-solution", code = "model1 <- network_reg(weight ~ ego(Citations) + alter(Citations) + sim(Citations) + \n                      ego(Discipline) + alter(Discipline) + same(Discipline), \n                      ison_networkers, times = 200)", 
         opts = list(label = "\"qapmax-solution\""), engine = "r"), 
         list(label = "qapinterp", code = "", opts = list(label = "\"qapinterp\"", 
             exercise = "TRUE", exercise.setup = "\"qapmax-solution\"", 
@@ -1347,31 +1340,31 @@ learnr:::store_exercise_cache(structure(list(label = "qapinterp", global_setup =
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "qap-interp", question = structure("What can we say from the results from model 1?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_49dd004", 
+"character")), answers = list(structure(list(id = "lnr_ans_707c000", 
     option = "Researchers send more messages to those who are cited more", 
     value = "Researchers send more messages to those who are cited more", 
     label = structure("Researchers send more messages to those who are cited more", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Looks like alter Citations is not significant.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_691d285", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9ff5bc", 
     option = "Researchers send more messages to those who similarly cited", 
     value = "Researchers send more messages to those who similarly cited", 
     label = structure("Researchers send more messages to those who similarly cited", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Looks like sim Citations is not significant.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_fd76914", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_344ccdc", 
     option = "Researchers send more messages to mathematicians than anthropologists", 
     value = "Researchers send more messages to mathematicians than anthropologists", 
     label = structure("Researchers send more messages to mathematicians than anthropologists", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Looks like alter Discipline Mathematics is not significant.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_483fd09", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_320f758", 
     option = "Researchers send more messages to sociologists than anthropologists", 
     value = "Researchers send more messages to sociologists than anthropologists", 
     label = structure("Researchers send more messages to sociologists than anthropologists", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Looks like alter Discipline Sociology is not significant.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_36ee4", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9001ce6", 
     option = "Not much", value = "Not much", label = structure("Not much", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = structure("Yes, the fitted coefficients are, if not typical, at least unsurprising from permutations of the network and so there’s no evidence for rejecting the null hypothesis on the basis of this data.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
@@ -1382,7 +1375,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "qap-interp-answer", question = "qap-interp"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 2042146732.04905, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 890915619.085135, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
