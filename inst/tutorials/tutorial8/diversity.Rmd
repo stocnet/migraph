@@ -350,3 +350,111 @@ While the coefficient itself is close to 0 (neither strong homophily nor heterop
 all the random networks generated returned larger EI scores, between .1 and .4.
 That is, there is significantly less heterophily here than expected.
 
+## QAP tests
+
+Ah, but perhaps random graphs are not the best reference group 
+for establishing whether there is a significant homophily effect here.
+After all, social networks are not completely random; 
+they are _structured_ in particular ways, such as some nodes having higher degrees
+than others, or there being a core and periphery or community topology.
+
+Another approach to establishing a baseline for whether we should be surprised
+by a given score or not is to use permutations of the underlying network
+instead of random graphs.
+Permuting the network retains the structure of the network
+because the ties are kept and only the labels (variables) are reassigned randomly.
+Let's first plot the observed data and some permuted data next to each other.
+
+```{r perm, exercise=TRUE, purl = FALSE}
+
+```
+
+```{r perm-hint, purl = FALSE}
+graphr(generate_permutation(____, with_attr = TRUE), ____)
+```
+
+```{r perm-solution}
+old <- graphr(marvel_friends,
+              labels = FALSE, node_size = 6,
+              node_color = "PowerOrigin",
+              node_shape = "Gender") + ggtitle("Original network")
+new <- graphr(generate_permutation(marvel_friends, with_attr = TRUE),
+              labels = FALSE, node_size = 6,
+              node_color = "PowerOrigin",
+              node_shape = "Gender") + ggtitle("Permuted network")
+old + new
+```
+
+```{r cupqap-qn, echo=FALSE, purl = FALSE}
+question("Which of the following is true?",
+  answer("Random networks retain the structure of the original network.",
+         message = learnr::random_encouragement()),
+  answer("Permuted networks retain the structure of the original network.",
+         correct = TRUE,
+         message = learnr::random_praise()),
+  answer("Both random and permuted networks retain the proportion of attributes from the original network.",
+         correct = TRUE,
+         message = learnr::random_praise()),
+  answer("Permuted networks retain the ties among the same nodes from the original network.", 
+         message = "Permuted networks randomly reassign any variables and change positions of nodes by swapping the rows and columns of an adjacency matrix."),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+)
+```
+
+This single permutation suggests a more even mixing of these
+attributes is possible, but it is just a single permutation.
+Let's try a test that runs this over a succession of permutations,
+just as we did with random graphs.
+Plot the results for gender and power according to the random and permutation baselines.
+
+```{r testperm, exercise=TRUE, exercise.setup = "rando-solution", purl = FALSE}
+
+```
+
+```{r testperm-hint, purl = FALSE}
+test_permutation(____, FUN = ____, attribute = ____,
+                                times = ____)
+```
+
+```{r testperm-solution, purl = FALSE}
+(perm.gender <- test_permutation(marvel_friends, 
+                                net_heterophily, attribute = "Gender",
+                                times = 1000))
+(perm.power <- test_permutation(marvel_friends, 
+                                net_heterophily, attribute = "PowerOrigin",
+                                times = 1000))
+
+(plot(rand.gender) + ggtitle("CUG test results for 'Gender' attribute") + 
+    theme(plot.title = element_text(size=8)) | 
+    plot(rand.power) + ggtitle("CUG test results for 'PowerOrigin' attribute") + 
+    theme(plot.title = element_text(size=8))) /
+(plot(perm.gender) + ggtitle("QAP test results for 'Gender' attribute") + 
+   theme(plot.title = element_text(size=8)) | 
+   plot(perm.power) + ggtitle("QAP test results for 'PowerOrigin' attribute") + 
+   theme(plot.title = element_text(size=8)))
+```
+
+Again, we see that there is perhaps nothing so surprising that we got the homophily score
+for gender that we did, but the lack of power origin heterophily is surprising.
+Note how the distributions are generally wider when permuting the observed network 
+than creating a random distribution (be mindful of the scale of the _x_-axis).
+That is, taking into account the structure of the network leads us to
+expect a larger spread in the EI index than when the variable is distributed across a random network.
+
+```{r cupqap-results, echo=FALSE, purl = FALSE}
+question("What can we say from these results?",
+  answer("We can reject the null hypothesis that there is no homophily for gender in the comparison with random networks",
+         message = "We cannot reject the null hypothesis since the result is in the range of expected scores across randomised networks, indicated by the red line between the grey shaded zones."),
+  answer("We can reject the null hypothesis that there is no homophily for power origin in the comparison with random networks", 
+         correct = TRUE,
+         message = learnr::random_praise()),
+  answer("We can reject the null hypothesis that there is no homophily for power origin in both CUG and QAP tests",
+         correct = TRUE,
+         message = learnr::random_praise()),
+  answer("We can reject the null hypothesis that there is no homophily for gender in both CUG and QAP tests", 
+         message = "We cannot reject the null hypothesis since the result is in the range of expected scores across randomised and permuted networks, indicated by the red lines between the grey shaded zones in both plots."),
+  allow_retry = TRUE
+)
+```
+
