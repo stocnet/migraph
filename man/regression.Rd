@@ -2,10 +2,10 @@
 % Please edit documentation in R/model_regression.R
 \name{regression}
 \alias{regression}
-\alias{network_reg}
+\alias{net_regression}
 \title{Linear and logistic regression for network data}
 \usage{
-network_reg(
+net_regression(
   formula,
   .data,
   method = c("qap", "qapy"),
@@ -94,7 +94,7 @@ will always be respected in permutations and analysis.
 }
 \examples{
 networkers <- ison_networkers \%>\% to_subgraph(Discipline == "Sociology")
-model1 <- network_reg(weight ~ alter(Citations) + sim(Citations), 
+model1 <- net_regression(weight ~ ego(Citations) + alter(Citations) + sim(Citations), 
                       networkers, times = 20)
 # Should be run many more `times` for publication-ready results
 tidy(model1)

@@ -17,10 +17,12 @@ navbar:
     right:
     - search
     - github
+    - cran
   components:
     home:
       icon: fa-home fa-lg
       href: index.html
+      aria-label: Go to home
     reference:
       text: Function Overview
       href: reference/index.html
@@ -30,6 +32,11 @@ navbar:
     github:
       icon: "fab fa-github fa-lg"
       href: https://github.com/stocnet/migraph
+      aria-label: View on Github
+    cran:
+      icon: "fab fa-r-project"
+      href: https://cloud.r-project.org/package=migraph
+      aria-label: View on CRAN
 reference:
   - title: "Models"
     desc: "Functions for modelling multimodal networks:"

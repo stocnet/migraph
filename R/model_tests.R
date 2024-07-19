@@ -34,7 +34,6 @@ test_random <- function(.data, FUN, ...,
                         times = 1000, 
                         strategy = "sequential", 
                         verbose = FALSE){
-  if(missing(.data)) {expect_nodes(); .data <- .G()}
   args <- unlist(list(...))
   if (!is.null(args)) {
     obsd <- FUN(.data, args)
@@ -71,6 +70,7 @@ test_random <- function(.data, FUN, ...,
   class(out) <- "network_test"
   out
 }
+
 #' @rdname tests 
 #' @examples 
 #' # (qaptest <- test_permutation(marvel_friends, 
@@ -82,7 +82,6 @@ test_permutation <- function(.data, FUN, ...,
                              times = 1000, 
                              strategy = "sequential", 
                              verbose = FALSE){
-  if(missing(.data)) {expect_nodes(); .data <- .G()}
   args <- unlist(list(...))
   if (!is.null(args)) {
     obsd <- FUN(.data, args)
@@ -231,13 +230,13 @@ test_fit <- function(diff_model, diff_models){ # make into method?
   x <- diff_model
   y <- diff_models
   sim <- `0` <- NULL
-  sims <- y |> dplyr::select(sim, t, I) |> 
-    tidyr::pivot_wider(names_from = t, values_from = I) |> 
-    dplyr::select(-c(sim, `0`))
+  sims <- y |> dplyr::select(sim, t, I)
+  sims <- as.data.frame.matrix(stats::xtabs(I ~ sim + t, sims)) # tidyr::pivot_wider replacement
   sims <- sims[,colSums(stats::cov(sims))!=0]
   mah <- stats::mahalanobis(x$I[-1], colMeans(sims), stats::cov(sims))
   pval <- pchisq(mah, df=length(x$I[-1]), lower.tail=FALSE)
   dplyr::tibble(statistic = mah, p.value = pval, 
                 df = length(x$I[-1]), nobs = nrow(sims))
 }
+
 

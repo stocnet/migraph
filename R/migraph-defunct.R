@@ -18,3 +18,16 @@ test_gof <- function(diff_model, diff_models) {
               old = "test_gof")
   test_fit(diff_model, diff_models)
 }
+
+#' @describeIn defunct Deprecated on 2024-07-19.
+#' @export
+network_reg <- function(formula, .data,
+                        method = c("qap","qapy"),
+                        times = 1000,
+                        strategy = "sequential",
+                        verbose = FALSE) {
+  .Deprecated("net_regression", package = "migraph",
+              old = "network_reg")
+  net_regression(formula, .data, method, times,
+                 strategy, verbose)
+}
