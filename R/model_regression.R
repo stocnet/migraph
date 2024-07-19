@@ -86,14 +86,14 @@
 #'   
 #' @examples
 #' networkers <- ison_networkers %>% to_subgraph(Discipline == "Sociology")
-#' model1 <- network_reg(weight ~ alter(Citations) + sim(Citations), 
+#' model1 <- net_regression(weight ~ ego(Citations) + alter(Citations) + sim(Citations), 
 #'                       networkers, times = 20)
 #' # Should be run many more `times` for publication-ready results
 #' tidy(model1)
 #' glance(model1)
 #' plot(model1)
 #' @export
-network_reg <- function(formula, .data,
+net_regression <- function(formula, .data,
                         method = c("qap","qapy"),
                         times = 1000,
                         strategy = "sequential",
@@ -241,6 +241,10 @@ network_reg <- function(formula, .data,
   fit  
   
 }
+
+# alias for the above
+#' @export
+network_reg <- net_regression
 
 ###################
 
