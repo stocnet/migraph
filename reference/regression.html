@@ -39,7 +39,7 @@ will always be respected in permutations and analysis.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
       </span>
     </div>
 
@@ -59,6 +59,12 @@ will always be respected in permutations and analysis.
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/stocnet/migraph" class="external-link">
     <span class="fab fa-github fa-lg"></span>
+
+  </a>
+</li>
+<li>
+  <a href="https://cloud.r-project.org/package=migraph" class="external-link">
+    <span class="fab fa-r-project"></span>
 
   </a>
 </li>
@@ -100,7 +106,7 @@ will always be respected in permutations and analysis.</p></li>
 </ul></div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">network_reg</span><span class="op">(</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">net_regression</span><span class="op">(</span></span>
 <span>  <span class="va">formula</span>,</span>
 <span>  <span class="va">.data</span>,</span>
 <span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"qap"</span>, <span class="st">"qapy"</span><span class="op">)</span>,</span>
@@ -199,22 +205,22 @@ See <a href="https://progressr.futureverse.org" class="external-link"><code>{pro
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">networkers</span> <span class="op">&lt;-</span> <span class="va">ison_networkers</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">to_subgraph</span><span class="op">(</span><span class="va">Discipline</span> <span class="op">==</span> <span class="st">"Sociology"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">model1</span> <span class="op">&lt;-</span> <span class="fu">network_reg</span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="fu">alter</span><span class="op">(</span><span class="va">Citations</span><span class="op">)</span> <span class="op">+</span> <span class="fu">sim</span><span class="op">(</span><span class="va">Citations</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span><span class="va">model1</span> <span class="op">&lt;-</span> <span class="fu">net_regression</span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="fu">ego</span><span class="op">(</span><span class="va">Citations</span><span class="op">)</span> <span class="op">+</span> <span class="fu">alter</span><span class="op">(</span><span class="va">Citations</span><span class="op">)</span> <span class="op">+</span> <span class="fu">sim</span><span class="op">(</span><span class="va">Citations</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>                      <span class="va">networkers</span>, times <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>When testing for homophily, it is recommended to include also more fundamental effects such as `ego()` and `alter()`. Try adding ego(Citations) to the model specification.</span>
 <span class="r-in"><span><span class="co"># Should be run many more `times` for publication-ready results</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">model1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   term            estimate statistic p.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (intercept)       -<span style="color: #BB0000;">8.47</span>     -<span style="color: #BB0000;">0.839</span>    0.45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> alter Citations   -<span style="color: #BB0000;">0.125</span>    -<span style="color: #BB0000;">0.791</span>    0.55</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> sim Citations     44.9       3.68     0.05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (intercept)        2.93      0.242     0.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> ego Citations     -<span style="color: #BB0000;">0.269</span>    -<span style="color: #BB0000;">1.69</span>      0.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> alter Citations   -<span style="color: #BB0000;">0.158</span>    -<span style="color: #BB0000;">0.997</span>     0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> sim Citations     39.4       3.13      0  </span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance</a></span><span class="op">(</span><span class="va">model1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 8</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   r.squared adj.r.squared sigma statistic  p.value    df df.residual  nobs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    0.057<span style="text-decoration: underline;">5</span>        0.050<span style="text-decoration: underline;">5</span>  49.0      8.20 0.000<span style="text-decoration: underline;">349</span>     2         269   272</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    0.067<span style="text-decoration: underline;">4</span>        0.057<span style="text-decoration: underline;">0</span>  48.9      6.46 0.000<span style="text-decoration: underline;">309</span>     3         268   272</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">model1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="regression-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>

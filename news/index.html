@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
       </span>
     </div>
 
@@ -40,6 +40,12 @@
 
   </a>
 </li>
+<li>
+  <a href="https://cloud.r-project.org/package=migraph" class="external-link">
+    <span class="fab fa-r-project"></span>
+
+  </a>
+</li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -53,6 +59,25 @@
       <small>Source: <a href="https://github.com/stocnet/migraph/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.4.1" id="migraph-141">migraph 1.4.1<a class="anchor" aria-label="anchor" href="#migraph-141"></a></h2>
+<p>2024-07-19</p>
+<div class="section level3">
+<h3 id="package-1-4-1">Package<a class="anchor" aria-label="anchor" href="#package-1-4-1"></a></h3>
+<ul><li>Made package title Title Case in DESCRIPTION</li>
+<li>Added alttext to icons used in pkgdown site</li>
+<li>Added CRAN link in pkgdown site</li>
+<li>Removed unnecessary reexports</li>
+<li>Dropped 6 Suggests dependencies</li>
+<li>Dropped 4 Imports dependencies (including <a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a>, see below)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="models-1-4-1">Models<a class="anchor" aria-label="anchor" href="#models-1-4-1"></a></h3>
+<ul><li>
+<code><a href="../reference/defunct.html">network_reg()</a></code> renamed to <code><a href="../reference/regression.html">net_regression()</a></code> for consistency</li>
+<li>Refactored several functions to avoid <a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a> dependency for pivoting longer and wider</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.4.0" id="migraph-140">migraph 1.4.0<a class="anchor" aria-label="anchor" href="#migraph-140"></a></h2>
 <p>2024-07-18</p>
@@ -80,7 +105,7 @@
 <li>Corrected that <code><a href="../reference/tests.html">test_random()</a></code> returns results on edge-conditioned uniform graphs, not size</li>
 <li>Reexported <code><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">ggplot2::scale_y_discrete()</a></code>
 </li>
-<li>Specification advice in <code><a href="../reference/regression.html">network_reg()</a></code> now ignores absent ego terms for undirected networks</li>
+<li>Specification advice in <code><a href="../reference/defunct.html">network_reg()</a></code> now ignores absent ego terms for undirected networks</li>
 </ul></div>
 <div class="section level3">
 <h3 id="tutorials-1-4-0">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-4-0"></a></h3>
@@ -152,7 +177,7 @@
 <li>
 <code><a href="../reference/tests.html">test_permutation()</a></code> now reverts future plan on exit</li>
 <li>
-<code><a href="../reference/regression.html">network_reg()</a></code> now reverts future plan on exit</li>
+<code><a href="../reference/defunct.html">network_reg()</a></code> now reverts future plan on exit</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -194,9 +219,9 @@
 <div class="section level3">
 <h3 id="models-1-3-0">Models<a class="anchor" aria-label="anchor" href="#models-1-3-0"></a></h3>
 <ul><li>Migrated <code>play_*()</code> functions to <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>, including <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_diffusion()</a></code> and the diffusion tutorial</li>
-<li>Added specification advice to <code><a href="../reference/regression.html">network_reg()</a></code> so that specifications that include a ‘sim’ or ‘same’ effect for a variable are encouraged to also include more elementary ‘ego’ and ‘alter’ effects</li>
+<li>Added specification advice to <code><a href="../reference/defunct.html">network_reg()</a></code> so that specifications that include a ‘sim’ or ‘same’ effect for a variable are encouraged to also include more elementary ‘ego’ and ‘alter’ effects</li>
 <li>
-<code><a href="../reference/regression.html">network_reg()</a></code> now ignores the LHS of the formula for uniplex networks</li>
+<code><a href="../reference/defunct.html">network_reg()</a></code> now ignores the LHS of the formula for uniplex networks</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -586,7 +611,7 @@
 <li>A plot method visualises the belief trajectories for each node</li>
 </ul></li>
 <li>
-<code><a href="../reference/regression.html">network_reg()</a></code> now declares the reference category for nominal variables</li>
+<code><a href="../reference/defunct.html">network_reg()</a></code> now declares the reference category for nominal variables</li>
 </ul></div>
 <div class="section level3">
 <h3 id="mapping-0-13-0">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-13-0"></a></h3>
@@ -832,9 +857,9 @@
 </ul></div>
 <div class="section level3">
 <h3 id="models-0-11-0">Models<a class="anchor" aria-label="anchor" href="#models-0-11-0"></a></h3>
-<ul><li>Added “tertius” effect for <code><a href="../reference/regression.html">network_reg()</a></code>
+<ul><li>Added “tertius” effect for <code><a href="../reference/defunct.html">network_reg()</a></code>
 </li>
-<li>“ego” and “alter” effects now work better for two-mode networks in <code><a href="../reference/regression.html">network_reg()</a></code>
+<li>“ego” and “alter” effects now work better for two-mode networks in <code><a href="../reference/defunct.html">network_reg()</a></code>
 </li>
 </ul></div>
 <div class="section level3">
@@ -1248,18 +1273,18 @@
 </li></ul></div>
 <div class="section level3">
 <h3 id="models-0-9-0">Models<a class="anchor" aria-label="anchor" href="#models-0-9-0"></a></h3>
-<ul><li>Extended <code><a href="../reference/regression.html">network_reg()</a></code>’s formula-based system<ul><li>
-<code><a href="../reference/regression.html">network_reg()</a></code> can now handle binary and multiple categorical variables (factors and characters, closed <a href="https://github.com/stocnet/migraph/issues/211" class="external-link">#211</a>);</li>
+<ul><li>Extended <code><a href="../reference/defunct.html">network_reg()</a></code>’s formula-based system<ul><li>
+<code><a href="../reference/defunct.html">network_reg()</a></code> can now handle binary and multiple categorical variables (factors and characters, closed <a href="https://github.com/stocnet/migraph/issues/211" class="external-link">#211</a>);</li>
 <li>
-<code><a href="../reference/regression.html">network_reg()</a></code> can now manage interactions specified in the common syntax; <code>var1 * var2</code> expands to <code>var1 + var2 + var1:var2</code> (closed <a href="https://github.com/stocnet/migraph/issues/163" class="external-link">#163</a>)</li>
+<code><a href="../reference/defunct.html">network_reg()</a></code> can now manage interactions specified in the common syntax; <code>var1 * var2</code> expands to <code>var1 + var2 + var1:var2</code> (closed <a href="https://github.com/stocnet/migraph/issues/163" class="external-link">#163</a>)</li>
 <li>
 <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist()</a></code> and <code>sim()</code> effects have been added (closed <a href="https://github.com/stocnet/migraph/issues/207" class="external-link">#207</a>)</li>
 </ul></li>
 <li>
-<code><a href="../reference/regression.html">network_reg()</a></code> now employs logistic regression to estimate a binary outcome and linear regression to estimate a continuous outcome (closed <a href="https://github.com/stocnet/migraph/issues/184" class="external-link">#184</a>)</li>
+<code><a href="../reference/defunct.html">network_reg()</a></code> now employs logistic regression to estimate a binary outcome and linear regression to estimate a continuous outcome (closed <a href="https://github.com/stocnet/migraph/issues/184" class="external-link">#184</a>)</li>
 <li>
-<code><a href="../reference/regression.html">network_reg()</a></code> now uses Dekker et al’s semi-partialling procedure by default for multivariate specifications (closed <a href="https://github.com/stocnet/migraph/issues/206" class="external-link">#206</a>), defaulting to <em>y</em>-permutations in the case of a single predictor (closed <a href="https://github.com/stocnet/migraph/issues/208" class="external-link">#208</a>)</li>
-<li>Added parallelisation to Monte Carlo based tests<ul><li>Refactored <code><a href="../reference/regression.html">network_reg()</a></code>, relying on <a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a> for potential parallelisation and <a href="https://progressr.futureverse.org" class="external-link">progressr</a> for progress reports (closed <a href="https://github.com/stocnet/migraph/issues/185" class="external-link">#185</a>, <a href="https://github.com/stocnet/migraph/issues/186" class="external-link">#186</a>)</li>
+<code><a href="../reference/defunct.html">network_reg()</a></code> now uses Dekker et al’s semi-partialling procedure by default for multivariate specifications (closed <a href="https://github.com/stocnet/migraph/issues/206" class="external-link">#206</a>), defaulting to <em>y</em>-permutations in the case of a single predictor (closed <a href="https://github.com/stocnet/migraph/issues/208" class="external-link">#208</a>)</li>
+<li>Added parallelisation to Monte Carlo based tests<ul><li>Refactored <code><a href="../reference/defunct.html">network_reg()</a></code>, relying on <a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a> for potential parallelisation and <a href="https://progressr.futureverse.org" class="external-link">progressr</a> for progress reports (closed <a href="https://github.com/stocnet/migraph/issues/185" class="external-link">#185</a>, <a href="https://github.com/stocnet/migraph/issues/186" class="external-link">#186</a>)</li>
 <li>Refactored <code><a href="../reference/tests.html">test_random()</a></code> and <code><a href="../reference/tests.html">test_permutation()</a></code>, relying on <a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a> for potential parallelisation and <a href="https://progressr.futureverse.org" class="external-link">progressr</a> for progress reports; note that <code>nSim</code> argument now <code>times</code> (closed <a href="https://github.com/stocnet/migraph/issues/199" class="external-link">#199</a>)</li>
 </ul></li>
 <li>Added <a href="https://broom.tidymodels.org/" class="external-link">broom</a> S3 methods for <code>netlm</code> and <code>netlogit</code> class objects (closed <a href="https://github.com/stocnet/migraph/issues/183" class="external-link">#183</a>)<ul><li>
@@ -1386,7 +1411,7 @@
 </li></ul></div>
 <div class="section level3">
 <h3 id="modelling-0-8-9">Modelling<a class="anchor" aria-label="anchor" href="#modelling-0-8-9"></a></h3>
-<ul><li>Fixed <code><a href="../reference/regression.html">network_reg()</a></code> example</li></ul></div>
+<ul><li>Fixed <code><a href="../reference/defunct.html">network_reg()</a></code> example</li></ul></div>
 <div class="section level3">
 <h3 id="visualisation-0-8-9">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation-0-8-9"></a></h3>
 <ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/117" class="external-link">#117</a> by updating the node/edge/arrow size limits in <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">autographr()</a></code>
@@ -1424,10 +1449,10 @@
 <h3 id="modelling-0-8-8">Modelling<a class="anchor" aria-label="anchor" href="#modelling-0-8-8"></a></h3>
 <ul><li>Fixed one-mode bug with <code><a href="https://stocnet.github.io/manynet/reference/generate.html" class="external-link">generate_permutation()</a></code> and thus <code><a href="../reference/tests.html">test_permutation()</a></code>
 </li>
-<li>Renamed <code>netlm()</code> to <code><a href="../reference/regression.html">network_reg()</a></code> to avoid frustrating conflicts<ul><li>
-<code><a href="../reference/regression.html">network_reg()</a></code> now accepts migraph-consistent objects</li>
+<li>Renamed <code>netlm()</code> to <code><a href="../reference/defunct.html">network_reg()</a></code> to avoid frustrating conflicts<ul><li>
+<code><a href="../reference/defunct.html">network_reg()</a></code> now accepts migraph-consistent objects</li>
 <li>
-<code><a href="../reference/regression.html">network_reg()</a></code> now accepts formula terms such as <code>ego()</code>, <code>alter()</code>, and <code>same()</code>
+<code><a href="../reference/defunct.html">network_reg()</a></code> now accepts formula terms such as <code>ego()</code>, <code>alter()</code>, and <code>same()</code>
 </li>
 </ul></li>
 </ul></div>
