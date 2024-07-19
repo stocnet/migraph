@@ -5,29 +5,20 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Many Network Measures, Motifs, Members, and Models • migraph</title>
+<title>Univariate and multivariate tests for multimodal and other networks • migraph</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Many Network Measures, Motifs, Members, and Models">
-<meta property="og:description" content="A set of tools for analysing multimodal networks.
-   It includes functions for measuring 
-   centrality, centralization, cohesion, closure, constraint and diversity,
-   as well as for network block-modelling, regression, and diffusion models.
-   The package is released as a complement to 
-   Multimodal Political Networks (2021, ISBN:9781108985000),
-   and includes various datasets used in the book.
-   Built on the manynet package, all functions operate with matrices, edge lists, 
-   and igraph, network, and tidygraph objects,
-   and on one-mode, two-mode (bipartite), and sometimes three-mode networks.">
+<script src="pkgdown.js"></script><meta property="og:title" content="Univariate and multivariate tests for multimodal and other networks">
+<meta property="og:description" content="A set of tools for testing networks. It includes functions for univariate and multivariate conditional uniform graph and quadratic assignment procedure testing, and network regression. The package is a complement to Multimodal Political Networks (2021, ISBN:9781108985000), and includes various datasets used in the book. Built on the manynet package, all functions operate with matrices, edge lists, and igraph, network, and tidygraph objects, and on one-mode and two-mode (bipartite) networks.">
 <meta property="og:image" content="https://stocnet.github.io/migraph/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -35,7 +26,7 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -49,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
       </span>
     </div>
 
@@ -58,7 +49,7 @@
 <li>
   <a href="index.html">
     <span class="fa fa-home fa-lg"></span>
-     
+
   </a>
 </li>
 <li>
@@ -72,7 +63,7 @@
 <li>
   <a href="https://github.com/stocnet/migraph" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -83,88 +74,78 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="contents col-md-9">
 
 <div class="section level1">
-<div class="page-header"><h1 id="migraph-">migraph <img src="reference/figures/logo.png" align="right" width="150"><a class="anchor" aria-label="anchor" href="#migraph-"></a>
+<div class="page-header"><h1 id="migraph-">migraph <img src="reference/figures/logo.png" alt="migraph logo" align="right" width="150"><a class="anchor" aria-label="anchor" href="#migraph-"></a>
 </h1></div>
 <!-- badges: start -->
 <div class="section level2">
 <h2 id="about-the-package">About the package<a class="anchor" aria-label="anchor" href="#about-the-package"></a>
 </h2>
 <p>The most commonly used R packages available for network analysis, such as <a href="https://r.igraph.org/" class="external-link">igraph</a> or <a href="https://statnet.org" class="external-link">sna</a>, are mainly oriented around directed or undirected one-mode networks. But researchers are increasingly interested in analysing multimodal (one-, two-, or three-mode), multilevel (connected multimodal networks), or multilayer (multiplex or signed) networks. Existing procedures typically involve ‘projecting’ them into one-mode networks so that they can be used with those tools, but thereby potentially losing important structural information, or require one or more other specific packages. Translating between packages various syntaxes and expectations can introduce significant transaction costs though, driving confusion, inefficiencies, and errors.</p>
-<p><a href="https://stocnet.github.io/migraph/">migraph</a> builds upon <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a> to offer smart solutions to these problems. It includes functions for marking and measuring networks and their nodes and ties, identifying motifs and memberships in them, and modelling these networks or simulating processes such as diffusion upon them. Based on <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>, every function works for any compatible network format - from base R matrices or edgelists as data frames, <a href="https://igraph.org/r/" class="external-link"><code>{igraph}</code></a>, <a href="https://statnet.org" class="external-link"><code>{network}</code></a>, or <a href="https://tidygraph.data-imaginist.com/index.html" class="external-link"><code>{tidygraph}</code></a> objects. This means it is compatible with your existing workflow, is extensible by other packages, and uses the most efficient algorithm available for each task.</p>
-<p><img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="125"></p>
+<p><a href="https://stocnet.github.io/migraph/">migraph</a> builds upon <a href="https://stocnet.github.io/manynet/" class="external-link"><code>{manynet}</code></a> to offer smart solutions to these problems. <a href="https://stocnet.github.io/migraph/">migraph</a> includes functions for analysing and modelling these networks. Since it is based on <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>, every function works for any compatible network format - from base R matrices or edgelists as data frames, <a href="https://igraph.org/r/" class="external-link"><code>{igraph}</code></a>, <a href="https://statnet.org" class="external-link"><code>{network}</code></a>, or <a href="https://tidygraph.data-imaginist.com/index.html" class="external-link"><code>{tidygraph}</code></a> objects. This means it is compatible with your existing workflow, is extensible by other packages, and uses the most efficient algorithm available for each task.</p>
+<ul>
+<li>
+<a href="#about-the-package">About the package</a><ul><li><a href="#package-background">Package background</a></li></ul>
+</li>
+<li><a href="#how-does-migraph-help">How does migraph help?</a></li>
+<li><a href="#tutorials">Tutorials</a></li>
+<li>
+<a href="#installation">Installation</a><ul>
+<li><a href="#stable">Stable</a></li>
+<li><a href="#development">Development</a></li>
+</ul>
+</li>
+<li><a href="#relationship-to-other-packages">Relationship to other packages</a></li>
+<li><a href="#funding-details">Funding details</a></li>
+</ul>
+<div class="section level3">
+<h3 id="package-background">Package background<a class="anchor" aria-label="anchor" href="#package-background"></a>
+</h3>
+<p><img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" alt="Cover image of the book Multimodal Political Networks" width="125"></p>
 <p>The package is intended as a software companion to the book:</p>
 <blockquote><p>David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos (2021) <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128" class="external-link"><em>Multimodal Political Networks</em></a>. Cambridge University Press: Cambridge.</p></blockquote>
-<p>Most datasets used in the book are included in this package, and the package implements most methods discussed in the book. Since many of theses datasets and routines are discussed and analysed more there, if you like the package please check out the book, and vice versa.</p>
+<p>Most datasets used in the book are included in this package, and <code>manynet</code> and <a href="https://stocnet.github.io/migraph/">migraph</a> together implement most methods discussed in the book. Since many of theses datasets and routines are discussed and analysed more there, if you like the package(s) please check out the book, and vice versa.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="how-does-migraph-help">How does migraph help?<a class="anchor" aria-label="anchor" href="#how-does-migraph-help"></a>
 </h2>
-<p><a href="https://stocnet.github.io/migraph/">migraph</a> includes five special groups of functions, each with their own pretty <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods: marks, measures, memberships, motifs, and models.</p>
-<p><a href="https://stocnet.github.io/migraph/">migraph</a> uses a common syntax to help new and experienced network analysts find the right function and use it correctly. All <code>network_*()</code> functions return a value for the network/graph or for each mode in the network. All <code>node_*()</code> functions return values for each node or vertex in the network. And all <code>tie_*()</code> functions return values for each tie or edge in the network. Functions are given intuitive and succinct names that avoid conflicts with existing function names wherever possible. All results are normalised by default, facilitating comparison.</p>
-<div class="section level3">
-<h3 id="measures">Measures<a class="anchor" aria-label="anchor" href="#measures"></a>
-</h3>
-<p><a href="https://stocnet.github.io/migraph/">migraph</a> also offers a large and growing smorgasbord of measures that can be used at the node, tie, and network level. Each recognises whether the network is directed or undirected, weighted or unweighted, one-mode or two-mode. All return normalized values wherever possible, though this can be overrided. Here are some examples:</p>
-<ul>
-<li>
-<em>Centrality</em>: <code><a href="reference/degree_centrality.html">node_degree()</a></code>, <code><a href="reference/close_centrality.html">node_closeness()</a></code>, <code><a href="reference/between_centrality.html">node_betweenness()</a></code>, and <code><a href="reference/eigenv_centrality.html">node_eigenvector()</a></code>
-</li>
-<li>
-<em>Centralization</em>: <code><a href="reference/degree_centrality.html">network_degree()</a></code>, <code><a href="reference/close_centrality.html">network_closeness()</a></code>, <code><a href="reference/between_centrality.html">network_betweenness()</a></code>, and <code><a href="reference/eigenv_centrality.html">network_eigenvector()</a></code>
-</li>
-<li>
-<em>Cohesion</em>: <code><a href="reference/cohesion.html">network_density()</a></code>, <code><a href="reference/closure.html">network_reciprocity()</a></code>, <code><a href="reference/closure.html">network_transitivity()</a></code>, <code><a href="reference/closure.html">network_equivalency()</a></code>, and <code><a href="reference/closure.html">network_congruency()</a></code>
-</li>
-<li>
-<em>Connectedness</em>: <code><a href="reference/cohesion.html">network_components()</a></code>, <code><a href="reference/cohesion.html">network_cohesion()</a></code>, <code><a href="reference/cohesion.html">network_adhesion()</a></code>, <code><a href="reference/cohesion.html">network_diameter()</a></code>, <code><a href="reference/cohesion.html">network_length()</a></code>
-</li>
-<li>
-<em>Diversity</em>: <code><a href="reference/heterogeneity.html">network_diversity()</a></code>, <code><a href="reference/defunct.html">network_homophily()</a></code>, <code><a href="reference/heterogeneity.html">network_assortativity()</a></code>, <code><a href="reference/heterogeneity.html">node_diversity()</a></code>, <code><a href="reference/defunct.html">node_homophily()</a></code>, <code>node_assortativity()</code>, <code><a href="reference/heterogeneity.html">node_richness()</a></code>
-</li>
-<li>
-<em>Innovation</em>: e.g. <code><a href="reference/holes.html">node_redundancy()</a></code>, <code><a href="reference/holes.html">node_effsize()</a></code>, <code><a href="reference/holes.html">node_efficiency()</a></code>, <code><a href="reference/holes.html">node_constraint()</a></code>, <code><a href="reference/holes.html">node_hierarchy()</a></code>
-</li>
-<li>
-<em>Topological features</em>: e.g. <code><a href="reference/features.html">network_core()</a></code>, <code><a href="reference/features.html">network_factions()</a></code>, <code><a href="reference/features.html">network_modularity()</a></code>, <code><a href="reference/features.html">network_smallworld()</a></code>, <code><a href="reference/features.html">network_balance()</a></code>
-</li>
-</ul>
-<p>Please explore <a href="https://stocnet.github.io/migraph/reference/index.html">the list of functions</a> to find out more.</p>
-</div>
-<div class="section level3">
-<h3 id="motifs-and-memberships">Motifs and Memberships<a class="anchor" aria-label="anchor" href="#motifs-and-memberships"></a>
-</h3>
-<p>The package also include functions for returning various censuses at the network or node level, e.g.:</p>
-<ul>
-<li>
-<code><a href="reference/brokerage_census.html">network_brokerage_census()</a></code>, <code><a href="reference/network_census.html">network_dyad_census()</a></code>, <code><a href="reference/network_census.html">network_mixed_census()</a></code>, <code><a href="reference/network_census.html">network_triad_census()</a></code>
-</li>
-<li>
-<code><a href="reference/brokerage_census.html">node_brokerage_census()</a></code>, <code><a href="reference/node_census.html">node_path_census()</a></code>, <code><a href="reference/node_census.html">node_quad_census()</a></code>, <code><a href="reference/node_census.html">node_tie_census()</a></code>, <code><a href="reference/node_census.html">node_triad_census()</a></code>
-</li>
-</ul>
-<p>These can be analysed alone, or used as a profile for establishing equivalence. <a href="https://stocnet.github.io/migraph/">migraph</a> offers both HCA and CONCOR algorithms, as well as elbow, silhouette, and strict methods for <em>k</em>-cluster selection.</p>
+<p><a href="https://stocnet.github.io/migraph/">migraph</a> allows the testing of <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a> measures against conditional uniform graph (CUG) or quadratic assignment procedure (QAP) distributions using:</p>
 <ul><li>
-<code><a href="reference/equivalence.html">node_automorphic_equivalence()</a></code>, <code><a href="reference/equivalence.html">node_equivalence()</a></code>, <code><a href="reference/equivalence.html">node_regular_equivalence()</a></code>, <code><a href="reference/equivalence.html">node_structural_equivalence()</a></code>
+<code><a href="reference/test_distributions.html">test_distribution()</a></code>, <code><a href="reference/test_distributions.html">test_fit()</a></code>, <code><a href="reference/defunct.html">test_gof()</a></code>, <code><a href="reference/tests.html">test_permutation()</a></code>, <code><a href="reference/tests.html">test_random()</a></code>
 </li></ul>
-<p><a href="https://stocnet.github.io/migraph/">migraph</a> also includes functions for establishing membership on other bases, such as typical community detection algorithms, as well as component and core-periphery partitioning algorithms.</p>
-</div>
-<div class="section level3">
-<h3 id="models">Models<a class="anchor" aria-label="anchor" href="#models"></a>
-</h3>
-<p>All measures can be tested against conditional uniform graph (CUG) or quadratic assignment procedure (QAP) distributions using:</p>
-<ul><li>
-<code><a href="reference/tests.html">test_gof()</a></code>, <code><a href="reference/tests.html">test_permutation()</a></code>, <code><a href="reference/tests.html">test_random()</a></code>
-</li></ul>
+<p><img src="https://www.jameshollway.com/post/migraph/tests-2.png" alt="Plot showing the results of a QAP test"></p>
 <p>Hypotheses can also be tested within multivariate models via multiple (linear or logistic) regression QAP:</p>
 <ul><li><code><a href="reference/regression.html">network_reg()</a></code></li></ul>
+<p><img src="https://www.jameshollway.com/post/migraph/regression-1.png" alt="A violin plot showing the results of an MRQAP"></p>
 <p><a href="https://stocnet.github.io/migraph/">migraph</a> is the only package that offers these testing frameworks for two-mode networks as well as one-mode networks.</p>
 </div>
+<div class="section level2">
+<h2 id="tutorials">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials"></a>
+</h2>
+<p>Together with <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>, this package makes available interactive <a href="https://rstudio.github.io/learnr/" class="external-link">learnr</a> tutorials. The easiest way to access the tutorials is via <code><a href="https://stocnet.github.io/manynet/reference/tutorials.html" class="external-link">run_tute()</a></code>. If no tutorial name is provided, the function will return a list of tutorials currently available in either package:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stocnet.github.io/migraph/">migraph</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://stocnet.github.io/manynet/reference/tutorials.html" class="external-link">run_tute</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 9 × 3</span></span>
+<span><span class="co">#&gt;   package name      title                   </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;                   </span></span>
+<span><span class="co">#&gt; 1 manynet tutorial0 Intro to R              </span></span>
+<span><span class="co">#&gt; 2 manynet tutorial1 Data                    </span></span>
+<span><span class="co">#&gt; 3 manynet tutorial2 Visualisation           </span></span>
+<span><span class="co">#&gt; 4 manynet tutorial3 Centrality              </span></span>
+<span><span class="co">#&gt; 5 manynet tutorial4 Community               </span></span>
+<span><span class="co">#&gt; 6 manynet tutorial5 Position                </span></span>
+<span><span class="co">#&gt; 7 manynet tutorial6 Topology                </span></span>
+<span><span class="co">#&gt; 8 manynet tutorial7 Diffusion               </span></span>
+<span><span class="co">#&gt; 9 migraph tutorial8 Diversity and Regression</span></span>
+<span><span class="co"># run_tute("tutorial5")</span></span></code></pre></div>
+<p>For more details on the <a href="https://rstudio.github.io/learnr/" class="external-link">learnr</a> package, see <a href="https://rstudio.github.io/learnr/" class="external-link">here</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -177,6 +158,8 @@
 <p>You can then begin to use <a href="https://stocnet.github.io/migraph/">migraph</a> by loading the package:</p>
 <p><code><a href="https://stocnet.github.io/migraph/">library(migraph)</a></code></p>
 <p>This will load any required packages and make the data contained within the package available.</p>
+<p><a href="https://stocnet.github.io/migraph/">migraph</a> relies on some packages only for one or two rather specific functions. By default these are not installed together with <a href="https://stocnet.github.io/migraph/">migraph</a>, but we make it easy to install them as and when needed for the first time with a console prompt. If you would prefer not to encounter these prompts, or plan to use the package for the first time through tutorials, you can make sure all the dependencies are installed with:</p>
+<p><code>install.packages('migraph', dependencies = TRUE)</code></p>
 </div>
 <div class="section level3">
 <h3 id="development">Development<a class="anchor" aria-label="anchor" href="#development"></a>
@@ -200,26 +183,10 @@
 </ul>
 </div>
 <div class="section level3">
-<h3 id="tutorials">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials"></a>
+<h3 id="other-sources">Other sources<a class="anchor" aria-label="anchor" href="#other-sources"></a>
 </h3>
-<p>Together with <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>, this package makes available interactive <a href="https://rstudio.github.io/learnr/" class="external-link">learnr</a> tutorials. The easiest way to access the tutorials is via <code><a href="https://stocnet.github.io/manynet/reference/tutorials.html" class="external-link">run_tute()</a></code>. If no tutorial name is provided, the function will return a list of tutorials currently available in either package:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stocnet.github.io/migraph/">migraph</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://stocnet.github.io/manynet/reference/tutorials.html" class="external-link">run_tute</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 9 × 3</span></span>
-<span><span class="co">#&gt;   package name      title        </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;        </span></span>
-<span><span class="co">#&gt; 1 manynet tutorial0 Intro to R   </span></span>
-<span><span class="co">#&gt; 2 manynet tutorial1 Data         </span></span>
-<span><span class="co">#&gt; 3 manynet tutorial2 Visualisation</span></span>
-<span><span class="co">#&gt; 4 migraph tutorial3 Centrality   </span></span>
-<span><span class="co">#&gt; 5 migraph tutorial4 Community    </span></span>
-<span><span class="co">#&gt; 6 migraph tutorial5 Position     </span></span>
-<span><span class="co">#&gt; 7 migraph tutorial6 Topology     </span></span>
-<span><span class="co">#&gt; 8 manynet tutorial7 Diffusion    </span></span>
-<span><span class="co">#&gt; 9 migraph tutorial8 Regression</span></span>
-<span><span class="co"># run_tute("tutorial5")</span></span></code></pre></div>
-<p>For more details on the <a href="https://rstudio.github.io/learnr/" class="external-link">learnr</a> package, see <a href="https://rstudio.github.io/learnr/" class="external-link">here</a>.</p>
+<p>Those using Mac computers may also install using Macports:</p>
+<p><code>sudo port install R-migraph</code></p>
 </div>
 </div>
 <div class="section level2">
@@ -295,16 +262,16 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>

@@ -1,141 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://stocnet.github.io/migraph/404.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/index.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/pull_request_template.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/between_centrality.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/brokerage_census.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/cliques.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/close_centrality.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/closure.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/cluster.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/cohesion.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/community.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/components.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/core.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/defunct.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/degree_centrality.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/eigenv_centrality.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/equivalence.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/features.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/heterogeneity.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/hierarchy.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/holes.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/kselect.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/migraph-package.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/mpn_bristol.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/mpn_cow.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/mpn_elite_mex.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/mpn_elite_usa.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/mpn_evs.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/mpn_ryanair.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/mpn_senate112.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/net_diffusion.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/network_census.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/node_census.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/node_diffusion.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/over.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/periods.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/reexports.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/regression.html</loc>
-  </url>
-  <url>
-    <loc>https://stocnet.github.io/migraph/reference/tests.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://stocnet.github.io/migraph/404.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/CONTRIBUTING.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/LICENSE-text.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/LICENSE.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/authors.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/index.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/news/index.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/reference/defunct.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/reference/index.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/reference/migraph-package.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/reference/mpn_bristol.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/reference/mpn_cow.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/reference/mpn_elite_mex.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/reference/mpn_elite_usa.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/reference/mpn_evs.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/reference/mpn_ryanair.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/reference/mpn_senate112.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/reference/reexports.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/reference/regression.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/reference/test_distributions.html</loc></url>
+<url><loc>https://stocnet.github.io/migraph/reference/tests.html</loc></url>
 </urlset>
+
