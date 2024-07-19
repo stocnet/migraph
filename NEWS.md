@@ -5,6 +5,16 @@
 ## Package
 
 - Made package title Title Case in DESCRIPTION
+- Added alttext to icons used in pkgdown site
+- Added CRAN link in pkgdown site
+- Removed unnecessary reexports
+- Dropped 6 Suggests dependencies
+- Dropped 4 Imports dependencies (including `{tidyr}`, see below)
+
+## Models
+
+- `network_reg()` renamed to `net_regression()` for consistency
+- Refactored several functions to avoid `{tidyr}` dependency for pivoting longer and wider
 
 # migraph 1.4.0
 
