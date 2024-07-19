@@ -242,10 +242,6 @@ net_regression <- function(formula, .data,
   
 }
 
-# alias for the above
-#' @export
-network_reg <- net_regression
-
 ###################
 
 gettval <- function(x, y, tol) {
