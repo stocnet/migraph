@@ -1,3 +1,36 @@
+# migraph 1.4.0
+
+2024-07-18
+
+## Package
+
+- Updated migraph logo with stocnet address, colorsafe colorway, and larger nodes and ties
+- Copied thisRequires() helper into migraph from manynet
+- testthat tests now parallelised
+- Fixed precision issues in testthat tests
+- Declared global variables `.data` and `.graph_context`
+
+## Measures, Motifs, and Memberships
+
+- All measures, motifs, and memberships have migrated to `{manynet}`
+  - see `{manynet}` > v1.0.0 for more details
+
+## Models
+
+- Added `test_distribution()` to test whether two vectors/distributions are from the same distribution
+- `test_gof()` renamed to `test_fit()` to improve readability
+  - Split tests documentation into two
+  - `test_fit()` no longer measures fit against steps where there is no covariance
+- Fixed bug in `test_random()` where parameters were passed to `manynet::generate_random()` instead of the original object, which is processed more intuitively within `manynet::generate_random()` (thanks @RWKrause)
+- Corrected that `test_random()` returns results on edge-conditioned uniform graphs, not size
+- Reexported `ggplot2::scale_y_discrete()`
+- Specification advice in `network_reg()` now ignores absent ego terms for undirected networks
+
+## Tutorials
+
+- Added descriptions to tutorials
+- Renamed regression tutorial the diversity tutorial
+
 # migraph 1.3.4
 
 2024-03-07

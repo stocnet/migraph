@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# migraph <img src="man/figures/logo.png" align="right" width="150"/>
+# migraph <img src="man/figures/logo.png" alt="migraph logo" align="right" width="150"/>
 
 <!-- badges: start -->
 
@@ -36,19 +36,31 @@ require one or more other specific packages. Translating between
 packages various syntaxes and expectations can introduce significant
 transaction costs though, driving confusion, inefficiencies, and errors.
 
-`{migraph}` builds upon `{manynet}` to offer smart solutions to these
-problems. It includes functions for marking and measuring networks and
-their nodes and ties, identifying motifs and memberships in them, and
-modelling these networks or simulating processes such as diffusion upon
-them. Based on `{manynet}`, every function works for any compatible
-network format - from base R matrices or edgelists as data frames,
+`{migraph}` builds upon
+[`{manynet}`](https://stocnet.github.io/manynet/) to offer smart
+solutions to these problems. `{migraph}` includes functions for
+analysing and modelling these networks. Since it is based on
+`{manynet}`, every function works for any compatible network format -
+from base R matrices or edgelists as data frames,
 [`{igraph}`](https://igraph.org/r/), [`{network}`](https://statnet.org),
 or [`{tidygraph}`](https://tidygraph.data-imaginist.com/index.html)
 objects. This means it is compatible with your existing workflow, is
 extensible by other packages, and uses the most efficient algorithm
 available for each task.
 
-<img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" width="125"/>
+- [About the package](#about-the-package)
+  - [Package background](#package-background)
+- [How does migraph help?](#how-does-migraph-help)
+- [Tutorials](#tutorials)
+- [Installation](#installation)
+  - [Stable](#stable)
+  - [Development](#development)
+- [Relationship to other packages](#relationship-to-other-packages)
+- [Funding details](#funding-details)
+
+### Package background
+
+<img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" alt="Cover image of the book Multimodal Political Networks" width="125"/>
 
 The package is intended as a software companion to the book:
 
@@ -57,90 +69,60 @@ The package is intended as a software companion to the book:
 > Networks*](https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128).
 > Cambridge University Press: Cambridge.
 
-Most datasets used in the book are included in this package, and the
-package implements most methods discussed in the book. Since many of
-theses datasets and routines are discussed and analysed more there, if
-you like the package please check out the book, and vice versa.
+Most datasets used in the book are included in this package, and
+`manynet` and `{migraph}` together implement most methods discussed in
+the book. Since many of theses datasets and routines are discussed and
+analysed more there, if you like the package(s) please check out the
+book, and vice versa.
 
 ## How does migraph help?
 
-`{migraph}` includes five special groups of functions, each with their
-own pretty `print()` and `plot()` methods: marks, measures, memberships,
-motifs, and models.
+`{migraph}` allows the testing of `{manynet}` measures against
+conditional uniform graph (CUG) or quadratic assignment procedure (QAP)
+distributions using:
 
-`{migraph}` uses a common syntax to help new and experienced network
-analysts find the right function and use it correctly. All `network_*()`
-functions return a value for the network/graph or for each mode in the
-network. All `node_*()` functions return values for each node or vertex
-in the network. And all `tie_*()` functions return values for each tie
-or edge in the network. Functions are given intuitive and succinct names
-that avoid conflicts with existing function names wherever possible. All
-results are normalised by default, facilitating comparison.
+- `test_distribution()`, `test_fit()`, `test_gof()`,
+  `test_permutation()`, `test_random()`
 
-### Measures
-
-`{migraph}` also offers a large and growing smorgasbord of measures that
-can be used at the node, tie, and network level. Each recognises whether
-the network is directed or undirected, weighted or unweighted, one-mode
-or two-mode. All return normalized values wherever possible, though this
-can be overrided. Here are some examples:
-
-- *Centrality*: `node_degree()`, `node_closeness()`,
-  `node_betweenness()`, and `node_eigenvector()`
-- *Centralization*: `network_degree()`, `network_closeness()`,
-  `network_betweenness()`, and `network_eigenvector()`
-- *Cohesion*: `network_density()`, `network_reciprocity()`,
-  `network_transitivity()`, `network_equivalency()`, and
-  `network_congruency()`
-- *Connectedness*: `network_components()`, `network_cohesion()`,
-  `network_adhesion()`, `network_diameter()`, `network_length()`
-- *Diversity*: `network_diversity()`, `network_homophily()`,
-  `network_assortativity()`, `node_diversity()`, `node_homophily()`,
-  `node_assortativity()`, `node_richness()`
-- *Innovation*: e.g. `node_redundancy()`, `node_effsize()`,
-  `node_efficiency()`, `node_constraint()`, `node_hierarchy()`
-- *Topological features*: e.g. `network_core()`, `network_factions()`,
-  `network_modularity()`, `network_smallworld()`, `network_balance()`
-
-Please explore [the list of
-functions](https://stocnet.github.io/migraph/reference/index.html) to
-find out more.
-
-### Motifs and Memberships
-
-The package also include functions for returning various censuses at the
-network or node level, e.g.:
-
-- `network_brokerage_census()`, `network_dyad_census()`,
-  `network_mixed_census()`, `network_triad_census()`
-- `node_brokerage_census()`, `node_path_census()`, `node_quad_census()`,
-  `node_tie_census()`, `node_triad_census()`
-
-These can be analysed alone, or used as a profile for establishing
-equivalence. `{migraph}` offers both HCA and CONCOR algorithms, as well
-as elbow, silhouette, and strict methods for *k*-cluster selection.
-
-- `node_automorphic_equivalence()`, `node_equivalence()`,
-  `node_regular_equivalence()`, `node_structural_equivalence()`
-
-`{migraph}` also includes functions for establishing membership on other
-bases, such as typical community detection algorithms, as well as
-component and core-periphery partitioning algorithms.
-
-### Models
-
-All measures can be tested against conditional uniform graph (CUG) or
-quadratic assignment procedure (QAP) distributions using:
-
-- `test_gof()`, `test_permutation()`, `test_random()`
+<img src="https://www.jameshollway.com/post/migraph/tests-2.png" alt="Plot showing the results of a QAP test"/>
 
 Hypotheses can also be tested within multivariate models via multiple
 (linear or logistic) regression QAP:
 
 - `network_reg()`
 
+<img src="https://www.jameshollway.com/post/migraph/regression-1.png" alt="A violin plot showing the results of an MRQAP"/>
+
 `{migraph}` is the only package that offers these testing frameworks for
 two-mode networks as well as one-mode networks.
+
+## Tutorials
+
+Together with `{manynet}`, this package makes available interactive
+`{learnr}` tutorials. The easiest way to access the tutorials is via
+`run_tute()`. If no tutorial name is provided, the function will return
+a list of tutorials currently available in either package:
+
+``` r
+library(migraph)
+run_tute()
+#> # A tibble: 9 × 3
+#>   package name      title                   
+#>   <chr>   <chr>     <chr>                   
+#> 1 manynet tutorial0 Intro to R              
+#> 2 manynet tutorial1 Data                    
+#> 3 manynet tutorial2 Visualisation           
+#> 4 manynet tutorial3 Centrality              
+#> 5 manynet tutorial4 Community               
+#> 6 manynet tutorial5 Position                
+#> 7 manynet tutorial6 Topology                
+#> 8 manynet tutorial7 Diffusion               
+#> 9 migraph tutorial8 Diversity and Regression
+# run_tute("tutorial5")
+```
+
+For more details on the `{learnr}` package, see
+[here](https://rstudio.github.io/learnr/).
 
 ## Installation
 
@@ -157,6 +139,15 @@ You can then begin to use `{migraph}` by loading the package:
 
 This will load any required packages and make the data contained within
 the package available.
+
+`{migraph}` relies on some packages only for one or two rather specific
+functions. By default these are not installed together with `{migraph}`,
+but we make it easy to install them as and when needed for the first
+time with a console prompt. If you would prefer not to encounter these
+prompts, or plan to use the package for the first time through
+tutorials, you can make sure all the dependencies are installed with:
+
+`install.packages('migraph', dependencies = TRUE)`
 
 ### Development
 
@@ -186,33 +177,11 @@ and then:
 - For latest development version:
   `remotes::install_github("stocnet/migraph@develop")`
 
-### Tutorials
+### Other sources
 
-Together with `{manynet}`, this package makes available interactive
-`{learnr}` tutorials. The easiest way to access the tutorials is via
-`run_tute()`. If no tutorial name is provided, the function will return
-a list of tutorials currently available in either package:
+Those using Mac computers may also install using Macports:
 
-``` r
-library(migraph)
-run_tute()
-#> # A tibble: 9 × 3
-#>   package name      title        
-#>   <chr>   <chr>     <chr>        
-#> 1 manynet tutorial0 Intro to R   
-#> 2 manynet tutorial1 Data         
-#> 3 manynet tutorial2 Visualisation
-#> 4 migraph tutorial3 Centrality   
-#> 5 migraph tutorial4 Community    
-#> 6 migraph tutorial5 Position     
-#> 7 migraph tutorial6 Topology     
-#> 8 manynet tutorial7 Diffusion    
-#> 9 migraph tutorial8 Regression
-# run_tute("tutorial5")
-```
-
-For more details on the `{learnr}` package, see
-[here](https://rstudio.github.io/learnr/).
+`sudo port install R-migraph`
 
 ## Relationship to other packages
 

@@ -1,10 +1,14 @@
 ---
-title: "Regression"
+title: "Diversity and Regression"
 author: "by James Hollway"
 output: 
   learnr::tutorial:
     theme: journal
 runtime: shiny_prerendered
+description: >
+  This tutorial aims to teach you how to measure and test network diversity,
+  moving from univariate to multivariate tests, including 
+  network linear models (multiple regression quadratic assignment procedures).
 ---
 
 ```{r setup, include=FALSE}
@@ -19,10 +23,9 @@ marvel_friends <- to_giant(marvel_friends)
 marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances))
 ```
 
-## Setting up
+## Initial visualisation
 
 For this session, we'll explore a couple of different datasets.
-
 First, let's examine homogeneity/heterogeneity in the Marvel relationships dataset from `{manynet}`,
 `ison_marvel_relationships`.
 The dataset is quite complicated,
@@ -74,10 +77,10 @@ marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances
 marvel_friends
 ```
 
-This gives us a dataset of nearly twenty characters and a little more than 100 edges.
+This gives us an undirected network of nearly twenty characters and a little more than 100 edges.
 Recall that this data has several nodal attributes.
-Explore a couple of these attributes, "Gender" and "PowerOrigin" visually
-using `autographr()`.
+Let's explore a couple of these attributes, "Gender" and "PowerOrigin", visually
+using `graphr()`.
 
 ```{r plotfriends, exercise=TRUE, purl = FALSE}
 
@@ -88,30 +91,78 @@ using `autographr()`.
 # you will need to use two different aesthetic dimensions to
 # represent them together.
 # Which will you present as shapes and which as colors?
-autographr(____, 
-           node_shape = ____,
-           node_color = ____)
+graphr(____, 
+       node_shape = ____,
+       node_color = ____)
 ```
 
 ```{r plotfriends-solution}
-autographr(marvel_friends, 
+graphr(marvel_friends, 
            node_shape = "Gender",
            node_color = "PowerOrigin")
 ```
 
 These variables seem to be distributed unevenly across the network.
-There seems to be some homophily, or like choosing like,
-operating here, but it is difficult to tell because there are
-clearly more male than female superheros shown here,
+There seems to be some homophily -- or like choosing like --
+operating here, but it is difficult to say conclusively because there are
+clearly more male than female superheros,
 as well as clearly more superheros of mutant origin than others.
-To get started then, we need to establish how diverse this network really is.
+So what might seem like homophily could just be a result of there being
+many more opportunities for ties between nodes of some categories.
+We therefore need to establish how diverse this network really is.
 
-## Calculating diversity
+## Measuring richness
 
-### Calculating Blau index
+We can begin by measuring the number of different categories there are.
+Here we might assume that the more different categories there are,
+the more diverse the network is.
+The measure of 'richness' is inherited from the study of biodiversity,
+and calculates the number of different categories are presented in a
+dataset for a given variable.
 
-We can begin by calculating the diversity in the network for each attribute.
-Recall that the Blau index for any given diversity variable is:
+```{r rich, exercise=TRUE, purl = FALSE}
+
+```
+
+```{r rich-hint, purl = FALSE}
+net_richness(____, ____)
+```
+
+```{r rich-solution}
+net_richness(marvel_friends, "Gender")
+net_richness(marvel_friends, "PowerOrigin")
+net_richness(marvel_friends, "Attractive")
+net_richness(marvel_friends, "Rich")
+net_richness(marvel_friends, "Intellect")
+```
+
+```{r richness-question, echo=FALSE, purl = FALSE}
+question("Which variable is the most 'diverse' according to this richness measure?",
+  answer("Gender"),
+  answer("PowerOrigin", 
+         correct = TRUE,
+         message = "There are four categories available in this data for power origin, while the other variables include only two categories each."),
+  answer("Attractive"),
+  answer("Rich"),
+  answer("Intellect"),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+)
+```
+
+Note though that 'richness' as a network measure does not include 
+any sense of how distributed these categories are around the network.
+There is a measure of nodal richness available,
+which counts the number of different categories to which each node is tied,
+but this does not offer a summary of how evenly distributed the appearance
+of categories are.
+For that we would need to move on to something like the Blau index.
+
+## Measuring diversity
+
+Another measure that reflects the diversity in the network for each attribute
+is the Blau Index.
+Recall that the Blau index for any given variable is:
 
 $$1 - \sum p_i^2$$
 
@@ -120,21 +171,22 @@ and $i$ indexes each of the given categories.
 A perfectly homogeneous group would receive a score of 0,
 while a perfectly heterogeneous group (with members spread evenly over the maximum categories)
 would receive a score of 1.
+Obtain the network diversity scores for our five attributes.
 
 ```{r blau, exercise=TRUE, purl = FALSE}
 
 ```
 
 ```{r blau-hint, purl = FALSE}
-network_diversity(____, ____)
+net_diversity(____, ____)
 ```
 
 ```{r blau-solution}
-network_diversity(marvel_friends, "Gender")
-network_diversity(marvel_friends, "PowerOrigin")
-network_diversity(marvel_friends, "Attractive")
-network_diversity(marvel_friends, "Rich")
-network_diversity(marvel_friends, "Intellect")
+net_diversity(marvel_friends, "Gender")
+net_diversity(marvel_friends, "PowerOrigin")
+net_diversity(marvel_friends, "Attractive")
+net_diversity(marvel_friends, "Rich")
+net_diversity(marvel_friends, "Intellect")
 ```
 
 Looks like there is more diversity in terms of where these characters got
@@ -151,30 +203,32 @@ or equally intellectually diverse across gender.^[Note that this works for calcu
 ```
 
 ```{r crossref-hint, purl = FALSE}
-network_diversity(____, ____, ____)
+net_diversity(____, ____, ____)
 ```
 
 ```{r crossref-solution}
-network_diversity(marvel_friends, "Gender", "PowerOrigin")
+net_diversity(marvel_friends, "Gender", "PowerOrigin")
 as.factor(node_attribute(marvel_friends, "PowerOrigin")) # view categories in PowerOrigin
-network_diversity(marvel_friends, "Intellect", "Gender")
+net_diversity(marvel_friends, "Intellect", "Gender")
 ```
 
 Note that the length of the vector returned as a result
 is the number of categories in the second category listed.
-It looks like some origin stories are much more diverse than others.
+It looks like some origin stories are more gender diverse than others.
 Gods (just Thor here) and humans are all men,
 whereas those with mutant or radiation origin stories are more gender diverse.
-There doesn't seem to be any significant difference in intellect 
+There doesn't appear to be much difference in intellect 
 across gender categories however.
 
 Ok, this tells us about how (un)even the distribution of these variables is in this network,
-but it doesn't necessarily tell us whether within this network there is homophily/heterophily.
+but it doesn't necessarily tell us whether ties are appearing more frequently
+between nodes of similar (or different) categories.
+For that we need to look at homophily/heterophily.
 
-### Calculating EI index
+## Measuring heterophily
 
-A step in this direction is to calculate the EI (or E-I) index.
-Calculating the EI index follows the same syntax.
+The EI (or E-I) index offers a way to measure the degree to which ties
+appear between rather than within groups of nodes of the same category.
 Recall that the EI index is calculated as:
 
 $$\frac{E-I}{E+I}$$
@@ -182,7 +236,7 @@ $$\frac{E-I}{E+I}$$
 where $E$ is the number of ties present between a variable's categories (i.e. external),
 and $I$ is the number of ties present within a variable's categories (i.e. internal).
 As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1 suggests perfect heterophily.
-(This is why the function is called `network_heterophily()`).
+(This is why the function is called `net_heterophily()`).
 
 Check how homophilic three variables in the network are,
 "Gender", "PowerOrigin", and "Attractive".
@@ -192,13 +246,13 @@ Check how homophilic three variables in the network are,
 ```
 
 ```{r ei-hint, purl = FALSE}
-network_heterophily(____, ____)
+net_heterophily(____, ____)
 ```
 
 ```{r ei-solution}
-(obs.gender <- network_heterophily(marvel_friends, "Gender"))
-(obs.powers <- network_heterophily(marvel_friends, "PowerOrigin")) 
-(obs.attract <- network_heterophily(marvel_friends, "Attractive")) 
+(obs.gender <- net_heterophily(marvel_friends, "Gender"))
+(obs.powers <- net_heterophily(marvel_friends, "PowerOrigin")) 
+(obs.attract <- net_heterophily(marvel_friends, "Attractive")) 
 ```
 
 ```{r homophily-present, echo=FALSE, purl = FALSE}
@@ -220,21 +274,21 @@ and doesn't tell us whether this is any more or less than
 what we might expect the score to be by chance for a network
 of this size and density and distribution of that attribute.
 
-## Testing scores
+## CUG tests
 
-### Conditional uniform graph tests
-
-To see whether we should be surprised by a score this high/low, 
-we will simulate a series of random graphs
+To see whether we should be surprised by scores this high/low, 
+we compare these scores with those from a series of random graphs
 (Erdös-Renyi/Bernoulli) of the same dimensions and
-distribution of the attribute to find out whether there is
+distribution of the attribute.
+This can help us establish whether there is
 more homophily or heterophily than expected by chance.
 
-This is called a conditional uniform graph test,
-but `{migraph}` chooses more descriptive function names,
+This is often called a conditional uniform graph or CUG test,
+but `{migraph}` uses more descriptive function names,
 such as `test_random()`.
 Plot the results of running this function with respect to the EI index
-on each of the three variables used above one thousand times.
+on each of the three variables.
+You can specify that one thousand simulations should be used using `times = 1000`.
 
 ```{r rando, exercise=TRUE, purl = FALSE}
 
@@ -250,14 +304,14 @@ plot(rand.____)
 
 ```{r rando-hint-3, purl = FALSE}
 rand.gender <- test_random(marvel_friends, 
-                            network_heterophily, attribute = "Gender", 
+                           net_heterophily, attribute = "Gender", 
                            times = 1000)
 rand.power <- test_random(marvel_friends, 
-                           network_heterophily, attribute = "PowerOrigin", 
-                           times = 1000)
+                          net_heterophily, attribute = "PowerOrigin", 
+                          times = 1000)
 rand.attract <- test_random(marvel_friends, 
-                             network_heterophily, attribute = "Attractive", 
-                           times = 1000)
+                            net_heterophily, attribute = "Attractive", 
+                            times = 1000)
 plot(rand.gender) + ggtitle("CUG test results for 'Gender' attribute")
 plot(rand.power) + ggtitle("CUG test results for 'PowerOrigin' attribute")
 plot(rand.attract) + ggtitle("CUG test results for 'Attractive' attribute")
@@ -265,14 +319,14 @@ plot(rand.attract) + ggtitle("CUG test results for 'Attractive' attribute")
 
 ```{r rando-solution}
 rand.gender <- test_random(marvel_friends, 
-                            network_heterophily, attribute = "Gender", 
+                           net_heterophily, attribute = "Gender", 
                            times = 1000)
 rand.power <- test_random(marvel_friends, 
-                           network_heterophily, attribute = "PowerOrigin", 
-                           times = 1000)
+                          net_heterophily, attribute = "PowerOrigin", 
+                          times = 1000)
 rand.attract <- test_random(marvel_friends, 
-                             network_heterophily, attribute = "Attractive", 
-                           times = 1000)
+                            net_heterophily, attribute = "Attractive", 
+                            times = 1000)
 plot(rand.gender) + ggtitle("CUG test results for 'Gender' attribute")
 plot(rand.power) + ggtitle("CUG test results for 'PowerOrigin' attribute")
 plot(rand.attract) + ggtitle("CUG test results for 'Attractive' attribute")
@@ -296,15 +350,19 @@ While the coefficient itself is close to 0 (neither strong homophily nor heterop
 all the random networks generated returned larger EI scores, between .1 and .4.
 That is, there is significantly less heterophily here than expected.
 
-### Quadratic assignment procedure tests
+## QAP tests
 
-Ah, but perhaps the random graph is not the best reference group 
+Ah, but perhaps random graphs are not the best reference group 
 for establishing whether there is a significant homophily effect here.
-After all, social networks are not completely random; they are structured.
+After all, social networks are not completely random; 
+they are _structured_ in particular ways, such as some nodes having higher degrees
+than others, or there being a core and periphery or community topology.
 
-Another approach is to use permutations of the network.
-Permuting the network retains the structure of the network, 
-but reassigns any labels (variables) randomly.
+Another approach to establishing a baseline for whether we should be surprised
+by a given score or not is to use permutations of the underlying network
+instead of random graphs.
+Permuting the network retains the structure of the network
+because the ties are kept and only the labels (variables) are reassigned randomly.
 Let's first plot the observed data and some permuted data next to each other.
 
 ```{r perm, exercise=TRUE, purl = FALSE}
@@ -312,18 +370,18 @@ Let's first plot the observed data and some permuted data next to each other.
 ```
 
 ```{r perm-hint, purl = FALSE}
-autographr(generate_permutation(____, with_attr = TRUE), ____)
+graphr(generate_permutation(____, with_attr = TRUE), ____)
 ```
 
 ```{r perm-solution}
-old <- autographr(marvel_friends, 
-                  labels = FALSE, node_size = 6, 
-                  node_color = "PowerOrigin", 
-                  node_shape = "Gender") + ggtitle("Original network")
-new <- autographr(generate_permutation(marvel_friends, with_attr = TRUE),
-                   labels = FALSE, node_size = 6,
-                  node_color = "PowerOrigin",
-                  node_shape = "Gender") + ggtitle("Permuted network")
+old <- graphr(marvel_friends,
+              labels = FALSE, node_size = 6,
+              node_color = "PowerOrigin",
+              node_shape = "Gender") + ggtitle("Original network")
+new <- graphr(generate_permutation(marvel_friends, with_attr = TRUE),
+              labels = FALSE, node_size = 6,
+              node_color = "PowerOrigin",
+              node_shape = "Gender") + ggtitle("Permuted network")
 old + new
 ```
 
@@ -334,7 +392,7 @@ question("Which of the following is true?",
   answer("Permuted networks retain the structure of the original network.",
          correct = TRUE,
          message = learnr::random_praise()),
-  answer("Both random and permuted networks retain the distribution of attributes.",
+  answer("Both random and permuted networks retain the proportion of attributes from the original network.",
          correct = TRUE,
          message = learnr::random_praise()),
   answer("Permuted networks retain the ties among the same nodes from the original network.", 
@@ -344,8 +402,8 @@ question("Which of the following is true?",
 )
 ```
 
-This single permutation suggests there might otherwise be some more even mixing of these
-attributes, but it is just a single permutation.
+This single permutation suggests a more even mixing of these
+attributes is possible, but it is just a single permutation.
 Let's try a test that runs this over a succession of permutations,
 just as we did with random graphs.
 Plot the results for gender and power according to the random and permutation baselines.
@@ -361,14 +419,20 @@ test_permutation(____, FUN = ____, attribute = ____,
 
 ```{r testperm-solution, purl = FALSE}
 (perm.gender <- test_permutation(marvel_friends, 
-                                network_heterophily, attribute = "Gender",
+                                net_heterophily, attribute = "Gender",
                                 times = 1000))
 (perm.power <- test_permutation(marvel_friends, 
-                               network_heterophily, attribute = "PowerOrigin",
+                                net_heterophily, attribute = "PowerOrigin",
                                 times = 1000))
 
-(plot(rand.gender) + ggtitle("CUG test results for 'Gender' attribute") + theme(plot.title = element_text(size=8)) | plot(rand.power) + ggtitle("CUG test results for 'PowerOrigin' attribute") + theme(plot.title = element_text(size=8))) /
-(plot(perm.gender) + ggtitle("QAP test results for 'Gender' attribute") + theme(plot.title = element_text(size=8)) | plot(perm.power) + ggtitle("QAP test results for 'PowerOrigin' attribute") + theme(plot.title = element_text(size=8)))
+(plot(rand.gender) + ggtitle("CUG test results for 'Gender' attribute") + 
+    theme(plot.title = element_text(size=8)) | 
+    plot(rand.power) + ggtitle("CUG test results for 'PowerOrigin' attribute") + 
+    theme(plot.title = element_text(size=8))) /
+(plot(perm.gender) + ggtitle("QAP test results for 'Gender' attribute") + 
+   theme(plot.title = element_text(size=8)) | 
+   plot(perm.power) + ggtitle("QAP test results for 'PowerOrigin' attribute") + 
+   theme(plot.title = element_text(size=8)))
 ```
 
 Again, we see that there is perhaps nothing so surprising that we got the homophily score
@@ -376,7 +440,7 @@ for gender that we did, but the lack of power origin heterophily is surprising.
 Note how the distributions are generally wider when permuting the observed network 
 than creating a random distribution (be mindful of the scale of the _x_-axis).
 That is, taking into account the structure of the network leads us to
-expect a larger spread in the EI index than when the variable is distributed around a random network.
+expect a larger spread in the EI index than when the variable is distributed across a random network.
 
 ```{r cupqap-results, echo=FALSE, purl = FALSE}
 question("What can we say from these results?",
@@ -394,7 +458,7 @@ question("What can we say from these results?",
 )
 ```
 
-## Network linear models
+## Network regression
 
 Next let us examine homophily in another network.
 The data were collected as part of an early experiment on communication between social network researchers who were using an Electronic Information Exchange System (EIES).
@@ -404,18 +468,20 @@ Nodal attributes collected include the primary discipline and number of citation
 
 ```{r introeies, exercise=TRUE, purl = FALSE}
 ison_networkers
-autographr(ison_networkers,
-           node_color = "Discipline")
+graphr(ison_networkers, node_color = "Discipline")
 ```
 
 Let's use both the continuous `Citations` and the categorical `Discipline` variables 
 and come up with a couple of key hypotheses:
 
-- $H_1$: whether these researchers send more emails to those who are cited more
-- $H_2$: whether there is disciplinary homophily
+- $H_1$: researchers send more emails to those who are cited more (popularity hypothesis)
+- $H_2$: researchers send more emails to those of the same discipline (disciplinary homophily hypothesis)
 
 Let's start with a pretty maximally specified model 
-(note that it doesn't make sense to include both ego and alter effects because these are undirected).
+(note that it doesn't make sense to include both ego and alter effects because these networks are undirected).
+We are using `times = 200` here because of time-out limitations in the `learnr` tutorial system,
+but for publication quality results you would want to base your conclusions on 2000
+simulations or more.
 
 ```{r qapmax, exercise=TRUE, exercise.timelimit = 3600, purl = FALSE}
 
@@ -423,6 +489,7 @@ Let's start with a pretty maximally specified model
 
 ```{r qapmax-hint-1, purl = FALSE}
 network_reg(____, ison_networkers, times = 200)
+# If the model runs into a timeout error, please reduce the number of 'times' in the function above.
 ```
 
 ```{r qapmax-hint-2, purl = FALSE}
@@ -430,20 +497,13 @@ weight ~ alter(Citations) + sim(Citations) +
                       alter(Discipline) + same(Discipline)
 ```
 
-```{r qapmax-hint-3, purl = FALSE}
-model1 <- network_reg(weight ~ alter(Citations) + sim(Citations) + 
-                      alter(Discipline) + same(Discipline), 
-                      ison_networkers, times = 200)
-# If the model runs into a timeout error, please reduce the number of 'times' in the function above.
-```
-
 ```{r qapmax-solution}
-model1 <- network_reg(weight ~ alter(Citations) + sim(Citations) + 
-                      alter(Discipline) + same(Discipline), 
+model1 <- network_reg(weight ~ ego(Citations) + alter(Citations) + sim(Citations) + 
+                      ego(Discipline) + alter(Discipline) + same(Discipline), 
                       ison_networkers, times = 200)
 ```
 
-We can use tidy methods to get the salient information from this model,
+We can use tidy methods (e.g. `tidy()`, `glance()`) to get the salient information from this model,
 and `{migraph}` includes also a plot method for these results to
 facilitate the quick interpretation of these results.
 
@@ -458,12 +518,12 @@ plot(model1)
 ```
 
 This violin plot presents the distribution of coefficients from permutations of the network,
-with the fitted coefficient from the data as a red dot.
-Subtle lines are used to indicate 95%,
-but here the distributions are rendered so wide that they are often not seen.
+with the coefficient fitted from the data as a red dot.
+Lines are used to indicate 95% thresholds,
+but here the distributions are rendered so wide that they are often not visible.
 
 ```{r qap-interp, echo=FALSE, purl = FALSE}
-question("What can we say from these results?",
+question("What can we say from the results from model 1?",
   answer("Researchers send more messages to those who are cited more", 
          message = "Looks like alter Citations is not significant."),
   answer("Researchers send more messages to those who similarly cited", 
@@ -478,3 +538,9 @@ question("What can we say from these results?",
   allow_retry = TRUE
 )
 ```
+
+While these are the conclusions from this 'play' data, 
+you may have more and more interesting data at hand.
+How would you go about specifying such a model?
+Why is such an approach more appropriate for network data than linear
+or logistic regression?

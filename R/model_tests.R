@@ -1,4 +1,6 @@
-#' Conditional uniform graph and permutation tests
+# Tests of network measures ####
+
+#' Tests of network measures
 #' 
 #' @description
 #'   These functions conduct tests of any network-level statistic:
@@ -9,8 +11,6 @@
 #'   - `test_permutation()` performs a quadratic assignment procedure (QAP) test 
 #'   of a measure against a distribution of measures on permutations 
 #'   of the original network.
-#'   - `test_gof()` performs a chi-squared test on the squared Mahalanobis distance 
-#'   between a diff_model and diff_models objects.
 #'   
 #' @name tests
 #' @inheritParams regression
@@ -21,29 +21,29 @@
 NULL
 
 #' @rdname tests 
+#' @importFrom manynet generate_random bind_node_attributes is_directed is_complex
 #' @examples 
 #' marvel_friends <- to_unsigned(ison_marvel_relationships)
 #' marvel_friends <- to_giant(marvel_friends) %>% 
 #'   to_subgraph(PowerOrigin == "Human")
-#' (cugtest <- test_random(marvel_friends, network_heterophily, attribute = "Attractive",
-#'   times = 200))
-#' plot(cugtest)
+#' # (cugtest <- test_random(marvel_friends, manynet::net_heterophily, attribute = "Attractive",
+#' #   times = 200))
+#' # plot(cugtest)
 #' @export
 test_random <- function(.data, FUN, ..., 
                         times = 1000, 
                         strategy = "sequential", 
                         verbose = FALSE){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   args <- unlist(list(...))
   if (!is.null(args)) {
     obsd <- FUN(.data, args)
   } else {
     obsd <- FUN(.data)
   }
-  n <- manynet::network_dims(.data)
-  d <- network_density(.data)
   oplan <- future::plan(strategy)
   on.exit(future::plan(oplan), add = TRUE)
-  rands <- furrr::future_map(1:times, manynet::generate_random, n = n, p = d, 
+  rands <- furrr::future_map(1:times, manynet::generate_random, n = .data, 
                              .progress = verbose, 
                              .options = furrr::furrr_options(seed = T))
   if (length(args) > 0) {
@@ -64,7 +64,7 @@ test_random <- function(.data, FUN, ...,
               testdist = simd,
               mode = manynet::is_directed(.data),
               diag = manynet::is_complex(.data),
-              cmode = "csize",
+              cmode = "edges",
               plteobs = mean(simd <= obsd),
               pgteobs = mean(simd >= obsd),
               reps = times)
@@ -73,23 +73,24 @@ test_random <- function(.data, FUN, ...,
 }
 #' @rdname tests 
 #' @examples 
-#' (qaptest <- test_permutation(marvel_friends, 
-#'                 network_heterophily, attribute = "Attractive",
-#'                 times = 200))
-#' plot(qaptest)
+#' # (qaptest <- test_permutation(marvel_friends, 
+#' #                 manynet::net_heterophily, attribute = "Attractive",
+#' #                 times = 200))
+#' # plot(qaptest)
 #' @export
 test_permutation <- function(.data, FUN, ..., 
                              times = 1000, 
                              strategy = "sequential", 
                              verbose = FALSE){
+  if(missing(.data)) {expect_nodes(); .data <- .G()}
   args <- unlist(list(...))
   if (!is.null(args)) {
     obsd <- FUN(.data, args)
   } else {
     obsd <- FUN(.data)
   }
-  n <- manynet::network_dims(.data)
-  d <- network_density(.data)
+  n <- manynet::net_dims(.data)
+  d <- manynet::net_density(.data)
   oplan <- future::plan(strategy)
   on.exit(future::plan(oplan), add = TRUE)
   rands <- furrr::future_map(1:times, 
@@ -169,7 +170,35 @@ plot.network_test <- function(x, ...,
                         color="red", linewidth=1.2) + ggplot2::ylab("Density")
 }
 
-#' @rdname tests 
+# Tests of network distributions ####
+
+#' Tests of network distributions
+#' 
+#' @description
+#'   These functions conduct tests of distributions:
+#'   
+#'   - `test_distribution()` performs a two-sample Kolmogorov-Smirnov test on 
+#'   whether two "diff_model" objects are drawn from the same distribution.
+#'   - `test_fit()` performs a chi-squared test on the squared Mahalanobis distance 
+#'   between a diff_model and diff_models objects.
+#'   
+#' @name test_distributions
+#' @family models
+NULL
+
+#' @rdname test_distributions 
+#' @param diff_model1,diff_model2 diff_model objects
+#' @examples
+#'  # test_distribution(play_diffusion(ison_networkers), 
+#'  #                   play_diffusion(ison_networkers, thresholds = 75))
+#' @export
+test_distribution <- function(diff_model1, diff_model2){
+  out <- stats::ks.test(diff_model1$I, diff_model2$I)
+  dplyr::tibble(statistic = out$statistic, p.value = out$p.value, 
+                nobs = length(diff_model1$I))
+}
+
+#' @rdname test_distributions 
 #' @param diff_model A diff_model object is returned by
 #'   `play_diffusion()` or `as_diffusion()` and contains
 #'   a single empirical or simulated diffusion.
@@ -191,23 +220,24 @@ plot.network_test <- function(x, ...,
 #    the set of simulated diffusions (and thus that the model is not a good fit).
 #' @examples
 #'   # Playing a reasonably quick diffusion
-#'   x <- play_diffusion(generate_random(15), transmissibility = 0.7)
+#'   # x <- play_diffusion(generate_random(15), transmissibility = 0.7)
 #'   # Playing a slower diffusion
-#'   y <- play_diffusions(generate_random(15), transmissibility = 0.1, times = 40)
-#'   plot(x)
-#'   plot(y)
-#'   test_gof(x, y)
+#'   # y <- play_diffusions(generate_random(15), transmissibility = 0.1, times = 40)
+#'   # plot(x)
+#'   # plot(y)
+#'   # test_fit(x, y)
 #' @export
-test_gof <- function(diff_model, diff_models){ # make into method?
+test_fit <- function(diff_model, diff_models){ # make into method?
   x <- diff_model
   y <- diff_models
   sim <- `0` <- NULL
   sims <- y |> dplyr::select(sim, t, I) |> 
     tidyr::pivot_wider(names_from = t, values_from = I) |> 
     dplyr::select(-c(sim, `0`))
+  sims <- sims[,colSums(stats::cov(sims))!=0]
   mah <- stats::mahalanobis(x$I[-1], colMeans(sims), stats::cov(sims))
   pval <- pchisq(mah, df=length(x$I[-1]), lower.tail=FALSE)
   dplyr::tibble(statistic = mah, p.value = pval, 
-                 df = length(x$I[-1]), nobs = nrow(sims))
+                df = length(x$I[-1]), nobs = nrow(sims))
 }
 

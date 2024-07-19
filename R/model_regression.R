@@ -45,7 +45,8 @@
 #'   'ego' is excluded from these calculations.
 #'   See Haunss and Hollway (2023) for more on this effect.
 #'   - dyadic covariates (other networks) can just be named
-#' @inheritParams cohesion
+#' @param .data A manynet-consistent network. 
+#'   See e.g. `manynet::as_tidygraph()` for more details.
 #' @param method A method for establishing the null hypothesis.
 #'   Note that "qap" uses Dekker et al's (2007) double semi-partialling technique,
 #'   whereas "qapy" permutes only the $y$ variable.
@@ -72,7 +73,6 @@
 #' @importFrom future plan
 #' @importFrom furrr future_map_dfr furrr_options
 #' @importFrom stats glm.fit as.formula df.residual pchisq
-#' @seealso `vignette("p7linearmodel")`
 #' @references 
 #'   Krackhardt, David. 1988.
 #'   “Predicting with Networks: Nonparametric Multiple Regression Analysis of Dyadic Data.” 
@@ -293,7 +293,7 @@ convertToMatrixList <- function(formula, data){
     DV <- manynet::as_matrix(data) 
   } else DV <- manynet::as_matrix(data)
   IVnames <- getRHSNames(formula)
-  specificationAdvice(IVnames)
+  specificationAdvice(IVnames, data)
   IVs <- lapply(IVnames, function(IV){
     out <- lapply(seq_along(IV), function(elem){
       # ego ####
@@ -445,7 +445,7 @@ getDependentName <- function(formula) {
   unlist(lapply(dep, deparse))
 }
 
-specificationAdvice <- function(formula){
+specificationAdvice <- function(formula, data){
   formdf <- t(data.frame(formula))
   if(any(formdf[,1] %in% c("sim","same"))){
     vars <- formdf[formdf[,1] %in% c("sim","same"), 2]
@@ -456,6 +456,7 @@ specificationAdvice <- function(formula){
       # incl
     }, FUN.VALUE = character(1))
     suggests <- suggests[!is.na(suggests)]
+    if(!manynet::is_directed(data)) suggests <- suggests[!grepl("ego\\(", suggests)]
     if(length(suggests)>0){
       if(length(suggests) > 1)
         suggests <- paste0(suggests, collapse = ", ")

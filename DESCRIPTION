@@ -1,24 +1,24 @@
 Package: migraph
-Title: Many Network Measures, Motifs, Members, and Models
-Version: 1.3.4
-Date: 2024-03-07
-Description: A set of tools for analysing multimodal networks.
-   It includes functions for measuring 
-   centrality, centralization, cohesion, closure, constraint and diversity,
-   as well as for network block-modelling, regression, and diffusion models.
-   The package is released as a complement to 
+Title: Univariate and multivariate tests for multimodal and other networks 
+Version: 1.4.0
+Date: 2024-07-18
+Description: A set of tools for testing networks.
+   It includes functions for univariate and multivariate 
+   conditional uniform graph and quadratic assignment procedure testing,
+   and network regression.
+   The package is a complement to 
    'Multimodal Political Networks' (2021, ISBN:9781108985000),
    and includes various datasets used in the book.
    Built on the 'manynet' package, all functions operate with matrices, edge lists, 
    and 'igraph', 'network', and 'tidygraph' objects,
-   and on one-mode, two-mode (bipartite), and sometimes three-mode networks.
+   and on one-mode and two-mode (bipartite) networks.
 URL: https://stocnet.github.io/migraph/
 BugReports: https://github.com/stocnet/migraph/issues
 License: MIT + file LICENSE
 Language: en-GB
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Depends:
     R (>= 3.6.0),
     manynet
@@ -30,10 +30,7 @@ Imports:
     network,
     future,
     furrr,
-    pillar,
     purrr,
-    rlang,
-    sna,
     tidygraph,
     tidyr
 Suggests: 
@@ -68,3 +65,6 @@ Authors@R:
            comment = c(ORCID = "0000-0001-5943-9059"))
     )
 Roxygen: list(markdown = TRUE, roclets = c("namespace", "rd"))
+Config/testthat/parallel: true
+Config/testthat/edition: 3
+Config/testthat/start-first: helper-functions 

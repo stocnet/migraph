@@ -4,11 +4,11 @@
 \name{migraph-package}
 \alias{migraph}
 \alias{migraph-package}
-\title{migraph: Many Network Measures, Motifs, Members, and Models}
+\title{migraph: Univariate and multivariate tests for multimodal and other networks}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-A set of tools for analysing multimodal networks. It includes functions for measuring centrality, centralization, cohesion, closure, constraint and diversity, as well as for network block-modelling, regression, and diffusion models. The package is released as a complement to 'Multimodal Political Networks' (2021, ISBN:9781108985000), and includes various datasets used in the book. Built on the 'manynet' package, all functions operate with matrices, edge lists, and 'igraph', 'network', and 'tidygraph' objects, and on one-mode, two-mode (bipartite), and sometimes three-mode networks.
+A set of tools for testing networks. It includes functions for univariate and multivariate conditional uniform graph and quadratic assignment procedure testing, and network regression. The package is a complement to 'Multimodal Political Networks' (2021, ISBN:9781108985000), and includes various datasets used in the book. Built on the 'manynet' package, all functions operate with matrices, edge lists, and 'igraph', 'network', and 'tidygraph' objects, and on one-mode and two-mode (bipartite) networks.
 }
 \seealso{
 Useful links:
