@@ -1,3 +1,11 @@
+# migraph 1.4.1
+
+2024-07-19
+
+## Package
+
+- Made package title Title Case in DESCRIPTION
+
 # migraph 1.4.0
 
 2024-07-18

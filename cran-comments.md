@@ -11,5 +11,7 @@
 
 * This release is expected to create errors with older versions of manynet,
 but should create no errors with the latest version
+* Currently binaries of manynet have been built for most flavors, with the exception of r-release-windows-x86_66
+* There is expected to be test errors for this flavor until a manynet binary for v1.0.1 has been built
 * Since manynet is a Depends for migraph, this should not pose a problem for users
 upgrading
