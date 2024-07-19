@@ -32,7 +32,6 @@ Imports:
     furrr,
     purrr,
     tidygraph,
-    tidyr
 Suggests: 
     concaveman,
     covr,

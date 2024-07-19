@@ -138,8 +138,15 @@ plot.netlm <- function(x, ...){
   distrib <- as.data.frame(distrib)
   names(distrib) <- x$names
   distrib$obs <- seq_len(nrow(distrib))
-  distrib <- tidyr::pivot_longer(distrib, 
-                                 cols = 1:(ncol(distrib)-1))
+  distrib <- stats::reshape(data = distrib, # tidyr::pivot_longer replacement
+                     direction = "long",
+                     varying = colnames(distrib)[-ncol(distrib)],
+                     v.names = "value",
+                     times = colnames(distrib)[-ncol(distrib)],
+                     timevar = "name")
+  rownames(distrib) <- NULL
+  distrib$id <- NULL
+  distrib <- dplyr::arrange(distrib, obs)
   distrib$coef <- rep(unname(x$coefficients), nrow(x$dist))
   distrib$tstat <- rep(unname(x$tstat), nrow(x$dist))
   distrib$name <- factor(distrib$name, x$names)
@@ -158,8 +165,15 @@ plot.netlogit <- function(x, ...){
   distrib <- as.data.frame(distrib)
   names(distrib) <- x$names
   distrib$obs <- seq_len(nrow(distrib))
-  distrib <- tidyr::pivot_longer(distrib, 
-                                 cols = 1:(ncol(distrib)-1))
+  distrib <- stats::reshape(data = distrib, # tidyr::pivot_longer replacement
+                     direction = "long",
+                     varying = colnames(distrib)[-ncol(distrib)],
+                     v.names = "value",
+                     times = colnames(distrib)[-ncol(distrib)],
+                     timevar = "name")
+  rownames(distrib) <- NULL
+  distrib$id <- NULL
+  distrib <- dplyr::arrange(distrib, obs)
   distrib$coef <- rep(unname(x$coefficients), nrow(x$dist))
   distrib$tstat <- rep(unname(x$tstat), nrow(x$dist))
   distrib$name <- factor(distrib$name, x$names)
