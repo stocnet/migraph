@@ -14,10 +14,10 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'release'}
-          - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,  r: 'release'}
-          - {os: ubuntu-latest,  r: 'devel', http-user-agent: 'release'}
+          - {os: macOS-latest,   r: 'release', artifact_name: '*.tar.gz', asset_name: macOS}
+          - {os: windows-latest, r: 'release', artifact_name: '*.zip', asset_name: winOS}
+          - {os: ubuntu-latest,  r: 'release', artifact_name: '*.tar.gz', asset_name: linuxOS}
+          - {os: ubuntu-latest,  r: 'devel', http-user-agent: 'release', artifact_name: '*.tar.gz', asset_name: linuxOSrelease}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
