@@ -1,3 +1,16 @@
+# migraph 1.4.2
+
+2024-09-04
+
+## Package
+
+- Using github actions download artifact v4 to address dependabot security warning
+
+## Models
+
+- `test_permutation()` now uses `manynet::to_permuted()` instead of the older
+`manynet::generate_permutation()` syntax
+
 # migraph 1.4.1
 
 2024-07-19
