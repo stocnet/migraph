@@ -1,6 +1,15 @@
-# migraph 1.4.2
+# migraph 1.4.3
 
 2024-09-04
+
+## Package
+
+- Using different github actions for renaming and releasing binaries (thanks @auzaheta)
+- Updated manynet dependence to >=1.0.5
+
+# migraph 1.4.2
+
+2024-09-03
 
 ## Package
 

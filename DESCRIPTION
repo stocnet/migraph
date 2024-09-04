@@ -21,7 +21,7 @@ LazyData: true
 RoxygenNote: 7.3.2
 Depends:
     R (>= 3.6.0),
-    manynet
+    manynet (>=1.0.5)
 Imports: 
     dplyr (>= 1.1.0),
     future,
