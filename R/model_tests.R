@@ -93,7 +93,7 @@ test_permutation <- function(.data, FUN, ...,
   oplan <- future::plan(strategy)
   on.exit(future::plan(oplan), add = TRUE)
   rands <- furrr::future_map(1:times, 
-                  function(x) manynet::generate_permutation(.data), 
+                  function(x) manynet::to_permuted(.data), 
                   .progress = verbose, 
                   .options = furrr::furrr_options(seed = T))
   if (!is.null(args)) {

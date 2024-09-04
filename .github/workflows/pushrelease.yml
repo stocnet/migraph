@@ -98,7 +98,7 @@ jobs:
           prerelease: false
 
       - name: Download binaries
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
 
       - name: Display structure of downloaded files
         run: ls -R
