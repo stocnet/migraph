@@ -72,6 +72,50 @@ test_random <- function(.data, FUN, ...,
 }
 
 #' @rdname tests 
+#' @importFrom manynet generate_configuration
+#' @export
+test_configuration <- function(.data, FUN, ..., 
+                        times = 1000, 
+                        strategy = "sequential", 
+                        verbose = FALSE){
+  args <- unlist(list(...))
+  if (!is.null(args)) {
+    obsd <- FUN(.data, args)
+  } else {
+    obsd <- FUN(.data)
+  }
+  oplan <- future::plan(strategy)
+  on.exit(future::plan(oplan), add = TRUE)
+  rands <- furrr::future_map(1:times, manynet::generate_configuration, n = .data, 
+                             .progress = verbose, 
+                             .options = furrr::furrr_options(seed = T))
+  if (length(args) > 0) {
+    rands <- furrr::future_map(rands, 
+                               manynet::bind_node_attributes, object2 = .data, 
+                               .progress = verbose, 
+                               .options = furrr::furrr_options(seed = T))
+  }
+  if (!is.null(args)) {
+    simd <- furrr::future_map_dbl(rands,
+                                  FUN, args)
+  } else {
+    simd <- furrr::future_map_dbl(rands,
+                                  FUN)
+  }
+  out <- list(test = "configuration",
+              testval = obsd,
+              testdist = simd,
+              mode = manynet::is_directed(.data),
+              diag = manynet::is_complex(.data),
+              cmode = "edges",
+              plteobs = mean(simd <= obsd),
+              pgteobs = mean(simd >= obsd),
+              reps = times)
+  class(out) <- "network_test"
+  out
+}
+
+#' @rdname tests 
 #' @examples 
 #' # (qaptest <- test_permutation(marvel_friends, 
 #' #                 manynet::net_heterophily, attribute = "Attractive",
