@@ -85,23 +85,15 @@ jobs:
           DEFAULT_BUMP: patch
           RELEASE_BRANCHES: main
       - name: Checkout two
-        uses: actions/checkout@v2
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.newtag.outputs.tag }}
-          release_name: Release ${{ steps.newtag.outputs.tag }}
-          draft: false
-          prerelease: false
+        uses: actions/checkout@v4
+
+      - name: Extract version
+        run: |
+          echo "PACKAGE_VERSION=$(grep '^Version' DESCRIPTION | sed 's/.*: *//')" >> $GITHUB_ENV
+          echo "PACKAGE_NAME=$(grep '^Package' DESCRIPTION | sed 's/.*: *//')" >> $GITHUB_ENV
 
       - name: Download binaries
         uses: actions/download-artifact@v4
-
-      - name: Display structure of downloaded files
-        run: ls -R
 
       - name: Rename binaries release
         shell: bash
@@ -112,7 +104,7 @@ jobs:
           cp ./winOS/${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}*.zip .
           echo "Renamed files"
           ls migraph_*
-
+       
       - name: Create Release and Upload Assets
         id: create_release
         uses: softprops/action-gh-release@v2
@@ -128,7 +120,7 @@ jobs:
             migraph_*.tar.gz
             migraph_*.zip
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
   pkgdown:
     name: Build and deploy website
