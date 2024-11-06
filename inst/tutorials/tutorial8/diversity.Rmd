@@ -509,18 +509,18 @@ simulations or more.
 ```
 
 ```{r qapmax-hint-1, purl = FALSE}
-network_reg(____, ison_networkers, times = 200)
+net_regression(____, ison_networkers, times = 200)
 # If the model runs into a timeout error, please reduce the number of 'times' in the function above.
 ```
 
 ```{r qapmax-hint-2, purl = FALSE}
-weight ~ alter(Citations) + sim(Citations) + 
-                      alter(Discipline) + same(Discipline)
+weight ~ ego(Citations) + alter(Citations) + sim(Citations) + 
+                      ego(Discipline) + same(Discipline)
 ```
 
 ```{r qapmax-solution}
-model1 <- network_reg(weight ~ ego(Citations) + alter(Citations) + sim(Citations) + 
-                      ego(Discipline) + alter(Discipline) + same(Discipline), 
+model1 <- net_regression(weight ~ ego(Citations) + alter(Citations) + sim(Citations) + 
+                      ego(Discipline) + same(Discipline), 
                       ison_networkers, times = 200)
 ```
 
@@ -560,8 +560,17 @@ question("What can we say from the results from model 1?",
 )
 ```
 
+
+## Free play
+
 While these are the conclusions from this 'play' data, 
 you may have more and more interesting data at hand.
 How would you go about specifying such a model?
 Why is such an approach more appropriate for network data than linear
 or logistic regression?
+
+```{r freeplay, exercise = TRUE, fig.width=9}
+
+```
+
+
