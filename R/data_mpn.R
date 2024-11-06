@@ -204,32 +204,32 @@
 #' @docType data
 #' @keywords datasets
 #' @name mpn_senate112
-#' @usage data(mpn_DemSxP)
+#' @usage data(mpn_senate_dem)
 #' @references  
 #' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
 #' Cambridge University Press. Cambridge University Press.
 #' @format 
 #'   ```{r, echo = FALSE}
-#'   mpn_DemSxP
+#'   mpn_senate_dem
 #'   ```
-"mpn_DemSxP"
+"mpn_senate_dem"
 
 #' @rdname mpn_senate112
-#' @usage data(mpn_RepSxP)
+#' @usage data(mpn_senate_rep)
 #' @format 
 #'   ```{r, echo = FALSE}
-#'   mpn_RepSxP
+#'   mpn_senate_rep
 #'   ```
-"mpn_RepSxP"
+"mpn_senate_rep"
 
 #' @rdname mpn_senate112
-#' @usage data(mpn_OverSxP)
+#' @usage data(mpn_senate_over)
 #' @format 
 #'   ```{r, echo = FALSE}
-#'   mpn_OverSxP
+#'   mpn_senate_over
 #'   ```
-"mpn_OverSxP"
+"mpn_senate_over"
 
 # EVS ####
 

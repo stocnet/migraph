@@ -5,7 +5,9 @@
 \alias{mpn_ryanair}
 \title{One-mode EU policy influence network, June 2004 (Christopoulos 2006)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, directed network with 20 nodes and 177 arcs
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # EU policy influence network
+#> # A labelled, weighted, directed network of 20 policy actors and 177
+#> interaction arcs
 #> # A tibble: 20 x 1
 #>   name          
 #>   <chr>         

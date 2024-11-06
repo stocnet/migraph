@@ -3,10 +3,20 @@
 \name{tests}
 \alias{tests}
 \alias{test_random}
+\alias{test_configuration}
 \alias{test_permutation}
 \title{Tests of network measures}
 \usage{
 test_random(
+  .data,
+  FUN,
+  ...,
+  times = 1000,
+  strategy = "sequential",
+  verbose = FALSE
+)
+
+test_configuration(
   .data,
   FUN,
   ...,

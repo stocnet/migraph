@@ -7,7 +7,7 @@
 \alias{mpn_cow_igo}
 \title{One-mode interstate trade relations and two-mode state membership in IGOs (COW)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, directed network with 116 nodes and 11489 arcs
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, directed network of 116 nodes and 11489 arcs
 #> # A tibble: 116 x 1
 #>   name                    
 #>   <chr>                   
@@ -30,7 +30,7 @@
 #> # i 11,483 more rows
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network with 152 nodes and 839 ties
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network of 152 nodes and 839 ties
 #> # A tibble: 152 x 3
 #>   name        type  polity2
 #>   <chr>       <lgl>   <dbl>

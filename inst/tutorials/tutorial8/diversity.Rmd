@@ -17,11 +17,28 @@ library(manynet)
 library(migraph)
 library(patchwork)
 library(ggplot2)
+clear_glossary()
 knitr::opts_chunk$set(echo = FALSE)
 marvel_friends <- to_unsigned(ison_marvel_relationships, keep = "positive")
 marvel_friends <- to_giant(marvel_friends)
 marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances))
 ```
+
+
+## This tutorial
+
+<img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDFidmtrcTJhenU1NGRtdXA5N292Ynp3Y3BxcHRhYjR2MnowOGJ0ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/djRJNZqj508sE/giphy.gif" alt="gif of deadpool greeting" width = "900"/>
+
+Within a network, nodes and ties vary.
+But how much do they vary and are there associations in this variance?
+By the end of this tutorial, you will be able to:
+
+- [ ] &nbsp; measure the richness of a network in terms of attribute types
+- [ ] &nbsp; measure how diverse a network is
+- [ ] &nbsp; measure how heterophilous the ties in a network are
+- [ ] &nbsp; test how heterophilous the ties in a network are compared to random networks
+- [ ] &nbsp; test how heterophilous the ties in a network are compared to permutations of the original network
+- [ ] &nbsp; regress a network's ties on other ties and/or nodal or dyadic attributes
 
 ## Initial visualisation
 
@@ -82,7 +99,7 @@ Recall that this data has several nodal attributes.
 Let's explore a couple of these attributes, "Gender" and "PowerOrigin", visually
 using `graphr()`.
 
-```{r plotfriends, exercise=TRUE, purl = FALSE}
+```{r plotfriends, exercise=TRUE, purl = FALSE, fig.width=9}
 
 ```
 
@@ -98,8 +115,8 @@ graphr(____,
 
 ```{r plotfriends-solution}
 graphr(marvel_friends, 
-           node_shape = "Gender",
-           node_color = "PowerOrigin")
+       node_shape = "Gender",
+       node_color = "PowerOrigin")
 ```
 
 These variables seem to be distributed unevenly across the network.
@@ -113,15 +130,16 @@ We therefore need to establish how diverse this network really is.
 
 ## Measuring richness
 
-We can begin by measuring the number of different categories there are.
-Here we might assume that the more different categories there are,
-the more diverse the network is.
-The measure of 'richness' is inherited from the study of biodiversity,
-and calculates the number of different categories are presented in a
-dataset for a given variable.
+Some categorical variables have more categories than others,
+and this can be thought of as indicating greater diversity than e.g. a binary
+categorical variable.
+A measure of this 'richness' is inherited from the study of biodiversity.
+_Richness_ calculates the number of different categories that appear in
+the data for a given variable.
+Let's calculate the richness of all of the variables in our Marvel data.
 
 ```{r rich, exercise=TRUE, purl = FALSE}
-
+net_node_attributes(marvel_friends)
 ```
 
 ```{r rich-hint, purl = FALSE}
@@ -166,12 +184,12 @@ Recall that the Blau index for any given variable is:
 
 $$1 - \sum p_i^2$$
 
-where $p$ represents the proportion belonging to any given category,
-and $i$ indexes each of the given categories.
-A perfectly homogeneous group would receive a score of 0,
+where $p_i$ represents the proportion of observations holding $i$, 
+which indexes each of the given categories.
+A perfectly homogeneous group (all the same category) would receive a score of 0,
 while a perfectly heterogeneous group (with members spread evenly over the maximum categories)
 would receive a score of 1.
-Obtain the network diversity scores for our five attributes.
+Obtain the network diversity scores for the five attributes used above.
 
 ```{r blau, exercise=TRUE, purl = FALSE}
 
@@ -218,12 +236,12 @@ It looks like some origin stories are more gender diverse than others.
 Gods (just Thor here) and humans are all men,
 whereas those with mutant or radiation origin stories are more gender diverse.
 There doesn't appear to be much difference in intellect 
-across gender categories however.
+across gender categories in this data.
 
 Ok, this tells us about how (un)even the distribution of these variables is in this network,
 but it doesn't necessarily tell us whether ties are appearing more frequently
-between nodes of similar (or different) categories.
-For that we need to look at homophily/heterophily.
+_between_ nodes of similar (or different) categories.
+For that we need to look at _homophily_/heterophily.
 
 ## Measuring heterophily
 
@@ -240,6 +258,7 @@ As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1
 
 Check how homophilic three variables in the network are,
 "Gender", "PowerOrigin", and "Attractive".
+Please assign the results so that we can use them later.
 
 ```{r ei, exercise=TRUE, purl = FALSE}
 
@@ -290,7 +309,7 @@ Plot the results of running this function with respect to the EI index
 on each of the three variables.
 You can specify that one thousand simulations should be used using `times = 1000`.
 
-```{r rando, exercise=TRUE, purl = FALSE}
+```{r rando, exercise=TRUE, purl = FALSE, exercise.timelimit = 120}
 
 ```
 
@@ -337,8 +356,10 @@ a red vertical line for the observed score,
 and a density plot of the scores from the randomly generated networks.
 The grey tails of the distribution are a visual aid indicating the most extreme 5% of scores
 from the distribution.
-
 The results are _really_ interesting.
+
+<img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzlsM3J1dm9tb2tlYjB4bGw0cGxuc3RodXpvdjNhcGJ5cXV2MndjbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/AbYxDs20DECQw/giphy.gif" alt="gif of ironman explosion" width = "900"/>
+
 Despite being the larger coefficients (in absolute terms),
 it looks like we cannot reject the null hypothesis that there is no homophily
 for gender nor for attractiveness.
@@ -365,7 +386,7 @@ Permuting the network retains the structure of the network
 because the ties are kept and only the labels (variables) are reassigned randomly.
 Let's first plot the observed data and some permuted data next to each other.
 
-```{r perm, exercise=TRUE, purl = FALSE}
+```{r perm, exercise=TRUE, purl = FALSE, fig.width=9}
 
 ```
 
@@ -388,7 +409,7 @@ old + new
 ```{r cupqap-qn, echo=FALSE, purl = FALSE}
 question("Which of the following is true?",
   answer("Random networks retain the structure of the original network.",
-         message = learnr::random_encouragement()),
+         message = paste(learnr::random_encouragement(), '<img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExeW9jbXg5dDBndjRpcWc2enhyOTZvbjloeGFpbmJndXNrMm05MHdtZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ziLadIVnOGCKk/giphy.gif" alt="gif of thor frustration"/>')),
   answer("Permuted networks retain the structure of the original network.",
          correct = TRUE,
          message = learnr::random_praise()),
@@ -408,7 +429,7 @@ Let's try a test that runs this over a succession of permutations,
 just as we did with random graphs.
 Plot the results for gender and power according to the random and permutation baselines.
 
-```{r testperm, exercise=TRUE, exercise.setup = "rando-solution", purl = FALSE}
+```{r testperm, exercise=TRUE, exercise.setup = "rando-solution", purl = FALSE, exercise.timelimit = 120, fig.width=9}
 
 ```
 
@@ -466,7 +487,7 @@ You may recognise some of the names.
 The main network consists of 32 scholars with directed ties weighted by the total number of messages sent from $i$ to $j$ over the period of the study.
 Nodal attributes collected include the primary discipline and number of citations in the social science citation index at the start of the study.
 
-```{r introeies, exercise=TRUE, purl = FALSE}
+```{r introeies, exercise=TRUE, purl = FALSE, fig.width=9}
 ison_networkers
 graphr(ison_networkers, node_color = "Discipline")
 ```
@@ -488,18 +509,18 @@ simulations or more.
 ```
 
 ```{r qapmax-hint-1, purl = FALSE}
-network_reg(____, ison_networkers, times = 200)
+net_regression(____, ison_networkers, times = 200)
 # If the model runs into a timeout error, please reduce the number of 'times' in the function above.
 ```
 
 ```{r qapmax-hint-2, purl = FALSE}
-weight ~ alter(Citations) + sim(Citations) + 
-                      alter(Discipline) + same(Discipline)
+weight ~ ego(Citations) + alter(Citations) + sim(Citations) + 
+                      ego(Discipline) + same(Discipline)
 ```
 
 ```{r qapmax-solution}
-model1 <- network_reg(weight ~ ego(Citations) + alter(Citations) + sim(Citations) + 
-                      ego(Discipline) + alter(Discipline) + same(Discipline), 
+model1 <- net_regression(weight ~ ego(Citations) + alter(Citations) + sim(Citations) + 
+                      ego(Discipline) + same(Discipline), 
                       ison_networkers, times = 200)
 ```
 
@@ -507,7 +528,7 @@ We can use tidy methods (e.g. `tidy()`, `glance()`) to get the salient informati
 and `{migraph}` includes also a plot method for these results to
 facilitate the quick interpretation of these results.
 
-```{r qapinterp, exercise=TRUE, exercise.setup = "qapmax-solution", purl = FALSE}
+```{r qapinterp, exercise=TRUE, exercise.setup = "qapmax-solution", purl = FALSE, fig.width=9}
 
 ```
 
@@ -539,8 +560,17 @@ question("What can we say from the results from model 1?",
 )
 ```
 
+
+## Free play
+
 While these are the conclusions from this 'play' data, 
 you may have more and more interesting data at hand.
 How would you go about specifying such a model?
 Why is such an approach more appropriate for network data than linear
 or logistic regression?
+
+```{r freeplay, exercise = TRUE, fig.width=9}
+
+```
+
+

@@ -2,9 +2,9 @@ set.seed(123)
 networkers <- manynet::ison_networkers %>% manynet::to_subgraph(Discipline == "Sociology")
 netsenders <- manynet::to_unweighted(networkers)
 
-test <- network_reg(weight ~ ego(Citations),
+test <- net_regression(weight ~ ego(Citations),
                      networkers, times = 50)
-test_logit <- network_reg(. ~ ego(Citations),
+test_logit <- net_regression(. ~ ego(Citations),
                           netsenders, times = 50)
 
 test_that("network_reg estimates correctly",{

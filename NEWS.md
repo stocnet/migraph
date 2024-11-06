@@ -1,11 +1,31 @@
 # migraph 1.4.3
 
-2024-09-04
+2024-11-06
 
 ## Package
 
 - Using different github actions for renaming and releasing binaries (thanks @auzaheta)
 - Updated manynet dependence to >=1.0.5
+
+## Models
+
+- Added `test_configuration()`
+
+## Data
+
+- Updated `mpn_bristol` with info
+- Updated `mpn_ryanair` with info
+- Updated `mpn_elite_mex` with info
+- Updated `mpn_elite_usa`
+- Updated `mpn_senate`
+- Updated `mpn_cow`
+
+## Tutorial
+
+- Updated diversity tutorial
+  - More elaborate start
+  - Broader figure widths
+  - Dropped `alter(Discipline)` from `net_regression()` call
 
 # migraph 1.4.2
 
