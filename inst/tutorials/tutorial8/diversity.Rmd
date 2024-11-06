@@ -17,11 +17,28 @@ library(manynet)
 library(migraph)
 library(patchwork)
 library(ggplot2)
+clear_glossary()
 knitr::opts_chunk$set(echo = FALSE)
 marvel_friends <- to_unsigned(ison_marvel_relationships, keep = "positive")
 marvel_friends <- to_giant(marvel_friends)
 marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances))
 ```
+
+
+## This tutorial
+
+<img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDFidmtrcTJhenU1NGRtdXA5N292Ynp3Y3BxcHRhYjR2MnowOGJ0ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/djRJNZqj508sE/giphy.gif" alt="gif of deadpool greeting" width = "900"/>
+
+Within a network, nodes and ties vary.
+But how much do they vary and are there associations in this variance?
+By the end of this tutorial, you will be able to:
+
+- [ ] &nbsp; measure the richness of a network in terms of attribute types
+- [ ] &nbsp; measure how diverse a network is
+- [ ] &nbsp; measure how heterophilous the ties in a network are
+- [ ] &nbsp; test how heterophilous the ties in a network are compared to random networks
+- [ ] &nbsp; test how heterophilous the ties in a network are compared to permutations of the original network
+- [ ] &nbsp; regress a network's ties on other ties and/or nodal or dyadic attributes
 
 ## Initial visualisation
 
@@ -113,15 +130,16 @@ We therefore need to establish how diverse this network really is.
 
 ## Measuring richness
 
-We can begin by measuring the number of different categories there are.
-Here we might assume that the more different categories there are,
-the more diverse the network is.
-The measure of 'richness' is inherited from the study of biodiversity,
-and calculates the number of different categories are presented in a
-dataset for a given variable.
+Some categorical variables have more categories than others,
+and this can be thought of as indicating greater diversity than e.g. a binary
+categorical variable.
+A measure of this 'richness' is inherited from the study of biodiversity.
+_Richness_ calculates the number of different categories that appear in
+the data for a given variable.
+Let's calculate the richness of all of the variables in our Marvel data.
 
 ```{r rich, exercise=TRUE, purl = FALSE}
-
+net_node_attributes(marvel_friends)
 ```
 
 ```{r rich-hint, purl = FALSE}
@@ -166,12 +184,12 @@ Recall that the Blau index for any given variable is:
 
 $$1 - \sum p_i^2$$
 
-where $p$ represents the proportion belonging to any given category,
-and $i$ indexes each of the given categories.
-A perfectly homogeneous group would receive a score of 0,
+where $p_i$ represents the proportion of observations holding $i$, 
+which indexes each of the given categories.
+A perfectly homogeneous group (all the same category) would receive a score of 0,
 while a perfectly heterogeneous group (with members spread evenly over the maximum categories)
 would receive a score of 1.
-Obtain the network diversity scores for our five attributes.
+Obtain the network diversity scores for the five attributes used above.
 
 ```{r blau, exercise=TRUE, purl = FALSE}
 
