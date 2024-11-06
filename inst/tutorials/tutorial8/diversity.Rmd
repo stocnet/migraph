@@ -82,7 +82,7 @@ Recall that this data has several nodal attributes.
 Let's explore a couple of these attributes, "Gender" and "PowerOrigin", visually
 using `graphr()`.
 
-```{r plotfriends, exercise=TRUE, purl = FALSE}
+```{r plotfriends, exercise=TRUE, purl = FALSE, fig.width=9}
 
 ```
 
@@ -98,8 +98,8 @@ graphr(____,
 
 ```{r plotfriends-solution}
 graphr(marvel_friends, 
-           node_shape = "Gender",
-           node_color = "PowerOrigin")
+       node_shape = "Gender",
+       node_color = "PowerOrigin")
 ```
 
 These variables seem to be distributed unevenly across the network.
@@ -218,12 +218,12 @@ It looks like some origin stories are more gender diverse than others.
 Gods (just Thor here) and humans are all men,
 whereas those with mutant or radiation origin stories are more gender diverse.
 There doesn't appear to be much difference in intellect 
-across gender categories however.
+across gender categories in this data.
 
 Ok, this tells us about how (un)even the distribution of these variables is in this network,
 but it doesn't necessarily tell us whether ties are appearing more frequently
-between nodes of similar (or different) categories.
-For that we need to look at homophily/heterophily.
+_between_ nodes of similar (or different) categories.
+For that we need to look at _homophily_/heterophily.
 
 ## Measuring heterophily
 
@@ -240,6 +240,7 @@ As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1
 
 Check how homophilic three variables in the network are,
 "Gender", "PowerOrigin", and "Attractive".
+Please assign the results so that we can use them later.
 
 ```{r ei, exercise=TRUE, purl = FALSE}
 
@@ -290,7 +291,7 @@ Plot the results of running this function with respect to the EI index
 on each of the three variables.
 You can specify that one thousand simulations should be used using `times = 1000`.
 
-```{r rando, exercise=TRUE, purl = FALSE}
+```{r rando, exercise=TRUE, purl = FALSE, exercise.timelimit = 120}
 
 ```
 
@@ -337,8 +338,10 @@ a red vertical line for the observed score,
 and a density plot of the scores from the randomly generated networks.
 The grey tails of the distribution are a visual aid indicating the most extreme 5% of scores
 from the distribution.
-
 The results are _really_ interesting.
+
+<img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzlsM3J1dm9tb2tlYjB4bGw0cGxuc3RodXpvdjNhcGJ5cXV2MndjbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/AbYxDs20DECQw/giphy.gif" alt="gif of ironman explosion" width = "900"/>
+
 Despite being the larger coefficients (in absolute terms),
 it looks like we cannot reject the null hypothesis that there is no homophily
 for gender nor for attractiveness.
@@ -365,7 +368,7 @@ Permuting the network retains the structure of the network
 because the ties are kept and only the labels (variables) are reassigned randomly.
 Let's first plot the observed data and some permuted data next to each other.
 
-```{r perm, exercise=TRUE, purl = FALSE}
+```{r perm, exercise=TRUE, purl = FALSE, fig.width=9}
 
 ```
 
@@ -388,7 +391,7 @@ old + new
 ```{r cupqap-qn, echo=FALSE, purl = FALSE}
 question("Which of the following is true?",
   answer("Random networks retain the structure of the original network.",
-         message = learnr::random_encouragement()),
+         message = paste(learnr::random_encouragement(), '<img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExeW9jbXg5dDBndjRpcWc2enhyOTZvbjloeGFpbmJndXNrMm05MHdtZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ziLadIVnOGCKk/giphy.gif" alt="gif of thor frustration"/>')),
   answer("Permuted networks retain the structure of the original network.",
          correct = TRUE,
          message = learnr::random_praise()),
@@ -408,7 +411,7 @@ Let's try a test that runs this over a succession of permutations,
 just as we did with random graphs.
 Plot the results for gender and power according to the random and permutation baselines.
 
-```{r testperm, exercise=TRUE, exercise.setup = "rando-solution", purl = FALSE}
+```{r testperm, exercise=TRUE, exercise.setup = "rando-solution", purl = FALSE, exercise.timelimit = 120, fig.width=9}
 
 ```
 
@@ -466,7 +469,7 @@ You may recognise some of the names.
 The main network consists of 32 scholars with directed ties weighted by the total number of messages sent from $i$ to $j$ over the period of the study.
 Nodal attributes collected include the primary discipline and number of citations in the social science citation index at the start of the study.
 
-```{r introeies, exercise=TRUE, purl = FALSE}
+```{r introeies, exercise=TRUE, purl = FALSE, fig.width=9}
 ison_networkers
 graphr(ison_networkers, node_color = "Discipline")
 ```
@@ -507,7 +510,7 @@ We can use tidy methods (e.g. `tidy()`, `glance()`) to get the salient informati
 and `{migraph}` includes also a plot method for these results to
 facilitate the quick interpretation of these results.
 
-```{r qapinterp, exercise=TRUE, exercise.setup = "qapmax-solution", purl = FALSE}
+```{r qapinterp, exercise=TRUE, exercise.setup = "qapmax-solution", purl = FALSE, fig.width=9}
 
 ```
 
