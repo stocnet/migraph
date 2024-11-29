@@ -133,6 +133,22 @@ glance.netlogit <- function(x, ...) {
 }
 
 #' @export
+print.netlm <- function(x, ...){
+  cat("# Fitted model results\n")
+  print(tidy(x))
+  cat("\n# Model summary statistics\n")
+  print(glance(x))
+}
+
+#' @export
+print.netlogit <- function(x, ...){
+  cat("# Fitted model results\n")
+  print(tidy(x))
+  cat("\n# Model summary statistics\n")
+  print(glance(x))
+}
+
+#' @export
 plot.netlm <- function(x, ...){
   distrib <- x$dist
   distrib <- as.data.frame(distrib)
