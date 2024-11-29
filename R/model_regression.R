@@ -422,8 +422,12 @@ convertToMatrixList <- function(formula, data){
         } 
     }})
   IVs <- purrr::flatten(IVs)
+  names(IVs) <- vapply(IVs, function(x) attr(x, "names")[1], FUN.VALUE = character(1))
   out <- c(list(DV), list(matrix(1, dim(DV)[1], dim(DV)[2])), IVs)
-  names(out)[1:2] <- c(formula[[2]], "(intercept)")
+  # Getting the names right
+  DVname <- formula[[2]]
+  if(DVname == ".") DVname <- "ties"
+  names(out)[1:2] <- c(DVname, "(intercept)")
   out
 }
 
