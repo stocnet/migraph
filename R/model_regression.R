@@ -287,8 +287,8 @@ vectorise_list <- function(glist, simplex, directed){
                                                        function(x) c(x)))))
 }
 
-convertToMatrixList <- function(formula, data){
-  data <- manynet::as_tidygraph(data)
+convertToMatrixList <- function(formula, .data){
+  data <- manynet::as_tidygraph(.data)
   if(manynet::is_weighted(data) & getDependentName(formula)=="weight"){
     DV <- manynet::as_matrix(data) 
   } else DV <- manynet::as_matrix(data)
@@ -350,11 +350,30 @@ convertToMatrixList <- function(formula, data){
           }
           # same ####
       } else if (IV[[elem]][1] == "same"){
-        rows <- matrix(manynet::node_attribute(data, IV[[elem]][2]),
-                       nrow(DV), ncol(DV))
-        cols <- matrix(manynet::node_attribute(data, IV[[elem]][2]),
-                       nrow(DV), ncol(DV), byrow = TRUE)
-        out <- (rows==cols)*1
+        attrib <- manynet::node_attribute(data, IV[[elem]][2])
+        if(manynet::is_twomode(.data)){
+          if(all(is.na(attrib[!manynet::node_is_mode(.data)]))){ # if 2nd mode
+            attrib <- attrib[manynet::node_is_mode(.data)]
+            out <- vapply(1:length(attrib), function(x){
+              net <- manynet::as_matrix(manynet::delete_nodes(.data, net_dims(.data)[1]+x))
+              rowSums(net * matrix((attrib[-x]==attrib[x])*1, 
+                                   nrow(DV), ncol(DV)-1, byrow = TRUE))/
+                rowSums(net)
+            }, FUN.VALUE = numeric(nrow(DV)))
+          } else { # or then attrib must be on first mode
+            attrib <- attrib[!manynet::node_is_mode(.data)]
+            out <- t(vapply(1:length(attrib), function(x){
+              net <- manynet::as_matrix(manynet::delete_nodes(.data, x))
+              colSums(net * matrix((attrib[-x]==attrib[x])*1, 
+                                   nrow(DV)-1, ncol(DV)))/
+                colSums(net)
+            }, FUN.VALUE = numeric(ncol(DV))))
+          }
+        } else {
+          rows <- matrix(attrib, nrow(DV), ncol(DV))
+          cols <- matrix(attrib, nrow(DV), ncol(DV), byrow = TRUE)
+          out <- (rows==cols)*1  
+        }
         out <- list(out)
         names(out) <- paste(IV[[elem]], collapse = " ")
         out <- out
