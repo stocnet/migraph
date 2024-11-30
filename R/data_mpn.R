@@ -79,7 +79,7 @@
 #' @references
 #' Domhoff, G William. 2016. \href{https://whorulesamerica.ucsc.edu/power_elite/}{“Who Rules America? Power Elite Database.”}
 #' 
-#' The Center for Responsive Politics. 2019. \href{https://www.opensecrets.org}{“OpenSecrets.”}
+#' The Center for Responsive Politics. 2019. “OpenSecrets.” https://www.opensecrets.org.
 #' 
 #' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.

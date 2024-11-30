@@ -287,8 +287,8 @@ vectorise_list <- function(glist, simplex, directed){
                                                        function(x) c(x)))))
 }
 
-convertToMatrixList <- function(formula, data){
-  data <- manynet::as_tidygraph(data)
+convertToMatrixList <- function(formula, .data){
+  data <- manynet::as_tidygraph(.data)
   if(manynet::is_weighted(data) & getDependentName(formula)=="weight"){
     DV <- manynet::as_matrix(data) 
   } else DV <- manynet::as_matrix(data)
@@ -350,11 +350,31 @@ convertToMatrixList <- function(formula, data){
           }
           # same ####
       } else if (IV[[elem]][1] == "same"){
-        rows <- matrix(manynet::node_attribute(data, IV[[elem]][2]),
-                       nrow(DV), ncol(DV))
-        cols <- matrix(manynet::node_attribute(data, IV[[elem]][2]),
-                       nrow(DV), ncol(DV), byrow = TRUE)
-        out <- (rows==cols)*1
+        attrib <- manynet::node_attribute(data, IV[[elem]][2])
+        if(manynet::is_twomode(.data)){
+          if(all(is.na(attrib[!manynet::node_is_mode(.data)]))){ # if 2nd mode
+            attrib <- attrib[manynet::node_is_mode(.data)]
+            out <- vapply(1:length(attrib), function(x){
+              net <- manynet::as_matrix(manynet::delete_nodes(.data, 
+                                                              manynet::net_dims(.data)[1]+x))
+              rowSums(net * matrix((attrib[-x]==attrib[x])*1, 
+                                   nrow(DV), ncol(DV)-1, byrow = TRUE))/
+                rowSums(net)
+            }, FUN.VALUE = numeric(nrow(DV)))
+          } else { # or then attrib must be on first mode
+            attrib <- attrib[!manynet::node_is_mode(.data)]
+            out <- t(vapply(1:length(attrib), function(x){
+              net <- manynet::as_matrix(manynet::delete_nodes(.data, x))
+              colSums(net * matrix((attrib[-x]==attrib[x])*1, 
+                                   nrow(DV)-1, ncol(DV)))/
+                colSums(net)
+            }, FUN.VALUE = numeric(ncol(DV))))
+          }
+        } else {
+          rows <- matrix(attrib, nrow(DV), ncol(DV))
+          cols <- matrix(attrib, nrow(DV), ncol(DV), byrow = TRUE)
+          out <- (rows==cols)*1  
+        }
         out <- list(out)
         names(out) <- paste(IV[[elem]], collapse = " ")
         out <- out
@@ -417,13 +437,19 @@ convertToMatrixList <- function(formula, data){
       out
     } else {
       if(is.list(out[[1]]))
-        out[[1]] else{
-          list(out[[1]])
+        out[[1]] else {
+          out <- list(out[[1]])
+          names(out) <- attr(out[[1]], "names")[1]
+          attr(out[[1]], "names") <- NULL
+          out
         } 
     }})
   IVs <- purrr::flatten(IVs)
   out <- c(list(DV), list(matrix(1, dim(DV)[1], dim(DV)[2])), IVs)
-  names(out)[1:2] <- c(formula[[2]], "(intercept)")
+  # Getting the names right
+  DVname <- formula[[2]]
+  if(DVname == ".") DVname <- "ties"
+  names(out)[1:2] <- c(DVname, "(intercept)")
   out
 }
 
@@ -451,7 +477,9 @@ specificationAdvice <- function(formula, data){
     vars <- formdf[formdf[,1] %in% c("sim","same"), 2]
     suggests <- vapply(vars, function(x){
       incl <- unname(formdf[formdf[,2]==x, 1])
-      excl <- setdiff(c("ego","alter"), incl)
+      if(manynet::is_twomode(data)){
+        excl <- setdiff(c("ego","tertius"), incl)
+      } else excl <- setdiff(c("ego","alter"), incl)
       if(length(excl)>0) paste0(excl, "(", x, ")", collapse = ", ") else NA_character_
       # incl
     }, FUN.VALUE = character(1))
@@ -460,9 +488,9 @@ specificationAdvice <- function(formula, data){
     if(length(suggests)>0){
       if(length(suggests) > 1)
         suggests <- paste0(suggests, collapse = ", ")
-      warning(paste("When testing for homophily,",
-                    "it is recommended to include also more fundamental effects such as `ego()` and `alter()`.",
-                    "Try adding", suggests, "to the model specification."))
+      cat(paste("When testing for homophily,",
+                    "it is recommended to include all more fundamental effects.\n",
+                    "Try adding", suggests, "to the model specification.\n\n"))
       }
   }
 }

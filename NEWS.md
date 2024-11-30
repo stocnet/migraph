@@ -1,3 +1,28 @@
+# migraph 1.4.4
+
+2024-11-30
+
+## Package
+
+- Fixed dependency issue
+
+# migraph 1.4.4
+
+2024-11-29
+
+## Package
+
+- Updated github actions
+
+## Models
+
+- Updated `net_regression()`
+  - It now works (better) with unweighted networks
+  - Added print methods that combine `tidy()` and `glance()`
+  - Fixed effect naming error
+  - Updated `same()` to work for two-mode networks
+  - Updated specification advice for testing for homophily in two-mode networks
+
 # migraph 1.4.3
 
 2024-11-06
