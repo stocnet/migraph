@@ -489,7 +489,7 @@ specificationAdvice <- function(formula, data){
         suggests <- paste0(suggests, collapse = ", ")
       cat(paste("When testing for homophily,",
                     "it is recommended to include all more fundamental effects.\n",
-                    "Try adding", suggests, "to the model specification."))
+                    "Try adding", suggests, "to the model specification.\n\n"))
       }
   }
 }
