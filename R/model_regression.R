@@ -417,12 +417,14 @@ convertToMatrixList <- function(formula, data){
       out
     } else {
       if(is.list(out[[1]]))
-        out[[1]] else{
-          list(out[[1]])
+        out[[1]] else {
+          out <- list(out[[1]])
+          names(out) <- attr(out[[1]], "names")[1]
+          attr(out[[1]], "names") <- NULL
+          out
         } 
     }})
   IVs <- purrr::flatten(IVs)
-  names(IVs) <- vapply(IVs, function(x) attr(x, "names")[1], FUN.VALUE = character(1))
   out <- c(list(DV), list(matrix(1, dim(DV)[1], dim(DV)[2])), IVs)
   # Getting the names right
   DVname <- formula[[2]]
