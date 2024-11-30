@@ -25,7 +25,7 @@ of the original network.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.5</span>
       </span>
     </div>
 
@@ -87,6 +87,15 @@ of the original network.</p></li>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">test_configuration</span><span class="op">(</span></span>
+<span>  <span class="va">.data</span>,</span>
+<span>  <span class="va">FUN</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  times <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  strategy <span class="op">=</span> <span class="st">"sequential"</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">test_permutation</span><span class="op">(</span></span>
 <span>  <span class="va">.data</span>,</span>
 <span>  <span class="va">FUN</span>,</span>
@@ -103,7 +112,7 @@ of the original network.</p></li>
 
 <dl><dt id="arg--data">.data<a class="anchor" aria-label="anchor" href="#arg--data"></a></dt>
 <dd><p>A manynet-consistent network.
-See e.g. <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">manynet::as_tidygraph()</a></code> for more details.</p></dd>
+See e.g. <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">manynet::as_tidygraph()</a></code> for more details.</p></dd>
 
 
 <dt id="arg-fun">FUN<a class="anchor" aria-label="anchor" href="#arg-fun"></a></dt>
@@ -150,8 +159,8 @@ See <a href="https://progressr.futureverse.org" class="external-link"><code>{pro
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_unsigned</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stocnet.github.io/manynet/reference/to_scope.html" class="external-link">to_giant</a></span><span class="op">(</span><span class="va">marvel_friends</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_unsigned</a></span><span class="op">(</span><span class="va">ison_marvel_relationships</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stocnet.github.io/manynet/reference/manip_scope.html" class="external-link">to_giant</a></span><span class="op">(</span><span class="va">marvel_friends</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu">to_subgraph</span><span class="op">(</span><span class="va">PowerOrigin</span> <span class="op">==</span> <span class="st">"Human"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># (cugtest &lt;- test_random(marvel_friends, manynet::net_heterophily, attribute = "Attractive",</span></span></span>
 <span class="r-in"><span><span class="co">#   times = 200))</span></span></span>
@@ -174,7 +183,7 @@ See <a href="https://progressr.futureverse.org" class="external-link"><code>{pro
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>

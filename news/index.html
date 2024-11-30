@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.5</span>
       </span>
     </div>
 
@@ -60,15 +60,69 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.4.2" id="migraph-142">migraph 1.4.2<a class="anchor" aria-label="anchor" href="#migraph-142"></a></h2>
-<p>2024-09-04</p>
+<h2 class="page-header" data-toc-text="1.4.4" id="migraph-144">migraph 1.4.4<a class="anchor" aria-label="anchor" href="#migraph-144"></a></h2>
+<p>2024-11-30</p>
+<div class="section level3">
+<h3 id="package-1-4-4">Package<a class="anchor" aria-label="anchor" href="#package-1-4-4"></a></h3>
+<ul><li>Fixed dependency issue</li></ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.4.4" id="migraph-144-1">migraph 1.4.4<a class="anchor" aria-label="anchor" href="#migraph-144-1"></a></h2>
+<p>2024-11-29</p>
+<div class="section level3">
+<h3 id="package-1-4-4-1">Package<a class="anchor" aria-label="anchor" href="#package-1-4-4-1"></a></h3>
+<ul><li>Updated github actions</li></ul></div>
+<div class="section level3">
+<h3 id="models-1-4-4">Models<a class="anchor" aria-label="anchor" href="#models-1-4-4"></a></h3>
+<ul><li>Updated <code><a href="../reference/regression.html">net_regression()</a></code><ul><li>It now works (better) with unweighted networks</li>
+<li>Added print methods that combine <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> and <code><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance()</a></code>
+</li>
+<li>Fixed effect naming error</li>
+<li>Updated <code>same()</code> to work for two-mode networks</li>
+<li>Updated specification advice for testing for homophily in two-mode networks</li>
+</ul></li></ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.4.3" id="migraph-143">migraph 1.4.3<small>2024-11-06</small><a class="anchor" aria-label="anchor" href="#migraph-143"></a></h2>
+<p>2024-11-06</p>
+<div class="section level3">
+<h3 id="package-1-4-3">Package<a class="anchor" aria-label="anchor" href="#package-1-4-3"></a></h3>
+<ul><li>Using different github actions for renaming and releasing binaries (thanks <a href="https://github.com/auzaheta" class="external-link">@auzaheta</a>)</li>
+<li>Updated manynet dependence to &gt;=1.0.5</li>
+</ul></div>
+<div class="section level3">
+<h3 id="models-1-4-3">Models<a class="anchor" aria-label="anchor" href="#models-1-4-3"></a></h3>
+<ul><li>Added <code><a href="../reference/tests.html">test_configuration()</a></code>
+</li></ul></div>
+<div class="section level3">
+<h3 id="data-1-4-3">Data<a class="anchor" aria-label="anchor" href="#data-1-4-3"></a></h3>
+<ul><li>Updated <code>mpn_bristol</code> with info</li>
+<li>Updated <code>mpn_ryanair</code> with info</li>
+<li>Updated <code>mpn_elite_mex</code> with info</li>
+<li>Updated <code>mpn_elite_usa</code>
+</li>
+<li>Updated <code>mpn_senate</code>
+</li>
+<li>Updated <code>mpn_cow</code>
+</li>
+</ul></div>
+<div class="section level3">
+<h3 id="tutorial-1-4-3">Tutorial<a class="anchor" aria-label="anchor" href="#tutorial-1-4-3"></a></h3>
+<ul><li>Updated diversity tutorial<ul><li>More elaborate start</li>
+<li>Broader figure widths</li>
+<li>Dropped <code>alter(Discipline)</code> from <code><a href="../reference/regression.html">net_regression()</a></code> call</li>
+</ul></li></ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.4.2" id="migraph-142">migraph 1.4.2<small>2024-09-04</small><a class="anchor" aria-label="anchor" href="#migraph-142"></a></h2>
+<p>2024-09-03</p>
 <div class="section level3">
 <h3 id="package-1-4-2">Package<a class="anchor" aria-label="anchor" href="#package-1-4-2"></a></h3>
 <ul><li>Using github actions download artifact v4 to address dependabot security warning</li></ul></div>
 <div class="section level3">
 <h3 id="models-1-4-2">Models<a class="anchor" aria-label="anchor" href="#models-1-4-2"></a></h3>
 <ul><li>
-<code><a href="../reference/tests.html">test_permutation()</a></code> now uses <code><a href="https://stocnet.github.io/manynet/reference/manip_permutation.html" class="external-link">manynet::to_permuted()</a></code> instead of the older <code><a href="https://stocnet.github.io/manynet/reference/make_generate.html" class="external-link">manynet::generate_permutation()</a></code> syntax</li></ul></div>
+<code><a href="../reference/tests.html">test_permutation()</a></code> now uses <code><a href="https://stocnet.github.io/manynet/reference/manip_permutation.html" class="external-link">manynet::to_permuted()</a></code> instead of the older <code><a href="https://stocnet.github.io/manynet/reference/make_random.html" class="external-link">manynet::generate_permutation()</a></code> syntax</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.4.1" id="migraph-141">migraph 1.4.1<small>2024-07-19</small><a class="anchor" aria-label="anchor" href="#migraph-141"></a></h2>
@@ -112,7 +166,7 @@
 <li>
 <code><a href="../reference/test_distributions.html">test_fit()</a></code> no longer measures fit against steps where there is no covariance</li>
 </ul></li>
-<li>Fixed bug in <code><a href="../reference/tests.html">test_random()</a></code> where parameters were passed to <code><a href="https://stocnet.github.io/manynet/reference/make_generate.html" class="external-link">manynet::generate_random()</a></code> instead of the original object, which is processed more intuitively within <code><a href="https://stocnet.github.io/manynet/reference/make_generate.html" class="external-link">manynet::generate_random()</a></code> (thanks <a href="https://github.com/RWKrause" class="external-link">@RWKrause</a>)</li>
+<li>Fixed bug in <code><a href="../reference/tests.html">test_random()</a></code> where parameters were passed to <code><a href="https://stocnet.github.io/manynet/reference/make_random.html" class="external-link">manynet::generate_random()</a></code> instead of the original object, which is processed more intuitively within <code><a href="https://stocnet.github.io/manynet/reference/make_random.html" class="external-link">manynet::generate_random()</a></code> (thanks <a href="https://github.com/RWKrause" class="external-link">@RWKrause</a>)</li>
 <li>Corrected that <code><a href="../reference/tests.html">test_random()</a></code> returns results on edge-conditioned uniform graphs, not size</li>
 <li>Reexported <code><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">ggplot2::scale_y_discrete()</a></code>
 </li>
@@ -138,7 +192,7 @@
 <h3 id="measures-1-3-3">Measures<a class="anchor" aria-label="anchor" href="#measures-1-3-3"></a></h3>
 <ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/motif_brokerage.html" class="external-link">node_brokering_activity()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/motif_brokerage.html" class="external-link">node_brokering_exclusivity()</a></code> from Hamilton et al (2020)</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/degree_centrality.html" class="external-link">node_degree()</a></code> now returns strength centrality (alpha = 1) for weighted networks by default</li>
+<code><a href="https://stocnet.github.io/manynet/reference/measure_central_degree.html" class="external-link">node_degree()</a></code> now returns strength centrality (alpha = 1) for weighted networks by default</li>
 <li>
 <code><a href="https://stocnet.github.io/manynet/reference/measure_holes.html" class="external-link">node_redundancy()</a></code> now works for weighted onemode and twomode networks (closed <a href="https://github.com/stocnet/migraph/issues/292" class="external-link">#292</a>)<ul><li>Matrix operations bring an approximately sixfold speed increase compared to vapply</li></ul></li>
 <li>
@@ -208,15 +262,15 @@
 <ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_change()</a></code> to measure the Hamming distance between two or more networks</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_stability()</a></code> to measure the Jaccard index between two or more networks</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_spatial()</a></code> to measure spatial association (Moran’s I, closes <a href="https://github.com/stocnet/migraph/issues/209" class="external-link">#209</a>)</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/degree_centrality.html" class="external-link">node_deg()</a></code> for a non-normalised version of <code><a href="https://stocnet.github.io/manynet/reference/degree_centrality.html" class="external-link">node_degree()</a></code>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_central_degree.html" class="external-link">node_deg()</a></code> for a non-normalised version of <code><a href="https://stocnet.github.io/manynet/reference/measure_central_degree.html" class="external-link">node_degree()</a></code>
 </li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/degree_centrality.html" class="external-link">node_degree()</a></code> now normalises strength centrality</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/between_centrality.html" class="external-link">node_induced()</a></code> to measure nodes’ induced betweenness centralities</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/between_centrality.html" class="external-link">node_flow()</a></code> to measure nodes’ flow betweenness centralities (closes <a href="https://github.com/stocnet/migraph/issues/195" class="external-link">#195</a>)</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/close_centrality.html" class="external-link">node_information()</a></code> to measure nodes’ information or current-flow closeness centralities (closes <a href="https://github.com/stocnet/migraph/issues/194" class="external-link">#194</a>)</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/degree_centrality.html" class="external-link">node_multidegree()</a></code> to measure the ratio of one type of tie in a multiplex network to another</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/degree_centrality.html" class="external-link">node_posneg()</a></code> measures the PN centrality of signed networks</li>
+<code><a href="https://stocnet.github.io/manynet/reference/measure_central_degree.html" class="external-link">node_degree()</a></code> now normalises strength centrality</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_central_between.html" class="external-link">node_induced()</a></code> to measure nodes’ induced betweenness centralities</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_central_between.html" class="external-link">node_flow()</a></code> to measure nodes’ flow betweenness centralities (closes <a href="https://github.com/stocnet/migraph/issues/195" class="external-link">#195</a>)</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_central_close.html" class="external-link">node_information()</a></code> to measure nodes’ information or current-flow closeness centralities (closes <a href="https://github.com/stocnet/migraph/issues/194" class="external-link">#194</a>)</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_central_degree.html" class="external-link">node_multidegree()</a></code> to measure the ratio of one type of tie in a multiplex network to another</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_central_degree.html" class="external-link">node_posneg()</a></code> measures the PN centrality of signed networks</li>
 </ul></div>
 <div class="section level3">
 <h3 id="members-1-3-0">Members<a class="anchor" aria-label="anchor" href="#members-1-3-0"></a></h3>
@@ -229,7 +283,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="models-1-3-0">Models<a class="anchor" aria-label="anchor" href="#models-1-3-0"></a></h3>
-<ul><li>Migrated <code>play_*()</code> functions to <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>, including <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_diffusion()</a></code> and the diffusion tutorial</li>
+<ul><li>Migrated <code>play_*()</code> functions to <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>, including <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_diffusion()</a></code> and the diffusion tutorial</li>
 <li>Added specification advice to <code><a href="../reference/defunct.html">network_reg()</a></code> so that specifications that include a ‘sim’ or ‘same’ effect for a variable are encouraged to also include more elementary ‘ego’ and ‘alter’ effects</li>
 <li>
 <code><a href="../reference/defunct.html">network_reg()</a></code> now ignores the LHS of the formula for uniplex networks</li>
@@ -240,7 +294,7 @@
 <p>2023-12-17</p>
 <div class="section level3">
 <h3 id="measures-1-2-1">Measures<a class="anchor" aria-label="anchor" href="#measures-1-2-1"></a></h3>
-<ul><li>Fixed documentation issues in <code><a href="https://stocnet.github.io/manynet/reference/measure_node_diffusion.html" class="external-link">node_adoption_time()</a></code>
+<ul><li>Fixed documentation issues in <code><a href="https://stocnet.github.io/manynet/reference/measure_diffusion_node.html" class="external-link">node_adoption_time()</a></code>
 </li></ul></div>
 </div>
     <div class="section level2">
@@ -259,11 +313,11 @@
 <h3 id="measures-1-2-0">Measures<a class="anchor" aria-label="anchor" href="#measures-1-2-0"></a></h3>
 <ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_hazard()</a></code> for calculating the hazard rate for each time point of a diff_model object</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/measure_node_diffusion.html" class="external-link">node_adoption_time()</a></code> now works with incomplete diffusions<ul><li>Fixed bug with named vectors</li></ul></li>
+<code><a href="https://stocnet.github.io/manynet/reference/measure_diffusion_node.html" class="external-link">node_adoption_time()</a></code> now works with incomplete diffusions<ul><li>Fixed bug with named vectors</li></ul></li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/measure_node_diffusion.html" class="external-link">node_exposure()</a></code> now uses <code><a href="https://stocnet.github.io/manynet/reference/mark_diff.html" class="external-link">node_is_infected()</a></code> for more flexibility</li>
+<code><a href="https://stocnet.github.io/manynet/reference/measure_diffusion_node.html" class="external-link">node_exposure()</a></code> now uses <code><a href="https://stocnet.github.io/manynet/reference/mark_diff.html" class="external-link">node_is_infected()</a></code> for more flexibility</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/measure_node_diffusion.html" class="external-link">node_thresholds()</a></code> now works with incomplete diffusions<ul><li>Adds exposure data where not provided</li></ul></li>
+<code><a href="https://stocnet.github.io/manynet/reference/measure_diffusion_node.html" class="external-link">node_thresholds()</a></code> now works with incomplete diffusions<ul><li>Adds exposure data where not provided</li></ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="members-1-2-0">Members<a class="anchor" aria-label="anchor" href="#members-1-2-0"></a></h3>
@@ -272,10 +326,10 @@
 <div class="section level3">
 <h3 id="models-1-2-0">Models<a class="anchor" aria-label="anchor" href="#models-1-2-0"></a></h3>
 <ul><li>
-<code><a href="https://stocnet.github.io/manynet/reference/play.html" class="external-link">play_diffusion()</a></code><ul><li>Now records only the first exposure event until susceptible again</li>
-<li>Now uses <code><a href="https://stocnet.github.io/manynet/reference/mark_diff.html" class="external-link">node_is_exposed()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/measure_node_diffusion.html" class="external-link">node_exposure()</a></code> internally</li>
+<code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code><ul><li>Now records only the first exposure event until susceptible again</li>
+<li>Now uses <code><a href="https://stocnet.github.io/manynet/reference/mark_diff.html" class="external-link">node_is_exposed()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/measure_diffusion_node.html" class="external-link">node_exposure()</a></code> internally</li>
 <li>Made play_diffusion() code easier to understand and debug</li>
-<li>Added some tests for <code><a href="https://stocnet.github.io/manynet/reference/play.html" class="external-link">play_diffusion()</a></code>
+<li>Added some tests for <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code>
 </li>
 </ul></li></ul></div>
 </div>
@@ -289,12 +343,12 @@
 <h3 id="measures-1-1-9">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-9"></a></h3>
 <ul><li>Fixed bugs for <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_reproduction()</a></code> function that calculates the R-nought value.</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_immunity()</a></code> function to calculate the Herd Immunity Threshold for the network.</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_node_diffusion.html" class="external-link">node_exposure()</a></code> function to calculate the number of infected/adopting nodes to which each susceptible node is exposed.</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_diffusion_node.html" class="external-link">node_exposure()</a></code> function to calculate the number of infected/adopting nodes to which each susceptible node is exposed.</li>
 <li>Added documentation for diffusion measures, separating documentation for <code>node_*()</code> and <code>network_*()</code> measures.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="models-1-1-9">Models<a class="anchor" aria-label="anchor" href="#models-1-1-9"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_diffusion()</a></code> function to convert a diffusion event table into a <code>diff_model</code> object.</li>
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_diffusion()</a></code> function to convert a diffusion event table into a <code>diff_model</code> object.</li>
 <li>Added <code><a href="../reference/defunct.html">test_gof()</a></code> function for testing goodness-of-fit in diffusion models.</li>
 </ul></div>
 <div class="section level3">
@@ -308,8 +362,8 @@
 <p>2023-12-06</p>
 <div class="section level3">
 <h3 id="measures-1-1-8">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-8"></a></h3>
-<ul><li>Fixed bugs in diffusion measures.<ul><li>Fixed <code><a href="https://stocnet.github.io/manynet/reference/measure_node_diffusion.html" class="external-link">node_thresholds()</a></code> so that it infers nodes’ thresholds from the amount of exposure they had when they became infected or exposed.</li>
-<li>Updated <code><a href="https://stocnet.github.io/manynet/reference/measure_node_diffusion.html" class="external-link">node_adoption_time()</a></code> and <code>node_adopter()</code> to return <code>node_member</code> and <code>node_measure</code> objects, which makes printing and summarising better.</li>
+<ul><li>Fixed bugs in diffusion measures.<ul><li>Fixed <code><a href="https://stocnet.github.io/manynet/reference/measure_diffusion_node.html" class="external-link">node_thresholds()</a></code> so that it infers nodes’ thresholds from the amount of exposure they had when they became infected or exposed.</li>
+<li>Updated <code><a href="https://stocnet.github.io/manynet/reference/measure_diffusion_node.html" class="external-link">node_adoption_time()</a></code> and <code>node_adopter()</code> to return <code>node_member</code> and <code>node_measure</code> objects, which makes printing and summarising better.</li>
 <li>Updated node_infection_length() and network_infection_length() which measures the average length nodes remain infected.</li>
 </ul></li></ul></div>
 <div class="section level3">
@@ -320,7 +374,7 @@
 <div class="section level3">
 <h3 id="models-1-1-8">Models<a class="anchor" aria-label="anchor" href="#models-1-1-8"></a></h3>
 <ul><li>Updated <code>diff_model</code> object to carry original network data for plotting.</li>
-<li>Updated <code><a href="https://stocnet.github.io/manynet/reference/play.html" class="external-link">play_diffusion()</a></code> to forward exposure/contact information to the events table.</li>
+<li>Updated <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code> to forward exposure/contact information to the events table.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="tutorials-1-1-8">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-1-8"></a></h3>
@@ -341,7 +395,7 @@
 <div class="section level3">
 <h3 id="models-1-1-7">Models<a class="anchor" aria-label="anchor" href="#models-1-1-7"></a></h3>
 <ul><li>Added ‘minimising’ distance option for segregation model choice.</li>
-<li>Changed ‘satisficing’ option in <code><a href="https://stocnet.github.io/manynet/reference/learning.html" class="external-link">play_segregation()</a></code> to sample randomly from those unoccupied options less than the desired threshold.</li>
+<li>Changed ‘satisficing’ option in <code><a href="https://stocnet.github.io/manynet/reference/make_learning.html" class="external-link">play_segregation()</a></code> to sample randomly from those unoccupied options less than the desired threshold.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="tutorials-1-1-7">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-1-7"></a></h3>
@@ -352,10 +406,10 @@
 <p>2023-11-08</p>
 <div class="section level3">
 <h3 id="measures-1-1-6">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-6"></a></h3>
-<ul><li>Added first drafts of various diffusion measures: <code>network_transmissability()</code>, <code>node_infection_length()</code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_infection_length()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_reproduction()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/measure_node_diffusion.html" class="external-link">node_adoption_time()</a></code>, <code>node_adopter()</code>, <code><a href="https://stocnet.github.io/manynet/reference/measure_node_diffusion.html" class="external-link">node_thresholds()</a></code>.</li></ul></div>
+<ul><li>Added first drafts of various diffusion measures: <code>network_transmissability()</code>, <code>node_infection_length()</code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_infection_length()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_reproduction()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/measure_diffusion_node.html" class="external-link">node_adoption_time()</a></code>, <code>node_adopter()</code>, <code><a href="https://stocnet.github.io/manynet/reference/measure_diffusion_node.html" class="external-link">node_thresholds()</a></code>.</li></ul></div>
 <div class="section level3">
 <h3 id="models-1-1-6">Models<a class="anchor" aria-label="anchor" href="#models-1-1-6"></a></h3>
-<ul><li>Fixed documentation for <code><a href="https://stocnet.github.io/manynet/reference/play.html" class="external-link">play_diffusion()</a></code>.</li>
+<ul><li>Fixed documentation for <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code>.</li>
 <li>Fixed bug in labelling in plot results for SIR models.</li>
 </ul></div>
 <div class="section level3">
@@ -411,7 +465,7 @@
 <li><code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_efficiency()</a></code></li>
 <li><code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_upperbound()</a></code></li>
 </ul></li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_holes.html" class="external-link">node_eccentricity()</a></code>, which wraps <code><a href="https://r.igraph.org/reference/eccentricity.html" class="external-link">igraph::eccentricity()</a></code>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_central_close.html" class="external-link">node_eccentricity()</a></code>, which wraps <code><a href="https://r.igraph.org/reference/eccentricity.html" class="external-link">igraph::eccentricity()</a></code>
 </li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_holes.html" class="external-link">node_neighbours_degree()</a></code>, which wraps <code><a href="https://r.igraph.org/reference/knn.html" class="external-link">igraph::knn()</a></code>
 </li>
@@ -461,12 +515,12 @@
 </ul></div>
 <div class="section level3">
 <h3 id="measures-1-1-0">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-0"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/degree_centrality.html" class="external-link">node_outdegree()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/degree_centrality.html" class="external-link">node_indegree()</a></code>, <code>network_outdegee()</code>, and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_indegree()</a></code> wrappers</li>
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_central_degree.html" class="external-link">node_outdegree()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/measure_central_degree.html" class="external-link">node_indegree()</a></code>, <code>network_outdegee()</code>, and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_indegree()</a></code> wrappers</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_reach()</a></code>
 </li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/close_centrality.html" class="external-link">node_harmonic()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_harmonic()</a></code>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_central_close.html" class="external-link">node_harmonic()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_harmonic()</a></code>
 </li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/eigenv_centrality.html" class="external-link">node_pagerank()</a></code>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_central_eigen.html" class="external-link">node_pagerank()</a></code>
 </li>
 <li>
 <code>plot.node_measure()</code> now returns a single plot for one-mode networks with a frequency histogram and a density overlay</li>
@@ -479,7 +533,7 @@
 <h2 class="page-header" data-toc-text="1.0.1" id="migraph-101">migraph 1.0.1<small>2023-07-20</small><a class="anchor" aria-label="anchor" href="#migraph-101"></a></h2>
 <div class="section level3">
 <h3 id="measures-1-0-1">Measures<a class="anchor" aria-label="anchor" href="#measures-1-0-1"></a></h3>
-<ul><li>Fixed backends in <code><a href="https://stocnet.github.io/manynet/reference/close_centrality.html" class="external-link">node_closeness()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/between_centrality.html" class="external-link">node_betweenness()</a></code> in preparation for an <a href="https://r.igraph.org/" class="external-link">igraph</a> deprecation (merci <a href="https://github.com/maelle" class="external-link">@maelle</a>)</li></ul></div>
+<ul><li>Fixed backends in <code><a href="https://stocnet.github.io/manynet/reference/measure_central_close.html" class="external-link">node_closeness()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/measure_central_between.html" class="external-link">node_betweenness()</a></code> in preparation for an <a href="https://r.igraph.org/" class="external-link">igraph</a> deprecation (merci <a href="https://github.com/maelle" class="external-link">@maelle</a>)</li></ul></div>
 <div class="section level3">
 <h3 id="models-1-0-1">Models<a class="anchor" aria-label="anchor" href="#models-1-0-1"></a></h3>
 <ul><li>Fixed <a href="https://github.com/stocnet/migraph/issues/272" class="external-link">#272</a> by making <code><a href="../reference/tests.html">test_random()</a></code> and <code><a href="../reference/tests.html">test_permutation()</a></code> rely on graph dimensions rather than graph order (thank you finding this <a href="https://github.com/rabenton" class="external-link">@rabenton</a>)</li></ul></div>
@@ -517,11 +571,11 @@
 </ul></div>
 <div class="section level3">
 <h3 id="measures-1-0-0">Measures<a class="anchor" aria-label="anchor" href="#measures-1-0-0"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/over.html" class="external-link">over_time()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/over.html" class="external-link">over_waves()</a></code> to measure (potentially parallelised) over split graphs<ul><li>Added class construction and a plot method for resulting <code>network_measures</code> object</li></ul></li>
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_over.html" class="external-link">over_time()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/measure_over.html" class="external-link">over_waves()</a></code> to measure (potentially parallelised) over split graphs<ul><li>Added class construction and a plot method for resulting <code>network_measures</code> object</li></ul></li>
 <li>Each of the four main types of centrality now get their own page of documentation</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/eigenv_centrality.html" class="external-link">node_alpha()</a></code> for calculating alpha centrality, mostly just a wrapper for <code><a href="https://r.igraph.org/reference/alpha_centrality.html" class="external-link">igraph::alpha_centrality()</a></code>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_central_eigen.html" class="external-link">node_alpha()</a></code> for calculating alpha centrality, mostly just a wrapper for <code><a href="https://r.igraph.org/reference/alpha_centrality.html" class="external-link">igraph::alpha_centrality()</a></code>
 </li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/eigenv_centrality.html" class="external-link">node_power()</a></code> for calculating beta or Bonacich centrality, mostly just a wrapper for <code><a href="https://r.igraph.org/reference/power_centrality.html" class="external-link">igraph::power_centrality()</a></code>, though also correctly accounts for two-mode networks</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_central_eigen.html" class="external-link">node_power()</a></code> for calculating beta or Bonacich centrality, mostly just a wrapper for <code><a href="https://r.igraph.org/reference/power_centrality.html" class="external-link">igraph::power_centrality()</a></code>, though also correctly accounts for two-mode networks</li>
 <li>Renamed <code>node_homophily()</code> to <code><a href="https://stocnet.github.io/manynet/reference/measure_heterogeneity.html" class="external-link">node_heterophily()</a></code>, which is more accurate and in line with the scale’s direction<ul><li>
 <code><a href="https://stocnet.github.io/manynet/reference/measure_heterogeneity.html" class="external-link">node_heterophily()</a></code> now calculates EI indices in a faster, vectorised form, instead of the older, slower solution that calculated <code>network_homophily()</code> over all ego networks</li></ul></li>
 <li>Renamed <code>network_homophily()</code> to <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_heterophily()</a></code><ul><li>
@@ -532,10 +586,10 @@
 <div class="section level3">
 <h3 id="models-1-0-0">Models<a class="anchor" aria-label="anchor" href="#models-1-0-0"></a></h3>
 <ul><li>
-<code><a href="https://stocnet.github.io/manynet/reference/kselect.html" class="external-link">k_strict()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/kselect.html" class="external-link">k_elbow()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/kselect.html" class="external-link">k_silhouette()</a></code> are now exported and documented</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/learning.html" class="external-link">play_segregation()</a></code> for playing Schelling segregation models with various parameters</li>
+<code><a href="https://stocnet.github.io/manynet/reference/model_kselect.html" class="external-link">k_strict()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/model_kselect.html" class="external-link">k_elbow()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/model_kselect.html" class="external-link">k_silhouette()</a></code> are now exported and documented</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_learning.html" class="external-link">play_segregation()</a></code> for playing Schelling segregation models with various parameters</li>
 <li>Fixed some <code>diff_model</code> and <code>diffs_model</code> plotting irregularities</li>
-<li>Fixed bug in how merges were constructed as a distance matrix in <code><a href="https://stocnet.github.io/manynet/reference/cluster.html" class="external-link">cluster_concor()</a></code>
+<li>Fixed bug in how merges were constructed as a distance matrix in <code><a href="https://stocnet.github.io/manynet/reference/model_cluster.html" class="external-link">cluster_concor()</a></code>
 </li>
 </ul></div>
 <div class="section level3">
@@ -550,13 +604,13 @@
 <ul><li>Updated README with better structuring and explanation<ul><li>Also improved figure quality</li></ul></li></ul></div>
 <div class="section level3">
 <h3 id="makes-0-13-2">Makes<a class="anchor" aria-label="anchor" href="#makes-0-13-2"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/read.html" class="external-link">read_matrix()</a></code> for importing CSVs of adjacency/incidence matrices</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/read.html" class="external-link">read_dynetml()</a></code> for importing DynetML .xml files (closed <a href="https://github.com/stocnet/migraph/issues/261" class="external-link">#261</a>)</li>
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_matrix()</a></code> for importing CSVs of adjacency/incidence matrices</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_dynetml()</a></code> for importing DynetML .xml files (closed <a href="https://github.com/stocnet/migraph/issues/261" class="external-link">#261</a>)</li>
 </ul></div>
 <div class="section level3">
 <h3 id="manipulations-0-13-2">Manipulations<a class="anchor" aria-label="anchor" href="#manipulations-0-13-2"></a></h3>
-<ul><li>Added list method for <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_tidygraph()</a></code> for merging nodelists and edgelists<ul><li>Note that a named list is expected, with names “nodes” and “ties”</li></ul></li>
-<li>Added igraph method for <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_siena()</a></code><ul><li>Note that this is a WIP proof of concept, and will currently only create the DV</li></ul></li>
+<ul><li>Added list method for <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_tidygraph()</a></code> for merging nodelists and edgelists<ul><li>Note that a named list is expected, with names “nodes” and “ties”</li></ul></li>
+<li>Added igraph method for <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_siena()</a></code><ul><li>Note that this is a WIP proof of concept, and will currently only create the DV</li></ul></li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -568,10 +622,10 @@
 </ul></div>
 <div class="section level3">
 <h3 id="makes-0-13-1">Makes<a class="anchor" aria-label="anchor" href="#makes-0-13-1"></a></h3>
-<ul><li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/read.html" class="external-link">read_pajek()</a></code> where multiple networks/ties were causing an issue for partition assignment</li></ul></div>
+<ul><li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_pajek()</a></code> where multiple networks/ties were causing an issue for partition assignment</li></ul></div>
 <div class="section level3">
 <h3 id="models-0-13-1">Models<a class="anchor" aria-label="anchor" href="#models-0-13-1"></a></h3>
-<ul><li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/play.html" class="external-link">play_diffusion()</a></code> relating to latency inversion</li></ul></div>
+<ul><li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code> relating to latency inversion</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.13.0" id="migraph-0130">migraph 0.13.0<small>2022-11-30</small><a class="anchor" aria-label="anchor" href="#migraph-0130"></a></h2>
@@ -582,7 +636,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="marks-0-13-0">Marks<a class="anchor" aria-label="anchor" href="#marks-0-13-0"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/features.html" class="external-link">is_aperiodic()</a></code> for testing whether a network is aperiodic (the greatest common divisor for all cycles in the network is 1)<ul><li>Note that for computational efficiency, this will check only up to a specified path length (by default 4)</li></ul></li>
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/mark_features.html" class="external-link">is_aperiodic()</a></code> for testing whether a network is aperiodic (the greatest common divisor for all cycles in the network is 1)<ul><li>Note that for computational efficiency, this will check only up to a specified path length (by default 4)</li></ul></li>
 <li>
 <code><a href="https://stocnet.github.io/manynet/reference/mark_select.html" class="external-link">node_is_max()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/mark_select.html" class="external-link">node_is_min()</a></code> now take a “rank” argument for selecting more than the first ranked maxima or minima</li>
 </ul></div>
@@ -597,7 +651,7 @@
 <ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_richness()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/measure_heterogeneity.html" class="external-link">node_richness()</a></code> for calculating the richness (a common diversity measure) of an attribute in a network</li></ul></div>
 <div class="section level3">
 <h3 id="models-0-13-0">Models<a class="anchor" aria-label="anchor" href="#models-0-13-0"></a></h3>
-<ul><li>Extended <code><a href="https://stocnet.github.io/manynet/reference/play.html" class="external-link">play_diffusion()</a></code> to include more compartment and transition options<ul><li>The print method now tabulates the compartment sums per step</li>
+<ul><li>Extended <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code> to include more compartment and transition options<ul><li>The print method now tabulates the compartment sums per step</li>
 <li>The summary method now presents the diffusion event list</li>
 <li>The plot method now:<ul><li>plots lines for S and I compartments, as blue and red lines respectively, if available or informs the user if no diffusion could be simulated</li>
 <li>plots lines for E and R compartments, as orange and green lines respectively, if relevant</li>
@@ -611,13 +665,13 @@
 <li>“thresholds” can now be proportions, in which case they are interpreted as complex</li>
 <li>“seeds” is now 1 by default</li>
 </ul></li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/play.html" class="external-link">play_diffusions()</a></code> for running a diffusion model multiple times<ul><li>Note for accelerating documentation and tutorials, this is 5 by default, but for publication quality results this should be increased</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusions()</a></code> for running a diffusion model multiple times<ul><li>Note for accelerating documentation and tutorials, this is 5 by default, but for publication quality results this should be increased</li>
 <li>A print method tabulates the compartment sums per step per simulation</li>
 <li>A summary method tabulates the steps until complete infection (or recovery) for each simulation</li>
 <li>A plot method visualises the loess for each compartment across all simulations</li>
 <li>Note that this function uses <a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a> and so a multicore or multisession strategy can be used for parallelisation (but this only makes sense for many simulations)</li>
 </ul></li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/learning.html" class="external-link">play_learning()</a></code> for running a DeGroot learning model<ul><li>A print method tabulates nodes beliefs at each step</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_learning.html" class="external-link">play_learning()</a></code> for running a DeGroot learning model<ul><li>A print method tabulates nodes beliefs at each step</li>
 <li>A summary method informs how many steps it took until convergence or whether there was no convergence after <em>t</em> steps</li>
 <li>A plot method visualises the belief trajectories for each node</li>
 </ul></li>
@@ -649,7 +703,7 @@
 <ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/mark_select.html" class="external-link">node_is_random()</a></code> for selecting n nodes at random</li></ul></div>
 <div class="section level3">
 <h3 id="models-0-12-6">Models<a class="anchor" aria-label="anchor" href="#models-0-12-6"></a></h3>
-<ul><li>Added first draft of (SI) <code><a href="https://stocnet.github.io/manynet/reference/play.html" class="external-link">play_diffusion()</a></code> model<ul><li>Added diff_model class, together with print, summary, and plot methods</li></ul></li></ul></div>
+<ul><li>Added first draft of (SI) <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code> model<ul><li>Added diff_model class, together with print, summary, and plot methods</li></ul></li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.12.5" id="migraph-0125">migraph 0.12.5<a class="anchor" aria-label="anchor" href="#migraph-0125"></a></h2>
@@ -658,11 +712,11 @@
 <ul><li>Added topology tutorial</li></ul></div>
 <div class="section level3">
 <h3 id="makes-0-12-5">Makes<a class="anchor" aria-label="anchor" href="#makes-0-12-5"></a></h3>
-<ul><li>Fixed integer recognition bug in <code><a href="https://stocnet.github.io/manynet/reference/make_generate.html" class="external-link">generate_random()</a></code>
+<ul><li>Fixed integer recognition bug in <code><a href="https://stocnet.github.io/manynet/reference/make_random.html" class="external-link">generate_random()</a></code>
 </li></ul></div>
 <div class="section level3">
 <h3 id="manipulating-0-12-5">Manipulating<a class="anchor" aria-label="anchor" href="#manipulating-0-12-5"></a></h3>
-<ul><li>Added more similarity options for projection (<code><a href="https://stocnet.github.io/manynet/reference/to_project.html" class="external-link">to_mode1()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/to_project.html" class="external-link">to_mode2()</a></code>)</li>
+<ul><li>Added more similarity options for projection (<code><a href="https://stocnet.github.io/manynet/reference/manip_project.html" class="external-link">to_mode1()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/manip_project.html" class="external-link">to_mode2()</a></code>)</li>
 <li>Fixed bug in <code>to_redirected.igraph()</code> where routing through an edgelist caused problems</li>
 </ul></div>
 <div class="section level3">
@@ -711,7 +765,7 @@
 </ul></li></ul></div>
 <div class="section level3">
 <h3 id="marks-0-12-2">Marks<a class="anchor" aria-label="anchor" href="#marks-0-12-2"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/features.html" class="external-link">is_eulerian()</a></code> for a logical expression of whether the network has an Eulerian path</li></ul></div>
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/mark_features.html" class="external-link">is_eulerian()</a></code> for a logical expression of whether the network has an Eulerian path</li></ul></div>
 <div class="section level3">
 <h3 id="measures-0-12-2">Measures<a class="anchor" aria-label="anchor" href="#measures-0-12-2"></a></h3>
 <ul><li>
@@ -741,19 +795,19 @@
 <div class="section level3">
 <h3 id="manipulations-0-12-1">Manipulations<a class="anchor" aria-label="anchor" href="#manipulations-0-12-1"></a></h3>
 <ul><li>
-<code><a href="https://stocnet.github.io/manynet/reference/to_levels.html" class="external-link">to_twomode()</a></code> now returns an undirected network</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_anti()</a></code> for obtaining the complement of the given network<ul><li>Note that unlike the implementation in <a href="https://r.igraph.org/" class="external-link">igraph</a>, this respects two-mode constructions</li></ul></li>
+<code><a href="https://stocnet.github.io/manynet/reference/manip_levels.html" class="external-link">to_twomode()</a></code> now returns an undirected network</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_reformat.html" class="external-link">to_anti()</a></code> for obtaining the complement of the given network<ul><li>Note that unlike the implementation in <a href="https://r.igraph.org/" class="external-link">igraph</a>, this respects two-mode constructions</li></ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="marks-0-12-1">Marks<a class="anchor" aria-label="anchor" href="#marks-0-12-1"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/features.html" class="external-link">is_perfect_matching()</a></code> for a logical expression of whether the maximum matching of a network is also perfect</li>
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/mark_features.html" class="external-link">is_perfect_matching()</a></code> for a logical expression of whether the maximum matching of a network is also perfect</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/mark_core.html" class="external-link">node_is_core()</a></code> for a logical vector of which nodes are members of the core</li>
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-12-1">Measures<a class="anchor" aria-label="anchor" href="#measures-0-12-1"></a></h3>
 <ul><li>
-<code><a href="https://stocnet.github.io/manynet/reference/degree_centrality.html" class="external-link">node_degree()</a></code> now has an additional parameter for trading off between degree and strength in the case of weighted networks</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/eigenv_centrality.html" class="external-link">node_power()</a></code> for Bonacich power centrality for both one- and two-mode networks (closed <a href="https://github.com/stocnet/migraph/issues/193" class="external-link">#193</a>)</li>
+<code><a href="https://stocnet.github.io/manynet/reference/measure_central_degree.html" class="external-link">node_degree()</a></code> now has an additional parameter for trading off between degree and strength in the case of weighted networks</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_central_eigen.html" class="external-link">node_power()</a></code> for Bonacich power centrality for both one- and two-mode networks (closed <a href="https://github.com/stocnet/migraph/issues/193" class="external-link">#193</a>)</li>
 <li>Tie centrality measures now have their own help page (WIP)</li>
 </ul></div>
 <div class="section level3">
@@ -823,38 +877,38 @@
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-11-0">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-11-0"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_graphAM()</a></code> methods for all migraph-consistent object classes so <code>{Rgraphviz}</code> can be used effectively</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_igraph()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_tidygraph()</a></code>, and <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_network()</a></code> methods for <a href="https://www.stats.ox.ac.uk/~snijders/siena/" class="external-link">RSiena</a> sienaData objects (thanks <a href="https://github.com/JaelTan" class="external-link">@JaelTan</a>, closed <a href="https://github.com/stocnet/migraph/issues/94" class="external-link">#94</a>)</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_edgelist()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_matrix()</a></code> methods for <code>network.goldfish</code> class objects</li>
-<li>The <code>"twomode"</code> argument in <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_matrix()</a></code> is now <code>NULL</code> by default, allowing both one-mode and two-mode coercion</li>
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_graphAM()</a></code> methods for all migraph-consistent object classes so <code>{Rgraphviz}</code> can be used effectively</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_igraph()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_tidygraph()</a></code>, and <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_network()</a></code> methods for <a href="https://www.stats.ox.ac.uk/~snijders/siena/" class="external-link">RSiena</a> sienaData objects (thanks <a href="https://github.com/JaelTan" class="external-link">@JaelTan</a>, closed <a href="https://github.com/stocnet/migraph/issues/94" class="external-link">#94</a>)</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_edgelist()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_matrix()</a></code> methods for <code>network.goldfish</code> class objects</li>
+<li>The <code>"twomode"</code> argument in <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_matrix()</a></code> is now <code>NULL</code> by default, allowing both one-mode and two-mode coercion</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/to_project.html" class="external-link">to_mode1()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/to_project.html" class="external-link">to_mode2()</a></code> now take an extra argument to produce weighted projections by different “similarity” measures<ul><li>“count” (the default) returns a raw count of the coincidence of nodes in the specified mode with nodes of the other mode</li>
+<code><a href="https://stocnet.github.io/manynet/reference/manip_project.html" class="external-link">to_mode1()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/manip_project.html" class="external-link">to_mode2()</a></code> now take an extra argument to produce weighted projections by different “similarity” measures<ul><li>“count” (the default) returns a raw count of the coincidence of nodes in the specified mode with nodes of the other mode</li>
 <li>“jaccard” (Jaccard index) offers a measure of opportunity weighted by participation</li>
 <li>“rand” (Simple Matching Coefficient) offers a measure of behavioral mirroring</li>
 <li>“pearson” (Pearson’s correlation) and “yule” (Yule’s Q) offer correlation coefficients for valued and binary data, respectively</li>
 <li>These options work for edgelists, matrices, igraph and tidygraph, and network objects</li>
 </ul></li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/to_paths.html" class="external-link">to_matching()</a></code> methods to transform a two-mode network or network with some other (binary) “mark” attribute into a network of matching ties</li>
-<li>Renamed <code>to_main_component()</code> to <code><a href="https://stocnet.github.io/manynet/reference/to_scope.html" class="external-link">to_giant()</a></code> to be more space efficient<ul><li>Added methods for edgelists and matrices</li></ul></li>
-<li>Added two-mode application for <code><a href="https://stocnet.github.io/manynet/reference/to_scope.html" class="external-link">to_blocks()</a></code> (closed <a href="https://github.com/stocnet/migraph/issues/242" class="external-link">#242</a>)<ul><li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/to_scope.html" class="external-link">to_blocks()</a></code> where NA blocks couldn’t be subsequently coerced</li></ul></li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_paths.html" class="external-link">to_matching()</a></code> methods to transform a two-mode network or network with some other (binary) “mark” attribute into a network of matching ties</li>
+<li>Renamed <code>to_main_component()</code> to <code><a href="https://stocnet.github.io/manynet/reference/manip_scope.html" class="external-link">to_giant()</a></code> to be more space efficient<ul><li>Added methods for edgelists and matrices</li></ul></li>
+<li>Added two-mode application for <code><a href="https://stocnet.github.io/manynet/reference/manip_scope.html" class="external-link">to_blocks()</a></code> (closed <a href="https://github.com/stocnet/migraph/issues/242" class="external-link">#242</a>)<ul><li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/manip_scope.html" class="external-link">to_blocks()</a></code> where NA blocks couldn’t be subsequently coerced</li></ul></li>
 <li>Filled in a number of S3 methods<ul><li>
-<code><a href="https://stocnet.github.io/manynet/reference/to_scope.html" class="external-link">to_blocks()</a></code>, <code>to_subgraph()</code>, and <code><a href="https://stocnet.github.io/manynet/reference/to_project.html" class="external-link">to_ties()</a></code> are now S3 methods, returning objects of the same class as given</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/to_levels.html" class="external-link">to_onemode()</a></code> method for matrices</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/to_levels.html" class="external-link">to_twomode()</a></code> methods for igraph, tidygraph, and network</li>
-<li>Added network methods for <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_named()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_redirected()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_uniplex()</a></code>, and <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_unsigned()</a></code>
+<code><a href="https://stocnet.github.io/manynet/reference/manip_scope.html" class="external-link">to_blocks()</a></code>, <code>to_subgraph()</code>, and <code><a href="https://stocnet.github.io/manynet/reference/manip_project.html" class="external-link">to_ties()</a></code> are now S3 methods, returning objects of the same class as given</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_levels.html" class="external-link">to_onemode()</a></code> method for matrices</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_levels.html" class="external-link">to_twomode()</a></code> methods for igraph, tidygraph, and network</li>
+<li>Added network methods for <code><a href="https://stocnet.github.io/manynet/reference/manip_preformat.html" class="external-link">to_named()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/manip_reformat.html" class="external-link">to_redirected()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_uniplex()</a></code>, and <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_unsigned()</a></code>
 </li>
-<li>Added edgelist methods for <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_undirected()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_uniplex()</a></code>
+<li>Added edgelist methods for <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_undirected()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_uniplex()</a></code>
 </li>
-<li>Added matrix method for <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_uniplex()</a></code>
+<li>Added matrix method for <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_uniplex()</a></code>
 </li>
 </ul></li>
-<li>Fixed bug where <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_unweighted()</a></code> didn’t respect the “threshold” specified</li>
+<li>Fixed bug where <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_unweighted()</a></code> didn’t respect the “threshold” specified</li>
 </ul></div>
 <div class="section level3">
 <h3 id="marks-0-11-0">Marks<a class="anchor" aria-label="anchor" href="#marks-0-11-0"></a></h3>
 <ul><li>Fixed eternal loop bug where <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_mode()</a></code> couldn’t produce a “mark” class object</li>
 <li>Fixed bug where node names/labels were not being added to mark objects</li>
-<li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/is_format.html" class="external-link">is_twomode()</a></code> where labelling information was being ignored</li>
+<li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/mark_format.html" class="external-link">is_twomode()</a></code> where labelling information was being ignored</li>
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-11-0">Measures<a class="anchor" aria-label="anchor" href="#measures-0-11-0"></a></h3>
@@ -863,7 +917,7 @@
 <div class="section level3">
 <h3 id="membership-0-11-0">Membership<a class="anchor" aria-label="anchor" href="#membership-0-11-0"></a></h3>
 <ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_core()</a></code> for partitioning nodes into core and periphery memberships</li>
-<li>Fixed floating point bug in <code><a href="https://stocnet.github.io/manynet/reference/kselect.html" class="external-link">k_strict()</a></code>
+<li>Fixed floating point bug in <code><a href="https://stocnet.github.io/manynet/reference/model_kselect.html" class="external-link">k_strict()</a></code>
 </li>
 </ul></div>
 <div class="section level3">
@@ -924,7 +978,7 @@
 <div class="section level3">
 <h3 id="manipulation-0-10-3">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-10-3"></a></h3>
 <ul><li>Added methods for converting <code>network.goldfish</code> objects (and linked events and nodelists) to migraph-compatible objects (closed <a href="https://github.com/stocnet/migraph/issues/96" class="external-link">#96</a>)</li>
-<li>Renamed <code>add_node_attributes()</code> to <code><a href="https://stocnet.github.io/manynet/reference/add_nodes.html" class="external-link">add_node_attribute()</a></code> and <code>add_edge_attributes()</code> to <code><a href="https://stocnet.github.io/manynet/reference/add_ties.html" class="external-link">add_tie_attribute()</a></code>
+<li>Renamed <code>add_node_attributes()</code> to <code><a href="https://stocnet.github.io/manynet/reference/manip_nodes.html" class="external-link">add_node_attribute()</a></code> and <code>add_edge_attributes()</code> to <code><a href="https://stocnet.github.io/manynet/reference/manip_ties.html" class="external-link">add_tie_attribute()</a></code>
 </li>
 </ul></div>
 <div class="section level3">
@@ -947,7 +1001,7 @@
 <div class="section level3">
 <h3 id="models-0-10-3">Models<a class="anchor" aria-label="anchor" href="#models-0-10-3"></a></h3>
 <ul><li>
-<code><a href="https://stocnet.github.io/manynet/reference/cluster.html" class="external-link">cluster_concor()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/cluster.html" class="external-link">cluster_hierarchical()</a></code> are now exported</li></ul></div>
+<code><a href="https://stocnet.github.io/manynet/reference/model_cluster.html" class="external-link">cluster_concor()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/model_cluster.html" class="external-link">cluster_hierarchical()</a></code> are now exported</li></ul></div>
 <div class="section level3">
 <h3 id="mapping-0-10-3">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-10-3"></a></h3>
 <ul><li>
@@ -971,7 +1025,7 @@
 <h2 class="page-header" data-toc-text="0.10.1" id="migraph-0101">migraph 0.10.1<a class="anchor" aria-label="anchor" href="#migraph-0101"></a></h2>
 <div class="section level3">
 <h3 id="measures-0-10-1">Measures<a class="anchor" aria-label="anchor" href="#measures-0-10-1"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/close_centrality.html" class="external-link">node_reach()</a></code> for calculating reach centrality (closed <a href="https://github.com/stocnet/migraph/issues/196" class="external-link">#196</a>)</li>
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_central_close.html" class="external-link">node_reach()</a></code> for calculating reach centrality (closed <a href="https://github.com/stocnet/migraph/issues/196" class="external-link">#196</a>)</li>
 <li>Separated (again) centrality and centralisation documentation</li>
 </ul></div>
 <div class="section level3">
@@ -983,7 +1037,7 @@
 <div class="section level3">
 <h3 id="package-0-10-0">Package<a class="anchor" aria-label="anchor" href="#package-0-10-0"></a></h3>
 <ul><li>Reduced package dependencies by 5<ul><li>
-<a href="https://joelgombin.github.io/concaveman/" class="external-link">concaveman</a>, <a href="https://andrie.github.io/ggdendro/" class="external-link">ggdendro</a>, <code>{oaqc}</code> are now Suggests; the user is prompted to install them when required in <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">autographr()</a></code>, <code>plot.member()</code>, and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_quad_census()</a></code> respectively</li>
+<a href="https://joelgombin.github.io/concaveman/" class="external-link">concaveman</a>, <a href="https://andrie.github.io/ggdendro/" class="external-link">ggdendro</a>, <a href="https://github.com/schochastics/oaqc" class="external-link">oaqc</a> are now Suggests; the user is prompted to install them when required in <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">autographr()</a></code>, <code>plot.member()</code>, and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_quad_census()</a></code> respectively</li>
 <li>
 <a href="https://stringr.tidyverse.org" class="external-link">stringr</a> and <a href="https://tibble.tidyverse.org/" class="external-link">tibble</a> replaced with base or other code and therefore no longer necessary</li>
 </ul></li>
@@ -996,7 +1050,7 @@
 <div class="section level3">
 <h3 id="making-0-10-0">Making<a class="anchor" aria-label="anchor" href="#making-0-10-0"></a></h3>
 <ul><li>All <code>create_</code> and <code>generate_</code> functions now:<ul><li>work when <code>n</code> passed an existing network</li>
-<li>work with two-mode networks, including <code><a href="https://stocnet.github.io/manynet/reference/make_create.html" class="external-link">create_tree()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/make_generate.html" class="external-link">generate_smallworld()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/make_generate.html" class="external-link">generate_scalefree()</a></code>
+<li>work with two-mode networks, including <code><a href="https://stocnet.github.io/manynet/reference/make_create.html" class="external-link">create_tree()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/make_stochastic.html" class="external-link">generate_smallworld()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/make_stochastic.html" class="external-link">generate_scalefree()</a></code>
 </li>
 <li>return undirected network by default</li>
 </ul></li>
@@ -1005,12 +1059,12 @@
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_create.html" class="external-link">create_core()</a></code> for creating core-periphery graphs</li>
 </ul></li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/make_generate.html" class="external-link">generate_random()</a></code> now inherits attributes from any network</li>
+<code><a href="https://stocnet.github.io/manynet/reference/make_random.html" class="external-link">generate_random()</a></code> now inherits attributes from any network</li>
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-10-0">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-10-0"></a></h3>
-<ul><li>Added a couple of <code>to_</code> functions useful for working with networks of different types<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_redirected()</a></code> for adding or swapping direction to networks (closed <a href="https://github.com/stocnet/migraph/issues/219" class="external-link">#219</a>)</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/to_scope.html" class="external-link">to_blocks()</a></code> for reducing a network down by a membership vector; <code>blockmodel()</code> and <code>reduce_graph()</code> are now deprecated</li>
+<ul><li>Added a couple of <code>to_</code> functions useful for working with networks of different types<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_reformat.html" class="external-link">to_redirected()</a></code> for adding or swapping direction to networks (closed <a href="https://github.com/stocnet/migraph/issues/219" class="external-link">#219</a>)</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_scope.html" class="external-link">to_blocks()</a></code> for reducing a network down by a membership vector; <code>blockmodel()</code> and <code>reduce_graph()</code> are now deprecated</li>
 <li>
 <code>to_multilevel.igraph()</code> now only works on two-mode networks; returns the original network if passed a one-mode network</li>
 </ul></li>
@@ -1048,7 +1102,7 @@
 <li>Added new script for measuring structural holes, including <code><a href="https://stocnet.github.io/manynet/reference/measure_holes.html" class="external-link">node_constraint()</a></code><ul><li>Added several additional measures of structural holes: <code><a href="https://stocnet.github.io/manynet/reference/measure_holes.html" class="external-link">node_bridges()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/measure_holes.html" class="external-link">node_redundancy()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/measure_holes.html" class="external-link">node_effsize()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/measure_holes.html" class="external-link">node_efficiency()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/measure_holes.html" class="external-link">node_hierarchy()</a></code>
 </li></ul></li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/between_centrality.html" class="external-link">node_betweenness()</a></code> no longer needs <code>nobigint</code> argument; just uses default from <a href="https://r.igraph.org/" class="external-link">igraph</a>
+<code><a href="https://stocnet.github.io/manynet/reference/measure_central_between.html" class="external-link">node_betweenness()</a></code> no longer needs <code>nobigint</code> argument; just uses default from <a href="https://r.igraph.org/" class="external-link">igraph</a>
 </li>
 </ul></div>
 <div class="section level3">
@@ -1125,7 +1179,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="making-0-9-3">Making<a class="anchor" aria-label="anchor" href="#making-0-9-3"></a></h3>
-<ul><li>Folded <code>m</code> argument into <code>p</code> for <code><a href="https://stocnet.github.io/manynet/reference/make_generate.html" class="external-link">generate_random()</a></code>, <code>p</code> can now be passed an integer to indicate the number of ties the network should have</li></ul></div>
+<ul><li>Folded <code>m</code> argument into <code>p</code> for <code><a href="https://stocnet.github.io/manynet/reference/make_random.html" class="external-link">generate_random()</a></code>, <code>p</code> can now be passed an integer to indicate the number of ties the network should have</li></ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-9-3">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-9-3"></a></h3>
 <ul><li>Refactored <code>to_edges()</code> to be ~26 times faster on average</li>
@@ -1145,9 +1199,9 @@
 <li>
 <code>directed</code> and <code>weights</code> arguments have been removed and are now imputed, if this is undesired please use <code>to_*()</code> first</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/degree_centrality.html" class="external-link">node_degree()</a></code> now calculates strength centrality if network is weighted</li>
+<code><a href="https://stocnet.github.io/manynet/reference/measure_central_degree.html" class="external-link">node_degree()</a></code> now calculates strength centrality if network is weighted</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/eigenv_centrality.html" class="external-link">node_eigenvector()</a></code> and <code>graph_eigenvector()</code> both work with two-mode networks</li>
+<code><a href="https://stocnet.github.io/manynet/reference/measure_central_eigen.html" class="external-link">node_eigenvector()</a></code> and <code>graph_eigenvector()</code> both work with two-mode networks</li>
 <li>Added <code>edge_degree()</code> and <code>edge_eigenvector()</code>, which both just apply the corresponding nodal measure to the edge graph</li>
 </ul></li>
 <li>
@@ -1217,12 +1271,12 @@
 <ul><li>Moved to <a href="https://github.com/describeIn" class="external-link">@describeIn</a> documentation (closed <a href="https://github.com/stocnet/migraph/issues/215" class="external-link">#215</a>)</li>
 <li>Distinguished <code>directed</code> and <code>direction</code> arguments in some functions; whereas <code>directed</code> is always logical (TRUE/FALSE), <code>direction</code> expects a character string, e.g. “in”, “out”, or “undirected”</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/make_generate.html" class="external-link">generate_permutation()</a></code> now has an additional logical argument, <code>with_attr</code>, that indicates whether any attributes from the original data should be passed to the permuted object</li>
+<code><a href="https://stocnet.github.io/manynet/reference/make_random.html" class="external-link">generate_permutation()</a></code> now has an additional logical argument, <code>with_attr</code>, that indicates whether any attributes from the original data should be passed to the permuted object</li>
 <li>All <code>create_*()</code> functions now accept existing objects as their first argument and will create networks with the same dimensions</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/read.html" class="external-link">read_pajek()</a></code> now imports nodal attributes alongside the main edges</li>
+<code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_pajek()</a></code> now imports nodal attributes alongside the main edges</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/read.html" class="external-link">read_ucinet()</a></code> now enjoys clearer documentation</li>
+<code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_ucinet()</a></code> now enjoys clearer documentation</li>
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-9-0">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-9-0"></a></h3>
@@ -1231,15 +1285,15 @@
 <li>
 <code>as_matrix.igraph()</code> now better handles edge signs</li>
 </ul></li>
-<li>Pivoted to S3 methods for most manipulation functions for better dispatching and performance<ul><li>Added matrix, data.frame, network, igraph, and tbl_graph methods for <code><a href="https://stocnet.github.io/manynet/reference/is_format.html" class="external-link">is_twomode()</a></code>, <code>is_directed()</code>, <code>is_weighted()</code>, <code><a href="https://stocnet.github.io/manynet/reference/is_format.html" class="external-link">is_labelled()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/is_format.html" class="external-link">is_signed()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/is_format.html" class="external-link">is_multiplex()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/is_format.html" class="external-link">is_complex()</a></code>, and <code><a href="https://stocnet.github.io/manynet/reference/is.html" class="external-link">is_graph()</a></code>
+<li>Pivoted to S3 methods for most manipulation functions for better dispatching and performance<ul><li>Added matrix, data.frame, network, igraph, and tbl_graph methods for <code><a href="https://stocnet.github.io/manynet/reference/mark_format.html" class="external-link">is_twomode()</a></code>, <code>is_directed()</code>, <code>is_weighted()</code>, <code><a href="https://stocnet.github.io/manynet/reference/mark_format.html" class="external-link">is_labelled()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/mark_format.html" class="external-link">is_signed()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/mark_format.html" class="external-link">is_multiplex()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/mark_format.html" class="external-link">is_complex()</a></code>, and <code><a href="https://stocnet.github.io/manynet/reference/mark_is.html" class="external-link">is_graph()</a></code>
 </li>
-<li>Added data.frame methods for <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_edgelist()</a></code>, and <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_unweighted()</a></code>, and improved the data.frame method for <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_matrix()</a></code>
+<li>Added data.frame methods for <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_edgelist()</a></code>, and <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_unweighted()</a></code>, and improved the data.frame method for <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_matrix()</a></code>
 </li>
-<li>Added data.frame and matrix methods for <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_named()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_unsigned()</a></code>
+<li>Added data.frame and matrix methods for <code><a href="https://stocnet.github.io/manynet/reference/manip_preformat.html" class="external-link">to_named()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_unsigned()</a></code>
 </li>
 </ul></li>
 <li>Added <code>to_edges()</code> for creating adjacency matrices using a network’s edges as nodes</li>
-<li>Renamed <code>project_rows()</code> and <code>project_cols()</code> functions to <code><a href="https://stocnet.github.io/manynet/reference/to_project.html" class="external-link">to_mode1()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/to_project.html" class="external-link">to_mode2()</a></code>, which is both more consistent with other functions naming conventions and more generic by avoiding the matrix-based row/column distinction</li>
+<li>Renamed <code>project_rows()</code> and <code>project_cols()</code> functions to <code><a href="https://stocnet.github.io/manynet/reference/manip_project.html" class="external-link">to_mode1()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/manip_project.html" class="external-link">to_mode2()</a></code>, which is both more consistent with other functions naming conventions and more generic by avoiding the matrix-based row/column distinction</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_mode()</a></code>, which returns a vector of the mode assignments of the nodes in a network</li>
 <li>Added <code>edge_signs()</code>, which returns a vector of the sign assignments of the edges in a network</li>
 </ul></div>
@@ -1362,7 +1416,7 @@
 <li>Closed <a href="https://github.com/stocnet/migraph/issues/179" class="external-link">#179</a> by inferring an attribute vector is for one of the two modes where possible in <code>add_node_attributes()</code>
 </li>
 </ul></li>
-<li>Added <code>is_</code> methods: <code><a href="https://stocnet.github.io/manynet/reference/is_format.html" class="external-link">is_multiplex()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/is_format.html" class="external-link">is_uniplex()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/features.html" class="external-link">is_acyclic()</a></code>
+<li>Added <code>is_</code> methods: <code><a href="https://stocnet.github.io/manynet/reference/mark_format.html" class="external-link">is_multiplex()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/mark_format.html" class="external-link">is_uniplex()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/mark_features.html" class="external-link">is_acyclic()</a></code>
 </li>
 <li>Added <code>edge_</code> functions to identify edges by properties: <code>edge_mutual()</code>, <code>edge_multiple()</code>, <code>edge_loop()</code>
 </li>
@@ -1372,11 +1426,11 @@
 <h2 class="page-header" data-toc-text="0.8.11" id="migraph-0811">migraph 0.8.11<a class="anchor" aria-label="anchor" href="#migraph-0811"></a></h2>
 <div class="section level3">
 <h3 id="import-and-export-0-8-11">Import and export<a class="anchor" aria-label="anchor" href="#import-and-export-0-8-11"></a></h3>
-<ul><li>Fixed <a href="https://github.com/stocnet/migraph/issues/172" class="external-link">#172</a> by removing redundant header argument in <code><a href="https://stocnet.github.io/manynet/reference/read.html" class="external-link">read_nodelist()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/read.html" class="external-link">read_edgelist()</a></code>
+<ul><li>Fixed <a href="https://github.com/stocnet/migraph/issues/172" class="external-link">#172</a> by removing redundant header argument in <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_nodelist()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_edgelist()</a></code>
 </li></ul></div>
 <div class="section level3">
 <h3 id="package-0-8-11">Package<a class="anchor" aria-label="anchor" href="#package-0-8-11"></a></h3>
-<ul><li>Fixed <a href="https://github.com/stocnet/migraph/issues/173" class="external-link">#173</a> by extending <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_network()</a></code> method to convert correctly form an <a href="https://r.igraph.org/" class="external-link">igraph</a> to a <a href="https://statnet.org/" class="external-link">network</a> object.</li>
+<ul><li>Fixed <a href="https://github.com/stocnet/migraph/issues/173" class="external-link">#173</a> by extending <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_network()</a></code> method to convert correctly form an <a href="https://r.igraph.org/" class="external-link">igraph</a> to a <a href="https://statnet.org/" class="external-link">network</a> object.</li>
 <li>Removed <code>ggraphgrid()</code> documentation</li>
 </ul></div>
 </div>
@@ -1384,12 +1438,12 @@
 <h2 class="page-header" data-toc-text="0.8.10" id="migraph-0810">migraph 0.8.10<a class="anchor" aria-label="anchor" href="#migraph-0810"></a></h2>
 <div class="section level3">
 <h3 id="import-and-export-0-8-10">Import and export<a class="anchor" aria-label="anchor" href="#import-and-export-0-8-10"></a></h3>
-<ul><li>Replaced xlsx dependency in <code><a href="https://stocnet.github.io/manynet/reference/read.html" class="external-link">read_edgelist()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/read.html" class="external-link">read_nodelist()</a></code> to readxl to avoid Java dependency</li>
-<li>Replaced xlsx dependency in <code><a href="https://stocnet.github.io/manynet/reference/write.html" class="external-link">write_edgelist()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/write.html" class="external-link">write_nodelist()</a></code> to avoid Java dependency<ul><li>Note that these functions will now export to .csv rather than .xlsx</li></ul></li>
+<ul><li>Replaced xlsx dependency in <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_edgelist()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_nodelist()</a></code> to readxl to avoid Java dependency</li>
+<li>Replaced xlsx dependency in <code><a href="https://stocnet.github.io/manynet/reference/make_write.html" class="external-link">write_edgelist()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/make_write.html" class="external-link">write_nodelist()</a></code> to avoid Java dependency<ul><li>Note that these functions will now export to .csv rather than .xlsx</li></ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-10">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-10"></a></h3>
-<ul><li>Fixed direction recognition bug in <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_network()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_igraph()</a></code>, and <code>is_directed()</code>
+<ul><li>Fixed direction recognition bug in <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_network()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_igraph()</a></code>, and <code>is_directed()</code>
 </li></ul></div>
 </div>
     <div class="section level2">
@@ -1399,22 +1453,22 @@
 <ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/139" class="external-link">#139</a> by adding vignette on importing and connecting data</li></ul></div>
 <div class="section level3">
 <h3 id="import-and-export-0-8-9">Import and export<a class="anchor" aria-label="anchor" href="#import-and-export-0-8-9"></a></h3>
-<ul><li>Added <code>read_</code> and <code>write_</code> functions and updated documentation<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/137" class="external-link">#137</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/read.html" class="external-link">read_edgelist()</a></code> for importing edgelists from Excel and csv files</li>
-<li>Closed <a href="https://github.com/stocnet/migraph/issues/170" class="external-link">#170</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/read.html" class="external-link">read_pajek()</a></code> for importing .net and .paj files</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/write.html" class="external-link">write_edgelist()</a></code>, <code>write_nodelist</code>, <code><a href="https://stocnet.github.io/manynet/reference/write.html" class="external-link">write_pajek()</a></code>, and <code><a href="https://stocnet.github.io/manynet/reference/write.html" class="external-link">write_ucinet()</a></code> for exporting into various file formats (Excel, csv, Pajek, and UCINET)</li>
+<ul><li>Added <code>read_</code> and <code>write_</code> functions and updated documentation<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/137" class="external-link">#137</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_edgelist()</a></code> for importing edgelists from Excel and csv files</li>
+<li>Closed <a href="https://github.com/stocnet/migraph/issues/170" class="external-link">#170</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_pajek()</a></code> for importing .net and .paj files</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_write.html" class="external-link">write_edgelist()</a></code>, <code>write_nodelist</code>, <code><a href="https://stocnet.github.io/manynet/reference/make_write.html" class="external-link">write_pajek()</a></code>, and <code><a href="https://stocnet.github.io/manynet/reference/make_write.html" class="external-link">write_ucinet()</a></code> for exporting into various file formats (Excel, csv, Pajek, and UCINET)</li>
 <li>Closed <a href="https://github.com/stocnet/migraph/issues/140" class="external-link">#140</a> by adding links to further data resources</li>
 </ul></li></ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-9">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-9"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/is.html" class="external-link">is_graph()</a></code> to check if an object is a graph or not</li>
-<li>Extended <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_network()</a></code> to retain attributes</li>
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/mark_is.html" class="external-link">is_graph()</a></code> to check if an object is a graph or not</li>
+<li>Extended <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_network()</a></code> to retain attributes</li>
 <li>Fixed bugs in <code>as_</code> and <code>to_</code> functions<ul><li>Fixed bug in <code>as_</code> functions to convert from dataframes instead of tibbles</li>
-<li>Fixed bug in conversion from network to igraph object in <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_igraph()</a></code> function</li>
-<li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_undirected()</a></code> function to work with network objects</li>
+<li>Fixed bug in conversion from network to igraph object in <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_igraph()</a></code> function</li>
+<li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_undirected()</a></code> function to work with network objects</li>
 <li>Fixed bug in <code>to_main_component()</code> function so that it retains vertex attributes in network objects</li>
 </ul></li>
 <li>Added <code>edge_attribute()</code> to grab a named edge attribute from a graph/network</li>
-<li>Updated <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_unweighted()</a></code> to prevent conversion of network object into igraph object when deleting weights</li>
+<li>Updated <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_unweighted()</a></code> to prevent conversion of network object into igraph object when deleting weights</li>
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-9">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-9"></a></h3>
@@ -1440,15 +1494,15 @@
 <ul><li>Added <code>ison_eies</code> dataset for use in practical 7 vignette</li></ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-8">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-8"></a></h3>
-<ul><li>The <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_matrix()</a></code> method for networks now works with two-mode and weighted networks</li>
-<li>The <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_igraph()</a></code> method for matrices now checks for weights independently of coercion</li>
-<li>The <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_igraph()</a></code> method for networks now works with two-mode and weighted networks</li>
-<li>The <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_network()</a></code> method for matrices now works with two-mode and weighted networks</li>
-<li>The <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_network()</a></code> method for edgelists, igraph, and tidygraphs now works with weighted networks</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_unnamed()</a></code> method for edge lists</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_simplex()</a></code> method for matrices</li>
+<ul><li>The <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_matrix()</a></code> method for networks now works with two-mode and weighted networks</li>
+<li>The <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_igraph()</a></code> method for matrices now checks for weights independently of coercion</li>
+<li>The <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_igraph()</a></code> method for networks now works with two-mode and weighted networks</li>
+<li>The <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_network()</a></code> method for matrices now works with two-mode and weighted networks</li>
+<li>The <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_network()</a></code> method for edgelists, igraph, and tidygraphs now works with weighted networks</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_unnamed()</a></code> method for edge lists</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_simplex()</a></code> method for matrices</li>
 <li>Added <code>to_main_component()</code> method for networks</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/to_levels.html" class="external-link">to_multilevel()</a></code> method for matrices</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_levels.html" class="external-link">to_multilevel()</a></code> method for matrices</li>
 <li>
 <code>mutate_edges()</code> now coalesces rows of edges</li>
 </ul></div>
@@ -1458,7 +1512,7 @@
 </li></ul></div>
 <div class="section level3">
 <h3 id="modelling-0-8-8">Modelling<a class="anchor" aria-label="anchor" href="#modelling-0-8-8"></a></h3>
-<ul><li>Fixed one-mode bug with <code><a href="https://stocnet.github.io/manynet/reference/make_generate.html" class="external-link">generate_permutation()</a></code> and thus <code><a href="../reference/tests.html">test_permutation()</a></code>
+<ul><li>Fixed one-mode bug with <code><a href="https://stocnet.github.io/manynet/reference/make_random.html" class="external-link">generate_permutation()</a></code> and thus <code><a href="../reference/tests.html">test_permutation()</a></code>
 </li>
 <li>Renamed <code>netlm()</code> to <code><a href="../reference/defunct.html">network_reg()</a></code> to avoid frustrating conflicts<ul><li>
 <code><a href="../reference/defunct.html">network_reg()</a></code> now accepts migraph-consistent objects</li>
@@ -1478,8 +1532,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-8-7">Data<a class="anchor" aria-label="anchor" href="#data-0-8-7"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_generate.html" class="external-link">generate_permutation()</a></code> which takes an object and returns an object with the edges permuted, but retaining all nodal attributes</li>
-<li>Made <code><a href="https://stocnet.github.io/manynet/reference/make_generate.html" class="external-link">generate_random()</a></code> also work with an existing object as input, in which it will return a random graph with the same dimensions and density</li>
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_random.html" class="external-link">generate_permutation()</a></code> which takes an object and returns an object with the edges permuted, but retaining all nodal attributes</li>
+<li>Made <code><a href="https://stocnet.github.io/manynet/reference/make_random.html" class="external-link">generate_random()</a></code> also work with an existing object as input, in which it will return a random graph with the same dimensions and density</li>
 <li>Consolidated data scripts</li>
 </ul></div>
 <div class="section level3">
@@ -1565,17 +1619,17 @@
 <h2 class="page-header" data-toc-text="0.8.4" id="migraph-084">migraph 0.8.4<a class="anchor" aria-label="anchor" href="#migraph-084"></a></h2>
 <div class="section level3">
 <h3 id="classes-0-8-4">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-4"></a></h3>
-<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/128" class="external-link">#128</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_edgelist()</a></code> methods for converting other objects into edgelists<ul><li>Note that this currently returns a tibble</li></ul></li>
-<li>Using <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_unnamed()</a></code> on ‘network’ objects now operates on them directly</li>
+<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/128" class="external-link">#128</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_edgelist()</a></code> methods for converting other objects into edgelists<ul><li>Note that this currently returns a tibble</li></ul></li>
+<li>Using <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_unnamed()</a></code> on ‘network’ objects now operates on them directly</li>
 <li>Elaborated <code>to_</code> documentation significantly</li>
-<li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/to_levels.html" class="external-link">to_onemode()</a></code> that was tripping <code>blockmodel()</code> on networks that are already one-mode</li>
+<li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/manip_levels.html" class="external-link">to_onemode()</a></code> that was tripping <code>blockmodel()</code> on networks that are already one-mode</li>
 <li>Added <code>is_connected()</code> to test whether network is connected, <code>method =</code> argument can be specified as <code>weak</code> or <code>strong</code>
 </li>
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-8-4">Data<a class="anchor" aria-label="anchor" href="#data-0-8-4"></a></h3>
 <ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_create.html" class="external-link">create_tree()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/make_create.html" class="external-link">create_lattice()</a></code>, and made <code><a href="https://stocnet.github.io/manynet/reference/make_create.html" class="external-link">create_star()</a></code> a bit faster for one-mode networks</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_generate.html" class="external-link">generate_smallworld()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/make_generate.html" class="external-link">generate_scalefree()</a></code>, though only for one-mode networks currently</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_stochastic.html" class="external-link">generate_smallworld()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/make_stochastic.html" class="external-link">generate_scalefree()</a></code>, though only for one-mode networks currently</li>
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-4">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-4"></a></h3>
@@ -1604,7 +1658,7 @@
 <ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/108" class="external-link">#108</a> by adding cohesion and community vignette</li></ul></div>
 <div class="section level3">
 <h3 id="classes-0-8-3">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-3"></a></h3>
-<ul><li>Fixed <a href="https://github.com/stocnet/migraph/issues/122" class="external-link">#122</a> by retaining edge weights from igraph in <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_matrix()</a></code> where available</li></ul></div>
+<ul><li>Fixed <a href="https://github.com/stocnet/migraph/issues/122" class="external-link">#122</a> by retaining edge weights from igraph in <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_matrix()</a></code> where available</li></ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-3">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-3"></a></h3>
 <ul><li>Split <code>graph_equivalency()</code> into the same for two-mode networks and <code>graph_congruency()</code>for three-mode (two two-mode) networks</li>
@@ -1645,9 +1699,9 @@
 <ul><li>Fixed CRAN package check dependencies bug where ‘knitr’ and ‘rmarkdown’ were listed as Imports without being used in the package</li></ul></div>
 <div class="section level3">
 <h3 id="classes-0-8-2">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-2"></a></h3>
-<ul><li>Fixed bug where bipartite edge lists were not being recognised as a twomode network by <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_igraph()</a></code>
+<ul><li>Fixed bug where bipartite edge lists were not being recognised as a twomode network by <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_igraph()</a></code>
 </li>
-<li>Fixed bug where <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_uniplex()</a></code> was not returning a weighted graph</li>
+<li>Fixed bug where <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_uniplex()</a></code> was not returning a weighted graph</li>
 </ul></div>
 <div class="section level3">
 <h3 id="models-0-8-2">Models<a class="anchor" aria-label="anchor" href="#models-0-8-2"></a></h3>
@@ -1670,8 +1724,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="classes-0-8-1">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-1"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/is_format.html" class="external-link">is_signed()</a></code> to logically test whether the network is a signed network</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_unsigned()</a></code> for extracting networks of either “positive” or “negative” ties from a signed network</li>
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/mark_format.html" class="external-link">is_signed()</a></code> to logically test whether the network is a signed network</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_unsigned()</a></code> for extracting networks of either “positive” or “negative” ties from a signed network</li>
 <li>Added <code>tbl_graph</code> methods for all other <code>to_</code> functions</li>
 <li>Reexported <code>activate()</code> from <a href="https://tidygraph.data-imaginist.com" class="external-link">tidygraph</a>
 </li>
@@ -1696,10 +1750,10 @@
 <h3 id="classes-0-8-0">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-0"></a></h3>
 <ul><li>Fixed coercion to <a href="https://r.igraph.org/" class="external-link">igraph</a> from data frames and updated read script</li>
 <li>Added <code>to_main_component()</code> to extract the main component of a network</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/to_levels.html" class="external-link">to_onemode()</a></code> for moving to multimodal igraph objects</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_uniplex()</a></code> method to delete edge types and their edges from multiplex networks</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_simplex()</a></code> method to delete loops from a network</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_named()</a></code> method for randomly naming unlabeled networks</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_levels.html" class="external-link">to_onemode()</a></code> for moving to multimodal igraph objects</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_uniplex()</a></code> method to delete edge types and their edges from multiplex networks</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_simplex()</a></code> method to delete loops from a network</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_preformat.html" class="external-link">to_named()</a></code> method for randomly naming unlabeled networks</li>
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-8-0">Data<a class="anchor" aria-label="anchor" href="#data-0-8-0"></a></h3>
@@ -1751,7 +1805,7 @@
 <h3 id="data-0-7-2">Data<a class="anchor" aria-label="anchor" href="#data-0-7-2"></a></h3>
 <ul><li>Added <code>brandes</code> dataset for teaching centrality measures</li>
 <li>Added <code>adolescent_society</code> dataset for teaching friendship paradox</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/read.html" class="external-link">read_edgelist()</a></code> for importing Excel-created edgelists directly</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_edgelist()</a></code> for importing Excel-created edgelists directly</li>
 </ul></div>
 <div class="section level3">
 <h3 id="visualization-0-7-2">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-7-2"></a></h3>
@@ -1762,7 +1816,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-7-2">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-7-2"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_undirected()</a></code> for symmetrising networks of all types</li>
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_undirected()</a></code> for symmetrising networks of all types</li>
 <li>Made existing <code>to_</code> functions S3 methods</li>
 </ul></div>
 </div>
@@ -1779,8 +1833,8 @@
 <ul><li>
 <p>Closed <a href="https://github.com/stocnet/migraph/issues/100" class="external-link">#100</a> by converting <code>as_</code> coercion functions to S3 methods</p>
 <ul><li>Added a little more readable documentation</li>
-<li>Fixed bug with <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_matrix()</a></code> weighting</li>
-<li>Fixed bug with <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_tidygraph()</a></code>
+<li>Fixed bug with <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_matrix()</a></code> weighting</li>
+<li>Fixed bug with <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_tidygraph()</a></code>
 </li>
 </ul></li></ul></div>
 <div class="section level3">
@@ -1799,7 +1853,7 @@
 <div class="section level3">
 <h3 id="classes-0-6-6">Classes<a class="anchor" aria-label="anchor" href="#classes-0-6-6"></a></h3>
 <ul><li>
-<p>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_matrix()</a></code> with frame matrix by dropping (rarely necessary) functionality</p>
+<p>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_matrix()</a></code> with frame matrix by dropping (rarely necessary) functionality</p>
 <ul><li>Improved handling of weights column in three-column edgelists</li>
 <li>Improved documentation of <code>as_</code> functions</li>
 </ul></li></ul></div>
@@ -1821,9 +1875,9 @@
 </ul></div>
 <div class="section level3">
 <h3 id="classes-0-6-5">Classes<a class="anchor" aria-label="anchor" href="#classes-0-6-5"></a></h3>
-<ul><li>Renamed <code>binarise()</code> to <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_unweighted()</a></code>
+<ul><li>Renamed <code>binarise()</code> to <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_unweighted()</a></code>
 </li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/reformat.html" class="external-link">to_unnamed()</a></code> for unlabelling networks</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_unnamed()</a></code> for unlabelling networks</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -1834,7 +1888,7 @@
 <div class="section level3">
 <h3 id="classes-0-6-4">Classes<a class="anchor" aria-label="anchor" href="#classes-0-6-4"></a></h3>
 <ul><li>Added <code>binarise()</code> for unweighting networks</li>
-<li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_tidygraph()</a></code> when passed a tbl_graph directly</li>
+<li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_tidygraph()</a></code> when passed a tbl_graph directly</li>
 </ul></div>
 <div class="section level3">
 <h3 id="visualization-0-6-4">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-6-4"></a></h3>
@@ -1857,27 +1911,27 @@
 <h3 id="classes-0-6-3">Classes<a class="anchor" aria-label="anchor" href="#classes-0-6-3"></a></h3>
 <ul><li><p>Separated coercion (previously conversion) and manipulation</p></li>
 <li><p>Added some more inter-class coercion tests</p></li>
-<li><p>Fixed bug in how <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_network()</a></code> sometimes coerced two-mode networks into much larger dimension matrices</p></li>
+<li><p>Fixed bug in how <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_network()</a></code> sometimes coerced two-mode networks into much larger dimension matrices</p></li>
 <li>
 <p>Added more <code>is_</code> tests for class-independent property tests</p>
 <ul><li>Added <code>is_weighted()</code>
 </li>
 <li>Added <code>is_directed()</code>
 </li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/is_format.html" class="external-link">is_labelled()</a></code>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/mark_format.html" class="external-link">is_labelled()</a></code>
 </li>
 </ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-6-3">Data<a class="anchor" aria-label="anchor" href="#data-0-6-3"></a></h3>
 <ul><li>
-<p>Added <a href="https://github.com/csteglich" class="external-link">@csteglich</a> ’s <code><a href="https://stocnet.github.io/manynet/reference/read.html" class="external-link">read_ucinet()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/write.html" class="external-link">write_ucinet()</a></code> functions</p>
+<p>Added <a href="https://github.com/csteglich" class="external-link">@csteglich</a> ’s <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_ucinet()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/make_write.html" class="external-link">write_ucinet()</a></code> functions</p>
 <ul><li>
-<code><a href="https://stocnet.github.io/manynet/reference/read.html" class="external-link">read_ucinet()</a></code> offers a file-picker when file path unknown</li>
+<code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_ucinet()</a></code> offers a file-picker when file path unknown</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/read.html" class="external-link">read_ucinet()</a></code> now imports to an igraph-class object by default, with an argument to allow other alternatives</li>
+<code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_ucinet()</a></code> now imports to an igraph-class object by default, with an argument to allow other alternatives</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/write.html" class="external-link">write_ucinet()</a></code> works with all migraph-compatible objects</li>
+<code><a href="https://stocnet.github.io/manynet/reference/make_write.html" class="external-link">write_ucinet()</a></code> works with all migraph-compatible objects</li>
 </ul></li>
 <li><p>Updated <code>mpn_bristol</code> documentation</p></li>
 <li>
@@ -1886,8 +1940,8 @@
 <li>Updated <code>create_</code> documentation</li>
 </ul></li>
 <li>
-<p>Renamed <code>sample_affiliation()</code> to <code><a href="https://stocnet.github.io/manynet/reference/make_generate.html" class="external-link">generate_random()</a></code></p>
-<ul><li>Rewrote <code><a href="https://stocnet.github.io/manynet/reference/make_generate.html" class="external-link">generate_random()</a></code> to be able to generate random one- or two-mode networks</li>
+<p>Renamed <code>sample_affiliation()</code> to <code><a href="https://stocnet.github.io/manynet/reference/make_random.html" class="external-link">generate_random()</a></code></p>
+<ul><li>Rewrote <code><a href="https://stocnet.github.io/manynet/reference/make_random.html" class="external-link">generate_random()</a></code> to be able to generate random one- or two-mode networks</li>
 <li>Updated documentation</li>
 </ul></li>
 </ul></div>
@@ -1916,7 +1970,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="classes-0-6-1">Classes<a class="anchor" aria-label="anchor" href="#classes-0-6-1"></a></h3>
-<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/85" class="external-link">#85</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_network()</a></code> to coerce objects into network class</li>
+<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/85" class="external-link">#85</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_network()</a></code> to coerce objects into network class</li>
 <li>Modified other coercion functions to also work with network class objects</li>
 </ul></div>
 </div>
@@ -1956,12 +2010,12 @@
 <h3 id="classes-0-5-0">Classes<a class="anchor" aria-label="anchor" href="#classes-0-5-0"></a></h3>
 <ul><li>Added functions for class conversion between migraph-consistent graph formats</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_matrix()</a></code> function to coerce objects into an adjacency or incidence matrix class</li>
+<code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_matrix()</a></code> function to coerce objects into an adjacency or incidence matrix class</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_igraph()</a></code> function to coerce objects into an <a href="https://r.igraph.org/" class="external-link">igraph</a> graph class</li>
+<code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_igraph()</a></code> function to coerce objects into an <a href="https://r.igraph.org/" class="external-link">igraph</a> graph class</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/as.html" class="external-link">as_tidygraph()</a></code> function to coerce objects into an <a href="https://tidygraph.data-imaginist.com" class="external-link">tidygraph</a> tbl_graph class</li>
-<li>Closed <a href="https://github.com/stocnet/migraph/issues/79" class="external-link">#79</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/is_format.html" class="external-link">is_twomode()</a></code> function to check whether network is two-mode on all object types</li>
+<code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_tidygraph()</a></code> function to coerce objects into an <a href="https://tidygraph.data-imaginist.com" class="external-link">tidygraph</a> tbl_graph class</li>
+<li>Closed <a href="https://github.com/stocnet/migraph/issues/79" class="external-link">#79</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/mark_format.html" class="external-link">is_twomode()</a></code> function to check whether network is two-mode on all object types</li>
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-5-0">Data<a class="anchor" aria-label="anchor" href="#data-0-5-0"></a></h3>
@@ -1995,15 +2049,15 @@
 <ul><li>
 <p>Renamed <code>centrality_</code> functions with <code>node_</code> prefix and ensured they all also wrapped one-mode measures</p>
 <ul><li>
-<code>centrality_degree()</code> renamed to <code><a href="https://stocnet.github.io/manynet/reference/degree_centrality.html" class="external-link">node_degree()</a></code>
+<code>centrality_degree()</code> renamed to <code><a href="https://stocnet.github.io/manynet/reference/measure_central_degree.html" class="external-link">node_degree()</a></code>
 </li>
 <li>
-<code>centrality_closeness()</code> renamed to <code><a href="https://stocnet.github.io/manynet/reference/close_centrality.html" class="external-link">node_closeness()</a></code>
+<code>centrality_closeness()</code> renamed to <code><a href="https://stocnet.github.io/manynet/reference/measure_central_close.html" class="external-link">node_closeness()</a></code>
 </li>
 <li>
-<code>centrality_betweenness()</code> renamed to <code><a href="https://stocnet.github.io/manynet/reference/between_centrality.html" class="external-link">node_betweenness()</a></code>
+<code>centrality_betweenness()</code> renamed to <code><a href="https://stocnet.github.io/manynet/reference/measure_central_between.html" class="external-link">node_betweenness()</a></code>
 </li>
-<li>Closed <a href="https://github.com/stocnet/migraph/issues/31" class="external-link">#31</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/eigenv_centrality.html" class="external-link">node_eigenvector()</a></code>
+<li>Closed <a href="https://github.com/stocnet/migraph/issues/31" class="external-link">#31</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/measure_central_eigen.html" class="external-link">node_eigenvector()</a></code>
 </li>
 </ul></li>
 <li><p>Re-added <code><a href="https://stocnet.github.io/manynet/reference/measure_holes.html" class="external-link">node_constraint()</a></code> for calculating Burt’s constraint measure for one- and two-mode networks</p></li>
@@ -2093,7 +2147,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>
