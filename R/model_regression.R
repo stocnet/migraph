@@ -355,7 +355,8 @@ convertToMatrixList <- function(formula, .data){
           if(all(is.na(attrib[!manynet::node_is_mode(.data)]))){ # if 2nd mode
             attrib <- attrib[manynet::node_is_mode(.data)]
             out <- vapply(1:length(attrib), function(x){
-              net <- manynet::as_matrix(manynet::delete_nodes(.data, net_dims(.data)[1]+x))
+              net <- manynet::as_matrix(manynet::delete_nodes(.data, 
+                                                              manynet::net_dims(.data)[1]+x))
               rowSums(net * matrix((attrib[-x]==attrib[x])*1, 
                                    nrow(DV), ncol(DV)-1, byrow = TRUE))/
                 rowSums(net)

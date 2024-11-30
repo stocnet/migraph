@@ -1,6 +1,14 @@
 # migraph 1.4.4
 
-2024-11-06
+2024-11-30
+
+## Package
+
+- Fixed dependency issue
+
+# migraph 1.4.4
+
+2024-11-29
 
 ## Package
 
