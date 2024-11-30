@@ -457,7 +457,9 @@ specificationAdvice <- function(formula, data){
     vars <- formdf[formdf[,1] %in% c("sim","same"), 2]
     suggests <- vapply(vars, function(x){
       incl <- unname(formdf[formdf[,2]==x, 1])
-      excl <- setdiff(c("ego","alter"), incl)
+      if(manynet::is_twomode(data)){
+        excl <- setdiff(c("ego","tertius"), incl)
+      } else excl <- setdiff(c("ego","alter"), incl)
       if(length(excl)>0) paste0(excl, "(", x, ")", collapse = ", ") else NA_character_
       # incl
     }, FUN.VALUE = character(1))
@@ -466,8 +468,8 @@ specificationAdvice <- function(formula, data){
     if(length(suggests)>0){
       if(length(suggests) > 1)
         suggests <- paste0(suggests, collapse = ", ")
-      warning(paste("When testing for homophily,",
-                    "it is recommended to include also more fundamental effects such as `ego()` and `alter()`.",
+      cat(paste("When testing for homophily,",
+                    "it is recommended to include all more fundamental effects.\n",
                     "Try adding", suggests, "to the model specification."))
       }
   }
