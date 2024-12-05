@@ -1,4 +1,12 @@
-# migraph 1.4.4
+# migraph 1.4.6
+
+2024-12-05
+
+## Models
+
+- Fixed division of/by zero bug for `net_regression(~ same(), ...)`
+
+# migraph 1.4.5
 
 2024-11-30
 

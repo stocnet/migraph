@@ -361,6 +361,7 @@ convertToMatrixList <- function(formula, .data){
                                    nrow(DV), ncol(DV)-1, byrow = TRUE))/
                 rowSums(net)
             }, FUN.VALUE = numeric(nrow(DV)))
+            out[is.nan(out)] <- 0
           } else { # or then attrib must be on first mode
             attrib <- attrib[!manynet::node_is_mode(.data)]
             out <- t(vapply(1:length(attrib), function(x){
@@ -369,6 +370,7 @@ convertToMatrixList <- function(formula, .data){
                                    nrow(DV)-1, ncol(DV)))/
                 colSums(net)
             }, FUN.VALUE = numeric(ncol(DV))))
+            out[is.nan(out)] <- 0
           }
         } else {
           rows <- matrix(attrib, nrow(DV), ncol(DV))
