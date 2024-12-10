@@ -305,7 +305,9 @@ convertToMatrixList <- function(formula, .data){
           if(length(levels(fct)) == 2){
             out <- matrix(as.numeric(fct)-1,
                           nrow(DV), ncol(DV))
-            names(out) <- paste(IV[[elem]], collapse = " ")
+            names(out) <- paste(paste(IV[[elem]], collapse = " "),
+                                levels(fct)[2],
+                                paste0("[",levels(fct)[1],"]"))
             out <- out
           } else {
             out <- lapply(2:length(levels(fct)),
@@ -331,7 +333,9 @@ convertToMatrixList <- function(formula, .data){
             if(length(levels(fct)) == 2){
               out <- matrix(as.numeric(fct)-1,
                             nrow(DV), ncol(DV))
-              names(out) <- paste(IV[[elem]], collapse = " ")
+              names(out) <- paste(paste(IV[[elem]], collapse = " "),
+                                  levels(fct)[2],
+                                  paste0("[",levels(fct)[1],"]"))
               out <- out
             } else {
               out <- lapply(2:length(levels(fct)),
