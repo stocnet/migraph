@@ -5,9 +5,11 @@
 \alias{mpn_bristol}
 \title{Multimodal (3) Bristol protest events, 1990-2002 (Diani and Bison 2004)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # Bristol protest event network
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> -- # Bristol protest event network ---------------------------------------------
 #> # A labelled, two-mode network of 150 individuals and 1496 affiliation and
 #> participation ties
+#> 
+#> -- Nodes
 #> # A tibble: 264 x 3
 #>   name  type    lvl
 #>   <chr> <lgl> <dbl>
@@ -18,6 +20,8 @@
 #> 5 105   FALSE     1
 #> 6 106   FALSE     1
 #> # i 258 more rows
+#> 
+#> -- Ties
 #> # A tibble: 1,496 x 2
 #>    from    to
 #>   <int> <int>
@@ -28,6 +32,7 @@
 #> 5   138   151
 #> 6   145   151
 #> # i 1,490 more rows
+#> 
 }\if{html}{\out{</div>}}
 }
 \source{
