@@ -37,7 +37,7 @@ list_data <- function(string){
 
 ## About the package
 
-The most commonly used R packages available for network analysis,
+Most commonly used R packages available for network analysis,
 such as `{igraph}` or `{sna}`,
 are mainly oriented around directed or undirected one-mode networks.
 But researchers are increasingly interested in analysing multimodal (one-, two-, or three-mode), multilevel (connected multimodal networks), or multilayer (multiplex or signed) networks.
@@ -46,9 +46,9 @@ but thereby potentially losing important structural information,
 or require one or more other specific packages.
 Translating between packages various syntaxes and expectations can introduce significant transaction costs though,
 driving confusion, inefficiencies, and errors.
+`{migraph}` includes functions for inferential network analysis.
 
 `{migraph}` builds upon [`{manynet}`](https://stocnet.github.io/manynet/) to offer smart solutions to these problems.
-`{migraph}` includes functions for analysing and modelling these networks.
 Since it is based on `{manynet}`, every function works for any compatible network format
 - from base R matrices or edgelists as data frames, 
 [`{igraph}`](https://igraph.org/r/),
@@ -78,7 +78,7 @@ The package is intended as a software companion to the book:
 Cambridge University Press: Cambridge.
 
 Most datasets used in the book are included in this package,
-and `manynet` and `{migraph}` together implement most methods discussed in the book.
+and `{manynet}` and `{migraph}` together implement most methods discussed in the book.
 Since many of theses datasets and routines are discussed and analysed more there,
 if you like the package(s) please check out the book, and vice versa.
 

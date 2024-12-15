@@ -4,7 +4,7 @@
 \name{migraph-package}
 \alias{migraph}
 \alias{migraph-package}
-\title{migraph: Univariate and Multivariate Tests for Multimodal and Other Networks}
+\title{migraph: Inferential Methods for Multimodal and Other Networks}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 

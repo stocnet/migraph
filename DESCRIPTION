@@ -1,5 +1,5 @@
 Package: migraph
-Title: Univariate and Multivariate Tests for Multimodal and Other Networks 
+Title: Inferential Methods for Multimodal and Other Networks 
 Version: 1.4.6
 Date: 2024-12-05
 Description: A set of tools for testing networks.
@@ -27,7 +27,6 @@ Imports:
     future,
     furrr,
     generics,
-    ggplot2,
     purrr
 Suggests: 
     covr,
