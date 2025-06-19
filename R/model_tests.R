@@ -26,8 +26,8 @@ NULL
 #' marvel_friends <- to_unsigned(ison_marvel_relationships)
 #' marvel_friends <- to_giant(marvel_friends) %>% 
 #'   to_subgraph(PowerOrigin == "Human")
-#' # (cugtest <- test_random(marvel_friends, manynet::net_heterophily, attribute = "Attractive",
-#' #   times = 200))
+#' (cugtest <- test_random(marvel_friends, manynet::net_heterophily, attribute = "Attractive",
+#'    times = 200))
 #' # plot(cugtest)
 #' @export
 test_random <- function(.data, FUN, ..., 
@@ -234,7 +234,7 @@ test_fit <- function(diff_model, diff_models){ # make into method?
   x <- diff_model
   y <- diff_models
   sim <- `0` <- NULL
-  sims <- y |> dplyr::select(sim, t, I)
+  sims <- y %>% dplyr::select(sim, t, I)
   sims <- as.data.frame.matrix(stats::xtabs(I ~ sim + t, sims)) # tidyr::pivot_wider replacement
   sims <- sims[,colSums(stats::cov(sims))!=0]
   mah <- stats::mahalanobis(x$I[-1], colMeans(sims), stats::cov(sims))
