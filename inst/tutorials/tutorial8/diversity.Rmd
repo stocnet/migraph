@@ -274,7 +274,7 @@ net_heterophily(____, ____)
 ```
 
 ```{r homophily-present, echo=FALSE, purl = FALSE}
-question("For which variables is there a signal of homophily according to the EI index? (Choose all that apply)",
+question("For which variables is there a sign of some homophily effect according to the EI index? (Choose all that apply)",
   answer("Gender", 
          correct = TRUE, 
          message = "Yes, looks like there might be some gender homophily present."),
@@ -368,7 +368,23 @@ randomly generated networks with the same distribution of that variable.
 However, we can reject the null hypothesis with respect to their power origin story.
 While the coefficient itself is close to 0 (neither strong homophily nor heterophily),
 all the random networks generated returned larger EI scores, between .1 and .4.
-That is, there is significantly less heterophily here than expected.
+
+```{r cuginterp-qn, echo=FALSE, purl = FALSE}
+question("Which of the following is true?",
+  answer("Attractive superheros only hang out with other attractive superheros.",
+         message = paste(learnr::random_encouragement(), '<img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExeW9jbXg5dDBndjRpcWc2enhyOTZvbjloeGFpbmJndXNrMm05MHdtZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ziLadIVnOGCKk/giphy.gif" alt="gif of thor frustration"/>')),
+  answer("There is significantly less power origin heterophily than expected.",
+         correct = TRUE,
+         message = learnr::random_praise()),
+  answer("There is no evidence of gender homophily.",
+         correct = TRUE,
+         message = learnr::random_praise()),
+  answer("There is significant power origin homophily.", 
+         message = "Remember that the coefficient does not suggest many homophilous ties."),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+)
+```
 
 ## QAP tests
 
