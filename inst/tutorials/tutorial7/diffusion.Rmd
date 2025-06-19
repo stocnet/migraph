@@ -1,0 +1,989 @@
+---
+title: "Diffusion and Learning"
+author: "by James Hollway"
+output: 
+  learnr::tutorial:
+    theme: simplex
+runtime: shiny_prerendered
+description: >
+  In this tutorial you will learn how to simulate and investigate simple and complex
+  diffusion or contagion on empirical or generated network structures,
+  including more compartmental models and learning models.
+---
+
+```{r setup, include = FALSE}
+library(learnr)
+library(manynet)
+library(patchwork)
+library(ggplot2)
+clear_glossary()
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## This tutorial
+
+This tutorial introduces several contagion or diffusion processes 
+and how they operate across various networks.
+Network structures are key to how diffusion processes play out.
+
+By the end of this tutorial, you will be able to:
+
+- [ ] &nbsp; 'play' a diffusion process over any kind of network
+- [ ] &nbsp; print, plot, graph and interpret the results
+- [ ] &nbsp; understand cascade models
+- [ ] &nbsp; understand the role of network structure on diffusion
+- [ ] &nbsp; understand threshold models
+- [ ] &nbsp; understand the role of seeds for network intervention
+- [ ] &nbsp; understand compartmental models
+- [ ] &nbsp; understand the role of vaccination strategies
+- [ ] &nbsp; understand learning models
+- [ ] &nbsp; understand the role of influential nodes
+
+## Influence cascade models
+
+The simplest kind of diffusion process is an independent cascading model,
+where any contact with the attribute (disease or innovation) 
+is enough to cause infection/adoption.
+If the network is connected, the attribute will 'cascade' across the network
+until all nodes are 'infected'/have adopted.
+
+### Diffusing across a lattice
+
+Let us begin with a lattice network that shows us exactly how such a cascade works.
+A lattice network resembles, say, people standing on stones outlined on coordinates;
+each person can touch the person next to them.
+That's why this structure is often used to stand in for spatial structure.
+Remember, to create a lattice network, all you need to do is run `create_lattice()`,
+together with the number of nodes (of each mode) and 
+the maximum number of neighbors (width) as the arguments.
+Let's create a one-mode lattice with 32 nodes, maximum width 4, and graph it using `graphr()`:
+
+```{r clattice, exercise = TRUE, fig.width=9}
+lat <- create_lattice(32, width = 4)
+graphr(lat)
+```
+
+Ok, great! That's made a nice little lattice network.
+Next we want to play a diffusion process _on_ this network.
+To do this, we just need to run `play_diffusion()`,
+and assign the result.
+Then we can investigate the resulting object in a few ways.
+The first way is simply to print the result by calling the object.
+The other way is to unpack the result by calling for its summary.
+
+```{r lat_diff, exercise = TRUE, exercise.setup = "clattice"}
+lat_diff <- play_diffusion(lat)
+lat_diff
+summary(lat_diff)
+```
+
+The main report from the `lat_diff` object shows the number of nodes that don't
+(yet) have the attribute (S for susceptible, but can also be non-adopter) 
+and those that do have the attribute (I for infected, or adopter) at each time point (t).
+We can see a steady growth here, except for a slower initialisation and winding down.
+
+The secondary report, `summary(lat_diff)`, 
+presents a list of the events at each time point.
+In the event variable, the 'I' indicates that these are all infection/adoption events.
+Where 't' is 0, that means that these are the seeds producing the starting condition
+for the diffusion.
+The final column, 'exposure', records the number of infected nodes that the adopting
+node was exposed to when it adopted.
+Note that we have no information about the exposure for the seed nodes when they
+were infected, and so this is a missing value.
+The exposure at infection is recorded here to accelerate later analysis.
+
+### Visualising cascades
+
+We have several different options for visualising diffusions.
+The first visualisation option that we have is to plot the diffusion result itself.
+
+```{r plotlat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
+plot(lat_diff)
+plot(lat_diff, all_steps = FALSE)
+```
+
+This plot effectively visualises what we observed from the print out of the 
+`lat_diff` object above.
+The red line traces the proportion of infected;
+the blue line the (inverse) proportion of susceptible.
+The grey histogram in the plot shows how many nodes are newly 'infected' at each
+time point, or the so-called 'force of infection' ($F = \beta I$).
+
+We can see that by default the whole simulated period (32 steps) is shown,
+even though there is complete infection after only 10 steps.
+That's because the simulation runs over the number of nodes in the network
+by default.
+If the structure is amenable to diffusion, infection/diffusion will be completed
+before that.
+To plot only 'where the action is', use the argument `all_steps = FALSE`.
+
+But maybe we want to also/instead view the diffusion on the actual network.
+Here we can use all the three main graphing techniques offered in `{manynet}`.
+First, `graphr()` will graph a static network where the nodes are coloured
+according to how far through the diffusion process the node adopted.
+Note also that any seeds are indicated with a triangle.
+
+```{r graphrlat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
+graphr(lat_diff, node_size = 0.3)
+```
+
+Second, `graphs()` visualises the stages of the diffusion on the network.
+By default it will graph the first and last wave,
+but we can change this by specifying which waves to graph.
+
+```{r graphslat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
+graphs(lat_diff)
+graphs(lat_diff, waves = c(1,4,8))
+```
+
+Lastly, `grapht()` animates this diffusion process to a gif.
+It can take a little time to encode, but it is worth it to see exactly
+how the attribute is diffusing across the network!
+Note that if you run this code in the console, you get a calming progress bar;
+in the tutorial you will just need to be patient.
+
+```{r graphtlat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
+grapht(lat_diff, node_size = 10)
+```
+
+We can see here exactly how the attribute in question (ideas, information, disease?) 
+is diffusing across the network.
+It's like a cascade of red sweeping across the space!
+
+### Varying network structure
+
+While a lattice structure is one way of representing spatially governed diffusion,
+social and political networks can have quite different structures.
+We will get into some examples in later sections,
+but let's clarify the impact of network structure here by visualising
+how the diffusion process differs when everything but the structure stays the same.
+We're going to create (deterministically) and generate (stochastically)
+a range of different network structures with the same number of nodes and
+see the difference the structure makes.
+
++ `create_ring()`: Creates a ring or chord graph of the given dimensions that loops around and is of a specified width or thickness.
++ `generate_random()`: Generates a random network with a particular probability.
++ `generate_scalefree()`: Generates a small-world structure following the lattice rewiring model.
++ `generate_smallworld()`: Generates a scale-free structure following the preferential attachment model.
+
+```{r otherstructures, exercise = TRUE, purl = FALSE, fig.width=9}
+graphr(play_diffusion(create_ring(32, width = 2)))
+graphr(play_diffusion(generate_random(32, 0.15)))
+graphr(play_diffusion(generate_scalefree(32, 0.025)))
+graphr(play_diffusion(generate_smallworld(32, 0.025)))
+```
+
+Which diffusion process completed first?
+`graphr()` only colors nodes' relative adoption,
+and `graphs()` (at least by default) only graphs the first and last step.
+`grapht()` will show if and when there is complete infection,
+but we need to sit through each 'movie'.
+But there is an easier way.
+Play these same diffusions again, this time nesting the call within `net_infection_complete()`.
+
+```{r completeinfection, exercise = TRUE, purl = FALSE, fig.width=9}
+net_infection_complete(play_diffusion(create_ring(32, width = 2)))
+net_infection_complete(play_diffusion(generate_random(32, 0.15)))
+net_infection_complete(play_diffusion(generate_scalefree(32, 0.025)))
+net_infection_complete(play_diffusion(generate_smallworld(32, 0.025)))
+```
+
+```{r struct-interp, echo = FALSE, purl = FALSE}
+question("Does the structure of the network matter for whether and when a diffusion process completes?",
+  answer("No", message = "Take a closer look at the `net_infection_complete()` results. Are they all the same?"),
+  answer("Yes", correct = TRUE, message = "We can see that the different structures have varying outcomes in terms of when the diffusion completes."),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+)
+```
+
+### Free play: US States
+
+Run an influence cascade on US states' geographic contiguity in `irps_usgeo`.
+You can start the infection in California by specifying `seeds = 5`.
+
+```{r usstates, exercise = TRUE, purl = FALSE, fig.width=9}
+
+```
+
+```{r usstates-hint}
+us_diff <- play_diffusion(irps_usgeo, seeds = 5)
+plot(us_diff)
+graphr(us_diff)
+grapht(us_diff)
+net_infection_complete(us_diff)
+```
+
+What's happening here? Can you interpret this?
+
+## Linear threshold models
+
+So far, we've been using a simple cascading diffusion model where each node
+needs only to be in contact with one infectious individual to be infected.
+But what if nodes have higher `r gloss("thresholds", "threshold")`, 
+or only some nodes have higher thresholds?
+This is known as a `r gloss("linear threshold", "LTM")` model,
+where if infection/influence on a node through some (potentially weighted) network
+exceeds some threshold, then they will adopt/become infected.
+
+### Threshold rising
+
+Let's use the ring network again this time to 
+illustrate the impact of rising thresholds on network diffusion.
+Remember that a ring network is similar to a lattice network,
+but typically thinner (use `width = 2`) and is connected at each end.
+That it is connected at each end should ensure that the diffusion completes, right?
+Let's see what the results are if you play four different diffusions:
+
+- `seeds = 1, thresholds = 1`
+- `seeds = 1, thresholds = 2`
+- `seeds = 1:2, thresholds = 2`
+- `seeds = c(1,16), thresholds = 2`
+
+```{r complex, exercise = TRUE, fig.width=9}
+rg <- create_ring(32, width = 2)
+plot(play_diffusion(rg, seeds = 1, thresholds = 1))/
+plot(play_diffusion(rg, seeds = 1, thresholds = 2))/
+plot(play_diffusion(rg, seeds = 1:2, thresholds = 2))/
+plot(play_diffusion(rg, seeds = c(1,16), thresholds = 2))
+```
+
+```{r complex-interp, echo = FALSE, purl = FALSE}
+question("For which seed/threshold combinations was there complete infection?",
+         answer("seeds = 1 and thresholds = 1", correct = TRUE),
+         answer("seeds = 1 and thresholds = 2"),
+         answer("seeds = 1:2 and thresholds = 2", correct = TRUE),
+         answer("seeds = c(1,16) and thresholds = 2"),
+        allow_retry = TRUE)
+```
+
+Whereas a threshold of one will result in complete infection,
+a threshold of two will not lead to any diffusion process unless
+there are two seeds and they are both in another nodes neighbourhood.
+Note also that the nodes need to be adjacent to overcome the higher threshold.
+
+### Varying degrees
+
+In a ring network, all nodes have the same degree.
+But many typical social networks include some variation in degree.
+A threshold of 2 would be easy to surpass for particularly well connected nodes,
+but impossible for pendants.
+Let's see what happens when we use this threshold on a scale-free network instead.
+
+```{r sfcomplex, exercise = TRUE, purl = FALSE, fig.width=9}
+
+```
+
+```{r sfcomplex-solution}
+plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1, thresholds = 2))
+```
+
+```{r sfcomplex-interp, echo=FALSE, purl = FALSE}
+question("Here only one seed was used. Does it matter how many seeds are used?",
+         answer("Yes"),
+         answer("No", correct = TRUE),
+        allow_retry = TRUE)
+```
+
+That's because a scale-free network includes many nodes with only one or two ties,
+and a few very high degree nodes that act as critical brokers to the rest of the network.
+
+### Complex thresholds
+
+Let's try again, but this time we're going to specify the threshold
+as a proportion of contacts that should be infected before the node 
+will become infected.
+This is sometimes called a fractional threshold model or complex diffusion.
+Try thresholds of 0.1, 0.25, and 0.5 on two seeds and 10 steps
+on the scale-free networks we have been using here.
+
+```{r sfprop, exercise = TRUE, purl = FALSE, fig.width=9}
+
+```
+
+```{r sfprop-hint, purl = FALSE}
+plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = ____, steps = ____))/
+plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = ____, steps = ____))/
+plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = ____, steps = ____))
+```
+
+```{r sfprop-solution}
+plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = 0.1, steps = 10))/
+plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = 0.25, steps = 10))/
+plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = 0.5, steps = 10))
+```
+
+```{r sfprop-interp, echo = FALSE, purl = FALSE}
+question("Does the threshold proportion matter?",
+         answer("Yes", correct = TRUE),
+         answer("No"),
+        allow_retry = TRUE)
+```
+
+What's happening here is that the high degree nodes in this scale-free network
+are obstructing the diffusion process because it is unlikely that many of their branches are already infected.
+
+### Varying thresholds
+
+Lastly, note that it may be that thresholds vary across the network.
+Let's use an example network to explore this: `fict_lotr`.
+
+```{r lotr, exercise = TRUE, fig.width=9}
+graphr(fict_lotr, node_color = "Race")
+```
+
+Something is going around Middle-Earth, 
+but different races have different resistances (i.e. thresholds).
+Let us say that there is a clear ordering to this.
+
+```{r lotr-resist, exercise=TRUE}
+lotr_resist <- fict_lotr %>% mutate(resistance = dplyr::case_when(Race == "Dwarf" ~ 2,
+                                                   Race == "Elf" ~ 4,
+                                                   Race == "Ent" ~ 5,
+                                                   Race == "Hobbit" ~ 3,
+                                                   Race == "Human" ~ 1,
+                                                   Race == "Maiar" ~ 6))
+```
+
+```{r resistdiff, exercise=TRUE, exercise.setup = "lotr-resist", fig.width=9}
+grapht(play_diffusion(lotr_resist, thresholds = "resistance"))
+```
+
+Fun! Now how would you interpret what is going on here?
+Can you rewrite the code above so that fractional thresholds are used?
+
+### Free play: Lord of the Rings
+
+```{r lotr-free, exercise=TRUE, exercise.setup = "lotr-resist", fig.width=9}
+
+
+```
+
+<!-- ## Independent cascades -->
+
+## Intervention
+
+Let's say that you have developed an exciting new policy and
+you are keen to maximise how quickly and thoroughly it is adopted.
+We are interested here in `r gloss("network intervention", "intervention")`.
+
+### Choosing where to seed
+
+Since the ring network we constructed is cyclical,
+then no matter where the 'infection' starts, 
+it should diffuse throughout the whole network.
+To see whether this is true, 
+try seeding the innovation at the first and sixteenth (middle) node 
+and see whether the result is any different.
+
+```{r ring2, exercise = TRUE, purl = FALSE, fig.width=9}
+
+```
+
+```{r ring2-solution}
+plot(play_diffusion(create_ring(32, width = 2), seeds = 1)) /
+  plot(play_diffusion(create_ring(32, width = 2), seeds = 16))
+```
+
+```{r ring2-interp, echo = FALSE, purl = FALSE}
+question("Do you see any differences in infection?",
+         answer("Yes"),
+         answer("No", correct = TRUE, message = "It doesn't matter where the innovation is seeded"),
+        allow_retry = TRUE)
+```
+
+Now what if we seed the network with more than one infected node?
+Choosing the first four nodes we can see that the process is jump-started,
+but doesn't really conclude that much faster.
+
+```{r ring3, exercise = TRUE, purl = FALSE, fig.width=9}
+
+```
+
+```{r ring3-hint, purl = FALSE}
+# Remember we want to see the first four nodes.
+
+plot(play_diffusion(create_ring(32, width = 2), seeds = ____))
+```
+
+```{r ring3-solution}
+rg_d3 <- play_diffusion(create_ring(32, width = 2), seeds = 1:4)
+plot(rg_d3)
+
+# graph the diffusion within the network
+graphs(play_diffusion(create_ring(32, width = 2), seeds = 1:4), 
+       layout = "stress")
+```
+
+But what if we seed the network at three different places?
+Here we can use `node_is_random()` to randomly select some nodes to seed.
+Try it with four randomly-selected nodes and see what you get.
+
+```{r ring4, exercise = TRUE, purl = FALSE, fig.width=9}
+
+```
+
+```{r ring4-hint, purl = FALSE}
+# We will be using the node_is_random() within the seed argument to random select 
+# 4 nodes
+
+plot(play_diffusion(create_ring(32, width = 2), 
+                    seeds = ____(create_ring(32, width = 2), ____)))
+```
+
+```{r ring4-solution}
+plot(play_diffusion(create_ring(32, width = 2), 
+                    seeds = node_is_random(create_ring(32, width = 2), 4)))
+```
+
+```{r ring4-interp, echo = FALSE, purl = FALSE}
+question("Do you see any differences?",
+         answer("Yes", correct = TRUE),
+         answer("No"),
+        allow_retry = TRUE)
+```
+
+Where the innovation/disease is optimally seeded to 
+accelerate or decelerate diffusions 
+is a crucial question in network intervention studies.
+
+Now let's see whether where the infection is seeded matters
+when the network has a different structure.
+Here let's play and plot two diffusion on the lattice network,
+one with the first node as seed and again one on the middle.
+
+```{r lattice, exercise = TRUE, exercise.setup = "clattice", purl = FALSE, fig.width=9}
+
+```
+
+```{r lattice-solution}
+plot(play_diffusion(lat, seeds = 1))/
+plot(play_diffusion(lat, seeds = 16))
+lat %>%
+  add_node_attribute("color", c(1, rep(0, 14), 2, rep(0, 16))) %>%
+  graphr(node_color = "color")
+
+# visualise diffusion in lattice graph
+grapht(play_diffusion(lat, seeds = 16), layout = "grid", keep_isolates = FALSE)
+```
+
+```{r lattice-interp, echo = FALSE, purl = FALSE}
+question("Do you see any differences?",
+         answer("Yes", correct = TRUE),
+         answer("No"),
+        allow_retry = TRUE)
+```
+
+Let's try one more network type, this time the scale-free network.
+Play and plot the results over ten steps for node 10,
+random, maximum, and minimum nodes as seeds.
+
+Similar to the previous examples, we will be using the following functions within the seed argument:
+
++ `node_is_random()`: Returns a logical vector indicating a random selection of nodes as TRUE.
++ `node_is_max()`: Returns logical of which nodes hold the maximum of some measure.
++ `node_is_min()`: Returns logical of which nodes hold the minimum of some measure.
+
+We could use these on degree centrality, or perhaps some other kind of centrality?
+
+```{r sf, exercise=TRUE, fig.width=9}
+sf <- generate_scalefree(32, 0.025)
+sf %>%
+  as_tidygraph() %>%
+  mutate(degree = ifelse(node_is_max(node_degree(sf)) == TRUE, "max",
+                      ifelse(node_is_min(node_degree(sf)) == TRUE, "min", "others"))) %>%
+  graphr(node_color = "degree") + guides(color = "legend") + labs(color = "degree")
+```
+
+```{r scale, exercise = TRUE, purl = FALSE, exercise.setup="sf", fig.width=9}
+
+```
+
+```{r scale-solution}
+plot(play_diffusion(sf, seeds = 10, steps = 10)) / 
+plot(play_diffusion(sf, seeds = node_is_random(sf), steps = 10)) /
+plot(play_diffusion(sf, seeds = node_is_max(node_degree(sf)), steps = 10)) /
+plot(play_diffusion(sf, seeds = node_is_min(node_degree(sf)), steps = 10))
+
+# visualise diffusion in scalefree network
+graphs(play_diffusion(sf, seeds = node_is_min(node_degree(sf)), steps = 10))
+grapht(play_diffusion(sf, seeds = 16, steps = 10))
+```
+
+```{r mindeg-interp, echo = FALSE, purl = FALSE}
+question("Which of these four led to the fastest diffusion process?",
+         answer("Minimum degree node(s), because there are many more nodes with the minimum degree.", correct = TRUE),
+         answer("Node 10 as seed, because it is the most influential."),
+         answer("Maximum degree node(s), because these nodes are the most influential."),
+         answer("A random node, because this time it selected a good seed."),
+        allow_retry = TRUE,
+        random_answer_order = TRUE)
+```
+
+### Other strategies
+
+There are many other strategies considered in the diffusion literature.
+Many of them are implemented here and might be considered as strategies:
+
+- `node_is_independent()` identifies nodes belonging to the largest independent set
+- `node_is_cutpoint()` identifies nodes at the articulation points in a network
+- `node_is_core()` identifies nodes that are members of the network's core
+- `node_is_fold()` identifies nodes that are in a structural fold between two or more triangles
+- `node_is_mentor()` identifies high indegree nodes as mentors
+
+```{r indepsets, exercise = TRUE, exercise.setup="sf", fig.width=9}
+sf %>% mutate_nodes(ni = node_is_independent()) %>% graphr(node_color = "ni")
+plot(play_diffusion(sf, seeds = node_is_independent(sf), steps = 10))
+```
+
+### Advertising adoption
+
+Another strategy often employed is that of advertising how much adoption
+there already is in the network globally.
+The mechanism is that as individuals see the _global_ prevalence of adoption
+increasing, they might be inclined to adopt 
+even if they are not (yet) in direct contact.
+For example, these lawyers might accept word-of-mouth directly from two colleagues,
+but are also attuned to common practice irrespective of whether direct colleagues
+have adopted the innovation.
+
+```{r prevalence, exercise=TRUE, fig.width=9}
+plot(play_diffusion(ison_lawfirm, thresholds = 2, prevalence = 0.005),
+     all_steps = FALSE)
+```
+
+## Compartmental models
+
+So far we've been looking at variations on a 
+pretty straight-forward diffusion process
+where nodes can only belong to one of two states or 'compartments',
+**S**usceptible and **I**nfected (the basic SI model).
+This has been useful, but sometimes what we are interested in,
+whether disease, innovation, or some other behaviour,
+has more complicated and probabilistic dynamics.
+But before we get into that,
+let's see how we can play and plot several simulations
+to see what the range of outcomes might be like.
+
+### Running multiple simulations
+
+To do this, we need to use `play_diffusions()` (note the plural).
+It has all the same arguments as its singular counterpart,
+along with a couple of additional parameters 
+to indicate how many simulations it should run, e.g. `times = 50`,
+whether it should use `strategy = "multisession"` 
+to run the simulations across multiple cores
+instead of the default `strategy = "sequential"`,
+and `verbose = TRUE` if it should inform you of computational progress.
+Try this out with our well-mixed random network, 10 steps, 5 times,
+and with a `transmissibility` parameter set to 0.5
+to indicate that in only 1/2 cases is contagion successful.
+
+```{r diffusions, exercise = TRUE, fig.width=9}
+rando <- generate_random(32, 0.1)
+graphr(rando)
+plot(play_diffusions(rando, transmissibility = 0.5, times = 5, steps = 10))
+```
+
+Note that in this plot the number of new infections is not plotted
+because this might vary a bit each time the simulation is run.
+Instead, the loess line smooths over the varying trajectories
+and a (hardly distinguishable for this call) grey border to the line represents the standard error.
+The blue line is the proportion of nodes in the Susceptible compartment,
+and the red line is the proportion of nodes in the Infected compartment.
+
+### SIR models
+
+Let's start off with an **SIR** model in which, 
+after some period in which an infected node is themselves infectious,
+they recover and can no longer infect or become reinfected.
+To add a recovered component to the model,
+specify the `recovery` argument.
+Let's try a rate of recovery of 0.20,
+which means that it'll take an infected node on average
+5 steps (days?) to recover.
+
+```{r sir, exercise = TRUE, exercise.setup = "diffusions", purl = FALSE, fig.width=9}
+
+```
+
+```{r sir-hint, purl = FALSE}
+# Remember, we are still looking at the random network, "rd", with a 
+# recovery rate of 20 percent.
+
+plot(play_diffusions(____, recovery = ____))
+```
+
+```{r sir-solution}
+plot(play_diffusions(rando, recovery = 0.2))
+```
+
+What we see in these kinds of models is typically a spike in infections
+towards the start, but as these early infections recover and become immune,
+then they can provide some herd immunity to those who remain susceptible.
+If you get moderately different results each time,
+try increasing the number of `times` the simulation is run,
+which should average out these differences and make the results more reliable.
+
+```{r sirtimes, exercise = TRUE, exercise.setup = "diffusions", purl = FALSE, fig.width=9}
+
+```
+
+```{r sirtimes-solution}
+plot(play_diffusions(rando, recovery = 0.2, times = 100))
+```
+
+### SIRS models
+
+That's great, but maybe the immunity conferred from having recovered
+from the contagion doesn't last forever.
+In this kind of model, add an additional `waning` parameter of 0.05.
+This means that after twenty steps (on average), 
+a recovered node may lose its recovered status and become susceptible again.
+Play a single diffusion so that you can see what's going on in a particular run.
+
+```{r sirs, exercise = TRUE, exercise.setup = "diffusions", purl = FALSE, fig.width=9}
+
+```
+
+```{r sirs-solution}
+plot(play_diffusion(rando, recovery = 0.2, waning = 0.05))
+```
+
+<!-- # visualise diffusion within random graph -->
+<!-- grapht(play_diffusion(rd, seeds = c(1,10), recovery = 0.2, waning = 0.05)) -->
+
+```{r sirs-interp, echo = FALSE, purl = FALSE, fig.width=9}
+question("Does the process reach a reasonably stable state?",
+         answer("Yes", correct = TRUE),
+         answer("No"),
+        allow_retry = TRUE)
+```
+
+Depending on your particular simulation,
+there might be some variation,
+so let's run this same diffusion but multiple (100?) times.
+
+```{r sirstimes-solution, exercise.setup = "diffusions", exercise = TRUE, fig.width=9}
+plot(play_diffusions(rando, recovery = 0.2, waning = 0.05, times = 100))
+```
+
+```{r sirstimes-interp, echo = FALSE, purl = FALSE}
+question("Select the true statements",
+         answer("There are always some infected nodes.", correct = TRUE),
+         answer("We never get to the stage where everyone has recovered.", correct = TRUE),
+         answer("There are always some susceptible nodes.", correct = TRUE),
+         random_answer_order = TRUE,
+        allow_retry = TRUE)
+```
+
+### SEIR models
+
+Lastly, we'll consider a compartment for nodes that have been Exposed
+but are not yet infectious.
+This kind of an incubation period is due to some `latency` ($\sigma$).
+This should also be specified as a proportion,
+but note that this is inverted internally.
+This means that a latency of 0 means that exposure immediately renders the node infectious.
+A latency of 0.75 means that it will take the node approximately 4 days (1/1-0.75 = 1/0.25 = 4) to become infectious.
+Play a single diffusion so that you can see what's going on in a particular run.
+
+```{r seir, exercise = TRUE, exercise.setup = "diffusions", purl = FALSE, fig.width=9}
+
+```
+
+```{r seir-solution}
+set.seed(123)
+plot(play_diffusion(rando, seeds = 10, latency = 0.25, recovery = 0.2))
+
+# visualise diffusion with latency and recovery
+grapht(play_diffusion(rando, seeds = 10, latency = 0.25, recovery = 0.2))
+```
+
+### Make it stop
+
+In this section, we are interested in how to most effectively _halt_ 
+a diffusion process.
+
+An attribute's reproduction number, or $R_0$, is a measure of the rate of infection
+or how quickly that attribute will reproduce period over period.
+It is calculated as $R_0 = \min\left(\frac{T}{1/L}, \bar{k}\right)$,
+i.e. the transmissibility (proportion of susceptible nodes that are infected at each time period) over the average recovery or infection length (average length of time nodes remain infected).  
+
+It can be interpreted as follows:
+- Where $R_0$ > 1, the 'disease' will 'infect' more and more nodes in the network.  
+- Where $R_0$ < 1, the 'disease' will not sustain itself and eventually die out.  
+- Where $R_0$ = 1, the 'disease' will continue as endemic, if conditions allow.  
+
+So how can we establish the $R_0$ here?
+We can use `net_reproduction()`.
+
+```{r r0, exercise = TRUE, exercise.setup = "diffusions", fig.width=9}
+rd_diff <- play_diffusion(rando, transmissibility = 0.25, recovery = 0.05)
+plot(rd_diff)
+# R-nought
+net_reproduction(rd_diff)
+net_infection_total(rd_diff)
+```
+
+```{r r0-interp, echo = FALSE, purl = FALSE}
+question("Select any true statements you can make about this R-nought result:",
+         answer("An epidemic is likely to occur.", correct = TRUE),
+         answer("There are not enough seed nodes to start an epidemic."),
+         answer("Most nodes get infected.", correct = TRUE),
+        allow_retry = TRUE,
+        random_answer_order = TRUE)
+```
+
+Ok, so there's (probably: you may have slightly different results) a danger here.
+The relationship between the reproduction number and the observed infection
+should be clear.
+The $R_0$ is over 1 and the 'disease' seems to burn through the network
+infecting almost everyone.
+How can we try to resist or halt such a disease?
+
+```{r stymie-interp, echo = FALSE, purl = FALSE}
+question("Let's review our options. What can we do to stymie this disease?",
+         answer("Reduce the number of susceptible people", correct = TRUE, 
+                message = "Yes, let's vaccinate!"),
+         answer("Reduce recovery time", correct = TRUE, 
+                message = "Yes, let's medicate!"),
+         answer("Reduce the transmission rate", correct = TRUE,
+                message = "Yes, let's try and change behaviour!"),
+        allow_retry = TRUE)
+```
+
+Ok, let's start with option 1.
+After all, those who built up natural immunity (recovered) may have already
+protected some parts of the network from complete infection.
+But then...
+
+### How many people do we need to vaccinate?
+
+We can identify how many people need to be vaccinated through 
+the `gloss("Herd Immunity Threshold", "hit")` or HIT.
+HIT indicates the threshold at which the reduction of susceptible members 
+of the network means that infections will no longer keep increasing, 
+allowing herd immunity to be achieved.
+`net_immunity()` gives us the proportion of the population that would need
+to be recovered or vaccinated for the network to have herd immunity.
+
+```{r immunity, exercise = TRUE, exercise.setup = "r0"}
+# Herd Immunity Threshold
+net_immunity(rd_diff)
+net_immunity(rd_diff, normalized = FALSE)
+```
+
+In this model, the HIT score indicates a good proportion of nodes in the network 
+would need to be vaccinated or otherwise protected to achieve herd immunity.
+The unnormalised version gives the number of nodes that would need to be vaccinated.
+Ok, so let's try this strategy.
+
+```{r vaccinate, exercise = TRUE, exercise.setup = "diffusions", fig.width=9}
+rd_diff_vacc <- play_diffusion(rando, transmissibility = 0.25, recovery = 0.05, 
+                               immune = 2:9)
+plot(rd_diff_vacc)
+net_infection_total(rd_diff_vacc)
+```
+
+We can see that we more rapidly reach a situation in which vaccinated and
+naturally recovered nodes protect many more susceptible nodes.
+(Your results may vary a bit since these are stochastic models).
+
+### Free play: Grey's Anatomy
+
+Let's try this out on the `fict_greys` dataset,
+a dataset of character 'hook-ups' in the Grey's Anatomy TV show.
+You can just concentrate on the giant component (which is plenty incestuous!).
+We could say that there's a new, highly infectious disease transmittable
+through hooking up and, I have it on authority, it all starts with Mark Sloan.
+
+```{r greys, exercise = TRUE, purl=FALSE, fig.width=9}
+
+```
+
+```{r greys-hint}
+greys <- to_giant(fict_greys)
+graphr(greys)
+graphs(play_diffusion(greys, seeds = "Mark Sloan", transmissibility = 0.25,
+                      latency = 0.25, recovery = 0.2, waning = 0.2), 
+       waves = c(1,5,10,15), labels = FALSE)
+```
+
+<!-- ## Inferring from empirics -->
+
+<!-- Simulations are very useful for exploring diffusion dynamics. -->
+<!-- Many of these tools can be used for examining observed diffusion dynamics -->
+<!-- too. -->
+<!-- Let us borrow the `medInnovationsDiffNet` dataset from `{netdiffuseR}`: -->
+
+```{r netdiff}
+# medInn <- as_diffusion(netdiffuseR::medInnovationsDiffNet)
+# plot(medInn)
+```
+
+<!-- In the plot we can observe a relatively constant rate of adoption. -->
+
+<!-- ### Describing an empirical diffusion process -->
+
+<!-- **Not currently working** -->
+
+```{r inferthresh}
+# node_thresholds(medInn)
+```
+
+
+<!-- ### Comparing to an empirical diffusion process -->
+
+```{r something}
+# test_fit(medInn, play_diffusions(as_tidygraph(medInn), 
+                                 # seeds = node_is_random(as_tidygraph(medInn), 11),
+                                 # transmissibility = 0.8))
+```
+
+## Learning models
+
+The three strategies for hindering contagion mentioned earlier
+usually rely on nodes' voluntary participation:
+they must accept that vaccination, medication, or behavioral change is necessary
+to combat the contagion.
+
+Lastly, we're going to consider a rather simple type of learning model:
+a DeGroot learning model.
+A question often asked of these kinds of models is whether,
+despite heterogeneous initial beliefs, those beliefs will converge through 
+(network) interaction.
+As you will recall, a network that is strongly connected and aperiodic
+will converge to a consensus of (any) beliefs entered.
+
+### Expectations of convergence and consensus 
+
+Let's try this out on the `ison_networkers` dataset of communication 
+among network academics.
+Perhaps we wish to get them to change their local networks/behavior,
+but they have different beliefs about whether this will make a difference.
+To see whether this network will converge to consensus, 
+check whether the network is `r gloss("connected")` and `r gloss("aperiodic")`:
+
++ `is_connected()` marks whether network is weakly connected if the network is `r gloss("undirected")` or strongly connected if directed.
++ `is_aperiodic()` marks whether network is aperiodic, meaning there is no integer k > 1 that divides the length of every cycle of the graph.
+
+```{r aperiod, exercise = TRUE, purl = FALSE}
+
+```
+
+```{r aperiod-hint, purl = FALSE}
+# By default is_connected() will check whether a directed network
+# is strongly connected.
+```
+
+```{r aperiod-solution}
+is_connected(ison_networkers)
+is_aperiodic(ison_networkers) # this can take a few seconds
+```
+
+```{r consens-interp, echo = FALSE, purl = FALSE}
+question("Based on these results, would you expect this network to converge to a consensus?",
+  answer("No"),
+  answer("Yes", correct = TRUE, message = "A strongly connected, aperiodic network will converge to a single consensus."),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+)
+```
+
+```{r aperiod-interp, echo = FALSE, purl = FALSE}
+question("If there were aperiodicity but two or more strongly connected components, what would happen?",
+  answer("There would be no convergence"),
+  answer("There would be convergence to a single consensus"),
+  answer("There would be convergence", correct = TRUE),
+  answer("There would probably be as many separate values as there are components", correct = TRUE),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+)
+```
+
+### Playing the DeGroot learning model
+
+Now let's see whether you are right.
+We want to see whether some random distribution of beliefs converges
+to a consensus in this network (`ison_networkers`).
+Let's play the DeGroot learning game on this network
+with a vector of random belief probabilities 
+(the same length as the nodes in the network)
+drawn from the binomial distribution with **probability 0.25**.
+Create the distribution of **beliefs** and graph the network
+to show where they have been distributed.
+Then play the learning model with these beliefs, and plot the result.
+
+```{r degroot, exercise = TRUE, purl = FALSE, fig.width=9}
+
+```
+
+```{r degroot-hint, purl = FALSE}
+beliefs <- rbinom(net_nodes(____), 1, prob = 0.25)
+____ %>% mutate(____ = beliefs) %>% graphr(node_color = "____")
+netlearn <- play_learning(____, ____)
+plot(____)
+```
+
+```{r degroot-solution}
+beliefs <- rbinom(net_nodes(ison_networkers), 1, prob = 0.25)
+ison_networkers %>% mutate(beliefs = beliefs) %>% graphr(node_color = "beliefs")
+(netlearn <- play_learning(ison_networkers, beliefs))
+plot(netlearn)
+```
+
+Each line in this plot represents the belief trajectory of a single node
+at each step.
+About a quarter of the nodes begin believing, 
+and the other three quarters do not.
+Then we can see how responsive these nodes are to the random distribution
+of beliefs across the network.
+Some revise their beliefs more significantly than others.
+
+```{r degroot-interp, echo = FALSE, purl = FALSE}
+question("What are some true statements about these results?",
+  answer("Some nodes revise their beliefs more than others.",
+         correct = TRUE),
+  answer("There seems to be a consensus.",
+         correct = TRUE),
+  answer("It takes more than two steps to reach consensus.",
+         correct = TRUE),
+  answer("One node never updates their belief beyond their initial belief.",
+         message = "All nodes in this network eventually update their beliefs."),
+  answer("I would get the same shared belief if I reran the code.",
+         message = "If you reran the code, a different random belief vector would be created and more or less influential nodes might believe or not."),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+)
+```
+
+### Free play: Networkers
+
+The most influential nodes in this network are those that have the
+highest eigenvector centrality.
+Which are the highest eigenvector centrality nodes in this network?
+
+```{r eigen, exercise = TRUE, purl=FALSE, fig.width=9}
+
+```
+
+```{r eigen-hint}
+node_eigenvector(ison_networkers)
+ison_networkers %>% 
+  mutate(who_to_convince = node_is_max(node_eigenvector(ison_networkers))) %>% 
+  graphr(node_color = who_to_convince)
+beliefs2 <- rep(0, net_nodes(ison_networkers))
+beliefs2[node_is_max(node_eigenvector(ison_networkers))] <- 1
+ison_networkers %>% mutate(beliefs = beliefs2) %>% graphr(node_color = "beliefs")
+(netlearn2 <- play_learning(ison_networkers, beliefs2))
+plot(netlearn2)
+```
+
+
+## Glossary
+
+Here are some of the terms that we have covered in this module:
+
+`r print_glossary()`
