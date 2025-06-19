@@ -1,6 +1,11 @@
-# migraph 1.4.6
+# migraph 1.5.0
 
-2024-12-05
+2025-06-19
+
+## Meta
+
+- Moved `over_*()` functions over from `{manynet}`
+- Moved `play_diffusions()` over from `{manynet}`
 
 ## Models
 
