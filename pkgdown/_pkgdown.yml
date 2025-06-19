@@ -42,6 +42,10 @@ reference:
     desc: "Functions for measuring over many elements:"
     contents:
       - measure_over
+  - title: "Simulating"
+    desc: "Functions for simulating multiple processes:"
+    contents:
+      - make_play
   - title: "Modelling"
     desc: "Functions for testing and regressing networks:"
     contents:

@@ -8,3 +8,10 @@ make_network_measures <- function(out, .data) {
   out
 }
 
+make_diffs_model <- function(report, .data) {
+  class(report) <- c("diffs_model", class(report))
+  attr(report, "mode") <- manynet::node_is_mode(.data)
+  report
+}
+
+
