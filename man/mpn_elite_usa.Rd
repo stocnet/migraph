@@ -88,7 +88,7 @@ or the Democratic Party (Hillary Clinton, Christopher Dodd, Barack Obama).
 \if{latex}{\figure{mpneliteusa.pdf}{options: width=7cm}}
 }
 \references{
-Domhoff, G William. 2016. \href{https://whorulesamerica.ucsc.edu/power_elite/}{“Who Rules America? Power Elite Database.”}
+Domhoff, G William. 2016. “Who Rules America? Power Elite Database.”
 
 The Center for Responsive Politics. 2019. “OpenSecrets.” https://www.opensecrets.org.
 
