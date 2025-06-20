@@ -14,4 +14,19 @@ make_diffs_model <- function(report, .data) {
   report
 }
 
+#' @export
+summary.diffs_model <- function(object, ...) {
+  sim <- fin <- n <- NULL
+  object %>% dplyr::mutate(fin = (I!=n)*1) %>% 
+    dplyr::group_by(sim) %>% dplyr::summarise(toa = sum(fin)+1)
+}
+
+#' @export
+print.diffs_model <- function(x, ...){
+  x <- x[,colSums(x, na.rm=TRUE) != 0]
+  x$I_new <- NULL
+  print(dplyr::tibble(x, ...))
+}
+
+
 

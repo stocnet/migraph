@@ -2,9 +2,11 @@
 
 S3method(glance,netlm)
 S3method(glance,netlogit)
+S3method(print,diffs_model)
 S3method(print,netlm)
 S3method(print,netlogit)
 S3method(print,network_test)
+S3method(summary,diffs_model)
 S3method(tidy,netlm)
 S3method(tidy,netlogit)
 export("%>%")
