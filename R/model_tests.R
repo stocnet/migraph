@@ -26,8 +26,8 @@ NULL
 #' marvel_friends <- to_unsigned(ison_marvel_relationships)
 #' marvel_friends <- to_giant(marvel_friends) %>% 
 #'   to_subgraph(PowerOrigin == "Human")
-#' # (cugtest <- test_random(marvel_friends, manynet::net_heterophily, attribute = "Attractive",
-#' #   times = 200))
+#' (cugtest <- test_random(marvel_friends, manynet::net_heterophily, attribute = "Attractive",
+#'    times = 200))
 #' # plot(cugtest)
 #' @export
 test_random <- function(.data, FUN, ..., 
@@ -173,46 +173,6 @@ print.network_test <- function(x, ...,
   cat("Pr(X<=Obs):", x$plteobs, "\n\n")
 }
 
-#' @export
-plot.network_test <- function(x, ...,
-                            threshold = .95, 
-                            tails = c("two", "one")){
-  data <- data.frame(Statistic = x$testdist)
-  p <- ggplot2::ggplot(data, 
-                       ggplot2::aes(x = .data$Statistic)) + 
-    ggplot2::geom_density()
-  if(all(data$Statistic >= -1 & data$Statistic <= 1)){
-    p <- p + ggplot2::expand_limits(x=0) + 
-      ggplot2::geom_vline(ggplot2::aes(xintercept = 0),
-                          linetype="dashed")
-    if(any(data$Statistic < 0)) p <- p + ggplot2::expand_limits(x=-1)
-    if(any(data$Statistic > 0)) p <- p + ggplot2::expand_limits(x=1)
-  }
-  d <- ggplot2::ggplot_build(p)$data[[1]]
-  tails = match.arg(tails)
-  if(tails == "one"){
-    if(x$testval < quantile(data$Statistic, .5)){
-      thresh <- quantile(data$Statistic, 1 - threshold)
-      p <- p + ggplot2::geom_area(data = subset(d, x < thresh), 
-                                  aes(x = x, y = .data$y), fill = "lightgrey")
-    } else {
-      thresh <- quantile(data$Statistic, threshold)
-      p <- p + ggplot2::geom_area(data = subset(d, x > thresh), 
-                                  aes(x = x, y = .data$y), fill = "lightgrey")
-    }
-  } else if (tails == "two"){
-    thresh <- quantile(data$Statistic, 
-                       c((1-threshold)/2, ((1-threshold)/2)+threshold))
-    p <- p + ggplot2::geom_area(data = subset(d, x < thresh[1]), 
-                                aes(x = x, y = .data$y), fill = "lightgrey") + 
-      ggplot2::geom_area(data = subset(d, x > thresh[2]), 
-                         aes(x = x, y = .data$y), fill = "lightgrey")
-  }
-  p + ggplot2::theme_classic() + ggplot2::geom_density() +
-    ggplot2::geom_vline(ggplot2::aes(xintercept = x$testval),
-                        color="red", linewidth=1.2) + ggplot2::ylab("Density")
-}
-
 # Tests of network distributions ####
 
 #' Tests of network distributions
@@ -274,7 +234,7 @@ test_fit <- function(diff_model, diff_models){ # make into method?
   x <- diff_model
   y <- diff_models
   sim <- `0` <- NULL
-  sims <- y |> dplyr::select(sim, t, I)
+  sims <- y %>% dplyr::select(sim, t, I)
   sims <- as.data.frame.matrix(stats::xtabs(I ~ sim + t, sims)) # tidyr::pivot_wider replacement
   sims <- sims[,colSums(stats::cov(sims))!=0]
   mah <- stats::mahalanobis(x$I[-1], colMeans(sims), stats::cov(sims))

@@ -38,8 +38,16 @@ navbar:
       href: https://cloud.r-project.org/package=migraph
       aria-label: View on CRAN
 reference:
-  - title: "Models"
-    desc: "Functions for modelling multimodal networks:"
+  - title: "Parallelism"
+    desc: "Functions for measuring over many elements:"
+    contents:
+      - measure_over
+  - title: "Simulating"
+    desc: "Functions for simulating multiple processes:"
+    contents:
+      - make_play
+  - title: "Modelling"
+    desc: "Functions for testing and regressing networks:"
     contents:
       - starts_with("test")
       - regression

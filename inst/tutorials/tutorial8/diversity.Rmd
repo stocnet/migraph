@@ -15,8 +15,7 @@ description: >
 library(learnr)
 library(manynet)
 library(migraph)
-library(patchwork)
-library(ggplot2)
+library(autograph)
 clear_glossary()
 knitr::opts_chunk$set(echo = FALSE)
 marvel_friends <- to_unsigned(ison_marvel_relationships, keep = "positive")
@@ -275,7 +274,7 @@ net_heterophily(____, ____)
 ```
 
 ```{r homophily-present, echo=FALSE, purl = FALSE}
-question("For which variables is there a signal of homophily according to the EI index? (Choose all that apply)",
+question("For which variables is there a sign of some homophily effect according to the EI index? (Choose all that apply)",
   answer("Gender", 
          correct = TRUE, 
          message = "Yes, looks like there might be some gender homophily present."),
@@ -305,8 +304,8 @@ more homophily or heterophily than expected by chance.
 This is often called a conditional uniform graph or CUG test,
 but `{migraph}` uses more descriptive function names,
 such as `test_random()`.
-Plot the results of running this function with respect to the EI index
-on each of the three variables.
+Plot the results of running this function with respect to the EI index on each of the three variables.
+These plots can be made if you have `{autograph}` installed and loaded.
 You can specify that one thousand simulations should be used using `times = 1000`.
 
 ```{r rando, exercise=TRUE, purl = FALSE, exercise.timelimit = 120}
@@ -369,7 +368,23 @@ randomly generated networks with the same distribution of that variable.
 However, we can reject the null hypothesis with respect to their power origin story.
 While the coefficient itself is close to 0 (neither strong homophily nor heterophily),
 all the random networks generated returned larger EI scores, between .1 and .4.
-That is, there is significantly less heterophily here than expected.
+
+```{r cuginterp-qn, echo=FALSE, purl = FALSE}
+question("Which of the following is true?",
+  answer("Attractive superheros only hang out with other attractive superheros.",
+         message = paste(learnr::random_encouragement(), '<img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExeW9jbXg5dDBndjRpcWc2enhyOTZvbjloeGFpbmJndXNrMm05MHdtZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ziLadIVnOGCKk/giphy.gif" alt="gif of thor frustration"/>')),
+  answer("There is significantly less power origin heterophily than expected.",
+         correct = TRUE,
+         message = learnr::random_praise()),
+  answer("There is no evidence of gender homophily.",
+         correct = TRUE,
+         message = learnr::random_praise()),
+  answer("There is significant power origin homophily.", 
+         message = "Remember that the coefficient does not suggest many homophilous ties."),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+)
+```
 
 ## QAP tests
 
@@ -438,7 +453,7 @@ test_permutation(____, FUN = ____, attribute = ____,
                                 times = ____)
 ```
 
-```{r testperm-solution, purl = FALSE}
+```{r testperm-solution}
 (perm.gender <- test_permutation(marvel_friends, 
                                 net_heterophily, attribute = "Gender",
                                 times = 1000))
@@ -525,7 +540,7 @@ model1 <- net_regression(weight ~ ego(Citations) + alter(Citations) + sim(Citati
 ```
 
 We can use tidy methods (e.g. `tidy()`, `glance()`) to get the salient information from this model,
-and `{migraph}` includes also a plot method for these results to
+and `{autograph}` includes also a plot method for these results to
 facilitate the quick interpretation of these results.
 
 ```{r qapinterp, exercise=TRUE, exercise.setup = "qapmax-solution", purl = FALSE, fig.width=9}

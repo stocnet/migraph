@@ -1,4 +1,17 @@
-# migraph 1.4.4
+# migraph 1.5.0
+
+2025-06-19
+
+## Meta
+
+- Moved `over_*()` functions over from `{manynet}`
+- Moved `play_diffusions()` over from `{manynet}`
+
+## Models
+
+- Fixed division of/by zero bug for `net_regression(~ same(), ...)`
+
+# migraph 1.4.5
 
 2024-11-30
 

@@ -35,8 +35,8 @@ test_that("glance works correctly for network_reg",{
   expect_equal(top3(glances$r.squared, 3), c(0.021, NA, NA))
 })
 
-plots <- plot(test)
-test_that("plot works correctly for network_reg",{
-  expect_s3_class(plots, "gg")
-  expect_equal(plots$labels$x, "Statistic")
-})
+# plots <- plot(test)
+# test_that("plot works correctly for network_reg",{
+#   expect_s3_class(plots, "gg")
+#   expect_equal(plots$labels$x, "Statistic")
+# })

@@ -5,9 +5,11 @@
 \alias{mpn_ryanair}
 \title{One-mode EU policy influence network, June 2004 (Christopoulos 2006)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # EU policy influence network
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> -- # EU policy influence network -----------------------------------------------
 #> # A labelled, weighted, directed network of 20 policy actors and 177
 #> interaction arcs
+#> 
+#> -- Nodes
 #> # A tibble: 20 x 1
 #>   name          
 #>   <chr>         
@@ -18,6 +20,8 @@
 #> 5 8 DG TRANSPORT
 #> 6 9 COR         
 #> # i 14 more rows
+#> 
+#> -- Ties
 #> # A tibble: 177 x 3
 #>    from    to weight
 #>   <int> <int>  <dbl>
@@ -28,6 +32,7 @@
 #> 5     1     6      1
 #> 6     1     7      1
 #> # i 171 more rows
+#> 
 }\if{html}{\out{</div>}}
 }
 \source{

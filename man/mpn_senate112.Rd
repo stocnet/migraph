@@ -9,6 +9,8 @@
 \title{Two-mode 112th Congress Senate Voting (Knoke et al. 2021)}
 \format{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network of 114 nodes and 2791 ties
+#> 
+#> -- Nodes
 #> # A tibble: 114 x 2
 #>   type  name      
 #>   <lgl> <chr>     
@@ -19,6 +21,8 @@
 #> 5 FALSE Boxer     
 #> 6 FALSE BrownSh   
 #> # i 108 more rows
+#> 
+#> -- Ties
 #> # A tibble: 2,791 x 3
 #>    from    to weight
 #>   <int> <int>  <dbl>
@@ -29,9 +33,12 @@
 #> 5     1    56      1
 #> 6     1    57      1
 #> # i 2,785 more rows
+#> 
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network of 134 nodes and 3675 ties
+#> 
+#> -- Nodes
 #> # A tibble: 134 x 2
 #>   type  name     
 #>   <lgl> <chr>    
@@ -42,6 +49,8 @@
 #> 5 FALSE Blunt    
 #> 6 FALSE Boozman  
 #> # i 128 more rows
+#> 
+#> -- Ties
 #> # A tibble: 3,675 x 3
 #>    from    to weight
 #>   <int> <int>  <dbl>
@@ -52,9 +61,12 @@
 #> 5     1    71      1
 #> 6     1    72      1
 #> # i 3,669 more rows
+#> 
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network of 52 nodes and 614 ties
+#> 
+#> -- Nodes
 #> # A tibble: 52 x 2
 #>   type  name     
 #>   <lgl> <chr>    
@@ -65,6 +77,8 @@
 #> 5 FALSE Collins  
 #> 6 FALSE Feinstein
 #> # i 46 more rows
+#> 
+#> -- Ties
 #> # A tibble: 614 x 3
 #>    from    to weight
 #>   <int> <int>  <dbl>
@@ -75,6 +89,7 @@
 #> 5     1    25      1
 #> 6     1    26      1
 #> # i 608 more rows
+#> 
 }\if{html}{\out{</div>}}
 }
 \usage{

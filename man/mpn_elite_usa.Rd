@@ -8,6 +8,8 @@
 \title{Two-mode and three-mode American power elite database (Domhoff 2016)}
 \format{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, two-mode network of 34 nodes and 46 ties
+#> 
+#> -- Nodes
 #> # A tibble: 34 x 2
 #>   type  name    
 #>   <lgl> <chr>   
@@ -18,6 +20,8 @@
 #> 5 FALSE Fukuyama
 #> 6 FALSE Gray    
 #> # i 28 more rows
+#> 
+#> -- Ties
 #> # A tibble: 46 x 2
 #>    from    to
 #>   <int> <int>
@@ -28,9 +32,12 @@
 #> 5     2    23
 #> 6     2    27
 #> # i 40 more rows
+#> 
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, two-mode network of 38 nodes and 103 ties
+#> 
+#> -- Nodes
 #> # A tibble: 38 x 2
 #>   type  name    
 #>   <lgl> <chr>   
@@ -41,6 +48,8 @@
 #> 5 FALSE Britt   
 #> 6 FALSE Cannon  
 #> # i 32 more rows
+#> 
+#> -- Ties
 #> # A tibble: 103 x 2
 #>    from    to
 #>   <int> <int>
@@ -51,6 +60,7 @@
 #> 5     2    28
 #> 6     2    32
 #> # i 97 more rows
+#> 
 }\if{html}{\out{</div>}}
 }
 \usage{

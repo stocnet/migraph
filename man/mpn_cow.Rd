@@ -8,6 +8,8 @@
 \title{One-mode interstate trade relations and two-mode state membership in IGOs (COW)}
 \format{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, directed network of 116 nodes and 11489 arcs
+#> 
+#> -- Nodes
 #> # A tibble: 116 x 1
 #>   name                    
 #>   <chr>                   
@@ -18,6 +20,8 @@
 #> 5 Jamaica                 
 #> 6 Trinidad and Tobago     
 #> # i 110 more rows
+#> 
+#> -- Ties
 #> # A tibble: 11,489 x 3
 #>    from    to  weight
 #>   <int> <int>   <dbl>
@@ -28,9 +32,12 @@
 #> 5     1     6   2188.
 #> 6     1     7 123677 
 #> # i 11,483 more rows
+#> 
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network of 152 nodes and 839 ties
+#> 
+#> -- Nodes
 #> # A tibble: 152 x 3
 #>   name        type  polity2
 #>   <chr>       <lgl>   <dbl>
@@ -41,6 +48,8 @@
 #> 5 Argentina   FALSE       8
 #> 6 Australia   FALSE      10
 #> # i 146 more rows
+#> 
+#> -- Ties
 #> # A tibble: 839 x 3
 #>    from    to weight
 #>   <int> <int>  <dbl>
@@ -51,6 +60,7 @@
 #> 5     1   117      1
 #> 6     1   118      0
 #> # i 833 more rows
+#> 
 }\if{html}{\out{</div>}}
 }
 \source{

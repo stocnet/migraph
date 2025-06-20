@@ -1,8 +1,8 @@
-citHeader("To cite migraph in publications use:")
+citHeader("If you use migraph for analysis in publications, please cite using:")
 
 bibentry(
      bibtype = "Manual",
-     title = "migraph: Multimodal Network Analysis and More",
+     title = "migraph: Inferential methods for multimodal and other networks",
      author = c(
        person("James", "Hollway", 
        role = c("cre", "aut", "ctb"),

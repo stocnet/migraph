@@ -5,9 +5,12 @@
 \alias{mpn_elite_mex}
 \title{One-mode Mexican power elite database (Knoke 1990)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # Mexican power elite network
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> 
+#> -- # Mexican power elite network -----------------------------------------------
 #> # A labelled, undirected network of 35 elites and 117 common belonging or
 #> interest ties
+#> 
+#> -- Nodes
 #> # A tibble: 35 x 8
 #>   name     full_name        entry_year military in_mpn PlaceOfBirth state region
 #>   <chr>    <chr>                 <dbl>    <dbl>  <dbl> <chr>        <chr>  <dbl>
@@ -18,6 +21,8 @@
 #> 5 Obregon  Obregon, Alvaro        1920        1      0 Siquisiva, ~ Sono~      1
 #> 6 Calles   Calles, Plutarc~       1924        1      0 Guaymas      Sono~      1
 #> # i 29 more rows
+#> 
+#> -- Ties
 #> # A tibble: 117 x 2
 #>    from    to
 #>   <int> <int>
@@ -28,6 +33,7 @@
 #> 5     1     2
 #> 6     2     8
 #> # i 111 more rows
+#> 
 }\if{html}{\out{</div>}}
 }
 \source{
