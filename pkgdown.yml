@@ -1,8 +1,8 @@
 pandoc: 2.7.3
-pkgdown: 2.1.1
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-11-30T15:41Z
+last_built: 2025-06-20T14:52Z
 urls:
   reference: https://stocnet.github.io/migraph/reference
   article: https://stocnet.github.io/migraph/articles
