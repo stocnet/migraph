@@ -1,3 +1,12 @@
+# migraph 1.5.1
+
+2025-06-22
+
+## Diffusion
+
+- Fixed bug in `play_diffusions()` where it expected diff_model output
+- Added print and summary methods for diffusions
+
 # migraph 1.5.0
 
 2025-06-19
