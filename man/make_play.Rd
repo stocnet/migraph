@@ -39,5 +39,5 @@ By default FALSE. See \code{{progressr}} for more.}
 Simulating multiple diffusion processes
 }
 \examples{
-# plot(play_diffusions(smeg, times = 10))
+play_diffusions(mpn_elite_mex, times = 10)
 }
