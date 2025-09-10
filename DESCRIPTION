@@ -1,6 +1,6 @@
 Package: migraph
 Title: Inferential Methods for Multimodal and Other Networks 
-Version: 1.6.0
+Version: 1.5.1
 Date: 2025-09-10
 Description: A set of tools for testing networks.
    It includes functions for univariate and multivariate 

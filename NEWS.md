@@ -2,10 +2,19 @@
 
 2025-06-22
 
+## Package
+
+- `{migraph}` now depends on `{autograph}`, so loading `{migraph}` will load all related packages
+
 ## Diffusion
 
 - Fixed bug in `play_diffusions()` where it expected diff_model output
 - Added print and summary methods for diffusions
+- Fixed bug in `over_waves()`
+
+## Data
+
+- Dropped whorulesamerica url, which kept getting redirected
 
 # migraph 1.5.0
 
