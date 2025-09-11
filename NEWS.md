@@ -1,10 +1,11 @@
 # migraph 1.5.1
 
-2025-06-22
+2025-09-10
 
 ## Package
 
 - `{migraph}` now depends on `{autograph}`, so loading `{migraph}` will load all related packages
+- Updated codecov call in workflows with org secret
 
 ## Diffusion
 
