@@ -13,6 +13,11 @@
 - Added print and summary methods for diffusions
 - Fixed bug in `over_waves()`
 
+## Regression
+
+- Added test for multivariate specifications
+- Improved specification advice to use `manynet::snet_info()`, making it silenceable
+
 ## Data
 
 - Dropped whorulesamerica url, which kept getting redirected

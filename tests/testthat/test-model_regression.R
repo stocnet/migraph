@@ -35,6 +35,17 @@ test_that("glance works correctly for network_reg",{
   expect_equal(top3(glances$r.squared, 3), c(0.021, NA, NA))
 })
 
+test_that("multivariate QAP works",{
+  expect_s3_class(net_regression(weight ~ ego(Citations) + alter(Citations) + sim(Citations), 
+                                networkers, times = 10),
+                 "netlm")
+})
+
+# test_that("specification advice appears",{
+#   expect_message(net_regression(weight ~ same(Discipline), networkers, times = 1),
+#                  "When testing for homophily")
+# })
+
 # plots <- plot(test)
 # test_that("plot works correctly for network_reg",{
 #   expect_s3_class(plots, "gg")
