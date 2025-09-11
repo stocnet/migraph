@@ -9,5 +9,6 @@ bibentry(
        email = "james.hollway@graduateinstitute.ch")
      ),
      year = "2021",
+     doi = "10.5281/zenodo.5528178",
      url = "https://github.com/stocnet/migraph"
    )

@@ -1,3 +1,27 @@
+# migraph 1.5.1
+
+2025-09-10
+
+## Package
+
+- `{migraph}` now depends on `{autograph}`, so loading `{migraph}` will load all related packages
+- Updated codecov call in workflows with org secret
+
+## Diffusion
+
+- Fixed bug in `play_diffusions()` where it expected diff_model output
+- Added print and summary methods for diffusions
+- Fixed bug in `over_waves()`
+
+## Regression
+
+- Added test for multivariate specifications
+- Improved specification advice to use `manynet::snet_info()`, making it silenceable
+
+## Data
+
+- Dropped whorulesamerica url, which kept getting redirected
+
 # migraph 1.5.0
 
 2025-06-19

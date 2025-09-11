@@ -18,7 +18,7 @@
 #'   By default FALSE. See `{progressr}` for more.
 #' @importFrom manynet play_diffusion
 #' @examples 
-#' # plot(play_diffusions(smeg, times = 10))
+#' play_diffusions(mpn_elite_mex, times = 10)
 #' @export
 play_diffusions <- function(.data,
                             ...,
@@ -32,7 +32,7 @@ play_diffusions <- function(.data,
   
   out <- furrr::future_map_dfr(1:times, function(j){
     data.frame(sim = j,
-               manynet::play_diffusion(.data, ...))
+               manynet::as_diffusion(manynet::play_diffusion(.data, ...)))
   }, .progress = verbose, .options = furrr::furrr_options(seed = T))
   make_diffs_model(out, .data)
 }

@@ -51,8 +51,18 @@ over_waves <- function(.data, FUN, ..., attribute = "wave",
   thisRequires("furrr")
   oplan <- future::plan(strategy)
   on.exit(future::plan(oplan), add = TRUE)
-    furrr::future_map_dbl(manynet::to_waves(.data, attribute), function(j) FUN(j, ...), 
-                        .progress = verbose, .options = furrr::furrr_options(seed = T))
+  out <- furrr::future_map(manynet::to_waves(.data, attribute), 
+                           function(j) FUN(j, ...), 
+                        .progress = verbose, 
+                        .options = furrr::furrr_options(seed = T))
+  if(is.character(out[[1]][1])){
+    out <- dplyr::bind_rows(lapply(out, c))
+    class(out) <- c("node_members", class(out))
+  } else {
+    out <- dplyr::bind_rows(out)
+    class(out) <- c("node_measures", class(out))
+  }
+  out
 }
 
 #' @rdname measure_over 

@@ -62,7 +62,10 @@ jobs:
           path: build/
 
       - name: Calculate code coverage
-        run: Rscript -e "covr::codecov()"
+        if: runner.os == 'macOS'
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: Rscript -e 'covr::codecov(token = Sys.getenv("CODECOV_TOKEN"))'
 
   release:
     name: Bump version and release
