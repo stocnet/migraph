@@ -59,7 +59,7 @@ over_waves <- function(.data, FUN, ..., attribute = "wave",
     out <- dplyr::bind_rows(lapply(out, c))
     class(out) <- c("node_members", class(out))
   } else {
-    dplyr::bind_rows(out)
+    out <- dplyr::bind_rows(out)
     class(out) <- c("node_measures", class(out))
   }
   out
