@@ -99,7 +99,7 @@ model1 <- net_regression(weight ~ ego(Citations) + alter(Citations) + sim(Citati
 # Should be run many more `times` for publication-ready results
 tidy(model1)
 glance(model1)
-# if(require("autograph")) plot(model1)
+plot(model1)
 }
 \references{
 Krackhardt, David. 1988.

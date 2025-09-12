@@ -91,7 +91,7 @@
 #' # Should be run many more `times` for publication-ready results
 #' tidy(model1)
 #' glance(model1)
-#' # if(require("autograph")) plot(model1)
+#' plot(model1)
 #' @export
 net_regression <- function(formula, .data,
                         method = c("qap","qapy"),
@@ -494,7 +494,7 @@ specificationAdvice <- function(formula, data){
     if(length(suggests)>0){
       if(length(suggests) > 1)
         suggests <- paste0(suggests, collapse = ", ")
-      snet_info("When testing for homophily, it is recommended to include all more fundamental effects.",
+      manynet::snet_info("When testing for homophily, it is recommended to include all more fundamental effects.",
                 "Try adding {suggests} to the model specification.")
       }
   }
