@@ -19,3 +19,11 @@ thisRequires <- function(pkgname){
 
 # defining global variables more centrally
 utils::globalVariables(c(".data", "obs"))
+
+# Suppress R CMD check note
+# Namespace in Imports field not imported from: PKG
+#   All declared Imports should be used.
+#' @importFrom autograph ag_base
+ignore_unused_imports <- function() {
+  autograph::ag_base
+}
