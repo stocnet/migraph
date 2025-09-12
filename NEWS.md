@@ -1,3 +1,15 @@
+# migraph 1.5.2
+
+2025-09-12
+
+## Package
+
+- Fixed note where `{autograph}` was unused
+
+## Regression
+
+- Fixed note for `net_regression()` where specification advice was not printed
+
 # migraph 1.5.1
 
 2025-09-10

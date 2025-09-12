@@ -1,4 +1,4 @@
-#' @importFrom dplyr %>%
+#' @importFrom dplyr `%>%`
 #' @export
 dplyr::`%>%`
 
