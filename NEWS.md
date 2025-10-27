@@ -1,10 +1,11 @@
 # migraph 1.5.3
 
-2025-09-12
+2025-10-27
 
 ## Data
 
-- Fixed png widths in documentation for `mpn_elite_mex` and `mpn_elite_usa`
+- Fixed png width specifications from percentage-based to fixed pixel dimensions for HTML documentation for `mpn_elite_mex` and `mpn_elite_usa`
+- Corrected reference formatting and moved references from `@source` to `@references` tag
 
 # migraph 1.5.2
 
