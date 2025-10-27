@@ -1,3 +1,5 @@
+# nocov start
+
 #' Functions that have been renamed, superseded, or are no longer working
 #' 
 #' `r lifecycle::badge("deprecated")`
@@ -31,3 +33,5 @@ network_reg <- function(formula, .data,
   net_regression(formula, .data, method, times,
                  strategy, verbose)
 }
+
+# nocov end
