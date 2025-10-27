@@ -1,3 +1,11 @@
+# migraph 1.5.3
+
+2025-09-12
+
+## Data
+
+- Fixed png widths in documentation for `mpn_elite_mex` and `mpn_elite_usa`
+
 # migraph 1.5.2
 
 2025-09-12

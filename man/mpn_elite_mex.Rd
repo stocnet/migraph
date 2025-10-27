@@ -36,13 +36,6 @@
 #> 
 }\if{html}{\out{</div>}}
 }
-\source{
-Knoke, David. 1990. \emph{Political Networks}.
-
-Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
-\href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
-Cambridge University Press. Cambridge University Press.
-}
 \usage{
 data(mpn_elite_mex)
 }
@@ -64,7 +57,15 @@ José López Portillo (1976-82), Miguel de la Madrid (1982-88), and Carlos Salin
 who was also the son of another core member, Raúl Salinas Lozano).
 }
 \details{
-\if{html}{\figure{mpnelitemex.png}{options: width="100\%" alt="Figure: mpn_elite_mex"}}
+\if{html}{\figure{mpnelitemex.png}{options: width="360" alt="Figure: mpn_elite_mex"}}
 \if{latex}{\figure{mpnelitemex.pdf}{options: width=7cm}}
+}
+\references{
+Knoke, David. 1990. \emph{Political Networks: The Structural Perspective}.
+Cambridge: Cambridge University Press.
+
+Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
+\href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
+Cambridge: Cambridge University Press.
 }
 \keyword{datasets}

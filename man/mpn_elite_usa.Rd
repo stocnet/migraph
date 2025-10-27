@@ -84,7 +84,7 @@ of the Republican Party (Rudy Giuliani, John McCain, Mitt Romney)
 or the Democratic Party (Hillary Clinton, Christopher Dodd, Barack Obama).
 }
 \details{
-\if{html}{\figure{mpneliteusa.png}{options: width="100\%" alt="Figure: mpn_elite_usa"}}
+\if{html}{\figure{mpneliteusa.png}{options: width="504" alt="Figure: mpn_elite_usa"}}
 \if{latex}{\figure{mpneliteusa.pdf}{options: width=7cm}}
 }
 \references{
