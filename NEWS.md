@@ -6,6 +6,7 @@
 
 - Fixed how `test_configuration()` was generating configuration networks
 - Added testing for `test_configuration()`
+- Added testing for `over_waves()` and `over_membership()`
 
 ## Data
 
