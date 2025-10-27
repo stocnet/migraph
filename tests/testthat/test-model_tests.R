@@ -45,6 +45,7 @@ qaptest <- test_permutation(marvel_friends,
                             manynet::net_heterophily,
                             attribute = "Attractive",
                             times = 200)
+
 test_that("test_permutation works", {
   expect_equal(as.numeric(qaptest$testval), -0.85714, tolerance = 0.001)
   expect_equal(length(qaptest$testdist), 200) # NB: Stochastic
@@ -53,6 +54,20 @@ test_that("test_permutation works", {
   expect_equal(qaptest$reps, 200)
   expect_s3_class(qaptest, "network_test")
 })
+
+configtest <- test_configuration(marvel_friends,
+                            manynet::net_heterophily,
+                            attribute = "Attractive",
+                            times = 200)
+
+test_that("test_configuration works", {
+  expect_s3_class(configtest, "network_test")
+  expect_equal(as.numeric(configtest$testval), -0.85714, tolerance = 0.001)
+  expect_equal(length(configtest$testdist), 200) # NB: Stochastic
+  expect_equal(class(configtest$plteobs), "numeric") # NB: Stochastic
+  expect_equal(class(configtest$pgteobs), "numeric") # NB: Stochastic
+})
+
 
 # cugplot <- plot(cugtest)
 # test_that("cug plot works", {

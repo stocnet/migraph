@@ -86,7 +86,8 @@ test_configuration <- function(.data, FUN, ...,
   }
   oplan <- future::plan(strategy)
   on.exit(future::plan(oplan), add = TRUE)
-  rands <- furrr::future_map(1:times, manynet::generate_configuration, n = .data, 
+  rands <- furrr::future_map(1:times, 
+                             ~ manynet::generate_configuration(.data), 
                              .progress = verbose, 
                              .options = furrr::furrr_options(seed = T))
   if (length(args) > 0) {

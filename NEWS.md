@@ -2,10 +2,15 @@
 
 2025-10-27
 
+## Testing
+
+- Fixed how `test_configuration()` was generating configuration networks
+- Added testing for `test_configuration()`
+
 ## Data
 
 - Fixed png width specifications from percentage-based to fixed pixel dimensions for HTML documentation for `mpn_elite_mex` and `mpn_elite_usa`
-- Corrected reference formatting and moved references from `@source` to `@references` tag
+- Fixed reference formatting and moved references from `@source` to `@references` tag
 
 # migraph 1.5.2
 
