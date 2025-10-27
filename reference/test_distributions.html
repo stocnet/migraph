@@ -23,7 +23,7 @@ between a diff_model and diff_models objects.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.3</span>
       </span>
     </div>
 
@@ -62,7 +62,7 @@ between a diff_model and diff_models objects.
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Tests of network distributions</h1>
-    <small class="dont-index">Source: <a href="https://github.com/stocnet/migraph/blob/main/R/model_tests.R" class="external-link"><code>R/model_tests.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/stocnet/migraph/blob/main/R/model_distrib.R" class="external-link"><code>R/model_distrib.R</code></a></small>
     <div class="hidden name"><code>test_distributions.Rd</code></div>
     </div>
 
@@ -123,8 +123,12 @@ then one can argue that the first diffusion is not well captured by</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span> <span class="co"># test_distribution(play_diffusion(ison_networkers), </span></span></span>
-<span class="r-in"><span> <span class="co">#                   play_diffusion(ison_networkers, thresholds = 75))</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span> <span class="fu">test_distribution</span><span class="op">(</span><span class="fu"><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_diffusion</a></span><span class="op">(</span><span class="fu"><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion</a></span><span class="op">(</span><span class="va">ison_networkers</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>             <span class="fu"><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">as_diffusion</a></span><span class="op">(</span><span class="fu"><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion</a></span><span class="op">(</span><span class="va">ison_networkers</span>, thresholds <span class="op">=</span> <span class="fl">75</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   statistic p.value  nobs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0.667       1     1</span>
 <span class="r-in"><span>  <span class="co"># Playing a reasonably quick diffusion</span></span></span>
 <span class="r-in"><span>  <span class="co"># x &lt;- play_diffusion(generate_random(15), transmissibility = 0.7)</span></span></span>
 <span class="r-in"><span>  <span class="co"># Playing a slower diffusion</span></span></span>
