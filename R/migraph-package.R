@@ -1,3 +1,5 @@
+# nocov start
+
 #' @keywords internal
 "_PACKAGE"
 
@@ -29,3 +31,5 @@ ignore_unused_imports <- function() {
   autograph::ag_base
   NULL
 }
+
+# nocov end

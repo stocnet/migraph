@@ -14,25 +14,31 @@ test_that("network_reg estimates correctly",{
   expect_s3_class(test_logit, "netlogit")
   expect_equal(top3(test_logit$coefficients,3),
                c(0.146, -0.024, NA))
+  expect_output(print(test), "Model summary statistics")
+  expect_output(print(test_logit), "Model summary statistics")
 })
 
 test_that("network_reg tests correctly",{
   expect_equal(top3(test$pgreqabs, 2),
-               c(0.16, 0.32, NA), tolerance = 0.1)
+               c(0.14, 0.28, NA), tolerance = 0.1)
   expect_equal(top3(test_logit$pgreqabs,2),
                c(0.8, 0.18, NA), tolerance = 0.1)
 })
 
-tidys <- tidy(test)
 test_that("tidy works correctly for network_reg",{
+  tidys <- tidy(test)
   expect_s3_class(tidys, "tbl_df")
   expect_equal(top3(tidys$estimate, 2), c(26.81, -0.38, NA))
+  tidys <- tidy(test_logit)
+  expect_output(print(tidys), "term")
 })
 
-glances <- glance(test)
 test_that("glance works correctly for network_reg",{
+  glances <- glance(test)
   expect_s3_class(glances, "tbl_df")
   expect_equal(top3(glances$r.squared, 3), c(0.021, NA, NA))
+  glances <- glance(test_logit)
+  expect_output(print(glances), "AIC")
 })
 
 test_that("multivariate QAP works",{

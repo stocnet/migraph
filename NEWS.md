@@ -1,3 +1,18 @@
+# migraph 1.5.3
+
+2025-10-27
+
+## Testing
+
+- Fixed how `test_configuration()` was generating configuration networks
+- Added testing for `test_configuration()`
+- Added testing for `over_waves()` and `over_membership()`
+
+## Data
+
+- Fixed png width specifications from percentage-based to fixed pixel dimensions for HTML documentation for `mpn_elite_mex` and `mpn_elite_usa`
+- Fixed reference formatting and moved references from `@source` to `@references` tag
+
 # migraph 1.5.2
 
 2025-09-12

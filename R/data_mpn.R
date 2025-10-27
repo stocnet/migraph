@@ -23,17 +23,19 @@
 #'   ggsave("man/figures/mpnelitemex.png", width = 5, height = 5, dpi = "screen")
 #'   ggsave("man/figures/mpnelitemex.pdf", width = 5, height = 5)
 #'   ```
-#' \if{html}{\figure{mpnelitemex.png}{options: width="100\%" alt="Figure: mpn_elite_mex"}}
+#' \if{html}{\figure{mpnelitemex.png}{options: width="360" alt="Figure: mpn_elite_mex"}}
 #' \if{latex}{\figure{mpnelitemex.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
 #' @name mpn_elite_mex
 #' @usage data(mpn_elite_mex)
-#' @source Knoke, David. 1990. \emph{Political Networks}.
+#' @references 
+#' Knoke, David. 1990. \emph{Political Networks: The Structural Perspective}.
+#' Cambridge: Cambridge University Press.
 #' 
 #' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
 #' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
-#' Cambridge University Press. Cambridge University Press.
+#' Cambridge: Cambridge University Press.
 #' @format 
 #'   ```{r, echo = FALSE}
 #'   mpn_elite_mex
@@ -66,7 +68,7 @@
 #'   ggsave("man/figures/mpneliteusa.png", width = 7, height = 3.5, dpi = "screen")
 #'   ggsave("man/figures/mpneliteusa.pdf", width = 7, height = 3.5)
 #'   ```
-#' \if{html}{\figure{mpneliteusa.png}{options: width="100\%" alt="Figure: mpn_elite_usa"}}
+#' \if{html}{\figure{mpneliteusa.png}{options: width="504" alt="Figure: mpn_elite_usa"}}
 #' \if{latex}{\figure{mpneliteusa.pdf}{options: width=7cm}}
 #' @docType data
 #' @keywords datasets
