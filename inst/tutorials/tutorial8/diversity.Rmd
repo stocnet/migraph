@@ -11,18 +11,49 @@ description: >
   network linear models (multiple regression quadratic assignment procedures).
 ---
 
-```{r setup, include=FALSE}
-library(learnr)
+```{r pkgs, include = FALSE}
 library(manynet)
-library(migraph)
 library(autograph)
-clear_glossary()
+library(migraph)
+```
+
+```{r setup, include = FALSE, purl=FALSE, eval=TRUE}
+library(manynet)
+library(autograph)
+library(migraph)
+library(learnr)
 knitr::opts_chunk$set(echo = FALSE)
+manynet::clear_glossary()
+learnr::random_phrases_add(language = "fr",
+                           praise = c("C'est génial!",
+                                      "Beau travail",
+                                      "Excellent travail!",
+                                      "Bravo!",
+                                      "Super!",
+                                      "Bien fait",
+                                      "Bien joué",
+                                      "Tu l'as fait!",
+                                      "Je savais que tu pouvais le faire.",
+                                      "Ça a l'air facile!",
+                                      "C'était un travail de première classe.",
+                                      "C'est ce que j'appelle un bon travail!"),
+                          encouragement = c("Bon effort",
+                                            "Vous l'avez presque maîtrisé!",
+                                            "Ça avance bien.",
+                                            "Continuez comme ça.",
+                                            "Continuez à travailler dur!",
+                                            "Vous apprenez vite!",
+                                            "Vous faites un excellent travail aujourd'hui."))
+learnr::random_phrases_add(language = "en", 
+                           praise = c("C'est génial!",
+                                      "Beau travail!",
+                                      "Bravo!",
+                                      "Super!"),
+                           encouragement = c("Bon effort"))
 marvel_friends <- to_unsigned(ison_marvel_relationships, keep = "positive")
 marvel_friends <- to_giant(marvel_friends)
 marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances))
 ```
-
 
 ## This tutorial
 
@@ -42,7 +73,7 @@ By the end of this tutorial, you will be able to:
 ## Initial visualisation
 
 For this session, we'll explore a couple of different datasets.
-First, let's examine homogeneity/heterogeneity in the Marvel relationships dataset from `{manynet}`,
+First, let's examine homogeneity/`r gloss("heterogeneity")` in the Marvel relationships dataset from `{manynet}`,
 `ison_marvel_relationships`.
 The dataset is quite complicated,
 so to make this simpler, let's concentrate on:
@@ -93,7 +124,7 @@ marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances
 marvel_friends
 ```
 
-This gives us an undirected network of nearly twenty characters and a little more than 100 edges.
+This gives us an `r gloss("undirected")` network of nearly twenty characters and a little more than 100 edges.
 Recall that this data has several nodal attributes.
 Let's explore a couple of these attributes, "Gender" and "PowerOrigin", visually
 using `graphr()`.
@@ -119,7 +150,7 @@ graphr(marvel_friends,
 ```
 
 These variables seem to be distributed unevenly across the network.
-There seems to be some homophily -- or like choosing like --
+There seems to be some `r gloss("homophily")` -- or like choosing like --
 operating here, but it is difficult to say conclusively because there are
 clearly more male than female superheros,
 as well as clearly more superheros of mutant origin than others.
@@ -133,7 +164,7 @@ Some categorical variables have more categories than others,
 and this can be thought of as indicating greater diversity than e.g. a binary
 categorical variable.
 A measure of this 'richness' is inherited from the study of biodiversity.
-_Richness_ calculates the number of different categories that appear in
+`r gloss("Richness","richness")` calculates the number of different categories that appear in
 the data for a given variable.
 Let's calculate the richness of all of the variables in our Marvel data.
 
@@ -177,8 +208,8 @@ For that we would need to move on to something like the Blau index.
 
 ## Measuring diversity
 
-Another measure that reflects the diversity in the network for each attribute
-is the Blau Index.
+Another measure that reflects the diversity or `r gloss("heterogeneity")` in the 
+network for each attribute is the Blau Index.
 Recall that the Blau index for any given variable is:
 
 $$1 - \sum p_i^2$$
@@ -186,7 +217,7 @@ $$1 - \sum p_i^2$$
 where $p_i$ represents the proportion of observations holding $i$, 
 which indexes each of the given categories.
 A perfectly homogeneous group (all the same category) would receive a score of 0,
-while a perfectly heterogeneous group (with members spread evenly over the maximum categories)
+while a perfectly `r gloss("heterogeneous","heterogeneity")` group (with members spread evenly over the maximum categories)
 would receive a score of 1.
 Obtain the network diversity scores for the five attributes used above.
 
@@ -220,13 +251,14 @@ or equally intellectually diverse across gender.^[Note that this works for calcu
 ```
 
 ```{r crossref-hint, purl = FALSE}
-net_diversity(____, ____, ____)
+over_membership(.data, FUN, ..., membership)
 ```
 
 ```{r crossref-solution}
-net_diversity(marvel_friends, "Gender", "PowerOrigin")
-as.factor(node_attribute(marvel_friends, "PowerOrigin")) # view categories in PowerOrigin
-net_diversity(marvel_friends, "Intellect", "Gender")
+over_membership(marvel_friends, net_diversity, "Gender", 
+                membership = "PowerOrigin")
+over_membership(marvel_friends, net_diversity, "Intellect", 
+                membership = "Gender")
 ```
 
 Note that the length of the vector returned as a result
@@ -240,7 +272,7 @@ across gender categories in this data.
 Ok, this tells us about how (un)even the distribution of these variables is in this network,
 but it doesn't necessarily tell us whether ties are appearing more frequently
 _between_ nodes of similar (or different) categories.
-For that we need to look at _homophily_/heterophily.
+For that we need to look at `r gloss("homophily")`/`r gloss("heterophily.", "heterophily")`
 
 ## Measuring heterophily
 
@@ -252,7 +284,7 @@ $$\frac{E-I}{E+I}$$
 
 where $E$ is the number of ties present between a variable's categories (i.e. external),
 and $I$ is the number of ties present within a variable's categories (i.e. internal).
-As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1 suggests perfect heterophily.
+As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1 suggests perfect `r gloss("heterophily.","heterophily")`
 (This is why the function is called `net_heterophily()`).
 
 Check how homophilic three variables in the network are,
@@ -295,20 +327,20 @@ of this size and density and distribution of that attribute.
 ## CUG tests
 
 To see whether we should be surprised by scores this high/low, 
-we compare these scores with those from a series of random graphs
+we compare these scores with those from a series of `r gloss("random graphs","random")`
 (Erdös-Renyi/Bernoulli) of the same dimensions and
 distribution of the attribute.
 This can help us establish whether there is
 more homophily or heterophily than expected by chance.
 
-This is often called a conditional uniform graph or CUG test,
+This is often called a `r gloss("conditional uniform graph","cug")` or CUG test,
 but `{migraph}` uses more descriptive function names,
 such as `test_random()`.
 Plot the results of running this function with respect to the EI index on each of the three variables.
 These plots can be made if you have `{autograph}` installed and loaded.
 You can specify that one thousand simulations should be used using `times = 1000`.
 
-```{r rando, exercise=TRUE, purl = FALSE, exercise.timelimit = 120}
+```{r rando, exercise=TRUE, purl = FALSE, exercise.timelimit = 120, fig.width=9}
 
 ```
 
@@ -392,10 +424,10 @@ Ah, but perhaps random graphs are not the best reference group
 for establishing whether there is a significant homophily effect here.
 After all, social networks are not completely random; 
 they are _structured_ in particular ways, such as some nodes having higher degrees
-than others, or there being a core and periphery or community topology.
+than others, or there being a `r gloss("core and periphery","core")` or `r gloss("community")` topology.
 
 Another approach to establishing a baseline for whether we should be surprised
-by a given score or not is to use permutations of the underlying network
+by a given score or not is to use `r gloss("permutations","permutation")` of the underlying network
 instead of random graphs.
 Permuting the network retains the structure of the network
 because the ties are kept and only the labels (variables) are reassigned randomly.
@@ -440,7 +472,7 @@ question("Which of the following is true?",
 
 This single permutation suggests a more even mixing of these
 attributes is possible, but it is just a single permutation.
-Let's try a test that runs this over a succession of permutations,
+Let's try a `r gloss("QAP","qap")` test that runs this over a succession of permutations,
 just as we did with random graphs.
 Plot the results for gender and power according to the random and permutation baselines.
 
@@ -494,6 +526,18 @@ question("What can we say from these results?",
 )
 ```
 
+CUG and QAP tests are useful for establishing whether there is
+more or less homophily than expected by chance,
+with QAP tests being more conservative and better taking into account the structure of the network.
+Alternative reference networks can also be used that condition on more structural
+information than completely random graphs, 
+but introduce potentially more variation in the network structure than permutations.
+These include for example `r gloss("configuration")` networks that retain the degree distribution observed in the original network, but could result in varying clustering,
+or networks that are conditioned on the dyad census (i.e. `r gloss("MAN","man")` models).
+And yet none of these approaches allow us to examine multiple variables at once
+or control for other factors.
+For that we need to move on to network regression.
+
 ## Network regression
 
 Next let us examine homophily in another network.
@@ -514,7 +558,7 @@ and come up with a couple of key hypotheses:
 - $H_2$: researchers send more emails to those of the same discipline (disciplinary homophily hypothesis)
 
 Let's start with a pretty maximally specified model 
-(note that it doesn't make sense to include both ego and alter effects because these networks are undirected).
+(note that it doesn't make sense to include both `r gloss("ego")` and `r gloss("alter")` effects because these networks are undirected).
 We are using `times = 200` here because of time-out limitations in the `learnr` tutorial system,
 but for publication quality results you would want to base your conclusions on 2000
 simulations or more.
@@ -539,15 +583,19 @@ model1 <- net_regression(weight ~ ego(Citations) + alter(Citations) + sim(Citati
                       ison_networkers, times = 200)
 ```
 
-We can use tidy methods (e.g. `tidy()`, `glance()`) to get the salient information from this model,
-and `{autograph}` includes also a plot method for these results to
-facilitate the quick interpretation of these results.
+By default, the printing method for this model includes the key information you might need.
+We can also use tidy methods to obtain just the table of coefficients (e.g. `tidy()`) 
+or the model summary statistics (e.g. `glance()`).
+`{autograph}` also includes a plot method for these results to
+facilitate the quick interpretation of these results,
+and as long as this is loaded you can simply call `plot()` on the model object.
 
 ```{r qapinterp, exercise=TRUE, exercise.setup = "qapmax-solution", purl = FALSE, fig.width=9}
 
 ```
 
 ```{r qapinterp-solution}
+model1
 tidy(model1)
 glance(model1)
 plot(model1)
@@ -575,7 +623,6 @@ question("What can we say from the results from model 1?",
 )
 ```
 
-
 ## Free play
 
 While these are the conclusions from this 'play' data, 
@@ -588,4 +635,8 @@ or logistic regression?
 
 ```
 
+## Glossary
 
+Here are some of the terms that we have covered in this module:
+
+`r print_glossary()`
