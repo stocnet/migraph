@@ -38,7 +38,7 @@ over_membership <- function(.data, FUN, ..., membership,
   thisRequires("furrr")
   oplan <- future::plan(strategy)
   on.exit(future::plan(oplan), add = TRUE)
-  if(is.character(membership)){
+  if(length(membership)==1 && is.character(membership)){
     membership <- manynet::node_attribute(.data, membership)
   }
   out <- furrr::future_map_dbl(unique(membership), 
