@@ -44,7 +44,7 @@ over_membership <- function(.data, FUN, ..., membership,
   out <- furrr::future_map_dbl(unique(membership), 
                                function(j) FUN(manynet::to_subgraph(.data, membership==j), ...), 
                         .progress = verbose, .options = furrr::furrr_options(seed = T))
-  make_over(out, unique(membership))
+  make_over_memb(out, unique(membership))
 }
 
 #' @rdname measure_over

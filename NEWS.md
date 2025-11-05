@@ -4,7 +4,7 @@
 
 ## Testing
 
-- Added 'over' class construction for `over_membership()` results
+- Added 'over_memb' class construction for `over_membership()` results
 
 # migraph 1.5.3
 

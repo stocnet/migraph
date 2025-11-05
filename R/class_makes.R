@@ -28,14 +28,14 @@ print.diffs_model <- function(x, ...){
 
 ## Over ####
 
-make_over <- function(out, categ) {
+make_over_memb <- function(out, categ) {
   names(out) <- categ
-  class(out) <- c("over", class(out))
+  class(out) <- c("over_memb", class(out))
   out
 }
 
 #' @export
-print.over <- function(x, ...){
+print.over_memb <- function(x, ...){
   print(round(unclass(x),3), ...)
 }
 
