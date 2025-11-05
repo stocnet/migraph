@@ -38,8 +38,13 @@ over_membership <- function(.data, FUN, ..., membership,
   thisRequires("furrr")
   oplan <- future::plan(strategy)
   on.exit(future::plan(oplan), add = TRUE)
-  furrr::future_map_dbl(unique(membership), function(j) FUN(manynet::to_subgraph(.data, membership==j), ...), 
+  if(length(membership)==1 && is.character(membership)){
+    membership <- manynet::node_attribute(.data, membership)
+  }
+  out <- furrr::future_map_dbl(unique(membership), 
+                               function(j) FUN(manynet::to_subgraph(.data, membership==j), ...), 
                         .progress = verbose, .options = furrr::furrr_options(seed = T))
+  make_over_memb(out, unique(membership))
 }
 
 #' @rdname measure_over

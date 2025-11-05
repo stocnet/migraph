@@ -1,3 +1,11 @@
+# migraph 1.5.4
+
+2025-11-05
+
+## Testing
+
+- Added 'over_memb' class construction for `over_membership()` results
+
 # migraph 1.5.3
 
 2025-10-27

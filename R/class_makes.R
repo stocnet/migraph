@@ -1,5 +1,4 @@
 make_network_measures <- function(out, .data) {
-  time <- value <- NULL
   out <- dplyr::as_tibble(out) %>% 
     dplyr::mutate(time = as.numeric(names(out))) %>% 
     dplyr::select(time, value)
@@ -16,7 +15,6 @@ make_diffs_model <- function(report, .data) {
 
 #' @export
 summary.diffs_model <- function(object, ...) {
-  sim <- fin <- n <- NULL
   object %>% dplyr::mutate(fin = (I!=n)*1) %>% 
     dplyr::group_by(sim) %>% dplyr::summarise(toa = sum(fin)+1)
 }
@@ -28,5 +26,17 @@ print.diffs_model <- function(x, ...){
   print(dplyr::tibble(x, ...))
 }
 
+## Over ####
+
+make_over_memb <- function(out, categ) {
+  names(out) <- categ
+  class(out) <- c("over_memb", class(out))
+  out
+}
+
+#' @export
+print.over_memb <- function(x, ...){
+  print(round(unclass(x),3), ...)
+}
 
 
