@@ -79,7 +79,7 @@ Today, we're going to use data on florentine marriage ties.
 # data(package='ergm') # tells us the datasets in our packages
 data(florentine) # loads flomarriage and flobusiness data
 flomarriage # Data on marriage alliances among Renaissance Florentine families
-?florentine # You can see more information about the attributes in the help file.
+# ?florentine # You can see more information about the attributes in the help file.
 ```
 
 We see 16 nodes and 20 edges in this undirected network.
