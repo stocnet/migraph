@@ -85,7 +85,7 @@ tidy.ergm <- function(
       is.null(x$glm) ||
       (x$glm$family$link != "logit" && x$glm$family$link != "log")
     ) {
-      cli::cli_warn(
+      snet_warn(
         "Coefficients will be exponentiated, but the model didn't 
          use a {.code log} or {.code logit} link."
       )
@@ -198,6 +198,8 @@ glance.ergm <- function(x, deviance = FALSE, mcmc = FALSE, ...) {
   if (deviance & !is.null(ret$logLik)) {
     # see #567 for details on the following
     
+    thisRequires("ergm")
+    
     if (utils::packageVersion("ergm") < "3.10") {
       dyads <- sum(
         ergm::as.rlebdm(x$constrained, x$constrained.obs, which = "informative")
@@ -219,7 +221,7 @@ glance.ergm <- function(x, deviance = FALSE, mcmc = FALSE, ...) {
   
   if (mcmc) {
     if (isTRUE(x$MPLE_is_MLE)) {
-      cli::cli_inform(
+      snet_inform(
         c(
           "Though {.fn glance} was supplied {.code mcmc = TRUE}, the model was not
            fitted using MCMC,",
