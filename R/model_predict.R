@@ -14,7 +14,7 @@ NULL
 #' @export
 predict.netlm <- function(object, newdata = NULL) {
   # Extract coefficients
-  coefs <- coef(object)
+  coefs <- stats::coef(object)
   
   # If no newdata provided, use the original design matrix
   if (is.null(newdata)) {
@@ -46,7 +46,7 @@ predict.netlogit <- function(object, newdata = NULL, type = c("link", "response"
   type <- match.arg(type)
   
   # Extract coefficients
-  coefs <- coef(object)
+  coefs <- stats::coef(object)
   
   # If no newdata provided, use the original design matrix
   if (is.null(newdata)) {
