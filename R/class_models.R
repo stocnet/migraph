@@ -85,7 +85,7 @@ tidy.ergm <- function(
       is.null(x$glm) ||
       (x$glm$family$link != "logit" && x$glm$family$link != "log")
     ) {
-      snet_warn(
+      manynet::snet_warn(
         "Coefficients will be exponentiated, but the model didn't 
          use a {.code log} or {.code logit} link."
       )
@@ -185,6 +185,7 @@ glance.netlogit <- function(x, ...) {
 
 
 #' @method glance ergm
+#' @importFrom ergm as.rlebdm
 #' @export
 glance.ergm <- function(x, deviance = FALSE, mcmc = FALSE, ...) {
   s <- summary(x, ...) # produces lots of messages
@@ -221,7 +222,7 @@ glance.ergm <- function(x, deviance = FALSE, mcmc = FALSE, ...) {
   
   if (mcmc) {
     if (isTRUE(x$MPLE_is_MLE)) {
-      snet_inform(
+      manynet::snet_inform(
         c(
           "Though {.fn glance} was supplied {.code mcmc = TRUE}, the model was not
            fitted using MCMC,",

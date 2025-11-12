@@ -25,6 +25,7 @@ Depends:
     autograph (>= 0.4.0)
 Imports: 
     dplyr (>= 1.1.0),
+    ergm,
     future,
     furrr,
     generics,
