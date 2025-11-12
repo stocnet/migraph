@@ -222,7 +222,7 @@ glance.ergm <- function(x, deviance = FALSE, mcmc = FALSE, ...) {
   
   if (mcmc) {
     if (isTRUE(x$MPLE_is_MLE)) {
-      manynet::snet_inform(
+      manynet::snet_info(
         c(
           "Though {.fn glance} was supplied {.code mcmc = TRUE}, the model was not
            fitted using MCMC,",
