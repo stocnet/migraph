@@ -1,18 +1,21 @@
 #' Predict methods for network regression
-#' @param object An object of class inheriting "netlm"
+#' @param object An object of class inheriting "netlm" or "netlogit"
 #' @param newdata A design matrix with the same columns/variables as the
 #'   fitted model.
+#' @param ... Additional arguments (not used).
+#' @return A numeric vector of predicted values.
 #' @name predict
 NULL
 
 #' @rdname predict
+#' @method predict netlm
 #' @examples
 #' networkers <- ison_networkers %>% to_subgraph(Discipline == "Sociology")
 #' model1 <- net_regression(weight ~ ego(Citations) + alter(Citations) + sim(Citations), 
 #'                       networkers, times = 20)
 #' predict(model1, matrix(c(1,10,5,2),1,4))
 #' @export
-predict.netlm <- function(object, newdata = NULL) {
+predict.netlm <- function(object, newdata = NULL, ...) {
   # Extract coefficients
   coefs <- stats::coef(object)
   
@@ -35,6 +38,10 @@ predict.netlm <- function(object, newdata = NULL) {
 }
 
 #' @rdname predict
+#' @method predict netlogit
+#' @param type Character string, one of "response" 
+#'   (default, whether the returned predictions are on the probability scale) 
+#'   or "link" (returned predictions are on the scale of the linear predictor).
 #' @examples
 #' networkers <- ison_networkers %>% to_subgraph(Discipline == "Sociology") %>% 
 #'   to_unweighted()
@@ -42,7 +49,7 @@ predict.netlm <- function(object, newdata = NULL) {
 #'                       networkers, times = 20)
 #' predict(model1, matrix(c(1,10,5,2),1,4))
 #' @export
-predict.netlogit <- function(object, newdata = NULL, type = c("link", "response")) {
+predict.netlogit <- function(object, newdata = NULL, type = c("link", "response"), ...) {
   type <- match.arg(type)
   
   # Extract coefficients
