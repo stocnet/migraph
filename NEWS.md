@@ -5,6 +5,7 @@
 ## Modelling
 
 - Added `tidy()` and `glance()` methods for `ergm` objects
+- Added `predict()` methods for `netlm` and `netlogit` objects
 
 ## Tutorials
 
