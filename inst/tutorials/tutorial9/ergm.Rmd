@@ -76,7 +76,7 @@ The ergm package contains several network data sets for practice examples.
 Today, we're going to use data on florentine marriage ties.
 
 ```{r ergm-data, exercise = TRUE}
-data(package='ergm') # tells us the datasets in our packages
+# data(package='ergm') # tells us the datasets in our packages
 data(florentine) # loads flomarriage and flobusiness data
 flomarriage # Data on marriage alliances among Renaissance Florentine families
 ?florentine # You can see more information about the attributes in the help file.
