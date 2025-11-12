@@ -1,3 +1,15 @@
+# migraph 1.5.5
+
+2025-11-12
+
+## Modelling
+
+- Added `tidy()` and `glance()` methods for `ergm` objects
+
+## Tutorials
+
+- Added ergm tutorial
+
 # migraph 1.5.4
 
 2025-11-05
