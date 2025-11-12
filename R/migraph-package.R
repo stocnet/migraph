@@ -20,7 +20,7 @@ thisRequires <- function(pkgname){
 }
 
 # defining global variables more centrally
-utils::globalVariables(c(".data", "obs", "fin","n","sim","time","value"))
+utils::globalVariables(c(".data", "obs", "fin","n","sim","time","value","conf.low","conf.high"))
 
 # Suppress R CMD check note
 # Namespace in Imports field not imported from: PKG

@@ -192,7 +192,7 @@ glance.ergm <- function(x, deviance = FALSE, mcmc = FALSE, ...) {
   ret <- dplyr::tibble(
     independence = s$independence,
     iterations = x$iterations,
-    logLik = as.numeric(logLik(x))
+    logLik = as.numeric(stats::logLik(x))
   )
   
   if (deviance & !is.null(ret$logLik)) {
