@@ -47,6 +47,57 @@ tidy.netlogit <- function(x, conf.int = FALSE, conf.level = 0.95,
   result
 }
 
+#' @method tidy ergm
+#' @importFrom stats quantile
+#' @export
+tidy.ergm <- function(
+    x,
+    conf.int = FALSE,
+    conf.level = 0.95,
+    exponentiate = FALSE,
+    ...
+) {
+  # in ergm 3.9 summary(x, ...)$coefs has columns:
+  #   Estimate, Std. Error, MCMC %, Pr(>|Z|)
+  
+  # in ergm 3.10 summary(x, ...)$coefs has columns:
+  #   Estimate, Std. Error, MCMC %, z value, Pr(>|Z|)
+  
+  ret <- summary(x, ...)$coefficients %>%
+    dplyr::as_tibble(rownames = "term") %>%
+    rename2(
+      term = "term",
+      estimate = "Estimate",
+      std.error = "Std. Error",
+      mcmc.error = "MCMC %",
+      statistic = "z value",
+      p.value = "Pr(>|z|)"
+    )
+  
+  if (conf.int) {
+    z <- stats::qnorm(1 - (1 - conf.level) / 2)
+    ret$conf.low <- ret$estimate - z * ret$std.error
+    ret$conf.high <- ret$estimate + z * ret$std.error
+  }
+  
+  if (exponentiate) {
+    if (
+      is.null(x$glm) ||
+      (x$glm$family$link != "logit" && x$glm$family$link != "log")
+    ) {
+      manynet::snet_warn(
+        "Coefficients will be exponentiated, but the model didn't 
+         use a {.code log} or {.code logit} link."
+      )
+    }
+    
+    ret <- exponentiate(ret)
+  }
+  
+  dplyr::as_tibble(ret)
+}
+
+
 #' @importFrom generics glance
 #' @export
 generics::glance
@@ -132,6 +183,62 @@ glance.netlogit <- function(x, ...) {
   )
 }
 
+
+#' @method glance ergm
+#' @importFrom ergm as.rlebdm
+#' @export
+glance.ergm <- function(x, deviance = FALSE, mcmc = FALSE, ...) {
+  s <- summary(x, ...) # produces lots of messages
+  
+  ret <- dplyr::tibble(
+    independence = s$independence,
+    iterations = x$iterations,
+    logLik = as.numeric(stats::logLik(x))
+  )
+  
+  if (deviance & !is.null(ret$logLik)) {
+    # see #567 for details on the following
+    
+    thisRequires("ergm")
+    
+    if (utils::packageVersion("ergm") < "3.10") {
+      dyads <- sum(
+        ergm::as.rlebdm(x$constrained, x$constrained.obs, which = "informative")
+      )
+    } else {
+      dyads <- stats::nobs(x)
+    }
+    
+    lln <- ergm::logLikNull(x)
+    ret$null.deviance <- if (is.na(lln)) 0 else -2 * lln
+    ret$df.null <- dyads
+    
+    ret$residual.deviance <- -2 * ret$logLik
+    ret$df.residual <- dyads - length(x$coefs)
+  }
+  
+  ret$AIC <- stats::AIC(x)
+  ret$BIC <- stats::BIC(x)
+  
+  if (mcmc) {
+    if (isTRUE(x$MPLE_is_MLE)) {
+      manynet::snet_info(
+        c(
+          "Though {.fn glance} was supplied {.code mcmc = TRUE}, the model was not
+           fitted using MCMC,",
+          "i" = "The corresponding columns will be omitted."
+        )
+      )
+    }
+    
+    ret$MCMC.interval <- x$control$MCMC.interval
+    ret$MCMC.burnin <- x$control$MCMC.burnin
+    ret$MCMC.samplesize <- x$control$MCMC.samplesize
+  }
+  
+  ret
+}
+
 #' @export
 print.netlm <- function(x, ...){
   cat("# Fitted model results\n")
@@ -146,4 +253,31 @@ print.netlogit <- function(x, ...){
   print(tidy(x))
   cat("\n# Model summary statistics\n")
   print(glance(x))
+}
+
+#' @export
+print.ergm <- function(x, ...){
+  cat("# Fitted model results\n")
+  print(tidy(x))
+  cat("\n# Model summary statistics\n")
+  print(glance(x))
+}
+
+
+# Utilities from broom ####
+
+rename2 <- function(.data, ...) {
+  dots <- dplyr::quos(...)
+  present <- purrr::keep(dots, ~ dplyr::quo_name(.x) %in% colnames(.data))
+  dplyr::rename(.data, !!!present)
+}
+
+exponentiate <- function(data, col = "estimate") {
+  data <- data %>% dplyr::mutate(dplyr::across(dplyr::all_of(col), exp))
+  
+  if ("conf.low" %in% colnames(data)) {
+    data <- data %>% dplyr::mutate(dplyr::across(c(conf.low, conf.high), exp))
+  }
+  
+  data
 }

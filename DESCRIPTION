@@ -1,7 +1,7 @@
 Package: migraph
 Title: Inferential Methods for Multimodal and Other Networks 
-Version: 1.5.4
-Date: 2025-11-05
+Version: 1.5.5
+Date: 2025-11-12
 Description: A set of tools for testing networks.
    It includes functions for univariate and multivariate 
    conditional uniform graph and quadratic assignment procedure testing,
@@ -25,6 +25,7 @@ Depends:
     autograph (>= 0.4.0)
 Imports: 
     dplyr (>= 1.1.0),
+    ergm,
     future,
     furrr,
     generics,

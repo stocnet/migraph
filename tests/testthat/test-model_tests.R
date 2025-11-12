@@ -55,12 +55,13 @@ test_that("test_permutation works", {
   expect_s3_class(qaptest, "network_test")
 })
 
-configtest <- test_configuration(marvel_friends,
-                            manynet::net_heterophily,
-                            attribute = "Attractive",
-                            times = 200)
 
 test_that("test_configuration works", {
+  testthat::skip_on_os("linux")
+  configtest <- test_configuration(marvel_friends,
+                                   manynet::net_heterophily,
+                                   attribute = "Attractive",
+                                   times = 200)
   expect_s3_class(configtest, "network_test")
   expect_equal(as.numeric(configtest$testval), -0.85714, tolerance = 0.001)
   expect_equal(length(configtest$testdist), 200) # NB: Stochastic

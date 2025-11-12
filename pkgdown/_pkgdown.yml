@@ -51,6 +51,7 @@ reference:
     contents:
       - starts_with("test")
       - regression
+      - predict
   - title: "Data"
     desc: |
       The package contains multimodal, multilevel, and multiplex network data,
