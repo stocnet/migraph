@@ -94,33 +94,25 @@ We have several different options for visualising diffusions.
 The first visualisation option that we have is to plot the diffusion result itself.
 
 ```{r plotlat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
-plot(lat_diff)
-plot(lat_diff, all_steps = FALSE)
+plot(diff_summ)
+# plot(diff_summ, all_steps = FALSE) # To plot only 'where the action is', use the argument `all_steps = FALSE`.
 ```
 
 This plot effectively visualises what we observed from the print out of the 
-`lat_diff` object above.
+`diff_summ` object above.
 The red line traces the proportion of infected;
-the blue line the (inverse) proportion of susceptible.
+the blue line the (inverse) proportion of susceptible nodes in the network.
 The grey histogram in the plot shows how many nodes are newly 'infected' at each
 time point, or the so-called 'force of infection' ($F = \beta I$).
 
-We can see that by default the whole simulated period (32 steps) is shown,
-even though there is complete infection after only 10 steps.
-That's because the simulation runs over the number of nodes in the network
-by default.
-If the structure is amenable to diffusion, infection/diffusion will be completed
-before that.
-To plot only 'where the action is', use the argument `all_steps = FALSE`.
-
 But maybe we want to also/instead view the diffusion on the actual network.
-Here we can use all the three main graphing techniques offered in `{manynet}`.
+Here we can use all the three main graphing techniques offered in `{autograph}`.
 First, `graphr()` will graph a static network where the nodes are coloured
 according to how far through the diffusion process the node adopted.
 Note also that any seeds are indicated with a triangle.
 
 ```{r graphrlat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
-graphr(lat_diff, node_size = 0.3)
+graphr(lat_w_diff, node_size = 0.3)
 ```
 
 Second, `graphs()` visualises the stages of the diffusion on the network.
@@ -128,8 +120,8 @@ By default it will graph the first and last wave,
 but we can change this by specifying which waves to graph.
 
 ```{r graphslat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
-graphs(lat_diff)
-graphs(lat_diff, waves = c(1,4,8))
+graphs(lat_w_diff)
+graphs(lat_w_diff, waves = c(1,4,8))
 ```
 
 Lastly, `grapht()` animates this diffusion process to a gif.
@@ -139,7 +131,7 @@ Note that if you run this code in the console, you get a calming progress bar;
 in the tutorial you will just need to be patient.
 
 ```{r graphtlat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
-grapht(lat_diff, node_size = 10)
+grapht(lat_w_diff, node_size = 10)
 ```
 
 We can see here exactly how the attribute in question (ideas, information, disease?) 
