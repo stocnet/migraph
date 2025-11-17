@@ -13,9 +13,7 @@ description: >
 
 ```{r setup, include = FALSE}
 library(learnr)
-library(manynet)
-library(patchwork)
-library(ggplot2)
+library(migraph)
 clear_glossary()
 knitr::opts_chunk$set(echo = FALSE)
 ```
@@ -65,33 +63,30 @@ graphr(lat)
 
 Ok, great! That's made a nice little lattice network.
 Next we want to play a diffusion process _on_ this network.
-To do this, we just need to run `play_diffusion()`,
-and assign the result.
-Then we can investigate the resulting object in a few ways.
-The first way is simply to print the result by calling the object.
-The other way is to unpack the result by calling for its summary.
+To do this, we need to run `play_diffusion()`.
+This function plays a simple contagion process on a network,
+where any contact with an infected/adopter node
+is enough to cause susceptible nodes to adopt/become infected by the following timepoint.
+The function returns a network object that contains information about how the diffusion played out.
+Then we can investigate the diffusion process by extracting this information
+using `as_changelist()` and `as_diffusion()`.
+The first simply extracts the list of adoption/infection events,
+while the second summarises the diffusion process by time point.
 
 ```{r lat_diff, exercise = TRUE, exercise.setup = "clattice"}
-lat_diff <- play_diffusion(lat)
-lat_diff
-summary(lat_diff)
+lat_w_diff <- play_diffusion(lat)
+(diff_events <- as_changelist(lat_w_diff))
+(diff_summ <- as_diffusion(lat_w_diff))
 ```
 
-The main report from the `lat_diff` object shows the number of nodes that don't
-(yet) have the attribute (S for susceptible, but can also be non-adopter) 
-and those that do have the attribute (I for infected, or adopter) at each time point (t).
-We can see a steady growth here, except for a slower initialisation and winding down.
-
-The secondary report, `summary(lat_diff)`, 
-presents a list of the events at each time point.
+The changelist presents a list of the events at each time point.
 In the event variable, the 'I' indicates that these are all infection/adoption events.
 Where 't' is 0, that means that these are the seeds producing the starting condition
 for the diffusion.
-The final column, 'exposure', records the number of infected nodes that the adopting
-node was exposed to when it adopted.
-Note that we have no information about the exposure for the seed nodes when they
-were infected, and so this is a missing value.
-The exposure at infection is recorded here to accelerate later analysis.
+The diffusion summary shows the number of nodes that don't
+(yet) have the attribute (S for susceptible, but can also be non-adopter) 
+and those that do have the attribute (I for infected, or adopter) at each time point (t).
+We can see a steady growth here, except for a slower initialisation and winding down.
 
 ### Visualising cascades
 
