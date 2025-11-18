@@ -93,7 +93,7 @@ We can see a steady growth here, except for a slower initialisation and winding 
 We have several different options for visualising diffusions.
 The first visualisation option that we have is to plot the diffusion result itself.
 
-```{r plotlat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
+```{r plotlat, exercise = TRUE, exercise.setup = "lat_diff", fig.width=9}
 plot(diff_summ)
 # plot(diff_summ, all_steps = FALSE) # To plot only 'where the action is', use the argument `all_steps = FALSE`.
 ```
@@ -111,7 +111,7 @@ First, `graphr()` will graph a static network where the nodes are coloured
 according to how far through the diffusion process the node adopted.
 Note also that any seeds are indicated with a triangle.
 
-```{r graphrlat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
+```{r graphrlat, exercise = TRUE, exercise.setup = "lat_diff", fig.width=9}
 graphr(lat_w_diff, node_size = 0.3)
 ```
 
@@ -119,10 +119,14 @@ Second, `graphs()` visualises the stages of the diffusion on the network.
 By default it will graph the first and last wave,
 but we can change this by specifying which waves to graph.
 
-```{r graphslat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
+```{r graphslat, exercise = TRUE, exercise.setup = "lat_diff", fig.width=9}
 graphs(lat_w_diff)
-graphs(lat_w_diff, waves = c(1,4,8))
+graphs(lat_w_diff, waves = c(1,4,7,10))
 ```
+
+We can see here exactly how the attribute in question (ideas, information, disease?) 
+is diffusing across the network.
+It's like a cascade of red sweeping across the space!
 
 Lastly, `grapht()` animates this diffusion process to a gif.
 It can take a little time to encode, but it is worth it to see exactly
@@ -130,13 +134,12 @@ how the attribute is diffusing across the network!
 Note that if you run this code in the console, you get a calming progress bar;
 in the tutorial you will just need to be patient.
 
-```{r graphtlat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
-grapht(lat_w_diff, node_size = 10)
-```
+> NB: It is not currently working (for diffusions) at the moment,
+but a refactoring soon will fix this and other related bugs.
 
-We can see here exactly how the attribute in question (ideas, information, disease?) 
-is diffusing across the network.
-It's like a cascade of red sweeping across the space!
+```{r graphtlat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
+# grapht(lat_w_diff, node_size = 10)
+```
 
 ### Varying network structure
 
@@ -164,8 +167,8 @@ graphr(play_diffusion(generate_smallworld(32, 0.025)))
 Which diffusion process completed first?
 `graphr()` only colors nodes' relative adoption,
 and `graphs()` (at least by default) only graphs the first and last step.
-`grapht()` will show if and when there is complete infection,
-but we need to sit through each 'movie'.
+<!-- `grapht()` will show if and when there is complete infection, -->
+<!-- but we need to sit through each 'movie'. -->
 But there is an easier way.
 Play these same diffusions again, this time nesting the call within `net_infection_complete()`.
 
@@ -198,7 +201,6 @@ You can start the infection in California by specifying `seeds = 5`.
 us_diff <- play_diffusion(irps_usgeo, seeds = 5)
 plot(us_diff)
 graphr(us_diff)
-grapht(us_diff)
 net_infection_complete(us_diff)
 ```
 
@@ -230,9 +232,9 @@ Let's see what the results are if you play four different diffusions:
 
 ```{r complex, exercise = TRUE, fig.width=9}
 rg <- create_ring(32, width = 2)
-plot(play_diffusion(rg, seeds = 1, thresholds = 1))/
-plot(play_diffusion(rg, seeds = 1, thresholds = 2))/
-plot(play_diffusion(rg, seeds = 1:2, thresholds = 2))/
+plot(play_diffusion(rg, seeds = 1, thresholds = 1))
+plot(play_diffusion(rg, seeds = 1, thresholds = 2))
+plot(play_diffusion(rg, seeds = 1:2, thresholds = 2))
 plot(play_diffusion(rg, seeds = c(1,16), thresholds = 2))
 ```
 
@@ -290,14 +292,14 @@ on the scale-free networks we have been using here.
 ```
 
 ```{r sfprop-hint, purl = FALSE}
-plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = ____, steps = ____))/
-plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = ____, steps = ____))/
+plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = ____, steps = ____))
+plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = ____, steps = ____))
 plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = ____, steps = ____))
 ```
 
 ```{r sfprop-solution}
-plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = 0.1, steps = 10))/
-plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = 0.25, steps = 10))/
+plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = 0.1, steps = 10))
+plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = 0.25, steps = 10))
 plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = 0.5, steps = 10))
 ```
 
@@ -324,17 +326,14 @@ Something is going around Middle-Earth,
 but different races have different resistances (i.e. thresholds).
 Let us say that there is a clear ordering to this.
 
-```{r lotr-resist, exercise=TRUE}
+```{r lotr-resist, exercise=TRUE, fig.width=9}
 lotr_resist <- fict_lotr %>% mutate(resistance = dplyr::case_when(Race == "Dwarf" ~ 2,
                                                    Race == "Elf" ~ 4,
                                                    Race == "Ent" ~ 5,
                                                    Race == "Hobbit" ~ 3,
                                                    Race == "Human" ~ 1,
                                                    Race == "Maiar" ~ 6))
-```
-
-```{r resistdiff, exercise=TRUE, exercise.setup = "lotr-resist", fig.width=9}
-grapht(play_diffusion(lotr_resist, thresholds = "resistance"))
+graphs(play_diffusion(lotr_resist, thresholds = "resistance"))
 ```
 
 Fun! Now how would you interpret what is going on here?
@@ -369,8 +368,8 @@ and see whether the result is any different.
 ```
 
 ```{r ring2-solution}
-plot(play_diffusion(create_ring(32, width = 2), seeds = 1)) /
-  plot(play_diffusion(create_ring(32, width = 2), seeds = 16))
+plot(play_diffusion(create_ring(32, width = 2), seeds = 1))
+plot(play_diffusion(create_ring(32, width = 2), seeds = 16))
 ```
 
 ```{r ring2-interp, echo = FALSE, purl = FALSE}
@@ -445,14 +444,14 @@ one with the first node as seed and again one on the middle.
 ```
 
 ```{r lattice-solution}
-plot(play_diffusion(lat, seeds = 1))/
+plot(play_diffusion(lat, seeds = 1))
 plot(play_diffusion(lat, seeds = 16))
 lat %>%
   add_node_attribute("color", c(1, rep(0, 14), 2, rep(0, 16))) %>%
   graphr(node_color = "color")
 
 # visualise diffusion in lattice graph
-grapht(play_diffusion(lat, seeds = 16), layout = "grid", keep_isolates = FALSE)
+graphs(play_diffusion(lat, seeds = 16), layout = "grid")
 ```
 
 ```{r lattice-interp, echo = FALSE, purl = FALSE}
@@ -488,14 +487,14 @@ sf %>%
 ```
 
 ```{r scale-solution}
-plot(play_diffusion(sf, seeds = 10, steps = 10)) / 
-plot(play_diffusion(sf, seeds = node_is_random(sf), steps = 10)) /
-plot(play_diffusion(sf, seeds = node_is_max(node_degree(sf)), steps = 10)) /
+plot(play_diffusion(sf, seeds = 10, steps = 10))
+plot(play_diffusion(sf, seeds = node_is_random(sf), steps = 10))
+plot(play_diffusion(sf, seeds = node_is_max(node_degree(sf)), steps = 10))
 plot(play_diffusion(sf, seeds = node_is_min(node_degree(sf)), steps = 10))
 
 # visualise diffusion in scalefree network
 graphs(play_diffusion(sf, seeds = node_is_min(node_degree(sf)), steps = 10))
-grapht(play_diffusion(sf, seeds = 16, steps = 10))
+graphs(play_diffusion(sf, seeds = 16, steps = 10), waves = 1:3)
 ```
 
 ```{r mindeg-interp, echo = FALSE, purl = FALSE}
@@ -685,7 +684,7 @@ set.seed(123)
 plot(play_diffusion(rando, seeds = 10, latency = 0.25, recovery = 0.2))
 
 # visualise diffusion with latency and recovery
-grapht(play_diffusion(rando, seeds = 10, latency = 0.25, recovery = 0.2))
+graphs(play_diffusion(rando, seeds = 10, latency = 0.25, recovery = 0.2), waves = c(1,5,10))
 ```
 
 ### Make it stop
@@ -749,7 +748,7 @@ But then...
 ### How many people do we need to vaccinate?
 
 We can identify how many people need to be vaccinated through 
-the `gloss("Herd Immunity Threshold", "hit")` or HIT.
+the `r gloss("Herd Immunity Threshold", "hit")` or HIT.
 HIT indicates the threshold at which the reduction of susceptible members 
 of the network means that infections will no longer keep increasing, 
 allowing herd immunity to be achieved.
