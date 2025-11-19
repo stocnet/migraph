@@ -1,3 +1,12 @@
+# migraph 1.5.6
+
+2025-11-19
+
+## Tutorials
+
+- Updated diffusion tutorial moving from `grapht()` to `graphs()` in places
+- Added gifs to diffusion tutorial
+
 # migraph 1.5.5
 
 2025-11-12

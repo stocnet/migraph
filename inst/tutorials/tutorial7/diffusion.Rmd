@@ -13,9 +13,7 @@ description: >
 
 ```{r setup, include = FALSE}
 library(learnr)
-library(manynet)
-library(patchwork)
-library(ggplot2)
+library(migraph)
 clear_glossary()
 knitr::opts_chunk$set(echo = FALSE)
 ```
@@ -47,6 +45,8 @@ is enough to cause infection/adoption.
 If the network is connected, the attribute will 'cascade' across the network
 until all nodes are 'infected'/have adopted.
 
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXdqOXNjemNnZnhzOG50aTdlZzgzbWt2dTlmbGt4aGswNGRjdjd4eiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/11IuynebQzNpjq/giphy.gif" alt="salt cascade gif" width = "500"/>
+
 ### Diffusing across a lattice
 
 Let us begin with a lattice network that shows us exactly how such a cascade works.
@@ -65,77 +65,70 @@ graphr(lat)
 
 Ok, great! That's made a nice little lattice network.
 Next we want to play a diffusion process _on_ this network.
-To do this, we just need to run `play_diffusion()`,
-and assign the result.
-Then we can investigate the resulting object in a few ways.
-The first way is simply to print the result by calling the object.
-The other way is to unpack the result by calling for its summary.
+To do this, we need to run `play_diffusion()`.
+This function plays a simple contagion process on a network,
+where any contact with an infected/adopter node
+is enough to cause susceptible nodes to adopt/become infected by the following timepoint.
+The function returns a network object that contains information about how the diffusion played out.
+Then we can investigate the diffusion process by extracting this information
+using `as_changelist()` and `as_diffusion()`.
+The first simply extracts the list of adoption/infection events,
+while the second summarises the diffusion process by time point.
 
 ```{r lat_diff, exercise = TRUE, exercise.setup = "clattice"}
-lat_diff <- play_diffusion(lat)
-lat_diff
-summary(lat_diff)
+lat_w_diff <- play_diffusion(lat)
+(diff_events <- as_changelist(lat_w_diff))
+(diff_summ <- as_diffusion(lat_w_diff))
 ```
 
-The main report from the `lat_diff` object shows the number of nodes that don't
-(yet) have the attribute (S for susceptible, but can also be non-adopter) 
-and those that do have the attribute (I for infected, or adopter) at each time point (t).
-We can see a steady growth here, except for a slower initialisation and winding down.
-
-The secondary report, `summary(lat_diff)`, 
-presents a list of the events at each time point.
+The changelist presents a list of the events at each time point.
 In the event variable, the 'I' indicates that these are all infection/adoption events.
 Where 't' is 0, that means that these are the seeds producing the starting condition
 for the diffusion.
-The final column, 'exposure', records the number of infected nodes that the adopting
-node was exposed to when it adopted.
-Note that we have no information about the exposure for the seed nodes when they
-were infected, and so this is a missing value.
-The exposure at infection is recorded here to accelerate later analysis.
+The diffusion summary shows the number of nodes that don't
+(yet) have the attribute (S for susceptible, but can also be non-adopter) 
+and those that do have the attribute (I for infected, or adopter) at each time point (t).
+We can see a steady growth here, except for a slower initialisation and winding down.
 
 ### Visualising cascades
 
 We have several different options for visualising diffusions.
 The first visualisation option that we have is to plot the diffusion result itself.
 
-```{r plotlat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
-plot(lat_diff)
-plot(lat_diff, all_steps = FALSE)
+```{r plotlat, exercise = TRUE, exercise.setup = "lat_diff", fig.width=9}
+plot(diff_summ)
+# plot(diff_summ, all_steps = FALSE) # To plot only 'where the action is', use the argument `all_steps = FALSE`.
 ```
 
 This plot effectively visualises what we observed from the print out of the 
-`lat_diff` object above.
+`diff_summ` object above.
 The red line traces the proportion of infected;
-the blue line the (inverse) proportion of susceptible.
+the blue line the (inverse) proportion of susceptible nodes in the network.
 The grey histogram in the plot shows how many nodes are newly 'infected' at each
 time point, or the so-called 'force of infection' ($F = \beta I$).
 
-We can see that by default the whole simulated period (32 steps) is shown,
-even though there is complete infection after only 10 steps.
-That's because the simulation runs over the number of nodes in the network
-by default.
-If the structure is amenable to diffusion, infection/diffusion will be completed
-before that.
-To plot only 'where the action is', use the argument `all_steps = FALSE`.
-
 But maybe we want to also/instead view the diffusion on the actual network.
-Here we can use all the three main graphing techniques offered in `{manynet}`.
+Here we can use all the three main graphing techniques offered in `{autograph}`.
 First, `graphr()` will graph a static network where the nodes are coloured
 according to how far through the diffusion process the node adopted.
 Note also that any seeds are indicated with a triangle.
 
-```{r graphrlat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
-graphr(lat_diff, node_size = 0.3)
+```{r graphrlat, exercise = TRUE, exercise.setup = "lat_diff", fig.width=9}
+graphr(lat_w_diff, node_size = 0.3)
 ```
 
 Second, `graphs()` visualises the stages of the diffusion on the network.
 By default it will graph the first and last wave,
 but we can change this by specifying which waves to graph.
 
-```{r graphslat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
-graphs(lat_diff)
-graphs(lat_diff, waves = c(1,4,8))
+```{r graphslat, exercise = TRUE, exercise.setup = "lat_diff", fig.width=9}
+graphs(lat_w_diff)
+graphs(lat_w_diff, waves = c(1,4,7,10))
 ```
+
+We can see here exactly how the attribute in question (ideas, information, disease?) 
+is diffusing across the network.
+It's like a cascade of red sweeping across the space!
 
 Lastly, `grapht()` animates this diffusion process to a gif.
 It can take a little time to encode, but it is worth it to see exactly
@@ -143,13 +136,12 @@ how the attribute is diffusing across the network!
 Note that if you run this code in the console, you get a calming progress bar;
 in the tutorial you will just need to be patient.
 
-```{r graphtlat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
-grapht(lat_diff, node_size = 10)
-```
+> NB: It is not currently working (for diffusions) at the moment,
+but a refactoring soon will fix this and other related bugs.
 
-We can see here exactly how the attribute in question (ideas, information, disease?) 
-is diffusing across the network.
-It's like a cascade of red sweeping across the space!
+```{r graphtlat, exercise = TRUE, exercise.setup = "lat_diff", purl = FALSE, fig.width=9}
+# grapht(lat_w_diff, node_size = 10)
+```
 
 ### Varying network structure
 
@@ -177,8 +169,8 @@ graphr(play_diffusion(generate_smallworld(32, 0.025)))
 Which diffusion process completed first?
 `graphr()` only colors nodes' relative adoption,
 and `graphs()` (at least by default) only graphs the first and last step.
-`grapht()` will show if and when there is complete infection,
-but we need to sit through each 'movie'.
+<!-- `grapht()` will show if and when there is complete infection, -->
+<!-- but we need to sit through each 'movie'. -->
 But there is an easier way.
 Play these same diffusions again, this time nesting the call within `net_infection_complete()`.
 
@@ -211,7 +203,6 @@ You can start the infection in California by specifying `seeds = 5`.
 us_diff <- play_diffusion(irps_usgeo, seeds = 5)
 plot(us_diff)
 graphr(us_diff)
-grapht(us_diff)
 net_infection_complete(us_diff)
 ```
 
@@ -226,6 +217,8 @@ or only some nodes have higher thresholds?
 This is known as a `r gloss("linear threshold", "LTM")` model,
 where if infection/influence on a node through some (potentially weighted) network
 exceeds some threshold, then they will adopt/become infected.
+
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3luZjc1aWhnYnhwNG9zazkzcjA2c2hiYzBjZXVlaTlvZnh6MHl2OCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/2zowpb8JizmCRHq0PR/giphy.gif" alt="morgan freeman breaking point gif" width = "500"/>
 
 ### Threshold rising
 
@@ -243,9 +236,9 @@ Let's see what the results are if you play four different diffusions:
 
 ```{r complex, exercise = TRUE, fig.width=9}
 rg <- create_ring(32, width = 2)
-plot(play_diffusion(rg, seeds = 1, thresholds = 1))/
-plot(play_diffusion(rg, seeds = 1, thresholds = 2))/
-plot(play_diffusion(rg, seeds = 1:2, thresholds = 2))/
+plot(play_diffusion(rg, seeds = 1, thresholds = 1))
+plot(play_diffusion(rg, seeds = 1, thresholds = 2))
+plot(play_diffusion(rg, seeds = 1:2, thresholds = 2))
 plot(play_diffusion(rg, seeds = c(1,16), thresholds = 2))
 ```
 
@@ -303,14 +296,14 @@ on the scale-free networks we have been using here.
 ```
 
 ```{r sfprop-hint, purl = FALSE}
-plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = ____, steps = ____))/
-plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = ____, steps = ____))/
+plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = ____, steps = ____))
+plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = ____, steps = ____))
 plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = ____, steps = ____))
 ```
 
 ```{r sfprop-solution}
-plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = 0.1, steps = 10))/
-plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = 0.25, steps = 10))/
+plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = 0.1, steps = 10))
+plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = 0.25, steps = 10))
 plot(play_diffusion(generate_scalefree(32, 0.025), seeds = 1:2, thresholds = 0.5, steps = 10))
 ```
 
@@ -337,17 +330,14 @@ Something is going around Middle-Earth,
 but different races have different resistances (i.e. thresholds).
 Let us say that there is a clear ordering to this.
 
-```{r lotr-resist, exercise=TRUE}
+```{r lotr-resist, exercise=TRUE, fig.width=9}
 lotr_resist <- fict_lotr %>% mutate(resistance = dplyr::case_when(Race == "Dwarf" ~ 2,
                                                    Race == "Elf" ~ 4,
                                                    Race == "Ent" ~ 5,
                                                    Race == "Hobbit" ~ 3,
                                                    Race == "Human" ~ 1,
                                                    Race == "Maiar" ~ 6))
-```
-
-```{r resistdiff, exercise=TRUE, exercise.setup = "lotr-resist", fig.width=9}
-grapht(play_diffusion(lotr_resist, thresholds = "resistance"))
+graphs(play_diffusion(lotr_resist, thresholds = "resistance"))
 ```
 
 Fun! Now how would you interpret what is going on here?
@@ -362,11 +352,13 @@ Can you rewrite the code above so that fractional thresholds are used?
 
 <!-- ## Independent cascades -->
 
-## Intervention
+## Make it start
 
 Let's say that you have developed an exciting new policy and
 you are keen to maximise how quickly and thoroughly it is adopted.
 We are interested here in `r gloss("network intervention", "intervention")`.
+
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbm9rc2trbGd5b2tzZ2d4cDNqeGVvNzJ3ZjhvMHhmdDF3c2ljcDZ5ZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/5nsiFjdgylfK3csZ5T/giphy.gif" alt="flamethrower gif" width = "500"/>
 
 ### Choosing where to seed
 
@@ -382,8 +374,8 @@ and see whether the result is any different.
 ```
 
 ```{r ring2-solution}
-plot(play_diffusion(create_ring(32, width = 2), seeds = 1)) /
-  plot(play_diffusion(create_ring(32, width = 2), seeds = 16))
+plot(play_diffusion(create_ring(32, width = 2), seeds = 1))
+plot(play_diffusion(create_ring(32, width = 2), seeds = 16))
 ```
 
 ```{r ring2-interp, echo = FALSE, purl = FALSE}
@@ -458,14 +450,14 @@ one with the first node as seed and again one on the middle.
 ```
 
 ```{r lattice-solution}
-plot(play_diffusion(lat, seeds = 1))/
+plot(play_diffusion(lat, seeds = 1))
 plot(play_diffusion(lat, seeds = 16))
 lat %>%
   add_node_attribute("color", c(1, rep(0, 14), 2, rep(0, 16))) %>%
   graphr(node_color = "color")
 
 # visualise diffusion in lattice graph
-grapht(play_diffusion(lat, seeds = 16), layout = "grid", keep_isolates = FALSE)
+graphs(play_diffusion(lat, seeds = 16), layout = "grid")
 ```
 
 ```{r lattice-interp, echo = FALSE, purl = FALSE}
@@ -501,14 +493,14 @@ sf %>%
 ```
 
 ```{r scale-solution}
-plot(play_diffusion(sf, seeds = 10, steps = 10)) / 
-plot(play_diffusion(sf, seeds = node_is_random(sf), steps = 10)) /
-plot(play_diffusion(sf, seeds = node_is_max(node_degree(sf)), steps = 10)) /
+plot(play_diffusion(sf, seeds = 10, steps = 10))
+plot(play_diffusion(sf, seeds = node_is_random(sf), steps = 10))
+plot(play_diffusion(sf, seeds = node_is_max(node_degree(sf)), steps = 10))
 plot(play_diffusion(sf, seeds = node_is_min(node_degree(sf)), steps = 10))
 
 # visualise diffusion in scalefree network
 graphs(play_diffusion(sf, seeds = node_is_min(node_degree(sf)), steps = 10))
-grapht(play_diffusion(sf, seeds = 16, steps = 10))
+graphs(play_diffusion(sf, seeds = 16, steps = 10), waves = 1:3)
 ```
 
 ```{r mindeg-interp, echo = FALSE, purl = FALSE}
@@ -565,6 +557,8 @@ has more complicated and probabilistic dynamics.
 But before we get into that,
 let's see how we can play and plot several simulations
 to see what the range of outcomes might be like.
+
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXMwZ2xzcWJzNG1ubXp1YXhvbG12YmE0NzQzNDFwa3drdGd1bmdoYSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xUOxeZc41DVT2l9laU/giphy.gif" alt="curb your enthusiasm luggage compartment gif" width = "500"/>
 
 ### Running multiple simulations
 
@@ -698,13 +692,15 @@ set.seed(123)
 plot(play_diffusion(rando, seeds = 10, latency = 0.25, recovery = 0.2))
 
 # visualise diffusion with latency and recovery
-grapht(play_diffusion(rando, seeds = 10, latency = 0.25, recovery = 0.2))
+graphs(play_diffusion(rando, seeds = 10, latency = 0.25, recovery = 0.2), waves = c(1,5,10))
 ```
 
-### Make it stop
+## Make it stop
 
 In this section, we are interested in how to most effectively _halt_ 
 a diffusion process.
+
+<img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3N3JsNWhvMjM2amkwMnhqZ2ltb2h2c3Zha3dwOGx1dHZnbngzNTQxZyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/LbvdcrbTOk6eK1kQ6u/giphy.gif" alt="biden stop gif" width = "500"/>
 
 An attribute's reproduction number, or $R_0$, is a measure of the rate of infection
 or how quickly that attribute will reproduce period over period.
@@ -762,7 +758,7 @@ But then...
 ### How many people do we need to vaccinate?
 
 We can identify how many people need to be vaccinated through 
-the `gloss("Herd Immunity Threshold", "hit")` or HIT.
+the `r gloss("Herd Immunity Threshold", "hit")` or HIT.
 HIT indicates the threshold at which the reduction of susceptible members 
 of the network means that infections will no longer keep increasing, 
 allowing herd immunity to be achieved.
@@ -848,6 +844,8 @@ The three strategies for hindering contagion mentioned earlier
 usually rely on nodes' voluntary participation:
 they must accept that vaccination, medication, or behavioral change is necessary
 to combat the contagion.
+
+<img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bXdtbGs1azJnZWUzdGZycTRsMGg0a2twM2RxYjdveWtuNzV3eWo1MiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xjQfDCSRr2jkH3SPab/giphy.gif" alt="learn every day gif" width = "500"/>
 
 Lastly, we're going to consider a rather simple type of learning model:
 a DeGroot learning model.
