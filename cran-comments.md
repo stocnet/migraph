@@ -9,4 +9,4 @@
 
 0 errors | 0 warnings | 0 notes
 
-- Fixed note in fedora and debian flavors about pixel widths in documentation
+- Fixed CRAN errors
