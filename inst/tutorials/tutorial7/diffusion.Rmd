@@ -45,6 +45,8 @@ is enough to cause infection/adoption.
 If the network is connected, the attribute will 'cascade' across the network
 until all nodes are 'infected'/have adopted.
 
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXdqOXNjemNnZnhzOG50aTdlZzgzbWt2dTlmbGt4aGswNGRjdjd4eiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/11IuynebQzNpjq/giphy.gif" alt="salt cascade gif" width = "500"/>
+
 ### Diffusing across a lattice
 
 Let us begin with a lattice network that shows us exactly how such a cascade works.
@@ -216,6 +218,8 @@ This is known as a `r gloss("linear threshold", "LTM")` model,
 where if infection/influence on a node through some (potentially weighted) network
 exceeds some threshold, then they will adopt/become infected.
 
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3luZjc1aWhnYnhwNG9zazkzcjA2c2hiYzBjZXVlaTlvZnh6MHl2OCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/2zowpb8JizmCRHq0PR/giphy.gif" alt="morgan freeman breaking point gif" width = "500"/>
+
 ### Threshold rising
 
 Let's use the ring network again this time to 
@@ -348,11 +352,13 @@ Can you rewrite the code above so that fractional thresholds are used?
 
 <!-- ## Independent cascades -->
 
-## Intervention
+## Make it start
 
 Let's say that you have developed an exciting new policy and
 you are keen to maximise how quickly and thoroughly it is adopted.
 We are interested here in `r gloss("network intervention", "intervention")`.
+
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbm9rc2trbGd5b2tzZ2d4cDNqeGVvNzJ3ZjhvMHhmdDF3c2ljcDZ5ZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/5nsiFjdgylfK3csZ5T/giphy.gif" alt="flamethrower gif" width = "500"/>
 
 ### Choosing where to seed
 
@@ -552,6 +558,8 @@ But before we get into that,
 let's see how we can play and plot several simulations
 to see what the range of outcomes might be like.
 
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXMwZ2xzcWJzNG1ubXp1YXhvbG12YmE0NzQzNDFwa3drdGd1bmdoYSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xUOxeZc41DVT2l9laU/giphy.gif" alt="curb your enthusiasm luggage compartment gif" width = "500"/>
+
 ### Running multiple simulations
 
 To do this, we need to use `play_diffusions()` (note the plural).
@@ -687,10 +695,12 @@ plot(play_diffusion(rando, seeds = 10, latency = 0.25, recovery = 0.2))
 graphs(play_diffusion(rando, seeds = 10, latency = 0.25, recovery = 0.2), waves = c(1,5,10))
 ```
 
-### Make it stop
+## Make it stop
 
 In this section, we are interested in how to most effectively _halt_ 
 a diffusion process.
+
+<img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3N3JsNWhvMjM2amkwMnhqZ2ltb2h2c3Zha3dwOGx1dHZnbngzNTQxZyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/LbvdcrbTOk6eK1kQ6u/giphy.gif" alt="biden stop gif" width = "500"/>
 
 An attribute's reproduction number, or $R_0$, is a measure of the rate of infection
 or how quickly that attribute will reproduce period over period.
@@ -834,6 +844,8 @@ The three strategies for hindering contagion mentioned earlier
 usually rely on nodes' voluntary participation:
 they must accept that vaccination, medication, or behavioral change is necessary
 to combat the contagion.
+
+<img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bXdtbGs1azJnZWUzdGZycTRsMGg0a2twM2RxYjdveWtuNzV3eWo1MiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xjQfDCSRr2jkH3SPab/giphy.gif" alt="learn every day gif" width = "500"/>
 
 Lastly, we're going to consider a rather simple type of learning model:
 a DeGroot learning model.

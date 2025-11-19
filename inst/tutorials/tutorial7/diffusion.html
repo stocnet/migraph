@@ -146,6 +146,7 @@ model, where any contact with the attribute (disease or innovation) is
 enough to cause infection/adoption. If the network is connected, the
 attribute will ‘cascade’ across the network until all nodes are
 ‘infected’/have adopted.</p>
+<p><img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXdqOXNjemNnZnhzOG50aTdlZzgzbWt2dTlmbGt4aGswNGRjdjd4eiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/11IuynebQzNpjq/giphy.gif" alt="salt cascade gif" width = "500"/></p>
 <div id="section-diffusing-across-a-lattice" class="section level3">
 <h3>Diffusing across a lattice</h3>
 <p>Let us begin with a lattice network that shows us exactly how such a
@@ -342,6 +343,7 @@ This is known as a
 linear threshold </dfn></abbr> model, where if infection/influence on a
 node through some (potentially weighted) network exceeds some threshold,
 then they will adopt/become infected.</p>
+<p><img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3luZjc1aWhnYnhwNG9zazkzcjA2c2hiYzBjZXVlaTlvZnh6MHl2OCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/2zowpb8JizmCRHq0PR/giphy.gif" alt="morgan freeman breaking point gif" width = "500"/></p>
 <div id="section-threshold-rising" class="section level3">
 <h3>Threshold rising</h3>
 <p>Let’s use the ring network again this time to illustrate the impact
@@ -486,13 +488,14 @@ data-lines="0" data-pipe="|&gt;">
 <!-- ## Independent cascades -->
 </div>
 </div>
-<div id="section-intervention" class="section level2">
-<h2>Intervention</h2>
+<div id="section-make-it-start" class="section level2">
+<h2>Make it start</h2>
 <p>Let’s say that you have developed an exciting new policy and you are
 keen to maximise how quickly and thoroughly it is adopted. We are
 interested here in
 <abbr><dfn title='A network intervention is a process to accelerate behavioural change or improve performance in a network.'>
 network intervention </dfn></abbr>.</p>
+<p><img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbm9rc2trbGd5b2tzZ2d4cDNqeGVvNzJ3ZjhvMHhmdDF3c2ljcDZ5ZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/5nsiFjdgylfK3csZ5T/giphy.gif" alt="flamethrower gif" width = "500"/></p>
 <div id="section-choosing-where-to-seed" class="section level3">
 <h3>Choosing where to seed</h3>
 <p>Since the ring network we constructed is cyclical, then no matter
@@ -713,6 +716,7 @@ but sometimes what we are interested in, whether disease, innovation, or
 some other behaviour, has more complicated and probabilistic dynamics.
 But before we get into that, let’s see how we can play and plot several
 simulations to see what the range of outcomes might be like.</p>
+<p><img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXMwZ2xzcWJzNG1ubXp1YXhvbG12YmE0NzQzNDFwa3drdGd1bmdoYSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xUOxeZc41DVT2l9laU/giphy.gif" alt="curb your enthusiasm luggage compartment gif" width = "500"/></p>
 <div id="section-running-multiple-simulations" class="section level3">
 <h3>Running multiple simulations</h3>
 <p>To do this, we need to use <code>play_diffusions()</code> (note the
@@ -858,10 +862,12 @@ plot(play_diffusion(rando, seeds = 10, latency = 0.25, recovery = 0.2))
 graphs(play_diffusion(rando, seeds = 10, latency = 0.25, recovery = 0.2), waves = c(1,5,10))</code></pre>
 </div>
 </div>
-<div id="section-make-it-stop" class="section level3">
-<h3>Make it stop</h3>
+</div>
+<div id="section-make-it-stop" class="section level2">
+<h2>Make it stop</h2>
 <p>In this section, we are interested in how to most effectively
 <em>halt</em> a diffusion process.</p>
+<p><img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3N3JsNWhvMjM2amkwMnhqZ2ltb2h2c3Zha3dwOGx1dHZnbngzNTQxZyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/LbvdcrbTOk6eK1kQ6u/giphy.gif" alt="biden stop gif" width = "500"/></p>
 <p>An attribute’s reproduction number, or <span
 class="math inline">\(R_0\)</span>, is a measure of the rate of
 infection or how quickly that attribute will reproduce period over
@@ -914,7 +920,6 @@ resist or halt such a disease?</p>
 <p>Ok, let’s start with option 1. After all, those who built up natural
 immunity (recovered) may have already protected some parts of the
 network from complete infection. But then…</p>
-</div>
 <div id="section-how-many-people-do-we-need-to-vaccinate"
 class="section level3">
 <h3>How many people do we need to vaccinate?</h3>
@@ -991,6 +996,7 @@ graphs(play_diffusion(greys, seeds = &quot;Mark Sloan&quot;, transmissibility = 
 usually rely on nodes’ voluntary participation: they must accept that
 vaccination, medication, or behavioral change is necessary to combat the
 contagion.</p>
+<p><img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bXdtbGs1azJnZWUzdGZycTRsMGg0a2twM2RxYjdveWtuNzV3eWo1MiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xjQfDCSRr2jkH3SPab/giphy.gif" alt="learn every day gif" width = "500"/></p>
 <p>Lastly, we’re going to consider a rather simple type of learning
 model: a DeGroot learning model. A question often asked of these kinds
 of models is whether, despite heterogeneous initial beliefs, those
@@ -1564,11 +1570,11 @@ learnr:::store_exercise_cache(structure(list(label = "completeinfection", global
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "struct-interp", 
     question = structure("Does the structure of the network matter for whether and when a diffusion process completes?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_86240db", 
+    "character")), answers = list(structure(list(id = "lnr_ans_def7858", 
         option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = structure("Take a closer look at the <code>net_infection_complete()<\u002fcode> results. Are they all the same?", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a5ba534", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_504ffbd", 
         option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = structure("We can see that the different structures have varying outcomes in terms of when the diffusion completes.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
@@ -1580,7 +1586,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "struct-interp-answer", question = "struct-interp"), 
     loading = NULL, random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 1944067401.09472, options = list()), class = c("learnr_radio", 
+    seed = 1998846406.56921, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
 
@@ -1670,19 +1676,19 @@ learnr:::store_exercise_cache(structure(list(label = "complex", global_setup = s
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "complex-interp", 
     question = structure("For which seed/threshold combinations was there complete infection?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_f5f7932", 
+    "character")), answers = list(structure(list(id = "lnr_ans_45f76f4", 
         option = "seeds = 1 and thresholds = 1", value = "seeds = 1 and thresholds = 1", 
         label = structure("seeds = 1 and thresholds = 1", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2ccb399", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ae549b7", 
         option = "seeds = 1 and thresholds = 2", value = "seeds = 1 and thresholds = 2", 
         label = structure("seeds = 1 and thresholds = 2", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ac99ead", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1272e89", 
         option = "seeds = 1:2 and thresholds = 2", value = "seeds = 1:2 and thresholds = 2", 
         label = structure("seeds = 1:2 and thresholds = 2", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_69b71d3", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8dfa405", 
         option = "seeds = c(1,16) and thresholds = 2", value = "seeds = c(1,16) and thresholds = 2", 
         label = structure("seeds = c(1,16) and thresholds = 2", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
@@ -1694,7 +1700,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "complex-interp-answer", question = "complex-interp"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1154820619.46224, options = list()), class = c("learnr_checkbox", 
+    seed = 1953604804.09028, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -1740,10 +1746,10 @@ learnr:::store_exercise_cache(structure(list(label = "sfcomplex", global_setup =
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "sfcomplex-interp", 
     question = structure("Here only one seed was used. Does it matter how many seeds are used?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_944196b", 
+    "character")), answers = list(structure(list(id = "lnr_ans_2fe707", 
         option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d695cdb", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6602979", 
         option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1754,7 +1760,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "sfcomplex-interp-answer", question = "sfcomplex-interp"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1606927553.75172, options = list()), class = c("learnr_radio", 
+    seed = 1402479305.84692, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
 
@@ -1804,10 +1810,10 @@ learnr:::store_exercise_cache(structure(list(label = "sfprop", global_setup = st
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "sfprop-interp", 
     question = structure("Does the threshold proportion matter?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_87c9680", 
+    "character")), answers = list(structure(list(id = "lnr_ans_55b7c16", 
         option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6199405", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ae87e66", 
         option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1818,7 +1824,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "sfprop-interp-answer", question = "sfprop-interp"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 6286739.99707251, options = list()), class = c("learnr_radio", 
+    seed = 1180117750.45046, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -1992,10 +1998,10 @@ learnr:::store_exercise_cache(structure(list(label = "ring2", global_setup = str
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "ring2-interp", 
     question = structure("Do you see any differences in infection?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_eeeabe5", 
+    "character")), answers = list(structure(list(id = "lnr_ans_229cffd", 
         option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_55aef36", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_17f8c68", 
         option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = structure("It doesn’t matter where the innovation is seeded", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
@@ -2007,7 +2013,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "ring2-interp-answer", question = "ring2-interp"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 2087571235.5279, options = list()), class = c("learnr_radio", 
+    seed = 459285010.286129, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
 
@@ -2098,10 +2104,10 @@ learnr:::store_exercise_cache(structure(list(label = "ring4", global_setup = str
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "ring4-interp", 
     question = structure("Do you see any differences?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_d086c9f", 
+    "character")), answers = list(structure(list(id = "lnr_ans_b383ab8", 
         option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_dc9bdb3", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6c0d3e0", 
         option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -2112,7 +2118,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "ring4-interp-answer", question = "ring4-interp"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1464752342.31792, options = list()), class = c("learnr_radio", 
+    seed = 332060209.845372, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -2166,10 +2172,10 @@ learnr:::store_exercise_cache(structure(list(label = "lattice", global_setup = s
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "lattice-interp", 
     question = structure("Do you see any differences?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_2f9437f", 
+    "character")), answers = list(structure(list(id = "lnr_ans_3b6ef6d", 
         option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6415831", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d90ec5a", 
         option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -2180,7 +2186,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "lattice-interp-answer", question = "lattice-interp"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1854592975.63639, options = list()), class = c("learnr_radio", 
+    seed = 114161856.946839, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
 
@@ -2276,22 +2282,22 @@ learnr:::store_exercise_cache(structure(list(label = "scale", global_setup = str
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "mindeg-interp", 
     question = structure("Which of these four led to the fastest diffusion process?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_1771ecf", 
+    "character")), answers = list(structure(list(id = "lnr_ans_d956d7d", 
         option = "Minimum degree node(s), because there are many more nodes with the minimum degree.", 
         value = "Minimum degree node(s), because there are many more nodes with the minimum degree.", 
         label = structure("Minimum degree node(s), because there are many more nodes with the minimum degree.", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_491e75d", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b1c60ae", 
         option = "Node 10 as seed, because it is the most influential.", 
         value = "Node 10 as seed, because it is the most influential.", 
         label = structure("Node 10 as seed, because it is the most influential.", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3f89c56", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2362684", 
         option = "Maximum degree node(s), because these nodes are the most influential.", 
         value = "Maximum degree node(s), because these nodes are the most influential.", 
         label = structure("Maximum degree node(s), because these nodes are the most influential.", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_33ae1d3", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_da2480c", 
         option = "A random node, because this time it selected a good seed.", 
         value = "A random node, because this time it selected a good seed.", 
         label = structure("A random node, because this time it selected a good seed.", html = TRUE, class = c("html", 
@@ -2304,7 +2310,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "mindeg-interp-answer", question = "mindeg-interp"), 
     loading = NULL, random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 2060107050.04069, options = list()), class = c("learnr_radio", 
+    seed = 1566157170.2707, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -2563,10 +2569,10 @@ learnr:::store_exercise_cache(structure(list(label = "sirs", global_setup = stru
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "sirs-interp", 
     question = structure("Does the process reach a reasonably stable state?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_56cef2f", 
+    "character")), answers = list(structure(list(id = "lnr_ans_b155562", 
         option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6280968", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d27a752", 
         option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -2577,7 +2583,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "sirs-interp-answer", question = "sirs-interp"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 541966950.247627, options = list()), class = c("learnr_radio", 
+    seed = 42484235.4802167, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
 
@@ -2628,16 +2634,16 @@ learnr:::store_exercise_cache(structure(list(label = "sirstimes-solution", globa
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "sirstimes-interp", 
     question = structure("Select the true statements", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_936b461", 
+    "character")), answers = list(structure(list(id = "lnr_ans_9cd299e", 
         option = "There are always some infected nodes.", value = "There are always some infected nodes.", 
         label = structure("There are always some infected nodes.", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_bff0a03", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b4c81b3", 
         option = "We never get to the stage where everyone has recovered.", 
         value = "We never get to the stage where everyone has recovered.", 
         label = structure("We never get to the stage where everyone has recovered.", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_43623ae", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_12a931b", 
         option = "There are always some susceptible nodes.", 
         value = "There are always some susceptible nodes.", label = structure("There are always some susceptible nodes.", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
@@ -2649,7 +2655,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "sirstimes-interp-answer", question = "sirstimes-interp"), 
     loading = NULL, random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 595383901.722753, options = list()), class = c("learnr_checkbox", 
+    seed = 1729301436.69473, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -2746,16 +2752,16 @@ learnr:::store_exercise_cache(structure(list(label = "r0", global_setup = struct
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "r0-interp", 
     question = structure("Select any true statements you can make about this R-nought result:", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_398730d", 
+    "character")), answers = list(structure(list(id = "lnr_ans_2030a7", 
         option = "An epidemic is likely to occur.", value = "An epidemic is likely to occur.", 
         label = structure("An epidemic is likely to occur.", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_86b86a0", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_9b63fab", 
         option = "There are not enough seed nodes to start an epidemic.", 
         value = "There are not enough seed nodes to start an epidemic.", 
         label = structure("There are not enough seed nodes to start an epidemic.", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a7212b6", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5bfe1db", 
         option = "Most nodes get infected.", value = "Most nodes get infected.", 
         label = structure("Most nodes get infected.", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
@@ -2767,7 +2773,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "r0-interp-answer", question = "r0-interp"), 
     loading = NULL, random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 52070284.9757529, options = list()), class = c("learnr_checkbox", 
+    seed = 2046653933.04695, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
 
@@ -2775,17 +2781,17 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "stymie-interp", 
     question = structure("Let’s review our options. What can we do to stymie this disease?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_35d8949", 
+    "character")), answers = list(structure(list(id = "lnr_ans_5f14cf6", 
         option = "Reduce the number of susceptible people", value = "Reduce the number of susceptible people", 
         label = structure("Reduce the number of susceptible people", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = structure("Yes, let’s vaccinate!", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_44596a6", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_20f1098", 
         option = "Reduce recovery time", value = "Reduce recovery time", 
         label = structure("Reduce recovery time", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = structure("Yes, let’s medicate!", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_77a8e7c", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f271d28", 
         option = "Reduce the transmission rate", value = "Reduce the transmission rate", 
         label = structure("Reduce the transmission rate", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = structure("Yes, let’s try and change behaviour!", html = TRUE, class = c("html", 
@@ -2798,7 +2804,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "stymie-interp-answer", question = "stymie-interp"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 2013100642.06258, options = list()), class = c("learnr_checkbox", 
+    seed = 952897997.556272, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -2977,10 +2983,10 @@ learnr:::store_exercise_cache(structure(list(label = "aperiod", global_setup = s
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "consens-interp", 
     question = structure("Based on these results, would you expect this network to converge to a consensus?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_21873a0", 
+    "character")), answers = list(structure(list(id = "lnr_ans_acbc780", 
         option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f13ad9d", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_74e49c2", 
         option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = structure("A strongly connected, aperiodic network will converge to a single consensus.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
@@ -2992,7 +2998,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "consens-interp-answer", question = "consens-interp"), 
     loading = NULL, random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 1021036301.02454, options = list()), class = c("learnr_radio", 
+    seed = 738837801.655952, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
 
@@ -3000,20 +3006,20 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "aperiod-interp", 
     question = structure("If there were aperiodicity but two or more strongly connected components, what would happen?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_87fefa", 
+    "character")), answers = list(structure(list(id = "lnr_ans_ea94d3d", 
         option = "There would be no convergence", value = "There would be no convergence", 
         label = structure("There would be no convergence", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_65ffd15", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_90d4f69", 
         option = "There would be convergence to a single consensus", 
         value = "There would be convergence to a single consensus", 
         label = structure("There would be convergence to a single consensus", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1c5e79", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6be366d", 
         option = "There would be convergence", value = "There would be convergence", 
         label = structure("There would be convergence", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ee48fa4", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d6adb43", 
         option = "There would probably be as many separate values as there are components", 
         value = "There would probably be as many separate values as there are components", 
         label = structure("There would probably be as many separate values as there are components", html = TRUE, class = c("html", 
@@ -3026,7 +3032,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "aperiod-interp-answer", question = "aperiod-interp"), 
     loading = NULL, random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 811748697.622, options = list()), class = c("learnr_checkbox", 
+    seed = 668838963.188548, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -3075,27 +3081,27 @@ learnr:::store_exercise_cache(structure(list(label = "degroot", global_setup = s
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "degroot-interp", 
     question = structure("What are some true statements about these results?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_2cb3da6", 
+    "character")), answers = list(structure(list(id = "lnr_ans_736b618", 
         option = "Some nodes revise their beliefs more than others.", 
         value = "Some nodes revise their beliefs more than others.", 
         label = structure("Some nodes revise their beliefs more than others.", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d782b0a", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1a77489", 
         option = "There seems to be a consensus.", value = "There seems to be a consensus.", 
         label = structure("There seems to be a consensus.", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_9161a15", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e1c5646", 
         option = "It takes more than two steps to reach consensus.", 
         value = "It takes more than two steps to reach consensus.", 
         label = structure("It takes more than two steps to reach consensus.", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_dd1bdfe", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6d06caf", 
         option = "One node never updates their belief beyond their initial belief.", 
         value = "One node never updates their belief beyond their initial belief.", 
         label = structure("One node never updates their belief beyond their initial belief.", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = structure("All nodes in this network eventually update their beliefs.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8a981f4", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6eccd5a", 
         option = "I would get the same shared belief if I reran the code.", 
         value = "I would get the same shared belief if I reran the code.", 
         label = structure("I would get the same shared belief if I reran the code.", html = TRUE, class = c("html", 
@@ -3109,7 +3115,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "degroot-interp-answer", question = "degroot-interp"), 
     loading = NULL, random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 1259946307.41329, options = list()), class = c("learnr_checkbox", 
+    seed = 1037679132.51679, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
 
@@ -3159,7 +3165,7 @@ learnr:::store_exercise_cache(structure(list(label = "eigen", global_setup = str
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103]}},"value":[{"type":"character","attributes":{},"value":["autograph","backports","base","bslib","cachem","checkmate","cli","coda","codetools","commonmark","compiler","datasets","DEoptimR","digest","dplyr","ellipsis","ergm","evaluate","farver","fastmap","fontawesome","furrr","future","generics","ggdendro","ggforce","ggplot2","ggraph","ggrepel","globals","glue","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","htmltools","htmlwidgets","httpuv","igraph","jquerylib","jsonlite","knitr","later","lattice","learnr","lifecycle","listenv","litedown","lpSolveAPI","magrittr","manynet","markdown","MASS","Matrix","memoise","methods","migraph","mime","network","parallel","parallelly","patchwork","pillar","pkgconfig","polyclip","promises","purrr","R6","rbibutils","RColorBrewer","Rcpp","Rdpack","rlang","rle","rmarkdown","robustbase","rprojroot","rstudioapi","S7","sass","scales","shiny","statnet.common","stats","stringi","stringr","tibble","tidygraph","tidyr","tidyselect","tools","trust","tweenr","utils","vctrs","viridis","viridisLite","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["0.4.3","1.5.0","4.5.1","0.9.0","1.1.0","2.3.3","3.6.5","0.19-4.1","0.2-20","2.0.0","4.5.1","4.5.1","1.1-4","0.6.37","1.1.4","0.3.2","4.10.1","1.0.5","2.1.2","1.2.0","0.5.3","0.3.1","1.67.0","0.1.4","0.2.0","0.5.0","4.0.0","2.2.2","0.9.6","0.18.0","1.8.0","4.5.1","1.2.2","4.5.1","4.5.1","2.3","0.3.6","0.5.8.1","1.6.4","1.6.16","2.2.0","0.1.4","2.0.0","1.50","1.4.4","0.22-7","0.11.5","1.0.4","0.9.1","0.7","5.5.2.0-17.14","2.0.4","1.6.8","2.0","7.3-65","1.7-4","2.0.1","4.5.1","1.5.5","0.13","1.19.0","4.5.1","1.45.1","1.3.2","1.11.1","2.0.3","1.10-7","1.3.3","1.1.0","2.6.1","2.3","1.1-3","1.1.0","2.6.4","1.1.6","0.10.0","2.30","0.99-6","2.1.1","0.17.1","0.2.0","0.4.10","1.4.0","1.11.1","4.12.0","4.5.1","1.8.7","1.5.2","3.3.0","1.3.1","1.3.1","1.2.1","4.5.1","0.1-8","2.0.3","4.5.1","0.6.5","0.6.5","0.4.2","3.0.2","0.53","1.8-4","2.3.10"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103]}},"value":[{"type":"character","attributes":{},"value":["autograph","backports","base","bslib","cachem","checkmate","cli","coda","codetools","commonmark","compiler","datasets","DEoptimR","digest","dplyr","ellipsis","ergm","evaluate","farver","fastmap","fontawesome","furrr","future","generics","ggdendro","ggforce","ggplot2","ggraph","ggrepel","globals","glue","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","htmltools","htmlwidgets","httpuv","igraph","jquerylib","jsonlite","knitr","later","lattice","learnr","lifecycle","listenv","litedown","lpSolveAPI","magrittr","manynet","markdown","MASS","Matrix","memoise","methods","migraph","mime","network","parallel","parallelly","patchwork","pillar","pkgconfig","polyclip","promises","purrr","R6","rbibutils","RColorBrewer","Rcpp","Rdpack","rlang","rle","rmarkdown","robustbase","rprojroot","rstudioapi","S7","sass","scales","shiny","statnet.common","stats","stringi","stringr","tibble","tidygraph","tidyr","tidyselect","tools","trust","tweenr","utils","vctrs","viridis","viridisLite","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["0.5.0","1.5.0","4.5.1","0.9.0","1.1.0","2.3.3","3.6.5","0.19-4.1","0.2-20","2.0.0","4.5.1","4.5.1","1.1-4","0.6.37","1.1.4","0.3.2","4.10.1","1.0.5","2.1.2","1.2.0","0.5.3","0.3.1","1.67.0","0.1.4","0.2.0","0.5.0","4.0.0","2.2.2","0.9.6","0.18.0","1.8.0","4.5.1","1.2.2","4.5.1","4.5.1","2.3","0.3.6","0.5.8.1","1.6.4","1.6.16","2.2.0","0.1.4","2.0.0","1.50","1.4.4","0.22-7","0.11.5","1.0.4","0.9.1","0.7","5.5.2.0-17.14","2.0.4","1.6.8","2.0","7.3-65","1.7-4","2.0.1","4.5.1","1.5.5","0.13","1.19.0","4.5.1","1.45.1","1.3.2","1.11.1","2.0.3","1.10-7","1.3.3","1.1.0","2.6.1","2.3","1.1-3","1.1.0","2.6.4","1.1.6","0.10.0","2.30","0.99-6","2.1.1","0.17.1","0.2.0","0.4.10","1.4.0","1.11.1","4.12.0","4.5.1","1.8.7","1.5.2","3.3.0","1.3.1","1.3.1","1.2.1","4.5.1","0.1-8","2.0.3","4.5.1","0.6.5","0.6.5","0.4.2","3.0.2","0.53","1.8-4","2.3.10"]}]}]}
 </script>
 <!--/html_preserve-->
 </div>
