@@ -1,10 +1,15 @@
-# migraph 1.5.7
+# migraph 1.5.8
 
 2026-02-18
 
-- Using fict_marvel in tests
-- Added tidy(), glance(), and summary() methods for sienaFit class objects
-- Added summary.ergm()
+- Fixed generic arguments and rely on `dplyr::tibble()` instead of `tibble::tibble()` internally
+- Fixed `fict_marvel` example
+
+# migraph 1.5.7
+
+- Using `fict_marvel` in tests
+- Added `tidy()`, `glance()`, and `summary()` methods for sienaFit class objects
+- Added `summary.ergm()`
 
 # migraph 1.5.6
 
