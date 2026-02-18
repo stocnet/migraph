@@ -23,8 +23,8 @@ NULL
 #' @rdname tests 
 #' @importFrom manynet generate_random bind_node_attributes is_directed is_complex
 #' @examples 
-#' marvel_friends <- to_unsigned(ison_marvel_relationships)
-#' marvel_friends <- to_giant(marvel_friends) %>% 
+#' marvel_friends <- fict_marvel %>% to_uniplex("relationship") %>% 
+#'   to_unsigned() %>% to_giant() %>% 
 #'   to_subgraph(PowerOrigin == "Human")
 #' (cugtest <- test_random(marvel_friends, manynet::net_heterophily, attribute = "Attractive",
 #'    times = 200))
