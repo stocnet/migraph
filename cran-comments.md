@@ -9,4 +9,4 @@
 
 0 errors | 0 warnings | 0 notes
 
-- Fixed CRAN errors
+- This release is required to avoid a reverse dependency issue because of renaming some data in the manynet package
