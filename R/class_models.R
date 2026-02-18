@@ -97,6 +97,17 @@ tidy.ergm <- function(
   dplyr::as_tibble(ret)
 }
 
+#' @method tidy sienaFit
+#' @export
+tidy.sienaFit <- function(ans){
+  tibble::tibble(
+    dv = ans$effects$name,
+    term = ans$effects$effectName,
+    estimate = ans$theta,
+    se = ans$se,
+    tstat = ans$theta/ans$se
+  )
+}
 
 #' @importFrom generics glance
 #' @export
@@ -239,6 +250,15 @@ glance.ergm <- function(x, deviance = FALSE, mcmc = FALSE, ...) {
   ret
 }
 
+#' @method glance sienaFit
+#' @export
+glance.sienaFit <- function(ans){
+  tibble::tibble(
+    tmax = ans$tmax,
+    tconv.max = ans$tconv.max[,1]
+  )
+}
+
 #' @export
 print.netlm <- function(x, ...){
   cat("# Fitted model results\n")
@@ -256,7 +276,15 @@ print.netlogit <- function(x, ...){
 }
 
 #' @export
-print.ergm <- function(x, ...){
+summary.ergm <- function(x, ...){
+  cat("# Fitted model results\n")
+  print(tidy(x))
+  cat("\n# Model summary statistics\n")
+  print(glance(x))
+}
+
+#' @export
+summary.sienaFit <- function(x, ...){
   cat("# Fitted model results\n")
   print(tidy(x))
   cat("\n# Model summary statistics\n")
