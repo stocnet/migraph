@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.7</span>
       </span>
     </div>
 
@@ -60,7 +60,14 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.5.6" id="migraph-156">migraph 1.5.6<a class="anchor" aria-label="anchor" href="#migraph-156"></a></h2>
+<h2 class="page-header" data-toc-text="1.5.7" id="migraph-157">migraph 1.5.7<a class="anchor" aria-label="anchor" href="#migraph-157"></a></h2>
+<p>2026-02-18</p>
+<ul><li>Using fict_marvel in tests</li>
+<li>Added tidy(), glance(), and summary() methods for sienaFit class objects</li>
+<li>Added summary.ergm()</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.5.6" id="migraph-156">migraph 1.5.6<small>2025-11-19</small><a class="anchor" aria-label="anchor" href="#migraph-156"></a></h2>
 <p>2025-11-19</p>
 <div class="section level3">
 <h3 id="tutorials-1-5-6">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-5-6"></a></h3>
@@ -672,7 +679,7 @@
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_central_eigen.html" class="external-link">node_alpha()</a></code> for calculating alpha centrality, mostly just a wrapper for <code><a href="https://r.igraph.org/reference/alpha_centrality.html" class="external-link">igraph::alpha_centrality()</a></code>
 </li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_central_eigen.html" class="external-link">node_power()</a></code> for calculating beta or Bonacich centrality, mostly just a wrapper for <code><a href="https://r.igraph.org/reference/power_centrality.html" class="external-link">igraph::power_centrality()</a></code>, though also correctly accounts for two-mode networks</li>
-<li>Renamed <code>node_homophily()</code> to <code><a href="https://stocnet.github.io/manynet/reference/measure_heterogeneity.html" class="external-link">node_heterophily()</a></code>, which is more accurate and in line with the scale’s direction<ul><li>
+<li>Renamed <code><a href="https://stocnet.github.io/manynet/reference/measure_heterogeneity.html" class="external-link">node_homophily()</a></code> to <code><a href="https://stocnet.github.io/manynet/reference/measure_heterogeneity.html" class="external-link">node_heterophily()</a></code>, which is more accurate and in line with the scale’s direction<ul><li>
 <code><a href="https://stocnet.github.io/manynet/reference/measure_heterogeneity.html" class="external-link">node_heterophily()</a></code> now calculates EI indices in a faster, vectorised form, instead of the older, slower solution that calculated <code>network_homophily()</code> over all ego networks</li></ul></li>
 <li>Renamed <code>network_homophily()</code> to <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_heterophily()</a></code><ul><li>
 <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">network_heterophily()</a></code> now ignores missing values</li></ul></li>
@@ -869,7 +876,7 @@
 <li>“SWI” is also included and offers a 0 to 1 range, but where 1 may not be realisable</li>
 </ul></li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_heterogeneity.html" class="external-link">node_diversity()</a></code> for calculating heterogeneity among each nodes’ ego network</li>
-<li>Added <code>node_homophily()</code> for calculating homophilous ties among each nodes’ ego network</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_heterogeneity.html" class="external-link">node_homophily()</a></code> for calculating homophilous ties among each nodes’ ego network</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_closure.html" class="external-link">node_reciprocity()</a></code> for calculating each node’s reciprocity</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/measure_closure.html" class="external-link">node_transitivity()</a></code> for calculating each node’s transitivity/clustering</li>
 </ul></div>
