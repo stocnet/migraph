@@ -276,6 +276,14 @@ print.netlogit <- function(x, ...){
 }
 
 #' @export
+summary.ergm <- function(x, ...){
+  cat("# Fitted model results\n")
+  print(tidy(x))
+  cat("\n# Model summary statistics\n")
+  print(glance(x))
+}
+
+#' @export
 summary.sienaFit <- function(x, ...){
   cat("# Fitted model results\n")
   print(tidy(x))
