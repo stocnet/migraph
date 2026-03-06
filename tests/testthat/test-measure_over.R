@@ -5,6 +5,6 @@ test_that("over_waves works", {
 
 test_that("over_membership works", {
   res <- over_membership(fict_potter, manynet::net_assortativity, 
-                         membership = node_in_regular(fict_potter))
+                         membership = netrics::node_in_regular(fict_potter))
   expect_equal(unname(unlist(c(res))), c(0.490201713,NaN))
 })
