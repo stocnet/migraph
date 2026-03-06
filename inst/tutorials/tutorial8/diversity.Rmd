@@ -50,7 +50,7 @@ learnr::random_phrases_add(language = "en",
                                       "Bravo!",
                                       "Super!"),
                            encouragement = c("Bon effort"))
-marvel_friends <- to_unsigned(ison_marvel_relationships, keep = "positive")
+marvel_friends <- to_unsigned(to_uniplex(fict_marvel, "relationship"), keep = "positive")
 marvel_friends <- to_giant(marvel_friends)
 marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances))
 ```
@@ -73,11 +73,12 @@ By the end of this tutorial, you will be able to:
 ## Initial visualisation
 
 For this session, we'll explore a couple of different datasets.
-First, let's examine homogeneity/`r gloss("heterogeneity")` in the Marvel relationships dataset from `{manynet}`,
-`ison_marvel_relationships`.
+First, let's examine homogeneity/`r gloss("heterogeneity")` in the Marvel dataset from `{manynet}`,
+`fict_marvel`.
 The dataset is quite complicated,
 so to make this simpler, let's concentrate on:
 
+- just the relationships part of the network
 - just the positive (friendship) ties and not the negative (enmity) ties
 - the main (giant) component without any isolates
 - just those characters that appear in the comics more than average
@@ -90,24 +91,23 @@ and can be seen in the following chunk in order:
 ```
 
 ```{r friends-hint-1, purl = FALSE}
+to_uniplex(____, "relationship")
+```
+
+```{r friends-hint-2, purl = FALSE}
 # since the dataset is a 'signed' graph, we want to get just the
 # positively signed ties to get the friendship graph 
 # (and lose the enmity relations)
 to_unsigned(____, keep = "positive")
 ```
 
-```{r friends-hint-2, purl = FALSE}
+```{r friends-hint-3, purl = FALSE}
 # to_giant() is a quick easy way to get the giant/main component
 to_giant(____)
 ```
 
-```{r friends-hint-3, purl = FALSE}
-to_subgraph(____, Appearances >= mean(Appearances))
-```
-
 ```{r friends-hint-4, purl = FALSE}
-# don't forget to assign the results!
-marvel_friends <- ____
+to_subgraph(____, Appearances >= mean(Appearances))
 ```
 
 ```{r friends-hint-5, purl = FALSE}
