@@ -4,7 +4,7 @@
 \alias{test_tutorials}
 \title{Test tutorials}
 \usage{
-test_tutorials(path)
+test_tutorials(path, quiet = TRUE)
 }
 \arguments{
 \item{path}{Character vector of the paths to the tutorials to be knitted.}

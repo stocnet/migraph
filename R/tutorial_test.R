@@ -11,20 +11,20 @@
 #' @returns No return value, called for side effects.
 #' @author David Kane, see tutorial.helpers
 #' @export
-test_tutorials <- function(path){
+test_tutorials <- function(path, quiet = TRUE){
   
   stopifnot(all(file.exists(path)))
   
   for(i in path){
-    message("Rendering: ", basename(i))
+    if(!quiet) message("Rendering: ", basename(i))
     tryCatch({
       rmarkdown::render(input = i, 
                         output_dir = tempdir(),
-                        intermediates_dir = tempdir())
+                        intermediates_dir = tempdir(), quiet = quiet)
       # Note that the Debian setup on CRAN does not allow for writing files to any
       # location other than the temporary directory, which is why we must specify
       # tempdir() in the two dir arguments.
-      message("Successfully rendered: ", basename(i))
+      if(!quiet) message("Successfully rendered: ", basename(i))
     }, error = function(e) {
       stop("Failed to render ", i, ": ", e$message, call. = FALSE)
     })
