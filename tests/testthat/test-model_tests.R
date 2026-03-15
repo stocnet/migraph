@@ -3,14 +3,14 @@ marvel_friends <- manynet::to_uniplex(manynet::fict_marvel, "relationship") %>%
   manynet::to_giant() %>% manynet::to_unsigned() %>% 
   manynet::to_subgraph(PowerOrigin == "Human")
 cugtest <- test_random(marvel_friends,
-                       manynet::net_heterophily,
+                       netrics::net_by_heterophily,
                        attribute = "Attractive",
                        times = 200)
 cugtest2 <- test_random(marvel_friends,
-                        manynet::net_betweenness,
+                        netrics::net_by_betweenness,
                         times = 200)
 cugtest3 <- test_random(ison_southern_women,
-                        manynet::net_equivalency,
+                        netrics::net_by_equivalency,
                         times = 200)
 
 test_that("test_random works", {
@@ -40,7 +40,7 @@ test_that("test_random works", {
 
 # Set the qaptest up
 qaptest <- test_permutation(marvel_friends,
-                            manynet::net_heterophily,
+                            netrics::net_by_heterophily,
                             attribute = "Attractive",
                             times = 200)
 
@@ -57,7 +57,7 @@ test_that("test_permutation works", {
 test_that("test_configuration works", {
   testthat::skip_on_os("linux")
   configtest <- test_configuration(marvel_friends,
-                                   manynet::net_heterophily,
+                                   netrics::net_by_heterophily,
                                    attribute = "Attractive",
                                    times = 200)
   expect_s3_class(configtest, "network_test")

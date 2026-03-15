@@ -22,7 +22,8 @@ RoxygenNote: 7.3.3
 Depends:
     R (>= 3.6.0),
     manynet (>= 1.0.5),
-    autograph (>= 0.4.0)
+    autograph (>= 0.4.0),
+    netrics
 Imports: 
     dplyr (>= 1.1.0),
     ergm,
@@ -58,4 +59,4 @@ Authors@R:
 Roxygen: list(markdown = TRUE, roclets = c("namespace", "rd"))
 Config/testthat/parallel: true
 Config/testthat/edition: 3
-Config/testthat/start-first: helper-functions 
+Config/testthat/start-first: tutorials_manynet

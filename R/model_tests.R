@@ -134,7 +134,7 @@ test_permutation <- function(.data, FUN, ...,
     obsd <- FUN(.data)
   }
   n <- manynet::net_dims(.data)
-  d <- manynet::net_density(.data)
+  d <- netrics::net_by_density(.data)
   oplan <- future::plan(strategy)
   on.exit(future::plan(oplan), add = TRUE)
   rands <- furrr::future_map(1:times, 
