@@ -1,3 +1,5 @@
+knitr::opts_chunk$set(message = FALSE)
+
 top3 <- function(res, dec = 4){
   if(is.numeric(res)){
     unname(round(res, dec))[1:3]  
