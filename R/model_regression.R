@@ -171,14 +171,14 @@ net_regression <- function(formula, .data,
   on.exit(future::plan(oplan), add = TRUE)
     if(valued){
       repdist <- furrr::future_map_dfr(1:times, function(j){
-        nlmfit(c(list(manynet::generate_permutation(g[[1]], with_attr = FALSE)),
+        nlmfit(c(list(manynet::to_permuted(g[[1]], with_attr = FALSE)),
                  g[2:(nx+1)]),
                directed = directed, diag = diag,
                rety = FALSE)
       }, .progress = verbose, .options = furrr::furrr_options(seed = T))
     } else {
       repdist <- furrr::future_map_dfr(1:times, function(j){
-        repfit <- nlgfit(c(list(manynet::generate_permutation(g[[1]], with_attr = FALSE)),
+        repfit <- nlgfit(c(list(manynet::to_permuted(g[[1]], with_attr = FALSE)),
                            g[2:(nx+1)]),
                          directed = directed, diag = diag)
         repfit$coef/sqrt(diag(chol2inv(repfit$qr$qr)))
@@ -207,14 +207,14 @@ net_regression <- function(formula, .data,
       if(valued){
         repdist[,i] <- furrr::future_map_dbl(1:times, function(j){
           nlmfit(c(g[-(1 + i)],
-                   list(manynet::generate_permutation(xres, with_attr = FALSE))),
+                   list(manynet::to_permuted(xres, with_attr = FALSE))),
                  directed = directed, diag = diag,
                  rety = FALSE)[nx]
         }, .progress = verbose, .options = furrr::furrr_options(seed = T))
       } else {
         repdist[,i] <- furrr::future_map_dbl(1:times, function(j){
           repfit <- nlgfit(c(g[-(1 + i)],
-                             list(manynet::generate_permutation(xres, with_attr = FALSE))),
+                             list(manynet::to_permuted(xres, with_attr = FALSE))),
                            directed = directed, diag = diag)
           repfit$coef[nx]/sqrt(diag(chol2inv(repfit$qr$qr)))[nx]
         }, .progress = verbose, .options = furrr::furrr_options(seed = T))
