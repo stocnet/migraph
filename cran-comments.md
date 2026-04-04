@@ -9,4 +9,4 @@
 
 0 errors | 0 warnings | 0 notes
 
-- This release is required to avoid a reverse dependency issue because of renaming some data in the manynet package
+- Updates to bring autograph into line with latest version of manynet (> v2.0.0)

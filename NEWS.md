@@ -1,10 +1,33 @@
+# migraph 1.6.0
+
+2026-04-04
+
+## Package
+
+- Updated logo
+- Now Depends on `{netrics}`
+- Fixed generic arguments and rely on `dplyr::tibble()` instead of `tibble::tibble()` internally
+
+## Testing
+
+- Fixed `test_permutation()` to use `netrics::net_by_density()`
+- Fixed `net_regression()` to use `manynet::to_permuted()`
+
+## Tutorials
+
+- Moved `run_tute()` and `extract_tute()` from `{manynet}` to here
+- Fixed `fict_marvel` example
+- Fixed diversity tutorial to work with `fict_marvel`
+- Fixed ergm tutorial to work with `{netrics}`
+- Moved tutorial0/data from `{manynet}`
+- Added tutorial testing, with a quiet option
+- Tutorials are highlighted in the README
+
 # migraph 1.5.7
 
-2026-02-18
-
-- Using fict_marvel in tests
-- Added tidy(), glance(), and summary() methods for sienaFit class objects
-- Added summary.ergm()
+- Using `fict_marvel` in tests
+- Added `tidy()`, `glance()`, and `summary()` methods for sienaFit class objects
+- Added `summary.ergm()`
 
 # migraph 1.5.6
 

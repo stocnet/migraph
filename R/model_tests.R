@@ -23,10 +23,10 @@ NULL
 #' @rdname tests 
 #' @importFrom manynet generate_random bind_node_attributes is_directed is_complex
 #' @examples 
-#' marvel_friends <- to_unsigned(ison_marvel_relationships)
-#' marvel_friends <- to_giant(marvel_friends) %>% 
+#' marvel_friends <- fict_marvel %>% to_uniplex("relationship") %>% 
+#'   to_unsigned() %>% to_giant() %>% 
 #'   to_subgraph(PowerOrigin == "Human")
-#' (cugtest <- test_random(marvel_friends, manynet::net_heterophily, attribute = "Attractive",
+#' (cugtest <- test_random(marvel_friends, net_by_heterophily, attribute = "Attractive",
 #'    times = 200))
 #' # plot(cugtest)
 #' @export
@@ -119,7 +119,7 @@ test_configuration <- function(.data, FUN, ...,
 #' @rdname tests 
 #' @examples 
 #' # (qaptest <- test_permutation(marvel_friends, 
-#' #                 manynet::net_heterophily, attribute = "Attractive",
+#' #                 net_by_heterophily, attribute = "Attractive",
 #' #                 times = 200))
 #' # plot(qaptest)
 #' @export
@@ -134,7 +134,7 @@ test_permutation <- function(.data, FUN, ...,
     obsd <- FUN(.data)
   }
   n <- manynet::net_dims(.data)
-  d <- manynet::net_density(.data)
+  d <- netrics::net_by_density(.data)
   oplan <- future::plan(strategy)
   on.exit(future::plan(oplan), add = TRUE)
   rands <- furrr::future_map(1:times, 

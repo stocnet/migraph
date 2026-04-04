@@ -8,7 +8,7 @@
 \alias{mpn_senate_over}
 \title{Two-mode 112th Congress Senate Voting (Knoke et al. 2021)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network of 114 nodes and 2791 ties
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network of 51 nodes and 63 nodes and 2791 ties
 #> 
 #> -- Nodes
 #> # A tibble: 114 x 2
@@ -36,7 +36,7 @@
 #> 
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network of 134 nodes and 3675 ties
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network of 62 nodes and 72 nodes and 3675 ties
 #> 
 #> -- Nodes
 #> # A tibble: 134 x 2
@@ -64,7 +64,7 @@
 #> 
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network of 52 nodes and 614 ties
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network of 20 nodes and 32 nodes and 614 ties
 #> 
 #> -- Nodes
 #> # A tibble: 52 x 2

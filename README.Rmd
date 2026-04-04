@@ -103,7 +103,9 @@ for two-mode networks as well as one-mode networks.
 
 ## Tutorials
 
-Together with `{manynet}`, this package makes available interactive `{learnr}` tutorials.
+This package makes available interactive `{learnr}` tutorials to help new and 
+experienced users learn how they can conduct social network analysis using the 
+stocnet packages.
 The easiest way to access the tutorials is via `run_tute()`.
 If no tutorial name is provided, the function will return a list of tutorials
 currently available in either package:

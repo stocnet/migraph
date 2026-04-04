@@ -82,7 +82,8 @@ conditional uniform graph (CUG) or quadratic assignment procedure (QAP)
 distributions using:
 
 - `test_configuration()`, `test_distribution()`, `test_fit()`,
-  `test_gof()`, `test_permutation()`, `test_random()`
+  `test_gof()`, `test_permutation()`, `test_random()`,
+  `test_tutorials()`
 
 <img src="https://www.jameshollway.com/post/migraph/tests-2.png" alt="Plot showing the results of a QAP test"/>
 
@@ -98,28 +99,31 @@ two-mode networks as well as one-mode networks.
 
 ## Tutorials
 
-Together with `{manynet}`, this package makes available interactive
-`{learnr}` tutorials. The easiest way to access the tutorials is via
-`run_tute()`. If no tutorial name is provided, the function will return
-a list of tutorials currently available in either package:
+This package makes available interactive `{learnr}` tutorials to help
+new and experienced users learn how they can conduct social network
+analysis using the stocnet packages. The easiest way to access the
+tutorials is via `run_tute()`. If no tutorial name is provided, the
+function will return a list of tutorials currently available in either
+package:
 
 ``` r
 library(migraph)
 run_tute()
-#> Checking tutorials in stocnet packages ■■■■■■■■■■■■■■■■ 50% | …
-#> # A tibble: 9 × 3
-#>   package name      title                   
-#>   <chr>   <chr>     <chr>                   
-#> 1 manynet tutorial0 Intro to R              
-#> 2 manynet tutorial1 Data                    
-#> 3 manynet tutorial2 Visualisation           
-#> 4 manynet tutorial3 Centrality              
-#> 5 manynet tutorial4 Cohesion and Community  
-#> 6 manynet tutorial5 Position and Equivalence
-#> 7 manynet tutorial6 Topology and Resilience 
-#> 8 manynet tutorial7 Diffusion and Learning  
-#> 9 migraph tutorial8 Diversity and Regression
-#> ℹ You can run one of these tutorials by typing e.g `run_tute('tutorial1')` or `run_tute('Data')` into the console.
+#> Checking tutorials in stocnet packages ■■■■■■■■■■■ 33% | …
+#> # A tibble: 10 × 3
+#>    package   name      title                   
+#>    <chr>     <chr>     <chr>                   
+#>  1 manynet   tutorial0 Intro to R              
+#>  2 manynet   tutorial1 Data                    
+#>  3 autograph tutorial2 Visualisation           
+#>  4 manynet   tutorial3 Centrality              
+#>  5 manynet   tutorial4 Cohesion and Community  
+#>  6 manynet   tutorial5 Position and Equivalence
+#>  7 manynet   tutorial6 Topology and Resilience 
+#>  8 migraph   tutorial7 Diffusion and Learning  
+#>  9 migraph   tutorial8 Diversity and Regression
+#> 10 migraph   tutorial9 Modelling with ERGMs
+#> ℹ You can run a tutorial by typing e.g `run_tute('tutorial1')` or `run_tute('Data')` into the console.
 # run_tute("tutorial5")
 ```
 

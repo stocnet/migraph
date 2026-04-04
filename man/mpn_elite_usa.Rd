@@ -7,7 +7,7 @@
 \alias{mpn_elite_usa_money}
 \title{Two-mode and three-mode American power elite database (Domhoff 2016)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, two-mode network of 34 nodes and 46 ties
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, two-mode network of 14 nodes and 20 nodes and 46 ties
 #> 
 #> -- Nodes
 #> # A tibble: 34 x 2
@@ -35,7 +35,7 @@
 #> 
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, two-mode network of 38 nodes and 103 ties
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, two-mode network of 26 nodes and 12 nodes and 103 ties
 #> 
 #> -- Nodes
 #> # A tibble: 38 x 2

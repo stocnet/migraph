@@ -52,9 +52,18 @@ reference:
       - starts_with("test")
       - regression
       - predict
-  - title: "Data"
+
+  - title: "Practicing"
+  - subtitle: "Learning"
+    desc: |
+      Functions for loading and extracting code from tutorials.
+    contents:
+      - tutorials
+  - subtitle: "Data"
     desc: |
       The package contains multimodal, multilevel, and multiplex network data,
       used in the book _Multimodal Political Networks_ (prefixed with `mpn_`).
     contents:
       - starts_with("mpn_")
+      
+
