@@ -27,22 +27,20 @@ run_tute <- function(tute) {
   avail_pkgs <- stocnet[suppressWarnings(unlist(lapply(stocnet, 
                                                        function(x) nzchar(system.file(package = x)))))]
   if (missing(tute)) {
-    tutelist <- lapply(cli::cli_progress_along(avail_pkgs, 
+    tutelist <- lapply(manynet::snet_progress_along(avail_pkgs, 
                                                name = "Checking tutorials in stocnet packages"), 
                        function(p){
                          dplyr::as_tibble(learnr::available_tutorials(package = avail_pkgs[p]),
                                           silent = TRUE) %>% dplyr::select(1:3)
                        })
     dplyr::bind_rows(tutelist) %>% dplyr::arrange(name) %>% print()
-    cli::cli_alert_info(paste(cli::col_grey("You can run a tutorial by typing e.g"), 
-                              "`run_tute('tutorial1')`", cli::col_grey("or"), "`run_tute('Data')`", 
-                              cli::col_grey("into the console.")))
+    manynet::snet_info("You can run a tutorial by typing e.g `run_tute('tutorial1')` or `run_tute('Data')` into the console.")
   } else {
     try(learnr::run_tutorial(tute, "manynet"), silent = TRUE)
     try(learnr::run_tutorial(tute, "migraph"), silent = TRUE)
     try(learnr::run_tutorial(tute, "autograph"), silent = TRUE)
-    cli::cli_alert_info("Didn't find a direct match, so looking for close matches...")
-    tutelist <- lapply(cli::cli_progress_along(avail_pkgs, 
+    manynet::snet_info("Didn't find a direct match, so looking for close matches...")
+    tutelist <- lapply(manynet::snet_progress_along(avail_pkgs, 
                                                name = "Checking tutorials in stocnet packages"), function(p){
                                                  dplyr::as_tibble(learnr::available_tutorials(package = avail_pkgs[p]),
                                                                   silent = TRUE) %>% dplyr::select(1:3)
@@ -53,10 +51,10 @@ run_tute <- function(tute) {
       inftit <- which.min(utils::adist(tute, avails$title, ignore.case = TRUE,
                                        costs = list(ins=0, del=1, sub=1)))
     if(any(inftit) & sum(inftit)==1){
-      cli::cli_alert_success("And found one!")
+      manynet::snet_success("And found one!")
       try(learnr::run_tutorial(avails$name[inftit], avails$package[inftit]), silent = TRUE)
     } else{
-      cli::cli_alert_warning("...and couldn't find which one you meant. Please specify one of these titles:\n")
+      manynet::snet_warn("...and couldn't find which one you meant. Please specify one of these titles:\n")
       print(avails)
     }
   }
@@ -68,14 +66,13 @@ extract_tute <- function(tute) {
   if (missing(tute)) {
     thisRequires("learnr")
     avail_pkgs <- stocnet[suppressWarnings(unlist(lapply(stocnet, function(x) nzchar(system.file(package = x)))))]
-    tutelist <- lapply(cli::cli_progress_along(avail_pkgs, 
+    tutelist <- lapply(manynet::snet_progress_along(avail_pkgs, 
                                                name = "Checking tutorials in stocnet packages"), function(p){
                                                  dplyr::as_tibble(learnr::available_tutorials(package = avail_pkgs[p]),
                                                                   silent = TRUE) %>% dplyr::select(1:3)
                                                })
     dplyr::bind_rows(tutelist) %>% dplyr::arrange(name) %>% print()
-    cli::cli_alert_info(paste(cli::col_grey("You can extract the code from one of these tutorials by typing e.g"), 
-                              "`extract_tute('tutorial1')`", cli::col_grey("into the console.")))
+    manynet::snet_info("You can extract the code from one of these tutorials by typing e.g `extract_tute('tutorial1')` into the console.")
   } else {
     thisRequires("knitr")
     pth <- file.path(path.package("manynet"), "tutorials", tute)

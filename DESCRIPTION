@@ -30,6 +30,8 @@ Imports:
     future,
     furrr,
     generics,
+    knitr,
+    learnr,
     purrr
 Suggests: 
     covr,
