@@ -8,6 +8,8 @@ test_tutorials(path, quiet = TRUE)
 }
 \arguments{
 \item{path}{Character vector of the paths to the tutorials to be knitted.}
+
+\item{quiet}{Logical, whether to suppress messages from \code{render()}.}
 }
 \value{
 No return value, called for side effects.

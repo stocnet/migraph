@@ -8,6 +8,7 @@
 #'   If a tutorial fails to render, then an error will be generated which will
 #'   propagate to the caller.
 #' @param path Character vector of the paths to the tutorials to be knitted.
+#' @param quiet Logical, whether to suppress messages from `render()`.
 #' @returns No return value, called for side effects.
 #' @author David Kane, see tutorial.helpers
 #' @export

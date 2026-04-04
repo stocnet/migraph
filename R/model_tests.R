@@ -26,7 +26,7 @@ NULL
 #' marvel_friends <- fict_marvel %>% to_uniplex("relationship") %>% 
 #'   to_unsigned() %>% to_giant() %>% 
 #'   to_subgraph(PowerOrigin == "Human")
-#' (cugtest <- test_random(marvel_friends, netrics::net_by_heterophily, attribute = "Attractive",
+#' (cugtest <- test_random(marvel_friends, net_by_heterophily, attribute = "Attractive",
 #'    times = 200))
 #' # plot(cugtest)
 #' @export
@@ -119,7 +119,7 @@ test_configuration <- function(.data, FUN, ...,
 #' @rdname tests 
 #' @examples 
 #' # (qaptest <- test_permutation(marvel_friends, 
-#' #                 netrics::net_by_heterophily, attribute = "Attractive",
+#' #                 net_by_heterophily, attribute = "Attractive",
 #' #                 times = 200))
 #' # plot(qaptest)
 #' @export
