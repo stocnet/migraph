@@ -1,0 +1,426 @@
+---
+title: "Intro to R"
+author: "by James Hollway"
+output: 
+  learnr::tutorial:
+    theme: bootstrap
+runtime: shiny_prerendered
+description: >
+  The aim of this tutorial is to offer a very, very short introduction to R 
+  including objects, functions, and data structures in R.
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Aims
+
+This is not a course to learn R. 
+The aim of this tutorial is to offer a very, very short introduction 
+so that you have a basic introduction as we move forward.
+In this tutorial, we will introduce:
+
+- objects in R  
+- functions in R  
+- data structures in R
+
+If you would like to develop your skills further (not such a bad idea)
+there are plenty of excellent online courses and resources available.
+Recommended elsewhere are the following:
+
+- https://cran.r-project.org/doc/manuals/R-intro.html#Introduction-and-preliminaries  
+- https://www.datacamp.com/community/open-courses/r-programming-with-swirl  
+- http://www.burns-stat.com/pages/Tutor/hints_R_begin.html  
+- http://data.princeton.edu/R/gettingStarted.html  
+- http://www.ats.ucla.edu/stat/R/sk/  
+- http://www.statmethods.net/  
+- https://www.r-bloggers.com/2022/05/best-books-to-learn-r-programming-2/
+
+These sites will help you learn or refresh your memory.
+But you can also expect to return to Google often as you go and type "R ..." as a query.
+That's fine, and totally normal.
+You will find as you do so that answers to most questions are available
+on fora pages such as [StackOverflow](https://stackoverflow.com/questions/tagged/r) 
+and [CrossValidated](https://stats.stackexchange.com/?tags=r).
+
+## Software
+
+For this course, you will need to download and install two software,
+R and RStudio, to your system.
+Since you are completing this tutorial, we assume you have already done so,
+but here we briefly explain the purpose of each.
+
+### What is R?
+
+<img src="https://download.logo.wine/logo/R_(programming_language)/R_(programming_language)-Logo.wine.png" alt="R logo" height="250"/>
+
+[R](http://www.r-project.org/) is a programming language and environment for statistical computing and graphics. 
+R is available as Free Software under the terms of the Free Software Foundation's 
+GNU General Public License,
+and provides a wide variety of statistical (linear and nonlinear modelling, 
+classical statistical tests, time-series analysis, classification, ...) 
+and graphical techniques, and is highly extensible. 
+This means that anybody can write extensions to R and make them publicly available, 
+such as in the [stocnet](https://github.com/stocnet) group of packages...
+
+### What is RStudio?
+
+<img src="https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png" alt="RStudio logo" height="250" class="center"/>
+
+[RStudio](https://posit.co/products/open-source/rstudio/) is an integrated development environment (IDE) for R and Python,
+enabling researchers to interact with R (and/or Python) through a fully-functional editor
+with syntax highlighting, direct code execution, autocomplete,
+and various tools for plotting, history, debugging, package development, and workspace management.
+
+In the end, although you will need to make sure R has been downloaded and installed
+correctly on the system you are using,
+in practice you will never open it directly.
+Instead you will be using RStudio to interact with R.
+Think of R as the internals of the calculator, but RStudio as the case.
+Let's start the calculator but opening the 'calculator case' app, RStudio.
+
+## Getting started
+
+### RStudio and R scripts
+
+If we open and take a look around RStudio, we should see a window of four (4) panes.
+Among them there should be a **console**: 
+this is where RStudio executes commands in R.
+You can type commands yourself (RStudio may help by suggesting autocompletions),
+but we usually write code in an R script instead,
+and then tell RStudio when to execute one or more lines from the script.
+There are basically three reasons for using a script: editing, repetition, sharing.
+You can run a command in RStudio by moving the cursor to the line or lines you want to run
+and then press Cmd-Enter (Mac) or Ctrl-Enter (Windows).
+You can try this with the following lines:
+
+```{r printing-results, exercise = TRUE}
+1 + 5 # This will print the result
+105 * 99 + 6 # An asterisk is used for multiplication
+```
+
+Note that R won't execute anything after a comment `#`.
+Remove the hash symbol at the start of this line to run it:
+
+```{r comments, exercise = TRUE}
+# 1/5 # this will still be commented...
+```
+
+In an R script you can toggle commenting for one or more lines using Cmd-Shift-C/Ctrl-Shift-C.
+If you try to run a commented out line, it will continue until it finds the next command.
+
+### Beyond a calculator
+
+Ok, wow, R is a calculator! 
+But it is also much, much more than that...
+Try the following command:
+
+```{r hello-world, exercise = TRUE}
+print("Hello World")
+```
+
+You've told R to print a string of text (identified by the quotation marks) to the console.
+Much more flexible than a high school calculator!
+
+It is important to note that R is case-sensitive, 
+i.e. `Print("Hello World")` will not work. Try it!
+
+```{r Print-hello-world, exercise = TRUE}
+Print("Hello World")
+```
+
+```{r case-sensitivity-question, purl=FALSE}
+question("Why does Print('Hello World') cause an error?",
+  answer("Because print is spelled with a capital P",
+         correct = TRUE),
+  answer("Because the print function has already been used"),
+  answer("Because the print function has been lost"),
+  answer("Because of face insensitivity"),
+  random_answer_order = TRUE,
+  allow_retry = TRUE
+)
+```
+
+
+This means that `james` is not the same as `JAMES` (and `Hollway` is not the same as `Holloway`...). 
+In R, we can write such logical statements as:
+
+```{r equivalence, exercise = TRUE}
+"James"=="james" # Try also "James"!="james"
+# Other logical statements include: ">", ">=", "<=", "<".
+# 1 < 5 # Try also "1 <= 5"
+```
+
+Logical values are always either `TRUE` or `FALSE`,
+but can be abbreviated as `T` or `F` respectively.
+Why do we have to use two equals signs and quotation marks?
+Quotation marks tells R you are referring to a string of text and not a named _object_.
+
+## Objects
+
+### Values
+
+An object is a placeholder R uses for one or more numbers, strings, or other things.
+You can assign such things to an object using one `=` sign, 
+but it's better to use `<-` to avoid mistakes related to `=` use also in logical statements.
+
+```{r assignment, exercise = TRUE}
+surname <- "Hollway"
+y.chromosome <- T # or TRUE
+siblings <- 1
+age <- NA # This is used for missing information
+# Note that these objects then appear in RStudio's environment pane (by default the top right)
+```
+
+You can then recover this information by simply calling these objects:
+
+```{r calling, exercise = TRUE, exercise.setup = "assignment"}
+surname
+y.chromosome
+siblings
+age
+```
+
+And even operate on them:
+
+```{r mult, exercise = TRUE, exercise.setup = "assignment"}
+siblings*3
+# Try multiplying the other objects by 3
+```
+
+### Vectors
+
+We can also concatenate multiple values together using the function `c()`:
+
+```{r concatenation, exercise = TRUE}
+lived <- c("New Zealand", "UK", "New Zealand", "Germany", "UK", "Switzerland")
+```
+
+And recall them. Where was the fourth place I lived?
+We use square brackets `[ ]` for indexing:
+
+```{r indexing, exercise = TRUE, exercise.setup = "concatenation"}
+lived[4]
+```
+
+There are several shortcuts for making a series of values.
+For example, consecutive numbers can be produced with:
+
+```{r series, exercise = TRUE}
+teenageyrs <- 13:19
+teenageqrtrs <- seq(13, 19.99, by = 0.25)
+# We can recall every third value from this object using a repeating vector 
+teenageqrtrs
+teenageqrtrs[c(FALSE, FALSE, TRUE)]
+# teenageqrtrs[c(F, F, T)] # Also works but it is best practice to write out the logic.
+```
+
+So R can help us store and recall values and even vectors of values,
+but the key is being able to relate values and vectors together.
+For that we use objects of more complex _classes_.
+
+## Classes
+
+### Matrices
+
+Data can be aggregated in R into different formats, such as data frames and lists
+but the most common one used for network research is the matrix format.
+Matrices are created by populating a given number of rows and columns with data
+Assigning, `<-`, doesn't print any output unless you wrap the line in parentheses:
+
+```{r assign-print, exercise = TRUE}
+(my.matrix <- matrix(data = 1:9, nrow = 6, ncol = 6))
+```
+
+If you look in the help file, 
+which you can access by putting a `?` before the command/function name,
+you will see matrix sets `byrow = F` by default.
+
+```{r help, exercise = TRUE}
+?matrix # Forgot the exact name of the function? Use ?? for search...
+```
+
+This means that it populates the matrix with the data by column by default,
+but we can populate it by row instead by adding an extra 'argument': 
+
+```{r byrow, exercise = TRUE}
+(my.2nd.matrix <- matrix(1:9, 6, 6, byrow = T))
+```
+
+We can index cells of a matrix using square brackets with a comma `[ , ]`
+
+```{r index-cells, exercise = TRUE, exercise.setup = "byrow"}
+my.2nd.matrix[2, 2] 
+```
+
+Left of the comma is the row, right of the comma is the column.
+We can even overwrite particular cells of the matrix by assigning a new value
+to those indexed cells:
+
+```{r cell-assign, exercise = TRUE, exercise.setup = "byrow"}
+my.2nd.matrix[my.2nd.matrix == 6] <- 600
+my.2nd.matrix
+```
+
+### Data frames
+
+Data frames are like matrices, but can hold different types of variables at once,
+such as logical, numeric/integer, or string/character variables.
+Replace the missing data (the NAs) with your details:
+
+```{r df-own-values, exercise = TRUE}
+mydf <- data.frame(Surname = c("Hollway", NA),
+                   Born = c("New Zealand", NA),
+                   Siblings = c(1, NA))
+```
+
+You can even add new variables by simply writing a new variable name:
+
+```{r df-add-variable, exercise =  TRUE, exercise.setup="df-own-values"}
+mydf$Dept <- c("IRPS", NA)
+```
+
+Can you call the data frame and print to the console?
+
+```{r df-test, exercise =  TRUE, exercise.setup="df-add-variable"}
+
+```
+
+```{r df-test-solution}
+mydf
+```
+
+We can recall an observation (row) or variable (column) of the data frame
+in the same way that we indexed the matrix above, e.g. `mydf[2,2]`,
+but we can also call a named variable using the `$` sign:
+
+```{r df-call-var, exercise = TRUE, exercise.setup="df-add-variable"}
+mydf$Surname
+```
+
+This can be very handy when "subsetting" the data:
+
+```{r df-subset, exercise = TRUE, exercise.setup="df-add-variable"}
+james <- mydf[mydf$Surname == "Hollway", ]
+james
+```
+
+Note, however, that data frames must have variables of equal length.
+
+### Lists
+
+Lists are a more flexible generalisation of data frames.
+
+```{r list-init, exercise = TRUE}
+mylist <- list() # Here we are initialising an empty list
+```
+
+List items can also be named, like data frame variables, but don't have to be:
+
+```{r list-names, exercise = TRUE, exercise.setup="list-init"}
+mylist$Surname <- c("Hollway", NA)
+mylist$Siblings <- c(1, NA) # Now you can add the others from above
+```
+
+You can also add lists to a list:
+
+```{r list-nest, exercise = TRUE, exercise.setup="list-names"}
+mylist$Lived <- list(c("New Zealand", "UK", "New Zealand", "Germany", "UK", "Switzerland"), NA)
+```
+
+Note that we've been using parentheses, `()`, here and not brackets, `[]`,
+as we did when we were indexing.
+Parentheses are used for _functions_.
+
+## Functions
+
+Functions are sets of actions or algorithms that are applied to values, vectors, or objects.
+
+```{r functions, exercise = TRUE}
+exp(0.09855)
+mean(c(1, 5, 8, 7, 6, 4, 22, 1, 0.9))
+```
+
+### Arguments
+
+Usually every function must be followed by `()`.
+Some functions work without any "arguments" though;
+that is, with empty parentheses.
+
+```{r functions-empty, exercise = TRUE}
+ls() # This tells you what objects are in your environment
+getwd() # This tells you the directory on your computer R is working in/on
+list.files() # This tells you what files are in your working directory 
+# setwd("...") # You can set the working directory with this function 
+# (or under session in RStudio)
+```
+
+Compare the above with functions like the following, 
+which enables you to write an object out of R to some path on your hard-drive that you specify:
+
+```{r function-write, exercise = TRUE}
+write.csv(x = mydf, file = "~/Desktop/jamesdf.csv")
+```
+
+Two arguments are specified for this function `write.csv()`:
+`x` and `file`.
+But the function can accept other arguments as might be necessary
+for more complex data, for less common outputs, or in edge cases.
+See `?write.csv` for a list of the different arguments the function will accept.
+Usually functions include defaults so that they work even if you do not
+specify all the possible arguments though.
+In fact, we don't need to write `x = `, just `write.csv(mydf, file = "~/Desktop/jamesdf.csv`.
+That is because the function is expecting the object to be written
+to be specified as the first argument,
+so it is only where you want to be explicit or use a different ordering of the arguments
+that you might need to spell that out.
+It is good practice to be explicit whereever possible though to avoid unexpected results.
+
+### Pipes
+
+When working with multiple functions on the same object,
+we can use pipe operators `%>%` or `|>` to chain consecutive functions
+and avoid nesting multiple functions in the code.
+Pipes take the result of the code on the left of the pipe operator
+and uses it in whatever function is on the right or next line of the pipe operator.
+Note that when piping over multiple lines should,
+the pipe operator(s) should be used at the end of each line.
+
+```{r pipes, exercise = TRUE}
+example.vector <- c(1, 5, 8, 7, 6, 4, 22, 1, 0.9)
+pipe.result.1 <- example.vector |>
+  mean()
+pipe.result.1
+
+# library(dplyr)
+# pipe.result.2 <- example.vector %>%
+  # mean()
+# both pipe operators give the same result 
+# pipe.result.1 == pipe.result.2
+```
+
+While `|>`is the native pipe operator since R v4.0.0,
+those using earlier versions of R may wish to use `%>%` 
+from either the `{magrittr}` or `{dplyr}` packages.
+Note that in that case, the package would need to be loaded first
+before you can use the operator.
+
+## Tasks
+
+1. Create and fill in a matrix of "whom you already know" in the class:
+There are other ways to do this, 
+but for this unit test I'd like you to do it in R.
+You can follow my example below (copy to a new script and uncomment):
+
+```{r egonet-eg, exercise = TRUE}
+mynetwork <- matrix(0,2,2) # this creates an empty network of 2 people
+# Next I'm going to name the matrix rows and columns:
+rownames(mynetwork) <- c("James Hollway","Korakot Janteerasakul")
+colnames(mynetwork) <- c("James Hollway","Korakot Janteerasakul")
+mynetwork[1,2] <- 1 # this means I know Korakot already
+mynetwork[2,1] <- 1 # I think I can say Korakot knows me already too...
+mynetwork["James Hollway","Korakot Janteerasakul"] <- 1 # I could also do this by name
+# mynetwork[mynetwork > 0] <- 0 # Just in case you make a mistake, this wipes it!
+```
