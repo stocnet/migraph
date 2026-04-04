@@ -35,7 +35,7 @@
 #> 
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network of 152 nodes and 839 ties
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network of 112 nodes and 40 nodes and 839 ties
 #> 
 #> -- Nodes
 #> # A tibble: 152 x 3
