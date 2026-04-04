@@ -33,6 +33,7 @@ Imports:
     purrr
 Suggests: 
     covr,
+    rmarkdown,
     roxygen2,
     testthat (>= 3.0.0)
 Authors@R: 
