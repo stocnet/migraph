@@ -1,3 +1,18 @@
+# migraph 1.6.1
+
+2026-04-13
+
+## Package
+
+- Fixed logo sizing and location
+
+## Tutorials
+
+- Fixed `run_tute()` to identify and use tutorials in `{netrics}`
+- Updated diversity tutorial with new netrics names
+- Updated diffusion tutorial with new netrics names
+- Updated ergm tutorial with new netrics names
+
 # migraph 1.6.0
 
 2026-04-04
