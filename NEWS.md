@@ -8,7 +8,7 @@
 
 ## Tutorials
 
-- Fixed `run_tute()` to identify and use tutorials in `{netrics}`
+- Fixed `run_tute()` and `extract_tute()` to identify and use tutorials in `{netrics}`
 - Updated diversity tutorial with new netrics names
 - Updated diffusion tutorial with new netrics names
 - Updated ergm tutorial with new netrics names

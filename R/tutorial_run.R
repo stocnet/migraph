@@ -82,8 +82,12 @@ extract_tute <- function(tute) {
       pth <- gsub("manynet", "autograph", pth)
     }
     if(!dir.exists(pth)) {
+      thisRequires("netrics")
+      pth <- gsub("autograph", "netrics", pth)
+    }
+    if(!dir.exists(pth)) {
       thisRequires("migraph")
-      pth <- gsub("autograph", "migraph", pth)
+      pth <- gsub("netrics", "migraph", pth)
     }
     knitr::purl(file.path(pth, list.files(pth, pattern = "*.Rmd")),
                 documentation = 1)
