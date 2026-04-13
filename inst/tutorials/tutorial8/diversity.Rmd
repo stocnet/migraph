@@ -285,7 +285,7 @@ $$\frac{E-I}{E+I}$$
 where $E$ is the number of ties present between a variable's categories (i.e. external),
 and $I$ is the number of ties present within a variable's categories (i.e. internal).
 As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1 suggests perfect `r gloss("heterophily.","heterophily")`
-(This is why the function is called `net_heterophily()`).
+(This is why the function is called `net_by_heterophily()`).
 
 Check how homophilic three variables in the network are,
 "Gender", "PowerOrigin", and "Attractive".

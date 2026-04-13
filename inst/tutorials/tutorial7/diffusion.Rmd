@@ -172,7 +172,7 @@ and `graphs()` (at least by default) only graphs the first and last step.
 <!-- `grapht()` will show if and when there is complete infection, -->
 <!-- but we need to sit through each 'movie'. -->
 But there is an easier way.
-Play these same diffusions again, this time nesting the call within `net_infection_complete()`.
+Play these same diffusions again, this time nesting the call within `net_by_infection_complete()`.
 
 ```{r completeinfection, exercise = TRUE, purl = FALSE, fig.width=9}
 net_by_infection_complete(play_diffusion(create_ring(32, width = 2)))
@@ -183,7 +183,7 @@ net_by_infection_complete(play_diffusion(generate_smallworld(32, 0.025)))
 
 ```{r struct-interp, echo = FALSE, purl = FALSE}
 question("Does the structure of the network matter for whether and when a diffusion process completes?",
-  answer("No", message = "Take a closer look at the `net_infection_complete()` results. Are they all the same?"),
+  answer("No", message = "Take a closer look at the `net_by_infection_complete()` results. Are they all the same?"),
   answer("Yes", correct = TRUE, message = "We can see that the different structures have varying outcomes in terms of when the diffusion completes."),
   random_answer_order = TRUE,
   allow_retry = TRUE
@@ -713,7 +713,7 @@ It can be interpreted as follows:
 - Where $R_0$ = 1, the 'disease' will continue as endemic, if conditions allow.  
 
 So how can we establish the $R_0$ here?
-We can use `net_reproduction()`.
+We can use `net_by_reproduction()`.
 
 ```{r r0, exercise = TRUE, exercise.setup = "diffusions", fig.width=9}
 rd_diff <- play_diffusion(rando, transmissibility = 0.25, recovery = 0.05)
@@ -762,7 +762,7 @@ the `r gloss("Herd Immunity Threshold", "hit")` or HIT.
 HIT indicates the threshold at which the reduction of susceptible members 
 of the network means that infections will no longer keep increasing, 
 allowing herd immunity to be achieved.
-`net_immunity()` gives us the proportion of the population that would need
+`net_by_immunity()` gives us the proportion of the population that would need
 to be recovered or vaccinated for the network to have herd immunity.
 
 ```{r immunity, exercise = TRUE, exercise.setup = "r0"}
