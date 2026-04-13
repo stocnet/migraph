@@ -18,7 +18,7 @@
 #' @name tutorials
 NULL
 
-stocnet <- c("manynet", "migraph", "autograph")
+stocnet <- c("manynet", "migraph", "autograph", "netrics")
 
 #' @rdname tutorials 
 #' @export
@@ -37,8 +37,9 @@ run_tute <- function(tute) {
     manynet::snet_info("You can run a tutorial by typing e.g `run_tute('tutorial1')` or `run_tute('Data')` into the console.")
   } else {
     try(learnr::run_tutorial(tute, "manynet"), silent = TRUE)
-    try(learnr::run_tutorial(tute, "migraph"), silent = TRUE)
     try(learnr::run_tutorial(tute, "autograph"), silent = TRUE)
+    try(learnr::run_tutorial(tute, "netrics"), silent = TRUE)
+    try(learnr::run_tutorial(tute, "migraph"), silent = TRUE)
     manynet::snet_info("Didn't find a direct match, so looking for close matches...")
     tutelist <- lapply(manynet::snet_progress_along(avail_pkgs, 
                                                name = "Checking tutorials in stocnet packages"), function(p){
