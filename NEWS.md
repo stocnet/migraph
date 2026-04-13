@@ -13,6 +13,11 @@
 - Updated diffusion tutorial with new netrics names
 - Updated ergm tutorial with new netrics names
 
+## Testing
+
+- Added tests for `predict()` methods
+- Added testing for `{netrics}` tutorials
+
 # migraph 1.6.0
 
 2026-04-04
