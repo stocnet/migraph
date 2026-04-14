@@ -33,7 +33,9 @@ run_tute <- function(tute) {
                          dplyr::as_tibble(learnr::available_tutorials(package = avail_pkgs[p]),
                                           silent = TRUE) %>% dplyr::select(1:3)
                        })
-    dplyr::bind_rows(tutelist) %>% dplyr::arrange(name) %>% print()
+    dplyr::bind_rows(tutelist) %>% 
+      dplyr::arrange(dplyr::across(dplyr::any_of("name"))) %>% 
+      print()
     manynet::snet_info("You can run a tutorial by typing e.g `run_tute('tutorial1')` or `run_tute('Data')` into the console.")
   } else {
     try(learnr::run_tutorial(tute, "manynet"), silent = TRUE)
@@ -72,7 +74,9 @@ extract_tute <- function(tute) {
                                                  dplyr::as_tibble(learnr::available_tutorials(package = avail_pkgs[p]),
                                                                   silent = TRUE) %>% dplyr::select(1:3)
                                                })
-    dplyr::bind_rows(tutelist) %>% dplyr::arrange(name) %>% print()
+    dplyr::bind_rows(tutelist) %>% 
+      dplyr::arrange(dplyr::across(dplyr::any_of("name"))) %>% 
+      print()
     manynet::snet_info("You can extract the code from one of these tutorials by typing e.g `extract_tute('tutorial1')` into the console.")
   } else {
     thisRequires("knitr")
