@@ -5,6 +5,8 @@
 ## Package
 
 - Fixed logo sizing and location
+- Added tests for `predict()` methods
+- Added testing for `{netrics}` tutorials
 
 ## Tutorials
 
@@ -15,8 +17,7 @@
 
 ## Testing
 
-- Added tests for `predict()` methods
-- Added testing for `{netrics}` tutorials
+- Fixed how `test_fit()` handles diffusion models and non-equal length step results
 
 # migraph 1.6.0
 

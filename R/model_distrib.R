@@ -57,10 +57,16 @@ test_distribution <- function(diff_model1, diff_model2){
 #' @export
 test_fit <- function(diff_model, diff_models){ # make into method?
   x <- diff_model
+  if(is_graph(x)) x <- as_diffusion(x)
   y <- diff_models
   sim <- `0` <- NULL
-  sims <- y %>% dplyr::select(sim, t, I)
-  sims <- as.data.frame.matrix(stats::xtabs(I ~ sim + t, sims)) # tidyr::pivot_wider replacement
+  sims <- y %>% dplyr::select(sim, time, I)
+  if(max(x$time) < max(sims$time)){
+    x <- dplyr::bind_rows(x, 
+               dplyr::tibble(time = (max(x$time)+1):max(sims$time), 
+                             S = x$S[nrow(x)], I = x$I[nrow(x)]))
+  }
+  sims <- as.data.frame.matrix(stats::xtabs(I ~ sim + time, sims)) # tidyr::pivot_wider replacement
   sims <- sims[,colSums(stats::cov(sims))!=0]
   mah <- stats::mahalanobis(x$I[-1], colMeans(sims), stats::cov(sims))
   pval <- pchisq(mah, df=length(x$I[-1]), lower.tail=FALSE)
