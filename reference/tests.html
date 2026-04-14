@@ -25,7 +25,7 @@ of the original network.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.1</span>
       </span>
     </div>
 
@@ -112,7 +112,7 @@ of the original network.</p></li>
 
 <dl><dt id="arg--data">.data<a class="anchor" aria-label="anchor" href="#arg--data"></a></dt>
 <dd><p>A manynet-consistent network.
-See e.g. <code><a href="https://stocnet.github.io/manynet/reference/manip_as.html" class="external-link">manynet::as_tidygraph()</a></code> for more details.</p></dd>
+See e.g. <code><a href="https://stocnet.github.io/manynet/reference/coerce_graph.html" class="external-link">manynet::as_tidygraph()</a></code> for more details.</p></dd>
 
 
 <dt id="arg-fun">FUN<a class="anchor" aria-label="anchor" href="#arg-fun"></a></dt>
@@ -159,8 +159,8 @@ See <a href="https://progressr.futureverse.org" class="external-link"><code>{pro
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="va">fict_marvel</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_uniplex</a></span><span class="op">(</span><span class="st">"relationship"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://stocnet.github.io/manynet/reference/manip_deformat.html" class="external-link">to_unsigned</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://stocnet.github.io/manynet/reference/manip_scope.html" class="external-link">to_giant</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">marvel_friends</span> <span class="op">&lt;-</span> <span class="va">fict_marvel</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://stocnet.github.io/manynet/reference/modif_plexity.html" class="external-link">to_uniplex</a></span><span class="op">(</span><span class="st">"relationship"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://stocnet.github.io/manynet/reference/modif_weight.html" class="external-link">to_unsigned</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://stocnet.github.io/manynet/reference/modif_scope.html" class="external-link">to_giant</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu">to_subgraph</span><span class="op">(</span><span class="va">PowerOrigin</span> <span class="op">==</span> <span class="st">"Human"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">cugtest</span> <span class="op">&lt;-</span> <span class="fu">test_random</span><span class="op">(</span><span class="va">marvel_friends</span>, <span class="va">net_by_heterophily</span>, attribute <span class="op">=</span> <span class="st">"Attractive"</span>,</span></span>
 <span class="r-in"><span>   times <span class="op">=</span> <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span></span>
