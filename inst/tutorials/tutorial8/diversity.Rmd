@@ -173,15 +173,15 @@ net_node_attributes(marvel_friends)
 ```
 
 ```{r rich-hint, purl = FALSE}
-net_richness(____, ____)
+net_by_richness(____, ____)
 ```
 
 ```{r rich-solution}
-net_richness(marvel_friends, "Gender")
-net_richness(marvel_friends, "PowerOrigin")
-net_richness(marvel_friends, "Attractive")
-net_richness(marvel_friends, "Rich")
-net_richness(marvel_friends, "Intellect")
+net_by_richness(marvel_friends, "Gender")
+net_by_richness(marvel_friends, "PowerOrigin")
+net_by_richness(marvel_friends, "Attractive")
+net_by_richness(marvel_friends, "Rich")
+net_by_richness(marvel_friends, "Intellect")
 ```
 
 ```{r richness-question, echo=FALSE, purl = FALSE}
@@ -226,15 +226,15 @@ Obtain the network diversity scores for the five attributes used above.
 ```
 
 ```{r blau-hint, purl = FALSE}
-net_diversity(____, ____)
+net_by_diversity(____, ____)
 ```
 
 ```{r blau-solution}
-net_diversity(marvel_friends, "Gender")
-net_diversity(marvel_friends, "PowerOrigin")
-net_diversity(marvel_friends, "Attractive")
-net_diversity(marvel_friends, "Rich")
-net_diversity(marvel_friends, "Intellect")
+net_by_diversity(marvel_friends, "Gender")
+net_by_diversity(marvel_friends, "PowerOrigin")
+net_by_diversity(marvel_friends, "Attractive")
+net_by_diversity(marvel_friends, "Rich")
+net_by_diversity(marvel_friends, "Intellect")
 ```
 
 Looks like there is more diversity in terms of where these characters got
@@ -255,9 +255,9 @@ over_membership(.data, FUN, ..., membership)
 ```
 
 ```{r crossref-solution}
-over_membership(marvel_friends, net_diversity, "Gender", 
+over_membership(marvel_friends, net_by_diversity, "Gender", 
                 membership = "PowerOrigin")
-over_membership(marvel_friends, net_diversity, "Intellect", 
+over_membership(marvel_friends, net_by_diversity, "Intellect", 
                 membership = "Gender")
 ```
 
@@ -285,7 +285,7 @@ $$\frac{E-I}{E+I}$$
 where $E$ is the number of ties present between a variable's categories (i.e. external),
 and $I$ is the number of ties present within a variable's categories (i.e. internal).
 As such, an EI index of -1 suggests perfect homophily, whereas an EI index of +1 suggests perfect `r gloss("heterophily.","heterophily")`
-(This is why the function is called `net_heterophily()`).
+(This is why the function is called `net_by_heterophily()`).
 
 Check how homophilic three variables in the network are,
 "Gender", "PowerOrigin", and "Attractive".
@@ -296,13 +296,13 @@ Please assign the results so that we can use them later.
 ```
 
 ```{r ei-hint, purl = FALSE}
-net_heterophily(____, ____)
+net_by_heterophily(____, ____)
 ```
 
 ```{r ei-solution}
-(obs.gender <- net_heterophily(marvel_friends, "Gender"))
-(obs.powers <- net_heterophily(marvel_friends, "PowerOrigin")) 
-(obs.attract <- net_heterophily(marvel_friends, "Attractive")) 
+(obs.gender <- net_by_heterophily(marvel_friends, "Gender"))
+(obs.powers <- net_by_heterophily(marvel_friends, "PowerOrigin")) 
+(obs.attract <- net_by_heterophily(marvel_friends, "Attractive")) 
 ```
 
 ```{r homophily-present, echo=FALSE, purl = FALSE}
@@ -354,13 +354,13 @@ plot(rand.____)
 
 ```{r rando-hint-3, purl = FALSE}
 rand.gender <- test_random(marvel_friends, 
-                           net_heterophily, attribute = "Gender", 
+                           net_by_heterophily, attribute = "Gender", 
                            times = 1000)
 rand.power <- test_random(marvel_friends, 
-                          net_heterophily, attribute = "PowerOrigin", 
+                          net_by_heterophily, attribute = "PowerOrigin", 
                           times = 1000)
 rand.attract <- test_random(marvel_friends, 
-                            net_heterophily, attribute = "Attractive", 
+                            net_by_heterophily, attribute = "Attractive", 
                             times = 1000)
 plot(rand.gender) + ggtitle("CUG test results for 'Gender' attribute")
 plot(rand.power) + ggtitle("CUG test results for 'PowerOrigin' attribute")
@@ -369,13 +369,13 @@ plot(rand.attract) + ggtitle("CUG test results for 'Attractive' attribute")
 
 ```{r rando-solution}
 rand.gender <- test_random(marvel_friends, 
-                           net_heterophily, attribute = "Gender", 
+                           net_by_heterophily, attribute = "Gender", 
                            times = 1000)
 rand.power <- test_random(marvel_friends, 
-                          net_heterophily, attribute = "PowerOrigin", 
+                          net_by_heterophily, attribute = "PowerOrigin", 
                           times = 1000)
 rand.attract <- test_random(marvel_friends, 
-                            net_heterophily, attribute = "Attractive", 
+                            net_by_heterophily, attribute = "Attractive", 
                             times = 1000)
 plot(rand.gender) + ggtitle("CUG test results for 'Gender' attribute")
 plot(rand.power) + ggtitle("CUG test results for 'PowerOrigin' attribute")
@@ -438,7 +438,7 @@ Let's first plot the observed data and some permuted data next to each other.
 ```
 
 ```{r perm-hint, purl = FALSE}
-graphr(generate_permutation(____, with_attr = TRUE), ____)
+graphr(to_permuted(____, with_attr = TRUE), ____)
 ```
 
 ```{r perm-solution}
@@ -446,7 +446,7 @@ old <- graphr(marvel_friends,
               labels = FALSE, node_size = 6,
               node_color = "PowerOrigin",
               node_shape = "Gender") + ggtitle("Original network")
-new <- graphr(generate_permutation(marvel_friends, with_attr = TRUE),
+new <- graphr(to_permuted(marvel_friends, with_attr = TRUE),
               labels = FALSE, node_size = 6,
               node_color = "PowerOrigin",
               node_shape = "Gender") + ggtitle("Permuted network")
@@ -487,10 +487,10 @@ test_permutation(____, FUN = ____, attribute = ____,
 
 ```{r testperm-solution}
 (perm.gender <- test_permutation(marvel_friends, 
-                                net_heterophily, attribute = "Gender",
+                                net_by_heterophily, attribute = "Gender",
                                 times = 1000))
 (perm.power <- test_permutation(marvel_friends, 
-                                net_heterophily, attribute = "PowerOrigin",
+                                net_by_heterophily, attribute = "PowerOrigin",
                                 times = 1000))
 
 (plot(rand.gender) + ggtitle("CUG test results for 'Gender' attribute") + 

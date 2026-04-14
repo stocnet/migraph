@@ -18,7 +18,7 @@
 #' @name tutorials
 NULL
 
-stocnet <- c("manynet", "migraph", "autograph")
+stocnet <- c("manynet", "migraph", "autograph", "netrics")
 
 #' @rdname tutorials 
 #' @export
@@ -33,12 +33,15 @@ run_tute <- function(tute) {
                          dplyr::as_tibble(learnr::available_tutorials(package = avail_pkgs[p]),
                                           silent = TRUE) %>% dplyr::select(1:3)
                        })
-    dplyr::bind_rows(tutelist) %>% dplyr::arrange(name) %>% print()
+    dplyr::bind_rows(tutelist) %>% 
+      dplyr::arrange(dplyr::across(dplyr::any_of("name"))) %>% 
+      print()
     manynet::snet_info("You can run a tutorial by typing e.g `run_tute('tutorial1')` or `run_tute('Data')` into the console.")
   } else {
     try(learnr::run_tutorial(tute, "manynet"), silent = TRUE)
-    try(learnr::run_tutorial(tute, "migraph"), silent = TRUE)
     try(learnr::run_tutorial(tute, "autograph"), silent = TRUE)
+    try(learnr::run_tutorial(tute, "netrics"), silent = TRUE)
+    try(learnr::run_tutorial(tute, "migraph"), silent = TRUE)
     manynet::snet_info("Didn't find a direct match, so looking for close matches...")
     tutelist <- lapply(manynet::snet_progress_along(avail_pkgs, 
                                                name = "Checking tutorials in stocnet packages"), function(p){
@@ -71,7 +74,9 @@ extract_tute <- function(tute) {
                                                  dplyr::as_tibble(learnr::available_tutorials(package = avail_pkgs[p]),
                                                                   silent = TRUE) %>% dplyr::select(1:3)
                                                })
-    dplyr::bind_rows(tutelist) %>% dplyr::arrange(name) %>% print()
+    dplyr::bind_rows(tutelist) %>% 
+      dplyr::arrange(dplyr::across(dplyr::any_of("name"))) %>% 
+      print()
     manynet::snet_info("You can extract the code from one of these tutorials by typing e.g `extract_tute('tutorial1')` into the console.")
   } else {
     thisRequires("knitr")
@@ -81,8 +86,12 @@ extract_tute <- function(tute) {
       pth <- gsub("manynet", "autograph", pth)
     }
     if(!dir.exists(pth)) {
+      thisRequires("netrics")
+      pth <- gsub("autograph", "netrics", pth)
+    }
+    if(!dir.exists(pth)) {
       thisRequires("migraph")
-      pth <- gsub("autograph", "migraph", pth)
+      pth <- gsub("netrics", "migraph", pth)
     }
     knitr::purl(file.path(pth, list.files(pth, pattern = "*.Rmd")),
                 documentation = 1)

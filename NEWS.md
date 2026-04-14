@@ -1,3 +1,24 @@
+# migraph 1.6.1
+
+2026-04-13
+
+## Package
+
+- Fixed logo sizing and location
+- Added tests for `predict()` methods
+- Added testing for `{netrics}` tutorials
+
+## Tutorials
+
+- Fixed `run_tute()` and `extract_tute()` to identify and use tutorials in `{netrics}`
+- Updated diversity tutorial with new netrics names
+- Updated diffusion tutorial with new netrics names
+- Updated ergm tutorial with new netrics names
+
+## Testing
+
+- Fixed how `test_fit()` handles diffusion models and non-equal length step results
+
 # migraph 1.6.0
 
 2026-04-04
