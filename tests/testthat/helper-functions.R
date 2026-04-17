@@ -25,6 +25,16 @@ bot5 <- function(res, dec = 4){
     unname(round(res, dec))[(lr-4):lr]
   } else unname(res)[(lr-2):lr]
 }
+
+find_pkg_tutorial_paths <- function(pkg) {
+  tute_folders <- list.dirs(system.file("tutorials", package = pkg),
+                             recursive = F)
+  tute_files <- unlist(lapply(tute_folders, function(folder) {
+    list.files(folder, pattern = "*.Rmd", full.names = TRUE)
+  }))
+  tute_files
+}
+
 check_tute_rendering <- function(path, quiet = TRUE){
   
   stopifnot(all(file.exists(path)))
