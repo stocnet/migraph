@@ -57,7 +57,7 @@ test_distribution <- function(diff_model1, diff_model2){
 #' @export
 test_fit <- function(diff_model, diff_models){ # make into method?
   x <- diff_model
-  if(is_graph(x)) x <- as_diffusion(x)
+  if(manynet::is_graph(x)) x <- manynet::as_diffusion(x)
   y <- diff_models
   sim <- `0` <- NULL
   sims <- y %>% dplyr::select(sim, time, I)
