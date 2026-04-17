@@ -118,7 +118,8 @@ marvel_friends
 ```
 
 ```{r friends-solution}
-marvel_friends <- to_unsigned(ison_marvel_relationships, keep = "positive")
+marvel_friends <- to_uniplex(fict_marvel, "relationship")
+marvel_friends <- to_unsigned(marvel_friends, keep = "positive")
 marvel_friends <- to_giant(marvel_friends)
 marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances))
 marvel_friends

@@ -127,7 +127,7 @@ Much more flexible than a high school calculator!
 It is important to note that R is case-sensitive, 
 i.e. `Print("Hello World")` will not work. Try it!
 
-```{r Print-hello-world, exercise = TRUE}
+```{r Print-hello-world, exercise = TRUE, purl=FALSE}
 Print("Hello World")
 ```
 

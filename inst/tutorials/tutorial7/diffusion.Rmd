@@ -202,7 +202,7 @@ You can start the infection in California by specifying `seeds = 5`.
 ```{r usstates-hint}
 us_diff <- play_diffusion(irps_usgeo, seeds = 5)
 plot(us_diff)
-graphr(us_diff)
+# graphr(us_diff)
 net_by_infection_complete(us_diff)
 ```
 
@@ -577,7 +577,7 @@ to indicate that in only 1/2 cases is contagion successful.
 ```{r diffusions, exercise = TRUE, fig.width=9}
 rando <- generate_random(32, 0.1)
 graphr(rando)
-plot(play_diffusions(rando, transmissibility = 0.5, times = 5, steps = 10))
+plot(play_diffusions(ison_lawfirm, transmissibility = 0.5, times = 5, steps = 10))
 ```
 
 Note that in this plot the number of new infections is not plotted
@@ -610,7 +610,7 @@ plot(play_diffusions(____, recovery = ____))
 ```
 
 ```{r sir-solution}
-plot(play_diffusions(rando, recovery = 0.2))
+plot(play_diffusions(ison_lawfirm, recovery = 0.2))
 ```
 
 What we see in these kinds of models is typically a spike in infections
@@ -624,8 +624,8 @@ which should average out these differences and make the results more reliable.
 
 ```
 
-```{r sirtimes-solution}
-plot(play_diffusions(rando, recovery = 0.2, times = 100))
+```{r sirtimes-solution, purl=FALSE}
+plot(play_diffusions(ison_lawfirm, recovery = 0.2, times = 100))
 ```
 
 ### SIRS models
@@ -642,7 +642,7 @@ Play a single diffusion so that you can see what's going on in a particular run.
 ```
 
 ```{r sirs-solution}
-plot(play_diffusion(rando, recovery = 0.2, waning = 0.05))
+plot(play_diffusion(ison_lawfirm, recovery = 0.2, waning = 0.05))
 ```
 
 <!-- # visualise diffusion within random graph -->
@@ -659,7 +659,7 @@ Depending on your particular simulation,
 there might be some variation,
 so let's run this same diffusion but multiple (100?) times.
 
-```{r sirstimes-solution, exercise.setup = "diffusions", exercise = TRUE, fig.width=9}
+```{r sirstimes-solution, exercise.setup = "diffusions", exercise = TRUE, fig.width=9, purl=FALSE}
 plot(play_diffusions(rando, recovery = 0.2, waning = 0.05, times = 100))
 ```
 
@@ -689,10 +689,10 @@ Play a single diffusion so that you can see what's going on in a particular run.
 
 ```{r seir-solution}
 set.seed(123)
-plot(play_diffusion(rando, seeds = 10, latency = 0.25, recovery = 0.2))
+plot(play_diffusion(ison_lawfirm, seeds = 10, latency = 0.75, recovery = 0.2))
 
 # visualise diffusion with latency and recovery
-graphs(play_diffusion(rando, seeds = 10, latency = 0.25, recovery = 0.2), waves = c(1,5,10))
+# graphs(play_diffusion(ison_lawfirm, seeds = 10, latency = 0.75, recovery = 0.2), waves = c(1,5,10))
 ```
 
 ## Make it stop
@@ -716,7 +716,7 @@ So how can we establish the $R_0$ here?
 We can use `net_by_reproduction()`.
 
 ```{r r0, exercise = TRUE, exercise.setup = "diffusions", fig.width=9}
-rd_diff <- play_diffusion(rando, transmissibility = 0.25, recovery = 0.05)
+rd_diff <- play_diffusion(ison_lawfirm, transmissibility = 0.25, recovery = 0.05)
 plot(rd_diff)
 # R-nought
 net_by_reproduction(rd_diff)
@@ -777,7 +777,7 @@ The unnormalised version gives the number of nodes that would need to be vaccina
 Ok, so let's try this strategy.
 
 ```{r vaccinate, exercise = TRUE, exercise.setup = "diffusions", fig.width=9}
-rd_diff_vacc <- play_diffusion(rando, transmissibility = 0.25, recovery = 0.05, 
+rd_diff_vacc <- play_diffusion(ison_lawfirm, transmissibility = 0.25, recovery = 0.05, 
                                immune = 2:9)
 plot(rd_diff_vacc)
 net_by_infection_total(rd_diff_vacc)

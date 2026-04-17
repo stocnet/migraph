@@ -9,4 +9,4 @@
 
 0 errors | 0 warnings | 0 notes
 
-- Updates to bring autograph into line with latest version of manynet (> v2.0.0)
+- Updates to improve testing length
