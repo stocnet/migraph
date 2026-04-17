@@ -37,6 +37,7 @@ find_pkg_tutorial_paths <- function(pkg) {
 
 check_tute_rendering <- function(path, quiet = TRUE){
   
+  skip_if_not_installed("rmarkdown")
   stopifnot(all(file.exists(path)))
   
   for(i in path){
@@ -61,7 +62,7 @@ check_tute_functions <- function(path, skip = "ergm\\(", quiet = TRUE){
   knitr::purl(
     input  = path,
     output = tmp,
-    quiet  = TRUE
+    quiet  = quiet
   )
   exprs <- parse(tmp)  # your purled file
   env <- new.env(parent = globalenv())

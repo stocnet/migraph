@@ -12,6 +12,8 @@
 - Added function testing for manynet tutorials (> v2.0.2)
 - Updated examples in solutions in migraph tutorials where errors could creep in
 - Skipped extracting some solutions in migraph where errors could creep in
+- Removed `test_tutorials()` from the public API; 
+  use `run_tute()` and `extract_tute()` for supported tutorial execution and extraction workflows
 
 # migraph 1.6.1
 
