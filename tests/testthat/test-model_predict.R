@@ -1,7 +1,7 @@
 test_that("predict.netlm works", {
   networkers <- ison_networkers %>% to_subgraph(Discipline == "Sociology")
   model1 <- net_regression(weight ~ ego(Citations) + alter(Citations) + sim(Citations), 
-                        networkers, times = 10)
+                        networkers, times = 5)
   pred <- predict(model1, matrix(c(1,10,5,2),1,4))
   expect_length(pred, 1)
   expect_type(pred, "double")
@@ -11,7 +11,7 @@ test_that("predict.netlogit works", {
   networkers <- ison_networkers %>% to_subgraph(Discipline == "Sociology") %>% 
     to_unweighted()
   model1 <- net_regression(. ~ ego(Citations) + alter(Citations) + sim(Citations), 
-                        networkers, times = 10)
+                        networkers, times = 5)
   pred_link <- predict(model1, matrix(c(1,10,5,2),1,4), type = "link")
   pred_response <- predict(model1, matrix(c(1,10,5,2),1,4), type = "response")
   

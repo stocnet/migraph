@@ -127,7 +127,7 @@ Much more flexible than a high school calculator!
 It is important to note that R is case-sensitive, 
 i.e. `Print("Hello World")` will not work. Try it!
 
-```{r Print-hello-world, exercise = TRUE}
+```{r Print-hello-world, exercise = TRUE, purl=FALSE}
 Print("Hello World")
 ```
 
@@ -360,7 +360,7 @@ list.files() # This tells you what files are in your working directory
 Compare the above with functions like the following, 
 which enables you to write an object out of R to some path on your hard-drive that you specify:
 
-```{r function-write, exercise = TRUE}
+```{r function-write, exercise = TRUE, purl=FALSE}
 write.csv(x = mydf, file = "~/Desktop/jamesdf.csv")
 ```
 

@@ -573,7 +573,7 @@ see  papers in e.g. *Social Networks* v.29 and *J Stat Software* v. 24.
 
 Now let's try to fit a triangle model like with the Florentine dataset above:
 
-```{r magnmark1, exercise = TRUE}
+```{r magnmark1, exercise = TRUE, purl=FALSE}
 magn.mark1 <- ergm(magnolia ~ edges + triangle)
 ```
 
