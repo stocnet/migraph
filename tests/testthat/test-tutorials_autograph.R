@@ -11,4 +11,3 @@ test_that("autograph tutorial code runs without warnings or errors", {
                 info = paste("Error in tutorial", basename(tute)))
   }
 })
-
