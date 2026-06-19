@@ -113,7 +113,7 @@ Dekker, David, David Krackhard, and Tom A. B. Snijders. 2007.
 \doi{10.1007/s11336-007-9016-1}.
 }
 \seealso{
-Other models: 
+Other models:
 \code{\link{test_distributions}},
 \code{\link{tests}}
 }

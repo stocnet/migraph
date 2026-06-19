@@ -59,14 +59,15 @@ test_fit <- function(diff_model, diff_models){ # make into method?
   x <- diff_model
   if(manynet::is_graph(x)) x <- manynet::as_diffusion(x)
   y <- diff_models
-  sim <- `0` <- NULL
-  sims <- y %>% dplyr::select(sim, time, I)
-  if(max(x$time) < max(sims$time)){
+  sims <- y %>% dplyr::select(sim, t, I)
+  if(max(x$t) < max(sims$t)){
+    x <- dplyr::mutate(x, t = as.integer(t), S = as.integer(S), I = as.integer(I)) |> 
+      dplyr::select(t, S, I)
     x <- dplyr::bind_rows(x, 
-               dplyr::tibble(time = (max(x$time)+1):max(sims$time), 
+               dplyr::tibble(t = (max(x$t)+1):max(sims$t), 
                              S = x$S[nrow(x)], I = x$I[nrow(x)]))
   }
-  sims <- as.data.frame.matrix(stats::xtabs(I ~ sim + time, sims)) # tidyr::pivot_wider replacement
+  sims <- as.data.frame.matrix(stats::xtabs(I ~ sim + t, sims)) # tidyr::pivot_wider replacement
   sims <- sims[,colSums(stats::cov(sims))!=0]
   mah <- stats::mahalanobis(x$I[-1], colMeans(sims), stats::cov(sims))
   pval <- pchisq(mah, df=length(x$I[-1]), lower.tail=FALSE)

@@ -9,4 +9,4 @@
 
 0 errors | 0 warnings | 0 notes
 
-- Updates to improve testing length
+- Fixes reverse dependency issues for 'manynet' (and 'netrics')

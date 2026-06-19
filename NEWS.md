@@ -1,3 +1,15 @@
+# migraph 1.6.3
+
+2026-06-19
+
+## Package
+
+- Removed `%>%` reexport plumbing and refreshed generated reexport docs accordingly
+
+## Testing
+
+- Updated diffusion goodness-of-fit logic (`test_fit()`) and its tests to use the newer diffusion representation (notably `t`)
+
 # migraph 1.6.2
 
 2026-04-17

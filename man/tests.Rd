@@ -87,7 +87,7 @@ marvel_friends <- fict_marvel \%>\% to_uniplex("relationship") \%>\%
 # plot(qaptest)
 }
 \seealso{
-Other models: 
+Other models:
 \code{\link{regression}},
 \code{\link{test_distributions}}
 }
