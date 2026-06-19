@@ -57,7 +57,7 @@ then one can argue that the first diffusion is not well captured by
   # test_fit(x, y)
 }
 \seealso{
-Other models: 
+Other models:
 \code{\link{regression}},
 \code{\link{tests}}
 }

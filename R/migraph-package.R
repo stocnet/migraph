@@ -20,7 +20,7 @@ thisRequires <- function(pkgname){
 }
 
 # defining global variables more centrally
-utils::globalVariables(c(".data", "obs", "fin","n","sim","time","value","conf.low","conf.high",
+utils::globalVariables(c(".data", "obs", "fin","n","S","sim","time","value","conf.low","conf.high",
                          "name"))
 
 # Suppress R CMD check note
