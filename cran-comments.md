@@ -10,3 +10,4 @@
 0 errors | 0 warnings | 0 notes
 
 - Updated manynet dependency to 1.2.1 to fix reverse dependency issue
+- Updated netrics dependency to 0.3.1 to fix reverse dependency issue
