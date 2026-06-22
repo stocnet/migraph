@@ -70,10 +70,10 @@ The package is intended as a software companion to the book:
 > Cambridge University Press: Cambridge.
 
 Most datasets used in the book are included in this package, and
-`{manynet}` and `{migraph}` together implement most methods discussed in
-the book. Since many of theses datasets and routines are discussed and
-analysed more there, if you like the package(s) please check out the
-book, and vice versa.
+`{manynet}`, `{netrics}`, and `{migraph}` together implement most
+methods discussed in the book. Since many of theses datasets and
+routines are discussed and analysed more there, if you like the
+package(s) please check out the book, and vice versa.
 
 ## How does migraph help?
 
@@ -82,8 +82,7 @@ conditional uniform graph (CUG) or quadratic assignment procedure (QAP)
 distributions using:
 
 - `test_configuration()`, `test_distribution()`, `test_fit()`,
-  `test_gof()`, `test_permutation()`, `test_random()`,
-  `test_tutorials()`
+  `test_gof()`, `test_permutation()`, `test_random()`
 
 <img src="https://www.jameshollway.com/post/migraph/tests-2.png" alt="Plot showing the results of a QAP test"/>
 
@@ -109,21 +108,7 @@ package:
 ``` r
 library(migraph)
 run_tute()
-#> Checking tutorials in stocnet packages ■■■■■■■■■■■ 33% | …
-#> # A tibble: 10 × 3
-#>    package   name      title                   
-#>    <chr>     <chr>     <chr>                   
-#>  1 manynet   tutorial0 Intro to R              
-#>  2 manynet   tutorial1 Data                    
-#>  3 autograph tutorial2 Visualisation           
-#>  4 manynet   tutorial3 Centrality              
-#>  5 manynet   tutorial4 Cohesion and Community  
-#>  6 manynet   tutorial5 Position and Equivalence
-#>  7 manynet   tutorial6 Topology and Resilience 
-#>  8 migraph   tutorial7 Diffusion and Learning  
-#>  9 migraph   tutorial8 Diversity and Regression
-#> 10 migraph   tutorial9 Modelling with ERGMs
-#> ℹ You can run a tutorial by typing e.g `run_tute('tutorial1')` or `run_tute('Data')` into the console.
+#> # A tibble: 0 × 0
 # run_tute("tutorial5")
 ```
 
@@ -197,6 +182,12 @@ currently available in other excellent R packages such as
 [`{multinet}`](https://CRAN.R-project.org/package=multinet),
 [`{tnet}`](https://toreopsahl.com/tnet/), and
 [`{xUCINET}`](https://sites.google.com/view/asnr-2022/xucinet?authuser=0).
+
+As one of the stocnet packages, `{migraph}` is designed to work
+seamlessly with the other stocnet packages, including
+[`{manynet}`](https://stocnet.github.io/manynet/),
+[`{autograph}`](https://stocnet.github.io/autograph/), and
+[`{netrics}`](https://stocnet.github.io/netrics/).
 
 ## Funding details
 

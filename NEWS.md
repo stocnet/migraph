@@ -6,6 +6,7 @@
 
 - Updated manynet dependency to 1.2.1 to fix reverse dependency issue
 - Updated pull request template
+- Updated README to make reference to `{netrics}` too
 
 # migraph 1.6.3
 
