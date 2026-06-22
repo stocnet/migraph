@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.4</span>
       </span>
     </div>
 
@@ -59,6 +59,16 @@
       <small>Source: <a href="https://github.com/stocnet/migraph/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.6.4" id="migraph-164">migraph 1.6.4<a class="anchor" aria-label="anchor" href="#migraph-164"></a></h2>
+<p>2026-06-22</p>
+<div class="section level3">
+<h3 id="package-1-6-4">Package<a class="anchor" aria-label="anchor" href="#package-1-6-4"></a></h3>
+<ul><li>Updated manynet dependency to 1.2.1 to fix reverse dependency issue</li>
+<li>Updated pull request template</li>
+<li>Updated README to make reference to <a href="https://stocnet.github.io/netrics/" class="external-link">netrics</a> too</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.6.3" id="migraph-163">migraph 1.6.3<a class="anchor" aria-label="anchor" href="#migraph-163"></a></h2>
 <p>2026-06-19</p>
@@ -482,10 +492,10 @@
 <p>2023-12-17</p>
 <div class="section level3">
 <h3 id="marks-1-2-0">Marks<a class="anchor" aria-label="anchor" href="#marks-1-2-0"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_is_infected()</a></code> to identify infected nodes at given time</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_is_latent()</a></code> to identify infected nodes at given time</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_is_recovered()</a></code> to identify infected nodes at given time</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_is_fold()</a></code> for identifying nodes that are occupying structural folds</li>
+<ul><li>Added <code><a href="https://stocnet.github.io/netrics/reference/mark_diff.html" class="external-link">node_is_infected()</a></code> to identify infected nodes at given time</li>
+<li>Added <code><a href="https://stocnet.github.io/netrics/reference/mark_diff.html" class="external-link">node_is_latent()</a></code> to identify infected nodes at given time</li>
+<li>Added <code><a href="https://stocnet.github.io/netrics/reference/mark_diff.html" class="external-link">node_is_recovered()</a></code> to identify infected nodes at given time</li>
+<li>Added <code><a href="https://stocnet.github.io/netrics/reference/mark_nodes.html" class="external-link">node_is_fold()</a></code> for identifying nodes that are occupying structural folds</li>
 <li>Dropped last <code>is_*()</code> functions from migraph to avoid unnecessary conflicts with manynet at startup</li>
 <li>Improved ‘mark_nodes’ documentation</li>
 </ul></div>
@@ -495,7 +505,7 @@
 <li>
 <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_adoption_time()</a></code> now works with incomplete diffusions<ul><li>Fixed bug with named vectors</li></ul></li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_exposure()</a></code> now uses <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_is_infected()</a></code> for more flexibility</li>
+<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_exposure()</a></code> now uses <code><a href="https://stocnet.github.io/netrics/reference/mark_diff.html" class="external-link">node_is_infected()</a></code> for more flexibility</li>
 <li>
 <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_thresholds()</a></code> now works with incomplete diffusions<ul><li>Adds exposure data where not provided</li></ul></li>
 </ul></div>
@@ -507,7 +517,7 @@
 <h3 id="models-1-2-0">Models<a class="anchor" aria-label="anchor" href="#models-1-2-0"></a></h3>
 <ul><li>
 <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code><ul><li>Now records only the first exposure event until susceptible again</li>
-<li>Now uses <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_is_exposed()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_exposure()</a></code> internally</li>
+<li>Now uses <code><a href="https://stocnet.github.io/netrics/reference/mark_diff.html" class="external-link">node_is_exposed()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_exposure()</a></code> internally</li>
 <li>Made play_diffusion() code easier to understand and debug</li>
 <li>Added some tests for <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code>
 </li>
@@ -518,7 +528,7 @@
 <p>2023-12-13</p>
 <div class="section level3">
 <h3 id="marks-1-1-9">Marks<a class="anchor" aria-label="anchor" href="#marks-1-1-9"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_is_exposed()</a></code> function to mark nodes (logical) that are currently exposed to diffusion content in a network.</li></ul></div>
+<ul><li>Added <code><a href="https://stocnet.github.io/netrics/reference/mark_diff.html" class="external-link">node_is_exposed()</a></code> function to mark nodes (logical) that are currently exposed to diffusion content in a network.</li></ul></div>
 <div class="section level3">
 <h3 id="measures-1-1-9">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-9"></a></h3>
 <ul><li>Fixed bugs for <code>network_reproduction()</code> function that calculates the R-nought value.</li>
@@ -571,7 +581,7 @@
 <ul><li>Fixed documentation issues for diffusion measures.</li></ul></div>
 <div class="section level3">
 <h3 id="marks-1-1-7">Marks<a class="anchor" aria-label="anchor" href="#marks-1-1-7"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_is_mentor()</a></code> for indicating nodes with high indegree.</li></ul></div>
+<ul><li>Added <code><a href="https://stocnet.github.io/netrics/reference/mark_nodes.html" class="external-link">node_is_mentor()</a></code> for indicating nodes with high indegree.</li></ul></div>
 <div class="section level3">
 <h3 id="models-1-1-7">Models<a class="anchor" aria-label="anchor" href="#models-1-1-7"></a></h3>
 <ul><li>Added ‘minimising’ distance option for segregation model choice.</li>
@@ -818,7 +828,7 @@
 <h3 id="marks-0-13-0">Marks<a class="anchor" aria-label="anchor" href="#marks-0-13-0"></a></h3>
 <ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/mark_features.html" class="external-link">is_aperiodic()</a></code> for testing whether a network is aperiodic (the greatest common divisor for all cycles in the network is 1)<ul><li>Note that for computational efficiency, this will check only up to a specified path length (by default 4)</li></ul></li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_is_max()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_is_min()</a></code> now take a “rank” argument for selecting more than the first ranked maxima or minima</li>
+<code><a href="https://stocnet.github.io/netrics/reference/mark_select_node.html" class="external-link">node_is_max()</a></code> and <code><a href="https://stocnet.github.io/netrics/reference/mark_select_node.html" class="external-link">node_is_min()</a></code> now take a “rank” argument for selecting more than the first ranked maxima or minima</li>
 </ul></div>
 <div class="section level3">
 <h3 id="manipulations-0-13-0">Manipulations<a class="anchor" aria-label="anchor" href="#manipulations-0-13-0"></a></h3>
@@ -880,7 +890,7 @@
 <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> now works with igraph objects</li></ul></div>
 <div class="section level3">
 <h3 id="marks-0-12-6">Marks<a class="anchor" aria-label="anchor" href="#marks-0-12-6"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_is_random()</a></code> for selecting n nodes at random</li></ul></div>
+<ul><li>Added <code><a href="https://stocnet.github.io/netrics/reference/mark_select_node.html" class="external-link">node_is_random()</a></code> for selecting n nodes at random</li></ul></div>
 <div class="section level3">
 <h3 id="models-0-12-6">Models<a class="anchor" aria-label="anchor" href="#models-0-12-6"></a></h3>
 <ul><li>Added first draft of (SI) <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code> model<ul><li>Added diff_model class, together with print, summary, and plot methods</li></ul></li></ul></div>
@@ -981,7 +991,7 @@
 <div class="section level3">
 <h3 id="marks-0-12-1">Marks<a class="anchor" aria-label="anchor" href="#marks-0-12-1"></a></h3>
 <ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/mark_features.html" class="external-link">is_perfect_matching()</a></code> for a logical expression of whether the maximum matching of a network is also perfect</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_is_core()</a></code> for a logical vector of which nodes are members of the core</li>
+<li>Added <code><a href="https://stocnet.github.io/netrics/reference/mark_core.html" class="external-link">node_is_core()</a></code> for a logical vector of which nodes are members of the core</li>
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-12-1">Measures<a class="anchor" aria-label="anchor" href="#measures-0-12-1"></a></h3>
@@ -1165,8 +1175,8 @@
 <h3 id="marks-0-10-3">Marks<a class="anchor" aria-label="anchor" href="#marks-0-10-3"></a></h3>
 <ul><li>All <code>is_*()</code> are now considered graph-level ‘marks’</li>
 <li>Added ‘node_mark’ and ‘tie_mark’ classes with printing methods (closed <a href="https://github.com/stocnet/migraph/issues/233" class="external-link">#233</a>)</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_is_isolate()</a></code> for marking isolates</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_is_max()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_is_min()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">tie_is_max()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">tie_is_min()</a></code> for converting ‘measures’ into ‘marks’</li>
+<li>Added <code><a href="https://stocnet.github.io/netrics/reference/mark_degree.html" class="external-link">node_is_isolate()</a></code> for marking isolates</li>
+<li>Added <code><a href="https://stocnet.github.io/netrics/reference/mark_select_node.html" class="external-link">node_is_max()</a></code>, <code><a href="https://stocnet.github.io/netrics/reference/mark_select_node.html" class="external-link">node_is_min()</a></code>, <code><a href="https://stocnet.github.io/netrics/reference/mark_select_tie.html" class="external-link">tie_is_max()</a></code>, <code><a href="https://stocnet.github.io/netrics/reference/mark_select_tie.html" class="external-link">tie_is_min()</a></code> for converting ‘measures’ into ‘marks’</li>
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-10-3">Measures<a class="anchor" aria-label="anchor" href="#measures-0-10-3"></a></h3>
