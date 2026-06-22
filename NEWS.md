@@ -1,3 +1,11 @@
+# migraph 1.6.5
+
+2026-06-22
+
+## Package
+
+- Updated netrics dependency to 0.3.1 to fix reverse dependency issue
+
 # migraph 1.6.4
 
 2026-06-22
