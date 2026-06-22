@@ -4,7 +4,6 @@
 
 - Documentation
   - [ ] DESCRIPTION file version is bumped by the appropriate increment (major, minor, patch)
-  - [ ] Date in DESCRIPTION is correct
   - [ ] Longer functions are commented inline or broken down into helper functions to help debugging
 - PR form
   - [ ] Title indicates expected version number

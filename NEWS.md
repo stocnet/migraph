@@ -5,6 +5,7 @@
 ## Package
 
 - Updated manynet dependency to 1.2.1 to fix reverse dependency issue
+- Updated pull request template
 
 # migraph 1.6.3
 
