@@ -1,10 +1,9 @@
 Package: migraph
 Title: Inferential Methods for Multimodal and Other Networks 
-Version: 1.6.5
+Version: 1.6.6
 Description: A set of tools for testing networks.
-   It includes functions for univariate and multivariate 
-   conditional uniform graph and quadratic assignment procedure testing,
-   and network regression.
+   It includes functions for univariate and multivariate conditional uniform graph 
+   and quadratic assignment procedure testing, and network regression.
    The package is a complement to 
    'Multimodal Political Networks' (2021, ISBN:9781108985000),
    and includes various datasets used in the book.
@@ -20,7 +19,7 @@ LazyData: true
 Depends:
     R (>= 4.1.0),
     manynet (>= 2.1.2),
-    autograph (>= 0.4.0),
+    autograph (>= 1.0.0),
     netrics (>= 0.3.1)
 Imports: 
     dplyr (>= 1.1.0),

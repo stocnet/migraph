@@ -54,7 +54,7 @@ learnr::random_phrases_add(language = "en",
                                       "Beau travail!",
                                       "Bravo!",
                                       "Super!"),
-                           encouragement = c("Bon effort"))
+                           encouragement = "Bon effort")
 ```
 
 ## This tutorial
@@ -282,10 +282,10 @@ how much change there is depends critically on “where you are on the curve”.
 ```{r predprobplot, echo = F, fig.height=3, fig.width=8, purl = FALSE}
   ggplot(data.frame(x = c(-4, 4)), aes(x = x)) +
     ggplot2::stat_function(fun = plogis, colour = "blue") +
-    ggplot2::geom_line(aes(x = 0, y=c(.5,.73), colour = "+1 unit change @0")) +
-    ggplot2::geom_line(aes(x = c(0,1), y=.73, colour = "+1 unit change @0")) +
-    ggplot2::geom_line(aes(x = 1, y=c(.73,.88), colour = "+1 unit change @1")) +
-    ggplot2::geom_line(aes(x = c(1,2), y=.88, colour = "+1 unit change @1")) +
+    ggplot2::geom_line(aes(x = 0, y=c(0.5,.73), colour = "+1 unit change @0")) +
+    ggplot2::geom_line(aes(x = c(0,1), y=0.73, colour = "+1 unit change @0")) +
+    ggplot2::geom_line(aes(x = 1, y=c(0.73,0.88), colour = "+1 unit change @1")) +
+    ggplot2::geom_line(aes(x = c(1,2), y=0.88, colour = "+1 unit change @1")) +
     ggplot2::theme_minimal()
 ```
 

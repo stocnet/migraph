@@ -172,5 +172,6 @@ print.network_test <- function(x, ...,
   cat("Observed Value:", x$testval, "\n")
   cat("Pr(X>=Obs):", x$pgteobs, "\n")
   cat("Pr(X<=Obs):", x$plteobs, "\n\n")
+  invisible(x)
 }
 

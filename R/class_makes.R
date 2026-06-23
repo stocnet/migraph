@@ -24,6 +24,7 @@ print.diffs_model <- function(x, ...){
   x <- x[,colSums(x, na.rm=TRUE) != 0]
   x$I_new <- NULL
   print(dplyr::tibble(x, ...))
+  invisible(x)
 }
 
 ## Over ####
@@ -37,6 +38,7 @@ make_over_memb <- function(out, categ) {
 #' @export
 print.over_memb <- function(x, ...){
   print(round(unclass(x),3), ...)
+  invisible(x)
 }
 
 
