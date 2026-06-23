@@ -5,6 +5,7 @@
 ## Package
 
 - Improved goodpractices
+- Dropped netrics tutorial testing
 
 # migraph 1.6.5
 
