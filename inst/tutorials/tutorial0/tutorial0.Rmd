@@ -171,7 +171,8 @@ surname <- "Hollway"
 y.chromosome <- T # or TRUE
 siblings <- 1
 age <- NA # This is used for missing information
-# Note that these objects then appear in RStudio's environment pane (by default the top right)
+# Note that these objects then appear in RStudio's environment pane 
+# (by default the top right)
 ```
 
 You can then recover this information by simply calling these objects:
@@ -214,7 +215,8 @@ teenageqrtrs <- seq(13, 19.99, by = 0.25)
 # We can recall every third value from this object using a repeating vector 
 teenageqrtrs
 teenageqrtrs[c(FALSE, FALSE, TRUE)]
-# teenageqrtrs[c(F, F, T)] # Also works but it is best practice to write out the logic.
+# teenageqrtrs[c(F, F, T)] 
+# Also works but it is best practice to write out the logic.
 ```
 
 So R can help us store and recall values and even vectors of values,
@@ -327,7 +329,8 @@ mylist$Siblings <- c(1, NA) # Now you can add the others from above
 You can also add lists to a list:
 
 ```{r list-nest, exercise = TRUE, exercise.setup="list-names"}
-mylist$Lived <- list(c("New Zealand", "UK", "New Zealand", "Germany", "UK", "Switzerland"), NA)
+mylist$Lived <- list(c("New Zealand", "UK", "New Zealand", 
+                       "Germany", "UK", "Switzerland"), NA)
 ```
 
 Note that we've been using parentheses, `()`, here and not brackets, `[]`,

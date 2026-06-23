@@ -1,3 +1,12 @@
+# migraph 1.6.6
+
+2026-06-23
+
+## Package
+
+- Improved goodpractices
+- Dropped netrics tutorial testing
+
 # migraph 1.6.5
 
 2026-06-22

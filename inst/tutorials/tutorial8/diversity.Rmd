@@ -49,7 +49,7 @@ learnr::random_phrases_add(language = "en",
                                       "Beau travail!",
                                       "Bravo!",
                                       "Super!"),
-                           encouragement = c("Bon effort"))
+                           encouragement = "Bon effort")
 marvel_friends <- to_unsigned(to_uniplex(fict_marvel, "relationship"), keep = "positive")
 marvel_friends <- to_giant(marvel_friends)
 marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances))

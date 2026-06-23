@@ -266,6 +266,7 @@ print.netlm <- function(x, ...){
   print(tidy(x))
   cat("\n# Model summary statistics\n")
   print(glance(x))
+  invisible(x)
 }
 
 #' @export
@@ -274,6 +275,7 @@ print.netlogit <- function(x, ...){
   print(tidy(x))
   cat("\n# Model summary statistics\n")
   print(glance(x))
+  invisible(x)
 }
 
 # Unused because infinite recursion through summary.ergm() in tidy.ergm()
