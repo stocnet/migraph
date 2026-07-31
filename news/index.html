@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.8</span>
       </span>
     </div>
 
@@ -59,6 +59,28 @@
       <small>Source: <a href="https://github.com/stocnet/migraph/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.6.8" id="migraph-168">migraph 1.6.8<a class="anchor" aria-label="anchor" href="#migraph-168"></a></h2>
+<p>2026-07-31</p>
+<div class="section level3">
+<h3 id="package-1-6-8">Package<a class="anchor" aria-label="anchor" href="#package-1-6-8"></a></h3>
+<ul><li>Replaced all remaining uses of the magrittr pipe <code>%&gt;%</code> with the native pipe <code>|&gt;</code>, in package code, tests, examples, and tutorials
+<ul><li>This fixes the <code><a href="../reference/predict.html">predict()</a></code>, <code><a href="../reference/regression.html">net_regression()</a></code>, and <code>test_*()</code> examples, which still called <code>%&gt;%</code> after the re-export was removed in 1.6.3 and so were relying on <a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a> being attached</li>
+<li>
+<code>%&gt;%</code> is no longer imported from <a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a>
+</li>
+<li>The pipes section of tutorial0 now teaches <code>|&gt;</code> only, noting <code>%&gt;%</code> as something readers may encounter in older code</li>
+</ul></li>
+</ul></div>
+<div class="section level3">
+<h3 id="models-1-6-8">Models<a class="anchor" aria-label="anchor" href="#models-1-6-8"></a></h3>
+<ul><li>Substantially accelerated <code><a href="../reference/regression.html">net_regression()</a></code> (by about 35x), resolving the CRAN NOTE about the running time of the <code><a href="../reference/predict.html">predict()</a></code> examples
+<ul><li>Permutations now operate directly on the matrices rather than coercing to and from a network object each time, deferring to <code><a href="https://stocnet.github.io/manynet/reference/modif_permutation.html" class="external-link">manynet::to_permuted()</a></code> again once manynet gains a method for matrix input</li>
+<li>Vectorising the matrix list for each fit now uses base operations rather than constructing a data frame</li>
+<li>Results are unchanged: for a given seed, the same permutations are drawn and the same coefficients, test statistics, and p-values are returned</li>
+</ul></li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.6.7" id="migraph-167">migraph 1.6.7<a class="anchor" aria-label="anchor" href="#migraph-167"></a></h2>
 <p>2026-07-31</p>

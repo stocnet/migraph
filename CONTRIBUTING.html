@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.8</span>
       </span>
     </div>
 
@@ -110,23 +110,23 @@
 <div class="section level3">
 <h3 id="common-commands">Common commands<a class="anchor" aria-label="anchor" href="#common-commands"></a></h3>
 <p>This is a standard R package developed with <code>devtools</code>/<code>roxygen2</code>. Run these from an R console with the working directory set to the package root (or via <code>Rscript -e</code>).</p>
-<ul><li>Load package for interactive development: <code>devtools::load_all()</code>
+<ul><li>Load package for interactive development: <code><a href="https://devtools.r-lib.org/reference/load_all.html" class="external-link">devtools::load_all()</a></code>
 </li>
-<li>Regenerate docs &amp; NAMESPACE after editing roxygen comments: <code>devtools::document()</code>
+<li>Regenerate docs &amp; NAMESPACE after editing roxygen comments: <code><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">devtools::document()</a></code>
 </li>
-<li>Run full test suite: <code>devtools::test()</code>
+<li>Run full test suite: <code><a href="https://devtools.r-lib.org/reference/test.html" class="external-link">devtools::test()</a></code>
 </li>
 <li>Run a single test file: <code>devtools::test(filter = "model_tests")</code> (matches <code>test-model_tests.R</code>), or <code>testthat::test_file("tests/testthat/test-model_regression.R")</code>
 </li>
-<li>Full package check (mirrors CI): <code>devtools::check()</code> or <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>
+<li>Full package check (mirrors CI): <code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> or <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>
 </li>
-<li>Lint: <code>lintr::lint_package()</code>
+<li>Lint: <code><a href="https://lintr.r-lib.org/reference/lint.html" class="external-link">lintr::lint_package()</a></code>
 </li>
-<li>Spell check: <code>spelling::spell_check_package()</code>
+<li>Spell check: <code><a href="https://docs.ropensci.org/spelling//reference/spell_check_package.html" class="external-link">spelling::spell_check_package()</a></code>
 </li>
-<li>Code coverage: <code>covr::package_coverage()</code>
+<li>Code coverage: <code><a href="http://covr.r-lib.org/reference/package_coverage.html" class="external-link">covr::package_coverage()</a></code>
 </li>
-<li>Rebuild <code>README.md</code> from <code>README.Rmd</code>: <code>devtools::build_readme()</code>
+<li>Rebuild <code>README.md</code> from <code>README.Rmd</code>: <code><a href="https://devtools.r-lib.org/reference/build_readme.html" class="external-link">devtools::build_readme()</a></code>
 </li>
 <li>Build pkgdown site locally: <code><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">pkgdown::build_site()</a></code>
 </li>
