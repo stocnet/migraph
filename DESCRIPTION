@@ -30,10 +30,8 @@ Imports:
     knitr,
     learnr,
     purrr
-Suggests: 
-    covr,
+Suggests:
     rmarkdown,
-    roxygen2,
     shiny,
     testthat (>= 3.0.0)
 Authors@R: 
@@ -58,6 +56,16 @@ Authors@R:
            comment = c(ORCID = "0000-0001-5943-9059"))
     )
 Roxygen: list(markdown = TRUE, roclets = c("namespace", "rd"))
+Config/Needs/build:
+    roxygen2,
+    devtools
+Config/Needs/check:
+    covr,
+    lintr,
+    spelling
+Config/Needs/website:
+    pkgdown,
+    learnr
 Config/testthat/parallel: true
 Config/testthat/edition: 3
 Config/testthat/start-first: tutorials_manynet

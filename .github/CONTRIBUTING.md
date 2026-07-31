@@ -55,11 +55,17 @@ it is important to select this branch when pushing to origin/main.
 
 - `main` is the release branch; `develop` is the working branch (clone/work on `develop`).
 - PRs into `main` trigger [prchecks.yml](workflows/prchecks.yml): R CMD check
-  (macOS/Windows/Linux), binary build, codecov, lintr, and spell check.
+  (macOS/Windows/Linux), binary build, codecov, lintr, spell check,
+  and PR metadata checks (DESCRIPTION version bump, PR title/description conventions).
 - Merges/pushes to `main` trigger [pushrelease.yml](workflows/pushrelease.yml):
   check, auto-bump version tag, GitHub release with binaries, then pkgdown site deploy.
-- Because the version tag is bumped automatically on merge to `main`,
-  don't hand-edit the `Version:` field in `DESCRIPTION` as part of a feature PR.
+- The PR metadata job requires that each PR into `main` bumps the `Version:` field in
+  `DESCRIPTION` by the appropriate increment, names that new version in the PR title,
+  and itemizes its changes in the PR description under `##` subsection titles matching
+  the `NEWS.md` conventions below.
+- Development dependencies are declared in `DESCRIPTION` under `Config/Needs/build`,
+  `Config/Needs/check`, and `Config/Needs/website` rather than `Suggests` —
+  the workflows install them via `needs:` in `setup-r-dependencies`.
 
 ## Package architecture
 

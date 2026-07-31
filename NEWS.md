@@ -4,6 +4,10 @@
 
 - Updated version dependencies
 - Updated CONTRIBUTING to reflect current architecture
+- Updated Github Actions workflows
+  - Updated action versions in `prchecks` and `pushrelease` workflows
+  - Added PR metadata checks to `prchecks` workflow, for the DESCRIPTION version bump and the PR title and description conventions
+  - Moved development dependencies from Suggests into `Config/Needs/build`, `Config/Needs/check`, and `Config/Needs/website`
 - Removed manynet and autograph tutorial testing
 
 # migraph 1.6.6

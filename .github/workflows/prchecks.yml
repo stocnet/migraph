@@ -16,14 +16,15 @@ jobs:
         config:
           - {os: macOS-latest,   r: 'release', artifact_name: '*.tar.gz', asset_name: macOS}
           - {os: windows-latest, r: 'release', artifact_name: '*.zip', asset_name: winOS}
-          - {os: ubuntu-latest,  r: 'release', artifact_name: '*.tar.gz', asset_name: linuxOS}
+          - {os: ubuntu-latest, r: 'release', artifact_name: '*.tar.gz', asset_name: linuxOS}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: r-lib/actions/setup-r@v2
         with:
@@ -36,12 +37,9 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 2
+          needs: check, build
           extra-packages: |
             any::rcmdcheck
-            any::lintr
-            any::spelling
-            any::covr
-          needs: check
 
       - uses: r-lib/actions/check-r-package@v2
         env:
@@ -58,7 +56,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Save binary artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.config.asset_name }}
           path: build/
@@ -73,11 +71,52 @@ jobs:
         run: lintr::lint_package()
         shell: Rscript {0}
 
-      # - name: Goodpractice # check if available on CRAN again in the future
-      #   run: |
-      #     goodpractice::gp()
-      #   shell: Rscript {0}
-
       - name: Spell check
         run: spelling::spell_check_package()
         shell: Rscript {0}
+
+  pr-metadata:
+    name: PR metadata checks
+    runs-on: macOS-latest
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Check DESCRIPTION version is bumped
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          BASE_VERSION=$(git show "$BASE_SHA:DESCRIPTION" | grep -m1 '^Version:' | sed 's/Version: *//')
+          HEAD_VERSION=$(grep -m1 '^Version:' DESCRIPTION | sed 's/Version: *//')
+          echo "Base version: $BASE_VERSION"
+          echo "Head version: $HEAD_VERSION"
+          if [ "$BASE_VERSION" = "$HEAD_VERSION" ]; then
+            echo "::error::DESCRIPTION Version has not been bumped from $BASE_VERSION"
+            exit 1
+          fi
+          HIGHEST=$(printf '%s\n%s\n' "$BASE_VERSION" "$HEAD_VERSION" | sort -V | tail -n1)
+          if [ "$HIGHEST" != "$HEAD_VERSION" ]; then
+            echo "::error::DESCRIPTION Version $HEAD_VERSION is not greater than base version $BASE_VERSION"
+            exit 1
+          fi
+
+      - name: Check PR title mentions the new version number
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          HEAD_VERSION=$(grep -m1 '^Version:' DESCRIPTION | sed 's/Version: *//')
+          if [[ "$PR_TITLE" != *"$HEAD_VERSION"* ]]; then
+            echo "::error::PR title does not mention the new version number ($HEAD_VERSION): \"$PR_TITLE\""
+            exit 1
+          fi
+
+      - name: Check PR description itemizes changes under subsection titles
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          if ! grep -qE '^##[[:space:]]' <<< "$PR_BODY"; then
+            echo "::error::PR description does not itemize changes under subsection titles (e.g. \"## Data\")"
+            exit 1
+          fi
