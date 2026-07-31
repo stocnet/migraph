@@ -77,7 +77,7 @@ jobs:
 
   pr-metadata:
     name: PR metadata checks
-    runs-on: macOS-latest
+runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v7
