@@ -3,6 +3,7 @@
 ## Package
 
 - Updated version dependencies
+- Updated CONTRIBUTING to reflect current architecture
 
 # migraph 1.6.6
 

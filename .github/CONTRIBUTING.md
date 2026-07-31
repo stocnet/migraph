@@ -1,122 +1,222 @@
 # Contributing
 
-Contributions to `roctopus`, 
+Contributions to `migraph`, 
 whether in the form of issue identification, bug fixes, new code or documentation 
 are encouraged and welcome.
 
-## Git and Bitbucket
-
-The `gnevar` project is maintained using the git version control system.
-A plain-English introduction to git can be found [here](https://blog.red-badger.com/2016/11/29/gitgithub-in-plain-english).
-I recommend you read this before continuing. 
-It will explain the basics of git version control, committing and repos, pulling and pushing,
-branching and merging.
-
-However, one important difference from that link is that 
-instead of Github or Gitlab for hosting the remote (online) git repo,
-we will be using Bitbucket (which is actually very similar to Github and Gitlab in most respects).
-Using git from the command line on your lap- or desktop can be intimidating,
-but helpfully Atlassian (the company behind Bitbucket) have released a software interface
-for Mac and Windows called [Sourcetree](https://www.sourcetreeapp.com)
-that allows mostly visual management of commits, diffs, branches, etc.
-There are various other git software packages available, but this one is fairly full featured.
-
-The Bitbucket page allows to access the issues assigned to you and check the commits.
-You can also access the documents in the repository, altough this won't be necessary after you have
-cloned it on your computer via Sourcetree (if you open the file via Bitbucket, Sourcetree will
-not be able to identify the changes you made).
-
-## Sourcetree
-
-### Cloning
-Once you have downloaded Sourcetree, the first thing you have to do is to 
-clone the remote repository on your computer. 
-This is easily done by using point and click from Sourcetree
-(file, new, clone from URL) and copying the link [clone](https://lmodoux8@bitbucket.org/jhollway/gnevar.git).
-Before cloning, you will be able to choose on which `branch` you want to work: 
-develop or master. 
-Working on master means you will not be altering the main workflow, whereas 
-creating a develop branch will separate your work from modifications 
-done on the master branch and be merged later on to the master branch.
-Working on master is fine as long as there are not a lot of contributors. 
-Once more people are working, it is suitable to create local branches for each 
-contributor and merge them to master when controlled by the coordinator 
-(via the `Pull request` that will allow other contributor to check your work 
-and validate it for merging)
-Note that you can still create a develop branch afterwards, 
-but make sure to pull all modifications before doing so to avoid conflicts. 
-You can find more information on creating a new branch on [branch](https://confluence.atlassian.com/sourcetreekb/branch-management-785325799.html). 
-
-### Pull 
-This command allows you to `pull` changes from the remote repository to your local repository on Sourcetree.
-Make sure you do that before starting working on your files so you have the newest versions. 
-When pulling, make sure you choose master or develop, 
-depending on the branch you decided to work with. 
-Once you pulled, you have now all the new commits and files and 
-you can start working on your assigned tasks.
-Note that you can access and open the files either from the Finder or from Sourcetree. 
-Some document might be stored using Large File Storage (LFS) to save space on the repository. 
-Sourcetree can identify them automatically by using point and click: 
-repository, Git LFS, Pull LFS files
-
-### Commit and Push
-Once you have made modifications on a file and saved them, it will appear in your `commit` window. 
-Here you can control one last time your file, write the commit message with the 
-issue reference (see below) and commit. 
-Once your commit is ready, you can `push` them to the origin/master repository.
-Note that you can click the "push immediately" box in the commit window 
-if you don't want to do it in two steps. 
-
-You can find more information on [commit and push](https://confluence.atlassian.com/sourcetreekb/commit-push-and-pull-a-repository-on-sourcetree-785616067.html)
-If you are working on a separate branch, 
-it is important to select this branch when pushing to origin/master.
-
-## Issues and tests
-
-Please use the issues tracker on Bitbucket to identify any function-related issues.
-You can use these issues to track progress on the issue and 
-to comment or continue a conversation on that issue.
-Currently issue tracking is only open to those involved in the project.
-
-The most useful issues are ones that precisely identify an error,
-or propose a test that should pass but instead fails.
-This package uses the `testthat` package for testing functions.
-Please see the [testthat website](https://testthat.r-lib.org) for more details.
-
-## Bug fixing or adding new code
-
-Independent or assigned code contributions are most welcome.
-When writing new code, please follow 
-[standard R guidelines](https://www.r-bloggers.com/🖊-r-coding-style-guide/). 
-It can help to use packages such as `lintr`, `goodpractice` and `formatR` 
-to ensure these are followed.
-
-Currently, commits can only be pushed to Bitbucket where they reference an existing issue.
-If no issue exists for the code you have developed, please add an issue first before pushing.
-Once the issue exists, you will need to mention the issue number (preceded by a hash symbol: #)
-in the commit description:
-
-``` Resolved #31 by adding a new function that does things, also updated documentation ```
-
-Where the issue hash (i.e. #31) is preceded by
-`resolve`, `resolves`, `resolved`, `close`, `closes`, `closed`, `fix`, `fixes`, or `fixed`
-(capitalised or not),
-Bitbucket will automatically updated the status of the issue(s) mentioned.
-More details can be found [here](https://confluence.atlassian.com/bitbucket/resolve-issues-automatically-when-users-push-code-221451126.html).
-To set this up for Mac or Windows, see [this link](https://confluence.atlassian.com/sourcetreekb/link-to-bitbucket-issue-tracker-from-commits-296911608.html).
-
-Our current syntactical standard is to mention the issue first and then 
-provide a short description of what the committed changes do 
-in relation to that issue.
-Any ancillary changes can be mentioned after a comma.
-
-## Documentation
-
-A final way of contributing to the package is in developing the 
-vignettes/articles that illustrate the value added in the package. 
-Please contact me with any proposals here.
-
-Please note that the `roctopus` project is released with a 
+Please note that the `migraph` project is released with a 
 [Contributor Code of Conduct](CODE_OF_CONDUCT.md). 
 By contributing to this project, you agree to abide by its terms.
 
+## Git
+
+`stocnet` projects are maintained using the git version control system.
+A plain-English introduction to git can be found [here](https://blog.red-badger.com/2016/11/29/gitgithub-in-plain-english).
+I recommend you read this before continuing. 
+A more recent motivation can be found [here](https://www.r-bloggers.com/2024/04/git-gud-version-control-best-practices/).
+It will explain the basics of git version control, committing and repos, pulling and pushing,
+branching and merging.
+
+Using git from the command line on your lap- or desktop can be intimidating,
+but I recommend [Fork](https://git-fork.com) software for Mac and Windows.
+This allows mostly visual management of commits, diffs, branches, etc.
+There are various other git software packages available, but this one is fairly fully featured.
+
+The GitHub page allows to access the issues assigned to you and check the commits.
+You can also access the documents in the repository, 
+although this won't be necessary after you have cloned it on your computer via Fork.
+
+### Cloning
+
+Once you have downloaded Fork, the first thing you have to do is to 
+clone the remote repository on your computer. 
+Before cloning, you will be able to choose on which `branch` you want to work: 
+develop or main. 
+
+### Pull
+
+This command allows you to `pull` changes from the remote repository to your local repository.
+Make sure you do that before starting working on your files so you have the newest versions. 
+When pulling, make sure you choose main or develop, 
+depending on the branch you decided to work with. 
+Once you pulled, you have now all the new commits and files and 
+you can start working on your assigned tasks.
+
+### Commit and Push
+
+Once you have made modifications on a file and saved them, it will appear in your `commit` window. 
+Here you can control one last time your file, write the commit message with the 
+issue reference (see below) and commit. 
+Once your commit is ready, you can `push` them to the origin/main repository.
+If you are working on a separate branch, 
+it is important to select this branch when pushing to origin/main.
+
+### Branching and CI
+
+- `main` is the release branch; `develop` is the working branch (clone/work on `develop`).
+- PRs into `main` trigger [prchecks.yml](workflows/prchecks.yml): R CMD check
+  (macOS/Windows/Linux), binary build, codecov, lintr, and spell check.
+- Merges/pushes to `main` trigger [pushrelease.yml](workflows/pushrelease.yml):
+  check, auto-bump version tag, GitHub release with binaries, then pkgdown site deploy.
+- Because the version tag is bumped automatically on merge to `main`,
+  don't hand-edit the `Version:` field in `DESCRIPTION` as part of a feature PR.
+
+## Package architecture
+
+### Project overview
+
+`migraph` is an R package (part of the [stocnet](https://github.com/stocnet) ecosystem)
+providing the *inferential layer* for network analysis:
+conditional uniform graph (CUG) and quadratic assignment procedure (QAP) tests of network
+statistics, multiple regression QAP (MRQAP) for network data, and diffusion models.
+It is also a software companion to
+*Multimodal Political Networks* (Knoke, Diani, Hollway, and Christopoulos 2021),
+whose datasets (prefixed `mpn_`) are bundled here.
+Because it builds on `{manynet}`, every function accepts matrices, edgelists,
+`{igraph}`, `{network}`, or `{tidygraph}` objects, and one-mode or two-mode networks alike.
+Division of labour to keep in mind when adding functions:
+
+- `{manynet}`: network classes/coercion (`as_*()`), making and manipulating networks,
+  and network-level logical tests (e.g. `is_directed()`, `is_twomode()`).
+- `{netrics}`: everything analytic — marks, measures, memberships, motifs —
+  at the node, tie, and network level.
+- `{autograph}`: drawing graphs and plotting analytic, modelling, or diagnostic results,
+  along with deep (often institutional) theming. *All* plot methods should live there.
+- `{migraph}` (this package): testing and modelling, e.g. CUG/QAP/MRQAP and diffusion models.
+
+### Style
+
+In terms of style, we are aiming for pleasant predictability in terms of user experience.
+To that end, we have a regular syntax that users can rely on producing expected effects.
+Functions in the same family (`test_*()`, `over_*()`, etc.) should share
+argument order and naming, so that behaviour is guessable across the family.
+
+### Common commands
+
+This is a standard R package developed with `devtools`/`roxygen2`.
+Run these from an R console with the working directory set to the package root
+(or via `Rscript -e`).
+
+- Load package for interactive development: `devtools::load_all()`
+- Regenerate docs & NAMESPACE after editing roxygen comments: `devtools::document()`
+- Run full test suite: `devtools::test()`
+- Run a single test file: `devtools::test(filter = "model_tests")`
+  (matches `test-model_tests.R`), or `testthat::test_file("tests/testthat/test-model_regression.R")`
+- Full package check (mirrors CI): `devtools::check()` or `rcmdcheck::rcmdcheck()`
+- Lint: `lintr::lint_package()`
+- Spell check: `spelling::spell_check_package()`
+- Code coverage: `covr::package_coverage()`
+- Rebuild `README.md` from `README.Rmd`: `devtools::build_readme()`
+- Build pkgdown site locally: `pkgdown::build_site()`
+
+There is no non-R build system — no package.json/Makefile.
+Roxygen is configured with `markdown = TRUE`;
+`NAMESPACE` and all `man/*.Rd` files are generated — never hand-edit them.
+Likewise `README.md` is generated from `README.Rmd` — edit the `.Rmd` and re-knit.
+
+### File organization
+
+All exported functions live directly in `R/`, grouped by theme rather than one file per function:
+
+| File | Contains |
+|---|---|
+| `model_tests.R` | the test family: `test_random()` (CUG), `test_permutation()` (QAP), `test_configuration()`, `test_distribution()`, `test_fit()`, `test_gof()` |
+| `model_regression.R` | `net_regression()` (alias `network_reg()`), the MRQAP implementation, returning `netlm`/`netlogit` objects |
+| `model_predict.R`, `model_distrib.R`, `model_diffusion.R` | prediction, distribution comparison, and diffusion simulation (`play_diffusions()`) |
+| `class_models.R` | `{broom}`-style S3 methods (`tidy.*`, `glance.*`, `predict.*`, `print.*`, `summary.*`) for `netlm`, `netlogit`, `ergm`, and `sienaFit`, so results are comparable across model types |
+| `class_makes.R` | internal `make_*()` constructors and `print()`/`summary()` methods for the lightweight result classes (`network_measures`, `diffs_model`, `over_memb`) |
+| `measure_over.R` | `over_time()`, `over_waves()`, `over_membership()` — applying a measure across longitudinal slices or group partitions |
+| `tutorial_run.R` | `run_tute()`/`extract_tute()`, `{learnr}` wrappers that search *all* installed stocnet packages for a tutorial by name or fuzzy title match |
+| `data_mpn.R` | documentation for the `mpn_*` datasets from *Multimodal Political Networks* |
+| `migraph-package.R` | package-level doc, the `thisRequires()` helper, global variables, and shims silencing R CMD check's unused-import notes |
+| `migraph-defunct.R` | retired function stubs kept for a deprecation cycle |
+
+### Function body conventions
+
+Test functions consistently:
+
+1. Compute the observed statistic by applying the user-supplied `FUN` to `.data`.
+2. Generate `times` random, configuration-preserving, or permuted networks
+   via the corresponding `{manynet}` generator (`generate_random()`,
+   `generate_configuration()`, etc.), rebinding node attributes with
+   `manynet::bind_node_attributes()` where the statistic needs them.
+3. Recompute `FUN` over each simulated network.
+4. Return a `network_test` object recording the test type, observed value,
+   simulated distribution, one- and two-tailed p-values,
+   and the network's properties (`is_directed()`, `is_complex()`).
+
+Properties of the dependent network — modes, directedness, loops — must always be
+respected in permutations and analysis;
+one-mode and two-mode cases are branched on explicitly rather than projected away.
+All `manynet`, `igraph`, `furrr`, and `future` calls use explicit `::` namespacing
+(with per-file `@importFrom` roxygen tags for NAMESPACE generation).
+Plot methods belong in `{autograph}`, not here.
+
+### Parallelism
+
+Every simulation-heavy function (`test_random()`, `test_configuration()`,
+`test_permutation()`, `net_regression()`, `play_diffusions()`, …) takes:
+
+- `times` — the number of simulations (default `1000`; 1,000–10,000 for publication).
+- `strategy` — a `{future}` plan name (default `"sequential"`;
+  `"multisession"`/`"multicore"` for multiple cores),
+  set with `future::plan(strategy)` and restored via `on.exit()`.
+- `verbose` — passed to `{furrr}`'s `.progress` to report progress.
+
+Simulations are mapped with `furrr::future_map*()` using
+`furrr::furrr_options(seed = TRUE)` for reproducible parallel RNG.
+Follow this same signature when adding new simulation-based functions.
+
+### Cross-package dependency
+
+`migraph` `Depends` on pinned minimum versions of `{manynet}`, `{autograph}`, and
+`{netrics}` (see `DESCRIPTION`).
+CRAN and reverse-dependency issues are commonly resolved by bumping these minimum
+versions rather than by changing `migraph`'s own code — see `cran-comments.md`.
+`ergm` and `learnr` are heavier dependencies used by only a few functions;
+guard such code paths with the `thisRequires()` helper in
+[R/migraph-package.R](../R/migraph-package.R), which prompts to install on first use.
+
+### Tests
+
+This package uses the `testthat` package for testing functions.
+Please see the [testthat website](https://testthat.r-lib.org) for more details.
+
+Tests in `tests/testthat/` mirror the `R/` files
+(e.g. `test-model_tests.R`, `test-model_regression.R`, `test-measure_over.R`),
+plus `test-tutorials_*.R` files that render every `{learnr}` tutorial across the
+stocnet packages and evaluate its purled code, so tutorial code that errors or raises a
+deprecation warning fails the suite.
+[tests/testthat/helper-functions.R](../tests/testthat/helper-functions.R) provides
+`find_pkg_tutorial_paths()`, `check_tute_rendering()`, and `check_tute_functions()`
+for this, alongside the `top3()`/`bot3()`/`top5()`/`bot5()` helpers that pull rounded
+top/bottom N values from a result for terse reference vectors in assertions.
+
+`testthat` edition 3 with parallel execution is configured in `DESCRIPTION`
+(`Config/testthat/parallel: true`);
+`Config/testthat/start-first` prioritises `tutorials_manynet`, since it is slow.
+
+### `NEWS.md` conventions
+
+`NEWS.md` groups each version's changes under `##` headings that mirror the website
+function overview (`pkgdown/_pkgdown.yml` `reference:` titles).
+Lead with `## Package` (package-wide/website/infrastructure changes),
+then the function families in overview order:
+`## Parallelism` (the `over_*()` functions), `## Simulating` (`play_*()` and diffusion),
+`## Modelling` (the `test_*()` family, `net_regression()`, `predict()`,
+and the `tidy()`/`glance()` methods).
+Put `## Tutorials` and `## Data` near the end, so that they usually close the list.
+Each heading appears at most once per version.
+
+Start each bullet with a verb matching the change type:
+
+- `Added ...` — new functionality
+- `Fixed ...` — bug fixes; if it relates to a GitHub issue, suffix with `(closing #123)`
+- `Renamed ... to ...` — function or data name migrations
+- `Improved ...` — functional updates to existing behaviour
+- `Updated ...` — documentation changes
+
+If a cited GitHub issue was **not** authored by @jhollway, thank the author with an
+`@`-tag in the bullet.
+Cluster related changes (e.g. several fixes to the same function, or sub-points of one
+feature) as indented sub-bullets under a lead bullet, to improve readability.
