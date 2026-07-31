@@ -1,6 +1,6 @@
 Package: migraph
 Title: Inferential Methods for Multimodal and Other Networks 
-Version: 1.6.6
+Version: 1.6.7
 Description: A set of tools for testing networks.
    It includes functions for univariate and multivariate conditional uniform graph 
    and quadratic assignment procedure testing, and network regression.
@@ -18,9 +18,9 @@ Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 4.1.0),
-    manynet (>= 2.1.2),
-    autograph (>= 1.0.0),
-    netrics (>= 0.3.1)
+    manynet (>= 2.2.1),
+    autograph (>= 1.1.1),
+    netrics (>= 0.4.0)
 Imports: 
     dplyr (>= 1.1.0),
     ergm,
@@ -30,10 +30,8 @@ Imports:
     knitr,
     learnr,
     purrr
-Suggests: 
-    covr,
+Suggests:
     rmarkdown,
-    roxygen2,
     shiny,
     testthat (>= 3.0.0)
 Authors@R: 
@@ -58,7 +56,17 @@ Authors@R:
            comment = c(ORCID = "0000-0001-5943-9059"))
     )
 Roxygen: list(markdown = TRUE, roclets = c("namespace", "rd"))
+Config/Needs/build:
+    roxygen2,
+    devtools
+Config/Needs/check:
+    covr,
+    lintr,
+    spelling
+Config/Needs/website:
+    pkgdown,
+    learnr
 Config/testthat/parallel: true
 Config/testthat/edition: 3
-Config/testthat/start-first: tutorials_manynet
+Config/testthat/start-first: tutorials_migraph
 Config/roxygen2/version: 8.0.0

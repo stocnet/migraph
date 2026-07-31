@@ -18,3 +18,4 @@ vignettes/precompile\.R
 ^.mailmap$
 ^\.positai$
 ^\.claude$
+^CLAUDE\.md$
