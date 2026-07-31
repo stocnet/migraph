@@ -4,6 +4,7 @@
 
 - Updated version dependencies
 - Updated CONTRIBUTING to reflect current architecture
+- Removed manynet and autograph tutorial testing
 
 # migraph 1.6.6
 
