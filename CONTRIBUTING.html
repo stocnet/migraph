@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.7</span>
       </span>
     </div>
 
@@ -59,46 +59,161 @@
     </div>
 
 <div id="contributing" class="section level1">
-<p>Contributions to <code>roctopus</code>, whether in the form of issue identification, bug fixes, new code or documentation are encouraged and welcome.</p>
+
+<p>Contributions to <code>migraph</code>, whether in the form of issue identification, bug fixes, new code or documentation are encouraged and welcome.</p>
+<p>Please note that the <code>migraph</code> project is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 <div class="section level2">
-<h2 id="git-and-bitbucket">Git and Bitbucket<a class="anchor" aria-label="anchor" href="#git-and-bitbucket"></a></h2>
-<p>The <code>gnevar</code> project is maintained using the git version control system. A plain-English introduction to git can be found <a href="https://blog.red-badger.com/2016/11/29/gitgithub-in-plain-english" class="external-link">here</a>. I recommend you read this before continuing. It will explain the basics of git version control, committing and repos, pulling and pushing, branching and merging.</p>
-<p>However, one important difference from that link is that instead of Github or Gitlab for hosting the remote (online) git repo, we will be using Bitbucket (which is actually very similar to Github and Gitlab in most respects). Using git from the command line on your lap- or desktop can be intimidating, but helpfully Atlassian (the company behind Bitbucket) have released a software interface for Mac and Windows called <a href="https://www.sourcetreeapp.com" class="external-link">Sourcetree</a> that allows mostly visual management of commits, diffs, branches, etc. There are various other git software packages available, but this one is fairly full featured.</p>
-<p>The Bitbucket page allows to access the issues assigned to you and check the commits. You can also access the documents in the repository, altough this won’t be necessary after you have cloned it on your computer via Sourcetree (if you open the file via Bitbucket, Sourcetree will not be able to identify the changes you made).</p>
-</div>
-<div class="section level2">
-<h2 id="sourcetree">Sourcetree<a class="anchor" aria-label="anchor" href="#sourcetree"></a></h2>
+<h2 id="git">Git<a class="anchor" aria-label="anchor" href="#git"></a></h2>
+<p><code>stocnet</code> projects are maintained using the git version control system. A plain-English introduction to git can be found <a href="https://blog.red-badger.com/2016/11/29/gitgithub-in-plain-english" class="external-link">here</a>. I recommend you read this before continuing. A more recent motivation can be found <a href="https://www.r-bloggers.com/2024/04/git-gud-version-control-best-practices/" class="external-link">here</a>. It will explain the basics of git version control, committing and repos, pulling and pushing, branching and merging.</p>
+<p>Using git from the command line on your lap- or desktop can be intimidating, but I recommend <a href="https://git-fork.com" class="external-link">Fork</a> software for Mac and Windows. This allows mostly visual management of commits, diffs, branches, etc. There are various other git software packages available, but this one is fairly fully featured.</p>
+<p>The GitHub page allows to access the issues assigned to you and check the commits. You can also access the documents in the repository, although this won’t be necessary after you have cloned it on your computer via Fork.</p>
 <div class="section level3">
 <h3 id="cloning">Cloning<a class="anchor" aria-label="anchor" href="#cloning"></a></h3>
-<p>Once you have downloaded Sourcetree, the first thing you have to do is to clone the remote repository on your computer. This is easily done by using point and click from Sourcetree (file, new, clone from URL) and copying the link <a href="https://lmodoux8@bitbucket.org/jhollway/gnevar.git" class="external-link">clone</a>. Before cloning, you will be able to choose on which <code>branch</code> you want to work: develop or master. Working on master means you will not be altering the main workflow, whereas creating a develop branch will separate your work from modifications done on the master branch and be merged later on to the master branch. Working on master is fine as long as there are not a lot of contributors. Once more people are working, it is suitable to create local branches for each contributor and merge them to master when controlled by the coordinator (via the <code>Pull request</code> that will allow other contributor to check your work and validate it for merging) Note that you can still create a develop branch afterwards, but make sure to pull all modifications before doing so to avoid conflicts. You can find more information on creating a new branch on <a href="https://confluence.atlassian.com/sourcetreekb/branch-management-785325799.html" class="external-link">branch</a>.</p>
+<p>Once you have downloaded Fork, the first thing you have to do is to clone the remote repository on your computer. Before cloning, you will be able to choose on which <code>branch</code> you want to work: develop or main.</p>
 </div>
 <div class="section level3">
 <h3 id="pull">Pull<a class="anchor" aria-label="anchor" href="#pull"></a></h3>
-<p>This command allows you to <code>pull</code> changes from the remote repository to your local repository on Sourcetree. Make sure you do that before starting working on your files so you have the newest versions. When pulling, make sure you choose master or develop, depending on the branch you decided to work with. Once you pulled, you have now all the new commits and files and you can start working on your assigned tasks. Note that you can access and open the files either from the Finder or from Sourcetree. Some document might be stored using Large File Storage (LFS) to save space on the repository. Sourcetree can identify them automatically by using point and click: repository, Git LFS, Pull LFS files</p>
+<p>This command allows you to <code>pull</code> changes from the remote repository to your local repository. Make sure you do that before starting working on your files so you have the newest versions. When pulling, make sure you choose main or develop, depending on the branch you decided to work with. Once you pulled, you have now all the new commits and files and you can start working on your assigned tasks.</p>
 </div>
 <div class="section level3">
 <h3 id="commit-and-push">Commit and Push<a class="anchor" aria-label="anchor" href="#commit-and-push"></a></h3>
-<p>Once you have made modifications on a file and saved them, it will appear in your <code>commit</code> window. Here you can control one last time your file, write the commit message with the issue reference (see below) and commit. Once your commit is ready, you can <code>push</code> them to the origin/master repository. Note that you can click the “push immediately” box in the commit window if you don’t want to do it in two steps.</p>
-<p>You can find more information on <a href="https://confluence.atlassian.com/sourcetreekb/commit-push-and-pull-a-repository-on-sourcetree-785616067.html" class="external-link">commit and push</a> If you are working on a separate branch, it is important to select this branch when pushing to origin/master.</p>
+<p>Once you have made modifications on a file and saved them, it will appear in your <code>commit</code> window. Here you can control one last time your file, write the commit message with the issue reference (see below) and commit. Once your commit is ready, you can <code>push</code> them to the origin/main repository. If you are working on a separate branch, it is important to select this branch when pushing to origin/main.</p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="issues-and-tests">Issues and tests<a class="anchor" aria-label="anchor" href="#issues-and-tests"></a></h2>
-<p>Please use the issues tracker on Bitbucket to identify any function-related issues. You can use these issues to track progress on the issue and to comment or continue a conversation on that issue. Currently issue tracking is only open to those involved in the project.</p>
-<p>The most useful issues are ones that precisely identify an error, or propose a test that should pass but instead fails. This package uses the <code>testthat</code> package for testing functions. Please see the <a href="https://testthat.r-lib.org" class="external-link">testthat website</a> for more details.</p>
-</div>
-<div class="section level2">
-<h2 id="bug-fixing-or-adding-new-code">Bug fixing or adding new code<a class="anchor" aria-label="anchor" href="#bug-fixing-or-adding-new-code"></a></h2>
-<p>Independent or assigned code contributions are most welcome. When writing new code, please follow <a href="https://www.r-bloggers.com/%F0%9F%96%8A-r-coding-style-guide/" class="external-link">standard R guidelines</a>. It can help to use packages such as <code>lintr</code>, <code>goodpractice</code> and <code>formatR</code> to ensure these are followed.</p>
-<p>Currently, commits can only be pushed to Bitbucket where they reference an existing issue. If no issue exists for the code you have developed, please add an issue first before pushing. Once the issue exists, you will need to mention the issue number (preceded by a hash symbol: #) in the commit description:</p>
-<p><code>Resolved #31 by adding a new function that does things, also updated documentation</code></p>
-<p>Where the issue hash (i.e. #31) is preceded by <code>resolve</code>, <code>resolves</code>, <code>resolved</code>, <code>close</code>, <code>closes</code>, <code>closed</code>, <code>fix</code>, <code>fixes</code>, or <code>fixed</code> (capitalised or not), Bitbucket will automatically updated the status of the issue(s) mentioned. More details can be found <a href="https://confluence.atlassian.com/bitbucket/resolve-issues-automatically-when-users-push-code-221451126.html" class="external-link">here</a>. To set this up for Mac or Windows, see <a href="https://confluence.atlassian.com/sourcetreekb/link-to-bitbucket-issue-tracker-from-commits-296911608.html" class="external-link">this link</a>.</p>
-<p>Our current syntactical standard is to mention the issue first and then provide a short description of what the committed changes do in relation to that issue. Any ancillary changes can be mentioned after a comma.</p>
+<div class="section level3">
+<h3 id="branching-and-ci">Branching and CI<a class="anchor" aria-label="anchor" href="#branching-and-ci"></a></h3>
+<ul><li>
+<code>main</code> is the release branch; <code>develop</code> is the working branch (clone/work on <code>develop</code>).</li>
+<li>PRs into <code>main</code> trigger <a href="workflows/prchecks.yml">prchecks.yml</a>: R CMD check (macOS/Windows/Linux), binary build, codecov, lintr, spell check, and PR metadata checks (DESCRIPTION version bump, PR title/description conventions).</li>
+<li>Merges/pushes to <code>main</code> trigger <a href="workflows/pushrelease.yml">pushrelease.yml</a>: check, auto-bump version tag, GitHub release with binaries, then pkgdown site deploy.</li>
+<li>The PR metadata job requires that each PR into <code>main</code> bumps the <code>Version:</code> field in <code>DESCRIPTION</code> by the appropriate increment, names that new version in the PR title, and itemizes its changes in the PR description under <code>##</code> subsection titles matching the <code>NEWS.md</code> conventions below.</li>
+<li>Development dependencies are declared in <code>DESCRIPTION</code> under <code>Config/Needs/build</code>, <code>Config/Needs/check</code>, and <code>Config/Needs/website</code> rather than <code>Suggests</code> — the workflows install them via <code>needs:</code> in <code>setup-r-dependencies</code>.</li>
+</ul></div>
 </div>
 <div class="section level2">
-<h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a></h2>
-<p>A final way of contributing to the package is in developing the vignettes/articles that illustrate the value added in the package. Please contact me with any proposals here.</p>
-<p>Please note that the <code>roctopus</code> project is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<h2 id="package-architecture">Package architecture<a class="anchor" aria-label="anchor" href="#package-architecture"></a></h2>
+<div class="section level3">
+<h3 id="project-overview">Project overview<a class="anchor" aria-label="anchor" href="#project-overview"></a></h3>
+<p><code>migraph</code> is an R package (part of the <a href="https://github.com/stocnet" class="external-link">stocnet</a> ecosystem) providing the <em>inferential layer</em> for network analysis: conditional uniform graph (CUG) and quadratic assignment procedure (QAP) tests of network statistics, multiple regression QAP (MRQAP) for network data, and diffusion models. It is also a software companion to <em>Multimodal Political Networks</em> (Knoke, Diani, Hollway, and Christopoulos 2021), whose datasets (prefixed <code>mpn_</code>) are bundled here. Because it builds on <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>, every function accepts matrices, edgelists, <a href="https://r.igraph.org/" class="external-link">igraph</a>, <a href="https://statnet.org/" class="external-link">network</a>, or <a href="https://tidygraph.data-imaginist.com" class="external-link">tidygraph</a> objects, and one-mode or two-mode networks alike. Division of labour to keep in mind when adding functions:</p>
+<ul><li>
+<a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>: network classes/coercion (<code>as_*()</code>), making and manipulating networks, and network-level logical tests (e.g. <code>is_directed()</code>, <code>is_twomode()</code>).</li>
+<li>
+<a href="https://stocnet.github.io/netrics/" class="external-link">netrics</a>: everything analytic — marks, measures, memberships, motifs — at the node, tie, and network level.</li>
+<li>
+<a href="https://stocnet.github.io/autograph/" class="external-link">autograph</a>: drawing graphs and plotting analytic, modelling, or diagnostic results, along with deep (often institutional) theming. <em>All</em> plot methods should live there.</li>
+<li>
+<a href="https://stocnet.github.io/migraph/">migraph</a> (this package): testing and modelling, e.g. CUG/QAP/MRQAP and diffusion models.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="style">Style<a class="anchor" aria-label="anchor" href="#style"></a></h3>
+<p>In terms of style, we are aiming for pleasant predictability in terms of user experience. To that end, we have a regular syntax that users can rely on producing expected effects. Functions in the same family (<code>test_*()</code>, <code>over_*()</code>, etc.) should share argument order and naming, so that behaviour is guessable across the family.</p>
+</div>
+<div class="section level3">
+<h3 id="common-commands">Common commands<a class="anchor" aria-label="anchor" href="#common-commands"></a></h3>
+<p>This is a standard R package developed with <code>devtools</code>/<code>roxygen2</code>. Run these from an R console with the working directory set to the package root (or via <code>Rscript -e</code>).</p>
+<ul><li>Load package for interactive development: <code>devtools::load_all()</code>
+</li>
+<li>Regenerate docs &amp; NAMESPACE after editing roxygen comments: <code>devtools::document()</code>
+</li>
+<li>Run full test suite: <code>devtools::test()</code>
+</li>
+<li>Run a single test file: <code>devtools::test(filter = "model_tests")</code> (matches <code>test-model_tests.R</code>), or <code>testthat::test_file("tests/testthat/test-model_regression.R")</code>
+</li>
+<li>Full package check (mirrors CI): <code>devtools::check()</code> or <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck()</a></code>
+</li>
+<li>Lint: <code>lintr::lint_package()</code>
+</li>
+<li>Spell check: <code>spelling::spell_check_package()</code>
+</li>
+<li>Code coverage: <code>covr::package_coverage()</code>
+</li>
+<li>Rebuild <code>README.md</code> from <code>README.Rmd</code>: <code>devtools::build_readme()</code>
+</li>
+<li>Build pkgdown site locally: <code><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">pkgdown::build_site()</a></code>
+</li>
+</ul><p>There is no non-R build system — no package.json/Makefile. Roxygen is configured with <code>markdown = TRUE</code>; <code>NAMESPACE</code> and all <code>man/*.Rd</code> files are generated — never hand-edit them. Likewise <code>README.md</code> is generated from <code>README.Rmd</code> — edit the <code>.Rmd</code> and re-knit.</p>
+</div>
+<div class="section level3">
+<h3 id="file-organization">File organization<a class="anchor" aria-label="anchor" href="#file-organization"></a></h3>
+<p>All exported functions live directly in <code>R/</code>, grouped by theme rather than one file per function:</p>
+<table class="table"><colgroup><col width="50%"><col width="50%"></colgroup><thead><tr><th>File</th>
+<th>Contains</th>
+</tr></thead><tbody><tr><td><code>model_tests.R</code></td>
+<td>the test family: <code><a href="reference/tests.html">test_random()</a></code> (CUG), <code><a href="reference/tests.html">test_permutation()</a></code> (QAP), <code><a href="reference/tests.html">test_configuration()</a></code>, <code><a href="reference/test_distributions.html">test_distribution()</a></code>, <code><a href="reference/test_distributions.html">test_fit()</a></code>, <code><a href="reference/defunct.html">test_gof()</a></code>
+</td>
+</tr><tr><td><code>model_regression.R</code></td>
+<td>
+<code><a href="reference/regression.html">net_regression()</a></code> (alias <code><a href="reference/defunct.html">network_reg()</a></code>), the MRQAP implementation, returning <code>netlm</code>/<code>netlogit</code> objects</td>
+</tr><tr><td>
+<code>model_predict.R</code>, <code>model_distrib.R</code>, <code>model_diffusion.R</code>
+</td>
+<td>prediction, distribution comparison, and diffusion simulation (<code><a href="reference/make_play.html">play_diffusions()</a></code>)</td>
+</tr><tr><td><code>class_models.R</code></td>
+<td>
+<a href="https://broom.tidymodels.org/" class="external-link">broom</a>-style S3 methods (<code>tidy.*</code>, <code>glance.*</code>, <code>predict.*</code>, <code>print.*</code>, <code>summary.*</code>) for <code>netlm</code>, <code>netlogit</code>, <code>ergm</code>, and <code>sienaFit</code>, so results are comparable across model types</td>
+</tr><tr><td><code>class_makes.R</code></td>
+<td>internal <code>make_*()</code> constructors and <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>/<code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> methods for the lightweight result classes (<code>network_measures</code>, <code>diffs_model</code>, <code>over_memb</code>)</td>
+</tr><tr><td><code>measure_over.R</code></td>
+<td>
+<code><a href="reference/measure_over.html">over_time()</a></code>, <code><a href="reference/measure_over.html">over_waves()</a></code>, <code><a href="reference/measure_over.html">over_membership()</a></code> — applying a measure across longitudinal slices or group partitions</td>
+</tr><tr><td><code>tutorial_run.R</code></td>
+<td>
+<code><a href="reference/tutorials.html">run_tute()</a></code>/<code><a href="reference/tutorials.html">extract_tute()</a></code>, <a href="https://rstudio.github.io/learnr/" class="external-link">learnr</a> wrappers that search <em>all</em> installed stocnet packages for a tutorial by name or fuzzy title match</td>
+</tr><tr><td><code>data_mpn.R</code></td>
+<td>documentation for the <code>mpn_*</code> datasets from <em>Multimodal Political Networks</em>
+</td>
+</tr><tr><td><code>migraph-package.R</code></td>
+<td>package-level doc, the <code>thisRequires()</code> helper, global variables, and shims silencing R CMD check’s unused-import notes</td>
+</tr><tr><td><code>migraph-defunct.R</code></td>
+<td>retired function stubs kept for a deprecation cycle</td>
+</tr></tbody></table></div>
+<div class="section level3">
+<h3 id="function-body-conventions">Function body conventions<a class="anchor" aria-label="anchor" href="#function-body-conventions"></a></h3>
+<p>Test functions consistently:</p>
+<ol style="list-style-type: decimal"><li>Compute the observed statistic by applying the user-supplied <code>FUN</code> to <code>.data</code>.</li>
+<li>Generate <code>times</code> random, configuration-preserving, or permuted networks via the corresponding <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a> generator (<code>generate_random()</code>, <code>generate_configuration()</code>, etc.), rebinding node attributes with <code><a href="https://stocnet.github.io/manynet/reference/manip_nodes_attr.html" class="external-link">manynet::bind_node_attributes()</a></code> where the statistic needs them.</li>
+<li>Recompute <code>FUN</code> over each simulated network.</li>
+<li>Return a <code>network_test</code> object recording the test type, observed value, simulated distribution, one- and two-tailed p-values, and the network’s properties (<code>is_directed()</code>, <code>is_complex()</code>).</li>
+</ol><p>Properties of the dependent network — modes, directedness, loops — must always be respected in permutations and analysis; one-mode and two-mode cases are branched on explicitly rather than projected away. All <code>manynet</code>, <code>igraph</code>, <code>furrr</code>, and <code>future</code> calls use explicit <code>::</code> namespacing (with per-file <code>@importFrom</code> roxygen tags for NAMESPACE generation). Plot methods belong in <a href="https://stocnet.github.io/autograph/" class="external-link">autograph</a>, not here.</p>
+</div>
+<div class="section level3">
+<h3 id="parallelism">Parallelism<a class="anchor" aria-label="anchor" href="#parallelism"></a></h3>
+<p>Every simulation-heavy function (<code><a href="reference/tests.html">test_random()</a></code>, <code><a href="reference/tests.html">test_configuration()</a></code>, <code><a href="reference/tests.html">test_permutation()</a></code>, <code><a href="reference/regression.html">net_regression()</a></code>, <code><a href="reference/make_play.html">play_diffusions()</a></code>, …) takes:</p>
+<ul><li>
+<code>times</code> — the number of simulations (default <code>1000</code>; 1,000–10,000 for publication).</li>
+<li>
+<code>strategy</code> — a <a href="https://future.futureverse.org" class="external-link">future</a> plan name (default <code>"sequential"</code>; <code>"multisession"</code>/<code>"multicore"</code> for multiple cores), set with <code>future::plan(strategy)</code> and restored via <code><a href="https://rdrr.io/r/base/on.exit.html" class="external-link">on.exit()</a></code>.</li>
+<li>
+<code>verbose</code> — passed to <a href="https://github.com/futureverse/furrr" class="external-link">furrr</a>’s <code>.progress</code> to report progress.</li>
+</ul><p>Simulations are mapped with <code>furrr::future_map*()</code> using <code>furrr::furrr_options(seed = TRUE)</code> for reproducible parallel RNG. Follow this same signature when adding new simulation-based functions.</p>
+</div>
+<div class="section level3">
+<h3 id="cross-package-dependency">Cross-package dependency<a class="anchor" aria-label="anchor" href="#cross-package-dependency"></a></h3>
+<p><code>migraph</code> <code>Depends</code> on pinned minimum versions of <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>, <a href="https://stocnet.github.io/autograph/" class="external-link">autograph</a>, and <a href="https://stocnet.github.io/netrics/" class="external-link">netrics</a> (see <code>DESCRIPTION</code>). CRAN and reverse-dependency issues are commonly resolved by bumping these minimum versions rather than by changing <code>migraph</code>’s own code — see <code>cran-comments.md</code>. <code>ergm</code> and <code>learnr</code> are heavier dependencies used by only a few functions; guard such code paths with the <code>thisRequires()</code> helper in <a href="../R/migraph-package.R">R/migraph-package.R</a>, which prompts to install on first use.</p>
+</div>
+<div class="section level3">
+<h3 id="tests">Tests<a class="anchor" aria-label="anchor" href="#tests"></a></h3>
+<p>This package uses the <code>testthat</code> package for testing functions. Please see the <a href="https://testthat.r-lib.org" class="external-link">testthat website</a> for more details.</p>
+<p>Tests in <code>tests/testthat/</code> mirror the <code>R/</code> files (e.g. <code>test-model_tests.R</code>, <code>test-model_regression.R</code>, <code>test-measure_over.R</code>), plus <code>test-tutorials_*.R</code> files that render <a href="https://stocnet.github.io/migraph/">migraph</a>’s <a href="https://rstudio.github.io/learnr/" class="external-link">learnr</a> tutorials and evaluate their purled code, so tutorial code that errors or raises a deprecation warning fails the suite. <a href="../tests/testthat/helper-functions.R">tests/testthat/helper-functions.R</a> provides <code>find_pkg_tutorial_paths()</code>, <code>check_tute_rendering()</code>, and <code>check_tute_functions()</code> for this, alongside the <code>top3()</code>/<code>bot3()</code>/<code>top5()</code>/<code>bot5()</code> helpers that pull rounded top/bottom N values from a result for terse reference vectors in assertions.</p>
+<p><code>testthat</code> edition 3 with parallel execution is configured in <code>DESCRIPTION</code> (<code>Config/testthat/parallel: true</code>); <code>Config/testthat/start-first</code> prioritises <code>tutorials_manynet</code>, since it is slow.</p>
+</div>
+<div class="section level3">
+<h3 id="newsmd-conventions">
+<code>NEWS.md</code> conventions<a class="anchor" aria-label="anchor" href="#newsmd-conventions"></a></h3>
+<p><code>NEWS.md</code> groups each version’s changes under <code>##</code> headings that mirror the website function overview (<code>pkgdown/_pkgdown.yml</code> <code>reference:</code> titles). Lead with <code>## Package</code> (package-wide/website/infrastructure changes), then the function families in overview order: <code>## Parallelism</code> (the <code>over_*()</code> functions), <code>## Simulating</code> (<code>play_*()</code> and diffusion), <code>## Modelling</code> (the <code>test_*()</code> family, <code><a href="reference/regression.html">net_regression()</a></code>, <code><a href="reference/predict.html">predict()</a></code>, and the <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code>/<code><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance()</a></code> methods). Put <code>## Tutorials</code> and <code>## Data</code> near the end, so that they usually close the list. Each heading appears at most once per version.</p>
+<p>Start each bullet with a verb matching the change type:</p>
+<ul><li>
+<code>Added ...</code> — new functionality</li>
+<li>
+<code>Fixed ...</code> — bug fixes; if it relates to a GitHub issue, suffix with <code>(closing #123)</code>
+</li>
+<li>
+<code>Renamed ... to ...</code> — function or data name migrations</li>
+<li>
+<code>Improved ...</code> — functional updates to existing behaviour</li>
+<li>
+<code>Updated ...</code> — documentation changes</li>
+</ul><p>If a cited GitHub issue was <strong>not</strong> authored by @jhollway, thank the author with an <code>@</code>-tag in the bullet. Cluster related changes (e.g. several fixes to the same function, or sub-points of one feature) as indented sub-bullets under a lead bullet, to improve readability.</p>
+</div>
 </div>
 </div>
 
@@ -117,7 +232,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer></div>

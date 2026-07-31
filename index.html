@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.7</span>
       </span>
     </div>
 
@@ -88,6 +88,7 @@
 <div class="page-header"><h1 id="migraph-">migraph <img src="reference/figures/logo.png" alt="migraph logo" align="right" width="150"><a class="anchor" aria-label="anchor" href="#migraph-"></a>
 </h1></div>
 <!-- badges: start -->
+
 <div class="section level2">
 <h2 id="about-the-package">About the package<a class="anchor" aria-label="anchor" href="#about-the-package"></a>
 </h2>
@@ -95,12 +96,16 @@
 <p><a href="https://stocnet.github.io/migraph/">migraph</a> builds upon <a href="https://stocnet.github.io/manynet/" class="external-link"><code>{manynet}</code></a> to offer smart solutions to these problems. Since it is based on <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>, every function works for any compatible network format - from base R matrices or edgelists as data frames, <a href="https://igraph.org/r/" class="external-link"><code>{igraph}</code></a>, <a href="https://statnet.org" class="external-link"><code>{network}</code></a>, or <a href="https://tidygraph.data-imaginist.com/index.html" class="external-link"><code>{tidygraph}</code></a> objects. This means it is compatible with your existing workflow, is extensible by other packages, and uses the most efficient algorithm available for each task.</p>
 <ul>
 <li>
-<a href="#about-the-package">About the package</a><ul><li><a href="#package-background">Package background</a></li></ul>
+<a href="#about-the-package">About the package</a>
+<ul>
+<li><a href="#package-background">Package background</a></li>
+</ul>
 </li>
 <li><a href="#how-does-migraph-help">How does migraph help?</a></li>
 <li><a href="#tutorials">Tutorials</a></li>
 <li>
-<a href="#installation">Installation</a><ul>
+<a href="#installation">Installation</a>
+<ul>
 <li><a href="#stable">Stable</a></li>
 <li><a href="#development">Development</a></li>
 </ul>
@@ -113,7 +118,9 @@
 </h3>
 <p><img style="border:10px solid white;" src="https://jameshollway.com/media/9781108833509pvs01.jpg" align="left" alt="Cover image of the book Multimodal Political Networks" width="125"></p>
 <p>The package is intended as a software companion to the book:</p>
-<blockquote><p>David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos (2021) <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128" class="external-link"><em>Multimodal Political Networks</em></a>. Cambridge University Press: Cambridge.</p></blockquote>
+<blockquote>
+<p>David Knoke, Mario Diani, James Hollway, and Dimitris Christopoulos (2021) <a href="https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128" class="external-link"><em>Multimodal Political Networks</em></a>. Cambridge University Press: Cambridge.</p>
+</blockquote>
 <p>Most datasets used in the book are included in this package, and <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>, <a href="https://stocnet.github.io/netrics/" class="external-link">netrics</a>, and <a href="https://stocnet.github.io/migraph/">migraph</a> together implement most methods discussed in the book. Since many of theses datasets and routines are discussed and analysed more there, if you like the package(s) please check out the book, and vice versa.</p>
 </div>
 </div>
@@ -121,12 +128,16 @@
 <h2 id="how-does-migraph-help">How does migraph help?<a class="anchor" aria-label="anchor" href="#how-does-migraph-help"></a>
 </h2>
 <p><a href="https://stocnet.github.io/migraph/">migraph</a> allows the testing of <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a> measures against conditional uniform graph (CUG) or quadratic assignment procedure (QAP) distributions using:</p>
-<ul><li>
+<ul>
+<li>
 <code><a href="reference/tests.html">test_configuration()</a></code>, <code><a href="reference/test_distributions.html">test_distribution()</a></code>, <code><a href="reference/test_distributions.html">test_fit()</a></code>, <code><a href="reference/defunct.html">test_gof()</a></code>, <code><a href="reference/tests.html">test_permutation()</a></code>, <code><a href="reference/tests.html">test_random()</a></code>
-</li></ul>
+</li>
+</ul>
 <p><img src="https://www.jameshollway.com/post/migraph/tests-2.png" alt="Plot showing the results of a QAP test"></p>
 <p>Hypotheses can also be tested within multivariate models via multiple (linear or logistic) regression QAP:</p>
-<ul><li><code><a href="reference/defunct.html">network_reg()</a></code></li></ul>
+<ul>
+<li><code><a href="reference/defunct.html">network_reg()</a></code></li>
+</ul>
 <p><img src="https://www.jameshollway.com/post/migraph/regression-1.png" alt="A violin plot showing the results of an MRQAP"></p>
 <p><a href="https://stocnet.github.io/migraph/">migraph</a> is the only package that offers these testing frameworks for two-mode networks as well as one-mode networks.</p>
 </div>
@@ -195,9 +206,11 @@
 <p>Most work on this package has been funded by the Swiss National Science Foundation (SNSF) <a href="https://data.snf.ch/grants/grant/188976" class="external-link">Grant Number 188976</a>: “Power and Networks and the Rate of Change in Institutional Complexes” (PANARCHIC).</p>
 </div>
 </div>
-<div class="footnotes">
+<div class="footnotes footnotes-end-of-document">
 <hr>
-<ol><li id="fn1"><p>Macs with Macports installed may also install from the command line <a href="https://ports.macports.org/port/R-migraph/" class="external-link">using Macports</a>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li></ol>
+<ol>
+<li id="fn1"><p>Macs with Macports installed may also install from the command line <a href="https://ports.macports.org/port/R-migraph/" class="external-link">using Macports</a>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
   </div>
@@ -257,7 +270,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer>

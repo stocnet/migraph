@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.7</span>
       </span>
     </div>
 
@@ -60,7 +60,24 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.6.6" id="migraph-166">migraph 1.6.6<a class="anchor" aria-label="anchor" href="#migraph-166"></a></h2>
+<h2 class="page-header" data-toc-text="1.6.7" id="migraph-167">migraph 1.6.7<a class="anchor" aria-label="anchor" href="#migraph-167"></a></h2>
+<p>2026-07-31</p>
+<div class="section level3">
+<h3 id="package-1-6-7">Package<a class="anchor" aria-label="anchor" href="#package-1-6-7"></a></h3>
+<ul><li>Updated version dependencies</li>
+<li>Updated CONTRIBUTING to reflect current architecture</li>
+<li>Updated Github Actions workflows
+<ul><li>Updated action versions in <code>prchecks</code> and <code>pushrelease</code> workflows</li>
+<li>Added PR metadata checks to <code>prchecks</code> workflow, for the DESCRIPTION version bump and the PR title and description conventions</li>
+<li>Moved development dependencies from Suggests into <code>Config/Needs/build</code>, <code>Config/Needs/check</code>, and <code>Config/Needs/website</code>
+</li>
+</ul></li>
+<li>Updated pull request template to drop the items now checked automatically</li>
+<li>Removed manynet and autograph tutorial testing</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.6.6" id="migraph-166">migraph 1.6.6<small>2026-06-24</small><a class="anchor" aria-label="anchor" href="#migraph-166"></a></h2>
 <p>2026-06-23</p>
 <div class="section level3">
 <h3 id="package-1-6-6">Package<a class="anchor" aria-label="anchor" href="#package-1-6-6"></a></h3>
@@ -73,7 +90,8 @@
 <p>2026-06-22</p>
 <div class="section level3">
 <h3 id="package-1-6-5">Package<a class="anchor" aria-label="anchor" href="#package-1-6-5"></a></h3>
-<ul><li>Updated netrics dependency to 0.3.1 to fix reverse dependency issue</li></ul></div>
+<ul><li>Updated netrics dependency to 0.3.1 to fix reverse dependency issue</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.6.4" id="migraph-164">migraph 1.6.4<a class="anchor" aria-label="anchor" href="#migraph-164"></a></h2>
@@ -90,17 +108,20 @@
 <p>2026-06-19</p>
 <div class="section level3">
 <h3 id="package-1-6-3">Package<a class="anchor" aria-label="anchor" href="#package-1-6-3"></a></h3>
-<ul><li>Removed <code>%&gt;%</code> reexport plumbing and refreshed generated reexport docs accordingly</li></ul></div>
+<ul><li>Removed <code>%&gt;%</code> reexport plumbing and refreshed generated reexport docs accordingly</li>
+</ul></div>
 <div class="section level3">
 <h3 id="testing-1-6-3">Testing<a class="anchor" aria-label="anchor" href="#testing-1-6-3"></a></h3>
-<ul><li>Updated diffusion goodness-of-fit logic (<code><a href="../reference/test_distributions.html">test_fit()</a></code>) and its tests to use the newer diffusion representation (notably <code>t</code>)</li></ul></div>
+<ul><li>Updated diffusion goodness-of-fit logic (<code><a href="../reference/test_distributions.html">test_fit()</a></code>) and its tests to use the newer diffusion representation (notably <code>t</code>)</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.6.2" id="migraph-162">migraph 1.6.2<small>2026-04-17</small><a class="anchor" aria-label="anchor" href="#migraph-162"></a></h2>
 <p>2026-04-17</p>
 <div class="section level3">
 <h3 id="testing-1-6-2">Testing<a class="anchor" aria-label="anchor" href="#testing-1-6-2"></a></h3>
-<ul><li>Fixed namespace issues</li></ul></div>
+<ul><li>Fixed namespace issues</li>
+</ul></div>
 <div class="section level3">
 <h3 id="tutorials-1-6-2">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-6-2"></a></h3>
 <ul><li>Added function testing for migraph tutorials</li>
@@ -129,7 +150,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="testing-1-6-1">Testing<a class="anchor" aria-label="anchor" href="#testing-1-6-1"></a></h3>
-<ul><li>Fixed how <code><a href="../reference/test_distributions.html">test_fit()</a></code> handles diffusion models and non-equal length step results</li></ul></div>
+<ul><li>Fixed how <code><a href="../reference/test_distributions.html">test_fit()</a></code> handles diffusion models and non-equal length step results</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.6.0" id="migraph-160">migraph 1.6.0<small>2026-04-04</small><a class="anchor" aria-label="anchor" href="#migraph-160"></a></h2>
@@ -188,14 +210,16 @@
 </ul></div>
 <div class="section level3">
 <h3 id="tutorials-1-5-5">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-5-5"></a></h3>
-<ul><li>Added ergm tutorial</li></ul></div>
+<ul><li>Added ergm tutorial</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.5.4" id="migraph-154">migraph 1.5.4<a class="anchor" aria-label="anchor" href="#migraph-154"></a></h2>
 <p>2025-11-05</p>
 <div class="section level3">
 <h3 id="testing-1-5-4">Testing<a class="anchor" aria-label="anchor" href="#testing-1-5-4"></a></h3>
-<ul><li>Added ‘over_memb’ class construction for <code><a href="../reference/measure_over.html">over_membership()</a></code> results</li></ul></div>
+<ul><li>Added ‘over_memb’ class construction for <code><a href="../reference/measure_over.html">over_membership()</a></code> results</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.5.3" id="migraph-153">migraph 1.5.3<small>2025-10-27</small><a class="anchor" aria-label="anchor" href="#migraph-153"></a></h2>
@@ -220,10 +244,12 @@
 <p>2025-09-12</p>
 <div class="section level3">
 <h3 id="package-1-5-2">Package<a class="anchor" aria-label="anchor" href="#package-1-5-2"></a></h3>
-<ul><li>Fixed note where <a href="https://stocnet.github.io/autograph/" class="external-link">autograph</a> was unused</li></ul></div>
+<ul><li>Fixed note where <a href="https://stocnet.github.io/autograph/" class="external-link">autograph</a> was unused</li>
+</ul></div>
 <div class="section level3">
 <h3 id="regression-1-5-2">Regression<a class="anchor" aria-label="anchor" href="#regression-1-5-2"></a></h3>
-<ul><li>Fixed note for <code><a href="../reference/regression.html">net_regression()</a></code> where specification advice was not printed</li></ul></div>
+<ul><li>Fixed note for <code><a href="../reference/regression.html">net_regression()</a></code> where specification advice was not printed</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.5.1" id="migraph-151">migraph 1.5.1<a class="anchor" aria-label="anchor" href="#migraph-151"></a></h2>
@@ -248,7 +274,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="data-1-5-1">Data<a class="anchor" aria-label="anchor" href="#data-1-5-1"></a></h3>
-<ul><li>Dropped whorulesamerica url, which kept getting redirected</li></ul></div>
+<ul><li>Dropped whorulesamerica url, which kept getting redirected</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.5.0" id="migraph-150">migraph 1.5.0<small>2025-06-20</small><a class="anchor" aria-label="anchor" href="#migraph-150"></a></h2>
@@ -263,30 +290,35 @@
 <div class="section level3">
 <h3 id="models-1-5-0">Models<a class="anchor" aria-label="anchor" href="#models-1-5-0"></a></h3>
 <ul><li>Fixed division of/by zero bug for <code>net_regression(~ same(), ...)</code>
-</li></ul></div>
+</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.4.5" id="migraph-145">migraph 1.4.5<small>2024-12-02</small><a class="anchor" aria-label="anchor" href="#migraph-145"></a></h2>
 <p>2024-11-30</p>
 <div class="section level3">
 <h3 id="package-1-4-5">Package<a class="anchor" aria-label="anchor" href="#package-1-4-5"></a></h3>
-<ul><li>Fixed dependency issue</li></ul></div>
+<ul><li>Fixed dependency issue</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.4.4" id="migraph-144">migraph 1.4.4<a class="anchor" aria-label="anchor" href="#migraph-144"></a></h2>
 <p>2024-11-29</p>
 <div class="section level3">
 <h3 id="package-1-4-4">Package<a class="anchor" aria-label="anchor" href="#package-1-4-4"></a></h3>
-<ul><li>Updated github actions</li></ul></div>
+<ul><li>Updated github actions</li>
+</ul></div>
 <div class="section level3">
 <h3 id="models-1-4-4">Models<a class="anchor" aria-label="anchor" href="#models-1-4-4"></a></h3>
-<ul><li>Updated <code><a href="../reference/regression.html">net_regression()</a></code><ul><li>It now works (better) with unweighted networks</li>
+<ul><li>Updated <code><a href="../reference/regression.html">net_regression()</a></code>
+<ul><li>It now works (better) with unweighted networks</li>
 <li>Added print methods that combine <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> and <code><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance()</a></code>
 </li>
 <li>Fixed effect naming error</li>
 <li>Updated <code>same()</code> to work for two-mode networks</li>
 <li>Updated specification advice for testing for homophily in two-mode networks</li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.4.3" id="migraph-143">migraph 1.4.3<small>2024-11-06</small><a class="anchor" aria-label="anchor" href="#migraph-143"></a></h2>
@@ -299,7 +331,8 @@
 <div class="section level3">
 <h3 id="models-1-4-3">Models<a class="anchor" aria-label="anchor" href="#models-1-4-3"></a></h3>
 <ul><li>Added <code><a href="../reference/tests.html">test_configuration()</a></code>
-</li></ul></div>
+</li>
+</ul></div>
 <div class="section level3">
 <h3 id="data-1-4-3">Data<a class="anchor" aria-label="anchor" href="#data-1-4-3"></a></h3>
 <ul><li>Updated <code>mpn_bristol</code> with info</li>
@@ -314,21 +347,25 @@
 </ul></div>
 <div class="section level3">
 <h3 id="tutorial-1-4-3">Tutorial<a class="anchor" aria-label="anchor" href="#tutorial-1-4-3"></a></h3>
-<ul><li>Updated diversity tutorial<ul><li>More elaborate start</li>
+<ul><li>Updated diversity tutorial
+<ul><li>More elaborate start</li>
 <li>Broader figure widths</li>
 <li>Dropped <code>alter(Discipline)</code> from <code><a href="../reference/regression.html">net_regression()</a></code> call</li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.4.2" id="migraph-142">migraph 1.4.2<small>2024-09-04</small><a class="anchor" aria-label="anchor" href="#migraph-142"></a></h2>
 <p>2024-09-03</p>
 <div class="section level3">
 <h3 id="package-1-4-2">Package<a class="anchor" aria-label="anchor" href="#package-1-4-2"></a></h3>
-<ul><li>Using github actions download artifact v4 to address dependabot security warning</li></ul></div>
+<ul><li>Using github actions download artifact v4 to address dependabot security warning</li>
+</ul></div>
 <div class="section level3">
 <h3 id="models-1-4-2">Models<a class="anchor" aria-label="anchor" href="#models-1-4-2"></a></h3>
 <ul><li>
-<code><a href="../reference/tests.html">test_permutation()</a></code> now uses <code><a href="https://stocnet.github.io/manynet/reference/modif_permutation.html" class="external-link">manynet::to_permuted()</a></code> instead of the older <code>manynet::generate_permutation()</code> syntax</li></ul></div>
+<code><a href="../reference/tests.html">test_permutation()</a></code> now uses <code><a href="https://stocnet.github.io/manynet/reference/modif_permutation.html" class="external-link">manynet::to_permuted()</a></code> instead of the older <code>manynet::generate_permutation()</code> syntax</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.4.1" id="migraph-141">migraph 1.4.1<small>2024-07-19</small><a class="anchor" aria-label="anchor" href="#migraph-141"></a></h2>
@@ -363,12 +400,16 @@
 </ul></div>
 <div class="section level3">
 <h3 id="measures-motifs-and-memberships-1-4-0">Measures, Motifs, and Memberships<a class="anchor" aria-label="anchor" href="#measures-motifs-and-memberships-1-4-0"></a></h3>
-<ul><li>All measures, motifs, and memberships have migrated to <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a><ul><li>see <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a> &gt; v1.0.0 for more details</li></ul></li></ul></div>
+<ul><li>All measures, motifs, and memberships have migrated to <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>
+<ul><li>see <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a> &gt; v1.0.0 for more details</li>
+</ul></li>
+</ul></div>
 <div class="section level3">
 <h3 id="models-1-4-0">Models<a class="anchor" aria-label="anchor" href="#models-1-4-0"></a></h3>
 <ul><li>Added <code><a href="../reference/test_distributions.html">test_distribution()</a></code> to test whether two vectors/distributions are from the same distribution</li>
 <li>
-<code><a href="../reference/defunct.html">test_gof()</a></code> renamed to <code><a href="../reference/test_distributions.html">test_fit()</a></code> to improve readability<ul><li>Split tests documentation into two</li>
+<code><a href="../reference/defunct.html">test_gof()</a></code> renamed to <code><a href="../reference/test_distributions.html">test_fit()</a></code> to improve readability
+<ul><li>Split tests documentation into two</li>
 <li>
 <code><a href="../reference/test_distributions.html">test_fit()</a></code> no longer measures fit against steps where there is no covariance</li>
 </ul></li>
@@ -389,7 +430,8 @@
 <p>2024-03-07</p>
 <div class="section level3">
 <h3 id="measures-1-3-4">Measures<a class="anchor" aria-label="anchor" href="#measures-1-3-4"></a></h3>
-<ul><li>Fixed DOI issue for Burchard/Cornwell paper</li></ul></div>
+<ul><li>Fixed DOI issue for Burchard/Cornwell paper</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.3.3" id="migraph-133">migraph 1.3.3<a class="anchor" aria-label="anchor" href="#migraph-133"></a></h2>
@@ -400,9 +442,13 @@
 <li>
 <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_degree()</a></code> now returns strength centrality (alpha = 1) for weighted networks by default</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_redundancy()</a></code> now works for weighted onemode and twomode networks (closed <a href="https://github.com/stocnet/migraph/issues/292" class="external-link">#292</a>)<ul><li>Matrix operations bring an approximately sixfold speed increase compared to vapply</li></ul></li>
+<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_redundancy()</a></code> now works for weighted onemode and twomode networks (closed <a href="https://github.com/stocnet/migraph/issues/292" class="external-link">#292</a>)
+<ul><li>Matrix operations bring an approximately sixfold speed increase compared to vapply</li>
+</ul></li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_effsize()</a></code> now works for weighted onemode and twomode networks<ul><li>Matrix operations bring an approximately sixfold speed increase compared to vapply</li></ul></li>
+<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_effsize()</a></code> now works for weighted onemode and twomode networks
+<ul><li>Matrix operations bring an approximately sixfold speed increase compared to vapply</li>
+</ul></li>
 <li>
 <code>network_equivalency()</code> now normalises weighted twomode networks (closed <a href="https://github.com/stocnet/migraph/issues/291" class="external-link">#291</a>)</li>
 </ul></div>
@@ -410,7 +456,8 @@
 <h3 id="members-1-3-3">Members<a class="anchor" aria-label="anchor" href="#members-1-3-3"></a></h3>
 <ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_brokering()</a></code> for identifying brokering roles from brokering activity and exclusivity</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_roulette()</a></code> now optimises group diversity based on historical interactions (Lai and Hao 2016)<ul><li>Added more documentation about maximally diverse grouping problem</li>
+<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_roulette()</a></code> now optimises group diversity based on historical interactions (Lai and Hao 2016)
+<ul><li>Added more documentation about maximally diverse grouping problem</li>
 <li>Matrix operations bring an approximately threefold speed increase compared to vapply</li>
 <li>Perturbation helpers can be used also for blockmodelling (closed <a href="https://github.com/stocnet/migraph/issues/38" class="external-link">#38</a>)</li>
 </ul></li>
@@ -421,26 +468,31 @@
 <p>2024-01-25</p>
 <div class="section level3">
 <h3 id="measures-1-3-2">Measures<a class="anchor" aria-label="anchor" href="#measures-1-3-2"></a></h3>
-<ul><li>Updated <code>network_scalefree()</code> to work even when P scores are not available</li></ul></div>
+<ul><li>Updated <code>network_scalefree()</code> to work even when P scores are not available</li>
+</ul></div>
 <div class="section level3">
 <h3 id="members-1-3-2">Members<a class="anchor" aria-label="anchor" href="#members-1-3-2"></a></h3>
 <ul><li>Updated <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_fluid()</a></code> to work with different versions of <a href="https://r.igraph.org/" class="external-link">igraph</a>
-</li></ul></div>
+</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.3.1" id="migraph-131">migraph 1.3.1<a class="anchor" aria-label="anchor" href="#migraph-131"></a></h2>
 <p>2024-01-24</p>
 <div class="section level3">
 <h3 id="package-1-3-1">Package<a class="anchor" aria-label="anchor" href="#package-1-3-1"></a></h3>
-<ul><li>Completed significant documentation updates</li></ul></div>
+<ul><li>Completed significant documentation updates</li>
+</ul></div>
 <div class="section level3">
 <h3 id="measures-1-3-1">Measures<a class="anchor" aria-label="anchor" href="#measures-1-3-1"></a></h3>
 <ul><li>
-<code>over_*()</code> now reverts future plan on exit</li></ul></div>
+<code>over_*()</code> now reverts future plan on exit</li>
+</ul></div>
 <div class="section level3">
 <h3 id="motifs-1-3-1">Motifs<a class="anchor" aria-label="anchor" href="#motifs-1-3-1"></a></h3>
 <ul><li>
-<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_brokerage_census()</a></code> and <code>network_brokerage_census()</code> now treat two-mode networks correctly (closed <a href="https://github.com/stocnet/migraph/issues/35" class="external-link">#35</a>)</li></ul></div>
+<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_brokerage_census()</a></code> and <code>network_brokerage_census()</code> now treat two-mode networks correctly (closed <a href="https://github.com/stocnet/migraph/issues/35" class="external-link">#35</a>)</li>
+</ul></div>
 <div class="section level3">
 <h3 id="models-1-3-1">Models<a class="anchor" aria-label="anchor" href="#models-1-3-1"></a></h3>
 <ul><li>
@@ -462,7 +514,8 @@
 <div class="section level3">
 <h3 id="marks-1-3-0">Marks<a class="anchor" aria-label="anchor" href="#marks-1-3-0"></a></h3>
 <ul><li>Migrated remaining marks functions to <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>
-</li></ul></div>
+</li>
+</ul></div>
 <div class="section level3">
 <h3 id="measures-1-3-0">Measures<a class="anchor" aria-label="anchor" href="#measures-1-3-0"></a></h3>
 <ul><li>Added <code>network_change()</code> to measure the Hamming distance between two or more networks</li>
@@ -480,7 +533,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="members-1-3-0">Members<a class="anchor" aria-label="anchor" href="#members-1-3-0"></a></h3>
-<ul><li>Fixed <a href="https://github.com/stocnet/migraph/issues/287" class="external-link">#287</a> by making <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_tie_census()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_triad_census()</a></code> work with the new multiplex format in <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a> (which relies on a “type” tie attribute rather than multiple tie attributes)<ul><li>This restores functionality to <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_structural_equivalence()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_regular_equivalence()</a></code>
+<ul><li>Fixed <a href="https://github.com/stocnet/migraph/issues/287" class="external-link">#287</a> by making <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_tie_census()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_triad_census()</a></code> work with the new multiplex format in <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a> (which relies on a “type” tie attribute rather than multiple tie attributes)
+<ul><li>This restores functionality to <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_structural_equivalence()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_regular_equivalence()</a></code>
 </li>
 <li>Incidental speed improvements</li>
 </ul></li>
@@ -501,7 +555,8 @@
 <div class="section level3">
 <h3 id="measures-1-2-1">Measures<a class="anchor" aria-label="anchor" href="#measures-1-2-1"></a></h3>
 <ul><li>Fixed documentation issues in <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_adoption_time()</a></code>
-</li></ul></div>
+</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.2.0" id="migraph-120">migraph 1.2.0<a class="anchor" aria-label="anchor" href="#migraph-120"></a></h2>
@@ -519,32 +574,40 @@
 <h3 id="measures-1-2-0">Measures<a class="anchor" aria-label="anchor" href="#measures-1-2-0"></a></h3>
 <ul><li>Added <code>network_hazard()</code> for calculating the hazard rate for each time point of a diff_model object</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_adoption_time()</a></code> now works with incomplete diffusions<ul><li>Fixed bug with named vectors</li></ul></li>
+<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_adoption_time()</a></code> now works with incomplete diffusions
+<ul><li>Fixed bug with named vectors</li>
+</ul></li>
 <li>
 <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_exposure()</a></code> now uses <code><a href="https://stocnet.github.io/netrics/reference/mark_diff.html" class="external-link">node_is_infected()</a></code> for more flexibility</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_thresholds()</a></code> now works with incomplete diffusions<ul><li>Adds exposure data where not provided</li></ul></li>
+<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_thresholds()</a></code> now works with incomplete diffusions
+<ul><li>Adds exposure data where not provided</li>
+</ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="members-1-2-0">Members<a class="anchor" aria-label="anchor" href="#members-1-2-0"></a></h3>
 <ul><li>
-<code>node_adopter()</code> now correctly identifies non-adopters</li></ul></div>
+<code>node_adopter()</code> now correctly identifies non-adopters</li>
+</ul></div>
 <div class="section level3">
 <h3 id="models-1-2-0">Models<a class="anchor" aria-label="anchor" href="#models-1-2-0"></a></h3>
 <ul><li>
-<code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code><ul><li>Now records only the first exposure event until susceptible again</li>
+<code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code>
+<ul><li>Now records only the first exposure event until susceptible again</li>
 <li>Now uses <code><a href="https://stocnet.github.io/netrics/reference/mark_diff.html" class="external-link">node_is_exposed()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_exposure()</a></code> internally</li>
 <li>Made play_diffusion() code easier to understand and debug</li>
 <li>Added some tests for <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code>
 </li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.9" id="migraph-119">migraph 1.1.9<a class="anchor" aria-label="anchor" href="#migraph-119"></a></h2>
 <p>2023-12-13</p>
 <div class="section level3">
 <h3 id="marks-1-1-9">Marks<a class="anchor" aria-label="anchor" href="#marks-1-1-9"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/netrics/reference/mark_diff.html" class="external-link">node_is_exposed()</a></code> function to mark nodes (logical) that are currently exposed to diffusion content in a network.</li></ul></div>
+<ul><li>Added <code><a href="https://stocnet.github.io/netrics/reference/mark_diff.html" class="external-link">node_is_exposed()</a></code> function to mark nodes (logical) that are currently exposed to diffusion content in a network.</li>
+</ul></div>
 <div class="section level3">
 <h3 id="measures-1-1-9">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-9"></a></h3>
 <ul><li>Fixed bugs for <code>network_reproduction()</code> function that calculates the R-nought value.</li>
@@ -559,19 +622,23 @@
 </ul></div>
 <div class="section level3">
 <h3 id="tutorials-1-1-9">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-1-9"></a></h3>
-<ul><li>Updates to tutorial 7 (diffusion):<ul><li>Added section on R-nought and Herd Immunity.</li>
+<ul><li>Updates to tutorial 7 (diffusion):
+<ul><li>Added section on R-nought and Herd Immunity.</li>
 <li>Fixed layouts for plots using <code>autographs()</code> and <code>autographd()</code> for <code>diff_model</code> objects.</li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.8" id="migraph-118">migraph 1.1.8<a class="anchor" aria-label="anchor" href="#migraph-118"></a></h2>
 <p>2023-12-06</p>
 <div class="section level3">
 <h3 id="measures-1-1-8">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-8"></a></h3>
-<ul><li>Fixed bugs in diffusion measures.<ul><li>Fixed <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_thresholds()</a></code> so that it infers nodes’ thresholds from the amount of exposure they had when they became infected or exposed.</li>
+<ul><li>Fixed bugs in diffusion measures.
+<ul><li>Fixed <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_thresholds()</a></code> so that it infers nodes’ thresholds from the amount of exposure they had when they became infected or exposed.</li>
 <li>Updated <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_adoption_time()</a></code> and <code>node_adopter()</code> to return <code>node_member</code> and <code>node_measure</code> objects, which makes printing and summarising better.</li>
 <li>Updated node_infection_length() and network_infection_length() which measures the average length nodes remain infected.</li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 <div class="section level3">
 <h3 id="members-1-1-8">Members<a class="anchor" aria-label="anchor" href="#members-1-1-8"></a></h3>
 <ul><li>Added printing of membership class names if available in print method for <code>node_member</code> class.</li>
@@ -584,20 +651,24 @@
 </ul></div>
 <div class="section level3">
 <h3 id="tutorials-1-1-8">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-1-8"></a></h3>
-<ul><li>Added plots for diffusion models in tutorial 7 using <code>autographs()</code> and <code>autographd()</code>.</li></ul></div>
+<ul><li>Added plots for diffusion models in tutorial 7 using <code>autographs()</code> and <code>autographd()</code>.</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.7" id="migraph-117">migraph 1.1.7<a class="anchor" aria-label="anchor" href="#migraph-117"></a></h2>
 <p>2023-11-15</p>
 <div class="section level3">
 <h3 id="package-1-1-7">Package<a class="anchor" aria-label="anchor" href="#package-1-1-7"></a></h3>
-<ul><li>Added diffusion measures to website.</li></ul></div>
+<ul><li>Added diffusion measures to website.</li>
+</ul></div>
 <div class="section level3">
 <h3 id="measures-1-1-7">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-7"></a></h3>
-<ul><li>Fixed documentation issues for diffusion measures.</li></ul></div>
+<ul><li>Fixed documentation issues for diffusion measures.</li>
+</ul></div>
 <div class="section level3">
 <h3 id="marks-1-1-7">Marks<a class="anchor" aria-label="anchor" href="#marks-1-1-7"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/netrics/reference/mark_nodes.html" class="external-link">node_is_mentor()</a></code> for indicating nodes with high indegree.</li></ul></div>
+<ul><li>Added <code><a href="https://stocnet.github.io/netrics/reference/mark_nodes.html" class="external-link">node_is_mentor()</a></code> for indicating nodes with high indegree.</li>
+</ul></div>
 <div class="section level3">
 <h3 id="models-1-1-7">Models<a class="anchor" aria-label="anchor" href="#models-1-1-7"></a></h3>
 <ul><li>Added ‘minimising’ distance option for segregation model choice.</li>
@@ -605,14 +676,16 @@
 </ul></div>
 <div class="section level3">
 <h3 id="tutorials-1-1-7">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-1-7"></a></h3>
-<ul><li>Added multi-choice questions to tutorial 8.</li></ul></div>
+<ul><li>Added multi-choice questions to tutorial 8.</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.6" id="migraph-116">migraph 1.1.6<a class="anchor" aria-label="anchor" href="#migraph-116"></a></h2>
 <p>2023-11-08</p>
 <div class="section level3">
 <h3 id="measures-1-1-6">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-6"></a></h3>
-<ul><li>Added first drafts of various diffusion measures: <code>network_transmissability()</code>, <code>node_infection_length()</code>, <code>network_infection_length()</code>, <code>network_reproduction()</code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_adoption_time()</a></code>, <code>node_adopter()</code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_thresholds()</a></code>.</li></ul></div>
+<ul><li>Added first drafts of various diffusion measures: <code>network_transmissability()</code>, <code>node_infection_length()</code>, <code>network_infection_length()</code>, <code>network_reproduction()</code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_adoption_time()</a></code>, <code>node_adopter()</code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_thresholds()</a></code>.</li>
+</ul></div>
 <div class="section level3">
 <h3 id="models-1-1-6">Models<a class="anchor" aria-label="anchor" href="#models-1-1-6"></a></h3>
 <ul><li>Fixed documentation for <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code>.</li>
@@ -620,7 +693,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="tutorials-1-1-6">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-1-6"></a></h3>
-<ul><li>Added plots using <code>autographs()</code> and elaboration for tutorial 7.</li></ul></div>
+<ul><li>Added plots using <code>autographs()</code> and elaboration for tutorial 7.</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.5" id="migraph-115">migraph 1.1.5<small>2023-11-02</small><a class="anchor" aria-label="anchor" href="#migraph-115"></a></h2>
@@ -628,11 +702,13 @@
 <div class="section level3">
 <h3 id="members-1-1-5">Members<a class="anchor" aria-label="anchor" href="#members-1-1-5"></a></h3>
 <ul><li>Fixed documentation issue with <code>summary.node_member()</code>
-</li></ul></div>
+</li>
+</ul></div>
 <div class="section level3">
 <h3 id="motifs-1-1-5">Motifs<a class="anchor" aria-label="anchor" href="#motifs-1-1-5"></a></h3>
 <ul><li>Fixed documentation issue with <code>node_census()</code>
-</li></ul></div>
+</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.4" id="migraph-114">migraph 1.1.4<a class="anchor" aria-label="anchor" href="#migraph-114"></a></h2>
@@ -640,16 +716,23 @@
 <div class="section level3">
 <h3 id="marks-1-1-4">Marks<a class="anchor" aria-label="anchor" href="#marks-1-1-4"></a></h3>
 <ul><li>
-<code>print.node_mark()</code> and <code>print.tie_mark()</code> now allow infinite ‘n’ width</li></ul></div>
+<code>print.node_mark()</code> and <code>print.tie_mark()</code> now allow infinite ‘n’ width</li>
+</ul></div>
 <div class="section level3">
 <h3 id="measures-1-1-4">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-4"></a></h3>
 <ul><li>
-<code>print.node_measure()</code> and <code>print.tie_measure()</code> now allow infinite ‘n’ width<ul><li>Digit rounding is now fixed in print and summary methods</li></ul></li></ul></div>
+<code>print.node_measure()</code> and <code>print.tie_measure()</code> now allow infinite ‘n’ width
+<ul><li>Digit rounding is now fixed in print and summary methods</li>
+</ul></li>
+</ul></div>
 <div class="section level3">
 <h3 id="members-1-1-4">Members<a class="anchor" aria-label="anchor" href="#members-1-1-4"></a></h3>
 <ul><li>
-<code>print.node_member()</code> now prints the vector<ul><li>Previous functionality is now available in <code>summary.node_member()</code>
-</li></ul></li></ul></div>
+<code>print.node_member()</code> now prints the vector
+<ul><li>Previous functionality is now available in <code>summary.node_member()</code>
+</li>
+</ul></li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.3" id="migraph-113">migraph 1.1.3<a class="anchor" aria-label="anchor" href="#migraph-113"></a></h2>
@@ -665,9 +748,12 @@
 <h3 id="measures-1-1-3">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-3"></a></h3>
 <ul><li>Added <code>network_richclub()</code> to return a network’s rich-club coefficient (closed <a href="https://github.com/stocnet/migraph/issues/223" class="external-link">#223</a>)</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_core()</a></code> now offers eigenvector centrality-based rank selection in addition to degree-centrality<ul><li>This can be selected with the argument <code>method = "eigenvector"</code>
-</li></ul></li>
-<li>Added Krackhardt’s graph theoretic dimensions of hierarchy measures, including<ul><li><code>network_connectedness()</code></li>
+<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_core()</a></code> now offers eigenvector centrality-based rank selection in addition to degree-centrality
+<ul><li>This can be selected with the argument <code>method = "eigenvector"</code>
+</li>
+</ul></li>
+<li>Added Krackhardt’s graph theoretic dimensions of hierarchy measures, including
+<ul><li><code>network_connectedness()</code></li>
 <li><code>network_efficiency()</code></li>
 <li><code>network_upperbound()</code></li>
 </ul></li>
@@ -680,7 +766,9 @@
 <div class="section level3">
 <h3 id="members-1-1-3">Members<a class="anchor" aria-label="anchor" href="#members-1-1-3"></a></h3>
 <ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_louvain()</a></code> community detection algorithm</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_leiden()</a></code> community detection algorithm<ul><li>Note that this function optimises the Constant Potts Model rather than modularity</li></ul></li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_leiden()</a></code> community detection algorithm
+<ul><li>Note that this function optimises the Constant Potts Model rather than modularity</li>
+</ul></li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -694,7 +782,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="members-1-1-2">Members<a class="anchor" aria-label="anchor" href="#members-1-1-2"></a></h3>
-<ul><li>Improved printing of node_members and node_measures objects</li></ul></div>
+<ul><li>Improved printing of node_members and node_measures objects</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.1" id="migraph-111">migraph 1.1.1<a class="anchor" aria-label="anchor" href="#migraph-111"></a></h2>
@@ -707,10 +796,12 @@
 <div class="section level3">
 <h3 id="measures-1-1-1">Measures<a class="anchor" aria-label="anchor" href="#measures-1-1-1"></a></h3>
 <ul><li>Fixed scale, labelling, and other issues in <code>plot.node_measure()</code>
-</li></ul></div>
+</li>
+</ul></div>
 <div class="section level3">
 <h3 id="members-1-1-1">Members<a class="anchor" aria-label="anchor" href="#members-1-1-1"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_optimal()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_infomap()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_spinglass()</a></code>, and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_leading_eigen()</a></code> to extend the community detection options available in the package</li></ul></div>
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_optimal()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_infomap()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_spinglass()</a></code>, and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_leading_eigen()</a></code> to extend the community detection options available in the package</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.0" id="migraph-110">migraph 1.1.0<small>2023-10-04</small><a class="anchor" aria-label="anchor" href="#migraph-110"></a></h2>
@@ -733,25 +824,30 @@
 </ul></div>
 <div class="section level3">
 <h3 id="data-1-1-0">Data<a class="anchor" aria-label="anchor" href="#data-1-1-0"></a></h3>
-<ul><li>Upgraded all old igraph data to work with most recent version</li></ul></div>
+<ul><li>Upgraded all old igraph data to work with most recent version</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.1" id="migraph-101">migraph 1.0.1<small>2023-07-20</small><a class="anchor" aria-label="anchor" href="#migraph-101"></a></h2>
 <div class="section level3">
 <h3 id="measures-1-0-1">Measures<a class="anchor" aria-label="anchor" href="#measures-1-0-1"></a></h3>
-<ul><li>Fixed backends in <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_closeness()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_betweenness()</a></code> in preparation for an <a href="https://r.igraph.org/" class="external-link">igraph</a> deprecation (merci <a href="https://github.com/maelle" class="external-link">@maelle</a>)</li></ul></div>
+<ul><li>Fixed backends in <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_closeness()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_betweenness()</a></code> in preparation for an <a href="https://r.igraph.org/" class="external-link">igraph</a> deprecation (merci <a href="https://github.com/maelle" class="external-link">@maelle</a>)</li>
+</ul></div>
 <div class="section level3">
 <h3 id="models-1-0-1">Models<a class="anchor" aria-label="anchor" href="#models-1-0-1"></a></h3>
-<ul><li>Fixed <a href="https://github.com/stocnet/migraph/issues/272" class="external-link">#272</a> by making <code><a href="../reference/tests.html">test_random()</a></code> and <code><a href="../reference/tests.html">test_permutation()</a></code> rely on graph dimensions rather than graph order (thank you finding this <a href="https://github.com/rabenton" class="external-link">@rabenton</a>)</li></ul></div>
+<ul><li>Fixed <a href="https://github.com/stocnet/migraph/issues/272" class="external-link">#272</a> by making <code><a href="../reference/tests.html">test_random()</a></code> and <code><a href="../reference/tests.html">test_permutation()</a></code> rely on graph dimensions rather than graph order (thank you finding this <a href="https://github.com/rabenton" class="external-link">@rabenton</a>)</li>
+</ul></div>
 <div class="section level3">
 <h3 id="tutorials-1-0-1">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-0-1"></a></h3>
-<ul><li>Fixed some defunct function names</li></ul></div>
+<ul><li>Fixed some defunct function names</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.0" id="migraph-100">migraph 1.0.0<small>2023-06-15</small><a class="anchor" aria-label="anchor" href="#migraph-100"></a></h2>
 <div class="section level3">
 <h3 id="package-1-0-0">Package<a class="anchor" aria-label="anchor" href="#package-1-0-0"></a></h3>
-<ul><li>Breaking changes by moving the making, manipulating, and mapping functions to <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a><ul><li>All <code>create_*()</code> and <code>generate_*()</code> functions are now in <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>
+<ul><li>Breaking changes by moving the making, manipulating, and mapping functions to <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>
+<ul><li>All <code>create_*()</code> and <code>generate_*()</code> functions are now in <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>
 </li>
 <li>All <code>read_*()</code> and <code>write_*()</code> functions are now in <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>
 </li>
@@ -777,15 +873,21 @@
 </ul></div>
 <div class="section level3">
 <h3 id="measures-1-0-0">Measures<a class="anchor" aria-label="anchor" href="#measures-1-0-0"></a></h3>
-<ul><li>Added <code><a href="../reference/measure_over.html">over_time()</a></code> and <code><a href="../reference/measure_over.html">over_waves()</a></code> to measure (potentially parallelised) over split graphs<ul><li>Added class construction and a plot method for resulting <code>network_measures</code> object</li></ul></li>
+<ul><li>Added <code><a href="../reference/measure_over.html">over_time()</a></code> and <code><a href="../reference/measure_over.html">over_waves()</a></code> to measure (potentially parallelised) over split graphs
+<ul><li>Added class construction and a plot method for resulting <code>network_measures</code> object</li>
+</ul></li>
 <li>Each of the four main types of centrality now get their own page of documentation</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_alpha()</a></code> for calculating alpha centrality, mostly just a wrapper for <code><a href="https://r.igraph.org/reference/alpha_centrality.html" class="external-link">igraph::alpha_centrality()</a></code>
 </li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_power()</a></code> for calculating beta or Bonacich centrality, mostly just a wrapper for <code><a href="https://r.igraph.org/reference/power_centrality.html" class="external-link">igraph::power_centrality()</a></code>, though also correctly accounts for two-mode networks</li>
-<li>Renamed <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_homophily()</a></code> to <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_heterophily()</a></code>, which is more accurate and in line with the scale’s direction<ul><li>
-<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_heterophily()</a></code> now calculates EI indices in a faster, vectorised form, instead of the older, slower solution that calculated <code>network_homophily()</code> over all ego networks</li></ul></li>
-<li>Renamed <code>network_homophily()</code> to <code>network_heterophily()</code><ul><li>
-<code>network_heterophily()</code> now ignores missing values</li></ul></li>
+<li>Renamed <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_homophily()</a></code> to <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_heterophily()</a></code>, which is more accurate and in line with the scale’s direction
+<ul><li>
+<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_heterophily()</a></code> now calculates EI indices in a faster, vectorised form, instead of the older, slower solution that calculated <code>network_homophily()</code> over all ego networks</li>
+</ul></li>
+<li>Renamed <code>network_homophily()</code> to <code>network_heterophily()</code>
+<ul><li>
+<code>network_heterophily()</code> now ignores missing values</li>
+</ul></li>
 <li>
 <code>network_congruency()</code> is now more explicit about its data expectations</li>
 </ul></div>
@@ -801,13 +903,17 @@
 <div class="section level3">
 <h3 id="data-1-0-0">Data<a class="anchor" aria-label="anchor" href="#data-1-0-0"></a></h3>
 <ul><li>Moved <code>ison_</code> data to <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>
-</li></ul></div>
+</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.13.2" id="migraph-0132">migraph 0.13.2<small>2022-12-20</small><a class="anchor" aria-label="anchor" href="#migraph-0132"></a></h2>
 <div class="section level3">
 <h3 id="package-0-13-2">Package<a class="anchor" aria-label="anchor" href="#package-0-13-2"></a></h3>
-<ul><li>Updated README with better structuring and explanation<ul><li>Also improved figure quality</li></ul></li></ul></div>
+<ul><li>Updated README with better structuring and explanation
+<ul><li>Also improved figure quality</li>
+</ul></li>
+</ul></div>
 <div class="section level3">
 <h3 id="makes-0-13-2">Makes<a class="anchor" aria-label="anchor" href="#makes-0-13-2"></a></h3>
 <ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_matrix()</a></code> for importing CSVs of adjacency/incidence matrices</li>
@@ -815,8 +921,12 @@
 </ul></div>
 <div class="section level3">
 <h3 id="manipulations-0-13-2">Manipulations<a class="anchor" aria-label="anchor" href="#manipulations-0-13-2"></a></h3>
-<ul><li>Added list method for <code><a href="https://stocnet.github.io/manynet/reference/coerce_graph.html" class="external-link">as_tidygraph()</a></code> for merging nodelists and edgelists<ul><li>Note that a named list is expected, with names “nodes” and “ties”</li></ul></li>
-<li>Added igraph method for <code><a href="https://stocnet.github.io/manynet/reference/coerce_graph.html" class="external-link">as_siena()</a></code><ul><li>Note that this is a WIP proof of concept, and will currently only create the DV</li></ul></li>
+<ul><li>Added list method for <code><a href="https://stocnet.github.io/manynet/reference/coerce_graph.html" class="external-link">as_tidygraph()</a></code> for merging nodelists and edgelists
+<ul><li>Note that a named list is expected, with names “nodes” and “ties”</li>
+</ul></li>
+<li>Added igraph method for <code><a href="https://stocnet.github.io/manynet/reference/coerce_graph.html" class="external-link">as_siena()</a></code>
+<ul><li>Note that this is a WIP proof of concept, and will currently only create the DV</li>
+</ul></li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -828,10 +938,12 @@
 </ul></div>
 <div class="section level3">
 <h3 id="makes-0-13-1">Makes<a class="anchor" aria-label="anchor" href="#makes-0-13-1"></a></h3>
-<ul><li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_pajek()</a></code> where multiple networks/ties were causing an issue for partition assignment</li></ul></div>
+<ul><li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_pajek()</a></code> where multiple networks/ties were causing an issue for partition assignment</li>
+</ul></div>
 <div class="section level3">
 <h3 id="models-0-13-1">Models<a class="anchor" aria-label="anchor" href="#models-0-13-1"></a></h3>
-<ul><li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code> relating to latency inversion</li></ul></div>
+<ul><li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code> relating to latency inversion</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.13.0" id="migraph-0130">migraph 0.13.0<small>2022-11-30</small><a class="anchor" aria-label="anchor" href="#migraph-0130"></a></h2>
@@ -842,24 +954,31 @@
 </ul></div>
 <div class="section level3">
 <h3 id="marks-0-13-0">Marks<a class="anchor" aria-label="anchor" href="#marks-0-13-0"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/mark_features.html" class="external-link">is_aperiodic()</a></code> for testing whether a network is aperiodic (the greatest common divisor for all cycles in the network is 1)<ul><li>Note that for computational efficiency, this will check only up to a specified path length (by default 4)</li></ul></li>
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/mark_features.html" class="external-link">is_aperiodic()</a></code> for testing whether a network is aperiodic (the greatest common divisor for all cycles in the network is 1)
+<ul><li>Note that for computational efficiency, this will check only up to a specified path length (by default 4)</li>
+</ul></li>
 <li>
 <code><a href="https://stocnet.github.io/netrics/reference/mark_select_node.html" class="external-link">node_is_max()</a></code> and <code><a href="https://stocnet.github.io/netrics/reference/mark_select_node.html" class="external-link">node_is_min()</a></code> now take a “rank” argument for selecting more than the first ranked maxima or minima</li>
 </ul></div>
 <div class="section level3">
 <h3 id="manipulations-0-13-0">Manipulations<a class="anchor" aria-label="anchor" href="#manipulations-0-13-0"></a></h3>
-<ul><li>Added several new functions for splitting networks into a list of networks<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/modif_split.html" class="external-link">to_components()</a></code> to return the components of a network as a list of networks</li>
+<ul><li>Added several new functions for splitting networks into a list of networks
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/modif_split.html" class="external-link">to_components()</a></code> to return the components of a network as a list of networks</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/modif_split.html" class="external-link">to_egos()</a></code> to return the ego networks of a network as a list of networks</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/modif_split.html" class="external-link">to_subgraphs()</a></code> to return attribute-based subgraphs as a list of networks</li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 <div class="section level3">
 <h3 id="measures-0-13-0">Measures<a class="anchor" aria-label="anchor" href="#measures-0-13-0"></a></h3>
-<ul><li>Added <code>network_richness()</code> and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_richness()</a></code> for calculating the richness (a common diversity measure) of an attribute in a network</li></ul></div>
+<ul><li>Added <code>network_richness()</code> and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_richness()</a></code> for calculating the richness (a common diversity measure) of an attribute in a network</li>
+</ul></div>
 <div class="section level3">
 <h3 id="models-0-13-0">Models<a class="anchor" aria-label="anchor" href="#models-0-13-0"></a></h3>
-<ul><li>Extended <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code> to include more compartment and transition options<ul><li>The print method now tabulates the compartment sums per step</li>
+<ul><li>Extended <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code> to include more compartment and transition options
+<ul><li>The print method now tabulates the compartment sums per step</li>
 <li>The summary method now presents the diffusion event list</li>
-<li>The plot method now:<ul><li>plots lines for S and I compartments, as blue and red lines respectively, if available or informs the user if no diffusion could be simulated</li>
+<li>The plot method now:
+<ul><li>plots lines for S and I compartments, as blue and red lines respectively, if available or informs the user if no diffusion could be simulated</li>
 <li>plots lines for E and R compartments, as orange and green lines respectively, if relevant</li>
 <li>plots a bar graph behind showing the number of new infections per step</li>
 </ul></li>
@@ -871,13 +990,15 @@
 <li>“thresholds” can now be proportions, in which case they are interpreted as complex</li>
 <li>“seeds” is now 1 by default</li>
 </ul></li>
-<li>Added <code><a href="../reference/make_play.html">play_diffusions()</a></code> for running a diffusion model multiple times<ul><li>Note for accelerating documentation and tutorials, this is 5 by default, but for publication quality results this should be increased</li>
+<li>Added <code><a href="../reference/make_play.html">play_diffusions()</a></code> for running a diffusion model multiple times
+<ul><li>Note for accelerating documentation and tutorials, this is 5 by default, but for publication quality results this should be increased</li>
 <li>A print method tabulates the compartment sums per step per simulation</li>
 <li>A summary method tabulates the steps until complete infection (or recovery) for each simulation</li>
 <li>A plot method visualises the loess for each compartment across all simulations</li>
 <li>Note that this function uses <a href="https://github.com/futureverse/furrr" class="external-link">furrr</a> and so a multicore or multisession strategy can be used for parallelisation (but this only makes sense for many simulations)</li>
 </ul></li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_learning.html" class="external-link">play_learning()</a></code> for running a DeGroot learning model<ul><li>A print method tabulates nodes beliefs at each step</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_learning.html" class="external-link">play_learning()</a></code> for running a DeGroot learning model
+<ul><li>A print method tabulates nodes beliefs at each step</li>
 <li>A summary method informs how many steps it took until convergence or whether there was no convergence after <em>t</em> steps</li>
 <li>A plot method visualises the belief trajectories for each node</li>
 </ul></li>
@@ -886,7 +1007,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="mapping-0-13-0">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-13-0"></a></h3>
-<ul><li>Added <code>autographs()</code> for autoplotting lists of networks</li></ul></div>
+<ul><li>Added <code>autographs()</code> for autoplotting lists of networks</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.12.6" id="migraph-0126">migraph 0.12.6<a class="anchor" aria-label="anchor" href="#migraph-0126"></a></h2>
@@ -894,32 +1016,43 @@
 <h3 id="package-0-12-6">Package<a class="anchor" aria-label="anchor" href="#package-0-12-6"></a></h3>
 <ul><li>Changed tutorial naming structure to numeric</li>
 <li>Made all existing tutorials solution oriented</li>
-<li>Converted visualisation vignette into tutorial<ul><li>Added further instruction as to how to change e.g. node_color colors</li></ul></li>
+<li>Converted visualisation vignette into tutorial
+<ul><li>Added further instruction as to how to change e.g. node_color colors</li>
+</ul></li>
 <li>Converted centrality vignette into tutorial</li>
-<li>Converted regression vignette into tutorial<ul><li>Added a lot more interactivity to regression tutorial</li></ul></li>
+<li>Converted regression vignette into tutorial
+<ul><li>Added a lot more interactivity to regression tutorial</li>
+</ul></li>
 <li>Deleted vignette instructions off of the README</li>
 <li>Added some core/coreness aspects to topology tutorial</li>
 </ul></div>
 <div class="section level3">
 <h3 id="manipulations-0-12-6">Manipulations<a class="anchor" aria-label="anchor" href="#manipulations-0-12-6"></a></h3>
 <ul><li>
-<code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> now works with igraph objects</li></ul></div>
+<code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> now works with igraph objects</li>
+</ul></div>
 <div class="section level3">
 <h3 id="marks-0-12-6">Marks<a class="anchor" aria-label="anchor" href="#marks-0-12-6"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/netrics/reference/mark_select_node.html" class="external-link">node_is_random()</a></code> for selecting n nodes at random</li></ul></div>
+<ul><li>Added <code><a href="https://stocnet.github.io/netrics/reference/mark_select_node.html" class="external-link">node_is_random()</a></code> for selecting n nodes at random</li>
+</ul></div>
 <div class="section level3">
 <h3 id="models-0-12-6">Models<a class="anchor" aria-label="anchor" href="#models-0-12-6"></a></h3>
-<ul><li>Added first draft of (SI) <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code> model<ul><li>Added diff_model class, together with print, summary, and plot methods</li></ul></li></ul></div>
+<ul><li>Added first draft of (SI) <code><a href="https://stocnet.github.io/manynet/reference/make_play.html" class="external-link">play_diffusion()</a></code> model
+<ul><li>Added diff_model class, together with print, summary, and plot methods</li>
+</ul></li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.12.5" id="migraph-0125">migraph 0.12.5<a class="anchor" aria-label="anchor" href="#migraph-0125"></a></h2>
 <div class="section level3">
 <h3 id="package-0-12-5">Package<a class="anchor" aria-label="anchor" href="#package-0-12-5"></a></h3>
-<ul><li>Added topology tutorial</li></ul></div>
+<ul><li>Added topology tutorial</li>
+</ul></div>
 <div class="section level3">
 <h3 id="makes-0-12-5">Makes<a class="anchor" aria-label="anchor" href="#makes-0-12-5"></a></h3>
 <ul><li>Fixed integer recognition bug in <code><a href="https://stocnet.github.io/manynet/reference/make_random.html" class="external-link">generate_random()</a></code>
-</li></ul></div>
+</li>
+</ul></div>
 <div class="section level3">
 <h3 id="manipulating-0-12-5">Manipulating<a class="anchor" aria-label="anchor" href="#manipulating-0-12-5"></a></h3>
 <ul><li>Added more similarity options for projection (<code><a href="https://stocnet.github.io/manynet/reference/modif_project.html" class="external-link">to_mode1()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/modif_project.html" class="external-link">to_mode2()</a></code>)</li>
@@ -928,11 +1061,14 @@
 <div class="section level3">
 <h3 id="measures-0-12-5">Measures<a class="anchor" aria-label="anchor" href="#measures-0-12-5"></a></h3>
 <ul><li>Elaborated documentation on modularity</li>
-<li>Added <code>network_scalefree()</code> for returning power law alpha/exponent<ul><li>A message is given if the KS p-value is less than 0.05</li></ul></li>
+<li>Added <code>network_scalefree()</code> for returning power law alpha/exponent
+<ul><li>A message is given if the KS p-value is less than 0.05</li>
+</ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-12-5">Data<a class="anchor" aria-label="anchor" href="#data-0-12-5"></a></h3>
-<ul><li>Added <code>ison_lotr</code> dataset for examples using interactions among Lord of the Rings characters in the books</li></ul></div>
+<ul><li>Added <code>ison_lotr</code> dataset for examples using interactions among Lord of the Rings characters in the books</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.12.4" id="migraph-0124">migraph 0.12.4<a class="anchor" aria-label="anchor" href="#migraph-0124"></a></h2>
@@ -966,16 +1102,20 @@
 <div class="section level3">
 <h3 id="make-0-12-2">Make<a class="anchor" aria-label="anchor" href="#make-0-12-2"></a></h3>
 <ul><li>
-<code><a href="https://stocnet.github.io/manynet/reference/make_create.html" class="external-link">create_lattice()</a></code> now conforms to other <code>create_*()</code> functions in how it interprets <code>"n"</code><ul><li>from an inferred <code>"n"</code> for a one-mode network, it will create a transitive lattice of as even dimensions as possible</li>
+<code><a href="https://stocnet.github.io/manynet/reference/make_create.html" class="external-link">create_lattice()</a></code> now conforms to other <code>create_*()</code> functions in how it interprets <code>"n"</code>
+<ul><li>from an inferred <code>"n"</code> for a one-mode network, it will create a transitive lattice of as even dimensions as possible</li>
 <li>for a two-mode network, this depends on how balanced the two modes are, and is still a work in progress… (WIP)</li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 <div class="section level3">
 <h3 id="marks-0-12-2">Marks<a class="anchor" aria-label="anchor" href="#marks-0-12-2"></a></h3>
-<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/mark_features.html" class="external-link">is_eulerian()</a></code> for a logical expression of whether the network has an Eulerian path</li></ul></div>
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/mark_features.html" class="external-link">is_eulerian()</a></code> for a logical expression of whether the network has an Eulerian path</li>
+</ul></div>
 <div class="section level3">
 <h3 id="measures-0-12-2">Measures<a class="anchor" aria-label="anchor" href="#measures-0-12-2"></a></h3>
 <ul><li>
-<code>network_smallworld()</code> now takes a method argument for different ways of calculating a small-world coefficient<ul><li>“omega” (the new default) offers a better range, 0 to 1, than the previous (now “sigma”) metric.</li>
+<code>network_smallworld()</code> now takes a method argument for different ways of calculating a small-world coefficient
+<ul><li>“omega” (the new default) offers a better range, 0 to 1, than the previous (now “sigma”) metric.</li>
 <li>“SWI” is also included and offers a 0 to 1 range, but where 1 may not be realisable</li>
 </ul></li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_diversity()</a></code> for calculating heterogeneity among each nodes’ ego network</li>
@@ -985,16 +1125,19 @@
 </ul></div>
 <div class="section level3">
 <h3 id="memberships-0-12-2">Memberships<a class="anchor" aria-label="anchor" href="#memberships-0-12-2"></a></h3>
-<ul><li>Added wrappers for several community detection algorithms from igraph, unlike tidygraph these can operate on objects directly<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_walktrap()</a></code>
+<ul><li>Added wrappers for several community detection algorithms from igraph, unlike tidygraph these can operate on objects directly
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_walktrap()</a></code>
 </li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_edge_betweenness()</a></code>
 </li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_fast_greedy()</a></code>
 </li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 <div class="section level3">
 <h3 id="mapping-0-12-2">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-12-2"></a></h3>
-<ul><li>Reversed blue/red colour assignment for binary variables</li></ul></div>
+<ul><li>Reversed blue/red colour assignment for binary variables</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.12.1" id="migraph-0121">migraph 0.12.1<small>2022-10-04</small><a class="anchor" aria-label="anchor" href="#migraph-0121"></a></h2>
@@ -1002,7 +1145,9 @@
 <h3 id="manipulations-0-12-1">Manipulations<a class="anchor" aria-label="anchor" href="#manipulations-0-12-1"></a></h3>
 <ul><li>
 <code><a href="https://stocnet.github.io/manynet/reference/modif_levels.html" class="external-link">to_twomode()</a></code> now returns an undirected network</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/modif_plexity.html" class="external-link">to_anti()</a></code> for obtaining the complement of the given network<ul><li>Note that unlike the implementation in <a href="https://r.igraph.org/" class="external-link">igraph</a>, this respects two-mode constructions</li></ul></li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/modif_plexity.html" class="external-link">to_anti()</a></code> for obtaining the complement of the given network
+<ul><li>Note that unlike the implementation in <a href="https://r.igraph.org/" class="external-link">igraph</a>, this respects two-mode constructions</li>
+</ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="marks-0-12-1">Marks<a class="anchor" aria-label="anchor" href="#marks-0-12-1"></a></h3>
@@ -1018,7 +1163,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="mapping-0-12-1">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-12-1"></a></h3>
-<ul><li>Fixed <code>autographr()</code> tests to work with new version of <a href="https://ggraph.data-imaginist.com" class="external-link">ggraph</a> (closed <a href="https://github.com/stocnet/migraph/issues/247" class="external-link">#247</a>, thanks <a href="https://github.com/henriquesposito" class="external-link">@henriquesposito</a>)</li></ul></div>
+<ul><li>Fixed <code>autographr()</code> tests to work with new version of <a href="https://ggraph.data-imaginist.com" class="external-link">ggraph</a> (closed <a href="https://github.com/stocnet/migraph/issues/247" class="external-link">#247</a>, thanks <a href="https://github.com/henriquesposito" class="external-link">@henriquesposito</a>)</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.12.0" id="migraph-0120">migraph 0.12.0<small>2022-09-27</small><a class="anchor" aria-label="anchor" href="#migraph-0120"></a></h2>
@@ -1026,7 +1172,8 @@
 <h3 id="package-0-12-0">Package<a class="anchor" aria-label="anchor" href="#package-0-12-0"></a></h3>
 <ul><li>
 <code>graph_*()</code> functions now renamed to <code>network_*()</code> for terminological consistency</li>
-<li>Added <code>p2visualization</code> vignette<ul><li>more motivation re Tufte and Brandes et al</li>
+<li>Added <code>p2visualization</code> vignette
+<ul><li>more motivation re Tufte and Brandes et al</li>
 <li>an overview on key multimodal layouts</li>
 <li>a few demonstrations of <a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a> functionality</li>
 </ul></li>
@@ -1036,13 +1183,15 @@
 <h2 class="page-header" data-toc-text="0.11.4" id="migraph-0114">migraph 0.11.4<a class="anchor" aria-label="anchor" href="#migraph-0114"></a></h2>
 <div class="section level3">
 <h3 id="package-0-11-4">Package<a class="anchor" aria-label="anchor" href="#package-0-11-4"></a></h3>
-<ul><li>Added igraph/migraph layout comparison to README</li></ul></div>
+<ul><li>Added igraph/migraph layout comparison to README</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.11.3" id="migraph-0113">migraph 0.11.3<small>2022-09-13</small><a class="anchor" aria-label="anchor" href="#migraph-0113"></a></h2>
 <div class="section level3">
 <h3 id="package-0-11-3">Package<a class="anchor" aria-label="anchor" href="#package-0-11-3"></a></h3>
-<ul><li>Fixed CRAN LaTeX issue relating to underscores in manual figures</li></ul></div>
+<ul><li>Fixed CRAN LaTeX issue relating to underscores in manual figures</li>
+</ul></div>
 <div class="section level3">
 <h3 id="mapping-0-11-3">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-11-3"></a></h3>
 <ul><li>Fixed bug in plotting space coordinates for named two-mode networks</li>
@@ -1065,13 +1214,15 @@
 </ul></div>
 <div class="section level3">
 <h3 id="mapping-0-11-2">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-11-2"></a></h3>
-<ul><li>Fixed bug with <code>autographr()</code>’s “node_group” argument</li></ul></div>
+<ul><li>Fixed bug with <code>autographr()</code>’s “node_group” argument</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.11.1" id="migraph-0111">migraph 0.11.1<a class="anchor" aria-label="anchor" href="#migraph-0111"></a></h2>
 <div class="section level3">
 <h3 id="package-0-11-1">Package<a class="anchor" aria-label="anchor" href="#package-0-11-1"></a></h3>
-<ul><li>Fixed documentation issues (URLs, equations)</li></ul></div>
+<ul><li>Fixed documentation issues (URLs, equations)</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.11.0" id="migraph-0110">migraph 0.11.0<a class="anchor" aria-label="anchor" href="#migraph-0110"></a></h2>
@@ -1088,16 +1239,22 @@
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/coerce_list.html" class="external-link">as_edgelist()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/coerce_list.html" class="external-link">as_matrix()</a></code> methods for <code>network.goldfish</code> class objects</li>
 <li>The <code>"twomode"</code> argument in <code><a href="https://stocnet.github.io/manynet/reference/coerce_list.html" class="external-link">as_matrix()</a></code> is now <code>NULL</code> by default, allowing both one-mode and two-mode coercion</li>
 <li>
-<code><a href="https://stocnet.github.io/manynet/reference/modif_project.html" class="external-link">to_mode1()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/modif_project.html" class="external-link">to_mode2()</a></code> now take an extra argument to produce weighted projections by different “similarity” measures<ul><li>“count” (the default) returns a raw count of the coincidence of nodes in the specified mode with nodes of the other mode</li>
+<code><a href="https://stocnet.github.io/manynet/reference/modif_project.html" class="external-link">to_mode1()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/modif_project.html" class="external-link">to_mode2()</a></code> now take an extra argument to produce weighted projections by different “similarity” measures
+<ul><li>“count” (the default) returns a raw count of the coincidence of nodes in the specified mode with nodes of the other mode</li>
 <li>“jaccard” (Jaccard index) offers a measure of opportunity weighted by participation</li>
 <li>“rand” (Simple Matching Coefficient) offers a measure of behavioral mirroring</li>
 <li>“pearson” (Pearson’s correlation) and “yule” (Yule’s Q) offer correlation coefficients for valued and binary data, respectively</li>
 <li>These options work for edgelists, matrices, igraph and tidygraph, and network objects</li>
 </ul></li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/modif_paths.html" class="external-link">to_matching()</a></code> methods to transform a two-mode network or network with some other (binary) “mark” attribute into a network of matching ties</li>
-<li>Renamed <code>to_main_component()</code> to <code><a href="https://stocnet.github.io/manynet/reference/modif_scope.html" class="external-link">to_giant()</a></code> to be more space efficient<ul><li>Added methods for edgelists and matrices</li></ul></li>
-<li>Added two-mode application for <code><a href="https://stocnet.github.io/manynet/reference/modif_scope.html" class="external-link">to_blocks()</a></code> (closed <a href="https://github.com/stocnet/migraph/issues/242" class="external-link">#242</a>)<ul><li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/modif_scope.html" class="external-link">to_blocks()</a></code> where NA blocks couldn’t be subsequently coerced</li></ul></li>
-<li>Filled in a number of S3 methods<ul><li>
+<li>Renamed <code>to_main_component()</code> to <code><a href="https://stocnet.github.io/manynet/reference/modif_scope.html" class="external-link">to_giant()</a></code> to be more space efficient
+<ul><li>Added methods for edgelists and matrices</li>
+</ul></li>
+<li>Added two-mode application for <code><a href="https://stocnet.github.io/manynet/reference/modif_scope.html" class="external-link">to_blocks()</a></code> (closed <a href="https://github.com/stocnet/migraph/issues/242" class="external-link">#242</a>)
+<ul><li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/modif_scope.html" class="external-link">to_blocks()</a></code> where NA blocks couldn’t be subsequently coerced</li>
+</ul></li>
+<li>Filled in a number of S3 methods
+<ul><li>
 <code><a href="https://stocnet.github.io/manynet/reference/modif_scope.html" class="external-link">to_blocks()</a></code>, <code>to_subgraph()</code>, and <code><a href="https://stocnet.github.io/manynet/reference/modif_project.html" class="external-link">to_ties()</a></code> are now S3 methods, returning objects of the same class as given</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/modif_levels.html" class="external-link">to_onemode()</a></code> method for matrices</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/modif_levels.html" class="external-link">to_twomode()</a></code> methods for igraph, tidygraph, and network</li>
@@ -1119,7 +1276,8 @@
 <div class="section level3">
 <h3 id="measures-0-11-0">Measures<a class="anchor" aria-label="anchor" href="#measures-0-11-0"></a></h3>
 <ul><li>
-<code>graph_core()</code> now runs <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_core()</a></code> (see below) if no “membership” vector is provided</li></ul></div>
+<code>graph_core()</code> now runs <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_core()</a></code> (see below) if no “membership” vector is provided</li>
+</ul></div>
 <div class="section level3">
 <h3 id="membership-0-11-0">Membership<a class="anchor" aria-label="anchor" href="#membership-0-11-0"></a></h3>
 <ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_core()</a></code> for partitioning nodes into core and periphery memberships</li>
@@ -1154,22 +1312,26 @@
 <h2 class="page-header" data-toc-text="0.10.6" id="migraph-0106">migraph 0.10.6<small>2022-07-03</small><a class="anchor" aria-label="anchor" href="#migraph-0106"></a></h2>
 <div class="section level3">
 <h3 id="package-0-10-6">Package<a class="anchor" aria-label="anchor" href="#package-0-10-6"></a></h3>
-<ul><li>Fixed URL error in a vignette</li></ul></div>
+<ul><li>Fixed URL error in a vignette</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.10.5" id="migraph-0105">migraph 0.10.5<a class="anchor" aria-label="anchor" href="#migraph-0105"></a></h2>
 <div class="section level3">
 <h3 id="package-0-10-5">Package<a class="anchor" aria-label="anchor" href="#package-0-10-5"></a></h3>
-<ul><li>Dropped vignettes for now to ensure package makes it on to CRAN</li></ul></div>
+<ul><li>Dropped vignettes for now to ensure package makes it on to CRAN</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.10.4" id="migraph-0104">migraph 0.10.4<a class="anchor" aria-label="anchor" href="#migraph-0104"></a></h2>
 <div class="section level3">
 <h3 id="package-0-10-4">Package<a class="anchor" aria-label="anchor" href="#package-0-10-4"></a></h3>
-<ul><li>Fixed some URL issues for CRAN</li></ul></div>
+<ul><li>Fixed some URL issues for CRAN</li>
+</ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-10-4">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-10-4"></a></h3>
-<ul><li>Split <code>to_*()</code> functions into reformatting (changing properties) and transforming (changing dimensions) documentation</li></ul></div>
+<ul><li>Split <code>to_*()</code> functions into reformatting (changing properties) and transforming (changing dimensions) documentation</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.10.3" id="migraph-0103">migraph 0.10.3<a class="anchor" aria-label="anchor" href="#migraph-0103"></a></h2>
@@ -1196,22 +1358,27 @@
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-10-3">Measures<a class="anchor" aria-label="anchor" href="#measures-0-10-3"></a></h3>
-<ul><li>Printing ‘node_measure’ class objects now is prettier, extending the width of the console, indicating how many additional observations, and separates out each mode (closed <a href="https://github.com/stocnet/migraph/issues/232" class="external-link">#232</a>)</li></ul></div>
+<ul><li>Printing ‘node_measure’ class objects now is prettier, extending the width of the console, indicating how many additional observations, and separates out each mode (closed <a href="https://github.com/stocnet/migraph/issues/232" class="external-link">#232</a>)</li>
+</ul></div>
 <div class="section level3">
 <h3 id="motifs-0-10-3">Motifs<a class="anchor" aria-label="anchor" href="#motifs-0-10-3"></a></h3>
-<ul><li>Added print method for <code>graph_motif</code> (fixed <a href="https://github.com/stocnet/migraph/issues/234" class="external-link">#234</a>)</li></ul></div>
+<ul><li>Added print method for <code>graph_motif</code> (fixed <a href="https://github.com/stocnet/migraph/issues/234" class="external-link">#234</a>)</li>
+</ul></div>
 <div class="section level3">
 <h3 id="memberships-0-10-3">Memberships<a class="anchor" aria-label="anchor" href="#memberships-0-10-3"></a></h3>
 <ul><li>Equivalence examples now <code>\dontrun</code>
-</li></ul></div>
+</li>
+</ul></div>
 <div class="section level3">
 <h3 id="models-0-10-3">Models<a class="anchor" aria-label="anchor" href="#models-0-10-3"></a></h3>
 <ul><li>
-<code><a href="https://stocnet.github.io/netrics/reference/method_cluster.html" class="external-link">cluster_concor()</a></code> and <code><a href="https://stocnet.github.io/netrics/reference/method_cluster.html" class="external-link">cluster_hierarchical()</a></code> are now exported</li></ul></div>
+<code><a href="https://stocnet.github.io/netrics/reference/method_cluster.html" class="external-link">cluster_concor()</a></code> and <code><a href="https://stocnet.github.io/netrics/reference/method_cluster.html" class="external-link">cluster_hierarchical()</a></code> are now exported</li>
+</ul></div>
 <div class="section level3">
 <h3 id="mapping-0-10-3">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-10-3"></a></h3>
 <ul><li>
-<code>autographr()</code> no longer requires “highlight_measure” and “identify_function” arguments as users can now convert ‘measures’ to ‘marks’ and use these for “node_color” or “edge_color”</li></ul></div>
+<code>autographr()</code> no longer requires “highlight_measure” and “identify_function” arguments as users can now convert ‘measures’ to ‘marks’ and use these for “node_color” or “edge_color”</li>
+</ul></div>
 <div class="section level3">
 <h3 id="data-0-10-3">Data<a class="anchor" aria-label="anchor" href="#data-0-10-3"></a></h3>
 <ul><li>Added prints of each data object to <code>@format</code> for more consistent documentation</li>
@@ -1225,7 +1392,8 @@
 <h2 class="page-header" data-toc-text="0.10.2" id="migraph-0102">migraph 0.10.2<a class="anchor" aria-label="anchor" href="#migraph-0102"></a></h2>
 <div class="section level3">
 <h3 id="memberships-0-10-2">Memberships<a class="anchor" aria-label="anchor" href="#memberships-0-10-2"></a></h3>
-<ul><li>Further shortened equivalence examples</li></ul></div>
+<ul><li>Further shortened equivalence examples</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.10.1" id="migraph-0101">migraph 0.10.1<a class="anchor" aria-label="anchor" href="#migraph-0101"></a></h2>
@@ -1236,31 +1404,38 @@
 </ul></div>
 <div class="section level3">
 <h3 id="memberships-0-10-1">Memberships<a class="anchor" aria-label="anchor" href="#memberships-0-10-1"></a></h3>
-<ul><li>Shortened equivalence examples</li></ul></div>
+<ul><li>Shortened equivalence examples</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.10.0" id="migraph-0100">migraph 0.10.0<a class="anchor" aria-label="anchor" href="#migraph-0100"></a></h2>
 <div class="section level3">
 <h3 id="package-0-10-0">Package<a class="anchor" aria-label="anchor" href="#package-0-10-0"></a></h3>
-<ul><li>Reduced package dependencies by 5<ul><li>
+<ul><li>Reduced package dependencies by 5
+<ul><li>
 <a href="https://joelgombin.github.io/concaveman/" class="external-link">concaveman</a>, <a href="https://andrie.github.io/ggdendro/" class="external-link">ggdendro</a>, <a href="https://github.com/schochastics/oaqc" class="external-link">oaqc</a> are now Suggests; the user is prompted to install them when required in <code>autographr()</code>, <code>plot.member()</code>, and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_quad_census()</a></code> respectively</li>
 <li>
 <a href="https://stringr.tidyverse.org" class="external-link">stringr</a> and <a href="https://tibble.tidyverse.org/" class="external-link">tibble</a> replaced with base or other code and therefore no longer necessary</li>
 </ul></li>
-<li>Relabelled scripts to follow website function structure<ul><li>Added <code>@family</code> tags for improved cross-referencing</li>
+<li>Relabelled scripts to follow website function structure
+<ul><li>Added <code>@family</code> tags for improved cross-referencing</li>
 <li>Added a lot more references/sources</li>
 </ul></li>
 <li>README elaborated, including listing functions and data in the package</li>
-<li>Switched to S3 classes as outputs for most functions<ul><li>Several methods, e.g. <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>, <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>, <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code>, have been added for them (see appropriate sections below)</li></ul></li>
+<li>Switched to S3 classes as outputs for most functions
+<ul><li>Several methods, e.g. <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>, <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>, <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code>, have been added for them (see appropriate sections below)</li>
+</ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="making-0-10-0">Making<a class="anchor" aria-label="anchor" href="#making-0-10-0"></a></h3>
-<ul><li>All <code>create_</code> and <code>generate_</code> functions now:<ul><li>work when <code>n</code> passed an existing network</li>
+<ul><li>All <code>create_</code> and <code>generate_</code> functions now:
+<ul><li>work when <code>n</code> passed an existing network</li>
 <li>work with two-mode networks, including <code><a href="https://stocnet.github.io/manynet/reference/make_create.html" class="external-link">create_tree()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/make_stochastic.html" class="external-link">generate_smallworld()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/make_stochastic.html" class="external-link">generate_scalefree()</a></code>
 </li>
 <li>return undirected network by default</li>
 </ul></li>
-<li>Some <code>create_</code> functions can now take a membership vector or split into equal partitions by default<ul><li>
+<li>Some <code>create_</code> functions can now take a membership vector or split into equal partitions by default
+<ul><li>
 <code><a href="https://stocnet.github.io/manynet/reference/make_create.html" class="external-link">create_components()</a></code> no longer accepts a number of components, instead relying on the membership vector</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_create.html" class="external-link">create_core()</a></code> for creating core-periphery graphs</li>
 </ul></li>
@@ -1269,12 +1444,14 @@
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-10-0">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-10-0"></a></h3>
-<ul><li>Added a couple of <code>to_</code> functions useful for working with networks of different types<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/modif_direction.html" class="external-link">to_redirected()</a></code> for adding or swapping direction to networks (closed <a href="https://github.com/stocnet/migraph/issues/219" class="external-link">#219</a>)</li>
+<ul><li>Added a couple of <code>to_</code> functions useful for working with networks of different types
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/modif_direction.html" class="external-link">to_redirected()</a></code> for adding or swapping direction to networks (closed <a href="https://github.com/stocnet/migraph/issues/219" class="external-link">#219</a>)</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/modif_scope.html" class="external-link">to_blocks()</a></code> for reducing a network down by a membership vector; <code>blockmodel()</code> and <code>reduce_graph()</code> are now deprecated</li>
 <li>
 <code>to_multilevel.igraph()</code> now only works on two-mode networks; returns the original network if passed a one-mode network</li>
 </ul></li>
-<li>Fixed some bugs in a number of <code>is_</code> functions<ul><li>
+<li>Fixed some bugs in a number of <code>is_</code> functions
+<ul><li>
 <code>is_signed.data.frame()</code> and <code>is_signed.matrix()</code> now rely on new helper <code>is.wholenumber()</code> rather than misleading <code><a href="https://rdrr.io/r/base/integer.html" class="external-link">is.integer()</a></code>
 </li>
 <li>
@@ -1287,33 +1464,40 @@
 </ul></div>
 <div class="section level3">
 <h3 id="marks-0-10-0">Marks<a class="anchor" aria-label="anchor" href="#marks-0-10-0"></a></h3>
-<ul><li>Added new set of functions that return logical vectors for nodes and edges:<ul><li>
+<ul><li>Added new set of functions that return logical vectors for nodes and edges:
+<ul><li>
 <code>edge_multiple()</code>, <code>edge_loop()</code>, <code>edge_reciprocal()</code> moved from measures</li>
 <li>Added <code>edge_bridges()</code>
 </li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 <div class="section level3">
 <h3 id="measures-0-10-0">Measures<a class="anchor" aria-label="anchor" href="#measures-0-10-0"></a></h3>
 <ul><li>A new <code>"edge_measure"</code> S3 class has been added, along with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods</li>
 <li>Added <code>summary.node_measure()</code> method for printing a summary by a membership vector; <code>summarise_statistics()</code> is now deprecated</li>
-<li>All cohesion, connection, and diversity measures now return <code>"graph_measure"</code> class results<ul><li>
+<li>All cohesion, connection, and diversity measures now return <code>"graph_measure"</code> class results
+<ul><li>
 <code>graph_components()</code> now calculates strong components for directed networks else weak components</li>
 <li>
 <code>print.graph_measure()</code> now correctly labels two-mode results where a vector is given</li>
 </ul></li>
-<li>Added new script for measuring features, including <code>graph_smallworld()</code><ul><li>Added <code>graph_core()</code> for calculating correlation of an observed network to a core-periphery network of the same dimensions (closed <a href="https://github.com/stocnet/migraph/issues/39" class="external-link">#39</a>)</li>
+<li>Added new script for measuring features, including <code>graph_smallworld()</code>
+<ul><li>Added <code>graph_core()</code> for calculating correlation of an observed network to a core-periphery network of the same dimensions (closed <a href="https://github.com/stocnet/migraph/issues/39" class="external-link">#39</a>)</li>
 <li>Added <code>graph_factions()</code> for calculating correlation of an observed network to a component network of the same dimensions (closed <a href="https://github.com/stocnet/migraph/issues/40" class="external-link">#40</a>)</li>
 <li>Added <code>graph_modularity()</code> for calculating modularity of an observed network, including modularity for two-mode networks (closed <a href="https://github.com/stocnet/migraph/issues/144" class="external-link">#144</a>)</li>
 </ul></li>
-<li>Added new script for measuring structural holes, including <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_constraint()</a></code><ul><li>Added several additional measures of structural holes: <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_bridges()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_redundancy()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_effsize()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_efficiency()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_hierarchy()</a></code>
-</li></ul></li>
+<li>Added new script for measuring structural holes, including <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_constraint()</a></code>
+<ul><li>Added several additional measures of structural holes: <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_bridges()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_redundancy()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_effsize()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_efficiency()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_hierarchy()</a></code>
+</li>
+</ul></li>
 <li>
 <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_betweenness()</a></code> no longer needs <code>nobigint</code> argument; just uses default from <a href="https://r.igraph.org/" class="external-link">igraph</a>
 </li>
 </ul></div>
 <div class="section level3">
 <h3 id="motifs-0-10-0">Motifs<a class="anchor" aria-label="anchor" href="#motifs-0-10-0"></a></h3>
-<ul><li>Added <code>"node_motif"</code> S3 class for the output of <code>node_*_census()</code> functions<ul><li>Added <code>print.node_motif()</code> for tibble-printing of census results</li>
+<ul><li>Added <code>"node_motif"</code> S3 class for the output of <code>node_*_census()</code> functions
+<ul><li>Added <code>print.node_motif()</code> for tibble-printing of census results</li>
 <li>Added <code>summary.node_motif()</code> to summarise censuses by a membership vector, replacing <code>group_tie_census()</code> and <code>group_triad_census()</code>, which are now deprecated</li>
 </ul></li>
 <li>Added <code>"graph_motif"</code> S3 class for the output of <code>graph_*_census()</code> functions</li>
@@ -1323,9 +1507,13 @@
 </ul></div>
 <div class="section level3">
 <h3 id="memberships-0-10-0">Memberships<a class="anchor" aria-label="anchor" href="#memberships-0-10-0"></a></h3>
-<ul><li>Added new <code>"node_member"</code> S3 class for vectors of nodes’ cluster memberships<ul><li>The class hides a hierarchical clustering object as an attribute, so <code>plot.node_member()</code> replaces <code>ggtree()</code>
-</li></ul></li>
-<li>Moved to an equivalence identification scheme that hides many of the technical aspects from users when unnecessary<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_equivalence()</a></code> for identifying nodes’ membership in classes equivalent with respect to some arbitrary motif census<ul><li>
+<ul><li>Added new <code>"node_member"</code> S3 class for vectors of nodes’ cluster memberships
+<ul><li>The class hides a hierarchical clustering object as an attribute, so <code>plot.node_member()</code> replaces <code>ggtree()</code>
+</li>
+</ul></li>
+<li>Moved to an equivalence identification scheme that hides many of the technical aspects from users when unnecessary
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_equivalence()</a></code> for identifying nodes’ membership in classes equivalent with respect to some arbitrary motif census
+<ul><li>
 <code>"hierarchical"</code> and <code>"concor"</code> now options for <code>cluster</code> within <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_equivalence()</a></code>; <code>blockmodel_concor()</code> is now deprecated (closed <a href="https://github.com/stocnet/migraph/issues/123" class="external-link">#123</a>)</li>
 <li>
 <code>"elbow"</code> now an option for <code>k</code> selection within <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_equivalence()</a></code>; <code>ggidentify_clusters()</code> is now deprecated</li>
@@ -1342,14 +1530,18 @@
 <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_regular_equivalence()</a></code> replaces <code>cluster_regular_equivalence()</code>
 </li>
 </ul></li>
-<li>Added community identification scheme that mirrors equivalence identification in many respects<ul><li>Added <code>node_kernaghinlin()</code> for identifying nodes’ membership in communities based on the Kernaghin-Lin algorithm (thank you, <a href="https://github.com/jaeltan" class="external-link">@jaeltan</a>, closed <a href="https://github.com/stocnet/migraph/issues/198" class="external-link">#198</a>)</li></ul></li>
-<li>Added connected identification scheme that mirrors equivalence identification in many respects<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_coreness()</a></code> for nodes’ <em>k</em>-core score (closed <a href="https://github.com/stocnet/migraph/issues/200" class="external-link">#200</a>)</li>
+<li>Added community identification scheme that mirrors equivalence identification in many respects
+<ul><li>Added <code>node_kernaghinlin()</code> for identifying nodes’ membership in communities based on the Kernaghin-Lin algorithm (thank you, <a href="https://github.com/jaeltan" class="external-link">@jaeltan</a>, closed <a href="https://github.com/stocnet/migraph/issues/198" class="external-link">#198</a>)</li>
+</ul></li>
+<li>Added connected identification scheme that mirrors equivalence identification in many respects
+<ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_coreness()</a></code> for nodes’ <em>k</em>-core score (closed <a href="https://github.com/stocnet/migraph/issues/200" class="external-link">#200</a>)</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_strong_components()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_weak_components()</a></code> for more direct calls; <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_components()</a></code> now calculates strong components for directed networks else weak components</li>
 </ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="models-0-10-0">Models<a class="anchor" aria-label="anchor" href="#models-0-10-0"></a></h3>
-<ul><li>A single <code>"graph_test"</code> S3 class replaces <code>"cug_test"</code> and <code>"qap_test"</code><ul><li>
+<ul><li>A single <code>"graph_test"</code> S3 class replaces <code>"cug_test"</code> and <code>"qap_test"</code>
+<ul><li>
 <code>plot.graph_test()</code> replaces <code>plot.cug_test()</code> and <code>plot.qap_test()</code>
 </li>
 <li>Added <code>print.graph_test()</code> method</li>
@@ -1369,7 +1561,8 @@
 <div class="section level3">
 <h3 id="data-0-10-0">Data<a class="anchor" aria-label="anchor" href="#data-0-10-0"></a></h3>
 <ul><li>
-<code>ison_algebra</code>’s edge attributes now named “friends”, “social”, and “tasks”</li></ul></div>
+<code>ison_algebra</code>’s edge attributes now named “friends”, “social”, and “tasks”</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.9.3" id="migraph-093">migraph 0.9.3<small>2022-04-14</small><a class="anchor" aria-label="anchor" href="#migraph-093"></a></h2>
@@ -1378,14 +1571,16 @@
 <ul><li>Trialling <code>{roxytest}</code>
 </li>
 <li>Updated favicons</li>
-<li>Updated several vignettes<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/154" class="external-link">#154</a> by building out data vignette</li>
+<li>Updated several vignettes
+<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/154" class="external-link">#154</a> by building out data vignette</li>
 <li>Updated centrality vignette with more modern plotting</li>
 </ul></li>
 <li>Added some more informative documentation families</li>
 </ul></div>
 <div class="section level3">
 <h3 id="making-0-9-3">Making<a class="anchor" aria-label="anchor" href="#making-0-9-3"></a></h3>
-<ul><li>Folded <code>m</code> argument into <code>p</code> for <code><a href="https://stocnet.github.io/manynet/reference/make_random.html" class="external-link">generate_random()</a></code>, <code>p</code> can now be passed an integer to indicate the number of ties the network should have</li></ul></div>
+<ul><li>Folded <code>m</code> argument into <code>p</code> for <code><a href="https://stocnet.github.io/manynet/reference/make_random.html" class="external-link">generate_random()</a></code>, <code>p</code> can now be passed an integer to indicate the number of ties the network should have</li>
+</ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-9-3">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-9-3"></a></h3>
 <ul><li>Refactored <code>to_edges()</code> to be ~26 times faster on average</li>
@@ -1397,11 +1592,13 @@
 <div class="section level3">
 <h3 id="mapping-0-9-3">Mapping<a class="anchor" aria-label="anchor" href="#mapping-0-9-3"></a></h3>
 <ul><li>Layouts now use <code>times</code> argument instead of <code>maxiter</code>
-</li></ul></div>
+</li>
+</ul></div>
 <div class="section level3">
 <h3 id="measures-0-9-3">Measures<a class="anchor" aria-label="anchor" href="#measures-0-9-3"></a></h3>
 <ul><li>Renamed <code>"measure"</code> class <code>"node_measure"</code> and added <code>"graph_measure"</code> class with print method</li>
-<li>Overhaul of centrality measures<ul><li>Centrality and centralization measures now return normalized scores by default, <code>normalized</code> is now the second argument</li>
+<li>Overhaul of centrality measures
+<ul><li>Centrality and centralization measures now return normalized scores by default, <code>normalized</code> is now the second argument</li>
 <li>
 <code>directed</code> and <code>weights</code> arguments have been removed and are now imputed, if this is undesired please use <code>to_*()</code> first</li>
 <li>
@@ -1418,7 +1615,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="modelling-0-9-3">Modelling<a class="anchor" aria-label="anchor" href="#modelling-0-9-3"></a></h3>
-<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/151" class="external-link">#151</a> with blockmodel coloring for signed graphs</li></ul></div>
+<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/151" class="external-link">#151</a> with blockmodel coloring for signed graphs</li>
+</ul></div>
 <div class="section level3">
 <h3 id="data-0-9-3">Data<a class="anchor" aria-label="anchor" href="#data-0-9-3"></a></h3>
 <ul><li>Dropped weight from <code>mpn_elite_mex</code>
@@ -1439,7 +1637,8 @@
 <h2 class="page-header" data-toc-text="0.9.1" id="migraph-091">migraph 0.9.1<a class="anchor" aria-label="anchor" href="#migraph-091"></a></h2>
 <div class="section level3">
 <h3 id="package-0-9-1">Package<a class="anchor" aria-label="anchor" href="#package-0-9-1"></a></h3>
-<ul><li>Streamlined some tests to reduce testing time</li></ul></div>
+<ul><li>Streamlined some tests to reduce testing time</li>
+</ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-9-1">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-9-1"></a></h3>
 <ul><li>
@@ -1450,14 +1649,16 @@
 <div class="section level3">
 <h3 id="data-0-9-1">Data<a class="anchor" aria-label="anchor" href="#data-0-9-1"></a></h3>
 <ul><li>
-<code>ison_algebra</code> now unlabelled</li></ul></div>
+<code>ison_algebra</code> now unlabelled</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.9.0" id="migraph-090">migraph 0.9.0<a class="anchor" aria-label="anchor" href="#migraph-090"></a></h2>
 <div class="section level3">
 <h3 id="package-0-9-0">Package<a class="anchor" aria-label="anchor" href="#package-0-9-0"></a></h3>
 <ul><li>Recognised contributors Henrique Sposito and Jael Tan</li>
-<li>Updated dependencies<ul><li>
+<li>Updated dependencies
+<ul><li>
 <a href="https://readxl.tidyverse.org" class="external-link">readxl</a> is now <em>suggested</em>, but required if importing from an Excel sheet</li>
 <li>
 <a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a> replaces <code>{gridExtra}</code> to make for more concise multiplot visualisations</li>
@@ -1486,12 +1687,14 @@
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-9-0">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-9-0"></a></h3>
-<ul><li>All <code>as_*()</code> functions now retain weights where present; if you want an unweighted result, use <code>is_unweighted()</code> afterwards<ul><li>
+<ul><li>All <code>as_*()</code> functions now retain weights where present; if you want an unweighted result, use <code>is_unweighted()</code> afterwards
+<ul><li>
 <code>as_edgelist.network()</code> now better handles edge weights</li>
 <li>
 <code>as_matrix.igraph()</code> now better handles edge signs</li>
 </ul></li>
-<li>Pivoted to S3 methods for most manipulation functions for better dispatching and performance<ul><li>Added matrix, data.frame, network, igraph, and tbl_graph methods for <code><a href="https://stocnet.github.io/manynet/reference/mark_format_node.html" class="external-link">is_twomode()</a></code>, <code>is_directed()</code>, <code>is_weighted()</code>, <code><a href="https://stocnet.github.io/manynet/reference/mark_format_node.html" class="external-link">is_labelled()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/mark_format_tie.html" class="external-link">is_signed()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/mark_format_tie.html" class="external-link">is_multiplex()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/mark_format_tie.html" class="external-link">is_complex()</a></code>, and <code><a href="https://stocnet.github.io/manynet/reference/mark_is.html" class="external-link">is_graph()</a></code>
+<li>Pivoted to S3 methods for most manipulation functions for better dispatching and performance
+<ul><li>Added matrix, data.frame, network, igraph, and tbl_graph methods for <code><a href="https://stocnet.github.io/manynet/reference/mark_format_node.html" class="external-link">is_twomode()</a></code>, <code>is_directed()</code>, <code>is_weighted()</code>, <code><a href="https://stocnet.github.io/manynet/reference/mark_format_node.html" class="external-link">is_labelled()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/mark_format_tie.html" class="external-link">is_signed()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/mark_format_tie.html" class="external-link">is_multiplex()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/mark_format_tie.html" class="external-link">is_complex()</a></code>, and <code><a href="https://stocnet.github.io/manynet/reference/mark_is.html" class="external-link">is_graph()</a></code>
 </li>
 <li>Added data.frame methods for <code><a href="https://stocnet.github.io/manynet/reference/coerce_list.html" class="external-link">as_edgelist()</a></code>, and <code><a href="https://stocnet.github.io/manynet/reference/modif_weight.html" class="external-link">to_unweighted()</a></code>, and improved the data.frame method for <code><a href="https://stocnet.github.io/manynet/reference/coerce_list.html" class="external-link">as_matrix()</a></code>
 </li>
@@ -1515,15 +1718,18 @@
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-9-0">Measures<a class="anchor" aria-label="anchor" href="#measures-0-9-0"></a></h3>
-<ul><li>Added new <code>measure</code> class and directed most <code>node_*()</code> functions to create objects of this class<ul><li>A print method for this class prints an abbreviated vector (the full vector is always still contained within the object) and prints elements from both modes in the event that the original object was two-mode (closed <a href="https://github.com/stocnet/migraph/issues/202" class="external-link">#202</a>)</li>
+<ul><li>Added new <code>measure</code> class and directed most <code>node_*()</code> functions to create objects of this class
+<ul><li>A print method for this class prints an abbreviated vector (the full vector is always still contained within the object) and prints elements from both modes in the event that the original object was two-mode (closed <a href="https://github.com/stocnet/migraph/issues/202" class="external-link">#202</a>)</li>
 <li>A plot method replaces <code>ggdistrib()</code> and offers “hist” and “dens” methods for histograms and density plots respectively</li>
 </ul></li>
-<li>Added some edge-based centrality measures (closed <a href="https://github.com/stocnet/migraph/issues/165" class="external-link">#165</a>)<ul><li>
+<li>Added some edge-based centrality measures (closed <a href="https://github.com/stocnet/migraph/issues/165" class="external-link">#165</a>)
+<ul><li>
 <code>edge_betweenness()</code> wraps <a href="https://r.igraph.org/" class="external-link">igraph</a>’s function of the same name</li>
 <li>
 <code>edge_closeness()</code> measures the closeness centrality of nodes in an edge adjacency</li>
 </ul></li>
-<li>Added several more measures of connectedness<ul><li>
+<li>Added several more measures of connectedness
+<ul><li>
 <code>node_cuts()</code> identifies articulation points (nodes) in a network</li>
 <li>
 <code>edge_bridges()</code> identifies edges that serve as bridges in a network</li>
@@ -1541,10 +1747,12 @@
 <div class="section level3">
 <h3 id="motifs-0-9-0">Motifs<a class="anchor" aria-label="anchor" href="#motifs-0-9-0"></a></h3>
 <ul><li>Added some guidance to the naming convention used in <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_quad_census()</a></code>
-</li></ul></div>
+</li>
+</ul></div>
 <div class="section level3">
 <h3 id="models-0-9-0">Models<a class="anchor" aria-label="anchor" href="#models-0-9-0"></a></h3>
-<ul><li>Extended <code><a href="../reference/defunct.html">network_reg()</a></code>’s formula-based system<ul><li>
+<ul><li>Extended <code><a href="../reference/defunct.html">network_reg()</a></code>’s formula-based system
+<ul><li>
 <code><a href="../reference/defunct.html">network_reg()</a></code> can now handle binary and multiple categorical variables (factors and characters, closed <a href="https://github.com/stocnet/migraph/issues/211" class="external-link">#211</a>);</li>
 <li>
 <code><a href="../reference/defunct.html">network_reg()</a></code> can now manage interactions specified in the common syntax; <code>var1 * var2</code> expands to <code>var1 + var2 + var1:var2</code> (closed <a href="https://github.com/stocnet/migraph/issues/163" class="external-link">#163</a>)</li>
@@ -1555,10 +1763,12 @@
 <code><a href="../reference/defunct.html">network_reg()</a></code> now employs logistic regression to estimate a binary outcome and linear regression to estimate a continuous outcome (closed <a href="https://github.com/stocnet/migraph/issues/184" class="external-link">#184</a>)</li>
 <li>
 <code><a href="../reference/defunct.html">network_reg()</a></code> now uses Dekker et al’s semi-partialling procedure by default for multivariate specifications (closed <a href="https://github.com/stocnet/migraph/issues/206" class="external-link">#206</a>), defaulting to <em>y</em>-permutations in the case of a single predictor (closed <a href="https://github.com/stocnet/migraph/issues/208" class="external-link">#208</a>)</li>
-<li>Added parallelisation to Monte Carlo based tests<ul><li>Refactored <code><a href="../reference/defunct.html">network_reg()</a></code>, relying on <a href="https://github.com/futureverse/furrr" class="external-link">furrr</a> for potential parallelisation and <a href="https://progressr.futureverse.org" class="external-link">progressr</a> for progress reports (closed <a href="https://github.com/stocnet/migraph/issues/185" class="external-link">#185</a>, <a href="https://github.com/stocnet/migraph/issues/186" class="external-link">#186</a>)</li>
+<li>Added parallelisation to Monte Carlo based tests
+<ul><li>Refactored <code><a href="../reference/defunct.html">network_reg()</a></code>, relying on <a href="https://github.com/futureverse/furrr" class="external-link">furrr</a> for potential parallelisation and <a href="https://progressr.futureverse.org" class="external-link">progressr</a> for progress reports (closed <a href="https://github.com/stocnet/migraph/issues/185" class="external-link">#185</a>, <a href="https://github.com/stocnet/migraph/issues/186" class="external-link">#186</a>)</li>
 <li>Refactored <code><a href="../reference/tests.html">test_random()</a></code> and <code><a href="../reference/tests.html">test_permutation()</a></code>, relying on <a href="https://github.com/futureverse/furrr" class="external-link">furrr</a> for potential parallelisation and <a href="https://progressr.futureverse.org" class="external-link">progressr</a> for progress reports; note that <code>nSim</code> argument now <code>times</code> (closed <a href="https://github.com/stocnet/migraph/issues/199" class="external-link">#199</a>)</li>
 </ul></li>
-<li>Added <a href="https://broom.tidymodels.org/" class="external-link">broom</a> S3 methods for <code>netlm</code> and <code>netlogit</code> class objects (closed <a href="https://github.com/stocnet/migraph/issues/183" class="external-link">#183</a>)<ul><li>
+<li>Added <a href="https://broom.tidymodels.org/" class="external-link">broom</a> S3 methods for <code>netlm</code> and <code>netlogit</code> class objects (closed <a href="https://github.com/stocnet/migraph/issues/183" class="external-link">#183</a>)
+<ul><li>
 <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> extracts coefficients and related values</li>
 <li>
 <code><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance()</a></code>extracts model-level values such as <code>R^2</code>
@@ -1566,7 +1776,8 @@
 </ul></li>
 <li>Added plot method for <code>netlm</code> and <code>netlogit</code> class objects (closed <a href="https://github.com/stocnet/migraph/issues/216" class="external-link">#216</a>), which plots the empirical distribution for each test statistic, indicates percentiles relating to common critical values, and superimposes the observed coefficients</li>
 <li>Added plot method for <code>cug_test</code> and <code>qap_test</code> class objects, which plots the empirical distribution, highlighting tails beyond some critical value (closed <a href="https://github.com/stocnet/migraph/issues/213" class="external-link">#213</a>), and superimposing the observed coefficient and, possibly, 0</li>
-<li>Relabelled some classes to avoid loading conflicts with <a href="https://statnet.org" class="external-link">sna</a><ul><li>
+<li>Relabelled some classes to avoid loading conflicts with <a href="https://statnet.org" class="external-link">sna</a>
+<ul><li>
 <code>print.block_model()</code> replaces <code>print.blockmodel()</code>
 </li>
 <li>
@@ -1577,7 +1788,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-9-0">Data<a class="anchor" aria-label="anchor" href="#data-0-9-0"></a></h3>
-<ul><li>Updated several names of datasets for consistency and conciseness<ul><li>
+<ul><li>Updated several names of datasets for consistency and conciseness
+<ul><li>
 <code>ison_southern_women</code> instead of <code>southern_women</code>
 </li>
 <li>
@@ -1593,7 +1805,8 @@
 <code>ison_adolescents</code> instead of <code>ison_coleman</code>
 </li>
 </ul></li>
-<li>Extended several datasets<ul><li>
+<li>Extended several datasets
+<ul><li>
 <code>mpn_elite_mex</code> is extended with data from Pajek and with help from Frank Heber</li>
 <li>
 <code>ison_networkers</code> becomes named with information from <a href="http://toreopsahl.com/tnet/" class="external-link">tnet</a>
@@ -1606,7 +1819,10 @@
 <h2 class="page-header" data-toc-text="0.8.13" id="migraph-0813">migraph 0.8.13<small>2021-12-19</small><a class="anchor" aria-label="anchor" href="#migraph-0813"></a></h2>
 <div class="section level3">
 <h3 id="modelling-0-8-13">Modelling<a class="anchor" aria-label="anchor" href="#modelling-0-8-13"></a></h3>
-<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/149" class="external-link">#149</a> by adding extra column to node_tie_census in <code>cluster_structural_equivalence()</code> for isolates<ul><li>Note that this renders all isolates structurally equivalent</li></ul></li></ul></div>
+<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/149" class="external-link">#149</a> by adding extra column to node_tie_census in <code>cluster_structural_equivalence()</code> for isolates
+<ul><li>Note that this renders all isolates structurally equivalent</li>
+</ul></li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.12" id="migraph-0812">migraph 0.8.12<a class="anchor" aria-label="anchor" href="#migraph-0812"></a></h2>
@@ -1617,7 +1833,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-12">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-12"></a></h3>
-<ul><li>Updated <code>add_</code> functions<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/178" class="external-link">#178</a> by adding name to existing edges when further edges added in <code>mutate_edges()</code>
+<ul><li>Updated <code>add_</code> functions
+<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/178" class="external-link">#178</a> by adding name to existing edges when further edges added in <code>mutate_edges()</code>
 </li>
 <li>Closed <a href="https://github.com/stocnet/migraph/issues/179" class="external-link">#179</a> by inferring an attribute vector is for one of the two modes where possible in <code>add_node_attributes()</code>
 </li>
@@ -1633,7 +1850,8 @@
 <div class="section level3">
 <h3 id="import-and-export-0-8-11">Import and export<a class="anchor" aria-label="anchor" href="#import-and-export-0-8-11"></a></h3>
 <ul><li>Fixed <a href="https://github.com/stocnet/migraph/issues/172" class="external-link">#172</a> by removing redundant header argument in <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_nodelist()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_edgelist()</a></code>
-</li></ul></div>
+</li>
+</ul></div>
 <div class="section level3">
 <h3 id="package-0-8-11">Package<a class="anchor" aria-label="anchor" href="#package-0-8-11"></a></h3>
 <ul><li>Fixed <a href="https://github.com/stocnet/migraph/issues/173" class="external-link">#173</a> by extending <code><a href="https://stocnet.github.io/manynet/reference/coerce_graph.html" class="external-link">as_network()</a></code> method to convert correctly form an <a href="https://r.igraph.org/" class="external-link">igraph</a> to a <a href="https://statnet.org/" class="external-link">network</a> object.</li>
@@ -1645,30 +1863,37 @@
 <div class="section level3">
 <h3 id="import-and-export-0-8-10">Import and export<a class="anchor" aria-label="anchor" href="#import-and-export-0-8-10"></a></h3>
 <ul><li>Replaced xlsx dependency in <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_edgelist()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_nodelist()</a></code> to readxl to avoid Java dependency</li>
-<li>Replaced xlsx dependency in <code><a href="https://stocnet.github.io/manynet/reference/make_write.html" class="external-link">write_edgelist()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/make_write.html" class="external-link">write_nodelist()</a></code> to avoid Java dependency<ul><li>Note that these functions will now export to .csv rather than .xlsx</li></ul></li>
+<li>Replaced xlsx dependency in <code><a href="https://stocnet.github.io/manynet/reference/make_write.html" class="external-link">write_edgelist()</a></code> and <code><a href="https://stocnet.github.io/manynet/reference/make_write.html" class="external-link">write_nodelist()</a></code> to avoid Java dependency
+<ul><li>Note that these functions will now export to .csv rather than .xlsx</li>
+</ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-10">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-10"></a></h3>
 <ul><li>Fixed direction recognition bug in <code><a href="https://stocnet.github.io/manynet/reference/coerce_graph.html" class="external-link">as_network()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/coerce_graph.html" class="external-link">as_igraph()</a></code>, and <code>is_directed()</code>
-</li></ul></div>
+</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.9" id="migraph-089">migraph 0.8.9<a class="anchor" aria-label="anchor" href="#migraph-089"></a></h2>
 <div class="section level3">
 <h3 id="package-0-8-9">Package<a class="anchor" aria-label="anchor" href="#package-0-8-9"></a></h3>
-<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/139" class="external-link">#139</a> by adding vignette on importing and connecting data</li></ul></div>
+<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/139" class="external-link">#139</a> by adding vignette on importing and connecting data</li>
+</ul></div>
 <div class="section level3">
 <h3 id="import-and-export-0-8-9">Import and export<a class="anchor" aria-label="anchor" href="#import-and-export-0-8-9"></a></h3>
-<ul><li>Added <code>read_</code> and <code>write_</code> functions and updated documentation<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/137" class="external-link">#137</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_edgelist()</a></code> for importing edgelists from Excel and csv files</li>
+<ul><li>Added <code>read_</code> and <code>write_</code> functions and updated documentation
+<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/137" class="external-link">#137</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_edgelist()</a></code> for importing edgelists from Excel and csv files</li>
 <li>Closed <a href="https://github.com/stocnet/migraph/issues/170" class="external-link">#170</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/make_read.html" class="external-link">read_pajek()</a></code> for importing .net and .paj files</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/make_write.html" class="external-link">write_edgelist()</a></code>, <code>write_nodelist</code>, <code><a href="https://stocnet.github.io/manynet/reference/make_write.html" class="external-link">write_pajek()</a></code>, and <code><a href="https://stocnet.github.io/manynet/reference/make_write.html" class="external-link">write_ucinet()</a></code> for exporting into various file formats (Excel, csv, Pajek, and UCINET)</li>
 <li>Closed <a href="https://github.com/stocnet/migraph/issues/140" class="external-link">#140</a> by adding links to further data resources</li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-9">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-9"></a></h3>
 <ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/mark_is.html" class="external-link">is_graph()</a></code> to check if an object is a graph or not</li>
 <li>Extended <code><a href="https://stocnet.github.io/manynet/reference/coerce_graph.html" class="external-link">as_network()</a></code> to retain attributes</li>
-<li>Fixed bugs in <code>as_</code> and <code>to_</code> functions<ul><li>Fixed bug in <code>as_</code> functions to convert from dataframes instead of tibbles</li>
+<li>Fixed bugs in <code>as_</code> and <code>to_</code> functions
+<ul><li>Fixed bug in <code>as_</code> functions to convert from dataframes instead of tibbles</li>
 <li>Fixed bug in conversion from network to igraph object in <code><a href="https://stocnet.github.io/manynet/reference/coerce_graph.html" class="external-link">as_igraph()</a></code> function</li>
 <li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/modif_direction.html" class="external-link">to_undirected()</a></code> function to work with network objects</li>
 <li>Fixed bug in <code>to_main_component()</code> function so that it retains vertex attributes in network objects</li>
@@ -1679,14 +1904,17 @@
 <div class="section level3">
 <h3 id="measures-0-8-9">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-9"></a></h3>
 <ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/143" class="external-link">#143</a> by adding nodal summary by cluster function <code>summarise_statistics()</code>
-</li></ul></div>
+</li>
+</ul></div>
 <div class="section level3">
 <h3 id="modelling-0-8-9">Modelling<a class="anchor" aria-label="anchor" href="#modelling-0-8-9"></a></h3>
-<ul><li>Fixed <code><a href="../reference/defunct.html">network_reg()</a></code> example</li></ul></div>
+<ul><li>Fixed <code><a href="../reference/defunct.html">network_reg()</a></code> example</li>
+</ul></div>
 <div class="section level3">
 <h3 id="visualisation-0-8-9">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation-0-8-9"></a></h3>
 <ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/117" class="external-link">#117</a> by updating the node/edge/arrow size limits in <code>autographr()</code>
-</li></ul></div>
+</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.8" id="migraph-088">migraph 0.8.8<a class="anchor" aria-label="anchor" href="#migraph-088"></a></h2>
@@ -1697,7 +1925,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-8-8">Data<a class="anchor" aria-label="anchor" href="#data-0-8-8"></a></h3>
-<ul><li>Added <code>ison_eies</code> dataset for use in practical 7 vignette</li></ul></div>
+<ul><li>Added <code>ison_eies</code> dataset for use in practical 7 vignette</li>
+</ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-8">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-8"></a></h3>
 <ul><li>The <code><a href="https://stocnet.github.io/manynet/reference/coerce_list.html" class="external-link">as_matrix()</a></code> method for networks now works with two-mode and weighted networks</li>
@@ -1715,12 +1944,14 @@
 <div class="section level3">
 <h3 id="measures-0-8-8">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-8"></a></h3>
 <ul><li>Fixed bug where clusters were not being reported in the correct order in <code>graph_blau_index()</code>
-</li></ul></div>
+</li>
+</ul></div>
 <div class="section level3">
 <h3 id="modelling-0-8-8">Modelling<a class="anchor" aria-label="anchor" href="#modelling-0-8-8"></a></h3>
 <ul><li>Fixed one-mode bug with <code>generate_permutation()</code> and thus <code><a href="../reference/tests.html">test_permutation()</a></code>
 </li>
-<li>Renamed <code>netlm()</code> to <code><a href="../reference/defunct.html">network_reg()</a></code> to avoid frustrating conflicts<ul><li>
+<li>Renamed <code>netlm()</code> to <code><a href="../reference/defunct.html">network_reg()</a></code> to avoid frustrating conflicts
+<ul><li>
 <code><a href="../reference/defunct.html">network_reg()</a></code> now accepts migraph-consistent objects</li>
 <li>
 <code><a href="../reference/defunct.html">network_reg()</a></code> now accepts formula terms such as <code>ego()</code>, <code>alter()</code>, and <code>same()</code>
@@ -1744,7 +1975,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-7">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-7"></a></h3>
-<ul><li>Added <code>mutate_edges()</code> for adding new edges as attributes to existing edges in an object</li></ul></div>
+<ul><li>Added <code>mutate_edges()</code> for adding new edges as attributes to existing edges in an object</li>
+</ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-7">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-7"></a></h3>
 <ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/159" class="external-link">#159</a> by fixing bug in <code>graph_blau_index()</code>
@@ -1755,16 +1987,19 @@
 </ul></div>
 <div class="section level3">
 <h3 id="visualisation-0-8-7">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation-0-8-7"></a></h3>
-<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/148" class="external-link">#148</a> and <a href="https://github.com/stocnet/migraph/issues/153" class="external-link">#153</a> by making all <code>autographr()</code> arguments take variable names in quotation marks</li></ul></div>
+<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/148" class="external-link">#148</a> and <a href="https://github.com/stocnet/migraph/issues/153" class="external-link">#153</a> by making all <code>autographr()</code> arguments take variable names in quotation marks</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.6" id="migraph-086">migraph 0.8.6<a class="anchor" aria-label="anchor" href="#migraph-086"></a></h2>
 <div class="section level3">
 <h3 id="package-0-8-6">Package<a class="anchor" aria-label="anchor" href="#package-0-8-6"></a></h3>
-<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/75" class="external-link">#75</a> by updating the README</li></ul></div>
+<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/75" class="external-link">#75</a> by updating the README</li>
+</ul></div>
 <div class="section level3">
 <h3 id="manipulation-0-8-6">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-8-6"></a></h3>
-<ul><li>Added some functions for grabbing key information from objects<ul><li>
+<ul><li>Added some functions for grabbing key information from objects
+<ul><li>
 <code><a href="https://stocnet.github.io/manynet/reference/measure_attributes_nodes.html" class="external-link">node_names()</a></code> for quickly accessing node labels</li>
 <li>
 <code><a href="https://stocnet.github.io/manynet/reference/measure_attributes_nodes.html" class="external-link">node_attribute()</a></code> for quickly accessing a certain nodal attribute</li>
@@ -1778,7 +2013,8 @@
 <code>graph_dimensions()</code> is currently a copy of <code>graph_nodes()</code>
 </li>
 </ul></li>
-<li>Added some functions for adding key information to objects<ul><li>
+<li>Added some functions for adding key information to objects
+<ul><li>
 <code>add_node_attributes()</code> for adding particular nodal attributes</li>
 <li>
 <code>add_edge_attributes()</code> for adding edges from another graph</li>
@@ -1789,17 +2025,20 @@
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-6">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-6"></a></h3>
-<ul><li>Added diversity functions<ul><li>
+<ul><li>Added diversity functions
+<ul><li>
 <code>graph_blau_index()</code> for summarising diversity of an attribute in a network or group</li>
 <li>
 <code>graph_ei_index()</code> for summarising diversity of an attribute over a network’s ties</li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 <div class="section level3">
 <h3 id="modelling-0-8-6">Modelling<a class="anchor" aria-label="anchor" href="#modelling-0-8-6"></a></h3>
 <ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/119" class="external-link">#119</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">node_quad_census()</a></code>, especially useful for two-mode blockmodelling</li>
 <li>Closed <a href="https://github.com/stocnet/migraph/issues/95" class="external-link">#95</a> and <a href="https://github.com/stocnet/migraph/issues/120" class="external-link">#120</a> by adding <code>graph_mixed_census()</code>
 </li>
-<li>Closed <a href="https://github.com/stocnet/migraph/issues/97" class="external-link">#97</a> by adding test functions<ul><li>
+<li>Closed <a href="https://github.com/stocnet/migraph/issues/97" class="external-link">#97</a> by adding test functions
+<ul><li>
 <code><a href="../reference/tests.html">test_random()</a></code> carries out a conditional uniform graph (CUG) test</li>
 <li>
 <code><a href="../reference/tests.html">test_permutation()</a></code> carries out a quadratic assignment procedure (QAP) test</li>
@@ -1825,7 +2064,9 @@
 <h2 class="page-header" data-toc-text="0.8.4" id="migraph-084">migraph 0.8.4<a class="anchor" aria-label="anchor" href="#migraph-084"></a></h2>
 <div class="section level3">
 <h3 id="classes-0-8-4">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-4"></a></h3>
-<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/128" class="external-link">#128</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/coerce_list.html" class="external-link">as_edgelist()</a></code> methods for converting other objects into edgelists<ul><li>Note that this currently returns a tibble</li></ul></li>
+<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/128" class="external-link">#128</a> by adding <code><a href="https://stocnet.github.io/manynet/reference/coerce_list.html" class="external-link">as_edgelist()</a></code> methods for converting other objects into edgelists
+<ul><li>Note that this currently returns a tibble</li>
+</ul></li>
 <li>Using <code><a href="https://stocnet.github.io/manynet/reference/modif_labels.html" class="external-link">to_unnamed()</a></code> on ‘network’ objects now operates on them directly</li>
 <li>Elaborated <code>to_</code> documentation significantly</li>
 <li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/modif_levels.html" class="external-link">to_onemode()</a></code> that was tripping <code>blockmodel()</code> on networks that are already one-mode</li>
@@ -1848,8 +2089,12 @@
 <ul><li>Added <code>graph_dyad_census()</code> for more graph profile options</li>
 <li>Fixed bug with <code>blockmodel_concor()</code> when an object was of class ‘igraph’ but not ‘tbl_graph’</li>
 <li>Fixed bug in how <code>blockmodel()</code> was treating two-mode networks</li>
-<li>Closed <a href="https://github.com/stocnet/migraph/issues/116" class="external-link">#116</a> by offering both <code>"elbow"</code> and <code>"strict"</code> methods for <em>k</em>-identification<ul><li>Fixed bug in elbow method that biased heavily bipartitioned data</li></ul></li>
-<li>Closed <a href="https://github.com/stocnet/migraph/issues/131" class="external-link">#131</a> by refactoring <code>ggidentify_clusters()</code> for speed<ul><li>Takes now roughly half the time (see issue for details)</li></ul></li>
+<li>Closed <a href="https://github.com/stocnet/migraph/issues/116" class="external-link">#116</a> by offering both <code>"elbow"</code> and <code>"strict"</code> methods for <em>k</em>-identification
+<ul><li>Fixed bug in elbow method that biased heavily bipartitioned data</li>
+</ul></li>
+<li>Closed <a href="https://github.com/stocnet/migraph/issues/131" class="external-link">#131</a> by refactoring <code>ggidentify_clusters()</code> for speed
+<ul><li>Takes now roughly half the time (see issue for details)</li>
+</ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="visualization-0-8-4">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-8-4"></a></h3>
@@ -1861,10 +2106,12 @@
 <h2 class="page-header" data-toc-text="0.8.3" id="migraph-083">migraph 0.8.3<a class="anchor" aria-label="anchor" href="#migraph-083"></a></h2>
 <div class="section level3">
 <h3 id="package-0-8-3">Package<a class="anchor" aria-label="anchor" href="#package-0-8-3"></a></h3>
-<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/108" class="external-link">#108</a> by adding cohesion and community vignette</li></ul></div>
+<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/108" class="external-link">#108</a> by adding cohesion and community vignette</li>
+</ul></div>
 <div class="section level3">
 <h3 id="classes-0-8-3">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-3"></a></h3>
-<ul><li>Fixed <a href="https://github.com/stocnet/migraph/issues/122" class="external-link">#122</a> by retaining edge weights from igraph in <code><a href="https://stocnet.github.io/manynet/reference/coerce_list.html" class="external-link">as_matrix()</a></code> where available</li></ul></div>
+<ul><li>Fixed <a href="https://github.com/stocnet/migraph/issues/122" class="external-link">#122</a> by retaining edge weights from igraph in <code><a href="https://stocnet.github.io/manynet/reference/coerce_list.html" class="external-link">as_matrix()</a></code> where available</li>
+</ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-3">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-3"></a></h3>
 <ul><li>Split <code>graph_equivalency()</code> into the same for two-mode networks and <code>graph_congruency()</code>for three-mode (two two-mode) networks</li>
@@ -1884,7 +2131,8 @@
 <div class="section level3">
 <h3 id="visualization-0-8-3">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-8-3"></a></h3>
 <ul><li>Added option to <code>autographr()</code> for plotting convex/concave hulls</li>
-<li>Closed <a href="https://github.com/stocnet/migraph/issues/124" class="external-link">#124</a> by making <code>ggraphgrid()</code> a set of layout functions:<ul><li>
+<li>Closed <a href="https://github.com/stocnet/migraph/issues/124" class="external-link">#124</a> by making <code>ggraphgrid()</code> a set of layout functions:
+<ul><li>
 <code>layout_tbl_graph_frgrid()</code> or <code>autographr(object, "frgrid")</code> for snapping Fruchterman-Reingold to a grid</li>
 <li>
 <code>layout_tbl_graph_kkgrid()</code> or <code>autographr(object, "kkgrid")</code> for snapping Kamada-Kawai to a grid</li>
@@ -1896,13 +2144,15 @@
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-8-3">Data<a class="anchor" aria-label="anchor" href="#data-0-8-3"></a></h3>
-<ul><li>Fixed some <code>ison_m182</code> documentation</li></ul></div>
+<ul><li>Fixed some <code>ison_m182</code> documentation</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.2" id="migraph-082">migraph 0.8.2<small>2021-10-25</small><a class="anchor" aria-label="anchor" href="#migraph-082"></a></h2>
 <div class="section level3">
 <h3 id="package-0-8-2">Package<a class="anchor" aria-label="anchor" href="#package-0-8-2"></a></h3>
-<ul><li>Fixed CRAN package check dependencies bug where ‘knitr’ and ‘rmarkdown’ were listed as Imports without being used in the package</li></ul></div>
+<ul><li>Fixed CRAN package check dependencies bug where ‘knitr’ and ‘rmarkdown’ were listed as Imports without being used in the package</li>
+</ul></div>
 <div class="section level3">
 <h3 id="classes-0-8-2">Classes<a class="anchor" aria-label="anchor" href="#classes-0-8-2"></a></h3>
 <ul><li>Fixed bug where bipartite edge lists were not being recognised as a twomode network by <code><a href="https://stocnet.github.io/manynet/reference/coerce_graph.html" class="external-link">as_igraph()</a></code>
@@ -1911,13 +2161,16 @@
 </ul></div>
 <div class="section level3">
 <h3 id="models-0-8-2">Models<a class="anchor" aria-label="anchor" href="#models-0-8-2"></a></h3>
-<ul><li>Fixed bug where <code>blockmodel()</code> was not retaining node names in all parts of the object structure</li></ul></div>
+<ul><li>Fixed bug where <code>blockmodel()</code> was not retaining node names in all parts of the object structure</li>
+</ul></div>
 <div class="section level3">
 <h3 id="visualization-0-8-2">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-8-2"></a></h3>
-<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/107" class="external-link">#107</a> by choosing better brewer pallette (though note this is not a very deep pallette with only 9 colors)</li></ul></div>
+<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/107" class="external-link">#107</a> by choosing better brewer pallette (though note this is not a very deep pallette with only 9 colors)</li>
+</ul></div>
 <div class="section level3">
 <h3 id="vignettes-0-8-2">Vignettes<a class="anchor" aria-label="anchor" href="#vignettes-0-8-2"></a></h3>
-<ul><li>Expanded on the blockmodelling vignette with more intro, discussion, interpretation clues</li></ul></div>
+<ul><li>Expanded on the blockmodelling vignette with more intro, discussion, interpretation clues</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.1" id="migraph-081">migraph 0.8.1<small>2021-10-22</small><a class="anchor" aria-label="anchor" href="#migraph-081"></a></h2>
@@ -1944,11 +2197,13 @@
 </ul></div>
 <div class="section level3">
 <h3 id="measures-0-8-1">Measures<a class="anchor" aria-label="anchor" href="#measures-0-8-1"></a></h3>
-<ul><li>Refactored <code>graph_balance()</code> to be much faster, following David Schoch’s <a href="https://github.com/schochastics/signnet" class="external-link">signnet</a> package (see that package for further extensions)</li></ul></div>
+<ul><li>Refactored <code>graph_balance()</code> to be much faster, following David Schoch’s <a href="https://github.com/schochastics/signnet" class="external-link">signnet</a> package (see that package for further extensions)</li>
+</ul></div>
 <div class="section level3">
 <h3 id="data-0-8-1">Data<a class="anchor" aria-label="anchor" href="#data-0-8-1"></a></h3>
 <ul><li>Updated the edge ‘sign’ attribute of <code>ison_marvel_relationships</code> to be a double (<code>-1</code>/<code>1</code>) to be compatible with the new <code>graph_balance()</code> and <a href="https://github.com/schochastics/signnet" class="external-link">signnet</a>
-</li></ul></div>
+</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.0" id="migraph-080">migraph 0.8.0<a class="anchor" aria-label="anchor" href="#migraph-080"></a></h2>
@@ -1982,24 +2237,30 @@
 </ul></div>
 <div class="section level3">
 <h3 id="models-0-8-0">Models<a class="anchor" aria-label="anchor" href="#models-0-8-0"></a></h3>
-<ul><li>Added <code>blockmodel()</code> which masks its <a href="https://statnet.org" class="external-link">sna</a> namesake but has the advantages of working with two-mode networks and retaining node names where available<ul><li>Added <code>cluster_structural_equivalence()</code> and <code>cluster_regular_equivalence()</code> as bases for blockmodelling</li>
+<ul><li>Added <code>blockmodel()</code> which masks its <a href="https://statnet.org" class="external-link">sna</a> namesake but has the advantages of working with two-mode networks and retaining node names where available
+<ul><li>Added <code>cluster_structural_equivalence()</code> and <code>cluster_regular_equivalence()</code> as bases for blockmodelling</li>
 <li>Added <code>reduce_graph()</code> for creating a network from a blockmodel</li>
 </ul></li>
 <li>Added first vignette on structural holes, structural equivalence and regular equivalence blockmodelling</li>
 </ul></div>
 <div class="section level3">
 <h3 id="visualization-0-8-0">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-8-0"></a></h3>
-<ul><li>Added <code>autographr()</code> for plotting graphs with sensible defaults<ul><li>Uses a more contrastive discrete palette when some nodal attribute is given</li>
+<ul><li>Added <code>autographr()</code> for plotting graphs with sensible defaults
+<ul><li>Uses a more contrastive discrete palette when some nodal attribute is given</li>
 <li>Uses an alpha for edges, and edges will now be sized by edge weight, where available</li>
 <li>Uses node labels, sans borders, where available</li>
 <li>Uses different shaped nodes, and different fonts, for different node sets</li>
 <li>Removed <code>ggraphlabel()</code> since core functionality now provided by autographr</li>
 </ul></li>
 <li>Added ability for <code>ggidentify()</code> to identify the node with the highest value of a specified node-level measure</li>
-<li>Added a couple of more specific visualization functions<ul><li>Added <code>ggatyear()</code> for subsetting and plotting edgelists at year</li>
-<li>Updated <code>gglineage()</code> to return a graph colored according to lineage<ul><li>Added tick marks</li></ul></li>
+<li>Added a couple of more specific visualization functions
+<ul><li>Added <code>ggatyear()</code> for subsetting and plotting edgelists at year</li>
+<li>Updated <code>gglineage()</code> to return a graph colored according to lineage
+<ul><li>Added tick marks</li>
 </ul></li>
-<li>Added several more specific functions for diagnosing and visualising blockmodels<ul><li>Added <code>ggtree()</code> for neatly visualising hierarchical clusters</li>
+</ul></li>
+<li>Added several more specific functions for diagnosing and visualising blockmodels
+<ul><li>Added <code>ggtree()</code> for neatly visualising hierarchical clusters</li>
 <li>Added <code>ggidentify_clusters()</code> for identifying which number of clusters is most appropriate following the elbow method</li>
 </ul></li>
 <li>Fixed bug related to <code><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html" class="external-link">ggraph::theme_graph()</a></code> present in a few different visualisation functions</li>
@@ -2030,7 +2291,8 @@
 <h2 class="page-header" data-toc-text="0.7.1" id="migraph-071">migraph 0.7.1<small>2021-09-25</small><a class="anchor" aria-label="anchor" href="#migraph-071"></a></h2>
 <div class="section level3">
 <h3 id="classes-0-7-1">Classes<a class="anchor" aria-label="anchor" href="#classes-0-7-1"></a></h3>
-<ul><li>Fixed Unicode char bug in coercion documentation</li></ul></div>
+<ul><li>Fixed Unicode char bug in coercion documentation</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.7.0" id="migraph-070">migraph 0.7.0<a class="anchor" aria-label="anchor" href="#migraph-070"></a></h2>
@@ -2042,7 +2304,8 @@
 <li>Fixed bug with <code><a href="https://stocnet.github.io/manynet/reference/coerce_list.html" class="external-link">as_matrix()</a></code> weighting</li>
 <li>Fixed bug with <code><a href="https://stocnet.github.io/manynet/reference/coerce_graph.html" class="external-link">as_tidygraph()</a></code>
 </li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 <div class="section level3">
 <h3 id="visualisation-0-7-0">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation-0-7-0"></a></h3>
 <ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/92" class="external-link">#92</a> by adding <code>gglineage()</code> for graphing a citation network through time</li>
@@ -2052,7 +2315,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="analysis-0-7-0">Analysis<a class="anchor" aria-label="anchor" href="#analysis-0-7-0"></a></h3>
-<ul><li>Added tidygraph lookups to <code>node_</code> functions</li></ul></div>
+<ul><li>Added tidygraph lookups to <code>node_</code> functions</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.6" id="migraph-066">migraph 0.6.6<small>2021-05-13</small><a class="anchor" aria-label="anchor" href="#migraph-066"></a></h2>
@@ -2062,14 +2326,16 @@
 <p>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/coerce_list.html" class="external-link">as_matrix()</a></code> with frame matrix by dropping (rarely necessary) functionality</p>
 <ul><li>Improved handling of weights column in three-column edgelists</li>
 <li>Improved documentation of <code>as_</code> functions</li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 <div class="section level3">
 <h3 id="visualisation-0-6-6">Visualisation<a class="anchor" aria-label="anchor" href="#visualisation-0-6-6"></a></h3>
 <ul><li>
 <p>Fixed bugs in <code>plot_releases()</code> with more graceful handling of http errors</p>
 <ul><li>Added online condition to example in documentation</li>
 <li>Specified encoding for more silent operation</li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.5" id="migraph-065">migraph 0.6.5<small>2021-05-10</small><a class="anchor" aria-label="anchor" href="#migraph-065"></a></h2>
@@ -2090,7 +2356,8 @@
 <h2 class="page-header" data-toc-text="0.6.4" id="migraph-064">migraph 0.6.4<a class="anchor" aria-label="anchor" href="#migraph-064"></a></h2>
 <div class="section level3">
 <h3 id="package-0-6-4">Package<a class="anchor" aria-label="anchor" href="#package-0-6-4"></a></h3>
-<ul><li>Extended R version dependence back to 3.6.*</li></ul></div>
+<ul><li>Extended R version dependence back to 3.6.*</li>
+</ul></div>
 <div class="section level3">
 <h3 id="classes-0-6-4">Classes<a class="anchor" aria-label="anchor" href="#classes-0-6-4"></a></h3>
 <ul><li>Added <code>binarise()</code> for unweighting networks</li>
@@ -2154,7 +2421,8 @@
 <div class="section level3">
 <h3 id="models-0-6-3">Models<a class="anchor" aria-label="anchor" href="#models-0-6-3"></a></h3>
 <ul><li>Added test for <code>print.blockmodel()</code>
-</li></ul></div>
+</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.2" id="migraph-062">migraph 0.6.2<small>2021-04-15</small><a class="anchor" aria-label="anchor" href="#migraph-062"></a></h2>
@@ -2192,17 +2460,21 @@
 <h3 id="data-0-6-0">Data<a class="anchor" aria-label="anchor" href="#data-0-6-0"></a></h3>
 <ul><li>
 <p>Elaborated documentation for the remainder of the datasets</p>
-<ul><li>Now all datasets in this package are titled with whether they are one-mode, two-mode, or three-mode</li></ul></li></ul></div>
+<ul><li>Now all datasets in this package are titled with whether they are one-mode, two-mode, or three-mode</li>
+</ul></li>
+</ul></div>
 <div class="section level3">
 <h3 id="measures-0-6-0">Measures<a class="anchor" aria-label="anchor" href="#measures-0-6-0"></a></h3>
-<ul><li>Fixed bug in <code>graph_degree()</code> where data was hard-coded in</li></ul></div>
+<ul><li>Fixed bug in <code>graph_degree()</code> where data was hard-coded in</li>
+</ul></div>
 <div class="section level3">
 <h3 id="models-0-6-0">Models<a class="anchor" aria-label="anchor" href="#models-0-6-0"></a></h3>
 <ul><li>
 <p>Closed <a href="https://github.com/stocnet/migraph/issues/18" class="external-link">#18</a> by adding <code>blockmodel_concor()</code> for employing the CONCOR algorithm to blockmodel both one-mode and two-mode networks</p>
 <ul><li>Added a new print method for “blockmodel”-class objects based on the <code>print.blockmodel()</code> method in the <a href="https://statnet.org" class="external-link">sna</a> package that also prints blockmodel results for two-mode networks consistently</li>
 <li>Added a new plot method for “blockmodel”-class objects that leverages <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a> for pretty plotting and that better inherits names from the underlying object</li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.0" id="migraph-050">migraph 0.5.0<a class="anchor" aria-label="anchor" href="#migraph-050"></a></h2>
@@ -2290,10 +2562,12 @@
 <p>Re-added <code>netlm()</code> for performing linear regression for multimodal network data</p>
 <ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/76" class="external-link">#76</a> by changing <code>netlm()</code> to accept a formula-based input</li>
 <li>Closed <a href="https://github.com/stocnet/migraph/issues/77" class="external-link">#77</a> by adding <code>print.summary.netlm()</code> for <code>netlm()</code> regressions</li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 <div class="section level3">
 <h3 id="visualization-0-5-0">Visualization<a class="anchor" aria-label="anchor" href="#visualization-0-5-0"></a></h3>
-<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/82" class="external-link">#82</a> by re-adding a version <code>plot.igraph()</code> with sensible defaults for two-mode networks</li></ul></div>
+<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/82" class="external-link">#82</a> by re-adding a version <code>plot.igraph()</code> with sensible defaults for two-mode networks</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.1" id="migraph-041">migraph 0.4.1<a class="anchor" aria-label="anchor" href="#migraph-041"></a></h2>
@@ -2306,7 +2580,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-4-1">Data<a class="anchor" aria-label="anchor" href="#data-0-4-1"></a></h3>
-<ul><li>Updated mpn_ data source references</li></ul></div>
+<ul><li>Updated mpn_ data source references</li>
+</ul></div>
 <div class="section level3">
 <h3 id="analysis-0-4-1">Analysis<a class="anchor" aria-label="anchor" href="#analysis-0-4-1"></a></h3>
 <ul><li>
@@ -2317,7 +2592,8 @@
 </li>
 <li>Added <code>centrality_betweenness()</code>
 </li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.0" id="migraph-040">migraph 0.4.0<a class="anchor" aria-label="anchor" href="#migraph-040"></a></h2>
@@ -2326,7 +2602,8 @@
 <h3 id="package-0-4-0">Package<a class="anchor" aria-label="anchor" href="#package-0-4-0"></a></h3>
 <ul><li>
 <p>Package name change from roctopus to <a href="https://stocnet.github.io/migraph/">migraph</a></p>
-<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/50" class="external-link">#50</a> with new logo</li></ul></li>
+<ul><li>Closed <a href="https://github.com/stocnet/migraph/issues/50" class="external-link">#50</a> with new logo</li>
+</ul></li>
 <li><p>Now builds Linux binary too</p></li>
 </ul></div>
 <div class="section level3">
@@ -2337,7 +2614,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="data-0-4-0">Data<a class="anchor" aria-label="anchor" href="#data-0-4-0"></a></h3>
-<ul><li>Renamed data related to the book “Multimodal Political Networks” with “mpn_” prefix</li></ul></div>
+<ul><li>Renamed data related to the book “Multimodal Political Networks” with “mpn_” prefix</li>
+</ul></div>
 </div>
   </div>
 
@@ -2353,7 +2631,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer></div>
