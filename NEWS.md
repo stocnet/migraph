@@ -1,3 +1,14 @@
+# migraph 1.6.8
+
+2026-07-31
+
+## Models
+
+- Substantially accelerated `net_regression()` (by about 35x), resolving the CRAN NOTE about the running time of the `predict()` examples
+  - Permutations now operate directly on the matrices rather than coercing to and from a network object each time, deferring to `manynet::to_permuted()` again once manynet gains a method for matrix input
+  - Vectorising the matrix list for each fit now uses base operations rather than constructing a data frame
+  - Results are unchanged: for a given seed, the same permutations are drawn and the same coefficients, test statistics, and p-values are returned
+
 # migraph 1.6.7
 
 2026-07-31

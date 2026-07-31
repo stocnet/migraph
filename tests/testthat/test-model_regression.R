@@ -40,9 +40,46 @@ test_that("glance works correctly for network_reg",{
 })
 
 test_that("multivariate QAP works",{
-  expect_s3_class(net_regression(weight ~ ego(Citations) + alter(Citations) + sim(Citations), 
+  expect_s3_class(net_regression(weight ~ ego(Citations) + alter(Citations) + sim(Citations),
                                 networkers, times = 10),
                  "netlm")
+})
+
+test_that("permutation shortcut matches manynet::to_permuted()",{
+  # Tests the shortcut directly rather than via `permute_matrix()`, so that it
+  # keeps guarding the equivalence once the version check defers to manynet
+  onemode <- matrix(rpois(36, 3), 6, 6)
+  labelled <- matrix(rbinom(36, 1, 0.4), 6, 6,
+                     dimnames = list(LETTERS[1:6], LETTERS[1:6]))
+  twomode <- matrix(rbinom(24, 1, 0.4), 6, 4)
+  for(m in list(onemode, labelled, twomode)){
+    set.seed(7)
+    expected <- manynet::to_permuted(m, with_attr = FALSE)
+    set.seed(7)
+    expect_equal(permute_matrix_directly(m), expected, ignore_attr = FALSE)
+  }
+})
+
+test_that("permutation defers to manynet once it has a matrix method",{
+  expect_type(manynet_permutes_matrices(), "logical")
+  expect_equal(manynet_permutes_matrices(),
+               !is.null(utils::getS3method("to_permuted", "matrix",
+                                           optional = TRUE)))
+  # The cache is what `permute_matrix()` actually branches on, so check both
+  # branches rather than only the one the installed manynet happens to select
+  cached <- environment(manynet_permutes_matrices)
+  on.exit(assign("delegate", NA, envir = cached), add = TRUE)
+  m <- matrix(rpois(36, 3), 6, 6)
+
+  assign("delegate", TRUE, envir = cached)
+  set.seed(7); delegated <- permute_matrix(m)
+  set.seed(7); expect_equal(delegated,
+                            manynet::to_permuted(m, with_attr = FALSE),
+                            ignore_attr = FALSE)
+
+  assign("delegate", FALSE, envir = cached)
+  set.seed(7); shortcut <- permute_matrix(m)
+  set.seed(7); expect_equal(shortcut, permute_matrix_directly(m))
 })
 
 # test_that("specification advice appears",{

@@ -11,8 +11,9 @@ NULL
 #' @method predict netlm
 #' @examples
 #' networkers <- ison_networkers %>% to_subgraph(Discipline == "Sociology")
-#' model1 <- net_regression(weight ~ ego(Citations) + alter(Citations) + sim(Citations), 
+#' model1 <- net_regression(weight ~ ego(Citations) + alter(Citations) + sim(Citations),
 #'                       networkers, times = 20)
+#' # Should be run many more `times` for publication-ready results
 #' predict(model1, matrix(c(1,10,5,2),1,4))
 #' @export
 predict.netlm <- function(object, newdata = NULL, ...) {
@@ -45,8 +46,9 @@ predict.netlm <- function(object, newdata = NULL, ...) {
 #' @examples
 #' networkers <- ison_networkers %>% to_subgraph(Discipline == "Sociology") %>% 
 #'   to_unweighted()
-#' model1 <- net_regression(. ~ ego(Citations) + alter(Citations) + sim(Citations), 
+#' model1 <- net_regression(. ~ ego(Citations) + alter(Citations) + sim(Citations),
 #'                       networkers, times = 20)
+#' # Should be run many more `times` for publication-ready results
 #' predict(model1, matrix(c(1,10,5,2),1,4))
 #' @export
 predict.netlogit <- function(object, newdata = NULL, type = c("link", "response"), ...) {

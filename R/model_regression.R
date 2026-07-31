@@ -68,7 +68,7 @@
 #' @param verbose Whether the function should report on its progress.
 #'   By default FALSE.
 #'   See [`{progressr}`](https://progressr.futureverse.org) for more.
-#' @importFrom dplyr bind_cols left_join
+#' @importFrom dplyr left_join
 #' @importFrom purrr flatten
 #' @importFrom future plan
 #' @importFrom furrr future_map_dfr furrr_options
@@ -171,14 +171,14 @@ net_regression <- function(formula, .data,
   on.exit(future::plan(oplan), add = TRUE)
     if(valued){
       repdist <- furrr::future_map_dfr(1:times, function(j){
-        nlmfit(c(list(manynet::to_permuted(g[[1]], with_attr = FALSE)),
+        nlmfit(c(list(permute_matrix(g[[1]])),
                  g[2:(nx+1)]),
                directed = directed, diag = diag,
                rety = FALSE)
       }, .progress = verbose, .options = furrr::furrr_options(seed = T))
     } else {
       repdist <- furrr::future_map_dfr(1:times, function(j){
-        repfit <- nlgfit(c(list(manynet::to_permuted(g[[1]], with_attr = FALSE)),
+        repfit <- nlgfit(c(list(permute_matrix(g[[1]])),
                            g[2:(nx+1)]),
                          directed = directed, diag = diag)
         repfit$coef/sqrt(diag(chol2inv(repfit$qr$qr)))
@@ -207,14 +207,14 @@ net_regression <- function(formula, .data,
       if(valued){
         repdist[,i] <- furrr::future_map_dbl(1:times, function(j){
           nlmfit(c(g[-(1 + i)],
-                   list(manynet::to_permuted(xres, with_attr = FALSE))),
+                   list(permute_matrix(xres))),
                  directed = directed, diag = diag,
                  rety = FALSE)[nx]
         }, .progress = verbose, .options = furrr::furrr_options(seed = T))
       } else {
         repdist[,i] <- furrr::future_map_dbl(1:times, function(j){
           repfit <- nlgfit(c(g[-(1 + i)],
-                             list(manynet::to_permuted(xres, with_attr = FALSE))),
+                             list(permute_matrix(xres))),
                            directed = directed, diag = diag)
           repfit$coef[nx]/sqrt(diag(chol2inv(repfit$qr$qr)))[nx]
         }, .progress = verbose, .options = furrr::furrr_options(seed = T))
@@ -283,9 +283,47 @@ vectorise_list <- function(glist, simplex, directed){
     diag(glist[[1]]) <- NA
   if(!directed)
     glist[[1]][upper.tri(glist[[1]])] <- NA
-  suppressMessages(stats::na.omit(dplyr::bind_cols(furrr::future_map(glist, 
-                                                       function(x) c(x)))))
+  # Assembled with base operations rather than a data frame because this is
+  # called once per permutation, so per-call overhead dominates the QR itself
+  out <- matrix(unlist(lapply(glist, as.vector), use.names = FALSE),
+                ncol = length(glist),
+                dimnames = list(NULL, names(glist)))
+  out[stats::complete.cases(out), , drop = FALSE]
 }
+
+# Permutes a matrix as `manynet::to_permuted()` would, but without the
+# round-trip coercion to a network object, which dominates the permutation
+# loops below. Rows and columns are permuted together for one-mode networks
+# and independently for two-mode ones; labels stay put while values move.
+# Once manynet gains a `to_permuted()` method for matrix input this shortcut
+# is redundant, and we defer to it again.
+permute_matrix <- function(m){
+  if(manynet_permutes_matrices())
+    manynet::to_permuted(m, with_attr = FALSE)
+  else permute_matrix_directly(m)
+}
+
+permute_matrix_directly <- function(m){
+  rows <- sample(seq_len(dim(m)[1]))
+  cols <- if(manynet::is_twomode(m)) sample(seq_len(dim(m)[2])) else rows
+  matrix(m[rows, cols], nrow = dim(m)[1], ncol = dim(m)[2],
+         dimnames = if(manynet::is_labelled(m)) dimnames(m) else NULL)
+}
+
+# Detects the matrix method rather than a manynet version, so that a release
+# without it keeps the shortcut instead of silently reverting to the slow
+# coercion path. Cached because `permute_matrix()` is called once per
+# permutation, and looking the method up each time would reintroduce the
+# per-call overhead the shortcut exists to avoid.
+manynet_permutes_matrices <- local({
+  delegate <- NA
+  function(){
+    if(is.na(delegate))
+      delegate <<- !is.null(utils::getS3method("to_permuted", "matrix",
+                                               optional = TRUE))
+    delegate
+  }
+})
 
 convertToMatrixList <- function(formula, .data){
   data <- manynet::as_tidygraph(.data)
