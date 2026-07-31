@@ -75,8 +75,8 @@ of the original network.
 }
 }
 \examples{
-marvel_friends <- fict_marvel \%>\% to_uniplex("relationship") \%>\% 
-  to_unsigned() \%>\% to_giant() \%>\% 
+marvel_friends <- fict_marvel |> to_uniplex("relationship") |> 
+  to_unsigned() |> to_giant() |> 
   to_subgraph(PowerOrigin == "Human")
 (cugtest <- test_random(marvel_friends, net_by_heterophily, attribute = "Attractive",
    times = 200))

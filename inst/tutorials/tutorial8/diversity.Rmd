@@ -52,7 +52,7 @@ learnr::random_phrases_add(language = "en",
                            encouragement = "Bon effort")
 marvel_friends <- to_unsigned(to_uniplex(fict_marvel, "relationship"), keep = "positive")
 marvel_friends <- to_giant(marvel_friends)
-marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances))
+marvel_friends <- marvel_friends |> to_subgraph(Appearances >= mean(Appearances))
 ```
 
 ## This tutorial
@@ -113,7 +113,7 @@ to_subgraph(____, Appearances >= mean(Appearances))
 ```{r friends-hint-5, purl = FALSE}
 marvel_friends <- to_unsigned(ison_marvel_relationships, keep = "positive")
 marvel_friends <- to_giant(marvel_friends)
-marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances))
+marvel_friends <- marvel_friends |> to_subgraph(Appearances >= mean(Appearances))
 marvel_friends
 ```
 
@@ -121,7 +121,7 @@ marvel_friends
 marvel_friends <- to_uniplex(fict_marvel, "relationship")
 marvel_friends <- to_unsigned(marvel_friends, keep = "positive")
 marvel_friends <- to_giant(marvel_friends)
-marvel_friends <- marvel_friends %>% to_subgraph(Appearances >= mean(Appearances))
+marvel_friends <- marvel_friends |> to_subgraph(Appearances >= mean(Appearances))
 marvel_friends
 ```
 

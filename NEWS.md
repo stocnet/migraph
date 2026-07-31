@@ -1,3 +1,21 @@
+# migraph 1.6.8
+
+2026-07-31
+
+## Package
+
+- Replaced all remaining uses of the magrittr pipe `%>%` with the native pipe `|>`, in package code, tests, examples, and tutorials
+  - This fixes the `predict()`, `net_regression()`, and `test_*()` examples, which still called `%>%` after the re-export was removed in 1.6.3 and so were relying on `{dplyr}` being attached
+  - `%>%` is no longer imported from `{dplyr}`
+  - The pipes section of tutorial0 now teaches `|>` only, noting `%>%` as something readers may encounter in older code
+
+## Models
+
+- Substantially accelerated `net_regression()` (by about 35x), resolving the CRAN NOTE about the running time of the `predict()` examples
+  - Permutations now operate directly on the matrices rather than coercing to and from a network object each time, deferring to `manynet::to_permuted()` again once manynet gains a method for matrix input
+  - Vectorising the matrix list for each fit now uses base operations rather than constructing a data frame
+  - Results are unchanged: for a given seed, the same permutations are drawn and the same coefficients, test statistics, and p-values are returned
+
 # migraph 1.6.7
 
 2026-07-31

@@ -14,7 +14,7 @@
 #'   saving the .R script to the current working directory.
 #'   
 #' @param tute String, name of the tutorial (e.g. "tutorial2").
-#' @importFrom dplyr %>% as_tibble select tibble
+#' @importFrom dplyr as_tibble select tibble
 #' @name tutorials
 NULL
 
@@ -31,10 +31,10 @@ run_tute <- function(tute) {
                                                name = "Checking tutorials in stocnet packages"), 
                        function(p){
                          dplyr::as_tibble(learnr::available_tutorials(package = avail_pkgs[p]),
-                                          silent = TRUE) %>% dplyr::select(1:3)
+                                          silent = TRUE) |> dplyr::select(1:3)
                        })
-    dplyr::bind_rows(tutelist) %>% 
-      dplyr::arrange(dplyr::across(dplyr::any_of("name"))) %>% 
+    dplyr::bind_rows(tutelist) |> 
+      dplyr::arrange(dplyr::across(dplyr::any_of("name"))) |> 
       print()
     manynet::snet_info("You can run a tutorial by typing e.g `run_tute('tutorial1')` or `run_tute('Data')` into the console.")
   } else {
@@ -46,7 +46,7 @@ run_tute <- function(tute) {
     tutelist <- lapply(manynet::snet_progress_along(avail_pkgs, 
                                                name = "Checking tutorials in stocnet packages"), function(p){
                                                  dplyr::as_tibble(learnr::available_tutorials(package = avail_pkgs[p]),
-                                                                  silent = TRUE) %>% dplyr::select(1:3)
+                                                                  silent = TRUE) |> dplyr::select(1:3)
                                                })
     avails <- dplyr::bind_rows(tutelist)
     inftit <- grepl(tute, avails$title, ignore.case = TRUE)
@@ -72,10 +72,10 @@ extract_tute <- function(tute) {
     tutelist <- lapply(manynet::snet_progress_along(avail_pkgs, 
                                                name = "Checking tutorials in stocnet packages"), function(p){
                                                  dplyr::as_tibble(learnr::available_tutorials(package = avail_pkgs[p]),
-                                                                  silent = TRUE) %>% dplyr::select(1:3)
+                                                                  silent = TRUE) |> dplyr::select(1:3)
                                                })
-    dplyr::bind_rows(tutelist) %>% 
-      dplyr::arrange(dplyr::across(dplyr::any_of("name"))) %>% 
+    dplyr::bind_rows(tutelist) |> 
+      dplyr::arrange(dplyr::across(dplyr::any_of("name"))) |> 
       print()
     manynet::snet_info("You can extract the code from one of these tutorials by typing e.g `extract_tute('tutorial1')` into the console.")
   } else {

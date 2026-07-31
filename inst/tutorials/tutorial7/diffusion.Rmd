@@ -331,7 +331,7 @@ but different races have different resistances (i.e. thresholds).
 Let us say that there is a clear ordering to this.
 
 ```{r lotr-resist, exercise=TRUE, fig.width=9}
-lotr_resist <- fict_lotr %>% mutate(resistance = dplyr::case_when(Race == "Dwarf" ~ 2,
+lotr_resist <- fict_lotr |> mutate(resistance = dplyr::case_when(Race == "Dwarf" ~ 2,
                                                    Race == "Elf" ~ 4,
                                                    Race == "Ent" ~ 5,
                                                    Race == "Hobbit" ~ 3,
@@ -452,8 +452,8 @@ one with the first node as seed and again one on the middle.
 ```{r lattice-solution}
 plot(play_diffusion(lat, seeds = 1))
 plot(play_diffusion(lat, seeds = 16))
-lat %>%
-  add_node_attribute("color", c(1, rep(0, 14), 2, rep(0, 16))) %>%
+lat |>
+  add_node_attribute("color", c(1, rep(0, 14), 2, rep(0, 16))) |>
   graphr(node_color = "color")
 
 # visualise diffusion in lattice graph
@@ -481,10 +481,10 @@ We could use these on degree centrality, or perhaps some other kind of centralit
 
 ```{r sf, exercise=TRUE, fig.width=9}
 sf <- generate_scalefree(32, 0.025)
-sf %>%
-  as_tidygraph() %>%
+sf |>
+  as_tidygraph() |>
   mutate(degree = ifelse(node_is_max(node_by_degree(sf)) == TRUE, "max",
-                      ifelse(node_is_min(node_by_degree(sf)) == TRUE, "min", "others"))) %>%
+                      ifelse(node_is_min(node_by_degree(sf)) == TRUE, "min", "others"))) |>
   graphr(node_color = "degree") + guides(color = "legend")
 ```
 
@@ -525,7 +525,7 @@ Many of them are implemented here and might be considered as strategies:
 - `node_is_mentor()` identifies high indegree nodes as mentors
 
 ```{r indepsets, exercise = TRUE, exercise.setup="sf", fig.width=9}
-sf %>% mutate_nodes(ni = node_is_independent()) %>% graphr(node_color = "ni")
+sf |> mutate_nodes(ni = node_is_independent()) |> graphr(node_color = "ni")
 plot(play_diffusion(sf, seeds = node_is_independent(sf), steps = 10))
 ```
 
@@ -920,14 +920,14 @@ Then play the learning model with these beliefs, and plot the result.
 
 ```{r degroot-hint, purl = FALSE}
 beliefs <- rbinom(net_nodes(____), 1, prob = 0.25)
-____ %>% mutate(____ = beliefs) %>% graphr(node_color = "____")
+____ |> mutate(____ = beliefs) |> graphr(node_color = "____")
 netlearn <- play_learning(____, ____)
 plot(____)
 ```
 
 ```{r degroot-solution}
 beliefs <- rbinom(net_nodes(ison_networkers), 1, prob = 0.25)
-ison_networkers %>% mutate(beliefs = beliefs) %>% graphr(node_color = "beliefs")
+ison_networkers |> mutate(beliefs = beliefs) |> graphr(node_color = "beliefs")
 (netlearn <- play_learning(ison_networkers, beliefs))
 plot(netlearn)
 ```
@@ -969,12 +969,12 @@ Which are the highest eigenvector centrality nodes in this network?
 
 ```{r eigen-hint}
 node_by_eigenvector(ison_networkers)
-ison_networkers %>% 
-  mutate(who_to_convince = node_is_max(node_by_eigenvector(ison_networkers))) %>% 
+ison_networkers |> 
+  mutate(who_to_convince = node_is_max(node_by_eigenvector(ison_networkers))) |> 
   graphr(node_color = who_to_convince)
 beliefs2 <- rep(0, net_nodes(ison_networkers))
 beliefs2[node_is_max(node_by_eigenvector(ison_networkers))] <- 1
-ison_networkers %>% mutate(beliefs = beliefs2) %>% graphr(node_color = "beliefs")
+ison_networkers |> mutate(beliefs = beliefs2) |> graphr(node_color = "beliefs")
 (netlearn2 <- play_learning(ison_networkers, beliefs2))
 plot(netlearn2)
 ```
