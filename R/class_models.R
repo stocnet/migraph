@@ -63,8 +63,8 @@ tidy.ergm <- function(
   # in ergm 3.10 summary(x, ...)$coefs has columns:
   #   Estimate, Std. Error, MCMC %, z value, Pr(>|Z|)
   
-  ret <- summary(x, ...)$coefficients %>%
-    dplyr::as_tibble(rownames = "term") %>%
+  ret <- summary(x, ...)$coefficients |>
+    dplyr::as_tibble(rownames = "term") |>
     rename2(
       term = "term",
       estimate = "Estimate",
@@ -305,10 +305,10 @@ rename2 <- function(.data, ...) {
 }
 
 exponentiate <- function(data, col = "estimate") {
-  data <- data %>% dplyr::mutate(dplyr::across(dplyr::all_of(col), exp))
+  data <- data |> dplyr::mutate(dplyr::across(dplyr::all_of(col), exp))
   
   if ("conf.low" %in% colnames(data)) {
-    data <- data %>% dplyr::mutate(dplyr::across(c(conf.low, conf.high), exp))
+    data <- data |> dplyr::mutate(dplyr::across(c(conf.low, conf.high), exp))
   }
   
   data

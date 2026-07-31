@@ -1,5 +1,5 @@
 set.seed(123)
-networkers <- manynet::ison_networkers %>% manynet::to_subgraph(Discipline == "Sociology")
+networkers <- manynet::ison_networkers |> manynet::to_subgraph(Discipline == "Sociology")
 netsenders <- manynet::to_unweighted(networkers)
 
 test <- net_regression(weight ~ ego(Citations),

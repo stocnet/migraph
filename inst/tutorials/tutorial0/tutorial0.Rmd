@@ -384,7 +384,7 @@ It is good practice to be explicit whereever possible though to avoid unexpected
 ### Pipes
 
 When working with multiple functions on the same object,
-we can use pipe operators `%>%` or `|>` to chain consecutive functions
+we can use the pipe operator `|>` to chain consecutive functions
 and avoid nesting multiple functions in the code.
 Pipes take the result of the code on the left of the pipe operator
 and uses it in whatever function is on the right or next line of the pipe operator.
@@ -396,19 +396,13 @@ example.vector <- c(1, 5, 8, 7, 6, 4, 22, 1, 0.9)
 pipe.result.1 <- example.vector |>
   mean()
 pipe.result.1
-
-# library(dplyr)
-# pipe.result.2 <- example.vector %>%
-  # mean()
-# both pipe operators give the same result 
-# pipe.result.1 == pipe.result.2
 ```
 
-While `|>`is the native pipe operator since R v4.0.0,
-those using earlier versions of R may wish to use `%>%` 
-from either the `{magrittr}` or `{dplyr}` packages.
-Note that in that case, the package would need to be loaded first
-before you can use the operator.
+`|>` is R's native pipe operator, available since R v4.1.0.
+You may still come across `%>%` in older code and tutorials,
+which does much the same thing but comes
+from either the `{magrittr}` or `{dplyr}` packages,
+and so requires that package to be loaded first.
 
 ## Tasks
 

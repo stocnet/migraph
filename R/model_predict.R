@@ -10,7 +10,7 @@ NULL
 #' @rdname predict
 #' @method predict netlm
 #' @examples
-#' networkers <- ison_networkers %>% to_subgraph(Discipline == "Sociology")
+#' networkers <- ison_networkers |> to_subgraph(Discipline == "Sociology")
 #' model1 <- net_regression(weight ~ ego(Citations) + alter(Citations) + sim(Citations),
 #'                       networkers, times = 20)
 #' # Should be run many more `times` for publication-ready results
@@ -44,7 +44,7 @@ predict.netlm <- function(object, newdata = NULL, ...) {
 #'   (default, whether the returned predictions are on the probability scale) 
 #'   or "link" (returned predictions are on the scale of the linear predictor).
 #' @examples
-#' networkers <- ison_networkers %>% to_subgraph(Discipline == "Sociology") %>% 
+#' networkers <- ison_networkers |> to_subgraph(Discipline == "Sociology") |> 
 #'   to_unweighted()
 #' model1 <- net_regression(. ~ ego(Citations) + alter(Citations) + sim(Citations),
 #'                       networkers, times = 20)

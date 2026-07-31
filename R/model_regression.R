@@ -85,7 +85,7 @@
 #'   \doi{10.1007/s11336-007-9016-1}.
 #'   
 #' @examples
-#' networkers <- ison_networkers %>% to_subgraph(Discipline == "Sociology")
+#' networkers <- ison_networkers |> to_subgraph(Discipline == "Sociology")
 #' model1 <- net_regression(weight ~ ego(Citations) + alter(Citations) + sim(Citations), 
 #'                       networkers, times = 20)
 #' # Should be run many more `times` for publication-ready results

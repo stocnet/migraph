@@ -59,7 +59,7 @@ test_fit <- function(diff_model, diff_models){ # make into method?
   x <- diff_model
   if(manynet::is_graph(x)) x <- manynet::as_diffusion(x)
   y <- diff_models
-  sims <- y %>% dplyr::select(sim, t, I)
+  sims <- y |> dplyr::select(sim, t, I)
   if(max(x$t) < max(sims$t)){
     x <- dplyr::mutate(x, t = as.integer(t), S = as.integer(S), I = as.integer(I)) |> 
       dplyr::select(t, S, I)

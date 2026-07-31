@@ -1,6 +1,6 @@
 make_network_measures <- function(out, .data) {
-  out <- dplyr::as_tibble(out) %>% 
-    dplyr::mutate(time = as.numeric(names(out))) %>% 
+  out <- dplyr::as_tibble(out) |> 
+    dplyr::mutate(time = as.numeric(names(out))) |> 
     dplyr::select(time, value)
   class(out) <- c("network_measures", class(out))
   attr(out, "mode") <- manynet::net_dims(.data)
@@ -15,8 +15,8 @@ make_diffs_model <- function(report, .data) {
 
 #' @export
 summary.diffs_model <- function(object, ...) {
-  object %>% dplyr::mutate(fin = (I!=n)*1) %>% 
-    dplyr::group_by(sim) %>% dplyr::summarise(toa = sum(fin)+1)
+  object |> dplyr::mutate(fin = (I!=n)*1) |> 
+    dplyr::group_by(sim) |> dplyr::summarise(toa = sum(fin)+1)
 }
 
 #' @export

@@ -1,6 +1,6 @@
 # # Making sure the tests family of functions works as intended.
-marvel_friends <- manynet::to_uniplex(manynet::fict_marvel, "relationship") %>% 
-  manynet::to_giant() %>% manynet::to_unsigned() %>% 
+marvel_friends <- manynet::to_uniplex(manynet::fict_marvel, "relationship") |> 
+  manynet::to_giant() |> manynet::to_unsigned() |> 
   manynet::to_subgraph(PowerOrigin == "Human")
 cugtest <- test_random(marvel_friends,
                        netrics::net_by_heterophily,

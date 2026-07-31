@@ -2,6 +2,13 @@
 
 2026-07-31
 
+## Package
+
+- Replaced all remaining uses of the magrittr pipe `%>%` with the native pipe `|>`, in package code, tests, examples, and tutorials
+  - This fixes the `predict()`, `net_regression()`, and `test_*()` examples, which still called `%>%` after the re-export was removed in 1.6.3 and so were relying on `{dplyr}` being attached
+  - `%>%` is no longer imported from `{dplyr}`
+  - The pipes section of tutorial0 now teaches `|>` only, noting `%>%` as something readers may encounter in older code
+
 ## Models
 
 - Substantially accelerated `net_regression()` (by about 35x), resolving the CRAN NOTE about the running time of the `predict()` examples

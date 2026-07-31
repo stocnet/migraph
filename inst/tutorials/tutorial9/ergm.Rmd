@@ -107,8 +107,8 @@ What do you observe? Describe the network in terms of configurations.
 
 ```{r vis-flomarriage, exercise=TRUE, exercise.setup = "ergm-data", fig.width=8}
 graphr(flomarriage, node_size = "wealth")
-as_tidygraph(flomarriage) %>% mutate_nodes(Degree = node_by_deg()) %>%  
-  mutate_ties(Triangles = tie_is_triangular()) %>% 
+as_tidygraph(flomarriage) |> mutate_nodes(Degree = node_by_deg()) |>  
+  mutate_ties(Triangles = tie_is_triangular()) |> 
   graphr(node_size = "Degree", edge_color = "Triangles")
 ```
 
@@ -392,8 +392,8 @@ We need additional modelling!
 ## Markov model
 
 ```{r visflo2, echo=FALSE, purl = FALSE, fig.width=9, setup = "flom-gof"}
-p1 <- as_tidygraph(flomarriage) %>% mutate_nodes(Degree = node_by_deg()) %>%  
-  mutate_ties(Triangles = tie_is_triangular()) %>% 
+p1 <- as_tidygraph(flomarriage) |> mutate_nodes(Degree = node_by_deg()) |>  
+  mutate_ties(Triangles = tie_is_triangular()) |> 
   graphr(node_size = "Degree", edge_color = "Triangles") + 
   ggplot2::theme(legend.position = 'none')
 p2 <- (plot(flom.bern.gof, statistic = "deg") / plot(flom.bern.gof, statistic = "espart"))
