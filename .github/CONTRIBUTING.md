@@ -190,8 +190,8 @@ Please see the [testthat website](https://testthat.r-lib.org) for more details.
 
 Tests in `tests/testthat/` mirror the `R/` files
 (e.g. `test-model_tests.R`, `test-model_regression.R`, `test-measure_over.R`),
-plus `test-tutorials_*.R` files that render every `{learnr}` tutorial across the
-stocnet packages and evaluate its purled code, so tutorial code that errors or raises a
+plus `test-tutorials_*.R` files that render `{migraph}`'s `{learnr}` tutorials and
+evaluate their purled code, so tutorial code that errors or raises a
 deprecation warning fails the suite.
 [tests/testthat/helper-functions.R](../tests/testthat/helper-functions.R) provides
 `find_pkg_tutorial_paths()`, `check_tute_rendering()`, and `check_tute_functions()`
