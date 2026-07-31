@@ -1,5 +1,7 @@
 # migraph 1.6.7
 
+2026-07-31
+
 ## Package
 
 - Updated version dependencies
