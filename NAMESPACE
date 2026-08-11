@@ -34,28 +34,38 @@ export(test_permutation)
 export(test_random)
 export(tidy)
 importFrom(autograph,ag_base)
-importFrom(dplyr,as_tibble)
-importFrom(dplyr,left_join)
-importFrom(dplyr,select)
-importFrom(dplyr,tibble)
+importFrom(dplyr,
+  as_tibble,
+  left_join,
+  select,
+  tibble
+)
 importFrom(ergm,as.rlebdm)
-importFrom(furrr,furrr_options)
-importFrom(furrr,future_map_dfr)
+importFrom(furrr,
+  furrr_options,
+  future_map_dfr
+)
 importFrom(future,plan)
-importFrom(generics,glance)
-importFrom(generics,tidy)
-importFrom(manynet,bind_node_attributes)
-importFrom(manynet,generate_configuration)
-importFrom(manynet,generate_random)
-importFrom(manynet,is_complex)
-importFrom(manynet,is_directed)
-importFrom(manynet,play_diffusion)
-importFrom(manynet,to_subgraph)
+importFrom(generics,
+  glance,
+  tidy
+)
+importFrom(manynet,
+  bind_node_attributes,
+  generate_configuration,
+  generate_random,
+  is_complex,
+  is_directed,
+  play_diffusion,
+  to_subgraph
+)
 importFrom(netrics,net_by_heterophily)
 importFrom(purrr,flatten)
-importFrom(stats,as.formula)
-importFrom(stats,binomial)
-importFrom(stats,df.residual)
-importFrom(stats,glm.fit)
-importFrom(stats,pchisq)
-importFrom(stats,quantile)
+importFrom(stats,
+  as.formula,
+  binomial,
+  df.residual,
+  glm.fit,
+  pchisq,
+  quantile
+)
