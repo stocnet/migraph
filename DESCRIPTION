@@ -1,6 +1,6 @@
 Package: migraph
 Title: Inferential Methods for Multimodal and Other Networks 
-Version: 1.6.8
+Version: 1.6.9
 Description: A set of tools for testing networks.
    It includes functions for univariate and multivariate conditional uniform graph 
    and quadratic assignment procedure testing, and network regression.
@@ -69,4 +69,4 @@ Config/Needs/website:
 Config/testthat/parallel: true
 Config/testthat/edition: 3
 Config/testthat/start-first: tutorials_migraph
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0
