@@ -18,7 +18,7 @@ snet_read_cache <- function() {
   f <- snet_cache_file()
   if (!file.exists(f)) return(NULL)
   out <- tryCatch(readRDS(f), error = function(e) NULL)
-  if (is.null(out$date) || !inherits(out$date, "Date")) return(NULL)
+  if (!is.list(out) || is.null(out$date) || !inherits(out$date, "Date")) return(NULL)
   if (as.numeric(Sys.Date() - out$date) >= snet_check_interval) return(NULL)
   out
 }
