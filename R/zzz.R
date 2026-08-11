@@ -84,8 +84,8 @@ snet_check_versions <- function() {
   for (p in snet_pkgs) {
     installed <- tryCatch(utils::packageVersion(p), error = function(e) NULL)
     if (is.null(installed)) next
-    cv <- if (p %in% names(cran)) package_version(cran[[p]]) else NULL
-    gv <- if (p %in% names(gh)) package_version(gh[[p]]) else NULL
+    cv <- if (!is.null(cran) && p %in% names(cran)) utils::package_version(cran[[p]]) else NULL
+    gv <- if (!is.null(gh) && p %in% names(gh)) utils::package_version(gh[[p]]) else NULL
     if (!is.null(cv) && cv > installed) {
       out[[p]] <- list(version = as.character(cv), source = "CRAN")
     } else if (!is.null(gv) && gv > installed) {
