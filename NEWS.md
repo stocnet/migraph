@@ -7,6 +7,10 @@
   - Results are cached for seven days in `tools::R_user_dir("migraph", "cache")`, so most sessions make no network request at all
   - Check is skipped in non-interactive sessions, fails silently when offline or when no repository is configured, and can be disabled with `options(snet_check_version = FALSE)`
 
+## Learning
+
+- Improved empty `run_tute()` listing of tutorials to suggest manynet>autograph>netrics>migraph sequence
+
 # migraph 1.6.8
 
 2026-07-31

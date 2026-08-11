@@ -18,7 +18,7 @@
 #' @name tutorials
 NULL
 
-stocnet <- c("manynet", "migraph", "autograph", "netrics")
+stocnet <- c("manynet", "autograph", "netrics", "migraph")
 
 #' @rdname tutorials 
 #' @export
@@ -34,7 +34,6 @@ run_tute <- function(tute) {
                                           silent = TRUE) |> dplyr::select(1:3)
                        })
     dplyr::bind_rows(tutelist) |> 
-      dplyr::arrange(dplyr::across(dplyr::any_of("name"))) |> 
       print()
     manynet::snet_info("You can run a tutorial by typing e.g `run_tute('tutorial1')` or `run_tute('Data')` into the console.")
   } else {
