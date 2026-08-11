@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.9</span>
       </span>
     </div>
 
@@ -60,7 +60,24 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.6.8" id="migraph-168">migraph 1.6.8<a class="anchor" aria-label="anchor" href="#migraph-168"></a></h2>
+<h2 class="page-header" data-toc-text="1.6.9" id="migraph-169">migraph 1.6.9<a class="anchor" aria-label="anchor" href="#migraph-169"></a></h2>
+<div class="section level3">
+<h3 id="package-1-6-9">Package<a class="anchor" aria-label="anchor" href="#package-1-6-9"></a></h3>
+<ul><li>Improved stocnet version check, consolidating into <a href="https://stocnet.github.io/migraph/">migraph</a> so that it runs once rather than three times
+<ul><li>Also consults each package’s GitHub repository, so a fix that is released but not yet published on CRAN is reported; where both sources agree, CRAN is recommended, since it needs no compiler or <a href="https://remotes.r-lib.org" class="external-link">remotes</a>
+</li>
+<li>Results are cached for seven days in <code>tools::R_user_dir("migraph", "cache")</code>, so most sessions make no network request at all</li>
+<li>Check is skipped in non-interactive sessions, fails silently when offline or when no repository is configured, and can be disabled with <code>options(snet_check_version = FALSE)</code>
+</li>
+</ul></li>
+</ul></div>
+<div class="section level3">
+<h3 id="learning-1-6-9">Learning<a class="anchor" aria-label="anchor" href="#learning-1-6-9"></a></h3>
+<ul><li>Improved empty <code><a href="../reference/tutorials.html">run_tute()</a></code> listing of tutorials to suggest manynet&gt;autograph&gt;netrics&gt;migraph sequence</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.6.8" id="migraph-168">migraph 1.6.8<small>2026-07-31</small><a class="anchor" aria-label="anchor" href="#migraph-168"></a></h2>
 <p>2026-07-31</p>
 <div class="section level3">
 <h3 id="package-1-6-8">Package<a class="anchor" aria-label="anchor" href="#package-1-6-8"></a></h3>
