@@ -1,3 +1,12 @@
+# migraph 1.6.9
+
+## Package
+
+- Improved stocnet version check, consolidating into `{migraph}` so that it runs once rather than three times
+  - Also consults each package's GitHub repository, so a fix that is released but not yet published on CRAN is reported; where both sources agree, CRAN is recommended, since it needs no compiler or `{remotes}`
+  - Results are cached for seven days in `tools::R_user_dir("migraph", "cache")`, so most sessions make no network request at all
+  - Check is skipped in non-interactive sessions, fails silently when offline or when no repository is configured, and can be disabled with `options(snet_check_version = FALSE)`
+
 # migraph 1.6.8
 
 2026-07-31
