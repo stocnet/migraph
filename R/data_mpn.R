@@ -452,7 +452,7 @@ NULL
 #' _Conflict Management and Peace Science_ 26(5): 471-491.
 #' \doi{10.1177/0738894209343887}.
 #'
-#' Pevehouse, Jon C.W., Timothy Nordstron, Roseanne W McManus, Anne Spencer Jamison. 2020.
+#' Pevehouse, Jon C.W., Timothy Nordstrom, Roseanne W McManus, Anne Spencer Jamison. 2020.
 #' “Tracking Organizations in the World: The Correlates of War IGO Version 3.0 datasets”.
 #' _Journal of Peace Research_ 57(3): 492-503.
 #' \doi{10.1177/0022343319881175}.
