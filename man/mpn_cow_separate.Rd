@@ -53,27 +53,27 @@
 #> ties
 #> 
 #> -- Nodes
-#> # A tibble: 152 x 3
-#>   label       mode   polity2
-#>   <chr>       <chr>    <dbl>
-#> 1 Afghanistan states      -7
-#> 2 Albania     states       5
-#> 3 Algeria     states      -3
-#> 4 Angola      states      -6
-#> 5 Argentina   states       8
-#> 6 Australia   states      10
+#> # A tibble: 152 x 4
+#>   label       mode   polity2 scope
+#>   <chr>       <chr>    <dbl> <chr>
+#> 1 Afghanistan states      -7 <NA> 
+#> 2 Albania     states       5 <NA> 
+#> 3 Algeria     states      -3 <NA> 
+#> 4 Angola      states      -6 <NA> 
+#> 5 Argentina   states       8 <NA> 
+#> 6 Australia   states      10 <NA> 
 #> # i 146 more rows
 #> 
 #> -- Ties
-#> # A tibble: 839 x 3
-#>    from    to weight
-#>   <int> <int>  <dbl>
-#> 1     1   113      1
-#> 2     1   114      1
-#> 3     1   115      0
-#> 4     1   116      0
-#> 5     1   117      1
-#> 6     1   118      0
+#> # A tibble: 839 x 2
+#>    from    to
+#>   <int> <int>
+#> 1     1   113
+#> 2     1   114
+#> 3     1   115
+#> 4     1   116
+#> 5     1   117
+#> 6     1   118
 #> # i 833 more rows
 #> 
 }\if{html}{\out{</div>}}

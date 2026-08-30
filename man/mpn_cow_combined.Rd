@@ -11,15 +11,15 @@
 #> trade arcs and 839 membership ties (9958 parallel)
 #> 
 #> -- Nodes
-#> # A tibble: 156 x 3
-#>   label                    mode   polity2
-#>   <chr>                    <chr>    <dbl>
-#> 1 United States of America states      10
-#> 2 Canada                   states      10
-#> 3 Cuba                     states      -7
-#> 4 Dominican Republic       states       8
-#> 5 Jamaica                  states       9
-#> 6 Trinidad and Tobago      states       9
+#> # A tibble: 156 x 4
+#>   label                    mode   polity2 scope
+#>   <chr>                    <chr>    <dbl> <chr>
+#> 1 United States of America states      10 <NA> 
+#> 2 Canada                   states      10 <NA> 
+#> 3 Cuba                     states      -7 <NA> 
+#> 4 Dominican Republic       states       8 <NA> 
+#> 5 Jamaica                  states       9 <NA> 
+#> 6 Trinidad and Tobago      states       9 <NA> 
 #> # i 150 more rows
 #> 
 #> -- Missings
@@ -59,13 +59,22 @@ It holds two tie layers:
 \item{trade}{directed, weighted ties among the states, in 2009}
 \item{membership}{undirected ties from states to the 40 IGOs}
 }
-The \code{mode} node attribute separates the \code{"states"} from the \code{"IGOs"},
-and the \code{polity2} node attribute is carried over for the states.
+The \code{mode} node attribute separates the \code{"states"} from the \code{"IGOs"}.
+The \code{polity2} node attribute is carried over for the states, and the \code{scope}
+node attribute records whether an IGO is \code{"global"} or \code{"regional"}.
+Seven are global: IOMig, OECD, OIC, OPEC, OSCE, UN, and WTO.
 Four states appear in the trade data but not in the IGO data:
 Bosnia and Herzegovina, Iceland, Lebanon, and Brunei.
 Their \code{polity2} value is \code{NA}.
 }
 \details{
+The \code{scope} attribute recovers a distinction that earlier releases stored,
+misleadingly, as a tie \code{weight} on the membership relation.
+No organisation held both values, so the attribute belongs to the IGOs and not
+to their ties. The zeros were never absent ties: the only state with no UN tie
+is Taiwan, so reading a zero as an absence would invert the membership of
+every global body.
+
 The Correlates of War Trade dataset codes missing trade values as \code{-9}.
 These 759 cells are recorded as missing rather than as negative trade values,
 so they appear in the object's Missings table and not among its ties.

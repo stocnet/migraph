@@ -25,15 +25,15 @@
 #> # i 108 more rows
 #> 
 #> -- Ties
-#> # A tibble: 2,791 x 3
-#>    from    to weight
-#>   <int> <int>  <dbl>
-#> 1     1    52      1
-#> 2     1    53      1
-#> 3     1    54      1
-#> 4     1    55      1
-#> 5     1    56      1
-#> 6     1    57      1
+#> # A tibble: 2,791 x 2
+#>    from    to
+#>   <int> <int>
+#> 1     1    52
+#> 2     1    53
+#> 3     1    54
+#> 4     1    55
+#> 5     1    56
+#> 6     1    57
 #> # i 2,785 more rows
 #> 
 }\if{html}{\out{</div>}}
@@ -55,15 +55,15 @@
 #> # i 128 more rows
 #> 
 #> -- Ties
-#> # A tibble: 3,675 x 3
-#>    from    to weight
-#>   <int> <int>  <dbl>
-#> 1     1    64      1
-#> 2     1    66      1
-#> 3     1    67      1
-#> 4     1    70      1
-#> 5     1    71      1
-#> 6     1    72      1
+#> # A tibble: 3,675 x 2
+#>    from    to
+#>   <int> <int>
+#> 1     1    64
+#> 2     1    66
+#> 3     1    67
+#> 4     1    70
+#> 5     1    71
+#> 6     1    72
 #> # i 3,669 more rows
 #> 
 }\if{html}{\out{</div>}}
@@ -85,15 +85,15 @@
 #> # i 46 more rows
 #> 
 #> -- Ties
-#> # A tibble: 614 x 3
-#>    from    to weight
-#>   <int> <int>  <dbl>
-#> 1     1    21      1
-#> 2     1    22      1
-#> 3     1    23      1
-#> 4     1    24      1
-#> 5     1    25      1
-#> 6     1    26      1
+#> # A tibble: 614 x 2
+#>    from    to
+#>   <int> <int>
+#> 1     1    21
+#> 2     1    22
+#> 3     1    23
+#> 4     1    24
+#> 5     1    25
+#> 6     1    26
 #> # i 608 more rows
 #> 
 }\if{html}{\out{</div>}}

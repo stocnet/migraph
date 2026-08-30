@@ -413,13 +413,22 @@ NULL
 #'   \item{trade}{directed, weighted ties among the states, in 2009}
 #'   \item{membership}{undirected ties from states to the 40 IGOs}
 #' }
-#' The `mode` node attribute separates the `"states"` from the `"IGOs"`,
-#' and the `polity2` node attribute is carried over for the states.
+#' The `mode` node attribute separates the `"states"` from the `"IGOs"`.
+#' The `polity2` node attribute is carried over for the states, and the `scope`
+#' node attribute records whether an IGO is `"global"` or `"regional"`.
+#' Seven are global: IOMig, OECD, OIC, OPEC, OSCE, UN, and WTO.
 #' Four states appear in the trade data but not in the IGO data:
 #' Bosnia and Herzegovina, Iceland, Lebanon, and Brunei.
 #' Their `polity2` value is `NA`.
 #'
 #' @details
+#' The `scope` attribute recovers a distinction that earlier releases stored,
+#' misleadingly, as a tie `weight` on the membership relation.
+#' No organisation held both values, so the attribute belongs to the IGOs and not
+#' to their ties. The zeros were never absent ties: the only state with no UN tie
+#' is Taiwan, so reading a zero as an absence would invert the membership of
+#' every global body.
+#'
 #' The Correlates of War Trade dataset codes missing trade values as `-9`.
 #' These 759 cells are recorded as missing rather than as negative trade values,
 #' so they appear in the object's Missings table and not among its ties.

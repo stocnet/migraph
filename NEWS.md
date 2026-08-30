@@ -12,6 +12,7 @@
 ## Data
 
 - Converted every `mpn_*` dataset to the `stocnet` class, in line with `{manynet}`
+- Removed the `weight` tie attribute from the datasets that are not weighted
 - Merged `mpn_cow`
   - This combines interstate trade and IGO membership into one multilevel network 
     of 116 "states" and 40 "IGOs", with `trade` and `membership` tie layers
@@ -20,6 +21,8 @@
     trade layer of `mpn_cow`, and because `to_layer()` does not recover that layer
     either (stocnet/manynet#170, stocnet/manynet#171)
   - Fixed `mpn_cow_trade` missing-data coding from `-9` (759 cells) to `NA`
+  - Added a `scope` node attribute to the IGOs in `mpn_cow` and `mpn_cow_igo`,
+    recording whether an organisation is `"global"` or `"regional"`
 - Merged `mpn_senate`
   - This combines the 112th Congress data into one multilevel network 
     of 93 senators, 78 PACs, and 25 bills
@@ -44,7 +47,8 @@
   - It now names its three modes, `"elites"`, `"organisations"`, and `"candidates"`
 - Converted `mpn_bristol`
   - It now names its three modes, `"individuals"`, `"organisations"`, and `"events"`
-  
+- Converted `mpn_ryanair`
+
 # migraph 1.6.9
 
 ## Package
