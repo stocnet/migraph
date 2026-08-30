@@ -1,3 +1,10 @@
+# migraph 1.7.0
+
+## Package
+
+- Raised the minimum versions of the stocnet dependencies: manynet 2.3.1, autograph 1.2.2, and netrics 1.0.1
+- Updated CONTRIBUTING
+
 # migraph 1.6.9
 
 ## Package
