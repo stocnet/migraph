@@ -9,6 +9,18 @@
 
 - Fixed `play_diffusions()` for `stocnet` input via initial coercion (re stocnet/manynet#172)
 
+## Data
+
+- Converted every `mpn_*` dataset to the `stocnet` class, in line with `{manynet}`
+- Merged `mpn_cow`
+  - This combines interstate trade and IGO membership into one multilevel network 
+    of 116 "states" and 40 "IGOs", with `trade` and `membership` tie layers
+  - `mpn_cow_trade` and `mpn_cow_igo` are retained, because `{manynet}` currently
+    reads a network with two named modes as undirected, which symmetrises the
+    trade layer of `mpn_cow`, and because `to_layer()` does not recover that layer
+    either (stocnet/manynet#170, stocnet/manynet#171)
+  - Fixed `mpn_cow_trade` missing-data coding from `-9` (759 cells) to `NA`
+  
 # migraph 1.6.9
 
 ## Package

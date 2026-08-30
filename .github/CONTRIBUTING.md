@@ -113,6 +113,10 @@ argument order and naming, so that behaviour is guessable across the family.
 
 When writing documentation or NEWS items, prefer breaking lines at punctuation.
 
+Make it clear when you are referring to functions by adding backticks and parentheses,
+e.g. `a_function()`, and arguments by adding an equals sign, e.g. `argument=`.
+Argument values or variables can be in double quotation marks, e.g. "value".
+
 ### Common commands
 
 This is a standard R package developed with `devtools`/`roxygen2`.
