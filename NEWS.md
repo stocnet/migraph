@@ -20,6 +20,18 @@
     trade layer of `mpn_cow`, and because `to_layer()` does not recover that layer
     either (stocnet/manynet#170, stocnet/manynet#171)
   - Fixed `mpn_cow_trade` missing-data coding from `-9` (759 cells) to `NA`
+- Merged `mpn_senate`
+  - This combines the 112th Congress data into one multilevel network 
+    of 93 senators, 78 PACs, and 25 bills
+  - `mpn_senate_dem` and `mpn_senate_rep` are not party networks but
+    record two communities of one network and their intersection;
+    the `community` node attribute holds `"A"`, `"B"`, or `"both"`
+  - Cells that neither community covers were never observed, and are recorded as
+    missing rather than as absent ties
+  - Where the two communities disagree, in 9 of their 640 shared cells,
+    community A governs, since it agrees with the overlap file in all 640
+  - `mpn_senate_dem`, `mpn_senate_rep`, and `mpn_senate_over` are deprecated and
+    will be removed in 1.8.0
   
 # migraph 1.6.9
 

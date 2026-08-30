@@ -21,6 +21,7 @@ play_diffusions(
 \item igraph, from the \code{{igraph}} package
 \item network, from the \code{{network}} package
 \item tbl_graph, from the \code{{tidygraph}} package
+\item stocnet, from the \code{{manynet}} package
 }}
 
 \item{...}{Other parameters inherited from \code{manynet::play_diffusion()}.}

@@ -181,9 +181,52 @@
 
 # Senate voting ####
 
+#' Multilevel 112th Congress Senate network (Knoke et al. 2021)
+#'
+#' @description
+#' `mpn_senate` combines the two community networks of the 112th Congress into
+#' one multilevel network of 93 senators, 78 political action committees (PACs),
+#' and 25 key bills.
+#' The `mode` node attribute separates the three sets of nodes.
+#'
+#' `mpn_senate_dem` and `mpn_senate_rep` are not party networks.
+#' The source files are named `Fig8.1_SxPV_CommA`, `Fig8.2_SxPV_CommB`, and
+#' `Fig8.3_SxPV_Overlap`, so they record two communities of one network and
+#' their intersection.
+#' The `community` node attribute holds `"A"`, `"B"`, or `"both"`.
+#' The 20 senators and 32 PACs and bills marked `"both"` reproduce `mpn_senate_over`.
+#'
+#' @details
+#' Two points of care.
+#'
+#' Cells that neither community covers were never observed.
+#' They are recorded as missing rather than as absent ties,
+#' so the object holds 2542 missing dyads.
+#'
+#' The two communities overlap in 640 cells and disagree in 9 of them.
+#' Community A governs those cells:
+#' it agrees with `Fig8.3_SxPV_Overlap` in all 640, where community B differs in 9.
+#' @docType data
+#' @keywords datasets
+#' @name mpn_senate
+#' @usage data(mpn_senate)
+#' @references
+#' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
+#' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
+#' Cambridge University Press. Cambridge University Press.
+#' @format
+#'   ```{r, echo = FALSE}
+#'   mpn_senate
+#'   ```
+"mpn_senate"
+
 #' Two-mode 112th Congress Senate Voting (Knoke et al. 2021)
 #'
 #' @description
+#' `r "Superseded."` These three datasets are superseded by [mpn_senate],
+#' which holds the same data as one multilevel network with a `community`
+#' node attribute. They are kept for one release and will be removed in 1.8.0.
+#'
 #' These datasets list the U.S. Senators who served in the 112th Congress,
 #' which met from January 3, 2011 to January 3, 2013.
 #' Although the Senate has 100 seats, 103 persons served during this period due
@@ -298,7 +341,68 @@ NULL
 
 # COW ####
 
+#' Multilevel state trade and IGO membership network (COW)
+#'
+#' @description
+#' `mpn_cow` combines interstate trade and membership in intergovernmental
+#' organisations (IGOs) into a single multilevel network of 116 states and 40 IGOs.
+#' It holds two tie layers:
+#' \describe{
+#'   \item{trade}{directed, weighted ties among the states, in 2009}
+#'   \item{membership}{undirected ties from states to the 40 IGOs}
+#' }
+#' The `mode` node attribute separates the `"states"` from the `"IGOs"`,
+#' and the `polity2` node attribute is carried over for the states.
+#' Four states appear in the trade data but not in the IGO data:
+#' Bosnia and Herzegovina, Iceland, Lebanon, and Brunei.
+#' Their `polity2` value is `NA`.
+#'
+#' @details
+#' The Correlates of War Trade dataset codes missing trade values as `-9`.
+#' These 759 cells are recorded as missing rather than as negative trade values,
+#' so they appear in the object's Missings table and not among its ties.
+#' Earlier releases stored them as `-9`, which made the network read as signed.
+#'
+#' Note two current limitations of `{manynet}`.
+#' A network with exactly two named modes is treated as two-mode, and therefore
+#' as undirected, so `as_matrix(mpn_cow)` returns a symmetrised trade layer.
+#' `to_layer(mpn_cow, "trade")` does not recover it either, because it maps
+#' the two ends of each arc to the wrong nodes.
+#' The ties stored in the object are complete and correctly directed.
+#' Until both are resolved, use `mpn_cow_trade` for any matrix-level analysis of trade.
+#' See stocnet/manynet#170 and stocnet/manynet#171.
+#' @docType data
+#' @keywords datasets
+#' @name mpn_cow_combined
+#' @usage data(mpn_cow)
+#' @references
+#' Barbieri, Katherine, Omar M. G. Keshk, and Brian Pollins. 2009.
+#' “TRADING DATA: Evaluating our Assumptions and Coding Rules.”
+#' _Conflict Management and Peace Science_ 26(5): 471-491.
+#' \doi{10.1177/0738894209343887}.
+#'
+#' Pevehouse, Jon C.W., Timothy Nordstron, Roseanne W McManus, Anne Spencer Jamison. 2020.
+#' “Tracking Organizations in the World: The Correlates of War IGO Version 3.0 datasets”.
+#' _Journal of Peace Research_ 57(3): 492-503.
+#' \doi{10.1177/0022343319881175}.
+#'
+#' Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
+#' \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
+#' Cambridge University Press. Cambridge University Press.
+#' @format
+#'   ```{r, echo = FALSE}
+#'   mpn_cow
+#'   ```
+"mpn_cow"
+
 #' One-mode interstate trade relations and two-mode state membership in IGOs (COW)
+#'
+#' @description
+#' [mpn_cow] combines these two datasets into one multilevel network.
+#' They are kept alongside it because `{manynet}` currently reads a network with
+#' two named modes as undirected, which symmetrises the trade layer of `mpn_cow`,
+#' and because `to_layer()` does not recover that layer either.
+#' See stocnet/manynet#170 and stocnet/manynet#171.
 #'
 #' @details 
 #' `mpn_cow_trade` is a one-mode matrix representing the trade relations between 116 states. 
@@ -322,7 +426,7 @@ NULL
 #' with 116 states listed in Appendix 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
 #' and 40 IGOs from Table 7.1 in \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}
 #' that also overlap with the COW dataset (Knoke et al., 2021).
-#' @name mpn_cow
+#' @name mpn_cow_separate
 #' @docType data
 #' @keywords datasets
 #' @usage data(mpn_cow_trade)
@@ -346,7 +450,7 @@ NULL
 #'   ```
 "mpn_cow_trade"
 
-#' @rdname mpn_cow
+#' @rdname mpn_cow_separate
 #' @usage data(mpn_cow_igo)
 #' @source
 #' The Correlates of War Project. 2019. \emph{Intergovernmental Organization v3}.
