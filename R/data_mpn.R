@@ -278,8 +278,70 @@
 
 # EVS ####
 
+#' Longitudinal two-mode European Values Study, 1990 and 2008 (EVS 2020)
+#'
+#' @description
+#' `mpn_evs_ita`, `mpn_evs_deu`, and `mpn_evs_gbr` each hold one country's European Values Study
+#' data for 1990 and 2008 in a single two-mode network.
+#' Respondents form the first mode and the 14 types of association form the second.
+#' The `time` tie attribute records the year, either 1990 or 2008.
+#'
+#' Italy has 1198 respondents, Germany 1872, and the United Kingdom 1402.
+#'
+#' @details
+#' These are repeated cross-sections, not a panel.
+#' The European Values Study draws a new sample each round,
+#' so no respondent appears in both years.
+#'
+#' Use `over_time()` rather than `over_waves()` on these objects.
+#' `over_time()` restricts each year to the respondents sampled in it.
+#' `over_waves()` keeps the whole node set in each wave,
+#' which understates the density of each year.
+#'
+#' ```r
+#' over_time(mpn_evs_ita, netrics::net_by_density, attribute = "time")
+#' ```
+#' @docType data
+#' @keywords datasets
+#' @name mpn_evs_combined
+#' @usage data(mpn_evs_ita)
+#' @source Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
+#'   \href{https://www.cambridge.org/core/books/multimodal-political-networks/43EE8C192A1B0DCD65B4D9B9A7842128}{\emph{Multimodal Political Networks}}.
+#'   Cambridge University Press. Cambridge University Press.
+#' @references
+#'   EVS (2020). European Values Study Longitudinal Data File 1981-2008 (EVS 1981-2008).
+#'   GESIS Data Archive, Cologne. ZA4804 Data file Version 3.1.0,
+#'   \doi{10.4232/1.13486}.
+#' @format
+#'   ```{r, echo = FALSE}
+#'   mpn_evs_ita
+#'   ```
+"mpn_evs_ita"
+
+#' @rdname mpn_evs_combined
+#' @usage data(mpn_evs_deu)
+#' @format
+#'   ```{r, echo = FALSE}
+#'   mpn_evs_deu
+#'   ```
+"mpn_evs_deu"
+
+#' @rdname mpn_evs_combined
+#' @usage data(mpn_evs_gbr)
+#' @format
+#'   ```{r, echo = FALSE}
+#'   mpn_evs_gbr
+#'   ```
+"mpn_evs_gbr"
+
 #' Two-mode European Values Survey, 1990 and 2008 (EVS 2020)
 #'
+#' @description
+#' `r "Superseded."` These six datasets are superseded by [mpn_evs_ita], [mpn_evs_deu],
+#' and [mpn_evs_gbr], which hold the same data as one longitudinal network for each
+#' country. They are kept for one release and will be removed in 1.8.0.
+#'
+#' @details
 #' 6 two-mode matrices containing individuals' memberships to 14 different types
 #' of associations in three countries (Italy, Germany, and the UK) in 1990
 #' and 2008. The Italy data has 658 respondents in 1990 and 540 in 2008.

@@ -29,17 +29,17 @@
 \item{Health}{1 if individual associated}
 }
 
-An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 672.
+An object of class \code{stocnet} (inherits from \code{list}) of length 5.
 
-An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 554.
+An object of class \code{stocnet} (inherits from \code{list}) of length 5.
 
-An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 1383.
+An object of class \code{stocnet} (inherits from \code{list}) of length 5.
 
-An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 517.
+An object of class \code{stocnet} (inherits from \code{list}) of length 5.
 
-An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 752.
+An object of class \code{stocnet} (inherits from \code{list}) of length 5.
 
-An object of class \code{tbl_graph} (inherits from \code{igraph}) of length 678.
+An object of class \code{stocnet} (inherits from \code{list}) of length 5.
 }
 \source{
 Knoke, David, Mario Diani, James Hollway, and Dimitris C Christopoulos. 2021.
@@ -62,6 +62,11 @@ data(mpn_UK_1990)
 data(mpn_UK_2008)
 }
 \description{
+Superseded. These six datasets are superseded by \link{mpn_evs_ita}, \link{mpn_evs_deu},
+and \link{mpn_evs_gbr}, which hold the same data as one longitudinal network for each
+country. They are kept for one release and will be removed in 1.8.0.
+}
+\details{
 6 two-mode matrices containing individuals' memberships to 14 different types
 of associations in three countries (Italy, Germany, and the UK) in 1990
 and 2008. The Italy data has 658 respondents in 1990 and 540 in 2008.

@@ -32,6 +32,11 @@
     community A governs, since it agrees with the overlap file in all 640
   - `mpn_senate_dem`, `mpn_senate_rep`, and `mpn_senate_over` are deprecated and
     will be removed in 1.8.0
+- Merged `mpn_evs_ita`, `mpn_evs_deu`, and `mpn_evs_gbr`
+  - These combine each country's European Values Study data for 1990 and 2008 into one two-mode network, 
+    with the year recorded in the `time` tie attribute
+  - These are repeated cross-sections, not a panel, so use `over_time()` not `over_waves()`
+  - The six year-by-country datasets are deprecated and will be removed in 1.8.0
   
 # migraph 1.6.9
 
