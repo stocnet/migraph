@@ -37,6 +37,7 @@
     with the year recorded in the `time` tie attribute
   - These are repeated cross-sections, not a panel, so use `over_time()` not `over_waves()`
   - The six year-by-country datasets are deprecated and will be removed in 1.8.0
+- Converted `mpn_elite_mex` 
 - Converted `mpn_elite_usa_advice` 
   - It now names its two modes, `"directors"` and `"think tanks"`
 - Converted `mpn_elite_usa_money` 
