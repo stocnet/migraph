@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.0</span>
       </span>
     </div>
 
@@ -68,6 +68,11 @@
 <p>Using git from the command line on your lap- or desktop can be intimidating, but I recommend <a href="https://git-fork.com" class="external-link">Fork</a> software for Mac and Windows. This allows mostly visual management of commits, diffs, branches, etc. There are various other git software packages available, but this one is fairly fully featured.</p>
 <p>The GitHub page allows to access the issues assigned to you and check the commits. You can also access the documents in the repository, although this won’t be necessary after you have cloned it on your computer via Fork.</p>
 <div class="section level3">
+<h3 id="identifying-issues">Identifying issues<a class="anchor" aria-label="anchor" href="#identifying-issues"></a></h3>
+<p>Please use the issues tracker on GitHub to identify any function-related issues. You can use these issues to track progress on the issue and to comment or continue a conversation on that issue. The most useful issues are ones that precisely identify an error, or propose a test that should pass but instead fails. Examples for documentation are also most welcome.</p>
+<p>Issues that belong to another package in the family should be transferred there rather than fixed here: <code>gh issue transfer &lt;number&gt; stocnet/&lt;package&gt;</code>. See the division of labour below.</p>
+</div>
+<div class="section level3">
 <h3 id="cloning">Cloning<a class="anchor" aria-label="anchor" href="#cloning"></a></h3>
 <p>Once you have downloaded Fork, the first thing you have to do is to clone the remote repository on your computer. Before cloning, you will be able to choose on which <code>branch</code> you want to work: develop or main.</p>
 </div>
@@ -101,11 +106,13 @@
 <li>
 <a href="https://stocnet.github.io/autograph/" class="external-link">autograph</a>: drawing graphs and plotting analytic, modelling, or diagnostic results, along with deep (often institutional) theming. <em>All</em> plot methods should live there.</li>
 <li>
-<a href="https://stocnet.github.io/migraph/">migraph</a> (this package): testing and modelling, e.g. CUG/QAP/MRQAP and diffusion models.</li>
+<a href="https://stocnet.github.io/migraph/">migraph</a> (this package): testing and modelling, e.g. CUG/QAP/MRQAP and diffusion models, and the <code>mpn_*</code> datasets.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="style">Style<a class="anchor" aria-label="anchor" href="#style"></a></h3>
 <p>In terms of style, we are aiming for pleasant predictability in terms of user experience. To that end, we have a regular syntax that users can rely on producing expected effects. Functions in the same family (<code>test_*()</code>, <code>over_*()</code>, etc.) should share argument order and naming, so that behaviour is guessable across the family.</p>
+<p>When writing documentation or NEWS items, prefer breaking lines at punctuation.</p>
+<p>Make it clear when you are referring to functions by adding backticks and parentheses, e.g. <code>a_function()</code>, and arguments by adding an equals sign, e.g. <code>argument=</code>. Argument values or variables can be in double quotation marks, e.g. “value”.</p>
 </div>
 <div class="section level3">
 <h3 id="common-commands">Common commands<a class="anchor" aria-label="anchor" href="#common-commands"></a></h3>
@@ -189,6 +196,31 @@
 <div class="section level3">
 <h3 id="cross-package-dependency">Cross-package dependency<a class="anchor" aria-label="anchor" href="#cross-package-dependency"></a></h3>
 <p><code>migraph</code> <code>Depends</code> on pinned minimum versions of <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>, <a href="https://stocnet.github.io/autograph/" class="external-link">autograph</a>, and <a href="https://stocnet.github.io/netrics/" class="external-link">netrics</a> (see <code>DESCRIPTION</code>). CRAN and reverse-dependency issues are commonly resolved by bumping these minimum versions rather than by changing <code>migraph</code>’s own code — see <code>cran-comments.md</code>. <code>ergm</code> and <code>learnr</code> are heavier dependencies used by only a few functions; guard such code paths with the <code>thisRequires()</code> helper in <a href="../R/migraph-package.R">R/migraph-package.R</a>, which prompts to install on first use.</p>
+</div>
+<div class="section level3">
+<h3 id="datasets">Datasets<a class="anchor" aria-label="anchor" href="#datasets"></a></h3>
+<p>The <code>mpn_*</code> datasets accompany <em>Multimodal Political Networks</em>. They are the part of this package that will remain after the inferential functions move, so their conventions matter.</p>
+<p><strong>Naming.</strong> Lower case throughout, with no capitals: <code>mpn_evs_ita</code>, not <code>mpn_IT</code>. Group by source, then narrow: <code>mpn_evs_*</code>, <code>mpn_cow_*</code>, <code>mpn_elite_*</code>. Use the ISO three-letter code for a country.</p>
+<p><strong>Class.</strong> Every dataset is a <code>stocnet</code> object. Build one as a list with the slots <code>info</code>, <code>nodes</code>, <code>ties</code>, <code>changes</code>, <code>globals</code>, and <code>missings</code> where there are unobserved dyads.</p>
+<table class="table"><colgroup><col width="50%"><col width="50%"></colgroup><thead><tr><th>Slot</th>
+<th>Holds</th>
+</tr></thead><tbody><tr><td><code>nodes$label</code></td>
+<td>the node name</td>
+</tr><tr><td><code>nodes$mode</code></td>
+<td>a <strong>character</strong> name for each set of nodes, two or more values</td>
+</tr><tr><td><code>ties$layer</code></td>
+<td>a character name for each tie type</td>
+</tr><tr><td><code>ties$time</code></td>
+<td>the observation time</td>
+</tr><tr><td><code>missings</code></td>
+<td>unobserved dyads, kept out of <code>ties</code>
+</td>
+</tr><tr><td><code>info</code></td>
+<td>provenance, written with <code><a href="https://stocnet.github.io/manynet/reference/manip_info.html" class="external-link">manynet::add_info()</a></code>
+</td>
+</tr></tbody></table><p>Two traps when converting. <code><a href="https://stocnet.github.io/manynet/reference/coerce_graph.html" class="external-link">manynet::as_stocnet()</a></code> writes <code>nodes$mode</code> as the strings <code>"FALSE"</code> and <code>"TRUE"</code>, so rewrite it with real names. It also drops the <code>grand</code> graph attribute, so restore the title with <code>add_info()</code>.</p>
+<p><strong>Provenance.</strong> Record what the source states, and nothing more. <code>add_info()</code> recognises <code>name</code>, <code>modes</code>, <code>layers</code>, <code>directed</code>, <code>source</code>, <code>method</code>, <code>location</code>, <code>date</code>, <code>boundary</code>, <code>observation</code>, <code>update</code>, and <code>doi</code>. Do not invent a <code>method</code>, <code>boundary</code>, or <code>doi</code> that cannot be checked against the documentation or the cited source.</p>
+<p><strong>Missing data.</strong> Record an unobserved dyad in <code>missings</code>, never as a zero tie and never as a source’s numeric code. <code>mpn_cow_trade</code> once stored the Correlates of War code <code>-9</code> as a negative weight, which made the network read as signed.</p>
 </div>
 <div class="section level3">
 <h3 id="tests">Tests<a class="anchor" aria-label="anchor" href="#tests"></a></h3>

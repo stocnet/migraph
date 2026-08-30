@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.0</span>
       </span>
     </div>
 
@@ -59,6 +59,67 @@
       <small>Source: <a href="https://github.com/stocnet/migraph/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.7.0" id="migraph-170">migraph 1.7.0<a class="anchor" aria-label="anchor" href="#migraph-170"></a></h2>
+<div class="section level3">
+<h3 id="package-1-7-0">Package<a class="anchor" aria-label="anchor" href="#package-1-7-0"></a></h3>
+<ul><li>Raised the minimum versions of the stocnet dependencies: manynet 2.3.1 and autograph 1.2.2</li>
+<li>Updated CONTRIBUTING</li>
+<li>Fixed the attach-time version check by parsing version strings with <code><a href="https://rdrr.io/r/base/numeric_version.html" class="external-link">package_version()</a></code>
+</li>
+</ul></div>
+<div class="section level3">
+<h3 id="models-1-7-0">Models<a class="anchor" aria-label="anchor" href="#models-1-7-0"></a></h3>
+<ul><li>Fixed <code><a href="../reference/make_play.html">play_diffusions()</a></code> for <code>stocnet</code> input via initial coercion (re stocnet/manynet#172)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="data-1-7-0">Data<a class="anchor" aria-label="anchor" href="#data-1-7-0"></a></h3>
+<ul><li>Converted every <code>mpn_*</code> dataset to the <code>stocnet</code> class, in line with <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a>
+</li>
+<li>Removed the <code>weight</code> tie attribute from the datasets that are not weighted</li>
+<li>Merged <code>mpn_cow</code>
+<ul><li>This combines interstate trade and IGO membership into one multilevel network of 116 “states” and 40 “IGOs”, with <code>trade</code> and <code>membership</code> tie layers</li>
+<li>
+<code>mpn_cow_trade</code> and <code>mpn_cow_igo</code> are retained, because <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a> currently reads a network with two named modes as undirected, which symmetrises the trade layer of <code>mpn_cow</code>, and because <code><a href="https://stocnet.github.io/manynet/reference/modif_plexity.html" class="external-link">to_layer()</a></code> does not recover that layer either (stocnet/manynet#170, stocnet/manynet#171)</li>
+<li>Fixed <code>mpn_cow_trade</code> missing-data coding from <code>-9</code> (759 cells) to <code>NA</code>
+</li>
+<li>Added a <code>scope</code> node attribute to the IGOs in <code>mpn_cow</code> and <code>mpn_cow_igo</code>, recording whether an organisation is <code>"global"</code> or <code>"regional"</code>
+</li>
+</ul></li>
+<li>Merged <code>mpn_senate</code>
+<ul><li>This combines the 112th Congress data into one multilevel network of 93 senators, 78 PACs, and 25 bills</li>
+<li>
+<code>mpn_senate_dem</code> and <code>mpn_senate_rep</code> are not party networks but record two communities of one network and their intersection; the <code>community</code> node attribute holds <code>"A"</code>, <code>"B"</code>, or <code>"both"</code>
+</li>
+<li>Cells that neither community covers were never observed, and are recorded as missing rather than as absent ties</li>
+<li>Where the two communities disagree, in 9 of their 640 shared cells, community A governs, since it agrees with the overlap file in all 640</li>
+<li>
+<code>mpn_senate_dem</code>, <code>mpn_senate_rep</code>, and <code>mpn_senate_over</code> are deprecated and will be removed in 1.8.0</li>
+</ul></li>
+<li>Merged <code>mpn_evs_ita</code>, <code>mpn_evs_deu</code>, and <code>mpn_evs_gbr</code>
+<ul><li>These combine each country’s European Values Study data for 1990 and 2008 into one two-mode network, with the year recorded in the <code>time</code> tie attribute</li>
+<li>These are repeated cross-sections, not a panel, so use <code><a href="../reference/measure_over.html">over_time()</a></code> not <code><a href="../reference/measure_over.html">over_waves()</a></code>
+</li>
+<li>The six year-by-country datasets are deprecated and will be removed in 1.8.0</li>
+</ul></li>
+<li>Converted <code>mpn_elite_mex</code>
+</li>
+<li>Converted <code>mpn_elite_usa_advice</code>
+<ul><li>It now names its two modes, <code>"directors"</code> and <code>"think tanks"</code>
+</li>
+</ul></li>
+<li>Converted <code>mpn_elite_usa_money</code>
+<ul><li>It now names its three modes, <code>"elites"</code>, <code>"organisations"</code>, and <code>"candidates"</code>
+</li>
+</ul></li>
+<li>Converted <code>mpn_bristol</code>
+<ul><li>It now names its three modes, <code>"individuals"</code>, <code>"organisations"</code>, and <code>"events"</code>
+</li>
+</ul></li>
+<li>Converted <code>mpn_ryanair</code>
+</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.6.9" id="migraph-169">migraph 1.6.9<a class="anchor" aria-label="anchor" href="#migraph-169"></a></h2>
 <div class="section level3">
@@ -1289,12 +1350,12 @@
 <li>Renamed <code>to_main_component()</code> to <code><a href="https://stocnet.github.io/manynet/reference/modif_scope.html" class="external-link">to_giant()</a></code> to be more space efficient
 <ul><li>Added methods for edgelists and matrices</li>
 </ul></li>
-<li>Added two-mode application for <code><a href="https://stocnet.github.io/manynet/reference/modif_scope.html" class="external-link">to_blocks()</a></code> (closed <a href="https://github.com/stocnet/migraph/issues/242" class="external-link">#242</a>)
-<ul><li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/modif_scope.html" class="external-link">to_blocks()</a></code> where NA blocks couldn’t be subsequently coerced</li>
+<li>Added two-mode application for <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">to_blocks()</a></code> (closed <a href="https://github.com/stocnet/migraph/issues/242" class="external-link">#242</a>)
+<ul><li>Fixed bug in <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">to_blocks()</a></code> where NA blocks couldn’t be subsequently coerced</li>
 </ul></li>
 <li>Filled in a number of S3 methods
 <ul><li>
-<code><a href="https://stocnet.github.io/manynet/reference/modif_scope.html" class="external-link">to_blocks()</a></code>, <code>to_subgraph()</code>, and <code><a href="https://stocnet.github.io/manynet/reference/modif_project.html" class="external-link">to_ties()</a></code> are now S3 methods, returning objects of the same class as given</li>
+<code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">to_blocks()</a></code>, <code>to_subgraph()</code>, and <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">to_ties()</a></code> are now S3 methods, returning objects of the same class as given</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/modif_levels.html" class="external-link">to_onemode()</a></code> method for matrices</li>
 <li>Added <code><a href="https://stocnet.github.io/manynet/reference/modif_levels.html" class="external-link">to_twomode()</a></code> methods for igraph, tidygraph, and network</li>
 <li>Added network methods for <code><a href="https://stocnet.github.io/manynet/reference/modif_labels.html" class="external-link">to_named()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/modif_direction.html" class="external-link">to_redirected()</a></code>, <code><a href="https://stocnet.github.io/manynet/reference/modif_plexity.html" class="external-link">to_uniplex()</a></code>, and <code><a href="https://stocnet.github.io/manynet/reference/modif_weight.html" class="external-link">to_unsigned()</a></code>
@@ -1485,7 +1546,7 @@
 <h3 id="manipulation-0-10-0">Manipulation<a class="anchor" aria-label="anchor" href="#manipulation-0-10-0"></a></h3>
 <ul><li>Added a couple of <code>to_</code> functions useful for working with networks of different types
 <ul><li>Added <code><a href="https://stocnet.github.io/manynet/reference/modif_direction.html" class="external-link">to_redirected()</a></code> for adding or swapping direction to networks (closed <a href="https://github.com/stocnet/migraph/issues/219" class="external-link">#219</a>)</li>
-<li>Added <code><a href="https://stocnet.github.io/manynet/reference/modif_scope.html" class="external-link">to_blocks()</a></code> for reducing a network down by a membership vector; <code>blockmodel()</code> and <code>reduce_graph()</code> are now deprecated</li>
+<li>Added <code><a href="https://stocnet.github.io/manynet/reference/defunct.html" class="external-link">to_blocks()</a></code> for reducing a network down by a membership vector; <code>blockmodel()</code> and <code>reduce_graph()</code> are now deprecated</li>
 <li>
 <code>to_multilevel.igraph()</code> now only works on two-mode networks; returns the original network if passed a one-mode network</li>
 </ul></li>
