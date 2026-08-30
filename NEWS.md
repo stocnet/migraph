@@ -2,7 +2,7 @@
 
 ## Package
 
-- Raised the minimum versions of the stocnet dependencies: manynet 2.3.1, autograph 1.2.2, and netrics 1.0.1
+- Raised the minimum versions of the stocnet dependencies: manynet 2.3.1 and autograph 1.2.2
 - Updated CONTRIBUTING
 
 ## Models
