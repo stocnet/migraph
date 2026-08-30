@@ -4,6 +4,7 @@
 
 - Raised the minimum versions of the stocnet dependencies: manynet 2.3.1 and autograph 1.2.2
 - Updated CONTRIBUTING
+- Fixed the attach-time version check by parsing version strings with `package_version()`
 
 ## Models
 

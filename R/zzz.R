@@ -74,24 +74,52 @@ snet_github_versions <- function() {
   }, error = function(e) NULL, warning = function(w) NULL)
 }
 
+# nocov end
+
 # Which packages are behind, and where the newer version lives. When CRAN and
 # GitHub agree, prefer CRAN: it is the binary install and needs no compiler.
-snet_check_versions <- function() {
-  cran <- snet_cran_versions()
-  gh <- snet_github_versions()
+#
+# `cran`, `gh` and `installed` are arguments rather than direct calls so that
+# this comparison can be tested without a network. Everything around it either
+# reaches the network or runs only on an interactive attach, so it is the one
+# part that a test can reach.
+snet_check_versions <- function(cran = snet_cran_versions(),
+                                gh = snet_github_versions(),
+                                installed = snet_installed_versions()) {
   if (is.null(cran) && is.null(gh)) return(NULL)
   out <- list()
   for (p in snet_pkgs) {
-    installed <- tryCatch(utils::packageVersion(p), error = function(e) NULL)
-    if (is.null(installed)) next
-    cv <- if (!is.null(cran) && p %in% names(cran)) utils::packageVersion(cran[[p]]) else NULL
-    gv <- if (!is.null(gh) && p %in% names(gh)) utils::packageVersion(gh[[p]]) else NULL
-    if (!is.null(cv) && cv > installed) {
+    iv <- installed[[p]]
+    if (is.null(iv) || is.na(iv)) next
+    iv <- package_version(iv)
+    # These are version strings read from a repository, so they are parsed with
+    # `package_version()`. `utils::packageVersion()` takes a package *name* and
+    # looks up what is installed, so passing a version string to it fails with
+    # "there is no package called '1.6.8'".
+    cv <- if (!is.null(cran) && p %in% names(cran)) snet_as_version(cran[[p]]) else NULL
+    gv <- if (!is.null(gh) && p %in% names(gh)) snet_as_version(gh[[p]]) else NULL
+    if (!is.null(cv) && cv > iv) {
       out[[p]] <- list(version = as.character(cv), source = "CRAN")
-    } else if (!is.null(gv) && gv > installed) {
+    } else if (!is.null(gv) && gv > iv) {
       out[[p]] <- list(version = as.character(gv), source = "GitHub")
     }
   }
+  out
+}
+
+# A repository can return something that is not a version, so never let a bad
+# string reach the user as an error on attach.
+snet_as_version <- function(x) {
+  if (is.null(x) || is.na(x) || !nzchar(x)) return(NULL)
+  tryCatch(package_version(x), error = function(e) NULL, warning = function(w) NULL)
+}
+
+# nocov start
+
+snet_installed_versions <- function() {
+  out <- lapply(snet_pkgs, function(p)
+    tryCatch(as.character(utils::packageVersion(p)), error = function(e) NULL))
+  names(out) <- snet_pkgs
   out
 }
 

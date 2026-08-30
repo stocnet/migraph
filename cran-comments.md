@@ -19,8 +19,21 @@ Expected `unname(unlist(c(res)))` to equal `c(0.490201713, NaN)`.
 ```
 
 This version replaces that test with a fixed network and an explicit membership vector, 
-so it no longer depends on any upstream clustering method. 
-The test passes against `{netrics}` 1.0.1.
+so it no longer depends on any upstream clustering method.
+
+This submission is therefore what unblocks `{netrics}` 1.0.1, 
+and it deliberately does not require it. 
+`{migraph}` declares `netrics (>= 0.4.0)`, the version currently on CRAN, 
+so this package can be accepted before `{netrics}` 1.0.1 is. 
+It checks cleanly against both:
+
+| `{netrics}` | R CMD check |
+|---|---|
+| 0.4.0, the version on CRAN | 0 errors, 0 warnings, 0 notes |
+| 1.0.1, the pending submission | 0 errors, 0 warnings, 0 notes |
+
+`{migraph}` calls six `{netrics}` functions. 
+All six are exported by both versions and return identical values.
 
 ## User filespace and internet access
 
