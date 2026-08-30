@@ -7,6 +7,7 @@
 #'   \item igraph, from the `{igraph}` package
 #'   \item network, from the `{network}` package
 #'   \item tbl_graph, from the `{tidygraph}` package
+#'   \item stocnet, from the `{manynet}` package
 #'   }
 #' @param ... Other parameters inherited from `manynet::play_diffusion()`.
 #' @param times Integer indicating number of simulations. 
@@ -29,6 +30,11 @@ play_diffusions <- function(.data,
   thisRequires("furrr")
   oplan <- future::plan(strategy)
   on.exit(future::plan(oplan), add = TRUE)
+  
+  # `manynet::play_diffusion()` calls `igraph::neighborhood()` on `.data` directly,
+  # so it stops on a stocnet object, including `{manynet}`'s own stocnet datasets.
+  # Coerce here until that is fixed upstream.
+  if (inherits(.data, "stocnet")) .data <- manynet::as_igraph(.data)
   
   out <- furrr::future_map_dfr(1:times, function(j){
     data.frame(sim = j,
