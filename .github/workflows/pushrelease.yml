@@ -107,12 +107,26 @@ jobs:
           echo "Renamed files"
           ls migraph_*
 
+      - name: Extract release notes from NEWS.md
+        shell: bash
+        run: |
+          # Take the NEWS.md section for this version, else the topmost section.
+          awk -v ver="${{ env.PACKAGE_NAME }} ${{ env.PACKAGE_VERSION }}" '
+            /^# / { if (found) exit; if (substr($0, 3) == ver) { found = 1; next } }
+            found { print }
+          ' NEWS.md > RELEASE_NOTES.md
+          if [ ! -s RELEASE_NOTES.md ]; then
+            awk 'NR > 1 && /^# / { exit } NR > 1 { print }' NEWS.md > RELEASE_NOTES.md
+          fi
+          cat RELEASE_NOTES.md
+
       - name: Create Release and Upload Assets
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.newtag.outputs.tag }}
           name: Release ${{ steps.newtag.outputs.tag }}
+          body_path: RELEASE_NOTES.md
           draft: false
           prerelease: false
           fail_on_unmatched_files: true

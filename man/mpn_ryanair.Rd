@@ -6,12 +6,11 @@
 \title{One-mode EU policy influence network, June 2004 (Christopoulos 2006)}
 \format{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> -- # EU policy influence network -----------------------------------------------
-#> # A labelled, weighted, directed network of 20 policy actors and 177
-#> interaction arcs
+#> # A labelled, directed network of 20 policy actors and 177 interaction arcs
 #> 
 #> -- Nodes
 #> # A tibble: 20 x 1
-#>   name          
+#>   label         
 #>   <chr>         
 #> 1 1 AER         
 #> 2 2 AER         
@@ -22,15 +21,15 @@
 #> # i 14 more rows
 #> 
 #> -- Ties
-#> # A tibble: 177 x 3
-#>    from    to weight
-#>   <int> <int>  <dbl>
-#> 1     1     2      1
-#> 2     1     3      1
-#> 3     1     4      1
-#> 4     1     5      1
-#> 5     1     6      1
-#> 6     1     7      1
+#> # A tibble: 177 x 2
+#>    from    to
+#>   <int> <int>
+#> 1     1     2
+#> 2     1     3
+#> 3     1     4
+#> 4     1     5
+#> 5     1     6
+#> 6     1     7
 #> # i 171 more rows
 #> 
 }\if{html}{\out{</div>}}

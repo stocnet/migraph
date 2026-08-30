@@ -7,18 +7,20 @@
 \alias{mpn_elite_usa_money}
 \title{Two-mode and three-mode American power elite database (Domhoff 2016)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, two-mode network of 14 nodes and 20 nodes and 46 ties
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> -- # US think tank board network -----------------------------------------------
+#> # A labelled, two-mode network of 14 directors and 20 think tanks and 46 board
+#> membership ties
 #> 
 #> -- Nodes
 #> # A tibble: 34 x 2
-#>   type  name    
-#>   <lgl> <chr>   
-#> 1 FALSE Albright
-#> 2 FALSE Argyros 
-#> 3 FALSE Armitage
-#> 4 FALSE Curry   
-#> 5 FALSE Fukuyama
-#> 6 FALSE Gray    
+#>   label    mode     
+#>   <chr>    <chr>    
+#> 1 Albright directors
+#> 2 Argyros  directors
+#> 3 Armitage directors
+#> 4 Curry    directors
+#> 5 Fukuyama directors
+#> 6 Gray     directors
 #> # i 28 more rows
 #> 
 #> -- Ties
@@ -35,30 +37,32 @@
 #> 
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, two-mode network of 26 nodes and 12 nodes and 103 ties
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> -- # US power elite network ----------------------------------------------------
+#> # A labelled, multiplex, undirected network of 38 elites and 59 board
+#> membership ties and 44 campaign contribution ties
 #> 
 #> -- Nodes
 #> # A tibble: 38 x 2
-#>   type  name    
-#>   <lgl> <chr>   
-#> 1 FALSE Adkerson
-#> 2 FALSE Akins   
-#> 3 FALSE Banga   
-#> 4 FALSE Boyce   
-#> 5 FALSE Britt   
-#> 6 FALSE Cannon  
+#>   label    mode  
+#>   <chr>    <chr> 
+#> 1 Adkerson elites
+#> 2 Akins    elites
+#> 3 Banga    elites
+#> 4 Boyce    elites
+#> 5 Britt    elites
+#> 6 Cannon   elites
 #> # i 32 more rows
 #> 
 #> -- Ties
-#> # A tibble: 103 x 2
-#>    from    to
-#>   <int> <int>
-#> 1     1    27
-#> 2     1    28
-#> 3     1    34
-#> 4     1    36
-#> 5     2    28
-#> 6     2    32
+#> # A tibble: 103 x 3
+#>    from    to layer           
+#>   <int> <int> <chr>           
+#> 1     1    27 board membership
+#> 2     3    27 board membership
+#> 3     4    27 board membership
+#> 4     5    27 board membership
+#> 5     7    27 board membership
+#> 6     9    27 board membership
 #> # i 97 more rows
 #> 
 }\if{html}{\out{</div>}}

@@ -8,86 +8,92 @@
 \alias{mpn_senate_over}
 \title{Two-mode 112th Congress Senate Voting (Knoke et al. 2021)}
 \format{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network of 51 nodes and 63 nodes and 2791 ties
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> -- # Senate community A --------------------------------------------------------
+#> # A labelled, undirected network of 114 senators and 2791 contribution and vote
+#> ties
 #> 
 #> -- Nodes
 #> # A tibble: 114 x 2
-#>   type  name      
-#>   <lgl> <chr>     
-#> 1 FALSE Baucus    
-#> 2 FALSE Begich    
-#> 3 FALSE Bennet    
-#> 4 FALSE Blumenthal
-#> 5 FALSE Boxer     
-#> 6 FALSE BrownSh   
+#>   label      mode    
+#>   <chr>      <chr>   
+#> 1 Baucus     senators
+#> 2 Begich     senators
+#> 3 Bennet     senators
+#> 4 Blumenthal senators
+#> 5 Boxer      senators
+#> 6 BrownSh    senators
 #> # i 108 more rows
 #> 
 #> -- Ties
-#> # A tibble: 2,791 x 3
-#>    from    to weight
-#>   <int> <int>  <dbl>
-#> 1     1    52      1
-#> 2     1    53      1
-#> 3     1    54      1
-#> 4     1    55      1
-#> 5     1    56      1
-#> 6     1    57      1
+#> # A tibble: 2,791 x 2
+#>    from    to
+#>   <int> <int>
+#> 1     1    52
+#> 2     1    53
+#> 3     1    54
+#> 4     1    55
+#> 5     1    56
+#> 6     1    57
 #> # i 2,785 more rows
 #> 
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network of 62 nodes and 72 nodes and 3675 ties
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> -- # Senate community B --------------------------------------------------------
+#> # A labelled, undirected network of 134 senators and 3675 contribution and vote
+#> ties
 #> 
 #> -- Nodes
 #> # A tibble: 134 x 2
-#>   type  name     
-#>   <lgl> <chr>    
-#> 1 FALSE Alexander
-#> 2 FALSE Ayotte   
-#> 3 FALSE Barrasso 
-#> 4 FALSE Baucus   
-#> 5 FALSE Blunt    
-#> 6 FALSE Boozman  
+#>   label     mode    
+#>   <chr>     <chr>   
+#> 1 Alexander senators
+#> 2 Ayotte    senators
+#> 3 Barrasso  senators
+#> 4 Baucus    senators
+#> 5 Blunt     senators
+#> 6 Boozman   senators
 #> # i 128 more rows
 #> 
 #> -- Ties
-#> # A tibble: 3,675 x 3
-#>    from    to weight
-#>   <int> <int>  <dbl>
-#> 1     1    64      1
-#> 2     1    66      1
-#> 3     1    67      1
-#> 4     1    70      1
-#> 5     1    71      1
-#> 6     1    72      1
+#> # A tibble: 3,675 x 2
+#>    from    to
+#>   <int> <int>
+#> 1     1    64
+#> 2     1    66
+#> 3     1    67
+#> 4     1    70
+#> 5     1    71
+#> 6     1    72
 #> # i 3,669 more rows
 #> 
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{#> # A labelled, weighted, two-mode network of 20 nodes and 32 nodes and 614 ties
+\if{html}{\out{<div class="sourceCode">}}\preformatted{#> -- # Senate community overlap --------------------------------------------------
+#> # A labelled, undirected network of 52 senators and 614 contribution and vote
+#> ties
 #> 
 #> -- Nodes
 #> # A tibble: 52 x 2
-#>   type  name     
-#>   <lgl> <chr>    
-#> 1 FALSE Baucus   
-#> 2 FALSE Cardin   
-#> 3 FALSE Carper   
-#> 4 FALSE Casey    
-#> 5 FALSE Collins  
-#> 6 FALSE Feinstein
+#>   label     mode    
+#>   <chr>     <chr>   
+#> 1 Baucus    senators
+#> 2 Cardin    senators
+#> 3 Carper    senators
+#> 4 Casey     senators
+#> 5 Collins   senators
+#> 6 Feinstein senators
 #> # i 46 more rows
 #> 
 #> -- Ties
-#> # A tibble: 614 x 3
-#>    from    to weight
-#>   <int> <int>  <dbl>
-#> 1     1    21      1
-#> 2     1    22      1
-#> 3     1    23      1
-#> 4     1    24      1
-#> 5     1    25      1
-#> 6     1    26      1
+#> # A tibble: 614 x 2
+#>    from    to
+#>   <int> <int>
+#> 1     1    21
+#> 2     1    22
+#> 3     1    23
+#> 4     1    24
+#> 5     1    25
+#> 6     1    26
 #> # i 608 more rows
 #> 
 }\if{html}{\out{</div>}}
@@ -100,6 +106,10 @@ data(mpn_senate_rep)
 data(mpn_senate_over)
 }
 \description{
+Superseded. These three datasets are superseded by \link{mpn_senate},
+which holds the same data as one multilevel network with a \code{community}
+node attribute. They are kept for one release and will be removed in 1.8.0.
+
 These datasets list the U.S. Senators who served in the 112th Congress,
 which met from January 3, 2011 to January 3, 2013.
 Although the Senate has 100 seats, 103 persons served during this period due

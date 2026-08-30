@@ -6,19 +6,19 @@
 \title{Multimodal (3) Bristol protest events, 1990-2002 (Diani and Bison 2004)}
 \format{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> -- # Bristol protest event network ---------------------------------------------
-#> # A labelled, two-mode network of 150 individuals and 114 individuals and 1496
-#> affiliation and participation ties
+#> # A labelled, undirected network of 264 individuals and 1496 affiliation and
+#> participation ties
 #> 
 #> -- Nodes
-#> # A tibble: 264 x 3
-#>   name  type    lvl
-#>   <chr> <lgl> <dbl>
-#> 1 101   FALSE     1
-#> 2 102   FALSE     1
-#> 3 103   FALSE     1
-#> 4 104   FALSE     1
-#> 5 105   FALSE     1
-#> 6 106   FALSE     1
+#> # A tibble: 264 x 2
+#>   label mode       
+#>   <chr> <chr>      
+#> 1 101   individuals
+#> 2 102   individuals
+#> 3 103   individuals
+#> 4 104   individuals
+#> 5 105   individuals
+#> 6 106   individuals
 #> # i 258 more rows
 #> 
 #> -- Ties

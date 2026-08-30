@@ -12,7 +12,7 @@
 #> 
 #> -- Nodes
 #> # A tibble: 35 x 8
-#>   name     full_name        entry_year military in_mpn PlaceOfBirth state region
+#>   label    full_name        entry_year military in_mpn PlaceOfBirth state region
 #>   <chr>    <chr>                 <dbl>    <dbl>  <dbl> <chr>        <chr>  <dbl>
 #> 1 Trevino  Trevino, Jacint~       1910        1      0 Guerrero     Coah~      1
 #> 2 Madero   Madero, Francis~       1911        0      0 Parras de l~ Coah~      1

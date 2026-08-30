@@ -26,6 +26,19 @@ The GitHub page allows to access the issues assigned to you and check the commit
 You can also access the documents in the repository, 
 although this won't be necessary after you have cloned it on your computer via Fork.
 
+### Identifying issues
+
+Please use the issues tracker on GitHub to identify any function-related issues.
+You can use these issues to track progress on the issue and
+to comment or continue a conversation on that issue.
+The most useful issues are ones that precisely identify an error,
+or propose a test that should pass but instead fails.
+Examples for documentation are also most welcome.
+
+Issues that belong to another package in the family should be transferred there
+rather than fixed here: `gh issue transfer <number> stocnet/<package>`.
+See the division of labour below.
+
 ### Cloning
 
 Once you have downloaded Fork, the first thing you have to do is to 
@@ -88,7 +101,8 @@ Division of labour to keep in mind when adding functions:
   at the node, tie, and network level.
 - `{autograph}`: drawing graphs and plotting analytic, modelling, or diagnostic results,
   along with deep (often institutional) theming. *All* plot methods should live there.
-- `{migraph}` (this package): testing and modelling, e.g. CUG/QAP/MRQAP and diffusion models.
+- `{migraph}` (this package): testing and modelling, e.g. CUG/QAP/MRQAP and diffusion models,
+  and the `mpn_*` datasets.
 
 ### Style
 
@@ -96,6 +110,12 @@ In terms of style, we are aiming for pleasant predictability in terms of user ex
 To that end, we have a regular syntax that users can rely on producing expected effects.
 Functions in the same family (`test_*()`, `over_*()`, etc.) should share
 argument order and naming, so that behaviour is guessable across the family.
+
+When writing documentation or NEWS items, prefer breaking lines at punctuation.
+
+Make it clear when you are referring to functions by adding backticks and parentheses,
+e.g. `a_function()`, and arguments by adding an equals sign, e.g. `argument=`.
+Argument values or variables can be in double quotation marks, e.g. "value".
 
 ### Common commands
 
@@ -182,6 +202,46 @@ versions rather than by changing `migraph`'s own code — see `cran-comments.md`
 `ergm` and `learnr` are heavier dependencies used by only a few functions;
 guard such code paths with the `thisRequires()` helper in
 [R/migraph-package.R](../R/migraph-package.R), which prompts to install on first use.
+
+### Datasets
+
+The `mpn_*` datasets accompany *Multimodal Political Networks*.
+They are the part of this package that will remain after the inferential
+functions move, so their conventions matter.
+
+**Naming.** Lower case throughout, with no capitals:
+`mpn_evs_ita`, not `mpn_IT`.
+Group by source, then narrow: `mpn_evs_*`, `mpn_cow_*`, `mpn_elite_*`.
+Use the ISO three-letter code for a country.
+
+**Class.** Every dataset is a `stocnet` object.
+Build one as a list with the slots `info`, `nodes`, `ties`, `changes`, `globals`,
+and `missings` where there are unobserved dyads.
+
+| Slot | Holds |
+|---|---|
+| `nodes$label` | the node name |
+| `nodes$mode` | a **character** name for each set of nodes, two or more values |
+| `ties$layer` | a character name for each tie type |
+| `ties$time` | the observation time |
+| `missings` | unobserved dyads, kept out of `ties` |
+| `info` | provenance, written with `manynet::add_info()` |
+
+Two traps when converting.
+`manynet::as_stocnet()` writes `nodes$mode` as the strings `"FALSE"` and `"TRUE"`,
+so rewrite it with real names.
+It also drops the `grand` graph attribute, so restore the title with `add_info()`.
+
+**Provenance.** Record what the source states, and nothing more.
+`add_info()` recognises `name`, `modes`, `layers`, `directed`, `source`, `method`,
+`location`, `date`, `boundary`, `observation`, `update`, and `doi`.
+Do not invent a `method`, `boundary`, or `doi` that cannot be checked against
+the documentation or the cited source.
+
+**Missing data.** Record an unobserved dyad in `missings`, never as a zero tie
+and never as a source's numeric code.
+`mpn_cow_trade` once stored the Correlates of War code `-9` as a negative weight,
+which made the network read as signed.
 
 ### Tests
 

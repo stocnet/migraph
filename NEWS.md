@@ -1,3 +1,55 @@
+# migraph 1.7.0
+
+## Package
+
+- Raised the minimum versions of the stocnet dependencies: manynet 2.3.1 and autograph 1.2.2
+- Updated CONTRIBUTING
+- Fixed the attach-time version check by parsing version strings with `package_version()`
+
+## Models
+
+- Fixed `play_diffusions()` for `stocnet` input via initial coercion (re stocnet/manynet#172)
+
+## Data
+
+- Converted every `mpn_*` dataset to the `stocnet` class, in line with `{manynet}`
+- Removed the `weight` tie attribute from the datasets that are not weighted
+- Merged `mpn_cow`
+  - This combines interstate trade and IGO membership into one multilevel network 
+    of 116 "states" and 40 "IGOs", with `trade` and `membership` tie layers
+  - `mpn_cow_trade` and `mpn_cow_igo` are retained, because `{manynet}` currently
+    reads a network with two named modes as undirected, which symmetrises the
+    trade layer of `mpn_cow`, and because `to_layer()` does not recover that layer
+    either (stocnet/manynet#170, stocnet/manynet#171)
+  - Fixed `mpn_cow_trade` missing-data coding from `-9` (759 cells) to `NA`
+  - Added a `scope` node attribute to the IGOs in `mpn_cow` and `mpn_cow_igo`,
+    recording whether an organisation is `"global"` or `"regional"`
+- Merged `mpn_senate`
+  - This combines the 112th Congress data into one multilevel network 
+    of 93 senators, 78 PACs, and 25 bills
+  - `mpn_senate_dem` and `mpn_senate_rep` are not party networks but
+    record two communities of one network and their intersection;
+    the `community` node attribute holds `"A"`, `"B"`, or `"both"`
+  - Cells that neither community covers were never observed, and are recorded as
+    missing rather than as absent ties
+  - Where the two communities disagree, in 9 of their 640 shared cells,
+    community A governs, since it agrees with the overlap file in all 640
+  - `mpn_senate_dem`, `mpn_senate_rep`, and `mpn_senate_over` are deprecated and
+    will be removed in 1.8.0
+- Merged `mpn_evs_ita`, `mpn_evs_deu`, and `mpn_evs_gbr`
+  - These combine each country's European Values Study data for 1990 and 2008 into one two-mode network, 
+    with the year recorded in the `time` tie attribute
+  - These are repeated cross-sections, not a panel, so use `over_time()` not `over_waves()`
+  - The six year-by-country datasets are deprecated and will be removed in 1.8.0
+- Converted `mpn_elite_mex` 
+- Converted `mpn_elite_usa_advice` 
+  - It now names its two modes, `"directors"` and `"think tanks"`
+- Converted `mpn_elite_usa_money` 
+  - It now names its three modes, `"elites"`, `"organisations"`, and `"candidates"`
+- Converted `mpn_bristol`
+  - It now names its three modes, `"individuals"`, `"organisations"`, and `"events"`
+- Converted `mpn_ryanair`
+
 # migraph 1.6.9
 
 ## Package
