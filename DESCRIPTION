@@ -20,7 +20,7 @@ Depends:
     R (>= 4.1.0),
     manynet (>= 2.3.1),
     autograph (>= 1.2.2),
-    netrics (>= 0.4.0)
+    netrics (>= 1.0.1)
 Imports: 
     dplyr (>= 1.1.0),
     ergm,
