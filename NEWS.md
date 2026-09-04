@@ -1,5 +1,9 @@
 # migraph 1.7.1
 
+## Package
+
+- Raised netrics floor to 1.0.1
+
 ## Tutorials
 
 - Updated intro tutorial
