@@ -2,7 +2,7 @@
 
 ## Package
 
-- Raised netrics floor to 1.0.1
+- Raised the minimum required version of `{netrics}` to 1.0.1
 
 ## Tutorials
 
