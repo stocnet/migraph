@@ -67,7 +67,7 @@ such as in the [stocnet](https://github.com/stocnet) group of packages...
 
 ### What is RStudio?
 
-<img src="https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png" alt="RStudio logo" height="250" class="center"/>
+<img src="https://cloud.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo.png" alt="RStudio logo" height="200" class="center"/>
 
 [RStudio](https://posit.co/products/open-source/rstudio/) is an integrated development environment (IDE) for R and Python,
 enabling researchers to interact with R (and/or Python) through a fully-functional editor
@@ -414,10 +414,10 @@ You can follow my example below (copy to a new script and uncomment):
 ```{r egonet-eg, exercise = TRUE}
 mynetwork <- matrix(0,2,2) # this creates an empty network of 2 people
 # Next I'm going to name the matrix rows and columns:
-rownames(mynetwork) <- c("James Hollway","Korakot Janteerasakul")
-colnames(mynetwork) <- c("James Hollway","Korakot Janteerasakul")
-mynetwork[1,2] <- 1 # this means I know Korakot already
-mynetwork[2,1] <- 1 # I think I can say Korakot knows me already too...
-mynetwork["James Hollway","Korakot Janteerasakul"] <- 1 # I could also do this by name
+rownames(mynetwork) <- c("James Hollway","Tommaso Fonti")
+colnames(mynetwork) <- c("James Hollway","Tommaso Fonti")
+mynetwork[1,2] <- 1 # this means I know Tommaso already
+mynetwork[2,1] <- 1 # I think I can say Tommaso knows me already too...
+mynetwork["James Hollway","Tommaso Fonti"] <- 1 # I could also do this by name
 # mynetwork[mynetwork > 0] <- 0 # Just in case you make a mistake, this wipes it!
 ```

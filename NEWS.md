@@ -1,3 +1,13 @@
+# migraph 1.7.1
+
+## Package
+
+- Raised the minimum required version of `{netrics}` to 1.0.1
+
+## Tutorials
+
+- Updated intro tutorial
+
 # migraph 1.7.0
 
 ## Package
