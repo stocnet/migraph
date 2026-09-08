@@ -9,8 +9,8 @@
 \title{Two-mode 112th Congress Senate Voting (Knoke et al. 2021)}
 \format{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> -- # Senate community A --------------------------------------------------------
-#> # A labelled, undirected network of 114 senators and 2791 contribution and vote
-#> ties
+#> # A labelled, undirected network of 51 senators, 49 PACs, and 14 bills and 2791
+#> contribution and vote ties
 #> 
 #> -- Nodes
 #> # A tibble: 114 x 2
@@ -39,8 +39,8 @@
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> -- # Senate community B --------------------------------------------------------
-#> # A labelled, undirected network of 134 senators and 3675 contribution and vote
-#> ties
+#> # A labelled, undirected network of 62 senators, 55 PACs, and 17 bills and 3675
+#> contribution and vote ties
 #> 
 #> -- Nodes
 #> # A tibble: 134 x 2
@@ -69,8 +69,8 @@
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> -- # Senate community overlap --------------------------------------------------
-#> # A labelled, undirected network of 52 senators and 614 contribution and vote
-#> ties
+#> # A labelled, undirected network of 20 senators, 26 PACs, and 6 bills and 614
+#> contribution and vote ties
 #> 
 #> -- Nodes
 #> # A tibble: 52 x 2

@@ -8,7 +8,7 @@
 \format{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> -- # State trade and IGO membership network ------------------------------------
 #> # A labelled, weighted, multilevel network of 116 states and 40 IGOs and 10730
-#> trade arcs and 839 membership ties (9958 parallel)
+#> trade arcs and 839 membership ties
 #> 
 #> -- Nodes
 #> # A tibble: 156 x 4
