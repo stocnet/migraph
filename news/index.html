@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">migraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.2</span>
       </span>
     </div>
 
@@ -60,6 +60,26 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="1.7.2" id="migraph-172">migraph 1.7.2<a class="anchor" aria-label="anchor" href="#migraph-172"></a></h2>
+<div class="section level3">
+<h3 id="package-1-7-2">Package<a class="anchor" aria-label="anchor" href="#package-1-7-2"></a></h3>
+<ul><li>Fixed the attach-time version check so that it no longer leaves stale messages for up to a week</li>
+</ul></div>
+<div class="section level3">
+<h3 id="models-1-7-2">Models<a class="anchor" aria-label="anchor" href="#models-1-7-2"></a></h3>
+<ul><li>Fixed <code><a href="../reference/make_play.html">play_diffusions()</a></code> so that it drops, with a warning, runs where nothing spreads beyond the seed, instead of stopping with “arguments imply differing number of rows”</li>
+<li>Set a seed in the <code><a href="../reference/test_distributions.html">test_fit()</a></code> test so that it does not fail at random</li>
+</ul></div>
+<div class="section level3">
+<h3 id="tutorials-1-7-2">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials-1-7-2"></a></h3>
+<ul><li>Updated intro tutorial
+<ul><li>Added sections on types, missing data, indexing with <code>[</code>, <code>[[</code>, and <code>$</code>, changing data frames with <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> and <code><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter()</a></code>, random numbers and seeds, reading errors and writing reproducible examples, and files and projects</li>
+<li>Moved packages to a closing “Where next” section that points to the <a href="https://stocnet.github.io/manynet/" class="external-link">manynet</a> tutorials</li>
+<li>Replaced dead links, removed <code>T</code>/<code>F</code> shorthand, and fixed typos</li>
+</ul></li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7.1" id="migraph-171">migraph 1.7.1<a class="anchor" aria-label="anchor" href="#migraph-171"></a></h2>
 <div class="section level3">
 <h3 id="package-1-7-1">Package<a class="anchor" aria-label="anchor" href="#package-1-7-1"></a></h3>
@@ -71,7 +91,7 @@
 </ul></div>
 </div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.7.0" id="migraph-170">migraph 1.7.0<a class="anchor" aria-label="anchor" href="#migraph-170"></a></h2>
+<h2 class="page-header" data-toc-text="1.7.0" id="migraph-170">migraph 1.7.0<small>2026-08-30</small><a class="anchor" aria-label="anchor" href="#migraph-170"></a></h2>
 <div class="section level3">
 <h3 id="package-1-7-0">Package<a class="anchor" aria-label="anchor" href="#package-1-7-0"></a></h3>
 <ul><li>Raised the minimum versions of the stocnet dependencies: manynet 2.3.1 and autograph 1.2.2</li>
