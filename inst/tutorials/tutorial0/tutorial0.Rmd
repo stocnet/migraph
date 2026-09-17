@@ -119,7 +119,7 @@ Remove the hash symbol at the start of this line to run it:
 ```
 
 In an R script you can toggle commenting for one or more lines using Cmd-Shift-C/Ctrl-Shift-C.
-If you try to run a commented out line, it pass it and look further down the script 
+If you try to run a commented out line, it will pass it and look further down the script 
 until it finds the next uncommented command line.
 
 ### Beyond a calculator
@@ -631,7 +631,7 @@ cities |>
 Note that neither function changes `cities` itself;
 it just prints it with the changes.
 To keep the result, assign it on the first line to an object with `<-`,
-e.g. `cites <- cities |> ...`.
+e.g. `cities <- cities |> ...`.
 
 ## Random numbers
 
