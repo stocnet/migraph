@@ -36,10 +36,18 @@ play_diffusions <- function(.data,
   # Coerce here until that is fixed upstream.
   if (inherits(.data, "stocnet")) .data <- manynet::as_igraph(.data)
   
-  out <- furrr::future_map_dfr(1:times, function(j){
-    data.frame(sim = j,
-               manynet::as_diffusion(manynet::play_diffusion(.data, ...)))
+  out <- furrr::future_map(1:times, function(j){
+    diff <- manynet::as_diffusion(manynet::play_diffusion(.data, ...))
+    # `manynet::as_diffusion()` returns a 0-row report when nothing spreads
+    # beyond the seed, so skip those runs until that is fixed upstream.
+    if (nrow(diff) == 0) return(NULL)
+    data.frame(sim = j, diff)
   }, .progress = verbose, .options = furrr::furrr_options(seed = T))
-  make_diffs_model(out, .data)
+  empty <- sum(vapply(out, is.null, logical(1)))
+  if (empty == times) stop("None of the ", times, " diffusion runs returned a report.")
+  if (empty > 0)
+    manynet::snet_warn("Dropped ", empty, " of ", times,
+                       " diffusion runs that returned an empty report.")
+  make_diffs_model(dplyr::bind_rows(out), .data)
 }
 

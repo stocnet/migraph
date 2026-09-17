@@ -1,5 +1,11 @@
 # migraph 1.7.2
 
+## Models
+
+- Fixed `play_diffusions()` so that it drops, with a warning, runs where nothing spreads beyond the seed,
+  instead of stopping with "arguments imply differing number of rows"
+- Set a seed in the `test_fit()` test so that it does not fail at random
+
 ## Tutorials
 
 - Updated intro tutorial
