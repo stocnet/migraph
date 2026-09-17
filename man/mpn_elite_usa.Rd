@@ -38,8 +38,8 @@
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> -- # US power elite network ----------------------------------------------------
-#> # A labelled, multiplex, undirected network of 38 elites and 59 board
-#> membership ties and 44 campaign contribution ties
+#> # A labelled, multiplex, undirected network of 26 elites, 6 organisations, and
+#> 6 candidates and 59 board membership ties and 44 campaign contribution ties
 #> 
 #> -- Nodes
 #> # A tibble: 38 x 2

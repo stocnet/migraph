@@ -5,6 +5,7 @@ test_that("test_distribution works", {
 })
 
 test_that("test_fit works", {
+  set.seed(1234)
   x <- as_diffusion(play_diffusion(generate_random(15), transmissibility = 0.7))
   y <- play_diffusions(generate_random(15), transmissibility = 0.1, times = 40)
   res <- test_fit(x, y)

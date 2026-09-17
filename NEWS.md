@@ -1,3 +1,24 @@
+# migraph 1.7.2
+
+## Package
+
+- Fixed the attach-time version check so that it no longer leaves stale messages for up to a week
+
+## Models
+
+- Fixed `play_diffusions()` so that it drops, with a warning, runs where nothing spreads beyond the seed,
+  instead of stopping with "arguments imply differing number of rows"
+- Set a seed in the `test_fit()` test so that it does not fail at random
+
+## Tutorials
+
+- Updated intro tutorial
+  - Added sections on types, missing data, indexing with `[`, `[[`, and `$`,
+    changing data frames with `mutate()` and `filter()`, random numbers and seeds,
+    reading errors and writing reproducible examples, and files and projects
+  - Moved packages to a closing "Where next" section that points to the `{manynet}` tutorials
+  - Replaced dead links, removed `T`/`F` shorthand, and fixed typos
+
 # migraph 1.7.1
 
 ## Package

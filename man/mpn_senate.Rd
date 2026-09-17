@@ -6,8 +6,8 @@
 \title{Multilevel 112th Congress Senate network (Knoke et al. 2021)}
 \format{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{#> -- # Senate contribution and voting network ------------------------------------
-#> # A labelled, undirected network of 196 senators and 5861 contribution and vote
-#> ties
+#> # A labelled, undirected network of 93 senators, 78 PACs, and 25 bills and 5861
+#> contribution and vote ties
 #> 
 #> -- Nodes
 #> # A tibble: 196 x 3
