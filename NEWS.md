@@ -1,3 +1,14 @@
+# migraph 1.7.2
+
+## Tutorials
+
+- Updated intro tutorial
+  - Added sections on types, missing data, indexing with `[`, `[[`, and `$`,
+    changing data frames with `mutate()` and `filter()`, random numbers and seeds,
+    reading errors and writing reproducible examples, and files and projects
+  - Moved packages to a closing "Where next" section that points to the `{manynet}` tutorials
+  - Replaced dead links, removed `T`/`F` shorthand, and fixed typos
+
 # migraph 1.7.1
 
 ## Package
