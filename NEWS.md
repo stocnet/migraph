@@ -1,5 +1,9 @@
 # migraph 1.7.2
 
+## Package
+
+- Fixed the attach-time version check so that it no longer leaves stale messages for up to a week
+
 ## Models
 
 - Fixed `play_diffusions()` so that it drops, with a warning, runs where nothing spreads beyond the seed,

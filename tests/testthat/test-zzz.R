@@ -64,3 +64,29 @@ test_that("snet_report_outdated() names the right install command", {
     "stocnet/manynet", fixed = TRUE)
   expect_silent(snet_report_outdated(list()))
 })
+
+# 1.7.1 cached which packages were behind, so after an update to 1.7.2 the
+# attach message still offered 1.7.1 from GitHub for a week.
+test_that("the cache holds repository versions, so an update clears the message", {
+  f <- tempfile(fileext = ".rds")
+  on.exit(unlink(f), add = TRUE)
+  local_mocked_bindings(snet_cache_file = function() f)
+  snet_write_cache(cran = c(migraph = "1.7.0"), gh = c(migraph = "1.7.1"))
+  cached <- snet_read_cache()
+  expect_equal(cached$gh, c(migraph = "1.7.1"))
+  before <- snet_check_versions(cran = cached$cran, gh = cached$gh,
+                                installed = list(migraph = "1.7.0"))
+  expect_equal(before$migraph$version, "1.7.1")
+  after <- snet_check_versions(cran = cached$cran, gh = cached$gh,
+                               installed = list(migraph = "1.7.2"))
+  expect_length(after, 0)
+})
+
+test_that("a cache in the old verdict format is ignored", {
+  f <- tempfile(fileext = ".rds")
+  on.exit(unlink(f), add = TRUE)
+  local_mocked_bindings(snet_cache_file = function() f)
+  saveRDS(list(date = Sys.Date(),
+               behind = list(migraph = list(version = "1.7.1", source = "GitHub"))), f)
+  expect_null(snet_read_cache())
+})

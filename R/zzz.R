@@ -20,16 +20,22 @@ snet_read_cache <- function() {
   out <- tryCatch(readRDS(f), error = function(e) NULL)
   if (!is.list(out) || is.null(out$date) || !inherits(out$date, "Date")) return(NULL)
   if (as.numeric(Sys.Date() - out$date) >= snet_check_interval) return(NULL)
+  # Caches from before 1.7.2 held the verdict rather than the repository
+  # versions, which went stale as soon as the user updated. Ignore them.
+  if (!all(c("cran", "gh") %in% names(out))) return(NULL)
   out
 }
 
-snet_write_cache <- function(behind) {
+# Cache what the repositories offer, not which packages are behind: the
+# installed versions can change within the week, so the comparison is redone on
+# every attach.
+snet_write_cache <- function(cran, gh) {
   f <- snet_cache_file()
   # Failure to cache is not worth bothering the user about; the check simply
   # runs again next session.
   tryCatch({
     dir.create(dirname(f), recursive = TRUE, showWarnings = FALSE)
-    saveRDS(list(date = Sys.Date(), behind = behind), f)
+    saveRDS(list(date = Sys.Date(), cran = cran, gh = gh), f)
   }, error = function(e) NULL, warning = function(w) NULL)
 }
 
@@ -157,17 +163,18 @@ snet_report_outdated <- function(behind) {
 
   cached <- snet_read_cache()
   if (!is.null(cached)) {
-    snet_report_outdated(cached$behind)
+    snet_report_outdated(snet_check_versions(cran = cached$cran, gh = cached$gh))
     return(invisible(NULL))
   }
 
-  behind <- snet_check_versions()
-  # NULL means the check could not run (offline, no repo); don't cache that, so
-  # it is retried next session rather than suppressed for a week.
-  if (is.null(behind)) return(invisible(NULL))
+  cran <- snet_cran_versions()
+  gh <- snet_github_versions()
+  # Both NULL means the check could not run (offline, no repo); don't cache
+  # that, so it is retried next session rather than suppressed for a week.
+  if (is.null(cran) && is.null(gh)) return(invisible(NULL))
 
-  snet_write_cache(behind)
-  snet_report_outdated(behind)
+  snet_write_cache(cran, gh)
+  snet_report_outdated(snet_check_versions(cran = cran, gh = gh))
 
 }
 
