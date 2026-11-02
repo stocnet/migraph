@@ -6,7 +6,7 @@
 # "there is no package called '1.6.8'".
 
 inst <- list(migraph = "1.7.0", manynet = "2.3.1",
-             autograph = "1.2.2", netrics = "0.4.0")
+             autograph = "1.2.2", netrics = "0.4.0", infernet = "0.6.0")
 
 test_that("snet_check_versions() parses version strings rather than looking them up", {
   # A version string that is not an installed package name must not error.
@@ -89,4 +89,29 @@ test_that("a cache in the old verdict format is ignored", {
   saveRDS(list(date = Sys.Date(),
                behind = list(migraph = list(version = "1.7.1", source = "GitHub"))), f)
   expect_null(snet_read_cache())
+})
+
+test_that("snet_check_versions() covers infernet", {
+  out <- snet_check_versions(cran = c(infernet = "0.6.1"), gh = NULL,
+                             installed = inst)
+  expect_named(out, "infernet")
+  expect_equal(out$infernet$source, "CRAN")
+})
+
+test_that("snet_split_sources() splits by source, in the order to install", {
+  behind <- list(migraph = list(version = "2.0.1", source = "GitHub"),
+                 infernet = list(version = "0.6.1", source = "CRAN"),
+                 manynet = list(version = "2.4.5", source = "GitHub"),
+                 netrics = list(version = "1.1.0", source = "CRAN"))
+  out <- snet_split_sources(behind)
+  expect_equal(out$cran, c("netrics", "infernet"))
+  expect_equal(out$github, c("manynet", "migraph"))
+  expect_equal(snet_split_sources(list()),
+               list(cran = character(), github = character()))
+})
+
+test_that("the report names update_stocnet()", {
+  expect_message(
+    snet_report_outdated(list(infernet = list(version = "9.9.9", source = "CRAN"))),
+    "update_stocnet()", fixed = TRUE)
 })

@@ -4,8 +4,16 @@
 # on attach. Since migraph Depends on manynet, autograph, and netrics, that meant
 # three blocking round-trips per session. The check now lives here only, covers
 # the whole stack at once, and is cached so it runs at most weekly.
+#
+# These are "the migraph packages": the stocnet packages that migraph Depends on
+# and that are maintained with it. A new one must be added here, so that the
+# check and `update_stocnet()` cover it.
 
-snet_pkgs <- c("migraph", "manynet", "autograph", "netrics")
+snet_pkgs <- c("migraph", "manynet", "autograph", "netrics", "infernet")
+
+# The order to install them in, so that each package's stocnet dependencies are
+# installed before it.
+snet_install_order <- c("manynet", "autograph", "netrics", "infernet", "migraph")
 
 # How long to trust a cached result before checking again.
 snet_check_interval <- 7
@@ -55,11 +63,11 @@ snet_cran_versions <- function() {
 }
 
 # Versions on the release branch of each GitHub repo. Much cheaper than the CRAN
-# index: four ~2KB files from a CDN rather than the full package database.
-snet_github_versions <- function() {
+# index: five ~2KB files from a CDN rather than the full package database.
+snet_github_versions <- function(timeout = 2) {
   tryCatch({
-    # Generous: fetching all four takes about 0.4s on a working connection.
-    old <- options(timeout = 2)
+    # Generous: fetching all five takes about 0.5s on a working connection.
+    old <- options(timeout = timeout)
     on.exit(options(old), add = TRUE)
     out <- character()
     for (p in snet_pkgs) {
@@ -120,6 +128,15 @@ snet_as_version <- function(x) {
   tryCatch(package_version(x), error = function(e) NULL, warning = function(w) NULL)
 }
 
+# Which of the packages that are behind come from CRAN, and which from GitHub,
+# each in the order to install them in.
+snet_split_sources <- function(behind) {
+  pkgs <- intersect(snet_install_order, names(behind))
+  if (!length(pkgs)) return(list(cran = character(), github = character()))
+  src <- vapply(behind[pkgs], function(x) x$source, character(1))
+  list(cran = pkgs[src == "CRAN"], github = pkgs[src == "GitHub"])
+}
+
 # nocov start
 
 snet_installed_versions <- function() {
@@ -133,8 +150,9 @@ snet_report_outdated <- function(behind) {
   if (!length(behind)) return(invisible(NULL))
   pkgs <- names(behind)
   vers <- vapply(behind, function(x) x$version, character(1))
-  from_cran <- pkgs[vapply(behind, function(x) x$source, character(1)) == "CRAN"]
-  from_gh <- setdiff(pkgs, from_cran)
+  sources <- snet_split_sources(behind)
+  from_cran <- sources$cran
+  from_gh <- sources$github
 
   packageStartupMessage(
     "Newer version", if (length(pkgs) > 1) "s" else "", " available: ",
@@ -153,6 +171,7 @@ snet_report_outdated <- function(behind) {
       "Not yet on CRAN. Install from GitHub with:\n  remotes::install_github(c(",
       paste0('"stocnet/', from_gh, '"', collapse = ", "), "))")
   }
+  packageStartupMessage("Or update them all with:\n  update_stocnet()")
   invisible(NULL)
 }
 

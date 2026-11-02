@@ -1,5 +1,9 @@
 # migraph 2.0.0
 
+## Package
+
+- Added `update_stocnet()`, which installs newest versions of migraph, manynet, 
+  autograph, netrics, and infernet, from CRAN or GitHub, whichever is newer
 
 ## Modelling
 
