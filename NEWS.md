@@ -6,6 +6,7 @@
 - Moved the "Diversity and Regression" tutorial to `{infernet}`, as `infernet1`
 - Moved the "Diffusion and Learning" tutorial to `{infernet}`, as `infernet2`
 - Moved the "Modelling with ERGMs" tutorial to `{infernet}`, as `infernet3`
+- Improved `run_tute()` and `extract_tute()` to look for tutorials in `{infernet}` too
 
 # migraph 1.7.2
 

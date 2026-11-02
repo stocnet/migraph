@@ -18,7 +18,7 @@
 #' @name tutorials
 NULL
 
-stocnet <- c("manynet", "autograph", "netrics", "migraph")
+stocnet <- c("manynet", "autograph", "netrics", "infernet", "migraph")
 
 #' @rdname tutorials 
 #' @export
@@ -40,6 +40,7 @@ run_tute <- function(tute) {
     try(learnr::run_tutorial(tute, "manynet"), silent = TRUE)
     try(learnr::run_tutorial(tute, "autograph"), silent = TRUE)
     try(learnr::run_tutorial(tute, "netrics"), silent = TRUE)
+    try(learnr::run_tutorial(tute, "infernet"), silent = TRUE)
     try(learnr::run_tutorial(tute, "migraph"), silent = TRUE)
     manynet::snet_info("Didn't find a direct match, so looking for close matches...")
     tutelist <- lapply(manynet::snet_progress_along(avail_pkgs, 
@@ -89,8 +90,12 @@ extract_tute <- function(tute) {
       pth <- gsub("autograph", "netrics", pth)
     }
     if(!dir.exists(pth)) {
+      thisRequires("infernet")
+      pth <- gsub("netrics", "infernet", pth)
+    }
+    if(!dir.exists(pth)) {
       thisRequires("migraph")
-      pth <- gsub("netrics", "migraph", pth)
+      pth <- gsub("infernet", "migraph", pth)
     }
     knitr::purl(file.path(pth, list.files(pth, pattern = "*.Rmd")),
                 documentation = 1)

@@ -12,7 +12,8 @@ navbar:
     - home
     - intro
     - reference
-    - articles
+    - tutorials
+    - family
     - news
     right:
     - search
@@ -26,6 +27,45 @@ navbar:
     reference:
       text: Function Overview
       href: reference/index.html
+    intro:
+      text: Get started
+      href: articles/migraph.html
+    tutorials:
+      text: Tutorials
+      menu:
+      - text: "manynet"
+      - text: Making Network Data
+        href: https://stocnet.github.io/manynet/articles/making-network-data.html
+      - text: Manipulating Network Data
+        href: https://stocnet.github.io/manynet/articles/manipulating-network-data.html
+      - text: "autograph"
+      - text: Visualising Networks
+        href: https://stocnet.github.io/autograph/articles/visualising-networks.html
+      - text: "netrics"
+      - text: Centrality
+        href: https://stocnet.github.io/netrics/articles/centrality.html
+      - text: Community
+        href: https://stocnet.github.io/netrics/articles/community.html
+      - text: Position
+        href: https://stocnet.github.io/netrics/articles/position.html
+      - text: Topology
+        href: https://stocnet.github.io/netrics/articles/topology.html
+      - text: "infernet"
+      - text: Diversity and Regression
+        href: https://stocnet.github.io/infernet/articles/diversity-and-regression.html
+      - text: Diffusion and Learning
+        href: https://stocnet.github.io/infernet/articles/diffusion-and-learning.html
+    family:
+      text: Packages
+      menu:
+      - text: manynet
+        href: https://stocnet.github.io/manynet/
+      - text: autograph
+        href: https://stocnet.github.io/autograph/
+      - text: netrics
+        href: https://stocnet.github.io/netrics/
+      - text: infernet
+        href: https://stocnet.github.io/infernet/
     news:
       text: News
       href: news/index.html
@@ -38,32 +78,27 @@ navbar:
       href: https://cloud.r-project.org/package=migraph
       aria-label: View on CRAN
 reference:
-  - title: "Parallelism"
-    desc: "Functions for measuring over many elements:"
-    contents:
-      - measure_over
-  - title: "Simulating"
-    desc: "Functions for simulating multiple processes:"
-    contents:
-      - make_play
-  - title: "Modelling"
-    desc: "Functions for testing and regressing networks:"
-    contents:
-      - starts_with("test")
-      - regression
-      - predict
-
-  - title: "Practicing"
-  - subtitle: "Learning"
+  - title: "Learning"
     desc: |
-      Functions for loading and extracting code from tutorials.
+      Functions for running tutorials from all the stocnet packages,
+      and for extracting their code.
     contents:
       - tutorials
-  - subtitle: "Data"
+
+  - title: "Keeping current"
+    desc: |
+      Functions for installing the newest versions of the stocnet packages.
+    contents:
+      - update_stocnet
+
+  - title: "Data"
     desc: |
       The package contains multimodal, multilevel, and multiplex network data,
       used in the book _Multimodal Political Networks_ (prefixed with `mpn_`).
     contents:
       - starts_with("mpn_")
-      
 
+  - title: "Other"
+    desc: "Functions for measuring over many elements:"
+    contents:
+      - measure_over
