@@ -1,6 +1,18 @@
 # migraph 2.0.0
 
 
+## Modelling
+
+- Moved the tests, the regression, and the diffusion simulations to `{infernet}`
+  - Since `{infernet}` is attached with `{migraph}`, scripts that use them still work
+  - `verbose=` is no longer an argument; use `options(snet_verbosity = "verbose")`
+- Deprecated the functions that were renamed in `{infernet}`:
+  - `net_regression()` calls `infernet::estimate_mrqap()`, and returns a `netreg`
+  - `test_distribution()` calls `infernet::test_distributions()`, on two `diffs_model` objects
+  - `test_fit()` calls `infernet::test_gof()`
+- Moved `predict()` for `netlm` and `netlogit` to `{infernet}`, which adds one for `netreg`
+- Removed `network_reg()`, deprecated since 2024
+
 ## Tutorials
 
 - Moved the "Diversity and Regression" tutorial to `{infernet}`, as `infernet1`
