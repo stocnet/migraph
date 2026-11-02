@@ -4,11 +4,11 @@
 \name{migraph-package}
 \alias{migraph}
 \alias{migraph-package}
-\title{migraph: Inferential Methods for Multimodal and Other Networks}
+\title{migraph: Install and Learn Social Network Analysis with the 'stocnet' Packages}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-A set of tools for testing networks. It includes functions for univariate and multivariate conditional uniform graph and quadratic assignment procedure testing, and network regression. The package is a complement to 'Multimodal Political Networks' (2021, ISBN:9781108985000), and includes various datasets used in the book. Built on the 'manynet' package, all functions operate with matrices, edge lists, and 'igraph', 'network', and 'tidygraph' objects, and on one-mode and two-mode (bipartite) networks.
+Helps new users install, update, and learn social network analysis. Attaching the package loads 'manynet' (network data and manipulation), 'autograph' (plots), 'netrics' (measures), and 'infernet' (tests and models), and tells the user when newer versions of these packages are available. It provides interactive tutorials that cover all of these packages, and is the companion to 'Multimodal Political Networks' (2021, ISBN:9781108985000), whose datasets it includes.
 }
 \seealso{
 Useful links:

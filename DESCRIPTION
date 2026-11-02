@@ -1,15 +1,13 @@
 Package: migraph
-Title: Inferential Methods for Multimodal and Other Networks 
-Version: 1.7.2
-Description: A set of tools for testing networks.
-   It includes functions for univariate and multivariate conditional uniform graph 
-   and quadratic assignment procedure testing, and network regression.
-   The package is a complement to 
-   'Multimodal Political Networks' (2021, ISBN:9781108985000),
-   and includes various datasets used in the book.
-   Built on the 'manynet' package, all functions operate with matrices, 
-   edge lists, and 'igraph', 'network', and 'tidygraph' objects,
-   and on one-mode and two-mode (bipartite) networks.
+Title: Install and Learn Social Network Analysis with the 'stocnet' Packages
+Version: 2.0.0
+Description: Helps new users install, update, and learn social network analysis.
+   Attaching the package loads 'manynet' (network data and manipulation),
+   'autograph' (plots), 'netrics' (measures), and 'infernet' (tests and models),
+   and tells the user when newer versions of these packages are available.
+   It provides interactive tutorials that cover all of these packages,
+   and is the companion to 'Multimodal Political Networks'
+   (2021, ISBN:9781108985000), whose datasets it includes.
 URL: https://stocnet.github.io/migraph/
 BugReports: https://github.com/stocnet/migraph/issues
 License: MIT + file LICENSE
@@ -18,19 +16,18 @@ Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 4.1.0),
-    manynet (>= 2.3.4),
-    autograph (>= 1.2.3),
-    netrics (>= 1.0.3)
+    manynet (>= 2.4.0),
+    autograph (>= 1.2.8),
+    netrics (>= 1.1.0),
+    infernet (>= 0.6.1)
 Imports: 
     dplyr (>= 1.1.0),
-    ergm,
     future,
     furrr,
-    generics,
     knitr,
-    learnr,
-    purrr
+    learnr
 Suggests:
+    remotes,
     rmarkdown,
     shiny,
     testthat (>= 3.0.0)
@@ -69,4 +66,4 @@ Config/Needs/website:
 Config/testthat/parallel: true
 Config/testthat/edition: 3
 Config/testthat/start-first: tutorials_migraph
-Config/roxygen2/version: 8.1.0
+Config/roxygen2/version: 8.1.1

@@ -19,3 +19,4 @@ vignettes/precompile\.R
 ^\.positai$
 ^\.claude$
 ^CLAUDE\.md$
+^vignettes/articles$

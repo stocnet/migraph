@@ -9,5 +9,16 @@
 
 0 errors | 0 warnings | 0 notes
 
-This version also treats the rare model_tests issue that could occur under some random seeds,
-and lead to an intermittent error on e.g. r-release-linux-x86_64 recently.
+## Changes in this version
+
+This major version moves the tests, the network regression, and the diffusion
+simulations to the new package 'infernet' (0.6.1, now on CRAN).
+'migraph' now Depends on 'infernet', so that these functions are still
+available to users who attach 'migraph'.
+The functions that were renamed in 'infernet' remain here as deprecated shims.
+
+## Reverse dependencies
+
+There are 2 reverse dependencies on CRAN: 'autograph' and 'goldfish'.
+Both have 'migraph' only in Suggests.
+Neither calls a removed function in code that runs on CRAN.

@@ -2,6 +2,12 @@
 
 ## Package
 
+- Updated package purpose: to help new users install and learn social network analysis
+  - Updated title, description, and README to reflect this
+- Added `{infernet}` to `Depends`, so `library(migraph)` attaches it
+- Raised minimum versions of the stocnet dependencies to latest CRAN releases:
+  manynet 2.4.0, autograph 1.2.8, netrics 1.1.0, and infernet 0.6.1
+- Removed packages no longer necessary: `{ergm}`, `{generics}`, `{purrr}`
 - Added `update_stocnet()`, which installs newest versions of migraph, manynet, 
   autograph, netrics, and infernet, from CRAN or GitHub, whichever is newer
 
