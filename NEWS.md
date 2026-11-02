@@ -10,7 +10,8 @@
   - `net_regression()` calls `infernet::estimate_mrqap()`, and returns a `netreg`
   - `test_distribution()` calls `infernet::test_distributions()`, on two `diffs_model` objects
   - `test_fit()` calls `infernet::test_gof()`
-- Moved `predict()` for `netlm` and `netlogit` to `{infernet}`, which adds one for `netreg`
+- Moved `predict()` for `netlm` and `netlogit` to `{infernet}`
+- Moved the `tidy()` and `glance()` methods to `{infernet}`
 - Removed `network_reg()`, deprecated since 2024
 
 ## Tutorials

@@ -8,7 +8,15 @@
 #'   - `over_time()` runs a function, e.g. a measure,
 #'   over time slices of a dynamic network
 #' 
-#' @inheritParams regression
+#' @param .data An object of a manynet-consistent class:
+#'   \itemize{
+#'   \item matrix (adjacency or incidence) from `{base}` R
+#'   \item edgelist, a data frame from `{base}` R or tibble from `{tibble}`
+#'   \item igraph, from the `{igraph}` package
+#'   \item network, from the `{network}` package
+#'   \item tbl_graph, from the `{tidygraph}` package
+#'   \item stocnet, from the `{manynet}` package
+#'   }
 #' @param strategy If `{furrr}` is installed, 
 #'   then multiple cores can be used to accelerate the function.
 #'   By default `"sequential"`, 

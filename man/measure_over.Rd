@@ -36,8 +36,15 @@ over_time(
 )
 }
 \arguments{
-\item{.data}{A manynet-consistent network.
-See e.g. \code{manynet::as_tidygraph()} for more details.}
+\item{.data}{An object of a manynet-consistent class:
+\itemize{
+\item matrix (adjacency or incidence) from \code{{base}} R
+\item edgelist, a data frame from \code{{base}} R or tibble from \code{{tibble}}
+\item igraph, from the \code{{igraph}} package
+\item network, from the \code{{network}} package
+\item tbl_graph, from the \code{{tidygraph}} package
+\item stocnet, from the \code{{manynet}} package
+}}
 
 \item{FUN}{A function to run over all splits.}
 
