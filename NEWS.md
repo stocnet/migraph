@@ -1,3 +1,12 @@
+# migraph 2.0.0
+
+
+## Tutorials
+
+- Moved the "Diversity and Regression" tutorial to `{infernet}`, as `infernet1`
+- Moved the "Diffusion and Learning" tutorial to `{infernet}`, as `infernet2`
+- Moved the "Modelling with ERGMs" tutorial to `{infernet}`, as `infernet3`
+
 # migraph 1.7.2
 
 ## Package

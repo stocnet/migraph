@@ -199,7 +199,7 @@ Follow this same signature when adding new simulation-based functions.
 `{netrics}` (see `DESCRIPTION`).
 CRAN and reverse-dependency issues are commonly resolved by bumping these minimum
 versions rather than by changing `migraph`'s own code — see `cran-comments.md`.
-`ergm` and `learnr` are heavier dependencies used by only a few functions;
+`learnr` and `knitr` are heavier dependencies used by only a few functions;
 guard such code paths with the `thisRequires()` helper in
 [R/migraph-package.R](../R/migraph-package.R), which prompts to install on first use.
 
