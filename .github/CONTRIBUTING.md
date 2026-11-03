@@ -116,9 +116,20 @@ argument order and naming, so that behaviour is guessable across the family.
 
 When writing documentation or NEWS items, prefer breaking lines at punctuation.
 
-Make it clear when you are referring to functions by adding backticks and parentheses,
-e.g. `a_function()`, and arguments by adding an equals sign, e.g. `argument=`.
-Argument values or variables can be in double quotation marks, e.g. "value".
+Use one notation for code in issues, reviews, documentation, and NEWS items:
+
+- Give a function or generic backticks and parentheses, e.g. `verb_function()`.
+- When referring to a particular method, write `verb_function.stocnet()`
+- Give an argument an equals sign, e.g. `argument=`.
+- Put a value that an argument takes, or a variable, in double quotation marks, e.g. "value".
+- Give a class a leading period where it names the class that a method is for,
+  e.g. `.stocnet`.
+  A leading period on a name with parentheses is an internal helper instead,
+  e.g. `.helper_function()`.
+- Name a new class in camelCase, after the package plus a noun, e.g. `infernetConfusion`,
+  so that a class does not look like a snake_case function.
+  See "Class names across the stocnet ecosystem" in the `{autograph}` contributing guide.
+  Older names, such as `network_test`, stay until they can be renamed with an alias.
 
 ### Common commands
 

@@ -80,23 +80,15 @@ extract_tute <- function(tute) {
     manynet::snet_info("You can extract the code from one of these tutorials by typing e.g `extract_tute('tutorial1')` into the console.")
   } else {
     thisRequires("knitr")
-    pth <- file.path(path.package("manynet"), "tutorials", tute)
-    if(!dir.exists(pth)) {
-      thisRequires("autograph")
-      pth <- gsub("manynet", "autograph", pth)
+    # Each package can be in a different library, so find each one's own path
+    pth <- ""
+    for (p in stocnet) {
+      thisRequires(p)
+      pth <- system.file("tutorials", tute, package = p)
+      if (nzchar(pth)) break
     }
-    if(!dir.exists(pth)) {
-      thisRequires("netrics")
-      pth <- gsub("autograph", "netrics", pth)
-    }
-    if(!dir.exists(pth)) {
-      thisRequires("infernet")
-      pth <- gsub("netrics", "infernet", pth)
-    }
-    if(!dir.exists(pth)) {
-      thisRequires("migraph")
-      pth <- gsub("infernet", "migraph", pth)
-    }
+    if (!nzchar(pth))
+      manynet::snet_abort(paste0("Could not find a tutorial called '", tute, "'."))
     knitr::purl(file.path(pth, list.files(pth, pattern = "*.Rmd")),
                 documentation = 1)
     utils::file.edit(gsub(".Rmd", ".R", list.files(pth, pattern = "*.Rmd")))

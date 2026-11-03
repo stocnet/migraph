@@ -30,6 +30,7 @@
 - Moved the "Diffusion and Learning" tutorial to `{infernet}`, as `infernet2`
 - Moved the "Modelling with ERGMs" tutorial to `{infernet}`, as `infernet3`
 - Improved `run_tute()` and `extract_tute()` to look for tutorials in `{infernet}` too
+- Fixed `extract_tute()` not finding tutorials when the stocnet packages are in different libraries
 
 # migraph 1.7.2
 
