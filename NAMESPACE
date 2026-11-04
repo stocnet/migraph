@@ -10,7 +10,7 @@ export(over_waves)
 export(run_tute)
 export(test_distribution)
 export(test_fit)
-export(update_stocnet)
+export(update_versions)
 importFrom(autograph,ag_base)
 importFrom(dplyr,
   as_tibble,

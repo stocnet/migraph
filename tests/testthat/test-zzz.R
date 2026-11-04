@@ -110,8 +110,58 @@ test_that("snet_split_sources() splits by source, in the order to install", {
                list(cran = character(), github = character()))
 })
 
-test_that("the report names update_stocnet()", {
+test_that("the report names update_versions()", {
   expect_message(
     snet_report_outdated(list(infernet = list(version = "9.9.9", source = "CRAN"))),
-    "update_stocnet()", fixed = TRUE)
+    "update_versions()", fixed = TRUE)
+})
+
+libs <- list(migraph = "/lib/a", manynet = c("/lib/a", "/lib/b"),
+             autograph = "/lib/a", netrics = "/lib/a", infernet = "/lib/a")
+
+test_that("snet_version_table() gives one row per package, in install order", {
+  out <- snet_version_table(cran = c(manynet = "2.3.1"), gh = NULL,
+                            installed = inst, libraries = libs)
+  expect_equal(out$package, snet_install_order)
+  expect_named(out, c("package", "installed", "cran", "github",
+                      "status", "library", "libraries"))
+})
+
+test_that("snet_version_table() agrees with snet_check_versions()", {
+  out <- snet_version_table(cran = c(migraph = "1.8.0", netrics = "0.4.0"),
+                            gh = c(netrics = "1.0.1"),
+                            installed = inst, libraries = libs)
+  status <- stats::setNames(out$status, out$package)
+  expect_equal(status[["migraph"]], "newer on CRAN")
+  expect_equal(status[["netrics"]], "newer on GitHub")
+  expect_equal(status[["manynet"]], "up to date")
+  expect_equal(out$cran[out$package == "netrics"], "0.4.0")
+  expect_true(is.na(out$cran[out$package == "autograph"]))
+})
+
+test_that("snet_version_table() marks packages that are not installed or not checked", {
+  out <- snet_version_table(cran = NULL, gh = NULL,
+                            installed = list(migraph = "2.0.0"),
+                            libraries = list(migraph = "/lib/a"))
+  status <- stats::setNames(out$status, out$package)
+  expect_equal(status[["migraph"]], "not checked")
+  expect_equal(status[["netrics"]], "not installed")
+  expect_true(is.na(out$library[out$package == "netrics"]))
+  expect_equal(out$libraries[out$package == "netrics"], 0L)
+})
+
+test_that("snet_version_table() counts the libraries that hold a package", {
+  out <- snet_version_table(cran = NULL, gh = NULL, installed = inst,
+                            libraries = libs)
+  expect_equal(out$libraries[out$package == "manynet"], 2L)
+  expect_equal(out$library[out$package == "manynet"], "/lib/a")
+})
+
+test_that("print.migraphVersions() prints the table and warns about two libraries", {
+  out <- snet_version_table(cran = c(manynet = "2.3.1"), gh = NULL,
+                            installed = inst, libraries = libs)
+  class(out) <- c("migraphVersions", class(out))
+  expect_warning(expect_output(print(out), "manynet"), "more than one library")
+  # After the user drops columns, it prints without advice and without error.
+  expect_output(print(out[, c("package", "installed")]), "manynet")
 })

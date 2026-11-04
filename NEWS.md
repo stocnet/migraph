@@ -8,7 +8,7 @@
 - Raised minimum versions of the stocnet dependencies to latest CRAN releases:
   manynet 2.4.0, autograph 1.2.8, netrics 1.1.0, and infernet 0.6.1
 - Removed packages no longer necessary: `{ergm}`, `{generics}`, `{purrr}`
-- Added `update_stocnet()`, which installs newest versions of migraph, manynet, 
+- Added `update_versions()`, which installs newest versions of migraph, manynet, 
   autograph, netrics, and infernet, from CRAN or GitHub, whichever is newer
 
 ## Modelling

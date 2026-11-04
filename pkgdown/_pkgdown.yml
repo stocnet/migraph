@@ -87,9 +87,9 @@ reference:
 
   - title: "Keeping current"
     desc: |
-      Functions for installing the newest versions of the stocnet packages.
+      Functions for checking and installing the newest versions of the stocnet packages.
     contents:
-      - update_stocnet
+      - update_versions
 
   - title: "Data"
     desc: |

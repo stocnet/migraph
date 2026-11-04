@@ -87,7 +87,7 @@ it is important to select this branch when pushing to origin/main.
 `migraph` is an R package (part of the [stocnet](https://github.com/stocnet) ecosystem)
 that helps new users install and learn social network analysis.
 Attaching it loads the other migraph packages (see below),
-it tells users when newer versions are available and installs them (`update_stocnet()`),
+it tells users when newer versions are available and installs them (`update_versions()`),
 and it runs the tutorials of all these packages (`run_tute()`).
 From 2.0.0, the tests, MRQAP, and diffusion models are in `{infernet}`.
 It is also a software companion to
@@ -163,10 +163,10 @@ All exported functions live directly in `R/`, grouped by theme rather than one f
 | `class_models.R` | `summary.sienaFit()`, which uses `{infernet}`'s `tidy()` and `glance()` |
 | `class_makes.R` | internal `make_*()` constructors and `print()` methods for the lightweight result classes (`network_measures`, `over_memb`) |
 | `measure_over.R` | `over_time()`, `over_waves()`, `over_membership()` — applying a measure across longitudinal slices or group partitions |
-| `tutorial_run.R` | `run_tute()`/`extract_tute()`, `{learnr}` wrappers that search *all* installed stocnet packages for a tutorial by name or fuzzy title match |
+| `tutorial_run.R` | `run_tute()`/`extract_tute()`, `{learnr}` wrappers that search *all* installed stocnet packages for a tutorial by name or fuzzy title match, and `search_tute()`, which finds a keyword or function in their tutorials |
 | `data_mpn.R` | documentation for the `mpn_*` datasets from *Multimodal Political Networks* |
-| `stocnet_update.R` | `update_stocnet()`, which installs the newest version of each migraph package from CRAN or GitHub |
-| `zzz.R` | the attach-time version check of the migraph packages (`snet_pkgs`), and the helpers that `update_stocnet()` shares with it |
+| `stocnet_update.R` | `update_versions()`, which installs the newest version of each migraph package from CRAN or GitHub, and `table_versions()`, which tables the installed and newest versions |
+| `zzz.R` | the attach-time version check of the migraph packages (`snet_pkgs`), and the helpers that `update_versions()` and `table_versions()` share with it |
 | `migraph-package.R` | package-level doc, the `thisRequires()` helper, global variables, and shims silencing R CMD check's unused-import notes |
 | `migraph-defunct.R` | retired function stubs kept for a deprecation cycle, including the shims of `net_regression()`, `test_distribution()`, and `test_fit()`, which were renamed in `{infernet}` and call it |
 
@@ -221,7 +221,7 @@ the stocnet packages that `migraph` `Depends` on and that are maintained with it
   For the order in which to submit when the packages depend on each other's fixes,
   the package that carries the fix goes to CRAN first.
 - A new migraph package must also be added to `snet_pkgs` and `snet_install_order` in
-  [R/zzz.R](../R/zzz.R), so that the attach-time check and `update_stocnet()` cover it,
+  [R/zzz.R](../R/zzz.R), so that the attach-time check and `update_versions()` cover it,
   and to `stocnet` in [R/tutorial_run.R](../R/tutorial_run.R), so that its tutorials are found.
 
 CRAN and reverse-dependency issues are commonly resolved by bumping these minimum

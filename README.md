@@ -74,11 +74,11 @@ these packages is available (it checks at most once a week). To check
 now and install all the newest versions, type:
 
 ``` r
-update_stocnet()
+update_versions()
 ```
 
 Do this before a class, a test, or the submission of a paper. For each
-package, `update_stocnet()` installs the newer of the CRAN release and
+package, `update_versions()` installs the newer of the CRAN release and
 the GitHub release.
 
 ## Learn
@@ -111,7 +111,7 @@ tutorials in this sequence:
 | [`{autograph}`](https://stocnet.github.io/autograph/) | plots networks and the results of analyses | `graphr()`, `plot()` |
 | [`{netrics}`](https://stocnet.github.io/netrics/) | measures and marks nodes, ties, and networks | `node_by_degree()`, `net_by_density()` |
 | [`{infernet}`](https://stocnet.github.io/infernet/) | tests and models networks: CUG and QAP tests, MRQAP, and diffusions | `test_random()`, `estimate_mrqap()`, `play_diffusions()` |
-| `{migraph}` | loads and updates all of these, and holds the tutorials and the data of the book | `run_tute()`, `update_stocnet()` |
+| `{migraph}` | loads and updates all of these, and holds the tutorials and the data of the book | `run_tute()`, `update_versions()` |
 
 ## Data
 

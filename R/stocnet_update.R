@@ -1,7 +1,7 @@
-#' Update the stocnet packages
+#' Update the versions of the stocnet packages
 #'
 #' @description
-#'   `update_stocnet()` installs the newest versions of
+#'   `update_versions()` installs the newest versions of
 #'   `{migraph}`, `{manynet}`, `{autograph}`, `{netrics}`, and `{infernet}`.
 #'   For each package, it takes the newer of the release on CRAN and
 #'   the release on GitHub (the main branch).
@@ -12,7 +12,7 @@
 #'   before a class, a test, or the submission of a paper.
 #'   On attach, `{migraph}` tells you when one of these packages is behind,
 #'   but it checks at most once a week.
-#'   `update_stocnet()` always checks again.
+#'   `update_versions()` always checks again.
 #'
 #' @param ask Logical.
 #'   If `TRUE` (the default in an interactive session),
@@ -25,10 +25,10 @@
 #' @examples
 #' # This changes the packages in your library, so it is not run here.
 #' \dontrun{
-#' update_stocnet()
+#' update_versions()
 #' }
 #' @export
-update_stocnet <- function(ask = interactive()) {
+update_versions <- function(ask = interactive()) {
   # nocov start
   # Under a bare Rscript no repository is set, so the CRAN check would not run.
   # The user asked to update, so use the cloud mirror for this call only.

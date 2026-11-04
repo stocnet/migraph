@@ -50,7 +50,7 @@ If a newer version of one of these packages is available, `{migraph}` tells you.
 To check for newer versions and install them, type:
 
 ```{r}
-update_stocnet()
+update_versions()
 ```
 
 Do this before a class, a test, or the submission of a paper.
