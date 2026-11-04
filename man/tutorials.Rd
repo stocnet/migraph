@@ -4,14 +4,30 @@
 \alias{tutorials}
 \alias{run_tute}
 \alias{extract_tute}
+\alias{search_tute}
 \title{Open and extract code from tutorials}
 \usage{
 run_tute(tute)
 
 extract_tute(tute)
+
+search_tute(pattern)
 }
 \arguments{
-\item{tute}{String, name of the tutorial (e.g. "tutorial2").}
+\item{tute}{String, name of the tutorial (e.g. "tutorial2"),
+or the result of \code{search_tute()}.}
+
+\item{pattern}{String, a keyword or a function name to search for.
+A keyword matches anywhere in the text or code, ignoring case.
+A name that ends in \verb{()}, such as "node_by_deg()",
+or that is a function exported by a stocnet package,
+matches only where that function is called or named with parentheses.}
+}
+\value{
+\code{search_tute()} returns a \code{migraphSearch} object:
+the name of the tutorial with the most matches,
+with all the matches in its "matches" attribute.
+If nothing matches, it is of length zero.
 }
 \description{
 These functions make it easy to use the tutorials
@@ -23,5 +39,17 @@ wraps \code{learnr::run_tutorial()} with some convenience.
 \item \code{extract_tute()} extracts and opens just the solution code
 from a \code{{manynet}} or \code{{migraph}} tutorial,
 saving the .R script to the current working directory.
+\item \code{search_tute()} finds where a keyword or function appears
+in the tutorials of all installed stocnet packages.
+It prints every match, with the section and the type of chunk it is in,
+and returns the name of the tutorial with the most matches,
+so that \code{run_tute(search_tute("brokerage"))} opens that tutorial.
+}
+}
+\examples{
+search_tute("brokerage")
+search_tute("node_by_deg()")
+\dontrun{
+run_tute(search_tute("brokerage"))
 }
 }

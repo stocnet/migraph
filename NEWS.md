@@ -31,6 +31,9 @@
 - Moved the "Diffusion and Learning" tutorial to `{infernet}`, as `infernet2`
 - Moved the "Modelling with ERGMs" tutorial to `{infernet}`, as `infernet3`
 - Improved `run_tute()` and `extract_tute()` to look for tutorials in `{infernet}` too
+- Added `search_tute()`, which finds a keyword or function in the tutorials of all stocnet packages
+  - It prints each match, with its section and whether it is in text, an example, an exercise, a hint, a solution, or a quiz
+  - It returns the name of the tutorial with the most matches, so `run_tute(search_tute("brokerage"))` opens it
 - Fixed `extract_tute()` not finding tutorials when the stocnet packages are in different libraries
 
 # migraph 1.7.2
