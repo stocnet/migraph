@@ -10,6 +10,7 @@
 - Removed packages no longer necessary: `{ergm}`, `{generics}`, `{purrr}`
 - Added `update_versions()`, which installs newest versions of migraph, manynet, 
   autograph, netrics, and infernet, from CRAN or GitHub, whichever is newer
+- Added `table_versions()`, which gives a table of the installed, CRAN, and GitHub versions of the migraph packages
 
 ## Modelling
 

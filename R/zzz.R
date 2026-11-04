@@ -7,7 +7,7 @@
 #
 # These are "the migraph packages": the stocnet packages that migraph Depends on
 # and that are maintained with it. A new one must be added here, so that the
-# check and `update_stocnet()` cover it.
+# check and `update_versions()` cover it.
 
 snet_pkgs <- c("migraph", "manynet", "autograph", "netrics", "infernet")
 
@@ -137,7 +137,48 @@ snet_split_sources <- function(behind) {
   list(cran = pkgs[src == "CRAN"], github = pkgs[src == "GitHub"])
 }
 
+# The table that `table_versions()` gives. Like `snet_check_versions()`, it takes
+# the versions and libraries as arguments, so that a test can reach it without a
+# network. The status comes from `snet_check_versions()`, so that the table, the
+# attach message, and `update_versions()` always agree.
+snet_version_table <- function(cran, gh, installed, libraries) {
+  behind <- snet_check_versions(cran = cran, gh = gh, installed = installed)
+  pick <- function(x, p) {
+    if (!is.null(x) && p %in% names(x)) as.character(x[[p]]) else NA_character_
+  }
+  rows <- lapply(snet_install_order, function(p) {
+    iv <- installed[[p]]
+    iv <- if (is.null(iv) || is.na(iv)) NA_character_ else as.character(iv)
+    libs <- libraries[[p]]
+    status <- if (is.na(iv)) "not installed"
+      else if (p %in% names(behind)) paste("newer on", behind[[p]]$source)
+      else if (is.null(cran) && is.null(gh)) "not checked"
+      else "up to date"
+    dplyr::tibble(package = p, installed = iv,
+                  cran = pick(cran, p), github = pick(gh, p),
+                  status = status,
+                  library = if (length(libs)) libs[1] else NA_character_,
+                  libraries = length(libs))
+  })
+  dplyr::bind_rows(rows)
+}
+
 # nocov start
+
+# The library that R uses for each package first, then any other library that
+# also holds a copy. Two copies are a common cause of confusion in a class:
+# an update goes to one library, and R still loads the other.
+snet_installed_libraries <- function() {
+  norm <- function(x) normalizePath(x, winslash = "/", mustWork = FALSE)
+  out <- lapply(snet_pkgs, function(p) {
+    used <- find.package(p, quiet = TRUE)
+    used <- if (length(used)) norm(dirname(used[1])) else character()
+    libs <- .libPaths()[file.exists(file.path(.libPaths(), p, "DESCRIPTION"))]
+    unique(c(used, norm(libs)))
+  })
+  names(out) <- snet_pkgs
+  out
+}
 
 snet_installed_versions <- function() {
   out <- lapply(snet_pkgs, function(p)
@@ -171,7 +212,7 @@ snet_report_outdated <- function(behind) {
       "Not yet on CRAN. Install from GitHub with:\n  remotes::install_github(c(",
       paste0('"stocnet/', from_gh, '"', collapse = ", "), "))")
   }
-  packageStartupMessage("Or update them all with:\n  update_stocnet()")
+  packageStartupMessage("Or update them all with:\n  update_versions()")
   invisible(NULL)
 }
 

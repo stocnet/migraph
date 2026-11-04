@@ -89,6 +89,7 @@ reference:
     desc: |
       Functions for checking and installing the newest versions of the stocnet packages.
     contents:
+      - table_versions
       - update_versions
 
   - title: "Data"
