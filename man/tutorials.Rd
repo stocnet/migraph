@@ -36,6 +36,11 @@ in the \code{{manynet}} and \code{{migraph}} packages:
 \item \code{run_tute()} runs a \code{{learnr}} tutorial from
 either the \code{{manynet}} or \code{{migraph}} packages,
 wraps \code{learnr::run_tutorial()} with some convenience.
+Before it runs a tutorial, it calls \code{update_versions()},
+because a tutorial can need a newer version of a stocnet package
+than the one that is installed.
+If it installs a newer version, it stops,
+so that you can restart R and then run the tutorial.
 \item \code{extract_tute()} extracts and opens just the solution code
 from a \code{{manynet}} or \code{{migraph}} tutorial,
 saving the .R script to the current working directory.

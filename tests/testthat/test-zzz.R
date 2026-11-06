@@ -165,3 +165,15 @@ test_that("print.migraphVersions() prints the table and warns about two librarie
   # After the user drops columns, it prints without advice and without error.
   expect_output(print(out[, c("package", "installed")]), "manynet")
 })
+
+# `run_tute()` stops for a restart only when `update_versions()` installed a
+# newer version, and `update_versions()` returns what was behind either way.
+test_that("snet_updated() names only the packages now at the newer version", {
+  behind <- list(autograph = list(version = "1.2.8", source = "CRAN"),
+                 infernet = list(version = "0.6.3", source = "GitHub"))
+  expect_equal(snet_updated(behind, list(autograph = "1.2.8", infernet = "0.6.2")),
+               "autograph")
+  expect_length(snet_updated(behind, list(autograph = "1.2.7", infernet = "0.6.2")), 0)
+  expect_length(snet_updated(behind, list(autograph = NULL)), 0)
+  expect_length(snet_updated(list(), inst), 0)
+})

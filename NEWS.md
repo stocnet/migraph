@@ -35,6 +35,9 @@
   - It prints each match, with its section and whether it is in text, an example, an exercise, a hint, a solution, or a quiz
   - It returns the name of the tutorial with the most matches, so `run_tute(search_tute("brokerage"))` opens it
 - Fixed `extract_tute()` not finding tutorials when the stocnet packages are in different libraries
+- Improved `run_tute()` to call `update_versions()` before it runs a tutorial,
+  because `{learnr}` checks only that a tutorial's packages are installed, not their versions
+  - If it installs a newer version, it stops and asks you to restart R before the tutorial
 
 # migraph 1.7.2
 

@@ -6,9 +6,14 @@
 #'   These functions make it easy to use the tutorials
 #'   in the `{manynet}` and `{migraph}` packages:
 #'   
-#'   - `run_tute()` runs a `{learnr}` tutorial from 
+#'   - `run_tute()` runs a `{learnr}` tutorial from
 #'   either the `{manynet}` or `{migraph}` packages,
 #'   wraps `learnr::run_tutorial()` with some convenience.
+#'   Before it runs a tutorial, it calls `update_versions()`,
+#'   because a tutorial can need a newer version of a stocnet package
+#'   than the one that is installed.
+#'   If it installs a newer version, it stops,
+#'   so that you can restart R and then run the tutorial.
 #'   - `extract_tute()` extracts and opens just the solution code
 #'   from a `{manynet}` or `{migraph}` tutorial,
 #'   saving the .R script to the current working directory.
@@ -45,9 +50,10 @@ stocnet <- c("manynet", "autograph", "netrics", "infernet", "migraph")
 #' @export
 run_tute <- function(tute) {
   thisRequires("learnr")
+  if (!missing(tute) && inherits(tute, "migraphSearch") && length(tute) == 0)
+    manynet::snet_abort("The search found no tutorial to run.")
+  if (!missing(tute) && snet_update_before_tute()) return(invisible(NULL))
   if (!missing(tute) && inherits(tute, "migraphSearch")) {
-    if (length(tute) == 0)
-      manynet::snet_abort("The search found no tutorial to run.")
     return(learnr::run_tutorial(as.character(tute), attr(tute, "package")))
   }
   avail_pkgs <- stocnet[suppressWarnings(unlist(lapply(stocnet, 
@@ -89,7 +95,26 @@ run_tute <- function(tute) {
   }
 }
 
-#' @rdname tutorials 
+# `{learnr}` checks only that the packages of a tutorial are installed, not
+# their versions, so offer the newest stocnet packages before a tutorial runs.
+# The session has already loaded the old versions, and `learnr::run_tutorial()`
+# runs the tutorial in this session, so after an install the tutorial must wait
+# for a restart. Returns TRUE when it installed something.
+snet_update_before_tute <- function() {
+  # nocov start
+  # Outside an interactive session, `update_versions()` installs without a
+  # question, which a script that runs a tutorial has not asked for.
+  if (!interactive()) return(FALSE)
+  behind <- update_versions()
+  updated <- snet_updated(behind, snet_installed_versions())
+  if (!length(updated)) return(FALSE)
+  manynet::snet_info(paste0("Restart R, and then run `run_tute()` again ",
+                            "to use the new versions in the tutorial."))
+  TRUE
+  # nocov end
+}
+
+#' @rdname tutorials
 #' @export
 extract_tute <- function(tute) {
   if (missing(tute)) {

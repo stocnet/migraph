@@ -137,6 +137,19 @@ snet_split_sources <- function(behind) {
   list(cran = pkgs[src == "CRAN"], github = pkgs[src == "GitHub"])
 }
 
+# Which of the packages that were behind are now installed at the newer version.
+# `update_versions()` returns what was behind whether or not the user agreed to
+# install it, so compare that with what is installed now.
+snet_updated <- function(behind, installed) {
+  if (!length(behind)) return(character())
+  pkgs <- names(behind)
+  pkgs[vapply(pkgs, function(p) {
+    iv <- snet_as_version(installed[[p]])
+    nv <- snet_as_version(behind[[p]]$version)
+    !is.null(iv) && !is.null(nv) && iv >= nv
+  }, logical(1))]
+}
+
 # The table that `table_versions()` gives. Like `snet_check_versions()`, it takes
 # the versions and libraries as arguments, so that a test can reach it without a
 # network. The status comes from `snet_check_versions()`, so that the table, the
