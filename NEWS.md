@@ -1,3 +1,44 @@
+# migraph 2.0.0
+
+## Package
+
+- Updated package purpose: to help new users install and learn social network analysis
+  - Updated title, description, and README to reflect this
+- Added `{infernet}` to `Depends`, so `library(migraph)` attaches it
+- Raised minimum versions of the stocnet dependencies to latest CRAN releases:
+  manynet 2.4.0, autograph 1.2.8, netrics 1.1.0, and infernet 0.6.1
+- Removed packages no longer necessary: `{ergm}`, `{generics}`, `{purrr}`
+- Added `update_versions()`, which installs newest versions of migraph, manynet, 
+  autograph, netrics, and infernet, from CRAN or GitHub, whichever is newer
+- Added `table_versions()`, which gives a table of the installed, CRAN, and GitHub versions of the migraph packages
+
+## Modelling
+
+- Moved the tests, the regression, and the diffusion simulations to `{infernet}`
+  - Since `{infernet}` is attached with `{migraph}`, scripts that use them still work
+  - `verbose=` is no longer an argument; use `options(snet_verbosity = "verbose")`
+- Deprecated the functions that were renamed in `{infernet}`:
+  - `net_regression()` calls `infernet::estimate_mrqap()`, and returns a `netreg`
+  - `test_distribution()` calls `infernet::test_distributions()`, on two `diffs_model` objects
+  - `test_fit()` calls `infernet::test_gof()`
+- Moved `predict()` for `netlm` and `netlogit` to `{infernet}`
+- Moved the `tidy()` and `glance()` methods to `{infernet}`
+- Removed `network_reg()`, deprecated since 2024
+
+## Tutorials
+
+- Moved the "Diversity and Regression" tutorial to `{infernet}`, as `infernet1`
+- Moved the "Diffusion and Learning" tutorial to `{infernet}`, as `infernet2`
+- Moved the "Modelling with ERGMs" tutorial to `{infernet}`, as `infernet3`
+- Improved `run_tute()` and `extract_tute()` to look for tutorials in `{infernet}` too
+- Added `search_tute()`, which finds a keyword or function in the tutorials of all stocnet packages
+  - It prints each match, with its section and whether it is in text, an example, an exercise, a hint, a solution, or a quiz
+  - It returns the name of the tutorial with the most matches, so `run_tute(search_tute("brokerage"))` opens it
+- Fixed `extract_tute()` not finding tutorials when the stocnet packages are in different libraries
+- Improved `run_tute()` to call `update_versions()` before it runs a tutorial,
+  because `{learnr}` checks only that a tutorial's packages are installed, not their versions
+  - If it installs a newer version, it stops and asks you to restart R before the tutorial
+
 # migraph 1.7.2
 
 ## Package

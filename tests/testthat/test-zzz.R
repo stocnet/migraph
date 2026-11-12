@@ -6,7 +6,7 @@
 # "there is no package called '1.6.8'".
 
 inst <- list(migraph = "1.7.0", manynet = "2.3.1",
-             autograph = "1.2.2", netrics = "0.4.0")
+             autograph = "1.2.2", netrics = "0.4.0", infernet = "0.6.0")
 
 test_that("snet_check_versions() parses version strings rather than looking them up", {
   # A version string that is not an installed package name must not error.
@@ -89,4 +89,91 @@ test_that("a cache in the old verdict format is ignored", {
   saveRDS(list(date = Sys.Date(),
                behind = list(migraph = list(version = "1.7.1", source = "GitHub"))), f)
   expect_null(snet_read_cache())
+})
+
+test_that("snet_check_versions() covers infernet", {
+  out <- snet_check_versions(cran = c(infernet = "0.6.1"), gh = NULL,
+                             installed = inst)
+  expect_named(out, "infernet")
+  expect_equal(out$infernet$source, "CRAN")
+})
+
+test_that("snet_split_sources() splits by source, in the order to install", {
+  behind <- list(migraph = list(version = "2.0.1", source = "GitHub"),
+                 infernet = list(version = "0.6.1", source = "CRAN"),
+                 manynet = list(version = "2.4.5", source = "GitHub"),
+                 netrics = list(version = "1.1.0", source = "CRAN"))
+  out <- snet_split_sources(behind)
+  expect_equal(out$cran, c("netrics", "infernet"))
+  expect_equal(out$github, c("manynet", "migraph"))
+  expect_equal(snet_split_sources(list()),
+               list(cran = character(), github = character()))
+})
+
+test_that("the report names update_versions()", {
+  expect_message(
+    snet_report_outdated(list(infernet = list(version = "9.9.9", source = "CRAN"))),
+    "update_versions()", fixed = TRUE)
+})
+
+libs <- list(migraph = "/lib/a", manynet = c("/lib/a", "/lib/b"),
+             autograph = "/lib/a", netrics = "/lib/a", infernet = "/lib/a")
+
+test_that("snet_version_table() gives one row per package, in install order", {
+  out <- snet_version_table(cran = c(manynet = "2.3.1"), gh = NULL,
+                            installed = inst, libraries = libs)
+  expect_equal(out$package, snet_install_order)
+  expect_named(out, c("package", "installed", "cran", "github",
+                      "status", "library", "libraries"))
+})
+
+test_that("snet_version_table() agrees with snet_check_versions()", {
+  out <- snet_version_table(cran = c(migraph = "1.8.0", netrics = "0.4.0"),
+                            gh = c(netrics = "1.0.1"),
+                            installed = inst, libraries = libs)
+  status <- stats::setNames(out$status, out$package)
+  expect_equal(status[["migraph"]], "newer on CRAN")
+  expect_equal(status[["netrics"]], "newer on GitHub")
+  expect_equal(status[["manynet"]], "up to date")
+  expect_equal(out$cran[out$package == "netrics"], "0.4.0")
+  expect_true(is.na(out$cran[out$package == "autograph"]))
+})
+
+test_that("snet_version_table() marks packages that are not installed or not checked", {
+  out <- snet_version_table(cran = NULL, gh = NULL,
+                            installed = list(migraph = "2.0.0"),
+                            libraries = list(migraph = "/lib/a"))
+  status <- stats::setNames(out$status, out$package)
+  expect_equal(status[["migraph"]], "not checked")
+  expect_equal(status[["netrics"]], "not installed")
+  expect_true(is.na(out$library[out$package == "netrics"]))
+  expect_equal(out$libraries[out$package == "netrics"], 0L)
+})
+
+test_that("snet_version_table() counts the libraries that hold a package", {
+  out <- snet_version_table(cran = NULL, gh = NULL, installed = inst,
+                            libraries = libs)
+  expect_equal(out$libraries[out$package == "manynet"], 2L)
+  expect_equal(out$library[out$package == "manynet"], "/lib/a")
+})
+
+test_that("print.migraphVersions() prints the table and warns about two libraries", {
+  out <- snet_version_table(cran = c(manynet = "2.3.1"), gh = NULL,
+                            installed = inst, libraries = libs)
+  class(out) <- c("migraphVersions", class(out))
+  expect_warning(expect_output(print(out), "manynet"), "more than one library")
+  # After the user drops columns, it prints without advice and without error.
+  expect_output(print(out[, c("package", "installed")]), "manynet")
+})
+
+# `run_tute()` stops for a restart only when `update_versions()` installed a
+# newer version, and `update_versions()` returns what was behind either way.
+test_that("snet_updated() names only the packages now at the newer version", {
+  behind <- list(autograph = list(version = "1.2.8", source = "CRAN"),
+                 infernet = list(version = "0.6.3", source = "GitHub"))
+  expect_equal(snet_updated(behind, list(autograph = "1.2.8", infernet = "0.6.2")),
+               "autograph")
+  expect_length(snet_updated(behind, list(autograph = "1.2.7", infernet = "0.6.2")), 0)
+  expect_length(snet_updated(behind, list(autograph = NULL)), 0)
+  expect_length(snet_updated(list(), inst), 0)
 })

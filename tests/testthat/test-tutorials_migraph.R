@@ -9,7 +9,7 @@
 
 test_that("migraph tutorial code runs without warnings or errors", {
   for(tute in find_pkg_tutorial_paths("migraph")){
-    expect_null(check_tute_functions(tute, skip = "ergm\\(|play_diffusions\\("), 
+    expect_null(check_tute_functions(tute), 
                 info = paste("Error in tutorial", basename(tute)))
   }
 })

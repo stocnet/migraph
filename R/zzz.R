@@ -4,8 +4,16 @@
 # on attach. Since migraph Depends on manynet, autograph, and netrics, that meant
 # three blocking round-trips per session. The check now lives here only, covers
 # the whole stack at once, and is cached so it runs at most weekly.
+#
+# These are "the migraph packages": the stocnet packages that migraph Depends on
+# and that are maintained with it. A new one must be added here, so that the
+# check and `update_versions()` cover it.
 
-snet_pkgs <- c("migraph", "manynet", "autograph", "netrics")
+snet_pkgs <- c("migraph", "manynet", "autograph", "netrics", "infernet")
+
+# The order to install them in, so that each package's stocnet dependencies are
+# installed before it.
+snet_install_order <- c("manynet", "autograph", "netrics", "infernet", "migraph")
 
 # How long to trust a cached result before checking again.
 snet_check_interval <- 7
@@ -55,11 +63,11 @@ snet_cran_versions <- function() {
 }
 
 # Versions on the release branch of each GitHub repo. Much cheaper than the CRAN
-# index: four ~2KB files from a CDN rather than the full package database.
-snet_github_versions <- function() {
+# index: five ~2KB files from a CDN rather than the full package database.
+snet_github_versions <- function(timeout = 2) {
   tryCatch({
-    # Generous: fetching all four takes about 0.4s on a working connection.
-    old <- options(timeout = 2)
+    # Generous: fetching all five takes about 0.5s on a working connection.
+    old <- options(timeout = timeout)
     on.exit(options(old), add = TRUE)
     out <- character()
     for (p in snet_pkgs) {
@@ -120,7 +128,70 @@ snet_as_version <- function(x) {
   tryCatch(package_version(x), error = function(e) NULL, warning = function(w) NULL)
 }
 
+# Which of the packages that are behind come from CRAN, and which from GitHub,
+# each in the order to install them in.
+snet_split_sources <- function(behind) {
+  pkgs <- intersect(snet_install_order, names(behind))
+  if (!length(pkgs)) return(list(cran = character(), github = character()))
+  src <- vapply(behind[pkgs], function(x) x$source, character(1))
+  list(cran = pkgs[src == "CRAN"], github = pkgs[src == "GitHub"])
+}
+
+# Which of the packages that were behind are now installed at the newer version.
+# `update_versions()` returns what was behind whether or not the user agreed to
+# install it, so compare that with what is installed now.
+snet_updated <- function(behind, installed) {
+  if (!length(behind)) return(character())
+  pkgs <- names(behind)
+  pkgs[vapply(pkgs, function(p) {
+    iv <- snet_as_version(installed[[p]])
+    nv <- snet_as_version(behind[[p]]$version)
+    !is.null(iv) && !is.null(nv) && iv >= nv
+  }, logical(1))]
+}
+
+# The table that `table_versions()` gives. Like `snet_check_versions()`, it takes
+# the versions and libraries as arguments, so that a test can reach it without a
+# network. The status comes from `snet_check_versions()`, so that the table, the
+# attach message, and `update_versions()` always agree.
+snet_version_table <- function(cran, gh, installed, libraries) {
+  behind <- snet_check_versions(cran = cran, gh = gh, installed = installed)
+  pick <- function(x, p) {
+    if (!is.null(x) && p %in% names(x)) as.character(x[[p]]) else NA_character_
+  }
+  rows <- lapply(snet_install_order, function(p) {
+    iv <- installed[[p]]
+    iv <- if (is.null(iv) || is.na(iv)) NA_character_ else as.character(iv)
+    libs <- libraries[[p]]
+    status <- if (is.na(iv)) "not installed"
+      else if (p %in% names(behind)) paste("newer on", behind[[p]]$source)
+      else if (is.null(cran) && is.null(gh)) "not checked"
+      else "up to date"
+    dplyr::tibble(package = p, installed = iv,
+                  cran = pick(cran, p), github = pick(gh, p),
+                  status = status,
+                  library = if (length(libs)) libs[1] else NA_character_,
+                  libraries = length(libs))
+  })
+  dplyr::bind_rows(rows)
+}
+
 # nocov start
+
+# The library that R uses for each package first, then any other library that
+# also holds a copy. Two copies are a common cause of confusion in a class:
+# an update goes to one library, and R still loads the other.
+snet_installed_libraries <- function() {
+  norm <- function(x) normalizePath(x, winslash = "/", mustWork = FALSE)
+  out <- lapply(snet_pkgs, function(p) {
+    used <- find.package(p, quiet = TRUE)
+    used <- if (length(used)) norm(dirname(used[1])) else character()
+    libs <- .libPaths()[file.exists(file.path(.libPaths(), p, "DESCRIPTION"))]
+    unique(c(used, norm(libs)))
+  })
+  names(out) <- snet_pkgs
+  out
+}
 
 snet_installed_versions <- function() {
   out <- lapply(snet_pkgs, function(p)
@@ -133,8 +204,9 @@ snet_report_outdated <- function(behind) {
   if (!length(behind)) return(invisible(NULL))
   pkgs <- names(behind)
   vers <- vapply(behind, function(x) x$version, character(1))
-  from_cran <- pkgs[vapply(behind, function(x) x$source, character(1)) == "CRAN"]
-  from_gh <- setdiff(pkgs, from_cran)
+  sources <- snet_split_sources(behind)
+  from_cran <- sources$cran
+  from_gh <- sources$github
 
   packageStartupMessage(
     "Newer version", if (length(pkgs) > 1) "s" else "", " available: ",
@@ -153,6 +225,7 @@ snet_report_outdated <- function(behind) {
       "Not yet on CRAN. Install from GitHub with:\n  remotes::install_github(c(",
       paste0('"stocnet/', from_gh, '"', collapse = ", "), "))")
   }
+  packageStartupMessage("Or update them all with:\n  update_versions()")
   invisible(NULL)
 }
 

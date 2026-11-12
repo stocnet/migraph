@@ -8,7 +8,15 @@
 #'   - `over_time()` runs a function, e.g. a measure,
 #'   over time slices of a dynamic network
 #' 
-#' @inheritParams regression
+#' @param .data An object of a manynet-consistent class:
+#'   \itemize{
+#'   \item matrix (adjacency or incidence) from `{base}` R
+#'   \item edgelist, a data frame from `{base}` R or tibble from `{tibble}`
+#'   \item igraph, from the `{igraph}` package
+#'   \item network, from the `{network}` package
+#'   \item tbl_graph, from the `{tidygraph}` package
+#'   \item stocnet, from the `{manynet}` package
+#'   }
 #' @param strategy If `{furrr}` is installed, 
 #'   then multiple cores can be used to accelerate the function.
 #'   By default `"sequential"`, 
@@ -34,8 +42,8 @@ NULL
 over_membership <- function(.data, FUN, ..., membership,
                             strategy = "sequential",
                             verbose = FALSE){
-  thisRequires("future")
-  thisRequires("furrr")
+  manynet::snet_requires("future")
+  manynet::snet_requires("furrr")
   oplan <- future::plan(strategy)
   on.exit(future::plan(oplan), add = TRUE)
   if(length(membership)==1 && is.character(membership)){
@@ -52,8 +60,8 @@ over_membership <- function(.data, FUN, ..., membership,
 over_waves <- function(.data, FUN, ..., attribute = "wave",
                        strategy = "sequential",
                        verbose = FALSE){
-  thisRequires("future")
-  thisRequires("furrr")
+  manynet::snet_requires("future")
+  manynet::snet_requires("furrr")
   oplan <- future::plan(strategy)
   on.exit(future::plan(oplan), add = TRUE)
   out <- furrr::future_map(manynet::to_waves(.data, attribute), 
@@ -76,8 +84,8 @@ over_time <- function(.data, FUN, ..., attribute = "time",
                       slice = NULL,
                       strategy = "sequential",
                       verbose = FALSE){
-  thisRequires("future")
-  thisRequires("furrr")
+  manynet::snet_requires("future")
+  manynet::snet_requires("furrr")
   oplan <- future::plan(strategy)
   on.exit(future::plan(oplan), add = TRUE)
   out <- furrr::future_map_dbl(manynet::to_slices(.data, attribute, slice), 

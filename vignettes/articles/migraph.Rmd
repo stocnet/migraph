@@ -1,0 +1,87 @@
+---
+title: "Get started"
+output: rmarkdown::html_document
+description: >
+  How to install the stocnet packages, keep them current, and learn
+  social network analysis with their tutorials.
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+This page tells you how to start with social network analysis in R.
+You install one package, `{migraph}`, and it gives you all the stocnet packages and their tutorials.
+
+## 1. Install R and RStudio
+
+If you do not have R, install it from [CRAN](https://cloud.r-project.org).
+We also recommend [RStudio](https://posit.co/download/rstudio-desktop/) or [Positron](https://positron.posit.co),
+which make it easier to write and run R code.
+
+## 2. Install migraph
+
+Open the R console and type:
+
+```{r}
+install.packages("migraph", dependencies = TRUE)
+```
+
+`dependencies = TRUE` also installs the packages that some tutorials need.
+
+## 3. Load migraph
+
+```{r}
+library(migraph)
+```
+
+This loads these packages:
+
+- `{manynet}`, to make, import, and manipulate network data
+- `{autograph}`, to plot networks and results
+- `{netrics}`, to measure nodes, ties, and networks
+- `{infernet}`, to test and model networks
+- `{migraph}`, for the tutorials and the data of *Multimodal Political Networks*
+
+If a newer version of one of these packages is available, `{migraph}` tells you.
+
+## 4. Keep the packages current
+
+To check for newer versions and install them, type:
+
+```{r}
+update_versions()
+```
+
+Do this before a class, a test, or the submission of a paper.
+After the update, restart R.
+
+## 5. Do the tutorials
+
+To see all the tutorials, type:
+
+```{r}
+run_tute()
+```
+
+To start a tutorial, give its name or a part of its title:
+
+```{r}
+run_tute("tutorial0")
+run_tute("Centrality")
+```
+
+We suggest this sequence:
+
+1. `tutorial0`: Intro to R, if R is new to you
+2. `manynet1` and `manynet2`: making and manipulating network data
+3. `autograph1`: visualising networks
+4. `netrics1` to `netrics4`: centrality, community, position, and topology
+5. `infernet1` and `infernet2`: diversity and regression, and diffusion and learning
+6. `infernet3`: modelling with ERGMs
+
+To save the code of a tutorial as an R script in your working directory, type:
+
+```{r}
+extract_tute("netrics1")
+```

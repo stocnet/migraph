@@ -2,13 +2,12 @@
 % Please edit documentation in R/migraph-defunct.R
 \name{defunct}
 \alias{defunct}
-\alias{test_gof}
-\alias{network_reg}
+\alias{net_regression}
+\alias{test_distribution}
+\alias{test_fit}
 \title{Functions that have been renamed, superseded, or are no longer working}
 \usage{
-test_gof(diff_model, diff_models)
-
-network_reg(
+net_regression(
   formula,
   .data,
   method = c("qap", "qapy"),
@@ -16,6 +15,22 @@ network_reg(
   strategy = "sequential",
   verbose = FALSE
 )
+
+test_distribution(diff_model1, diff_model2)
+
+test_fit(diff_model, diff_models)
+}
+\arguments{
+\item{formula, .data, times, strategy, verbose}{As in \code{{infernet}}'s functions,
+where \code{strategy} is a control and \code{verbose} is not used.}
+
+\item{method}{\code{"qap"} or \code{"qapy"}.}
+
+\item{diff_model1, diff_model2}{Two \code{diffs_model} objects.}
+
+\item{diff_model}{A \code{diff_model} object, or a network with a diffusion.}
+
+\item{diff_models}{A \code{diffs_model} object, from \code{play_diffusions()}.}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -28,9 +43,17 @@ wherever possible and update your scripts accordingly.
 }
 \section{Functions}{
 \itemize{
-\item \code{test_gof()}: Deprecated on 2024-06-16.
+\item \code{net_regression()}: Deprecated on 2026-10-27.
+Calls \code{infernet::estimate_mrqap()}, with \code{method = "qap"} as
+\code{permute = "predictor"} and \code{method = "qapy"} as \code{permute = "outcome"}.
+It returns a \code{netreg} rather than a \code{netlm} or \code{netlogit}.
 
-\item \code{network_reg()}: Deprecated on 2024-07-19.
+\item \code{test_distribution()}: Deprecated on 2026-10-27.
+Calls \code{infernet::test_distributions()}, which compares two \code{diffs_model}
+objects from \code{play_diffusions()} rather than two single diffusions.
+
+\item \code{test_fit()}: Deprecated on 2026-10-27.
+Calls \code{infernet::test_gof()}, with the simulations first.
 
 }}
 \keyword{internal}

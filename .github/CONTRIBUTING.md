@@ -85,9 +85,11 @@ it is important to select this branch when pushing to origin/main.
 ### Project overview
 
 `migraph` is an R package (part of the [stocnet](https://github.com/stocnet) ecosystem)
-providing the *inferential layer* for network analysis:
-conditional uniform graph (CUG) and quadratic assignment procedure (QAP) tests of network
-statistics, multiple regression QAP (MRQAP) for network data, and diffusion models.
+that helps new users install and learn social network analysis.
+Attaching it loads the other migraph packages (see below),
+it tells users when newer versions are available and installs them (`update_versions()`),
+and it runs the tutorials of all these packages (`run_tute()`).
+From 2.0.0, the tests, MRQAP, and diffusion models are in `{infernet}`.
 It is also a software companion to
 *Multimodal Political Networks* (Knoke, Diani, Hollway, and Christopoulos 2021),
 whose datasets (prefixed `mpn_`) are bundled here.
@@ -101,8 +103,9 @@ Division of labour to keep in mind when adding functions:
   at the node, tie, and network level.
 - `{autograph}`: drawing graphs and plotting analytic, modelling, or diagnostic results,
   along with deep (often institutional) theming. *All* plot methods should live there.
-- `{migraph}` (this package): testing and modelling, e.g. CUG/QAP/MRQAP and diffusion models,
-  and the `mpn_*` datasets.
+- `{infernet}`: testing and modelling, e.g. CUG/QAP/MRQAP and diffusion models.
+- `{migraph}` (this package): installing, updating, and learning the packages above,
+  the tutorials that cover more than one of them, and the `mpn_*` datasets.
 
 ### Style
 
@@ -113,9 +116,20 @@ argument order and naming, so that behaviour is guessable across the family.
 
 When writing documentation or NEWS items, prefer breaking lines at punctuation.
 
-Make it clear when you are referring to functions by adding backticks and parentheses,
-e.g. `a_function()`, and arguments by adding an equals sign, e.g. `argument=`.
-Argument values or variables can be in double quotation marks, e.g. "value".
+Use one notation for code in issues, reviews, documentation, and NEWS items:
+
+- Give a function or generic backticks and parentheses, e.g. `verb_function()`.
+- When referring to a particular method, write `verb_function.stocnet()`
+- Give an argument an equals sign, e.g. `argument=`.
+- Put a value that an argument takes, or a variable, in double quotation marks, e.g. "value".
+- Give a class a leading period where it names the class that a method is for,
+  e.g. `.stocnet`.
+  A leading period on a name with parentheses is an internal helper instead,
+  e.g. `.helper_function()`.
+- Name a new class in camelCase, after the package plus a noun, e.g. `infernetConfusion`,
+  so that a class does not look like a snake_case function.
+  See "Class names across the stocnet ecosystem" in the `{autograph}` contributing guide.
+  Older names, such as `network_test`, stay until they can be renamed with an alias.
 
 ### Common commands
 
@@ -146,18 +160,20 @@ All exported functions live directly in `R/`, grouped by theme rather than one f
 
 | File | Contains |
 |---|---|
-| `model_tests.R` | the test family: `test_random()` (CUG), `test_permutation()` (QAP), `test_configuration()`, `test_distribution()`, `test_fit()`, `test_gof()` |
-| `model_regression.R` | `net_regression()` (alias `network_reg()`), the MRQAP implementation, returning `netlm`/`netlogit` objects |
-| `model_predict.R`, `model_distrib.R`, `model_diffusion.R` | prediction, distribution comparison, and diffusion simulation (`play_diffusions()`) |
-| `class_models.R` | `{broom}`-style S3 methods (`tidy.*`, `glance.*`, `predict.*`, `print.*`, `summary.*`) for `netlm`, `netlogit`, `ergm`, and `sienaFit`, so results are comparable across model types |
-| `class_makes.R` | internal `make_*()` constructors and `print()`/`summary()` methods for the lightweight result classes (`network_measures`, `diffs_model`, `over_memb`) |
+| `class_models.R` | `summary.sienaFit()`, which uses `{infernet}`'s `tidy()` and `glance()` |
+| `class_makes.R` | internal `make_*()` constructors and `print()` methods for the lightweight result classes (`network_measures`, `over_memb`) |
 | `measure_over.R` | `over_time()`, `over_waves()`, `over_membership()` — applying a measure across longitudinal slices or group partitions |
-| `tutorial_run.R` | `run_tute()`/`extract_tute()`, `{learnr}` wrappers that search *all* installed stocnet packages for a tutorial by name or fuzzy title match |
+| `tutorial_run.R` | `run_tute()`/`extract_tute()`, `{learnr}` wrappers that search *all* installed stocnet packages for a tutorial by name or fuzzy title match, and `search_tute()`, which finds a keyword or function in their tutorials |
 | `data_mpn.R` | documentation for the `mpn_*` datasets from *Multimodal Political Networks* |
+| `stocnet_update.R` | `update_versions()`, which installs the newest version of each migraph package from CRAN or GitHub, and `table_versions()`, which tables the installed and newest versions |
+| `zzz.R` | the attach-time version check of the migraph packages (`snet_pkgs`), and the helpers that `update_versions()` and `table_versions()` share with it |
 | `migraph-package.R` | package-level doc, the `thisRequires()` helper, global variables, and shims silencing R CMD check's unused-import notes |
-| `migraph-defunct.R` | retired function stubs kept for a deprecation cycle |
+| `migraph-defunct.R` | retired function stubs kept for a deprecation cycle, including the shims of `net_regression()`, `test_distribution()`, and `test_fit()`, which were renamed in `{infernet}` and call it |
 
 ### Function body conventions
+
+From 2.0.0 the test functions are in `{infernet}`, and a fix belongs there.
+The conventions below describe them as they were, for the `over_*()` functions that follow them.
 
 Test functions consistently:
 
@@ -180,8 +196,7 @@ Plot methods belong in `{autograph}`, not here.
 
 ### Parallelism
 
-Every simulation-heavy function (`test_random()`, `test_configuration()`,
-`test_permutation()`, `net_regression()`, `play_diffusions()`, …) takes:
+The `over_*()` functions take:
 
 - `times` — the number of simulations (default `1000`; 1,000–10,000 for publication).
 - `strategy` — a `{future}` plan name (default `"sequential"`;
@@ -191,15 +206,27 @@ Every simulation-heavy function (`test_random()`, `test_configuration()`,
 
 Simulations are mapped with `furrr::future_map*()` using
 `furrr::furrr_options(seed = TRUE)` for reproducible parallel RNG.
-Follow this same signature when adding new simulation-based functions.
+(`{infernet}`'s functions now take `strategy` as a control instead.)
 
 ### Cross-package dependency
 
-`migraph` `Depends` on pinned minimum versions of `{manynet}`, `{autograph}`, and
-`{netrics}` (see `DESCRIPTION`).
+We call `{manynet}`, `{autograph}`, `{netrics}`, and `{infernet}` the *migraph packages*:
+the stocnet packages that `migraph` `Depends` on and that are maintained with it.
+
+- The minimum version of each migraph package in `Depends` must always be its latest CRAN version.
+  Users who install or update `migraph` then get all the relevant fixes and features of the others.
+  Raise these minimums at each release of `migraph`, and when one of them releases to CRAN.
+- Do not point a minimum version at a version that is only on GitHub,
+  and do not leave a `Remotes:` field in a release.
+  For the order in which to submit when the packages depend on each other's fixes,
+  the package that carries the fix goes to CRAN first.
+- A new migraph package must also be added to `snet_pkgs` and `snet_install_order` in
+  [R/zzz.R](../R/zzz.R), so that the attach-time check and `update_versions()` cover it,
+  and to `stocnet` in [R/tutorial_run.R](../R/tutorial_run.R), so that its tutorials are found.
+
 CRAN and reverse-dependency issues are commonly resolved by bumping these minimum
 versions rather than by changing `migraph`'s own code — see `cran-comments.md`.
-`ergm` and `learnr` are heavier dependencies used by only a few functions;
+`learnr` and `knitr` are heavier dependencies used by only a few functions;
 guard such code paths with the `thisRequires()` helper in
 [R/migraph-package.R](../R/migraph-package.R), which prompts to install on first use.
 
