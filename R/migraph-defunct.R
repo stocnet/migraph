@@ -30,10 +30,8 @@ NULL
 .moved_to_infernet <- function(old, new = old) {
   if (isTRUE(.migraph_state[[old]])) return(invisible())
   .migraph_state[[old]] <- TRUE
-  .Deprecated(paste0("infernet::", new), package = "migraph",
-              msg = paste0("`", old, "()` has moved to {infernet}, ",
-                           "and is deprecated in {migraph}.\n",
-                           "Use `infernet::", new, "()` instead."))
+  manynet::snet_moved(old, new, "infernet", old_pkg = "migraph",
+                      stage = "deprecated")
 }
 
 #' @describeIn defunct Deprecated on 2026-10-27.

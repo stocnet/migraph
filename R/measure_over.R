@@ -42,8 +42,8 @@ NULL
 over_membership <- function(.data, FUN, ..., membership,
                             strategy = "sequential",
                             verbose = FALSE){
-  thisRequires("future")
-  thisRequires("furrr")
+  manynet::snet_requires("future")
+  manynet::snet_requires("furrr")
   oplan <- future::plan(strategy)
   on.exit(future::plan(oplan), add = TRUE)
   if(length(membership)==1 && is.character(membership)){
@@ -60,8 +60,8 @@ over_membership <- function(.data, FUN, ..., membership,
 over_waves <- function(.data, FUN, ..., attribute = "wave",
                        strategy = "sequential",
                        verbose = FALSE){
-  thisRequires("future")
-  thisRequires("furrr")
+  manynet::snet_requires("future")
+  manynet::snet_requires("furrr")
   oplan <- future::plan(strategy)
   on.exit(future::plan(oplan), add = TRUE)
   out <- furrr::future_map(manynet::to_waves(.data, attribute), 
@@ -84,8 +84,8 @@ over_time <- function(.data, FUN, ..., attribute = "time",
                       slice = NULL,
                       strategy = "sequential",
                       verbose = FALSE){
-  thisRequires("future")
-  thisRequires("furrr")
+  manynet::snet_requires("future")
+  manynet::snet_requires("furrr")
   oplan <- future::plan(strategy)
   on.exit(future::plan(oplan), add = TRUE)
   out <- furrr::future_map_dbl(manynet::to_slices(.data, attribute, slice), 

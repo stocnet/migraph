@@ -49,7 +49,7 @@ stocnet <- c("manynet", "autograph", "netrics", "infernet", "migraph")
 #' @rdname tutorials 
 #' @export
 run_tute <- function(tute) {
-  thisRequires("learnr")
+  manynet::snet_requires("learnr")
   if (!missing(tute) && inherits(tute, "migraphSearch") && length(tute) == 0)
     manynet::snet_abort("The search found no tutorial to run.")
   if (!missing(tute) && snet_update_before_tute()) return(invisible(NULL))
@@ -118,7 +118,7 @@ snet_update_before_tute <- function() {
 #' @export
 extract_tute <- function(tute) {
   if (missing(tute)) {
-    thisRequires("learnr")
+    manynet::snet_requires("learnr")
     avail_pkgs <- stocnet[suppressWarnings(unlist(lapply(stocnet, function(x) nzchar(system.file(package = x)))))]
     tutelist <- lapply(manynet::snet_progress_along(avail_pkgs, 
                                                name = "Checking tutorials in stocnet packages"), function(p){
@@ -130,11 +130,11 @@ extract_tute <- function(tute) {
       print()
     manynet::snet_info("You can extract the code from one of these tutorials by typing e.g `extract_tute('tutorial1')` into the console.")
   } else {
-    thisRequires("knitr")
+    manynet::snet_requires("knitr")
     # Each package can be in a different library, so find each one's own path
     pth <- ""
     for (p in stocnet) {
-      thisRequires(p)
+      manynet::snet_requires(p)
       pth <- system.file("tutorials", tute, package = p)
       if (nzchar(pth)) break
     }

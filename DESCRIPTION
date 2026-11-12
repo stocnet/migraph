@@ -16,7 +16,7 @@ Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 4.1.0),
-    manynet (>= 2.4.0),
+    manynet (>= 2.5.0),
     autograph (>= 1.2.8),
     netrics (>= 1.1.0),
     infernet (>= 0.6.1)

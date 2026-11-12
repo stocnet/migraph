@@ -71,7 +71,7 @@ update_versions <- function(ask = interactive()) {
     utils::install.packages(sources$cran)
   }
   if (length(sources$github)) {
-    thisRequires("remotes")
+    manynet::snet_requires("remotes")
     for (p in sources$github) {
       # The stocnet dependencies come first in the loop, so leave the other
       # dependencies as they are.
